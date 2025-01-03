@@ -1,4 +1,5 @@
 from heapq import heappop,heappush
+
 def dijkstra(edge:list[set[int]], start:int = 0, goal:int = None):
     """
     O((node+edge)log(edge))
