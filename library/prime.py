@@ -55,18 +55,13 @@ def miller_rabin(num:int) -> bool:
         d >>= 1
         s += 1
     
-    if num < 4759123141:
-        tests = (2,7,61)
-    else:
-        tests = (2,325,9375,28178,450775,9780504,1795265022)
+    if num < 4759123141: tests = (2,7,61)
+    else: tests = (2,325,9375,28178,450775,9780504,1795265022)
     
     for test in tests:
-        if test >= num:
-            continue
-        if pow(test, d, num) == 1:
-            continue
-        if any(pow(test, d * 2**i, num) == num - 1 for i in range(s)):
-            continue
+        if test >= num: continue
+        if pow(test, d, num) == 1: continue
+        if any(pow(test, d * 2**i, num) == num - 1 for i in range(s)): continue
         return False
     
     return True
