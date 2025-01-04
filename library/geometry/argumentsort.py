@@ -30,6 +30,6 @@ def arg_sort(points:list[tuple[int]]):
             yposi.append((x,y))
         else:
             ynega.append((x,y))
-    quick_sort(yposi,lambda p1,p2 : p2[0]*p1[1] - p2[1]*p1[0])
-    quick_sort(ynega,lambda p1,p2 : p2[0]*p1[1] - p2[1]*p1[0])
+    quick_sort(yposi, lambda p1,p2 : p2[0]*p1[1] - p2[1]*p1[0])
+    quick_sort(ynega, lambda p1,p2 : p2[0]*p1[1] - p2[1]*p1[0])
     return yposi+zero+ynega
