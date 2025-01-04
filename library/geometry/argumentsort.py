@@ -1,4 +1,4 @@
-def quick_sort(lst:list, comparision:, left:int = 0, right:int = -1):
+def quick_sort(lst:list, comparision, left:int = 0, right:int = -1):
     if len(lst) == 0: return
     if right == -1:
         right %= len(lst)
