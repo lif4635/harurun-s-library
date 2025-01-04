@@ -1,4 +1,5 @@
 from heapq import heappop,heappush
+inf = 1001001001001001001
 
 def dijkstra(edge:list[set[int]], start:int = 0, goal:int = None):
     """
@@ -10,7 +11,7 @@ def dijkstra(edge:list[set[int]], start:int = 0, goal:int = None):
     que = [(0, start)]
   
     while que:
-        cur_dis,cur_node = heappop(que)
+        cur_dis, cur_node = heappop(que)
 
         if dis[cur_node] < cur_dis:
             continue
