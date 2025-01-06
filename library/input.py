@@ -34,11 +34,17 @@ def graph_w(n:int, m:int, dir:bool=False, index:int=-1) -> list[set[tuple]]:
 
 mod, inf = 998244353, 1001001001001001001
 ordalp = lambda s : ord(s)-65 if s.isupper() else ord(s)-97
-ordallalp = lambda s : ord(s)-91 if s.isupper() else ord(s)-97
+ordallalp = lambda s : ord(s)-39 if s.isupper() else ord(s)-97
 yes = lambda : print("Yes")
 no = lambda : print("No")
 yn = lambda flag : print("Yes" if flag else "No")
-prinf = lambda ans : print(ans if ans < 1001001001001001 else -1)
+def acc(a:list[int]):
+    sa = [0]*(len(a)+1)
+    for i in range(len(a)):
+        sa[i+1] = a[i] + sa[i]
+    return sa
+
+prinf = lambda ans : print(ans if ans < 1000001001001001001 else -1)
 alplow = "abcdefghijklmnopqrstuvwxyz"
 alpup = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 alpall = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
