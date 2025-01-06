@@ -1,6 +1,7 @@
 class MonoidUnionFind:
     """
-    mergeに順序が欲しい場合は気をつけましょう。
+    mergeの順序はcompでわたせる
+    小さいほうにmerge
     """
     def __init__(self, op, e, data, comp = None):
         self.n = len(data)
@@ -18,7 +19,7 @@ class MonoidUnionFind:
             if -self.par[a] < - self.par[b]:
                 a,b = b,a
         else:
-            if not self.comp(self.data[a], self.data[b]):
+            if self.comp(self.data[a], self.data[b]):
                 a,b = b,a
         self.par[a] += self.par[b]
         self.par[b] = a
