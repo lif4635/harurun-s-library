@@ -8,9 +8,7 @@ def bi_int(comparison, ok = 0, ng = inf):
     
     while abs(ng - ok) > 1:
         mid = ok + (ng - ok)//2
-        if comparison(mid):
-            ok = mid
-        else:
-            ng = mid
+        if comparison(mid): ok = mid
+        else: ng = mid
     
     return ok
