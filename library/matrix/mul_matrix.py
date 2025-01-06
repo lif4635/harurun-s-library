@@ -1,3 +1,5 @@
+mod = 998244353
+
 def mul_matrix(A, B, mod = mod):
     N, K, M = len(A), len(A[0]), len(B[0])
     assert K == len(B)
