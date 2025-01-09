@@ -1,5 +1,7 @@
 # input
 import sys
+sys.setrecursionlimit(10**9)
+sys.set_int_max_str_digits(0)
 input = sys.stdin.readline
 II = lambda : int(input())
 MI = lambda : map(int, input().split())
