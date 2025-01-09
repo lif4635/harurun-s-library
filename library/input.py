@@ -6,9 +6,9 @@ input = sys.stdin.readline
 II = lambda : int(input())
 MI = lambda : map(int, input().split())
 LI = lambda : list(map(int, input().split()))
-SI = lambda : input()
+SI = lambda : input().rstrip()
 LLI = lambda n : [list(map(int, input().split())) for _ in range(n)]
-LSI = lambda n : [input() for _ in range(n)]
+LSI = lambda n : [input().rstrip() for _ in range(n)]
 MI_1 = lambda : map(lambda x:int(x)-1, input().split())
 LI_1 = lambda : list(map(lambda x:int(x)-1, input().split()))
 
