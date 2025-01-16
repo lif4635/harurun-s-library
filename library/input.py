@@ -32,7 +32,8 @@ def graph_w(n:int, m:int, dir:bool=False, index:int=-1) -> list[set[tuple]]:
             edge[b].add((a,c))
     return edge
 
-mod, inf = 998244353, 1001001001001001001
+mod = 998244353
+inf = 1001001001001001001
 ordalp = lambda s : ord(s)-65 if s.isupper() else ord(s)-97
 ordallalp = lambda s : ord(s)-39 if s.isupper() else ord(s)-97
 yes = lambda : print("Yes")
