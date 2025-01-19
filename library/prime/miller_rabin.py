@@ -1,6 +1,5 @@
 def miller_rabin(num):
-    assert 1 <= num < (1<<63)-1
-    
+    # assert 1 <= num < (1<<63)-1
     if num < 4: return num > 1
     if not num&1: return False
     
@@ -12,12 +11,12 @@ def miller_rabin(num):
     tests = (2,7,61) if num < 4759123141 else (2,325,9375,28178,450775,9780504,1795265022)
         
     for test in tests:
-        if test >= num: continue
-        if pow(test, d, num) == 1: continue
-        if any(pow(test, d * 2**i, num) == num - 1 for i in range(s)): continue
-        for i in range(s):
-            test = test*test%num
-            if test == num-1: break
-        else:
-            return False
+        if test >= num: return True
+        t = pow(test, d, num)
+        if 1 < t < num-1:
+            for _ in range(s-1):
+                t = t*t%num
+                if t == num-1: break
+            else:
+                return False
     return True
