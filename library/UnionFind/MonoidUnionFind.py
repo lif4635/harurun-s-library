@@ -16,7 +16,7 @@ class MonoidUnionFind:
         b = self.leader(b)
         if a == b: return a
         if self.comp == None:
-            if -self.par[a] < - self.par[b]:
+            if -self.par[a] < -self.par[b]:
                 a,b = b,a
         else:
             if self.comp(self.data[a], self.data[b]):
