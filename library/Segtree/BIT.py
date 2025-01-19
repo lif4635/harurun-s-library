@@ -18,7 +18,7 @@ class BIT:
     
     def sum0(self, r):
         s = 0
-        while r > 0:
+        while r:
             s += self.data[r]
             r -= r& -r
         return s
