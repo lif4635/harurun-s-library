@@ -3,9 +3,16 @@ class BIT:
         self.n = n
         self.data = [0]*(n+1)
     
+    def build(self, arr):
+        for i,a in enumerate(arr):
+            self.data[i+1] = a
+        for i in range(1, self.n+1):
+            if i + (i&-i) <= self.n:
+                self.data[i + (i&-i)] += self.data[i]
+    
     def add(self, p, x):
         p += 1
-        while p < self.n:
+        while p <= self.n:
             self.data[p] += x
             p += p& -p
     
