@@ -24,7 +24,14 @@ class BIT:
         return s
     
     def sum(self, l, r):
-        return self.sum0(r) - self.sum0(l)
+        s = 0
+        while r:
+            s += self.data[r]
+            r -= r& -r
+        while l:
+            s -= self.data[l]
+            l -= l& -l
+        return s
     
     def get(self, p):
         return self.sum0(p+1) - self.sum0(p)
