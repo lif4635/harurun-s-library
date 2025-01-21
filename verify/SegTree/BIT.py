@@ -1,4 +1,4 @@
-#https://judge.yosupo.jp/submission/262704
+#[https://judge.yosupo.jp/submission/262704]
 
 class BIT:
     def __init__(self, n):
