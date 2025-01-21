@@ -1,23 +1,21 @@
-from array import array
 class WeightedUnionFind:
     def __init__(self, n):
         self.n = n
-        self.par = array("I",range(n))
-        self.size = array("I",[1] * n)
-        self.weight = array("l",[0] * n)
+        self.p = [*range(n)]
+        self.w = [0] * n
 
     def leader(self, a):
         potential = 0
-        while self.par[a] != a:
-            self.weight[a] += self.weight[self.par[a]]
-            potential += self.weight[a]
-            self.par[a] = a = self.par[self.par[a]]
+        while self.p[a] != a:
+            self.w[a] += self.w[self.p[a]]
+            potential += self.w[a]
+            self.p[a] = a = self.p[self.p[a]]
         return a, potential
 
     def merge(self, a, b, d):
-        '''
-        weight[a] - weight[b] = d
-        '''
+        """
+        w[a] - w[b] = d
+        """
         a,wa = self.leader(a)
         b,wb = self.leader(b)
         
@@ -26,21 +24,9 @@ class WeightedUnionFind:
             if w == 0: return 1
             else: return 0
         
-        if self.size[a] < self.size[b]:
-            self.par[b] = a
-            self.size[a] += self.size[b]
-            self.weight[b] = w
-        else:
-            self.par[a] = b
-            self.size[b] += self.size[a]
-            self.weight[a] = -w
+        self.p[b] = a
+        self.w[b] = w
         return 1
-
-    def same(self, a, b):
-        return self.leader(a) == self.leader(b)
-    
-    def size(self, a):
-        return self.size[self.leader(a)]
     
     def diff(self, a, b):
         a,wa = self.leader(a)
