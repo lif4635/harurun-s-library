@@ -23,16 +23,12 @@ def mat_sub(a, b, mod = mod):
     return res
 
 def mat_mul(a, b, mod = mod):
-    assert len(a[0]) == len(b)
-    n = len(a)
-    k = len(a[0])
-    m = len(b[0])
-    res = [[0]*m for i in range(n)]
-    for i in range(n):
-        for j in range(k):
-            for k in range(m):
-                res[i][j] += a[i][j] * b[j][k]
-                res[i][k] %= mod
+    # assert len(a[0]) == len(b)
+    res = [[0]*len(b[0]) for i in range(len(a))]
+    for i,ri in enumerate(res):
+        for k,aik in enumerate(a[i]):
+            for j,bkj in enumerate(b[k]):
+                ri[j] = (ri[j]+aik*bkj)%mod
     return res
 
 def mat_inv(a, mod = mod):
