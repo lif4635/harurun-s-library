@@ -1,7 +1,8 @@
 class BIT2D:
-    def __init__(self, h, w, op):
+    def __init__(self, h, w, id, op):
         self.h = h
         self.w = w
+        self.id = id
         self.op = op
         self.data = dict()
     
