@@ -54,9 +54,10 @@ DIR_4 = [[-1,0],[0,1],[1,0],[0,-1]]
 DIR_8 = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1]]
 DIR_BISHOP = [[-1,1],[1,1],[1,-1],[-1,-1]]
 prime60 = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59]
-import pypyjit
-pypyjit.set_param('max_unroll_recursion=-1')
-sys.setrecursionlimit(10**7)
 sys.set_int_max_str_digits(0)
+sys.setrecursionlimit(10**6)
+# import pypyjit
+# pypyjit.set_param('max_unroll_recursion=-1')
 
-
+from collections import defaultdict
+from heapq import heappop,heappush
