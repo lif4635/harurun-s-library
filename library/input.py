@@ -61,3 +61,7 @@ sys.setrecursionlimit(10**6)
 
 from collections import defaultdict
 from heapq import heappop,heappush
+from bisect import bisect_left,bisect_right
+DD = defaultdict
+BSL = bisect_left
+BSR = bisect_right
