@@ -1,5 +1,5 @@
 # Segtree
-[**BIT**](https://github.com/lif4635/harurun-s-library/blob/main/library/SegTree/BIT.py)  [verify](https://github.com/lif4635/harurun-s-library/blob/main/verify/SegTree/BIT.py)
+[**BIT**](https://github.com/lif4635/harurun-s-library/blob/main/library/SegTree/BIT.py)  [x] [verify](https://github.com/lif4635/harurun-s-library/blob/main/verify/SegTree/BIT.py)
 
 [**BIT2D**](https://github.com/lif4635/harurun-s-library/blob/main/library/SegTree/BIT2D.py)
 
