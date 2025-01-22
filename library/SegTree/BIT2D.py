@@ -1,12 +1,16 @@
+"""
+正直使い物になりませんね。
+基本的にcppに書き直さなきゃいけなくなると思います。
+(TLEによりverifyできませんでした)
+"""
+
 class BIT2D:
-    def __init__(self, h, w, id, op):
+    def __init__(self, h, w):
         self.h = h
         self.w = w
-        self.id = id
-        self.op = op
         self.data = dict()
     
-    def update(self, i, j, x):
+    def add(self, i, j, x):
         i += 1
         while i <= self.h:
             if not i in self.data:
@@ -17,7 +21,7 @@ class BIT2D:
                 if not k in bit:
                     bit[k] = x
                 else:
-                    bit[k] = self.op(bit[k],x)
+                    bit[k] += x
                 k += k&-k
             i += i&-i
     
@@ -29,7 +33,11 @@ class BIT2D:
                 k = j
                 while k > 0:
                     if k in bit:
-                        res = self.op(bit[k],res)
+                        res += bit[k]
                     k -= k&-k
             i -= i&-i
+        return res
+    
+    def rectangle(self, l, d, r, u):
+        res = self.prod(r, u) + self.prod(l, d) - self.prod(l, u) - self.prod(r, d)
         return res
