@@ -1,3 +1,5 @@
+# https://judge.yosupo.jp/submission/263001
+
 def manacher(s):
     """
     Palindromes radius
@@ -19,3 +21,7 @@ def manacher(s):
         i += k
         j -= k
     return red
+
+s = input().replace("", "*")
+res = manacher(s)
+print(*[res[i]-1 for i in range(1,len(s)-1)])
