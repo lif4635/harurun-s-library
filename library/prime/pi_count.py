@@ -1,3 +1,7 @@
+"""
+なにものかに荒らされています
+"""
+
 from math import isqrt
 
 def pi_count(n):
