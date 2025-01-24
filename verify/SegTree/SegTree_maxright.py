@@ -1,3 +1,5 @@
+# https://atcoder.jp/contests/practice2/submissions/62004634
+
 class SegTree:
     def __init__(self, op, e, lst):
         self.n = len(lst)
@@ -92,3 +94,23 @@ class SegTree:
     
     def __str__(self):
         return str(self.data[self.size:self.size+self.n])
+
+import io,os,sys
+input = io.BytesIO(os.read(0,os.fstat(0).st_size)).readline
+
+n,q = map(int, input().split())
+a = list(map(int, input().split()))
+st = SegTree(max, -1, a)
+
+ans = []
+for _ in range(q):
+    t,x,y = map(int, input().split())
+    if t == 1:
+        st.set(x-1,y)
+    elif t == 2:
+        ans.append(st.prod(x-1,y))
+    else:
+        def f(v): return v<y
+        ans.append(st.max_right(f,x-1) + 1)
+
+os.write(1,"\n".join(map(str,ans)).encode())
