@@ -5,6 +5,8 @@
 
 [**Dynamic_BIT**](https://github.com/lif4635/harurun-s-library/blob/main/library/SegTree/Dynamic_BIT.py)
 
+[**LazySegTree**](https://github.com/lif4635/harurun-s-library/blob/main/library/SegTree/LazySegTree.py)&emsp;[verify](https://github.com/lif4635/harurun-s-library/blob/main/verify/SegTree/LazySegTree.py)
+
 [**SegTree**](https://github.com/lif4635/harurun-s-library/blob/main/library/SegTree/SegTree.py)&emsp;[verify](https://github.com/lif4635/harurun-s-library/blob/main/verify/SegTree/SegTree.py)
 
 # UnionFind
