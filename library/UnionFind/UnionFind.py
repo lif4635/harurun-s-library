@@ -31,7 +31,7 @@ class UnionFind:
     def groups(self):
         res = [[] for i in range(self.n)]
         for i in range(self.n):
-            res[leader(i)].append(i)
+            res[self.leader(i)].append(i)
         res2 = []
         for i in range(self.n):
             if len(res[i]) > 0:
