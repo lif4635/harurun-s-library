@@ -2,12 +2,12 @@
 import sys
 input = sys.stdin.readline
 II = lambda : int(input())
-MI = lambda : int(a) for a in input().split()
+MI = lambda : map(int, input().split())
 LI = lambda : [int(a) for a in input().split()]
 SI = lambda : input().rstrip()
 LLI = lambda n : [[int(a) for a in input().split()] for _ in range(n)]
 LSI = lambda n : [input().rstrip() for _ in range(n)]
-MI_1 = lambda : int(a)-1 for a in input().split()
+MI_1 = lambda : map(lambda x:int(x)-1, input().split())
 LI_1 = lambda : [int(a)-1 for a in input().split()]
 
 def graph(n:int, m:int, dir:bool=False, index:int=-1) -> list[set[int]]:
