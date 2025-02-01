@@ -32,6 +32,6 @@ class WeightedUnionFind:
         a,wa = self.leader(a)
         b,wb = self.leader(b)
         if a == b:
-            return wb - wa
+            return True, wb - wa
         else:
-            return -1
+            return False, -1
