@@ -1,5 +1,5 @@
 def miller_rabin(num):
-    # assert 1 <= num < (1<<63)-1
+    """ 1 <= x < 1<<64 """
     if num < 4: return num > 1
     if not num&1: return False
     
