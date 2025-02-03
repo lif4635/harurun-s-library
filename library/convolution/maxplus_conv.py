@@ -55,3 +55,25 @@ def maxplus_convolusion_arbitrary_concave(a, b):
     for i , j in enumerate(idx):
         c[i] = a[j] + b[i-j]
     return c
+
+
+"""
+-inf がある時
+"""
+def maxplus_convolusion_concave_concave(a, b):
+    n = len(a)
+    m = len(b)
+    c = [0] * (n + m - 1)
+    i = j = 0
+    c[0] = a[0] + b[0]
+    for k in range(1, n+m-1):
+        if j == m-1 or (i != n-1 and (a[i] == -inf or (b[j] != -inf and a[i+1] + b[j] > a[i] + b[j+1]))):
+            i += 1
+        else:
+            j += 1
+        
+        if a[i] == -inf or b[j] == -inf: 
+            c[k] = -inf
+        else:
+            c[k] = a[i] + b[j]
+    return c
