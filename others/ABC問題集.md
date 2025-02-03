@@ -6,7 +6,7 @@
 212H xor畳み込み・高速アダマール変換<br>
 216H LGV公式<br>
 217H slopetrick<br>
-218H Ailen-DP・maxplus-conv・(monge-d-辺最短路)<br>  
+218H Ailen-DP・maxplus-conv・(monge-d-辺最短路)<br>
 222H ラグランジュの反転公式・（P-recursive）<br>
 231H 最小重み辺被覆<br>
 233H 並列二分探索<br>
