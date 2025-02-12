@@ -93,7 +93,7 @@ def multiply(s: list, t: list):
     if min(n, m) <= 60:
         a = [0] * (n + m - 1)
         for i in range(n):
-            if i&111 == 0:        
+            if i&7 == 0:        
                 for j in range(m):
                     a[i + j] += s[i] * t[j]
                     a[i + j] %= MOD
