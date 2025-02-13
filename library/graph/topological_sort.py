@@ -1,22 +1,26 @@
-def topological_sort(edge, inedge=None):
+from heapq import heappop,heappush
+
+def topological_sort(edge, in_deg=None):
     """
     if len(ans) != n -> not DAG
     """
     n = len(edge)
     
-    if inedge == None:
-        inedge = [0]*n
-        for v in range(n):
-            for adj in edge[v]:
-                inedge[adj] += 1
+    if in_deg == None:
+        in_deg = [0]*n
+        for u in range(n):
+            for v in edge[u]:
+                in_deg[v] += 1
     
-    ans = [i for i in range(n) if inedge[i] == 0]
-    que = deque(ans)
+    que = [i for i in range(n) if in_deg[i] == 0]
+    ans = []
     while que:
-        q = que.popleft()
-        for e in edge[q]:
-            inedge[e] -= 1
-            if inedge[e] == 0:
-                que.append(e)
-                ans.append(e)
+        u = que.pop()
+        # u = heappop(que)
+        ans.append(u)
+        for v in edge[u]:
+            in_deg[v] -= 1
+            if in_deg[v] == 0:
+                que.append(v)
+                # heappush(que, v)
     return ans
