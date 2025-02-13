@@ -71,11 +71,11 @@ def primefact(n):
     for p in range(2, 500):
         if p * p > n:
             break
-        if n % p == 0:
-            c = 0
-            while n%p == 0:
-                n //= p
-                c += 1
+        c = 0
+        while n%p == 0:
+            n //= p
+            c += 1
+        if c:
             result[p] = c
     
     while n > 1 and not is_prime(n):

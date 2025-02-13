@@ -1,4 +1,4 @@
-# https://judge.yosupo.jp/submission/265090
+# https://judge.yosupo.jp/submission/267427
 
 from math import isqrt
 from random import randint
@@ -68,37 +68,28 @@ def find_prime(n):
         else:
             n = g
 
-def primefact(n):
-    result = dict()
-    for p in range(2, 500):
-        if p * p > n:
-            break
-        if n % p == 0:
-            c = 0
-            while n%p == 0:
-                n //= p
-                c += 1
-            result[p] = c
-    
-    while n > 1 and not is_prime(n):
-        p = find_prime(n)
-        c = 0
-        while n % p == 0:
-            n //= p
-            c += 1
-        result[p] = c
-    if n > 1: result[n] = 1
-    return result
-
-def primitive_root(n):
-    """ p : prime"""
+def primitive_root(p):
+    """ p : prime """
     if p == 2: return 1
-    pf = primefact(p - 1)
+    
+    r = p - 1
     tests = []
-    for pi in pf.keys():
-        tests.append((p - 1) // pi)
+    for q in range(2, 500):
+        if q * q > r:
+            break
+        if r % q == 0:
+            while r % q == 0:
+                r //= q
+            tests.append((p - 1) // q)
+    
+    while r > 1 and not is_prime(r):
+        q = find_prime(r)
+        while r % q == 0:
+            r //= q
+        tests.append((p - 1) // q)
+    if r > 1: tests.append((p - 1) // r)
+    
     res = 2
-    cnt = 0
     while True:
         for test in tests:
             if pow(res, test, p) == 1:
