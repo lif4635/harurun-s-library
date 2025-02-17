@@ -1,4 +1,4 @@
-# https://atcoder.jp/contests/practice2/submissions/62005011
+# https://judge.yosupo.jp/submission/268171
 
 class LazySegTree:
     def push(self, k):
@@ -180,33 +180,36 @@ class LazySegTree:
 
 import io,os,sys
 input = io.BytesIO(os.read(0,os.fstat(0).st_size)).readline
-MI = lambda : map(int, input().split())
 
-n,q = MI()
-
-e = 1<<30
-mask = e - 1
+mask = (1<<32) - 1
 mod = 998244353
-def op(x,y):
-    a,b = x>>30,x&mask
-    c,d = y>>30,y&mask
-    return (a*c%mod<<30) + (b*c+d)%mod
+def op(x, y):
+    x0, x1 = x>>32, x&mask
+    y0, y1 = y>>32, y&mask
+    return ((x0+y0)%mod<<32) + (x1+y1)%mod
 
-data = [0]*n
-for i in range(n):
-    a,b = MI()
-    data[i] = (a<<30) + b
+def mapp(f, x):
+    f0, f1 = f>>32, f&mask
+    x0, x1 = x>>32, x&mask
+    return ((f0*x0+x1*f1)%mod<<32) + x1
 
-st = SegTree(op,e,data)
+def comp(f, g):
+    f0, f1 = f>>32, f&mask
+    g0, g1 = g>>32, g&mask
+    return (f0*g0% mod<<32) + (g1*f0+f1)%mod
+
+n,q = map(int, input().split())
+a = [(int(i)<<32) + 1 for i in input().split()]
+st = LazySegTree(op,0,mapp,comp,1<<32,a)
 
 ans = []
 for i in range(q):
-    t,p,c,d = MI()
-    if t:
-        res = st.prod(p,c)
-        a,b = res>>30,res&mask
-        ans.append((a*d+b)%mod)
+    qry = [int(i) for i in input().split()]
+    if qry[0]:
+        _,l,r = qry
+        ans.append(st.prod(l,r) >> 32)
     else:
-        st.set(p, (c<<30) + d)
+        _,l,r,b,c = qry
+        st.apply(l, r, (b<<32) + c)
 
 os.write(1," ".join(map(str,ans)).encode())
