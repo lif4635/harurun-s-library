@@ -33,10 +33,11 @@
 300H Bostan-Mori<br>
 301H ダイコネ・（lowlink）<br>
 302H RollbackUF<br>
+315H Relaxed Convolution<br>
 321G subsetDP<br>
 349G manacher・（parallelUF）<br>
 370G LucyDP・Min25篩・（blackalgoritm）<br>
 376G 01-on-Tree<br>
 378G ロビンソン・シェンステッド対応<br>
-385G 挿入DP・FPS高速化
+385G 挿入DP・FPS高速化<br>
 390G FPS高速化
