@@ -1,4 +1,4 @@
-class DSU:
+class DSU_leader:
     def __init__(self, n):
         self.n = n
         self.par = [*range(n)]
@@ -13,14 +13,9 @@ class DSU:
         a = self.leader(a)
         b = self.leader(b)
         if a == b: return a
-        if self.siz[a] > self.siz[b]:
-            self.siz[a] += self.siz[b]
-            self.par[b] = a
-            return a
-        else:
-            self.siz[b] += self.siz[a]
-            self.par[a] = b
-            return b
+        self.siz[a] += self.siz[b]
+        self.par[b] = a
+        return a
 
     def same(self, a, b):
         return self.leader(a) == self.leader(b)
