@@ -87,7 +87,7 @@ class SegTree:
                     nsm = self.op(self.data[r], sm)
                     if g(nsm):
                         sm = nsm
-                        l -= 1
+                        r -= 1
                 return r + 1 -self.size
             sm = self.op(self.data[r], sm)
             if (r&-r) == r: break
