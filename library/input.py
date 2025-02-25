@@ -10,7 +10,7 @@ LSI = lambda n : [input().rstrip() for _ in range(n)]
 MI_1 = lambda : map(lambda x:int(x)-1, input().split())
 LI_1 = lambda : [int(a)-1 for a in input().split()]
 
-def graph(n:int, m:int, dir:bool=False, index:int=-1) -> list[set[int]]:
+def graph(n:int, m:int, dir:bool=False, index:int=-1):
     edge = [set() for i in range(n+1+index)]
     for _ in range(m):
         a,b = map(int, input().split())
@@ -21,7 +21,7 @@ def graph(n:int, m:int, dir:bool=False, index:int=-1) -> list[set[int]]:
             edge[b].add(a)
     return edge
 
-def graph_w(n:int, m:int, dir:bool=False, index:int=-1) -> list[set[tuple]]:
+def graph_w(n:int, m:int, dir:bool=False, index:int=-1):
     edge = [set() for i in range(n+1+index)]
     for _ in range(m):
         a,b,c = map(int, input().split())
