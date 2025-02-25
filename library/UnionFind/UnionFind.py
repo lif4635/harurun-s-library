@@ -1,8 +1,9 @@
 class DSU:
-    def __init__(self, n):
+    def __init__(self, n, fix_leader = False):
         self.n = n
         self.par = [*range(n)]
         self.siz = [1] * n
+        self.fix_leader = fix_leader
 
     def leader(self, a):
         while self.par[a] != a:
@@ -13,7 +14,7 @@ class DSU:
         a = self.leader(a)
         b = self.leader(b)
         if a == b: return a
-        if self.siz[a] > self.siz[b]:
+        if self.fix_leader or self.siz[a] > self.siz[b]:
             self.siz[a] += self.siz[b]
             self.par[b] = a
             return a
