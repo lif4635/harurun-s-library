@@ -39,7 +39,7 @@ ordallalp = lambda s : ord(s)-39 if s.isupper() else ord(s)-97
 yes = lambda : print("Yes")
 no = lambda : print("No")
 yn = lambda flag : print("Yes" if flag else "No")
-def acc(a:list[int]):
+def acc(a:list):
     sa = [0]*(len(a)+1)
     for i in range(len(a)):
         sa[i+1] = a[i] + sa[i]
