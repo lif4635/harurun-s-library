@@ -5,6 +5,7 @@
 155F 区間操作を2点操作にするテク・全域木<br>
 175F 状態数の検討<br>
 176F 貪欲<br>
+180F グラフの数え上げ<br>
 208F Lagrange補間<br>
 210F 2-SAT<br>
 212H xor畳み込み・高速アダマール変換<br>
@@ -36,8 +37,16 @@
 315H Relaxed Convolution<br>
 321G subsetDP<br>
 349G manacher・（parallelUF）<br>
+364G 最小シュタイナー木<br>
+367G hadamard変換<br>
 370G LucyDP・Min25篩・（blackalgoritm）<br>
+372G Convex_hull_trick・floor_sum<br>
 376G 01-on-Tree<br>
 378G ロビンソン・シェンステッド対応<br>
+383G max_plus_conv・分割統治<br>
+384G Mo's algorithm<br> 
 385G 挿入DP・FPS高速化<br>
-390G FPS高速化
+386G グラフの数え上げ<br>
+389G DP<br>
+390G FPS高速化<br>
+395G 最小シュタイナー木<br>
