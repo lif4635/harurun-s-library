@@ -1,3 +1,5 @@
+# https://judge.yosupo.jp/submission/270899
+
 def Cartesian_Tree(a):
     n = len(a)
     par = [-1]*n
@@ -13,3 +15,10 @@ def Cartesian_Tree(a):
             par[i] = st[-1]
         st.append(i)
     return par
+
+n = int(input())
+a = [int(i) for i in input().split()]
+par = Cartesian_Tree(a)
+r = par.index(-1)
+par[r] = r
+print(*par)
