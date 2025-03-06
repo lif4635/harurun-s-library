@@ -59,7 +59,7 @@ sys.setrecursionlimit(10**6)
 # import pypyjit
 # pypyjit.set_param('max_unroll_recursion=-1')
 
-from collections import defaultdict
+from collections import defaultdict,deque
 from heapq import heappop,heappush
 from bisect import bisect_left,bisect_right
 DD = defaultdict
