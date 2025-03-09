@@ -109,7 +109,6 @@ class LazySegTree:
                 self.data[r] = self.mapping(f, self.data[r])
                 if l < self.size:
                     self.lazy[r] = self.composition(f, self.lazy[r])
-
             l >>= 1
             r >>= 1
         l, r = l2, r2
