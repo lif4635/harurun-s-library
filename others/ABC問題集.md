@@ -2,13 +2,14 @@
 077D おなじみの名門<br>
 128F ad-hocぎみな貪欲<br>
 129H 桁DPもどき<br>
+137F 
 155F 区間操作を2点操作にするテク・全域木<br>
 175F 状態数の検討<br>
 176F 貪欲<br>
 180F グラフの数え上げ<br>
 208F Lagrange補間<br>
 210F 2-SAT<br>
-212H xor畳み込み・高速アダマール変換<br>
+212H hadamard変換<br>
 214G 包除原理<br>
 216H LGV公式<br>
 217H slopetrick<br>
