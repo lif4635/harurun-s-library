@@ -1,3 +1,4 @@
+mod = 998244353
 def determinant(a, mod = mod):
     # assert len(a) == len(a[0])
     n = len(a)
@@ -28,3 +29,7 @@ def determinant(a, mod = mod):
                 a[j][k] -= a[i][k]*tmp
                 a[j][k] %= mod
     return res%mod
+
+n = int(input())
+mat = [[int(x) for x in input().split()] for i in range(n)]
+print(determinant(mat))
