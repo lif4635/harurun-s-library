@@ -1,5 +1,3 @@
-# https://atcoder.jp/contests/practice2/submissions/63383085
-
 def SCC(edge):
     n = len(edge)
     redge = [set() for i in range(n)]
@@ -40,32 +38,15 @@ def SCC(edge):
             label += 1
     return label, group
 
-def SCC_construct(edge):
-    n = len(edge)
-    label, group = SCC(edge)
-    newedge = [set() for i in range(label)]
-    groups = [[] for i in range(label)]
-    for u in range(n):
-        lu = group[u]
-        for v in edge[u]:
-            lv = group[v]
-            if lu == lv: continue
-            newedge[lu].add(lv)
-        groups[lu].append(u)
-    return newedge, groups
-
-
-import sys
-input = sys.stdin.readline
-MI = lambda : map(int, input().split())
-
-n,m = MI()
-edge = [set() for i in range(n)]
-for i in range(m):
-    a,b = MI()
-    edge[a].add(b)
-newedge, groups = SCC_construct(edge)
-
-print(len(groups))
-for g in groups:
-    print(len(g), *g)
+def Twosat(n, clause):
+    edge = [[] for i in range(2 * n)]
+    for i,f,j,g in clause:
+        edge[2 * i + 1 - f].append(2 * j + g)
+        edge[2 * j + 1 - g].append(2 * i + f)
+    _, group = SCC(edge)
+    answer = [0] * n
+    for i in range(n):
+        if group[2 * i] == group[2 * i + 1]:
+            return None
+        answer[i] = group[2 * i] < group[2 * i + 1]
+    return answer
