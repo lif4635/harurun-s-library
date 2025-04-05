@@ -1,7 +1,6 @@
 def Cartesian_Tree(a):
     n = len(a)
-    par = [-1]*n
-    
+    par = [-1] * n
     st = []
     for i, v in enumerate(a):
         s = -1
@@ -12,4 +11,14 @@ def Cartesian_Tree(a):
         if st:
             par[i] = st[-1]
         st.append(i)
-    return par
+    
+    left = [-1] * n
+    right = [-1] * n
+    for i, p in enumerate(par):
+        if p == -1:
+            continue
+        if i < p:
+            left[p] = i
+        else:
+            right[p] = i
+    return par, left, right
