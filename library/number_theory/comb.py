@@ -1,4 +1,5 @@
 class Comb:
+    __slots__ = ["fac", "finv", "mod"]
     def __init__(self, lim:int, mod:int = mod):
         """
         mod : prime
@@ -27,3 +28,4 @@ class Comb:
     def H(self, a, b): return self.C(a+b-1,b)
     def F(self, a): return self.fac[a]
     def Fi(self, a): return self.finv[a]
+    def __call__(self, a, b): return self.C(a, b)
