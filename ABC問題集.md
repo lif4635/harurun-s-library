@@ -1,16 +1,25 @@
 # ABCボス問アルゴリズム一覧
 077D おなじみの名門<br>
+111D <br>
 128F ad-hocぎみな貪欲<br>
 129H 桁DPもどき<br>
-137F 
+134F 箱根駅伝DP<br>
+137F <br>
+138F 桁DP<br>
 155F 区間操作を2点操作にするテク・全域木<br>
 175F 状態数の検討<br>
 176F 貪欲<br>
 180F グラフの数え上げ<br>
+193F flow<br>
+200F 頑張る数え上げ<br>
+201F ad-hocな貪欲<br>
 208F Lagrange補間<br>
 210F 2-SAT<br>
 212H hadamard変換<br>
+213F online分割統治FFT<br>
 214G 包除原理<br>
+214H SCC・パス被覆<br>
+215H Hallの結婚定理・高速ゼータメビウス変換<br>
 216H LGV公式<br>
 217H slopetrick<br>
 218H Ailen-DP・maxplus-conv・(monge-d-辺最短路)<br>
