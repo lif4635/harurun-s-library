@@ -1,22 +1,25 @@
 # ABCボス問アルゴリズム一覧
 077D おなじみの名門<br>
-111D <br>
+111D 45度回転・bitset<br>
 128F ad-hocぎみな貪欲<br>
-129H 桁DPもどき<br>
+129H 桁DP<br>
 134F 箱根駅伝DP<br>
-137F <br>
+137F (Lagrange補完)<br>
 138F 桁DP<br>
 155F 区間操作を2点操作にするテク・全域木<br>
+164F 貪欲<br>
 175F 状態数の検討<br>
 176F 貪欲<br>
 180F グラフの数え上げ<br>
 193F flow<br>
+198F ポリアの数え上げ定理<br>
 200F 頑張る数え上げ<br>
 201F ad-hocな貪欲<br>
 208F Lagrange補間<br>
 210F 2-SAT<br>
 212H hadamard変換<br>
 213F online分割統治FFT<br>
+213G Sum over Subset DP<br>
 214G 包除原理<br>
 214H SCC・パス被覆<br>
 215H Hallの結婚定理・高速ゼータメビウス変換<br>
@@ -24,6 +27,7 @@
 217H slopetrick<br>
 218H Ailen-DP・maxplus-conv・(monge-d-辺最短路)<br>
 222H ラグランジュの反転公式・（P-recursive）<br>
+229H Partisan Game（非不偏Game）<br>
 231H 最小重み辺被覆<br>
 233H 並列二分探索<br>
 237H DAGの最小パス被覆・Dilworth<br>
