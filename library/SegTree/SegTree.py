@@ -1,4 +1,6 @@
 class SegTree:
+    __slots__ = ["n", "size", "op", "e", "data"]
+    
     def __init__(self, op, e, lst):
         self.n = len(lst)
         self.size = 1 << (self.n - 1).bit_length()
