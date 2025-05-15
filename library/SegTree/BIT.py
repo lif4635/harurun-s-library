@@ -1,4 +1,6 @@
 class BIT:
+    __slots__ = ["n", "data"]
+    
     def __init__(self, n):
         self.n = n
         self.data = [0]*(n+1)
@@ -38,7 +40,7 @@ class BIT:
 
     def bisect_left(self, w):
         """
-        not valify
+        not velify
         sum_{0 <= i < x} >= w となる 最小のx
         """
         if w <= 0: return 0
