@@ -410,19 +410,72 @@ def fps_compsite(f: list, g: list):
     return p[:n]
 
 def MultisetSum(a: list, lim: int=-1) -> list:
-    if lim == -1:
-        lim = sum(a)
+    """
+    #{ b | sum(b) == k, b \subset a}
+    """
+    if lim == -1: lim = sum(a)
     d = [0] * (lim+1)
     for x in a:
         if x <= lim: d[x] += 1
-    INVMOD = [1,1]
-    for i in range(len(INVMOD), lim+1):
-        INVMOD.append(-INVMOD[MOD%i] * (MOD//i) % MOD)
+    inv = [1,1]
+    for i in range(len(inv), lim+1):
+        inv.append(-inv[MOD%i] * (inv//i) % MOD)
     res = [0] * (lim+1)
     for i in range(1, lim+1):
         if d[i]:
             tmp = d[i] * i
             for j in range(i, lim+1, i):
-                res[j] += tmp * INVMOD[j] % MOD
+                res[j] += tmp * inv[j] % MOD
     res = fps_exp(res, lim+1)
     return res
+
+def _fft2d(s: list[list]):
+    h, w = len(s),len(s[0])
+    for i in range(h):
+        ntt(s[i])
+    buf = [0] * h
+    for j in range(w):
+        buf = [s[i][j] for i in range(h)]
+        ntt(buf)
+        for i in range(h):
+            s[i][j] = buf[i]
+
+def _ifft2d(s: list[list]):
+    h, w = len(s),len(s[0])
+    for i in range(h):
+        intt(s[i])
+    buf = [0] * h
+    for j in range(w):
+        buf = [s[i][j] for i in range(h)]
+        intt(buf)
+        for i in range(h):
+            s[i][j] = buf[i]
+
+def multiply_2D(s: list[list], t: list[list]):
+    """
+    not verify
+    """
+    from copy import deepcopy
+    hs, ws = len(s), len(s[0])
+    ht, wt = len(t), len(t[0])
+    h = 1 << (hs + ht - 2).bit_length()
+    w = 1 << (ws + wt - 2).bit_length()
+    a = deepcopy(s)
+    b = deepcopy(t)
+    for i in range(hs):
+        a[i] += [0] * (w - ws)
+    for i in range(ht):
+        b[i] += [0] * (w - wt)
+    a += [[0]*w for i in range(h - hs)]
+    b += [[0]*w for i in range(h - ht)]
+    _fft2d(a)
+    _fft2d(b)
+    for i in range(h):
+        for j in range(w):
+            a[i][j] *= b[i][j]
+            a[i][j] %= MOD
+    _ifft2d(a)
+    a = a[:hs + ht - 1]
+    for i in range(hs + ht - 1):
+        a[i][ws + wt - 1:] = []
+    return a
