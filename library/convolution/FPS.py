@@ -410,6 +410,7 @@ def fps_compsite(f: list, g: list):
     return p[:n]
 
 def MultisetSum(a: list, lim: int=-1) -> list:
+    # なんかおかしいですが、そもそもの問題が異なる可能性も出てきたので一旦放置
     """
     #{ b | sum(b) == k, b \subset a}
     """
@@ -419,7 +420,7 @@ def MultisetSum(a: list, lim: int=-1) -> list:
         if x <= lim: d[x] += 1
     inv = [1,1]
     for i in range(len(inv), lim+1):
-        inv.append(-inv[MOD%i] * (inv//i) % MOD)
+        inv.append(-inv[MOD%i] * (MOD//i) % MOD)
     res = [0] * (lim+1)
     for i in range(1, lim+1):
         if d[i]:
