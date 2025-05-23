@@ -45,9 +45,9 @@ class BIT:
         """
         if w <= 0: return 0
         x = 0
-        r = 1 << (self.n-1).bit_length()
+        r = 1 << self.n.bit_length()
         while r:
-            if x + r < self.n and self.data[x + r] < w:
+            if x + r <= self.n and self.data[x + r] < w:
                 w -= self.data[x + r]
                 x += r
             r >>= 1
@@ -57,11 +57,11 @@ class BIT:
         """
         sum_{0 <= i < x} <= w となる 最大のx
         """
-        if w < 0: return -1
+        assert w >= 0
         x = 0
-        r = 1 << (self.n-1).bit_length()
+        r = 1 << self.n.bit_length()
         while r:
-            if x + r < self.n and self.data[x + r] <= w:
+            if x + r <= self.n and self.data[x + r] <= w:
                 w -= self.data[x + r]
                 x += r
             r >>= 1
