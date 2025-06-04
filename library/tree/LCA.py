@@ -1,10 +1,11 @@
 class LCA:
-    __slots__ = ["n", "h", "order", "path", "data"]
+    __slots__ = ["n", "h", "order", "path", "data", "depth"]
     
     def __init__(self, edge, root = 0):
         self.n = len(edge)
         self.order = [-1] * self.n
         self.path = [-1] * (self.n-1)
+        self.depth = [0] * self.n
         parent = [-1] * self.n
         que = [root]
         t = -1
@@ -17,6 +18,7 @@ class LCA:
                 if self.order[v] == -1:
                     que.append(v)
                     parent[v] = u
+                    self.depth[v] = self.depth[u] + 1
         self.n -= 1
         self.h = self.n.bit_length()
         self.data = [0] * (self.n * self.h)
@@ -33,3 +35,13 @@ class LCA:
             l,r = r,l
         level = (r - l).bit_length() - 1
         return self.path[min(self.data[level*self.n + l], self.data[level*self.n + r-(1<<level)])]
+
+    def dis(self, u, v):
+        if u == v: return 0
+        l = self.order[u]
+        r = self.order[v]
+        if l > r:
+            l,r = r,l
+        level = (r - l).bit_length() - 1
+        p = self.path[min(self.data[level*self.n + l], self.data[level*self.n + r-(1<<level)])]
+        return self.depth[u] + self.depth[v] - 2 * self.depth[p]
