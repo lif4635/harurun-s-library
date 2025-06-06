@@ -28,7 +28,26 @@ class AuxiliaryTree:
         for i in range(1, self.h):
             for j in range(self.n - (1<<i) + 1):
                 self.data[i*self.n + j] = min(self.data[(i-1)*self.n + j], self.data[(i-1)*self.n + j+(1<<(i-1))])
-        
+    
+    def lca(self, u, v):
+        if u == v: return u
+        l = self.order[u]
+        r = self.order[v]
+        if l > r:
+            l,r = r,l
+        level = (r - l).bit_length() - 1
+        return self.path[min(self.data[level*self.n + l], self.data[level*self.n + r-(1<<level)])]
+    
+    def dis(self, u, v):
+        if u == v: return 0
+        l = self.order[u]
+        r = self.order[v]
+        if l > r:
+            l,r = r,l
+        level = (r - l).bit_length() - 1
+        p = self.path[min(self.data[level*self.n + l], self.data[level*self.n + r-(1<<level)])]
+        return self.depth[u] + self.depth[v] - 2 * self.depth[p]
+    
     def make(self, vs):
         k = len(vs)
         vs.sort(key = self.order.__getitem__)
