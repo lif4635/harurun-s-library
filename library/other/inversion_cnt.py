@@ -44,16 +44,14 @@ def inversion_cnt(lst:list) -> int:
     i > j && a_i < a_j
     """
     n = len(lst)
-    maxlst = max(lst)
-    
-    if  maxlst >= n+10:
+    if  max(lst) >= n+10:
         order = {x:i for i,x in enumerate(sorted(set(lst)))}
         lst = [order[x] for x in lst]
     
-    ft = BIT(n+10)
+    maxnum = max(lst) + 10
+    ft = BIT(maxnum)
     ans = [0]*n
     for i in range(n):
-        ans[i] = ft.sum(lst[i],n+10)
+        ans[i] = ft.sum(lst[i], maxnum)
         ft.add(lst[i], 1)
-    
     return ans
