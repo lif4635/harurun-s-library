@@ -1,4 +1,7 @@
 def floor_sum(n, m, a, b):
+    """
+    sum_{0 <= i <= n - 1} floor(a * i + b / m)
+    """
     res = 0
     while n:
         if a < 0 or m <= a:
