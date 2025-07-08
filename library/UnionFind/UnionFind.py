@@ -1,4 +1,6 @@
 class DSU:
+    __slots__ = ["n", "par", "siz", "fix_leader"]
+    
     def __init__(self, n, fix_leader = False):
         self.n = n
         self.par = [*range(n)]
