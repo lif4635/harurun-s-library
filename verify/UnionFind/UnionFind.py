@@ -1,6 +1,8 @@
 # https://judge.yosupo.jp/submission/262792
 
 class UnionFind:
+    __slots__ = ["n", "par", "size", "fix_leader"]
+    
     def __init__(self, n):
         self.n = n
         self.par = [*range(n)]

@@ -1,4 +1,6 @@
 class LazySegTree:
+    __slots__ = ["n", "log", "size", "data", "lazy", "e", "op", "mapping", "composition", "id"]
+    
     def push(self, k):
         # self.all_apply(2 * k, self.lazy[k])
         self.data[2 * k] = self.mapping(self.lazy[k], self.data[2 * k])
