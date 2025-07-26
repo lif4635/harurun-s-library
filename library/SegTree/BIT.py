@@ -41,7 +41,11 @@ class BIT:
     def bisect_left(self, w):
         """
         not velify
-        sum_{0 <= i < x} >= w となる 最小のx
+        
+        if sum0(n) < w:
+            n+1
+        else:
+            min( x | sum0(x) >= w)
         """
         if w <= 0: return 0
         x = 0
@@ -51,11 +55,11 @@ class BIT:
                 w -= self.data[x + r]
                 x += r
             r >>= 1
-        return x
+        return x + 1
     
     def bisect_right(self, w):
         """
-        sum_{0 <= i < x} <= w となる 最大のx
+        max( x | sum0(x) <= w)
         """
         assert w >= 0
         x = 0
