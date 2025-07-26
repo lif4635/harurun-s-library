@@ -51,7 +51,7 @@ class BIT:
                 w -= self.data[x + r]
                 x += r
             r >>= 1
-        return x + 1
+        return x
     
     def bisect_right(self, w):
         """
