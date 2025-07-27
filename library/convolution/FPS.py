@@ -409,25 +409,22 @@ def fps_compsite(f: list, g: list):
     p = p[l-1::-1]
     return p[:n]
 
-def MultisetSum(a: list, lim: int=-1) -> list:
-    # なんかおかしいですが、そもそもの問題が異なる可能性も出てきたので一旦放置
+INVMOD = [1,1]
+def MultisetSum(d: list) -> list:
     """
-    #{ b | sum(b) == k, b \subset a}
+    d[w] = 重さ w が d[w] 種類ある
+    r[w] = 重さが w になるような選び方
     """
-    if lim == -1: lim = sum(a)
-    d = [0] * (lim+1)
-    for x in a:
-        if x <= lim: d[x] += 1
-    inv = [1,1]
-    for i in range(len(inv), lim+1):
-        inv.append(-inv[MOD%i] * (MOD//i) % MOD)
-    res = [0] * (lim+1)
-    for i in range(1, lim+1):
+    n = len(d)
+    for i in range(len(INVMOD), n):
+        INVMOD.append(-INVMOD[MOD%i] * (MOD//i) % MOD)
+    res = [0] * n
+    for i in range(1, n):
         if d[i]:
             tmp = d[i] * i
-            for j in range(i, lim+1, i):
-                res[j] += tmp * inv[j] % MOD
-    res = fps_exp(res, lim+1)
+            for j in range(i, n, i):
+                res[j] += tmp * INVMOD[j] % MOD
+    res = fps_exp(res, n)
     return res
 
 def _fft2d(s: list[list]):
