@@ -410,9 +410,31 @@ def fps_compsite(f: list, g: list):
     return p[:n]
 
 INVMOD = [1,1]
+def SubsetSum(d: list) -> list:
+    """
+    \prod ( 1 + x^i ) ^ d[i]
+    
+    d[w] = 重さ w が d[w] 種類 1 個ずつある
+    r[w] = 重さが w になるような選び方
+    """
+    n = len(d)
+    for i in range(len(INVMOD), n):
+        INVMOD.append(-INVMOD[MOD%i] * (MOD//i) % MOD)
+    res = [0] * n
+    sgn = [-1, 1]
+    for i in range(1, n):
+        if d[i]:
+            tmp = d[i] * i
+            for j in range(i, n, i):
+                res[j] += tmp * INVMOD[j] * sgn[(j//i)&1] % MOD
+    res = fps_exp(res, n)
+    return res
+
 def MultisetSum(d: list) -> list:
     """
-    d[w] = 重さ w が d[w] 種類ある
+    \prod ( 1 / ( 1 - x^i ) ) ^ d[i]
+    
+    d[w] = 重さ w が d[w] 種類 inf 個ずつある
     r[w] = 重さが w になるような選び方
     """
     n = len(d)
