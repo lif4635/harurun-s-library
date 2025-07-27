@@ -449,6 +449,29 @@ def MultisetSum(d: list) -> list:
     res = fps_exp(res, n)
     return res
 
+fac = [1, 1]
+finv = [1, 1]
+def tayler_shift(a: list, c: int) -> list:
+    global fac, finv
+    n = len(a)
+    l = len(fac)
+    fac += [0] * (n - l)
+    finv += [0] * (n - l)
+    for i in range(l, n):
+        fac[i] = fac[i-1] * i % MOD
+    finv[n-1] = pow(fac[n-1], MOD-2, MOD)
+    for i in reversed(range(l, n-1)):
+        finv[i] = finv[i+1] * (i+1) % MOD
+    
+    r = [x * fac[i] % MOD for i, x in enumerate(a)]
+    b = [0] * n
+    b[0] = 1
+    for i in range(1, n):
+        b[i] = b[i-1] * c % MOD * finv[i] % MOD * fac[i-1] % MOD
+    r.reverse()
+    res = multiply(r, b)[:n]
+    return [x * finv[i] % MOD for i, x in enumerate(reversed(res))]
+
 def _fft2d(s: list[list]):
     h, w = len(s),len(s[0])
     for i in range(h):
