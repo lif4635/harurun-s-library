@@ -1,4 +1,4 @@
-def Lagrange(f:list, t:int, mod:int = mod):
+def lagrange(f:list, t:int, mod:int = mod):
     """
     k次多項式の
     f(0)~f(k)を与えられた時
