@@ -153,19 +153,19 @@ def fps_add(a: list, b: list):
         res = a.copy()
         for i, x in enumerate(b):
             res[i] += x
-    return [x-MOD if MOD <= x else x in res]
+    return [x-MOD if MOD <= x else x for x in res]
 
 def fps_sub(a: list, b: list):
     if len(a) < len(b):
         res = b.copy()
         for i, x in enumerate(a):
             res[i] -= x
-        return [MOD-x if 0 < x else -x in res]
+        return [MOD-x if 0 < x else -x for x in res]
     else:
         res = a.copy()
         for i, x in enumerate(b):
             res[i] -= x
-        return [x if 0 <= x else x+MOD in res]
+        return [x if 0 <= x else x+MOD for x in res]
 
 def fps_neg(a: list):
     return [MOD-x if x else 0 for x in a]

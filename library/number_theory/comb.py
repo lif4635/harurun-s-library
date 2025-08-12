@@ -14,18 +14,20 @@ class Comb:
             self.finv[i-1] = self.finv[i]*i%self.mod
     
     def C(self, a, b):
-        assert b >= 0, "The second argument is negative."
-        if a < b: return 0
+        if b < 0 or a < b: return 0
+        if a < 0: return 0
+        return self.fac[a]*self.finv[b]%self.mod*self.finv[a-b]%self.mod
+    
+    def __call__(self, a, b):
+        if b < 0 or a < b: return 0
         if a < 0: return 0
         return self.fac[a]*self.finv[b]%self.mod*self.finv[a-b]%self.mod
     
     def P(self, a, b):
-        assert b >= 0, "The second argument is negative."
-        if a < b: return 0
+        if b < 0 or a < b: return 0
         if a < 0: return 0
         return self.fac[a]*self.finv[a-b]%self.mod
     
     def H(self, a, b): return self.C(a+b-1,b)
     def F(self, a): return self.fac[a]
     def Fi(self, a): return self.finv[a]
-    def __call__(self, a, b): return self.C(a, b)
