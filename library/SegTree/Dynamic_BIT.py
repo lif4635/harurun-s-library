@@ -1,6 +1,6 @@
 class Dynamic_BIT:
     def __init__(self, n):
-        self.n = n
+        self.n = n + 1
         self.data = dict()
     
     def add(self, p, x):
