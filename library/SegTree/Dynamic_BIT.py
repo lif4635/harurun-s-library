@@ -1,4 +1,6 @@
 class Dynamic_BIT:
+    __slots__ = ["n", "data"]
+    
     def __init__(self, n):
         self.n = n + 1
         self.data = dict()
