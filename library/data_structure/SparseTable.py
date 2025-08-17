@@ -1,4 +1,5 @@
 class SparseTable:
+    __slots__ = ["n", "h", "op", "data"]
     def __init__(self, op, lst):
         self.n = len(lst)
         self.h = self.n.bit_length()
