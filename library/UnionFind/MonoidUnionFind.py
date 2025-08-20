@@ -3,6 +3,9 @@ class MonoidUnionFind:
     mergeの順序はcompでわたせる
     小さいほうにmerge
     """
+    
+    __slots__ = ["n", "op", "e", "par", "data", "comp"]
+    
     def __init__(self, op, e, data, comp = None):
         self.n = len(data)
         self.op = op

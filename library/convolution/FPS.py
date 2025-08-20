@@ -190,7 +190,7 @@ def fps_div(a: list, b: list) -> list:
         res[i] = x = f[i + lg - 1] % MOD
         for j, y in enumerate(g):
             f[i + j] -= x * y
-    return [x * codf  % MOD for x in res] + [0] * cnt
+    return [x * coef  % MOD for x in res] + [0] * cnt
 
 def fps_mod(a: list, b: list) -> list:
     res = fps_sub(a, multiply(fps_div(a, b),  b))
@@ -409,6 +409,30 @@ def fps_compsite(f: list, g: list):
     p = p[l-1::-1]
     return p[:n]
 
+def fps_compsitional_inv(calc, deg):
+    """
+    input
+    calc(g, d) = f(g(x)) mod x^d を計算する
+    fps_compsite よりも良い計算量のものが存在するならば書く
+    
+    output
+    g(x) mod x^deg s.t. f(g(x)) = x 
+    """
+    c = deg.bit_length()
+    g = calc([0, 1], 2)
+    g[1] = pow(g[1], -1, MOD)
+    d = 2
+    for i in range(c):
+        d <<= 1
+        fg = calc(g, d + 1)
+        fdg = multiply(fps_diff(fg), fps_inv(fps_diff(g)))
+        fdg[d:] = []
+        fg[1] -= 1
+        g = fps_sub(g, multiply(fg, fps_inv(fdg)))
+        g[d:] = []
+    g[deg:] = []
+    return g
+
 INVMOD = [1,1]
 def SubsetSum(d: list) -> list:
     """
@@ -473,26 +497,26 @@ def tayler_shift(a: list, c: int) -> list:
     return [x * finv[i] % MOD for i, x in enumerate(reversed(res))]
 
 def _fft2d(s: list[list]):
-    h, w = len(s),len(s[0])
+    h, w = len(s), len(s[0])
     for i in range(h):
-        ntt(s[i])
+        butterfly(s[i])
     buf = [0] * h
     for j in range(w):
         buf = [s[i][j] for i in range(h)]
-        ntt(buf)
+        butterfly(buf)
         for i in range(h):
             s[i][j] = buf[i]
 
 def _ifft2d(s: list[list]):
-    h, w = len(s),len(s[0])
-    for i in range(h):
-        intt(s[i])
+    h, w = len(s), len(s[0])
     buf = [0] * h
     for j in range(w):
         buf = [s[i][j] for i in range(h)]
         intt(buf)
         for i in range(h):
             s[i][j] = buf[i]
+    for i in range(h):
+        intt(s[i])
 
 def multiply_2D(s: list[list], t: list[list]):
     """
