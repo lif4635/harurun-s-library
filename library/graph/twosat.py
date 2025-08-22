@@ -1,14 +1,15 @@
 def twosat(n, clause):
     """
     n : vertex_size
-    clause : list[int]
-    if i >= 0: x_i = True
-    else: x_{~i} = False
+    clause : [(p v q) ...]
+    if p >= 0: x_p = True
+    else: x_{~p} = False
     """
     
     e = []
-    for x in clause:
+    for x, y in clause:
         e.append(max((x<<1)^1, ~x<<1))
+        e.append(max((y<<1)^1, ~y<<1))
     
     inf = 10 ** 9
     r = [0] * n
@@ -57,7 +58,7 @@ def twosat(n, clause):
         s[e[i]] -= 1
         q[s[e[i]]] = e[i^1]^1
     t = 0
-    for i in range(2*n):
+    for i in range(2 * n):
         if not b[i]: t = dfs(t, i)
         if b[i] == b[i^1]:
             return None
