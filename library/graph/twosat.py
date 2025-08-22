@@ -18,7 +18,7 @@ def twosat(n, clause):
         p = 1
         st[p] = u
         pp[p] = u
-        while p > 0:
+        while p:
             u = st[p]
             if u >= 0:
                 if b[u]:
@@ -30,12 +30,12 @@ def twosat(n, clause):
                 b[u] = t
                 st[p] = ~st[p]
                 for i in reversed(range(s[u], s[u+1])):
-                    if not b[q[i]]:
+                    if b[q[i]]:
+                        b[u] = min(b[u], b[q[i]])
+                    else:
                         p += 1
                         st[p] = q[i]
                         pp[p] = u
-                    else:
-                        b[u] = min(b[u], b[q[i]])
             else:
                 u = ~u
                 if u == z[b[u] - 1]:
@@ -57,7 +57,7 @@ def twosat(n, clause):
         s[e[i]] -= 1
         q[s[e[i]]] = e[i^1]^1
     t = 0
-    for i in range(0, 2*n, 2):
+    for i in range(2*n):
         if not b[i]: t = dfs(t, i)
         if b[i] == b[i^1]:
             return None
