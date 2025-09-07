@@ -6,7 +6,7 @@ class AuxiliaryTree:
         self.order = [-1] * self.n
         self.path = [-1] * (self.n-1)
         self.depth = [0] * self.n
-        self.edge = [[] for i in range(n)]
+        self.edge = [[] for i in range(self.n)]
         self.par = [-1] * self.n
         
         if self.n == 1: return
