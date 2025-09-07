@@ -1,3 +1,4 @@
+MOD = 998244353
 def lagrange_poly(xs, ys):
     """
     f(x_i) = y_i となる k 次多項式
