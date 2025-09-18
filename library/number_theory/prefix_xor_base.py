@@ -1,8 +1,12 @@
-class suffix_xor_base:
+class prefix_xor_base:
+    __slots__ = ["prefix_xor"]
+    
     def __init__(self, a):
-        base = [(-1,0)]
-        self.suffix_xor = [base]
-        for i in range(n):
+        n = len(a)
+        base = [(n, 0)]
+        self.prefix_xor = [[] for i in range(n)]
+        for i in reversed(range(n)):
+            ii = i
             x = a[i]
             idx = 0
             while idx < len(base):         
@@ -10,20 +14,20 @@ class suffix_xor_base:
                 if x & ~y > y:
                     base.insert(idx, (i, x))
                     break
-                if x <= x^y:
+                elif x <= x ^ y:
                     idx += 1
                     continue
-                if i > j:
-                    i,j = j,i
-                    x,y = y,x
+                elif i < j:
+                    i, j = j, i
+                    x, y = y, x
                     base[idx] = (j, y)
                 x ^= y
                 idx += 1
-            self.suffix_xor.append(base.copy())
+            self.prefix_xor[ii] = base.copy()
     
     def get(self, l, r):
         res = []
-        for i, x in self.suffix_xor[r]:
-            if l <= i:
+        for i, x in self.prefix_xor[l]:
+            if i < r:
                 res.append(x)
         return res
