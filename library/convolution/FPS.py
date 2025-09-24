@@ -496,29 +496,171 @@ def tayler_shift(a: list, c: int) -> list:
     res = multiply(r, b)[:n]
     return [x * finv[i] % MOD for i, x in enumerate(reversed(res))]
 
-def _fft2d(s: list[list]):
-    h, w = len(s), len(s[0])
-    for i in range(h):
-        butterfly(s[i])
-    buf = [0] * h
-    for j in range(w):
-        buf = [s[i][j] for i in range(h)]
-        butterfly(buf)
-        for i in range(h):
-            s[i][j] = buf[i]
+def ntt2d(a: list[list]):
+    n, m = len(a), len(a[0])
+    h = (n - 1).bit_length()
+    le = 0
+    while le < h:
+        if h - le == 1:
+            p = 1 << (h - le - 1)
+            rot = 1
+            for s in range(1 << le):
+                offset = s << (h - le)
+                for i in range(p):
+                    for j in range(m):
+                        l = a[i + offset][j]
+                        r = a[i + offset + p][j] * rot
+                        a[i + offset][j] = (l + r) % MOD
+                        a[i + offset + p][j] = (l - r) % MOD
+                rot *= rate2[(~s & -~s).bit_length()]
+                rot %= MOD
+            le += 1
+        else:
+            p = 1 << (h - le - 2)
+            rot = 1
+            for s in range(1 << le):
+                rot2 = rot * rot % MOD
+                rot3 = rot2 * rot % MOD
+                offset = s << (h - le)
+                for i in range(p):
+                    for j in range(m):
+                        a0 = a[i + offset][j]
+                        a1 = a[i + offset + p][j] * rot
+                        a2 = a[i + offset + p * 2][j] * rot2
+                        a3 = a[i + offset + p * 3][j] * rot3
+                        a1na3imag = (a1 - a3) % MOD * IMAG
+                        a[i + offset][j] = (a0 + a2 + a1 + a3) % MOD
+                        a[i + offset + p][j] = (a0 + a2 - a1 - a3) % MOD
+                        a[i + offset + p * 2][j] = (a0 - a2 + a1na3imag) % MOD
+                        a[i + offset + p * 3][j] = (a0 - a2 - a1na3imag) % MOD
+                rot *= rate3[(~s & -~s).bit_length()]
+                rot %= MOD
+            le += 2
+    n, m = m, n
+    h = (n - 1).bit_length()
+    le = 0
+    while le < h:
+        if h - le == 1:
+            p = 1 << (h - le - 1)
+            rot = 1
+            for s in range(1 << le):
+                offset = s << (h - le)
+                for i in range(p):
+                    for j in range(m):
+                        l = a[j][i + offset]
+                        r = a[j][i + offset + p] * rot
+                        a[j][i + offset] = (l + r) % MOD
+                        a[j][i + offset + p] = (l - r) % MOD
+                rot *= rate2[(~s & -~s).bit_length()]
+                rot %= MOD
+            le += 1
+        else:
+            p = 1 << (h - le - 2)
+            rot = 1
+            for s in range(1 << le):
+                rot2 = rot * rot % MOD
+                rot3 = rot2 * rot % MOD
+                offset = s << (h - le)
+                for i in range(p):
+                    for j in range(m):
+                        a0 = a[j][i + offset]
+                        a1 = a[j][i + offset + p] * rot
+                        a2 = a[j][i + offset + p * 2] * rot2
+                        a3 = a[j][i + offset + p * 3] * rot3
+                        a1na3imag = (a1 - a3) % MOD * IMAG
+                        a[j][i + offset] = (a0 + a2 + a1 + a3) % MOD
+                        a[j][i + offset + p] = (a0 + a2 - a1 - a3) % MOD
+                        a[j][i + offset + p * 2] = (a0 - a2 + a1na3imag) % MOD
+                        a[j][i + offset + p * 3] = (a0 - a2 - a1na3imag) % MOD
+                rot *= rate3[(~s & -~s).bit_length()]
+                rot %= MOD
+            le += 2
 
-def _ifft2d(s: list[list]):
-    h, w = len(s), len(s[0])
-    buf = [0] * h
-    for j in range(w):
-        buf = [s[i][j] for i in range(h)]
-        intt(buf)
-        for i in range(h):
-            s[i][j] = buf[i]
-    for i in range(h):
-        intt(s[i])
+def intt2d(a : list[list]):
+    n, m = len(a), len(a[0])
+    h = (n - 1).bit_length()
+    le = h
+    while le:
+        if le == 1:
+            p = 1 << (h - le)
+            irot = 1
+            for s in range(1 << (le - 1)):
+                offset = s << (h - le + 1)
+                for i in range(p):
+                    for j in range(m):
+                        l = a[i + offset][j]
+                        r = a[i + offset + p][j]
+                        a[i + offset][j] = (l + r) % MOD
+                        a[i + offset + p][j] = (l - r) * irot % MOD
+                irot *= irate2[(~s & -~s).bit_length()]
+                irot %= MOD
+            le -= 1
+        else:
+            p = 1 << (h - le)
+            irot = 1
+            for s in range(1 << (le - 2)):
+                irot2 = irot * irot % MOD
+                irot3 = irot2 * irot % MOD
+                offset = s << (h - le + 2)
+                for i in range(p):
+                    for j in range(m):
+                        a0 = a[i + offset][j]
+                        a1 = a[i + offset + p][j]
+                        a2 = a[i + offset + p * 2][j]
+                        a3 = a[i + offset + p * 3][j]
+                        a2na3iimag = (a2 - a3) * IIMAG % MOD
+                        a[i + offset][j] = (a0 + a1 + a2 + a3) % MOD
+                        a[i + offset + p][j] = (a0 - a1 + a2na3iimag) * irot % MOD
+                        a[i + offset + p * 2][j] = (a0 + a1 - a2 - a3) * irot2 % MOD
+                        a[i + offset + p * 3][j] = (a0 - a1 - a2na3iimag) * irot3 % MOD
+                irot *= irate3[(~s & -~s).bit_length()]
+                irot %= MOD
+            le -= 2
+    n, m = m, n
+    h = (n - 1).bit_length()
+    le = h
+    while le:
+        if le == 1:
+            p = 1 << (h - le)
+            irot = 1
+            for s in range(1 << (le - 1)):
+                offset = s << (h - le + 1)
+                for i in range(p):
+                    for j in range(m):
+                        l = a[j][i + offset]
+                        r = a[j][i + offset + p]
+                        a[j][i + offset] = (l + r) % MOD
+                        a[j][i + offset + p] = (l - r) * irot % MOD
+                irot *= irate2[(~s & -~s).bit_length()]
+                irot %= MOD
+            le -= 1
+        else:
+            p = 1 << (h - le)
+            irot = 1
+            for s in range(1 << (le - 2)):
+                irot2 = irot * irot % MOD
+                irot3 = irot2 * irot % MOD
+                offset = s << (h - le + 2)
+                for i in range(p):
+                    for j in range(m):
+                        a0 = a[j][i + offset]
+                        a1 = a[j][i + offset + p]
+                        a2 = a[j][i + offset + p * 2]
+                        a3 = a[j][i + offset + p * 3]
+                        a2na3iimag = (a2 - a3) * IIMAG % MOD
+                        a[j][i + offset] = (a0 + a1 + a2 + a3) % MOD
+                        a[j][i + offset + p] = (a0 - a1 + a2na3iimag) * irot % MOD
+                        a[j][i + offset + p * 2] = (a0 + a1 - a2 - a3) * irot2 % MOD
+                        a[j][i + offset + p * 3] = (a0 - a1 - a2na3iimag) * irot3 % MOD
+                irot *= irate3[(~s & -~s).bit_length()]
+                irot %= MOD
+            le -= 2
+    iv = pow(n * m, MOD - 2, MOD)
+    for i in range(m):
+        for j in range(n):
+            a[i][j] = a[i][j] * iv % MOD
 
-def multiply_2D(s: list[list], t: list[list]):
+def multiply2d(s: list[list], t: list[list]):
     """
     not verify
     """
@@ -535,13 +677,13 @@ def multiply_2D(s: list[list], t: list[list]):
         b[i] += [0] * (w - wt)
     a += [[0]*w for i in range(h - hs)]
     b += [[0]*w for i in range(h - ht)]
-    _fft2d(a)
-    _fft2d(b)
+    intt2d(a)
+    intt2d(b)
     for i in range(h):
         for j in range(w):
             a[i][j] *= b[i][j]
             a[i][j] %= MOD
-    _ifft2d(a)
+    intt2d(a)
     a = a[:hs + ht - 1]
     for i in range(hs + ht - 1):
         a[i][ws + wt - 1:] = []
