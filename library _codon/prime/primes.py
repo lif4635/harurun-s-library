@@ -83,7 +83,7 @@ def _primefactor(n):
         while n % p == 0:
             n //= p
         result.append(p)
-    if n > 1: result.append(n)
+    if n > 1: result.append(p)
     return result
 
 def primefact(n, deduplicate = True):

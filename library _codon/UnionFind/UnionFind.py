@@ -1,5 +1,5 @@
 class DSU:
-    n : int 
+    n : int
     par : list[int]
     siz : list[int]
     fix_leader : bool
@@ -7,7 +7,7 @@ class DSU:
     
     def __init__(self, n, fix_leader = False):
         self.n = n
-        self.par = [*range(n)]
+        self.par = [i for i in range(n)]
         self.siz = [1] * n
         self.fix_leader = fix_leader
 
