@@ -37,3 +37,47 @@ def floor_sum_pq(n, m, a, b):
     r01 += a1 * nn + b1 * n
     r11 += nn * (a1 * (2 * n - 1) + 3 * b1) // 3
     return r01, r02, r11
+
+
+from math import isqrt
+def sqrt_floorsum(n, m, a, b):
+    """
+    {(a * k + b) mod m | 0 <= k < n}
+    = \or_{i = O(sqrt(m))} {(ai * k + bi) | 0 <= k < ni}
+    
+    [(ni, ai, bi) ... ]
+    """
+    
+    d = isqrt(m) + 1
+    p = [-1] * (m // d + 1)
+    for k in range(n):
+        s = ((a * k + b) % m) // d
+        if p[s] == -1:
+            p[s] = k
+        else:
+            i = p[s]
+            j = k
+            break
+    else:
+        return [(1, 0, (a * k + b) % m) for k in range(n)]
+    
+    res = []
+    d = j - i
+    xi = (a * i + b) % m
+    xj = (a * j + b) % m
+    if xi > xj:
+        b = (a * (n - 1) + b) % m
+        a = m - a
+    
+    ai = (a * d) % m
+    p, q = divmod(n, d)
+    for k in range(d):
+        pi = p+1 if k < q else p 
+        bi = (a * k + b) % m
+        l = 0
+        while l != pi:
+            di = min((m - 1 - bi) // ai + 1, pi-l)
+            res.append((di, ai, bi))
+            l += di
+            bi = (bi + di * ai) % m 
+    return res
