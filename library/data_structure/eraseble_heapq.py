@@ -1,3 +1,5 @@
+from heapq import heappop, heappush, heapify
+
 class eraseble_heapq:
     def __init__(self, a = []):
         self.que = a.copy()
