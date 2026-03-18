@@ -28,6 +28,15 @@ class Comb:
         if a < 0: return 0
         return self.fac[a]*self.finv[a-b]%self.mod
     
+    def M(self, *k):
+        n = sum(k)
+        if n < 0: return 0
+        res = self.fac[n]
+        for ki in k:
+            if ki < 0: return 0
+            res = res * self.finv[ki] % self.mod
+        return res
+    
     def H(self, a, b): return self.C(a+b-1,b)
     def F(self, a): return self.fac[a]
     def Fi(self, a): return self.finv[a]
