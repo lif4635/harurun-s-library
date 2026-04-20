@@ -433,6 +433,109 @@ def fps_compsitional_inv(calc, deg):
     g[deg:] = []
     return g
 
+# https://atcoder.jp/contests/abc345/submissions/61504515
+def power_projection(f, wt, m):
+    # sum_{j = 0}^{j = n - 1}(wt_j * [x^j]f^i) (i = 0 ~ m)
+    
+    if len(f) == 0:
+        return [0 for _ in range(m + 1)]
+    
+    # f[0] = c のとき f[0] = 0 の問題にする.
+    if f[0] != 0:
+        c = f[0]
+        f[0] = 0
+        A = power_projection(f, wt, m)
+        f[0] = c
+        for p in range(m):
+            A[p] = A[p] * finv[p] % mod
+        B = [0 for _ in range(m)]
+        Pow = 1
+        for q in range(m):
+            B[q] = Pow * finv[q] % mod
+            Pow = Pow * c % mod
+        A = multiply(A, B)
+        while len(A) > m:
+            A.pop()
+        for i in range(m):
+            A[i] = A[i] * fact[i] % mod
+        return A
+
+    n = 1
+    log = 1
+    while n < len(f):
+        n *= 2
+        log += 1
+    for i in range(n - len(f)):
+        f.append(0), wt.append(0)
+    wt = wt[::-1]
+
+    M = 2 * n
+    btr = [0] * M
+    for i in range(1, M):
+        btr[i] = (btr[i >> 1] >> 1) + ((i & 1) << (log - 1))
+
+    # W[i] = w_(4 * N) ^ rev(i) in bit-reverse order.
+    t, r = 23, 31
+    dw = pow(pow(r, -1, mod), (1 << t) // (2 * M), mod)  # 4*N = 2*M
+    W = [0] * M
+    w = 1
+    for i in btr:
+        W[i] = w
+        w = w * dw % mod
+
+    root_delta = 7516853
+    inv_root_delta = pow(root_delta, -1, M)
+    mask = M - 1
+    inv_2 = (mod + 1) // 2
+    mul_w = [0] * M
+    pair = [0] * M
+    for i in range(M):
+        rev_ai = (btr[i] * inv_root_delta) & mask
+        ai = btr[rev_ai]
+        j0 = (i << 1) | (((root_delta * rev_ai) >> log) & 1)
+        pair[i] = j0
+        mul_w[i] = inv_2 * W[ai] % mod
+
+    k = 1
+    P, Q = [0 for _ in range(2 * n)], [0 for _ in range(2 * n)]
+    for i in range(n):
+        P[i], Q[i] = wt[i], (-f[i]) % mod
+
+    # https://noshi91.hatenablog.com/entry/2023/12/10/163348
+    while n > 1:
+        for i in range(2 * n * k):
+            P.append(0), Q.append(0)
+        Q[2 * n * k] = 1
+        # R(x, y) = Q(-x, y) の fft は Q(x, y)から分かる.
+        butterfly(P)
+        butterfly(Q)
+        # f(x) = e(x^2) + x * o(x^2) のとき fft(e), fft(o) は fft(f) から分かる.
+        for i in range(M):
+            j = pair[i]
+            P[i] = (P[j] * Q[j^1] - P[j^1] * Q[j]) % mod
+            P[i] = P[i] * mul_w[i] % mod
+            Q[i] = Q[j] * Q[j^1] % mod
+        for i in range(2 * n * k):
+            P.pop(), Q.pop()
+        intt(P)
+        intt(Q)
+        # x の次数を半分に
+        for j in range(2 * k):
+            for i in range(n // 2, n):
+                P[n * j + i], Q[n * j + i] = 0, 0
+        Q[0] = 0
+        n, k = n // 2, k * 2
+    
+    p = [0 for i in range(k)]
+    for i in range(k):
+        p[i] = P[2 * i]
+    p = p[::-1]
+    for i in range(m - len(p)):
+        p.append(0)
+    while len(p) > m:
+        p.pop()
+    return p
+
 INVMOD = [1,1]
 def SubsetSum(d: list) -> list:
     """
