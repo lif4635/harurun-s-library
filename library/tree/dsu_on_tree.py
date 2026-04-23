@@ -18,7 +18,9 @@ def dsu_on_tree(e, add, qry):
                     heavy[u] = v 
             
             if par[u] != -1: s[par[u]] += s[u]
-            
+    
+    del par, s
+    
     in_t, out_t, vs = [0] * n, [0] * n, [0] * n
     ti = 0
     st = [0]

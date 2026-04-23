@@ -409,36 +409,15 @@ def fps_compsite(f: list, g: list):
     p = p[l-1::-1]
     return p[:n]
 
-def fps_compsitional_inv(calc, deg):
-    """
-    input
-    calc(g, d) = f(g(x)) mod x^d を計算する
-    fps_compsite よりも良い計算量のものが存在するならば書く
-    
-    output
-    g(x) mod x^deg s.t. f(g(x)) = x 
-    """
-    c = deg.bit_length()
-    g = calc([0, 1], 2)
-    g[1] = pow(g[1], -1, MOD)
-    d = 2
-    for i in range(c):
-        d <<= 1
-        fg = calc(g, d + 1)
-        fdg = multiply(fps_diff(fg), fps_inv(fps_diff(g)))
-        fdg[d:] = []
-        fg[1] -= 1
-        g = fps_sub(g, multiply(fg, fps_inv(fdg)))
-        g[d:] = []
-    g[deg:] = []
-    return g
-
 # https://atcoder.jp/contests/abc345/submissions/61504515
 def power_projection(f, wt, m):
-    # sum_{j = 0}^{j = n - 1}(wt_j * [x^j]f^i) (i = 0 ~ m)
+    """
+    sum_{j = 0}^{j = n - 1}(wt_j * [x^j]f^i) (0 <= i < m)
+    """
+    
     
     if len(f) == 0:
-        return [0 for _ in range(m + 1)]
+        return [0 for _ in range(m)]
     
     # f[0] = c のとき f[0] = 0 の問題にする.
     if f[0] != 0:
@@ -447,17 +426,17 @@ def power_projection(f, wt, m):
         A = power_projection(f, wt, m)
         f[0] = c
         for p in range(m):
-            A[p] = A[p] * finv[p] % mod
+            A[p] = A[p] * finv[p] % MOD
         B = [0 for _ in range(m)]
         Pow = 1
         for q in range(m):
-            B[q] = Pow * finv[q] % mod
-            Pow = Pow * c % mod
+            B[q] = Pow * finv[q] % MOD
+            Pow = Pow * c % MOD
         A = multiply(A, B)
         while len(A) > m:
             A.pop()
         for i in range(m):
-            A[i] = A[i] * fact[i] % mod
+            A[i] = A[i] * fact[i] % MOD
         return A
 
     n = 1
@@ -476,17 +455,17 @@ def power_projection(f, wt, m):
 
     # W[i] = w_(4 * N) ^ rev(i) in bit-reverse order.
     t, r = 23, 31
-    dw = pow(pow(r, -1, mod), (1 << t) // (2 * M), mod)  # 4*N = 2*M
+    dw = pow(pow(r, -1, MOD), (1 << t) // (2 * M), MOD)  # 4*N = 2*M
     W = [0] * M
     w = 1
     for i in btr:
         W[i] = w
-        w = w * dw % mod
+        w = w * dw % MOD
 
     root_delta = 7516853
     inv_root_delta = pow(root_delta, -1, M)
     mask = M - 1
-    inv_2 = (mod + 1) // 2
+    inv_2 = (MOD + 1) // 2
     mul_w = [0] * M
     pair = [0] * M
     for i in range(M):
@@ -494,12 +473,12 @@ def power_projection(f, wt, m):
         ai = btr[rev_ai]
         j0 = (i << 1) | (((root_delta * rev_ai) >> log) & 1)
         pair[i] = j0
-        mul_w[i] = inv_2 * W[ai] % mod
+        mul_w[i] = inv_2 * W[ai] % MOD
 
     k = 1
     P, Q = [0 for _ in range(2 * n)], [0 for _ in range(2 * n)]
     for i in range(n):
-        P[i], Q[i] = wt[i], (-f[i]) % mod
+        P[i], Q[i] = wt[i], (-f[i]) % MOD
 
     # https://noshi91.hatenablog.com/entry/2023/12/10/163348
     while n > 1:
@@ -512,9 +491,9 @@ def power_projection(f, wt, m):
         # f(x) = e(x^2) + x * o(x^2) のとき fft(e), fft(o) は fft(f) から分かる.
         for i in range(M):
             j = pair[i]
-            P[i] = (P[j] * Q[j^1] - P[j^1] * Q[j]) % mod
-            P[i] = P[i] * mul_w[i] % mod
-            Q[i] = Q[j] * Q[j^1] % mod
+            P[i] = (P[j] * Q[j^1] - P[j^1] * Q[j]) % MOD
+            P[i] = P[i] * mul_w[i] % MOD
+            Q[i] = Q[j] * Q[j^1] % MOD
         for i in range(2 * n * k):
             P.pop(), Q.pop()
         intt(P)
@@ -535,6 +514,51 @@ def power_projection(f, wt, m):
     while len(p) > m:
         p.pop()
     return p
+
+
+def fps_compsite_inv(f):
+    n = len(f) - 1
+    # assert f[0] % MOD == 0
+    if n == 0: return f    
+    # assert f[1] % MOD != 0
+    iz = pow(f[1], MOD-2, MOD)
+    nf = [x*iz%MOD for x in f]
+    wt = [0] * n + [1]
+    
+    a = power_projection(nf, wt, n + 1)
+    # print(a, n)
+    g = [0] + fps_pow([n*a[n-i]%MOD*pow(n-i,MOD-2,MOD)%MOD for i in range(n)], MOD-pow(n, MOD-2, MOD))
+    p = 1
+    for i in range(len(g)):
+        g[i] = g[i] * p % MOD
+        p = p * iz % MOD
+    return g
+
+# ?
+# def fps_compsitional_inv(calc, deg):
+#     """
+#     input
+#     calc(g, d) = f(g(x)) mod x^d を計算する
+#     fps_compsite よりも良い計算量のものが存在するならば書く
+    
+#     output
+#     g(x) mod x^deg s.t. f(g(x)) = x 
+#     """
+#     c = deg.bit_length()
+#     g = calc([0, 1], 2)
+#     g[1] = pow(g[1], -1, MOD)
+#     d = 2
+#     for i in range(c):
+#         d <<= 1
+#         fg = calc(g, d)
+#         fdg = multiply(fps_diff(fg), fps_inv(fps_diff(g)))
+#         fdg[d:] = []
+#         fg[1] -= 1
+#         g = fps_sub(g, multiply(fg, fps_inv(fdg)))
+#         g[d:] = []
+#     g[deg:] = []
+#     return g
+
 
 INVMOD = [1,1]
 def SubsetSum(d: list) -> list:
@@ -598,6 +622,15 @@ def tayler_shift(a: list, c: int) -> list:
     r.reverse()
     res = multiply(r, b)[:n]
     return [x * finv[i] % MOD for i, x in enumerate(reversed(res))]
+
+def fps_product(polys):
+    if len(polys) == 0:
+        return [1]
+    from collections import deque
+    que = deque(polys)
+    while len(que) > 1:
+        que.append(multiply(que.popleft(), que.popleft()))
+    return que[0]
 
 def ntt2d(a: list[list]):
     n, m = len(a), len(a[0])
