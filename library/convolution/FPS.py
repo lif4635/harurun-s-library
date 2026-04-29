@@ -346,8 +346,8 @@ def LinearRecurrence(n: int, p: list, q: list):
         for i in range(1,len(q2),2): q2[i] = (-q2[i])%MOD
         s = multiply(p,q2)
         t = multiply(q,q2)
-        for i in range(n&1,len(s),2): p[i>>1] = s[i]
-        for i in range(0,len(t),2): q[i>>1] = t[i]
+        p = s[n&1::2]
+        q = t[0::2]
         n >>= 1
     return p[0] * pow(q[0], -1, MOD) % MOD
 
