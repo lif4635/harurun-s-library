@@ -99,8 +99,8 @@ PyPy向けに移植する。比較の基準にしたスナップショットは�
 ## 完了状況
 
 - [x] Geometry を除く参照機能の監査・実装対応
-- [x] PyPy 全検証（409 tests）
-- [x] direct / mutual recursion 監査（2734 functions）
+- [x] PyPy 全検証（421 tests）
+- [x] direct / mutual recursion 監査（2830 functions）
 - [~] Geometry 22 件はユーザー指定により保留
 
 この一覧は優先順位用。全792ソースの完了判定は `REFERENCE_INVENTORY.md` を正とし、

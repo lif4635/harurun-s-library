@@ -56,7 +56,7 @@ Edmonds blossom algorithm for maximum cardinality matching.
 | [`set_value(variable, value=True)`](../../../graph/GraphMatching.py#L142) | method | 値を設定する。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
 | [`add_xor(first, second)`](../../../graph/GraphMatching.py#L146) | method | XORを追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`add_equal(first, second)`](../../../graph/GraphMatching.py#L150) | method | `equal`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
-| [`solve()`](../../../graph/GraphMatching.py#L154) | method | 設定済みの問題を解き、答えを返す。 | なし | 答え（数値または入力要素型） / `None` |
+| [`solve()`](../../../graph/GraphMatching.py#L154) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist / `None` |
 | [`satisfiable`](../../../graph/GraphMatching.py#L167) | alias | `solve` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicBipartiteGraph`

@@ -52,9 +52,13 @@ MODULE_OVERRIDES = {
     "convolution/StirlingMatrix.py": ("Stirling変換を表す行列作用", "高速多項式演算依存"),
     "data_structure/AdvancedOrdered.py": ("高度な順序集合・区間集合・永続順序構造", "各操作 O(log N) 系"),
     "data_structure/AdvancedRangeStructures.py": ("Top-K区間集約・KD木・sortable sequence", "各構造の計算量"),
+    "data_structure/DynamicWaveletMatrix.py": ("完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版", "online操作 O(B log N)、offline全処理 O((N+Q) log V log N)"),
+    "data_structure/IntRangeTree.py": ("整数専用range add/assign/affineとsum/min/maxの高速lazy tree", "構築 O(N)、各操作 O(log N)"),
     "data_structure/LinearOptimization.py": ("直線集合とrange linear add/range min", "各操作 O(log^2 N) 系"),
     "data_structure/RangeLIS.py": ("Seaweed monoidによる静的区間LIS", "構築 O(N^2 log N) 系、query O(log N)"),
     "game/PartizanGame.py": ("partizan gameのSurreal/NumStar値と反復solver", "状態・遷移数依存"),
+    "graph/AdvancedFlow.py": ("高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット", "最大流依存 / O(V^3)"),
+    "graph/CSRGraph.py": ("CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend", "構築 O(V+E)、各algorithmの標準計算量"),
     "graph/GeneralWeightedMatching.py": ("一般グラフの最大重みmatching", "O(V^3)"),
     "math/ArbitraryBinomial.py": ("任意合成数法・巨大素数法の二項係数", "素因数分解・sqrt block依存"),
     "math/BinomialQueries.py": ("二項係数prefix和と巨大添字Stirlingの一括query", "Mo法 / 補間依存"),
@@ -68,6 +72,57 @@ MODULE_OVERRIDES = {
     "tree/DynamicRerooting.py": ("rake-compress top treeによる動的rerooting", "各更新・query償却 O(log N)"),
     "tree/IncrementalForest.py": ("辺追加だけのforest・LCA・path集約", "追加・query O(log N) 系"),
 }
+
+CLASS_ORDER_OVERRIDES = {
+    "data_structure/DynamicWaveletMatrix.py": (
+        "DynamicWaveletMatrix",
+        "CompressedDynamicWaveletMatrix",
+        "OfflineDynamicWaveletMatrix",
+    ),
+}
+
+MODULE_ARGUMENT_DESCRIPTION = {
+    "data_structure/DynamicWaveletMatrix.py": {
+        "values": "初期値のiterable",
+        "update_candidates": "各位置で使用し得る更新候補 `(index, value)` のiterable",
+        "python_int_sum": "Trueなら区間和をPython任意精度整数で保持する",
+        "one_indexed": "Trueなら問題文形式の1-indexed入力として解釈する",
+    },
+}
+
+MODULE_RETURN_SEMANTIC = {
+    "data_structure/DynamicWaveletMatrix.py": {
+        "count_lt": "上限未満の要素数（int）",
+        "count_le": "上限以下の要素数（int）",
+        "range_sum": "指定区間の合計値（int）",
+        "sum_lt": "上限未満の要素の合計値（int）",
+        "sum_le": "上限以下の要素の合計値（int）",
+        "sum_range": "指定値域にある要素の合計値（int）",
+        "kth_smallest": "0-indexedでk番目に小さい値（int）",
+        "kth_largest": "0-indexedでk番目に大きい値（int）",
+        "sum_k_smallest": "k個の最小要素の合計値（int）",
+        "sum_k_largest": "k個の最大要素の合計値（int）",
+        "min_count_sum_at_least": "目標和へ到達する最小個数（不能なら -1）",
+        "prev_value": "上限未満の最大値、なければdefault",
+        "next_value": "下限以上の最小値、なければdefault",
+        "max_le": "指定値以下の最大値、なければdefault",
+        "min_ge": "指定値以上の最小値、なければdefault",
+        "tolist": "現在の列をcopyしたlist",
+    },
+}
+
+CLASS_RETURN_SEMANTIC = {
+    "data_structure/DynamicWaveletMatrix.py": {
+        "OfflineDynamicWaveletMatrix": {
+            "range_sum": "登録したqueryのID（int）",
+            "kth_smallest": "登録したqueryのID（int）",
+            "kth_largest": "登録したqueryのID（int）",
+            "min_count_sum_at_least": "登録したqueryのID（int）",
+        },
+    },
+}
+
+PROTOCOL_ALIAS_MODULES = {"data_structure/DynamicWaveletMatrix.py"}
 
 # Methods that are private by spelling but form part of normal Python usage.
 PROTOCOL_METHODS = {
@@ -458,6 +513,7 @@ RETURN_SEMANTIC = {
     "prefix_sum": "prefixの和（入力要素型）",
     "prod": "区間・pathの集約値（入力要素型）",
     "query": "問い合わせ結果（型・tuple形状はclassの用途に従う）",
+    "query_count": "登録済みquery数（int）",
     "rank": "rank・出現数（int）",
     "range_freq": "条件に合う要素数（int）",
     "same": "bool",
@@ -465,6 +521,8 @@ RETURN_SEMANTIC = {
     "snapshot": "rollback状態番号（int）",
     "sum": "区間・集合の和（入力要素型）",
     "top": "次に取り出される要素",
+    "solve": "登録順の答えのlist",
+    "dynamic_range_min_count_sum_at_least": "各queryの答えのlist",
 }
 
 
@@ -615,8 +673,10 @@ def render_signature(name, node, skip_first=False, property_mode=False):
     return result
 
 
-def argument_description(name):
+def argument_description(name, overrides=None):
     plain = name.lstrip("*")
+    if overrides and plain in overrides:
+        return overrides[plain]
     if plain in ARGUMENT_DESCRIPTION:
         return ARGUMENT_DESCRIPTION[plain]
     if plain.endswith("_id"):
@@ -634,12 +694,12 @@ def argument_description(name):
     return translated_object(plain) + "として渡す値（APIの文脈に従う）"
 
 
-def render_arguments(node, skip_first=False):
+def render_arguments(node, skip_first=False, overrides=None):
     rows = []
     for name, default, kind, _ in argument_parts(node.args, skip_first):
         if kind == "marker":
             continue
-        desc = argument_description(name)
+        desc = argument_description(name, overrides)
         value = render_default(default)
         if value is not None:
             desc += "。省略時: " + code(value)
@@ -753,7 +813,7 @@ def component_description(node, assignments):
     return (kind + " " if kind else "") + code(text)
 
 
-def return_description(name, function):
+def return_description(name, function, overrides=None):
     if function.returns is not None:
         try:
             annotation = ast.unparse(function.returns)
@@ -778,7 +838,9 @@ def return_description(name, function):
     if not returns:
         return code(annotation) if annotation and annotation != "None" else code("None")
 
-    semantic = RETURN_SEMANTIC.get(name)
+    semantic = overrides.get(name) if overrides else None
+    if semantic is None:
+        semantic = RETURN_SEMANTIC.get(name)
     if semantic:
         return semantic + (" / " + code("None") if has_bare else "")
     doc = first_paragraph(ast.get_docstring(function, clean=True))
@@ -846,7 +908,7 @@ def public_methods(class_node):
     return methods
 
 
-def aliases_in(body, valid_names):
+def aliases_in(body, valid_names, include_protocol=False):
     aliases = []
     for node in body:
         if not isinstance(node, (ast.Assign, ast.AnnAssign)):
@@ -860,7 +922,11 @@ def aliases_in(body, valid_names):
         if not isinstance(value, ast.Name) or value.id not in valid_names:
             continue
         for target in targets:
-            if isinstance(target, ast.Name) and not target.id.startswith("_") and target.id != value.id:
+            if (isinstance(target, ast.Name)
+                    and (not target.id.startswith("_")
+                         or (include_protocol
+                             and target.id in PROTOCOL_METHODS))
+                    and target.id != value.id):
                 aliases.append((target.id, value.id, node.lineno))
     return aliases
 
@@ -981,26 +1047,33 @@ def source_link(relative_path, lineno=None):
     return "../../../%s%s" % (relative_path.as_posix(), suffix)
 
 
-def method_row(node, source_relative, owner):
+def method_row(
+    node, source_relative, owner, argument_overrides, return_overrides
+):
     decs = decorators(node)
     is_property = "property" in decs
     skip_first = bool(node.args.args and node.args.args[0].arg in ("self", "cls"))
     signature = render_signature(node.name, node, skip_first, is_property)
     kind = "property" if is_property else ("classmethod" if "classmethod" in decs else "method")
     purpose = purpose_for(node.name, node, owner)
-    arguments = "なし" if is_property else render_arguments(node, skip_first)
-    returned = return_description(node.name, node)
+    arguments = (
+        "なし" if is_property
+        else render_arguments(node, skip_first, argument_overrides)
+    )
+    returned = return_description(node.name, node, return_overrides)
     api = "[%s](%s)" % (code(signature), source_link(source_relative, node.lineno))
     return "| %s | %s | %s | %s | %s |" % tuple(
         markdown_escape(value) for value in (api, kind, purpose, arguments, returned)
     )
 
 
-def function_row(node, source_relative):
+def function_row(node, source_relative, argument_overrides, return_overrides):
     signature = render_signature(node.name, node)
     api = "[%s](%s)" % (code(signature), source_link(source_relative, node.lineno))
     return "| %s | %s | %s | %s |" % tuple(markdown_escape(value) for value in (
-        api, purpose_for(node.name, node), render_arguments(node), return_description(node.name, node)
+        api, purpose_for(node.name, node),
+        render_arguments(node, overrides=argument_overrides),
+        return_description(node.name, node, return_overrides)
     ))
 
 
@@ -1008,13 +1081,22 @@ def render_module(path, overview, complexity):
     source = path.read_text(encoding="utf-8")
     tree = ast.parse(source, filename=str(path))
     relative = path.relative_to(ROOT)
+    relative_key = relative.as_posix()
+    argument_overrides = MODULE_ARGUMENT_DESCRIPTION.get(relative_key)
+    return_overrides = MODULE_RETURN_SEMANTIC.get(relative_key)
+    class_return_overrides = CLASS_RETURN_SEMANTIC.get(relative_key, {})
+    include_protocol_aliases = relative_key in PROTOCOL_ALIAS_MODULES
     module_name = ".".join(("library_codex",) + relative.with_suffix("").parts)
     functions = [node for node in tree.body
                  if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and not node.name.startswith("_")]
     classes = [node for node in tree.body if isinstance(node, ast.ClassDef) and not node.name.startswith("_")]
+    class_order = CLASS_ORDER_OVERRIDES.get(relative_key)
+    if class_order:
+        rank = {name: index for index, name in enumerate(class_order)}
+        classes.sort(key=lambda node: (rank.get(node.name, len(rank)), node.lineno))
     defined = {node.name for node in functions + classes}
     classes_by_name = {node.name: node for node in classes}
-    aliases = aliases_in(tree.body, defined)
+    aliases = aliases_in(tree.body, defined, include_protocol_aliases)
     constants = public_constants(tree)
     count_methods = sum(len(public_methods(node)) for node in classes)
     protocol_count = sum(node.name in PROTOCOL_METHODS for cls in classes for node in public_methods(cls))
@@ -1055,10 +1137,20 @@ def render_module(path, overview, complexity):
             "| signature | 用途 | 引数 | 返り値 |",
             "| --- | --- | --- | --- |",
         ])
-        lines.extend(function_row(node, relative) for node in functions)
+        lines.extend(
+            function_row(
+                node, relative, argument_overrides, return_overrides
+            )
+            for node in functions
+        )
         lines.append("")
 
     for class_node in classes:
+        method_return_overrides = return_overrides
+        specific_returns = class_return_overrides.get(class_node.name)
+        if specific_returns:
+            method_return_overrides = dict(return_overrides or ())
+            method_return_overrides.update(specific_returns)
         dataclass_fields = dataclass_constructor(class_node)
         init, init_owner = inherited_constructor(class_node, classes_by_name)
         if dataclass_fields is not None:
@@ -1071,7 +1163,7 @@ def render_module(path, overview, complexity):
             constructor_line = class_node.lineno
         else:
             signature = render_signature(class_node.name, init, True)
-            args = render_arguments(init, True)
+            args = render_arguments(init, True, argument_overrides)
             constructor_line = init.lineno
         lines.extend([
             "## Class `%s`" % class_node.name,
@@ -1096,13 +1188,21 @@ def render_module(path, overview, complexity):
         lines.append("")
         methods = public_methods(class_node)
         valid = {node.name for node in methods}
-        class_aliases = aliases_in(class_node.body, valid | defined)
+        class_aliases = aliases_in(
+            class_node.body, valid | defined, include_protocol_aliases
+        )
         if methods or class_aliases:
             lines.extend([
                 "| method / property | 種別 | 用途 | 引数 | 返り値 |",
                 "| --- | --- | --- | --- | --- |",
             ])
-            lines.extend(method_row(node, relative, class_node.name) for node in methods)
+            lines.extend(
+                method_row(
+                    node, relative, class_node.name,
+                    argument_overrides, method_return_overrides,
+                )
+                for node in methods
+            )
             for alias, target, lineno in class_aliases:
                 api = "[%s](%s)" % (code(alias), source_link(relative, lineno))
                 lines.append("| %s | alias | %s の別名。 | 同じ | 同じ |" % (api, code(target)))

@@ -32,7 +32,7 @@ from library_codex.graph.OfflineDynamicConnectivity import OfflineDynamicConnect
 | [`query_component_value(time, vertex)`](../../../graph/OfflineDynamicConnectivity.py#L98) | method | 連結成分・値を取得する。 | `time`: operation時刻<br>`vertex`: 頂点番号（0-indexed） | `query_id` |
 | [`build()`](../../../graph/OfflineDynamicConnectivity.py#L136) | method | 内部構造を構築する。 | なし | `self` |
 | [`run(query, add=None, remove=None)`](../../../graph/OfflineDynamicConnectivity.py#L169) | method | `OfflineDynamicConnectivity` の `run method` を実行する。 | `query`: `query`として渡す値（APIの文脈に従う）<br>`add`: `add`として渡す値（APIの文脈に従う）。省略時: `None`<br>`remove`: `remove`として渡す値（APIの文脈に従う）。省略時: `None` | `None` |
-| [`solve()`](../../../graph/OfflineDynamicConnectivity.py#L222) | method | 設定済みの問題を解き、答えを返す。 | なし | 答えのlist（数値または入力要素型） |
+| [`solve()`](../../../graph/OfflineDynamicConnectivity.py#L222) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
 | [`link`](../../../graph/OfflineDynamicConnectivity.py#L48) | alias | `add_edge` の別名。 | 同じ | 同じ |
 | [`del_edge`](../../../graph/OfflineDynamicConnectivity.py#L57) | alias | `remove_edge` の別名。 | 同じ | 同じ |
 | [`erase_edge`](../../../graph/OfflineDynamicConnectivity.py#L58) | alias | `remove_edge` の別名。 | 同じ | 同じ |

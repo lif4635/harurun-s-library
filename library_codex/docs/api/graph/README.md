@@ -6,8 +6,10 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`AdvancedConnectivity`](AdvancedConnectivity.md) | 三辺連結成分・辺追加offline SCC統合列 | 1 | 1 | 1 |
+| [`AdvancedFlow`](AdvancedFlow.md) | 高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット | 2 | 1 | 7 |
 | [`BiconnectedComponents`](BiconnectedComponents.md) | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | 0 | 2 | 6 |
 | [`BipartiteMatching`](BipartiteMatching.md) | 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解 | 2 | 1 | 7 |
+| [`CSRGraph`](CSRGraph.md) | CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend | 8 | 3 | 7 |
 | [`CycleDetection`](CycleDetection.md) | 有向・無向閉路検出（辺ID、多重辺対応、非再帰） | 2 | 0 | 0 |
 | [`DijkstraRadixHeap`](DijkstraRadixHeap.md) | 非負整数重み用Radix Heap Dijkstra・経路復元 | 3 | 0 | 0 |
 | [`EulerianTrail`](EulerianTrail.md) | 有向・無向Euler路・閉路・成分別分解（非再帰） | 3 | 0 | 0 |

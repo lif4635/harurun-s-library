@@ -76,7 +76,7 @@ Point add / rectangle sum; every update coordinate is preregistered.
 | --- | --- | --- | --- | --- |
 | [`add(x, y, value)`](../../../data_structure/RectangleQuery.py#L211) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L214) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
-| [`solve()`](../../../data_structure/RectangleQuery.py#L217) | method | 設定済みの問題を解き、答えを返す。 | なし | 計算結果（数値または入力要素型） |
+| [`solve()`](../../../data_structure/RectangleQuery.py#L217) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
 | [`run`](../../../data_structure/RectangleQuery.py#L238) | alias | `solve` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicPointAddRectangleSum`
@@ -91,7 +91,7 @@ Point add / rectangle sum; every update coordinate is preregistered.
 | --- | --- | --- | --- | --- |
 | [`add(x, y, value)`](../../../data_structure/RectangleQuery.py#L247) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L250) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
-| [`solve()`](../../../data_structure/RectangleQuery.py#L253) | method | 設定済みの問題を解き、答えを返す。 | なし | 計算結果（list） |
+| [`solve()`](../../../data_structure/RectangleQuery.py#L253) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
 | [`run`](../../../data_structure/RectangleQuery.py#L264) | alias | `solve` の別名。 | 同じ | 同じ |
 
 ## Class `RectangleAddRectangleSum`
@@ -106,7 +106,7 @@ Point add / rectangle sum; every update coordinate is preregistered.
 | --- | --- | --- | --- | --- |
 | [`add(left, bottom, right, top, value)`](../../../data_structure/RectangleQuery.py#L274) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L279) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
-| [`solve()`](../../../data_structure/RectangleQuery.py#L284) | method | 設定済みの問題を解き、答えを返す。 | なし | 計算結果（数値または入力要素型） |
+| [`solve()`](../../../data_structure/RectangleQuery.py#L284) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
 | [`add_rectangle`](../../../data_structure/RectangleQuery.py#L277) | alias | `add` の別名。 | 同じ | 同じ |
 | [`add_query`](../../../data_structure/RectangleQuery.py#L282) | alias | `query` の別名。 | 同じ | 同じ |
 | [`run`](../../../data_structure/RectangleQuery.py#L324) | alias | `solve` の別名。 | 同じ | 同じ |

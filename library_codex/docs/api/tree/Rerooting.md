@@ -29,7 +29,7 @@ Iterative all-direction tree DP. ``put_edge(value, source, target, edge_data)`` 
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`solve()`](../../../tree/Rerooting.py#L62) | method | 設定済みの問題を解き、答えを返す。 | なし | list / 答え（数値または入力要素型） |
+| [`solve()`](../../../tree/Rerooting.py#L62) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
 | [`__getitem__(vertex)`](../../../tree/Rerooting.py#L159) | method | obj[key] で取得する。 | `vertex`: 頂点番号（0-indexed） | 格納値、sliceなら同種の部分構造 |
 | [`edge_side(endpoint, other)`](../../../tree/Rerooting.py#L162) | method | `Rerooting` の `edge_side method` を実行する。 | `endpoint`: `endpoint`として渡す値（APIの文脈に従う）<br>`other`: 同じ型のもう一方のobject・値 | `self.directed_side[endpoint, other]` |
 | [`run`](../../../tree/Rerooting.py#L157) | alias | `solve` の別名。 | 同じ | 同じ |

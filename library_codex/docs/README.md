@@ -31,9 +31,9 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | --- | --- | ---: | ---: | ---: | ---: |
 | [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 5 | 35 | 3 | 10 |
 | [convolution](api/convolution/README.md) | 畳み込み・多項式・形式的冪級数 | 18 | 116 | 12 | 72 |
-| [data_structure](api/data_structure/README.md) | データ構造 | 25 | 5 | 61 | 333 |
+| [data_structure](api/data_structure/README.md) | データ構造 | 27 | 6 | 66 | 391 |
 | [game](api/game/README.md) | 組合せゲーム | 2 | 2 | 5 | 33 |
-| [graph](api/graph/README.md) | グラフアルゴリズム | 28 | 60 | 24 | 132 |
+| [graph](api/graph/README.md) | グラフアルゴリズム | 30 | 70 | 28 | 146 |
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 1 | 0 | 5 | 9 |
 | [math](api/math/README.md) | 数学・線形代数・数論 | 22 | 85 | 25 | 123 |
 | [optimization](api/optimization/README.md) | 最適化・DP高速化 | 5 | 13 | 9 | 48 |
@@ -42,4 +42,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 224 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 13 | 21 | 24 | 120 |
 
-合計: **142 modules / 376 functions / 194 classes / 1133 methods・properties**。
+合計: **146 modules / 387 functions / 203 classes / 1205 methods・properties**。

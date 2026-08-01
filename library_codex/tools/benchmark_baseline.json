@@ -1,0 +1,22 @@
+{
+  "quick": {
+    "minimum_speedup": {
+      "csr_dijkstra": 1.05,
+      "csr_scc": 1.5,
+      "csr_lowlink": 1.5,
+      "range_stats_generic": 2.0,
+      "range_stats_beats": 1.8,
+      "range_affine": 1.2
+    }
+  },
+  "full": {
+    "minimum_speedup": {
+      "csr_dijkstra": 1.3,
+      "csr_scc": 2.0,
+      "csr_lowlink": 2.0,
+      "range_stats_generic": 2.5,
+      "range_stats_beats": 2.2,
+      "range_affine": 1.5
+    }
+  }
+}

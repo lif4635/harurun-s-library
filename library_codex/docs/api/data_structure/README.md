@@ -12,9 +12,11 @@
 | [`Collections`](Collections.md) | Treap set・区間set・BitSet・永続queue/trie・Top-K和 | 1 | 7 | 53 |
 | [`DisjointSparseTable`](DisjointSparseTable.md) | 静的列の半群区間積 | 0 | 1 | 1 |
 | [`DynamicSegmentTree`](DynamicSegmentTree.md) | 巨大座標の動的/Lazy/Persistent Lazy Segment Tree | 0 | 3 | 12 |
+| [`DynamicWaveletMatrix`](DynamicWaveletMatrix.md) | 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版 | 1 | 3 | 35 |
 | [`FastSet`](FastSet.md) | word-size tree型の固定整数universe ordered set | 0 | 1 | 8 |
 | [`FenwickTree`](FenwickTree.md) | 1D/動的/2D Fenwick・range add/range sum | 0 | 4 | 17 |
 | [`ImplicitTreap`](ImplicitTreap.md) | 動的列の挿入削除・反転・非可換積・range lazy作用 | 0 | 1 | 14 |
+| [`IntRangeTree`](IntRangeTree.md) | 整数専用range add/assign/affineとsum/min/maxの高速lazy tree | 0 | 2 | 23 |
 | [`LiChaoTree`](LiChaoTree.md) | 固定座標・動的整数区間のLi Chao Tree（線分・min/max対応） | 0 | 2 | 8 |
 | [`LinearOptimization`](LinearOptimization.md) | 直線集合とrange linear add/range min | 0 | 2 | 5 |
 | [`PersistentArray`](PersistentArray.md) | 分岐可能な永続配列（非再帰・フラットプール） | 0 | 1 | 7 |

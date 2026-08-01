@@ -31,7 +31,7 @@ from library_codex.graph.BipartiteMatching import bipartite_matching, maximum_bi
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_edge(left, right)`](../../../graph/BipartiteMatching.py#L16) | method | 辺を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
-| [`solve()`](../../../graph/BipartiteMatching.py#L56) | method | 設定済みの問題を解き、答えを返す。 | なし | `self.matching_size` |
+| [`solve()`](../../../graph/BipartiteMatching.py#L56) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
 | [`pairs()`](../../../graph/BipartiteMatching.py#L96) | method | `BipartiteMatching` の `pairs method` を実行する。 | なし | list |
 | [`minimum_vertex_cover()`](../../../graph/BipartiteMatching.py#L123) | method | 最小・頂点・`cover`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if not seen]`, list `[i for (i, seen) in enumerate(seen_right) if seen]`) |
 | [`maximum_independent_set()`](../../../graph/BipartiteMatching.py#L130) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if seen]`, list `[i for (i, seen) in enumerate(seen_right) if not seen]`) |

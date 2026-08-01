@@ -2,6 +2,8 @@
 
 `library` に移す前の試作・検証用ディレクトリです。
 
+- [追加機能とベンチマーク](EXPANSION.md): 高速flow・CSRグラフ・整数専用Lazy Segment Tree
+
 - PyPy での実行を前提にする
 - 実行速度を優先する
 - 原則として再帰を使わない
@@ -13,14 +15,14 @@
 - 言語・runtime support 92 件を監査済み
 - Geometry 22 件はユーザー指定により保留
 - Geometry を除く未監査項目は 0 件
-- PyPy 全検証: 409 passed
-- 再帰監査: 2734 functions、direct/mutual recursion なし
+- PyPy 全検証: 430 passed
+- 再帰監査: 2977 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 
 ## APIドキュメント
 
-- [APIリファレンス](docs/README.md): 全142モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
+- [APIリファレンス](docs/README.md): 全146モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
 - 1モジュール1ページで、category別の索引から辿れる
 - `pypy3 library_codex/tools/build_api_reference.py` でsourceから再生成できる
 - `pypy3 library_codex/tools/build_api_reference.py --check` でsourceとの同期を検査できる
@@ -50,6 +52,8 @@
 | `data_structure/SegmentTreeBeats.py` | range chmin/chmax/add/update・range sum/min/max（非再帰） | 構築 $O(N)$、更新はBeatsの償却計算量 |
 | `data_structure/StaticRMQ.py` | 静的range minimum・最左argmin | 構築・メモリ $O(N)$、クエリ $O(1)$ |
 | `data_structure/WaveletMatrix.py` | 非負整数列のrank・k-th・range frequency | 構築 $O(N\log \sigma)$、クエリ $O(\log \sigma)$ |
+| `data_structure/DynamicWaveletMatrix.py` | 真にonlineな動的WM・候補圧縮版・高速offline版 | online操作 $O(B\log N)$、batch全処理 $O((N+Q)\log V\log N)$ |
+| `data_structure/IntRangeTree.py` | range add/assign＋sum/min/max・range affine＋sumの整数専用高速tree | 構築 $O(N)$、各操作 $O(\log N)$ |
 | `data_structure/FenwickTree.py` | 1D/動的/2D Fenwick・range add/range sum | 更新・取得 $O(\log N)$、2D $O(\log H\log W)$ |
 | `data_structure/SegmentTree.py` | 非可換Segment Tree・Lazy・Dual・境界二分探索 | 各操作 $O(\log N)$ |
 | `data_structure/DynamicSegmentTree.py` | 巨大座標の動的/Lazy/Persistent Lazy Segment Tree | 各操作 $O(\log X)$ |
@@ -68,6 +72,8 @@
 | `graph/FunctionalGraph.py` | Functional graph の周期分解・移動・距離 | 構築 $O(N\log N)$、移動 $O(\log N)$（周期上は $O(1)$） |
 | `graph/LowLink.py` | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | $O(V+E)$ |
 | `graph/MaxFlow.py` | ACL互換寄りの反復Dinic・min-cut・辺変更 | Dinicの計算量 |
+| `graph/AdvancedFlow.py` | global relabel付きpush-relabel・Gomory--Hu木・Stoer--Wagner最小カット | 最大流依存 / $O(V^3)$ |
+| `graph/CSRGraph.py` | flat CSR表現・最短路・探索・DAG・連結性・SCC・LowLinkの高速backend | 構築 $O(V+E)$、各標準計算量 |
 | `graph/MinCostBFlow.py` | lower/upper・頂点supply・負費用対応minimum-cost b-flow | cost scaling法 |
 | `graph/MinCostFlow.py` | 非負費用のポテンシャル付き最小費用流・slope | $O(FE\log V)$ |
 | `graph/MinimumSpanningTree.py` | Kruskal最小全域森・最小全域木（辺ID付き） | $O(E\log E)$ |
@@ -151,6 +157,63 @@
 - `count_lt(l, r, x)` / `count_le(l, r, x)`: `< x` / `<= x` の個数
 - `range_freq(l, r, upper)` または `range_freq(l, r, lower, upper)`
 - `prev_value(l, r, upper)` / `next_value(l, r, lower)`: `< upper` の最大値 / `>= lower` の最小値
+
+### Dynamic Wavelet Matrix
+
+- まず `DynamicWaveletMatrix(values)` を使えばよい。将来の更新値は不要で、更新・queryはその場で反映・返却される
+- 全backendで値は正整数、indexは0-indexed、区間は半開区間 `[l,r)`
+- `wm[i]` / `wm[i] = x`、`access(i)` / `set(i,x)` / `add(i,delta)`
+- `rank`、`count_lt/le`、`range_freq`、`kth_smallest/largest`、`prev_value/next_value`
+- `range_sum`、`sum_lt/le/range`、`sum_k_smallest/largest`
+- `min_count_sum_at_least(l,r,target)`: `[l,r)` から大きい値を選び、総和を `target` 以上にする最小個数。不能なら `-1`
+- index segment tree上の圧縮Patricia multisetをpacked poolで持ち、主要操作 $O(B\log N)$、メモリ $O(N\log N)$、完全非再帰。$B$ は現在値の最大bit長
+- 通常はrange sumがsigned 64-bitに収まる前提。任意精度が必要なら `python_int_sum=True`
+
+問題文の1-indexed入力は、queryの先読みなしでそのまま処理できる。
+
+```python
+from library_codex.data_structure.DynamicWaveletMatrix import DynamicWaveletMatrix
+
+solver = DynamicWaveletMatrix(A)
+for _ in range(Q):
+    c, x, l, r, k = map(int, input().split())
+    solver[c - 1] = x
+    print(solver.min_count_sum_at_least(l - 1, r, k))
+```
+
+制約に応じて次のbackendも選べる。
+
+| class / helper | query返却 | 将来の更新値 | 計算量・用途 |
+| --- | --- | --- | --- |
+| `DynamicWaveletMatrix` | 即時 | 不要 | 一般用。各操作 $O(B\log N)$ |
+| `CompressedDynamicWaveletMatrix(values, update_candidates)` | 即時 | `(index,value)` の列が必要 | $O(\log V\log K)$、候補が疎な場合 |
+| `OfflineDynamicWaveletMatrix` | `solve()` で一括 | queryを順に登録 | 全処理 $O((N+Q)\log V\log N)$、メモリ $O(N+Q)$ |
+| `dynamic_range_min_count_sum_at_least` | listで一括 | query列を渡す | 問題専用の最短interface |
+
+$V$ は全候補値の種類数、$K$ は初期値を含む位置別候補の総数。圧縮版の `update_candidates` は実行する操作列ではなく、各位置へ代入し得る値の宣言である。
+
+```python
+from library_codex.data_structure.DynamicWaveletMatrix import CompressedDynamicWaveletMatrix
+
+candidates = [(1, 10), (1, 20), (3, 100)]
+wm = CompressedDynamicWaveletMatrix(A, candidates)
+wm[1] = 10                         # 即時更新
+print(wm.kth_smallest(0, len(A), 2))
+```
+
+offline版もonline版と同じquery名を使い、query IDを返す。`solve()` が登録順の答えを返す。対応queryは到達最小個数、k-th、区間和。
+
+```python
+from library_codex.data_structure.DynamicWaveletMatrix import OfflineDynamicWaveletMatrix
+
+wm = OfflineDynamicWaveletMatrix(A)
+wm[2] = 10
+query_id = wm.min_count_sum_at_least(0, len(A), 30)
+answers = wm.solve()
+print(answers[query_id])
+```
+
+PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版が構築約1.02秒・処理約18.61秒・RSS約316MiB、offline版が全体約7.58秒・RSS約181MiB。256MiBや厳しい時間制限ではoffline版を使う。
 
 ### Segment Tree Beats API
 

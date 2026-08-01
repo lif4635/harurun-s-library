@@ -26,7 +26,7 @@ Iterative watched-literal SAT solver with chronological backtracking.
 | [`add_clause(clause)`](../../../math/SATSolver.py#L25) | method | `clause`を追加する。 | `clause`: SAT節を表すliteral列 | `None` |
 | [`if_then(first_variable, first_value, second_variable, second_value)`](../../../math/SATSolver.py#L38) | method | `SatSolver` の `if_then method` を実行する。 | `first_variable`: `first`・`variable`として渡す値（APIの文脈に従う）<br>`first_value`: `first`・値として渡す値（APIの文脈に従う）<br>`second_variable`: `second`・`variable`として渡す値（APIの文脈に従う）<br>`second_value`: `second`・値として渡す値（APIの文脈に従う） | `None` |
 | [`set_val(variable, value)`](../../../math/SATSolver.py#L42) | method | `val`を設定する。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`solve(assumptions=())`](../../../math/SATSolver.py#L49) | method | 設定済みの問題を解き、答えを返す。 | `assumptions`: 一時的に真と仮定するliteral列。省略時: `()` | bool |
+| [`solve(assumptions=())`](../../../math/SATSolver.py#L49) | method | 設定済みの問題を解き、答えを返す。 | `assumptions`: 一時的に真と仮定するliteral列。省略時: `()` | 登録順の答えのlist |
 
 ## Module aliases
 

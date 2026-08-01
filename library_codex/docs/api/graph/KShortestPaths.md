@@ -31,7 +31,7 @@ Incremental wrapper compatible with repeated get-next usage.
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_edge(source, target, weight)`](../../../graph/KShortestPaths.py#L135) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`weight`: 重み | 数値または入力要素型 `len(self.edges) - 1` |
-| [`solve(k)`](../../../graph/KShortestPaths.py#L140) | method | 設定済みの問題を解き、答えを返す。 | `k`: 個数・順位・移動量（APIの文脈に従う） | `k_shortest_paths_directed(self.n, self.edges, self.source, sel...` |
+| [`solve(k)`](../../../graph/KShortestPaths.py#L140) | method | 設定済みの問題を解き、答えを返す。 | `k`: 個数・順位・移動量（APIの文脈に従う） | 登録順の答えのlist |
 | [`get_next_smallest()`](../../../graph/KShortestPaths.py#L145) | method | `next`・最小を取得する。 | なし | 計算結果 / `None` |
 
 ## Class `KShortestPathUndirected`
@@ -46,6 +46,6 @@ Incremental wrapper compatible with repeated get-next usage.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`solve(k)`](../../../graph/KShortestPaths.py#L158) | method | 設定済みの問題を解き、答えを返す。 | `k`: 個数・順位・移動量（APIの文脈に従う） | `k_shortest_paths_undirected(self.n, self.edges, self.source, s...` |
+| [`solve(k)`](../../../graph/KShortestPaths.py#L158) | method | 設定済みの問題を解き、答えを返す。 | `k`: 個数・順位・移動量（APIの文脈に従う） | 登録順の答えのlist |
 
 継承methodは同ページの `KShortestPathDirected` を参照してください。
