@@ -114,6 +114,57 @@ def test_push_relabel_api_repeat_change_and_long_path():
     assert graph.flow(0, n - 1) == 1
 
 
+def test_push_relabel_flow_limit_matches_dinic():
+    edges = [
+        (0, 0, 100),
+        (0, 1, 5),
+        (0, 2, 7),
+        (1, 3, 6),
+        (2, 3, 4),
+        (1, 2, 3),
+    ]
+    fast = PushRelabelMaxFlow(4)
+    dinic = MaxFlowGraph(4)
+    for edge in edges:
+        fast.add_edge(*edge)
+        dinic.add_edge(*edge)
+    for limit in (0, 3, 4, 100):
+        assert fast.flow(0, 3, limit) == dinic.flow(0, 3, limit)
+        assert fast.n == 4 and len(fast.graph) == 4 and len(fast.position) == len(edges)
+    assert fast.flow(0, 3) == dinic.flow(0, 3) == 0
+
+    try:
+        fast.flow(0, 3, -1)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("negative flow limit must fail")
+
+    rng = random.Random(804)
+    for n in range(2, 9):
+        for _ in range(200):
+            source, sink = rng.sample(range(n), 2)
+            edges = [
+                (rng.randrange(n), rng.randrange(n), rng.randrange(10))
+                for _ in range(rng.randrange(20))
+            ]
+            fast = PushRelabelMaxFlow(n)
+            dinic = MaxFlowGraph(n)
+            for edge in edges:
+                fast.add_edge(*edge)
+                dinic.add_edge(*edge)
+            applied_limits = []
+            for _ in range(4):
+                limit = rng.randrange(8)
+                applied_limits.append(limit)
+                fast_value = fast.flow(source, sink, limit)
+                dinic_value = dinic.flow(source, sink, limit)
+                assert fast_value == dinic_value, repr(
+                    (n, source, sink, edges, applied_limits, fast_value, dinic_value)
+                )
+            assert fast.flow(source, sink) == dinic.flow(source, sink)
+
+
 def test_gomory_hu_random_pair_cuts():
     rng = random.Random(802)
     for n in range(2, 9):

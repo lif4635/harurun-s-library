@@ -17,8 +17,8 @@ from library_codex.graph.AdvancedFlow import gomory_hu_tree, stoer_wagner_min_cu
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`gomory_hu_tree(n, edges, flow_class=PushRelabelMaxFlow)`](../../../graph/AdvancedFlow.py#L193) | Return an undirected Gomory--Hu cut tree as ``(u, v, cut)`` edges. Parallel edges and zero-capacity edges are accepted. ``edges`` is consumed once and materialized because the max-flow graph is rebuilt ``n - 1`` times. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`flow_class`: flow・`class`として渡す値（APIの文脈に従う）。省略時: `PushRelabelMaxFlow` | an undirected Gomory--Hu cut tree as ``(u, v, cut)`` edges |
-| [`stoer_wagner_min_cut(n, edges)`](../../../graph/AdvancedFlow.py#L237) | Return ``(cut_value, one_side)`` for an undirected weighted graph. This dense ``O(V^3)`` implementation is useful when running ``V - 1`` max-flow computations would be more expensive. The graph may be disconnected, in... | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | ``(cut_value, one_side)`` for an undirected weighted graph |
+| [`gomory_hu_tree(n, edges, flow_class=PushRelabelMaxFlow)`](../../../graph/AdvancedFlow.py#L220) | Return an undirected Gomory--Hu cut tree as ``(u, v, cut)`` edges. Parallel edges and zero-capacity edges are accepted. ``edges`` is consumed once and materialized because the max-flow graph is rebuilt ``n - 1`` times. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`flow_class`: flow・`class`として渡す値（APIの文脈に従う）。省略時: `PushRelabelMaxFlow` | an undirected Gomory--Hu cut tree as ``(u, v, cut)`` edges |
+| [`stoer_wagner_min_cut(n, edges)`](../../../graph/AdvancedFlow.py#L264) | Return ``(cut_value, one_side)`` for an undirected weighted graph. This dense ``O(V^3)`` implementation is useful when running ``V - 1`` max-flow computations would be more expensive. The graph may be disconnected, in... | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | ``(cut_value, one_side)`` for an undirected weighted graph |
 
 ## Class `PushRelabelMaxFlow`
 
@@ -35,11 +35,11 @@ FIFO push-relabel max flow with periodic global relabeling.
 | [`get_edge(index)`](../../../graph/AdvancedFlow.py#L45) | method | 辺を取得する。 | `index`: 0-indexedの位置 | tuple(`source`, `self.to[edge]`, 数値または入力要素型 `self.capacity[edge] + reverse_capacity`, `reverse_capacity`) |
 | [`edges()`](../../../graph/AdvancedFlow.py#L55) | method | `PushRelabelMaxFlow` の `edges method` を実行する。 | なし | list |
 | [`change_edge(index, capacity, flow)`](../../../graph/AdvancedFlow.py#L58) | method | 辺を更新する。 | `index`: 0-indexedの位置<br>`capacity`: 容量<br>`flow`: flowとして渡す値（APIの文脈に従う） | `None` |
-| [`flow(source, sink)`](../../../graph/AdvancedFlow.py#L85) | method | Add and return the maximum possible flow on the current residual graph. | `source`: 始点<br>`sink`: 終点 | `excess[sink]` |
-| [`min_cut(source)`](../../../graph/AdvancedFlow.py#L175) | method | `PushRelabelMaxFlow` の `min_cut method` を実行する。 | `source`: 始点 | list |
-| [`max_flow`](../../../graph/AdvancedFlow.py#L172) | alias | `flow` の別名。 | 同じ | 同じ |
-| [`run`](../../../graph/AdvancedFlow.py#L173) | alias | `flow` の別名。 | 同じ | 同じ |
+| [`flow(source, sink, flow_limit=None)`](../../../graph/AdvancedFlow.py#L85) | method | Add and return flow up to ``flow_limit`` on the residual graph. | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | `self._flow_unlimited(source, sink)` / `0` / `self._flow_unlimited(temporary_source, sink)` |
+| [`min_cut(source)`](../../../graph/AdvancedFlow.py#L202) | method | `PushRelabelMaxFlow` の `min_cut method` を実行する。 | `source`: 始点 | list |
+| [`max_flow`](../../../graph/AdvancedFlow.py#L199) | alias | `flow` の別名。 | 同じ | 同じ |
+| [`run`](../../../graph/AdvancedFlow.py#L200) | alias | `flow` の別名。 | 同じ | 同じ |
 
 ## Module aliases
 
-- [`FastMaxFlow`](../../../graph/AdvancedFlow.py#L300) = `PushRelabelMaxFlow`
+- [`FastMaxFlow`](../../../graph/AdvancedFlow.py#L327) = `PushRelabelMaxFlow`

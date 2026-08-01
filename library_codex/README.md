@@ -15,8 +15,8 @@
 - 言語・runtime support 92 件を監査済み
 - Geometry 22 件はユーザー指定により保留
 - Geometry を除く未監査項目は 0 件
-- PyPy 全検証: 430 passed
-- 再帰監査: 2977 functions、direct/mutual recursion なし
+- PyPy 全検証: 432 passed
+- 再帰監査: 2980 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 

@@ -68,14 +68,52 @@ class CSRGraph:
 
     @classmethod
     def from_adjacency(cls, adjacency, directed=True):
+        """Build from an adjacency list.
+
+        A directed adjacency list contains every arc once.  An undirected
+        adjacency list must be symmetric: every entry, including each
+        parallel edge, needs one matching reverse entry.  A self-loop is
+        therefore represented by two identical entries.
+        """
+        n = len(adjacency)
         edges = []
+        if not directed:
+            pending = {}
+            for source, row in enumerate(adjacency):
+                for entry in row:
+                    if isinstance(entry, int):
+                        target = entry
+                        edge_weight = 1
+                    else:
+                        target = entry[0]
+                        edge_weight = entry[1]
+                    if not 0 <= target < n:
+                        raise IndexError("vertex out of range")
+                    reverse = (target, source, edge_weight)
+                    count = pending.get(reverse, 0)
+                    if count:
+                        if count == 1:
+                            del pending[reverse]
+                        else:
+                            pending[reverse] = count - 1
+                        edges.append((source, target, edge_weight))
+                    else:
+                        key = (source, target, edge_weight)
+                        pending[key] = pending.get(key, 0) + 1
+            if pending:
+                raise ValueError(
+                    "undirected adjacency must contain one reverse entry "
+                    "for every edge"
+                )
+            return cls(n, edges, directed=False)
+
         for source, row in enumerate(adjacency):
             for entry in row:
                 if isinstance(entry, int):
                     edges.append((source, entry, 1))
                 else:
                     edges.append((source, entry[0], entry[1]))
-        return cls(len(adjacency), edges, directed)
+        return cls(n, edges, directed)
 
     def transpose(self):
         """Return the edge-reversed CSR graph in linear time."""

@@ -35,14 +35,14 @@ from library_codex.graph.CSRGraph import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`dijkstra_csr(graph, start=0, goal=None, check_nonnegative=True)`](../../../graph/CSRGraph.py#L128) | Dijkstra on flat CSR arrays, returning ``(distance, previous)``. | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None`<br>`check_nonnegative`: `check`・`nonnegative`として渡す値（APIの文脈に従う）。省略時: `True` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
-| [`zero_one_bfs_csr(graph, start=0, check_weights=True)`](../../../graph/CSRGraph.py#L163) | 0-1 BFS on flat CSR arrays, returning ``(distance, previous)``. | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`check_weights`: `check`・`weights`として渡す値（APIの文脈に従う）。省略時: `True` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
-| [`bfs_csr(graph, start=0, goal=None)`](../../../graph/CSRGraph.py#L194) | Unweighted BFS on CSR arrays, returning ``(distance, previous)``. | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
-| [`topological_sort_csr(graph, lexicographical=False)`](../../../graph/CSRGraph.py#L221) | Return a topological order, or ``None`` when a directed cycle exists. | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: `lexicographical`として渡す値（APIの文脈に従う）。省略時: `False` | a topological order, or ``None`` when a directed cycle exists |
-| [`connected_components_csr(graph)`](../../../graph/CSRGraph.py#L256) | Return ``(component_id, groups)`` for an undirected CSR graph. | `graph`: 隣接listまたはグラフobject | ``(component_id, groups)`` for an undirected CSR graph |
-| [`bipartite_coloring_csr(graph)`](../../../graph/CSRGraph.py#L284) | Return a 0/1 coloring for an undirected graph, or ``None``. | `graph`: 隣接listまたはグラフobject | a 0/1 coloring for an undirected graph, or ``None`` / `None` |
-| [`scc_ids_csr(graph)`](../../../graph/CSRGraph.py#L310) | Return ``(component_count, component_id)`` in topological order. | `graph`: 隣接listまたはグラフobject | ``(component_count, component_id)`` in topological order |
-| [`strongly_connected_components_csr(graph)`](../../../graph/CSRGraph.py#L398) | module の `strongly_connected_components_csr function` を実行する。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.component`, `solver.groups`) |
+| [`dijkstra_csr(graph, start=0, goal=None, check_nonnegative=True)`](../../../graph/CSRGraph.py#L166) | Dijkstra on flat CSR arrays, returning ``(distance, previous)``. | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None`<br>`check_nonnegative`: `check`・`nonnegative`として渡す値（APIの文脈に従う）。省略時: `True` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
+| [`zero_one_bfs_csr(graph, start=0, check_weights=True)`](../../../graph/CSRGraph.py#L201) | 0-1 BFS on flat CSR arrays, returning ``(distance, previous)``. | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`check_weights`: `check`・`weights`として渡す値（APIの文脈に従う）。省略時: `True` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
+| [`bfs_csr(graph, start=0, goal=None)`](../../../graph/CSRGraph.py#L232) | Unweighted BFS on CSR arrays, returning ``(distance, previous)``. | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
+| [`topological_sort_csr(graph, lexicographical=False)`](../../../graph/CSRGraph.py#L259) | Return a topological order, or ``None`` when a directed cycle exists. | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: `lexicographical`として渡す値（APIの文脈に従う）。省略時: `False` | a topological order, or ``None`` when a directed cycle exists |
+| [`connected_components_csr(graph)`](../../../graph/CSRGraph.py#L294) | Return ``(component_id, groups)`` for an undirected CSR graph. | `graph`: 隣接listまたはグラフobject | ``(component_id, groups)`` for an undirected CSR graph |
+| [`bipartite_coloring_csr(graph)`](../../../graph/CSRGraph.py#L322) | Return a 0/1 coloring for an undirected graph, or ``None``. | `graph`: 隣接listまたはグラフobject | a 0/1 coloring for an undirected graph, or ``None`` / `None` |
+| [`scc_ids_csr(graph)`](../../../graph/CSRGraph.py#L348) | Return ``(component_count, component_id)`` in topological order. | `graph`: 隣接listまたはグラフobject | ``(component_count, component_id)`` in topological order |
+| [`strongly_connected_components_csr(graph)`](../../../graph/CSRGraph.py#L436) | module の `strongly_connected_components_csr function` を実行する。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.component`, `solver.groups`) |
 
 ## Class `CSRGraph`
 
@@ -54,38 +54,38 @@ Immutable directed or undirected compressed sparse row graph.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`from_adjacency(adjacency, directed=True)`](../../../graph/CSRGraph.py#L70) | classmethod | `CSRGraph` の `from_adjacency method` を実行する。 | `adjacency`: `adjacency`として渡す値（APIの文脈に従う）<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | `cls(len(adjacency), edges, directed)` |
-| [`transpose()`](../../../graph/CSRGraph.py#L80) | method | Return the edge-reversed CSR graph in linear time. | なし | the edge-reversed CSR graph in linear time |
-| [`neighbors(vertex)`](../../../graph/CSRGraph.py#L114) | method | Yield ``(to, weight, edge_id)`` triples for one vertex. | `vertex`: 頂点番号（0-indexed） | iterator（yieldされる要素） |
-| [`__len__()`](../../../graph/CSRGraph.py#L124) | method | len(obj)。 | なし | 要素数（int） |
+| [`from_adjacency(adjacency, directed=True)`](../../../graph/CSRGraph.py#L70) | classmethod | Build from an adjacency list. A directed adjacency list contains every arc once. An undirected adjacency list must be symmetric: every entry, including each parallel edge, needs one matching reverse entry. A self-loop... | `adjacency`: `adjacency`として渡す値（APIの文脈に従う）<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | `cls(n, edges, directed=False)` / `cls(n, edges, directed)` |
+| [`transpose()`](../../../graph/CSRGraph.py#L118) | method | Return the edge-reversed CSR graph in linear time. | なし | the edge-reversed CSR graph in linear time |
+| [`neighbors(vertex)`](../../../graph/CSRGraph.py#L152) | method | Yield ``(to, weight, edge_id)`` triples for one vertex. | `vertex`: 頂点番号（0-indexed） | iterator（yieldされる要素） |
+| [`__len__()`](../../../graph/CSRGraph.py#L162) | method | len(obj)。 | なし | 要素数（int） |
 
 ## Class `CSRStronglyConnectedComponents`
 
 SCC result compatible with the existing high-level SCC object.
 
-- constructor: [`CSRStronglyConnectedComponents(graph, build_dag=True)`](../../../graph/CSRGraph.py#L366)
+- constructor: [`CSRStronglyConnectedComponents(graph, build_dag=True)`](../../../graph/CSRGraph.py#L404)
 - 引数: `graph`: 隣接listまたはグラフobject<br>`build_dag`: `build`・`dag`として渡す値（APIの文脈に従う）。省略時: `True`
 - 返り値: `CSRStronglyConnectedComponents` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`same(first, second)`](../../../graph/CSRGraph.py#L391) | method | `CSRStronglyConnectedComponents` の `same method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
-| [`__getitem__(vertex)`](../../../graph/CSRGraph.py#L394) | method | obj[key] で取得する。 | `vertex`: 頂点番号（0-indexed） | 格納値、sliceなら同種の部分構造 |
+| [`same(first, second)`](../../../graph/CSRGraph.py#L429) | method | `CSRStronglyConnectedComponents` の `same method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`__getitem__(vertex)`](../../../graph/CSRGraph.py#L432) | method | obj[key] で取得する。 | `vertex`: 頂点番号（0-indexed） | 格納値、sliceなら同種の部分構造 |
 
 ## Class `CSRLowLink`
 
 Iterative LowLink over an undirected CSR multigraph.
 
-- constructor: [`CSRLowLink(n, edges=())`](../../../graph/CSRGraph.py#L412)
+- constructor: [`CSRLowLink(n, edges=())`](../../../graph/CSRGraph.py#L450)
 - 引数: `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list。省略時: `()`
 - 返り値: `CSRLowLink` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`get_edge(edge_id)`](../../../graph/CSRGraph.py#L500) | method | 辺を取得する。 | `edge_id`: edge のID（0-indexed） | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |
+| [`get_edge(edge_id)`](../../../graph/CSRGraph.py#L538) | method | 辺を取得する。 | `edge_id`: edge のID（0-indexed） | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |
 
 ## Module aliases
 
-- [`FastDijkstra`](../../../graph/CSRGraph.py#L504) = `dijkstra_csr`
-- [`FastSCC`](../../../graph/CSRGraph.py#L505) = `CSRStronglyConnectedComponents`
-- [`FastLowLink`](../../../graph/CSRGraph.py#L506) = `CSRLowLink`
+- [`FastDijkstra`](../../../graph/CSRGraph.py#L542) = `dijkstra_csr`
+- [`FastSCC`](../../../graph/CSRGraph.py#L543) = `CSRStronglyConnectedComponents`
+- [`FastLowLink`](../../../graph/CSRGraph.py#L544) = `CSRLowLink`

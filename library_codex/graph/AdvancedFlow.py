@@ -82,14 +82,39 @@ class PushRelabelMaxFlow:
                     queue.append(other)
         height[source] = n
 
-    def flow(self, source, sink):
-        """Add and return the maximum possible flow on the current residual graph."""
+    def flow(self, source, sink, flow_limit=None):
+        """Add and return flow up to ``flow_limit`` on the residual graph."""
         n = self.n
         if not (0 <= source < n and 0 <= sink < n):
             raise IndexError("vertex out of range")
         if source == sink:
             raise ValueError("source and sink must differ")
+        if flow_limit is not None and flow_limit < 0:
+            raise ValueError("flow limit must be nonnegative")
+        if flow_limit is None:
+            return self._flow_unlimited(source, sink)
+        if flow_limit == 0:
+            return 0
 
+        # A temporary super-source turns the limit into an ordinary edge
+        # capacity.  This avoids losing budget when an initially saturated
+        # source edge later returns excess to the source.
+        temporary_source = self.add_vertex()
+        self.add_edge(temporary_source, source, flow_limit)
+        try:
+            return self._flow_unlimited(temporary_source, sink)
+        finally:
+            self.position.pop()
+            self.graph[source].pop()
+            self.graph.pop()
+            self.to.pop()
+            self.to.pop()
+            self.capacity.pop()
+            self.capacity.pop()
+            self.n -= 1
+
+    def _flow_unlimited(self, source, sink):
+        n = self.n
         graph = self.graph
         to = self.to
         residual = self.capacity
@@ -100,6 +125,8 @@ class PushRelabelMaxFlow:
         # A preflow turns all residual edges out of the source into active
         # vertices. Reverse residual edges make repeated calls valid too.
         for edge in graph[source]:
+            if to[edge] == source:
+                continue
             amount = residual[edge]
             if amount:
                 residual[edge] = 0

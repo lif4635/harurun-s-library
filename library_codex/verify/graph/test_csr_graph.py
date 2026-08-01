@@ -56,6 +56,28 @@ def test_csr_layout_transpose_and_edge_ids():
     assert sum(1 for row in range(3) for _ in undirected.neighbors(row)) == 8
 
 
+def test_csr_from_symmetric_undirected_adjacency():
+    adjacency = [
+        [(1, 4), (1, 9)],
+        [(0, 4), (0, 9), (1, 3), (1, 3), (2, 5)],
+        [(1, 5)],
+    ]
+    graph = CSRGraph.from_adjacency(adjacency, directed=False)
+    assert not graph.directed
+    assert graph.m == 4
+    assert graph.arc_count == sum(map(len, adjacency))
+    assert sorted(graph.weight) == [3, 3, 4, 4, 5, 5, 9, 9]
+    assert all(graph.edge_id.count(edge) == 2 for edge in range(graph.m))
+
+    broken = [[1], []]
+    try:
+        CSRGraph.from_adjacency(broken, directed=False)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("asymmetric undirected adjacency must fail")
+
+
 def test_csr_shortest_paths_random_against_existing():
     rng = random.Random(8201)
     for n in range(1, 100):

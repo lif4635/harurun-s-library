@@ -8,6 +8,7 @@
 `graph/AdvancedFlow.py`
 
 - global relabel付きFIFO push-relabel最大流
+- `flow(source, sink, flow_limit)` による部分流・反復実行
 - Gomory--Hu cut tree
 - Stoer--Wagner global minimum cut
 - 小規模全列挙min-cut、既存Dinic、長さ100,000のpathで検証
@@ -25,6 +26,7 @@ Push-relabelはグラフ族によって既存Dinicとの優劣が入れ替わる
 `graph/CSRGraph.py`
 
 - 有向・無向、重み、平行辺、自己loop、元edge IDを保持するimmutable CSR
+- 対称な無向隣接listを検証しながら変換する `from_adjacency`
 - Dijkstra / 0-1 BFS / BFS
 - topological sort / connected components / bipartite coloring
 - SCC
