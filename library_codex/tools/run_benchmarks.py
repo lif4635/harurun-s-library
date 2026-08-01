@@ -3,6 +3,7 @@
 import argparse
 import json
 import re
+import statistics
 import subprocess
 import sys
 from pathlib import Path
@@ -56,10 +57,29 @@ def csr_cases(profile):
     for algorithm in ("dijkstra", "scc", "lowlink"):
         pair = {}
         for backend in ("list", "csr"):
-            pair[backend] = execute(
-                "benchmark_csr_graph.py",
-                ["--algorithm", algorithm, "--backend", backend, *size],
+            measurements = [
+                execute(
+                    "benchmark_csr_graph.py",
+                    ["--algorithm", algorithm, "--backend", backend, *size],
+                )
+                for _ in range(3)
+            ]
+            checksums = {measurement["checksum"] for measurement in measurements}
+            if len(checksums) != 1:
+                raise AssertionError(
+                    f"unstable CSR checksum: {algorithm}/{backend}"
+                )
+            seconds = [measurement["total_seconds"] for measurement in measurements]
+            median_seconds = statistics.median(seconds)
+            representative = min(
+                measurements,
+                key=lambda measurement: abs(
+                    measurement["total_seconds"] - median_seconds
+                ),
             )
+            pair[backend] = dict(representative)
+            pair[backend]["total_seconds"] = median_seconds
+            pair[backend]["measurements_seconds"] = seconds
         if pair["list"]["checksum"] != pair["csr"]["checksum"]:
             raise AssertionError(f"CSR checksum mismatch: {algorithm}")
         pair["speedup"] = pair["list"]["total_seconds"] / pair["csr"]["total_seconds"]
@@ -140,4 +160,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

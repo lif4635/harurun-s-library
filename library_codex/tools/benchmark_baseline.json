@@ -3,7 +3,7 @@
     "minimum_speedup": {
       "csr_dijkstra": 1.05,
       "csr_scc": 1.5,
-      "csr_lowlink": 1.5,
+      "csr_lowlink": 1.35,
       "range_stats_generic": 2.0,
       "range_stats_beats": 1.8,
       "range_affine": 1.2

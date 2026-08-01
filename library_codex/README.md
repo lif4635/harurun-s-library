@@ -16,9 +16,17 @@
 - Geometry 22 件はユーザー指定により保留
 - Geometry を除く未監査項目は 0 件
 - PyPy 全検証: 432 passed
-- 再帰監査: 2980 functions、direct/mutual recursion なし
+- 再帰監査: 2983 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
+
+## 保守と検証
+
+- [保守監査](AUDIT.md): 完了条件、確認した所見、最終検証結果
+- `pypy3 library_codex/tools/check_library.py`: 日常用の短いテスト・性能回帰検査
+- `pypy3 library_codex/tools/check_library.py --profile full`: 全テスト・全性能回帰検査
+
+どちらもbyte-compile、APIリファレンス同期、再帰禁止、テスト、性能の順に検査し、失敗した時点で非0終了します。
 
 ## APIドキュメント
 
