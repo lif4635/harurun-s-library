@@ -1,3 +1,10 @@
+"""Formal power series represented by ascending coefficient lists.
+
+The default modulus is 998244353.  That path reuses one radix-4 NTT instance,
+its root tables, and inverse transform factors across all FPS operations.
+Other moduli keep the general NTT or CRT fallback.
+"""
+
 from heapq import heapify, heappop, heappush
 
 from library_codex.convolution.NTT import convolution, get_ntt
@@ -6,6 +13,7 @@ from library_codex.math.ModularArithmetic import modular_square_root
 
 DEFAULT_MOD = 998244353
 _INVERSE_CACHE = {}
+_DEFAULT_TRANSFORM = get_ntt(DEFAULT_MOD)
 
 
 def _degree(degree, default):
@@ -29,6 +37,8 @@ def _inverses(size, mod):
 
 
 def fps_shrink(series, mod=DEFAULT_MOD):
+    """Return normalized coefficients without trailing zeroes. O(N)."""
+
     result = [value % mod for value in series]
     while result and result[-1] == 0:
         result.pop()
@@ -36,6 +46,8 @@ def fps_shrink(series, mod=DEFAULT_MOD):
 
 
 def shrink(series, mod=DEFAULT_MOD):
+    """Normalize ``series`` in place and remove trailing zeroes. O(N)."""
+
     for index in range(len(series)):
         series[index] %= mod
     while series and series[-1] == 0:
@@ -44,6 +56,8 @@ def shrink(series, mod=DEFAULT_MOD):
 
 
 def fps_add(first, second, mod=DEFAULT_MOD):
+    """Add two ascending coefficient lists modulo ``mod``. O(N)."""
+
     size = max(len(first), len(second))
     result = [0] * size
     common = min(len(first), len(second))
@@ -57,6 +71,8 @@ def fps_add(first, second, mod=DEFAULT_MOD):
 
 
 def fps_subtract(first, second, mod=DEFAULT_MOD):
+    """Subtract the second coefficient list from the first. O(N)."""
+
     size = max(len(first), len(second))
     result = [0] * size
     common = min(len(first), len(second))
@@ -70,18 +86,28 @@ def fps_subtract(first, second, mod=DEFAULT_MOD):
 
 
 def fps_negate(series, mod=DEFAULT_MOD):
+    """Negate every coefficient modulo ``mod``. O(N)."""
+
     return [-value % mod for value in series]
 
 
 def fps_multiply(first, second, mod=DEFAULT_MOD):
+    """Multiply two series. The default modulus takes the direct cached NTT path. O(N log N)."""
+
+    if mod == DEFAULT_MOD:
+        return _DEFAULT_TRANSFORM.convolution(first, second)
     return convolution(first, second, mod)
 
 
 def fps_derivative(series, mod=DEFAULT_MOD):
+    """Return the formal derivative in ascending coefficient order. O(N)."""
+
     return [index * series[index] % mod for index in range(1, len(series))]
 
 
 def fps_integral(series, mod=DEFAULT_MOD):
+    """Return the formal integral with constant coefficient zero. O(N)."""
+
     inverse = _inverses(len(series), mod)
     result = [0] * (len(series) + 1)
     for index, value in enumerate(series, 1):
@@ -90,6 +116,8 @@ def fps_integral(series, mod=DEFAULT_MOD):
 
 
 def fps_evaluate(series, value, mod=DEFAULT_MOD):
+    """Evaluate the represented polynomial at ``value`` with Horner's rule. O(N)."""
+
     result = 0
     value %= mod
     for coefficient in reversed(series):
@@ -122,6 +150,8 @@ def _inverse_ntt_step(series, result, current, target, transform):
 
 
 def fps_inverse(series, degree=None, mod=DEFAULT_MOD):
+    """Return coefficients of ``1 / series`` through ``degree``. O(N log N)."""
+
     degree = _degree(degree, len(series))
     if degree == 0:
         return []
@@ -133,11 +163,12 @@ def fps_inverse(series, degree=None, mod=DEFAULT_MOD):
         raise ZeroDivisionError("the constant coefficient is not invertible") from error
     result = [first_inverse]
     current = 1
-    transform = None
-    try:
-        transform = get_ntt(mod)
-    except ValueError:
-        pass
+    transform = _DEFAULT_TRANSFORM if mod == DEFAULT_MOD else None
+    if transform is None:
+        try:
+            transform = get_ntt(mod)
+        except ValueError:
+            pass
     while current < degree:
         target = min(current << 1, degree)
         direct = transform is not None
@@ -160,6 +191,8 @@ def fps_inverse(series, degree=None, mod=DEFAULT_MOD):
 
 
 def fps_logarithm(series, degree=None, mod=DEFAULT_MOD):
+    """Return the formal logarithm through ``degree``; series[0] must be 1. O(N log N)."""
+
     degree = _degree(degree, len(series))
     if degree == 0:
         return []
@@ -252,14 +285,17 @@ def _fps_exponential_newton(series, degree, mod):
 
 
 def fps_exponential(series, degree=None, mod=DEFAULT_MOD):
+    """Return the formal exponential through ``degree``; series[0] must be 0. O(N log N)."""
+
     degree = _degree(degree, len(series))
     if degree == 0:
         return []
     if series and series[0] % mod:
         raise ValueError("fps exponential requires constant coefficient 0")
-    transform = None
+    transform = _DEFAULT_TRANSFORM if mod == DEFAULT_MOD else None
     try:
-        transform = get_ntt(mod)
+        if transform is None:
+            transform = get_ntt(mod)
         transform._check_length(1 << (degree - 1).bit_length())
     except ValueError:
         transform = None
@@ -269,6 +305,8 @@ def fps_exponential(series, degree=None, mod=DEFAULT_MOD):
 
 
 def fps_power(series, exponent, degree=None, mod=DEFAULT_MOD):
+    """Raise a series to an integer power through ``degree``. O(N log N)."""
+
     degree = _degree(degree, len(series))
     if degree == 0:
         return []
@@ -305,6 +343,8 @@ def fps_power(series, exponent, degree=None, mod=DEFAULT_MOD):
 
 
 def fps_square_root(series, degree=None, mod=DEFAULT_MOD):
+    """Return one formal square root, or None when no root exists. O(N log N)."""
+
     degree = _degree(degree, len(series))
     if degree == 0:
         return []
@@ -342,6 +382,8 @@ def fps_square_root(series, degree=None, mod=DEFAULT_MOD):
 
 
 def fps_quotient(dividend, divisor, mod=DEFAULT_MOD):
+    """Return the polynomial quotient in ascending coefficient order. O(N log N)."""
+
     first = fps_shrink(dividend, mod)
     second = fps_shrink(divisor, mod)
     if not second:
@@ -377,6 +419,8 @@ def fps_quotient(dividend, divisor, mod=DEFAULT_MOD):
 
 
 def fps_divmod(dividend, divisor, mod=DEFAULT_MOD):
+    """Return ``(quotient, remainder)`` for polynomial division. O(N log N)."""
+
     second = fps_shrink(divisor, mod)
     if not second:
         raise ZeroDivisionError("polynomial division by zero")
@@ -396,10 +440,14 @@ def fps_divmod(dividend, divisor, mod=DEFAULT_MOD):
 
 
 def fps_remainder(dividend, divisor, mod=DEFAULT_MOD):
+    """Return only the remainder of polynomial division. O(N log N)."""
+
     return fps_divmod(dividend, divisor, mod)[1]
 
 
 def fps_taylor_shift(series, shift, mod=DEFAULT_MOD):
+    """Return coefficients of ``f(x + shift)``. O(N log N)."""
+
     size = len(series)
     if size == 0:
         return []
@@ -435,6 +483,8 @@ def fps_taylor_shift(series, shift, mod=DEFAULT_MOD):
 
 
 def fps_product(polynomials, mod=DEFAULT_MOD):
+    """Multiply many polynomials by repeatedly combining the shortest pair. O(S log S log K)."""
+
     heap = []
     serial = 0
     for polynomial in polynomials:

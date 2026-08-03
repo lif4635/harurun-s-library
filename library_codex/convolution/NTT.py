@@ -1,4 +1,6 @@
 _NTT_CACHE = {}
+_DEFAULT_MOD = 998244353
+_DEFAULT_ROOT = 3
 _ARBITRARY_PRIMES = (469762049, 1811939329, 2013265921)
 _ARBITRARY_PRODUCT = 469762049 * 1811939329 * 2013265921
 _KNOWN_NTT_PRIMES = {
@@ -10,8 +12,12 @@ _KNOWN_NTT_PRIMES = {
 
 
 def primitive_root(mod):
+    """Return a primitive root modulo ``mod``. O(sqrt(mod)) worst case."""
+
     if mod == 2:
         return 1
+    if mod == _DEFAULT_MOD:
+        return _DEFAULT_ROOT
     value = mod - 1
     factors = []
     divisor = 2
@@ -36,9 +42,11 @@ def primitive_root(mod):
 
 
 class NumberTheoreticTransform:
+    """Reusable radix-4 NTT tables for one prime modulus."""
+
     __slots__ = (
         "mod", "primitive_root", "rank2", "imag", "iimag",
-        "rate2", "irate2", "rate3", "irate3",
+        "rate2", "irate2", "rate3", "irate3", "_inverse_sizes",
     )
 
     def __init__(self, mod=998244353, root=None):
@@ -93,6 +101,7 @@ class NumberTheoreticTransform:
         irate3.append(0)
         self.rate3 = rate3
         self.irate3 = irate3
+        self._inverse_sizes = {1: 1}
 
     def _check_length(self, size):
         if size < 1 or size & (size - 1):
@@ -235,7 +244,10 @@ class NumberTheoreticTransform:
                     )
                 level -= 2
         if normalize:
-            inverse_size = pow(size, mod - 2, mod)
+            inverse_size = self._inverse_sizes.get(size)
+            if inverse_size is None:
+                inverse_size = pow(size, mod - 2, mod)
+                self._inverse_sizes[size] = inverse_size
             for index in range(size):
                 values[index] = values[index] * inverse_size % mod
         return values
@@ -275,8 +287,13 @@ class NumberTheoreticTransform:
 
 NumberTheroemTransform = NumberTheoreticTransform
 
+_DEFAULT_NTT = NumberTheoreticTransform(_DEFAULT_MOD, _DEFAULT_ROOT)
+_NTT_CACHE[(_DEFAULT_MOD, None)] = _DEFAULT_NTT
+
 
 def get_ntt(mod=998244353, root=None):
+    """Return the cached transform for ``mod`` and ``root``. O(1) after setup."""
+
     key = mod, root
     transform = _NTT_CACHE.get(key)
     if transform is None:
@@ -286,6 +303,8 @@ def get_ntt(mod=998244353, root=None):
 
 
 def convolution_naive(first, second, mod=None):
+    """Multiply coefficient lists directly. O(len(first) * len(second))."""
+
     if not first or not second:
         return []
     result = [0] * (len(first) + len(second) - 1)
@@ -310,6 +329,8 @@ def convolution_naive(first, second, mod=None):
 
 
 def convolution_ntt(first, second, mod=998244353, root=None):
+    """Multiply with a cached NTT for a friendly prime. O(N log N)."""
+
     return get_ntt(mod, root).convolution(first, second)
 
 
@@ -320,6 +341,8 @@ def _crt_convolutions(first, second):
 
 
 def convolution_any_mod(first, second, mod):
+    """Multiply modulo an arbitrary positive integer using three NTTs. O(N log N)."""
+
     if mod <= 0:
         raise ValueError("mod must be positive")
     if not first or not second:
@@ -358,6 +381,8 @@ def convolution_any_mod(first, second, mod):
 
 
 def convolution_int(first, second):
+    """Multiply integer coefficient lists exactly within the CRT bound. O(N log N)."""
+
     if not first or not second:
         return []
     if min(len(first), len(second)) <= 60:
@@ -393,6 +418,8 @@ def convolution_int(first, second):
 
 
 def convolution(first, second, mod=998244353):
+    """Multiply coefficient lists; 998244353 uses the cached direct NTT. O(N log N)."""
+
     if not first or not second:
         return []
     output_size = len(first) + len(second) - 1

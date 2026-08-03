@@ -44,6 +44,18 @@ def test_ntt_round_trip_and_primitive_roots():
             assert values == expected
 
 
+def test_default_transform_reuses_tables_and_inverse_sizes():
+    transform = get_ntt(998244353)
+    assert transform is get_ntt(998244353)
+    assert transform.primitive_root == 3
+
+    values = list(range(256))
+    transform.butterfly(values)
+    transform.butterfly_inv(values)
+    assert values == list(range(256))
+    assert transform._inverse_sizes[256] == pow(256, -1, 998244353)
+
+
 def test_convolution_ntt_against_naive():
     rng = random.Random(1)
     for _ in range(5000):
@@ -113,6 +125,7 @@ def test_large_without_recursion():
 
 if __name__ == "__main__":
     test_ntt_round_trip_and_primitive_roots()
+    test_default_transform_reuses_tables_and_inverse_sizes()
     test_convolution_ntt_against_naive()
     test_arbitrary_mod_convolution()
     test_integer_convolution()

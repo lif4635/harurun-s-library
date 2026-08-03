@@ -32,25 +32,25 @@ from library_codex.convolution.NTT import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`primitive_root(mod)`](../../../convolution/NTT.py#L12) | `primitive`・根を求める。 | `mod`: 法。Noneの場合は整数上の演算 | `1` / `candidate`（int） |
-| [`get_ntt(mod=998244353, root=None)`](../../../convolution/NTT.py#L279) | `ntt`を取得する。 | `mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`<br>`root`: 根の頂点番号・原始根。省略時: `None` | `transform`（NumberTheoreticTransform） |
-| [`convolution_naive(first, second, mod=None)`](../../../convolution/NTT.py#L288) | 畳み込み・`naive`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 計算結果（数値または入力要素型） |
-| [`convolution_ntt(first, second, mod=998244353, root=None)`](../../../convolution/NTT.py#L312) | 畳み込み・`ntt`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`<br>`root`: 根の頂点番号・原始根。省略時: `None` | `get_ntt(mod, root).convolution(first, second)` |
-| [`convolution_any_mod(first, second, mod)`](../../../convolution/NTT.py#L322) | 畳み込み・任意・`mod`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算 | list[number] — 昇冪順の係数列 [a0, a1, ...] / 数値または入力要素型 `[0] * (len(first) + len(second) - 1)` / `convolution_naive(first, second, mod)` / 計算結果（数値または入力要素型） |
-| [`convolution_int(first, second)`](../../../convolution/NTT.py#L360) | 畳み込み・`int`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[number] — 昇冪順の係数列 [a0, a1, ...] / `convolution_naive(first, second)` / 計算結果（数値または入力要素型） |
-| [`convolution(first, second, mod=998244353)`](../../../convolution/NTT.py#L395) | 畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `998244353` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `convolution_ntt(first, second, mod)` / `convolution_any_mod(first, second, mod)` |
+| [`primitive_root(mod)`](../../../convolution/NTT.py#L14) | `primitive`・根を求める。 | `mod`: 法。Noneの場合は整数上の演算 | `1` / `_DEFAULT_ROOT` / `candidate`（int） |
+| [`get_ntt(mod=998244353, root=None)`](../../../convolution/NTT.py#L294) | `ntt`を取得する。 | `mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`<br>`root`: 根の頂点番号・原始根。省略時: `None` | `transform`（NumberTheoreticTransform） |
+| [`convolution_naive(first, second, mod=None)`](../../../convolution/NTT.py#L305) | 畳み込み・`naive`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 計算結果（数値または入力要素型） |
+| [`convolution_ntt(first, second, mod=998244353, root=None)`](../../../convolution/NTT.py#L331) | 畳み込み・`ntt`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`<br>`root`: 根の頂点番号・原始根。省略時: `None` | `get_ntt(mod, root).convolution(first, second)` |
+| [`convolution_any_mod(first, second, mod)`](../../../convolution/NTT.py#L343) | 畳み込み・任意・`mod`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算 | list[number] — 昇冪順の係数列 [a0, a1, ...] / 数値または入力要素型 `[0] * (len(first) + len(second) - 1)` / `convolution_naive(first, second, mod)` / 計算結果（数値または入力要素型） |
+| [`convolution_int(first, second)`](../../../convolution/NTT.py#L383) | 畳み込み・`int`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[number] — 昇冪順の係数列 [a0, a1, ...] / `convolution_naive(first, second)` / 計算結果（数値または入力要素型） |
+| [`convolution(first, second, mod=998244353)`](../../../convolution/NTT.py#L420) | 畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `998244353` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `convolution_ntt(first, second, mod)` / `convolution_any_mod(first, second, mod)` |
 
 ## Class `NumberTheoreticTransform`
 
 動的radix-4 NTT・NTT-friendly/任意mod/符号付き整数畳み込みを扱う `NumberTheoreticTransform`。
 
-- constructor: [`NumberTheoreticTransform(mod=998244353, root=None)`](../../../convolution/NTT.py#L44)
+- constructor: [`NumberTheoreticTransform(mod=998244353, root=None)`](../../../convolution/NTT.py#L52)
 - 引数: `mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`<br>`root`: 根の頂点番号・原始根。省略時: `None`
 - 返り値: `NumberTheoreticTransform` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`butterfly(values)`](../../../convolution/NTT.py#L103) | method | `butterfly`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 値のlist |
-| [`butterfly_inv(values, normalize=True)`](../../../convolution/NTT.py#L171) | method | `butterfly`・`inv`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`normalize`: `normalize`として使う入力。省略時: `True` | 値のlist |
-| [`transform(values, inverse=False)`](../../../convolution/NTT.py#L243) | method | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False` | `self.butterfly_inv(values)` / `self.butterfly(values)` |
-| [`convolution(first, second, naive_threshold=60)`](../../../convolution/NTT.py#L248) | method | 畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`naive_threshold`: `naive`・`threshold`として使う入力。省略時: `60` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `convolution_naive(first, second, mod)` |
+| [`butterfly(values)`](../../../convolution/NTT.py#L112) | method | `butterfly`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 値のlist |
+| [`butterfly_inv(values, normalize=True)`](../../../convolution/NTT.py#L180) | method | `butterfly`・`inv`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`normalize`: `normalize`として使う入力。省略時: `True` | 値のlist |
+| [`transform(values, inverse=False)`](../../../convolution/NTT.py#L255) | method | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False` | `self.butterfly_inv(values)` / `self.butterfly(values)` |
+| [`convolution(first, second, naive_threshold=60)`](../../../convolution/NTT.py#L260) | method | 畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`naive_threshold`: `naive`・`threshold`として使う入力。省略時: `60` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `convolution_naive(first, second, mod)` |
