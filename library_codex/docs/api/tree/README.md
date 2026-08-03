@@ -24,3 +24,4 @@
 | [`TreeDiameter`](TreeDiameter.md) | 重み付きまたは重みなし木の直径とpathを求める。 | 2 | 0 | 0 |
 | [`TreeDistanceFrequency`](TreeDistanceFrequency.md) | 木の全頂点対距離の度数分布 | 1 | 0 | 0 |
 | [`TreeIsomorphism`](TreeIsomorphism.md) | 衝突なしAHU分類・128-bit木hash・中心/重心 | 6 | 2 | 3 |
+| [`ZeroOneTree`](ZeroOneTree.md) | 親優先制約付き0/1列の転倒数最小化 | 2 | 0 | 0 |

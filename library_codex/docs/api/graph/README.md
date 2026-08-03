@@ -34,6 +34,7 @@
 | [`GraphFromEdges`](GraphFromEdges.md) | 辺listからbit mask形式の無向隣接表を作る。 | 1 | 0 | 0 |
 | [`GraphOrdering`](GraphOrdering.md) | 木制約最適順序・st-numbering・全辺replacement shortest path | 3 | 0 | 0 |
 | [`GraphProperties`](GraphProperties.md) | Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色 | 1 | 1 | 4 |
+| [`GridBFS`](GridBFS.md) | 障害物付きgridのBFS最短距離 | 2 | 0 | 0 |
 | [`GridToGraph`](GridToGraph.md) | 通行可能なgridを隣接listへ変換する。 | 1 | 0 | 0 |
 | [`HeldKarp`](HeldKarp.md) | 全頂点を一度ずつ通る最短Hamilton pathまたはcycleをbit DPで求める。 | 2 | 0 | 0 |
 | [`Hungarian`](Hungarian.md) | 二部割当問題の最小費用または最大利益を求める。 | 2 | 0 | 0 |

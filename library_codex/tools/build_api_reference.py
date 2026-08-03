@@ -37,6 +37,7 @@ CATEGORY_DESCRIPTION = {
     "convolution": "畳み込み・多項式・形式的冪級数",
     "data_structure": "データ構造",
     "game": "組合せゲーム",
+    "geometry": "幾何・2次元点",
     "graph": "グラフアルゴリズム",
     "heuristic": "ヒューリスティック探索",
     "math": "数学・線形代数・数論",
@@ -76,8 +77,13 @@ MODULE_OVERRIDES = {
     "data_structure/LinearOptimization.py": ("直線集合とrange linear add/range min", "各操作 O(log^2 N) 系"),
     "data_structure/RangeLIS.py": ("Seaweed monoidによる静的区間LIS", "構築 O(N^2 log N) 系、query O(log N)"),
     "game/PartizanGame.py": ("partizan gameのSurreal/NumStar値と反復solver", "状態・遷移数依存"),
+    "geometry/ArgumentSort.py": ("2次元ベクトルの偏角sort", "O(N log N)"),
+    "geometry/ConvexHull.py": ("Andrewの単調鎖法による2次元凸包", "O(N log N)"),
+    "geometry/Orientation.py": ("2次元点の外積と向き判定", "O(1)"),
+    "geometry/SegmentIntersection.py": ("2次元線分の交差判定", "O(1)"),
     "graph/AdvancedFlow.py": ("高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット", "最大流依存 / O(V^3)"),
     "graph/CSRGraph.py": ("CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend", "構築 O(V+E)、各algorithmの標準計算量"),
+    "graph/GridBFS.py": ("障害物付きgridのBFS最短距離", "O(HW)"),
     "graph/GeneralWeightedMatching.py": ("一般グラフの最大重みmatching", "O(V^3)"),
     "math/ArbitraryBinomial.py": ("任意合成数法・巨大素数法の二項係数", "素因数分解・sqrt block依存"),
     "math/BinomialQueries.py": ("二項係数prefix和と巨大添字Stirlingの一括query", "Mo法 / 補間依存"),
@@ -94,6 +100,7 @@ MODULE_OVERRIDES = {
     ),
     "tree/DynamicRerooting.py": ("rake-compress top treeによる動的rerooting", "各更新・query償却 O(log N)"),
     "tree/IncrementalForest.py": ("辺追加だけのforest・LCA・path集約", "追加・query O(log N) 系"),
+    "tree/ZeroOneTree.py": ("親優先制約付き0/1列の転倒数最小化", "O(N log N)"),
 }
 
 CLASS_ORDER_OVERRIDES = {
@@ -105,6 +112,55 @@ CLASS_ORDER_OVERRIDES = {
 }
 
 MODULE_ARGUMENT_DESCRIPTION = {
+    "geometry/Orientation.py": {
+        "origin": "2本のベクトルの共通始点 `(x, y)`",
+        "first": "第1の点 `(x, y)`",
+        "second": "第2の点 `(x, y)`",
+        "third": "第3の点 `(x, y)`",
+    },
+    "geometry/SegmentIntersection.py": {
+        "first": "第1線分の一方の端点 `(x, y)`",
+        "second": "第1線分のもう一方の端点 `(x, y)`",
+        "third": "第2線分の一方の端点 `(x, y)`",
+        "fourth": "第2線分のもう一方の端点 `(x, y)`",
+        "touch": "Trueなら端点接触と重なりも交差に含める",
+    },
+    "geometry/ConvexHull.py": {
+        "points": "2次元点 `(x, y)` のiterable",
+        "keep_collinear": "Trueなら凸包の辺上にある点も残す",
+    },
+    "geometry/ArgumentSort.py": {
+        "points": "原点からの2次元ベクトル `(x, y)` のiterable",
+    },
+    "graph/GridBFS.py": {
+        "grid": "行の長さが等しい2次元sequence",
+        "start": "開始cell `(row, column)`",
+        "goal": "終了cell `(row, column)`",
+        "moves": "1回の移動 `(delta_row, delta_column)` のiterable",
+        "blocked": "通過できないcellの値",
+    },
+    "tree/ZeroOneTree.py": {
+        "parent": "各頂点の親番号。root自身の親はrootにする",
+        "zero_count": "各頂点blockに含まれる0の個数",
+        "one_count": "各頂点blockに含まれる1の個数",
+        "labels": "各頂点の0または1のラベル",
+        "root": "根の0-indexed頂点番号",
+    },
+    "algorithm/IntegerUtilities.py": {
+        "number": "対象の非負整数",
+        "degree": "求める根の正の次数",
+    },
+    "math/GrayCode.py": {
+        "bit_count": "bitmaskのbit数",
+        "start": "先頭にする0以上2^bit_count未満のbitmask",
+        "goal": "末尾にする0以上2^bit_count未満のbitmask",
+    },
+    "math/BinomialQueries.py": {
+        "combination": "C(n, k)を返すcallable。範囲外のkには0を返すもの",
+        "queries": "求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す",
+        "n": "二項係数C(n, k)の上側の整数",
+        "m": "prefix和へ含めるkの上限",
+    },
     "random/Random.py": {
         "values": "抽選・並べ替え対象のsequence",
         "lower": "生成範囲の下限（含む）",
@@ -140,6 +196,36 @@ MODULE_ARGUMENT_DESCRIPTION = {
 }
 
 MODULE_RETURN_SEMANTIC = {
+    "geometry/Orientation.py": {
+        "cross": "number — origin→firstとorigin→secondの符号付き外積",
+        "orientation": "int — 反時計回りは1、時計回りは-1、一直線は0",
+    },
+    "geometry/SegmentIntersection.py": {
+        "segments_intersect": "bool — 指定した条件で2線分が交差すればTrue",
+    },
+    "geometry/ConvexHull.py": {
+        "convex_hull": "list[tuple[number, number]] — 反時計回りの凸包頂点列。始点は末尾に重ねない",
+    },
+    "geometry/ArgumentSort.py": {
+        "argument_sort": "list[tuple[number, number]] — 正のx軸から反時計回りに並べた新しいlist",
+    },
+    "graph/GridBFS.py": {
+        "grid_bfs": "list[list[int]] — 各cellへの最短移動回数。到達不能は-1",
+        "grid_shortest_path": "int — goalまでの最短移動回数。到達不能は-1",
+    },
+    "tree/ZeroOneTree.py": {
+        "min_block_inversions": "int — 親優先制約を満たす並べ方の最小転倒数",
+        "min_inversions": "int — 0/1ラベルを親優先で並べるときの最小転倒数",
+    },
+    "algorithm/IntegerUtilities.py": {
+        "integer_nth_root": "int — value^degree <= numberを満たす最大の非負整数value",
+    },
+    "math/GrayCode.py": {
+        "gray_code_path": "iterator[int] — startから始まりgoalで終わる、全2^bit_count個のmask",
+    },
+    "math/BinomialQueries.py": {
+        "multipoint_binomial_prefix_sum": "list[int] — queryと同じ順のsum(C(n,k), 0<=k<=m)",
+    },
     "algorithm/SequenceAlgorithms.py": {
         "inversion_count": "int — i < j かつ values[i] > values[j] となる組の個数",
         "longest_increasing_subsequence": "int — LIS長。restore=Trueなら (長さ, 元の添字list, 値list)",
@@ -219,6 +305,12 @@ MODULE_RETURN_SEMANTIC = {
 }
 
 CLASS_RETURN_SEMANTIC = {
+    "math/BinomialQueries.py": {
+        "BinomialPrefix": {
+            "move": "int — 移動後のsum(C(n,k), 0<=k<=m)",
+            "get": "int — 現在位置のsum(C(n,k), 0<=k<=m)",
+        },
+    },
     "data_structure/DynamicWaveletMatrix.py": {
         "OfflineDynamicWaveletMatrix": {
             "range_sum": "登録したqueryのID（int）",
@@ -1465,7 +1557,7 @@ def render_index(categories, totals):
         "<!-- Generated by tools/build_api_reference.py; do not edit directly. -->",
         "# library_codex APIリファレンス",
         "",
-        "Geometryを除く `library_codex` の公開APIを、source ASTから網羅的に抽出した参照書です。",
+        "`library_codex` の公開APIを、source ASTから網羅的に抽出した参照書です。",
         "関数・constructor・methodのsignature、各引数の意味、返り値、source位置を確認できます。",
         "",
         "## 読み方と共通規約",

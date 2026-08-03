@@ -28,6 +28,28 @@ def exact_square_root(number):
     return root if root * root == number else -1
 
 
+def integer_nth_root(number, degree):
+    """非負整数numberのdegree乗根を切り捨てて返す。O(log number)。"""
+    if number < 0:
+        raise ValueError("number must be nonnegative")
+    if degree <= 0:
+        raise ValueError("degree must be positive")
+    if number < 2 or degree == 1:
+        return number
+    bits = number.bit_length()
+    if degree >= bits:
+        return 1
+    lower = 1
+    upper = 1 << ((bits + degree - 1) // degree)
+    while upper - lower > 1:
+        middle = (lower + upper) >> 1
+        if middle ** degree <= number:
+            lower = middle
+        else:
+            upper = middle
+    return lower
+
+
 def decimal_digit_count(number, zero=1):
     """Return the number of base-10 digits, ignoring the sign."""
     if number == 0:

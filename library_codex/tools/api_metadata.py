@@ -124,6 +124,47 @@ MODULE_CAPABILITIES = {
     ),
 }
 
+MODULE_CAPABILITIES.update({
+    "algorithm/IntegerUtilities.py": (
+        "合同類の代表値、mod乗、完全平方根、整数n乗根、10進桁数を求められる。",
+        "integer_nth_rootは浮動小数点数を使わず、floor(number^(1/degree))を返す。",
+    ),
+    "geometry/Orientation.py": (
+        "2本の2次元ベクトルの符号付き外積を求められる。",
+        "3点が反時計回り・時計回り・一直線のどれかを判定できる。",
+    ),
+    "geometry/SegmentIntersection.py": (
+        "2本の閉線分が交差・接触・重複するかを判定できる。",
+        "touch=Falseなら端点で触れるだけの場合を交差から除外できる。",
+    ),
+    "geometry/ConvexHull.py": (
+        "2次元点集合の凸包を反時計回りの頂点列として構築できる。",
+        "重複点を除去し、必要なら凸包の辺上にある点も残せる。",
+    ),
+    "geometry/ArgumentSort.py": (
+        "2次元ベクトルを正のx軸から反時計回りの偏角順に並べられる。",
+        "浮動小数点数を使わないため、整数座標なら誤差なく比較できる。",
+    ),
+    "graph/GridBFS.py": (
+        "障害物付きgridで開始cellから全cellへの最短移動回数を求められる。",
+        "2点間の最短移動回数だけを取得でき、到達不能は-1で判別できる。",
+        "4近傍以外の移動規則や障害物の値も指定できる。",
+    ),
+    "math/GrayCode.py": (
+        "整数とGray codeを相互変換できる。",
+        "指定したstartからgoalまで全bitmaskを一度ずつ通るHamilton pathを生成できる。",
+    ),
+    "math/BinomialQueries.py": (
+        "複数のsum(C(n,k), 0<=k<=m)をquery順に一括計算できる。",
+        "BinomialPrefixで現在の(n,m)を前後へ動かし、隣接移動ごとにO(1)でprefix和を更新できる。",
+        "素数法で巨大なnに対する第1種・第2種Stirling数をqueryできる。",
+    ),
+    "tree/ZeroOneTree.py": (
+        "親を子より先に並べる制約の下で、0/1ラベル列の転倒数を最小化できる。",
+        "各頂点が複数の0と1を持つblock版も同じAPIで処理できる。",
+    ),
+})
+
 
 PURPOSE_BY_NAME = {
     "add_query": "半開区間の問い合わせを登録し、そのquery IDを返す。",
@@ -419,6 +460,7 @@ COMPLEXITY_BY_MODULE = {
         "nearest_congruent_at_least": "O(1) integer operations",
         "modular_power": "O(log exponent)",
         "exact_square_root": "O(log number) bit operations",
+        "integer_nth_root": "O(log number) bit operations",
         "decimal_digit_count": "O(number of digits)",
     },
     "algorithm/ErdosGinzburgZiv.py": {
@@ -473,5 +515,26 @@ COMPLEXITY_BY_MODULE = {
         "euler_phi": "期待 O(N^(1/4) log N)",
         "mobius": "期待 O(N^(1/4) log N)",
         "factor_count_pairs": "期待 O(N^(1/4) log N)",
+    },
+    "geometry/Orientation.py": {
+        "cross": "O(1)",
+        "orientation": "O(1)",
+    },
+    "geometry/SegmentIntersection.py": {
+        "segments_intersect": "O(1)",
+    },
+    "geometry/ConvexHull.py": {
+        "convex_hull": "O(N log N)",
+    },
+    "geometry/ArgumentSort.py": {
+        "argument_sort": "O(N log N)",
+    },
+    "graph/GridBFS.py": {
+        "grid_bfs": "O(HW)",
+        "grid_shortest_path": "O(HW)",
+    },
+    "tree/ZeroOneTree.py": {
+        "min_block_inversions": "O(N log N)",
+        "min_inversions": "O(N log N)",
     },
 }

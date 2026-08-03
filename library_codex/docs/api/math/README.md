@@ -8,7 +8,7 @@
 | [`AdvancedMatrix`](AdvancedMatrix.md) | 合成数法行列式・Hafnian/Pfaffian・Matrix-Tree | 5 | 0 | 0 |
 | [`Affine`](Affine.md) | 一次関数の評価・合成・反転を扱う。 | 0 | 1 | 3 |
 | [`ArbitraryBinomial`](ArbitraryBinomial.md) | 任意合成数法・巨大素数法の二項係数 | 0 | 3 | 4 |
-| [`BinomialQueries`](BinomialQueries.md) | 二項係数prefix和と巨大添字Stirlingの一括query | 1 | 1 | 2 |
+| [`BinomialQueries`](BinomialQueries.md) | 二項係数prefix和と巨大添字Stirlingの一括query | 1 | 2 | 4 |
 | [`BlackBoxLinearAlgebra`](BlackBoxLinearAlgebra.md) | dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式 | 4 | 2 | 3 |
 | [`ChineseRemainder`](ChineseRemainder.md) | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 4 | 0 | 0 |
 | [`Combination`](Combination.md) | 階乗前計算または乗法式で二項係数・順列数を計算する。 | 1 | 1 | 5 |
@@ -22,7 +22,7 @@
 | [`FloorSum`](FloorSum.md) | 一次式の床和と合同条件を満たす整数の個数を高速に数える。 | 2 | 0 | 0 |
 | [`FractionSearch`](FractionSearch.md) | Stern--Brocot/Farey型の有理数探索 | 1 | 0 | 0 |
 | [`GaussianInteger`](GaussianInteger.md) | Gaussian整数の四則演算と最大公約数を扱う。 | 1 | 1 | 12 |
-| [`GrayCode`](GrayCode.md) | 整数とGray codeを相互変換する。 | 2 | 0 | 0 |
+| [`GrayCode`](GrayCode.md) | 整数とGray codeを相互変換する。 | 3 | 0 | 0 |
 | [`GrundyNumbers`](GrundyNumbers.md) | 遷移グラフからmexとGrundy数を計算する。 | 2 | 0 | 0 |
 | [`IntegerArithmetic`](IntegerArithmetic.md) | 整数のgcd・lcm・拡張gcdと法逆元を計算する。 | 5 | 0 | 0 |
 | [`IntegerDivision`](IntegerDivision.md) | 符号を含む整数除算の床・天井と厳密不等号版を計算する。 | 4 | 0 | 0 |

@@ -1,6 +1,6 @@
 # library_codex
 
-`library` に移す前の試作・検証用ディレクトリです。
+元の `library` を整理・拡張した、競技プログラミング用の実装本体です。
 
 - [追加機能とベンチマーク](EXPANSION.md): 高速flow・CSRグラフ・整数専用Lazy Segment Tree
 
@@ -13,16 +13,18 @@
 
 - 参照スナップショット全 792 ソースのうち、678 件を実装へ対応付け済み
 - 言語・runtime support 92 件を監査済み
-- Geometry 22 件はユーザー指定により保留
-- Geometry を除く未監査項目は 0 件
-- PyPy 全検証: 438 passed
-- 再帰監査: 2983 functions、direct/mutual recursion なし
+- 元の `library` 由来の基礎Geometry 4モジュールを移植済み
+- 外部参照スナップショットの高度なGeometry 22件は引き続き保留
+- 保留中の高度なGeometryを除く未監査項目は0件
+- PyPy 全検証: 447 passed
+- 再帰監査: 3036 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 
 ## 保守と検証
 
 - [保守監査](AUDIT.md): 完了条件、確認した所見、最終検証結果
+- [元のlibraryから取り込んだもの](docs/ORIGINAL_LIBRARY_MERGE.md): 採用した機能、改善点、不採用理由
 - `pypy3 library_codex/tools/check_library.py`: 日常用の短いテスト・性能回帰検査
 - `pypy3 library_codex/tools/check_library.py --profile full`: 全テスト・全性能回帰検査
 
@@ -30,7 +32,7 @@
 
 ## APIドキュメント
 
-- [APIリファレンス](docs/README.md): 全283モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
+- [APIリファレンス](docs/README.md): 全289モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
 - [モジュール境界の方針](docs/MODULE_BOUNDARIES.md): 分ける基準、同じファイルに残す基準、bundleの依存範囲
 - 1モジュール1ページで、category別の索引から辿れる
 - `pypy3 library_codex/tools/build_api_reference.py` でsourceから再生成できる
@@ -51,7 +53,7 @@
 | `algorithm/BitAlgorithms.py` | set bit・部分mask・上位maskの列挙 | set bit数または出力数に線形 |
 | `algorithm/Sorting.py` | 非負整数radix sort・置換・bucket sort | $O(NB/D + 2^D B/D)$ または $O(N+K)$ |
 | `algorithm/IntegerPartitions.py` | 加法的整数分割の列挙 | 出力サイズに線形 |
-| `algorithm/IntegerUtilities.py` | 合同類・mod乗・完全平方根・10進桁数 | 主に $O(\log N)$ |
+| `algorithm/IntegerUtilities.py` | 合同類・mod乗・完全平方根・整数n乗根・10進桁数 | 主に $O(\log N)$ |
 | `algorithm/ErdosGinzburgZiv.py` | Erdős–Ginzburg–Ziv定理の部分列構成 | $O(N^2)$ bit演算 |
 | `algorithm/ModularProgression.py` | mod付き等差数列の通常等差run分割 | $O(\sqrt N + R)$ |
 | `convolution/ArithmeticConvolution.py` | 約数/倍数zeta--Möbius・GCD/LCM畳み込み | $O(N\log\log N)$ |
@@ -88,6 +90,7 @@
 | `graph/MaxFlow.py` | ACL互換寄りの反復Dinic・min-cut・辺変更 | Dinicの計算量 |
 | `graph/AdvancedFlow.py` | global relabel付きpush-relabel・Gomory--Hu木・Stoer--Wagner最小カット | 最大流依存 / $O(V^3)$ |
 | `graph/CSRGraph.py` | flat CSR表現・最短路・探索・DAG・連結性・SCC・LowLinkの高速backend | 構築 $O(V+E)$、各標準計算量 |
+| `graph/GridBFS.py` | 障害物付きgridの距離表・2点間最短距離 | $O(HW)$ |
 | `graph/MinCostBFlow.py` | lower/upper・頂点supply・負費用対応minimum-cost b-flow | cost scaling法 |
 | `graph/MinCostFlow.py` | 非負費用のポテンシャル付き最小費用流・slope | $O(FE\log V)$ |
 | `graph/MinimumSpanningTree.py` | Kruskal最小全域森・最小全域木（辺ID付き） | $O(E\log E)$ |
@@ -108,6 +111,10 @@
 | `math/AdvancedMatrix.py` | 合成数法行列式・Hafnian/Pfaffian・Matrix-Tree | determinant/Pfaffian $O(N^3)$、Hafnian $O(N^3 2^{N/2})$ |
 | `math/F2Matrix.py` | Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列 | 掃き出し $O(HW)$ big-int演算 |
 | `math/Matrix.py` | 動的法の行列演算・rank/det/inverse/連立方程式・特性多項式 | 密行列主要演算 $O(N^3)$ |
+| `geometry/Orientation.py` | 外積と3点の向き判定 | $O(1)$ |
+| `geometry/SegmentIntersection.py` | 端点接触を選べる線分交差判定 | $O(1)$ |
+| `geometry/ConvexHull.py` | Andrew法による凸包 | $O(N\log N)$ |
+| `geometry/ArgumentSort.py` | 浮動小数点数を使わない偏角sort | $O(N\log N)$ |
 | `math/ModularArithmetic.py` | Tonelli--Shanks平方根・拡張BSGS離散対数 | $O(\log^2 P)$ / $O(\sqrt M)$ |
 | `math/ModularRoot.py` | 素数法k乗根・原始根・整数floor/ceil k乗根 | 法k乗根 $O(\min(P,K)^{1/4})$、整数根 $O(\log A)$ |
 | `math/PolynomialMatrix.py` | 多項式行列式・$\det(A+xB)$・多項式行列prefix積・多項式Matrix-Tree | 評価補間 / BSGS |
