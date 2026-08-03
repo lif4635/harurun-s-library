@@ -214,3 +214,19 @@ RETURN_DETAILS = {
     "tree_center": "list[int] — 木の中心頂点番号を昇順に並べた長さ1または2のlist",
     "tree_centroid": "list[int] — 木の重心頂点番号を昇順に並べた長さ1または2のlist",
 }
+
+
+# Big-O is kept separate from descriptive algorithm names.  These entries are
+# used when the source alone cannot provide a useful per-API estimate.
+COMPLEXITY_BY_MODULE = {
+    "prime/Factorization.py": {
+        "is_prime": "O(log N) 回の64bit mod乗算",
+        "pollard_rho": "期待 O(sqrt(p))（pは最小の素因数）",
+        "prime_factors": "期待 O(N^(1/4) log N)",
+        "factor_count": "期待 O(N^(1/4) log N)",
+        "divisors": "期待 O(N^(1/4) log N + tau(N))",
+        "euler_phi": "期待 O(N^(1/4) log N)",
+        "mobius": "期待 O(N^(1/4) log N)",
+        "factor_count_pairs": "期待 O(N^(1/4) log N)",
+    },
+}

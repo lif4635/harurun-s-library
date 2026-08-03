@@ -76,6 +76,10 @@ MODULE_OVERRIDES = {
     "math/Nimber.py": ("Conway nimber積・逆元・基底変換", "固定語長 O(1)"),
     "math/RationalFormalPowerSeries.py": ("有理形式的冪級数の係数・prefix和", "Bostan--Mori依存"),
     "math/Strassen.py": ("任意長方形行列の反復Strassen積", "O(N^log2(7))"),
+    "prime/Factorization.py": (
+        "64bit整数の素数判定・素因数分解・約数列挙",
+        "素数判定 O(log N)、素因数分解は期待 O(N^(1/4) log N)",
+    ),
     "tree/DynamicRerooting.py": ("rake-compress top treeによる動的rerooting", "各更新・query償却 O(log N)"),
     "tree/IncrementalForest.py": ("辺追加だけのforest・LCA・path集約", "追加・query O(log N) 系"),
 }

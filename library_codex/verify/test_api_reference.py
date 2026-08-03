@@ -72,5 +72,8 @@ def test_api_reference_has_actionable_semantics():
     assert "tuple[list[int], list[list[int]]]" in csr
 
     factorization = documents["docs/api/prime/Factorization.md"]
+    assert "64-bit確率的分解" not in factorization
+    assert "素数判定 O(log N)" in factorization
+    assert "期待 O(N^(1/4) log N)" in factorization
     assert "dict[int, int]" in factorization
     assert "list[int] — 素因数を重複込み" in factorization

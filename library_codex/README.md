@@ -115,7 +115,7 @@
 | `math/NumberTheoryExtras.py` | tetration・Gaussian整数・二平方和・二次方程式・有理探索 | 各標準計算量 |
 | `math/SATSolver.py` | watched literal型の反復SAT solver | 問題依存 |
 | `math/AlgebraExtras.py` | semiring・Pisano・q-binomial・浮動/有理binomial | 各標準計算量 |
-| `prime/Factorization.py` | deterministic Miller--Rabin・Brent型Pollard Rho・約数/phi/Möbius | 64-bit確率的分解 |
+| `prime/Factorization.py` | 64bit整数の素数判定・素因数分解・約数列挙 | 素数判定 O(log N)、素因数分解は期待 O(N^(1/4) log N) |
 | `prime/Sieve.py` | 線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数 | $O(N)$ / sublinear counting |
 | `optimization/Optimization.py` | Monotone Minima・凸min-plus・CHT・最大長方形・整数黄金分割 | 各参照計算量 |
 | `optimization/ProjectSelection.py` | binary/K値Project Selection・高次all-0/all-1 profit | 1回のmin-cutへ帰着 |

@@ -5,5 +5,5 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`Factorization`](Factorization.md) | deterministic Miller--Rabin・Brent型Pollard Rho・約数/phi/Möbius | 8 | 0 | 0 |
+| [`Factorization`](Factorization.md) | 64bit整数の素数判定・素因数分解・約数列挙 | 8 | 0 | 0 |
 | [`Sieve`](Sieve.md) | 線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数 | 4 | 1 | 2 |
