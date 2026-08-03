@@ -7,6 +7,10 @@
 - source: [`tree/IncrementalForest.py`](../../../tree/IncrementalForest.py)
 - 公開API: function 0、class 1、method/property 15（Python protocol 0を含む）
 
+## できること
+
+- `IncrementalForest`: 辺追加だけのforest・LCA・path集約を扱う `IncrementalForest`。
+
 ## Import
 
 ```python
@@ -15,7 +19,7 @@ from library_codex.tree.IncrementalForest import IncrementalForest
 
 ## Class `IncrementalForest`
 
-Forest under link-only updates, rerooting the smaller component.
+辺追加だけのforest・LCA・path集約を扱う `IncrementalForest`。
 
 - constructor: [`IncrementalForest(size=0)`](../../../tree/IncrementalForest.py#L7)
 - 引数: `size`: 要素数・universe size。省略時: `0`
@@ -27,17 +31,17 @@ Forest under link-only updates, rerooting the smaller component.
 | [`find(vertex)`](../../../tree/IncrementalForest.py#L43) | method | 代表元・位置・対象要素を探す。 | `vertex`: 頂点番号（0-indexed） | 代表元・位置・node番号（int） |
 | [`add_edge(first, second)`](../../../tree/IncrementalForest.py#L55) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / `edge` |
 | [`connected(first, second)`](../../../tree/IncrementalForest.py#L97) | method | 2頂点が同じ連結成分か判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
-| [`component_size(vertex)`](../../../tree/IncrementalForest.py#L102) | method | `IncrementalForest` の `component_size method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `-self.dsu[self.find(vertex)]` |
-| [`parent_of(vertex)`](../../../tree/IncrementalForest.py#L107) | method | `IncrementalForest` の `parent_of method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.parent[vertex]` |
-| [`parent_edge_of(vertex)`](../../../tree/IncrementalForest.py#L112) | method | `IncrementalForest` の `parent_edge_of method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.parent_edge[vertex]` |
-| [`depth(vertex)`](../../../tree/IncrementalForest.py#L117) | method | `IncrementalForest` の `depth method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.depths[vertex]` |
-| [`ancestor_at_depth(vertex, target_depth)`](../../../tree/IncrementalForest.py#L120) | method | `IncrementalForest` の `ancestor_at_depth method` を実行する。 | `vertex`: 頂点番号（0-indexed）<br>`target_depth`: `target`・`depth`として渡す値（APIの文脈に従う） | `-1` / `vertex` |
+| [`component_size(vertex)`](../../../tree/IncrementalForest.py#L102) | method | 指定頂点が属する連結成分の頂点数を返す。 | `vertex`: 頂点番号（0-indexed） | `-self.dsu[self.find(vertex)]` |
+| [`parent_of(vertex)`](../../../tree/IncrementalForest.py#L107) | method | 指定頂点の親頂点を返す。 | `vertex`: 頂点番号（0-indexed） | `self.parent[vertex]` |
+| [`parent_edge_of(vertex)`](../../../tree/IncrementalForest.py#L112) | method | 指定頂点と親を結ぶ辺IDを返す。 | `vertex`: 頂点番号（0-indexed） | `self.parent_edge[vertex]` |
+| [`depth(vertex)`](../../../tree/IncrementalForest.py#L117) | method | 指定頂点の根からの深さを返す。 | `vertex`: 頂点番号（0-indexed） | `self.depths[vertex]` |
+| [`ancestor_at_depth(vertex, target_depth)`](../../../tree/IncrementalForest.py#L120) | method | `ancestor`・`at`・`depth`を求める。 | `vertex`: 頂点番号（0-indexed）<br>`target_depth`: 祖先として取得したい根からの深さ | `-1` / `vertex` |
 | [`lca(first, second)`](../../../tree/IncrementalForest.py#L134) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） |
-| [`middle(first, second, third)`](../../../tree/IncrementalForest.py#L148) | method | `IncrementalForest` の `middle method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`third`: 第3入力 | `-1` / 数値または入力要素型 `self.lca(first, second) ^ self.lca(second, third) ^ self.lca(t...` |
+| [`middle(first, second, third)`](../../../tree/IncrementalForest.py#L148) | method | `middle`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`third`: 第3入力 | `-1` / 数値または入力要素型 `self.lca(first, second) ^ self.lca(second, third) ^ self.lca(t...` |
 | [`distance(first, second)`](../../../tree/IncrementalForest.py#L153) | method | 距離を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `-1 if ancestor < 0 else self.depths[first] + self.depths[secon...` |
-| [`kth_on_path(first, second, distance)`](../../../tree/IncrementalForest.py#L161) | method | `IncrementalForest` の `kth_on_path method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`distance`: 距離・距離配列 | `-1` / `self.ancestor_at_depth(first, self.depths[first] - distance)` / `self.ancestor_at_depth(second, self.depths[second] - remaining)` |
-| [`children(vertex)`](../../../tree/IncrementalForest.py#L172) | method | `IncrementalForest` の `children method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `iter(self.children_list[vertex])` |
-| [`num_vertices()`](../../../tree/IncrementalForest.py#L175) | method | `IncrementalForest` の `num_vertices method` を実行する。 | なし | `len(self.dsu)` |
+| [`kth_on_path(first, second, distance)`](../../../tree/IncrementalForest.py#L161) | method | 2頂点間のpath上で始点からk個進んだ頂点を返す。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`distance`: 距離・距離配列 | `-1` / `self.ancestor_at_depth(first, self.depths[first] - distance)` / `self.ancestor_at_depth(second, self.depths[second] - remaining)` |
+| [`children(vertex)`](../../../tree/IncrementalForest.py#L172) | method | `children`を求める。 | `vertex`: 頂点番号（0-indexed） | `iter(self.children_list[vertex])` |
+| [`num_vertices()`](../../../tree/IncrementalForest.py#L175) | method | 現在登録されている頂点数を返す。 | なし | `len(self.dsu)` |
 | [`addNode`](../../../tree/IncrementalForest.py#L41) | alias | `add_node` の別名。 | 同じ | 同じ |
 | [`rootOf`](../../../tree/IncrementalForest.py#L53) | alias | `find` の別名。 | 同じ | 同じ |
 | [`addEdge`](../../../tree/IncrementalForest.py#L95) | alias | `add_edge` の別名。 | 同じ | 同じ |

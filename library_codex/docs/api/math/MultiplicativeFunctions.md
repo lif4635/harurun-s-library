@@ -7,6 +7,14 @@
 - source: [`math/MultiplicativeFunctions.py`](../../../math/MultiplicativeFunctions.py)
 - 公開API: function 8、class 3、method/property 12（Python protocol 2を含む）
 
+## できること
+
+- `dirichlet_multiply`: 2つの入力をこの構造の演算規則で乗算する。
+- `dirichlet_divide`: `dirichlet`・`divide`を求める。
+- `enumerate_multiplicative_function`: `multiplicative`・`function`を列挙する。
+- `mobius_values`: Möbius・値列を求める。
+- `DirichletQuotientSeries`: 乗法的関数・Dirichlet積・Min_25型prefix和を扱う `DirichletQuotientSeries`。
+
 ## Import
 
 ```python
@@ -29,18 +37,18 @@ from library_codex.math.MultiplicativeFunctions import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`dirichlet_multiply(first, second)`](../../../math/MultiplicativeFunctions.py#L67) | module の `dirichlet_multiply function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 計算結果（DirichletQuotientSeries） |
-| [`dirichlet_divide(convolution, divisor)`](../../../math/MultiplicativeFunctions.py#L111) | module の `dirichlet_divide function` を実行する。 | `convolution`: 畳み込みとして渡す値（APIの文脈に従う）<br>`divisor`: 多項式の除数 | 計算結果（DirichletQuotientSeries） |
-| [`enumerate_multiplicative_function(limit, prime_power)`](../../../math/MultiplicativeFunctions.py#L165) | Enumerate f(0..limit), given f(p**e) as prime_power(value,p,e). | `limit`: 上限。NoneならAPI既定の上限<br>`prime_power`: 素数冪における値を返すcallback | list / 計算結果（数値または入力要素型） |
-| [`mobius_values(limit)`](../../../math/MultiplicativeFunctions.py#L187) | module の `mobius_values function` を実行する。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).mobius` |
-| [`divisor_count_values(limit)`](../../../math/MultiplicativeFunctions.py#L191) | module の `divisor_count_values function` を実行する。 | `limit`: 上限。NoneならAPI既定の上限 | `enumerate_multiplicative_function(limit, lambda power, prime, ...` |
+| [`dirichlet_multiply(first, second)`](../../../math/MultiplicativeFunctions.py#L67) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 計算結果（DirichletQuotientSeries） |
+| [`dirichlet_divide(convolution, divisor)`](../../../math/MultiplicativeFunctions.py#L111) | `dirichlet`・`divide`を求める。 | `convolution`: 畳み込みとして使う入力<br>`divisor`: 多項式の除数 | 計算結果（DirichletQuotientSeries） |
+| [`enumerate_multiplicative_function(limit, prime_power)`](../../../math/MultiplicativeFunctions.py#L165) | `multiplicative`・`function`を列挙する。 | `limit`: 上限。NoneならAPI既定の上限<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
+| [`mobius_values(limit)`](../../../math/MultiplicativeFunctions.py#L187) | Möbius・値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).mobius` |
+| [`divisor_count_values(limit)`](../../../math/MultiplicativeFunctions.py#L191) | 約数・個数・値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `enumerate_multiplicative_function(limit, lambda power, prime, ...` |
 | [`divisor_sum_values(limit)`](../../../math/MultiplicativeFunctions.py#L197) | 約数・和・値列を計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `enumerate_multiplicative_function(limit, lambda power, prime, ...` |
-| [`totient_values(limit)`](../../../math/MultiplicativeFunctions.py#L204) | module の `totient_values function` を実行する。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` |
+| [`totient_values(limit)`](../../../math/MultiplicativeFunctions.py#L204) | `totient`・値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` |
 | [`sum_totient_fast(limit, mod=None)`](../../../math/MultiplicativeFunctions.py#L395) | 和・`totient`・`fast`を計算する。 | `limit`: 上限。NoneならAPI既定の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | `0` / `prefix[limit]` |
 
 ## Class `DirichletQuotientSeries`
 
-Prefix sums stored at all distinct values floor(N/i).
+乗法的関数・Dirichlet積・Min_25型prefix和を扱う `DirichletQuotientSeries`。
 
 - constructor: [`DirichletQuotientSeries(n, values=None, mod=None)`](../../../math/MultiplicativeFunctions.py#L21)
 - 引数: `n`: 要素数・頂点数・次数<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None`
@@ -48,12 +56,12 @@ Prefix sums stored at all distinct values floor(N/i).
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(value)`](../../../math/MultiplicativeFunctions.py#L32) | method | `DirichletQuotientSeries` の `index method` を実行する。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` |
-| [`value(index)`](../../../math/MultiplicativeFunctions.py#L37) | method | `DirichletQuotientSeries` の `value method` を実行する。 | `index`: 0-indexedの位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` |
+| [`index(value)`](../../../math/MultiplicativeFunctions.py#L32) | method | 指定要素・頂点に対応する内部indexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` |
+| [`value(index)`](../../../math/MultiplicativeFunctions.py#L37) | method | 値を求める。 | `index`: 0-indexedの位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` |
 | [`__getitem__(key)`](../../../math/MultiplicativeFunctions.py#L42) | method | obj[key] で取得する。 | `key`: 比較・格納に使うkey | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(key, value)`](../../../math/MultiplicativeFunctions.py#L45) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`prefix()`](../../../math/MultiplicativeFunctions.py#L48) | method | `DirichletQuotientSeries` の `prefix method` を実行する。 | なし | `self` |
-| [`difference()`](../../../math/MultiplicativeFunctions.py#L57) | method | `DirichletQuotientSeries` の `difference method` を実行する。 | なし | `self` |
+| [`prefix()`](../../../math/MultiplicativeFunctions.py#L48) | method | prefixを求める。 | なし | `self` |
+| [`difference()`](../../../math/MultiplicativeFunctions.py#L57) | method | 差を求める。 | なし | `self` |
 | [`idx`](../../../math/MultiplicativeFunctions.py#L35) | alias | `index` の別名。 | 同じ | 同じ |
 | [`val`](../../../math/MultiplicativeFunctions.py#L40) | alias | `value` の別名。 | 同じ | 同じ |
 | [`pref`](../../../math/MultiplicativeFunctions.py#L55) | alias | `prefix` の別名。 | 同じ | 同じ |
@@ -61,10 +69,10 @@ Prefix sums stored at all distinct values floor(N/i).
 
 ## Class `EnumerateMultiplicativePrefixSum`
 
-Recover S_f(N/i) from prefix sums of g and h=f*g.
+乗法的関数・Dirichlet積・Min_25型prefix和を扱う `EnumerateMultiplicativePrefixSum`。
 
 - constructor: [`EnumerateMultiplicativePrefixSum(n, prefix_g, prefix_h)`](../../../math/MultiplicativeFunctions.py#L213)
-- 引数: `n`: 要素数・頂点数・次数<br>`prefix_g`: prefix・`g`として渡す値（APIの文脈に従う）<br>`prefix_h`: prefix・`h`として渡す値（APIの文脈に従う）
+- 引数: `n`: 要素数・頂点数・次数<br>`prefix_g`: prefix・`g`として使う入力<br>`prefix_h`: prefix・`h`として使う入力
 - 返り値: `EnumerateMultiplicativePrefixSum` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -73,7 +81,7 @@ Recover S_f(N/i) from prefix sums of g and h=f*g.
 
 ## Class `MultiplicativePrefixSum`
 
-Min_25 style summatory engine for a multiplicative function.
+乗法的関数・Dirichlet積・Min_25型prefix和を扱う `MultiplicativePrefixSum`。
 
 - constructor: [`MultiplicativePrefixSum(limit, mod=None)`](../../../math/MultiplicativeFunctions.py#L256)
 - 引数: `limit`: 上限。NoneならAPI既定の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None`
@@ -81,11 +89,11 @@ Min_25 style summatory engine for a multiplicative function.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(value)`](../../../math/MultiplicativeFunctions.py#L273) | method | `MultiplicativePrefixSum` の `index method` を実行する。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `self.size - value if value <= self.square else self.limit // v...` |
-| [`prime_count_table()`](../../../math/MultiplicativeFunctions.py#L281) | method | `MultiplicativePrefixSum` の `prime_count_table method` を実行する。 | なし | list / 数値または入力要素型 `high + [small[value] for value in range(self.square, 0, -1)]` |
-| [`prime_sum_table()`](../../../math/MultiplicativeFunctions.py#L305) | method | 素数・和・`table`を計算する。 | なし | list / `table`（list） |
-| [`run(prime_prefix, prime_power)`](../../../math/MultiplicativeFunctions.py#L332) | method | `MultiplicativePrefixSum` の `run method` を実行する。 | `prime_prefix`: 素数・prefixとして渡す値（APIの文脈に従う）<br>`prime_power`: 素数冪における値を返すcallback | `0` / `self._normalize(answer)` |
-| [`min_25_sieve(prime_prefix, prime_power)`](../../../math/MultiplicativeFunctions.py#L361) | method | `MultiplicativePrefixSum` の `min_25_sieve method` を実行する。 | `prime_prefix`: 素数・prefixとして渡す値（APIの文脈に従う）<br>`prime_power`: 素数冪における値を返すcallback | list / `current`（list） |
+| [`index(value)`](../../../math/MultiplicativeFunctions.py#L273) | method | 指定要素・頂点に対応する内部indexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `self.size - value if value <= self.square else self.limit // v...` |
+| [`prime_count_table()`](../../../math/MultiplicativeFunctions.py#L281) | method | 素数・個数・`table`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `high + [small[value] for value in range(self.square, 0, -1)]` |
+| [`prime_sum_table()`](../../../math/MultiplicativeFunctions.py#L305) | method | 素数・和・`table`を計算する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`run(prime_prefix, prime_power)`](../../../math/MultiplicativeFunctions.py#L332) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `prime_prefix`: 素数・prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | `0` / `self._normalize(answer)` |
+| [`min_25_sieve(prime_prefix, prime_power)`](../../../math/MultiplicativeFunctions.py#L361) | method | 最小・`25`・`sieve`を求める。 | `prime_prefix`: 素数・prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`idx`](../../../math/MultiplicativeFunctions.py#L276) | alias | `index` の別名。 | 同じ | 同じ |
 | [`pi_table`](../../../math/MultiplicativeFunctions.py#L303) | alias | `prime_count_table` の別名。 | 同じ | 同じ |
 

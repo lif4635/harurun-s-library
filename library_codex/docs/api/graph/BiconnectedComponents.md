@@ -7,6 +7,11 @@
 - source: [`graph/BiconnectedComponents.py`](../../../graph/BiconnectedComponents.py)
 - 公開API: function 0、class 2、method/property 6（Python protocol 2を含む）
 
+## できること
+
+- `BiconnectedComponents`: 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応）を扱う `BiconnectedComponents`。
+- `BlockCutTree`: 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応）を扱う `BlockCutTree`。
+
 ## Import
 
 ```python
@@ -23,8 +28,8 @@ from library_codex.graph.BiconnectedComponents import BiconnectedComponents, Blo
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`components`](../../../graph/BiconnectedComponents.py#L109) | property | `BiconnectedComponents` の `components method` を実行する。 | なし | `self.vertex_components` |
-| [`bc`](../../../graph/BiconnectedComponents.py#L113) | property | `BiconnectedComponents` の `bc method` を実行する。 | なし | list |
+| [`components`](../../../graph/BiconnectedComponents.py#L109) | property | 現在の連結成分数を返す。 | なし | `self.vertex_components` |
+| [`bc`](../../../graph/BiconnectedComponents.py#L113) | property | `bc`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 
 ## Class `BlockCutTree`
 
@@ -36,7 +41,7 @@ from library_codex.graph.BiconnectedComponents import BiconnectedComponents, Blo
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`id(vertex)`](../../../graph/BiconnectedComponents.py#L163) | method | `BlockCutTree` の `id method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.vertex_id[vertex]` |
+| [`id(vertex)`](../../../graph/BiconnectedComponents.py#L163) | method | `id`を求める。 | `vertex`: 頂点番号（0-indexed） | `self.vertex_id[vertex]` |
 | [`is_articulation(vertex)`](../../../graph/BiconnectedComponents.py#L166) | method | `articulation`かどうかを判定する。 | `vertex`: 頂点番号（0-indexed） | bool |
 | [`__len__()`](../../../graph/BiconnectedComponents.py#L171) | method | len(obj)。 | なし | 要素数（int） |
 | [`__getitem__(node)`](../../../graph/BiconnectedComponents.py#L174) | method | obj[key] で取得する。 | `node`: 頂点・内部node番号 | 格納値、sliceなら同種の部分構造 |

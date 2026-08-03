@@ -7,6 +7,12 @@
 - source: [`convolution/PolynomialComposition.py`](../../../convolution/PolynomialComposition.py)
 - 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `fps_compose`: `fps`・合成を求める。
+- `fps_compositional_inverse`: `fps`・`compositional`・逆元を計算する。
+- `composition`: 合成を求める。
+
 ## Import
 
 ```python
@@ -17,9 +23,9 @@ from library_codex.convolution.PolynomialComposition import fps_compose, fps_com
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`fps_compose(outer, inner, degree=None, mod=DEFAULT_MOD)`](../../../convolution/PolynomialComposition.py#L194) | module の `fps_compose function` を実行する。 | `outer`: 外側の多項式/FPS `f`<br>`inner`: 内側の多項式/FPS `g`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 数値または入力要素型 `[0] * degree` / 数値または入力要素型 `[outer[0] % mod] + [0] * (degree - 1)` / 数値または入力要素型 `[value] + [0] * (degree - 1)` / ほか（source参照） |
-| [`fps_compositional_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/PolynomialComposition.py#L230) | `fps`・`compositional`・逆元を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 数値または入力要素型 `[0, inverse_linear] + [0] * (degree - 2)` / `result[:degree]` |
-| [`composition(inner, outer, degree=None, mod=DEFAULT_MOD)`](../../../convolution/PolynomialComposition.py#L275) | module の `composition function` を実行する。 | `inner`: 内側の多項式/FPS `g`<br>`outer`: 外側の多項式/FPS `f`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_compose(outer, inner, degree, mod)` |
+| [`fps_compose(outer, inner, degree=None, mod=DEFAULT_MOD)`](../../../convolution/PolynomialComposition.py#L194) | `fps`・合成を求める。 | `outer`: 外側の多項式/FPS `f`<br>`inner`: 内側の多項式/FPS `g`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 数値または入力要素型 `[0] * degree` / 数値または入力要素型 `[outer[0] % mod] + [0] * (degree - 1)` / 数値または入力要素型 `[value] + [0] * (degree - 1)` / ほか（source参照） |
+| [`fps_compositional_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/PolynomialComposition.py#L230) | `fps`・`compositional`・逆元を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 数値または入力要素型 `[0, inverse_linear] + [0] * (degree - 2)` / `result[:degree]` |
+| [`composition(inner, outer, degree=None, mod=DEFAULT_MOD)`](../../../convolution/PolynomialComposition.py#L275) | 合成を求める。 | `inner`: 内側の多項式/FPS `g`<br>`outer`: 外側の多項式/FPS `f`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_compose(outer, inner, degree, mod)` |
 
 ## Module aliases
 

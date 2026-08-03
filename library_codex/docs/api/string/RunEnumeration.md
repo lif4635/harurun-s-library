@@ -7,6 +7,10 @@
 - source: [`string/RunEnumeration.py`](../../../string/RunEnumeration.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `run_enumerate`: `run`・列挙を求める。
+
 ## Import
 
 ```python
@@ -17,7 +21,7 @@ from library_codex.string.RunEnumeration import run_enumerate
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`run_enumerate(sequence)`](../../../string/RunEnumeration.py#L4) | module の `run_enumerate function` を実行する。 | `sequence`: 入力列 | list / 計算結果（list） |
+| [`run_enumerate(sequence)`](../../../string/RunEnumeration.py#L4) | `run`・列挙を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 
 ## Module aliases
 

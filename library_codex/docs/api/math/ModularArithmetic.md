@@ -7,6 +7,11 @@ Tonelli--Shanks平方根・拡張BSGS離散対数。
 - source: [`math/ModularArithmetic.py`](../../../math/ModularArithmetic.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `modular_square_root`: 法・平方・根を求める。
+- `discrete_logarithm`: `discrete`・対数を計算する。
+
 ## Import
 
 ```python
@@ -17,7 +22,7 @@ from library_codex.math.ModularArithmetic import modular_square_root, discrete_l
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`modular_square_root(value, prime)`](../../../math/ModularArithmetic.py#L4) | module の `modular_square_root function` を実行する。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | 値 / `-1` / `min(root, prime - root)` |
+| [`modular_square_root(value, prime)`](../../../math/ModularArithmetic.py#L4) | 法・平方・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | 値 / `-1` / `min(root, prime - root)` |
 | [`discrete_logarithm(base, target, modulus)`](../../../math/ModularArithmetic.py#L44) | `discrete`・対数を計算する。 | `base`: 底・基準となる値または列<br>`target`: 探索・判定・更新の対象値<br>`modulus`: 法 | `0` / `offset`（int） / `-1` / 数値または入力要素型 `offset + block * width + exponent` |
 
 ## Module aliases

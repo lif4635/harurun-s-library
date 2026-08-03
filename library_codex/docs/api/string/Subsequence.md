@@ -7,6 +7,11 @@
 - source: [`string/Subsequence.py`](../../../string/Subsequence.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `count_distinct_subsequences`: `distinct`・`subsequences`の個数を求める。
+- `is_subsequence`: 部分列かどうかを判定する。
+
 ## Import
 
 ```python

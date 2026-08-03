@@ -7,6 +7,14 @@ Conway nimber積・逆元・基底変換。
 - source: [`math/Nimber.py`](../../../math/Nimber.py)
 - 公開API: function 4、class 2、method/property 9（Python protocol 5を含む）
 
+## できること
+
+- `nim_product16`: `nim`・`product16`を求める。
+- `nim_product32`: `nim`・`product32`を求める。
+- `nim_product64`: `nim`・`product64`を求める。
+- `nim_product`: `nim`・積を計算する。
+- `Nimber`: Conway nimber積・逆元・基底変換を扱う `Nimber`。
+
 ## Import
 
 ```python
@@ -24,9 +32,9 @@ from library_codex.math.Nimber import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`nim_product16(first, second)`](../../../math/Nimber.py#L32) | module の `nim_product16 function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 8 ^ correction ^ lower` |
-| [`nim_product32(first, second)`](../../../math/Nimber.py#L41) | module の `nim_product32 function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 16 ^ correction ^ lower` |
-| [`nim_product64(first, second)`](../../../math/Nimber.py#L50) | module の `nim_product64 function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 32 ^ correction ^ lower` |
+| [`nim_product16(first, second)`](../../../math/Nimber.py#L32) | `nim`・`product16`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 8 ^ correction ^ lower` |
+| [`nim_product32(first, second)`](../../../math/Nimber.py#L41) | `nim`・`product32`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 16 ^ correction ^ lower` |
+| [`nim_product64(first, second)`](../../../math/Nimber.py#L50) | `nim`・`product64`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 32 ^ correction ^ lower` |
 | [`nim_product(first, second, bits=64)`](../../../math/Nimber.py#L60) | `nim`・積を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`bits`: 使用bit数。省略時: `64` | `_PRODUCT8[first][second]` / `nim_product16(first, second)` / `nim_product32(first, second)` / `nim_product64(first, second)` |
 
 ## Class `Nimber`
@@ -43,7 +51,7 @@ Conway nimber積・逆元・基底変換を扱う `Nimber`。
 | [`__eq__(other)`](../../../math/Nimber.py#L94) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__add__(other)`](../../../math/Nimber.py#L97) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Nimber instance |
 | [`__mul__(other)`](../../../math/Nimber.py#L104) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Nimber instance |
-| [`power(exponent)`](../../../math/Nimber.py#L110) | method | `Nimber` の `power method` を実行する。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） |
+| [`power(exponent)`](../../../math/Nimber.py#L110) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） |
 | [`inverse()`](../../../math/Nimber.py#L125) | method | 逆元・逆変換を求める。 | なし | `self.power((1 << self.bits) - 2)` |
 | [`__truediv__(other)`](../../../math/Nimber.py#L132) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * other.inverse()` |
 | [`pow`](../../../math/Nimber.py#L123) | alias | `power` の別名。 | 同じ | 同じ |
@@ -51,16 +59,16 @@ Conway nimber積・逆元・基底変換を扱う `Nimber`。
 
 ## Class `NimberToField`
 
-Linear basis conversion between nimber bits and a polynomial basis.
+Conway nimber積・逆元・基底変換を扱う `NimberToField`。
 
 - constructor: [`NimberToField(primitive_root)`](../../../math/Nimber.py#L142)
-- 引数: `primitive_root`: `primitive`・根として渡す値（APIの文脈に従う）
+- 引数: `primitive_root`: `primitive`・根として使う入力
 - 返り値: `NimberToField` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`field2nimber(value)`](../../../math/Nimber.py#L189) | method | `NimberToField` の `field2nimber method` を実行する。 | `value`: 追加・設定・問い合わせる値 | Nimber instance |
-| [`nimber2field(value)`](../../../math/Nimber.py#L192) | method | `NimberToField` の `nimber2field method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `self._apply(self.nimber_to_field, value)` |
+| [`field2nimber(value)`](../../../math/Nimber.py#L189) | method | `field2nimber`を求める。 | `value`: 追加・設定・問い合わせる値 | Nimber instance |
+| [`nimber2field(value)`](../../../math/Nimber.py#L192) | method | `nimber2field`を求める。 | `value`: 追加・設定・問い合わせる値 | `self._apply(self.nimber_to_field, value)` |
 
 ## Module aliases
 

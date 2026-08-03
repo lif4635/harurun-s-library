@@ -7,6 +7,13 @@
 - source: [`graph/KShortestPaths.py`](../../../graph/KShortestPaths.py)
 - 公開API: function 2、class 2、method/property 4（Python protocol 0を含む）
 
+## できること
+
+- `k_shortest_paths_directed`: `k`・最短・`paths`・有向を求める。
+- `k_shortest_paths_undirected`: `k`・最短・`paths`・無向を求める。
+- `KShortestPathDirected`: 有向/無向k-shortest loopless path（辺ID・平行辺対応）を扱う `KShortestPathDirected`。
+- `KShortestPathUndirected`: 有向/無向k-shortest loopless path（辺ID・平行辺対応）を扱う `KShortestPathUndirected`。
+
 ## Import
 
 ```python
@@ -17,12 +24,12 @@ from library_codex.graph.KShortestPaths import k_shortest_paths_directed, k_shor
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`k_shortest_paths_directed(n, edges, source, target, k)`](../../../graph/KShortestPaths.py#L95) | Return up to k directed loopless paths in nondecreasing cost order. Edges are ``(from, to, nonnegative_weight)``. Each result is ``(cost, vertices, original_edge_ids)``. Parallel edges are distinct. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 個数・順位・移動量（APIの文脈に従う） | up to k directed loopless paths in nondecreasing cost order |
-| [`k_shortest_paths_undirected(n, edges, source, target, k)`](../../../graph/KShortestPaths.py#L111) | Return up to k undirected loopless paths in nondecreasing cost order. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 個数・順位・移動量（APIの文脈に従う） | up to k undirected loopless paths in nondecreasing cost order |
+| [`k_shortest_paths_directed(n, edges, source, target, k)`](../../../graph/KShortestPaths.py#L95) | `k`・最短・`paths`・有向を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 選ぶ個数または0-indexedの順位 | `_yen(graph, weight, source, target, k)` |
+| [`k_shortest_paths_undirected(n, edges, source, target, k)`](../../../graph/KShortestPaths.py#L111) | `k`・最短・`paths`・無向を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 選ぶ個数または0-indexedの順位 | `_yen(graph, weight, source, target, k)` |
 
 ## Class `KShortestPathDirected`
 
-Incremental wrapper compatible with repeated get-next usage.
+有向/無向k-shortest loopless path（辺ID・平行辺対応）を扱う `KShortestPathDirected`。
 
 - constructor: [`KShortestPathDirected(n, source, target)`](../../../graph/KShortestPaths.py#L127)
 - 引数: `n`: 要素数・頂点数・次数<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値
@@ -31,7 +38,7 @@ Incremental wrapper compatible with repeated get-next usage.
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_edge(source, target, weight)`](../../../graph/KShortestPaths.py#L135) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`weight`: 重み | 数値または入力要素型 `len(self.edges) - 1` |
-| [`solve(k)`](../../../graph/KShortestPaths.py#L140) | method | 設定済みの問題を解き、答えを返す。 | `k`: 個数・順位・移動量（APIの文脈に従う） | 登録順の答えのlist |
+| [`solve(k)`](../../../graph/KShortestPaths.py#L140) | method | 設定済みの問題を解き、答えを返す。 | `k`: 選ぶ個数または0-indexedの順位 | 登録順の答えのlist |
 | [`get_next_smallest()`](../../../graph/KShortestPaths.py#L145) | method | `next`・最小を取得する。 | なし | 計算結果 / `None` |
 
 ## Class `KShortestPathUndirected`
@@ -46,6 +53,6 @@ Incremental wrapper compatible with repeated get-next usage.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`solve(k)`](../../../graph/KShortestPaths.py#L158) | method | 設定済みの問題を解き、答えを返す。 | `k`: 個数・順位・移動量（APIの文脈に従う） | 登録順の答えのlist |
+| [`solve(k)`](../../../graph/KShortestPaths.py#L158) | method | 設定済みの問題を解き、答えを返す。 | `k`: 選ぶ個数または0-indexedの順位 | 登録順の答えのlist |
 
 継承methodは同ページの `KShortestPathDirected` を参照してください。

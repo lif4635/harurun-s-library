@@ -42,3 +42,35 @@ def test_api_reference_local_links():
                         % (document.relative_to(ROOT), raw, line_counts[target])
                     )
     assert not errors, "\n".join(errors[:30])
+
+
+def test_api_reference_has_actionable_semantics():
+    documents = {
+        path.relative_to(ROOT).as_posix(): path.read_text(encoding="utf-8")
+        for path in sorted((ROOT / "docs" / "api").rglob("*.md"))
+        if path.name != "README.md"
+    }
+    assert documents
+    assert all("## できること" in text for text in documents.values())
+
+    forbidden = (
+        "を実行する。",
+        "を計算して返す。",
+        "詳細はclass/moduleの説明に従う。",
+        "APIの文脈に従う",
+    )
+    errors = []
+    for path, text in documents.items():
+        for phrase in forbidden:
+            if phrase in text:
+                errors.append("%s: contains %s" % (path, phrase))
+    assert not errors, "\n".join(errors[:30])
+
+    csr = documents["docs/api/graph/CSRGraph.md"]
+    assert "tuple[list[number], list[int]]" in csr
+    assert "iterator[tuple[int, number, int]]" in csr
+    assert "tuple[list[int], list[list[int]]]" in csr
+
+    factorization = documents["docs/api/prime/Factorization.md"]
+    assert "dict[int, int]" in factorization
+    assert "list[int] — 素因数を重複込み" in factorization

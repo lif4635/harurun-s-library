@@ -7,6 +7,11 @@ gcd・lcm・整数根など初等数学関数。
 - source: [`math/Elementary.py`](../../../math/Elementary.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `totient_table`: `totient`・`table`を求める。
+- `is_primitive_root`: `primitive`・根かどうかを判定する。
+
 ## Import
 
 ```python
@@ -17,7 +22,7 @@ from library_codex.math.Elementary import totient_table, is_primitive_root
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`totient_table(limit)`](../../../math/Elementary.py#L12) | module の `totient_table function` を実行する。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` |
+| [`totient_table(limit)`](../../../math/Elementary.py#L12) | `totient`・`table`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` |
 | [`is_primitive_root(value, prime)`](../../../math/Elementary.py#L16) | `primitive`・根かどうかを判定する。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | bool |
 
 ## Module aliases

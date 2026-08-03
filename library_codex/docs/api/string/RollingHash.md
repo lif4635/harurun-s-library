@@ -7,6 +7,14 @@ $2^{61}-1$ 静的hash・連結・反転・LCP。
 - source: [`string/RollingHash.py`](../../../string/RollingHash.py)
 - 公開API: function 1、class 5、method/property 33（Python protocol 11を含む）
 
+## できること
+
+- `hash_sequence`: hash・`sequence`を求める。
+- `HashString`: $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `HashString`。
+- `RollingHash`: $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHash`。
+- `DoubleRollingHash`: $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `DoubleRollingHash`。
+- `ReversibleRollingHash`: $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `ReversibleRollingHash`。
+
 ## Import
 
 ```python
@@ -33,27 +41,27 @@ from library_codex.string.RollingHash import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`hash_sequence(sequence, base=DEFAULT_BASE, base2=None)`](../../../string/RollingHash.py#L47) | module の `hash_sequence function` を実行する。 | `sequence`: 入力列<br>`base`: 底・基準となる値または列。省略時: `DEFAULT_BASE`<br>`base2`: 第2のhash base。省略時: `None` | `first` / tuple(`first`, `_component_hash(sequence, base2)`) |
+| [`hash_sequence(sequence, base=DEFAULT_BASE, base2=None)`](../../../string/RollingHash.py#L47) | hash・`sequence`を求める。 | `sequence`: 入力列<br>`base`: 底・基準となる値または列。省略時: `DEFAULT_BASE`<br>`base2`: 第2のhash base。省略時: `None` | `first` / tuple(`first`, `_component_hash(sequence, base2)`) |
 
 ## Class `HashString`
 
 $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `HashString`。
 
 - constructor: [`HashString(value, power, length, bases, reverse_value=None)`](../../../string/RollingHash.py#L71)
-- 引数: `value`: 追加・設定・問い合わせる値<br>`power`: 冪指数<br>`length`: 長さ<br>`bases`: `bases`として渡す値（APIの文脈に従う）<br>`reverse_value`: `reverse`・値として渡す値（APIの文脈に従う）。省略時: `None`
+- 引数: `value`: 追加・設定・問い合わせる値<br>`power`: 冪指数<br>`length`: 長さ<br>`bases`: `bases`として使う入力<br>`reverse_value`: 処理対象の値。省略時: `None`
 - 返り値: `HashString` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`empty(bases=(DEFAULT_BASE,), reversible=False)`](../../../string/RollingHash.py#L79) | classmethod | 空かどうかを判定する。 | `bases`: `bases`として渡す値（APIの文脈に従う）。省略時: `(DEFAULT_BASE,)`<br>`reversible`: `reversible`として渡す値（APIの文脈に従う）。省略時: `False` | bool |
-| [`from_sequence(sequence, base=DEFAULT_BASE, base2=None, reversible=False)`](../../../string/RollingHash.py#L87) | classmethod | `HashString` の `from_sequence method` を実行する。 | `sequence`: 入力列<br>`base`: 底・基準となる値または列。省略時: `DEFAULT_BASE`<br>`base2`: 第2のhash base。省略時: `None`<br>`reversible`: `reversible`として渡す値（APIの文脈に従う）。省略時: `False` | `rolling.get_value(0, len(rolling))` |
+| [`empty(bases=(DEFAULT_BASE,), reversible=False)`](../../../string/RollingHash.py#L79) | classmethod | 空かどうかを判定する。 | `bases`: `bases`として使う入力。省略時: `(DEFAULT_BASE,)`<br>`reversible`: `reversible`として使う入力。省略時: `False` | bool |
+| [`from_sequence(sequence, base=DEFAULT_BASE, base2=None, reversible=False)`](../../../string/RollingHash.py#L87) | classmethod | `from`・`sequence`を求める。 | `sequence`: 入力列<br>`base`: 底・基準となる値または列。省略時: `DEFAULT_BASE`<br>`base2`: 第2のhash base。省略時: `None`<br>`reversible`: `reversible`として使う入力。省略時: `False` | `rolling.get_value(0, len(rolling))` |
 | [`__len__()`](../../../string/RollingHash.py#L91) | method | len(obj)。 | なし | 要素数（int） |
 | [`__eq__(other)`](../../../string/RollingHash.py#L94) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__hash__()`](../../../string/RollingHash.py#L102) | method | hash(obj)。 | なし | `hash((self.length, self.bases, self.hash))` |
 | [`__add__(other)`](../../../string/RollingHash.py#L105) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | `NotImplemented` / HashString instance |
-| [`reversed()`](../../../string/RollingHash.py#L122) | method | `HashString` の `reversed method` を実行する。 | なし | HashString instance |
+| [`reversed()`](../../../string/RollingHash.py#L122) | method | `reversed`を求める。 | なし | HashString instance |
 | [`is_palindrome()`](../../../string/RollingHash.py#L131) | method | `palindrome`かどうかを判定する。 | なし | bool |
-| [`repeat(count)`](../../../string/RollingHash.py#L134) | method | `HashString` の `repeat method` を実行する。 | `count`: 個数 | 計算結果（数値または入力要素型） |
+| [`repeat(count)`](../../../string/RollingHash.py#L134) | method | `repeat`を求める。 | `count`: 個数 | 計算結果（数値または入力要素型） |
 | [`__mul__(count)`](../../../string/RollingHash.py#L148) | method | obj * other。 | `count`: 個数 | `self.repeat(count)` |
 | [`remove_prefix(prefix)`](../../../string/RollingHash.py#L153) | method | prefixを削除する。 | `prefix`: prefix列・prefix長 | HashString instance |
 | [`concat`](../../../string/RollingHash.py#L120) | alias | `__add__` の別名。 | 同じ | 同じ |
@@ -64,22 +72,22 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `HashString`。
 $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHash`。
 
 - constructor: [`RollingHash(sequence=(), base=DEFAULT_BASE, base2=None, reversible=False)`](../../../string/RollingHash.py#L177)
-- 引数: `sequence`: 入力列。省略時: `()`<br>`base`: 底・基準となる値または列。省略時: `DEFAULT_BASE`<br>`base2`: 第2のhash base。省略時: `None`<br>`reversible`: `reversible`として渡す値（APIの文脈に従う）。省略時: `False`
+- 引数: `sequence`: 入力列。省略時: `()`<br>`base`: 底・基準となる値または列。省略時: `DEFAULT_BASE`<br>`base2`: 第2のhash base。省略時: `None`<br>`reversible`: `reversible`として使う入力。省略時: `False`
 - 返り値: `RollingHash` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/RollingHash.py#L238) | method | len(obj)。 | なし | 要素数（int） |
-| [`bases`](../../../string/RollingHash.py#L242) | property | `RollingHash` の `bases method` を実行する。 | なし | tuple |
+| [`bases`](../../../string/RollingHash.py#L242) | property | `bases`を求める。 | なし | tuple — 用途欄に示した複数の結果を順に格納 |
 | [`get(left=0, right=None)`](../../../string/RollingHash.py#L249) | method | 指定位置・辺・状態の値を取得する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 指定対象に格納された値・edge object |
-| [`reverse_get(left=0, right=None)`](../../../string/RollingHash.py#L262) | method | `RollingHash` の `reverse_get method` を実行する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | `first` / tuple(`first`, `self._get_component(self.reverse_prefix2, self.power2, reverse...`) |
+| [`reverse_get(left=0, right=None)`](../../../string/RollingHash.py#L262) | method | `reverse`・`get`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | `first` / tuple(`first`, `self._get_component(self.reverse_prefix2, self.power2, reverse...`) |
 | [`get_value(left=0, right=None)`](../../../string/RollingHash.py#L279) | method | 値を取得する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | HashString instance |
-| [`same(left1, right1, other, left2, right2)`](../../../string/RollingHash.py#L296) | method | `RollingHash` の `same method` を実行する。 | `left1`: `left1`として渡す値（APIの文脈に従う）<br>`right1`: `right1`として渡す値（APIの文脈に従う）<br>`other`: 同じ型のもう一方のobject・値<br>`left2`: `left2`として渡す値（APIの文脈に従う）<br>`right2`: `right2`として渡す値（APIの文脈に従う） | bool |
-| [`lcp(other, left1=0, right1=None, left2=0, right2=None)`](../../../string/RollingHash.py#L303) | method | `RollingHash` の `lcp method` を実行する。 | `other`: 同じ型のもう一方のobject・値<br>`left1`: `left1`として渡す値（APIの文脈に従う）。省略時: `0`<br>`right1`: `right1`として渡す値（APIの文脈に従う）。省略時: `None`<br>`left2`: `left2`として渡す値（APIの文脈に従う）。省略時: `0`<br>`right2`: `right2`として渡す値（APIの文脈に従う）。省略時: `None` | `low`（数値または入力要素型） |
-| [`compare(other, left1=0, right1=None, left2=0, right2=None)`](../../../string/RollingHash.py#L324) | method | `RollingHash` の `compare method` を実行する。 | `other`: 同じ型のもう一方のobject・値<br>`left1`: `left1`として渡す値（APIの文脈に従う）。省略時: `0`<br>`right1`: `right1`として渡す値（APIの文脈に従う）。省略時: `None`<br>`left2`: `left2`として渡す値（APIの文脈に従う）。省略時: `0`<br>`right2`: `right2`として渡す値（APIの文脈に従う）。省略時: `None` | int `0 if end2 else -1` / `1` / int `-1 if self.data[left1 + common] < other.data[left2 + common] e...` |
+| [`same(left1, right1, other, left2, right2)`](../../../string/RollingHash.py#L296) | method | 2要素が同じ連結成分に属するか判定する。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`other`: 同じ型のもう一方のobject・値<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | bool |
+| [`lcp(other, left1=0, right1=None, left2=0, right2=None)`](../../../string/RollingHash.py#L303) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`left1`: `left1`として使う入力。省略時: `0`<br>`right1`: `right1`として使う入力。省略時: `None`<br>`left2`: `left2`として使う入力。省略時: `0`<br>`right2`: `right2`として使う入力。省略時: `None` | `low`（数値または入力要素型） |
+| [`compare(other, left1=0, right1=None, left2=0, right2=None)`](../../../string/RollingHash.py#L324) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`left1`: `left1`として使う入力。省略時: `0`<br>`right1`: `right1`として使う入力。省略時: `None`<br>`left2`: `left2`として使う入力。省略時: `0`<br>`right2`: `right2`として使う入力。省略時: `None` | int `0 if end2 else -1` / `1` / int `-1 if self.data[left1 + common] < other.data[left2 + common] e...` |
 | [`find(pattern, lower=0)`](../../../string/RollingHash.py#L340) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列<br>`lower`: 下限（包含関係はAPIの説明を参照）。省略時: `0` | 代表元・位置・node番号（int） |
 | [`append(symbol)`](../../../string/RollingHash.py#L353) | method | 要素を追加する。 | `symbol`: 文字・alphabet上の記号 | `None` |
-| [`extend(sequence)`](../../../string/RollingHash.py#L367) | method | `RollingHash` の `extend method` を実行する。 | `sequence`: 入力列 | `self` |
+| [`extend(sequence)`](../../../string/RollingHash.py#L367) | method | `extend`を求める。 | `sequence`: 入力列 | `self` |
 | [`__getitem__(index)`](../../../string/RollingHash.py#L374) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`query`](../../../string/RollingHash.py#L260) | alias | `get` の別名。 | 同じ | 同じ |
 | [`to_hash_string`](../../../string/RollingHash.py#L294) | alias | `get_value` の別名。 | 同じ | 同じ |
@@ -92,7 +100,7 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHash`。
 $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `DoubleRollingHash`。
 
 - constructor: [`DoubleRollingHash(sequence=(), bases=None, reversible=False)`](../../../string/RollingHash.py#L386)
-- 引数: `sequence`: 入力列。省略時: `()`<br>`bases`: `bases`として渡す値（APIの文脈に従う）。省略時: `None`<br>`reversible`: `reversible`として渡す値（APIの文脈に従う）。省略時: `False`
+- 引数: `sequence`: 入力列。省略時: `()`<br>`bases`: `bases`として使う入力。省略時: `None`<br>`reversible`: `reversible`として使う入力。省略時: `False`
 - 返り値: `DoubleRollingHash` instance
 - 継承元: `RollingHash`
 
@@ -120,12 +128,12 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHashView`。
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/RollingHash.py#L409) | method | len(obj)。 | なし | 要素数（int） |
-| [`hash`](../../../string/RollingHash.py#L413) | property | `RollingHashView` の `hash method` を実行する。 | なし | `self.base.get(self.left, self.right)` |
-| [`to_hash_string()`](../../../string/RollingHash.py#L416) | method | `RollingHashView` の `to_hash_string method` を実行する。 | なし | `self.base.get_value(self.left, self.right)` |
-| [`lcp(other)`](../../../string/RollingHash.py#L419) | method | `RollingHashView` の `lcp method` を実行する。 | `other`: 同じ型のもう一方のobject・値 | `self.base.lcp(other.base, self.left, self.right, other.left, o...` |
-| [`compare(other)`](../../../string/RollingHash.py#L426) | method | `RollingHashView` の `compare method` を実行する。 | `other`: 同じ型のもう一方のobject・値 | `self.base.compare(other.base, self.left, self.right, other.lef...` |
+| [`hash`](../../../string/RollingHash.py#L413) | property | hashを求める。 | なし | `self.base.get(self.left, self.right)` |
+| [`to_hash_string()`](../../../string/RollingHash.py#L416) | method | `to`・hash・文字列を求める。 | なし | `self.base.get_value(self.left, self.right)` |
+| [`lcp(other)`](../../../string/RollingHash.py#L419) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `self.base.lcp(other.base, self.left, self.right, other.left, o...` |
+| [`compare(other)`](../../../string/RollingHash.py#L426) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | `self.base.compare(other.base, self.left, self.right, other.lef...` |
 | [`is_palindrome()`](../../../string/RollingHash.py#L433) | method | `palindrome`かどうかを判定する。 | なし | bool |
-| [`reversed()`](../../../string/RollingHash.py#L436) | method | `RollingHashView` の `reversed method` を実行する。 | なし | `self.to_hash_string().reversed()` |
+| [`reversed()`](../../../string/RollingHash.py#L436) | method | `reversed`を求める。 | なし | `self.to_hash_string().reversed()` |
 | [`__getitem__(index)`](../../../string/RollingHash.py#L439) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__eq__(other)`](../../../string/RollingHash.py#L453) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__lt__(other)`](../../../string/RollingHash.py#L461) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |

@@ -7,6 +7,10 @@
 - source: [`math/RationalFormalPowerSeries.py`](../../../math/RationalFormalPowerSeries.py)
 - 公開API: function 0、class 1、method/property 17（Python protocol 8を含む）
 
+## できること
+
+- `RationalFormalPowerSeries`: 有理形式的冪級数の係数・prefix和を扱う `RationalFormalPowerSeries`。
+
 ## Import
 
 ```python
@@ -31,15 +35,15 @@ from library_codex.math.RationalFormalPowerSeries import RationalFormalPowerSeri
 | [`__sub__(other)`](../../../math/RationalFormalPowerSeries.py#L59) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, RationalFormalPowerSeries)...` |
 | [`__rsub__(other)`](../../../math/RationalFormalPowerSeries.py#L63) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `-self + other` |
 | [`__mul__(other)`](../../../math/RationalFormalPowerSeries.py#L66) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | RationalFormalPowerSeries instance |
-| [`pre(size)`](../../../math/RationalFormalPowerSeries.py#L73) | method | `RationalFormalPowerSeries` の `pre method` を実行する。 | `size`: 要素数・universe size | RationalFormalPowerSeries instance |
-| [`shrink()`](../../../math/RationalFormalPowerSeries.py#L78) | method | `RationalFormalPowerSeries` の `shrink method` を実行する。 | なし | `self` |
-| [`derivative()`](../../../math/RationalFormalPowerSeries.py#L82) | method | `RationalFormalPowerSeries` の `derivative method` を実行する。 | なし | RationalFormalPowerSeries instance |
-| [`integral()`](../../../math/RationalFormalPowerSeries.py#L90) | method | `RationalFormalPowerSeries` の `integral method` を実行する。 | なし | RationalFormalPowerSeries instance |
+| [`pre(size)`](../../../math/RationalFormalPowerSeries.py#L73) | method | `pre`を求める。 | `size`: 要素数・universe size | RationalFormalPowerSeries instance |
+| [`shrink()`](../../../math/RationalFormalPowerSeries.py#L78) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` |
+| [`derivative()`](../../../math/RationalFormalPowerSeries.py#L82) | method | 入力した多項式・級数を形式微分する。 | なし | RationalFormalPowerSeries instance |
+| [`integral()`](../../../math/RationalFormalPowerSeries.py#L90) | method | 入力した多項式・級数を形式積分する。 | なし | RationalFormalPowerSeries instance |
 | [`evaluate(point)`](../../../math/RationalFormalPowerSeries.py#L96) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | 計算結果（数値または入力要素型） |
 | [`inverse(degree=None)`](../../../math/RationalFormalPowerSeries.py#L105) | method | 逆元・逆変換を求める。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance |
 | [`logarithm(degree=None)`](../../../math/RationalFormalPowerSeries.py#L120) | method | 対数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | `(self.derivative() * self.inverse(degree)).pre(max(0, degree -...` |
 | [`exponential(degree=None)`](../../../math/RationalFormalPowerSeries.py#L131) | method | 指数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance |
-| [`power(exponent, degree=None)`](../../../math/RationalFormalPowerSeries.py#L148) | method | `RationalFormalPowerSeries` の `power method` を実行する。 | `exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None` | `self.inverse(degree).power(-exponent, degree)` / `result.pre(degree)` |
+| [`power(exponent, degree=None)`](../../../math/RationalFormalPowerSeries.py#L148) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None` | `self.inverse(degree).power(-exponent, degree)` / `result.pre(degree)` |
 | [`diff`](../../../math/RationalFormalPowerSeries.py#L88) | alias | `derivative` の別名。 | 同じ | 同じ |
 | [`eval`](../../../math/RationalFormalPowerSeries.py#L103) | alias | `evaluate` の別名。 | 同じ | 同じ |
 | [`inv`](../../../math/RationalFormalPowerSeries.py#L118) | alias | `inverse` の別名。 | 同じ | 同じ |

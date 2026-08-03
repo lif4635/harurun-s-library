@@ -7,6 +7,11 @@
 - source: [`data_structure/LiChaoTree.py`](../../../data_structure/LiChaoTree.py)
 - 公開API: function 0、class 2、method/property 8（Python protocol 0を含む）
 
+## できること
+
+- `LiChaoTree`: 固定座標・動的整数区間のLi Chao Tree（線分・min/max対応）を扱う `LiChaoTree`。
+- `DynamicLiChaoTree`: 固定座標・動的整数区間のLi Chao Tree（線分・min/max対応）を扱う `DynamicLiChaoTree`。
+
 ## Import
 
 ```python
@@ -24,7 +29,7 @@ from library_codex.data_structure.LiChaoTree import LiChaoTree, DynamicLiChaoTre
 固定座標・動的整数区間のLi Chao Tree（線分・min/max対応）を扱う `LiChaoTree`。
 
 - constructor: [`LiChaoTree(xs, minimize=True)`](../../../data_structure/LiChaoTree.py#L10)
-- 引数: `xs`: `xs`として渡す値（APIの文脈に従う）<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True`
+- 引数: `xs`: `xs`として使う入力<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True`
 - 返り値: `LiChaoTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -51,7 +56,7 @@ from library_codex.data_structure.LiChaoTree import LiChaoTree, DynamicLiChaoTre
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_line(a, b)`](../../../data_structure/LiChaoTree.py#L159) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` |
-| [`add_segment(a, b, ql, qr)`](../../../data_structure/LiChaoTree.py#L166) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: `ql`として渡す値（APIの文脈に従う）<br>`qr`: `qr`として渡す値（APIの文脈に従う） | `None` |
+| [`add_segment(a, b, ql, qr)`](../../../data_structure/LiChaoTree.py#L166) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `None` |
 | [`query(x)`](../../../data_structure/LiChaoTree.py#L187) | method | 指定した対象への問い合わせ結果を返す。 | `x`: 値・座標・問い合わせ対象 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
 | [`add`](../../../data_structure/LiChaoTree.py#L163) | alias | `add_line` の別名。 | 同じ | 同じ |
 | [`update`](../../../data_structure/LiChaoTree.py#L164) | alias | `add_line` の別名。 | 同じ | 同じ |

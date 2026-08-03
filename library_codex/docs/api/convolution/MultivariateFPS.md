@@ -7,6 +7,10 @@
 - source: [`convolution/MultivariateFPS.py`](../../../convolution/MultivariateFPS.py)
 - 公開API: function 0、class 1、method/property 15（Python protocol 6を含む）
 
+## できること
+
+- `MultivariateFormalPowerSeries`: 多変数形式的冪級数の逆元・指数・対数・冪を扱う `MultivariateFormalPowerSeries`。
+
 ## Import
 
 ```python
@@ -23,21 +27,21 @@ from library_codex.convolution.MultivariateFPS import MultivariateFormalPowerSer
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(*indices)`](../../../convolution/MultivariateFPS.py#L24) | method | `MultivariateFormalPowerSeries` の `index method` を実行する。 | `*indices`: 0-indexed位置の列 | 計算結果（int） |
+| [`index(*indices)`](../../../convolution/MultivariateFPS.py#L24) | method | 指定要素・頂点に対応する内部indexを返す。 | `*indices`: 0-indexed位置の列 | 計算結果（int） |
 | [`get(*indices)`](../../../convolution/MultivariateFPS.py#L38) | method | 指定位置・辺・状態の値を取得する。 | `*indices`: 0-indexed位置の列 | 指定対象に格納された値・edge object |
-| [`set(*indices_and_value)`](../../../convolution/MultivariateFPS.py#L41) | method | 指定位置・状態を値で置き換える。 | `*indices_and_value`: `indices`・AND・値として渡す値（APIの文脈に従う） | `None` |
+| [`set(*indices_and_value)`](../../../convolution/MultivariateFPS.py#L41) | method | 指定位置・状態を値で置き換える。 | `*indices_and_value`: 処理対象の値 | `None` |
 | [`__add__(other)`](../../../convolution/MultivariateFPS.py#L54) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance |
 | [`__neg__()`](../../../convolution/MultivariateFPS.py#L64) | method | -obj。 | なし | MultivariateFormalPowerSeries instance |
 | [`__sub__(other)`](../../../convolution/MultivariateFPS.py#L70) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, MultivariateFormalPowerSer...` |
 | [`__rsub__(other)`](../../../convolution/MultivariateFPS.py#L74) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `-self + other` |
 | [`__mul__(other)`](../../../convolution/MultivariateFPS.py#L77) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance |
 | [`__truediv__(other)`](../../../convolution/MultivariateFPS.py#L89) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * other.inverse()` / 数値または入力要素型 `self * pow(other, -1, self.mod)` |
-| [`derivative()`](../../../convolution/MultivariateFPS.py#L94) | method | `MultivariateFormalPowerSeries` の `derivative method` を実行する。 | なし | MultivariateFormalPowerSeries instance |
-| [`integral()`](../../../convolution/MultivariateFPS.py#L103) | method | `MultivariateFormalPowerSeries` の `integral method` を実行する。 | なし | MultivariateFormalPowerSeries instance |
+| [`derivative()`](../../../convolution/MultivariateFPS.py#L94) | method | 入力した多項式・級数を形式微分する。 | なし | MultivariateFormalPowerSeries instance |
+| [`integral()`](../../../convolution/MultivariateFPS.py#L103) | method | 入力した多項式・級数を形式積分する。 | なし | MultivariateFormalPowerSeries instance |
 | [`inverse()`](../../../convolution/MultivariateFPS.py#L109) | method | 逆元・逆変換を求める。 | なし | `current`（数値または入力要素型） |
 | [`logarithm()`](../../../convolution/MultivariateFPS.py#L130) | method | 対数を計算する。 | なし | `(self.derivative() * self.inverse()).integral()` |
 | [`exponential()`](../../../convolution/MultivariateFPS.py#L137) | method | 指数を計算する。 | なし | `current`（数値または入力要素型） |
-| [`power(exponent)`](../../../convolution/MultivariateFPS.py#L152) | method | `MultivariateFormalPowerSeries` の `power method` を実行する。 | `exponent`: 非負の指数 | `self.inverse().power(-exponent)` / 計算結果（数値または入力要素型） |
+| [`power(exponent)`](../../../convolution/MultivariateFPS.py#L152) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | `self.inverse().power(-exponent)` / 計算結果（数値または入力要素型） |
 | [`id`](../../../convolution/MultivariateFPS.py#L36) | alias | `index` の別名。 | 同じ | 同じ |
 | [`diff`](../../../convolution/MultivariateFPS.py#L101) | alias | `derivative` の別名。 | 同じ | 同じ |
 | [`inv`](../../../convolution/MultivariateFPS.py#L128) | alias | `inverse` の別名。 | 同じ | 同じ |

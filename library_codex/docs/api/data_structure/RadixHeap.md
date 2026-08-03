@@ -7,6 +7,10 @@
 - source: [`data_structure/RadixHeap.py`](../../../data_structure/RadixHeap.py)
 - 公開API: function 0、class 1、method/property 6（Python protocol 2を含む）
 
+## できること
+
+- `RadixHeap`: 単調非負整数キー用優先度付きキューを扱う `RadixHeap`。
+
 ## Import
 
 ```python

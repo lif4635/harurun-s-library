@@ -7,6 +7,13 @@ Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分
 - source: [`tree/LinkCutTree.py`](../../../tree/LinkCutTree.py)
 - 公開API: function 0、class 4、method/property 36（Python protocol 0を含む）
 
+## できること
+
+- `LinkCutTree`: Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和）を扱う `LinkCutTree`。
+- `LazyLinkCutTree`: Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和）を扱う `LazyLinkCutTree`。
+- `SubtreeLinkCutTree`: Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和）を扱う `SubtreeLinkCutTree`。
+- `SubtreeAddLinkCutTree`: Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和）を扱う `SubtreeAddLinkCutTree`。
+
 ## Import
 
 ```python
@@ -15,7 +22,7 @@ from library_codex.tree.LinkCutTree import LinkCutTree, LazyLinkCutTree, Subtree
 
 ## Class `LinkCutTree`
 
-Array based link-cut tree for path products and path actions. ``op`` may be non-commutative. ``mapping(action, aggregate, length)`` and ``composition(new, old)`` are only needed when ``path_apply`` is used. compositio...
+Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和）を扱う `LinkCutTree`。
 
 - constructor: [`LinkCutTree(values, op=add, identity=0, mapping=None, composition=None)`](../../../tree/LinkCutTree.py#L30)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`。省略時: `add`<br>`identity`: 演算 `op` の単位元。省略時: `0`<br>`mapping`: 作用を値へ適用するcallback。省略時: `None`<br>`composition`: 新旧の作用を合成するcallback。省略時: `None`
@@ -30,11 +37,11 @@ Array based link-cut tree for path products and path actions. ``op`` may be non-
 | [`link(child, parent)`](../../../tree/LinkCutTree.py#L212) | method | 異なる木の2頂点を辺で接続する。 | `child`: 子cluster・子頂点<br>`parent`: 親頂点・親配列 | bool |
 | [`cut(first, second=None)`](../../../tree/LinkCutTree.py#L219) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値。省略時: `None` | bool |
 | [`lca(first, second, root=None)`](../../../tree/LinkCutTree.py#L243) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`root`: 根の頂点番号・原始根。省略時: `None` | 最小共通祖先の頂点番号（int） |
-| [`parent_of(node, root=None)`](../../../tree/LinkCutTree.py#L251) | method | `LinkCutTree` の `parent_of method` を実行する。 | `node`: 頂点・内部node番号<br>`root`: 根の頂点番号・原始根。省略時: `None` | `-1` / 親情報 |
-| [`path_fold(first, second)`](../../../tree/LinkCutTree.py#L267) | method | `LinkCutTree` の `path_fold method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.forward[second]` |
-| [`path_apply(first, second, action)`](../../../tree/LinkCutTree.py#L275) | method | `LinkCutTree` の `path_apply method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`action`: 遅延作用・更新作用 | `None` |
-| [`path_length(first, second)`](../../../tree/LinkCutTree.py#L284) | method | `LinkCutTree` の `path_length method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.size[second]` |
-| [`kth_on_path(first, second, index)`](../../../tree/LinkCutTree.py#L289) | method | `LinkCutTree` の `kth_on_path method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`index`: 0-indexedの位置 | `-1` / `node` |
+| [`parent_of(node, root=None)`](../../../tree/LinkCutTree.py#L251) | method | 指定頂点の親頂点を返す。 | `node`: 頂点・内部node番号<br>`root`: 根の頂点番号・原始根。省略時: `None` | `-1` / 親情報 |
+| [`path_fold(first, second)`](../../../tree/LinkCutTree.py#L267) | method | path・`fold`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.forward[second]` |
+| [`path_apply(first, second, action)`](../../../tree/LinkCutTree.py#L275) | method | path・`apply`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`action`: 遅延作用・更新作用 | `None` |
+| [`path_length(first, second)`](../../../tree/LinkCutTree.py#L284) | method | path・長さを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.size[second]` |
+| [`kth_on_path(first, second, index)`](../../../tree/LinkCutTree.py#L289) | method | 2頂点間のpath上で始点からk個進んだ頂点を返す。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`index`: 0-indexedの位置 | `-1` / `node` |
 | [`get_kth(node, index)`](../../../tree/LinkCutTree.py#L308) | method | k番目を取得する。 | `node`: 頂点・内部node番号<br>`index`: 0-indexedの位置 | `-1` / `current` |
 | [`set_value(node, value)`](../../../tree/LinkCutTree.py#L327) | method | 値を設定する。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`get_value(node)`](../../../tree/LinkCutTree.py#L335) | method | 値を取得する。 | `node`: 頂点・内部node番号 | `self.value[node]` |
@@ -65,10 +72,10 @@ Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分
 
 ## Class `SubtreeLinkCutTree`
 
-Link-cut tree for subtree products over a commutative group.
+Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和）を扱う `SubtreeLinkCutTree`。
 
 - constructor: [`SubtreeLinkCutTree(values, op=add, remove=sub, identity=0)`](../../../tree/LinkCutTree.py#L367)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`。省略時: `add`<br>`remove`: `remove`として渡す値（APIの文脈に従う）。省略時: `sub`<br>`identity`: 演算 `op` の単位元。省略時: `0`
+- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`。省略時: `add`<br>`remove`: 処理中に呼び出す関数または操作。省略時: `sub`<br>`identity`: 演算 `op` の単位元。省略時: `0`
 - 返り値: `SubtreeLinkCutTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -81,8 +88,8 @@ Link-cut tree for subtree products over a commutative group.
 | [`cut(first, second)`](../../../tree/LinkCutTree.py#L525) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`set_value(node, value)`](../../../tree/LinkCutTree.py#L535) | method | 値を設定する。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`get_value(node)`](../../../tree/LinkCutTree.py#L542) | method | 値を取得する。 | `node`: 頂点・内部node番号 | `self.value[node]` |
-| [`subtree_fold(node, root=None)`](../../../tree/LinkCutTree.py#L548) | method | `SubtreeLinkCutTree` の `subtree_fold method` を実行する。 | `node`: 頂点・内部node番号<br>`root`: 根の頂点番号・原始根。省略時: `None` | `self.op(self.value[node], self.virtual[node])` |
-| [`component_fold(node)`](../../../tree/LinkCutTree.py#L556) | method | `SubtreeLinkCutTree` の `component_fold method` を実行する。 | `node`: 頂点・内部node番号 | `self.subtree_fold(node)` |
+| [`subtree_fold(node, root=None)`](../../../tree/LinkCutTree.py#L548) | method | `subtree`・`fold`を求める。 | `node`: 頂点・内部node番号<br>`root`: 根の頂点番号・原始根。省略時: `None` | `self.op(self.value[node], self.virtual[node])` |
+| [`component_fold(node)`](../../../tree/LinkCutTree.py#L556) | method | 連結成分・`fold`を求める。 | `node`: 頂点・内部node番号 | `self.subtree_fold(node)` |
 | [`expose`](../../../tree/LinkCutTree.py#L487) | alias | `access` の別名。 | 同じ | 同じ |
 | [`evert`](../../../tree/LinkCutTree.py#L493) | alias | `make_root` の別名。 | 同じ | 同じ |
 | [`get_root`](../../../tree/LinkCutTree.py#L504) | alias | `find_root` の別名。 | 同じ | 同じ |
@@ -93,7 +100,7 @@ Link-cut tree for subtree products over a commutative group.
 
 ## Class `SubtreeAddLinkCutTree`
 
-Numeric link-cut tree supporting rooted subtree add and sum.
+Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和）を扱う `SubtreeAddLinkCutTree`。
 
 - constructor: [`SubtreeAddLinkCutTree(values)`](../../../tree/LinkCutTree.py#L579)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある
@@ -109,7 +116,7 @@ Numeric link-cut tree supporting rooted subtree add and sum.
 | [`cut(first, second)`](../../../tree/LinkCutTree.py#L770) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`set_value(node, value)`](../../../tree/LinkCutTree.py#L780) | method | 値を設定する。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`get_value(node)`](../../../tree/LinkCutTree.py#L787) | method | 値を取得する。 | `node`: 頂点・内部node番号 | `self.value[node]` |
-| [`subtree_add(node, delta, root=None)`](../../../tree/LinkCutTree.py#L793) | method | `SubtreeAddLinkCutTree` の `subtree_add method` を実行する。 | `node`: 頂点・内部node番号<br>`delta`: 加算差分<br>`root`: 根の頂点番号・原始根。省略時: `None` | `None` |
+| [`subtree_add(node, delta, root=None)`](../../../tree/LinkCutTree.py#L793) | method | `subtree`・`add`を求める。 | `node`: 頂点・内部node番号<br>`delta`: 加算差分<br>`root`: 根の頂点番号・原始根。省略時: `None` | `None` |
 | [`subtree_sum(node, root=None)`](../../../tree/LinkCutTree.py#L806) | method | `subtree`・和を計算する。 | `node`: 頂点・内部node番号<br>`root`: 根の頂点番号・原始根。省略時: `None` | 数値または入力要素型 `self.value[node] + self.virtual_sum[node]` |
 | [`component_sum(node)`](../../../tree/LinkCutTree.py#L814) | method | 連結成分・和を計算する。 | `node`: 頂点・内部node番号 | `self.subtree_sum(node)` |
 | [`expose`](../../../tree/LinkCutTree.py#L733) | alias | `access` の別名。 | 同じ | 同じ |

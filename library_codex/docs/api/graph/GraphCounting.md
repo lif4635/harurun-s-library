@@ -7,6 +7,13 @@
 - source: [`graph/GraphCounting.py`](../../../graph/GraphCounting.py)
 - 公開API: function 5、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `chromatic_polynomial`: `chromatic`・多項式を求める。
+- `evaluate_polynomial`: 入力した多項式・式を指定点で評価する。
+- `count_undirected_spanning_trees`: 無向・全域・`trees`の個数を求める。
+- `count_directed_spanning_trees`: 有向・全域・`trees`の個数を求める。
+
 ## Import
 
 ```python
@@ -29,8 +36,8 @@ from library_codex.graph.GraphCounting import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`chromatic_polynomial(graph, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L23) | Return coefficients of P(x), low degree first, in O(N 2^N). The modulus must admit inverses of ``1..N`` (normally a prime greater than N). The inclusion-exclusion values are converted from the binomial basis to the or... | `graph`: 隣接listまたはグラフobject<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | coefficients of P(x), low degree first, in O(N 2^N) |
-| [`evaluate_polynomial(coefficients, value, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L67) | module の `evaluate_polynomial function` を実行する。 | `coefficients`: 係数列<br>`value`: 追加・設定・問い合わせる値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`count_undirected_spanning_trees(n, edges, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L74) | Weighted/multi-edge Matrix--Tree count. Entries are ``(u,v)`` or ``(u,v,multiplicity_or_weight)``. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(laplacian, mod)` |
-| [`count_directed_spanning_trees(n, edges, root, toward_root=True, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L98) | Count directed spanning trees rooted at ``root``. ``toward_root=True`` counts paths directed into the root; false counts paths directed away from it. Weighted/parallel edges use their third tuple item as a multiplicity. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`toward_root`: `toward`・根として渡す値（APIの文脈に従う）。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` |
-| [`count_eulerian_circuits(n, edges, root=None, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L128) | BEST-theorem count for a directed multigraph. Entries are ``(u,v)`` or ``(u,v,multiplicity)``. This matches the common competitive-programming normalization ``t_root * prod((out(v)-1)!)``. Isolated vertices are ignore... | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / `1` / 答え（数値または入力要素型） |
+| [`chromatic_polynomial(graph, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L23) | `chromatic`・多項式を求める。 | `graph`: 隣接listまたはグラフobject<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 答え（数値または入力要素型） |
+| [`evaluate_polynomial(coefficients, value, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L67) | 入力した多項式・式を指定点で評価する。 | `coefficients`: 係数列<br>`value`: 追加・設定・問い合わせる値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`count_undirected_spanning_trees(n, edges, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L74) | 無向・全域・`trees`の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(laplacian, mod)` |
+| [`count_directed_spanning_trees(n, edges, root, toward_root=True, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L98) | 有向・全域・`trees`の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`toward_root`: `toward`・根として使う入力。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` |
+| [`count_eulerian_circuits(n, edges, root=None, mod=DEFAULT_MOD)`](../../../graph/GraphCounting.py#L128) | `eulerian`・`circuits`の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / `1` / 答え（数値または入力要素型） |

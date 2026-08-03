@@ -7,6 +7,10 @@ Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列。
 - source: [`math/F2Matrix.py`](../../../math/F2Matrix.py)
 - 公開API: function 0、class 1、method/property 17（Python protocol 3を含む）
 
+## できること
+
+- `F2Matrix`: Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列を扱う `F2Matrix`。
+
 ## Import
 
 ```python
@@ -23,20 +27,20 @@ Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列を扱う `F2Mat
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`from_lists(matrix)`](../../../math/F2Matrix.py#L20) | classmethod | `F2Matrix` の `from_lists method` を実行する。 | `matrix`: 行をlistで持つ行列 | `cls(height, width, rows)` |
-| [`identity(size)`](../../../math/F2Matrix.py#L34) | classmethod | `F2Matrix` の `identity method` を実行する。 | `size`: 要素数・universe size | `cls(size, size, [1 << index for index in range(size)])` |
-| [`copy()`](../../../math/F2Matrix.py#L37) | method | `F2Matrix` の `copy method` を実行する。 | なし | F2Matrix instance |
-| [`to_lists()`](../../../math/F2Matrix.py#L40) | method | `F2Matrix` の `to_lists method` を実行する。 | なし | list |
+| [`from_lists(matrix)`](../../../math/F2Matrix.py#L20) | classmethod | `from`・`lists`を求める。 | `matrix`: 行をlistで持つ行列 | `cls(height, width, rows)` |
+| [`identity(size)`](../../../math/F2Matrix.py#L34) | classmethod | `identity`を求める。 | `size`: 要素数・universe size | `cls(size, size, [1 << index for index in range(size)])` |
+| [`copy()`](../../../math/F2Matrix.py#L37) | method | `copy`を求める。 | なし | F2Matrix instance |
+| [`to_lists()`](../../../math/F2Matrix.py#L40) | method | `to`・`lists`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`get(row, column)`](../../../math/F2Matrix.py#L46) | method | 指定位置・辺・状態の値を取得する。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号 | 指定対象に格納された値・edge object |
 | [`set(row, column, value=True)`](../../../math/F2Matrix.py#L49) | method | 指定位置・状態を値で置き換える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
-| [`multiply(other)`](../../../math/F2Matrix.py#L56) | method | `F2Matrix` の `multiply method` を実行する。 | `other`: 同じ型のもう一方のobject・値 | F2Matrix instance |
+| [`multiply(other)`](../../../math/F2Matrix.py#L56) | method | 2つの入力をこの構造の演算規則で乗算する。 | `other`: 同じ型のもう一方のobject・値 | F2Matrix instance |
 | [`and_or_product(other)`](../../../math/F2Matrix.py#L70) | method | AND・`or`・積を計算する。 | `other`: 同じ型のもう一方のobject・値 | F2Matrix instance |
-| [`power(exponent)`](../../../math/F2Matrix.py#L84) | method | `F2Matrix` の `power method` を実行する。 | `exponent`: 非負の指数 | 計算結果 |
-| [`sweep(pivot_end=None)`](../../../math/F2Matrix.py#L99) | method | `F2Matrix` の `sweep method` を実行する。 | `pivot_end`: `pivot`・`end`として渡す値（APIの文脈に従う）。省略時: `None` | tuple(`rank`（int）, `pivots`（list）) |
+| [`power(exponent)`](../../../math/F2Matrix.py#L84) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | 計算結果 |
+| [`sweep(pivot_end=None)`](../../../math/F2Matrix.py#L99) | method | `sweep`を求める。 | `pivot_end`: `pivot`・`end`として使う入力。省略時: `None` | tuple(`rank`（int）, `pivots`（list）) |
 | [`rank()`](../../../math/F2Matrix.py#L124) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | なし | rank・出現数（int） |
 | [`determinant()`](../../../math/F2Matrix.py#L128) | method | `determinant`を計算する。 | なし | int instance |
 | [`inverse()`](../../../math/F2Matrix.py#L133) | method | 逆元・逆変換を求める。 | なし | F2Matrix instance / `None` |
-| [`matvec(vector)`](../../../math/F2Matrix.py#L150) | method | `F2Matrix` の `matvec method` を実行する。 | `vector`: vector・1次元配列 | 計算結果（int） / list |
+| [`matvec(vector)`](../../../math/F2Matrix.py#L150) | method | `matvec`を求める。 | `vector`: vector・1次元配列 | 計算結果（int） / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`__mul__(other)`](../../../math/F2Matrix.py#L168) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | `self.multiply(other)` |
 | [`__pow__(exponent)`](../../../math/F2Matrix.py#L171) | method | obj ** exponent。 | `exponent`: 非負の指数 | `self.power(exponent)` |
 | [`__eq__(other)`](../../../math/F2Matrix.py#L174) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |

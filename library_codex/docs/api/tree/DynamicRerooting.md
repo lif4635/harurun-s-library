@@ -7,6 +7,11 @@ rake-compress top treeによる動的rerooting。
 - source: [`tree/DynamicRerooting.py`](../../../tree/DynamicRerooting.py)
 - 公開API: function 0、class 2、method/property 19（Python protocol 0を含む）
 
+## できること
+
+- `TopTree`: rake-compress top treeによる動的rerootingを扱う `TopTree`。
+- `DynamicRerooting`: rake-compress top treeによる動的rerootingを扱う `DynamicRerooting`。
+
 ## Import
 
 ```python
@@ -18,19 +23,19 @@ from library_codex.tree.DynamicRerooting import TopTree, DynamicRerooting
 rake-compress top treeによる動的rerootingを扱う `TopTree`。
 
 - constructor: [`TopTree(vertex, compress, rake, add_edge, add_vertex)`](../../../tree/DynamicRerooting.py#L142)
-- 引数: `vertex`: 頂点番号（0-indexed）<br>`compress`: `compress`として渡す値（APIの文脈に従う）<br>`rake`: `rake`として渡す値（APIの文脈に従う）<br>`add_edge`: `add`・辺として渡す値（APIの文脈に従う）<br>`add_vertex`: `add`・頂点として渡す値（APIの文脈に従う）
+- 引数: `vertex`: 頂点番号（0-indexed）<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
 - 返り値: `TopTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`push(node)`](../../../tree/DynamicRerooting.py#L156) | method | 要素を追加する。 | `node`: 頂点・内部node番号 | `None` |
 | [`update(node)`](../../../tree/DynamicRerooting.py#L166) | method | 指定位置・辺・状態を更新する。 | `node`: 頂点・内部node番号 | `None` |
-| [`splay(node)`](../../../tree/DynamicRerooting.py#L218) | method | `TopTree` の `splay method` を実行する。 | `node`: 頂点・内部node番号 | `None` |
-| [`expose(node)`](../../../tree/DynamicRerooting.py#L255) | method | `TopTree` の `expose method` を実行する。 | `node`: 頂点・内部node番号 | `last`（None） |
+| [`splay(node)`](../../../tree/DynamicRerooting.py#L218) | method | `splay`を求める。 | `node`: 頂点・内部node番号 | `None` |
+| [`expose(node)`](../../../tree/DynamicRerooting.py#L255) | method | `expose`を求める。 | `node`: 頂点・内部node番号 | `last`（None） |
 | [`link(child, parent)`](../../../tree/DynamicRerooting.py#L278) | method | 異なる木の2頂点を辺で接続する。 | `child`: 子cluster・子頂点<br>`parent`: 親頂点・親配列 | `None` |
 | [`cut(child)`](../../../tree/DynamicRerooting.py#L285) | method | 指定辺をforestから切断する。 | `child`: 子cluster・子頂点 | `None` |
-| [`evert(node)`](../../../tree/DynamicRerooting.py#L294) | method | `TopTree` の `evert method` を実行する。 | `node`: 頂点・内部node番号 | `None` |
-| [`alloc(info)`](../../../tree/DynamicRerooting.py#L299) | method | `TopTree` の `alloc method` を実行する。 | `info`: clusterへ付随させる情報 | `node` |
+| [`evert(node)`](../../../tree/DynamicRerooting.py#L294) | method | `evert`を求める。 | `node`: 頂点・内部node番号 | `None` |
+| [`alloc(info)`](../../../tree/DynamicRerooting.py#L299) | method | `alloc`を求める。 | `info`: clusterへ付随させる情報 | `node` |
 | [`is_connected(first, second)`](../../../tree/DynamicRerooting.py#L304) | method | `connected`かどうかを判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`lca(first, second)`](../../../tree/DynamicRerooting.py#L309) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） / `None` |
 | [`set_key(node, info)`](../../../tree/DynamicRerooting.py#L315) | method | `key`を設定する。 | `node`: 頂点・内部node番号<br>`info`: clusterへ付随させる情報 | `None` |
@@ -43,7 +48,7 @@ rake-compress top treeによる動的rerootingを扱う `TopTree`。
 rake-compress top treeによる動的rerootingを扱う `DynamicRerooting`。
 
 - constructor: [`DynamicRerooting(info, vertex, compress, rake, add_edge, add_vertex)`](../../../tree/DynamicRerooting.py#L339)
-- 引数: `info`: clusterへ付随させる情報<br>`vertex`: 頂点番号（0-indexed）<br>`compress`: `compress`として渡す値（APIの文脈に従う）<br>`rake`: `rake`として渡す値（APIの文脈に従う）<br>`add_edge`: `add`・辺として渡す値（APIの文脈に従う）<br>`add_vertex`: `add`・頂点として渡す値（APIの文脈に従う）
+- 引数: `info`: clusterへ付随させる情報<br>`vertex`: 頂点番号（0-indexed）<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
 - 返り値: `DynamicRerooting` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

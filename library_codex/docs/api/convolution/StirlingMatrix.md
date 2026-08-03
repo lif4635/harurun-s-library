@@ -7,6 +7,11 @@ Stirling変換を表す行列作用。
 - source: [`convolution/StirlingMatrix.py`](../../../convolution/StirlingMatrix.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `stirling_matrix`: `stirling`・行列を求める。
+- `stirling_matrix_transpose`: `stirling`・行列・`transpose`を求める。
+
 ## Import
 
 ```python
@@ -17,8 +22,8 @@ from library_codex.convolution.StirlingMatrix import stirling_matrix, stirling_m
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`stirling_matrix(values, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/StirlingMatrix.py#L22) | module の `stirling_matrix function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として渡す値（APIの文脈に従う）。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`stirling_matrix_transpose(values, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/StirlingMatrix.py#L42) | module の `stirling_matrix_transpose function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として渡す値（APIの文脈に従う）。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / `tree.interpolate(transformed)` |
+| [`stirling_matrix(values, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/StirlingMatrix.py#L22) | `stirling`・行列を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 |
+| [`stirling_matrix_transpose(values, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/StirlingMatrix.py#L42) | `stirling`・行列・`transpose`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 / `tree.interpolate(transformed)` |
 
 ## Module aliases
 

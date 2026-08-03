@@ -7,6 +7,10 @@
 - source: [`graph/MergeTree.py`](../../../graph/MergeTree.py)
 - 公開API: function 0、class 1、method/property 6（Python protocol 0を含む）
 
+## できること
+
+- `MergeTree`: 先読みunion tree・現在成分の連続葉区間を扱う `MergeTree`。
+
 ## Import
 
 ```python
@@ -15,20 +19,20 @@ from library_codex.graph.MergeTree import MergeTree
 
 ## Class `MergeTree`
 
-Pre-read union tree giving a contiguous leaf range for each live component.
+先読みunion tree・現在成分の連続葉区間を扱う `MergeTree`。
 
 - constructor: [`MergeTree(vertex_count, merges)`](../../../graph/MergeTree.py#L36)
-- 引数: `vertex_count`: 頂点数<br>`merges`: `merges`として渡す値（APIの文脈に従う）
+- 引数: `vertex_count`: 頂点数<br>`merges`: 処理中に呼び出す関数または操作
 - 返り値: `MergeTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`unite(first, second)`](../../../graph/MergeTree.py#L92) | method | 2要素が属する連結成分を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
-| [`component_node(vertex)`](../../../graph/MergeTree.py#L102) | method | `MergeTree` の `component_node method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.current[self.union_find.find(vertex)]` |
-| [`component_range(vertex)`](../../../graph/MergeTree.py#L107) | method | `MergeTree` の `component_range method` を実行する。 | `vertex`: 頂点番号（0-indexed） | tuple(`self.entry[node]`, `self.exit[node]`) |
-| [`arrange(values)`](../../../graph/MergeTree.py#L113) | method | `MergeTree` の `arrange method` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list |
+| [`component_node(vertex)`](../../../graph/MergeTree.py#L102) | method | 連結成分・`node`を求める。 | `vertex`: 頂点番号（0-indexed） | `self.current[self.union_find.find(vertex)]` |
+| [`component_range(vertex)`](../../../graph/MergeTree.py#L107) | method | 連結成分・区間を求める。 | `vertex`: 頂点番号（0-indexed） | tuple(`self.entry[node]`, `self.exit[node]`) |
+| [`arrange(values)`](../../../graph/MergeTree.py#L113) | method | `arrange`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`restore(values)`](../../../graph/MergeTree.py#L120) | method | 計算結果から経路・列・元データを復元する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 計算結果（数値または入力要素型） |
-| [`index(vertex)`](../../../graph/MergeTree.py#L130) | method | `MergeTree` の `index method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.position[vertex]` |
+| [`index(vertex)`](../../../graph/MergeTree.py#L130) | method | 指定要素・頂点に対応する内部indexを返す。 | `vertex`: 頂点番号（0-indexed） | `self.position[vertex]` |
 | [`get_id`](../../../graph/MergeTree.py#L105) | alias | `component_node` の別名。 | 同じ | 同じ |
 | [`get_range`](../../../graph/MergeTree.py#L111) | alias | `component_range` の別名。 | 同じ | 同じ |
 | [`make_seq`](../../../graph/MergeTree.py#L118) | alias | `arrange` の別名。 | 同じ | 同じ |

@@ -7,6 +7,13 @@
 - source: [`string/Manacher.py`](../../../string/Manacher.py)
 - 公開API: function 7、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `manacher`: `manacher`を求める。
+- `manacher_even`: `manacher`・`even`を求める。
+- `palindrome_radii`: `palindrome`・`radii`を求める。
+- `enumerate_palindrome_lengths`: `palindrome`・`lengths`を列挙する。
+
 ## Import
 
 ```python
@@ -25,13 +32,13 @@ from library_codex.string.Manacher import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`manacher(sequence)`](../../../string/Manacher.py#L1) | module の `manacher function` を実行する。 | `sequence`: 入力列 | `radius`（数値または入力要素型） |
-| [`manacher_even(sequence)`](../../../string/Manacher.py#L30) | module の `manacher_even function` を実行する。 | `sequence`: 入力列 | `radius`（数値または入力要素型） |
-| [`palindrome_radii(sequence)`](../../../string/Manacher.py#L57) | module の `palindrome_radii function` を実行する。 | `sequence`: 入力列 | tuple(`manacher(sequence)`, `manacher_even(sequence)`) |
-| [`enumerate_palindrome_lengths(sequence)`](../../../string/Manacher.py#L61) | `palindrome`・`lengths`を列挙する。 | `sequence`: 入力列 | list / 計算結果（数値または入力要素型） |
-| [`enumerate_palindromes(sequence, include_empty=True)`](../../../string/Manacher.py#L74) | `palindromes`を列挙する。 | `sequence`: 入力列<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `True` | list / 計算結果（数値または入力要素型） |
+| [`manacher(sequence)`](../../../string/Manacher.py#L1) | `manacher`を求める。 | `sequence`: 入力列 | `radius`（数値または入力要素型） |
+| [`manacher_even(sequence)`](../../../string/Manacher.py#L30) | `manacher`・`even`を求める。 | `sequence`: 入力列 | `radius`（数値または入力要素型） |
+| [`palindrome_radii(sequence)`](../../../string/Manacher.py#L57) | `palindrome`・`radii`を求める。 | `sequence`: 入力列 | tuple(`manacher(sequence)`, `manacher_even(sequence)`) |
+| [`enumerate_palindrome_lengths(sequence)`](../../../string/Manacher.py#L61) | `palindrome`・`lengths`を列挙する。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
+| [`enumerate_palindromes(sequence, include_empty=True)`](../../../string/Manacher.py#L74) | `palindromes`を列挙する。 | `sequence`: 入力列<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `True` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
 | [`get_palindromes(sequence)`](../../../string/Manacher.py#L96) | `palindromes`を取得する。 | `sequence`: 入力列 | `enumerate_palindromes(sequence, False)` |
-| [`enumerate_leftmost_palindromes(sequence)`](../../../string/Manacher.py#L100) | `leftmost`・`palindromes`を列挙する。 | `sequence`: 入力列 | list |
+| [`enumerate_leftmost_palindromes(sequence)`](../../../string/Manacher.py#L100) | `leftmost`・`palindromes`を列挙する。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 
 ## Module aliases
 

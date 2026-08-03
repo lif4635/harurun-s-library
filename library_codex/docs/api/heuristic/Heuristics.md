@@ -7,6 +7,14 @@ SA・multipoint SA・bandit・Top-K・log乱数表。
 - source: [`heuristic/Heuristics.py`](../../../heuristic/Heuristics.py)
 - 公開API: function 0、class 5、method/property 9（Python protocol 1を含む）
 
+## できること
+
+- `LogTable`: SA・multipoint SA・bandit・Top-K・log乱数表を扱う `LogTable`。
+- `MultiArmedBandit`: SA・multipoint SA・bandit・Top-K・log乱数表を扱う `MultiArmedBandit`。
+- `TopK`: SA・multipoint SA・bandit・Top-K・log乱数表を扱う `TopK`。
+- `SimulatedAnnealing`: SA・multipoint SA・bandit・Top-K・log乱数表を扱う `SimulatedAnnealing`。
+- `SAManager`: SA・multipoint SA・bandit・Top-K・log乱数表を扱う `SAManager`。
+
 ## Import
 
 ```python
@@ -36,52 +44,52 @@ SA・multipoint SA・bandit・Top-K・log乱数表を扱う `LogTable`。
 SA・multipoint SA・bandit・Top-K・log乱数表を扱う `MultiArmedBandit`。
 
 - constructor: [`MultiArmedBandit(arm_count, seed=1)`](../../../heuristic/Heuristics.py#L30)
-- 引数: `arm_count`: `arm`・個数として渡す値（APIの文脈に従う）<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `1`
+- 引数: `arm_count`: 選択肢（arm）の個数<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `1`
 - 返り値: `MultiArmedBandit` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`play()`](../../../heuristic/Heuristics.py#L44) | method | `MultiArmedBandit` の `play method` を実行する。 | なし | `self.last` / `arm` |
-| [`reward(value)`](../../../heuristic/Heuristics.py#L61) | method | `MultiArmedBandit` の `reward method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`best()`](../../../heuristic/Heuristics.py#L83) | method | `MultiArmedBandit` の `best method` を実行する。 | なし | `max(range(self.n), key=self.weights.__getitem__)` |
+| [`play()`](../../../heuristic/Heuristics.py#L44) | method | 次に試す候補を選び、その番号を返す。 | なし | `self.last` / `arm` |
+| [`reward(value)`](../../../heuristic/Heuristics.py#L61) | method | 直前に選んだ候補へ観測した報酬を反映する。 | `value`: 追加・設定・問い合わせる値 | `None` |
+| [`best()`](../../../heuristic/Heuristics.py#L83) | method | 現在の評価が最大の候補番号を返す。 | なし | `max(range(self.n), key=self.weights.__getitem__)` |
 
 ## Class `TopK`
 
 SA・multipoint SA・bandit・Top-K・log乱数表を扱う `TopK`。
 
 - constructor: [`TopK(count, hash_function=hash)`](../../../heuristic/Heuristics.py#L90)
-- 引数: `count`: 個数<br>`hash_function`: hash・`function`として渡す値（APIの文脈に従う）。省略時: `hash`
+- 引数: `count`: 個数<br>`hash_function`: 候補を同一判定するためのhash関数。省略時: `hash`
 - 返り値: `TopK` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`insert(value)`](../../../heuristic/Heuristics.py#L97) | method | 指定位置へ要素を挿入する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`normalize()`](../../../heuristic/Heuristics.py#L105) | method | `TopK` の `normalize method` を実行する。 | なし | `None` |
+| [`normalize()`](../../../heuristic/Heuristics.py#L105) | method | 保持中の候補を評価順に整理し、上位だけを残す。 | なし | `None` |
 | [`get()`](../../../heuristic/Heuristics.py#L110) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
 
 ## Class `SimulatedAnnealing`
 
-Time-bounded maximizing SA driven by propose(state)->(delta, commit).
+SA・multipoint SA・bandit・Top-K・log乱数表を扱う `SimulatedAnnealing`。
 
 - constructor: [`SimulatedAnnealing(duration, start_temperature, end_temperature, seed=1)`](../../../heuristic/Heuristics.py#L120)
-- 引数: `duration`: `duration`として渡す値（APIの文脈に従う）<br>`start_temperature`: `start`・`temperature`として渡す値（APIの文脈に従う）<br>`end_temperature`: `end`・`temperature`として渡す値（APIの文脈に従う）<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `1`
+- 引数: `duration`: 探索を続ける秒数<br>`start_temperature`: 焼きなまし開始時の温度<br>`end_temperature`: 焼きなまし終了時の温度<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `1`
 - 返り値: `SimulatedAnnealing` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`run(state, propose, max_iterations=None)`](../../../heuristic/Heuristics.py#L128) | method | `SimulatedAnnealing` の `run method` を実行する。 | `state`: rollback状態番号・状態object<br>`propose`: `propose`として渡す値（APIの文脈に従う）<br>`max_iterations`: 最大・`iterations`の上限。省略時: `None` | `state` |
+| [`run(state, propose, max_iterations=None)`](../../../heuristic/Heuristics.py#L128) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `state`: rollback状態番号・状態object<br>`propose`: 現在状態から次の候補状態と評価差を作る関数<br>`max_iterations`: 反復回数の上限。Noneなら時間だけで終了判定する。省略時: `None` | `state` |
 
 ## Class `SAManager`
 
-Multipoint SA that gradually retains only the highest-scoring states.
+SA・multipoint SA・bandit・Top-K・log乱数表を扱う `SAManager`。
 
 - constructor: [`SAManager(duration, start_temperature, end_temperature, state_max=1, seed=1)`](../../../heuristic/Heuristics.py#L156)
-- 引数: `duration`: `duration`として渡す値（APIの文脈に従う）<br>`start_temperature`: `start`・`temperature`として渡す値（APIの文脈に従う）<br>`end_temperature`: `end`・`temperature`として渡す値（APIの文脈に従う）<br>`state_max`: `state`・最大として渡す値（APIの文脈に従う）。省略時: `1`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `1`
+- 引数: `duration`: 探索を続ける秒数<br>`start_temperature`: 焼きなまし開始時の温度<br>`end_temperature`: 焼きなまし終了時の温度<br>`state_max`: 同時に保持する候補状態数。省略時: `1`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `1`
 - 返り値: `SAManager` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`run(initialize, update, max_iterations=None)`](../../../heuristic/Heuristics.py#L167) | method | `SAManager` の `run method` を実行する。 | `initialize`: `initialize`として渡す値（APIの文脈に従う）<br>`update`: `update`として渡す値（APIの文脈に従う）<br>`max_iterations`: 最大・`iterations`の上限。省略時: `None` | `max(states, key=lambda pair: pair[1])` |
+| [`run(initialize, update, max_iterations=None)`](../../../heuristic/Heuristics.py#L167) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `initialize`: 初期状態を作って返す関数<br>`update`: 候補状態を1回更新し、状態と評価を返す関数<br>`max_iterations`: 反復回数の上限。Noneなら時間だけで終了判定する。省略時: `None` | `max(states, key=lambda pair: pair[1])` |
 
 ## Module aliases
 

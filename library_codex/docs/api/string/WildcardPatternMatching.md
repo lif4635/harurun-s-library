@@ -7,6 +7,11 @@
 - source: [`string/WildcardPatternMatching.py`](../../../string/WildcardPatternMatching.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `wildcard_pattern_matching`: `wildcard`・`pattern`・matchingを求める。
+- `wildcard_match_positions`: `wildcard`・`match`・`positions`を求める。
+
 ## Import
 
 ```python
@@ -17,8 +22,8 @@ from library_codex.string.WildcardPatternMatching import wildcard_pattern_matchi
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`wildcard_pattern_matching(text, pattern, wildcard=0)`](../../../string/WildcardPatternMatching.py#L110) | module の `wildcard_pattern_matching function` を実行する。 | `text`: 検索対象の文字列・列<br>`pattern`: 検索patternの文字列・列<br>`wildcard`: wildcardとして扱う記号。省略時: `0` | 数値または入力要素型 `[1] * (text_size + 1)` / list / `_brute(text, pattern, wildcard)` |
-| [`wildcard_match_positions(text, pattern, wildcard=0)`](../../../string/WildcardPatternMatching.py#L142) | module の `wildcard_match_positions function` を実行する。 | `text`: 検索対象の文字列・列<br>`pattern`: 検索patternの文字列・列<br>`wildcard`: wildcardとして扱う記号。省略時: `0` | list |
+| [`wildcard_pattern_matching(text, pattern, wildcard=0)`](../../../string/WildcardPatternMatching.py#L110) | `wildcard`・`pattern`・matchingを求める。 | `text`: 検索対象の文字列・列<br>`pattern`: 検索patternの文字列・列<br>`wildcard`: wildcardとして扱う記号。省略時: `0` | 数値または入力要素型 `[1] * (text_size + 1)` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `_brute(text, pattern, wildcard)` |
+| [`wildcard_match_positions(text, pattern, wildcard=0)`](../../../string/WildcardPatternMatching.py#L142) | `wildcard`・`match`・`positions`を求める。 | `text`: 検索対象の文字列・列<br>`pattern`: 検索patternの文字列・列<br>`wildcard`: wildcardとして扱う記号。省略時: `0` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 
 ## Module aliases
 

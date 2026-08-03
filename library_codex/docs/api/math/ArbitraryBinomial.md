@@ -7,6 +7,12 @@
 - source: [`math/ArbitraryBinomial.py`](../../../math/ArbitraryBinomial.py)
 - 公開API: function 0、class 3、method/property 4（Python protocol 0を含む）
 
+## できること
+
+- `LargePrimeFactorial`: 任意合成数法・巨大素数法の二項係数を扱う `LargePrimeFactorial`。
+- `PrimePowerBinomial`: 任意合成数法・巨大素数法の二項係数を扱う `PrimePowerBinomial`。
+- `ArbitraryModBinomial`: 任意合成数法・巨大素数法の二項係数を扱う `ArbitraryModBinomial`。
+
 ## Import
 
 ```python
@@ -15,7 +21,7 @@ from library_codex.math.ArbitraryBinomial import LargePrimeFactorial, PrimePower
 
 ## Class `LargePrimeFactorial`
 
-Factorials modulo a large prime via sqrt decomposition and multipoint eval.
+任意合成数法・巨大素数法の二項係数を扱う `LargePrimeFactorial`。
 
 - constructor: [`LargePrimeFactorial(mod)`](../../../math/ArbitraryBinomial.py#L13)
 - 引数: `mod`: 法。Noneの場合は整数上の演算
@@ -23,8 +29,8 @@ Factorials modulo a large prime via sqrt decomposition and multipoint eval.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`factorial(n)`](../../../math/ArbitraryBinomial.py#L19) | method | `LargePrimeFactorial` の `factorial method` を実行する。 | `n`: 要素数・頂点数・次数 | int `0 if n >= mod else 0` / `cached` / 計算結果（数値または入力要素型） |
-| [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L49) | method | `LargePrimeFactorial` の `binomial method` を実行する。 | `n`: 要素数・頂点数・次数<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `0` / 計算結果（数値または入力要素型） |
+| [`factorial(n)`](../../../math/ArbitraryBinomial.py#L19) | method | n!を指定した法で計算する。 | `n`: 要素数・頂点数・次数 | int `0 if n >= mod else 0` / `cached` / 計算結果（数値または入力要素型） |
+| [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L49) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 計算結果（数値または入力要素型） |
 | [`fact`](../../../math/ArbitraryBinomial.py#L47) | alias | `factorial` の別名。 | 同じ | 同じ |
 | [`C`](../../../math/ArbitraryBinomial.py#L64) | alias | `binomial` の別名。 | 同じ | 同じ |
 
@@ -38,7 +44,7 @@ Factorials modulo a large prime via sqrt decomposition and multipoint eval.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L99) | method | `PrimePowerBinomial` の `binomial method` を実行する。 | `n`: 要素数・頂点数・次数<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod * pow(prime, expon...` |
+| [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L99) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod * pow(prime, expon...` |
 | [`C`](../../../math/ArbitraryBinomial.py#L119) | alias | `binomial` の別名。 | 同じ | 同じ |
 
 ## Class `ArbitraryModBinomial`
@@ -51,7 +57,7 @@ Factorials modulo a large prime via sqrt decomposition and multipoint eval.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L140) | method | `ArbitraryModBinomial` の `binomial method` を実行する。 | `n`: 要素数・頂点数・次数<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `0` / `chinese_remainder(residues, self.moduli)[0]` |
+| [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L140) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / `chinese_remainder(residues, self.moduli)[0]` |
 | [`C`](../../../math/ArbitraryBinomial.py#L147) | alias | `binomial` の別名。 | 同じ | 同じ |
 | [`nCr`](../../../math/ArbitraryBinomial.py#L148) | alias | `binomial` の別名。 | 同じ | 同じ |
 

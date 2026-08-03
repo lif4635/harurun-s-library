@@ -7,6 +7,13 @@
 - source: [`math/ChineseRemainder.py`](../../../math/ChineseRemainder.py)
 - 公開API: function 4、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `inv_gcd`: `inv`・GCDを求める。
+- `chinese_remainder`: `chinese`・剰余を求める。
+- `chinese_remainder_balanced`: `chinese`・剰余・`balanced`を求める。
+- `garner_mod`: `garner`・`mod`を求める。
+
 ## Import
 
 ```python
@@ -17,10 +24,10 @@ from library_codex.math.ChineseRemainder import inv_gcd, chinese_remainder, chin
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`inv_gcd(value, modulus)`](../../../math/ChineseRemainder.py#L4) | module の `inv_gcd function` を実行する。 | `value`: 追加・設定・問い合わせる値<br>`modulus`: 法 | tuple(`modulus`, `0`) / tuple(`first`, 数値または入力要素型 `x0 % (modulus // first)`) |
-| [`chinese_remainder(residues, moduli)`](../../../math/ChineseRemainder.py#L40) | module の `chinese_remainder function` を実行する。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列 | tuple(`0`, `0`) / tuple(`remainder`（int）, `modulus`（int）) |
-| [`chinese_remainder_balanced(residues, moduli)`](../../../math/ChineseRemainder.py#L58) | module の `chinese_remainder_balanced function` を実行する。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列 | tuple(`0`, `1`) / tuple(`0`, `0`) / `current[0]` |
-| [`garner_mod(residues, moduli, target_modulus)`](../../../math/ChineseRemainder.py#L86) | module の `garner_mod function` を実行する。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列<br>`target_modulus`: `target`・`modulus`として渡す値（APIの文脈に従う） | `constants[-1]` |
+| [`inv_gcd(value, modulus)`](../../../math/ChineseRemainder.py#L4) | `inv`・GCDを求める。 | `value`: 追加・設定・問い合わせる値<br>`modulus`: 法 | tuple(`modulus`, `0`) / tuple(`first`, 数値または入力要素型 `x0 % (modulus // first)`) |
+| [`chinese_remainder(residues, moduli)`](../../../math/ChineseRemainder.py#L40) | `chinese`・剰余を求める。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列 | tuple(`0`, `0`) / tuple(`remainder`（int）, `modulus`（int）) |
+| [`chinese_remainder_balanced(residues, moduli)`](../../../math/ChineseRemainder.py#L58) | `chinese`・剰余・`balanced`を求める。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列 | tuple(`0`, `1`) / tuple(`0`, `0`) / `current[0]` |
+| [`garner_mod(residues, moduli, target_modulus)`](../../../math/ChineseRemainder.py#L86) | `garner`・`mod`を求める。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列<br>`target_modulus`: 処理中に呼び出す関数または操作 | `constants[-1]` |
 
 ## Module aliases
 

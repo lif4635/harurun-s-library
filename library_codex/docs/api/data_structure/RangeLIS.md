@@ -7,6 +7,11 @@ Seaweed monoidによる静的区間LIS。
 - source: [`data_structure/RangeLIS.py`](../../../data_structure/RangeLIS.py)
 - 公開API: function 1、class 1、method/property 1（Python protocol 0を含む）
 
+## できること
+
+- `lis_brute`: `lis`・`brute`を求める。
+- `RangeLIS`: Seaweed monoidによる静的区間LISを扱う `RangeLIS`。
+
 ## Import
 
 ```python
@@ -17,7 +22,7 @@ from library_codex.data_structure.RangeLIS import lis_brute, RangeLIS
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`lis_brute(sequence)`](../../../data_structure/RangeLIS.py#L245) | module の `lis_brute function` を実行する。 | `sequence`: 入力列 | `len(tails)` |
+| [`lis_brute(sequence)`](../../../data_structure/RangeLIS.py#L245) | `lis`・`brute`を求める。 | `sequence`: 入力列 | `len(tails)` |
 
 ## Class `RangeLIS`
 

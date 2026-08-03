@@ -7,6 +7,12 @@ Monotone Minima・凸min-plus・CHT・最大長方形・整数黄金分割。
 - source: [`optimization/Optimization.py`](../../../optimization/Optimization.py)
 - 公開API: function 6、class 2、method/property 4（Python protocol 0を含む）
 
+## できること
+
+- monotone minima、SMAWK、divide-and-conquer DP最適化を使える。
+- ヒストグラム・二値行列の最大長方形を線形時間で求められる。
+- 黄金分割探索とConvex Hull Trickで1変数最適化を高速化できる。
+
 ## Import
 
 ```python
@@ -26,19 +32,19 @@ from library_codex.optimization.Optimization import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`monotone_minima(rows, columns, value=None, compare=None)`](../../../optimization/Optimization.py#L1) | module の `monotone_minima function` を実行する。 | `rows`: 行数<br>`columns`: 列数<br>`value`: 追加・設定・問い合わせる値。省略時: `None`<br>`compare`: 2候補を比較するcallback。省略時: `None` | 計算結果（数値または入力要素型） |
-| [`convex_min_plus_convolution(arbitrary, convex)`](../../../optimization/Optimization.py#L28) | `convex`・最小・`plus`・畳み込みを計算する。 | `arbitrary`: 任意列側の入力<br>`convex`: 凸列側の入力 | list |
-| [`convex_convex_min_plus_convolution(first, second)`](../../../optimization/Optimization.py#L56) | `convex`・`convex`・最小・`plus`・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list / 計算結果（list） |
-| [`maximal_rectangle(heights)`](../../../optimization/Optimization.py#L160) | module の `maximal_rectangle function` を実行する。 | `heights`: 各列の高さ | `best`（int） |
-| [`maximal_rectangle_binary(matrix, truthy=True)`](../../../optimization/Optimization.py#L173) | module の `maximal_rectangle_binary function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`truthy`: 通行可能/1と扱う値または判定callback。省略時: `True` | `0` / 計算結果（int） |
-| [`golden_section_search(function, left, right, minimize=True)`](../../../optimization/Optimization.py#L191) | module の `golden_section_search function` を実行する。 | `function`: callback関数<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True` | tuple(`point`（数値または入力要素型）, `point_value`) |
+| [`monotone_minima(rows, columns, value=None, compare=None)`](../../../optimization/Optimization.py#L1) | `monotone`・`minima`を求める。 | `rows`: 行数<br>`columns`: 列数<br>`value`: 追加・設定・問い合わせる値。省略時: `None`<br>`compare`: 2候補を比較するcallback。省略時: `None` | 計算結果（数値または入力要素型） |
+| [`convex_min_plus_convolution(arbitrary, convex)`](../../../optimization/Optimization.py#L28) | `convex`・最小・`plus`・畳み込みを計算する。 | `arbitrary`: 任意列側の入力<br>`convex`: 凸列側の入力 | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`convex_convex_min_plus_convolution(first, second)`](../../../optimization/Optimization.py#L56) | `convex`・`convex`・最小・`plus`・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`maximal_rectangle(heights)`](../../../optimization/Optimization.py#L160) | `maximal`・`rectangle`を求める。 | `heights`: 各列の高さ | `best`（int） |
+| [`maximal_rectangle_binary(matrix, truthy=True)`](../../../optimization/Optimization.py#L173) | `maximal`・`rectangle`・二分を求める。 | `matrix`: 行をlistで持つ行列<br>`truthy`: 通行可能/1と扱う値または判定callback。省略時: `True` | `0` / 計算結果（int） |
+| [`golden_section_search(function, left, right, minimize=True)`](../../../optimization/Optimization.py#L191) | `golden`・`section`・`search`を求める。 | `function`: callback関数<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True` | tuple(`point`（数値または入力要素型）, `point_value`) |
 
 ## Class `MonotoneConvexHullTrick`
 
 Monotone Minima・凸min-plus・CHT・最大長方形・整数黄金分割を扱う `MonotoneConvexHullTrick`。
 
 - constructor: [`MonotoneConvexHullTrick(minimize=True, increasing_slopes=True)`](../../../optimization/Optimization.py#L87)
-- 引数: `minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True`<br>`increasing_slopes`: `increasing`・`slopes`として渡す値（APIの文脈に従う）。省略時: `True`
+- 引数: `minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True`<br>`increasing_slopes`: 直線の傾きを昇順で追加するか。省略時: `True`
 - 返り値: `MonotoneConvexHullTrick` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

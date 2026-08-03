@@ -7,6 +7,11 @@
 - source: [`string/SuffixArray.py`](../../../string/SuffixArray.py)
 - 公開API: function 4、class 2、method/property 22（Python protocol 9を含む）
 
+## できること
+
+- 文字列または整数列のsuffix arrayとLCP配列を構築できる。
+- patternに一致するsuffixの範囲を二分探索し、出現位置を列挙できる。
+
 ## Import
 
 ```python
@@ -24,10 +29,10 @@ from library_codex.string.SuffixArray import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`sa_is(sequence, upper)`](../../../string/SuffixArray.py#L68) | module の `sa_is function` を実行する。 | `sequence`: 入力列<br>`upper`: 上限（包含関係はAPIの説明を参照） | 計算結果（list） |
-| [`suffix_array(sequence, upper=None)`](../../../string/SuffixArray.py#L163) | module の `suffix_array function` を実行する。 | `sequence`: 入力列<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | list / `sa_is(converted, 255)` / `sa_is(converted, maximum)` / `sa_is(sequence, 255)` / ほか（source参照） |
+| [`sa_is(sequence, upper)`](../../../string/SuffixArray.py#L68) | `sa`・`is`を求める。 | `sequence`: 入力列<br>`upper`: 上限（包含関係はAPIの説明を参照） | list[object] — 計算結果 |
+| [`suffix_array(sequence, upper=None)`](../../../string/SuffixArray.py#L163) | suffix・配列を求める。 | `sequence`: 入力列<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `sa_is(converted, 255)` / `sa_is(converted, maximum)` / `sa_is(sequence, 255)` / ほか（source参照） |
 | [`suffix_array_with_empty(sequence, upper=None)`](../../../string/SuffixArray.py#L184) | suffix・配列・`with`・`empty`を処理する。 | `sequence`: 入力列<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | 数値または入力要素型 `[len(sequence)] + suffix_array(sequence, upper)` |
-| [`lcp_array(sequence, suffix_array)`](../../../string/SuffixArray.py#L188) | module の `lcp_array function` を実行する。 | `sequence`: 入力列<br>`suffix_array`: 対応するsuffix array | list / `lcp`（数値または入力要素型） |
+| [`lcp_array(sequence, suffix_array)`](../../../string/SuffixArray.py#L188) | `lcp`・配列を求める。 | `sequence`: 入力列<br>`suffix_array`: 対応するsuffix array | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `lcp`（数値または入力要素型） |
 
 ## Class `SuffixArray`
 
@@ -41,16 +46,16 @@ from library_codex.string.SuffixArray import (
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/SuffixArray.py#L234) | method | len(obj)。 | なし | 要素数（int） |
 | [`__getitem__(index)`](../../../string/SuffixArray.py#L237) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`with_empty()`](../../../string/SuffixArray.py#L240) | method | `SuffixArray` の `with_empty method` を実行する。 | なし | 数値または入力要素型 `[self.n] + self.sa` |
-| [`lcp_suffix(i, j)`](../../../string/SuffixArray.py#L250) | method | `SuffixArray` の `lcp_suffix method` を実行する。 | `i`: 0-indexedの位置<br>`j`: 0-indexedの位置 | 数値または入力要素型 `self.n - i` / `self._ensure_rmq().query(left, right)` |
-| [`lcp_substring(left1, right1, left2, right2)`](../../../string/SuffixArray.py#L262) | method | `SuffixArray` の `lcp_substring method` を実行する。 | `left1`: `left1`として渡す値（APIの文脈に従う）<br>`right1`: `right1`として渡す値（APIの文脈に従う）<br>`left2`: `left2`として渡す値（APIの文脈に従う）<br>`right2`: `right2`として渡す値（APIの文脈に従う） | `0` / `value if value < limit else limit` |
-| [`compare_suffix(i, j)`](../../../string/SuffixArray.py#L271) | method | `SuffixArray` の `compare_suffix method` を実行する。 | `i`: 0-indexedの位置<br>`j`: 0-indexedの位置 | `0` / int `-1 if self.rank[i] < self.rank[j] else 1` |
-| [`compare_substring(left1, right1, left2, right2)`](../../../string/SuffixArray.py#L277) | method | `SuffixArray` の `compare_substring method` を実行する。 | `left1`: `left1`として渡す値（APIの文脈に従う）<br>`right1`: `right1`として渡す値（APIの文脈に従う）<br>`left2`: `left2`として渡す値（APIの文脈に従う）<br>`right2`: `right2`として渡す値（APIの文脈に従う） | int `0 if end2 else -1` / `1` / int `-1 if self.sequence[left1 + common] < self.sequence[left2 + co...` |
+| [`with_empty()`](../../../string/SuffixArray.py#L240) | method | `with`・`empty`を求める。 | なし | 数値または入力要素型 `[self.n] + self.sa` |
+| [`lcp_suffix(i, j)`](../../../string/SuffixArray.py#L250) | method | `lcp`・suffixを求める。 | `i`: 0-indexedの位置<br>`j`: 0-indexedの位置 | 数値または入力要素型 `self.n - i` / `self._ensure_rmq().query(left, right)` |
+| [`lcp_substring(left1, right1, left2, right2)`](../../../string/SuffixArray.py#L262) | method | `lcp`・`substring`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | `0` / `value if value < limit else limit` |
+| [`compare_suffix(i, j)`](../../../string/SuffixArray.py#L271) | method | `compare`・suffixを求める。 | `i`: 0-indexedの位置<br>`j`: 0-indexedの位置 | `0` / int `-1 if self.rank[i] < self.rank[j] else 1` |
+| [`compare_substring(left1, right1, left2, right2)`](../../../string/SuffixArray.py#L277) | method | `compare`・`substring`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | int `0 if end2 else -1` / `1` / int `-1 if self.sequence[left1 + common] < self.sequence[left2 + co...` |
 | [`search(pattern)`](../../../string/SuffixArray.py#L322) | method | 対象を探索する。 | `pattern`: 検索patternの文字列・列 | tuple(`self._bound(pattern, False)`, `self._bound(pattern, True)`) |
 | [`count(pattern)`](../../../string/SuffixArray.py#L329) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） |
-| [`occurrences(pattern, sort_positions=False)`](../../../string/SuffixArray.py#L333) | method | `SuffixArray` の `occurrences method` を実行する。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `sorted(result) if sort_positions else result` |
-| [`distinct_substrings()`](../../../string/SuffixArray.py#L338) | method | `SuffixArray` の `distinct_substrings method` を実行する。 | なし | 数値または入力要素型 `n * (n + 1) // 2 - sum(self.lcp)` |
-| [`substring(left=0, right=None)`](../../../string/SuffixArray.py#L344) | method | `SuffixArray` の `substring method` を実行する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | StaticSubstring instance |
+| [`occurrences(pattern, sort_positions=False)`](../../../string/SuffixArray.py#L333) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `sorted(result) if sort_positions else result` |
+| [`distinct_substrings()`](../../../string/SuffixArray.py#L338) | method | `distinct`・`substrings`を求める。 | なし | 数値または入力要素型 `n * (n + 1) // 2 - sum(self.lcp)` |
+| [`substring(left=0, right=None)`](../../../string/SuffixArray.py#L344) | method | `substring`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | StaticSubstring instance |
 | [`longest_common_prefix`](../../../string/SuffixArray.py#L260) | alias | `lcp_suffix` の別名。 | 同じ | 同じ |
 | [`find_range`](../../../string/SuffixArray.py#L327) | alias | `search` の別名。 | 同じ | 同じ |
 | [`number_of_substrings`](../../../string/SuffixArray.py#L342) | alias | `distinct_substrings` の別名。 | 同じ | 同じ |
@@ -67,9 +72,9 @@ from library_codex.string.SuffixArray import (
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/SuffixArray.py#L361) | method | len(obj)。 | なし | 要素数（int） |
 | [`__getitem__(index)`](../../../string/SuffixArray.py#L364) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`lcp(other)`](../../../string/SuffixArray.py#L379) | method | `StaticSubstring` の `lcp method` を実行する。 | `other`: 同じ型のもう一方のobject・値 | `self.base.lcp_substring(self.left, self.right, other.left, oth...` |
-| [`compare(other)`](../../../string/SuffixArray.py#L385) | method | `StaticSubstring` の `compare method` を実行する。 | `other`: 同じ型のもう一方のobject・値 | `self.base.compare_substring(self.left, self.right, other.left,...` |
-| [`startswith(other)`](../../../string/SuffixArray.py#L393) | method | `StaticSubstring` の `startswith method` を実行する。 | `other`: 同じ型のもう一方のobject・値 | bool |
+| [`lcp(other)`](../../../string/SuffixArray.py#L379) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `self.base.lcp_substring(self.left, self.right, other.left, oth...` |
+| [`compare(other)`](../../../string/SuffixArray.py#L385) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | `self.base.compare_substring(self.left, self.right, other.left,...` |
+| [`startswith(other)`](../../../string/SuffixArray.py#L393) | method | `startswith`を求める。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__eq__(other)`](../../../string/SuffixArray.py#L398) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__lt__(other)`](../../../string/SuffixArray.py#L401) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__le__(other)`](../../../string/SuffixArray.py#L404) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |

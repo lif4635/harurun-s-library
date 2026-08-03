@@ -7,6 +7,14 @@ Monge DP・凸/凹min/max-plus・branch-and-bound・rollback Mo。
 - source: [`optimization/AdvancedDP.py`](../../../optimization/AdvancedDP.py)
 - 公開API: function 6、class 1、method/property 2（Python protocol 0を含む）
 
+## できること
+
+- `convex_min_plus_convolution`: `convex`・最小・`plus`・畳み込みを計算する。
+- `concave_max_plus_convolution`: `concave`・最大・`plus`・畳み込みを計算する。
+- `monge_shortest_paths`: `monge`・最短・`paths`を求める。
+- `monge_d_edge_shortest_path`: `monge`・`d`・辺・最短・pathを求める。
+- `RollbackMo`: Monge DP・凸/凹min/max-plus・branch-and-bound・rollback Moを扱う `RollbackMo`。
+
 ## Import
 
 ```python
@@ -25,16 +33,16 @@ from library_codex.optimization.AdvancedDP import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`convex_min_plus_convolution(convex, arbitrary, return_argmin=False)`](../../../optimization/AdvancedDP.py#L6) | Min-plus convolution where ``convex`` has nondecreasing differences. | `convex`: 凸列側の入力<br>`arbitrary`: 任意列側の入力<br>`return_argmin`: `return`・`argmin`として渡す値（APIの文脈に従う）。省略時: `False` | tuple/list `([], []) if return_argmin else []` / 値のlist / tuple(値のlist, `convex_indices`（list）) |
-| [`concave_max_plus_convolution(concave, arbitrary, return_argmax=False)`](../../../optimization/AdvancedDP.py#L35) | `concave`・最大・`plus`・畳み込みを計算する。 | `concave`: 凹列側の入力<br>`arbitrary`: 任意列側の入力<br>`return_argmax`: `return`・`argmax`として渡す値（APIの文脈に従う）。省略時: `False` | tuple(list `[-value for value in values]`, 位置のlist) / list |
-| [`monge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/AdvancedDP.py#L47) | Distances from 0 to every vertex 0..target in a complete Monge DAG. | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 距離（数値または入力要素型） |
-| [`monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)`](../../../optimization/AdvancedDP.py#L98) | module の `monge_d_edge_shortest_path function` を実行する。 | `target`: 探索・判定・更新の対象値<br>`edge_count`: 辺・個数として渡す値（APIの文脈に従う）<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | `infinity` / `distance[target]` |
+| [`convex_min_plus_convolution(convex, arbitrary, return_argmin=False)`](../../../optimization/AdvancedDP.py#L6) | `convex`・最小・`plus`・畳み込みを計算する。 | `convex`: 凸列側の入力<br>`arbitrary`: 任意列側の入力<br>`return_argmin`: 最小値に加えて選んだ添字も返すか。省略時: `False` | tuple/list `([], []) if return_argmin else []` / list[number] — 昇冪順の係数列 [a0, a1, ...] / tuple(値のlist, `convex_indices`（list）) |
+| [`concave_max_plus_convolution(concave, arbitrary, return_argmax=False)`](../../../optimization/AdvancedDP.py#L35) | `concave`・最大・`plus`・畳み込みを計算する。 | `concave`: 凹列側の入力<br>`arbitrary`: 任意列側の入力<br>`return_argmax`: 最大値に加えて選んだ添字も返すか。省略時: `False` | tuple(list `[-value for value in values]`, 位置のlist) / list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`monge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/AdvancedDP.py#L47) | `monge`・最短・`paths`を求める。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 距離（数値または入力要素型） |
+| [`monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)`](../../../optimization/AdvancedDP.py#L98) | `monge`・`d`・辺・最短・pathを求める。 | `target`: 探索・判定・更新の対象値<br>`edge_count`: 処理対象の個数<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | `infinity` / `distance[target]` |
 | [`enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/AdvancedDP.py#L108) | `monge`・`d`・辺・最短・`paths`を列挙する。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 答え（数値または入力要素型） |
-| [`knapsack_branch_and_bound(values, weights, capacity)`](../../../optimization/AdvancedDP.py#L121) | Exact 0/1 knapsack using an iterative fractional-bound search. | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`weights`: 重みの列<br>`capacity`: 容量 | `best`（数値または入力要素型） |
+| [`knapsack_branch_and_bound(values, weights, capacity)`](../../../optimization/AdvancedDP.py#L121) | `knapsack`・`branch`・AND・`bound`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`weights`: 重みの列<br>`capacity`: 容量 | `best`（数値または入力要素型） |
 
 ## Class `RollbackMo`
 
-Mo ordering for data structures supporting snapshot and rollback.
+Monge DP・凸/凹min/max-plus・branch-and-bound・rollback Moを扱う `RollbackMo`。
 
 - constructor: [`RollbackMo(size)`](../../../optimization/AdvancedDP.py#L176)
 - 引数: `size`: 要素数・universe size
@@ -42,8 +50,8 @@ Mo ordering for data structures supporting snapshot and rollback.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(left, right)`](../../../optimization/AdvancedDP.py#L180) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `len(self.queries) - 1` |
-| [`run(initialize, insert, snapshot, rollback, output)`](../../../optimization/AdvancedDP.py#L188) | method | `RollbackMo` の `run method` を実行する。 | `initialize`: `initialize`として渡す値（APIの文脈に従う）<br>`insert`: `insert`として渡す値（APIの文脈に従う）<br>`snapshot`: `snapshot`として渡す値（APIの文脈に従う）<br>`rollback`: `rollback`として渡す値（APIの文脈に従う）<br>`output`: `output`として渡す値（APIの文脈に従う） | 答えのlist（数値または入力要素型） |
+| [`add(left, right)`](../../../optimization/AdvancedDP.py#L180) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `len(self.queries) - 1` |
+| [`run(initialize, insert, snapshot, rollback, output)`](../../../optimization/AdvancedDP.py#L188) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `initialize`: 初期状態を作って返す関数<br>`insert`: 要素を現在の状態へ追加する関数<br>`snapshot`: 現在状態を保存し、巻き戻し位置を返す関数<br>`rollback`: snapshotで保存した状態まで巻き戻す関数<br>`output`: 各queryの現在の答えを返す関数 | 答えのlist（数値または入力要素型） |
 | [`add_query`](../../../optimization/AdvancedDP.py#L186) | alias | `add` の別名。 | 同じ | 同じ |
 
 ## Module aliases

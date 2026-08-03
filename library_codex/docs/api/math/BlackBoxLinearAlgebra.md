@@ -7,6 +7,14 @@ dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程�
 - source: [`math/BlackBoxLinearAlgebra.py`](../../../math/BlackBoxLinearAlgebra.py)
 - 公開API: function 4、class 2、method/property 3（Python protocol 0を含む）
 
+## できること
+
+- `black_box_minimal_polynomial`: `black`・`box`・`minimal`・多項式を求める。
+- `black_box_power`: 入力した値・多項式を指定指数だけ累乗する。
+- `black_box_linear_solve`: `black`・`box`・線形・`solve`を求める。
+- `black_box_determinant`: `black`・`box`・`determinant`を計算する。
+- `LinearOperator`: dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式を扱う `LinearOperator`。
+
 ## Import
 
 ```python
@@ -24,9 +32,9 @@ from library_codex.math.BlackBoxLinearAlgebra import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`black_box_minimal_polynomial(operator, mod=DEFAULT_MOD, vector=None, seed=None, trials=2)`](../../../math/BlackBoxLinearAlgebra.py#L80) | module の `black_box_minimal_polynomial function` を実行する。 | `operator`: 行列作用 `v -> A v` またはoperator object<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`vector`: vector・1次元配列。省略時: `None`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `2` | list / 計算結果（list） |
-| [`black_box_power(operator, vector, exponent, mod=DEFAULT_MOD, seed=None, trials=3)`](../../../math/BlackBoxLinearAlgebra.py#L130) | module の `black_box_power function` を実行する。 | `operator`: 行列作用 `v -> A v` またはoperator object<br>`vector`: vector・1次元配列<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `3` | 計算結果（数値または入力要素型） |
-| [`black_box_linear_solve(operator, vector, mod=DEFAULT_MOD, seed=None, trials=3)`](../../../math/BlackBoxLinearAlgebra.py#L152) | module の `black_box_linear_solve function` を実行する。 | `operator`: 行列作用 `v -> A v` またはoperator object<br>`vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `3` | list / `None` |
+| [`black_box_minimal_polynomial(operator, mod=DEFAULT_MOD, vector=None, seed=None, trials=2)`](../../../math/BlackBoxLinearAlgebra.py#L80) | `black`・`box`・`minimal`・多項式を求める。 | `operator`: 行列作用 `v -> A v` またはoperator object<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`vector`: vector・1次元配列。省略時: `None`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `2` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`black_box_power(operator, vector, exponent, mod=DEFAULT_MOD, seed=None, trials=3)`](../../../math/BlackBoxLinearAlgebra.py#L130) | 入力した値・多項式を指定指数だけ累乗する。 | `operator`: 行列作用 `v -> A v` またはoperator object<br>`vector`: vector・1次元配列<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `3` | 計算結果（数値または入力要素型） |
+| [`black_box_linear_solve(operator, vector, mod=DEFAULT_MOD, seed=None, trials=3)`](../../../math/BlackBoxLinearAlgebra.py#L152) | `black`・`box`・線形・`solve`を求める。 | `operator`: 行列作用 `v -> A v` またはoperator object<br>`vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `3` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `None` |
 | [`black_box_determinant(operator, mod=DEFAULT_MOD, seed=None, trials=8)`](../../../math/BlackBoxLinearAlgebra.py#L187) | `black`・`box`・`determinant`を計算する。 | `operator`: 行列作用 `v -> A v` またはoperator object<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `8` | `1` / `0` / 数値または入力要素型 `determinant * pow(product, -1, mod) % mod` |
 
 ## Class `LinearOperator`
@@ -34,12 +42,12 @@ from library_codex.math.BlackBoxLinearAlgebra import (
 dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式を扱う `LinearOperator`。
 
 - constructor: [`LinearOperator(size, apply)`](../../../math/BlackBoxLinearAlgebra.py#L15)
-- 引数: `size`: 要素数・universe size<br>`apply`: `apply`として渡す値（APIの文脈に従う）
+- 引数: `size`: 要素数・universe size<br>`apply`: 処理中に呼び出す関数または操作
 - 返り値: `LinearOperator` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`matvec(vector, mod=DEFAULT_MOD)`](../../../math/BlackBoxLinearAlgebra.py#L19) | method | `LinearOperator` の `matvec method` を実行する。 | `vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
+| [`matvec(vector, mod=DEFAULT_MOD)`](../../../math/BlackBoxLinearAlgebra.py#L19) | method | `matvec`を求める。 | `vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 
 ## Class `SparseMatrix`
 
@@ -51,8 +59,8 @@ dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程�
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(row, column, value)`](../../../math/BlackBoxLinearAlgebra.py#L30) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`matvec(vector, mod=DEFAULT_MOD)`](../../../math/BlackBoxLinearAlgebra.py#L33) | method | `SparseMatrix` の `matvec method` を実行する。 | `vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`add(row, column, value)`](../../../math/BlackBoxLinearAlgebra.py#L30) | method | (row, column)の値へvalueを加える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`matvec(vector, mod=DEFAULT_MOD)`](../../../math/BlackBoxLinearAlgebra.py#L33) | method | `matvec`を求める。 | `vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
 
 ## Module aliases
 

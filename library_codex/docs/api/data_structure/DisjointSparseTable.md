@@ -7,6 +7,10 @@
 - source: [`data_structure/DisjointSparseTable.py`](../../../data_structure/DisjointSparseTable.py)
 - 公開API: function 0、class 1、method/property 1（Python protocol 0を含む）
 
+## できること
+
+- `DisjointSparseTable`: 静的列の半群区間積を扱う `DisjointSparseTable`。
+
 ## Import
 
 ```python
@@ -18,7 +22,7 @@ from library_codex.data_structure.DisjointSparseTable import DisjointSparseTable
 静的列の半群区間積を扱う `DisjointSparseTable`。
 
 - constructor: [`DisjointSparseTable(op, lst)`](../../../data_structure/DisjointSparseTable.py#L4)
-- 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`lst`: `lst`として渡す値（APIの文脈に従う）
+- 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`lst`: `lst`として使う入力
 - 返り値: `DisjointSparseTable` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

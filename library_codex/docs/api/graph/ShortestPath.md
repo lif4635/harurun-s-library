@@ -7,6 +7,12 @@ BFS/0-1 BFS/Dijkstra/Bellman--Ford/Floyd・復元・topological sort。
 - source: [`graph/ShortestPath.py`](../../../graph/ShortestPath.py)
 - 公開API: function 10、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- BFS・0-1 BFS・Dijkstra・Bellman–Fordなどを入力グラフに合わせて選べる。
+- 最短距離だけでなく直前頂点も取得し、始点からの経路を復元できる。
+- 全点対最短路や負閉路を含む問題にも対応できる。
+
 ## Import
 
 ```python
@@ -34,16 +40,16 @@ from library_codex.graph.ShortestPath import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`bfs(graph, start=0, goal=None)`](../../../graph/ShortestPath.py#L14) | module の `bfs function` を実行する。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
-| [`zero_one_bfs(graph, start=0)`](../../../graph/ShortestPath.py#L34) | module の `zero_one_bfs function` を実行する。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
-| [`dijkstra(graph, start=0, goal=None)`](../../../graph/ShortestPath.py#L58) | module の `dijkstra function` を実行する。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）) |
-| [`restore_path(previous, goal, start=None)`](../../../graph/ShortestPath.py#L82) | pathを復元する。 | `previous`: `previous`として渡す値（APIの文脈に従う）<br>`goal`: 終点。Noneなら全体を処理<br>`start`: 始点・開始位置。省略時: `None` | list / pathを表すlist |
-| [`bellman_ford(vertex_count, edges, start=0)`](../../../graph/ShortestPath.py#L96) | module の `bellman_ford function` を実行する。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, `previous`（数値または入力要素型）, `negative`) |
-| [`warshall_floyd(matrix)`](../../../graph/ShortestPath.py#L127) | module の `warshall_floyd function` を実行する。 | `matrix`: 行をlistで持つ行列 | 距離（list） |
-| [`topological_sort(graph, lexicographical=False)`](../../../graph/ShortestPath.py#L144) | module の `topological_sort function` を実行する。 | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: `lexicographical`として渡す値（APIの文脈に従う）。省略時: `False` | list/None `result if len(result) == n else None` |
-| [`connected_components(graph)`](../../../graph/ShortestPath.py#L177) | module の `connected_components function` を実行する。 | `graph`: 隣接listまたはグラフobject | tuple(連結成分番号（数値または入力要素型）, `groups`（list）) |
-| [`bipartite_coloring(graph)`](../../../graph/ShortestPath.py#L199) | module の `bipartite_coloring function` を実行する。 | `graph`: 隣接listまたはグラフobject | `color`（数値または入力要素型） / `None` |
-| [`dfs_forest(graph, root=0, postorder=False)`](../../../graph/ShortestPath.py#L219) | Return ``(DFS order, parent)`` for all components without recursion. | `graph`: 隣接listまたはグラフobject<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`postorder`: `postorder`として渡す値（APIの文脈に従う）。省略時: `False` | ``(DFS order, parent)`` for all components without recursion |
+| [`bfs(graph, start=0, goal=None)`](../../../graph/ShortestPath.py#L14) | `bfs`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) |
+| [`zero_one_bfs(graph, start=0)`](../../../graph/ShortestPath.py#L34) | `zero`・`one`・`bfs`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) |
+| [`dijkstra(graph, start=0, goal=None)`](../../../graph/ShortestPath.py#L58) | `dijkstra`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) |
+| [`restore_path(previous, goal, start=None)`](../../../graph/ShortestPath.py#L82) | pathを復元する。 | `previous`: `previous`として使う入力<br>`goal`: 終点。Noneなら全体を処理<br>`start`: 始点・開始位置。省略時: `None` | list[int] — 経路上の頂点または辺を順に並べた列 |
+| [`bellman_ford(vertex_count, edges, start=0)`](../../../graph/ShortestPath.py#L96) | `bellman`・`ford`を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）, `negative`) |
+| [`warshall_floyd(matrix)`](../../../graph/ShortestPath.py#L127) | `warshall`・`floyd`を求める。 | `matrix`: 行をlistで持つ行列 | list[number] — 頂点または位置ごとの距離 |
+| [`topological_sort(graph, lexicographical=False)`](../../../graph/ShortestPath.py#L144) | 入力要素を指定した順序で並べ替える。 | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list/None `result if len(result) == n else None` |
+| [`connected_components(graph)`](../../../graph/ShortestPath.py#L177) | `connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(連結成分番号（数値または入力要素型）, `groups`（list）) |
+| [`bipartite_coloring(graph)`](../../../graph/ShortestPath.py#L199) | `bipartite`・彩色を求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` |
+| [`dfs_forest(graph, root=0, postorder=False)`](../../../graph/ShortestPath.py#L219) | `dfs`・forestを求める。 | `graph`: 隣接listまたはグラフobject<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`postorder`: `postorder`として使う入力。省略時: `False` | tuple(list `[]`, list `[]`) / tuple(頂点・要素を処理順に並べたlist[int], 親情報（数値または入力要素型）) |
 
 ## Module aliases
 

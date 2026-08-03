@@ -7,6 +7,11 @@ Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色。
 - source: [`graph/GraphProperties.py`](../../../graph/GraphProperties.py)
 - 公開API: function 1、class 1、method/property 4（Python protocol 0を含む）
 
+## できること
+
+- `bipartite_edge_coloring`: `bipartite`・辺・彩色を求める。
+- `ChordalGraphRecognizer`: Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色を扱う `ChordalGraphRecognizer`。
+
 ## Import
 
 ```python
@@ -17,11 +22,11 @@ from library_codex.graph.GraphProperties import bipartite_edge_coloring, Chordal
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph/GraphProperties.py#L124) | Color a bipartite multigraph with exactly its maximum degree colors. Returns ``(number_of_colors, color_per_original_edge)``. Repeated perfect matchings are extracted from a regularized graph; this favors compact, rel... | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(`colors`, 答え（数値または入力要素型）) |
+| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph/GraphProperties.py#L124) | `bipartite`・辺・彩色を求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(各頂点の色を格納したlist[int], 答え（数値または入力要素型）) |
 
 ## Class `ChordalGraphRecognizer`
 
-Maximum-cardinality-search chordal graph recognizer.
+Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色を扱う `ChordalGraphRecognizer`。
 
 - constructor: [`ChordalGraphRecognizer(graph)`](../../../graph/GraphProperties.py#L9)
 - 引数: `graph`: 隣接listまたはグラフobject
@@ -31,8 +36,8 @@ Maximum-cardinality-search chordal graph recognizer.
 | --- | --- | --- | --- | --- |
 | [`maximum_cardinality_search_order()`](../../../graph/GraphProperties.py#L19) | method | 最大・`cardinality`・`search`・`order`を求める。 | なし | `self._mcs[:]` / `order[:]` |
 | [`is_chordal()`](../../../graph/GraphProperties.py#L47) | method | `chordal`かどうかを判定する。 | なし | bool |
-| [`perfect_elimination_order()`](../../../graph/GraphProperties.py#L73) | method | `ChordalGraphRecognizer` の `perfect_elimination_order method` を実行する。 | なし | list |
-| [`induced_cycle()`](../../../graph/GraphProperties.py#L76) | method | Return a chordless cycle witness, or [] for a chordal graph. | なし | a chordless cycle witness, or [] for a chordal graph |
+| [`perfect_elimination_order()`](../../../graph/GraphProperties.py#L73) | method | `perfect`・`elimination`・`order`を求める。 | なし | list[int] — 頂点または要素の位置を結果順に並べた列 |
+| [`induced_cycle()`](../../../graph/GraphProperties.py#L76) | method | `induced`・閉路を求める。 | なし | `self._cycle[:]` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`getMaximumCardinalitySearchOrder`](../../../graph/GraphProperties.py#L118) | alias | `maximum_cardinality_search_order` の別名。 | 同じ | 同じ |
 | [`isChordalGraph`](../../../graph/GraphProperties.py#L119) | alias | `is_chordal` の別名。 | 同じ | 同じ |
 | [`getPerfectEliminationOrdering`](../../../graph/GraphProperties.py#L120) | alias | `perfect_elimination_order` の別名。 | 同じ | 同じ |

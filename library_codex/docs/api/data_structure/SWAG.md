@@ -7,6 +7,12 @@
 - source: [`data_structure/SWAG.py`](../../../data_structure/SWAG.py)
 - 公開API: function 0、class 3、method/property 15（Python protocol 3を含む）
 
+## できること
+
+- `SWAGQueue`: 非可換SWAG queue/deque・削除可能heapを扱う `SWAGQueue`。
+- `SWAGDeque`: 非可換SWAG queue/deque・削除可能heapを扱う `SWAGDeque`。
+- `ErasableHeap`: 非可換SWAG queue/deque・削除可能heapを扱う `ErasableHeap`。
+
 ## Import
 
 ```python
@@ -24,7 +30,7 @@ from library_codex.data_structure.SWAG import SWAGQueue, SWAGDeque, ErasableHeap
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`append(value)`](../../../data_structure/SWAG.py#L13) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`popleft()`](../../../data_structure/SWAG.py#L19) | method | `SWAGQueue` の `popleft method` を実行する。 | なし | `self.front.pop()[0]` |
+| [`popleft()`](../../../data_structure/SWAG.py#L19) | method | `popleft`を求める。 | なし | `self.front.pop()[0]` |
 | [`fold()`](../../../data_structure/SWAG.py#L31) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` |
 | [`__len__()`](../../../data_structure/SWAG.py#L41) | method | len(obj)。 | なし | 要素数（int） |
 | [`push`](../../../data_structure/SWAG.py#L17) | alias | `append` の別名。 | 同じ | 同じ |
@@ -42,9 +48,9 @@ from library_codex.data_structure.SWAG import SWAGQueue, SWAGDeque, ErasableHeap
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`appendleft(value)`](../../../data_structure/SWAG.py#L54) | method | `SWAGDeque` の `appendleft method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `None` |
+| [`appendleft(value)`](../../../data_structure/SWAG.py#L54) | method | `appendleft`を求める。 | `value`: 追加・設定・問い合わせる値 | `None` |
 | [`append(value)`](../../../data_structure/SWAG.py#L58) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`popleft()`](../../../data_structure/SWAG.py#L89) | method | `SWAGDeque` の `popleft method` を実行する。 | なし | `self.front.pop()[0]` |
+| [`popleft()`](../../../data_structure/SWAG.py#L89) | method | `popleft`を求める。 | なし | `self.front.pop()[0]` |
 | [`pop()`](../../../data_structure/SWAG.py#L96) | method | 要素を1つ取り除いて返す。 | なし | `self.back.pop()[0]` |
 | [`fold()`](../../../data_structure/SWAG.py#L106) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` |
 | [`__len__()`](../../../data_structure/SWAG.py#L116) | method | len(obj)。 | なし | 要素数（int） |
@@ -60,7 +66,7 @@ from library_codex.data_structure.SWAG import SWAGQueue, SWAGDeque, ErasableHeap
 非可換SWAG queue/deque・削除可能heapを扱う `ErasableHeap`。
 
 - constructor: [`ErasableHeap(values=(), maximize=False)`](../../../data_structure/SWAG.py#L123)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`<br>`maximize`: `maximize`として渡す値（APIの文脈に従う）。省略時: `False`
+- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`<br>`maximize`: `maximize`として使う入力。省略時: `False`
 - 返り値: `ErasableHeap` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

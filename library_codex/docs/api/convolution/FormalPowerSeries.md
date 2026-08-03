@@ -7,6 +7,12 @@ FPS四則演算・inv/log/exp/pow・Taylor shift・一括積。
 - source: [`convolution/FormalPowerSeries.py`](../../../convolution/FormalPowerSeries.py)
 - 公開API: function 19、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- 昇冪係数列で形式的冪級数の加減乗除・微分・積分を行える。
+- 逆数・対数・指数・冪・平方根を指定した次数まで計算できる。
+- 多項式除算、Taylor shift、合成などの高水準処理へそのまま渡せる係数列を返す。
+
 ## Import
 
 ```python
@@ -43,25 +49,25 @@ from library_codex.convolution.FormalPowerSeries import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`fps_shrink(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L31) | module の `fps_shrink function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（list） |
-| [`shrink(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L38) | module の `shrink function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `series` |
-| [`fps_add(first, second, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L46) | module の `fps_add function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`fps_subtract(first, second, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L59) | module の `fps_subtract function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`fps_negate(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L72) | module の `fps_negate function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`fps_multiply(first, second, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L76) | module の `fps_multiply function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `convolution(first, second, mod)` |
-| [`fps_derivative(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L80) | module の `fps_derivative function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`fps_integral(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L84) | module の `fps_integral function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`fps_evaluate(series, value, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L92) | module の `fps_evaluate function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`value`: 追加・設定・問い合わせる値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`fps_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L124) | `fps`・逆元を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 計算結果（list） |
-| [`fps_logarithm(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L162) | `fps`・対数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 計算結果 |
-| [`fps_exponential(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L254) | `fps`・指数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / `_fps_exponential_ntt(series, degree, transform)` / `_fps_exponential_newton(series, degree, mod)` |
-| [`fps_power(series, exponent, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L271) | module の `fps_power function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 数値または入力要素型 `[1] + [0] * (degree - 1)` / 数値または入力要素型 `[0] * degree` / 数値または入力要素型 `[0] * shift + result` |
-| [`fps_square_root(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L307) | module の `fps_square_root function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 数値または入力要素型 `[0] * degree` / 数値または入力要素型 `[0] * shift + result[:needed]` / `None` |
-| [`fps_quotient(dividend, divisor, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L344) | module の `fps_quotient function` を実行する。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 計算結果（数値または入力要素型） |
-| [`fps_divmod(dividend, divisor, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L379) | module の `fps_divmod function` を実行する。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, `first`) / tuple(`quotient`, `remainder`（数値または入力要素型）) |
-| [`fps_remainder(dividend, divisor, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L398) | module の `fps_remainder function` を実行する。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_divmod(dividend, divisor, mod)[1]` |
-| [`fps_taylor_shift(series, shift, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L402) | module の `fps_taylor_shift function` を実行する。 | `series`: 昇冪の形式的冪級数係数列<br>`shift`: 平行移動量・bit shift量<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`fps_product(polynomials, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L437) | `fps`・積を計算する。 | `polynomials`: 多項式係数列のiterable<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / `heap[0][2]` |
+| [`fps_shrink(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L31) | 係数列末尾の不要な0を除いて正規化する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`shrink(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L38) | 係数列末尾の不要な0を除いて正規化する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `series` |
+| [`fps_add(first, second, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L46) | `fps`・`add`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`fps_subtract(first, second, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L59) | 入力した値・係数列の差または符号反転を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`fps_negate(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L72) | 入力した値・係数列の差または符号反転を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`fps_multiply(first, second, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L76) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `convolution(first, second, mod)` |
+| [`fps_derivative(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L80) | 入力した多項式・級数を形式微分する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`fps_integral(series, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L84) | 入力した多項式・級数を形式積分する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`fps_evaluate(series, value, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L92) | 入力した多項式・式を指定点で評価する。 | `series`: 昇冪の形式的冪級数係数列<br>`value`: 追加・設定・問い合わせる値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`fps_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L124) | `fps`・逆元を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`fps_logarithm(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L162) | `fps`・対数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 計算結果 |
+| [`fps_exponential(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L254) | `fps`・指数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `_fps_exponential_ntt(series, degree, transform)` / `_fps_exponential_newton(series, degree, mod)` |
+| [`fps_power(series, exponent, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L271) | 入力した値・多項式を指定指数だけ累乗する。 | `series`: 昇冪の形式的冪級数係数列<br>`exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 数値または入力要素型 `[1] + [0] * (degree - 1)` / 数値または入力要素型 `[0] * degree` / 数値または入力要素型 `[0] * shift + result` |
+| [`fps_square_root(series, degree=None, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L307) | `fps`・平方・根を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 数値または入力要素型 `[0] * degree` / 数値または入力要素型 `[0] * shift + result[:needed]` / `None` |
+| [`fps_quotient(dividend, divisor, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L344) | `fps`・`quotient`を求める。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 計算結果（数値または入力要素型） |
+| [`fps_divmod(dividend, divisor, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L379) | `fps`・`divmod`を求める。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, `first`) / tuple(`quotient`, `remainder`（数値または入力要素型）) |
+| [`fps_remainder(dividend, divisor, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L398) | `fps`・剰余を求める。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_divmod(dividend, divisor, mod)[1]` |
+| [`fps_taylor_shift(series, shift, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L402) | `fps`・`taylor`・`shift`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`shift`: 平行移動量・bit shift量<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`fps_product(polynomials, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L437) | `fps`・積を計算する。 | `polynomials`: 多項式係数列のiterable<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `heap[0][2]` |
 
 ## Module aliases
 

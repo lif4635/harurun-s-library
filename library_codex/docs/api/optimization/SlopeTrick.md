@@ -7,6 +7,10 @@
 - source: [`optimization/SlopeTrick.py`](../../../optimization/SlopeTrick.py)
 - 公開API: function 0、class 1、method/property 14（Python protocol 0を含む）
 
+## できること
+
+- `WeightedSlopeTrick`: 重み付きSlope Trick・shift/slide/chmin/merge/evalを扱う `WeightedSlopeTrick`。
+
 ## Import
 
 ```python
@@ -18,7 +22,7 @@ from library_codex.optimization.SlopeTrick import WeightedSlopeTrick
 重み付きSlope Trick・shift/slide/chmin/merge/evalを扱う `WeightedSlopeTrick`。
 
 - constructor: [`WeightedSlopeTrick(constant=0)`](../../../optimization/SlopeTrick.py#L7)
-- 引数: `constant`: `constant`として渡す値（APIの文脈に従う）。省略時: `0`
+- 引数: `constant`: `constant`として使う入力。省略時: `0`
 - 返り値: `WeightedSlopeTrick` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -28,12 +32,12 @@ from library_codex.optimization.SlopeTrick import WeightedSlopeTrick
 | [`add_x_minus_a(point, count=1)`](../../../optimization/SlopeTrick.py#L45) | method | `x`・`minus`・`a`を追加する。 | `point`: 評価点・座標<br>`count`: 個数。省略時: `1` | `None` |
 | [`add_a_minus_x(point, count=1)`](../../../optimization/SlopeTrick.py#L64) | method | `a`・`minus`・`x`を追加する。 | `point`: 評価点・座標<br>`count`: 個数。省略時: `1` | `None` |
 | [`add_abs(point, count=1)`](../../../optimization/SlopeTrick.py#L83) | method | `abs`を追加する。 | `point`: 評価点・座標<br>`count`: 個数。省略時: `1` | `None` |
-| [`shift_left(amount)`](../../../optimization/SlopeTrick.py#L89) | method | `WeightedSlopeTrick` の `shift_left method` を実行する。 | `amount`: 加算量・移動量 | `None` |
-| [`shift_right(amount)`](../../../optimization/SlopeTrick.py#L94) | method | `WeightedSlopeTrick` の `shift_right method` を実行する。 | `amount`: 加算量・移動量 | `None` |
-| [`shift(amount)`](../../../optimization/SlopeTrick.py#L99) | method | `WeightedSlopeTrick` の `shift method` を実行する。 | `amount`: 加算量・移動量 | `None` |
-| [`slide(left, right)`](../../../optimization/SlopeTrick.py#L105) | method | `WeightedSlopeTrick` の `slide method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
-| [`chmin_right()`](../../../optimization/SlopeTrick.py#L111) | method | `WeightedSlopeTrick` の `chmin_right method` を実行する。 | なし | `None` |
-| [`chmin_left()`](../../../optimization/SlopeTrick.py#L116) | method | `WeightedSlopeTrick` の `chmin_left method` を実行する。 | なし | `None` |
+| [`shift_left(amount)`](../../../optimization/SlopeTrick.py#L89) | method | `shift`・左を求める。 | `amount`: 加算量・移動量 | `None` |
+| [`shift_right(amount)`](../../../optimization/SlopeTrick.py#L94) | method | `shift`・右を求める。 | `amount`: 加算量・移動量 | `None` |
+| [`shift(amount)`](../../../optimization/SlopeTrick.py#L99) | method | `shift`を求める。 | `amount`: 加算量・移動量 | `None` |
+| [`slide(left, right)`](../../../optimization/SlopeTrick.py#L105) | method | `slide`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
+| [`chmin_right()`](../../../optimization/SlopeTrick.py#L111) | method | `chmin`・右を求める。 | なし | `None` |
+| [`chmin_left()`](../../../optimization/SlopeTrick.py#L116) | method | `chmin`・左を求める。 | なし | `None` |
 | [`evaluate(point)`](../../../optimization/SlopeTrick.py#L121) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | 計算結果 |
 | [`merge(other)`](../../../optimization/SlopeTrick.py#L138) | method | 2要素・2成分・2構造を併合する。 | `other`: 同じ型のもう一方のobject・値 | `self` |
 | [`clear()`](../../../optimization/SlopeTrick.py#L171) | method | 保持している要素・状態を空にする。 | なし | `None` |

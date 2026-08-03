@@ -7,6 +7,10 @@
 - source: [`tree/TreeDistanceFrequency.py`](../../../tree/TreeDistanceFrequency.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `frequency_table_of_tree_distance`: 頻度・`table`・`of`・木・距離を求める。
+
 ## Import
 
 ```python
@@ -17,7 +21,7 @@ from library_codex.tree.TreeDistanceFrequency import frequency_table_of_tree_dis
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`frequency_table_of_tree_distance(tree, include_same=False)`](../../../tree/TreeDistanceFrequency.py#L7) | Return counts indexed by unweighted distance. By default only unordered pairs of distinct vertices are counted. With ``include_same=True``, index 0 is the number of vertices. Centroid paths are built iteratively and a... | `tree`: 木の隣接list<br>`include_same`: `include`・`same`として渡す値（APIの文脈に従う）。省略時: `False` | counts indexed by unweighted distance |
+| [`frequency_table_of_tree_distance(tree, include_same=False)`](../../../tree/TreeDistanceFrequency.py#L7) | 頻度・`table`・`of`・木・距離を求める。 | `tree`: 木の隣接list<br>`include_same`: `include`・`same`を有効にするか。省略時: `False` | list[number] — 頂点または位置ごとの距離 / 答え（数値または入力要素型） |
 
 ## Module aliases
 

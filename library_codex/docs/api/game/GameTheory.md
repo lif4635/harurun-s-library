@@ -7,6 +7,13 @@
 - source: [`game/GameTheory.py`](../../../game/GameTheory.py)
 - 公開API: function 1、class 3、method/property 19（Python protocol 9を含む）
 
+## できること
+
+- `reduce_surreal`: `reduce`・`surreal`を求める。
+- `SurrealNumber`: 不偏DAG Grundy・numeric partisan game・dyadic surrealを扱う `SurrealNumber`。
+- `ImpartialGameSolver`: 不偏DAG Grundy・numeric partisan game・dyadic surrealを扱う `ImpartialGameSolver`。
+- `PartisanGameSolver`: 不偏DAG Grundy・numeric partisan game・dyadic surrealを扱う `PartisanGameSolver`。
+
 ## Import
 
 ```python
@@ -17,11 +24,11 @@ from library_codex.game.GameTheory import reduce_surreal, SurrealNumber, Imparti
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`reduce_surreal(left, right)`](../../../game/GameTheory.py#L109) | module の `reduce_surreal function` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `SurrealNumber.between(left, right)` |
+| [`reduce_surreal(left, right)`](../../../game/GameTheory.py#L109) | `reduce`・`surreal`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `SurrealNumber.between(left, right)` |
 
 ## Class `SurrealNumber`
 
-A short surreal number represented as numerator / 2**exponent.
+不偏DAG Grundy・numeric partisan game・dyadic surrealを扱う `SurrealNumber`。
 
 - constructor: [`SurrealNumber(numerator=0, exponent=0)`](../../../game/GameTheory.py#L6)
 - 引数: `numerator`: 有理式の分子多項式。省略時: `0`<br>`exponent`: 非負の指数。省略時: `0`
@@ -29,8 +36,8 @@ A short surreal number represented as numerator / 2**exponent.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`p`](../../../game/GameTheory.py#L18) | property | `SurrealNumber` の `p method` を実行する。 | なし | `self.numerator` |
-| [`q`](../../../game/GameTheory.py#L22) | property | `SurrealNumber` の `q method` を実行する。 | なし | `self.exponent` |
+| [`p`](../../../game/GameTheory.py#L18) | property | `p`を求める。 | なし | `self.numerator` |
+| [`q`](../../../game/GameTheory.py#L22) | property | `q`を求める。 | なし | `self.exponent` |
 | [`__add__(other)`](../../../game/GameTheory.py#L28) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | SurrealNumber instance |
 | [`__sub__(other)`](../../../game/GameTheory.py#L35) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` |
 | [`__neg__()`](../../../game/GameTheory.py#L38) | method | -obj。 | なし | SurrealNumber instance |
@@ -40,30 +47,30 @@ A short surreal number represented as numerator / 2**exponent.
 | [`__ge__(other)`](../../../game/GameTheory.py#L53) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__eq__(other)`](../../../game/GameTheory.py#L56) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__hash__()`](../../../game/GameTheory.py#L62) | method | hash(obj)。 | なし | `hash((self.numerator, self.exponent))` |
-| [`children()`](../../../game/GameTheory.py#L70) | method | `SurrealNumber` の `children method` を実行する。 | なし | tuple(SurrealNumber `SurrealNumber(-1)`, SurrealNumber `SurrealNumber(1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator * 2 - 1, 1)`, SurrealNumber `SurrealNumber(self.numerator + 1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator - 1)`, SurrealNumber `SurrealNumber(self.numerator * 2 + 1, 1)`) / tuple(数値または入力要素型 `self - difference`, 数値または入力要素型 `self + difference`) |
-| [`larger()`](../../../game/GameTheory.py#L84) | method | `SurrealNumber` の `larger method` を実行する。 | なし | 計算結果（SurrealNumber） |
-| [`smaller()`](../../../game/GameTheory.py#L90) | method | `SurrealNumber` の `smaller method` を実行する。 | なし | 計算結果（SurrealNumber） |
-| [`between(left, right)`](../../../game/GameTheory.py#L97) | method | `SurrealNumber` の `between method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 計算結果（SurrealNumber） |
+| [`children()`](../../../game/GameTheory.py#L70) | method | `children`を求める。 | なし | tuple(SurrealNumber `SurrealNumber(-1)`, SurrealNumber `SurrealNumber(1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator * 2 - 1, 1)`, SurrealNumber `SurrealNumber(self.numerator + 1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator - 1)`, SurrealNumber `SurrealNumber(self.numerator * 2 + 1, 1)`) / tuple(数値または入力要素型 `self - difference`, 数値または入力要素型 `self + difference`) |
+| [`larger()`](../../../game/GameTheory.py#L84) | method | `larger`を求める。 | なし | 計算結果（SurrealNumber） |
+| [`smaller()`](../../../game/GameTheory.py#L90) | method | `smaller`を求める。 | なし | 計算結果（SurrealNumber） |
+| [`between(left, right)`](../../../game/GameTheory.py#L97) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 計算結果（SurrealNumber） |
 | [`child`](../../../game/GameTheory.py#L82) | alias | `children` の別名。 | 同じ | 同じ |
 
 ## Class `ImpartialGameSolver`
 
-Iterative Grundy solver for a DAG of hashable board states.
+不偏DAG Grundy・numeric partisan game・dyadic surrealを扱う `ImpartialGameSolver`。
 
 - constructor: [`ImpartialGameSolver(options, splittable=False, with_moves=False)`](../../../game/GameTheory.py#L118)
-- 引数: `options`: 局面から遷移先を列挙するcallback<br>`splittable`: `splittable`として渡す値（APIの文脈に従う）。省略時: `False`<br>`with_moves`: `with`・`moves`として渡す値（APIの文脈に従う）。省略時: `False`
+- 引数: `options`: 局面から遷移先を列挙するcallback<br>`splittable`: `splittable`として使う入力。省略時: `False`<br>`with_moves`: `with`・`moves`を有効にするか。省略時: `False`
 - 返り値: `ImpartialGameSolver` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`get(board)`](../../../game/GameTheory.py#L133) | method | 指定位置・辺・状態の値を取得する。 | `board`: `board`として渡す値（APIの文脈に従う） | 指定対象に格納された値・edge object |
-| [`get_sum(boards)`](../../../game/GameTheory.py#L173) | method | 和を取得する。 | `boards`: `boards`として渡す値（APIの文脈に従う） | 計算結果（int） |
+| [`get(board)`](../../../game/GameTheory.py#L133) | method | 指定位置・辺・状態の値を取得する。 | `board`: `board`として使う入力 | 指定対象に格納された値・edge object |
+| [`get_sum(boards)`](../../../game/GameTheory.py#L173) | method | 和を取得する。 | `boards`: `boards`として使う入力 | 計算結果（int） |
 | [`get_best_move(game)`](../../../game/GameTheory.py#L179) | method | `best`・`move`を取得する。 | `game`: 局面遷移を提供するgame object | tuple(0-indexedの位置（int）, `move`) / `move` / `None` |
 | [`grundy`](../../../game/GameTheory.py#L171) | alias | `get` の別名。 | 同じ | 同じ |
 
 ## Class `PartisanGameSolver`
 
-Iterative solver for short numeric partisan games.
+不偏DAG Grundy・numeric partisan game・dyadic surrealを扱う `PartisanGameSolver`。
 
 - constructor: [`PartisanGameSolver(options)`](../../../game/GameTheory.py#L211)
 - 引数: `options`: 局面から遷移先を列挙するcallback

@@ -7,6 +7,11 @@
 - source: [`algorithm/Base64Integers.py`](../../../algorithm/Base64Integers.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `encode_integers`: `integers`を符号化する。
+- `decode_integers`: `integers`を復元する。
+
 ## Import
 
 ```python
@@ -17,8 +22,8 @@ from library_codex.algorithm.Base64Integers import encode_integers, decode_integ
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`encode_integers(values, signed_bits=64)`](../../../algorithm/Base64Integers.py#L5) | `integers`を符号化する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`signed_bits`: `signed`・`bits`として渡す値（APIの文脈に従う）。省略時: `64` | `''` / `''.join((_ALPHABET[value] for value in chunks))` |
-| [`decode_integers(encoded, signed=False)`](../../../algorithm/Base64Integers.py#L30) | `integers`を復元する。 | `encoded`: 符号化済みbytes/string<br>`signed`: 符号付き整数として符号化・復号するか。省略時: `False` | list / 計算結果（list） |
+| [`encode_integers(values, signed_bits=64)`](../../../algorithm/Base64Integers.py#L5) | `integers`を符号化する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`signed_bits`: `signed`・`bits`として使う入力。省略時: `64` | `''` / `''.join((_ALPHABET[value] for value in chunks))` |
+| [`decode_integers(encoded, signed=False)`](../../../algorithm/Base64Integers.py#L30) | `integers`を復元する。 | `encoded`: 符号化済みbytes/string<br>`signed`: 符号付き整数として符号化・復号するか。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 
 ## Module aliases
 

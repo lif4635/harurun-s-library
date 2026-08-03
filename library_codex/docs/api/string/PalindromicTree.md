@@ -7,6 +7,10 @@
 - source: [`string/PalindromicTree.py`](../../../string/PalindromicTree.py)
 - 公開API: function 0、class 1、method/property 23（Python protocol 1を含む）
 
+## できること
+
+- `PalindromicTree`: オンラインEertree（頻度・位置・復元対応）を扱う `PalindromicTree`。
+
 ## Import
 
 ```python
@@ -24,28 +28,28 @@ from library_codex.string.PalindromicTree import PalindromicTree
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/PalindromicTree.py#L50) | method | len(obj)。 | なし | 要素数（int） |
-| [`node_count`](../../../string/PalindromicTree.py#L54) | property | `PalindromicTree` の `node_count method` を実行する。 | なし | `len(self.length)` |
-| [`state_count`](../../../string/PalindromicTree.py#L58) | property | `PalindromicTree` の `state_count method` を実行する。 | なし | `len(self.length)` |
-| [`distinct_count`](../../../string/PalindromicTree.py#L62) | property | `PalindromicTree` の `distinct_count method` を実行する。 | なし | 数値または入力要素型 `len(self.length) - 2` |
+| [`node_count`](../../../string/PalindromicTree.py#L54) | property | `node`・個数を求める。 | なし | `len(self.length)` |
+| [`state_count`](../../../string/PalindromicTree.py#L58) | property | `state`・個数を求める。 | なし | `len(self.length)` |
+| [`distinct_count`](../../../string/PalindromicTree.py#L62) | property | `distinct`・個数を求める。 | なし | 数値または入力要素型 `len(self.length) - 2` |
 | [`size()`](../../../string/PalindromicTree.py#L65) | method | 要素数または連結成分sizeを返す。 | なし | size（int） |
-| [`text()`](../../../string/PalindromicTree.py#L86) | method | `PalindromicTree` の `text method` を実行する。 | なし | `self._pack(self.sequence)` |
-| [`transition(node, symbol)`](../../../string/PalindromicTree.py#L112) | method | `PalindromicTree` の `transition method` を実行する。 | `node`: 頂点・内部node番号<br>`symbol`: 文字・alphabet上の記号 | `-1` / `self._get(node, symbol)` |
-| [`children(node)`](../../../string/PalindromicTree.py#L120) | method | `PalindromicTree` の `children method` を実行する。 | `node`: 頂点・内部node番号 | 計算結果（list） / list |
-| [`extend(symbol)`](../../../string/PalindromicTree.py#L141) | method | `PalindromicTree` の `extend method` を実行する。 | `symbol`: 文字・alphabet上の記号 | `node` |
+| [`text()`](../../../string/PalindromicTree.py#L86) | method | `text`を求める。 | なし | `self._pack(self.sequence)` |
+| [`transition(node, symbol)`](../../../string/PalindromicTree.py#L112) | method | `transition`を求める。 | `node`: 頂点・内部node番号<br>`symbol`: 文字・alphabet上の記号 | `-1` / `self._get(node, symbol)` |
+| [`children(node)`](../../../string/PalindromicTree.py#L120) | method | `children`を求める。 | `node`: 頂点・内部node番号 | list[object] — 計算結果 / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`extend(symbol)`](../../../string/PalindromicTree.py#L141) | method | `extend`を求める。 | `symbol`: 文字・alphabet上の記号 | `node` |
 | [`build(sequence)`](../../../string/PalindromicTree.py#L187) | method | 内部構造を構築する。 | `sequence`: 入力列 | `self` |
 | [`find(palindrome)`](../../../string/PalindromicTree.py#L194) | method | 代表元・位置・対象要素を探す。 | `palindrome`: 回文node・回文列 | 代表元・位置・node番号（int） |
 | [`contains(palindrome)`](../../../string/PalindromicTree.py#L209) | method | 指定値を保持しているか判定する。 | `palindrome`: 回文node・回文列 | bool |
-| [`palindrome(node)`](../../../string/PalindromicTree.py#L214) | method | `PalindromicTree` の `palindrome method` を実行する。 | `node`: 頂点・内部node番号 | `self._slice(0, 0)` / `self._slice(left, left + self.length[node])` |
-| [`distinct_palindromes()`](../../../string/PalindromicTree.py#L222) | method | `PalindromicTree` の `distinct_palindromes method` を実行する。 | なし | list |
+| [`palindrome(node)`](../../../string/PalindromicTree.py#L214) | method | `palindrome`を求める。 | `node`: 頂点・内部node番号 | `self._slice(0, 0)` / `self._slice(left, left + self.length[node])` |
+| [`distinct_palindromes()`](../../../string/PalindromicTree.py#L222) | method | `distinct`・`palindromes`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`longest_palindrome()`](../../../string/PalindromicTree.py#L225) | method | `longest`・`palindrome`を求める。 | なし | `self.palindrome(self.longest)` |
-| [`occurrence_counts()`](../../../string/PalindromicTree.py#L228) | method | `PalindromicTree` の `occurrence_counts method` を実行する。 | なし | `occurrence`（入力と同じ型） |
+| [`occurrence_counts()`](../../../string/PalindromicTree.py#L228) | method | `occurrence`・`counts`を求める。 | なし | `occurrence`（入力と同じ型） |
 | [`count(palindrome)`](../../../string/PalindromicTree.py#L237) | method | 条件に合う要素数を返す。 | `palindrome`: 回文node・回文列 | 個数（int） |
-| [`first_occurrence(palindrome)`](../../../string/PalindromicTree.py#L245) | method | `PalindromicTree` の `first_occurrence method` を実行する。 | `palindrome`: 回文node・回文列 | `0` / `-1 if node == -1 else self.first_pos[node]` |
-| [`suffix_link_tree()`](../../../string/PalindromicTree.py#L251) | method | `PalindromicTree` の `suffix_link_tree method` を実行する。 | なし | `tree`（list） |
-| [`occurrences(palindrome, sort_positions=False)`](../../../string/PalindromicTree.py#L302) | method | `PalindromicTree` の `occurrences method` を実行する。 | `palindrome`: 回文node・回文列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | list / 計算結果（list） |
+| [`first_occurrence(palindrome)`](../../../string/PalindromicTree.py#L245) | method | `first`・`occurrence`を求める。 | `palindrome`: 回文node・回文列 | `0` / `-1 if node == -1 else self.first_pos[node]` |
+| [`suffix_link_tree()`](../../../string/PalindromicTree.py#L251) | method | suffix・`link`・木を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`occurrences(palindrome, sort_positions=False)`](../../../string/PalindromicTree.py#L302) | method | `occurrences`を求める。 | `palindrome`: 回文node・回文列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 | [`longest_suffix_state(position=None)`](../../../string/PalindromicTree.py#L322) | method | `longest`・suffix・`state`を求める。 | `position`: 0-indexedの位置。省略時: `None` | `self.last` / `self.suffix_states[position]` |
-| [`palindromic_suffixes(position=None, include_empty=False)`](../../../string/PalindromicTree.py#L327) | method | `PalindromicTree` の `palindromic_suffixes method` を実行する。 | `position`: 0-indexedの位置。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | 計算結果（list） |
-| [`frequencies()`](../../../string/PalindromicTree.py#L337) | method | `PalindromicTree` の `frequencies method` を実行する。 | なし | list |
+| [`palindromic_suffixes(position=None, include_empty=False)`](../../../string/PalindromicTree.py#L327) | method | `palindromic`・`suffixes`を求める。 | `position`: 0-indexedの位置。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list[object] — 計算結果 |
+| [`frequencies()`](../../../string/PalindromicTree.py#L337) | method | `frequencies`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`next`](../../../string/PalindromicTree.py#L117) | alias | `transition` の別名。 | 同じ | 同じ |
 | [`move`](../../../string/PalindromicTree.py#L118) | alias | `transition` の別名。 | 同じ | 同じ |
 | [`push`](../../../string/PalindromicTree.py#L185) | alias | `extend` の別名。 | 同じ | 同じ |

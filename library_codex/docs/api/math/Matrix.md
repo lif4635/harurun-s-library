@@ -7,6 +7,11 @@
 - source: [`math/Matrix.py`](../../../math/Matrix.py)
 - 公開API: function 15、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- list of listsで表した行列の加減算・乗算・累乗を行える。
+- 行列式、逆行列、線形方程式を法上または通常の数値上で計算できる。
+
 ## Import
 
 ```python
@@ -39,21 +44,21 @@ from library_codex.math.Matrix import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`identity_matrix(size)`](../../../math/Matrix.py#L13) | module の `identity_matrix function` を実行する。 | `size`: 要素数・universe size | list |
-| [`transpose_matrix(matrix)`](../../../math/Matrix.py#L17) | module の `transpose_matrix function` を実行する。 | `matrix`: 行をlistで持つ行列 | list |
-| [`rotate_matrix(matrix, turns=1)`](../../../math/Matrix.py#L22) | module の `rotate_matrix function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`turns`: `turns`として渡す値（APIの文脈に従う）。省略時: `1` | 計算結果（list） |
-| [`matrix_add(first, second, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L34) | module の `matrix_add function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`matrix_subtract(first, second, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L44) | module の `matrix_subtract function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`matrix_multiply(first, second, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L54) | module の `matrix_multiply function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（list） |
-| [`matrix_vector_multiply(matrix, vector, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L72) | module の `matrix_vector_multiply function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`matrix_power(matrix, exponent, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L86) | module の `matrix_power function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果 |
-| [`gauss_elimination(matrix, mod=DEFAULT_MOD, pivot_end=None, reduced=False)`](../../../math/Matrix.py#L103) | module の `gauss_elimination function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`pivot_end`: `pivot`・`end`として渡す値（APIの文脈に従う）。省略時: `None`<br>`reduced`: `reduced`として渡す値（APIの文脈に従う）。省略時: `False` | tuple(`rank`（int）, 数値または入力要素型 `determinant % mod`, 値のlist, `pivots`（list）) |
+| [`identity_matrix(size)`](../../../math/Matrix.py#L13) | `identity`・行列を求める。 | `size`: 要素数・universe size | list[list[number]] — 各行をlistで持つ行列 |
+| [`transpose_matrix(matrix)`](../../../math/Matrix.py#L17) | `transpose`・行列を求める。 | `matrix`: 行をlistで持つ行列 | list[list[number]] — 各行をlistで持つ行列 |
+| [`rotate_matrix(matrix, turns=1)`](../../../math/Matrix.py#L22) | `rotate`・行列を求める。 | `matrix`: 行をlistで持つ行列<br>`turns`: `turns`として使う入力。省略時: `1` | list[list[number]] — 各行をlistで持つ行列 |
+| [`matrix_add(first, second, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L34) | 行列・`add`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 |
+| [`matrix_subtract(first, second, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L44) | 入力した値・係数列の差または符号反転を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 |
+| [`matrix_multiply(first, second, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L54) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 |
+| [`matrix_vector_multiply(matrix, vector, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L72) | 2つの入力をこの構造の演算規則で乗算する。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`matrix_power(matrix, exponent, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L86) | 入力した値・多項式を指定指数だけ累乗する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果 |
+| [`gauss_elimination(matrix, mod=DEFAULT_MOD, pivot_end=None, reduced=False)`](../../../math/Matrix.py#L103) | `gauss`・`elimination`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`pivot_end`: `pivot`・`end`として使う入力。省略時: `None`<br>`reduced`: `reduced`として使う入力。省略時: `False` | tuple(`rank`（int）, 数値または入力要素型 `determinant % mod`, 値のlist, `pivots`（list）) |
 | [`matrix_rank(matrix, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L156) | 行列・`rank`を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `gauss_elimination(matrix, mod)[0]` |
 | [`matrix_determinant(matrix, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L160) | 行列・`determinant`を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / int `determinant if rank == height else 0` |
-| [`inverse_matrix(matrix, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L170) | 逆元・行列を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / `None` |
-| [`linear_equation(matrix, vector, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L189) | module の `linear_equation function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(`particular`（数値または入力要素型）, `basis`（list）) / `None` |
-| [`sparse_linear_equation(matrix, vector, width=None, mod=DEFAULT_MOD, elimination_band=None)`](../../../math/Matrix.py#L219) | module の `sparse_linear_equation function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`width`: 幅・列数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`elimination_band`: `elimination`・`band`として渡す値（APIの文脈に従う）。省略時: `None` | 計算結果（数値または入力要素型） / `None` |
-| [`characteristic_polynomial(matrix, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L307) | module の `characteristic_polynomial function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / `polynomials[size]` |
+| [`inverse_matrix(matrix, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L170) | 逆元・行列を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 / `None` |
+| [`linear_equation(matrix, vector, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L189) | 線形・`equation`を求める。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(`particular`（数値または入力要素型）, `basis`（list）) / `None` |
+| [`sparse_linear_equation(matrix, vector, width=None, mod=DEFAULT_MOD, elimination_band=None)`](../../../math/Matrix.py#L219) | `sparse`・線形・`equation`を求める。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`width`: 幅・列数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`elimination_band`: `elimination`・`band`として使う入力。省略時: `None` | 計算結果（数値または入力要素型） / `None` |
+| [`characteristic_polynomial(matrix, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L307) | 特性・多項式を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `polynomials[size]` |
 
 ## Module aliases
 

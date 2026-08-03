@@ -7,6 +7,13 @@
 - source: [`math/ModularRoot.py`](../../../math/ModularRoot.py)
 - 公開API: function 4、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `primitive_root`: `primitive`・根を求める。
+- `modular_kth_root`: 法・k番目・根を求める。
+- `floor_kth_root`: `floor`・k番目・根を求める。
+- `ceil_kth_root`: `ceil`・k番目・根を求める。
+
 ## Import
 
 ```python
@@ -17,10 +24,10 @@ from library_codex.math.ModularRoot import primitive_root, modular_kth_root, flo
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`primitive_root(prime)`](../../../math/ModularRoot.py#L6) | module の `primitive_root function` を実行する。 | `prime`: 素数法 | `1` / `root` / `candidate`（int） |
-| [`modular_kth_root(value, exponent, prime)`](../../../math/ModularRoot.py#L114) | module の `modular_kth_root function` を実行する。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数<br>`prime`: 素数法 | int `1 if value == 1 else -1` / 値 / `-1` |
-| [`floor_kth_root(value, exponent)`](../../../math/ModularRoot.py#L156) | module の `floor_kth_root function` を実行する。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 値 / `isqrt(value)` / `1` / `lower`（数値または入力要素型） |
-| [`ceil_kth_root(value, exponent)`](../../../math/ModularRoot.py#L178) | module の `ceil_kth_root function` を実行する。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 数値または入力要素型 `root if pow(root, exponent) == value else root + 1` |
+| [`primitive_root(prime)`](../../../math/ModularRoot.py#L6) | `primitive`・根を求める。 | `prime`: 素数法 | `1` / `root` / `candidate`（int） |
+| [`modular_kth_root(value, exponent, prime)`](../../../math/ModularRoot.py#L114) | 法・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数<br>`prime`: 素数法 | int `1 if value == 1 else -1` / 値 / `-1` |
+| [`floor_kth_root(value, exponent)`](../../../math/ModularRoot.py#L156) | `floor`・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 値 / `isqrt(value)` / `1` / `lower`（数値または入力要素型） |
+| [`ceil_kth_root(value, exponent)`](../../../math/ModularRoot.py#L178) | `ceil`・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 数値または入力要素型 `root if pow(root, exponent) == value else root + 1` |
 
 ## Module aliases
 

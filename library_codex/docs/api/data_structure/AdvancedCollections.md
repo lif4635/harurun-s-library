@@ -7,6 +7,12 @@ lazy meldable Skew Heap・矩形union面積。
 - source: [`data_structure/AdvancedCollections.py`](../../../data_structure/AdvancedCollections.py)
 - 公開API: function 1、class 2、method/property 8（Python protocol 0を含む）
 
+## できること
+
+- `union_rectangle_area`: `union`・`rectangle`・`area`を求める。
+- `SkewHeap`: lazy meldable Skew Heap・矩形union面積を扱う `SkewHeap`。
+- `UnionRectangle`: lazy meldable Skew Heap・矩形union面積を扱う `UnionRectangle`。
+
 ## Import
 
 ```python
@@ -17,11 +23,11 @@ from library_codex.data_structure.AdvancedCollections import union_rectangle_are
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`union_rectangle_area(rectangles)`](../../../data_structure/AdvancedCollections.py#L85) | Area of the union of axis-aligned half-open rectangles. | `rectangles`: 矩形 `(left, bottom, right, top)` のiterable | `0` / `area`（int） |
+| [`union_rectangle_area(rectangles)`](../../../data_structure/AdvancedCollections.py#L85) | `union`・`rectangle`・`area`を求める。 | `rectangles`: 矩形 `(left, bottom, right, top)` のiterable | `0` / `area`（int） |
 
 ## Class `SkewHeap`
 
-Array-backed meldable heap with whole-heap additive lazy action.
+lazy meldable Skew Heap・矩形union面積を扱う `SkewHeap`。
 
 - constructor: [`SkewHeap(min_heap=True)`](../../../data_structure/AdvancedCollections.py#L9)
 - 引数: `min_heap`: 最小・`heap`の下限。省略時: `True`
@@ -29,8 +35,8 @@ Array-backed meldable heap with whole-heap additive lazy action.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`new_node(key, value=None)`](../../../data_structure/AdvancedCollections.py#L17) | method | `SkewHeap` の `new_node method` を実行する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値。省略時: `None` | `node` |
-| [`meld(first, second)`](../../../data_structure/AdvancedCollections.py#L43) | method | `SkewHeap` の `meld method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `second` / `first` / `root` |
+| [`new_node(key, value=None)`](../../../data_structure/AdvancedCollections.py#L17) | method | `new`・`node`を求める。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値。省略時: `None` | `node` |
+| [`meld(first, second)`](../../../data_structure/AdvancedCollections.py#L43) | method | `meld`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `second` / `first` / `root` |
 | [`push(root, key, value=None)`](../../../data_structure/AdvancedCollections.py#L62) | method | 要素を追加する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値。省略時: `None` | `self.meld(root, self.new_node(key, value))` |
 | [`add_all(root, delta)`](../../../data_structure/AdvancedCollections.py#L65) | method | 全体を追加する。 | `root`: 根の頂点番号・原始根<br>`delta`: 加算差分 | `root` |
 | [`top(root)`](../../../data_structure/AdvancedCollections.py#L72) | method | 次に取り出される要素を削除せず返す。 | `root`: 根の頂点番号・原始根 | 次に取り出される要素 |
@@ -47,5 +53,5 @@ lazy meldable Skew Heap・矩形union面積を扱う `UnionRectangle`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(left, right, bottom, top)`](../../../data_structure/AdvancedCollections.py#L154) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`bottom`: 矩形の下端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
-| [`run()`](../../../data_structure/AdvancedCollections.py#L157) | method | `UnionRectangle` の `run method` を実行する。 | なし | `union_rectangle_area(self.rectangles)` |
+| [`add(left, right, bottom, top)`](../../../data_structure/AdvancedCollections.py#L154) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`bottom`: 矩形の下端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
+| [`run()`](../../../data_structure/AdvancedCollections.py#L157) | method | 登録済みの処理を実行し、入力順に結果を返す。 | なし | `union_rectangle_area(self.rectangles)` |

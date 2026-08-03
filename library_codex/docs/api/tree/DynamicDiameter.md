@@ -7,6 +7,10 @@ Static Top Treeによる固定木の動的重み付き直径。
 - source: [`tree/DynamicDiameter.py`](../../../tree/DynamicDiameter.py)
 - 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
 
+## できること
+
+- `DynamicDiameter`: Static Top Treeによる固定木の動的重み付き直径を扱う `DynamicDiameter`。
+
 ## Import
 
 ```python

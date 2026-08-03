@@ -7,6 +7,10 @@
 - source: [`string/ZAlgorithm.py`](../../../string/ZAlgorithm.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `z_algorithm`: `z`・`algorithm`を求める。
+
 ## Import
 
 ```python
@@ -17,7 +21,7 @@ from library_codex.string.ZAlgorithm import z_algorithm
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`z_algorithm(sequence)`](../../../string/ZAlgorithm.py#L1) | module の `z_algorithm function` を実行する。 | `sequence`: 入力列 | list / `z`（数値または入力要素型） |
+| [`z_algorithm(sequence)`](../../../string/ZAlgorithm.py#L1) | `z`・`algorithm`を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `z`（数値または入力要素型） |
 
 ## Module aliases
 

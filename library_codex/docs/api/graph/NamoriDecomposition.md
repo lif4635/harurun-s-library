@@ -7,6 +7,10 @@
 - source: [`graph/NamoriDecomposition.py`](../../../graph/NamoriDecomposition.py)
 - 公開API: function 0、class 1、method/property 22（Python protocol 0を含む）
 
+## できること
+
+- `NamoriDecomposition`: 重み付き擬森林の周期・付随木分解と距離を扱う `NamoriDecomposition`。
+
 ## Import
 
 ```python
@@ -24,27 +28,27 @@ from library_codex.graph.NamoriDecomposition import NamoriDecomposition
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_edge(u, v, weight=1)`](../../../graph/NamoriDecomposition.py#L50) | method | 辺を追加する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`weight`: 重み。省略時: `1` | `edge_id` |
-| [`get_edge(edge_id)`](../../../graph/NamoriDecomposition.py#L61) | method | 辺を取得する。 | `edge_id`: edge のID（0-indexed） | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`, `self.edge_weight[edge_id]`) |
+| [`get_edge(edge_id)`](../../../graph/NamoriDecomposition.py#L61) | method | edge_idに対応する辺の両端頂点を返す。 | `edge_id`: edge のID（0-indexed） | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`, `self.edge_weight[edge_id]`) |
 | [`build()`](../../../graph/NamoriDecomposition.py#L68) | method | 内部構造を構築する。 | なし | `self` |
-| [`in_cycle(vertex)`](../../../graph/NamoriDecomposition.py#L270) | method | `NamoriDecomposition` の `in_cycle method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.on_cycle[vertex]` |
-| [`root(vertex)`](../../../graph/NamoriDecomposition.py#L275) | method | `NamoriDecomposition` の `root method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.roots[vertex]` |
-| [`component(vertex)`](../../../graph/NamoriDecomposition.py#L278) | method | `NamoriDecomposition` の `component method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.component_id[vertex]` |
-| [`same_tree(u, v)`](../../../graph/NamoriDecomposition.py#L281) | method | `NamoriDecomposition` の `same_tree method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | bool |
-| [`same_component(u, v)`](../../../graph/NamoriDecomposition.py#L284) | method | `NamoriDecomposition` の `same_component method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | bool |
-| [`idx(vertex)`](../../../graph/NamoriDecomposition.py#L287) | method | `NamoriDecomposition` の `idx method` を実行する。 | `vertex`: 頂点番号（0-indexed） | tuple(`self.cycle_position[root]`, `self.tree_index[vertex]`) |
+| [`in_cycle(vertex)`](../../../graph/NamoriDecomposition.py#L270) | method | `in`・閉路を求める。 | `vertex`: 頂点番号（0-indexed） | `self.on_cycle[vertex]` |
+| [`root(vertex)`](../../../graph/NamoriDecomposition.py#L275) | method | 根を求める。 | `vertex`: 頂点番号（0-indexed） | `self.roots[vertex]` |
+| [`component(vertex)`](../../../graph/NamoriDecomposition.py#L278) | method | 連結成分を求める。 | `vertex`: 頂点番号（0-indexed） | `self.component_id[vertex]` |
+| [`same_tree(u, v)`](../../../graph/NamoriDecomposition.py#L281) | method | `same`・木を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | bool |
+| [`same_component(u, v)`](../../../graph/NamoriDecomposition.py#L284) | method | `same`・連結成分を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | bool |
+| [`idx(vertex)`](../../../graph/NamoriDecomposition.py#L287) | method | `idx`を求める。 | `vertex`: 頂点番号（0-indexed） | tuple(`self.cycle_position[root]`, `self.tree_index[vertex]`) |
 | [`lca(u, v)`](../../../graph/NamoriDecomposition.py#L291) | method | 2頂点の最小共通祖先を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 最小共通祖先の頂点番号（int） |
-| [`tree_hops(u, v)`](../../../graph/NamoriDecomposition.py#L304) | method | `NamoriDecomposition` の `tree_hops method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 数値または入力要素型 `self.depth[u] + self.depth[v] - (self.depth[ancestor] << 1)` / `None` |
-| [`tree_distance(u, v)`](../../../graph/NamoriDecomposition.py#L310) | method | `NamoriDecomposition` の `tree_distance method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 数値または入力要素型 `distance[u] + distance[v] - 2 * distance[ancestor]` / `None` |
-| [`distances(u, v)`](../../../graph/NamoriDecomposition.py#L337) | method | `NamoriDecomposition` の `distances method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | tuple(`None`, `None`) / tuple(`self.tree_distance(u, v)`, `None`) / tuple(数値または入力要素型 `base + first`, 数値または入力要素型 `base + second`) |
-| [`hop_distances(u, v)`](../../../graph/NamoriDecomposition.py#L350) | method | `NamoriDecomposition` の `hop_distances method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | tuple(`None`, `None`) / tuple(`self.tree_hops(u, v)`, `None`) / tuple(数値または入力要素型 `base + first`, 数値または入力要素型 `base + second`) |
+| [`tree_hops(u, v)`](../../../graph/NamoriDecomposition.py#L304) | method | 木・`hops`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 数値または入力要素型 `self.depth[u] + self.depth[v] - (self.depth[ancestor] << 1)` / `None` |
+| [`tree_distance(u, v)`](../../../graph/NamoriDecomposition.py#L310) | method | 木・距離を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 数値または入力要素型 `distance[u] + distance[v] - 2 * distance[ancestor]` / `None` |
+| [`distances(u, v)`](../../../graph/NamoriDecomposition.py#L337) | method | `distances`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | tuple(`None`, `None`) / tuple(`self.tree_distance(u, v)`, `None`) / tuple(数値または入力要素型 `base + first`, 数値または入力要素型 `base + second`) |
+| [`hop_distances(u, v)`](../../../graph/NamoriDecomposition.py#L350) | method | `hop`・`distances`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | tuple(`None`, `None`) / tuple(`self.tree_hops(u, v)`, `None`) / tuple(数値または入力要素型 `base + first`, 数値または入力要素型 `base + second`) |
 | [`distance(u, v)`](../../../graph/NamoriDecomposition.py#L361) | method | 距離を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | `self.distances(u, v)[0]` |
-| [`kth_ancestor(vertex, k)`](../../../graph/NamoriDecomposition.py#L364) | method | `NamoriDecomposition` の `kth_ancestor method` を実行する。 | `vertex`: 頂点番号（0-indexed）<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `-1` / `self.rev[tin[vertex] - k]` |
-| [`jump_tree(u, v, k)`](../../../graph/NamoriDecomposition.py#L376) | method | `NamoriDecomposition` の `jump_tree method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `-1` / `self.kth_ancestor(u, k)` / `self.kth_ancestor(v, distance - k)` |
-| [`path(u, v, edge=False)`](../../../graph/NamoriDecomposition.py#L388) | method | `NamoriDecomposition` の `path method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | 計算結果（list） / `None` |
-| [`path_ordered(u, v, edge=False)`](../../../graph/NamoriDecomposition.py#L411) | method | `NamoriDecomposition` の `path_ordered method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | `up`（list） / `None` |
-| [`subtree(vertex, edge=False)`](../../../graph/NamoriDecomposition.py#L438) | method | `NamoriDecomposition` の `subtree method` を実行する。 | `vertex`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[vertex] + edge`, `self.tout[vertex]`) |
-| [`index(vertex)`](../../../graph/NamoriDecomposition.py#L441) | method | `NamoriDecomposition` の `index method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.tin[vertex]` |
-| [`vertex(index)`](../../../graph/NamoriDecomposition.py#L444) | method | `NamoriDecomposition` の `vertex method` を実行する。 | `index`: 0-indexedの位置 | `self.rev[index]` |
+| [`kth_ancestor(vertex, k)`](../../../graph/NamoriDecomposition.py#L364) | method | k番目・`ancestor`を求める。 | `vertex`: 頂点番号（0-indexed）<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.rev[tin[vertex] - k]` |
+| [`jump_tree(u, v, k)`](../../../graph/NamoriDecomposition.py#L376) | method | `jump`・木を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.kth_ancestor(u, k)` / `self.kth_ancestor(v, distance - k)` |
+| [`path(u, v, edge=False)`](../../../graph/NamoriDecomposition.py#L388) | method | pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 / `None` |
+| [`path_ordered(u, v, edge=False)`](../../../graph/NamoriDecomposition.py#L411) | method | path・`ordered`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 / `None` |
+| [`subtree(vertex, edge=False)`](../../../graph/NamoriDecomposition.py#L438) | method | `subtree`を求める。 | `vertex`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[vertex] + edge`, `self.tout[vertex]`) |
+| [`index(vertex)`](../../../graph/NamoriDecomposition.py#L441) | method | 指定要素・頂点に対応する内部indexを返す。 | `vertex`: 頂点番号（0-indexed） | `self.tin[vertex]` |
+| [`vertex(index)`](../../../graph/NamoriDecomposition.py#L444) | method | 頂点を求める。 | `index`: 0-indexedの位置 | `self.rev[index]` |
 | [`run`](../../../graph/NamoriDecomposition.py#L268) | alias | `build` の別名。 | 同じ | 同じ |
 | [`incycle`](../../../graph/NamoriDecomposition.py#L273) | alias | `in_cycle` の別名。 | 同じ | 同じ |
 | [`dist`](../../../graph/NamoriDecomposition.py#L348) | alias | `distances` の別名。 | 同じ | 同じ |

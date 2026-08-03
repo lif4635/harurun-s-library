@@ -7,6 +7,13 @@ xoshiro256**・graph container・各種random graph。
 - source: [`random/RandomGraph.py`](../../../random/RandomGraph.py)
 - 公開API: function 0、class 4、method/property 27（Python protocol 0を含む）
 
+## できること
+
+- `Random`: xoshiro256**・graph container・各種random graphを扱う `Random`。
+- `Edge`: xoshiro256**・graph container・各種random graphを扱う `Edge`。
+- `Graph`: xoshiro256**・graph container・各種random graphを扱う `Graph`。
+- `UndirectedGraphGenerator`: xoshiro256**・graph container・各種random graphを扱う `UndirectedGraphGenerator`。
+
 ## Import
 
 ```python
@@ -15,7 +22,7 @@ from library_codex.random.RandomGraph import Random, Edge, Graph, UndirectedGrap
 
 ## Class `Random`
 
-SplitMix64-seeded xoshiro256** generator.
+xoshiro256**・graph container・各種random graphを扱う `Random`。
 
 - constructor: [`Random(seed=0)`](../../../random/RandomGraph.py#L12)
 - 引数: `seed`: 乱数seed。Noneなら実装既定値。省略時: `0`
@@ -23,16 +30,16 @@ SplitMix64-seeded xoshiro256** generator.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`next_u64()`](../../../random/RandomGraph.py#L26) | method | `Random` の `next_u64 method` を実行する。 | なし | 計算結果（数値または入力要素型） |
-| [`randrange(lower, upper=None)`](../../../random/RandomGraph.py#L38) | method | `Random` の `randrange method` を実行する。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | 数値または入力要素型 `lower + value % width` |
-| [`uniform(lower, upper)`](../../../random/RandomGraph.py#L51) | method | Uniform integer in the inclusive interval [lower, upper]. | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照） | `self.randrange(lower, upper + 1)` |
-| [`uniform_bool()`](../../../random/RandomGraph.py#L55) | method | `Random` の `uniform_bool method` を実行する。 | なし | bool |
-| [`uniform01()`](../../../random/RandomGraph.py#L58) | method | `Random` の `uniform01 method` を実行する。 | なし | 数値または入力要素型 `(self.next_u64() >> 11) * (1.0 / (1 << 53))` |
-| [`uniform_pair(lower, upper)`](../../../random/RandomGraph.py#L61) | method | `Random` の `uniform_pair method` を実行する。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照） | tuple |
-| [`shuffle(values)`](../../../random/RandomGraph.py#L70) | method | `Random` の `shuffle method` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 値のlist |
-| [`permutation(size)`](../../../random/RandomGraph.py#L76) | method | `Random` の `permutation method` を実行する。 | `size`: 要素数・universe size | `self.shuffle(list(range(size)))` |
-| [`choice_distinct(count, lower, upper)`](../../../random/RandomGraph.py#L81) | method | `Random` の `choice_distinct method` を実行する。 | `count`: 個数<br>`lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照） | `sorted(result)` / `sorted(values[:count])` |
-| [`lower_string(length)`](../../../random/RandomGraph.py#L95) | method | `Random` の `lower_string method` を実行する。 | `length`: 長さ | `''.join((chr(self.uniform(97, 122)) for _ in range(length)))` |
+| [`next_u64()`](../../../random/RandomGraph.py#L26) | method | `next`・`u64`を求める。 | なし | 計算結果（数値または入力要素型） |
+| [`randrange(lower, upper=None)`](../../../random/RandomGraph.py#L38) | method | `randrange`を求める。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | 数値または入力要素型 `lower + value % width` |
+| [`uniform(lower, upper)`](../../../random/RandomGraph.py#L51) | method | `uniform`を求める。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照） | `self.randrange(lower, upper + 1)` |
+| [`uniform_bool()`](../../../random/RandomGraph.py#L55) | method | `uniform`・`bool`を求める。 | なし | bool |
+| [`uniform01()`](../../../random/RandomGraph.py#L58) | method | `uniform01`を求める。 | なし | 数値または入力要素型 `(self.next_u64() >> 11) * (1.0 / (1 << 53))` |
+| [`uniform_pair(lower, upper)`](../../../random/RandomGraph.py#L61) | method | `uniform`・`pair`を求める。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照） | tuple — 用途欄に示した複数の結果を順に格納 |
+| [`shuffle(values)`](../../../random/RandomGraph.py#L70) | method | `shuffle`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 値のlist |
+| [`permutation(size)`](../../../random/RandomGraph.py#L76) | method | `permutation`を求める。 | `size`: 要素数・universe size | `self.shuffle(list(range(size)))` |
+| [`choice_distinct(count, lower, upper)`](../../../random/RandomGraph.py#L81) | method | `choice`・`distinct`を求める。 | `count`: 個数<br>`lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照） | `sorted(result)` / `sorted(values[:count])` |
+| [`lower_string(length)`](../../../random/RandomGraph.py#L95) | method | 英小文字からなる指定長のランダム文字列を生成する。 | `length`: 長さ | `''.join((chr(self.uniform(97, 122)) for _ in range(length)))` |
 | [`perm`](../../../random/RandomGraph.py#L79) | alias | `permutation` の別名。 | 同じ | 同じ |
 | [`choice`](../../../random/RandomGraph.py#L93) | alias | `choice_distinct` の別名。 | 同じ | 同じ |
 
@@ -46,8 +53,8 @@ xoshiro256**・graph container・各種random graphを扱う `Edge`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`w`](../../../random/RandomGraph.py#L107) | property | `Edge` の `w method` を実行する。 | なし | `self.weight` |
-| [`idx`](../../../random/RandomGraph.py#L111) | property | `Edge` の `idx method` を実行する。 | なし | `self.index` |
+| [`w`](../../../random/RandomGraph.py#L107) | property | `w`を求める。 | なし | `self.weight` |
+| [`idx`](../../../random/RandomGraph.py#L111) | property | `idx`を求める。 | なし | `self.index` |
 
 ## Class `Graph`
 
@@ -59,12 +66,12 @@ xoshiro256**・graph container・各種random graphを扱う `Graph`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`edges_size()`](../../../random/RandomGraph.py#L123) | method | `Graph` の `edges_size method` を実行する。 | なし | `len(self.edges)` |
+| [`edges_size()`](../../../random/RandomGraph.py#L123) | method | 辺・`size`を求める。 | なし | `len(self.edges)` |
 | [`add_directed_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L126) | method | 有向・辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み。省略時: `1`<br>`index`: 0-indexedの位置。省略時: `-1` | `None` |
 | [`add_undirected_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L129) | method | 無向・辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み。省略時: `1`<br>`index`: 0-indexedの位置。省略時: `-1` | `None` |
-| [`adjacent_list(directed=False)`](../../../random/RandomGraph.py#L134) | method | `Graph` の `adjacent_list method` を実行する。 | `directed`: Trueなら有向グラフとして扱う。省略時: `False` | `graph`（list） |
-| [`adjacent_matrix(directed=False)`](../../../random/RandomGraph.py#L142) | method | `Graph` の `adjacent_matrix method` を実行する。 | `directed`: Trueなら有向グラフとして扱う。省略時: `False` | `matrix`（list） |
-| [`format_edges(zero_indexed=False)`](../../../random/RandomGraph.py#L150) | method | `Graph` の `format_edges method` を実行する。 | `zero_indexed`: `zero`・`indexed`として渡す値（APIの文脈に従う）。省略時: `False` | `'\n'.join(lines)` |
+| [`adjacent_list(directed=False)`](../../../random/RandomGraph.py#L134) | method | `adjacent`・`list`を求める。 | `directed`: Trueなら有向グラフとして扱う。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`adjacent_matrix(directed=False)`](../../../random/RandomGraph.py#L142) | method | `adjacent`・行列を求める。 | `directed`: Trueなら有向グラフとして扱う。省略時: `False` | list[list[number]] — 各行をlistで持つ行列 |
+| [`format_edges(zero_indexed=False)`](../../../random/RandomGraph.py#L150) | method | `format`・辺を求める。 | `zero_indexed`: 頂点番号を0始まりで出力するか。省略時: `False` | `'\n'.join(lines)` |
 
 ## Class `UndirectedGraphGenerator`
 
@@ -77,12 +84,12 @@ xoshiro256**・graph container・各種random graphを扱う `UndirectedGraphGen
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`set_seed(seed)`](../../../random/RandomGraph.py#L172) | method | `seed`を設定する。 | `seed`: 乱数seed。Noneなら実装既定値 | `None` |
-| [`tree(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L183) | method | `UndirectedGraphGenerator` の `tree method` を実行する。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
-| [`path(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L203) | method | `UndirectedGraphGenerator` の `path method` を実行する。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
-| [`star(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L211) | method | `UndirectedGraphGenerator` の `star method` を実行する。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
-| [`complete(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L218) | method | `UndirectedGraphGenerator` の `complete method` を実行する。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
-| [`simple(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L227) | method | `UndirectedGraphGenerator` の `simple method` を実行する。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
-| [`namori(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L235) | method | `UndirectedGraphGenerator` の `namori method` を実行する。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
-| [`simple_sparse(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L246) | method | `UndirectedGraphGenerator` の `simple_sparse method` を実行する。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
-| [`test(n, is_tree=True, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L258) | method | `UndirectedGraphGenerator` の `test method` を実行する。 | `n`: 要素数・頂点数・次数<br>`is_tree`: `is`・木を有効にするか。省略時: `True`<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `function(n, weighted, weight_min, weight_max)` |
+| [`tree(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L183) | method | 木を求める。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
+| [`path(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L203) | method | pathを求める。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
+| [`star(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L211) | method | `star`を求める。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
+| [`complete(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L218) | method | `complete`を求める。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
+| [`simple(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L227) | method | `simple`を求める。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
+| [`namori(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L235) | method | `namori`を求める。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
+| [`simple_sparse(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L246) | method | `simple`・`sparse`を求める。 | `n`: 要素数・頂点数・次数<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `graph`（Graph） |
+| [`test(n, is_tree=True, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L258) | method | `test`を求める。 | `n`: 要素数・頂点数・次数<br>`is_tree`: `is`・木を有効にするか。省略時: `True`<br>`weighted`: 重み付き辺を生成・保持するか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限。省略時: `1`<br>`weight_max`: 生成する辺重みの上限。省略時: `1` | `function(n, weighted, weight_min, weight_max)` |
 | [`perfect`](../../../random/RandomGraph.py#L225) | alias | `complete` の別名。 | 同じ | 同じ |

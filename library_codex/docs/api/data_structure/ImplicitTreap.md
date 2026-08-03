@@ -7,6 +7,10 @@
 - source: [`data_structure/ImplicitTreap.py`](../../../data_structure/ImplicitTreap.py)
 - 公開API: function 0、class 1、method/property 14（Python protocol 4を含む）
 
+## できること
+
+- `ImplicitTreap`: 動的列の挿入削除・反転・非可換積・range lazy作用を扱う `ImplicitTreap`。
+
 ## Import
 
 ```python
@@ -25,14 +29,14 @@ from library_codex.data_structure.ImplicitTreap import ImplicitTreap
 | --- | --- | --- | --- | --- |
 | [`insert(index, value)`](../../../data_structure/ImplicitTreap.py#L188) | method | 指定位置へ要素を挿入する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`append(value)`](../../../data_structure/ImplicitTreap.py#L192) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`appendleft(value)`](../../../data_structure/ImplicitTreap.py#L195) | method | `ImplicitTreap` の `appendleft method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `None` |
+| [`appendleft(value)`](../../../data_structure/ImplicitTreap.py#L195) | method | `appendleft`を求める。 | `value`: 追加・設定・問い合わせる値 | `None` |
 | [`pop(index=-1)`](../../../data_structure/ImplicitTreap.py#L198) | method | 要素を1つ取り除いて返す。 | `index`: 0-indexedの位置。省略時: `-1` | 値 |
-| [`get(index)`](../../../data_structure/ImplicitTreap.py#L211) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../data_structure/ImplicitTreap.py#L228) | method | 指定位置・状態を値で置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`reverse_range(left, right)`](../../../data_structure/ImplicitTreap.py#L250) | method | `ImplicitTreap` の `reverse_range method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
-| [`prod(left=0, right=None)`](../../../data_structure/ImplicitTreap.py#L258) | method | 半開区間またはpathの集約値を返す。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 区間・pathの集約値（入力要素型） |
+| [`get(index)`](../../../data_structure/ImplicitTreap.py#L211) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../data_structure/ImplicitTreap.py#L228) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`reverse_range(left, right)`](../../../data_structure/ImplicitTreap.py#L250) | method | `reverse`・区間を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
+| [`prod(left=0, right=None)`](../../../data_structure/ImplicitTreap.py#L258) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 区間・pathの集約値（入力要素型） |
 | [`apply(left, right, action)`](../../../data_structure/ImplicitTreap.py#L269) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | `None` |
-| [`to_list()`](../../../data_structure/ImplicitTreap.py#L280) | method | `ImplicitTreap` の `to_list method` を実行する。 | なし | 計算結果（list） |
+| [`to_list()`](../../../data_structure/ImplicitTreap.py#L280) | method | `to`・`list`を求める。 | なし | list[object] — 計算結果 |
 | [`__getitem__(index)`](../../../data_structure/ImplicitTreap.py#L294) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(index, value)`](../../../data_structure/ImplicitTreap.py#L297) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`__len__()`](../../../data_structure/ImplicitTreap.py#L300) | method | len(obj)。 | なし | 要素数（int） |

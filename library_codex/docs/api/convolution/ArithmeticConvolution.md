@@ -7,6 +7,13 @@
 - source: [`convolution/ArithmeticConvolution.py`](../../../convolution/ArithmeticConvolution.py)
 - 公開API: function 6、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `divisor_zeta_transform`: 入力列へ指定した変換を適用し、変換後の列を返す。
+- `divisor_mobius_transform`: 入力列へ指定した変換を適用し、変換後の列を返す。
+- `multiple_zeta_transform`: 入力列へ指定した変換を適用し、変換後の列を返す。
+- `multiple_mobius_transform`: 入力列へ指定した変換を適用し、変換後の列を返す。
+
 ## Import
 
 ```python
@@ -30,12 +37,12 @@ from library_codex.convolution.ArithmeticConvolution import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`divisor_zeta_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L27) | 約数・zeta・`transform`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`divisor_mobius_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L40) | 約数・Möbius・`transform`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`multiple_zeta_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L53) | `multiple`・zeta・`transform`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`multiple_mobius_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L65) | `multiple`・Möbius・`transform`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`gcd_convolution(first, second, mod=DEFAULT_MOD)`](../../../convolution/ArithmeticConvolution.py#L77) | GCD・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / `left`（list） |
-| [`lcm_convolution(first, second, mod=DEFAULT_MOD)`](../../../convolution/ArithmeticConvolution.py#L95) | LCM・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / `left`（list） |
+| [`divisor_zeta_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L27) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
+| [`divisor_mobius_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L40) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
+| [`multiple_zeta_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L53) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
+| [`multiple_mobius_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L65) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
+| [`gcd_convolution(first, second, mod=DEFAULT_MOD)`](../../../convolution/ArithmeticConvolution.py#L77) | GCD・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`lcm_convolution(first, second, mod=DEFAULT_MOD)`](../../../convolution/ArithmeticConvolution.py#L95) | LCM・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
 
 ## Module aliases
 

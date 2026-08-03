@@ -7,6 +7,10 @@ dict/固定alphabet対応Trie（重複・prefix件数・ID保持）。
 - source: [`string/Trie.py`](../../../string/Trie.py)
 - 公開API: function 0、class 1、method/property 13（Python protocol 1を含む）
 
+## できること
+
+- `Trie`: dict/固定alphabet対応Trie（重複・prefix件数・ID保持）を扱う `Trie`。
+
 ## Import
 
 ```python
@@ -24,18 +28,18 @@ dict/固定alphabet対応Trie（重複・prefix件数・ID保持）を扱う `Tr
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/Trie.py#L36) | method | len(obj)。 | なし | 要素数（int） |
-| [`node_count`](../../../string/Trie.py#L40) | property | `Trie` の `node_count method` を実行する。 | なし | `len(self.terminal_count)` |
-| [`move(node, symbol)`](../../../string/Trie.py#L62) | method | `Trie` の `move method` を実行する。 | `node`: 頂点・内部node番号<br>`symbol`: 文字・alphabet上の記号 | `-1` / `self.transitions[node * self.sigma + index]` / `self.transitions[node].get(symbol, -1)` |
-| [`add(word, word_id=None, count=1)`](../../../string/Trie.py#L72) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `word`: 登録・検索する文字列・列<br>`word_id`: word のID（0-indexed）。省略時: `None`<br>`count`: 個数。省略時: `1` | `node`（int） |
+| [`node_count`](../../../string/Trie.py#L40) | property | `node`・個数を求める。 | なし | `len(self.terminal_count)` |
+| [`move(node, symbol)`](../../../string/Trie.py#L62) | method | `move`を求める。 | `node`: 頂点・内部node番号<br>`symbol`: 文字・alphabet上の記号 | `-1` / `self.transitions[node * self.sigma + index]` / `self.transitions[node].get(symbol, -1)` |
+| [`add(word, word_id=None, count=1)`](../../../string/Trie.py#L72) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `word`: 登録・検索する文字列・列<br>`word_id`: word のID（0-indexed）。省略時: `None`<br>`count`: 個数。省略時: `1` | `node`（int） |
 | [`find(word)`](../../../string/Trie.py#L111) | method | 代表元・位置・対象要素を探す。 | `word`: 登録・検索する文字列・列 | 代表元・位置・node番号（int） |
 | [`count(word)`](../../../string/Trie.py#L119) | method | 条件に合う要素数を返す。 | `word`: 登録・検索する文字列・列 | 個数（int） |
 | [`contains(word)`](../../../string/Trie.py#L123) | method | 指定値を保持しているか判定する。 | `word`: 登録・検索する文字列・列 | bool |
 | [`prefix_count(prefix)`](../../../string/Trie.py#L128) | method | prefix・個数を処理する。 | `prefix`: prefix列・prefix長 | int `0 if node == -1 else self.subtree_count[node]` |
-| [`ids(node)`](../../../string/Trie.py#L134) | method | `Trie` の `ids method` を実行する。 | `node`: 頂点・内部node番号 | list |
-| [`iter_prefixes(sequence)`](../../../string/Trie.py#L140) | method | `Trie` の `iter_prefixes method` を実行する。 | `sequence`: 入力列 | iterator（yieldされる要素） |
+| [`ids(node)`](../../../string/Trie.py#L134) | method | `ids`を求める。 | `node`: 頂点・内部node番号 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`iter_prefixes(sequence)`](../../../string/Trie.py#L140) | method | `iter`・`prefixes`を求める。 | `sequence`: 入力列 | iterator[object] — 用途欄に示した要素を1つずつyieldする |
 | [`longest_prefix(sequence)`](../../../string/Trie.py#L151) | method | `longest`・prefixを求める。 | `sequence`: 入力列 | 計算結果（tuple） |
 | [`erase(word, count=1)`](../../../string/Trie.py#L157) | method | 指定要素を削除する。 | `word`: 登録・検索する文字列・列<br>`count`: 個数。省略時: `1` | bool |
-| [`words()`](../../../string/Trie.py#L176) | method | `Trie` の `words method` を実行する。 | なし | 計算結果（list） |
+| [`words()`](../../../string/Trie.py#L176) | method | `words`を求める。 | なし | list[object] — 計算結果 |
 | [`insert`](../../../string/Trie.py#L109) | alias | `add` の別名。 | 同じ | 同じ |
 | [`count_prefix`](../../../string/Trie.py#L132) | alias | `prefix_count` の別名。 | 同じ | 同じ |
 | [`remove`](../../../string/Trie.py#L174) | alias | `erase` の別名。 | 同じ | 同じ |

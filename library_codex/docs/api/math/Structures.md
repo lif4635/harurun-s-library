@@ -7,6 +7,14 @@ Affine・XOR基底・Stern--Brocot・DAG Grundy・Fraction。
 - source: [`math/Structures.py`](../../../math/Structures.py)
 - 公開API: function 2、class 3、method/property 19（Python protocol 4を含む）
 
+## できること
+
+- `grundy_numbers`: `grundy`・`numbers`を求める。
+- `mex`: `mex`を求める。
+- `Affine`: Affine・XOR基底・Stern--Brocot・DAG Grundy・Fractionを扱う `Affine`。
+- `XorBasis`: Affine・XOR基底・Stern--Brocot・DAG Grundy・Fractionを扱う `XorBasis`。
+- `SternBrocotNode`: Affine・XOR基底・Stern--Brocot・DAG Grundy・Fractionを扱う `SternBrocotNode`。
+
 ## Import
 
 ```python
@@ -23,12 +31,12 @@ from library_codex.math.Structures import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`grundy_numbers(graph)`](../../../math/Structures.py#L216) | Return DAG Grundy numbers, or None when the graph has a cycle. | `graph`: 隣接listまたはグラフobject | DAG Grundy numbers, or None when the graph has a cycle / `None` |
-| [`mex(values)`](../../../math/Structures.py#L245) | module の `mex function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 計算結果（int） |
+| [`grundy_numbers(graph)`](../../../math/Structures.py#L216) | `grundy`・`numbers`を求める。 | `graph`: 隣接listまたはグラフobject | `grundy`（数値または入力要素型） / `None` |
+| [`mex(values)`](../../../math/Structures.py#L245) | `mex`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 計算結果（int） |
 
 ## Class `Affine`
 
-f(x)=a*x+b; multiplication means apply left then right.
+Affine・XOR基底・Stern--Brocot・DAG Grundy・Fractionを扱う `Affine`。
 
 - constructor: [`Affine(a=1, b=0, mod=None)`](../../../math/Structures.py#L12)
 - 引数: `a`: 第1入力（意味は関数の説明を参照）。省略時: `1`<br>`b`: 第2入力（意味は関数の説明を参照）。省略時: `0`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None`
@@ -42,7 +50,7 @@ f(x)=a*x+b; multiplication means apply left then right.
 
 ## Class `XorBasis`
 
-Reduced nonnegative integer XOR basis with ordered-value queries.
+Affine・XOR基底・Stern--Brocot・DAG Grundy・Fractionを扱う `XorBasis`。
 
 - constructor: [`XorBasis(values=())`](../../../math/Structures.py#L37)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`
@@ -53,29 +61,29 @@ Reduced nonnegative integer XOR basis with ordered-value queries.
 | [`insert(value)`](../../../math/Structures.py#L42) | method | 指定位置へ要素を挿入する。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`__len__()`](../../../math/Structures.py#L58) | method | len(obj)。 | なし | 要素数（int） |
 | [`contains(value)`](../../../math/Structures.py#L61) | method | 指定値を保持しているか判定する。 | `value`: 追加・設定・問い合わせる値 | bool |
-| [`kth_smallest(index)`](../../../math/Structures.py#L69) | method | `XorBasis` の `kth_smallest method` を実行する。 | `index`: 0-indexedの位置 | `-1` / 計算結果（int） |
+| [`kth_smallest(index)`](../../../math/Structures.py#L69) | method | k番目・最小を求める。 | `index`: 0-indexedの位置 | `-1` / 計算結果（int） |
 | [`maximum(xor=0)`](../../../math/Structures.py#L78) | method | 最大を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 |
 | [`minimum(xor=0)`](../../../math/Structures.py#L85) | method | 最小を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 |
-| [`xor_kth(xor, index)`](../../../math/Structures.py#L92) | method | `XorBasis` の `xor_kth method` を実行する。 | `xor`: 全要素へ作用させるXOR値<br>`index`: 0-indexedの位置 | `-1` / 数値または入力要素型 `self.minimum(xor) ^ self.kth_smallest(index)` |
-| [`rank(value)`](../../../math/Structures.py#L97) | method | Index in sorted representable values, or -1 if unrepresentable. | `value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
+| [`xor_kth(xor, index)`](../../../math/Structures.py#L92) | method | XOR・k番目を求める。 | `xor`: 全要素へ作用させるXOR値<br>`index`: 0-indexedの位置 | `-1` / 数値または入力要素型 `self.minimum(xor) ^ self.kth_smallest(index)` |
+| [`rank(value)`](../../../math/Structures.py#L97) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
 | [`add`](../../../math/Structures.py#L56) | alias | `insert` の別名。 | 同じ | 同じ |
 | [`can_make`](../../../math/Structures.py#L67) | alias | `contains` の別名。 | 同じ | 同じ |
 
 ## Class `SternBrocotNode`
 
-A positive reduced rational and its run-length Stern--Brocot path.
+Affine・XOR基底・Stern--Brocot・DAG Grundy・Fractionを扱う `SternBrocotNode`。
 
 - constructor: [`SternBrocotNode(numerator=1, denominator=1, path=None)`](../../../math/Structures.py#L114)
-- 引数: `numerator`: 有理式の分子多項式。省略時: `1`<br>`denominator`: 有理式の分母多項式。省略時: `1`<br>`path`: pathとして渡す値（APIの文脈に従う）。省略時: `None`
+- 引数: `numerator`: 有理式の分子多項式。省略時: `1`<br>`denominator`: 有理式の分母多項式。省略時: `1`<br>`path`: pathとして使う入力。省略時: `None`
 - 返り値: `SternBrocotNode` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`get()`](../../../math/Structures.py#L143) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
 | [`lower_bound()`](../../../math/Structures.py#L146) | method | 指定値以上となる最初の位置を返す。 | なし | 条件を満たす最小index（int。存在しなければsize） |
-| [`upper_bound()`](../../../math/Structures.py#L149) | method | `SternBrocotNode` の `upper_bound method` を実行する。 | なし | tuple(`self.rx`, `self.ry`) |
-| [`depth()`](../../../math/Structures.py#L152) | method | `SternBrocotNode` の `depth method` を実行する。 | なし | `sum((abs(step) for step in self.path))` |
-| [`go_left(steps=1)`](../../../math/Structures.py#L155) | method | `SternBrocotNode` の `go_left method` を実行する。 | `steps`: 移動step数。省略時: `1` | `self` |
-| [`go_right(steps=1)`](../../../math/Structures.py#L168) | method | `SternBrocotNode` の `go_right method` を実行する。 | `steps`: 移動step数。省略時: `1` | `self` |
-| [`go_parent(steps=1)`](../../../math/Structures.py#L181) | method | `SternBrocotNode` の `go_parent method` を実行する。 | `steps`: 移動step数。省略時: `1` | bool |
+| [`upper_bound()`](../../../math/Structures.py#L149) | method | `upper`・`bound`を求める。 | なし | tuple(`self.rx`, `self.ry`) |
+| [`depth()`](../../../math/Structures.py#L152) | method | 指定頂点の根からの深さを返す。 | なし | `sum((abs(step) for step in self.path))` |
+| [`go_left(steps=1)`](../../../math/Structures.py#L155) | method | `go`・左を求める。 | `steps`: 移動step数。省略時: `1` | `self` |
+| [`go_right(steps=1)`](../../../math/Structures.py#L168) | method | `go`・右を求める。 | `steps`: 移動step数。省略時: `1` | `self` |
+| [`go_parent(steps=1)`](../../../math/Structures.py#L181) | method | `go`・`parent`を求める。 | `steps`: 移動step数。省略時: `1` | bool |
 | [`lca(first, second)`](../../../math/Structures.py#L204) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） |

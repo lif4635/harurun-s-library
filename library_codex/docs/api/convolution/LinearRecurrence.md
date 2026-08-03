@@ -7,6 +7,13 @@ Berlekamp--Massey・Bostan--Mori・線形漸化式第n項。
 - source: [`convolution/LinearRecurrence.py`](../../../convolution/LinearRecurrence.py)
 - 公開API: function 6、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `berlekamp_massey`: `berlekamp`・`massey`を求める。
+- `berlekamp_massey_polynomial`: `berlekamp`・`massey`・多項式を求める。
+- `bostan_mori`: `bostan`・`mori`を求める。
+- `linear_recurrence_nth`: 線形・`recurrence`・`nth`を求める。
+
 ## Import
 
 ```python
@@ -24,12 +31,12 @@ from library_codex.convolution.LinearRecurrence import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`berlekamp_massey(sequence, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L9) | module の `berlekamp_massey function` を実行する。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`berlekamp_massey_polynomial(sequence, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L45) | module の `berlekamp_massey_polynomial function` を実行する。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[1] + [-value % mod for value in coefficients]` |
-| [`bostan_mori(index, numerator, denominator, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L50) | module の `bostan_mori function` を実行する。 | `index`: 0-indexedの位置<br>`numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_part`（int） / 数値または入力要素型 `(polynomial_part + numerator[0] * pow(denominator[0], -1, mod)...` |
-| [`linear_recurrence_nth(initial, coefficients, index, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L85) | module の `linear_recurrence_nth function` を実行する。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 0-indexedの位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / `0` / `bostan_mori(index, numerator, denominator, mod)` |
-| [`nth_term(index, sequence, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L100) | module の `nth_term function` を実行する。 | `index`: 0-indexedの位置<br>`sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `sequence[index] % mod` / `0` / `linear_recurrence_nth(sequence, coefficients, index, mod)` |
-| [`kitamasa(index, characteristic, initial, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L111) | module の `kitamasa function` を実行する。 | `index`: 0-indexedの位置<br>`characteristic`: 特性として渡す値（APIの文脈に従う）<br>`initial`: 初期値または初項列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `linear_recurrence_nth(initial, coefficients, index, mod)` |
+| [`berlekamp_massey(sequence, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L9) | `berlekamp`・`massey`を求める。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`berlekamp_massey_polynomial(sequence, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L45) | `berlekamp`・`massey`・多項式を求める。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[1] + [-value % mod for value in coefficients]` |
+| [`bostan_mori(index, numerator, denominator, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L50) | `bostan`・`mori`を求める。 | `index`: 0-indexedの位置<br>`numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_part`（int） / 数値または入力要素型 `(polynomial_part + numerator[0] * pow(denominator[0], -1, mod)...` |
+| [`linear_recurrence_nth(initial, coefficients, index, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L85) | 線形・`recurrence`・`nth`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 0-indexedの位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / `0` / `bostan_mori(index, numerator, denominator, mod)` |
+| [`nth_term(index, sequence, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L100) | `nth`・`term`を求める。 | `index`: 0-indexedの位置<br>`sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `sequence[index] % mod` / `0` / `linear_recurrence_nth(sequence, coefficients, index, mod)` |
+| [`kitamasa(index, characteristic, initial, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L111) | `kitamasa`を求める。 | `index`: 0-indexedの位置<br>`characteristic`: 特性として使う入力<br>`initial`: 初期値または初項列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `linear_recurrence_nth(initial, coefficients, index, mod)` |
 
 ## Module aliases
 

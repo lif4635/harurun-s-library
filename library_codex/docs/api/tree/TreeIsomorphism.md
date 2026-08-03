@@ -7,6 +7,14 @@
 - source: [`tree/TreeIsomorphism.py`](../../../tree/TreeIsomorphism.py)
 - 公開API: function 6、class 2、method/property 3（Python protocol 1を含む）
 
+## できること
+
+- `tree_center`: 木の直径に対する中心頂点を1個または2個返す。
+- `tree_centroid`: 取り除いた後の各成分が元の半分以下になる重心を返す。
+- `rooted_tree_hashes`: `rooted`・木・`hashes`を求める。
+- `tree_hash`: 木・hashを求める。
+- `AHUInterner`: 衝突なしAHU分類・128-bit木hash・中心/重心を扱う `AHUInterner`。
+
 ## Import
 
 ```python
@@ -32,12 +40,12 @@ from library_codex.tree.TreeIsomorphism import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`tree_center(tree)`](../../../tree/TreeIsomorphism.py#L123) | module の `tree_center function` を実行する。 | `tree`: 木の隣接list | list / `leaves`（list） |
-| [`tree_centroid(tree)`](../../../tree/TreeIsomorphism.py#L148) | module の `tree_centroid function` を実行する。 | `tree`: 木の隣接list | list / 計算結果（list） |
-| [`rooted_tree_hashes(tree, root=0)`](../../../tree/TreeIsomorphism.py#L167) | module の `rooted_tree_hashes function` を実行する。 | `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0` | list |
-| [`tree_hash(tree)`](../../../tree/TreeIsomorphism.py#L205) | module の `tree_hash function` を実行する。 | `tree`: 木の隣接list | tuple() / tuple |
-| [`rooted_tree_isomorphic(tree1, root1, tree2, root2)`](../../../tree/TreeIsomorphism.py#L219) | module の `rooted_tree_isomorphic function` を実行する。 | `tree1`: `tree1`として渡す値（APIの文脈に従う）<br>`root1`: `root1`として渡す値（APIの文脈に従う）<br>`tree2`: `tree2`として渡す値（APIの文脈に従う）<br>`root2`: `root2`として渡す値（APIの文脈に従う） | bool |
-| [`unrooted_tree_isomorphic(tree1, tree2)`](../../../tree/TreeIsomorphism.py#L230) | module の `unrooted_tree_isomorphic function` を実行する。 | `tree1`: `tree1`として渡す値（APIの文脈に従う）<br>`tree2`: `tree2`として渡す値（APIの文脈に従う） | bool |
+| [`tree_center(tree)`](../../../tree/TreeIsomorphism.py#L123) | 木の直径に対する中心頂点を1個または2個返す。 | `tree`: 木の隣接list | list[int] — 木の中心頂点番号を昇順に並べた長さ1または2のlist |
+| [`tree_centroid(tree)`](../../../tree/TreeIsomorphism.py#L148) | 取り除いた後の各成分が元の半分以下になる重心を返す。 | `tree`: 木の隣接list | list[int] — 木の重心頂点番号を昇順に並べた長さ1または2のlist |
+| [`rooted_tree_hashes(tree, root=0)`](../../../tree/TreeIsomorphism.py#L167) | `rooted`・木・`hashes`を求める。 | `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`tree_hash(tree)`](../../../tree/TreeIsomorphism.py#L205) | 木・hashを求める。 | `tree`: 木の隣接list | tuple() / tuple — 用途欄に示した複数の結果を順に格納 |
+| [`rooted_tree_isomorphic(tree1, root1, tree2, root2)`](../../../tree/TreeIsomorphism.py#L219) | `rooted`・木・`isomorphic`を求める。 | `tree1`: `tree1`として使う入力<br>`root1`: `root1`として使う入力<br>`tree2`: `tree2`として使う入力<br>`root2`: `root2`として使う入力 | bool |
+| [`unrooted_tree_isomorphic(tree1, tree2)`](../../../tree/TreeIsomorphism.py#L230) | `unrooted`・木・`isomorphic`を求める。 | `tree1`: `tree1`として使う入力<br>`tree2`: `tree2`として使う入力 | bool |
 
 ## Class `AHUInterner`
 
@@ -49,7 +57,7 @@ from library_codex.tree.TreeIsomorphism import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`intern(signature)`](../../../tree/TreeIsomorphism.py#L41) | method | `AHUInterner` の `intern method` を実行する。 | `signature`: `signature`として渡す値（APIの文脈に従う） | `class_id` |
+| [`intern(signature)`](../../../tree/TreeIsomorphism.py#L41) | method | `intern`を求める。 | `signature`: `signature`として使う入力 | `class_id` |
 | [`__len__()`](../../../tree/TreeIsomorphism.py#L49) | method | len(obj)。 | なし | 要素数（int） |
 
 ## Class `RootedTreeIsomorphism`
@@ -57,12 +65,12 @@ from library_codex.tree.TreeIsomorphism import (
 衝突なしAHU分類・128-bit木hash・中心/重心を扱う `RootedTreeIsomorphism`。
 
 - constructor: [`RootedTreeIsomorphism(tree, root=0, interner=None)`](../../../tree/TreeIsomorphism.py#L60)
-- 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`interner`: `interner`として渡す値（APIの文脈に従う）。省略時: `None`
+- 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`interner`: `interner`として使う入力。省略時: `None`
 - 返り値: `RootedTreeIsomorphism` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`same_subtree(u, v)`](../../../tree/TreeIsomorphism.py#L115) | method | `RootedTreeIsomorphism` の `same_subtree method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | bool |
+| [`same_subtree(u, v)`](../../../tree/TreeIsomorphism.py#L115) | method | `same`・`subtree`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | bool |
 
 ## Module aliases
 

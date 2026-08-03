@@ -7,6 +7,13 @@
 - source: [`algorithm/MiscAlgorithms.py`](../../../algorithm/MiscAlgorithms.py)
 - 公開API: function 8、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `integer_partitions`: 整数totalの分割を辞書式順序で列挙する。
+- `integer_partitions_up_to`: 指定上限までの各整数分割を列挙する。
+- `nearest_congruent_at_least`: `nearest`・`congruent`・`at`・`least`を求める。
+- `modular_power`: baseのexponent乗をmodulusで割った余りを返す。
+
 ## Import
 
 ```python
@@ -26,14 +33,14 @@ from library_codex.algorithm.MiscAlgorithms import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`integer_partitions(number)`](../../../algorithm/MiscAlgorithms.py#L5) | All partitions in nonincreasing order, generated without recursion. | `number`: 整数 | list / 計算結果（list） |
-| [`integer_partitions_up_to(limit)`](../../../algorithm/MiscAlgorithms.py#L29) | module の `integer_partitions_up_to function` を実行する。 | `limit`: 上限。NoneならAPI既定の上限 | list |
-| [`nearest_congruent_at_least(value, lower_bound, modulus)`](../../../algorithm/MiscAlgorithms.py#L35) | module の `nearest_congruent_at_least function` を実行する。 | `value`: 追加・設定・問い合わせる値<br>`lower_bound`: `lower`・`bound`として渡す値（APIの文脈に従う）<br>`modulus`: 法 | 数値または入力要素型 `value + (lower_bound - value + modulus - 1) // modulus * modul...` |
-| [`modular_power(base, exponent, modulus)`](../../../algorithm/MiscAlgorithms.py#L43) | module の `modular_power function` を実行する。 | `base`: 底・基準となる値または列<br>`exponent`: 非負の指数<br>`modulus`: 法 | `pow(base, exponent, modulus)` |
-| [`exact_square_root(number)`](../../../algorithm/MiscAlgorithms.py#L49) | module の `exact_square_root function` を実行する。 | `number`: 整数 | `-1` / `root if root * root == number else -1` |
-| [`decimal_digit_count(number, zero=1)`](../../../algorithm/MiscAlgorithms.py#L56) | module の `decimal_digit_count function` を実行する。 | `number`: 整数<br>`zero`: 加法単位元・0相当の値。省略時: `1` | `zero` / `len(str(abs(number)))` |
-| [`erdos_ginzburg_ziv_indices(order, values)`](../../../algorithm/MiscAlgorithms.py#L62) | Choose ``order`` of 2*order-1 values whose sum is 0 mod order. | `order`: 順序・次数・並べ方<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある | list / 計算結果（list） |
-| [`split_modular_arithmetic_progression(multiplier, addend, count, modulus)`](../../../algorithm/MiscAlgorithms.py#L109) | Split (multiplier*k+addend)%modulus into O(sqrt(count)) arithmetic runs. | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`count`: 個数<br>`modulus`: 法 | list / 計算結果（list） |
+| [`integer_partitions(number)`](../../../algorithm/MiscAlgorithms.py#L5) | 整数totalの分割を辞書式順序で列挙する。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
+| [`integer_partitions_up_to(limit)`](../../../algorithm/MiscAlgorithms.py#L29) | 指定上限までの各整数分割を列挙する。 | `limit`: 上限。NoneならAPI既定の上限 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`nearest_congruent_at_least(value, lower_bound, modulus)`](../../../algorithm/MiscAlgorithms.py#L35) | `nearest`・`congruent`・`at`・`least`を求める。 | `value`: 追加・設定・問い合わせる値<br>`lower_bound`: 探索対象とする値の下限<br>`modulus`: 法 | 数値または入力要素型 `value + (lower_bound - value + modulus - 1) // modulus * modul...` |
+| [`modular_power(base, exponent, modulus)`](../../../algorithm/MiscAlgorithms.py#L43) | baseのexponent乗をmodulusで割った余りを返す。 | `base`: 底・基準となる値または列<br>`exponent`: 非負の指数<br>`modulus`: 法 | `pow(base, exponent, modulus)` |
+| [`exact_square_root(number)`](../../../algorithm/MiscAlgorithms.py#L49) | `exact`・平方・根を求める。 | `number`: 整数 | `-1` / `root if root * root == number else -1` |
+| [`decimal_digit_count(number, zero=1)`](../../../algorithm/MiscAlgorithms.py#L56) | 非負整数の10進桁数を返す。 | `number`: 整数<br>`zero`: 加法単位元・0相当の値。省略時: `1` | `zero` / `len(str(abs(number)))` |
+| [`erdos_ginzburg_ziv_indices(order, values)`](../../../algorithm/MiscAlgorithms.py#L62) | `erdos`・`ginzburg`・`ziv`・`indices`を求める。 | `order`: 順序・次数・並べ方<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある | list[int] — 頂点または要素の位置を結果順に並べた列 |
+| [`split_modular_arithmetic_progression(multiplier, addend, count, modulus)`](../../../algorithm/MiscAlgorithms.py#L109) | `split`・法・`arithmetic`・`progression`を求める。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`count`: 個数<br>`modulus`: 法 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 
 ## Module aliases
 

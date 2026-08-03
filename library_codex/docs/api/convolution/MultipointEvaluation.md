@@ -7,6 +7,14 @@
 - source: [`convolution/MultipointEvaluation.py`](../../../convolution/MultipointEvaluation.py)
 - 公開API: function 4、class 1、method/property 3（Python protocol 0を含む）
 
+## できること
+
+- `multipoint_evaluation`: 入力した多項式・式を指定点で評価する。
+- `polynomial_interpolation`: 多項式・補間を計算する。
+- `interpolate_consecutive`: 補間・`consecutive`を求める。
+- `sample_point_shift`: `sample`・`point`・`shift`を求める。
+- `ProductTree`: 積木による多点評価・多項式補間・連続点補間を扱う `ProductTree`。
+
 ## Import
 
 ```python
@@ -23,10 +31,10 @@ from library_codex.convolution.MultipointEvaluation import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../convolution/MultipointEvaluation.py#L148) | module の `multipoint_evaluation function` を実行する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).evaluate(polynomial)` |
+| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../convolution/MultipointEvaluation.py#L148) | 入力した多項式・式を指定点で評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).evaluate(polynomial)` |
 | [`polynomial_interpolation(points, values, mod=DEFAULT_MOD)`](../../../convolution/MultipointEvaluation.py#L152) | 多項式・補間を計算する。 | `points`: 評価点の列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` |
-| [`interpolate_consecutive(values, point, mod=DEFAULT_MOD)`](../../../convolution/MultipointEvaluation.py#L156) | module の `interpolate_consecutive function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `values[point] % mod` / 数値または入力要素型 `result % mod` |
-| [`sample_point_shift(values, point, count=None, mod=DEFAULT_MOD)`](../../../convolution/MultipointEvaluation.py#L240) | module の `sample_point_shift function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 計算結果（list） |
+| [`interpolate_consecutive(values, point, mod=DEFAULT_MOD)`](../../../convolution/MultipointEvaluation.py#L156) | 補間・`consecutive`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `values[point] % mod` / 数値または入力要素型 `result % mod` |
+| [`sample_point_shift(values, point, count=None, mod=DEFAULT_MOD)`](../../../convolution/MultipointEvaluation.py#L240) | `sample`・`point`・`shift`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 
 ## Class `ProductTree`
 
@@ -38,9 +46,9 @@ from library_codex.convolution.MultipointEvaluation import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`polynomial`](../../../convolution/MultipointEvaluation.py#L56) | property | `ProductTree` の `polynomial method` を実行する。 | なし | list / `self.products[1][:]` |
-| [`evaluate(polynomial, direct_threshold=64)`](../../../convolution/MultipointEvaluation.py#L61) | method | 指定点で値を評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`direct_threshold`: `direct`・`threshold`として渡す値（APIの文脈に従う）。省略時: `64` | list / 数値または入力要素型 `[0] * self.n` / 計算結果（数値または入力要素型） |
-| [`interpolate(values)`](../../../convolution/MultipointEvaluation.py#L114) | method | `ProductTree` の `interpolate method` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list / `result[:self.n]` |
+| [`polynomial`](../../../convolution/MultipointEvaluation.py#L56) | property | 多項式を求める。 | なし | list[number] — 昇冪順の係数列 [a0, a1, ...] / `self.products[1][:]` |
+| [`evaluate(polynomial, direct_threshold=64)`](../../../convolution/MultipointEvaluation.py#L61) | method | 指定点で値を評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`direct_threshold`: `direct`・`threshold`として使う入力。省略時: `64` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[0] * self.n` / 計算結果（数値または入力要素型） |
+| [`interpolate(values)`](../../../convolution/MultipointEvaluation.py#L114) | method | 補間を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `result[:self.n]` |
 
 ## Module aliases
 

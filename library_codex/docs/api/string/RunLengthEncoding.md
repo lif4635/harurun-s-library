@@ -7,6 +7,11 @@
 - source: [`string/RunLengthEncoding.py`](../../../string/RunLengthEncoding.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `run_length_encode`: `run`・長さ・`encode`を求める。
+- `run_length_decode`: `run`・長さ・`decode`を求める。
+
 ## Import
 
 ```python
@@ -17,8 +22,8 @@ from library_codex.string.RunLengthEncoding import run_length_encode, run_length
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`run_length_encode(sequence)`](../../../string/RunLengthEncoding.py#L1) | module の `run_length_encode function` を実行する。 | `sequence`: 入力列 | list / 計算結果（list） |
-| [`run_length_decode(encoded, container_type=list)`](../../../string/RunLengthEncoding.py#L20) | module の `run_length_decode function` を実行する。 | `encoded`: 符号化済みbytes/string<br>`container_type`: `container`・`type`として渡す値（APIの文脈に従う）。省略時: `list` | `''.join(result)` / bytes instance / `bytearray(result)` / tuple / ほか（source参照） |
+| [`run_length_encode(sequence)`](../../../string/RunLengthEncoding.py#L1) | `run`・長さ・`encode`を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
+| [`run_length_decode(encoded, container_type=list)`](../../../string/RunLengthEncoding.py#L20) | `run`・長さ・`decode`を求める。 | `encoded`: 符号化済みbytes/string<br>`container_type`: `container`・`type`として使う入力。省略時: `list` | `''.join(result)` / bytes instance / `bytearray(result)` / tuple — 用途欄に示した複数の結果を順に格納 / ほか（source参照） |
 
 ## Module aliases
 

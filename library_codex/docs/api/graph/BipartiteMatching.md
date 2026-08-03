@@ -7,6 +7,12 @@
 - source: [`graph/BipartiteMatching.py`](../../../graph/BipartiteMatching.py)
 - 公開API: function 2、class 1、method/property 7（Python protocol 0を含む）
 
+## できること
+
+- `bipartite_matching`: `bipartite`・matchingを求める。
+- `maximum_bipartite_matching`: 最大・`bipartite`・matchingを求める。
+- `BipartiteMatching`: 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解を扱う `BipartiteMatching`。
+
 ## Import
 
 ```python
@@ -17,7 +23,7 @@ from library_codex.graph.BipartiteMatching import bipartite_matching, maximum_bi
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`bipartite_matching(graph, right_size)`](../../../graph/BipartiteMatching.py#L256) | module の `bipartite_matching function` を実行する。 | `graph`: 隣接listまたはグラフobject<br>`right_size`: 二部グラフ右側の頂点数 | `matcher.match_left` |
+| [`bipartite_matching(graph, right_size)`](../../../graph/BipartiteMatching.py#L256) | `bipartite`・matchingを求める。 | `graph`: 隣接listまたはグラフobject<br>`right_size`: 二部グラフ右側の頂点数 | `matcher.match_left` |
 | [`maximum_bipartite_matching(left_size, right_size, edges)`](../../../graph/BipartiteMatching.py#L265) | 最大・`bipartite`・matchingを求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | `matcher.maximum_matching()` |
 
 ## Class `BipartiteMatching`
@@ -32,11 +38,11 @@ from library_codex.graph.BipartiteMatching import bipartite_matching, maximum_bi
 | --- | --- | --- | --- | --- |
 | [`add_edge(left, right)`](../../../graph/BipartiteMatching.py#L16) | method | 辺を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
 | [`solve()`](../../../graph/BipartiteMatching.py#L56) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
-| [`pairs()`](../../../graph/BipartiteMatching.py#L96) | method | `BipartiteMatching` の `pairs method` を実行する。 | なし | list |
+| [`pairs()`](../../../graph/BipartiteMatching.py#L96) | method | matchingに含まれる左右頂点の組を列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`minimum_vertex_cover()`](../../../graph/BipartiteMatching.py#L123) | method | 最小・頂点・`cover`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if not seen]`, list `[i for (i, seen) in enumerate(seen_right) if seen]`) |
 | [`maximum_independent_set()`](../../../graph/BipartiteMatching.py#L130) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if seen]`, list `[i for (i, seen) in enumerate(seen_right) if not seen]`) |
-| [`minimum_edge_cover()`](../../../graph/BipartiteMatching.py#L137) | method | 最小・辺・`cover`を求める。 | なし | 計算結果（list） / `None` |
-| [`dulmage_mendelsohn()`](../../../graph/BipartiteMatching.py#L171) | method | `BipartiteMatching` の `dulmage_mendelsohn method` を実行する。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` |
+| [`minimum_edge_cover()`](../../../graph/BipartiteMatching.py#L137) | method | 最小・辺・`cover`を求める。 | なし | list[object] — 計算結果 / `None` |
+| [`dulmage_mendelsohn()`](../../../graph/BipartiteMatching.py#L171) | method | `dulmage`・`mendelsohn`を求める。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` |
 | [`flow`](../../../graph/BipartiteMatching.py#L94) | alias | `solve` の別名。 | 同じ | 同じ |
 | [`maximum_matching`](../../../graph/BipartiteMatching.py#L100) | alias | `pairs` の別名。 | 同じ | 同じ |
 | [`dm_decomposition`](../../../graph/BipartiteMatching.py#L253) | alias | `dulmage_mendelsohn` の別名。 | 同じ | 同じ |

@@ -7,6 +7,10 @@
 - source: [`algorithm/SequenceOrdering.py`](../../../algorithm/SequenceOrdering.py)
 - 公開API: function 0、class 1、method/property 5（Python protocol 0を含む）
 
+## できること
+
+- `PointUpdateLexSort`: 点更新される列の辞書順比較・版圧縮を扱う `PointUpdateLexSort`。
+
 ## Import
 
 ```python
@@ -15,7 +19,7 @@ from library_codex.algorithm.SequenceOrdering import PointUpdateLexSort
 
 ## Class `PointUpdateLexSort`
 
-Coordinate-compress all arrays in a sequence of point assignments. Persistent segment-tree roots make equality and first-difference searches exact. No rolling hash or recursive traversal is used.
+点更新される列の辞書順比較・版圧縮を扱う `PointUpdateLexSort`。
 
 - constructor: [`PointUpdateLexSort(values)`](../../../algorithm/SequenceOrdering.py#L39)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある
@@ -23,11 +27,11 @@ Coordinate-compress all arrays in a sequence of point assignments. Persistent se
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`mutate(position, value)`](../../../algorithm/SequenceOrdering.py#L48) | method | `PointUpdateLexSort` の `mutate method` を実行する。 | `position`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `_VersionIterator(self, len(self.positions))` |
+| [`mutate(position, value)`](../../../algorithm/SequenceOrdering.py#L48) | method | `mutate`を求める。 | `position`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `_VersionIterator(self, len(self.positions))` |
 | [`count()`](../../../algorithm/SequenceOrdering.py#L56) | method | 条件に合う要素数を返す。 | なし | 個数（int） |
-| [`last()`](../../../algorithm/SequenceOrdering.py#L59) | method | `PointUpdateLexSort` の `last method` を実行する。 | なし | `_VersionIterator(self, len(self.positions))` |
-| [`max_sorted_pos()`](../../../algorithm/SequenceOrdering.py#L62) | method | `PointUpdateLexSort` の `max_sorted_pos method` を実行する。 | なし | `self.maximum_rank` |
-| [`proc()`](../../../algorithm/SequenceOrdering.py#L69) | method | `PointUpdateLexSort` の `proc method` を実行する。 | なし | `positions`（数値または入力要素型） |
+| [`last()`](../../../algorithm/SequenceOrdering.py#L59) | method | `last`を求める。 | なし | `_VersionIterator(self, len(self.positions))` |
+| [`max_sorted_pos()`](../../../algorithm/SequenceOrdering.py#L62) | method | 最大・`sorted`・`pos`を求める。 | なし | `self.maximum_rank` |
+| [`proc()`](../../../algorithm/SequenceOrdering.py#L69) | method | `proc`を求める。 | なし | `positions`（数値または入力要素型） |
 | [`maxSortedPos`](../../../algorithm/SequenceOrdering.py#L67) | alias | `max_sorted_pos` の別名。 | 同じ | 同じ |
 
 ## Module aliases

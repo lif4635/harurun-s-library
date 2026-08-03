@@ -7,6 +7,14 @@
 - source: [`prime/Sieve.py`](../../../prime/Sieve.py)
 - 公開API: function 4、class 1、method/property 2（Python protocol 0を含む）
 
+## できること
+
+- `prime_sieve`: 素数・`sieve`を求める。
+- `prime_count`: 素数・個数を求める。
+- `count_square_free`: 平方・`free`の個数を求める。
+- `sum_totient`: 和・`totient`を計算する。
+- `LinearSieve`: 線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数を扱う `LinearSieve`。
+
 ## Import
 
 ```python
@@ -23,9 +31,9 @@ from library_codex.prime.Sieve import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`prime_sieve(limit)`](../../../prime/Sieve.py#L58) | module の `prime_sieve function` を実行する。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).primes` |
-| [`prime_count(number)`](../../../prime/Sieve.py#L62) | Lucy-DP prime counting in about O(n^(3/4)/log n). | `number`: 整数 | `0` / `count[0]` |
-| [`count_square_free(number)`](../../../prime/Sieve.py#L91) | Count positive square-free integers <= number in O(sqrt(number)). | `number`: 整数 | `0` / `sum((mobius[value] * (number // (value * value)) for value in ...` |
+| [`prime_sieve(limit)`](../../../prime/Sieve.py#L58) | 素数・`sieve`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).primes` |
+| [`prime_count(number)`](../../../prime/Sieve.py#L62) | 素数・個数を求める。 | `number`: 整数 | `0` / `count[0]` |
+| [`count_square_free(number)`](../../../prime/Sieve.py#L91) | 平方・`free`の個数を求める。 | `number`: 整数 | `0` / `sum((mobius[value] * (number // (value * value)) for value in ...` |
 | [`sum_totient(limit)`](../../../prime/Sieve.py#L101) | 和・`totient`を計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `0` / `sum(LinearSieve(limit).phi[1:])` |
 
 ## Class `LinearSieve`
@@ -39,4 +47,4 @@ from library_codex.prime.Sieve import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`is_prime(value)`](../../../prime/Sieve.py#L41) | method | 素数かどうかを判定する。 | `value`: 追加・設定・問い合わせる値 | bool |
-| [`factor_count(value)`](../../../prime/Sieve.py#L44) | method | `LinearSieve` の `factor_count method` を実行する。 | `value`: 追加・設定・問い合わせる値 | 計算結果（list） |
+| [`factor_count(value)`](../../../prime/Sieve.py#L44) | method | 各素因数の指数を数える。 | `value`: 追加・設定・問い合わせる値 | dict[int, int] — keyは素因数、valueはその指数 |

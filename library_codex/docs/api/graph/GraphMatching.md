@@ -7,6 +7,14 @@
 - source: [`graph/GraphMatching.py`](../../../graph/GraphMatching.py)
 - 公開API: function 2、class 3、method/property 14（Python protocol 0を含む）
 
+## できること
+
+- `maximum_general_matching`: 最大・`general`・matchingを求める。
+- `dag_minimum_path_cover`: `dag`・最小・path・`cover`を求める。
+- `GeneralMatching`: 一般blossom・2-SAT・動的二部判定・DAG最小path coverを扱う `GeneralMatching`。
+- `TwoSAT`: 一般blossom・2-SAT・動的二部判定・DAG最小path coverを扱う `TwoSAT`。
+- `DynamicBipartiteGraph`: 一般blossom・2-SAT・動的二部判定・DAG最小path coverを扱う `DynamicBipartiteGraph`。
+
 ## Import
 
 ```python
@@ -24,11 +32,11 @@ from library_codex.graph.GraphMatching import (
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`maximum_general_matching(graph)`](../../../graph/GraphMatching.py#L108) | 最大・`general`・matchingを求める。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.matching_size`, `solver.mate`) |
-| [`dag_minimum_path_cover(graph)`](../../../graph/GraphMatching.py#L256) | Return a minimum vertex-disjoint path cover of a DAG. The caller is responsible for the DAG precondition. The result is a list of vertex lists and has size N minus the maximum bipartite matching size. | `graph`: 隣接listまたはグラフobject | a minimum vertex-disjoint path cover of a DAG |
+| [`dag_minimum_path_cover(graph)`](../../../graph/GraphMatching.py#L256) | `dag`・最小・path・`cover`を求める。 | `graph`: 隣接listまたはグラフobject | list[int] — 経路上の頂点または辺を順に並べた列 |
 
 ## Class `GeneralMatching`
 
-Edmonds blossom algorithm for maximum cardinality matching.
+一般blossom・2-SAT・動的二部判定・DAG最小path coverを扱う `GeneralMatching`。
 
 - constructor: [`GeneralMatching(graph)`](../../../graph/GraphMatching.py#L12)
 - 引数: `graph`: 隣接listまたはグラフobject
@@ -36,12 +44,12 @@ Edmonds blossom algorithm for maximum cardinality matching.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`pairs()`](../../../graph/GraphMatching.py#L102) | method | `GeneralMatching` の `pairs method` を実行する。 | なし | list |
+| [`pairs()`](../../../graph/GraphMatching.py#L102) | method | matchingに含まれる左右頂点の組を列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`maximum_matching`](../../../graph/GraphMatching.py#L105) | alias | `pairs` の別名。 | 同じ | 同じ |
 
 ## Class `TwoSAT`
 
-2-SAT with the node convention ``2*v=false, 2*v+1=true``.
+一般blossom・2-SAT・動的二部判定・DAG最小path coverを扱う `TwoSAT`。
 
 - constructor: [`TwoSAT(n)`](../../../graph/GraphMatching.py#L118)
 - 引数: `n`: 要素数・頂点数・次数
@@ -49,10 +57,10 @@ Edmonds blossom algorithm for maximum cardinality matching.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`literal(variable, value=True)`](../../../graph/GraphMatching.py#L124) | method | `TwoSAT` の `literal method` を実行する。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | 数値または入力要素型 `variable << 1 \| bool(value)` |
+| [`literal(variable, value=True)`](../../../graph/GraphMatching.py#L124) | method | `literal`を求める。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | 数値または入力要素型 `variable << 1 \| bool(value)` |
 | [`add_implication_literal(source, target)`](../../../graph/GraphMatching.py#L127) | method | `implication`・`literal`を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値 | `None` |
 | [`add_clause_literal(first, second)`](../../../graph/GraphMatching.py#L131) | method | `clause`・`literal`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
-| [`add_clause(first_variable, first_value, second_variable, second_value)`](../../../graph/GraphMatching.py#L135) | method | `clause`を追加する。 | `first_variable`: `first`・`variable`として渡す値（APIの文脈に従う）<br>`first_value`: `first`・値として渡す値（APIの文脈に従う）<br>`second_variable`: `second`・`variable`として渡す値（APIの文脈に従う）<br>`second_value`: `second`・値として渡す値（APIの文脈に従う） | `None` |
+| [`add_clause(first_variable, first_value, second_variable, second_value)`](../../../graph/GraphMatching.py#L135) | method | `clause`を追加する。 | `first_variable`: `first`・`variable`として使う入力<br>`first_value`: 処理対象の値<br>`second_variable`: `second`・`variable`として使う入力<br>`second_value`: 処理対象の値 | `None` |
 | [`set_value(variable, value=True)`](../../../graph/GraphMatching.py#L142) | method | 値を設定する。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
 | [`add_xor(first, second)`](../../../graph/GraphMatching.py#L146) | method | XORを追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`add_equal(first, second)`](../../../graph/GraphMatching.py#L150) | method | `equal`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
@@ -61,7 +69,7 @@ Edmonds blossom algorithm for maximum cardinality matching.
 
 ## Class `DynamicBipartiteGraph`
 
-Add-only bipartiteness with parity Union-Find.
+一般blossom・2-SAT・動的二部判定・DAG最小path coverを扱う `DynamicBipartiteGraph`。
 
 - constructor: [`DynamicBipartiteGraph(n)`](../../../graph/GraphMatching.py#L178)
 - 引数: `n`: 要素数・頂点数・次数
@@ -70,7 +78,7 @@ Add-only bipartiteness with parity Union-Find.
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`find(vertex)`](../../../graph/GraphMatching.py#L187) | method | 代表元・位置・対象要素を探す。 | `vertex`: 頂点番号（0-indexed） | 代表元・位置・node番号（int） |
-| [`color(vertex)`](../../../graph/GraphMatching.py#L202) | method | `DynamicBipartiteGraph` の `color method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.parity[vertex]` |
+| [`color(vertex)`](../../../graph/GraphMatching.py#L202) | method | `color`を求める。 | `vertex`: 頂点番号（0-indexed） | `self.parity[vertex]` |
 | [`can_add_edge(first, second)`](../../../graph/GraphMatching.py#L206) | method | `add`・辺かどうかを判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`add_edge(first, second)`](../../../graph/GraphMatching.py#L216) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`is_bipartite()`](../../../graph/GraphMatching.py#L252) | method | `bipartite`かどうかを判定する。 | なし | bool |

@@ -7,6 +7,14 @@ semiring・Pisano・q-binomial・浮動/有理binomial。
 - source: [`math/AlgebraExtras.py`](../../../math/AlgebraExtras.py)
 - 公開API: function 8、class 4、method/property 15（Python protocol 3を含む）
 
+## できること
+
+- `semiring_matrix_multiply`: 2つの入力をこの構造の演算規則で乗算する。
+- `semiring_matrix_power`: 入力した値・多項式を指定指数だけ累乗する。
+- `semiring_linear_recurrence`: `semiring`・線形・`recurrence`を求める。
+- `pisano_prime`: `pisano`・素数を求める。
+- `Semiring`: semiring・Pisano・q-binomial・浮動/有理binomialを扱う `Semiring`。
+
 ## Import
 
 ```python
@@ -30,13 +38,13 @@ from library_codex.math.AlgebraExtras import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`semiring_matrix_multiply(first, second, add, multiply, zero)`](../../../math/AlgebraExtras.py#L31) | module の `semiring_matrix_multiply function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`add`: `add`として渡す値（APIの文脈に従う）<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値 | 計算結果（list） |
-| [`semiring_matrix_power(matrix, exponent, add, multiply, zero, one)`](../../../math/AlgebraExtras.py#L46) | module の `semiring_matrix_power function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`add`: `add`として渡す値（APIの文脈に従う）<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として渡す値（APIの文脈に従う） | 計算結果（list） |
-| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../math/AlgebraExtras.py#L62) | Kitamasa over an arbitrary semiring; a[n]=sum(c[i]*a[n-k+i]). | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 0-indexedの位置<br>`add`: `add`として渡す値（APIの文脈に従う）<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として渡す値（APIの文脈に従う） | `initial[index]` / 答え |
-| [`pisano_prime(prime)`](../../../math/AlgebraExtras.py#L174) | module の `pisano_prime function` を実行する。 | `prime`: 素数法 | `3` / `20` / `period` |
-| [`pisano_period(modulus)`](../../../math/AlgebraExtras.py#L186) | module の `pisano_period function` を実行する。 | `modulus`: 法 | `1` / 計算結果（int） |
-| [`power_table(limit, exponent, mod=None)`](../../../math/AlgebraExtras.py#L198) | module の `power_table function` を実行する。 | `limit`: 上限。NoneならAPI既定の上限<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list |
-| [`digamma(value)`](../../../math/AlgebraExtras.py#L206) | module の `digamma function` を実行する。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `result + math.log(value) - 0.5 * inverse - square / 12.0 + fou...` |
+| [`semiring_matrix_multiply(first, second, add, multiply, zero)`](../../../math/AlgebraExtras.py#L31) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値 | list[list[number]] — 各行をlistで持つ行列 |
+| [`semiring_matrix_power(matrix, exponent, add, multiply, zero, one)`](../../../math/AlgebraExtras.py#L46) | 入力した値・多項式を指定指数だけ累乗する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | list[list[number]] — 各行をlistで持つ行列 |
+| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../math/AlgebraExtras.py#L62) | `semiring`・線形・`recurrence`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 0-indexedの位置<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | `initial[index]` / 答え |
+| [`pisano_prime(prime)`](../../../math/AlgebraExtras.py#L174) | `pisano`・素数を求める。 | `prime`: 素数法 | `3` / `20` / `period` |
+| [`pisano_period(modulus)`](../../../math/AlgebraExtras.py#L186) | `pisano`・`period`を求める。 | `modulus`: 法 | `1` / 計算結果（int） |
+| [`power_table(limit, exponent, mod=None)`](../../../math/AlgebraExtras.py#L198) | 入力した値・多項式を指定指数だけ累乗する。 | `limit`: 上限。NoneならAPI既定の上限<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`digamma(value)`](../../../math/AlgebraExtras.py#L206) | `digamma`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `result + math.log(value) - 0.5 * inverse - square / 12.0 + fou...` |
 | [`inverse_sum(left, right)`](../../../math/AlgebraExtras.py#L218) | 逆元・和を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `digamma(right) - digamma(left)` |
 
 ## Class `Semiring`
@@ -44,7 +52,7 @@ from library_codex.math.AlgebraExtras import (
 semiring・Pisano・q-binomial・浮動/有理binomialを扱う `Semiring`。
 
 - constructor: [`Semiring(value, add, multiply, zero, one)`](../../../math/AlgebraExtras.py#L10)
-- 引数: `value`: 追加・設定・問い合わせる値<br>`add`: `add`として渡す値（APIの文脈に従う）<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として渡す値（APIの文脈に従う）
+- 引数: `value`: 追加・設定・問い合わせる値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力
 - 返り値: `Semiring` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -58,15 +66,15 @@ semiring・Pisano・q-binomial・浮動/有理binomialを扱う `Semiring`。
 semiring・Pisano・q-binomial・浮動/有理binomialを扱う `FloatBinomial`。
 
 - constructor: [`FloatBinomial(maximum)`](../../../math/AlgebraExtras.py#L106)
-- 引数: `maximum`: 最大として渡す値（APIの文脈に従う）
+- 引数: `maximum`: 最大として使う入力
 - 返り値: `FloatBinomial` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`logfac(number)`](../../../math/AlgebraExtras.py#L111) | method | `FloatBinomial` の `logfac method` を実行する。 | `number`: 整数 | `self.log_factorial[number]` |
-| [`logfinv(number)`](../../../math/AlgebraExtras.py#L114) | method | `FloatBinomial` の `logfinv method` を実行する。 | `number`: 整数 | `-self.log_factorial[number]` |
-| [`logC(number, chosen)`](../../../math/AlgebraExtras.py#L117) | method | `FloatBinomial` の `logC method` を実行する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[chosen] - self...` |
-| [`logP(number, chosen)`](../../../math/AlgebraExtras.py#L123) | method | `FloatBinomial` の `logP method` を実行する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[number - chosen]` |
+| [`logfac(number)`](../../../math/AlgebraExtras.py#L111) | method | `logfac`を求める。 | `number`: 整数 | `self.log_factorial[number]` |
+| [`logfinv(number)`](../../../math/AlgebraExtras.py#L114) | method | `logfinv`を求める。 | `number`: 整数 | `-self.log_factorial[number]` |
+| [`logC(number, chosen)`](../../../math/AlgebraExtras.py#L117) | method | `log`・`c`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[chosen] - self...` |
+| [`logP(number, chosen)`](../../../math/AlgebraExtras.py#L123) | method | `log`・`p`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[number - chosen]` |
 
 ## Class `RationalBinomial`
 
@@ -78,25 +86,25 @@ semiring・Pisano・q-binomial・浮動/有理binomialを扱う `RationalBinomia
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`fac(number)`](../../../math/AlgebraExtras.py#L130) | method | `RationalBinomial` の `fac method` を実行する。 | `number`: 整数 | Fraction `Fraction(math.factorial(number)) if number >= 0 else Fraction(0)` |
-| [`finv(number)`](../../../math/AlgebraExtras.py#L133) | method | `RationalBinomial` の `finv method` を実行する。 | `number`: 整数 | 数値または入力要素型/Fraction `1 / self.fac(number) if number >= 0 else Fraction(0)` |
-| [`inv(number)`](../../../math/AlgebraExtras.py#L136) | method | `RationalBinomial` の `inv method` を実行する。 | `number`: 整数 | Fraction `Fraction(1, number) if number else Fraction(1)` |
-| [`C(number, chosen)`](../../../math/AlgebraExtras.py#L139) | method | `RationalBinomial` の `C method` を実行する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction `Fraction(math.comb(number, chosen)) if 0 <= chosen <= number e...` |
-| [`P(number, chosen)`](../../../math/AlgebraExtras.py#L142) | method | `RationalBinomial` の `P method` を実行する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction `Fraction(math.perm(number, chosen)) if 0 <= chosen <= number e...` |
-| [`H(number, chosen)`](../../../math/AlgebraExtras.py#L145) | method | `RationalBinomial` の `H method` を実行する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction instance / Fraction `Fraction(1) if chosen == 0 else self.C(number + chosen - 1, ch...` |
-| [`multinomial(groups)`](../../../math/AlgebraExtras.py#L150) | method | `RationalBinomial` の `multinomial method` を実行する。 | `groups`: `groups`として渡す値（APIの文脈に従う） | Fraction instance |
+| [`fac(number)`](../../../math/AlgebraExtras.py#L130) | method | `fac`を求める。 | `number`: 整数 | Fraction `Fraction(math.factorial(number)) if number >= 0 else Fraction(0)` |
+| [`finv(number)`](../../../math/AlgebraExtras.py#L133) | method | `finv`を求める。 | `number`: 整数 | 数値または入力要素型/Fraction `1 / self.fac(number) if number >= 0 else Fraction(0)` |
+| [`inv(number)`](../../../math/AlgebraExtras.py#L136) | method | `inv`を求める。 | `number`: 整数 | Fraction `Fraction(1, number) if number else Fraction(1)` |
+| [`C(number, chosen)`](../../../math/AlgebraExtras.py#L139) | method | `c`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction `Fraction(math.comb(number, chosen)) if 0 <= chosen <= number e...` |
+| [`P(number, chosen)`](../../../math/AlgebraExtras.py#L142) | method | `p`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction `Fraction(math.perm(number, chosen)) if 0 <= chosen <= number e...` |
+| [`H(number, chosen)`](../../../math/AlgebraExtras.py#L145) | method | `h`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction instance / Fraction `Fraction(1) if chosen == 0 else self.C(number + chosen - 1, ch...` |
+| [`multinomial(groups)`](../../../math/AlgebraExtras.py#L150) | method | `multinomial`を求める。 | `groups`: 処理対象を順に並べた列 | Fraction instance |
 
 ## Class `QBinomial`
 
 semiring・Pisano・q-binomial・浮動/有理binomialを扱う `QBinomial`。
 
 - constructor: [`QBinomial(q, maximum, mod=998244353)`](../../../math/AlgebraExtras.py#L225)
-- 引数: `q`: query数・値<br>`maximum`: 最大として渡す値（APIの文脈に従う）<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`
+- 引数: `q`: query数・値<br>`maximum`: 最大として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`
 - 返り値: `QBinomial` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`binomial(number, chosen)`](../../../math/AlgebraExtras.py#L249) | method | `QBinomial` の `binomial method` を実行する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `0` / 数値または入力要素型 `math.comb(high_n, high_k) % self.mod * low % self.mod` |
+| [`binomial(number, chosen)`](../../../math/AlgebraExtras.py#L249) | method | 二項係数 C(n, k) を計算する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `0` / 数値または入力要素型 `math.comb(high_n, high_k) % self.mod * low % self.mod` |
 
 ## Module aliases
 

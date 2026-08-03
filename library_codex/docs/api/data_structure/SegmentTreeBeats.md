@@ -7,6 +7,10 @@ range chmin/chmax/add/update・range sum/min/max（非再帰）。
 - source: [`data_structure/SegmentTreeBeats.py`](../../../data_structure/SegmentTreeBeats.py)
 - 公開API: function 0、class 1、method/property 12（Python protocol 0を含む）
 
+## できること
+
+- `SegmentTreeBeats`: range chmin/chmax/add/update・range sum/min/max（非再帰）を扱う `SegmentTreeBeats`。
+
 ## Import
 
 ```python
@@ -29,18 +33,18 @@ range chmin/chmax/add/update・range sum/min/max（非再帰）を扱う `Segmen
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`range_chmin(l, r, x)`](../../../data_structure/SegmentTreeBeats.py#L232) | method | `SegmentTreeBeats` の `range_chmin method` を実行する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
-| [`range_chmax(l, r, x)`](../../../data_structure/SegmentTreeBeats.py#L235) | method | `SegmentTreeBeats` の `range_chmax method` を実行する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
+| [`range_chmin(l, r, x)`](../../../data_structure/SegmentTreeBeats.py#L232) | method | 区間・`chmin`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
+| [`range_chmax(l, r, x)`](../../../data_structure/SegmentTreeBeats.py#L235) | method | 区間・`chmax`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
 | [`range_add(l, r, x)`](../../../data_structure/SegmentTreeBeats.py#L238) | method | 区間・`add`を処理する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
 | [`range_update(l, r, x)`](../../../data_structure/SegmentTreeBeats.py#L241) | method | 区間・`update`を処理する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
 | [`range_sum(l, r)`](../../../data_structure/SegmentTreeBeats.py#L297) | method | 区間・和を処理する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 0)` |
-| [`range_min(l, r)`](../../../data_structure/SegmentTreeBeats.py#L300) | method | `SegmentTreeBeats` の `range_min method` を実行する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 1)` |
-| [`range_max(l, r)`](../../../data_structure/SegmentTreeBeats.py#L303) | method | `SegmentTreeBeats` の `range_max method` を実行する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 2)` |
-| [`get(p)`](../../../data_structure/SegmentTreeBeats.py#L310) | method | 指定位置・辺・状態の値を取得する。 | `p`: 位置・素数法・確率（APIの文脈に従う） | 指定対象に格納された値・edge object |
-| [`set(p, x)`](../../../data_structure/SegmentTreeBeats.py#L317) | method | 指定位置・状態を値で置き換える。 | `p`: 位置・素数法・確率（APIの文脈に従う）<br>`x`: 値・座標・問い合わせ対象 | `None` |
+| [`range_min(l, r)`](../../../data_structure/SegmentTreeBeats.py#L300) | method | 区間・最小を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 1)` |
+| [`range_max(l, r)`](../../../data_structure/SegmentTreeBeats.py#L303) | method | 区間・最大を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 2)` |
+| [`get(p)`](../../../data_structure/SegmentTreeBeats.py#L310) | method | 指定位置・辺・状態の値を取得する。 | `p`: 操作する位置（0始まり）または、このAPIで使う法 | 指定対象に格納された値・edge object |
+| [`set(p, x)`](../../../data_structure/SegmentTreeBeats.py#L317) | method | 指定位置・状態を値で置き換える。 | `p`: 操作する位置（0始まり）または、このAPIで使う法<br>`x`: 値・座標・問い合わせ対象 | `None` |
 | [`all_sum()`](../../../data_structure/SegmentTreeBeats.py#L321) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
-| [`all_min()`](../../../data_structure/SegmentTreeBeats.py#L324) | method | `SegmentTreeBeats` の `all_min method` を実行する。 | なし | `self.range_min(0, self.n)` |
-| [`all_max()`](../../../data_structure/SegmentTreeBeats.py#L327) | method | `SegmentTreeBeats` の `all_max method` を実行する。 | なし | `self.range_max(0, self.n)` |
+| [`all_min()`](../../../data_structure/SegmentTreeBeats.py#L324) | method | 全体・最小を求める。 | なし | `self.range_min(0, self.n)` |
+| [`all_max()`](../../../data_structure/SegmentTreeBeats.py#L327) | method | 全体・最大を求める。 | なし | `self.range_max(0, self.n)` |
 | [`range_assign`](../../../data_structure/SegmentTreeBeats.py#L244) | alias | `range_update` の別名。 | 同じ | 同じ |
 | [`query_sum`](../../../data_structure/SegmentTreeBeats.py#L306) | alias | `range_sum` の別名。 | 同じ | 同じ |
 | [`query_min`](../../../data_structure/SegmentTreeBeats.py#L307) | alias | `range_min` の別名。 | 同じ | 同じ |

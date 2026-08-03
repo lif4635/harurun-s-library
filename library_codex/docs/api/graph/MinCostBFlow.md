@@ -7,6 +7,10 @@ lower/upper・頂点supply・負費用対応minimum-cost b-flow。
 - source: [`graph/MinCostBFlow.py`](../../../graph/MinCostBFlow.py)
 - 公開API: function 0、class 1、method/property 7（Python protocol 0を含む）
 
+## できること
+
+- `MinCostBFlow`: lower/upper・頂点supply・負費用対応minimum-cost b-flowを扱う `MinCostBFlow`。
+
 ## Import
 
 ```python
@@ -26,10 +30,10 @@ lower/upper・頂点supply・負費用対応minimum-cost b-flowを扱う `MinCos
 | [`add_edge(source, target, lower, upper, cost)`](../../../graph/MinCostBFlow.py#L30) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照）<br>`cost`: 辺・選択の費用 | 数値または入力要素型 `len(self.edge_data) - 1` |
 | [`add_supply(vertex, amount)`](../../../graph/MinCostBFlow.py#L41) | method | `supply`を追加する。 | `vertex`: 頂点番号（0-indexed）<br>`amount`: 加算量・移動量 | `None` |
 | [`add_demand(vertex, amount)`](../../../graph/MinCostBFlow.py#L50) | method | `demand`を追加する。 | `vertex`: 頂点番号（0-indexed）<br>`amount`: 加算量・移動量 | `None` |
-| [`run()`](../../../graph/MinCostBFlow.py#L141) | method | `MinCostBFlow` の `run method` を実行する。 | なし | tuple(bool `not self.edge_data`, `0`) / tuple(`False`, `0`) / tuple(`True`, `total_cost`（int）) |
+| [`run()`](../../../graph/MinCostBFlow.py#L141) | method | 登録済みの処理を実行し、入力順に結果を返す。 | なし | tuple(bool `not self.edge_data`, `0`) / tuple(`False`, `0`) / tuple(`True`, `total_cost`（int）) |
 | [`get_flow(edge_id)`](../../../graph/MinCostBFlow.py#L204) | method | flowを取得する。 | `edge_id`: edge のID（0-indexed） | `self.edge_data[edge_id][5]` |
-| [`get_edge(edge_id)`](../../../graph/MinCostBFlow.py#L209) | method | 辺を取得する。 | `edge_id`: edge のID（0-indexed） | tuple(`source`, `target`, `lower`, `upper`, `cost`, `flow`) |
-| [`edges()`](../../../graph/MinCostBFlow.py#L213) | method | `MinCostBFlow` の `edges method` を実行する。 | なし | list |
+| [`get_edge(edge_id)`](../../../graph/MinCostBFlow.py#L209) | method | edge_idに対応する辺の両端頂点を返す。 | `edge_id`: edge のID（0-indexed） | tuple(`source`, `target`, `lower`, `upper`, `cost`, `flow`) |
+| [`edges()`](../../../graph/MinCostBFlow.py#L213) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`add_excess`](../../../graph/MinCostBFlow.py#L48) | alias | `add_supply` の別名。 | 同じ | 同じ |
 
 ## Module aliases

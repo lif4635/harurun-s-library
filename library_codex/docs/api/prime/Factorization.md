@@ -7,6 +7,12 @@ deterministic Miller--Rabin・Brent型Pollard Rho・約数/phi/Möbius。
 - source: [`prime/Factorization.py`](../../../prime/Factorization.py)
 - 公開API: function 8、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- 64bit整数の素数判定とPollard's rhoによる素因数分解を行える。
+- 素因数の重複列・指数表・約数列を用途に応じて取得できる。
+- Eulerのφ関数とMöbius関数を素因数分解結果から計算できる。
+
 ## Import
 
 ```python
@@ -27,13 +33,13 @@ from library_codex.prime.Factorization import (
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`is_prime(number)`](../../../prime/Factorization.py#L8) | 素数かどうかを判定する。 | `number`: 整数 | bool |
-| [`pollard_rho(number)`](../../../prime/Factorization.py#L37) | module の `pollard_rho function` を実行する。 | `number`: 整数 | `prime` / `number` / `factor`（int） |
-| [`prime_factors(number)`](../../../prime/Factorization.py#L81) | module の `prime_factors function` を実行する。 | `number`: 整数 | list / 計算結果（list） |
-| [`factor_count(number)`](../../../prime/Factorization.py#L107) | module の `factor_count function` を実行する。 | `number`: 整数 | 計算結果（dict） |
-| [`divisors(number)`](../../../prime/Factorization.py#L114) | module の `divisors function` を実行する。 | `number`: 整数 | 計算結果（list） |
-| [`euler_phi(number)`](../../../prime/Factorization.py#L129) | module の `euler_phi function` を実行する。 | `number`: 整数 | 計算結果 |
-| [`mobius(number)`](../../../prime/Factorization.py#L138) | module の `mobius function` を実行する。 | `number`: 整数 | `0` / int `-1 if len(factors) & 1 else 1` |
-| [`factor_count_pairs(number)`](../../../prime/Factorization.py#L146) | module の `factor_count_pairs function` を実行する。 | `number`: 整数 | list |
+| [`pollard_rho(number)`](../../../prime/Factorization.py#L37) | 合成数numberの非自明な因数を1つ探す。 | `number`: 整数 | int — numberの非自明な因数。numberが素数ならnumber自身 |
+| [`prime_factors(number)`](../../../prime/Factorization.py#L81) | 素因数を重複込みで昇順に列挙する。 | `number`: 整数 | list[int] — 素因数を重複込みで昇順に並べた列 |
+| [`factor_count(number)`](../../../prime/Factorization.py#L107) | 各素因数の指数を数える。 | `number`: 整数 | dict[int, int] — keyは素因数、valueはその指数 |
+| [`divisors(number)`](../../../prime/Factorization.py#L114) | 正の約数を昇順で列挙する。 | `number`: 整数 | list[int] — numberの正の約数を昇順に並べた列 |
+| [`euler_phi(number)`](../../../prime/Factorization.py#L129) | 1以上number以下でnumberと互いに素な整数の個数を返す。 | `number`: 整数 | int — 1以上number以下でnumberと互いに素な整数の個数 |
+| [`mobius(number)`](../../../prime/Factorization.py#L138) | 整数numberに対するMöbius関数の値を返す。 | `number`: 整数 | int — numberのMöbius関数値（-1、0、1のいずれか） |
+| [`factor_count_pairs(number)`](../../../prime/Factorization.py#L146) | 素因数と指数の組を素因数順に返す。 | `number`: 整数 | list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列 |
 
 ## Module aliases
 

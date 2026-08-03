@@ -7,6 +7,11 @@ bit-parallel LCS長・反復Hirschberg復元。
 - source: [`string/LongestCommonSubsequence.py`](../../../string/LongestCommonSubsequence.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `lcs_length`: `lcs`・長さを求める。
+- `restore_lcs`: `lcs`を復元する。
+
 ## Import
 
 ```python
@@ -23,7 +28,7 @@ from library_codex.string.LongestCommonSubsequence import lcs_length, restore_lc
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`lcs_length(first, second)`](../../../string/LongestCommonSubsequence.py#L17) | module の `lcs_length function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `0` / `_lcs_dp_length(first, second)` / `state.bit_count()` |
+| [`lcs_length(first, second)`](../../../string/LongestCommonSubsequence.py#L17) | `lcs`・長さを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `0` / `_lcs_dp_length(first, second)` / `state.bit_count()` |
 | [`restore_lcs(first, second)`](../../../string/LongestCommonSubsequence.py#L130) | `lcs`を復元する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `_pack_like(original, result)` |
 
 ## Module aliases

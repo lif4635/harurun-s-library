@@ -14,6 +14,13 @@ import re
 import sys
 from pathlib import Path
 
+from api_metadata import (
+    ARGUMENT_DETAILS,
+    MODULE_CAPABILITIES,
+    PURPOSE_BY_NAME,
+    RETURN_DETAILS,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DOC_ROOT = ROOT / "docs"
@@ -379,7 +386,7 @@ ARGUMENT_DESCRIPTION = {
 
 EXACT_PURPOSE = {
     "access": "指定位置の元の値を取得する。",
-    "add": "値・辺・要素を追加する。詳細はclass/moduleの説明に従う。",
+    "add": "引数で指定した要素・辺・区間へ値を追加する。",
     "all_prod": "全区間の集約値を返す。",
     "apply": "指定した作用を適用する。",
     "bisect_left": "条件を満たす最初の位置を二分探索する。",
@@ -457,10 +464,14 @@ NOUN = {
 }
 
 RETURN_NAME_HINT = {
+    "assignment": "各変数へ割り当てる0/1のlist",
     "answer": "答え",
     "answers": "答えのlist",
+    "color": "各頂点の色を格納したlist[int]",
+    "colors": "各頂点の色を格納したlist[int]",
     "component": "連結成分番号",
     "components": "連結成分情報",
+    "component_id": "各頂点の連結成分IDを格納したlist[int]",
     "count": "個数（int）",
     "distance": "距離",
     "distances": "各頂点への距離list",
@@ -470,6 +481,8 @@ RETURN_NAME_HINT = {
     "indices": "位置のlist",
     "parent": "親情報",
     "parents": "親のlist",
+    "previous": "経路復元用の直前頂点を格納したlist[int]",
+    "order": "頂点・要素を処理順に並べたlist[int]",
     "path": "pathを表すlist",
     "result": "計算結果",
     "results": "計算結果のlist",
@@ -542,6 +555,10 @@ def first_paragraph(doc):
     return text if len(text) <= 220 else text[:217] + "..."
 
 
+def contains_japanese(text):
+    return bool(re.search(r"[ぁ-んァ-ン一-龯]", text or ""))
+
+
 def split_words(name):
     name = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
     return [part.lower() for part in name.strip("_").split("_") if part]
@@ -555,12 +572,40 @@ def translated_object(name):
     return "・".join(converted)
 
 
-def purpose_for(name, node, owner=None):
+def purpose_for(name, node, owner=None, module_key=None):
     doc = first_paragraph(ast.get_docstring(node, clean=True))
-    if doc:
+    if doc and contains_japanese(doc):
         return doc
+    if name in PURPOSE_BY_NAME:
+        return PURPOSE_BY_NAME[name]
     if name in PROTOCOL_METHODS:
         return PROTOCOL_METHODS[name] + "。"
+    argument_names = {
+        arg_name.lstrip("*")
+        for arg_name, _, kind, _ in argument_parts(
+            node.args, bool(owner)
+        )
+        if kind != "marker"
+    }
+    if name in ("add", "range_add"):
+        if {"left", "right", "value"} <= argument_names:
+            return "半開区間 [left, right) の各要素へvalueを加える。"
+        if {"index", "value"} <= argument_names:
+            return "index番目の値へvalueを加える。"
+        if {"row", "column", "value"} <= argument_names:
+            return "(row, column)の値へvalueを加える。"
+        if "vertex" in argument_names and ({"value", "delta"} & argument_names):
+            return "vertexに対応する値へ指定量を加える。"
+    if name in ("prefix_sum", "sum0"):
+        return "半開区間 [0, right) の総和を返す。"
+    if name in ("sum", "prod") and {"left", "right"} <= argument_names:
+        return "半開区間 [left, right) の値を集約して返す。"
+    if name == "get" and "index" in argument_names:
+        return "index番目に格納されている値を返す。"
+    if name in ("set", "update") and {"index", "value"} <= argument_names:
+        return "index番目の値をvalueへ置き換える。"
+    if name in ("lower_bound", "bisect_left") and "target" in argument_names:
+        return "prefix和がtarget以上になる最初の位置を返す。"
     if name in EXACT_PURPOSE:
         return EXACT_PURPOSE[name]
     words = split_words(name)
@@ -596,17 +641,36 @@ def purpose_for(name, node, owner=None):
         return translated_object(name) + "を処理する。"
     if prefix in ("minimum", "maximum", "shortest", "longest"):
         return translated_object(name) + "を求める。"
+    if "derivative" in words:
+        return "入力した多項式・級数を形式微分する。"
+    if "integral" in words:
+        return "入力した多項式・級数を形式積分する。"
+    if "evaluate" in words or "evaluation" in words:
+        return "入力した多項式・式を指定点で評価する。"
+    if "sort" in words:
+        return "入力要素を指定した順序で並べ替える。"
+    if "transform" in words or "dft" in words:
+        return "入力列へ指定した変換を適用し、変換後の列を返す。"
+    if "multiply" in words or "multiplication" in words:
+        return "2つの入力をこの構造の演算規則で乗算する。"
+    if "subtract" in words or "negate" in words:
+        return "入力した値・係数列の差または符号反転を計算する。"
+    if "power" in words:
+        return "入力した値・多項式を指定指数だけ累乗する。"
+    if "shrink" in words:
+        return "係数列末尾の不要な0を除いて正規化する。"
+    if "between" in words:
+        return "指定した2つの境界の間にある値を返す。"
     if any(word in words for word in ("sum", "product", "convolution", "inverse", "logarithm",
                                       "exponential", "interpolation", "rank", "determinant",
                                       "factorization", "decomposition", "transform")):
         return translated_object(name) + "を計算する。"
-    suffix = "method" if owner else "function"
-    return "%s の %s を実行する。" % (code(owner) if owner else "module", code(name + " " + suffix))
+    return translated_object(name) + "を求める。"
 
 
 def class_purpose(name, node, module_overview):
     doc = first_paragraph(ast.get_docstring(node, clean=True))
-    if doc:
+    if doc and contains_japanese(doc):
         return doc
     return "%sを扱う %s。" % (module_overview.rstrip("。"), code(name))
 
@@ -677,6 +741,8 @@ def argument_description(name, overrides=None):
     plain = name.lstrip("*")
     if overrides and plain in overrides:
         return overrides[plain]
+    if plain in ARGUMENT_DETAILS:
+        return ARGUMENT_DETAILS[plain]
     if plain in ARGUMENT_DESCRIPTION:
         return ARGUMENT_DESCRIPTION[plain]
     if plain.endswith("_id"):
@@ -685,13 +751,21 @@ def argument_description(name, overrides=None):
         return plain[:-4] + " のID列"
     if plain.endswith("_list"):
         return translated_object(plain[:-5]) + "のlist"
-    if plain.startswith("is_") or plain.startswith("use_"):
+    if plain.startswith(("is_", "use_", "has_", "with_", "return_", "include_", "check_")):
         return translated_object(plain) + "を有効にするか"
     if plain.startswith("max_"):
         return translated_object(plain) + "の上限"
     if plain.startswith("min_"):
         return translated_object(plain) + "の下限"
-    return translated_object(plain) + "として渡す値（APIの文脈に従う）"
+    if re.search(r"(?:add|remove|merge|query|update|calculate|get|put|build|apply)", plain):
+        return "処理中に呼び出す関数または操作"
+    if plain.endswith(("values", "items", "options", "groups", "points")):
+        return "処理対象を順に並べた列"
+    if plain.endswith("value"):
+        return "処理対象の値"
+    if plain.endswith(("count", "length", "size")):
+        return "処理対象の個数"
+    return translated_object(plain) + "として使う入力"
 
 
 def render_arguments(node, skip_first=False, overrides=None):
@@ -813,6 +887,40 @@ def component_description(node, assignments):
     return (kind + " " if kind else "") + code(text)
 
 
+def container_return_description(function_name, kind, variable_name=None):
+    words = set(split_words(function_name))
+    label = RETURN_NAME_HINT.get(variable_name or "", "")
+    if kind == "list":
+        if "factor" in words or "factors" in words:
+            return "list[int] — 素因数を順に並べた列"
+        if "divisor" in words or "divisors" in words:
+            return "list[int] — 条件を満たす約数を順に並べた列"
+        if "distance" in words or variable_name in ("distance", "distances"):
+            return "list[number] — 頂点または位置ごとの距離"
+        if "component" in words or variable_name in ("components", "groups"):
+            return "list[list[int]] — 連結成分ごとに所属頂点を並べた列"
+        if "path" in words or variable_name == "path":
+            return "list[int] — 経路上の頂点または辺を順に並べた列"
+        if {"polynomial", "series", "fps", "convolution"} & words:
+            return "list[number] — 昇冪順の係数列 [a0, a1, ...]"
+        if {"order", "sort", "permutation", "indices"} & words or variable_name in ("order", "indices"):
+            return "list[int] — 頂点または要素の位置を結果順に並べた列"
+        if "matrix" in words:
+            return "list[list[number]] — 各行をlistで持つ行列"
+        if label:
+            return "list[object] — " + label
+        return "list[object] — 用途欄に示した結果を1要素ずつ並べた列"
+    if kind == "dict":
+        if {"factor", "count", "frequency"} & words:
+            return "dict[object, int] — keyは対象値、valueはその個数または指数"
+        return "dict[object, object] — keyは識別対象、valueは対応する計算結果"
+    if kind == "set":
+        return "set[object] — 条件を満たす重複のない要素集合"
+    if kind == "iterator":
+        return "iterator[object] — 用途欄に示した要素を1つずつyieldする"
+    return kind
+
+
 def return_description(name, function, overrides=None):
     if function.returns is not None:
         try:
@@ -833,8 +941,13 @@ def return_description(name, function, overrides=None):
                 has_bare = True
             else:
                 returns.append(node.value)
+    if name in RETURN_DETAILS:
+        detail = RETURN_DETAILS[name]
+        return detail + (
+            " / " + code("None") if has_bare and "None" not in detail else ""
+        )
     if has_yield:
-        return "iterator（yieldされる要素）"
+        return container_return_description(name, "iterator")
     if not returns:
         return code(annotation) if annotation and annotation != "None" else code("None")
 
@@ -844,18 +957,21 @@ def return_description(name, function, overrides=None):
     if semantic:
         return semantic + (" / " + code("None") if has_bare else "")
     doc = first_paragraph(ast.get_docstring(function, clean=True))
-    match = re.match(r"(?:Return|Compute and return)\s+(.+?)(?:\.|$)", doc)
-    if match:
-        text = match.group(1).strip()
-        if text:
-            return text + (" / " + code("None") if has_bare else "")
+    if doc and contains_japanese(doc):
+        match = re.match(r"(?:返す|計算して返す)[：:]?\s*(.+?)(?:。|$)", doc)
+        if match and match.group(1).strip():
+            return match.group(1).strip() + (" / " + code("None") if has_bare else "")
 
     descriptions = []
     for value in returns:
         if isinstance(value, ast.Tuple):
             item = "tuple(" + ", ".join(component_description(elt, assignments) for elt in value.elts) + ")"
         elif isinstance(value, ast.Name):
-            item = RETURN_NAME_HINT.get(value.id, code(value.id))
+            kind = assignments.get(value.id)
+            if kind in ("list", "dict", "set", "iterator"):
+                item = container_return_description(name, kind, value.id)
+            else:
+                item = RETURN_NAME_HINT.get(value.id, code(value.id))
             kind = assignments.get(value.id)
             if kind and kind not in item:
                 item += "（%s）" % kind
@@ -863,8 +979,10 @@ def return_description(name, function, overrides=None):
             kind = expression_type(value, assignments)
             if kind == "bool":
                 item = "bool"
-            elif kind in ("list", "dict", "set", "tuple", "iterator"):
-                item = kind
+            elif kind in ("list", "dict", "set", "iterator"):
+                item = container_return_description(name, kind)
+            elif kind == "tuple":
+                item = "tuple — 用途欄に示した複数の結果を順に格納"
             elif kind and isinstance(value, ast.Call):
                 item = kind + " instance"
             else:
@@ -1048,14 +1166,15 @@ def source_link(relative_path, lineno=None):
 
 
 def method_row(
-    node, source_relative, owner, argument_overrides, return_overrides
+    node, source_relative, owner, argument_overrides, return_overrides,
+    module_key,
 ):
     decs = decorators(node)
     is_property = "property" in decs
     skip_first = bool(node.args.args and node.args.args[0].arg in ("self", "cls"))
     signature = render_signature(node.name, node, skip_first, is_property)
     kind = "property" if is_property else ("classmethod" if "classmethod" in decs else "method")
-    purpose = purpose_for(node.name, node, owner)
+    purpose = purpose_for(node.name, node, owner, module_key)
     arguments = (
         "なし" if is_property
         else render_arguments(node, skip_first, argument_overrides)
@@ -1067,14 +1186,36 @@ def method_row(
     )
 
 
-def function_row(node, source_relative, argument_overrides, return_overrides):
+def function_row(
+    node, source_relative, argument_overrides, return_overrides, module_key
+):
     signature = render_signature(node.name, node)
     api = "[%s](%s)" % (code(signature), source_link(source_relative, node.lineno))
     return "| %s | %s | %s | %s |" % tuple(markdown_escape(value) for value in (
-        api, purpose_for(node.name, node),
+        api, purpose_for(node.name, node, module_key=module_key),
         render_arguments(node, overrides=argument_overrides),
         return_description(node.name, node, return_overrides)
     ))
+
+
+def module_capabilities(relative_key, overview, functions, classes):
+    exact = MODULE_CAPABILITIES.get(relative_key)
+    if exact:
+        return list(exact)
+    result = []
+    for node in functions[:4]:
+        result.append("%s: %s" % (
+            code(node.name), purpose_for(node.name, node, module_key=relative_key)
+        ))
+    for node in classes:
+        if len(result) >= 5:
+            break
+        result.append("%s: %s" % (
+            code(node.name), class_purpose(node.name, node, overview)
+        ))
+    if not result:
+        result.append(overview.rstrip("。") + "を提供する。")
+    return result
 
 
 def render_module(path, overview, complexity):
@@ -1113,6 +1254,11 @@ def render_module(path, overview, complexity):
             len(functions), len(classes), count_methods, protocol_count),
         "",
     ]
+    lines.extend(["## できること", ""])
+    lines.extend("- " + item for item in module_capabilities(
+        relative_key, overview, functions, classes
+    ))
+    lines.append("")
     import_names = [node.name for node in functions + classes]
     if import_names:
         lines.extend(["## Import", "", "```python"])
@@ -1139,7 +1285,8 @@ def render_module(path, overview, complexity):
         ])
         lines.extend(
             function_row(
-                node, relative, argument_overrides, return_overrides
+                node, relative, argument_overrides, return_overrides,
+                relative_key,
             )
             for node in functions
         )
@@ -1200,6 +1347,7 @@ def render_module(path, overview, complexity):
                 method_row(
                     node, relative, class_node.name,
                     argument_overrides, method_return_overrides,
+                    relative_key,
                 )
                 for node in methods
             )

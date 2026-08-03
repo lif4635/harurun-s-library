@@ -7,6 +7,11 @@ ACL互換寄りの反復Dinic・min-cut・辺変更。
 - source: [`graph/MaxFlow.py`](../../../graph/MaxFlow.py)
 - 公開API: function 0、class 1、method/property 7（Python protocol 0を含む）
 
+## できること
+
+- 容量付き有向グラフの最大流を計算できる。
+- 辺ごとの流量と残余容量を確認し、最小カット側の頂点集合を取得できる。
+
 ## Import
 
 ```python
@@ -25,11 +30,11 @@ ACL互換寄りの反復Dinic・min-cut・辺変更を扱う `MaxFlowGraph`。
 | --- | --- | --- | --- | --- |
 | [`add_vertex()`](../../../graph/MaxFlow.py#L10) | method | 頂点を追加する。 | なし | 数値または入力要素型 `self.n - 1` |
 | [`add_edge(source, target, capacity)`](../../../graph/MaxFlow.py#L15) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量 | 数値または入力要素型 `len(self.pos) - 1` |
-| [`get_edge(i)`](../../../graph/MaxFlow.py#L27) | method | 辺を取得する。 | `i`: 0-indexedの位置 | tuple(`source`, `edge[0]`, 数値または入力要素型 `edge[2] + reverse[2]`, `reverse[2]`) |
-| [`edges()`](../../../graph/MaxFlow.py#L33) | method | `MaxFlowGraph` の `edges method` を実行する。 | なし | list |
-| [`change_edge(i, capacity, flow)`](../../../graph/MaxFlow.py#L36) | method | 辺を更新する。 | `i`: 0-indexedの位置<br>`capacity`: 容量<br>`flow`: flowとして渡す値（APIの文脈に従う） | `None` |
+| [`get_edge(i)`](../../../graph/MaxFlow.py#L27) | method | edge_idに対応する辺の両端頂点を返す。 | `i`: 0-indexedの位置 | tuple(`source`, `edge[0]`, 数値または入力要素型 `edge[2] + reverse[2]`, `reverse[2]`) |
+| [`edges()`](../../../graph/MaxFlow.py#L33) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`change_edge(i, capacity, flow)`](../../../graph/MaxFlow.py#L36) | method | 辺を更新する。 | `i`: 0-indexedの位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` |
 | [`flow(source, sink, flow_limit=None)`](../../../graph/MaxFlow.py#L84) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | 合計値（int） |
-| [`min_cut(source)`](../../../graph/MaxFlow.py#L117) | method | `MaxFlowGraph` の `min_cut method` を実行する。 | `source`: 始点 | `visited`（数値または入力要素型） |
+| [`min_cut(source)`](../../../graph/MaxFlow.py#L117) | method | 最小・`cut`を求める。 | `source`: 始点 | `visited`（数値または入力要素型） |
 | [`max_flow`](../../../graph/MaxFlow.py#L114) | alias | `flow` の別名。 | 同じ | 同じ |
 | [`run`](../../../graph/MaxFlow.py#L115) | alias | `flow` の別名。 | 同じ | 同じ |
 

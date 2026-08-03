@@ -7,6 +7,14 @@ Euler Tour・virtual/Cartesian/rooted/inclusion/merge tree・重み付き直径�
 - source: [`tree/TreeAlgorithms.py`](../../../tree/TreeAlgorithms.py)
 - 公開API: function 8、class 2、method/property 8（Python protocol 1を含む）
 
+## できること
+
+- `cartesian_tree`: `cartesian`・木を求める。
+- `cartesian_tree_graph`: `cartesian`・木・グラフを求める。
+- `rooted_tree`: `rooted`・木を求める。
+- `inverse_tree`: 逆元・木を計算する。
+- `EulerTour`: Euler Tour・virtual/Cartesian/rooted/inclusion/merge tree・重み付き直径を扱う `EulerTour`。
+
 ## Import
 
 ```python
@@ -28,14 +36,14 @@ from library_codex.tree.TreeAlgorithms import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`cartesian_tree(values, minimum=True)`](../../../tree/TreeAlgorithms.py#L187) | module の `cartesian_tree function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 最小として渡す値（APIの文脈に従う）。省略時: `True` | tuple(親情報（数値または入力要素型）, `left`（数値または入力要素型）, `right`（数値または入力要素型）, `root`) |
-| [`cartesian_tree_graph(values, minimum=True, directed=True)`](../../../tree/TreeAlgorithms.py#L222) | module の `cartesian_tree_graph function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 最小として渡す値（APIの文脈に従う）。省略時: `True`<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | tuple(`graph`（list）, `root`) |
-| [`rooted_tree(tree, root=0)`](../../../tree/TreeAlgorithms.py#L233) | module の `rooted_tree function` を実行する。 | `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0` | list / 計算結果（list） |
-| [`inverse_tree(tree)`](../../../tree/TreeAlgorithms.py#L256) | 逆元・木を計算する。 | `tree`: 木の隣接list | 計算結果（list） |
-| [`process_of_merging_tree(edges, size=None, sort_edges=False)`](../../../tree/TreeAlgorithms.py#L267) | module の `process_of_merging_tree function` を実行する。 | `edges`: 辺のiterable/list<br>`size`: 要素数・universe size。省略時: `None`<br>`sort_edges`: `sort`・辺として渡す値（APIの文脈に従う）。省略時: `False` | tuple(`graph[:auxiliary]`, `weights`（list）, 数値または入力要素型 `auxiliary - 1`) |
-| [`inclusion_tree(intervals, universe_size=None)`](../../../tree/TreeAlgorithms.py#L311) | module の `inclusion_tree function` を実行する。 | `intervals`: 区間 `(left, right)` のiterable<br>`universe_size`: `universe`・`size`として渡す値（APIの文脈に従う）。省略時: `None` | tuple(`graph`（list）, list `[(left, right) for (left, right, _) in indexed]`, list `[original for (_, _, original) in indexed]`) |
-| [`tree_diameter(tree)`](../../../tree/TreeAlgorithms.py#L343) | module の `tree_diameter function` を実行する。 | `tree`: 木の隣接list | tuple(`0`, list `[]`) / tuple(`distance[second]`, pathを表すlist) |
-| [`diameter(tree)`](../../../tree/TreeAlgorithms.py#L384) | module の `diameter function` を実行する。 | `tree`: 木の隣接list | `tree_diameter(tree)[0]` |
+| [`cartesian_tree(values, minimum=True)`](../../../tree/TreeAlgorithms.py#L187) | `cartesian`・木を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 値の下限。Noneなら入力から決める。省略時: `True` | tuple(親情報（数値または入力要素型）, `left`（数値または入力要素型）, `right`（数値または入力要素型）, `root`) |
+| [`cartesian_tree_graph(values, minimum=True, directed=True)`](../../../tree/TreeAlgorithms.py#L222) | `cartesian`・木・グラフを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 値の下限。Noneなら入力から決める。省略時: `True`<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | tuple(`graph`（list）, `root`) |
+| [`rooted_tree(tree, root=0)`](../../../tree/TreeAlgorithms.py#L233) | `rooted`・木を求める。 | `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
+| [`inverse_tree(tree)`](../../../tree/TreeAlgorithms.py#L256) | 逆元・木を計算する。 | `tree`: 木の隣接list | list[object] — 計算結果 |
+| [`process_of_merging_tree(edges, size=None, sort_edges=False)`](../../../tree/TreeAlgorithms.py#L267) | `process`・`of`・`merging`・木を求める。 | `edges`: 辺のiterable/list<br>`size`: 要素数・universe size。省略時: `None`<br>`sort_edges`: `sort`・辺として使う入力。省略時: `False` | tuple(`graph[:auxiliary]`, `weights`（list）, 数値または入力要素型 `auxiliary - 1`) |
+| [`inclusion_tree(intervals, universe_size=None)`](../../../tree/TreeAlgorithms.py#L311) | `inclusion`・木を求める。 | `intervals`: 区間 `(left, right)` のiterable<br>`universe_size`: 処理対象の個数。省略時: `None` | tuple(`graph`（list）, list `[(left, right) for (left, right, _) in indexed]`, list `[original for (_, _, original) in indexed]`) |
+| [`tree_diameter(tree)`](../../../tree/TreeAlgorithms.py#L343) | 木・直径を求める。 | `tree`: 木の隣接list | tuple(`0`, list `[]`) / tuple(`distance[second]`, pathを表すlist) |
+| [`diameter(tree)`](../../../tree/TreeAlgorithms.py#L384) | 直径を求める。 | `tree`: 木の隣接list | `tree_diameter(tree)[0]` |
 
 ## Class `EulerTour`
 
@@ -47,12 +55,12 @@ Euler Tour・virtual/Cartesian/rooted/inclusion/merge tree・重み付き直径�
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`idx(node)`](../../../tree/TreeAlgorithms.py#L94) | method | `EulerTour` の `idx method` を実行する。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) |
+| [`idx(node)`](../../../tree/TreeAlgorithms.py#L94) | method | `idx`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) |
 | [`lca(first, second)`](../../../tree/TreeAlgorithms.py#L97) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） |
 | [`distance(first, second)`](../../../tree/TreeAlgorithms.py#L106) | method | 距離を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / 数値または入力要素型 `self.depth[first] + self.depth[second] - (self.depth[ancestor]...` |
-| [`node_intervals(first, second)`](../../../tree/TreeAlgorithms.py#L118) | method | `EulerTour` の `node_intervals method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list |
-| [`edge_intervals(first, second)`](../../../tree/TreeAlgorithms.py#L129) | method | `EulerTour` の `edge_intervals method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list |
-| [`subtree_interval(node)`](../../../tree/TreeAlgorithms.py#L138) | method | `EulerTour` の `subtree_interval method` を実行する。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) |
+| [`node_intervals(first, second)`](../../../tree/TreeAlgorithms.py#L118) | method | `node`・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`edge_intervals(first, second)`](../../../tree/TreeAlgorithms.py#L129) | method | 辺・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`subtree_interval(node)`](../../../tree/TreeAlgorithms.py#L138) | method | `subtree`・`interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) |
 | [`__len__()`](../../../tree/TreeAlgorithms.py#L143) | method | len(obj)。 | なし | 要素数（int） |
 | [`dist`](../../../tree/TreeAlgorithms.py#L116) | alias | `distance` の別名。 | 同じ | 同じ |
 | [`node_query`](../../../tree/TreeAlgorithms.py#L127) | alias | `node_intervals` の別名。 | 同じ | 同じ |
@@ -69,7 +77,7 @@ Euler Tour・virtual/Cartesian/rooted/inclusion/merge tree・重み付き直径�
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`get(vertices, with_distance=False)`](../../../tree/TreeAlgorithms.py#L154) | method | 指定位置・辺・状態の値を取得する。 | `vertices`: 頂点番号のiterable<br>`with_distance`: `with`・距離として渡す値（APIの文脈に従う）。省略時: `False` | 指定対象に格納された値・edge object |
+| [`get(vertices, with_distance=False)`](../../../tree/TreeAlgorithms.py#L154) | method | 指定位置・辺・状態の値を取得する。 | `vertices`: 頂点番号のiterable<br>`with_distance`: 頂点番号だけでなく距離も返すか。省略時: `False` | 指定対象に格納された値・edge object |
 | [`build`](../../../tree/TreeAlgorithms.py#L183) | alias | `get` の別名。 | 同じ | 同じ |
 | [`query`](../../../tree/TreeAlgorithms.py#L184) | alias | `get` の別名。 | 同じ | 同じ |
 

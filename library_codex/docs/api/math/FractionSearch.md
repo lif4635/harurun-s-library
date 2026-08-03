@@ -7,6 +7,10 @@ Stern--Brocot/Farey型の有理数探索。
 - source: [`math/FractionSearch.py`](../../../math/FractionSearch.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `stern_brocot_binary_search`: `stern`・`brocot`・二分・`search`を求める。
+
 ## Import
 
 ```python
@@ -17,7 +21,7 @@ from library_codex.math.FractionSearch import stern_brocot_binary_search
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`stern_brocot_binary_search(predicate, limit)`](../../../math/FractionSearch.py#L4) | Bracket a monotone predicate among reduced nonnegative fractions. | `predicate`: 判定callback<br>`limit`: 上限。NoneならAPI既定の上限 | tuple(`node.lower_bound()`, `node.upper_bound()`) / tuple(tuple `(0, 1)`, tuple `(0, 1)`) |
+| [`stern_brocot_binary_search(predicate, limit)`](../../../math/FractionSearch.py#L4) | `stern`・`brocot`・二分・`search`を求める。 | `predicate`: 判定callback<br>`limit`: 上限。NoneならAPI既定の上限 | tuple(`node.lower_bound()`, `node.upper_bound()`) / tuple(tuple `(0, 1)`, tuple `(0, 1)`) |
 
 ## Module aliases
 

@@ -7,6 +7,10 @@ watched literal型の反復SAT solver。
 - source: [`math/SATSolver.py`](../../../math/SATSolver.py)
 - 公開API: function 0、class 1、method/property 4（Python protocol 0を含む）
 
+## できること
+
+- `SatSolver`: watched literal型の反復SAT solverを扱う `SatSolver`。
+
 ## Import
 
 ```python
@@ -15,16 +19,16 @@ from library_codex.math.SATSolver import SatSolver
 
 ## Class `SatSolver`
 
-Iterative watched-literal SAT solver with chronological backtracking.
+watched literal型の反復SAT solverを扱う `SatSolver`。
 
 - constructor: [`SatSolver(variable_count)`](../../../math/SATSolver.py#L6)
-- 引数: `variable_count`: `variable`・個数として渡す値（APIの文脈に従う）
+- 引数: `variable_count`: 処理対象の個数
 - 返り値: `SatSolver` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_clause(clause)`](../../../math/SATSolver.py#L25) | method | `clause`を追加する。 | `clause`: SAT節を表すliteral列 | `None` |
-| [`if_then(first_variable, first_value, second_variable, second_value)`](../../../math/SATSolver.py#L38) | method | `SatSolver` の `if_then method` を実行する。 | `first_variable`: `first`・`variable`として渡す値（APIの文脈に従う）<br>`first_value`: `first`・値として渡す値（APIの文脈に従う）<br>`second_variable`: `second`・`variable`として渡す値（APIの文脈に従う）<br>`second_value`: `second`・値として渡す値（APIの文脈に従う） | `None` |
+| [`if_then(first_variable, first_value, second_variable, second_value)`](../../../math/SATSolver.py#L38) | method | `if`・`then`を求める。 | `first_variable`: `first`・`variable`として使う入力<br>`first_value`: 処理対象の値<br>`second_variable`: `second`・`variable`として使う入力<br>`second_value`: 処理対象の値 | `None` |
 | [`set_val(variable, value)`](../../../math/SATSolver.py#L42) | method | `val`を設定する。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`solve(assumptions=())`](../../../math/SATSolver.py#L49) | method | 設定済みの問題を解き、答えを返す。 | `assumptions`: 一時的に真と仮定するliteral列。省略時: `()` | 登録順の答えのlist |
 

@@ -7,6 +7,12 @@
 - source: [`graph/DijkstraRadixHeap.py`](../../../graph/DijkstraRadixHeap.py)
 - 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `dijkstra_radix_heap`: `dijkstra`・`radix`・`heap`を求める。
+- `dijkstra_radix_heap_restore`: `dijkstra`・`radix`・`heap`・`restore`を求める。
+- `restore_path`: pathを復元する。
+
 ## Import
 
 ```python
@@ -17,6 +23,6 @@ from library_codex.graph.DijkstraRadixHeap import dijkstra_radix_heap, dijkstra_
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`dijkstra_radix_heap(edge, start=0, goal=None)`](../../../graph/DijkstraRadixHeap.py#L4) | module の `dijkstra_radix_heap function` を実行する。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | `d` / 数値または入力要素型 `dist if goal is None else -1` |
-| [`dijkstra_radix_heap_restore(edge, start=0)`](../../../graph/DijkstraRadixHeap.py#L24) | module の `dijkstra_radix_heap_restore function` を実行する。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0` | tuple(`dist`（数値または入力要素型）, 親情報（数値または入力要素型）) |
-| [`restore_path(parent, goal)`](../../../graph/DijkstraRadixHeap.py#L44) | pathを復元する。 | `parent`: 親頂点・親配列<br>`goal`: 終点。Noneなら全体を処理 | pathを表すlist |
+| [`dijkstra_radix_heap(edge, start=0, goal=None)`](../../../graph/DijkstraRadixHeap.py#L4) | `dijkstra`・`radix`・`heap`を求める。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | `d` / 数値または入力要素型 `dist if goal is None else -1` |
+| [`dijkstra_radix_heap_restore(edge, start=0)`](../../../graph/DijkstraRadixHeap.py#L24) | `dijkstra`・`radix`・`heap`・`restore`を求める。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0` | tuple(`dist`（数値または入力要素型）, 親情報（数値または入力要素型）) |
+| [`restore_path(parent, goal)`](../../../graph/DijkstraRadixHeap.py#L44) | pathを復元する。 | `parent`: 親頂点・親配列<br>`goal`: 終点。Noneなら全体を処理 | list[int] — 経路上の頂点または辺を順に並べた列 |

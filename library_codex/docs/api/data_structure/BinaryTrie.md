@@ -7,6 +7,10 @@ multiset・全体xor・k-th・xor min/max。
 - source: [`data_structure/BinaryTrie.py`](../../../data_structure/BinaryTrie.py)
 - 公開API: function 0、class 1、method/property 12（Python protocol 2を含む）
 
+## できること
+
+- `BinaryTrie`: multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
+
 ## Import
 
 ```python
@@ -18,21 +22,21 @@ from library_codex.data_structure.BinaryTrie import BinaryTrie
 multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
 
 - constructor: [`BinaryTrie(bit_length=30)`](../../../data_structure/BinaryTrie.py#L4)
-- 引数: `bit_length`: `bit`・長さとして渡す値（APIの文脈に従う）。省略時: `30`
+- 引数: `bit_length`: 処理対象の個数。省略時: `30`
 - 返り値: `BinaryTrie` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(value, amount=1)`](../../../data_structure/BinaryTrie.py#L13) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `None` |
+| [`add(value, amount=1)`](../../../data_structure/BinaryTrie.py#L13) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `None` |
 | [`count_value(value)`](../../../data_structure/BinaryTrie.py#L39) | method | 値の個数を求める。 | `value`: 追加・設定・問い合わせる値 | `0` / `self.count[node]` |
 | [`discard(value, amount=1)`](../../../data_structure/BinaryTrie.py#L50) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `0` / `amount` |
-| [`xor_all(value)`](../../../data_structure/BinaryTrie.py#L65) | method | `BinaryTrie` の `xor_all method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `None` |
+| [`xor_all(value)`](../../../data_structure/BinaryTrie.py#L65) | method | XOR・全体を求める。 | `value`: 追加・設定・問い合わせる値 | `None` |
 | [`kth(index)`](../../../data_structure/BinaryTrie.py#L70) | method | 0-indexedでk番目の要素を取得する。 | `index`: 0-indexedの位置 | k番目の値 |
-| [`min()`](../../../data_structure/BinaryTrie.py#L88) | method | `BinaryTrie` の `min method` を実行する。 | なし | `self.kth(0)` |
-| [`max()`](../../../data_structure/BinaryTrie.py#L91) | method | `BinaryTrie` の `max method` を実行する。 | なし | `self.kth(self.count[0] - 1)` |
+| [`min()`](../../../data_structure/BinaryTrie.py#L88) | method | 最小を求める。 | なし | `self.kth(0)` |
+| [`max()`](../../../data_structure/BinaryTrie.py#L91) | method | 最大を求める。 | なし | `self.kth(self.count[0] - 1)` |
 | [`bisect_left(value)`](../../../data_structure/BinaryTrie.py#L94) | method | 条件を満たす最初の位置を二分探索する。 | `value`: 追加・設定・問い合わせる値 | 境界index（int） |
-| [`xor_min(value)`](../../../data_structure/BinaryTrie.py#L112) | method | `BinaryTrie` の `xor_min method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `stored`（int） |
-| [`xor_max(value)`](../../../data_structure/BinaryTrie.py#L128) | method | `BinaryTrie` の `xor_max method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `self.xor_min(value ^ mask)` |
+| [`xor_min(value)`](../../../data_structure/BinaryTrie.py#L112) | method | XOR・最小を求める。 | `value`: 追加・設定・問い合わせる値 | `stored`（int） |
+| [`xor_max(value)`](../../../data_structure/BinaryTrie.py#L128) | method | XOR・最大を求める。 | `value`: 追加・設定・問い合わせる値 | `self.xor_min(value ^ mask)` |
 | [`__contains__(value)`](../../../data_structure/BinaryTrie.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`__len__()`](../../../data_structure/BinaryTrie.py#L135) | method | len(obj)。 | なし | 要素数（int） |
 | [`insert`](../../../data_structure/BinaryTrie.py#L37) | alias | `add` の別名。 | 同じ | 同じ |

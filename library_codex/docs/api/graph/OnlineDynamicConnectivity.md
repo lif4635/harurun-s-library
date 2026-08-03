@@ -7,6 +7,10 @@ splay Euler Tour Tree＋HDT level昇格による完全動的連結性。
 - source: [`graph/OnlineDynamicConnectivity.py`](../../../graph/OnlineDynamicConnectivity.py)
 - 公開API: function 0、class 1、method/property 4（Python protocol 0を含む）
 
+## できること
+
+- `OnlineDynamicConnectivity`: splay Euler Tour Tree＋HDT level昇格による完全動的連結性を扱う `OnlineDynamicConnectivity`。
+
 ## Import
 
 ```python
@@ -33,7 +37,7 @@ splay Euler Tour Tree＋HDT level昇格による完全動的連結性を扱う `
 | [`link(first, second)`](../../../graph/OnlineDynamicConnectivity.py#L342) | method | 異なる木の2頂点を辺で接続する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`-1`, `-1`) / `edge` |
 | [`cut(first, second)`](../../../graph/OnlineDynamicConnectivity.py#L358) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | ForestCutQuery instance |
 | [`connected(first, second)`](../../../graph/OnlineDynamicConnectivity.py#L385) | method | 2頂点が同じ連結成分か判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
-| [`component_size(vertex)`](../../../graph/OnlineDynamicConnectivity.py#L393) | method | `OnlineDynamicConnectivity` の `component_size method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.forests[0].component_data(vertex)[1]` |
+| [`component_size(vertex)`](../../../graph/OnlineDynamicConnectivity.py#L393) | method | 指定頂点が属する連結成分の頂点数を返す。 | `vertex`: 頂点番号（0-indexed） | `self.forests[0].component_data(vertex)[1]` |
 | [`same`](../../../graph/OnlineDynamicConnectivity.py#L390) | alias | `connected` の別名。 | 同じ | 同じ |
 | [`is_connected`](../../../graph/OnlineDynamicConnectivity.py#L391) | alias | `connected` の別名。 | 同じ | 同じ |
 | [`size`](../../../graph/OnlineDynamicConnectivity.py#L397) | alias | `component_size` の別名。 | 同じ | 同じ |

@@ -7,6 +7,12 @@
 - source: [`data_structure/SegmentTree.py`](../../../data_structure/SegmentTree.py)
 - 公開API: function 2、class 4、method/property 18（Python protocol 1を含む）
 
+## できること
+
+- 任意の結合的演算で一点更新・半開区間集約を O(log N) で処理できる。
+- 遅延伝播版では区間更新と区間集約を同じ計算量で扱える。
+- 永続版では過去versionを壊さずに更新し、任意versionへ問い合わせできる。
+
 ## Import
 
 ```python
@@ -24,8 +30,8 @@ from library_codex.data_structure.SegmentTree import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`merge_max_interval(first, second)`](../../../data_structure/SegmentTree.py#L425) | module の `merge_max_interval function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `second` / `first` / 計算結果（MaxInterval） |
-| [`max_interval_segment_tree(values)`](../../../data_structure/SegmentTree.py#L458) | module の `max_interval_segment_tree function` を実行する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | SegmentTree instance |
+| [`merge_max_interval(first, second)`](../../../data_structure/SegmentTree.py#L425) | `merge`・最大・`interval`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `second` / `first` / 計算結果（MaxInterval） |
+| [`max_interval_segment_tree(values)`](../../../data_structure/SegmentTree.py#L458) | 最大・`interval`・`segment`・木を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | SegmentTree instance |
 
 ## Class `SegmentTree`
 
@@ -37,9 +43,9 @@ from library_codex.data_structure.SegmentTree import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`set(index, value)`](../../../data_structure/SegmentTree.py#L23) | method | 指定位置・状態を値で置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(index)`](../../../data_structure/SegmentTree.py#L33) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`prod(left, right)`](../../../data_structure/SegmentTree.py#L36) | method | 半開区間またはpathの集約値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| [`set(index, value)`](../../../data_structure/SegmentTree.py#L23) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../data_structure/SegmentTree.py#L33) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`prod(left, right)`](../../../data_structure/SegmentTree.py#L36) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
 | [`all_prod()`](../../../data_structure/SegmentTree.py#L56) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
 | [`max_right(left, predicate)`](../../../data_structure/SegmentTree.py#L59) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
 | [`min_left(right, predicate)`](../../../data_structure/SegmentTree.py#L84) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
@@ -56,9 +62,9 @@ from library_codex.data_structure.SegmentTree import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`set(index, value)`](../../../data_structure/SegmentTree.py#L178) | method | 指定位置・状態を値で置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(index)`](../../../data_structure/SegmentTree.py#L186) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`prod(left, right)`](../../../data_structure/SegmentTree.py#L192) | method | 半開区間またはpathの集約値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| [`set(index, value)`](../../../data_structure/SegmentTree.py#L178) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../data_structure/SegmentTree.py#L186) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`prod(left, right)`](../../../data_structure/SegmentTree.py#L192) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
 | [`apply(left, right=None, action=None)`](../../../data_structure/SegmentTree.py#L219) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）。省略時: `None`<br>`action`: 遅延作用・更新作用。省略時: `None` | `None` |
 | [`all_prod()`](../../../data_structure/SegmentTree.py#L260) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
 | [`max_right(left, predicate)`](../../../data_structure/SegmentTree.py#L264) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
@@ -77,8 +83,8 @@ from library_codex.data_structure.SegmentTree import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`apply(left, right, action)`](../../../data_structure/SegmentTree.py#L360) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | `None` |
-| [`get(index)`](../../../data_structure/SegmentTree.py#L383) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../data_structure/SegmentTree.py#L389) | method | 指定位置・状態を値で置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../data_structure/SegmentTree.py#L383) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../data_structure/SegmentTree.py#L389) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`range_apply`](../../../data_structure/SegmentTree.py#L381) | alias | `apply` の別名。 | 同じ | 同じ |
 
 ## Class `MaxInterval`
@@ -91,4 +97,4 @@ from library_codex.data_structure.SegmentTree import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`single(value)`](../../../data_structure/SegmentTree.py#L421) | classmethod | `MaxInterval` の `single method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `cls(value, 1)` |
+| [`single(value)`](../../../data_structure/SegmentTree.py#L421) | classmethod | `single`を求める。 | `value`: 追加・設定・問い合わせる値 | `cls(value, 1)` |

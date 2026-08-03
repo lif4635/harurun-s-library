@@ -7,6 +7,14 @@
 - source: [`convolution/OnlineFormalPowerSeries.py`](../../../convolution/OnlineFormalPowerSeries.py)
 - 公開API: function 2、class 5、method/property 25（Python protocol 8を含む）
 
+## できること
+
+- `differential_equation`: `differential`・`equation`を求める。
+- `newton_method`: `newton`・`method`を求める。
+- `RelaxedConvolution`: 係数を逐次確定するオンラインFPS演算を扱う `RelaxedConvolution`。
+- `RelaxedInverse`: 係数を逐次確定するオンラインFPS演算を扱う `RelaxedInverse`。
+- `RelaxedExponential`: 係数を逐次確定するオンラインFPS演算を扱う `RelaxedExponential`。
+
 ## Import
 
 ```python
@@ -25,12 +33,12 @@ from library_codex.convolution.OnlineFormalPowerSeries import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`differential_equation(function, derivative, initial, degree, mod=DEFAULT_MOD)`](../../../convolution/OnlineFormalPowerSeries.py#L343) | Solve f' = function(f), with function/derivative returning truncated FPS. | `function`: callback関数<br>`derivative`: 微分係数を計算するcallback<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` |
-| [`newton_method(calculate, initial, degree, mod=DEFAULT_MOD)`](../../../convolution/OnlineFormalPowerSeries.py#L370) | Solve G(f)=0 by iterative precision doubling; calculate -> (G,dG/df). | `calculate`: `calculate`として渡す値（APIの文脈に従う）<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` |
+| [`differential_equation(function, derivative, initial, degree, mod=DEFAULT_MOD)`](../../../convolution/OnlineFormalPowerSeries.py#L343) | `differential`・`equation`を求める。 | `function`: callback関数<br>`derivative`: 微分係数を計算するcallback<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` |
+| [`newton_method(calculate, initial, degree, mod=DEFAULT_MOD)`](../../../convolution/OnlineFormalPowerSeries.py#L370) | `newton`・`method`を求める。 | `calculate`: 処理中に呼び出す関数または操作<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` |
 
 ## Class `RelaxedConvolution`
 
-Online convolution: append a[n], b[n] and obtain coefficient n.
+係数を逐次確定するオンラインFPS演算を扱う `RelaxedConvolution`。
 
 - constructor: [`RelaxedConvolution(limit, mod=DEFAULT_MOD)`](../../../convolution/OnlineFormalPowerSeries.py#L18)
 - 引数: `limit`: 上限。NoneならAPI既定の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
@@ -38,7 +46,7 @@ Online convolution: append a[n], b[n] and obtain coefficient n.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`next(first, second)`](../../../convolution/OnlineFormalPowerSeries.py#L28) | method | `RelaxedConvolution` の `next method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.result[position]` |
+| [`next(first, second)`](../../../convolution/OnlineFormalPowerSeries.py#L28) | method | `next`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.result[position]` |
 | [`get`](../../../convolution/OnlineFormalPowerSeries.py#L77) | alias | `next` の別名。 | 同じ | 同じ |
 
 ## Class `RelaxedInverse`
@@ -51,7 +59,7 @@ Online convolution: append a[n], b[n] and obtain coefficient n.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`next(value)`](../../../convolution/OnlineFormalPowerSeries.py#L90) | method | `RelaxedInverse` の `next method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
+| [`next(value)`](../../../convolution/OnlineFormalPowerSeries.py#L90) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
 | [`__getitem__(index)`](../../../convolution/OnlineFormalPowerSeries.py#L100) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `RelaxedExponential`
@@ -64,7 +72,7 @@ Online convolution: append a[n], b[n] and obtain coefficient n.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`next(value)`](../../../convolution/OnlineFormalPowerSeries.py#L114) | method | `RelaxedExponential` の `next method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
+| [`next(value)`](../../../convolution/OnlineFormalPowerSeries.py#L114) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
 | [`__getitem__(index)`](../../../convolution/OnlineFormalPowerSeries.py#L128) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `RelaxedLogarithm`
@@ -77,12 +85,12 @@ Online convolution: append a[n], b[n] and obtain coefficient n.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`next(value)`](../../../convolution/OnlineFormalPowerSeries.py#L144) | method | `RelaxedLogarithm` の `next method` を実行する。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
+| [`next(value)`](../../../convolution/OnlineFormalPowerSeries.py#L144) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
 | [`__getitem__(index)`](../../../convolution/OnlineFormalPowerSeries.py#L159) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `OnlineFormalPowerSeries`
 
-Lazy coefficient stream supporting algebra and self-referential definitions.
+係数を逐次確定するオンラインFPS演算を扱う `OnlineFormalPowerSeries`。
 
 - constructor: [`OnlineFormalPowerSeries(series=None, function=None, mod=DEFAULT_MOD)`](../../../convolution/OnlineFormalPowerSeries.py#L168)
 - 引数: `series`: 昇冪の形式的冪級数係数列。省略時: `None`<br>`function`: callback関数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
@@ -93,18 +101,18 @@ Lazy coefficient stream supporting algebra and self-referential definitions.
 | [`set_corner(series)`](../../../convolution/OnlineFormalPowerSeries.py#L174) | method | `corner`を設定する。 | `series`: 昇冪の形式的冪級数係数列 | `self` |
 | [`set_function(function)`](../../../convolution/OnlineFormalPowerSeries.py#L178) | method | `function`を設定する。 | `function`: callback関数 | `self` |
 | [`set(other)`](../../../convolution/OnlineFormalPowerSeries.py#L182) | method | 指定位置・状態を値で置き換える。 | `other`: 同じ型のもう一方のobject・値 | `self` |
-| [`get(index)`](../../../convolution/OnlineFormalPowerSeries.py#L186) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`prefix(size)`](../../../convolution/OnlineFormalPowerSeries.py#L202) | method | `OnlineFormalPowerSeries` の `prefix method` を実行する。 | `size`: 要素数・universe size | list / `self.values[:size]` |
+| [`get(index)`](../../../convolution/OnlineFormalPowerSeries.py#L186) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`prefix(size)`](../../../convolution/OnlineFormalPowerSeries.py#L202) | method | prefixを求める。 | `size`: 要素数・universe size | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `self.values[:size]` |
 | [`__add__(other)`](../../../convolution/OnlineFormalPowerSeries.py#L216) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | OnlineFormalPowerSeries instance |
 | [`__sub__(other)`](../../../convolution/OnlineFormalPowerSeries.py#L224) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | OnlineFormalPowerSeries instance |
 | [`__rsub__(other)`](../../../convolution/OnlineFormalPowerSeries.py#L230) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self._coerce(other, self.mod) - self` |
 | [`__neg__()`](../../../convolution/OnlineFormalPowerSeries.py#L233) | method | -obj。 | なし | OnlineFormalPowerSeries instance |
-| [`scale(scalar)`](../../../convolution/OnlineFormalPowerSeries.py#L238) | method | `OnlineFormalPowerSeries` の `scale method` を実行する。 | `scalar`: scalar倍する値 | OnlineFormalPowerSeries instance |
+| [`scale(scalar)`](../../../convolution/OnlineFormalPowerSeries.py#L238) | method | `scale`を求める。 | `scalar`: scalar倍する値 | OnlineFormalPowerSeries instance |
 | [`__mul__(other)`](../../../convolution/OnlineFormalPowerSeries.py#L243) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | `self.scale(other)` / OnlineFormalPowerSeries instance |
-| [`shift_left(amount)`](../../../convolution/OnlineFormalPowerSeries.py#L269) | method | `OnlineFormalPowerSeries` の `shift_left method` を実行する。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance |
-| [`shift_right(amount)`](../../../convolution/OnlineFormalPowerSeries.py#L275) | method | `OnlineFormalPowerSeries` の `shift_right method` を実行する。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance |
-| [`derivative()`](../../../convolution/OnlineFormalPowerSeries.py#L280) | method | `OnlineFormalPowerSeries` の `derivative method` を実行する。 | なし | OnlineFormalPowerSeries instance |
-| [`integral()`](../../../convolution/OnlineFormalPowerSeries.py#L287) | method | `OnlineFormalPowerSeries` の `integral method` を実行する。 | なし | OnlineFormalPowerSeries instance |
+| [`shift_left(amount)`](../../../convolution/OnlineFormalPowerSeries.py#L269) | method | `shift`・左を求める。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance |
+| [`shift_right(amount)`](../../../convolution/OnlineFormalPowerSeries.py#L275) | method | `shift`・右を求める。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance |
+| [`derivative()`](../../../convolution/OnlineFormalPowerSeries.py#L280) | method | 入力した多項式・級数を形式微分する。 | なし | OnlineFormalPowerSeries instance |
+| [`integral()`](../../../convolution/OnlineFormalPowerSeries.py#L287) | method | 入力した多項式・級数を形式積分する。 | なし | OnlineFormalPowerSeries instance |
 | [`inverse()`](../../../convolution/OnlineFormalPowerSeries.py#L293) | method | 逆元・逆変換を求める。 | なし | OnlineFormalPowerSeries instance |
 | [`exponential()`](../../../convolution/OnlineFormalPowerSeries.py#L315) | method | 指数を計算する。 | なし | OnlineFormalPowerSeries instance |
 | [`logarithm()`](../../../convolution/OnlineFormalPowerSeries.py#L337) | method | 対数を計算する。 | なし | `(self.derivative() * self.inverse()).integral()` |

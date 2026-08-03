@@ -7,6 +7,14 @@ factorial/binomial・拡張GCD・floor sum・商区間・Gray code。
 - source: [`math/Combinatorics.py`](../../../math/Combinatorics.py)
 - 公開API: function 11、class 1、method/property 5（Python protocol 0を含む）
 
+## できること
+
+- `gcd`: GCDを求める。
+- `lcm`: LCMを求める。
+- `extended_gcd`: `extended`・GCDを求める。
+- `inverse_mod`: 逆元・`mod`を計算する。
+- `Combination`: factorial/binomial・拡張GCD・floor sum・商区間・Gray codeを扱う `Combination`。
+
 ## Import
 
 ```python
@@ -36,21 +44,21 @@ from library_codex.math.Combinatorics import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`gcd(first, second)`](../../../math/Combinatorics.py#L7) | module の `gcd function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`lcm(first, second)`](../../../math/Combinatorics.py#L15) | module の `lcm function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | int `0 if not first or not second else abs(first // gcd(first, seco...` |
-| [`extended_gcd(first, second)`](../../../math/Combinatorics.py#L19) | Return (g,x,y) with first*x + second*y = g = gcd(first,second). | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | (g,x,y) with first*x + second*y = g = gcd(first,second) |
+| [`gcd(first, second)`](../../../math/Combinatorics.py#L7) | GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
+| [`lcm(first, second)`](../../../math/Combinatorics.py#L15) | LCMを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | int `0 if not first or not second else abs(first // gcd(first, seco...` |
+| [`extended_gcd(first, second)`](../../../math/Combinatorics.py#L19) | `extended`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`old_r`, `old_x`, `old_y`) |
 | [`inverse_mod(value, modulus)`](../../../math/Combinatorics.py#L34) | 逆元・`mod`を計算する。 | `value`: 追加・設定・問い合わせる値<br>`modulus`: 法 | 数値または入力要素型 `inverse % modulus` |
 | [`inverse_table(size, mod=DEFAULT_MOD)`](../../../math/Combinatorics.py#L41) | 逆元・`table`を計算する。 | `size`: 要素数・universe size<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `inverse`（数値または入力要素型） |
-| [`binomial_multiplicative(n, k, mod=DEFAULT_MOD)`](../../../math/Combinatorics.py#L107) | O(k) binomial for huge n and small k over a prime modulus. | `n`: 要素数・頂点数・次数<br>`k`: 個数・順位・移動量（APIの文脈に従う）<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod` |
-| [`floor_sum(n, modulus, multiplier, addend)`](../../../math/Combinatorics.py#L119) | Sum floor((multiplier*i+addend)/modulus), 0 <= i < n. Unlike ACL's narrow interface, multiplier and addend may be negative. | `n`: 要素数・頂点数・次数<br>`modulus`: 法<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値 | 答え（数値または入力要素型） |
-| [`mod_affine_range_count(multiplier, addend, modulus, x_limit, y_limit)`](../../../math/Combinatorics.py#L143) | Count x in [0,x_limit) with (multiplier*x+addend)%modulus<y_limit. | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`modulus`: 法<br>`x_limit`: `x`・`limit`として渡す値（APIの文脈に従う）<br>`y_limit`: `y`・`limit`として渡す値（APIの文脈に従う） | 数値または入力要素型 `floor_sum(x_limit, modulus, multiplier, addend + modulus) - fl...` |
-| [`enumerate_quotient(number)`](../../../math/Combinatorics.py#L152) | Yield ``(number//x, left, right)`` for maximal x ranges [left,right). | `number`: 整数 | iterator（yieldされる要素） |
-| [`gray_code(value)`](../../../math/Combinatorics.py#L164) | module の `gray_code function` を実行する。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value ^ value >> 1` |
+| [`binomial_multiplicative(n, k, mod=DEFAULT_MOD)`](../../../math/Combinatorics.py#L107) | 二項係数・`multiplicative`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod` |
+| [`floor_sum(n, modulus, multiplier, addend)`](../../../math/Combinatorics.py#L119) | `floor`・和を計算する。 | `n`: 要素数・頂点数・次数<br>`modulus`: 法<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値 | 答え（数値または入力要素型） |
+| [`mod_affine_range_count(multiplier, addend, modulus, x_limit, y_limit)`](../../../math/Combinatorics.py#L143) | `mod`・`affine`・区間・個数を求める。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`modulus`: 法<br>`x_limit`: `x`・`limit`として使う入力<br>`y_limit`: `y`・`limit`として使う入力 | 数値または入力要素型 `floor_sum(x_limit, modulus, multiplier, addend + modulus) - fl...` |
+| [`enumerate_quotient(number)`](../../../math/Combinatorics.py#L152) | `quotient`を列挙する。 | `number`: 整数 | iterator[object] — 用途欄に示した要素を1つずつyieldする |
+| [`gray_code(value)`](../../../math/Combinatorics.py#L164) | `gray`・`code`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value ^ value >> 1` |
 | [`inverse_gray_code(value)`](../../../math/Combinatorics.py#L168) | 逆元・`gray`・`code`を計算する。 | `value`: 追加・設定・問い合わせる値 | 計算結果（int） |
 
 ## Class `Combination`
 
-Dynamically extended factorial table over a prime modulus.
+factorial/binomial・拡張GCD・floor sum・商区間・Gray codeを扱う `Combination`。
 
 - constructor: [`Combination(size=0, mod=DEFAULT_MOD)`](../../../math/Combinatorics.py#L57)
 - 引数: `size`: 要素数・universe size。省略時: `0`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
@@ -58,11 +66,11 @@ Dynamically extended factorial table over a prime modulus.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`ensure(size)`](../../../math/Combinatorics.py#L63) | method | `Combination` の `ensure method` を実行する。 | `size`: 要素数・universe size | `None` |
-| [`factorial_value(n)`](../../../math/Combinatorics.py#L78) | method | `Combination` の `factorial_value method` を実行する。 | `n`: 要素数・頂点数・次数 | `self.factorial[n]` |
-| [`binomial(n, k)`](../../../math/Combinatorics.py#L82) | method | `Combination` の `binomial method` を実行する。 | `n`: 要素数・頂点数・次数<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[k] % self.mod * sel...` |
-| [`permutation(n, k)`](../../../math/Combinatorics.py#L92) | method | `Combination` の `permutation method` を実行する。 | `n`: 要素数・頂点数・次数<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[n - k] % self.mod` |
-| [`multiset(n, k)`](../../../math/Combinatorics.py#L101) | method | `Combination` の `multiset method` を実行する。 | `n`: 要素数・頂点数・次数<br>`k`: 個数・順位・移動量（APIの文脈に従う） | int instance / `self.binomial(n + k - 1, k)` |
+| [`ensure(size)`](../../../math/Combinatorics.py#L63) | method | `ensure`を求める。 | `size`: 要素数・universe size | `None` |
+| [`factorial_value(n)`](../../../math/Combinatorics.py#L78) | method | 階乗・値を求める。 | `n`: 要素数・頂点数・次数 | `self.factorial[n]` |
+| [`binomial(n, k)`](../../../math/Combinatorics.py#L82) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[k] % self.mod * sel...` |
+| [`permutation(n, k)`](../../../math/Combinatorics.py#L92) | method | `permutation`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[n - k] % self.mod` |
+| [`multiset(n, k)`](../../../math/Combinatorics.py#L101) | method | `multiset`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int instance / `self.binomial(n + k - 1, k)` |
 | [`C`](../../../math/Combinatorics.py#L89) | alias | `binomial` の別名。 | 同じ | 同じ |
 | [`nCr`](../../../math/Combinatorics.py#L90) | alias | `binomial` の別名。 | 同じ | 同じ |
 | [`P`](../../../math/Combinatorics.py#L98) | alias | `permutation` の別名。 | 同じ | 同じ |

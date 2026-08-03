@@ -7,6 +7,13 @@ Chirp-Z・middle product・多変数通常/巡回・乗法畳み込み。
 - source: [`convolution/AdvancedConvolution.py`](../../../convolution/AdvancedConvolution.py)
 - 公開API: function 6、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `chirp_z`: `chirp`・`z`を求める。
+- `middle_product`: `middle`・積を計算する。
+- `multivariate_multiplication`: 2つの入力をこの構造の演算規則で乗算する。
+- `multidimensional_dft`: 入力列へ指定した変換を適用し、変換後の列を返す。
+
 ## Import
 
 ```python
@@ -30,9 +37,9 @@ from library_codex.convolution.AdvancedConvolution import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`chirp_z(polynomial, ratio, count=None, start=1, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L9) | Return f(start*ratio^i) for i=0..count-1 by Bluestein. | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数。省略時: `None`<br>`start`: 始点・開始位置。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | f(start*ratio^i) for i=0 |
-| [`middle_product(first, second, start, count, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L48) | A requested coefficient window of the ordinary convolution. | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`start`: 始点・開始位置<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L57) | Multiply dense multivariate polynomials truncated by each degree base. | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list |
-| [`multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L107) | Mixed-radix multidimensional DFT; base[0] is the fastest axis. | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`base`: 底・基準となる値または列<br>`inverse`: 逆元として渡す値（APIの文脈に従う）。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（list） |
+| [`chirp_z(polynomial, ratio, count=None, start=1, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L9) | `chirp`・`z`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数。省略時: `None`<br>`start`: 始点・開始位置。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * count` / 計算結果（数値または入力要素型） / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`middle_product(first, second, start, count, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L48) | `middle`・積を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`start`: 始点・開始位置<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L57) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L107) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`base`: 底・基準となる値または列<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 計算結果 |
 | [`multivariate_circular_convolution(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L146) | `multivariate`・`circular`・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `multidimensional_dft(left, base, True, mod)` |
-| [`multiplicative_convolution_mod_prime(first, second, prime, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L157) | h[k] = sum_{i*j=k (mod prime)} first[i]*second[j]. | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`prime`: 素数法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list / 答え（数値または入力要素型） |
+| [`multiplicative_convolution_mod_prime(first, second, prime, mod=DEFAULT_MOD)`](../../../convolution/AdvancedConvolution.py#L157) | `multiplicative`・畳み込み・`mod`・素数を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`prime`: 素数法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 答え（数値または入力要素型） |

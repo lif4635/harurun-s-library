@@ -7,6 +7,13 @@ graphic/partition/transversal matroid intersection。
 - source: [`optimization/Matroid.py`](../../../optimization/Matroid.py)
 - 公開API: function 1、class 3、method/property 6（Python protocol 0を含む）
 
+## できること
+
+- `minimum_matroid_intersection`: 最小・`matroid`・`intersection`を求める。
+- `GraphicMatroid`: graphic/partition/transversal matroid intersectionを扱う `GraphicMatroid`。
+- `PartitionMatroid`: graphic/partition/transversal matroid intersectionを扱う `PartitionMatroid`。
+- `TransversalMatroid`: graphic/partition/transversal matroid intersectionを扱う `TransversalMatroid`。
+
 ## Import
 
 ```python
@@ -17,7 +24,7 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`minimum_matroid_intersection(first, second, weights)`](../../../optimization/Matroid.py#L143) | Minimum weight common independent set for every attainable cardinality. | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weights`: 重みの列 | tuple(`costs`（list）, `selections`（list）) |
+| [`minimum_matroid_intersection(first, second, weights)`](../../../optimization/Matroid.py#L143) | 最小・`matroid`・`intersection`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weights`: 重みの列 | tuple(`costs`（list）, `selections`（list）) |
 
 ## Class `GraphicMatroid`
 
@@ -30,24 +37,24 @@ graphic/partition/transversal matroid intersectionを扱う `GraphicMatroid`。
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`set(selected)`](../../../optimization/Matroid.py#L13) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` |
-| [`circuit(edge)`](../../../optimization/Matroid.py#L16) | method | `GraphicMatroid` の `circuit method` を実行する。 | `edge`: 辺または隣接list | list / 計算結果（list） |
+| [`circuit(edge)`](../../../optimization/Matroid.py#L16) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `edge`: 辺または隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 
 ## Class `PartitionMatroid`
 
 graphic/partition/transversal matroid intersectionを扱う `PartitionMatroid`。
 
 - constructor: [`PartitionMatroid(groups, limits)`](../../../optimization/Matroid.py#L44)
-- 引数: `groups`: `groups`として渡す値（APIの文脈に従う）<br>`limits`: `limits`として渡す値（APIの文脈に従う）
+- 引数: `groups`: 処理対象を順に並べた列<br>`limits`: `limits`として使う入力
 - 返り値: `PartitionMatroid` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`set(selected)`](../../../optimization/Matroid.py#L49) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` |
-| [`circuit(element)`](../../../optimization/Matroid.py#L57) | method | `PartitionMatroid` の `circuit method` を実行する。 | `element`: `element`として渡す値（APIの文脈に従う） | list / 数値または入力要素型 `self.members[group] + [element]` |
+| [`circuit(element)`](../../../optimization/Matroid.py#L57) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `self.members[group] + [element]` |
 
 ## Class `TransversalMatroid`
 
-Elements are left vertices; independence means matchability to right vertices.
+graphic/partition/transversal matroid intersectionを扱う `TransversalMatroid`。
 
 - constructor: [`TransversalMatroid(left_size, right_size, edges)`](../../../optimization/Matroid.py#L70)
 - 引数: `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list
@@ -56,7 +63,7 @@ Elements are left vertices; independence means matchability to right vertices.
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`set(selected)`](../../../optimization/Matroid.py#L111) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` |
-| [`circuit(element)`](../../../optimization/Matroid.py#L121) | method | `TransversalMatroid` の `circuit method` を実行する。 | `element`: `element`として渡す値（APIの文脈に従う） | list / 計算結果（list） |
+| [`circuit(element)`](../../../optimization/Matroid.py#L121) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 
 ## Module aliases
 

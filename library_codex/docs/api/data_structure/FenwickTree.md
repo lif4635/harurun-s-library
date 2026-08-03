@@ -7,6 +7,12 @@
 - source: [`data_structure/FenwickTree.py`](../../../data_structure/FenwickTree.py)
 - 公開API: function 0、class 4、method/property 17（Python protocol 1を含む）
 
+## できること
+
+- 1次元列の一点加算とprefix和・半開区間和を O(log N) で処理できる。
+- 区間加算・区間和、疎な添字空間、2次元矩形和の各Fenwick構造を選べる。
+- 累積和が目標値以上になる最初の位置を O(log N) で探索できる。
+
 ## Import
 
 ```python
@@ -23,12 +29,12 @@ from library_codex.data_structure.FenwickTree import FenwickTree, RangeAddRangeS
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(index, value)`](../../../data_structure/FenwickTree.py#L21) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`prefix_sum(right)`](../../../data_structure/FenwickTree.py#L28) | method | prefix・和を処理する。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
-| [`sum(left, right=None)`](../../../data_structure/FenwickTree.py#L38) | method | 半開区間・集合の和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 区間・集合の和（入力要素型） |
-| [`get(index)`](../../../data_structure/FenwickTree.py#L45) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../data_structure/FenwickTree.py#L48) | method | 指定位置・状態を値で置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`lower_bound(target)`](../../../data_structure/FenwickTree.py#L51) | method | 指定値以上となる最初の位置を返す。 | `target`: 探索・判定・更新の対象値 | 条件を満たす最小index（int。存在しなければsize） |
+| [`add(index, value)`](../../../data_structure/FenwickTree.py#L21) | method | index番目の値へvalueを加える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`prefix_sum(right)`](../../../data_structure/FenwickTree.py#L28) | method | 半開区間 [0, right) の総和を返す。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
+| [`sum(left, right=None)`](../../../data_structure/FenwickTree.py#L38) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 区間・集合の和（入力要素型） |
+| [`get(index)`](../../../data_structure/FenwickTree.py#L45) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../data_structure/FenwickTree.py#L48) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`lower_bound(target)`](../../../data_structure/FenwickTree.py#L51) | method | prefix和がtarget以上になる最初の位置を返す。 | `target`: 探索・判定・更新の対象値 | 条件を満たす最小index（int。存在しなければsize） |
 | [`__len__()`](../../../data_structure/FenwickTree.py#L67) | method | len(obj)。 | なし | 要素数（int） |
 | [`sum0`](../../../data_structure/FenwickTree.py#L36) | alias | `prefix_sum` の別名。 | 同じ | 同じ |
 | [`prod`](../../../data_structure/FenwickTree.py#L43) | alias | `sum` の別名。 | 同じ | 同じ |
@@ -44,10 +50,10 @@ from library_codex.data_structure.FenwickTree import FenwickTree, RangeAddRangeS
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(left, right, value)`](../../../data_structure/FenwickTree.py#L92) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`prefix_sum(right)`](../../../data_structure/FenwickTree.py#L102) | method | prefix・和を処理する。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
-| [`sum(left, right)`](../../../data_structure/FenwickTree.py#L108) | method | 半開区間・集合の和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
-| [`get(index)`](../../../data_structure/FenwickTree.py#L113) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`add(left, right, value)`](../../../data_structure/FenwickTree.py#L92) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`prefix_sum(right)`](../../../data_structure/FenwickTree.py#L102) | method | 半開区間 [0, right) の総和を返す。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
+| [`sum(left, right)`](../../../data_structure/FenwickTree.py#L108) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
+| [`get(index)`](../../../data_structure/FenwickTree.py#L113) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
 | [`range_add`](../../../data_structure/FenwickTree.py#L100) | alias | `add` の別名。 | 同じ | 同じ |
 | [`prod`](../../../data_structure/FenwickTree.py#L111) | alias | `sum` の別名。 | 同じ | 同じ |
 
@@ -61,9 +67,9 @@ from library_codex.data_structure.FenwickTree import FenwickTree, RangeAddRangeS
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(index, value)`](../../../data_structure/FenwickTree.py#L126) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`prefix_sum(right)`](../../../data_structure/FenwickTree.py#L138) | method | prefix・和を処理する。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
-| [`sum(left, right)`](../../../data_structure/FenwickTree.py#L146) | method | 半開区間・集合の和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
+| [`add(index, value)`](../../../data_structure/FenwickTree.py#L126) | method | index番目の値へvalueを加える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`prefix_sum(right)`](../../../data_structure/FenwickTree.py#L138) | method | 半開区間 [0, right) の総和を返す。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
+| [`sum(left, right)`](../../../data_structure/FenwickTree.py#L146) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
 | [`prod`](../../../data_structure/FenwickTree.py#L149) | alias | `sum` の別名。 | 同じ | 同じ |
 
 ## Class `FenwickTree2D`
@@ -76,7 +82,7 @@ from library_codex.data_structure.FenwickTree import FenwickTree, RangeAddRangeS
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(row, column, value)`](../../../data_structure/FenwickTree.py#L162) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`prefix_sum(bottom, right)`](../../../data_structure/FenwickTree.py#L175) | method | prefix・和を処理する。 | `bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
-| [`sum(top, left, bottom, right)`](../../../data_structure/FenwickTree.py#L188) | method | 半開区間・集合の和を返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
+| [`add(row, column, value)`](../../../data_structure/FenwickTree.py#L162) | method | (row, column)の値へvalueを加える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`prefix_sum(bottom, right)`](../../../data_structure/FenwickTree.py#L175) | method | 半開区間 [0, right) の総和を返す。 | `bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
+| [`sum(top, left, bottom, right)`](../../../data_structure/FenwickTree.py#L188) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
 | [`prod`](../../../data_structure/FenwickTree.py#L196) | alias | `sum` の別名。 | 同じ | 同じ |

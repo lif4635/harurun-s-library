@@ -7,6 +7,11 @@
 - source: [`convolution/FPSWrappers.py`](../../../convolution/FPSWrappers.py)
 - 公開API: function 0、class 2、method/property 16（Python protocol 12を含む）
 
+## できること
+
+- `FPSFraction`: 有理FPSと双対FPSの演算ラッパーを扱う `FPSFraction`。
+- `DualFormalPowerSeries`: 有理FPSと双対FPSの演算ラッパーを扱う `DualFormalPowerSeries`。
+
 ## Import
 
 ```python
@@ -30,11 +35,11 @@ from library_codex.convolution.FPSWrappers import FPSFraction, DualFormalPowerSe
 | [`__mul__(other)`](../../../convolution/FPSWrappers.py#L54) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance |
 | [`__truediv__(other)`](../../../convolution/FPSWrappers.py#L64) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * self._coerce(other).inverse()` |
 | [`inverse()`](../../../convolution/FPSWrappers.py#L70) | method | 逆元・逆変換を求める。 | なし | FPSFraction instance |
-| [`shrink()`](../../../convolution/FPSWrappers.py#L75) | method | `FPSFraction` の `shrink method` を実行する。 | なし | `self` |
+| [`shrink()`](../../../convolution/FPSWrappers.py#L75) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` |
 
 ## Class `DualFormalPowerSeries`
 
-FPS value type with convolution-backed arithmetic. The C++ source caches the NTT domain. Python callers get the same algebraic API while multiplication still routes through the optimized NTT backend.
+有理FPSと双対FPSの演算ラッパーを扱う `DualFormalPowerSeries`。
 
 - constructor: [`DualFormalPowerSeries(coefficients=None, mod=DEFAULT_MOD)`](../../../convolution/FPSWrappers.py#L90)
 - 引数: `coefficients`: 係数列。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
@@ -42,7 +47,7 @@ FPS value type with convolution-backed arithmetic. The C++ source caches the NTT
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`deg`](../../../convolution/FPSWrappers.py#L95) | property | `DualFormalPowerSeries` の `deg method` を実行する。 | なし | `len(self.coefficients)` |
+| [`deg`](../../../convolution/FPSWrappers.py#L95) | property | `deg`を求める。 | なし | `len(self.coefficients)` |
 | [`get()`](../../../convolution/FPSWrappers.py#L98) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
 | [`__add__(other)`](../../../convolution/FPSWrappers.py#L108) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |
 | [`__sub__(other)`](../../../convolution/FPSWrappers.py#L115) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |

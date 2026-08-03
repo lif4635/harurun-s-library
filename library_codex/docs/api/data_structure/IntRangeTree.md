@@ -7,6 +7,11 @@
 - source: [`data_structure/IntRangeTree.py`](../../../data_structure/IntRangeTree.py)
 - 公開API: function 0、class 2、method/property 23（Python protocol 6を含む）
 
+## できること
+
+- `RangeAddAssignRangeStats`: 整数専用range add/assign/affineとsum/min/maxの高速lazy treeを扱う `RangeAddAssignRangeStats`。
+- `RangeAffineRangeSum`: 整数専用range add/assign/affineとsum/min/maxの高速lazy treeを扱う `RangeAffineRangeSum`。
+
 ## Import
 
 ```python
@@ -21,7 +26,7 @@ from library_codex.data_structure.IntRangeTree import RangeAddAssignRangeStats, 
 
 ## Class `RangeAddAssignRangeStats`
 
-Range add/assign with range sum/minimum/maximum queries.
+整数専用range add/assign/affineとsum/min/maxの高速lazy treeを扱う `RangeAddAssignRangeStats`。
 
 - constructor: [`RangeAddAssignRangeStats(values)`](../../../data_structure/IntRangeTree.py#L15)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある
@@ -29,16 +34,16 @@ Range add/assign with range sum/minimum/maximum queries.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`range_add(left, right, value)`](../../../data_structure/IntRangeTree.py#L142) | method | 区間・`add`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`range_assign(left, right, value)`](../../../data_structure/IntRangeTree.py#L147) | method | `RangeAddAssignRangeStats` の `range_assign method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`range_add(left, right, value)`](../../../data_structure/IntRangeTree.py#L142) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`range_assign(left, right, value)`](../../../data_structure/IntRangeTree.py#L147) | method | 区間・`assign`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`range_sum(left, right)`](../../../data_structure/IntRangeTree.py#L199) | method | 区間・和を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 0)` |
-| [`range_min(left, right)`](../../../data_structure/IntRangeTree.py#L204) | method | `RangeAddAssignRangeStats` の `range_min method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 1)` |
-| [`range_max(left, right)`](../../../data_structure/IntRangeTree.py#L209) | method | `RangeAddAssignRangeStats` の `range_max method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 2)` |
-| [`get(index)`](../../../data_structure/IntRangeTree.py#L214) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../data_structure/IntRangeTree.py#L222) | method | 指定位置・状態を値で置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`range_min(left, right)`](../../../data_structure/IntRangeTree.py#L204) | method | 区間・最小を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 1)` |
+| [`range_max(left, right)`](../../../data_structure/IntRangeTree.py#L209) | method | 区間・最大を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 2)` |
+| [`get(index)`](../../../data_structure/IntRangeTree.py#L214) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../data_structure/IntRangeTree.py#L222) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`all_sum()`](../../../data_structure/IntRangeTree.py#L227) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
-| [`all_min()`](../../../data_structure/IntRangeTree.py#L230) | method | `RangeAddAssignRangeStats` の `all_min method` を実行する。 | なし | `self.minimum[1]` |
-| [`all_max()`](../../../data_structure/IntRangeTree.py#L233) | method | `RangeAddAssignRangeStats` の `all_max method` を実行する。 | なし | `self.maximum[1]` |
+| [`all_min()`](../../../data_structure/IntRangeTree.py#L230) | method | 全体・最小を求める。 | なし | `self.minimum[1]` |
+| [`all_max()`](../../../data_structure/IntRangeTree.py#L233) | method | 全体・最大を求める。 | なし | `self.maximum[1]` |
 | [`__getitem__(index)`](../../../data_structure/IntRangeTree.py#L236) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(index, value)`](../../../data_structure/IntRangeTree.py#L239) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`__len__()`](../../../data_structure/IntRangeTree.py#L242) | method | len(obj)。 | なし | 要素数（int） |
@@ -50,7 +55,7 @@ Range add/assign with range sum/minimum/maximum queries.
 
 ## Class `RangeAffineRangeSum`
 
-Range ``x = multiplier*x + addend`` and range-sum queries.
+整数専用range add/assign/affineとsum/min/maxの高速lazy treeを扱う `RangeAffineRangeSum`。
 
 - constructor: [`RangeAffineRangeSum(values, mod=None)`](../../../data_structure/IntRangeTree.py#L254)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None`
@@ -59,11 +64,11 @@ Range ``x = multiplier*x + addend`` and range-sum queries.
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`apply(left, right, multiplier, addend)`](../../../data_structure/IntRangeTree.py#L325) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値 | `None` |
-| [`range_add(left, right, value)`](../../../data_structure/IntRangeTree.py#L356) | method | 区間・`add`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`range_multiply(left, right, value)`](../../../data_structure/IntRangeTree.py#L359) | method | `RangeAffineRangeSum` の `range_multiply method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`range_add(left, right, value)`](../../../data_structure/IntRangeTree.py#L356) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`range_multiply(left, right, value)`](../../../data_structure/IntRangeTree.py#L359) | method | 2つの入力をこの構造の演算規則で乗算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`range_sum(left, right)`](../../../data_structure/IntRangeTree.py#L362) | method | 区間・和を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `0` / int/数値または入力要素型 `result if self.mod is None else result % self.mod` |
-| [`get(index)`](../../../data_structure/IntRangeTree.py#L386) | method | 指定位置・辺・状態の値を取得する。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../data_structure/IntRangeTree.py#L391) | method | 指定位置・状態を値で置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../data_structure/IntRangeTree.py#L386) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../data_structure/IntRangeTree.py#L391) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`all_sum()`](../../../data_structure/IntRangeTree.py#L396) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
 | [`__getitem__(index)`](../../../data_structure/IntRangeTree.py#L399) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(index, value)`](../../../data_structure/IntRangeTree.py#L402) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |

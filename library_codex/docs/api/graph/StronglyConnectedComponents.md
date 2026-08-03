@@ -7,6 +7,11 @@
 - source: [`graph/StronglyConnectedComponents.py`](../../../graph/StronglyConnectedComponents.py)
 - 公開API: function 1、class 1、method/property 2（Python protocol 1を含む）
 
+## できること
+
+- `strongly_connected_components`: `strongly`・`connected`・連結成分を求める。
+- `StronglyConnectedComponents`: 反復Kosaraju・縮約DAGを扱う `StronglyConnectedComponents`。
+
 ## Import
 
 ```python
@@ -23,7 +28,7 @@ from library_codex.graph.StronglyConnectedComponents import strongly_connected_c
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`strongly_connected_components(graph)`](../../../graph/StronglyConnectedComponents.py#L69) | module の `strongly_connected_components function` を実行する。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.component`, `solver.groups`) |
+| [`strongly_connected_components(graph)`](../../../graph/StronglyConnectedComponents.py#L69) | `strongly`・`connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.component`, `solver.groups`) |
 
 ## Class `StronglyConnectedComponents`
 
@@ -35,7 +40,7 @@ from library_codex.graph.StronglyConnectedComponents import strongly_connected_c
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`same(first, second)`](../../../graph/StronglyConnectedComponents.py#L62) | method | `StronglyConnectedComponents` の `same method` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`same(first, second)`](../../../graph/StronglyConnectedComponents.py#L62) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`__getitem__(vertex)`](../../../graph/StronglyConnectedComponents.py#L65) | method | obj[key] で取得する。 | `vertex`: 頂点番号（0-indexed） | 格納値、sliceなら同種の部分構造 |
 
 ## Module aliases

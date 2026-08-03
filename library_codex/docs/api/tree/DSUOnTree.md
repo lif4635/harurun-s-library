@@ -7,6 +7,10 @@ Euler区間を用いるDSU on Tree。
 - source: [`tree/DSUOnTree.py`](../../../tree/DSUOnTree.py)
 - 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
 
+## できること
+
+- `DSUOnTree`: Euler区間を用いるDSU on Treeを扱う `DSUOnTree`。
+
 ## Import
 
 ```python
@@ -23,6 +27,6 @@ Euler区間を用いるDSU on Treeを扱う `DSUOnTree`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(vertex)`](../../../tree/DSUOnTree.py#L74) | method | `DSUOnTree` の `index method` を実行する。 | `vertex`: 頂点番号（0-indexed） | `self.down[vertex]` |
-| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L79) | method | `DSUOnTree` の `run method` を実行する。 | `add`: `add`として渡す値（APIの文脈に従う）<br>`query`: `query`として渡す値（APIの文脈に従う）<br>`remove`: `remove`として渡す値（APIの文脈に従う）<br>`reset`: `reset`として渡す値（APIの文脈に従う）。省略時: `None` | `None` |
+| [`index(vertex)`](../../../tree/DSUOnTree.py#L74) | method | 指定要素・頂点に対応する内部indexを返す。 | `vertex`: 頂点番号（0-indexed） | `self.down[vertex]` |
+| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L79) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `add`: 処理中に呼び出す関数または操作<br>`query`: 処理中に呼び出す関数または操作<br>`remove`: 処理中に呼び出す関数または操作<br>`reset`: `reset`として使う入力。省略時: `None` | `None` |
 | [`idx`](../../../tree/DSUOnTree.py#L77) | alias | `index` の別名。 | 同じ | 同じ |

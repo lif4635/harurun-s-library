@@ -7,6 +7,12 @@ Heavy-Light Decomposition（非再帰）。
 - source: [`tree/HeavyLightDecomposition.py`](../../../tree/HeavyLightDecomposition.py)
 - 公開API: function 0、class 1、method/property 11（Python protocol 0を含む）
 
+## できること
+
+- 木をheavy pathへ分解し、頂点path・辺pathを少数の半開区間へ変換できる。
+- LCA、頂点間距離、k個先の頂点、部分木区間を取得できる。
+- Segment Treeなどと組み合わせてpath query・subtree queryを処理できる。
+
 ## Import
 
 ```python
@@ -30,16 +36,16 @@ Heavy-Light Decomposition（非再帰）を扱う `HeavyLightDecomposition`。
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`lca(u, v)`](../../../tree/HeavyLightDecomposition.py#L57) | method | 2頂点の最小共通祖先を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 最小共通祖先の頂点番号（int） |
-| [`dist(u, v)`](../../../tree/HeavyLightDecomposition.py#L68) | method | `HeavyLightDecomposition` の `dist method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 数値または入力要素型 `self.depth[u] + self.depth[v] - (self.depth[w] << 1)` |
-| [`kth_ancestor(v, k)`](../../../tree/HeavyLightDecomposition.py#L72) | method | `HeavyLightDecomposition` の `kth_ancestor method` を実行する。 | `v`: 頂点番号（0-indexed）<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `-1` / `self.rev[tin[v] - k]` |
-| [`jump(u, v, k)`](../../../tree/HeavyLightDecomposition.py#L84) | method | `HeavyLightDecomposition` の `jump method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`k`: 個数・順位・移動量（APIの文脈に従う） | `-1` / `self.kth_ancestor(u, k)` / `self.kth_ancestor(v, distance - k)` |
-| [`next_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L94) | method | `HeavyLightDecomposition` の `next_on_path method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | `-1` / `self.jump(u, v, 1)` |
-| [`vertices_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L101) | method | `HeavyLightDecomposition` の `vertices_on_path method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | list |
-| [`subtree(v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L105) | method | `HeavyLightDecomposition` の `subtree method` を実行する。 | `v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[v] + edge`, `self.tout[v]`) |
-| [`path(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L108) | method | `HeavyLightDecomposition` の `path method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | `res`（list） |
-| [`path_ordered(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L129) | method | `HeavyLightDecomposition` の `path_ordered method` を実行する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | `up`（list） |
-| [`index(v)`](../../../tree/HeavyLightDecomposition.py#L154) | method | `HeavyLightDecomposition` の `index method` を実行する。 | `v`: 頂点番号（0-indexed） | `self.tin[v]` |
-| [`vertex(i)`](../../../tree/HeavyLightDecomposition.py#L157) | method | `HeavyLightDecomposition` の `vertex method` を実行する。 | `i`: 0-indexedの位置 | `self.rev[i]` |
+| [`dist(u, v)`](../../../tree/HeavyLightDecomposition.py#L68) | method | `dist`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | 数値または入力要素型 `self.depth[u] + self.depth[v] - (self.depth[w] << 1)` |
+| [`kth_ancestor(v, k)`](../../../tree/HeavyLightDecomposition.py#L72) | method | k番目・`ancestor`を求める。 | `v`: 頂点番号（0-indexed）<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.rev[tin[v] - k]` |
+| [`jump(u, v, k)`](../../../tree/HeavyLightDecomposition.py#L84) | method | `jump`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.kth_ancestor(u, k)` / `self.kth_ancestor(v, distance - k)` |
+| [`next_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L94) | method | `next`・`on`・pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | `-1` / `self.jump(u, v, 1)` |
+| [`vertices_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L101) | method | 頂点・`on`・pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | list[int] — 経路上の頂点または辺を順に並べた列 |
+| [`subtree(v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L105) | method | `subtree`を求める。 | `v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[v] + edge`, `self.tout[v]`) |
+| [`path(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L108) | method | pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 |
+| [`path_ordered(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L129) | method | path・`ordered`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 |
+| [`index(v)`](../../../tree/HeavyLightDecomposition.py#L154) | method | 指定要素・頂点に対応する内部indexを返す。 | `v`: 頂点番号（0-indexed） | `self.tin[v]` |
+| [`vertex(i)`](../../../tree/HeavyLightDecomposition.py#L157) | method | 頂点を求める。 | `i`: 0-indexedの位置 | `self.rev[i]` |
 | [`nxt`](../../../tree/HeavyLightDecomposition.py#L99) | alias | `next_on_path` の別名。 | 同じ | 同じ |
 
 ## Module aliases

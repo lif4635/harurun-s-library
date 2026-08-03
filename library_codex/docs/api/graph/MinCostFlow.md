@@ -7,6 +7,10 @@
 - source: [`graph/MinCostFlow.py`](../../../graph/MinCostFlow.py)
 - 公開API: function 0、class 1、method/property 5（Python protocol 0を含む）
 
+## できること
+
+- `MinCostFlowGraph`: 非負費用のポテンシャル付き最小費用流・slopeを扱う `MinCostFlowGraph`。
+
 ## Import
 
 ```python
@@ -30,9 +34,9 @@ from library_codex.graph.MinCostFlow import MinCostFlowGraph
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_edge(source, target, capacity, cost)`](../../../graph/MinCostFlow.py#L18) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量<br>`cost`: 辺・選択の費用 | 数値または入力要素型 `len(self.pos) - 1` |
-| [`get_edge(i)`](../../../graph/MinCostFlow.py#L32) | method | 辺を取得する。 | `i`: 0-indexedの位置 | tuple(`source`, `edge[0]`, 数値または入力要素型 `edge[2] + reverse[2]`, `reverse[2]`, `edge[3]`) |
-| [`edges()`](../../../graph/MinCostFlow.py#L38) | method | `MinCostFlowGraph` の `edges method` を実行する。 | なし | list |
-| [`slope(source, sink, flow_limit=None)`](../../../graph/MinCostFlow.py#L41) | method | `MinCostFlowGraph` の `slope method` を実行する。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | 計算結果（list） |
+| [`get_edge(i)`](../../../graph/MinCostFlow.py#L32) | method | edge_idに対応する辺の両端頂点を返す。 | `i`: 0-indexedの位置 | tuple(`source`, `edge[0]`, 数値または入力要素型 `edge[2] + reverse[2]`, `reverse[2]`, `edge[3]`) |
+| [`edges()`](../../../graph/MinCostFlow.py#L38) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`slope(source, sink, flow_limit=None)`](../../../graph/MinCostFlow.py#L41) | method | `slope`を求める。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | list[object] — 計算結果 |
 | [`flow(source, sink, flow_limit=None)`](../../../graph/MinCostFlow.py#L113) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | `self.slope(source, sink, flow_limit)[-1]` |
 | [`min_cost_flow`](../../../graph/MinCostFlow.py#L116) | alias | `flow` の別名。 | 同じ | 同じ |
 

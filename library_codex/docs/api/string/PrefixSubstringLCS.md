@@ -7,6 +7,11 @@ prefix対substringのオフラインLCS。
 - source: [`string/PrefixSubstringLCS.py`](../../../string/PrefixSubstringLCS.py)
 - 公開API: function 1、class 1、method/property 2（Python protocol 0を含む）
 
+## できること
+
+- `prefix_substring_lcs`: prefix・`substring`・`lcs`を求める。
+- `PrefixSubstringLCS`: prefix対substringのオフラインLCSを扱う `PrefixSubstringLCS`。
+
 ## Import
 
 ```python
@@ -17,7 +22,7 @@ from library_codex.string.PrefixSubstringLCS import prefix_substring_lcs, Prefix
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`prefix_substring_lcs(first, second, queries)`](../../../string/PrefixSubstringLCS.py#L78) | module の `prefix_substring_lcs function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`queries`: 一括処理するqueryの列 | `solver.run()` |
+| [`prefix_substring_lcs(first, second, queries)`](../../../string/PrefixSubstringLCS.py#L78) | prefix・`substring`・`lcs`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`queries`: 一括処理するqueryの列 | `solver.run()` |
 
 ## Class `PrefixSubstringLCS`
 
@@ -29,6 +34,6 @@ prefix対substringのオフラインLCSを扱う `PrefixSubstringLCS`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(prefix_end, left, right)`](../../../string/PrefixSubstringLCS.py#L12) | method | 値・辺・要素を追加する。詳細はclass/moduleの説明に従う。 | `prefix_end`: prefix・`end`として渡す値（APIの文脈に従う）<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `query_id` |
-| [`run()`](../../../string/PrefixSubstringLCS.py#L35) | method | `PrefixSubstringLCS` の `run method` を実行する。 | なし | 計算結果（数値または入力要素型） |
+| [`add(prefix_end, left, right)`](../../../string/PrefixSubstringLCS.py#L12) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `prefix_end`: prefix・`end`として使う入力<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `query_id` |
+| [`run()`](../../../string/PrefixSubstringLCS.py#L35) | method | 登録済みの処理を実行し、入力順に結果を返す。 | なし | 計算結果（数値または入力要素型） |
 | [`add_query`](../../../string/PrefixSubstringLCS.py#L33) | alias | `add` の別名。 | 同じ | 同じ |

@@ -7,6 +7,14 @@
 - source: [`tree/StaticTopTree.py`](../../../tree/StaticTopTree.py)
 - 公開API: function 0、class 7、method/property 14（Python protocol 0を含む）
 
+## できること
+
+- `StaticTopTree`: 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `StaticTopTree`。
+- `StaticTopTreeEdgeBased`: 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `StaticTopTreeEdgeBased`。
+- `DynamicTreeDP`: 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `DynamicTreeDP`。
+- `EdgeTopTreeDP`: 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `EdgeTopTreeDP`。
+- `DynamicRerootingDP`: 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `DynamicRerootingDP`。
+
 ## Import
 
 ```python
@@ -34,7 +42,7 @@ from library_codex.tree.StaticTopTree import (
 
 ## Class `StaticTopTree`
 
-Balanced edge-cluster static top tree. Original node ``v`` is the leaf for the edge ``parent[v] -> v``. The root leaf is a dummy edge, which is useful as an identity cluster.
+辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `StaticTopTree`。
 
 - constructor: [`StaticTopTree(tree, root=0)`](../../../tree/StaticTopTree.py#L76)
 - 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
@@ -42,10 +50,10 @@ Balanced edge-cluster static top tree. Original node ``v`` is the leaf for the e
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`from_edges(size, edges, root=0)`](../../../tree/StaticTopTree.py#L111) | classmethod | `StaticTopTree` の `from_edges method` を実行する。 | `size`: 要素数・universe size<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `0` | 計算結果 |
+| [`from_edges(size, edges, root=0)`](../../../tree/StaticTopTree.py#L111) | classmethod | `from`・辺を求める。 | `size`: 要素数・universe size<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `0` | 計算結果 |
 | [`add_edge(first, second)`](../../../tree/StaticTopTree.py#L118) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`build(root=None)`](../../../tree/StaticTopTree.py#L174) | method | 内部構造を構築する。 | `root`: 根の頂点番号・原始根。省略時: `None` | `self.top_tree_root` |
-| [`height()`](../../../tree/StaticTopTree.py#L228) | method | `StaticTopTree` の `height method` を実行する。 | なし | 答え（int） |
+| [`height()`](../../../tree/StaticTopTree.py#L228) | method | `height`を求める。 | なし | 答え（int） |
 | [`run`](../../../tree/StaticTopTree.py#L226) | alias | `build` の別名。 | 同じ | 同じ |
 
 ## Class `StaticTopTreeEdgeBased`
@@ -65,7 +73,7 @@ Balanced edge-cluster static top tree. Original node ``v`` is the leaf for the e
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `DynamicTreeDP`。
 
 - constructor: [`DynamicTreeDP(top_tree, vertex, rake, compress)`](../../../tree/StaticTopTree.py#L249)
-- 引数: `top_tree`: `top`・木として渡す値（APIの文脈に従う）<br>`vertex`: 頂点番号（0-indexed）<br>`rake`: `rake`として渡す値（APIの文脈に従う）<br>`compress`: `compress`として渡す値（APIの文脈に従う）
+- 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号（0-indexed）<br>`rake`: `rake`として使う入力<br>`compress`: `compress`として使う入力
 - 返り値: `DynamicTreeDP` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -79,12 +87,12 @@ Balanced edge-cluster static top tree. Original node ``v`` is the leaf for the e
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `EdgeTopTreeDP`。
 
 - constructor: [`EdgeTopTreeDP(top_tree, edge, compress, rake)`](../../../tree/StaticTopTree.py#L292)
-- 引数: `top_tree`: `top`・木として渡す値（APIの文脈に従う）<br>`edge`: 辺または隣接list<br>`compress`: `compress`として渡す値（APIの文脈に従う）<br>`rake`: `rake`として渡す値（APIの文脈に従う）
+- 引数: `top_tree`: `top`・木として使う入力<br>`edge`: 辺または隣接list<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力
 - 返り値: `EdgeTopTreeDP` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`update(edge_leaf)`](../../../tree/StaticTopTree.py#L327) | method | 指定位置・辺・状態を更新する。 | `edge_leaf`: 辺・`leaf`として渡す値（APIの文脈に従う） | `None` |
+| [`update(edge_leaf)`](../../../tree/StaticTopTree.py#L327) | method | 指定位置・辺・状態を更新する。 | `edge_leaf`: 辺・`leaf`として使う入力 | `None` |
 | [`get()`](../../../tree/StaticTopTree.py#L333) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
 
 ## Class `DynamicRerootingDP`
@@ -92,7 +100,7 @@ Balanced edge-cluster static top tree. Original node ``v`` is the leaf for the e
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `DynamicRerootingDP`。
 
 - constructor: [`DynamicRerootingDP(top_tree, vertex, rake_forward, rake_backward, compress, identity)`](../../../tree/StaticTopTree.py#L350)
-- 引数: `top_tree`: `top`・木として渡す値（APIの文脈に従う）<br>`vertex`: 頂点番号（0-indexed）<br>`rake_forward`: `rake`・`forward`として渡す値（APIの文脈に従う）<br>`rake_backward`: `rake`・`backward`として渡す値（APIの文脈に従う）<br>`compress`: `compress`として渡す値（APIの文脈に従う）<br>`identity`: 演算 `op` の単位元
+- 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号（0-indexed）<br>`rake_forward`: `rake`・`forward`として使う入力<br>`rake_backward`: `rake`・`backward`として使う入力<br>`compress`: `compress`として使う入力<br>`identity`: 演算 `op` の単位元
 - 返り値: `DynamicRerootingDP` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -110,14 +118,14 @@ Balanced edge-cluster static top tree. Original node ``v`` is the leaf for the e
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`height()`](../../../tree/StaticTopTree.py#L554) | method | `StaticTopTreeVertexBased` の `height method` を実行する。 | なし | 答え（int） |
+| [`height()`](../../../tree/StaticTopTree.py#L554) | method | `height`を求める。 | なし | 答え（int） |
 
 ## Class `VertexTopTreeDP`
 
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `VertexTopTreeDP`。
 
 - constructor: [`VertexTopTreeDP(top_tree, vertex, compress, rake, add_edge, add_vertex)`](../../../tree/StaticTopTree.py#L582)
-- 引数: `top_tree`: `top`・木として渡す値（APIの文脈に従う）<br>`vertex`: 頂点番号（0-indexed）<br>`compress`: `compress`として渡す値（APIの文脈に従う）<br>`rake`: `rake`として渡す値（APIの文脈に従う）<br>`add_edge`: `add`・辺として渡す値（APIの文脈に従う）<br>`add_vertex`: `add`・頂点として渡す値（APIの文脈に従う）
+- 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号（0-indexed）<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
 - 返り値: `VertexTopTreeDP` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

@@ -7,6 +7,10 @@
 - source: [`algorithm/PermutationGroup.py`](../../../algorithm/PermutationGroup.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `simplify_permutation_subgroup`: `simplify`・`permutation`・`subgroup`を求める。
+
 ## Import
 
 ```python
@@ -17,7 +21,7 @@ from library_codex.algorithm.PermutationGroup import simplify_permutation_subgro
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`simplify_permutation_subgroup(n, permutations, force_size_n=True)`](../../../algorithm/PermutationGroup.py#L1) | Return a stabilizer-chain transversal for a generated subgroup. | `n`: 要素数・頂点数・次数<br>`permutations`: 生成元となる置換のlist<br>`force_size_n`: `force`・`size`・`n`として渡す値（APIの文脈に従う）。省略時: `True` | a stabilizer-chain transversal for a generated subgroup |
+| [`simplify_permutation_subgroup(n, permutations, force_size_n=True)`](../../../algorithm/PermutationGroup.py#L1) | `simplify`・`permutation`・`subgroup`を求める。 | `n`: 要素数・頂点数・次数<br>`permutations`: 生成元となる置換のlist<br>`force_size_n`: `force`・`size`・`n`として使う入力。省略時: `True` | list[int] — 頂点または要素の位置を結果順に並べた列 |
 
 ## Module aliases
 

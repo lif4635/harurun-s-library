@@ -7,6 +7,11 @@
 - source: [`data_structure/AdvancedOrdered.py`](../../../data_structure/AdvancedOrdered.py)
 - 公開API: function 0、class 2、method/property 25（Python protocol 5を含む）
 
+## できること
+
+- `OrderedMap`: 高度な順序集合・区間集合・永続順序構造を扱う `OrderedMap`。
+- `PersistentRBSTSet`: 高度な順序集合・区間集合・永続順序構造を扱う `PersistentRBSTSet`。
+
 ## Import
 
 ```python
@@ -15,10 +20,10 @@ from library_codex.data_structure.AdvancedOrdered import OrderedMap, PersistentR
 
 ## Class `OrderedMap`
 
-Order-statistic map backed by the array-based iterative TreapSet.
+高度な順序集合・区間集合・永続順序構造を扱う `OrderedMap`。
 
 - constructor: [`OrderedMap(items=(), default_factory=lambda : None)`](../../../data_structure/AdvancedOrdered.py#L9)
-- 引数: `items`: `items`として渡す値（APIの文脈に従う）。省略時: `()`<br>`default_factory`: `default`・`factory`として渡す値（APIの文脈に従う）。省略時: `lambda : None`
+- 引数: `items`: 処理対象を順に並べた列。省略時: `()`<br>`default_factory`: `default`・`factory`として使う入力。省略時: `lambda : None`
 - 返り値: `OrderedMap` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -29,18 +34,18 @@ Order-statistic map backed by the array-based iterative TreapSet.
 | [`find(key)`](../../../data_structure/AdvancedOrdered.py#L29) | method | 代表元・位置・対象要素を探す。 | `key`: 比較・格納に使うkey | 代表元・位置・node番号（int） |
 | [`erase(key)`](../../../data_structure/AdvancedOrdered.py#L32) | method | 指定要素を削除する。 | `key`: 比較・格納に使うkey | bool |
 | [`lower_bound(key)`](../../../data_structure/AdvancedOrdered.py#L41) | method | 指定値以上となる最初の位置を返す。 | `key`: 比較・格納に使うkey | 条件を満たす最小index（int。存在しなければsize） |
-| [`upper_bound(key)`](../../../data_structure/AdvancedOrdered.py#L44) | method | `OrderedMap` の `upper_bound method` を実行する。 | `key`: 比較・格納に使うkey | `self.keys.bisect_right(key)` |
-| [`kth_element(index)`](../../../data_structure/AdvancedOrdered.py#L47) | method | `OrderedMap` の `kth_element method` を実行する。 | `index`: 0-indexedの位置 | tuple(`key`, `self.values[key]`) |
+| [`upper_bound(key)`](../../../data_structure/AdvancedOrdered.py#L44) | method | `upper`・`bound`を求める。 | `key`: 比較・格納に使うkey | `self.keys.bisect_right(key)` |
+| [`kth_element(index)`](../../../data_structure/AdvancedOrdered.py#L47) | method | 列を部分的に並べ替え、0始まりでk番目に小さい値を返す。 | `index`: 0-indexedの位置 | tuple(`key`, `self.values[key]`) |
 | [`count(key)`](../../../data_structure/AdvancedOrdered.py#L51) | method | 条件に合う要素数を返す。 | `key`: 比較・格納に使うkey | 個数（int） |
 | [`__contains__(key)`](../../../data_structure/AdvancedOrdered.py#L54) | method | value in obj。 | `key`: 比較・格納に使うkey | bool |
 | [`__len__()`](../../../data_structure/AdvancedOrdered.py#L57) | method | len(obj)。 | なし | 要素数（int） |
 | [`__iter__()`](../../../data_structure/AdvancedOrdered.py#L60) | method | iter(obj)・for 文。 | なし | iterator |
-| [`items()`](../../../data_structure/AdvancedOrdered.py#L63) | method | `OrderedMap` の `items method` を実行する。 | なし | iterator（yieldされる要素） |
+| [`items()`](../../../data_structure/AdvancedOrdered.py#L63) | method | `items`を求める。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする |
 | [`discard`](../../../data_structure/AdvancedOrdered.py#L39) | alias | `erase` の別名。 | 同じ | 同じ |
 
 ## Class `PersistentRBSTSet`
 
-Fully persistent immutable-key treap; roots are integer version handles.
+高度な順序集合・区間集合・永続順序構造を扱う `PersistentRBSTSet`。
 
 - constructor: [`PersistentRBSTSet(values=())`](../../../data_structure/AdvancedOrdered.py#L73)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`
@@ -48,18 +53,18 @@ Fully persistent immutable-key treap; roots are integer version handles.
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`contains_root(root, key)`](../../../data_structure/AdvancedOrdered.py#L150) | method | `PersistentRBSTSet` の `contains_root method` を実行する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | bool |
+| [`contains_root(root, key)`](../../../data_structure/AdvancedOrdered.py#L150) | method | `contains`・根を求める。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | bool |
 | [`insert_root(root, key)`](../../../data_structure/AdvancedOrdered.py#L157) | method | 根を追加する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | `root` / `self._merge(self._merge(left, self._new(key)), right)` |
 | [`erase_root(root, key)`](../../../data_structure/AdvancedOrdered.py#L163) | method | 根を削除する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | `root` / 計算結果 |
 | [`insert(key, version=-1)`](../../../data_structure/AdvancedOrdered.py#L179) | method | 指定位置へ要素を挿入する。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`erase(key, version=-1)`](../../../data_structure/AdvancedOrdered.py#L184) | method | 指定要素を削除する。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`contains(key, version=-1)`](../../../data_structure/AdvancedOrdered.py#L189) | method | 指定値を保持しているか判定する。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | bool |
-| [`lower_bound_root(root, key)`](../../../data_structure/AdvancedOrdered.py#L192) | method | `PersistentRBSTSet` の `lower_bound_root method` を実行する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | 計算結果（int） |
+| [`lower_bound_root(root, key)`](../../../data_structure/AdvancedOrdered.py#L192) | method | `lower`・`bound`・根を求める。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | 計算結果（int） |
 | [`lower_bound(key, version=-1)`](../../../data_structure/AdvancedOrdered.py#L202) | method | 指定値以上となる最初の位置を返す。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 条件を満たす最小index（int。存在しなければsize） |
-| [`upper_bound(key, version=-1)`](../../../data_structure/AdvancedOrdered.py#L205) | method | `PersistentRBSTSet` の `upper_bound method` を実行する。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 計算結果（int） |
-| [`kth_root(root, index)`](../../../data_structure/AdvancedOrdered.py#L216) | method | `PersistentRBSTSet` の `kth_root method` を実行する。 | `root`: 根の頂点番号・原始根<br>`index`: 0-indexedの位置 | `self.key[root]` |
+| [`upper_bound(key, version=-1)`](../../../data_structure/AdvancedOrdered.py#L205) | method | `upper`・`bound`を求める。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 計算結果（int） |
+| [`kth_root(root, index)`](../../../data_structure/AdvancedOrdered.py#L216) | method | k番目・根を求める。 | `root`: 根の頂点番号・原始根<br>`index`: 0-indexedの位置 | `self.key[root]` |
 | [`kth(index, version=-1)`](../../../data_structure/AdvancedOrdered.py#L229) | method | 0-indexedでk番目の要素を取得する。 | `index`: 0-indexedの位置<br>`version`: 参照するversion番号。省略時: `-1` | k番目の値 |
-| [`to_list(version=-1)`](../../../data_structure/AdvancedOrdered.py#L232) | method | `PersistentRBSTSet` の `to_list method` を実行する。 | `version`: 参照するversion番号。省略時: `-1` | 計算結果（list） |
+| [`to_list(version=-1)`](../../../data_structure/AdvancedOrdered.py#L232) | method | `to`・`list`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 計算結果 |
 
 ## Module aliases
 

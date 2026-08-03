@@ -7,6 +7,13 @@ Prüfer列の線形encode/decode（標準・拡張形式）。
 - source: [`tree/PruferCode.py`](../../../tree/PruferCode.py)
 - 公開API: function 5、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `prufer_decode_edges`: `prufer`・`decode`・辺を求める。
+- `prufer_decode`: `prufer`・`decode`を求める。
+- `prufer_encode`: `prufer`・`encode`を求める。
+- `prufer_encode_extended`: `prufer`・`encode`・`extended`を求める。
+
 ## Import
 
 ```python
@@ -23,11 +30,11 @@ from library_codex.tree.PruferCode import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L4) | module の `prufer_decode_edges function` を実行する。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list / 辺のlist |
-| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L34) | module の `prufer_decode function` を実行する。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | `tree`（list） |
-| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L47) | module の `prufer_encode function` を実行する。 | `tree`: 木の隣接list | list / `code`（list） |
-| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L74) | module の `prufer_encode_extended function` を実行する。 | `tree`: 木の隣接list | list / 数値または入力要素型 `prufer_encode(tree) + [n - 1]` |
-| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L81) | module の `prufer_decode_extended function` を実行する。 | `code`: 符号列・Prüfer列 | list / `prufer_decode(code[:-1], n)` |
+| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L4) | `prufer`・`decode`・辺を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 辺のlist |
+| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L34) | `prufer`・`decode`を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L47) | `prufer`・`encode`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L74) | `prufer`・`encode`・`extended`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `prufer_encode(tree) + [n - 1]` |
+| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L81) | `prufer`・`decode`・`extended`を求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` |
 
 ## Module aliases
 

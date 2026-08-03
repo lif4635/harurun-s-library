@@ -7,6 +7,13 @@
 - source: [`math/AdvancedMatrix.py`](../../../math/AdvancedMatrix.py)
 - 公開API: function 5、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `determinant_arbitrary_mod`: `determinant`・`arbitrary`・`mod`を計算する。
+- `hafnian`: `hafnian`を求める。
+- `pfaffian`: `pfaffian`を求める。
+- `spanning_tree_count`: 全域・木・個数を求める。
+
 ## Import
 
 ```python
@@ -30,10 +37,10 @@ from library_codex.math.AdvancedMatrix import (
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`determinant_arbitrary_mod(matrix, mod)`](../../../math/AdvancedMatrix.py#L7) | `determinant`・`arbitrary`・`mod`を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算 | `0` / 数値または入力要素型 `result % mod` |
-| [`hafnian(matrix, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L54) | module の `hafnian function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `returned[-1]` |
-| [`pfaffian(matrix, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L125) | module の `pfaffian function` を実行する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `result % mod` |
-| [`spanning_tree_count(vertex_count, edges, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L161) | module の `spanning_tree_count function` を実行する。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(laplacian, mod)` |
-| [`directed_spanning_tree_count(vertex_count, edges, root, inward=True, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L193) | module の `directed_spanning_tree_count function` を実行する。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`inward`: `inward`として渡す値（APIの文脈に従う）。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` |
+| [`hafnian(matrix, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L54) | `hafnian`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `returned[-1]` |
+| [`pfaffian(matrix, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L125) | `pfaffian`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `result % mod` |
+| [`spanning_tree_count(vertex_count, edges, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L161) | 全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(laplacian, mod)` |
+| [`directed_spanning_tree_count(vertex_count, edges, root, inward=True, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L193) | 有向・全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`inward`: `inward`として使う入力。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` |
 
 ## Module aliases
 

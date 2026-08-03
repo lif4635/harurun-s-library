@@ -7,6 +7,14 @@ tetration・Gaussian整数・二平方和・二次方程式・有理探索。
 - source: [`math/NumberTheoryExtras.py`](../../../math/NumberTheoryExtras.py)
 - 公開API: function 8、class 3、method/property 16（Python protocol 9を含む）
 
+## できること
+
+- `floor_div`: `floor`・`div`を求める。
+- `ceil_div`: `ceil`・`div`を求める。
+- `strict_floor_div`: `strict`・`floor`・`div`を求める。
+- `strict_ceil_div`: `strict`・`ceil`・`div`を求める。
+- `FastPower`: tetration・Gaussian整数・二平方和・二次方程式・有理探索を扱う `FastPower`。
+
 ## Import
 
 ```python
@@ -29,21 +37,21 @@ from library_codex.math.NumberTheoryExtras import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`floor_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L7) | module の `floor_div function` を実行する。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `numerator // denominator` |
-| [`ceil_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L13) | module の `ceil_div function` を実行する。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | `-(-numerator // denominator)` |
-| [`strict_floor_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L19) | Largest integer strictly smaller than numerator / denominator. | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient - (remainder == 0)` |
-| [`strict_ceil_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L25) | Smallest integer strictly larger than numerator / denominator. | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient + (numerator % denominator == 0)` |
-| [`quadratic_equation_mod(a, b, c, prime)`](../../../math/NumberTheoryExtras.py#L31) | All roots of a*x^2+b*x+c over an odd prime field. | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`c`: 定数・係数・第3入力<br>`prime`: 素数法 | list |
-| [`tetration_mod(base, height, modulus)`](../../../math/NumberTheoryExtras.py#L75) | base ↑↑ height modulo modulus; 0 ↑↑ height follows 0**0 == 1. | `base`: 底・基準となる値または列<br>`height`: 高さ・行数<br>`modulus`: 法 | 数値または入力要素型 `value % modulus` / 数値または入力要素型 `1 % modulus` |
-| [`gaussian_gcd(first, second)`](../../../math/NumberTheoryExtras.py#L227) | module の `gaussian_gcd function` を実行する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`two_square_representations(number)`](../../../math/NumberTheoryExtras.py#L258) | All ordered nonnegative (x,y) with x*x+y*y == number. | `number`: 整数 | list / `sorted(result)` |
+| [`floor_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L7) | `floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `numerator // denominator` |
+| [`ceil_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L13) | `ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | `-(-numerator // denominator)` |
+| [`strict_floor_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L19) | `strict`・`floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient - (remainder == 0)` |
+| [`strict_ceil_div(numerator, denominator)`](../../../math/NumberTheoryExtras.py#L25) | `strict`・`ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient + (numerator % denominator == 0)` |
+| [`quadratic_equation_mod(a, b, c, prime)`](../../../math/NumberTheoryExtras.py#L31) | `quadratic`・`equation`・`mod`を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`c`: 定数・係数・第3入力<br>`prime`: 素数法 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`tetration_mod(base, height, modulus)`](../../../math/NumberTheoryExtras.py#L75) | `tetration`・`mod`を求める。 | `base`: 底・基準となる値または列<br>`height`: 高さ・行数<br>`modulus`: 法 | 数値または入力要素型 `value % modulus` / 数値または入力要素型 `1 % modulus` |
+| [`gaussian_gcd(first, second)`](../../../math/NumberTheoryExtras.py#L227) | `gaussian`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
+| [`two_square_representations(number)`](../../../math/NumberTheoryExtras.py#L258) | `two`・平方・`representations`を求める。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `sorted(result)` |
 
 ## Class `FastPower`
 
-Fixed-base powers with O(number of exponent blocks) queries.
+tetration・Gaussian整数・二平方和・二次方程式・有理探索を扱う `FastPower`。
 
 - constructor: [`FastPower(base, mod, max_exponent=(1 << 63) - 1, block_bits=10)`](../../../math/NumberTheoryExtras.py#L114)
-- 引数: `base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算<br>`max_exponent`: 最大・`exponent`の上限。省略時: `(1 << 63) - 1`<br>`block_bits`: `block`・`bits`として渡す値（APIの文脈に従う）。省略時: `10`
+- 引数: `base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算<br>`max_exponent`: 最大・`exponent`の上限。省略時: `(1 << 63) - 1`<br>`block_bits`: `block`・`bits`として使う入力。省略時: `10`
 - 返り値: `FastPower` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -55,15 +63,15 @@ Fixed-base powers with O(number of exponent blocks) queries.
 tetration・Gaussian整数・二平方和・二次方程式・有理探索を扱う `GaussianInteger`。
 
 - constructor: [`GaussianInteger(real=0, imag=0)`](../../../math/NumberTheoryExtras.py#L148)
-- 引数: `real`: `real`として渡す値（APIの文脈に従う）。省略時: `0`<br>`imag`: `imag`として渡す値（APIの文脈に従う）。省略時: `0`
+- 引数: `real`: `real`として使う入力。省略時: `0`<br>`imag`: `imag`として使う入力。省略時: `0`
 - 返り値: `GaussianInteger` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`x`](../../../math/NumberTheoryExtras.py#L153) | property | `GaussianInteger` の `x method` を実行する。 | なし | `self.real` |
-| [`y`](../../../math/NumberTheoryExtras.py#L157) | property | `GaussianInteger` の `y method` を実行する。 | なし | `self.imag` |
-| [`norm()`](../../../math/NumberTheoryExtras.py#L160) | method | `GaussianInteger` の `norm method` を実行する。 | なし | 数値または入力要素型 `self.real * self.real + self.imag * self.imag` |
-| [`conjugate()`](../../../math/NumberTheoryExtras.py#L163) | method | `GaussianInteger` の `conjugate method` を実行する。 | なし | GaussianInteger instance |
+| [`x`](../../../math/NumberTheoryExtras.py#L153) | property | `x`を求める。 | なし | `self.real` |
+| [`y`](../../../math/NumberTheoryExtras.py#L157) | property | `y`を求める。 | なし | `self.imag` |
+| [`norm()`](../../../math/NumberTheoryExtras.py#L160) | method | `norm`を求める。 | なし | 数値または入力要素型 `self.real * self.real + self.imag * self.imag` |
+| [`conjugate()`](../../../math/NumberTheoryExtras.py#L163) | method | `conjugate`を求める。 | なし | GaussianInteger instance |
 | [`__add__(other)`](../../../math/NumberTheoryExtras.py#L168) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance |
 | [`__sub__(other)`](../../../math/NumberTheoryExtras.py#L171) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance |
 | [`__neg__()`](../../../math/NumberTheoryExtras.py#L174) | method | -obj。 | なし | GaussianInteger instance |
@@ -76,17 +84,17 @@ tetration・Gaussian整数・二平方和・二次方程式・有理探索を扱
 
 ## Class `RationalNumberSearch`
 
-Adaptive Stern--Brocot search with numerator/denominator bounds.
+tetration・Gaussian整数・二平方和・二次方程式・有理探索を扱う `RationalNumberSearch`。
 
 - constructor: [`RationalNumberSearch(maximum)`](../../../math/NumberTheoryExtras.py#L301)
-- 引数: `maximum`: 最大として渡す値（APIの文脈に従う）
+- 引数: `maximum`: 最大として使う入力
 - 返り値: `RationalNumberSearch` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`has_next()`](../../../math/NumberTheoryExtras.py#L310) | method | `next`かどうかを判定する。 | なし | bool |
 | [`get_next()`](../../../math/NumberTheoryExtras.py#L313) | method | `next`を取得する。 | なし | tuple(数値または入力要素型 `self.a0 + self.a1`, 数値または入力要素型 `self.b0 + self.b1`) / tuple(数値または入力要素型 `self.a0 + self.right * self.a1`, 数値または入力要素型 `self.b0 + self.right * self.b1`) / tuple(数値または入力要素型 `self.a1 + self.right * self.a0`, 数値または入力要素型 `self.b1 + self.right * self.b0`) / tuple(数値または入力要素型 `self.a0 + middle * self.a1`, 数値または入力要素型 `self.b0 + middle * self.b1`) / ほか（source参照） |
-| [`give(to_right)`](../../../math/NumberTheoryExtras.py#L328) | method | `RationalNumberSearch` の `give method` を実行する。 | `to_right`: `to`・右として渡す値（APIの文脈に従う） | `None` |
+| [`give(to_right)`](../../../math/NumberTheoryExtras.py#L328) | method | `give`を求める。 | `to_right`: `to`・右として使う入力 | `None` |
 
 ## Module aliases
 

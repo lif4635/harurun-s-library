@@ -7,6 +7,11 @@
 - source: [`graph/AdvancedConnectivity.py`](../../../graph/AdvancedConnectivity.py)
 - 公開API: function 1、class 1、method/property 1（Python protocol 1を含む）
 
+## できること
+
+- `incremental_scc_offline`: `incremental`・`scc`・`offline`を求める。
+- `ThreeEdgeConnectedComponents`: 三辺連結成分・辺追加offline SCC統合列を扱う `ThreeEdgeConnectedComponents`。
+
 ## Import
 
 ```python
@@ -17,11 +22,11 @@ from library_codex.graph.AdvancedConnectivity import incremental_scc_offline, Th
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`incremental_scc_offline(n, edges)`](../../../graph/AdvancedConnectivity.py#L162) | Return SCC-union edge IDs for every directed edge-insertion time. ``result[t]`` is a list of original edge IDs. If a DSU unions the original endpoints of those edges after insertion t, its components exactly equal the... | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | SCC-union edge IDs for every directed edge-insertion time |
+| [`incremental_scc_offline(n, edges)`](../../../graph/AdvancedConnectivity.py#L162) | `incremental`・`scc`・`offline`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 計算結果 |
 
 ## Class `ThreeEdgeConnectedComponents`
 
-Partition an undirected multigraph into 2/3-edge-connected blocks. The implementation is the linear-time path-absorption algorithm, expressed as one iterative DFS. Self-loops do not affect the partition and parallel e...
+三辺連結成分・辺追加offline SCC統合列を扱う `ThreeEdgeConnectedComponents`。
 
 - constructor: [`ThreeEdgeConnectedComponents(n, edges)`](../../../graph/AdvancedConnectivity.py#L19)
 - 引数: `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list

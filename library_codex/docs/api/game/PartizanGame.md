@@ -7,6 +7,12 @@ partizan gameのSurreal/NumStar値と反復solver。
 - source: [`game/PartizanGame.py`](../../../game/PartizanGame.py)
 - 公開API: function 1、class 2、method/property 14（Python protocol 11を含む）
 
+## できること
+
+- `solve_partizan_game`: `solve`・`partizan`・`game`を求める。
+- `Surreal`: partizan gameのSurreal/NumStar値と反復solverを扱う `Surreal`。
+- `NumStar`: partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
+
 ## Import
 
 ```python
@@ -17,7 +23,7 @@ from library_codex.game.PartizanGame import solve_partizan_game, Surreal, NumSta
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`solve_partizan_game(states, options)`](../../../game/PartizanGame.py#L133) | module の `solve_partizan_game function` を実行する。 | `states`: 初期局面・局面集合<br>`options`: 局面から遷移先を列挙するcallback | dict / 計算結果（dict） |
+| [`solve_partizan_game(states, options)`](../../../game/PartizanGame.py#L133) | `solve`・`partizan`・`game`を求める。 | `states`: 初期局面・局面集合<br>`options`: 局面から遷移先を列挙するcallback | dict[object, object] — keyは識別対象、valueは対応する計算結果 |
 
 ## Class `Surreal`
 
@@ -37,14 +43,14 @@ partizan gameのSurreal/NumStar値と反復solverを扱う `Surreal`。
 | [`__add__(other)`](../../../game/PartizanGame.py#L26) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Surreal instance |
 | [`__neg__()`](../../../game/PartizanGame.py#L32) | method | -obj。 | なし | Surreal instance |
 | [`__sub__(other)`](../../../game/PartizanGame.py#L35) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, Surreal) else -other)` |
-| [`between(left, right, include_left=False, include_right=False)`](../../../game/PartizanGame.py#L39) | method | `Surreal` の `between method` を実行する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`include_left`: `include`・左として渡す値（APIの文脈に従う）。省略時: `False`<br>`include_right`: `include`・右として渡す値（APIの文脈に従う）。省略時: `False` | Surreal instance |
+| [`between(left, right, include_left=False, include_right=False)`](../../../game/PartizanGame.py#L39) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`include_left`: 左端を結果に含めるか。省略時: `False`<br>`include_right`: 右端を結果に含めるか。省略時: `False` | Surreal instance |
 
 ## Class `NumStar`
 
 partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
 
 - constructor: [`NumStar(number=0, star=0)`](../../../game/PartizanGame.py#L74)
-- 引数: `number`: 整数。省略時: `0`<br>`star`: `star`として渡す値（APIの文脈に従う）。省略時: `0`
+- 引数: `number`: 整数。省略時: `0`<br>`star`: `star`として使う入力。省略時: `0`
 - 返り値: `NumStar` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -52,8 +58,8 @@ partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
 | [`__eq__(other)`](../../../game/PartizanGame.py#L81) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__add__(other)`](../../../game/PartizanGame.py#L84) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | NumStar instance |
 | [`__neg__()`](../../../game/PartizanGame.py#L89) | method | -obj。 | なし | NumStar instance |
-| [`calculate(left_options, right_options)`](../../../game/PartizanGame.py#L101) | method | `NumStar` の `calculate method` を実行する。 | `left_options`: 左・`options`として渡す値（APIの文脈に従う）<br>`right_options`: 右・`options`として渡す値（APIの文脈に従う） | NumStar instance / `None` |
-| [`outcome()`](../../../game/PartizanGame.py#L123) | method | `NumStar` の `outcome method` を実行する。 | なし | tuple(`True`, `False`) / tuple(`False`, `True`) / tuple(`False`, `False`) / tuple(`True`, `True`) |
+| [`calculate(left_options, right_options)`](../../../game/PartizanGame.py#L101) | method | `calculate`を求める。 | `left_options`: 処理対象を順に並べた列<br>`right_options`: 処理対象を順に並べた列 | NumStar instance / `None` |
+| [`outcome()`](../../../game/PartizanGame.py#L123) | method | `outcome`を求める。 | なし | tuple(`True`, `False`) / tuple(`False`, `True`) / tuple(`False`, `False`) / tuple(`True`, `True`) |
 | [`calc`](../../../game/PartizanGame.py#L121) | alias | `calculate` の別名。 | 同じ | 同じ |
 
 ## Module aliases

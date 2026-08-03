@@ -7,6 +7,13 @@
 - source: [`graph/GraphEnumeration.py`](../../../graph/GraphEnumeration.py)
 - 公開API: function 9、class 0、method/property 0（Python protocol 0を含む）
 
+## できること
+
+- `graph_from_edges`: グラフ・`from`・辺を求める。
+- `chromatic_number`: `chromatic`・`number`を求める。
+- `chromatic_number_from_edges`: `chromatic`・`number`・`from`・辺を求める。
+- `maximum_independent_set_mask`: 最大・独立・`set`・`mask`を求める。
+
 ## Import
 
 ```python
@@ -27,12 +34,12 @@ from library_codex.graph.GraphEnumeration import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`graph_from_edges(n, edges)`](../../../graph/GraphEnumeration.py#L21) | Build an undirected adjacency list from pairs. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | `graph`（list） |
-| [`chromatic_number(graph, exact=False)`](../../../graph/GraphEnumeration.py#L40) | Return the chromatic number in O(n 2^n) time and O(2^n) memory. The fast default evaluates the inclusion-exclusion formula modulo two primes, as common competitive-programming implementations do. Set ``exact=True`` to... | `graph`: 隣接listまたはグラフobject<br>`exact`: `exact`として渡す値（APIの文脈に従う）。省略時: `False` | the chromatic number in O(n 2^n) time and O(2^n) memory |
-| [`chromatic_number_from_edges(n, edges, exact=False)`](../../../graph/GraphEnumeration.py#L99) | module の `chromatic_number_from_edges function` を実行する。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`exact`: `exact`として渡す値（APIの文脈に従う）。省略時: `False` | `chromatic_number(graph_from_edges(n, edges), exact)` |
-| [`maximum_independent_set_mask(graph)`](../../../graph/GraphEnumeration.py#L123) | Return ``(cardinality, vertex_mask)`` of an exact maximum IS. This is an iterative maximum-clique search in the complement graph with a greedy-coloring upper bound. It is intended for small or moderately sparse expone... | `graph`: 隣接listまたはグラフobject | ``(cardinality, vertex_mask)`` of an exact maximum IS |
-| [`maximum_independent_set(graph)`](../../../graph/GraphEnumeration.py#L175) | Return the vertices of an exact maximum independent set. | `graph`: 隣接listまたはグラフobject | the vertices of an exact maximum independent set |
-| [`maximum_weight_independent_set(graph, weight)`](../../../graph/GraphEnumeration.py#L181) | Return ``(maximum_weight, vertex_mask)`` by iterative branch-and-bound. Empty selection is allowed, so vertices with nonpositive weight can be discarded immediately. This routine is exact but exponential. | `graph`: 隣接listまたはグラフobject<br>`weight`: 重み | ``(maximum_weight, vertex_mask)`` by iterative branch-and-bound |
-| [`enumerate_triangles(n, edges, callback=None)`](../../../graph/GraphEnumeration.py#L232) | Enumerate triangles in O(n + m sqrt(m)) time. Each item is ``(u, v, w, uv_edge, uw_edge, vw_edge)``. If ``callback`` is given it is invoked for each item and the count is returned; otherwise a list is returned. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | list/None/int `result if callback is None else count` |
-| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph/GraphEnumeration.py#L270) | Enumerate every clique once without recursion. Cliques are returned as vertex lists. Supplying a callback avoids storing the potentially exponential output; in that mode the number of cliques is returned. | `graph`: 隣接listまたはグラフobject<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list/None/int `result if callback is None else count` |
-| [`count_c4_per_edge(n, edges, weight=None)`](../../../graph/GraphEnumeration.py#L308) | For each edge, sum products of the other three edges over all C4s. With omitted weights this is simply the number of (not necessarily induced) 4-cycles containing each edge. Runs in O(n + m sqrt(m)) on a simple graph. | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`weight`: 重み。省略時: `None` | 答え（数値または入力要素型） |
+| [`graph_from_edges(n, edges)`](../../../graph/GraphEnumeration.py#L21) | グラフ・`from`・辺を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`chromatic_number(graph, exact=False)`](../../../graph/GraphEnumeration.py#L40) | `chromatic`・`number`を求める。 | `graph`: 隣接listまたはグラフobject<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `0` / 各頂点の色を格納したlist[int] / `n` |
+| [`chromatic_number_from_edges(n, edges, exact=False)`](../../../graph/GraphEnumeration.py#L99) | `chromatic`・`number`・`from`・辺を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `chromatic_number(graph_from_edges(n, edges), exact)` |
+| [`maximum_independent_set_mask(graph)`](../../../graph/GraphEnumeration.py#L123) | 最大・独立・`set`・`mask`を求める。 | `graph`: 隣接listまたはグラフobject | tuple(`0`, `0`) / tuple(`best`（数値または入力要素型）, `best_mask`（数値または入力要素型）) |
+| [`maximum_independent_set(graph)`](../../../graph/GraphEnumeration.py#L175) | 最大・独立・`set`を求める。 | `graph`: 隣接listまたはグラフobject | `_mask_vertices(mask)` |
+| [`maximum_weight_independent_set(graph, weight)`](../../../graph/GraphEnumeration.py#L181) | 最大・`weight`・独立・`set`を求める。 | `graph`: 隣接listまたはグラフobject<br>`weight`: 重み | tuple(`best_weight`（int）, `best_mask`（int）) |
+| [`enumerate_triangles(n, edges, callback=None)`](../../../graph/GraphEnumeration.py#L232) | `triangles`を列挙する。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | list/None/int `result if callback is None else count` |
+| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph/GraphEnumeration.py#L270) | `cliques`を列挙する。 | `graph`: 隣接listまたはグラフobject<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list/None/int `result if callback is None else count` |
+| [`count_c4_per_edge(n, edges, weight=None)`](../../../graph/GraphEnumeration.py#L308) | `c4`・`per`・辺の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`weight`: 重み。省略時: `None` | 答え（数値または入力要素型） |
