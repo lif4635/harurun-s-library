@@ -7,12 +7,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.GraphMatching import (  # noqa: E402
-    DynamicBipartiteGraph,
-    GeneralMatching,
-    TwoSAT,
-    dag_minimum_path_cover,
-)
+from graph.DAGMinimumPathCover import dag_minimum_path_cover  # noqa: E402
+from graph.DynamicBipartiteGraph import DynamicBipartiteGraph  # noqa: E402
+from graph.GeneralMatching import GeneralMatching  # noqa: E402
+from graph.TwoSAT import TwoSAT  # noqa: E402
 
 
 def _brute_matching(n, edges):

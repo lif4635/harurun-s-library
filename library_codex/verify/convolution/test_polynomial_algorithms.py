@@ -6,18 +6,13 @@ from library_codex.convolution.FormalPowerSeries import (
     fps_multiply,
     fps_remainder,
 )
-from library_codex.convolution.PolynomialAlgorithms import (
-    partial_fraction_distinct,
-    polynomial_extended_gcd,
-    polynomial_gcd,
-    polynomial_inverse_mod,
-    polynomial_pow_mod,
-    polynomial_prefix_sum,
-    polynomial_resultant,
-    polynomial_roots,
-    power_sums,
-    prefix_sum_powers,
-)
+from library_codex.convolution.PartialFractionDistinct import partial_fraction_distinct
+from library_codex.convolution.PolynomialGCD import polynomial_extended_gcd, polynomial_gcd
+from library_codex.convolution.PolynomialModularPower import polynomial_inverse_mod, polynomial_pow_mod
+from library_codex.convolution.PolynomialPrefixSum import polynomial_prefix_sum
+from library_codex.convolution.PolynomialResultant import polynomial_resultant
+from library_codex.convolution.PolynomialRoots import polynomial_roots
+from library_codex.convolution.PowerSums import power_sums, prefix_sum_powers
 
 
 MOD = 998244353

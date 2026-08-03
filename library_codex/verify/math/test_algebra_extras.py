@@ -1,17 +1,14 @@
 import math
 import random
 
-from library_codex.math.AlgebraExtras import (
-    FloatBinomial,
-    RationalBinomial,
-    QBinomial,
-    digamma,
-    inverse_sum,
-    pisano_period,
-    power_table,
-    semiring_linear_recurrence,
-    semiring_matrix_power,
-)
+from library_codex.math.Digamma import digamma
+from library_codex.math.FloatBinomial import FloatBinomial
+from library_codex.math.InverseSum import inverse_sum
+from library_codex.math.PisanoPeriod import pisano_period
+from library_codex.math.PowerTable import power_table
+from library_codex.math.QBinomial import QBinomial
+from library_codex.math.RationalBinomial import RationalBinomial
+from library_codex.math.Semiring import semiring_linear_recurrence, semiring_matrix_power
 
 
 def test_semiring_matrix_and_recurrence():

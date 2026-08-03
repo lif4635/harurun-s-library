@@ -9,16 +9,13 @@ from library_codex.tree.DSUOnTree import DSUOnTree
 from library_codex.tree.DynamicDiameter import DynamicDiameter
 from library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition
 from library_codex.tree.Rerooting import Rerooting
-from library_codex.tree.TreeAlgorithms import (
-    AuxiliaryTree,
-    EulerTour,
-    cartesian_tree,
-    inclusion_tree,
-    inverse_tree,
-    process_of_merging_tree,
-    rooted_tree,
-    tree_diameter,
-)
+from library_codex.tree.AuxiliaryTree import AuxiliaryTree
+from library_codex.tree.CartesianTree import cartesian_tree
+from library_codex.tree.EulerTour import EulerTour
+from library_codex.tree.InclusionTree import inclusion_tree
+from library_codex.tree.ProcessOfMergingTree import process_of_merging_tree
+from library_codex.tree.RootedTree import inverse_tree, rooted_tree
+from library_codex.tree.TreeDiameter import tree_diameter
 
 
 def random_tree(size, rng, weighted=False):

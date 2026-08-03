@@ -43,8 +43,38 @@ MODULE_CAPABILITIES = {
     ),
     "data_structure/SegmentTree.py": (
         "任意の結合的演算で一点更新・半開区間集約を O(log N) で処理できる。",
-        "遅延伝播版では区間更新と区間集約を同じ計算量で扱える。",
-        "永続版では過去versionを壊さずに更新し、任意versionへ問い合わせできる。",
+        "文字列結合や行列積のような非可換演算でも、左から右の順序を保って集約できる。",
+        "prefixの集約値に対する単調な条件を使い、条件が崩れる最初の境界を O(log N) で探せる。",
+    ),
+    "data_structure/LazySegmentTree.py": (
+        "半開区間全体への作用と、半開区間の集約値取得をどちらも O(log N) で処理できる。",
+        "区間加算・区間和、区間代入・区間最小などを、mappingとcompositionを指定して構成できる。",
+        "一点更新・一点取得に加え、max_right・min_leftによる集約値の境界探索も使える。",
+    ),
+    "data_structure/DualSegmentTree.py": (
+        "半開区間全体へ作用を適用し、指定した一点の現在値を O(log N) で取得できる。",
+        "区間集約を保持しないため、区間更新と一点取得だけが必要な場合にLazy Segment Treeより単純で軽い。",
+        "複数の作用はcompositionで順序を保って合成できる。",
+    ),
+    "data_structure/MaxInterval.py": (
+        "数列の区間和、最大部分配列和、最小部分配列和を1つのマージ可能な値として保持できる。",
+        "max_interval_segment_treeで数列を構築すると、一点更新後の全体の最大・最小部分配列和を O(log N) で取得できる。",
+        "部分区間をSegmentTree.prodで集約し、その区間内の最大部分配列和をmaximumから取得できる。",
+    ),
+    "data_structure/DynamicSegmentTree.py": (
+        "巨大な整数座標区間で一点更新と半開区間集約を O(log W) で処理できる。Wは座標幅。",
+        "更新で通った経路だけnodeを確保するため、実際に触る座標が少ない問題でmemoryを節約できる。",
+        "未設定の位置はidentityとして扱い、座標圧縮なしで疎な値を保持できる。",
+    ),
+    "data_structure/DynamicLazySegmentTree.py": (
+        "巨大な整数座標区間で区間作用と区間集約を O(log W) で処理できる。Wは座標幅。",
+        "必要になったnodeだけを生成し、疎な座標空間へ区間加算・区間和などを適用できる。",
+        "通常のLazy Segment Treeと同じop・mapping・compositionの形で構成できる。",
+    ),
+    "data_structure/PersistentLazySegmentTree.py": (
+        "巨大な整数座標区間への区間作用ごとに新しいversionを作り、過去versionを壊さず保持できる。",
+        "任意versionから枝分かれした更新を作り、指定versionの半開区間集約を取得できる。",
+        "変更経路だけをcopyするため、配列全体をversionごとに複製せず履歴を保存できる。",
     ),
     "data_structure/UnionFind.py": (
         "要素の併合、同一連結成分判定、代表元と成分sizeの取得をほぼ定数時間で行える。",
@@ -113,6 +143,8 @@ PURPOSE_BY_NAME = {
     "get_edge": "edge_idに対応する辺の両端頂点を返す。",
     "lower_string": "英小文字からなる指定長のランダム文字列を生成する。",
     "mobius": "整数numberに対するMöbius関数の値を返す。",
+    "merge_max_interval": "隣り合う2区間の集約値を結合し、結合後の区間和・最大部分配列和・最小部分配列和を返す。",
+    "max_interval_segment_tree": "数列から、各区間の最大・最小部分配列和を取得できるSegmentTreeを構築する。",
     "modular_power": "baseのexponent乗をmodulusで割った余りを返す。",
     "neighbors": "指定頂点から出る辺を (行き先, 重み, 辺ID) の順で列挙する。",
     "normalize": "保持中の候補を評価順に整理し、上位だけを残す。",
@@ -197,6 +229,7 @@ PURPOSE_BY_NAME = {
     "to_adjacency_matrix": "edge-listを辺重み入りの隣接行列へ変換する。",
     "format_edges": "辺を競プロ入力で使える改行区切り文字列へ整形する。",
     "set_seed": "乱数状態を指定seedから作り直し、generator自身を返す。",
+    "single": "1要素だけを含む区間のMaxIntervalを作る。",
     "tree": "Prüfer codeからラベル付き木を一様ランダムに生成する。",
     "path": "頂点labelをランダムに並べたpath graphを生成する。",
     "star": "中心頂点を一様に選んだstar graphを生成する。",

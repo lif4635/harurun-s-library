@@ -1,9 +1,9 @@
-from library_codex.convolution.AdvancedSeries import (
+from library_codex.convolution.CompositeExponential import (
     composite_exponential_scaled,
     inverse_composite_exponential,
 )
 from library_codex.convolution.MultipointEvaluation import ProductTree
-from library_codex.convolution.SeriesSequences import pascal_transform
+from library_codex.convolution.PascalTransform import pascal_transform
 from library_codex.convolution.FormalPowerSeries import DEFAULT_MOD
 
 

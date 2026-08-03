@@ -1,16 +1,15 @@
 from itertools import product
 import random
 
-from library_codex.optimization.Optimization import (
-    MonotoneConvexHullTrick,
-    LineContainer,
+from library_codex.optimization.ConvexMinPlusConvolution import (
     convex_convex_min_plus_convolution,
     convex_min_plus_convolution,
-    golden_section_search,
-    maximal_rectangle,
-    maximal_rectangle_binary,
-    monotone_minima,
 )
+from library_codex.optimization.GoldenSectionSearch import golden_section_search
+from library_codex.optimization.LineContainer import LineContainer
+from library_codex.optimization.MaximalRectangle import maximal_rectangle, maximal_rectangle_binary
+from library_codex.optimization.MonotoneConvexHullTrick import MonotoneConvexHullTrick
+from library_codex.optimization.MonotoneMinima import monotone_minima
 from library_codex.optimization.ProjectSelection import (
     KProjectSelection,
     ProjectSelection,

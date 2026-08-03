@@ -1,7 +1,7 @@
 from math import isqrt
 
 from library_codex.convolution.FormalPowerSeries import DEFAULT_MOD
-from library_codex.math.Combinatorics import Combination
+from library_codex.math.Combination import Combination
 
 
 def multipoint_binomial_prefix_sum(queries, mod=DEFAULT_MOD):

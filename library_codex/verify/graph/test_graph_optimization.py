@@ -8,16 +8,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.GraphOptimization import (  # noqa: E402
-    dial_dijkstra,
-    held_karp_cycle,
-    held_karp_path,
-    hungarian,
-    hungarian_max,
-    minimum_cost_arborescence,
-    minimum_steiner_tree,
-    steiner_tree_dp,
-)
+from graph.DialDijkstra import dial_dijkstra  # noqa: E402
+from graph.HeldKarp import held_karp_cycle, held_karp_path  # noqa: E402
+from graph.Hungarian import hungarian, hungarian_max  # noqa: E402
+from graph.MinimumCostArborescence import minimum_cost_arborescence  # noqa: E402
+from graph.MinimumSteinerTree import minimum_steiner_tree, steiner_tree_dp  # noqa: E402
 
 
 def test_hungarian_rectangular_against_permutations():

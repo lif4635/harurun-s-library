@@ -5,16 +5,22 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`AuxiliaryTree`](AuxiliaryTree.md) | 指定頂点集合とLCAだけからvirtual treeを構築する。 | 0 | 1 | 1 |
+| [`CartesianTree`](CartesianTree.md) | 列のCartesian treeをparent列または隣接listとして構築する。 | 2 | 0 | 0 |
 | [`CentroidDecomposition`](CentroidDecomposition.md) | 重心分解・点加算/距離範囲和Fenwick | 0 | 2 | 7 |
 | [`DSUOnTree`](DSUOnTree.md) | Euler区間を用いるDSU on Tree | 0 | 1 | 2 |
 | [`DynamicDiameter`](DynamicDiameter.md) | Static Top Treeによる固定木の動的重み付き直径 | 0 | 1 | 2 |
 | [`DynamicRerooting`](DynamicRerooting.md) | rake-compress top treeによる動的rerooting | 0 | 2 | 19 |
+| [`EulerTour`](EulerTour.md) | 木のEuler tour順と部分木区間を構築する。 | 0 | 1 | 7 |
 | [`HeavyLightDecomposition`](HeavyLightDecomposition.md) | Heavy-Light Decomposition（非再帰） | 0 | 1 | 11 |
+| [`InclusionTree`](InclusionTree.md) | 包含関係から親子木を構築する。 | 1 | 0 | 0 |
 | [`IncrementalForest`](IncrementalForest.md) | 辺追加だけのforest・LCA・path集約 | 0 | 1 | 15 |
 | [`LinkCutTree`](LinkCutTree.md) | Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和） | 0 | 4 | 36 |
+| [`ProcessOfMergingTree`](ProcessOfMergingTree.md) | 辺が追加される過程を表すmerge treeを構築する。 | 1 | 0 | 0 |
 | [`PruferCode`](PruferCode.md) | Prüfer列の線形encode/decode（標準・拡張形式） | 5 | 0 | 0 |
 | [`Rerooting`](Rerooting.md) | 非可換monoid・辺/頂点変換対応の全方位木DP | 1 | 1 | 3 |
+| [`RootedTree`](RootedTree.md) | 無根木を指定rootから向き付け、親子関係を反転変換する。 | 2 | 0 | 0 |
 | [`StaticTopTree`](StaticTopTree.md) | 辺/頂点cluster Static Top Tree・動的tree DP・reroot DP | 0 | 7 | 14 |
-| [`TreeAlgorithms`](TreeAlgorithms.md) | Euler Tour・virtual/Cartesian/rooted/inclusion/merge tree・重み付き直径 | 8 | 2 | 8 |
+| [`TreeDiameter`](TreeDiameter.md) | 重み付きまたは重みなし木の直径とpathを求める。 | 2 | 0 | 0 |
 | [`TreeDistanceFrequency`](TreeDistanceFrequency.md) | 木の全頂点対距離の度数分布 | 1 | 0 | 0 |
 | [`TreeIsomorphism`](TreeIsomorphism.md) | 衝突なしAHU分類・128-bit木hash・中心/重心 | 6 | 2 | 3 |

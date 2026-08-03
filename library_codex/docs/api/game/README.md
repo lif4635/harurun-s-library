@@ -5,5 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`GameTheory`](GameTheory.md) | 不偏DAG Grundy・numeric partisan game・dyadic surreal | 1 | 3 | 19 |
+| [`ImpartialGameSolver`](ImpartialGameSolver.md) | 有限不偏ゲームのGrundy数と勝敗をmemo化探索で求める。 | 0 | 1 | 3 |
+| [`PartisanGameSolver`](PartisanGameSolver.md) | 左右で合法手が異なる有限ゲームの勝敗を求める。 | 0 | 1 | 1 |
 | [`PartizanGame`](PartizanGame.md) | partizan gameのSurreal/NumStar値と反復solver | 1 | 2 | 14 |
+| [`SurrealNumber`](SurrealNumber.md) | dyadic有理数としてsurreal numberの比較・四則演算・子を扱う。 | 1 | 1 | 15 |

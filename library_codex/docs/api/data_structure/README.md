@@ -5,30 +5,67 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`AdvancedCollections`](AdvancedCollections.md) | lazy meldable Skew Heap・矩形union面積 | 1 | 2 | 8 |
-| [`AdvancedOrdered`](AdvancedOrdered.md) | 高度な順序集合・区間集合・永続順序構造 | 0 | 2 | 25 |
-| [`AdvancedRangeStructures`](AdvancedRangeStructures.md) | Top-K区間集約・KD木・sortable sequence | 0 | 4 | 9 |
 | [`BinaryTrie`](BinaryTrie.md) | multiset・全体xor・k-th・xor min/max | 0 | 1 | 12 |
-| [`Collections`](Collections.md) | Treap set・区間set・BitSet・永続queue/trie・Top-K和 | 1 | 7 | 53 |
+| [`BitSet`](BitSet.md) | 固定長bit列の更新・個数・前後のset bit探索を行う集合。 | 0 | 1 | 18 |
+| [`CompressedFenwick2D`](CompressedFenwick2D.md) | 事前に与えた疎な座標だけを保持する二次元Fenwick Tree。 | 0 | 1 | 3 |
+| [`ContiguousUnionFind`](ContiguousUnionFind.md) | 隣接要素の連結区間と区間併合を管理するUnion-Find。 | 0 | 1 | 3 |
+| [`CumulativeSum2D`](CumulativeSum2D.md) | 静的な二次元gridの任意の半開矩形和をO(1)で返す累積和。 | 0 | 1 | 1 |
 | [`DisjointSparseTable`](DisjointSparseTable.md) | 静的列の半群区間積 | 0 | 1 | 1 |
-| [`DynamicSegmentTree`](DynamicSegmentTree.md) | 巨大座標の動的/Lazy/Persistent Lazy Segment Tree | 0 | 3 | 12 |
+| [`DualSegmentTree`](DualSegmentTree.md) | 区間作用と一点取得に絞ったDual Segment Tree | 0 | 1 | 3 |
+| [`DynamicFenwickTree`](DynamicFenwickTree.md) | 巨大な添字範囲で触れたnodeだけを持つ疎なFenwick Tree。 | 0 | 1 | 3 |
+| [`DynamicLazySegmentTree`](DynamicLazySegmentTree.md) | 巨大な疎な座標向けのLazy Segment Tree | 0 | 1 | 4 |
+| [`DynamicLiChaoTree`](DynamicLiChaoTree.md) | 整数座標区間でnodeを動的生成するLi Chao Tree。 | 0 | 1 | 3 |
+| [`DynamicPointAddRectangleSum`](DynamicPointAddRectangleSum.md) | 点の重み追加と矩形和queryが混ざる列をofflineで処理する。 | 0 | 1 | 3 |
+| [`DynamicSegmentTree`](DynamicSegmentTree.md) | 巨大な疎な座標向けの一点更新Segment Tree | 0 | 1 | 5 |
+| [`DynamicUnionFind`](DynamicUnionFind.md) | 任意のhashableな要素を必要時に追加できる動的Union-Find。 | 0 | 1 | 5 |
 | [`DynamicWaveletMatrix`](DynamicWaveletMatrix.md) | 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版 | 1 | 3 | 35 |
+| [`EnumerateUnionFind`](EnumerateUnionFind.md) | 各連結成分に含まれる要素を列挙できるUnion-Find。 | 0 | 1 | 2 |
+| [`ErasableHeap`](ErasableHeap.md) | heapから任意の既存値を遅延削除できるpriority queue。 | 0 | 1 | 5 |
 | [`FastSet`](FastSet.md) | word-size tree型の固定整数universe ordered set | 0 | 1 | 8 |
-| [`FenwickTree`](FenwickTree.md) | 1D/動的/2D Fenwick・range add/range sum | 0 | 4 | 17 |
+| [`FenwickTree`](FenwickTree.md) | 1D Fenwick Treeの一点加算・prefix/区間和 | 0 | 1 | 7 |
+| [`FenwickTree2D`](FenwickTree2D.md) | 二次元gridの一点加算と半開矩形和を扱うFenwick Tree。 | 0 | 1 | 3 |
 | [`ImplicitTreap`](ImplicitTreap.md) | 動的列の挿入削除・反転・非可換積・range lazy作用 | 0 | 1 | 14 |
-| [`IntRangeTree`](IntRangeTree.md) | 整数専用range add/assign/affineとsum/min/maxの高速lazy tree | 0 | 2 | 23 |
-| [`LiChaoTree`](LiChaoTree.md) | 固定座標・動的整数区間のLi Chao Tree（線分・min/max対応） | 0 | 2 | 8 |
-| [`LinearOptimization`](LinearOptimization.md) | 直線集合とrange linear add/range min | 0 | 2 | 5 |
+| [`LazyKDTree`](LazyKDTree.md) | 二次元点への矩形更新と矩形集約を行うlazy KD-tree。 | 0 | 1 | 3 |
+| [`LazySegmentTree`](LazySegmentTree.md) | 区間作用と区間集約を行うLazy Segment Tree | 0 | 1 | 7 |
+| [`LiChaoTree`](LiChaoTree.md) | 固定座標のLi Chao Tree（線分・min/max対応） | 0 | 1 | 5 |
+| [`LineContainer2D`](LineContainer2D.md) | 二変数一次式を追加し、指定点での最大値・最小値を求める構造。 | 0 | 1 | 3 |
+| [`MaxInterval`](MaxInterval.md) | 一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid | 2 | 1 | 1 |
+| [`MonoidUnionFind`](MonoidUnionFind.md) | 連結成分ごとのmonoid集約値と辺数を保持するUnion-Find。 | 0 | 1 | 5 |
+| [`OrderedMap`](OrderedMap.md) | key順の探索・k番目・lower/upper boundを扱う順序付きmap。 | 0 | 1 | 13 |
+| [`PartialPersistentUnionFind`](PartialPersistentUnionFind.md) | 過去時刻の連結性と成分サイズを問い合わせる部分永続Union-Find。 | 0 | 1 | 6 |
 | [`PersistentArray`](PersistentArray.md) | 分岐可能な永続配列（非再帰・フラットプール） | 0 | 1 | 7 |
+| [`PersistentBinaryTrie`](PersistentBinaryTrie.md) | 過去versionの整数multisetでk番目・xor最小を扱う永続binary trie。 | 0 | 1 | 6 |
+| [`PersistentLazySegmentTree`](PersistentLazySegmentTree.md) | 巨大な疎な座標で履歴を保持するPersistent Lazy Segment Tree | 0 | 1 | 3 |
+| [`PersistentQueue`](PersistentQueue.md) | 過去versionを残したままappend・popleftできる永続queue。 | 0 | 1 | 4 |
+| [`PersistentRBSTSet`](PersistentRBSTSet.md) | 更新ごとに過去のrootを残す永続randomized BST集合。 | 0 | 1 | 12 |
 | [`PersistentSegmentTree`](PersistentSegmentTree.md) | 汎用演算の永続セグメント木（非再帰） | 0 | 1 | 11 |
 | [`PersistentUnionFind`](PersistentUnionFind.md) | 完全永続Union Find（非再帰） | 0 | 1 | 7 |
+| [`PointSetRangeFrequency`](PointSetRangeFrequency.md) | 一点変更される列で、区間内の指定値の出現回数を数える構造。 | 0 | 1 | 2 |
+| [`PointUpdateRangeTree2D`](PointUpdateRangeTree2D.md) | 登録済み二次元点の重みを更新し、半開矩形和をonlineで求めるrange tree。 | 0 | 1 | 5 |
 | [`RadixHeap`](RadixHeap.md) | 単調非負整数キー用優先度付きキュー | 0 | 1 | 6 |
+| [`RangeAddAssignRangeStats`](RangeAddAssignRangeStats.md) | 整数列の区間加算・代入と区間sum/min/maxを扱う専用lazy tree。 | 0 | 1 | 13 |
+| [`RangeAddCountTopK`](RangeAddCountTopK.md) | 区間一括加算後の値を大きい順に個数付きで上位k件集約する構造。 | 0 | 2 | 3 |
+| [`RangeAddRangeSum`](RangeAddRangeSum.md) | 区間加算と区間和を2本のFenwick Treeで処理する構造。 | 0 | 1 | 4 |
+| [`RangeAffineRangeSum`](RangeAffineRangeSum.md) | 整数列の区間affine変換と区間和を扱う専用lazy tree。 | 0 | 1 | 10 |
 | [`RangeLIS`](RangeLIS.md) | Seaweed monoidによる静的区間LIS | 1 | 1 | 1 |
-| [`RectangleQuery`](RectangleQuery.md) | 2D累積和/Segment Tree/圧縮Fenwick・各種rectangle sum | 0 | 7 | 21 |
+| [`RangeLinearAddRangeMin`](RangeLinearAddRangeMin.md) | indexの一次式を区間加算し、区間最小値を求める構造。 | 0 | 1 | 2 |
+| [`RangeParallelUnionFind`](RangeParallelUnionFind.md) | 2つの同じ長さの区間をまとめて対応位置ごとに併合するUnion-Find。 | 0 | 1 | 4 |
+| [`RangeSet`](RangeSet.md) | 互いに素な整数区間を追加・削除し、包含判定とmexを行う集合。 | 0 | 1 | 6 |
+| [`RectangleAddRectangleSum`](RectangleAddRectangleSum.md) | 矩形への一括加算後に別の矩形和をofflineで求める。 | 0 | 1 | 3 |
 | [`RollbackUnionFind`](RollbackUnionFind.md) | undo・snapshot・成分和対応Union Find | 0 | 1 | 13 |
-| [`SWAG`](SWAG.md) | 非可換SWAG queue/deque・削除可能heap | 0 | 3 | 15 |
-| [`SegmentTree`](SegmentTree.md) | 非可換Segment Tree・Lazy・Dual・境界二分探索 | 2 | 4 | 18 |
+| [`SWAGDeque`](SWAGDeque.md) | deque両端の追加・削除をしながら全体のmonoid積を保つSWAG。 | 0 | 1 | 6 |
+| [`SWAGQueue`](SWAGQueue.md) | queue全体のmonoid積をpush・popと同じ償却計算量で保つSWAG。 | 0 | 1 | 4 |
+| [`SegmentTree`](SegmentTree.md) | 一点更新・区間集約・境界探索を行う汎用Segment Tree | 0 | 1 | 7 |
+| [`SegmentTree2D`](SegmentTree2D.md) | 二次元gridの一点更新と半開矩形monoid積を扱うSegment Tree。 | 0 | 1 | 3 |
 | [`SegmentTreeBeats`](SegmentTreeBeats.md) | range chmin/chmax/add/update・range sum/min/max（非再帰） | 0 | 1 | 12 |
+| [`SkewHeap`](SkewHeap.md) | heap同士のmeldと全要素へのlazy加算に対応するSkew Heap。 | 0 | 1 | 6 |
+| [`SlidingWindowMinimum`](SlidingWindowMinimum.md) | 固定幅の各連続部分列の最小値を線形時間で列挙する。 | 1 | 0 | 0 |
+| [`SortableSegmentTree`](SortableSegmentTree.md) | 部分列の昇順・降順sortと区間monoid積を処理する列構造。 | 0 | 1 | 3 |
 | [`StaticRMQ`](StaticRMQ.md) | 静的range minimum・最左argmin | 0 | 1 | 3 |
-| [`UnionFind`](UnionFind.md) | 通常・動的・重み付き・成分列挙Union-Find | 0 | 8 | 36 |
+| [`StaticRectangleSum`](StaticRectangleSum.md) | 重み付き点集合に対する静的なoffline矩形和queryを処理する。 | 0 | 1 | 3 |
+| [`TopKSum`](TopKSum.md) | 要素の追加・削除をしながら大きい方または小さい方k個の和を保つ構造。 | 0 | 1 | 3 |
+| [`TreapSet`](TreapSet.md) | 順序・k番目・前後要素を対数時間で扱う乱択平衡二分探索木。 | 0 | 1 | 14 |
+| [`UnionFind`](UnionFind.md) | 通常Union-Findの併合・連結判定・成分size | 0 | 1 | 5 |
+| [`UnionRectangle`](UnionRectangle.md) | 軸平行矩形の和集合面積をsweep lineで求める。 | 1 | 1 | 2 |
 | [`WaveletMatrix`](WaveletMatrix.md) | 非負整数列のrank・k-th・range frequency | 0 | 1 | 11 |
+| [`WeightedUnionFind`](WeightedUnionFind.md) | 要素間のpotential差を保ちながら併合する重み付きUnion-Find。 | 0 | 1 | 6 |

@@ -66,6 +66,13 @@ MODULE_OVERRIDES = {
     "data_structure/AdvancedRangeStructures.py": ("Top-K区間集約・KD木・sortable sequence", "各構造の計算量"),
     "data_structure/DynamicWaveletMatrix.py": ("完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版", "online操作 O(B log N)、offline全処理 O((N+Q) log V log N)"),
     "data_structure/IntRangeTree.py": ("整数専用range add/assign/affineとsum/min/maxの高速lazy tree", "構築 O(N)、各操作 O(log N)"),
+    "data_structure/SegmentTree.py": ("一点更新・区間集約・境界探索を行う汎用Segment Tree", "構築 O(N)、各操作 O(log N)"),
+    "data_structure/LazySegmentTree.py": ("区間作用と区間集約を行うLazy Segment Tree", "構築 O(N)、各操作 O(log N)"),
+    "data_structure/DualSegmentTree.py": ("区間作用と一点取得に絞ったDual Segment Tree", "構築 O(N)、各操作 O(log N)"),
+    "data_structure/MaxInterval.py": ("一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid", "構築 O(N)、更新・query O(log N)"),
+    "data_structure/DynamicSegmentTree.py": ("巨大な疎な座標向けの一点更新Segment Tree", "各操作 O(log W)、memory O(K log W)"),
+    "data_structure/DynamicLazySegmentTree.py": ("巨大な疎な座標向けのLazy Segment Tree", "各操作 O(log W)、memoryは生成node数に比例"),
+    "data_structure/PersistentLazySegmentTree.py": ("巨大な疎な座標で履歴を保持するPersistent Lazy Segment Tree", "更新 O(log W)追加memory、query O(log W)"),
     "data_structure/LinearOptimization.py": ("直線集合とrange linear add/range min", "各操作 O(log^2 N) 系"),
     "data_structure/RangeLIS.py": ("Seaweed monoidによる静的区間LIS", "構築 O(N^2 log N) 系、query O(log N)"),
     "game/PartizanGame.py": ("partizan gameのSurreal/NumStar値と反復solver", "状態・遷移数依存"),
@@ -122,6 +129,13 @@ MODULE_ARGUMENT_DESCRIPTION = {
         "update_candidates": "各位置で使用し得る更新候補 `(index, value)` のiterable",
         "python_int_sum": "Trueなら区間和をPython任意精度整数で保持する",
         "one_indexed": "Trueなら問題文形式の1-indexed入力として解釈する",
+    },
+    "data_structure/MaxInterval.py": {
+        "values": "最大・最小部分配列和を管理する数列",
+        "first": "結合する左側区間のMaxInterval",
+        "second": "結合する右側区間のMaxInterval",
+        "value": "区間内の全要素に共通する初期値",
+        "length": "同じ初期値を持つ区間の要素数。0なら単位元",
     },
 }
 
@@ -198,6 +212,10 @@ MODULE_RETURN_SEMANTIC = {
         "min_ge": "指定値以上の最小値、なければdefault",
         "tolist": "現在の列をcopyしたlist",
     },
+    "data_structure/MaxInterval.py": {
+        "merge_max_interval": "MaxInterval — firstの直後にsecondを連結した区間の集約値",
+        "max_interval_segment_tree": "SegmentTree — 各nodeがMaxIntervalを持つSegmentTree。prod(...).maximumで最大部分配列和を取得する",
+    },
 }
 
 CLASS_RETURN_SEMANTIC = {
@@ -207,6 +225,11 @@ CLASS_RETURN_SEMANTIC = {
             "kth_smallest": "登録したqueryのID（int）",
             "kth_largest": "登録したqueryのID（int）",
             "min_count_sum_at_least": "登録したqueryのID（int）",
+        },
+    },
+    "data_structure/MaxInterval.py": {
+        "MaxInterval": {
+            "single": "MaxInterval — valueだけを含む長さ1の区間集約値",
         },
     },
 }
@@ -1495,9 +1518,14 @@ def build_documents():
         relative = path.relative_to(ROOT)
         key = relative.as_posix()
         if key not in overviews:
-            missing.append(key)
-            overview = translated_object(path.stem)
-            complexity = "source参照"
+            source = path.read_text(encoding="utf-8")
+            module_docstring = ast.get_docstring(ast.parse(source, filename=str(path)))
+            overview = (
+                module_docstring.strip().splitlines()[0]
+                if module_docstring
+                else translated_object(path.stem)
+            )
+            complexity = "各操作の計算量はAPI表を参照"
         else:
             overview, complexity = overviews[key]
         content, counts = render_module(path, overview, complexity)

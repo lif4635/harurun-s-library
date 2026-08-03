@@ -6,12 +6,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.convolution.AdvancedConvolution import (  # noqa: E402
-    chirp_z,
-    middle_product,
+from library_codex.convolution.ChirpZ import chirp_z  # noqa: E402
+from library_codex.convolution.MiddleProduct import middle_product  # noqa: E402
+from library_codex.convolution.MultidimensionalDFT import (  # noqa: E402
     multidimensional_dft,
-    multiplicative_convolution_mod_prime,
     multivariate_circular_convolution,
+)
+from library_codex.convolution.MultiplicativeConvolutionModPrime import (  # noqa: E402
+    multiplicative_convolution_mod_prime,
+)
+from library_codex.convolution.MultivariateMultiplication import (  # noqa: E402
     multivariate_multiplication,
 )
 from library_codex.convolution.NTT import convolution  # noqa: E402

@@ -5,4 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`Heuristics`](Heuristics.md) | SA・multipoint SA・bandit・Top-K・log乱数表 | 0 | 5 | 9 |
+| [`LogTable`](LogTable.md) | 整数入力に対する対数値を小さな表で近似して高速に返す。 | 0 | 1 | 1 |
+| [`MultiArmedBandit`](MultiArmedBandit.md) | 複数候補の試行結果から次に選ぶ候補を決める多腕バンディット。 | 0 | 1 | 3 |
+| [`SimulatedAnnealing`](SimulatedAnnealing.md) | 焼きなまし法の温度・受理判定・進行状況を管理する。 | 0 | 2 | 2 |
+| [`TopK`](TopK.md) | 評価値が上位k件に入る要素だけを保持する。 | 0 | 1 | 3 |

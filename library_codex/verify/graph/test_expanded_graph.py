@@ -7,12 +7,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.ExpandedGraph import (  # noqa: E402
-    DimensionExpandedGraph,
-    RangeEdgeGraph,
-    grid_to_graph,
-    reverse_graph,
-)
+from graph.DimensionExpandedGraph import DimensionExpandedGraph  # noqa: E402
+from graph.GridToGraph import grid_to_graph  # noqa: E402
+from graph.RangeEdgeGraph import RangeEdgeGraph  # noqa: E402
+from graph.ReverseGraph import reverse_graph  # noqa: E402
 
 
 def _dijkstra(graph, start):

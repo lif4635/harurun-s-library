@@ -7,15 +7,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.math.Combinatorics import (  # noqa: E402
-    Combination,
-    enumerate_quotient,
-    extended_gcd,
-    floor_sum,
-    gray_code,
-    inverse_gray_code,
-    mod_affine_range_count,
-)
+from library_codex.math.Combination import Combination  # noqa: E402
+from library_codex.math.EnumerateQuotient import enumerate_quotient  # noqa: E402
+from library_codex.math.FloorSum import floor_sum, mod_affine_range_count  # noqa: E402
+from library_codex.math.GrayCode import gray_code, inverse_gray_code  # noqa: E402
+from library_codex.math.IntegerArithmetic import extended_gcd  # noqa: E402
 from library_codex.prime.Sieve import (  # noqa: E402
     LinearSieve,
     count_square_free,

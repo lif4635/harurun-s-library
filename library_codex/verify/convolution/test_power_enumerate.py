@@ -1,6 +1,6 @@
 import random
 
-from library_codex.convolution.AdvancedSeries import (
+from library_codex.convolution.PowerEnumerate import (
     power_coefficient_enumerate,
     power_inner_product_enumerate,
 )
@@ -32,4 +32,3 @@ def test_power_enumeration_against_repeated_multiplication():
                 assert inner[exponent] == expected_inner
                 assert coefficient[exponent] == expected_coefficient
                 power = fps_multiply(power, polynomial, DEFAULT_MOD)[:size]
-

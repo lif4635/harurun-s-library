@@ -1,10 +1,8 @@
 import random
 
-from library_codex.data_structure.AdvancedRangeStructures import (
-    LazyKDTree,
-    RangeAddCountTopK,
-    SortableSegmentTree,
-)
+from library_codex.data_structure.LazyKDTree import LazyKDTree
+from library_codex.data_structure.RangeAddCountTopK import RangeAddCountTopK
+from library_codex.data_structure.SortableSegmentTree import SortableSegmentTree
 
 
 def test_range_add_count_top_k_against_brute_force():
@@ -87,4 +85,3 @@ def test_sortable_segment_tree_against_lists():
                 tree.update(index, key, value)
             else:
                 assert tree.query(left, right) == "".join(values[left:right])
-

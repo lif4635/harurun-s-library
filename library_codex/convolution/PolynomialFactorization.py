@@ -7,10 +7,12 @@ from library_codex.convolution.FormalPowerSeries import (
     fps_shrink,
     fps_subtract,
 )
-from library_codex.convolution.PolynomialAlgorithms import (
+from library_codex.convolution.PolynomialGCD import (
     polynomial_gcd,
-    polynomial_inverse_mod,
     polynomial_monic,
+)
+from library_codex.convolution.PolynomialModularPower import (
+    polynomial_inverse_mod,
     polynomial_pow_mod,
 )
 

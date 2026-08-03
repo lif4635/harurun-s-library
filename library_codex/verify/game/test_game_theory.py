@@ -1,10 +1,8 @@
 from fractions import Fraction
 
-from library_codex.game.GameTheory import (
-    ImpartialGameSolver,
-    PartisanGameSolver,
-    SurrealNumber,
-)
+from library_codex.game.ImpartialGameSolver import ImpartialGameSolver
+from library_codex.game.PartisanGameSolver import PartisanGameSolver
+from library_codex.game.SurrealNumber import SurrealNumber
 
 
 def _fraction(value):

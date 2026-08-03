@@ -7,31 +7,55 @@
 | --- | --- | ---: | ---: | ---: |
 | [`AdvancedConnectivity`](AdvancedConnectivity.md) | 三辺連結成分・辺追加offline SCC統合列 | 1 | 1 | 1 |
 | [`AdvancedFlow`](AdvancedFlow.md) | 高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット | 2 | 1 | 7 |
+| [`BFS`](BFS.md) | 重みなしグラフの単一始点最短距離と直前頂点を求める。 | 1 | 0 | 0 |
+| [`BellmanFord`](BellmanFord.md) | 負辺を含むグラフの最短路と負閉路の影響を求める。 | 1 | 0 | 0 |
 | [`BiconnectedComponents`](BiconnectedComponents.md) | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | 0 | 2 | 6 |
+| [`BipartiteColoring`](BipartiteColoring.md) | 無向グラフが二部グラフか判定し、2色の割当を返す。 | 1 | 0 | 0 |
 | [`BipartiteMatching`](BipartiteMatching.md) | 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解 | 2 | 1 | 7 |
 | [`CSRGraph`](CSRGraph.md) | CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend | 8 | 3 | 7 |
+| [`ChromaticNumber`](ChromaticNumber.md) | 小規模グラフの彩色数をbit DPで求める。 | 2 | 0 | 0 |
+| [`ConnectedComponents`](ConnectedComponents.md) | 無向グラフの連結成分番号と成分ごとの頂点を求める。 | 1 | 0 | 0 |
+| [`CountC4PerEdge`](CountC4PerEdge.md) | 各辺が含まれる長さ4のcycle数を数える。 | 1 | 0 | 0 |
 | [`CycleDetection`](CycleDetection.md) | 有向・無向閉路検出（辺ID、多重辺対応、非再帰） | 2 | 0 | 0 |
+| [`DAGMinimumPathCover`](DAGMinimumPathCover.md) | DAGを覆う頂点素なpathの最小本数を求める。 | 1 | 0 | 0 |
+| [`DFSForest`](DFSForest.md) | 深さ優先探索forestの親・順序・終了順を求める。 | 1 | 0 | 0 |
+| [`DialDijkstra`](DialDijkstra.md) | 非負整数重みが小さいグラフの最短路をbucketで求める。 | 1 | 0 | 0 |
+| [`Dijkstra`](Dijkstra.md) | 非負重みグラフの単一始点最短距離と直前頂点を求める。 | 1 | 0 | 0 |
 | [`DijkstraRadixHeap`](DijkstraRadixHeap.md) | 非負整数重み用Radix Heap Dijkstra・経路復元 | 3 | 0 | 0 |
+| [`DimensionExpandedGraph`](DimensionExpandedGraph.md) | 座標状態を追加次元へ展開したグラフを構築する。 | 0 | 1 | 9 |
+| [`DynamicBipartiteGraph`](DynamicBipartiteGraph.md) | 辺追加される無向グラフの二部性を管理する。 | 0 | 1 | 5 |
+| [`EnumerateCliques`](EnumerateCliques.md) | 小規模無向グラフのcliqueを列挙する。 | 1 | 0 | 0 |
+| [`EnumerateTriangles`](EnumerateTriangles.md) | 無向グラフに含まれる三角形を重複なく列挙する。 | 1 | 0 | 0 |
 | [`EulerianTrail`](EulerianTrail.md) | 有向・無向Euler路・閉路・成分別分解（非再帰） | 3 | 0 | 0 |
-| [`ExpandedGraph`](ExpandedGraph.md) | Range Edge Graph・多次元grid・reverse/grid変換 | 2 | 2 | 15 |
 | [`FunctionalGraph`](FunctionalGraph.md) | Functional graph の周期分解・移動・距離 | 0 | 1 | 7 |
+| [`GeneralMatching`](GeneralMatching.md) | 一般グラフの最大matchingを求める。 | 1 | 1 | 1 |
 | [`GeneralWeightedMatching`](GeneralWeightedMatching.md) | 一般グラフの最大重みmatching | 0 | 1 | 2 |
 | [`GraphCounting`](GraphCounting.md) | 彩色多項式・有向/無向全域木数・有向Euler閉路数 | 5 | 0 | 0 |
-| [`GraphEnumeration`](GraphEnumeration.md) | 彩色数・厳密最大独立集合・三角形/C4/全clique列挙 | 9 | 0 | 0 |
-| [`GraphMatching`](GraphMatching.md) | 一般blossom・2-SAT・動的二部判定・DAG最小path cover | 2 | 3 | 14 |
-| [`GraphOptimization`](GraphOptimization.md) | Hungarian・Steiner木・Held--Karp TSP・Dial Dijkstra・有向最小全域木 | 8 | 0 | 0 |
+| [`GraphFromEdges`](GraphFromEdges.md) | 辺listからbit mask形式の無向隣接表を作る。 | 1 | 0 | 0 |
 | [`GraphOrdering`](GraphOrdering.md) | 木制約最適順序・st-numbering・全辺replacement shortest path | 3 | 0 | 0 |
 | [`GraphProperties`](GraphProperties.md) | Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色 | 1 | 1 | 4 |
+| [`GridToGraph`](GridToGraph.md) | 通行可能なgridを隣接listへ変換する。 | 1 | 0 | 0 |
+| [`HeldKarp`](HeldKarp.md) | 全頂点を一度ずつ通る最短Hamilton pathまたはcycleをbit DPで求める。 | 2 | 0 | 0 |
+| [`Hungarian`](Hungarian.md) | 二部割当問題の最小費用または最大利益を求める。 | 2 | 0 | 0 |
 | [`KShortestPaths`](KShortestPaths.md) | 有向/無向k-shortest loopless path（辺ID・平行辺対応） | 2 | 2 | 4 |
 | [`LowLink`](LowLink.md) | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | 1 | 1 | 3 |
 | [`MaxFlow`](MaxFlow.md) | ACL互換寄りの反復Dinic・min-cut・辺変更 | 0 | 1 | 7 |
+| [`MaximumIndependentSet`](MaximumIndependentSet.md) | 小規模グラフの最大独立集合と最大重み独立集合を求める。 | 3 | 0 | 0 |
 | [`MergeTree`](MergeTree.md) | 先読みunion tree・現在成分の連続葉区間 | 0 | 1 | 6 |
 | [`MinCostBFlow`](MinCostBFlow.md) | lower/upper・頂点supply・負費用対応minimum-cost b-flow | 0 | 1 | 7 |
 | [`MinCostFlow`](MinCostFlow.md) | 非負費用のポテンシャル付き最小費用流・slope | 0 | 1 | 5 |
+| [`MinimumCostArborescence`](MinimumCostArborescence.md) | 指定rootから全頂点へ到達する有向全域木の最小費用を求める。 | 1 | 0 | 0 |
 | [`MinimumSpanningTree`](MinimumSpanningTree.md) | Kruskal最小全域森・最小全域木（辺ID付き） | 4 | 0 | 0 |
+| [`MinimumSteinerTree`](MinimumSteinerTree.md) | 少数のterminalをすべて結ぶ最小Steiner tree費用を求める。 | 2 | 0 | 0 |
 | [`NamoriDecomposition`](NamoriDecomposition.md) | 重み付き擬森林の周期・付随木分解と距離 | 0 | 1 | 22 |
 | [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md) | 辺追加削除・連結性・成分和のオフライン処理 | 0 | 1 | 10 |
 | [`OnlineDynamicConnectivity`](OnlineDynamicConnectivity.md) | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | 0 | 1 | 4 |
-| [`ShortestPath`](ShortestPath.md) | BFS/0-1 BFS/Dijkstra/Bellman--Ford/Floyd・復元・topological sort | 10 | 0 | 0 |
+| [`RangeEdgeGraph`](RangeEdgeGraph.md) | 頂点から区間・区間から頂点への辺を対数個の補助辺で追加する。 | 0 | 1 | 6 |
+| [`RestorePath`](RestorePath.md) | 直前頂点列から始点から終点までのpathを復元する。 | 1 | 0 | 0 |
+| [`ReverseGraph`](ReverseGraph.md) | 有向グラフの全辺を反転した隣接listを作る。 | 1 | 0 | 0 |
 | [`StronglyConnectedComponents`](StronglyConnectedComponents.md) | 反復Kosaraju・縮約DAG | 1 | 1 | 2 |
+| [`TopologicalSort`](TopologicalSort.md) | DAGの頂点を辺の向きに沿う順序へ並べる。 | 1 | 0 | 0 |
 | [`TwoEdgeConnectedComponents`](TwoEdgeConnectedComponents.md) | 二辺連結成分・橋森・辺の成分対応 | 1 | 1 | 6 |
+| [`TwoSAT`](TwoSAT.md) | 2-SATの充足可能性を判定し、真偽割当を返す。 | 0 | 1 | 8 |
+| [`WarshallFloyd`](WarshallFloyd.md) | 全頂点対最短距離を計算する。 | 1 | 0 | 0 |
+| [`ZeroOneBFS`](ZeroOneBFS.md) | 辺重みが0または1のグラフの単一始点最短路を求める。 | 1 | 0 | 0 |

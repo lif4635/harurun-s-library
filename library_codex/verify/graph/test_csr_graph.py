@@ -17,14 +17,12 @@ from library_codex.graph.CSRGraph import (
     zero_one_bfs_csr,
 )
 from library_codex.graph.LowLink import LowLink
-from library_codex.graph.ShortestPath import (
-    bfs,
-    bipartite_coloring,
-    connected_components,
-    dijkstra,
-    topological_sort,
-    zero_one_bfs,
-)
+from library_codex.graph.BFS import bfs
+from library_codex.graph.BipartiteColoring import bipartite_coloring
+from library_codex.graph.ConnectedComponents import connected_components
+from library_codex.graph.Dijkstra import dijkstra
+from library_codex.graph.TopologicalSort import topological_sort
+from library_codex.graph.ZeroOneBFS import zero_one_bfs
 from library_codex.graph.StronglyConnectedComponents import StronglyConnectedComponents
 
 

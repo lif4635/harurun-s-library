@@ -6,24 +6,44 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`AdvancedMatrix`](AdvancedMatrix.md) | 合成数法行列式・Hafnian/Pfaffian・Matrix-Tree | 5 | 0 | 0 |
-| [`AlgebraExtras`](AlgebraExtras.md) | semiring・Pisano・q-binomial・浮動/有理binomial | 8 | 4 | 15 |
+| [`Affine`](Affine.md) | 一次関数の評価・合成・反転を扱う。 | 0 | 1 | 3 |
 | [`ArbitraryBinomial`](ArbitraryBinomial.md) | 任意合成数法・巨大素数法の二項係数 | 0 | 3 | 4 |
 | [`BinomialQueries`](BinomialQueries.md) | 二項係数prefix和と巨大添字Stirlingの一括query | 1 | 1 | 2 |
 | [`BlackBoxLinearAlgebra`](BlackBoxLinearAlgebra.md) | dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式 | 4 | 2 | 3 |
 | [`ChineseRemainder`](ChineseRemainder.md) | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 4 | 0 | 0 |
-| [`Combinatorics`](Combinatorics.md) | factorial/binomial・拡張GCD・floor sum・商区間・Gray code | 11 | 1 | 5 |
+| [`Combination`](Combination.md) | 階乗前計算または乗法式で二項係数・順列数を計算する。 | 1 | 1 | 5 |
+| [`Digamma`](Digamma.md) | digamma関数を数値的に評価する。 | 1 | 0 | 0 |
 | [`Elementary`](Elementary.md) | gcd・lcm・整数根など初等数学関数 | 2 | 0 | 0 |
+| [`EnumerateQuotient`](EnumerateQuotient.md) | nを整数で割った商が等しい添字区間を列挙する。 | 1 | 0 | 0 |
 | [`F2Matrix`](F2Matrix.md) | Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列 | 0 | 1 | 17 |
+| [`FastPower`](FastPower.md) | 同じ底や指数で繰り返す累乗計算を前計算で高速化する。 | 0 | 1 | 1 |
+| [`FloatBinomial`](FloatBinomial.md) | 浮動小数点数で二項係数を逐次計算する。 | 0 | 1 | 4 |
 | [`FloorPolynomialSum`](FloorPolynomialSum.md) | floorを含む多項式和 | 1 | 0 | 0 |
+| [`FloorSum`](FloorSum.md) | 一次式の床和と合同条件を満たす整数の個数を高速に数える。 | 2 | 0 | 0 |
 | [`FractionSearch`](FractionSearch.md) | Stern--Brocot/Farey型の有理数探索 | 1 | 0 | 0 |
+| [`GaussianInteger`](GaussianInteger.md) | Gaussian整数の四則演算と最大公約数を扱う。 | 1 | 1 | 12 |
+| [`GrayCode`](GrayCode.md) | 整数とGray codeを相互変換する。 | 2 | 0 | 0 |
+| [`GrundyNumbers`](GrundyNumbers.md) | 遷移グラフからmexとGrundy数を計算する。 | 2 | 0 | 0 |
+| [`IntegerArithmetic`](IntegerArithmetic.md) | 整数のgcd・lcm・拡張gcdと法逆元を計算する。 | 5 | 0 | 0 |
+| [`IntegerDivision`](IntegerDivision.md) | 符号を含む整数除算の床・天井と厳密不等号版を計算する。 | 4 | 0 | 0 |
+| [`InverseSum`](InverseSum.md) | 逆数和を指定精度で数値計算する。 | 1 | 0 | 0 |
 | [`Matrix`](Matrix.md) | 動的法の行列演算・rank/det/inverse/連立方程式・特性多項式 | 15 | 0 | 0 |
 | [`ModularArithmetic`](ModularArithmetic.md) | Tonelli--Shanks平方根・拡張BSGS離散対数 | 2 | 0 | 0 |
 | [`ModularRoot`](ModularRoot.md) | 素数法k乗根・原始根・整数floor/ceil k乗根 | 4 | 0 | 0 |
 | [`MultiplicativeFunctions`](MultiplicativeFunctions.md) | 乗法的関数・Dirichlet積・Min_25型prefix和 | 8 | 3 | 12 |
 | [`Nimber`](Nimber.md) | Conway nimber積・逆元・基底変換 | 4 | 2 | 9 |
-| [`NumberTheoryExtras`](NumberTheoryExtras.md) | tetration・Gaussian整数・二平方和・二次方程式・有理探索 | 8 | 3 | 16 |
+| [`PisanoPeriod`](PisanoPeriod.md) | Fibonacci数列を法としたときの周期を求める。 | 2 | 0 | 0 |
 | [`PolynomialMatrix`](PolynomialMatrix.md) | 多項式行列式・$\det(A+xB)$・多項式行列prefix積・多項式Matrix-Tree | 4 | 0 | 0 |
+| [`PowerTable`](PowerTable.md) | 固定した底の累乗値をまとめて前計算する。 | 1 | 0 | 0 |
+| [`QBinomial`](QBinomial.md) | q二項係数を計算する。 | 0 | 1 | 1 |
+| [`QuadraticEquationMod`](QuadraticEquationMod.md) | 法の下で二次方程式の解を列挙する。 | 1 | 0 | 0 |
+| [`RationalBinomial`](RationalBinomial.md) | 有理数として二項係数を正確に計算する。 | 0 | 1 | 7 |
 | [`RationalFormalPowerSeries`](RationalFormalPowerSeries.md) | 有理形式的冪級数の係数・prefix和 | 0 | 1 | 17 |
+| [`RationalNumberSearch`](RationalNumberSearch.md) | 条件を満たす有理数をStern-Brocot木上で探索する。 | 0 | 1 | 3 |
 | [`SATSolver`](SATSolver.md) | watched literal型の反復SAT solver | 0 | 1 | 4 |
+| [`Semiring`](Semiring.md) | 任意の加法・乗法を指定した半環上で行列演算と線形漸化式を計算する。 | 3 | 1 | 3 |
+| [`SternBrocotNode`](SternBrocotNode.md) | Stern-Brocot木上の有理数と経路を扱う。 | 0 | 1 | 8 |
 | [`Strassen`](Strassen.md) | 任意長方形行列の反復Strassen積 | 1 | 0 | 0 |
-| [`Structures`](Structures.md) | Affine・XOR基底・Stern--Brocot・DAG Grundy・Fraction | 2 | 3 | 19 |
+| [`TetrationMod`](TetrationMod.md) | 巨大な累乗塔を法の下で計算する。 | 1 | 0 | 0 |
+| [`TwoSquareRepresentations`](TwoSquareRepresentations.md) | 整数を2つの平方数の和で表す組を列挙する。 | 1 | 0 | 0 |
+| [`XorBasis`](XorBasis.md) | 整数集合のxor線形基底を構築し、表現可能性や最大値を求める。 | 0 | 1 | 8 |

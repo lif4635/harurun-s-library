@@ -45,7 +45,7 @@ def kruskal(n, edges):
 
 def manhattan_mst(points):
     """Return ``(cost, vertex_pairs)`` of a Manhattan MST in O(N log N)."""
-    from library_codex.data_structure.Collections import TreapSet
+    from library_codex.data_structure.TreapSet import TreapSet
 
     n = len(points)
     if n <= 1:

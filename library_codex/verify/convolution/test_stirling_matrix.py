@@ -1,6 +1,6 @@
 import random
 
-from library_codex.convolution.AdvancedSeries import (
+from library_codex.convolution.CompositeExponential import (
     composite_exponential_scaled,
     inverse_composite_exponential,
 )
@@ -46,4 +46,3 @@ def test_stirling_matrix_actions_against_quadratic_dp():
         assert stirling_matrix_transpose(
             expected_transpose, inverse=True
         ) == values
-

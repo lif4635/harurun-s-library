@@ -1,6 +1,6 @@
 import random
 
-from library_codex.convolution.AdvancedConvolution import multivariate_multiplication
+from library_codex.convolution.MultivariateMultiplication import multivariate_multiplication
 from library_codex.convolution.MultivariateFPS import MultivariateFPS
 
 
@@ -31,4 +31,3 @@ def test_multivariate_indexing():
     series.set(1, 2, 3, 91)
     assert series.get(1, 2, 3) == 91
     assert series.index(1, 2, 3) == 1 + 2 * 2 + 3 * 6
-

@@ -15,7 +15,7 @@ from library_codex.graph.CSRGraph import (
     dijkstra_csr,
 )
 from library_codex.graph.LowLink import LowLink
-from library_codex.graph.ShortestPath import dijkstra
+from library_codex.graph.Dijkstra import dijkstra
 from library_codex.graph.StronglyConnectedComponents import StronglyConnectedComponents
 
 

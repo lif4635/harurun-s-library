@@ -1,4 +1,5 @@
-from library_codex.convolution.FPSWrappers import DualFPS, FPSFraction
+from library_codex.convolution.DualFormalPowerSeries import DualFormalPowerSeries
+from library_codex.convolution.FPSFraction import FPSFraction
 
 
 def test_fps_fraction_and_dual_fps_arithmetic():
@@ -13,8 +14,8 @@ def test_fps_fraction_and_dual_fps_arithmetic():
         first.numerator, recovered.denominator
     )
 
-    left = DualFPS([1, 2, 3])
-    right = DualFPS([4, 5])
+    left = DualFormalPowerSeries([1, 2, 3])
+    right = DualFormalPowerSeries([4, 5])
     assert (left + right).get() == [5, 7, 3]
     assert (left * right).get() == [4, 13, 22, 15]
     assert (left << 3).get() == [0, 0, 0, 1, 2, 3]

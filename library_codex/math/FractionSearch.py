@@ -1,4 +1,4 @@
-from library_codex.math.Structures import SternBrocotNode
+from library_codex.math.SternBrocotNode import SternBrocotNode
 
 
 def stern_brocot_binary_search(predicate, limit):

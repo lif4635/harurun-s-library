@@ -1,9 +1,7 @@
 import random
 
-from library_codex.data_structure.LinearOptimization import (
-    LineContainer2D,
-    RangeLinearAddRangeMin,
-)
+from library_codex.data_structure.LineContainer2D import LineContainer2D
+from library_codex.data_structure.RangeLinearAddRangeMin import RangeLinearAddRangeMin
 
 
 def test_line_container_2d_against_brute_force():
@@ -39,4 +37,3 @@ def test_range_linear_add_range_min_against_brute_force():
                     values[index] += slope * index + intercept
             else:
                 assert tree.query(left, right) == min(values[left:right])
-

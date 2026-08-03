@@ -5,8 +5,16 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`AdvancedDP`](AdvancedDP.md) | Monge DP・凸/凹min/max-plus・branch-and-bound・rollback Mo | 6 | 1 | 2 |
+| [`ConvexConcaveConvolution`](ConvexConcaveConvolution.md) | 凸・凹列とのmin-plusまたはmax-plus畳み込みを計算する。 | 2 | 0 | 0 |
+| [`ConvexMinPlusConvolution`](ConvexMinPlusConvolution.md) | 凸列を含むmin-plus畳み込みを高速に計算する。 | 2 | 0 | 0 |
+| [`GoldenSectionSearch`](GoldenSectionSearch.md) | 単峰関数の最小値または最大値を黄金分割探索する。 | 1 | 0 | 0 |
+| [`KnapsackBranchAndBound`](KnapsackBranchAndBound.md) | 0/1 knapsackを分枝限定法で解く。 | 1 | 0 | 0 |
+| [`LineContainer`](LineContainer.md) | 直線を追加し、任意のxで最小値または最大値を求める。 | 0 | 1 | 2 |
 | [`Matroid`](Matroid.md) | graphic/partition/transversal matroid intersection | 1 | 3 | 6 |
-| [`Optimization`](Optimization.md) | Monotone Minima・凸min-plus・CHT・最大長方形・整数黄金分割 | 6 | 2 | 4 |
+| [`MaximalRectangle`](MaximalRectangle.md) | histogramまたは0/1行列に含まれる最大長方形を求める。 | 2 | 0 | 0 |
+| [`MongeShortestPaths`](MongeShortestPaths.md) | Monge重みを持つDAGの最短路を辺数制約付きで計算する。 | 3 | 0 | 0 |
+| [`MonotoneConvexHullTrick`](MonotoneConvexHullTrick.md) | 傾きとquery位置が単調な直線集合の最適値を求める。 | 0 | 1 | 2 |
+| [`MonotoneMinima`](MonotoneMinima.md) | Monge性を持つ行列の各行最小位置を高速に求める。 | 1 | 0 | 0 |
 | [`ProjectSelection`](ProjectSelection.md) | binary/K値Project Selection・高次all-0/all-1 profit | 0 | 2 | 22 |
+| [`RollbackMo`](RollbackMo.md) | rollback可能な状態更新を使ってoffline区間queryを処理する。 | 0 | 1 | 2 |
 | [`SlopeTrick`](SlopeTrick.md) | 重み付きSlope Trick・shift/slide/chmin/merge/eval | 0 | 1 | 14 |

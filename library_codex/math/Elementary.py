@@ -3,7 +3,7 @@ from library_codex.algorithm.IntegerUtilities import (
     exact_square_root,
     modular_power,
 )
-from library_codex.math.Combinatorics import extended_gcd
+from library_codex.math.IntegerArithmetic import extended_gcd
 from library_codex.math.ModularRoot import primitive_root
 from library_codex.prime.Factorization import divisors, euler_phi, factor_count
 from library_codex.prime.Sieve import LinearSieve

@@ -1,4 +1,6 @@
-from library_codex.heuristic.Heuristics import LogTable, MultiArmedBandit, TopK
+from library_codex.heuristic.LogTable import LogTable
+from library_codex.heuristic.MultiArmedBandit import MultiArmedBandit
+from library_codex.heuristic.TopK import TopK
 
 
 def test_log_table_bandit_and_top_k():

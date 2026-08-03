@@ -8,12 +8,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.math.Structures import (  # noqa: E402
-    Affine,
-    SternBrocotNode,
-    XorBasis,
-    grundy_numbers,
-)
+from library_codex.math.Affine import Affine  # noqa: E402
+from library_codex.math.GrundyNumbers import grundy_numbers  # noqa: E402
+from library_codex.math.SternBrocotNode import SternBrocotNode  # noqa: E402
+from library_codex.math.XorBasis import XorBasis  # noqa: E402
 
 
 def test_affine_composition():

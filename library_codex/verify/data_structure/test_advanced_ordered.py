@@ -1,7 +1,8 @@
 import bisect
 import random
 
-from library_codex.data_structure.AdvancedOrdered import OrderedMap, PersistentRBSTSet
+from library_codex.data_structure.OrderedMap import OrderedMap
+from library_codex.data_structure.PersistentRBSTSet import PersistentRBSTSet
 
 
 def test_ordered_map_against_dict_and_sorted_keys():

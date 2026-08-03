@@ -4,11 +4,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.IntRangeTree import (
+from library_codex.data_structure.RangeAddAssignRangeStats import (
     INF,
     RangeAddAssignRangeStats,
-    RangeAffineRangeSum,
 )
+from library_codex.data_structure.RangeAffineRangeSum import RangeAffineRangeSum
 
 
 def test_range_stats_random_against_list():
@@ -103,4 +103,3 @@ def test_large_integers_and_nonrecursive_scale():
     affine.apply(0, n, 3, 5)
     affine.apply(123, n - 321, 7, 9)
     assert affine.range_sum(0, 123) == 123 * 5
-

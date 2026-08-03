@@ -2,16 +2,14 @@ from collections import deque
 import bisect
 import random
 
-from library_codex.data_structure.Collections import (
-    BitSet,
-    PersistentBinaryTrie,
-    PersistentQueue,
-    PointSetRangeFrequency,
-    RangeSet,
-    TopKSum,
-    TreapSet,
-    sliding_window_minimum,
-)
+from library_codex.data_structure.BitSet import BitSet
+from library_codex.data_structure.PersistentBinaryTrie import PersistentBinaryTrie
+from library_codex.data_structure.PersistentQueue import PersistentQueue
+from library_codex.data_structure.PointSetRangeFrequency import PointSetRangeFrequency
+from library_codex.data_structure.RangeSet import RangeSet
+from library_codex.data_structure.SlidingWindowMinimum import sliding_window_minimum
+from library_codex.data_structure.TopKSum import TopKSum
+from library_codex.data_structure.TreapSet import TreapSet
 
 
 def test_bitset_random_against_integer():

@@ -1,4 +1,4 @@
-from library_codex.convolution.AdvancedConvolution import multivariate_multiplication
+from library_codex.convolution.MultivariateMultiplication import multivariate_multiplication
 from library_codex.convolution.FormalPowerSeries import DEFAULT_MOD
 
 

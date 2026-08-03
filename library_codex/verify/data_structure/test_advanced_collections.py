@@ -7,8 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.data_structure.AdvancedCollections import (  # noqa: E402
-    SkewHeap,
+from library_codex.data_structure.SkewHeap import SkewHeap  # noqa: E402
+from library_codex.data_structure.UnionRectangle import (  # noqa: E402
     UnionRectangle,
     union_rectangle_area,
 )

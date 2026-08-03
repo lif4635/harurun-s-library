@@ -4,11 +4,8 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.LiChaoTree import (
-    INF,
-    DynamicLiChaoTree,
-    LiChaoTree,
-)
+from library_codex.data_structure.DynamicLiChaoTree import DynamicLiChaoTree
+from library_codex.data_structure.LiChaoTree import INF, LiChaoTree
 
 
 def test_fixed_random():

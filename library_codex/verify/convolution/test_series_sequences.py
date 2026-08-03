@@ -8,20 +8,22 @@ from library_codex.convolution.FormalPowerSeries import (
     fps_multiply,
     fps_power,
 )
-from library_codex.convolution.SeriesSequences import (
-    bell_numbers,
-    bernoulli_numbers,
-    circular_series,
-    derangement_numbers,
-    euler_transform,
-    partition_numbers,
-    pascal_transform,
-    polynomial_mobius_transform,
+from library_codex.convolution.BellNumbers import bell_numbers
+from library_codex.convolution.BernoulliNumbers import bernoulli_numbers
+from library_codex.convolution.CircularSeries import circular_series
+from library_codex.convolution.DerangementNumbers import derangement_numbers
+from library_codex.convolution.EulerTransform import euler_transform
+from library_codex.convolution.PartitionNumbers import partition_numbers
+from library_codex.convolution.PascalTransform import pascal_transform
+from library_codex.convolution.PolynomialMobiusTransform import polynomial_mobius_transform
+from library_codex.convolution.SparseFormalPowerSeries import (
     sparse_divide,
     sparse_exponential,
     sparse_inverse,
     sparse_logarithm,
     sparse_power,
+)
+from library_codex.convolution.StirlingNumbers import (
     stirling_first_column,
     stirling_first_row,
     stirling_second_column,
