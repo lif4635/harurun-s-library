@@ -70,7 +70,7 @@ class PersistentSegmentTree:
     def get(self, index, version=-1):
         return self.get_root(self.roots[version], index)
 
-    def update_root(self, root, index, value):
+    def _update_root(self, root, index, value, combine):
         assert 0 <= index < self.n
         nodes_l = self.left
         nodes_r = self.right
@@ -89,6 +89,8 @@ class PersistentSegmentTree:
                 root = nodes_r[root] if root else 0
                 left = mid
 
+        if combine:
+            value = self.op(value, data[root])
         if value == self.e:
             child = 0
         else:
@@ -114,6 +116,9 @@ class PersistentSegmentTree:
                 child = len(data) - 1
         return child
 
+    def update_root(self, root, index, value):
+        return self._update_root(root, index, value, False)
+
     def set(self, index, value, version=-1):
         root = self.update_root(self.roots[version], index, value)
         self.roots.append(root)
@@ -122,9 +127,9 @@ class PersistentSegmentTree:
     update = set
 
     def add(self, index, value, version=-1):
+        """op(value, current)を格納した新versionを返す。O(log N)。"""
         root = self.roots[version]
-        value = self.op(value, self.get_root(root, index))
-        root = self.update_root(root, index, value)
+        root = self._update_root(root, index, value, True)
         self.roots.append(root)
         return len(self.roots) - 1
 

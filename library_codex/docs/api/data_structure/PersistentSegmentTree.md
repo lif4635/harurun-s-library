@@ -29,12 +29,12 @@ from library_codex.data_structure.PersistentSegmentTree import PersistentSegment
 | --- | --- | --- | --- | --- |
 | [`get_root(root, index)`](../../../data_structure/PersistentSegmentTree.py#L54) | method | 根を取得する。 | `root`: 根の頂点番号・原始根<br>`index`: 0-indexedの位置 | `self.data[root]` |
 | [`get(index, version=-1)`](../../../data_structure/PersistentSegmentTree.py#L70) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置<br>`version`: 参照するversion番号。省略時: `-1` | 指定対象に格納された値・edge object |
-| [`update_root(root, index, value)`](../../../data_structure/PersistentSegmentTree.py#L73) | method | 根を更新する。 | `root`: 根の頂点番号・原始根<br>`index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `child`（数値または入力要素型） |
-| [`set(index, value, version=-1)`](../../../data_structure/PersistentSegmentTree.py#L117) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
-| [`add(index, value, version=-1)`](../../../data_structure/PersistentSegmentTree.py#L124) | method | index番目の値へvalueを加える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
-| [`prod_root(root, ql, qr)`](../../../data_structure/PersistentSegmentTree.py#L131) | method | 積・根を求める。 | `root`: 根の頂点番号・原始根<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `self.e` / `res` |
-| [`prod(l, r, version=-1)`](../../../data_structure/PersistentSegmentTree.py#L153) | method | 半開区間またはpathの集約値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`version`: 参照するversion番号。省略時: `-1` | 区間・pathの集約値（入力要素型） |
-| [`all_prod(version=-1)`](../../../data_structure/PersistentSegmentTree.py#L158) | method | 全区間の集約値を返す。 | `version`: 参照するversion番号。省略時: `-1` | 全体の集約値（入力要素型） |
-| [`fork(version=-1)`](../../../data_structure/PersistentSegmentTree.py#L161) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
-| [`new_tree()`](../../../data_structure/PersistentSegmentTree.py#L165) | method | `new`・木を求める。 | なし | 数値または入力要素型 `len(self.roots) - 1` |
-| [`node_count()`](../../../data_structure/PersistentSegmentTree.py#L169) | method | `node`・個数を求める。 | なし | 数値または入力要素型 `len(self.data) - 1` |
+| [`update_root(root, index, value)`](../../../data_structure/PersistentSegmentTree.py#L119) | method | 根を更新する。 | `root`: 根の頂点番号・原始根<br>`index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `self._update_root(root, index, value, False)` |
+| [`set(index, value, version=-1)`](../../../data_structure/PersistentSegmentTree.py#L122) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
+| [`add(index, value, version=-1)`](../../../data_structure/PersistentSegmentTree.py#L129) | method | op(value, current)を格納した新versionを返す。O(log N)。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
+| [`prod_root(root, ql, qr)`](../../../data_structure/PersistentSegmentTree.py#L136) | method | 積・根を求める。 | `root`: 根の頂点番号・原始根<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `self.e` / `res` |
+| [`prod(l, r, version=-1)`](../../../data_structure/PersistentSegmentTree.py#L158) | method | 半開区間またはpathの集約値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`version`: 参照するversion番号。省略時: `-1` | 区間・pathの集約値（入力要素型） |
+| [`all_prod(version=-1)`](../../../data_structure/PersistentSegmentTree.py#L163) | method | 全区間の集約値を返す。 | `version`: 参照するversion番号。省略時: `-1` | 全体の集約値（入力要素型） |
+| [`fork(version=-1)`](../../../data_structure/PersistentSegmentTree.py#L166) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
+| [`new_tree()`](../../../data_structure/PersistentSegmentTree.py#L170) | method | `new`・木を求める。 | なし | 数値または入力要素型 `len(self.roots) - 1` |
+| [`node_count()`](../../../data_structure/PersistentSegmentTree.py#L174) | method | `node`・個数を求める。 | なし | 数値または入力要素型 `len(self.data) - 1` |

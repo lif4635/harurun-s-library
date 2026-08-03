@@ -5,11 +5,12 @@
 
 - 計算量の目安: 構築 O(N)、各操作 O(log N)
 - source: [`data_structure/SegmentTree.py`](../../../data_structure/SegmentTree.py)
-- 公開API: function 0、class 1、method/property 7（Python protocol 1を含む）
+- 公開API: function 0、class 1、method/property 8（Python protocol 1を含む）
 
 ## できること
 
 - 任意の結合的演算で一点更新・半開区間集約を O(log N) で処理できる。
+- add(index, value)で一点をop(value, current)へ更新でき、非可換演算でも順序が固定される。
 - 文字列結合や行列積のような非可換演算でも、左から右の順序を保って集約できる。
 - prefixの集約値に対する単調な条件を使い、条件が崩れる最初の境界を O(log N) で探せる。
 
@@ -30,9 +31,10 @@ from library_codex.data_structure.SegmentTree import SegmentTree
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`set(index, value)`](../../../data_structure/SegmentTree.py#L31) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(index)`](../../../data_structure/SegmentTree.py#L41) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`prod(left, right)`](../../../data_structure/SegmentTree.py#L44) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
-| [`all_prod()`](../../../data_structure/SegmentTree.py#L64) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
-| [`max_right(left, predicate)`](../../../data_structure/SegmentTree.py#L67) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
-| [`min_left(right, predicate)`](../../../data_structure/SegmentTree.py#L92) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
-| [`__getitem__(index)`](../../../data_structure/SegmentTree.py#L117) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`add(index, value)`](../../../data_structure/SegmentTree.py#L41) | method | indexの現在値をop(value, current)で置き換える。O(log N)。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../data_structure/SegmentTree.py#L52) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`prod(left, right)`](../../../data_structure/SegmentTree.py#L55) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| [`all_prod()`](../../../data_structure/SegmentTree.py#L75) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
+| [`max_right(left, predicate)`](../../../data_structure/SegmentTree.py#L78) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
+| [`min_left(right, predicate)`](../../../data_structure/SegmentTree.py#L103) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
+| [`__getitem__(index)`](../../../data_structure/SegmentTree.py#L128) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |

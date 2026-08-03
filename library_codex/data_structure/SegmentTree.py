@@ -38,6 +38,17 @@ class SegmentTree:
             data[node] = op(data[node << 1], data[node << 1 | 1])
             node >>= 1
 
+    def add(self, index, value):
+        """indexの現在値をop(value, current)で置き換える。O(log N)。"""
+        node = index + self.size
+        data = self.data
+        op = self.op
+        data[node] = op(value, data[node])
+        node >>= 1
+        while node:
+            data[node] = op(data[node << 1], data[node << 1 | 1])
+            node >>= 1
+
     def get(self, index):
         return self.data[index + self.size]
 

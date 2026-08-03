@@ -29,7 +29,7 @@ class DynamicSegmentTree:
         self.data.append(self.identity)
         return node
 
-    def set(self, index, value):
+    def _write(self, index, value, combine):
         if not self.left_bound <= index < self.right_bound:
             raise IndexError("index is out of range")
         node = 0
@@ -53,6 +53,8 @@ class DynamicSegmentTree:
                     self.right[node] = child
                 node = child
                 left = middle
+        if combine:
+            value = self.op(value, self.data[node])
         self.data[node] = value
         op = self.op
         identity = self.identity
@@ -63,6 +65,9 @@ class DynamicSegmentTree:
                 self.data[left_node] if left_node >= 0 else identity,
                 self.data[right_node] if right_node >= 0 else identity,
             )
+
+    def set(self, index, value):
+        self._write(index, value, False)
 
     def get(self, index):
         if not self.left_bound <= index < self.right_bound:
@@ -81,7 +86,8 @@ class DynamicSegmentTree:
         return self.data[node] if node >= 0 else self.identity
 
     def add(self, index, value):
-        self.set(index, self.get(index) + value)
+        """indexの現在値をop(value, current)で置き換える。O(log W)。"""
+        self._write(index, value, True)
 
     def prod(self, query_left, query_right):
         if query_left >= query_right:

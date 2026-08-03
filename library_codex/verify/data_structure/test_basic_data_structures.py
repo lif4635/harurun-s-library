@@ -110,6 +110,9 @@ def test_segment_tree_noncommutative_and_search():
             value = chr(97 + rng.randrange(26))
             values[index] = value
             solver.set(index, value)
+            prefix = chr(65 + rng.randrange(26))
+            values[index] = prefix + values[index]
+            solver.add(index, prefix)
         else:
             left = rng.randrange(len(values) + 1)
             right = rng.randrange(left, len(values) + 1)
@@ -175,6 +178,17 @@ def test_lazy_and_dual_segment_tree_random():
             index = rng.randrange(size)
             assert solver.get(index) == dual.get(index) == values[index]
     assert solver.all_prod() == sum(values)
+
+    noncommutative = LazySegmentTree(
+        [("a",), ("b",), ("c",)],
+        lambda first, second: first + second,
+        (),
+        lambda _action, aggregate, _length: aggregate,
+        lambda new, _old: new,
+    )
+    noncommutative.add(1, ("x",))
+    assert noncommutative.get(1) == ("x", "b")
+    assert noncommutative.prod(0, 3) == ("a", "x", "b", "c")
 
 
 def naive_groups(size, edges):
@@ -375,6 +389,11 @@ def test_dynamic_segment_tree_sparse_large_domain():
             )
             assert solver.prod(left, right) == expected
     assert solver.all_prod() == sum(values.values())
+
+    noncommutative = DynamicSegmentTree(0, 10, lambda a, b: a + b, "")
+    noncommutative.set(4, "old")
+    noncommutative.add(4, "new-")
+    assert noncommutative.get(4) == "new-old"
 
 
 def test_dynamic_lazy_segment_tree_random_range_add_sum():

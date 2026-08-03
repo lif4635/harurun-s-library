@@ -26,7 +26,7 @@
 | [`FenwickTree2D`](FenwickTree2D.md) | 二次元gridの一点加算と半開矩形和を扱うFenwick Tree。 | 0 | 1 | 3 |
 | [`ImplicitTreap`](ImplicitTreap.md) | 動的列の挿入削除・反転・非可換積・range lazy作用 | 0 | 1 | 14 |
 | [`LazyKDTree`](LazyKDTree.md) | 二次元点への矩形更新と矩形集約を行うlazy KD-tree。 | 0 | 1 | 3 |
-| [`LazySegmentTree`](LazySegmentTree.md) | 区間作用と区間集約を行うLazy Segment Tree | 0 | 1 | 7 |
+| [`LazySegmentTree`](LazySegmentTree.md) | 区間作用と区間集約を行うLazy Segment Tree | 0 | 1 | 8 |
 | [`LiChaoTree`](LiChaoTree.md) | 固定座標のLi Chao Tree（線分・min/max対応） | 0 | 1 | 5 |
 | [`LineContainer2D`](LineContainer2D.md) | 二変数一次式を追加し、指定点での最大値・最小値を求める構造。 | 0 | 1 | 3 |
 | [`MaxInterval`](MaxInterval.md) | 一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid | 2 | 1 | 1 |
@@ -55,7 +55,7 @@
 | [`RollbackUnionFind`](RollbackUnionFind.md) | undo・snapshot・成分和対応Union Find | 0 | 1 | 13 |
 | [`SWAGDeque`](SWAGDeque.md) | deque両端の追加・削除をしながら全体のmonoid積を保つSWAG。 | 0 | 1 | 6 |
 | [`SWAGQueue`](SWAGQueue.md) | queue全体のmonoid積をpush・popと同じ償却計算量で保つSWAG。 | 0 | 1 | 4 |
-| [`SegmentTree`](SegmentTree.md) | 一点更新・区間集約・境界探索を行う汎用Segment Tree | 0 | 1 | 7 |
+| [`SegmentTree`](SegmentTree.md) | 一点更新・区間集約・境界探索を行う汎用Segment Tree | 0 | 1 | 8 |
 | [`SegmentTree2D`](SegmentTree2D.md) | 二次元gridの一点更新と半開矩形monoid積を扱うSegment Tree。 | 0 | 1 | 3 |
 | [`SegmentTreeBeats`](SegmentTreeBeats.md) | range chmin/chmax/add/update・range sum/min/max（非再帰） | 0 | 1 | 12 |
 | [`SkewHeap`](SkewHeap.md) | heap同士のmeldと全要素へのlazy加算に対応するSkew Heap。 | 0 | 1 | 6 |

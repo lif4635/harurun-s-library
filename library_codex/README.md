@@ -17,7 +17,7 @@
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
 - PyPy 全検証: 447 passed
-- 再帰監査: 3036 functions、direct/mutual recursion なし
+- 再帰監査: 3040 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 

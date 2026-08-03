@@ -5,11 +5,12 @@
 
 - 計算量の目安: 構築 O(N)、各操作 O(log N)
 - source: [`data_structure/LazySegmentTree.py`](../../../data_structure/LazySegmentTree.py)
-- 公開API: function 0、class 1、method/property 7（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 8（Python protocol 0を含む）
 
 ## できること
 
 - 半開区間全体への作用と、半開区間の集約値取得をどちらも O(log N) で処理できる。
+- add(index, value)で遅延作用を反映してから一点をop(value, current)へ更新できる。
 - 区間加算・区間和、区間代入・区間最小などを、mappingとcompositionを指定して構成できる。
 - 一点更新・一点取得に加え、max_right・min_leftによる集約値の境界探索も使える。
 
@@ -30,9 +31,10 @@ from library_codex.data_structure.LazySegmentTree import LazySegmentTree
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`set(index, value)`](../../../data_structure/LazySegmentTree.py#L74) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(index)`](../../../data_structure/LazySegmentTree.py#L82) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`prod(left, right)`](../../../data_structure/LazySegmentTree.py#L88) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
-| [`apply(left, right=None, action=None)`](../../../data_structure/LazySegmentTree.py#L115) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）。省略時: `None`<br>`action`: 遅延作用・更新作用。省略時: `None` | `None` |
-| [`all_prod()`](../../../data_structure/LazySegmentTree.py#L156) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
-| [`max_right(left, predicate)`](../../../data_structure/LazySegmentTree.py#L159) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
-| [`min_left(right, predicate)`](../../../data_structure/LazySegmentTree.py#L185) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
+| [`add(index, value)`](../../../data_structure/LazySegmentTree.py#L82) | method | indexの現在値をop(value, current)で置き換える。O(log N)。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../data_structure/LazySegmentTree.py#L91) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`prod(left, right)`](../../../data_structure/LazySegmentTree.py#L97) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| [`apply(left, right=None, action=None)`](../../../data_structure/LazySegmentTree.py#L124) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）。省略時: `None`<br>`action`: 遅延作用・更新作用。省略時: `None` | `None` |
+| [`all_prod()`](../../../data_structure/LazySegmentTree.py#L165) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
+| [`max_right(left, predicate)`](../../../data_structure/LazySegmentTree.py#L168) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
+| [`min_left(right, predicate)`](../../../data_structure/LazySegmentTree.py#L194) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |

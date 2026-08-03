@@ -79,6 +79,15 @@ class LazySegmentTree:
         for shift in range(1, self.log + 1):
             self._update(node >> shift)
 
+    def add(self, index, value):
+        """indexの現在値をop(value, current)で置き換える。O(log N)。"""
+        node = index + self.size
+        for shift in range(self.log, 0, -1):
+            self._push(node >> shift)
+        self.data[node] = self.op(value, self.data[node])
+        for shift in range(1, self.log + 1):
+            self._update(node >> shift)
+
     def get(self, index):
         node = index + self.size
         for shift in range(self.log, 0, -1):

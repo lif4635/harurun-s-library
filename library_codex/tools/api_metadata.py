@@ -43,11 +43,13 @@ MODULE_CAPABILITIES = {
     ),
     "data_structure/SegmentTree.py": (
         "任意の結合的演算で一点更新・半開区間集約を O(log N) で処理できる。",
+        "add(index, value)で一点をop(value, current)へ更新でき、非可換演算でも順序が固定される。",
         "文字列結合や行列積のような非可換演算でも、左から右の順序を保って集約できる。",
         "prefixの集約値に対する単調な条件を使い、条件が崩れる最初の境界を O(log N) で探せる。",
     ),
     "data_structure/LazySegmentTree.py": (
         "半開区間全体への作用と、半開区間の集約値取得をどちらも O(log N) で処理できる。",
+        "add(index, value)で遅延作用を反映してから一点をop(value, current)へ更新できる。",
         "区間加算・区間和、区間代入・区間最小などを、mappingとcompositionを指定して構成できる。",
         "一点更新・一点取得に加え、max_right・min_leftによる集約値の境界探索も使える。",
     ),
@@ -63,6 +65,7 @@ MODULE_CAPABILITIES = {
     ),
     "data_structure/DynamicSegmentTree.py": (
         "巨大な整数座標区間で一点更新と半開区間集約を O(log W) で処理できる。Wは座標幅。",
+        "add(index, value)で一点をop(value, current)へ更新でき、更新経路を1回だけ辿る。",
         "更新で通った経路だけnodeを確保するため、実際に触る座標が少ない問題でmemoryを節約できる。",
         "未設定の位置はidentityとして扱い、座標圧縮なしで疎な値を保持できる。",
     ),
