@@ -25,6 +25,7 @@ def test_contribution_contract_is_installed():
         "非可換",
         "tolist()",
         "items()",
+        "check_changed.py",
         "check_library.py --profile full",
     ):
         assert phrase in agent_text
@@ -34,10 +35,12 @@ def test_contribution_contract_is_installed():
         "methodごとの時間計算量",
         "randomized test",
         "通常のPythonコード",
+        "差分検査",
         "## 完了チェックリスト",
     ):
         assert phrase in guide_text
 
     assert "docs/CONTRIBUTING.md" in readme_text
+    assert "tools/check_changed.py" in readme_text
     assert "データ構造なら`tolist()`または`items()`" in pull_request_text
-
+    assert "tools/check_changed.py" in pull_request_text

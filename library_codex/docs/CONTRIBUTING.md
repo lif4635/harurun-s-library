@@ -87,14 +87,26 @@ Lazy構造では保留中の作用を反映した現在値を返します。表�
 - `tolist()`、`items()`、`str`、`repr`の厳密な出力と、呼出し後の状態。
 - bundleを単独processで実行し、package未installでも使えること。
 
-変更したtestだけを先に実行してから、日常検査を通します。
+反復中は差分検査を使います。Gitの未commit差分から、変更module、それをimportするmodule、対応test、API同期、変更fileだけの再帰監査を自動選択します。
 
 ```sh
-PYTHONPATH=. pypy3 -m pytest -q library_codex/verify/対象のtest.py
+pypy3 library_codex/tools/check_changed.py
+```
+
+直前のcommitを調べる場合は`--base HEAD~1`、実行せず選択内容だけを見る場合は`--list`を付けます。性能を触ったときだけ`--benchmarks`を追加します。
+
+```sh
+pypy3 library_codex/tools/check_changed.py --base HEAD~1 --list
+pypy3 library_codex/tools/check_changed.py --benchmarks
+```
+
+機能がまとまったcheckpointではquick検査を行います。
+
+```sh
 pypy3 library_codex/tools/check_library.py
 ```
 
-横断的な変更、新しい基盤、公開前の確認では全検査も行います。
+全検査は、共通基盤を横断する変更、大規模な性能変更、mainへmergeするrelease checkpointで行います。説明文、サイト表示、1moduleの局所変更のたびには実行しません。
 
 ```sh
 pypy3 library_codex/tools/check_library.py --profile full
@@ -104,7 +116,7 @@ pypy3 library_codex/tools/check_library.py --profile full
 
 bundleは選択moduleのsourceから、実際にimportする`library_codex`内依存だけを再帰的に展開します。生成物はpackage wrapperや動的な`bundle`関数ではなく、貼り付けて実行できる通常のPythonコードにします。
 
-公開するときは次を同期します。
+公開するときは次を同期します。細かい試行ごとに公開せず、確認しやすい変更のまとまりをcheckpointとして一度だけ公開して構いません。サイトのAPI dataは、既存JSONの`sourceRevision`から変更moduleとbundle依存先だけを差分更新します。
 
 - sourceと生成済みAPIリファレンス。
 - test数・再帰監査数などREADMEに載せる実績値。
@@ -121,5 +133,5 @@ bundleは選択moduleのsourceから、実際にimportする`library_codex`内�
 - [ ] データ構造の論理内容を確認するAPIと表示を検討した。
 - [ ] bundleが単独で動き、無関係な依存を含まない。
 - [ ] APIリファレンスを再生成した。
-- [ ] quick検査を通し、必要な変更ではfull検査も通した。
+- [ ] 反復中は差分検査を通し、checkpointではquick、release条件に該当するときだけfull検査を通した。
 - [ ] GitHubとサイトの公開物を同期した。

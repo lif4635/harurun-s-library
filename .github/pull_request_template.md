@@ -11,7 +11,7 @@
 - [ ] データ構造なら`tolist()`または`items()`、`str`、`repr`とそのtestを検討した
 - [ ] bundleが選択moduleと実依存だけの単独実行可能なコードになっている
 - [ ] `pypy3 library_codex/tools/build_api_reference.py`を実行した
-- [ ] `pypy3 library_codex/tools/check_library.py`を通した
-- [ ] 横断的な変更なら`pypy3 library_codex/tools/check_library.py --profile full`も通した
+- [ ] 反復中に`pypy3 library_codex/tools/check_changed.py`で差分検査した
+- [ ] checkpointなら`pypy3 library_codex/tools/check_library.py`を通した
+- [ ] 共通基盤・大規模性能変更・release checkpointなら`--profile full`も通した
 - [ ] 公開する変更ならサイトのデータと配布ZIPも同期した
-

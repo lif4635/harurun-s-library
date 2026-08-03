@@ -38,6 +38,8 @@
 
 - 正解を単純解と比較するrandomized test、空・要素1・重複・境界値のtestを追加する。
 - データ構造ではデバッグ表示の内容と、表示後も状態が壊れないことをtestする。
-- 通常の変更後は`pypy3 library_codex/tools/check_library.py`を通す。
-- 横断的な変更や公開前は`pypy3 library_codex/tools/check_library.py --profile full`を通す。
+- 反復中は`pypy3 library_codex/tools/check_changed.py`を使い、変更module・依存先・対応testだけを検査する。
+- まとまったcheckpointでは`pypy3 library_codex/tools/check_library.py`を通す。
+- full検査`pypy3 library_codex/tools/check_library.py --profile full`は、共通基盤の横断変更、大規模な性能変更、mainへmergeするrelease checkpointでだけ実行する。説明、サイト表示、1moduleの局所変更のたびには繰り返さない。
+- サイト公開は小さな変更ごとに義務化せず、確認しやすいまとまりで行う。API dataは前回revisionから差分更新する。
 - APIリファレンス、GitHubの配布物、サイトのJSONとZIPをsourceと同期してから完了とする。

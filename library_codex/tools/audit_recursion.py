@@ -1,3 +1,4 @@
+import argparse
 import ast
 from pathlib import Path
 import sys
@@ -49,10 +50,25 @@ def definitions(tree, relative):
     return result
 
 
-def build_graph(root):
+def python_files(root, selected=()):
+    if selected:
+        for value in selected:
+            path = Path(value)
+            if not path.is_absolute():
+                path = path if path.is_file() else root / path
+            if path.is_file() and path.suffix == ".py":
+                yield path
+        return
+    yield from sorted(root.rglob("*.py"))
+
+
+def build_graph(root, selected=()):
     functions = []
-    for path in sorted(root.rglob("*.py")):
-        relative = path.relative_to(root).as_posix()
+    for path in python_files(root, selected):
+        try:
+            relative = path.relative_to(root).as_posix()
+        except ValueError:
+            relative = path.as_posix()
         tree = ast.parse(path.read_text(), filename=str(path))
         functions.extend(definitions(tree, relative))
     graph = {name: set() for name, _, _, _ in functions}
@@ -115,8 +131,11 @@ def find_cycle(graph):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Detect direct and mutual recursion.")
+    parser.add_argument("paths", nargs="*", help="limit the audit to these Python files")
+    args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    graph = build_graph(root)
+    graph = build_graph(root, args.paths)
     cycle = find_cycle(graph)
     if cycle is not None:
         print("recursive call cycle:", " -> ".join(cycle))

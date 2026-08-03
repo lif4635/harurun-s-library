@@ -12,6 +12,7 @@ REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
+    ROOT / "verify" / "test_changed_checks.py",
     ROOT / "verify" / "test_contribution_guide.py",
     ROOT / "verify" / "test_api_reference.py",
     ROOT / "verify" / "test_module_boundaries.py",
