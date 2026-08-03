@@ -39,3 +39,15 @@ class SWAGQueue:
 
     def __len__(self):
         return len(self.front) + len(self.back)
+
+    def tolist(self):
+        """queueの先頭から順に要素を並べたlistを返す。O(N)。"""
+        return [item[0] for item in reversed(self.front)] + [
+            item[0] for item in self.back
+        ]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "SWAGQueue(%r)" % self.tolist()

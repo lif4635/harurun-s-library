@@ -291,6 +291,16 @@ class ImplicitTreap:
             node = self.right[node]
         return result
 
+    def tolist(self):
+        """遅延作用と反転を反映した現在の要素列を返す。O(N)。"""
+        return self.to_list()
+
+    def __str__(self):
+        return str(self.to_list())
+
+    def __repr__(self):
+        return "ImplicitTreap(%r)" % self.to_list()
+
     def __getitem__(self, index):
         return self.get(index)
 

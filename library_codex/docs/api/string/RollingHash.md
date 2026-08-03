@@ -5,7 +5,7 @@ $2^{61}-1$ 静的hash・連結・反転・LCP。
 
 - 計算量の目安: 構築 $O(N)$、取得 $O(1)$
 - source: [`string/RollingHash.py`](../../../string/RollingHash.py)
-- 公開API: function 1、class 5、method/property 33（Python protocol 11を含む）
+- 公開API: function 1、class 5、method/property 34（Python protocol 12を含む）
 
 ## できること
 
@@ -130,3 +130,4 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHashView`。
 | [`__getitem__(index)`](../../../string/RollingHash.py#L439) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__eq__(other)`](../../../string/RollingHash.py#L453) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__lt__(other)`](../../../string/RollingHash.py#L461) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
+| [`__str__()`](../../../string/RollingHash.py#L464) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |

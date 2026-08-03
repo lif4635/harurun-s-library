@@ -68,6 +68,20 @@ class SegmentTree2D:
     def get(self, row, column):
         return self.data[row + self.row_size][column + self.column_size]
 
+    def tolist(self):
+        """現在のgridを行ごとのlistとして返す。O(HW)。"""
+        offset = self.column_size
+        return [
+            self.data[row + self.row_size][offset:offset + self.width]
+            for row in range(self.height)
+        ]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "SegmentTree2D(%r)" % self.tolist()
+
     def _column_prod(self, row_node, left, right):
         left += self.column_size
         right += self.column_size

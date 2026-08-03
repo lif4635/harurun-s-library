@@ -5,7 +5,7 @@ deque両端の追加・削除をしながら全体のmonoid積を保つSWAG。
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`data_structure/SWAGDeque.py`](../../../data_structure/SWAGDeque.py)
-- 公開API: function 0、class 1、method/property 6（Python protocol 1を含む）
+- 公開API: function 0、class 1、method/property 9（Python protocol 3を含む）
 
 ## できること
 
@@ -33,3 +33,6 @@ deque両端の追加・削除をしながら全体のmonoid積を保つSWAGを�
 | [`pop()`](../../../data_structure/SWAGDeque.py#L54) | method | 要素を1つ取り除いて返す。 | なし | `self.back.pop()[0]` |
 | [`fold()`](../../../data_structure/SWAGDeque.py#L64) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` |
 | [`__len__()`](../../../data_structure/SWAGDeque.py#L74) | method | len(obj)。 | なし | 要素数（int） |
+| [`tolist()`](../../../data_structure/SWAGDeque.py#L77) | method | dequeの左端から順に要素を並べたlistを返す。O(N)。 | なし | list[object] — dequeの左端から右端までの要素列 |
+| [`__str__()`](../../../data_structure/SWAGDeque.py#L83) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/SWAGDeque.py#L86) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SWAGDeque(%r)' % self.tolist()` |

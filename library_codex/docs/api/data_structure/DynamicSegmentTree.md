@@ -5,7 +5,7 @@
 
 - 計算量の目安: 各操作 O(log W)、memory O(K log W)
 - source: [`data_structure/DynamicSegmentTree.py`](../../../data_structure/DynamicSegmentTree.py)
-- 公開API: function 0、class 1、method/property 5（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 8（Python protocol 2を含む）
 
 ## できること
 
@@ -35,3 +35,6 @@ from library_codex.data_structure.DynamicSegmentTree import DynamicSegmentTree
 | [`add(index, value)`](../../../data_structure/DynamicSegmentTree.py#L88) | method | indexの現在値をop(value, current)で置き換える。O(log W)。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prod(query_left, query_right)`](../../../data_structure/DynamicSegmentTree.py#L92) | method | 半開区間またはpathの集約値を返す。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端 | 区間・pathの集約値（入力要素型） |
 | [`all_prod()`](../../../data_structure/DynamicSegmentTree.py#L112) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
+| [`items()`](../../../data_structure/DynamicSegmentTree.py#L115) | method | identityでない設定済みleafを(index, value)の昇順listで返す。O(K)。 | なし | list[tuple[int, object]] — identityでないleafの(index, value)をindex昇順に並べた列 |
+| [`__str__()`](../../../data_structure/DynamicSegmentTree.py#L133) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/DynamicSegmentTree.py#L136) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'DynamicSegmentTree(%r)' % dict(self.items())` |

@@ -6,4 +6,4 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`Random`](Random.md) | 再現可能なxoshiro256**乱数・配列・文字列・区間・composition生成 | 0 | 1 | 14 |
-| [`RandomGraph`](RandomGraph.md) | edge-list container・木・連結・単純・Erdős–Rényi graph生成 | 0 | 3 | 15 |
+| [`RandomGraph`](RandomGraph.md) | edge-list container・木・連結・単純・Erdős–Rényi graph生成 | 0 | 3 | 16 |

@@ -196,6 +196,52 @@ MODULE_ARGUMENT_DESCRIPTION = {
 }
 
 MODULE_RETURN_SEMANTIC = {
+    "data_structure/SegmentTree.py": {
+        "tolist": "list[object] — 現在のindex順の要素列",
+    },
+    "data_structure/LazySegmentTree.py": {
+        "tolist": "list[object] — 全ての遅延作用を反映したindex順の要素列",
+    },
+    "data_structure/DualSegmentTree.py": {
+        "tolist": "list[object] — 全ての遅延作用を反映したindex順の要素列",
+    },
+    "data_structure/DynamicSegmentTree.py": {
+        "items": "list[tuple[int, object]] — identityでないleafの(index, value)をindex昇順に並べた列",
+    },
+    "data_structure/PersistentSegmentTree.py": {
+        "tolist": "list[object] — 指定versionのindex順の要素列",
+    },
+    "data_structure/SegmentTree2D.py": {
+        "tolist": "list[list[object]] — 現在のgridをrow順に複製した2次元list",
+    },
+    "data_structure/SegmentTreeBeats.py": {
+        "tolist": "list[number] — 全ての遅延更新を反映したindex順の数列",
+    },
+    "data_structure/FenwickTree.py": {
+        "tolist": "list[number] — 現在のindex順の要素列",
+    },
+    "data_structure/SWAGQueue.py": {
+        "tolist": "list[object] — queueの先頭から末尾までの要素列",
+    },
+    "data_structure/SWAGDeque.py": {
+        "tolist": "list[object] — dequeの左端から右端までの要素列",
+    },
+    "data_structure/ErasableHeap.py": {
+        "tolist": "list[number] — 削除予約を除いた値を重複込みで昇順に並べた列",
+    },
+    "data_structure/FastSet.py": {
+        "tolist": "list[int] — 保持する整数を昇順に並べた列",
+    },
+    "data_structure/BinaryTrie.py": {
+        "tolist": "list[int] — lazy xor反映後の整数を重複込みで昇順に並べた列",
+    },
+    "data_structure/ImplicitTreap.py": {
+        "to_list": "list[object] — 遅延作用と反転を反映した現在の要素列",
+        "tolist": "list[object] — 遅延作用と反転を反映した現在の要素列",
+    },
+    "data_structure/TreapSet.py": {
+        "tolist": "list[object] — 保持するkeyを昇順に並べた列",
+    },
     "geometry/Orientation.py": {
         "cross": "number — origin→firstとorigin→secondの符号付き外積",
         "orientation": "int — 反時計回りは1、時計回りは-1、一直線は0",
@@ -338,6 +384,8 @@ PROTOCOL_METHODS = {
     "__len__": "len(obj)",
     "__next__": "next(obj)",
     "__setitem__": "obj[key] = value で更新する",
+    "__str__": "str(obj)・print(obj)で論理内容を表示する",
+    "__repr__": "対話環境・debugger向けに型名付きで表示する",
     "__delitem__": "del obj[key] で削除する",
     "__reversed__": "reversed(obj)",
     "__add__": "obj + other",

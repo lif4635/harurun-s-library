@@ -80,3 +80,15 @@ class DualSegmentTree:
     def set(self, index, value):
         self.get(index)
         self.value[index] = value
+
+    def tolist(self):
+        """遅延作用を反映した現在の要素列をlistで返す。O(N)。"""
+        for node in range(1, self.size):
+            self._push(node)
+        return self.value[:]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "DualSegmentTree(%r)" % self.tolist()

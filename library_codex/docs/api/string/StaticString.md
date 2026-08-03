@@ -5,7 +5,7 @@ SA共有substring view・複数view連結。
 
 - 計算量の目安: 同一baseのLCP $O(1)$、index $O(\log K)$
 - source: [`string/StaticString.py`](../../../string/StaticString.py)
-- 公開API: function 3、class 3、method/property 33（Python protocol 17を含む）
+- 公開API: function 3、class 3、method/property 37（Python protocol 21を含む）
 
 ## できること
 
@@ -76,6 +76,8 @@ SA共有substring view・複数view連結を扱う `StaticString`。
 | [`__le__(other)`](../../../string/StaticString.py#L167) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__gt__(other)`](../../../string/StaticString.py#L170) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__ge__(other)`](../../../string/StaticString.py#L173) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
+| [`__str__()`](../../../string/StaticString.py#L176) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self.base._kind == 1 else str(value)` |
+| [`__repr__()`](../../../string/StaticString.py#L180) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'StaticString({self.materialize()!r})'` |
 
 ## Class `MergedStaticString`
 
@@ -101,3 +103,5 @@ SA共有substring view・複数view連結を扱う `MergedStaticString`。
 | [`__le__(other)`](../../../string/StaticString.py#L356) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__gt__(other)`](../../../string/StaticString.py#L359) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__ge__(other)`](../../../string/StaticString.py#L362) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
+| [`__str__()`](../../../string/StaticString.py#L365) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self._kind in (-1, 1) else str(value)` |
+| [`__repr__()`](../../../string/StaticString.py#L369) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'MergedStaticString({self.materialize()!r})'` |

@@ -5,7 +5,7 @@
 
 - 計算量の目安: 構築 $O(N)$、LCP $O(1)$
 - source: [`string/SuffixArray.py`](../../../string/SuffixArray.py)
-- 公開API: function 4、class 2、method/property 22（Python protocol 9を含む）
+- 公開API: function 4、class 2、method/property 23（Python protocol 10を含む）
 
 ## できること
 
@@ -69,6 +69,7 @@ from library_codex.string.SuffixArray import (
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/SuffixArray.py#L361) | method | len(obj)。 | なし | 要素数（int） |
 | [`__getitem__(index)`](../../../string/SuffixArray.py#L364) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__str__()`](../../../string/SuffixArray.py#L376) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
 | [`lcp(other)`](../../../string/SuffixArray.py#L379) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `self.base.lcp_substring(self.left, self.right, other.left, oth...` |
 | [`compare(other)`](../../../string/SuffixArray.py#L385) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | `self.base.compare_substring(self.left, self.right, other.left,...` |
 | [`startswith(other)`](../../../string/SuffixArray.py#L393) | method | `startswith`を求める。 | `other`: 同じ型のもう一方のobject・値 | bool |

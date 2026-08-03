@@ -5,7 +5,7 @@
 
 - 計算量の目安: 取得・更新 $O(\log N)$
 - source: [`data_structure/PersistentArray.py`](../../../data_structure/PersistentArray.py)
-- 公開API: function 0、class 1、method/property 7（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 9（Python protocol 2を含む）
 
 ## できること
 
@@ -34,3 +34,5 @@ from library_codex.data_structure.PersistentArray import PersistentArray
 | [`fork(version=-1)`](../../../data_structure/PersistentArray.py#L100) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`tolist(version=-1)`](../../../data_structure/PersistentArray.py#L104) | method | `tolist`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`node_count()`](../../../data_structure/PersistentArray.py#L108) | method | `node`・個数を求める。 | なし | 数値または入力要素型 `len(self.pool) // self.branch - 1` |
+| [`__str__()`](../../../data_structure/PersistentArray.py#L111) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/PersistentArray.py#L114) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'PersistentArray(%r)' % self.tolist()` |

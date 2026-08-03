@@ -137,3 +137,18 @@ class FastSet:
 
     def __len__(self):
         return self.size
+
+    def tolist(self):
+        """保持する整数を昇順listで返す。O(K log_64 N)。"""
+        result = []
+        value = self.next(0)
+        while value >= 0:
+            result.append(value)
+            value = self.next(value + 1)
+        return result
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "FastSet(%r)" % self.tolist()

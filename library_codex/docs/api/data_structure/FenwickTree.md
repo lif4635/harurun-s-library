@@ -5,7 +5,7 @@
 
 - 計算量の目安: 更新・取得 $O(\log N)$
 - source: [`data_structure/FenwickTree.py`](../../../data_structure/FenwickTree.py)
-- 公開API: function 0、class 1、method/property 7（Python protocol 1を含む）
+- 公開API: function 0、class 1、method/property 10（Python protocol 3を含む）
 
 ## できること
 
@@ -36,3 +36,6 @@ from library_codex.data_structure.FenwickTree import FenwickTree
 | [`set(index, value)`](../../../data_structure/FenwickTree.py#L50) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`lower_bound(target)`](../../../data_structure/FenwickTree.py#L53) | method | prefix和がtarget以上になる最初の位置を返す。 | `target`: 探索・判定・更新の対象値 | 条件を満たす最小index（int。存在しなければsize） |
 | [`__len__()`](../../../data_structure/FenwickTree.py#L69) | method | len(obj)。 | なし | 要素数（int） |
+| [`tolist()`](../../../data_structure/FenwickTree.py#L72) | method | 現在の要素列をlistで返す。O(N)。 | なし | list[number] — 現在のindex順の要素列 |
+| [`__str__()`](../../../data_structure/FenwickTree.py#L81) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/FenwickTree.py#L84) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'FenwickTree(%r)' % self.tolist()` |

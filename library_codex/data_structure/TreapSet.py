@@ -222,3 +222,13 @@ class TreapSet:
             node = stack.pop()
             yield self.key[node]
             node = self.right[node]
+
+    def tolist(self):
+        """保持するkeyを昇順listで返す。O(N)。"""
+        return list(self)
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "TreapSet(%r)" % self.tolist()

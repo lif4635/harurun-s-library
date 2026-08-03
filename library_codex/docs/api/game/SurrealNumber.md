@@ -5,7 +5,7 @@ dyadic有理数としてsurreal numberの比較・四則演算・子を扱う。
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`game/SurrealNumber.py`](../../../game/SurrealNumber.py)
-- 公開API: function 1、class 1、method/property 15（Python protocol 9を含む）
+- 公開API: function 1、class 1、method/property 16（Python protocol 10を含む）
 
 ## できること
 
@@ -45,6 +45,7 @@ dyadic有理数としてsurreal numberの比較・四則演算・子を扱うを
 | [`__ge__(other)`](../../../game/SurrealNumber.py#L55) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__eq__(other)`](../../../game/SurrealNumber.py#L58) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__hash__()`](../../../game/SurrealNumber.py#L64) | method | hash(obj)。 | なし | `hash((self.numerator, self.exponent))` |
+| [`__repr__()`](../../../game/SurrealNumber.py#L67) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'SurrealNumber({self.numerator})'` / `f'SurrealNumber({self.numerator}, {self.exponent})'` |
 | [`children()`](../../../game/SurrealNumber.py#L72) | method | `children`を求める。 | なし | tuple(SurrealNumber `SurrealNumber(-1)`, SurrealNumber `SurrealNumber(1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator * 2 - 1, 1)`, SurrealNumber `SurrealNumber(self.numerator + 1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator - 1)`, SurrealNumber `SurrealNumber(self.numerator * 2 + 1, 1)`) / tuple(数値または入力要素型 `self - difference`, 数値または入力要素型 `self + difference`) |
 | [`larger()`](../../../game/SurrealNumber.py#L86) | method | `larger`を求める。 | なし | 計算結果（SurrealNumber） |
 | [`smaller()`](../../../game/SurrealNumber.py#L92) | method | `smaller`を求める。 | なし | 計算結果（SurrealNumber） |

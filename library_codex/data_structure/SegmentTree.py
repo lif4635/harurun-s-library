@@ -52,6 +52,16 @@ class SegmentTree:
     def get(self, index):
         return self.data[index + self.size]
 
+    def tolist(self):
+        """現在の要素列をlistで返す。O(N)。"""
+        return self.data[self.size:self.size + self.n]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "SegmentTree(%r)" % self.tolist()
+
     def prod(self, left, right):
         left += self.size
         right += self.size

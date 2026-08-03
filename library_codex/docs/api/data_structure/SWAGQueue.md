@@ -5,7 +5,7 @@ queue全体のmonoid積をpush・popと同じ償却計算量で保つSWAG。
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`data_structure/SWAGQueue.py`](../../../data_structure/SWAGQueue.py)
-- 公開API: function 0、class 1、method/property 4（Python protocol 1を含む）
+- 公開API: function 0、class 1、method/property 7（Python protocol 3を含む）
 
 ## できること
 
@@ -31,3 +31,6 @@ queue全体のmonoid積をpush・popと同じ償却計算量で保つSWAGを扱�
 | [`popleft()`](../../../data_structure/SWAGQueue.py#L18) | method | `popleft`を求める。 | なし | `self.front.pop()[0]` |
 | [`fold()`](../../../data_structure/SWAGQueue.py#L30) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` |
 | [`__len__()`](../../../data_structure/SWAGQueue.py#L40) | method | len(obj)。 | なし | 要素数（int） |
+| [`tolist()`](../../../data_structure/SWAGQueue.py#L43) | method | queueの先頭から順に要素を並べたlistを返す。O(N)。 | なし | list[object] — queueの先頭から末尾までの要素列 |
+| [`__str__()`](../../../data_structure/SWAGQueue.py#L49) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/SWAGQueue.py#L52) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SWAGQueue(%r)' % self.tolist()` |

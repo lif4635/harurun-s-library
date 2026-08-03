@@ -134,3 +134,13 @@ class BinaryTrie:
 
     def __len__(self):
         return self.count[0]
+
+    def tolist(self):
+        """重複を含む現在の整数を昇順listで返す。O(KB)。"""
+        return [self.kth(index) for index in range(len(self))]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "BinaryTrie(%r)" % self.tolist()

@@ -5,7 +5,7 @@ word-size tree型の固定整数universe ordered set。
 
 - 計算量の目安: $O(\log_{64}N)$
 - source: [`data_structure/FastSet.py`](../../../data_structure/FastSet.py)
-- 公開API: function 0、class 1、method/property 8（Python protocol 2を含む）
+- 公開API: function 0、class 1、method/property 11（Python protocol 4を含む）
 
 ## できること
 
@@ -35,3 +35,6 @@ word-size tree型の固定整数universe ordered setを扱う `FastSet`。
 | [`max()`](../../../data_structure/FastSet.py#L126) | method | 最大を求める。 | なし | 値 |
 | [`__contains__(value)`](../../../data_structure/FastSet.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`__len__()`](../../../data_structure/FastSet.py#L138) | method | len(obj)。 | なし | 要素数（int） |
+| [`tolist()`](../../../data_structure/FastSet.py#L141) | method | 保持する整数を昇順listで返す。O(K log_64 N)。 | なし | list[int] — 保持する整数を昇順に並べた列 |
+| [`__str__()`](../../../data_structure/FastSet.py#L150) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/FastSet.py#L153) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'FastSet(%r)' % self.tolist()` |

@@ -5,7 +5,7 @@ range chmin/chmax/add/update・range sum/min/max（非再帰）。
 
 - 計算量の目安: 構築 $O(N)$、更新はBeatsの償却計算量
 - source: [`data_structure/SegmentTreeBeats.py`](../../../data_structure/SegmentTreeBeats.py)
-- 公開API: function 0、class 1、method/property 12（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 15（Python protocol 2を含む）
 
 ## できること
 
@@ -45,3 +45,6 @@ range chmin/chmax/add/update・range sum/min/max（非再帰）を扱う `Segmen
 | [`all_sum()`](../../../data_structure/SegmentTreeBeats.py#L321) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
 | [`all_min()`](../../../data_structure/SegmentTreeBeats.py#L324) | method | 全体・最小を求める。 | なし | `self.range_min(0, self.n)` |
 | [`all_max()`](../../../data_structure/SegmentTreeBeats.py#L327) | method | 全体・最大を求める。 | なし | `self.range_max(0, self.n)` |
+| [`tolist()`](../../../data_structure/SegmentTreeBeats.py#L330) | method | 遅延更新を反映した現在の要素列をlistで返す。O(N)。 | なし | list[number] — 全ての遅延更新を反映したindex順の数列 |
+| [`__str__()`](../../../data_structure/SegmentTreeBeats.py#L336) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/SegmentTreeBeats.py#L339) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegmentTreeBeats(%r)' % self.tolist()` |

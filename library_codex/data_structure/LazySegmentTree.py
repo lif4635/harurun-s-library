@@ -94,6 +94,18 @@ class LazySegmentTree:
             self._push(node >> shift)
         return self.data[node]
 
+    def tolist(self):
+        """遅延作用を反映した現在の要素列をlistで返す。O(N)。"""
+        for node in range(1, self.size):
+            self._push(node)
+        return self.data[self.size:self.size + self.n]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "LazySegmentTree(%r)" % self.tolist()
+
     def prod(self, left, right):
         if left == right:
             return self.identity

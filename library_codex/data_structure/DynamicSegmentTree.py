@@ -111,3 +111,27 @@ class DynamicSegmentTree:
 
     def all_prod(self):
         return self.data[0]
+
+    def items(self):
+        """identityでない設定済みleafを(index, value)の昇順listで返す。O(K)。"""
+        result = []
+        stack = [(0, self.left_bound, self.right_bound)]
+        while stack:
+            node, left, right = stack.pop()
+            if node < 0:
+                continue
+            if right - left == 1:
+                value = self.data[node]
+                if value != self.identity:
+                    result.append((left, value))
+                continue
+            middle = (left + right) >> 1
+            stack.append((self.right[node], middle, right))
+            stack.append((self.left[node], left, middle))
+        return result
+
+    def __str__(self):
+        return str(dict(self.items()))
+
+    def __repr__(self):
+        return "DynamicSegmentTree(%r)" % dict(self.items())

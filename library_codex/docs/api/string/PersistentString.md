@@ -5,7 +5,7 @@
 
 - 計算量の目安: 構築 $O(N)$、編集 $O(\log N)$
 - source: [`string/PersistentString.py`](../../../string/PersistentString.py)
-- 公開API: function 0、class 1、method/property 25（Python protocol 12を含む）
+- 公開API: function 0、class 1、method/property 27（Python protocol 14を含む）
 
 ## できること
 
@@ -52,3 +52,5 @@ from library_codex.string.PersistentString import PersistentString
 | [`__le__(other)`](../../../string/PersistentString.py#L417) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__gt__(other)`](../../../string/PersistentString.py#L420) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__ge__(other)`](../../../string/PersistentString.py#L423) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
+| [`__str__()`](../../../string/PersistentString.py#L426) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self._kind == 1 else str(value)` |
+| [`__repr__()`](../../../string/PersistentString.py#L430) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'PersistentString({self.to_sequence()!r})'` |

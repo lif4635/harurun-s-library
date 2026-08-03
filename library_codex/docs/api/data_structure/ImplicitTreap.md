@@ -5,7 +5,7 @@
 
 - 計算量の目安: 期待 $O(\log N)$
 - source: [`data_structure/ImplicitTreap.py`](../../../data_structure/ImplicitTreap.py)
-- 公開API: function 0、class 1、method/property 14（Python protocol 4を含む）
+- 公開API: function 0、class 1、method/property 17（Python protocol 6を含む）
 
 ## できること
 
@@ -36,8 +36,11 @@ from library_codex.data_structure.ImplicitTreap import ImplicitTreap
 | [`reverse_range(left, right)`](../../../data_structure/ImplicitTreap.py#L250) | method | `reverse`・区間を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
 | [`prod(left=0, right=None)`](../../../data_structure/ImplicitTreap.py#L258) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 区間・pathの集約値（入力要素型） |
 | [`apply(left, right, action)`](../../../data_structure/ImplicitTreap.py#L269) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | `None` |
-| [`to_list()`](../../../data_structure/ImplicitTreap.py#L280) | method | `to`・`list`を求める。 | なし | list[object] — 計算結果 |
-| [`__getitem__(index)`](../../../data_structure/ImplicitTreap.py#L294) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`__setitem__(index, value)`](../../../data_structure/ImplicitTreap.py#L297) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`__len__()`](../../../data_structure/ImplicitTreap.py#L300) | method | len(obj)。 | なし | 要素数（int） |
-| [`__iter__()`](../../../data_structure/ImplicitTreap.py#L303) | method | iter(obj)・for 文。 | なし | iterator |
+| [`to_list()`](../../../data_structure/ImplicitTreap.py#L280) | method | `to`・`list`を求める。 | なし | list[object] — 遅延作用と反転を反映した現在の要素列 |
+| [`tolist()`](../../../data_structure/ImplicitTreap.py#L294) | method | 遅延作用と反転を反映した現在の要素列を返す。O(N)。 | なし | list[object] — 遅延作用と反転を反映した現在の要素列 |
+| [`__str__()`](../../../data_structure/ImplicitTreap.py#L298) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/ImplicitTreap.py#L301) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'ImplicitTreap(%r)' % self.to_list()` |
+| [`__getitem__(index)`](../../../data_structure/ImplicitTreap.py#L304) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__setitem__(index, value)`](../../../data_structure/ImplicitTreap.py#L307) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`__len__()`](../../../data_structure/ImplicitTreap.py#L310) | method | len(obj)。 | なし | 要素数（int） |
+| [`__iter__()`](../../../data_structure/ImplicitTreap.py#L313) | method | iter(obj)・for 文。 | なし | iterator |

@@ -5,7 +5,7 @@ edge-list container・木・連結・単純・Erdős–Rényi graph生成。
 
 - 計算量の目安: 主に $O(N+M)$、密グラフは $O(N^2)$
 - source: [`random/RandomGraph.py`](../../../random/RandomGraph.py)
-- 公開API: function 0、class 3、method/property 15（Python protocol 0を含む）
+- 公開API: function 0、class 3、method/property 16（Python protocol 1を含む）
 
 ## できること
 
@@ -43,6 +43,7 @@ edge-list container・木・連結・単純・Erdős–Rényi graph生成を扱�
 | [`to_adjacency_list(directed=False)`](../../../random/RandomGraph.py#L44) | method | edge-listを頂点ごとの隣接辺listへ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[Edge]] — 頂点ごとに外向きEdgeを並べた隣接list |
 | [`to_adjacency_matrix(directed=False)`](../../../random/RandomGraph.py#L53) | method | edge-listを辺重み入りの隣接行列へ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[number]] — 行を始点、列を終点とするn×nの辺重み行列 |
 | [`format_edges(zero_indexed=False)`](../../../random/RandomGraph.py#L62) | method | 辺を競プロ入力で使える改行区切り文字列へ整形する。 | `zero_indexed`: 頂点番号を0始まりで出力するか。省略時: `False` | str — 1辺1行の改行区切り文字列（末尾改行なし） |
+| [`__str__()`](../../../random/RandomGraph.py#L73) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | 数値または入力要素型 `header + ('\n' + edges if edges else '')` |
 
 ## Class `UndirectedGraphGenerator`
 

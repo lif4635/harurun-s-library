@@ -5,7 +5,7 @@ multiset・全体xor・k-th・xor min/max。
 
 - 計算量の目安: $O(B)$
 - source: [`data_structure/BinaryTrie.py`](../../../data_structure/BinaryTrie.py)
-- 公開API: function 0、class 1、method/property 12（Python protocol 2を含む）
+- 公開API: function 0、class 1、method/property 15（Python protocol 4を含む）
 
 ## できること
 
@@ -39,3 +39,6 @@ multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
 | [`xor_max(value)`](../../../data_structure/BinaryTrie.py#L128) | method | XOR・最大を求める。 | `value`: 追加・設定・問い合わせる値 | `self.xor_min(value ^ mask)` |
 | [`__contains__(value)`](../../../data_structure/BinaryTrie.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`__len__()`](../../../data_structure/BinaryTrie.py#L135) | method | len(obj)。 | なし | 要素数（int） |
+| [`tolist()`](../../../data_structure/BinaryTrie.py#L138) | method | 重複を含む現在の整数を昇順listで返す。O(KB)。 | なし | list[int] — lazy xor反映後の整数を重複込みで昇順に並べた列 |
+| [`__str__()`](../../../data_structure/BinaryTrie.py#L142) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/BinaryTrie.py#L145) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'BinaryTrie(%r)' % self.tolist()` |

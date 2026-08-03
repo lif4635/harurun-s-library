@@ -133,6 +133,12 @@ class _ImmediateQueries:
         """Return a copy of the current sequence."""
         return self._values[:]
 
+    def __str__(self) -> str:
+        return str(self.tolist())
+
+    def __repr__(self) -> str:
+        return "%s(%r)" % (type(self).__name__, self.tolist())
+
     def _count_lt_checked(self, left: int, right: int, upper: int) -> int:
         if left == right:
             return 0
@@ -2201,6 +2207,12 @@ class OfflineDynamicWaveletMatrix:
     def tolist(self) -> list[int]:
         """Return values after all updates registered so far."""
         return self._current[:]
+
+    def __str__(self) -> str:
+        return str(self.tolist())
+
+    def __repr__(self) -> str:
+        return "OfflineDynamicWaveletMatrix(%r)" % self.tolist()
 
     def set(self, index: Any, value: Any) -> None:
         """Register ``A[index] = value``."""

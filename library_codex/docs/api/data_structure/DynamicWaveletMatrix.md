@@ -5,7 +5,7 @@
 
 - 計算量の目安: online操作 O(B log N)、offline全処理 O((N+Q) log V log N)
 - source: [`data_structure/DynamicWaveletMatrix.py`](../../../data_structure/DynamicWaveletMatrix.py)
-- 公開API: function 1、class 3、method/property 35（Python protocol 5を含む）
+- 公開API: function 1、class 3、method/property 37（Python protocol 7を含む）
 
 ## できること
 
@@ -24,74 +24,76 @@ from library_codex.data_structure.DynamicWaveletMatrix import dynamic_range_min_
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`dynamic_range_min_count_sum_at_least(values: Iterable[int], queries: Iterable[tuple[int, int, int, int, int]], one_indexed: bool=False) -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2523) | `dynamic`・区間・最小・個数・和・`at`・`least`を計算する。 | `values`: 初期値のiterable<br>`queries`: 一括処理するqueryの列<br>`one_indexed`: Trueなら問題文形式の1-indexed入力として解釈する。省略時: `False` | 各queryの答えのlist |
+| [`dynamic_range_min_count_sum_at_least(values: Iterable[int], queries: Iterable[tuple[int, int, int, int, int]], one_indexed: bool=False) -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2535) | `dynamic`・区間・最小・個数・和・`at`・`least`を計算する。 | `values`: 初期値のiterable<br>`queries`: 一括処理するqueryの列<br>`one_indexed`: Trueなら問題文形式の1-indexed入力として解釈する。省略時: `False` | 各queryの答えのlist |
 
 ## Class `DynamicWaveletMatrix`
 
 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版を扱う `DynamicWaveletMatrix`。
 
-- constructor: [`DynamicWaveletMatrix(values: Iterable[int], python_int_sum: bool=False) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1818)
+- constructor: [`DynamicWaveletMatrix(values: Iterable[int], python_int_sum: bool=False) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1824)
 - 引数: `values`: 初期値のiterable<br>`python_int_sum`: Trueなら区間和をPython任意精度整数で保持する。省略時: `False`
 - 返り値: `DynamicWaveletMatrix` instance
 - 継承元: `_ImmediateQueries`
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`max_bit`](../../../data_structure/DynamicWaveletMatrix.py#L1863) | property | 最大・`bit`を求める。 | なし | `int` / `self._levels` |
-| [`rank(left: Any, right: Any, value: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1968) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
-| [`sum_k_smallest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1996) | method | 和・`k`・最小を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最小要素の合計値（int） |
-| [`sum_k_largest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2017) | method | 和・`k`・最大を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最大要素の合計値（int） |
-| [`min_count_sum_at_least(left: Any, right: Any, target: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2038) | method | 最小・個数・和・`at`・`least`を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値 | 目標和へ到達する最小個数（不能なら -1） |
-| [`access(index: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2063) | method | 指定位置の元の値を取得する。 | `index`: 0-indexedの位置 | 指定位置の元の値 |
-| [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2069) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2104) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
-| [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2110) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`max_bit`](../../../data_structure/DynamicWaveletMatrix.py#L1869) | property | 最大・`bit`を求める。 | なし | `int` / `self._levels` |
+| [`rank(left: Any, right: Any, value: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1974) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
+| [`sum_k_smallest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2002) | method | 和・`k`・最小を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最小要素の合計値（int） |
+| [`sum_k_largest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2023) | method | 和・`k`・最大を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最大要素の合計値（int） |
+| [`min_count_sum_at_least(left: Any, right: Any, target: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2044) | method | 最小・個数・和・`at`・`least`を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値 | 目標和へ到達する最小個数（不能なら -1） |
+| [`access(index: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2069) | method | 指定位置の元の値を取得する。 | `index`: 0-indexedの位置 | 指定位置の元の値 |
+| [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2075) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2110) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
+| [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2116) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 
 ## Class `CompressedDynamicWaveletMatrix`
 
 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版を扱う `CompressedDynamicWaveletMatrix`。
 
-- constructor: [`CompressedDynamicWaveletMatrix(values: Iterable[int], update_candidates: Iterable[tuple[int, int]]=()) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L458)
+- constructor: [`CompressedDynamicWaveletMatrix(values: Iterable[int], update_candidates: Iterable[tuple[int, int]]=()) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L464)
 - 引数: `values`: 初期値のiterable<br>`update_candidates`: 各位置で使用し得る更新候補 `(index, value)` のiterable。省略時: `()`
 - 返り値: `CompressedDynamicWaveletMatrix` instance
 - 継承元: `_ImmediateQueries`
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`coordinates`](../../../data_structure/DynamicWaveletMatrix.py#L569) | property | `coordinates`を求める。 | なし | `tuple[int, ...]` / `self._coordinates` |
-| [`candidate_count`](../../../data_structure/DynamicWaveletMatrix.py#L574) | property | `candidate`・個数を求める。 | なし | `int` / `self._offsets[-1]` |
-| [`packed_sums`](../../../data_structure/DynamicWaveletMatrix.py#L579) | property | `packed`・`sums`を求める。 | なし | `bool` / `self._packed` |
-| [`sum_k_smallest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L911) | method | 和・`k`・最小を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最小要素の合計値（int） |
-| [`sum_k_largest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L940) | method | 和・`k`・最大を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最大要素の合計値（int） |
-| [`min_count_sum_at_least(left: Any, right: Any, target: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L969) | method | 最小・個数・和・`at`・`least`を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値 | 目標和へ到達する最小個数（不能なら -1） |
-| [`access(index: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1004) | method | 指定位置の元の値を取得する。 | `index`: 0-indexedの位置 | 指定位置の元の値 |
-| [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1010) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1048) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
-| [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1054) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`rank(left: Any, right: Any, value: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1057) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
+| [`coordinates`](../../../data_structure/DynamicWaveletMatrix.py#L575) | property | `coordinates`を求める。 | なし | `tuple[int, ...]` / `self._coordinates` |
+| [`candidate_count`](../../../data_structure/DynamicWaveletMatrix.py#L580) | property | `candidate`・個数を求める。 | なし | `int` / `self._offsets[-1]` |
+| [`packed_sums`](../../../data_structure/DynamicWaveletMatrix.py#L585) | property | `packed`・`sums`を求める。 | なし | `bool` / `self._packed` |
+| [`sum_k_smallest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L917) | method | 和・`k`・最小を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最小要素の合計値（int） |
+| [`sum_k_largest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L946) | method | 和・`k`・最大を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | k個の最大要素の合計値（int） |
+| [`min_count_sum_at_least(left: Any, right: Any, target: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L975) | method | 最小・個数・和・`at`・`least`を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値 | 目標和へ到達する最小個数（不能なら -1） |
+| [`access(index: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1010) | method | 指定位置の元の値を取得する。 | `index`: 0-indexedの位置 | 指定位置の元の値 |
+| [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1016) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1054) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
+| [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1060) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`rank(left: Any, right: Any, value: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1063) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
 
 ## Class `OfflineDynamicWaveletMatrix`
 
 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版を扱う `OfflineDynamicWaveletMatrix`。
 
-- constructor: [`OfflineDynamicWaveletMatrix(values: Iterable[int]) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2145)
+- constructor: [`OfflineDynamicWaveletMatrix(values: Iterable[int]) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2151)
 - 引数: `values`: 初期値のiterable
 - 返り値: `OfflineDynamicWaveletMatrix` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`__len__() -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2160) | method | len(obj)。 | なし | 要素数（int） |
-| [`query_count`](../../../data_structure/DynamicWaveletMatrix.py#L2164) | property | 個数を取得する。 | なし | 登録済みquery数（int） |
-| [`solved`](../../../data_structure/DynamicWaveletMatrix.py#L2169) | property | `solved`を求める。 | なし | `bool` / bool |
-| [`access(index: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2192) | method | 指定位置の元の値を取得する。 | `index`: 0-indexedの位置 | 指定位置の元の値 |
-| [`__iter__() -> Iterator[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2198) | method | iter(obj)・for 文。 | なし | iterator |
-| [`tolist() -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2201) | method | `tolist`を求める。 | なし | 現在の列をcopyしたlist |
-| [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2205) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2231) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
-| [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2238) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`min_count_sum_at_least(left: Any, right: Any, target: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2241) | method | 最小・個数・和・`at`・`least`を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値 | 登録したqueryのID（int） |
-| [`kth_smallest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2248) | method | k番目・最小を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | 登録したqueryのID（int） |
-| [`kth_largest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2257) | method | k番目・最大を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | 登録したqueryのID（int） |
-| [`range_sum(left: Any, right: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2264) | method | 区間・和を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 登録したqueryのID（int） |
-| [`answer(query_id: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2270) | method | `answer`を求める。 | `query_id`: query のID（0-indexed） | `int` / `self._answers[query_id]` |
-| [`solve() -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2277) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
+| [`__len__() -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2166) | method | len(obj)。 | なし | 要素数（int） |
+| [`query_count`](../../../data_structure/DynamicWaveletMatrix.py#L2170) | property | 個数を取得する。 | なし | 登録済みquery数（int） |
+| [`solved`](../../../data_structure/DynamicWaveletMatrix.py#L2175) | property | `solved`を求める。 | なし | `bool` / bool |
+| [`access(index: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2198) | method | 指定位置の元の値を取得する。 | `index`: 0-indexedの位置 | 指定位置の元の値 |
+| [`__iter__() -> Iterator[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2204) | method | iter(obj)・for 文。 | なし | iterator |
+| [`tolist() -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2207) | method | `tolist`を求める。 | なし | 現在の列をcopyしたlist |
+| [`__str__() -> str`](../../../data_structure/DynamicWaveletMatrix.py#L2211) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | `str` / str instance |
+| [`__repr__() -> str`](../../../data_structure/DynamicWaveletMatrix.py#L2214) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `str` / 数値または入力要素型 `'OfflineDynamicWaveletMatrix(%r)' % self.tolist()` |
+| [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2217) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2243) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
+| [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2250) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`min_count_sum_at_least(left: Any, right: Any, target: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2253) | method | 最小・個数・和・`at`・`least`を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値 | 登録したqueryのID（int） |
+| [`kth_smallest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2260) | method | k番目・最小を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | 登録したqueryのID（int） |
+| [`kth_largest(left: Any, right: Any, k: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2269) | method | k番目・最大を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | 登録したqueryのID（int） |
+| [`range_sum(left: Any, right: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2276) | method | 区間・和を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 登録したqueryのID（int） |
+| [`answer(query_id: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2282) | method | `answer`を求める。 | `query_id`: query のID（0-indexed） | `int` / `self._answers[query_id]` |
+| [`solve() -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2289) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |

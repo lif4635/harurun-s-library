@@ -5,7 +5,7 @@
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`data_structure/SegmentTree2D.py`](../../../data_structure/SegmentTree2D.py)
-- 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 6（Python protocol 2を含む）
 
 ## できること
 
@@ -29,4 +29,7 @@ from library_codex.data_structure.SegmentTree2D import SegmentTree2D
 | --- | --- | --- | --- | --- |
 | [`set(row, column, value)`](../../../data_structure/SegmentTree2D.py#L39) | method | 指定位置・状態を値で置き換える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`get(row, column)`](../../../data_structure/SegmentTree2D.py#L68) | method | 指定位置・辺・状態の値を取得する。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号 | 指定対象に格納された値・edge object |
-| [`prod(top, left, bottom, right)`](../../../data_structure/SegmentTree2D.py#L88) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| [`tolist()`](../../../data_structure/SegmentTree2D.py#L71) | method | 現在のgridを行ごとのlistとして返す。O(HW)。 | なし | list[list[object]] — 現在のgridをrow順に複製した2次元list |
+| [`__str__()`](../../../data_structure/SegmentTree2D.py#L79) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/SegmentTree2D.py#L82) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegmentTree2D(%r)' % self.tolist()` |
+| [`prod(top, left, bottom, right)`](../../../data_structure/SegmentTree2D.py#L102) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |

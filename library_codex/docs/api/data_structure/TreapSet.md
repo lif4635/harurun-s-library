@@ -5,7 +5,7 @@
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`data_structure/TreapSet.py`](../../../data_structure/TreapSet.py)
-- 公開API: function 0、class 1、method/property 14（Python protocol 3を含む）
+- 公開API: function 0、class 1、method/property 17（Python protocol 5を含む）
 
 ## できること
 
@@ -41,3 +41,6 @@ from library_codex.data_structure.TreapSet import TreapSet
 | [`__contains__(key)`](../../../data_structure/TreapSet.py#L208) | method | value in obj。 | `key`: 比較・格納に使うkey | bool |
 | [`__len__()`](../../../data_structure/TreapSet.py#L211) | method | len(obj)。 | なし | 要素数（int） |
 | [`__iter__()`](../../../data_structure/TreapSet.py#L215) | method | iter(obj)・for 文。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする |
+| [`tolist()`](../../../data_structure/TreapSet.py#L226) | method | 保持するkeyを昇順listで返す。O(N)。 | なし | list[object] — 保持するkeyを昇順に並べた列 |
+| [`__str__()`](../../../data_structure/TreapSet.py#L230) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/TreapSet.py#L233) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'TreapSet(%r)' % self.tolist()` |

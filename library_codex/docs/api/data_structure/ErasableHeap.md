@@ -5,7 +5,7 @@ heapから任意の既存値を遅延削除できるpriority queue。
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`data_structure/ErasableHeap.py`](../../../data_structure/ErasableHeap.py)
-- 公開API: function 0、class 1、method/property 5（Python protocol 1を含む）
+- 公開API: function 0、class 1、method/property 8（Python protocol 3を含む）
 
 ## できること
 
@@ -32,3 +32,6 @@ heapから任意の既存値を遅延削除できるpriority queueを扱う `Era
 | [`top()`](../../../data_structure/ErasableHeap.py#L33) | method | 次に取り出される要素を削除せず返す。 | なし | 次に取り出される要素 |
 | [`pop()`](../../../data_structure/ErasableHeap.py#L39) | method | 要素を1つ取り除いて返す。 | なし | 値 |
 | [`__len__()`](../../../data_structure/ErasableHeap.py#L46) | method | len(obj)。 | なし | 要素数（int） |
+| [`tolist()`](../../../data_structure/ErasableHeap.py#L49) | method | 削除予約を除いた現在の値を昇順listで返す。O(N log N)。 | なし | list[number] — 削除予約を除いた値を重複込みで昇順に並べた列 |
+| [`__str__()`](../../../data_structure/ErasableHeap.py#L67) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/ErasableHeap.py#L70) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'ErasableHeap(%r)' % self.tolist()` |

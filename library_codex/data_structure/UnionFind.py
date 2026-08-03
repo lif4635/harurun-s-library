@@ -49,3 +49,9 @@ class UnionFind:
         for node in range(self.n):
             result[self.find(node)].append(node)
         return [group for group in result if group]
+
+    def __str__(self):
+        return str(self.groups())
+
+    def __repr__(self):
+        return "UnionFind(%r)" % self.groups()

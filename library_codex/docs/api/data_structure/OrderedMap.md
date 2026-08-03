@@ -5,7 +5,7 @@ key順の探索・k番目・lower/upper boundを扱う順序付きmap。
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`data_structure/OrderedMap.py`](../../../data_structure/OrderedMap.py)
-- 公開API: function 0、class 1、method/property 13（Python protocol 5を含む）
+- 公開API: function 0、class 1、method/property 15（Python protocol 7を含む）
 
 ## できること
 
@@ -40,3 +40,5 @@ key順の探索・k番目・lower/upper boundを扱う順序付きmapを扱う `
 | [`__len__()`](../../../data_structure/OrderedMap.py#L58) | method | len(obj)。 | なし | 要素数（int） |
 | [`__iter__()`](../../../data_structure/OrderedMap.py#L61) | method | iter(obj)・for 文。 | なし | iterator |
 | [`items()`](../../../data_structure/OrderedMap.py#L64) | method | `items`を求める。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする |
+| [`__str__()`](../../../data_structure/OrderedMap.py#L68) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/OrderedMap.py#L71) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'OrderedMap(%r)' % dict(self.items())` |

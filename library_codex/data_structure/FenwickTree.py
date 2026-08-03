@@ -68,3 +68,18 @@ class FenwickTree:
 
     def __len__(self):
         return self.n
+
+    def tolist(self):
+        """現在の要素列をlistで返す。O(N)。"""
+        values = self.bit[1:]
+        for index in range(self.n, 0, -1):
+            parent = index + (index & -index)
+            if parent <= self.n:
+                values[parent - 1] -= values[index - 1]
+        return values
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "FenwickTree(%r)" % self.tolist()

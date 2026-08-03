@@ -21,7 +21,7 @@
 | [`FloorPolynomialSum`](FloorPolynomialSum.md) | floorを含む多項式和 | 1 | 0 | 0 |
 | [`FloorSum`](FloorSum.md) | 一次式の床和と合同条件を満たす整数の個数を高速に数える。 | 2 | 0 | 0 |
 | [`FractionSearch`](FractionSearch.md) | Stern--Brocot/Farey型の有理数探索 | 1 | 0 | 0 |
-| [`GaussianInteger`](GaussianInteger.md) | Gaussian整数の四則演算と最大公約数を扱う。 | 1 | 1 | 12 |
+| [`GaussianInteger`](GaussianInteger.md) | Gaussian整数の四則演算と最大公約数を扱う。 | 1 | 1 | 13 |
 | [`GrayCode`](GrayCode.md) | 整数とGray codeを相互変換する。 | 3 | 0 | 0 |
 | [`GrundyNumbers`](GrundyNumbers.md) | 遷移グラフからmexとGrundy数を計算する。 | 2 | 0 | 0 |
 | [`IntegerArithmetic`](IntegerArithmetic.md) | 整数のgcd・lcm・拡張gcdと法逆元を計算する。 | 5 | 0 | 0 |

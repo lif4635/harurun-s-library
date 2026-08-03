@@ -45,3 +45,27 @@ class ErasableHeap:
 
     def __len__(self):
         return self.size
+
+    def tolist(self):
+        """削除予約を除いた現在の値を昇順listで返す。O(N log N)。"""
+        erased = {}
+        for value in self.erased:
+            erased[value] = erased.get(value, 0) + 1
+        result = []
+        for value in self.heap:
+            count = erased.get(value, 0)
+            if count:
+                if count == 1:
+                    del erased[value]
+                else:
+                    erased[value] = count - 1
+            else:
+                result.append(self.sign * value)
+        result.sort()
+        return result
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "ErasableHeap(%r)" % self.tolist()

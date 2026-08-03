@@ -16,8 +16,8 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 447 passed
-- 再帰監査: 3040 functions、direct/mutual recursion なし
+- PyPy 全検証: 452 passed
+- 再帰監査: 3100 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 
@@ -25,6 +25,7 @@
 
 - [保守監査](AUDIT.md): 完了条件、確認した所見、最終検証結果
 - [元のlibraryから取り込んだもの](docs/ORIGINAL_LIBRARY_MERGE.md): 採用した機能、改善点、不採用理由
+- [デバッグ出力](docs/DEBUG_OUTPUT.md): `str`・`repr`・`tolist`・疎構造の`items`の出力形式
 - `pypy3 library_codex/tools/check_library.py`: 日常用の短いテスト・性能回帰検査
 - `pypy3 library_codex/tools/check_library.py --profile full`: 全テスト・全性能回帰検査
 

@@ -5,7 +5,7 @@
 
 - 計算量の目安: ほぼ $O(\alpha(N))$
 - source: [`data_structure/UnionFind.py`](../../../data_structure/UnionFind.py)
-- 公開API: function 0、class 1、method/property 5（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 7（Python protocol 2を含む）
 
 ## できること
 
@@ -33,3 +33,5 @@ from library_codex.data_structure.UnionFind import UnionFind
 | [`same(first, second)`](../../../data_structure/UnionFind.py#L41) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`size(node)`](../../../data_structure/UnionFind.py#L44) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
 | [`groups()`](../../../data_structure/UnionFind.py#L47) | method | `groups`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`__str__()`](../../../data_structure/UnionFind.py#L53) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
+| [`__repr__()`](../../../data_structure/UnionFind.py#L56) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'UnionFind(%r)' % self.groups()` |

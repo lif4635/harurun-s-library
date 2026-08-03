@@ -326,3 +326,15 @@ class SegmentTreeBeats:
 
     def all_max(self):
         return self.range_max(0, self.n)
+
+    def tolist(self):
+        """遅延更新を反映した現在の要素列をlistで返す。O(N)。"""
+        for node in range(1, self.size):
+            self._push(node)
+        return self.sum[self.size:self.size + self.n]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "SegmentTreeBeats(%r)" % self.tolist()

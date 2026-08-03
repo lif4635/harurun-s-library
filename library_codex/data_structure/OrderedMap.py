@@ -64,3 +64,9 @@ class OrderedMap:
     def items(self):
         for key in self.keys:
             yield key, self.values[key]
+
+    def __str__(self):
+        return str(dict(self.items()))
+
+    def __repr__(self):
+        return "OrderedMap(%r)" % dict(self.items())

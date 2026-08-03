@@ -5,7 +5,7 @@ Gaussian整数の四則演算と最大公約数を扱う。
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`math/GaussianInteger.py`](../../../math/GaussianInteger.py)
-- 公開API: function 1、class 1、method/property 12（Python protocol 8を含む）
+- 公開API: function 1、class 1、method/property 13（Python protocol 9を含む）
 
 ## できること
 
@@ -43,6 +43,7 @@ Gaussian整数の四則演算と最大公約数を扱うを扱う `GaussianInteg
 | [`__neg__()`](../../../math/GaussianInteger.py#L32) | method | -obj。 | なし | GaussianInteger instance |
 | [`__mul__(other)`](../../../math/GaussianInteger.py#L35) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance |
 | [`__eq__(other)`](../../../math/GaussianInteger.py#L43) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
+| [`__repr__()`](../../../math/GaussianInteger.py#L47) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'GaussianInteger({self.real}, {self.imag})'` |
 | [`__pow__(exponent)`](../../../math/GaussianInteger.py#L50) | method | obj ** exponent。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） |
 | [`__floordiv__(other)`](../../../math/GaussianInteger.py#L78) | method | obj // other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[0]` |
 | [`__mod__(other)`](../../../math/GaussianInteger.py#L81) | method | obj % other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[1]` |

@@ -11,16 +11,16 @@
 | [`LongestCommonSubsequence`](LongestCommonSubsequence.md) | bit-parallel LCS長・反復Hirschberg復元 | 2 | 0 | 0 |
 | [`Manacher`](Manacher.md) | 奇数・偶数半径・全中心極大回文列挙 | 7 | 0 | 0 |
 | [`PalindromicTree`](PalindromicTree.md) | オンラインEertree（頻度・位置・復元対応） | 0 | 1 | 23 |
-| [`PersistentString`](PersistentString.md) | 64要素葉の永続AVL rope（split/concat/repeat） | 0 | 1 | 25 |
+| [`PersistentString`](PersistentString.md) | 64要素葉の永続AVL rope（split/concat/repeat） | 0 | 1 | 27 |
 | [`PrefixSubstringLCS`](PrefixSubstringLCS.md) | prefix対substringのオフラインLCS | 1 | 1 | 2 |
-| [`RollingHash`](RollingHash.md) | $2^{61}-1$ 静的hash・連結・反転・LCP | 1 | 5 | 33 |
+| [`RollingHash`](RollingHash.md) | $2^{61}-1$ 静的hash・連結・反転・LCP | 1 | 5 | 34 |
 | [`RollingHash2D`](RollingHash2D.md) | フラット配列による2次元矩形hash | 0 | 2 | 10 |
 | [`RunEnumeration`](RunEnumeration.md) | 最小周期付き極大run列挙（反復分割統治） | 1 | 0 | 0 |
 | [`RunLengthEncoding`](RunLengthEncoding.md) | 任意iterableの連長圧縮・復元 | 2 | 0 | 0 |
-| [`StaticString`](StaticString.md) | SA共有substring view・複数view連結 | 3 | 3 | 33 |
+| [`StaticString`](StaticString.md) | SA共有substring view・複数view連結 | 3 | 3 | 37 |
 | [`StringSearch`](StringSearch.md) | Suffix Arrayによるsubstring LCP・比較・検索 | 1 | 1 | 5 |
 | [`Subsequence`](Subsequence.md) | 異なる部分列数・部分列判定 | 2 | 0 | 0 |
-| [`SuffixArray`](SuffixArray.md) | 非再帰SA-IS・LCP・検索・静的部分文字列比較 | 4 | 2 | 22 |
+| [`SuffixArray`](SuffixArray.md) | 非再帰SA-IS・LCP・検索・静的部分文字列比較 | 4 | 2 | 23 |
 | [`SuffixAutomaton`](SuffixAutomaton.md) | オンライン構築・出現/辞書順/LCS対応Suffix Automaton | 0 | 1 | 29 |
 | [`Trie`](Trie.md) | dict/固定alphabet対応Trie（重複・prefix件数・ID保持） | 0 | 1 | 13 |
 | [`WildcardPatternMatching`](WildcardPatternMatching.md) | 両側wildcard対応の決定的pattern matching | 2 | 0 | 0 |

@@ -107,3 +107,9 @@ class PersistentArray:
 
     def node_count(self):
         return len(self.pool) // self.branch - 1
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "PersistentArray(%r)" % self.tolist()

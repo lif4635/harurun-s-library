@@ -173,3 +173,29 @@ class PersistentSegmentTree:
 
     def node_count(self):
         return len(self.data) - 1
+
+    def tolist(self, version=-1):
+        """指定versionの要素列をlistで返す。O(N)。"""
+        result = [self.e] * self.n
+        root = self.roots[version]
+        if not root:
+            return result
+        stack = [(root, 0, self.size)]
+        while stack:
+            node, left, right = stack.pop()
+            if not node:
+                continue
+            if right - left == 1:
+                if left < self.n:
+                    result[left] = self.data[node]
+                continue
+            middle = (left + right) >> 1
+            stack.append((self.right[node], middle, right))
+            stack.append((self.left[node], left, middle))
+        return result
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return "PersistentSegmentTree(%r)" % self.tolist()
