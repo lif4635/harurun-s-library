@@ -90,10 +90,3 @@ SA・multipoint SA・bandit・Top-K・log乱数表を扱う `SAManager`。
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`run(initialize, update, max_iterations=None)`](../../../heuristic/Heuristics.py#L167) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `initialize`: 初期状態を作って返す関数<br>`update`: 候補状態を1回更新し、状態と評価を返す関数<br>`max_iterations`: 反復回数の上限。Noneなら時間だけで終了判定する。省略時: `None` | `max(states, key=lambda pair: pair[1])` |
-
-## Module aliases
-
-- [`log_table`](../../../heuristic/Heuristics.py#L192) = `LogTable`
-- [`Top_K`](../../../heuristic/Heuristics.py#L193) = `TopK`
-- [`SA_manager`](../../../heuristic/Heuristics.py#L194) = `SAManager`
-- [`Simulated_Annealing`](../../../heuristic/Heuristics.py#L195) = `SimulatedAnnealing`

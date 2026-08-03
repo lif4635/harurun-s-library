@@ -24,7 +24,3 @@ from library_codex.string.Subsequence import count_distinct_subsequences, is_sub
 | --- | --- | --- | --- |
 | [`count_distinct_subsequences(sequence, mod=None, include_empty=False)`](../../../string/Subsequence.py#L1) | `distinct`・`subsequences`の個数を求める。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | 合計値（数値または入力要素型） / 数値または入力要素型 `result % mod if mod is not None else result` |
 | [`is_subsequence(subsequence, sequence)`](../../../string/Subsequence.py#L44) | 部分列かどうかを判定する。 | `subsequence`: 部分列候補<br>`sequence`: 入力列 | bool |
-
-## Module aliases
-
-- [`number_of_subsequences`](../../../string/Subsequence.py#L41) = `count_distinct_subsequences`

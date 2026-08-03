@@ -34,8 +34,3 @@ lower/upper・頂点supply・負費用対応minimum-cost b-flowを扱う `MinCos
 | [`get_flow(edge_id)`](../../../graph/MinCostBFlow.py#L204) | method | flowを取得する。 | `edge_id`: edge のID（0-indexed） | `self.edge_data[edge_id][5]` |
 | [`get_edge(edge_id)`](../../../graph/MinCostBFlow.py#L209) | method | edge_idに対応する辺の両端頂点を返す。 | `edge_id`: edge のID（0-indexed） | tuple(`source`, `target`, `lower`, `upper`, `cost`, `flow`) |
 | [`edges()`](../../../graph/MinCostBFlow.py#L213) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`add_excess`](../../../graph/MinCostBFlow.py#L48) | alias | `add_supply` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`MinimumCostBFlow`](../../../graph/MinCostBFlow.py#L217) = `MinCostBFlow`

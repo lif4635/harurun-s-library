@@ -35,9 +35,3 @@ ACL互換寄りの反復Dinic・min-cut・辺変更を扱う `MaxFlowGraph`。
 | [`change_edge(i, capacity, flow)`](../../../graph/MaxFlow.py#L36) | method | 辺を更新する。 | `i`: 0-indexedの位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` |
 | [`flow(source, sink, flow_limit=None)`](../../../graph/MaxFlow.py#L84) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | 合計値（int） |
 | [`min_cut(source)`](../../../graph/MaxFlow.py#L117) | method | 最小・`cut`を求める。 | `source`: 始点 | `visited`（数値または入力要素型） |
-| [`max_flow`](../../../graph/MaxFlow.py#L114) | alias | `flow` の別名。 | 同じ | 同じ |
-| [`run`](../../../graph/MaxFlow.py#L115) | alias | `flow` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`MaxFlow`](../../../graph/MaxFlow.py#L131) = `MaxFlowGraph`

@@ -40,7 +40,3 @@ from library_codex.data_structure.WaveletMatrix import WaveletMatrix
 | [`next_value(l, r, lower, default=-1)`](../../../data_structure/WaveletMatrix.py#L174) | method | `next`・値を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`lower`: 下限（包含関係はAPIの説明を参照）<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == r - l else self.kth_smallest(l, r, k)` |
 | [`max_le(l, r, x, default=-1)`](../../../data_structure/WaveletMatrix.py#L178) | method | 最大・`le`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == 0 else self.kth_smallest(l, r, k - 1)` |
 | [`min_ge(l, r, x, default=-1)`](../../../data_structure/WaveletMatrix.py#L182) | method | 最小・`ge`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象<br>`default`: 省略時に使う値。省略時: `-1` | `self.next_value(l, r, x, default)` |
-| [`count`](../../../data_structure/WaveletMatrix.py#L94) | alias | `rank` の別名。 | 同じ | 同じ |
-| [`quantile`](../../../data_structure/WaveletMatrix.py#L123) | alias | `kth_smallest` の別名。 | 同じ | 同じ |
-| [`range_lowerbound`](../../../data_structure/WaveletMatrix.py#L158) | alias | `count_lt` の別名。 | 同じ | 同じ |
-| [`range_upperbound`](../../../data_structure/WaveletMatrix.py#L163) | alias | `count_le` の別名。 | 同じ | 同じ |

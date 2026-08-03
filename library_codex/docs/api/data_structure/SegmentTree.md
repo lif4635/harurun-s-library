@@ -50,7 +50,6 @@ from library_codex.data_structure.SegmentTree import (
 | [`max_right(left, predicate)`](../../../data_structure/SegmentTree.py#L59) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
 | [`min_left(right, predicate)`](../../../data_structure/SegmentTree.py#L84) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
 | [`__getitem__(index)`](../../../data_structure/SegmentTree.py#L109) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`query`](../../../data_structure/SegmentTree.py#L54) | alias | `prod` の別名。 | 同じ | 同じ |
 
 ## Class `LazySegmentTree`
 
@@ -69,8 +68,6 @@ from library_codex.data_structure.SegmentTree import (
 | [`all_prod()`](../../../data_structure/SegmentTree.py#L260) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
 | [`max_right(left, predicate)`](../../../data_structure/SegmentTree.py#L264) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
 | [`min_left(right, predicate)`](../../../data_structure/SegmentTree.py#L290) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
-| [`query`](../../../data_structure/SegmentTree.py#L217) | alias | `prod` の別名。 | 同じ | 同じ |
-| [`range_apply`](../../../data_structure/SegmentTree.py#L258) | alias | `apply` の別名。 | 同じ | 同じ |
 
 ## Class `DualSegmentTree`
 
@@ -85,7 +82,6 @@ from library_codex.data_structure.SegmentTree import (
 | [`apply(left, right, action)`](../../../data_structure/SegmentTree.py#L360) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | `None` |
 | [`get(index)`](../../../data_structure/SegmentTree.py#L383) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
 | [`set(index, value)`](../../../data_structure/SegmentTree.py#L389) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`range_apply`](../../../data_structure/SegmentTree.py#L381) | alias | `apply` の別名。 | 同じ | 同じ |
 
 ## Class `MaxInterval`
 

@@ -40,11 +40,3 @@ undo・snapshot・成分和対応Union Findを扱う `RollbackUnionFind`。
 | [`rollback(state=None)`](../../../data_structure/RollbackUnionFind.py#L112) | method | 指定snapshotまで状態を巻き戻す。 | `state`: rollback状態番号・状態object。省略時: `None` | `None` |
 | [`count()`](../../../data_structure/RollbackUnionFind.py#L119) | method | 条件に合う要素数を返す。 | なし | 個数（int） |
 | [`groups()`](../../../data_structure/RollbackUnionFind.py#L124) | method | `groups`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`find`](../../../data_structure/RollbackUnionFind.py#L30) | alias | `leader` の別名。 | 同じ | 同じ |
-| [`root`](../../../data_structure/RollbackUnionFind.py#L31) | alias | `leader` の別名。 | 同じ | 同じ |
-| [`connected`](../../../data_structure/RollbackUnionFind.py#L36) | alias | `same` の別名。 | 同じ | 同じ |
-| [`unite`](../../../data_structure/RollbackUnionFind.py#L60) | alias | `merge` の別名。 | 同じ | 同じ |
-| [`union`](../../../data_structure/RollbackUnionFind.py#L61) | alias | `merge` の別名。 | 同じ | 同じ |
-| [`component_sum`](../../../data_structure/RollbackUnionFind.py#L77) | alias | `component_value` の別名。 | 同じ | 同じ |
-| [`state`](../../../data_structure/RollbackUnionFind.py#L82) | alias | `get_state` の別名。 | 同じ | 同じ |
-| [`connect`](../../../data_structure/RollbackUnionFind.py#L122) | alias | `count` の別名。 | 同じ | 同じ |

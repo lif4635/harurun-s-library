@@ -35,7 +35,3 @@ word-size tree型の固定整数universe ordered setを扱う `FastSet`。
 | [`max()`](../../../data_structure/FastSet.py#L126) | method | 最大を求める。 | なし | 値 |
 | [`__contains__(value)`](../../../data_structure/FastSet.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`__len__()`](../../../data_structure/FastSet.py#L138) | method | len(obj)。 | なし | 要素数（int） |
-| [`insert`](../../../data_structure/FastSet.py#L40) | alias | `add` の別名。 | 同じ | 同じ |
-| [`erase`](../../../data_structure/FastSet.py#L60) | alias | `discard` の別名。 | 同じ | 同じ |
-| [`ge`](../../../data_structure/FastSet.py#L87) | alias | `next` の別名。 | 同じ | 同じ |
-| [`le`](../../../data_structure/FastSet.py#L118) | alias | `prev` の別名。 | 同じ | 同じ |

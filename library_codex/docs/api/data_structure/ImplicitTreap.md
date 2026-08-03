@@ -41,6 +41,3 @@ from library_codex.data_structure.ImplicitTreap import ImplicitTreap
 | [`__setitem__(index, value)`](../../../data_structure/ImplicitTreap.py#L297) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`__len__()`](../../../data_structure/ImplicitTreap.py#L300) | method | len(obj)。 | なし | 要素数（int） |
 | [`__iter__()`](../../../data_structure/ImplicitTreap.py#L303) | method | iter(obj)・for 文。 | なし | iterator |
-| [`reverse`](../../../data_structure/ImplicitTreap.py#L256) | alias | `reverse_range` の別名。 | 同じ | 同じ |
-| [`query`](../../../data_structure/ImplicitTreap.py#L267) | alias | `prod` の別名。 | 同じ | 同じ |
-| [`range_apply`](../../../data_structure/ImplicitTreap.py#L278) | alias | `apply` の別名。 | 同じ | 同じ |

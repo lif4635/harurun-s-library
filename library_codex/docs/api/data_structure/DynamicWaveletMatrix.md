@@ -46,10 +46,6 @@ from library_codex.data_structure.DynamicWaveletMatrix import dynamic_range_min_
 | [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2069) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2104) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
 | [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2110) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`count`](../../../data_structure/DynamicWaveletMatrix.py#L1994) | alias | `rank` の別名。 | 同じ | 同じ |
-| [`__getitem__`](../../../data_structure/DynamicWaveletMatrix.py#L2067) | alias | `access` の別名。 | 同じ | 同じ |
-| [`point_set`](../../../data_structure/DynamicWaveletMatrix.py#L2101) | alias | `set` の別名。 | 同じ | 同じ |
-| [`update`](../../../data_structure/DynamicWaveletMatrix.py#L2102) | alias | `set` の別名。 | 同じ | 同じ |
 
 ## Class `CompressedDynamicWaveletMatrix`
 
@@ -73,10 +69,6 @@ from library_codex.data_structure.DynamicWaveletMatrix import dynamic_range_min_
 | [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1048) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
 | [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L1054) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`rank(left: Any, right: Any, value: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L1057) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
-| [`__getitem__`](../../../data_structure/DynamicWaveletMatrix.py#L1008) | alias | `access` の別名。 | 同じ | 同じ |
-| [`point_set`](../../../data_structure/DynamicWaveletMatrix.py#L1045) | alias | `set` の別名。 | 同じ | 同じ |
-| [`update`](../../../data_structure/DynamicWaveletMatrix.py#L1046) | alias | `set` の別名。 | 同じ | 同じ |
-| [`count`](../../../data_structure/DynamicWaveletMatrix.py#L1097) | alias | `rank` の別名。 | 同じ | 同じ |
 
 ## Class `OfflineDynamicWaveletMatrix`
 
@@ -103,12 +95,3 @@ from library_codex.data_structure.DynamicWaveletMatrix import dynamic_range_min_
 | [`range_sum(left: Any, right: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2264) | method | 区間・和を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 登録したqueryのID（int） |
 | [`answer(query_id: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2270) | method | `answer`を求める。 | `query_id`: query のID（0-indexed） | `int` / `self._answers[query_id]` |
 | [`solve() -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2277) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
-| [`__getitem__`](../../../data_structure/DynamicWaveletMatrix.py#L2196) | alias | `access` の別名。 | 同じ | 同じ |
-| [`point_set`](../../../data_structure/DynamicWaveletMatrix.py#L2228) | alias | `set` の別名。 | 同じ | 同じ |
-| [`update`](../../../data_structure/DynamicWaveletMatrix.py#L2229) | alias | `set` の別名。 | 同じ | 同じ |
-| [`quantile`](../../../data_structure/DynamicWaveletMatrix.py#L2255) | alias | `kth_smallest` の別名。 | 同じ | 同じ |
-| [`sum`](../../../data_structure/DynamicWaveletMatrix.py#L2268) | alias | `range_sum` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`solve_dynamic_wavelet_matrix_queries`](../../../data_structure/DynamicWaveletMatrix.py#L2555) = `dynamic_range_min_count_sum_at_least`

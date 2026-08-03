@@ -30,9 +30,3 @@ from library_codex.string.LongestCommonSubsequence import lcs_length, restore_lc
 | --- | --- | --- | --- |
 | [`lcs_length(first, second)`](../../../string/LongestCommonSubsequence.py#L17) | `lcs`・長さを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `0` / `_lcs_dp_length(first, second)` / `state.bit_count()` |
 | [`restore_lcs(first, second)`](../../../string/LongestCommonSubsequence.py#L130) | `lcs`を復元する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `_pack_like(original, result)` |
-
-## Module aliases
-
-- [`longest_common_subsequence`](../../../string/LongestCommonSubsequence.py#L188) = `restore_lcs`
-- [`LCS`](../../../string/LongestCommonSubsequence.py#L189) = `lcs_length`
-- [`restoreLCS`](../../../string/LongestCommonSubsequence.py#L190) = `restore_lcs`

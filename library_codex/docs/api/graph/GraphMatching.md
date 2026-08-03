@@ -45,7 +45,6 @@ from library_codex.graph.GraphMatching import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`pairs()`](../../../graph/GraphMatching.py#L102) | method | matchingに含まれる左右頂点の組を列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`maximum_matching`](../../../graph/GraphMatching.py#L105) | alias | `pairs` の別名。 | 同じ | 同じ |
 
 ## Class `TwoSAT`
 
@@ -65,7 +64,6 @@ from library_codex.graph.GraphMatching import (
 | [`add_xor(first, second)`](../../../graph/GraphMatching.py#L146) | method | XORを追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`add_equal(first, second)`](../../../graph/GraphMatching.py#L150) | method | `equal`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`solve()`](../../../graph/GraphMatching.py#L154) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist / `None` |
-| [`satisfiable`](../../../graph/GraphMatching.py#L167) | alias | `solve` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicBipartiteGraph`
 
@@ -82,5 +80,3 @@ from library_codex.graph.GraphMatching import (
 | [`can_add_edge(first, second)`](../../../graph/GraphMatching.py#L206) | method | `add`・辺かどうかを判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`add_edge(first, second)`](../../../graph/GraphMatching.py#L216) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`is_bipartite()`](../../../graph/GraphMatching.py#L252) | method | `bipartite`かどうかを判定する。 | なし | bool |
-| [`can_unite`](../../../graph/GraphMatching.py#L214) | alias | `can_add_edge` の別名。 | 同じ | 同じ |
-| [`unite`](../../../graph/GraphMatching.py#L250) | alias | `add_edge` の別名。 | 同じ | 同じ |

@@ -59,13 +59,3 @@ from library_codex.convolution.SeriesSequences import (
 | [`euler_transform(values, mod=DEFAULT_MOD)`](../../../convolution/SeriesSequences.py#L280) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_exponential(logarithm, size, mod)` |
 | [`circular_series(real_angle, imaginary_angle=None, degree=None, mod=DEFAULT_MOD)`](../../../convolution/SeriesSequences.py#L293) | `circular`・`series`を求める。 | `real_angle`: `real`・`angle`として使う入力<br>`imaginary_angle`: `imaginary`・`angle`として使う入力。省略時: `None`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`) / tuple(`real`（数値または入力要素型）, `imaginary`（数値または入力要素型）) |
 | [`polynomial_mobius_transform(polynomial, a, b, c, d, degree=None, mod=DEFAULT_MOD)`](../../../convolution/SeriesSequences.py#L347) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`c`: 定数・係数・第3入力<br>`d`: `d`として使う入力<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_compose(polynomial, inner, degree, mod)` |
-
-## Module aliases
-
-- [`sparse_inv`](../../../convolution/SeriesSequences.py#L360) = `sparse_inverse`
-- [`sparse_div`](../../../convolution/SeriesSequences.py#L361) = `sparse_divide`
-- [`sparse_exp`](../../../convolution/SeriesSequences.py#L362) = `sparse_exponential`
-- [`sparse_log`](../../../convolution/SeriesSequences.py#L363) = `sparse_logarithm`
-- [`sparse_pow`](../../../convolution/SeriesSequences.py#L364) = `sparse_power`
-- [`pascal_matrix`](../../../convolution/SeriesSequences.py#L365) = `pascal_transform`
-- [`EulerTransform`](../../../convolution/SeriesSequences.py#L366) = `euler_transform`

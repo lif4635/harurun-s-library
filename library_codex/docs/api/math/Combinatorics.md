@@ -69,9 +69,5 @@ factorial/binomial・拡張GCD・floor sum・商区間・Gray codeを扱う `Com
 | [`ensure(size)`](../../../math/Combinatorics.py#L63) | method | `ensure`を求める。 | `size`: 要素数・universe size | `None` |
 | [`factorial_value(n)`](../../../math/Combinatorics.py#L78) | method | 階乗・値を求める。 | `n`: 要素数・頂点数・次数 | `self.factorial[n]` |
 | [`binomial(n, k)`](../../../math/Combinatorics.py#L82) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[k] % self.mod * sel...` |
-| [`permutation(n, k)`](../../../math/Combinatorics.py#L92) | method | `permutation`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[n - k] % self.mod` |
+| [`permutation(n, k)`](../../../math/Combinatorics.py#L92) | method | 連続する整数を一様ランダムに並べ替えた置換を返す。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | list[int] — startからstart+size-1までを1回ずつ含むランダムな列 |
 | [`multiset(n, k)`](../../../math/Combinatorics.py#L101) | method | `multiset`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int instance / `self.binomial(n + k - 1, k)` |
-| [`C`](../../../math/Combinatorics.py#L89) | alias | `binomial` の別名。 | 同じ | 同じ |
-| [`nCr`](../../../math/Combinatorics.py#L90) | alias | `binomial` の別名。 | 同じ | 同じ |
-| [`P`](../../../math/Combinatorics.py#L98) | alias | `permutation` の別名。 | 同じ | 同じ |
-| [`nPr`](../../../math/Combinatorics.py#L99) | alias | `permutation` の別名。 | 同じ | 同じ |

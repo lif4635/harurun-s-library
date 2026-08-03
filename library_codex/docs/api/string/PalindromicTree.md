@@ -22,7 +22,7 @@ from library_codex.string.PalindromicTree import PalindromicTree
 オンラインEertree（頻度・位置・復元対応）を扱う `PalindromicTree`。
 
 - constructor: [`PalindromicTree(sequence=None, alphabet=None)`](../../../string/PalindromicTree.py#L13)
-- 引数: `sequence`: 入力列。省略時: `None`<br>`alphabet`: 文字集合またはalphabet size。省略時: `None`
+- 引数: `sequence`: 入力列。省略時: `None`<br>`alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `None`
 - 返り値: `PalindromicTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -50,16 +50,3 @@ from library_codex.string.PalindromicTree import PalindromicTree
 | [`longest_suffix_state(position=None)`](../../../string/PalindromicTree.py#L322) | method | `longest`・suffix・`state`を求める。 | `position`: 0-indexedの位置。省略時: `None` | `self.last` / `self.suffix_states[position]` |
 | [`palindromic_suffixes(position=None, include_empty=False)`](../../../string/PalindromicTree.py#L327) | method | `palindromic`・`suffixes`を求める。 | `position`: 0-indexedの位置。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list[object] — 計算結果 |
 | [`frequencies()`](../../../string/PalindromicTree.py#L337) | method | `frequencies`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`next`](../../../string/PalindromicTree.py#L117) | alias | `transition` の別名。 | 同じ | 同じ |
-| [`move`](../../../string/PalindromicTree.py#L118) | alias | `transition` の別名。 | 同じ | 同じ |
-| [`push`](../../../string/PalindromicTree.py#L185) | alias | `extend` の別名。 | 同じ | 同じ |
-| [`get_palindrome`](../../../string/PalindromicTree.py#L220) | alias | `palindrome` の別名。 | 同じ | 同じ |
-| [`link_tree`](../../../string/PalindromicTree.py#L257) | alias | `suffix_link_tree` の別名。 | 同じ | 同じ |
-| [`occurrence_positions`](../../../string/PalindromicTree.py#L320) | alias | `occurrences` の別名。 | 同じ | 同じ |
-| [`get_freq`](../../../string/PalindromicTree.py#L344) | alias | `frequencies` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`Eertree`](../../../string/PalindromicTree.py#L347) = `PalindromicTree`
-- [`eertree`](../../../string/PalindromicTree.py#L348) = `PalindromicTree`
-- [`DensePalindromicTree`](../../../string/PalindromicTree.py#L349) = `PalindromicTree`

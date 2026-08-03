@@ -34,6 +34,3 @@ from library_codex.data_structure.PersistentUnionFind import PersistentUnionFind
 | [`fork(version=-1)`](../../../data_structure/PersistentUnionFind.py#L54) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`components(version=-1)`](../../../data_structure/PersistentUnionFind.py#L59) | method | 現在の連結成分数を返す。 | `version`: 参照するversion番号。省略時: `-1` | `self.component_count[version]` |
 | [`groups(version=-1)`](../../../data_structure/PersistentUnionFind.py#L62) | method | `groups`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`root`](../../../data_structure/PersistentUnionFind.py#L26) | alias | `leader` の別名。 | 同じ | 同じ |
-| [`find`](../../../data_structure/PersistentUnionFind.py#L27) | alias | `leader` の別名。 | 同じ | 同じ |
-| [`merge`](../../../data_structure/PersistentUnionFind.py#L52) | alias | `unite` の別名。 | 同じ | 同じ |

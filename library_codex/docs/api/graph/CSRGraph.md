@@ -89,9 +89,3 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`get_edge(edge_id)`](../../../graph/CSRGraph.py#L538) | method | edge_idに対応する辺の両端頂点を返す。 | `edge_id`: edge のID（0-indexed） | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |
-
-## Module aliases
-
-- [`FastDijkstra`](../../../graph/CSRGraph.py#L542) = `dijkstra_csr`
-- [`FastSCC`](../../../graph/CSRGraph.py#L543) = `CSRStronglyConnectedComponents`
-- [`FastLowLink`](../../../graph/CSRGraph.py#L544) = `CSRLowLink`

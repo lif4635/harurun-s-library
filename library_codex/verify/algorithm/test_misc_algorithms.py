@@ -2,21 +2,21 @@ import itertools
 import math
 import random
 
-from library_codex.algorithm.BasicAlgorithms import (
+from library_codex.algorithm.BitAlgorithms import (
+    least_significant_bit_index,
+    most_significant_bit_index,
+    popcount,
+)
+from library_codex.algorithm.Sorting import (
     bucket_sort,
     bucket_sort_permutation,
     ensure_permutation,
-    least_significant_bit_index,
-    most_significant_bit_index,
     permute,
     permute_in_place,
-    popcount,
 )
-from library_codex.algorithm.MiscAlgorithms import (
-    integer_partitions,
-    nearest_congruent_at_least,
-    split_modular_arithmetic_progression,
-)
+from library_codex.algorithm.IntegerPartitions import integer_partitions
+from library_codex.algorithm.IntegerUtilities import nearest_congruent_at_least
+from library_codex.algorithm.ModularProgression import split_modular_arithmetic_progression
 
 
 def test_bits_sorting_and_permutations():

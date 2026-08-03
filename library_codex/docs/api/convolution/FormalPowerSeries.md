@@ -68,19 +68,3 @@ from library_codex.convolution.FormalPowerSeries import (
 | [`fps_remainder(dividend, divisor, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L398) | `fps`・剰余を求める。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_divmod(dividend, divisor, mod)[1]` |
 | [`fps_taylor_shift(series, shift, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L402) | `fps`・`taylor`・`shift`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`shift`: 平行移動量・bit shift量<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
 | [`fps_product(polynomials, mod=DEFAULT_MOD)`](../../../convolution/FormalPowerSeries.py#L437) | `fps`・積を計算する。 | `polynomials`: 多項式係数列のiterable<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `heap[0][2]` |
-
-## Module aliases
-
-- [`fps_sub`](../../../convolution/FormalPowerSeries.py#L458) = `fps_subtract`
-- [`fps_neg`](../../../convolution/FormalPowerSeries.py#L459) = `fps_negate`
-- [`fps_mul`](../../../convolution/FormalPowerSeries.py#L460) = `fps_multiply`
-- [`fps_diff`](../../../convolution/FormalPowerSeries.py#L461) = `fps_derivative`
-- [`fps_inv`](../../../convolution/FormalPowerSeries.py#L462) = `fps_inverse`
-- [`fps_log`](../../../convolution/FormalPowerSeries.py#L463) = `fps_logarithm`
-- [`fps_exp`](../../../convolution/FormalPowerSeries.py#L464) = `fps_exponential`
-- [`fps_pow`](../../../convolution/FormalPowerSeries.py#L465) = `fps_power`
-- [`fps_sqrt`](../../../convolution/FormalPowerSeries.py#L466) = `fps_square_root`
-- [`fps_div`](../../../convolution/FormalPowerSeries.py#L467) = `fps_quotient`
-- [`fps_mod`](../../../convolution/FormalPowerSeries.py#L468) = `fps_remainder`
-- [`fps_eval`](../../../convolution/FormalPowerSeries.py#L469) = `fps_evaluate`
-- [`tayler_shift`](../../../convolution/FormalPowerSeries.py#L470) = `fps_taylor_shift`

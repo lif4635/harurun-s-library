@@ -40,11 +40,3 @@ from library_codex.prime.Factorization import (
 | [`euler_phi(number)`](../../../prime/Factorization.py#L129) | 1以上number以下でnumberと互いに素な整数の個数を返す。 | `number`: 整数 | int — 1以上number以下でnumberと互いに素な整数の個数 |
 | [`mobius(number)`](../../../prime/Factorization.py#L138) | 整数numberに対するMöbius関数の値を返す。 | `number`: 整数 | int — numberのMöbius関数値（-1、0、1のいずれか） |
 | [`factor_count_pairs(number)`](../../../prime/Factorization.py#L146) | 素因数と指数の組を素因数順に返す。 | `number`: 整数 | list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列 |
-
-## Module aliases
-
-- [`miller_rabin`](../../../prime/Factorization.py#L150) = `is_prime`
-- [`factorize`](../../../prime/Factorization.py#L151) = `prime_factors`
-- [`Pollard`](../../../prime/Factorization.py#L152) = `prime_factors`
-- [`Pollard2`](../../../prime/Factorization.py#L153) = `factor_count_pairs`
-- [`EnumDivisors`](../../../prime/Factorization.py#L154) = `divisors`

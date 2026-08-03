@@ -80,7 +80,6 @@ tetration・Gaussian整数・二平方和・二次方程式・有理探索を扱
 | [`__pow__(exponent)`](../../../math/NumberTheoryExtras.py#L192) | method | obj ** exponent。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） |
 | [`__floordiv__(other)`](../../../math/NumberTheoryExtras.py#L220) | method | obj // other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[0]` |
 | [`__mod__(other)`](../../../math/NumberTheoryExtras.py#L223) | method | obj % other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[1]` |
-| [`conj`](../../../math/NumberTheoryExtras.py#L166) | alias | `conjugate` の別名。 | 同じ | 同じ |
 
 ## Class `RationalNumberSearch`
 
@@ -95,11 +94,3 @@ tetration・Gaussian整数・二平方和・二次方程式・有理探索を扱
 | [`has_next()`](../../../math/NumberTheoryExtras.py#L310) | method | `next`かどうかを判定する。 | なし | bool |
 | [`get_next()`](../../../math/NumberTheoryExtras.py#L313) | method | `next`を取得する。 | なし | tuple(数値または入力要素型 `self.a0 + self.a1`, 数値または入力要素型 `self.b0 + self.b1`) / tuple(数値または入力要素型 `self.a0 + self.right * self.a1`, 数値または入力要素型 `self.b0 + self.right * self.b1`) / tuple(数値または入力要素型 `self.a1 + self.right * self.a0`, 数値または入力要素型 `self.b1 + self.right * self.b0`) / tuple(数値または入力要素型 `self.a0 + middle * self.a1`, 数値または入力要素型 `self.b0 + middle * self.b1`) / ほか（source参照） |
 | [`give(to_right)`](../../../math/NumberTheoryExtras.py#L328) | method | `give`を求める。 | `to_right`: `to`・右として使う入力 | `None` |
-
-## Module aliases
-
-- [`FastPow`](../../../math/NumberTheoryExtras.py#L389) = `FastPower`
-- [`QuadraticEquation`](../../../math/NumberTheoryExtras.py#L390) = `quadratic_equation_mod`
-- [`RepresentTwoSquare`](../../../math/NumberTheoryExtras.py#L391) = `two_square_representations`
-- [`two_square`](../../../math/NumberTheoryExtras.py#L392) = `two_square_representations`
-- [`tetration`](../../../math/NumberTheoryExtras.py#L393) = `tetration_mod`

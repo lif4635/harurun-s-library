@@ -62,10 +62,6 @@ from library_codex.math.MultiplicativeFunctions import (
 | [`__setitem__(key, value)`](../../../math/MultiplicativeFunctions.py#L45) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prefix()`](../../../math/MultiplicativeFunctions.py#L48) | method | prefixを求める。 | なし | `self` |
 | [`difference()`](../../../math/MultiplicativeFunctions.py#L57) | method | 差を求める。 | なし | `self` |
-| [`idx`](../../../math/MultiplicativeFunctions.py#L35) | alias | `index` の別名。 | 同じ | 同じ |
-| [`val`](../../../math/MultiplicativeFunctions.py#L40) | alias | `value` の別名。 | 同じ | 同じ |
-| [`pref`](../../../math/MultiplicativeFunctions.py#L55) | alias | `prefix` の別名。 | 同じ | 同じ |
-| [`diff`](../../../math/MultiplicativeFunctions.py#L64) | alias | `difference` の別名。 | 同じ | 同じ |
 
 ## Class `EnumerateMultiplicativePrefixSum`
 
@@ -94,20 +90,3 @@ from library_codex.math.MultiplicativeFunctions import (
 | [`prime_sum_table()`](../../../math/MultiplicativeFunctions.py#L305) | method | 素数・和・`table`を計算する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`run(prime_prefix, prime_power)`](../../../math/MultiplicativeFunctions.py#L332) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `prime_prefix`: 素数・prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | `0` / `self._normalize(answer)` |
 | [`min_25_sieve(prime_prefix, prime_power)`](../../../math/MultiplicativeFunctions.py#L361) | method | 最小・`25`・`sieve`を求める。 | `prime_prefix`: 素数・prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`idx`](../../../math/MultiplicativeFunctions.py#L276) | alias | `index` の別名。 | 同じ | 同じ |
-| [`pi_table`](../../../math/MultiplicativeFunctions.py#L303) | alias | `prime_count_table` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`Dir`](../../../math/MultiplicativeFunctions.py#L417) = `DirichletQuotientSeries`
-- [`mult`](../../../math/MultiplicativeFunctions.py#L418) = `dirichlet_multiply`
-- [`div`](../../../math/MultiplicativeFunctions.py#L419) = `dirichlet_divide`
-- [`enamurate_multiplicative_function`](../../../math/MultiplicativeFunctions.py#L420) = `enumerate_multiplicative_function`
-- [`enumerate_mf_prefix_sum`](../../../math/MultiplicativeFunctions.py#L421) = `EnumerateMultiplicativePrefixSum`
-- [`mf_prefix_sum`](../../../math/MultiplicativeFunctions.py#L422) = `MultiplicativePrefixSum`
-- [`mobius_function`](../../../math/MultiplicativeFunctions.py#L423) = `mobius_values`
-- [`sigma0`](../../../math/MultiplicativeFunctions.py#L424) = `divisor_count_values`
-- [`sigma1`](../../../math/MultiplicativeFunctions.py#L425) = `divisor_sum_values`
-- [`totient`](../../../math/MultiplicativeFunctions.py#L426) = `totient_values`
-- [`sum_of_totient`](../../../math/MultiplicativeFunctions.py#L427) = `sum_totient_fast`
-- [`MultiplicativeSum`](../../../math/MultiplicativeFunctions.py#L428) = `MultiplicativePrefixSum`

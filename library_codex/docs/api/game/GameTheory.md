@@ -51,7 +51,6 @@ from library_codex.game.GameTheory import reduce_surreal, SurrealNumber, Imparti
 | [`larger()`](../../../game/GameTheory.py#L84) | method | `larger`を求める。 | なし | 計算結果（SurrealNumber） |
 | [`smaller()`](../../../game/GameTheory.py#L90) | method | `smaller`を求める。 | なし | 計算結果（SurrealNumber） |
 | [`between(left, right)`](../../../game/GameTheory.py#L97) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 計算結果（SurrealNumber） |
-| [`child`](../../../game/GameTheory.py#L82) | alias | `children` の別名。 | 同じ | 同じ |
 
 ## Class `ImpartialGameSolver`
 
@@ -66,7 +65,6 @@ from library_codex.game.GameTheory import reduce_surreal, SurrealNumber, Imparti
 | [`get(board)`](../../../game/GameTheory.py#L133) | method | 指定位置・辺・状態の値を取得する。 | `board`: `board`として使う入力 | 指定対象に格納された値・edge object |
 | [`get_sum(boards)`](../../../game/GameTheory.py#L173) | method | 和を取得する。 | `boards`: `boards`として使う入力 | 計算結果（int） |
 | [`get_best_move(game)`](../../../game/GameTheory.py#L179) | method | `best`・`move`を取得する。 | `game`: 局面遷移を提供するgame object | tuple(0-indexedの位置（int）, `move`) / `move` / `None` |
-| [`grundy`](../../../game/GameTheory.py#L171) | alias | `get` の別名。 | 同じ | 同じ |
 
 ## Class `PartisanGameSolver`
 
@@ -79,7 +77,3 @@ from library_codex.game.GameTheory import reduce_surreal, SurrealNumber, Imparti
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`get(game)`](../../../game/GameTheory.py#L216) | method | 指定位置・辺・状態の値を取得する。 | `game`: 局面遷移を提供するgame object | 指定対象に格納された値・edge object |
-
-## Module aliases
-
-- [`Surreal`](../../../game/GameTheory.py#L253) = `SurrealNumber`

@@ -30,7 +30,7 @@ from library_codex.tree.IncrementalForest import IncrementalForest
 | [`add_node()`](../../../tree/IncrementalForest.py#L28) | method | `node`を追加する。 | なし | `vertex` |
 | [`find(vertex)`](../../../tree/IncrementalForest.py#L43) | method | 代表元・位置・対象要素を探す。 | `vertex`: 頂点番号（0-indexed） | 代表元・位置・node番号（int） |
 | [`add_edge(first, second)`](../../../tree/IncrementalForest.py#L55) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / `edge` |
-| [`connected(first, second)`](../../../tree/IncrementalForest.py#L97) | method | 2頂点が同じ連結成分か判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`connected(first, second)`](../../../tree/IncrementalForest.py#L97) | method | n頂点m辺の連結単純無向graphを生成する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | Graph — n頂点edge_count辺の連結単純graph |
 | [`component_size(vertex)`](../../../tree/IncrementalForest.py#L102) | method | 指定頂点が属する連結成分の頂点数を返す。 | `vertex`: 頂点番号（0-indexed） | `-self.dsu[self.find(vertex)]` |
 | [`parent_of(vertex)`](../../../tree/IncrementalForest.py#L107) | method | 指定頂点の親頂点を返す。 | `vertex`: 頂点番号（0-indexed） | `self.parent[vertex]` |
 | [`parent_edge_of(vertex)`](../../../tree/IncrementalForest.py#L112) | method | 指定頂点と親を結ぶ辺IDを返す。 | `vertex`: 頂点番号（0-indexed） | `self.parent_edge[vertex]` |
@@ -42,13 +42,3 @@ from library_codex.tree.IncrementalForest import IncrementalForest
 | [`kth_on_path(first, second, distance)`](../../../tree/IncrementalForest.py#L161) | method | 2頂点間のpath上で始点からk個進んだ頂点を返す。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`distance`: 距離・距離配列 | `-1` / `self.ancestor_at_depth(first, self.depths[first] - distance)` / `self.ancestor_at_depth(second, self.depths[second] - remaining)` |
 | [`children(vertex)`](../../../tree/IncrementalForest.py#L172) | method | `children`を求める。 | `vertex`: 頂点番号（0-indexed） | `iter(self.children_list[vertex])` |
 | [`num_vertices()`](../../../tree/IncrementalForest.py#L175) | method | 現在登録されている頂点数を返す。 | なし | `len(self.dsu)` |
-| [`addNode`](../../../tree/IncrementalForest.py#L41) | alias | `add_node` の別名。 | 同じ | 同じ |
-| [`rootOf`](../../../tree/IncrementalForest.py#L53) | alias | `find` の別名。 | 同じ | 同じ |
-| [`addEdge`](../../../tree/IncrementalForest.py#L95) | alias | `add_edge` の別名。 | 同じ | 同じ |
-| [`areConnected`](../../../tree/IncrementalForest.py#L100) | alias | `connected` の別名。 | 同じ | 同じ |
-| [`componentSize`](../../../tree/IncrementalForest.py#L105) | alias | `component_size` の別名。 | 同じ | 同じ |
-| [`parentOf`](../../../tree/IncrementalForest.py#L110) | alias | `parent_of` の別名。 | 同じ | 同じ |
-| [`parentEdgeOf`](../../../tree/IncrementalForest.py#L115) | alias | `parent_edge_of` の別名。 | 同じ | 同じ |
-| [`la`](../../../tree/IncrementalForest.py#L132) | alias | `ancestor_at_depth` の別名。 | 同じ | 同じ |
-| [`dist`](../../../tree/IncrementalForest.py#L159) | alias | `distance` の別名。 | 同じ | 同じ |
-| [`numVertices`](../../../tree/IncrementalForest.py#L178) | alias | `num_vertices` の別名。 | 同じ | 同じ |

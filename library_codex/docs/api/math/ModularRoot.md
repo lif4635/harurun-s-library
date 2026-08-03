@@ -28,12 +28,3 @@ from library_codex.math.ModularRoot import primitive_root, modular_kth_root, flo
 | [`modular_kth_root(value, exponent, prime)`](../../../math/ModularRoot.py#L114) | 法・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数<br>`prime`: 素数法 | int `1 if value == 1 else -1` / 値 / `-1` |
 | [`floor_kth_root(value, exponent)`](../../../math/ModularRoot.py#L156) | `floor`・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 値 / `isqrt(value)` / `1` / `lower`（数値または入力要素型） |
 | [`ceil_kth_root(value, exponent)`](../../../math/ModularRoot.py#L178) | `ceil`・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 数値または入力要素型 `root if pow(root, exponent) == value else root + 1` |
-
-## Module aliases
-
-- [`kth_root`](../../../math/ModularRoot.py#L183) = `modular_kth_root`
-- [`kth_root_mod`](../../../math/ModularRoot.py#L184) = `modular_kth_root`
-- [`primitive_root_ll`](../../../math/ModularRoot.py#L185) = `primitive_root`
-- [`FloorOfKthRoot`](../../../math/ModularRoot.py#L186) = `floor_kth_root`
-- [`CeilOfKthRoot`](../../../math/ModularRoot.py#L187) = `ceil_kth_root`
-- [`kth_root_integral`](../../../math/ModularRoot.py#L188) = `floor_kth_root`

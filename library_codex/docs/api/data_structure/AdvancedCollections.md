@@ -41,7 +41,6 @@ lazy meldable Skew Heap・矩形union面積を扱う `SkewHeap`。
 | [`add_all(root, delta)`](../../../data_structure/AdvancedCollections.py#L65) | method | 全体を追加する。 | `root`: 根の頂点番号・原始根<br>`delta`: 加算差分 | `root` |
 | [`top(root)`](../../../data_structure/AdvancedCollections.py#L72) | method | 次に取り出される要素を削除せず返す。 | `root`: 根の頂点番号・原始根 | 次に取り出される要素 |
 | [`pop(root)`](../../../data_structure/AdvancedCollections.py#L78) | method | 要素を1つ取り除いて返す。 | `root`: 根の頂点番号・原始根 | `self.meld(self.left[root], self.right[root])` |
-| [`apply`](../../../data_structure/AdvancedCollections.py#L70) | alias | `add_all` の別名。 | 同じ | 同じ |
 
 ## Class `UnionRectangle`
 

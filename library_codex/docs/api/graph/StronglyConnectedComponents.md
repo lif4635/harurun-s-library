@@ -42,7 +42,3 @@ from library_codex.graph.StronglyConnectedComponents import strongly_connected_c
 | --- | --- | --- | --- | --- |
 | [`same(first, second)`](../../../graph/StronglyConnectedComponents.py#L62) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`__getitem__(vertex)`](../../../graph/StronglyConnectedComponents.py#L65) | method | obj[key] で取得する。 | `vertex`: 頂点番号（0-indexed） | 格納値、sliceなら同種の部分構造 |
-
-## Module aliases
-
-- [`SCC`](../../../graph/StronglyConnectedComponents.py#L74) = `StronglyConnectedComponents`

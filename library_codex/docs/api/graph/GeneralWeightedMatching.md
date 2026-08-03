@@ -29,7 +29,3 @@ from library_codex.graph.GeneralWeightedMatching import GeneralWeightedMatching
 | --- | --- | --- | --- | --- |
 | [`add_edge(first, second, weight)`](../../../graph/GeneralWeightedMatching.py#L36) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み | `None` |
 | [`run()`](../../../graph/GeneralWeightedMatching.py#L277) | method | 登録済みの処理を実行し、入力順に結果を返す。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-
-## Module aliases
-
-- [`WeightedMatching`](../../../graph/GeneralWeightedMatching.py#L284) = `GeneralWeightedMatching`

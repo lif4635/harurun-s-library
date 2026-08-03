@@ -51,8 +51,6 @@ Monotone Minima・凸min-plus・CHT・最大長方形・整数黄金分割を扱
 | --- | --- | --- | --- | --- |
 | [`add_line(slope, intercept)`](../../../optimization/Optimization.py#L99) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` |
 | [`query(point)`](../../../optimization/Optimization.py#L118) | method | 指定した対象への問い合わせ結果を返す。 | `point`: 評価点・座標 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`add`](../../../optimization/Optimization.py#L116) | alias | `add_line` の別名。 | 同じ | 同じ |
-| [`get`](../../../optimization/Optimization.py#L136) | alias | `query` の別名。 | 同じ | 同じ |
 
 ## Class `LineContainer`
 
@@ -66,14 +64,3 @@ Monotone Minima・凸min-plus・CHT・最大長方形・整数黄金分割を扱
 | --- | --- | --- | --- | --- |
 | [`add_line(slope, intercept)`](../../../optimization/Optimization.py#L149) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` |
 | [`query(point)`](../../../optimization/Optimization.py#L154) | method | 指定した対象への問い合わせ結果を返す。 | `point`: 評価点・座標 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`add`](../../../optimization/Optimization.py#L152) | alias | `add_line` の別名。 | 同じ | 同じ |
-| [`get`](../../../optimization/Optimization.py#L157) | alias | `query` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`MonotoneMinima`](../../../optimization/Optimization.py#L223) = `monotone_minima`
-- [`MinPlusConvolution_arbitrary_convex`](../../../optimization/Optimization.py#L224) = `convex_min_plus_convolution`
-- [`MinPlusConvolution_convex_convex`](../../../optimization/Optimization.py#L225) = `convex_convex_min_plus_convolution`
-- [`ConvexHullTrickAddMonotone`](../../../optimization/Optimization.py#L226) = `MonotoneConvexHullTrick`
-- [`MinLineContainer`](../../../optimization/Optimization.py#L227) = `LineContainer`
-- [`MaximalRectangle`](../../../optimization/Optimization.py#L228) = `maximal_rectangle`

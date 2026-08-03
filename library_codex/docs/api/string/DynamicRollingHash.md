@@ -36,5 +36,3 @@ from library_codex.string.DynamicRollingHash import DynamicRollingHash
 | [`is_palindrome(left=0, right=None)`](../../../string/DynamicRollingHash.py#L149) | method | `palindrome`かどうかを判定する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | bool |
 | [`lcp(left1, right1, left2, right2)`](../../../string/DynamicRollingHash.py#L155) | method | `lcp`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | `low`（数値または入力要素型） |
 | [`__getitem__(index)`](../../../string/DynamicRollingHash.py#L169) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`set`](../../../string/DynamicRollingHash.py#L80) | alias | `update` の別名。 | 同じ | 同じ |
-| [`query`](../../../string/DynamicRollingHash.py#L128) | alias | `get` の別名。 | 同じ | 同じ |

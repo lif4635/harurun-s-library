@@ -64,8 +64,6 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `HashString`。
 | [`repeat(count)`](../../../string/RollingHash.py#L134) | method | `repeat`を求める。 | `count`: 個数 | 計算結果（数値または入力要素型） |
 | [`__mul__(count)`](../../../string/RollingHash.py#L148) | method | obj * other。 | `count`: 個数 | `self.repeat(count)` |
 | [`remove_prefix(prefix)`](../../../string/RollingHash.py#L153) | method | prefixを削除する。 | `prefix`: prefix列・prefix長 | HashString instance |
-| [`concat`](../../../string/RollingHash.py#L120) | alias | `__add__` の別名。 | 同じ | 同じ |
-| [`reverse`](../../../string/RollingHash.py#L129) | alias | `reversed` の別名。 | 同じ | 同じ |
 
 ## Class `RollingHash`
 
@@ -89,11 +87,6 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHash`。
 | [`append(symbol)`](../../../string/RollingHash.py#L353) | method | 要素を追加する。 | `symbol`: 文字・alphabet上の記号 | `None` |
 | [`extend(sequence)`](../../../string/RollingHash.py#L367) | method | `extend`を求める。 | `sequence`: 入力列 | `self` |
 | [`__getitem__(index)`](../../../string/RollingHash.py#L374) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`query`](../../../string/RollingHash.py#L260) | alias | `get` の別名。 | 同じ | 同じ |
-| [`to_hash_string`](../../../string/RollingHash.py#L294) | alias | `get_value` の別名。 | 同じ | 同じ |
-| [`LCP`](../../../string/RollingHash.py#L322) | alias | `lcp` の別名。 | 同じ | 同じ |
-| [`strcmp`](../../../string/RollingHash.py#L338) | alias | `compare` の別名。 | 同じ | 同じ |
-| [`connect`](../../../string/RollingHash.py#L372) | alias | `extend` の別名。 | 同じ | 同じ |
 
 ## Class `DoubleRollingHash`
 
@@ -137,5 +130,3 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHashView`。
 | [`__getitem__(index)`](../../../string/RollingHash.py#L439) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__eq__(other)`](../../../string/RollingHash.py#L453) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__lt__(other)`](../../../string/RollingHash.py#L461) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`LCP`](../../../string/RollingHash.py#L424) | alias | `lcp` の別名。 | 同じ | 同じ |
-| [`cmp`](../../../string/RollingHash.py#L431) | alias | `compare` の別名。 | 同じ | 同じ |

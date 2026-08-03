@@ -45,7 +45,6 @@ binary/K値Project Selection・高次all-0/all-1 profitを扱う `ProjectSelecti
 | [`add_profit_all_zero(variables, profit)`](../../../optimization/ProjectSelection.py#L93) | method | `profit`・全体・`zero`を追加する。 | `variables`: 変数数<br>`profit`: 利益（負なら費用） | `None` |
 | [`add_profit_all_one(variables, profit)`](../../../optimization/ProjectSelection.py#L106) | method | `profit`・全体・`one`を追加する。 | `variables`: 変数数<br>`profit`: 利益（負なら費用） | `None` |
 | [`min_cost()`](../../../optimization/ProjectSelection.py#L119) | method | 最小・`cost`を求める。 | なし | tuple(値（数値または入力要素型）, 各変数へ割り当てる0/1のlist) |
-| [`minCost`](../../../optimization/ProjectSelection.py#L144) | alias | `min_cost` の別名。 | 同じ | 同じ |
 
 ## Class `KProjectSelection`
 
@@ -62,4 +61,3 @@ binary/K値Project Selection・高次all-0/all-1 profitを扱う `KProjectSelect
 | [`add_unary_cost(variable, costs)`](../../../optimization/ProjectSelection.py#L180) | method | `unary`・`cost`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`costs`: 費用の列 | `None` |
 | [`add_pair_cost(first, second, costs)`](../../../optimization/ProjectSelection.py#L192) | method | `pair`・`cost`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`costs`: 費用の列 | `None` |
 | [`min_cost()`](../../../optimization/ProjectSelection.py#L222) | method | 最小・`cost`を求める。 | なし | tuple(値, 各変数へ割り当てる0/1のlist（数値または入力要素型）) |
-| [`minCost`](../../../optimization/ProjectSelection.py#L232) | alias | `min_cost` の別名。 | 同じ | 同じ |

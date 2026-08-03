@@ -62,10 +62,6 @@ Euler Tour・virtual/Cartesian/rooted/inclusion/merge tree・重み付き直径�
 | [`edge_intervals(first, second)`](../../../tree/TreeAlgorithms.py#L129) | method | 辺・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`subtree_interval(node)`](../../../tree/TreeAlgorithms.py#L138) | method | `subtree`・`interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) |
 | [`__len__()`](../../../tree/TreeAlgorithms.py#L143) | method | len(obj)。 | なし | 要素数（int） |
-| [`dist`](../../../tree/TreeAlgorithms.py#L116) | alias | `distance` の別名。 | 同じ | 同じ |
-| [`node_query`](../../../tree/TreeAlgorithms.py#L127) | alias | `node_intervals` の別名。 | 同じ | 同じ |
-| [`edge_query`](../../../tree/TreeAlgorithms.py#L136) | alias | `edge_intervals` の別名。 | 同じ | 同じ |
-| [`subtree_query`](../../../tree/TreeAlgorithms.py#L141) | alias | `subtree_interval` の別名。 | 同じ | 同じ |
 
 ## Class `AuxiliaryTree`
 
@@ -78,10 +74,3 @@ Euler Tour・virtual/Cartesian/rooted/inclusion/merge tree・重み付き直径�
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`get(vertices, with_distance=False)`](../../../tree/TreeAlgorithms.py#L154) | method | 指定位置・辺・状態の値を取得する。 | `vertices`: 頂点番号のiterable<br>`with_distance`: 頂点番号だけでなく距離も返すか。省略時: `False` | 指定対象に格納された値・edge object |
-| [`build`](../../../tree/TreeAlgorithms.py#L183) | alias | `get` の別名。 | 同じ | 同じ |
-| [`query`](../../../tree/TreeAlgorithms.py#L184) | alias | `get` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`diameter_path`](../../../tree/TreeAlgorithms.py#L388) = `tree_diameter`
-- [`CartesianTree`](../../../tree/TreeAlgorithms.py#L389) = `cartesian_tree_graph`

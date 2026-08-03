@@ -47,7 +47,6 @@ from library_codex.convolution.OnlineFormalPowerSeries import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`next(first, second)`](../../../convolution/OnlineFormalPowerSeries.py#L28) | method | `next`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.result[position]` |
-| [`get`](../../../convolution/OnlineFormalPowerSeries.py#L77) | alias | `next` の別名。 | 同じ | 同じ |
 
 ## Class `RelaxedInverse`
 
@@ -116,16 +115,3 @@ from library_codex.convolution.OnlineFormalPowerSeries import (
 | [`inverse()`](../../../convolution/OnlineFormalPowerSeries.py#L293) | method | 逆元・逆変換を求める。 | なし | OnlineFormalPowerSeries instance |
 | [`exponential()`](../../../convolution/OnlineFormalPowerSeries.py#L315) | method | 指数を計算する。 | なし | OnlineFormalPowerSeries instance |
 | [`logarithm()`](../../../convolution/OnlineFormalPowerSeries.py#L337) | method | 対数を計算する。 | なし | `(self.derivative() * self.inverse()).integral()` |
-| [`pre`](../../../convolution/OnlineFormalPowerSeries.py#L208) | alias | `prefix` の別名。 | 同じ | 同じ |
-| [`diff`](../../../convolution/OnlineFormalPowerSeries.py#L285) | alias | `derivative` の別名。 | 同じ | 同じ |
-| [`inv`](../../../convolution/OnlineFormalPowerSeries.py#L313) | alias | `inverse` の別名。 | 同じ | 同じ |
-| [`exp`](../../../convolution/OnlineFormalPowerSeries.py#L335) | alias | `exponential` の別名。 | 同じ | 同じ |
-| [`log`](../../../convolution/OnlineFormalPowerSeries.py#L340) | alias | `logarithm` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`RelaxedInv`](../../../convolution/OnlineFormalPowerSeries.py#L398) = `RelaxedInverse`
-- [`RelaxedExp`](../../../convolution/OnlineFormalPowerSeries.py#L399) = `RelaxedExponential`
-- [`RelaxedLog`](../../../convolution/OnlineFormalPowerSeries.py#L400) = `RelaxedLogarithm`
-- [`ofps`](../../../convolution/OnlineFormalPowerSeries.py#L401) = `OnlineFormalPowerSeries`
-- [`DifferentialEquation`](../../../convolution/OnlineFormalPowerSeries.py#L402) = `differential_equation`

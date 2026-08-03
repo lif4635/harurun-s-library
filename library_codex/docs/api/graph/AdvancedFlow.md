@@ -43,9 +43,3 @@ from library_codex.graph.AdvancedFlow import gomory_hu_tree, stoer_wagner_min_cu
 | [`change_edge(index, capacity, flow)`](../../../graph/AdvancedFlow.py#L58) | method | 辺を更新する。 | `index`: 0-indexedの位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` |
 | [`flow(source, sink, flow_limit=None)`](../../../graph/AdvancedFlow.py#L85) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | `self._flow_unlimited(source, sink)` / `0` / `self._flow_unlimited(temporary_source, sink)` |
 | [`min_cut(source)`](../../../graph/AdvancedFlow.py#L202) | method | 最小・`cut`を求める。 | `source`: 始点 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`max_flow`](../../../graph/AdvancedFlow.py#L199) | alias | `flow` の別名。 | 同じ | 同じ |
-| [`run`](../../../graph/AdvancedFlow.py#L200) | alias | `flow` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`FastMaxFlow`](../../../graph/AdvancedFlow.py#L327) = `PushRelabelMaxFlow`

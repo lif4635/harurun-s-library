@@ -49,18 +49,3 @@ from library_codex.convolution.AdvancedSeries import (
 | [`sum_polynomial_exponential(values, ratio, count, mod=DEFAULT_MOD)`](../../../convolution/AdvancedSeries.py#L252) | 和・多項式・指数を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `values[0] % mod` / `interpolate_consecutive(prefixes, last, mod)` / 数値または入力要素型 `(pow(ratio, last, mod) * interpolate_consecutive(adjusted, las...` |
 | [`power_inner_product_enumerate(polynomial, weights, count, mod=DEFAULT_MOD)`](../../../convolution/AdvancedSeries.py#L366) | 入力した値・多項式を指定指数だけ累乗する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`weights`: 重みの列<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * (count + 1)` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 |
 | [`power_coefficient_enumerate(polynomial, multiplier=None, count=None, mod=DEFAULT_MOD)`](../../../convolution/AdvancedSeries.py#L400) | 入力した値・多項式を指定指数だけ累乗する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`multiplier`: 乗数または乗算する多項式。省略時: `None`<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * (count + 1)` / `power_inner_product_enumerate(polynomial, weights, count, mod)` |
-
-## Module aliases
-
-- [`SumOfRationals`](../../../convolution/AdvancedSeries.py#L291) = `sum_of_rationals`
-- [`CompExp`](../../../convolution/AdvancedSeries.py#L292) = `composite_exponential`
-- [`composite_exp`](../../../convolution/AdvancedSeries.py#L293) = `composite_exponential_scaled`
-- [`inverse_of_composite_exp`](../../../convolution/AdvancedSeries.py#L294) = `inverse_composite_exponential`
-- [`PrefixSum`](../../../convolution/AdvancedSeries.py#L295) = `prefix_sum_polynomial`
-- [`ProdOf_f_rk_x`](../../../convolution/AdvancedSeries.py#L296) = `product_geometric_substitutions`
-- [`MultievalGeomSeq`](../../../convolution/AdvancedSeries.py#L297) = `multipoint_evaluation_geometric`
-- [`InterpolateGeomSeq`](../../../convolution/AdvancedSeries.py#L298) = `interpolate_geometric`
-- [`LimitSumOfPolyExp`](../../../convolution/AdvancedSeries.py#L299) = `limit_sum_polynomial_exponential`
-- [`SumOfPolyExp`](../../../convolution/AdvancedSeries.py#L300) = `sum_polynomial_exponential`
-- [`PowEnumerate`](../../../convolution/AdvancedSeries.py#L420) = `power_inner_product_enumerate`
-- [`pow_enumerate`](../../../convolution/AdvancedSeries.py#L421) = `power_coefficient_enumerate`

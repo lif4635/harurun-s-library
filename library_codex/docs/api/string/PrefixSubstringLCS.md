@@ -36,4 +36,3 @@ prefix対substringのオフラインLCSを扱う `PrefixSubstringLCS`。
 | --- | --- | --- | --- | --- |
 | [`add(prefix_end, left, right)`](../../../string/PrefixSubstringLCS.py#L12) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `prefix_end`: prefix・`end`として使う入力<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `query_id` |
 | [`run()`](../../../string/PrefixSubstringLCS.py#L35) | method | 登録済みの処理を実行し、入力順に結果を返す。 | なし | 計算結果（数値または入力要素型） |
-| [`add_query`](../../../string/PrefixSubstringLCS.py#L33) | alias | `add` の別名。 | 同じ | 同じ |

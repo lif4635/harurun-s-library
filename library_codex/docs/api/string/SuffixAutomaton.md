@@ -22,7 +22,7 @@ from library_codex.string.SuffixAutomaton import SuffixAutomaton
 オンライン構築・出現/辞書順/LCS対応Suffix Automatonを扱う `SuffixAutomaton`。
 
 - constructor: [`SuffixAutomaton(sequence=None, alphabet=None)`](../../../string/SuffixAutomaton.py#L13)
-- 引数: `sequence`: 入力列。省略時: `None`<br>`alphabet`: 文字集合またはalphabet size。省略時: `None`
+- 引数: `sequence`: 入力列。省略時: `None`<br>`alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `None`
 - 返り値: `SuffixAutomaton` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -56,16 +56,3 @@ from library_codex.string.SuffixAutomaton import SuffixAutomaton
 | [`longest_repeated_substring_info(min_occurrences=2)`](../../../string/SuffixAutomaton.py#L476) | method | `longest`・`repeated`・`substring`・`info`を求める。 | `min_occurrences`: 最小・`occurrences`の下限。省略時: `2` | tuple(`0`, `0`, `0`) / tuple(`best_length`（int）, `start`（数値または入力要素型）, `best_state`（int）) |
 | [`longest_repeated_substring(min_occurrences=2)`](../../../string/SuffixAutomaton.py#L495) | method | `longest`・`repeated`・`substring`を求める。 | `min_occurrences`: 最小・`occurrences`の下限。省略時: `2` | `self._slice(start, start + length)` |
 | [`longest_common_substring(other)`](../../../string/SuffixAutomaton.py#L501) | method | `longest`・`common`・`substring`を求める。 | `other`: 同じ型のもう一方のobject・値 | tuple(`0`, `0`, `0`) / tuple(`best_length`（int）, `base_start`（数値または入力要素型）, `other_start`（数値または入力要素型）) |
-| [`next`](../../../string/SuffixAutomaton.py#L141) | alias | `transition` の別名。 | 同じ | 同じ |
-| [`move`](../../../string/SuffixAutomaton.py#L142) | alias | `transition` の別名。 | 同じ | 同じ |
-| [`chd`](../../../string/SuffixAutomaton.py#L155) | alias | `children` の別名。 | 同じ | 同じ |
-| [`push`](../../../string/SuffixAutomaton.py#L234) | alias | `extend` の別名。 | 同じ | 同じ |
-| [`link_tree`](../../../string/SuffixAutomaton.py#L289) | alias | `suffix_link_tree` の別名。 | 同じ | 同じ |
-| [`endpos_sizes`](../../../string/SuffixAutomaton.py#L316) | alias | `occurrence_counts` の別名。 | 同じ | 同じ |
-| [`occurrence_positions`](../../../string/SuffixAutomaton.py#L387) | alias | `occurrences` の別名。 | 同じ | 同じ |
-| [`number_of_substrings`](../../../string/SuffixAutomaton.py#L392) | alias | `distinct_substrings` の別名。 | 同じ | 同じ |
-| [`lcs`](../../../string/SuffixAutomaton.py#L532) | alias | `longest_common_substring` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`DenseSuffixAutomaton`](../../../string/SuffixAutomaton.py#L535) = `SuffixAutomaton`

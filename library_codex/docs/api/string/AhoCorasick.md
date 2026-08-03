@@ -22,7 +22,7 @@ from library_codex.string.AhoCorasick import AhoCorasick
 dict/固定alphabet対応Aho--Corasick（軽量・pattern別集計）を扱う `AhoCorasick`。
 
 - constructor: [`AhoCorasick(alphabet=None)`](../../../string/AhoCorasick.py#L10)
-- 引数: `alphabet`: 文字集合またはalphabet size。省略時: `None`
+- 引数: `alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `None`
 - 返り値: `AhoCorasick` instance
 - 継承元: `Trie`
 
@@ -39,10 +39,3 @@ dict/固定alphabet対応Aho--Corasick（軽量・pattern別集計）を扱う `
 | [`finditer(text, internal=False)`](../../../string/AhoCorasick.py#L178) | method | `finditer`を求める。 | `text`: 検索対象の文字列・列<br>`internal`: `internal`として使う入力。省略時: `False` | iterator[object] — 用途欄に示した要素を1つずつyieldする |
 | [`match_positions(text)`](../../../string/AhoCorasick.py#L198) | method | `match`・`positions`を求める。 | `text`: 検索対象の文字列・列 | list[object] — 計算結果 |
 | [`failure_tree()`](../../../string/AhoCorasick.py#L204) | method | `failure`・木を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`insert`](../../../string/AhoCorasick.py#L32) | alias | `add` の別名。 | 同じ | 同じ |
-| [`make_failure`](../../../string/AhoCorasick.py#L124) | alias | `build` の別名。 | 同じ | 同じ |
-| [`move`](../../../string/AhoCorasick.py#L144) | alias | `step` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`DenseAhoCorasick`](../../../string/AhoCorasick.py#L212) = `AhoCorasick`

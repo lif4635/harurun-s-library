@@ -56,9 +56,6 @@ from library_codex.string.SuffixArray import (
 | [`occurrences(pattern, sort_positions=False)`](../../../string/SuffixArray.py#L333) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `sorted(result) if sort_positions else result` |
 | [`distinct_substrings()`](../../../string/SuffixArray.py#L338) | method | `distinct`・`substrings`を求める。 | なし | 数値または入力要素型 `n * (n + 1) // 2 - sum(self.lcp)` |
 | [`substring(left=0, right=None)`](../../../string/SuffixArray.py#L344) | method | `substring`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | StaticSubstring instance |
-| [`longest_common_prefix`](../../../string/SuffixArray.py#L260) | alias | `lcp_suffix` の別名。 | 同じ | 同じ |
-| [`find_range`](../../../string/SuffixArray.py#L327) | alias | `search` の別名。 | 同じ | 同じ |
-| [`number_of_substrings`](../../../string/SuffixArray.py#L342) | alias | `distinct_substrings` の別名。 | 同じ | 同じ |
 
 ## Class `StaticSubstring`
 
@@ -80,5 +77,3 @@ from library_codex.string.SuffixArray import (
 | [`__le__(other)`](../../../string/SuffixArray.py#L404) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__gt__(other)`](../../../string/SuffixArray.py#L407) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__ge__(other)`](../../../string/SuffixArray.py#L410) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`cmp`](../../../string/SuffixArray.py#L391) | alias | `compare` の別名。 | 同じ | 同じ |
-| [`starts_with`](../../../string/SuffixArray.py#L396) | alias | `startswith` の別名。 | 同じ | 同じ |

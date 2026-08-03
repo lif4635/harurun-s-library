@@ -89,10 +89,6 @@ Treap set・区間set・BitSet・永続queue/trie・Top-K和を扱う `TreapSet`
 | [`__contains__(key)`](../../../data_structure/Collections.py#L297) | method | value in obj。 | `key`: 比較・格納に使うkey | bool |
 | [`__len__()`](../../../data_structure/Collections.py#L300) | method | len(obj)。 | なし | 要素数（int） |
 | [`__iter__()`](../../../data_structure/Collections.py#L304) | method | iter(obj)・for 文。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする |
-| [`insert`](../../../data_structure/Collections.py#L203) | alias | `add` の別名。 | 同じ | 同じ |
-| [`erase`](../../../data_structure/Collections.py#L228) | alias | `discard` の別名。 | 同じ | 同じ |
-| [`lower_bound`](../../../data_structure/Collections.py#L243) | alias | `bisect_left` の別名。 | 同じ | 同じ |
-| [`upper_bound`](../../../data_structure/Collections.py#L258) | alias | `bisect_right` の別名。 | 同じ | 同じ |
 
 ## Class `PointSetRangeFrequency`
 
@@ -121,9 +117,8 @@ Treap set・区間set・BitSet・永続queue/trie・Top-K和を扱う `RangeSet`
 | [`discard(left, right)`](../../../data_structure/Collections.py#L376) | method | 要素があれば削除する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `0` / `removed`（int） |
 | [`contains(value)`](../../../data_structure/Collections.py#L405) | method | 指定値を保持しているか判定する。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`mex(value=0)`](../../../data_structure/Collections.py#L409) | method | `mex`を求める。 | `value`: 追加・設定・問い合わせる値。省略時: `0` | `self.ends[start]` / 値 |
-| [`intervals()`](../../../data_structure/Collections.py#L415) | method | `intervals`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`intervals()`](../../../data_structure/Collections.py#L415) | method | 指定範囲に収まるランダムな半開区間を生成する。 | なし | list[tuple[int, int]] — [lower, upper)内の半開区間(left, right)の列 |
 | [`__len__()`](../../../data_structure/Collections.py#L418) | method | len(obj)。 | なし | 要素数（int） |
-| [`erase`](../../../data_structure/Collections.py#L403) | alias | `discard` の別名。 | 同じ | 同じ |
 
 ## Class `PersistentQueue`
 
@@ -139,8 +134,6 @@ Treap set・区間set・BitSet・永続queue/trie・Top-K和を扱う `Persisten
 | [`popleft(version=-1)`](../../../data_structure/Collections.py#L454) | method | `popleft`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.tail) - 1` |
 | [`front(version=-1)`](../../../data_structure/Collections.py#L464) | method | `front`を求める。 | `version`: 参照するversion番号。省略時: `-1` | `self.value[node]` |
 | [`__len__()`](../../../data_structure/Collections.py#L479) | method | len(obj)。 | なし | 要素数（int） |
-| [`push`](../../../data_structure/Collections.py#L452) | alias | `append` の別名。 | 同じ | 同じ |
-| [`pop`](../../../data_structure/Collections.py#L462) | alias | `popleft` の別名。 | 同じ | 同じ |
 
 ## Class `PersistentBinaryTrie`
 
@@ -158,7 +151,6 @@ Treap set・区間set・BitSet・永続queue/trie・Top-K和を扱う `Persisten
 | [`kth(index, version=-1, xor=0)`](../../../data_structure/Collections.py#L542) | method | 0-indexedでk番目の要素を取得する。 | `index`: 0-indexedの位置<br>`version`: 参照するversion番号。省略時: `-1`<br>`xor`: 全要素へ作用させるXOR値。省略時: `0` | k番目の値 |
 | [`xor_min(value, version=-1)`](../../../data_structure/Collections.py#L559) | method | XOR・最小を求める。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | `self.kth(0, version, value)` |
 | [`__len__()`](../../../data_structure/Collections.py#L562) | method | len(obj)。 | なし | 要素数（int） |
-| [`insert`](../../../data_structure/Collections.py#L536) | alias | `add` の別名。 | 同じ | 同じ |
 
 ## Class `TopKSum`
 

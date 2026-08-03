@@ -34,4 +34,3 @@ from library_codex.data_structure.PersistentArray import PersistentArray
 | [`fork(version=-1)`](../../../data_structure/PersistentArray.py#L100) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`tolist(version=-1)`](../../../data_structure/PersistentArray.py#L104) | method | `tolist`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`node_count()`](../../../data_structure/PersistentArray.py#L108) | method | `node`・個数を求める。 | なし | 数値または入力要素型 `len(self.pool) // self.branch - 1` |
-| [`update`](../../../data_structure/PersistentArray.py#L98) | alias | `set` の別名。 | 同じ | 同じ |

@@ -28,9 +28,3 @@ from library_codex.math.PolynomialMatrix import polynomial_matrix_determinant, d
 | [`determinant_a_plus_xb(first, second, mod=DEFAULT_MOD, seed=None, trials=8)`](../../../math/PolynomialMatrix.py#L62) | `determinant`・`a`・`plus`・`xb`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `8` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `fps_taylor_shift(polynomial, shift, mod)` / `polynomial_matrix_determinant(polynomial_matrix, mod)` |
 | [`polynomial_matrix_prefix_product(matrix, count, mod=DEFAULT_MOD)`](../../../math/PolynomialMatrix.py#L120) | 多項式・行列・prefix・積を計算する。 | `matrix`: 行をlistで持つ行列<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `identity_matrix(size)` / 計算結果 |
 | [`spanning_tree_polynomial(vertex_count, edges, mod=DEFAULT_MOD)`](../../../math/PolynomialMatrix.py#L184) | 全域・木・多項式を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `polynomial_matrix_determinant(laplacian, mod)` |
-
-## Module aliases
-
-- [`PolynomialMatrixDeterminant`](../../../math/PolynomialMatrix.py#L214) = `polynomial_matrix_determinant`
-- [`polynomial_matrix_prod`](../../../math/PolynomialMatrix.py#L215) = `polynomial_matrix_prefix_product`
-- [`detApBx`](../../../math/PolynomialMatrix.py#L216) = `determinant_a_plus_xb`

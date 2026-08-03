@@ -44,13 +44,3 @@ from library_codex.math.RationalFormalPowerSeries import RationalFormalPowerSeri
 | [`logarithm(degree=None)`](../../../math/RationalFormalPowerSeries.py#L120) | method | 対数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | `(self.derivative() * self.inverse(degree)).pre(max(0, degree -...` |
 | [`exponential(degree=None)`](../../../math/RationalFormalPowerSeries.py#L131) | method | 指数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance |
 | [`power(exponent, degree=None)`](../../../math/RationalFormalPowerSeries.py#L148) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None` | `self.inverse(degree).power(-exponent, degree)` / `result.pre(degree)` |
-| [`diff`](../../../math/RationalFormalPowerSeries.py#L88) | alias | `derivative` の別名。 | 同じ | 同じ |
-| [`eval`](../../../math/RationalFormalPowerSeries.py#L103) | alias | `evaluate` の別名。 | 同じ | 同じ |
-| [`inv`](../../../math/RationalFormalPowerSeries.py#L118) | alias | `inverse` の別名。 | 同じ | 同じ |
-| [`log`](../../../math/RationalFormalPowerSeries.py#L129) | alias | `logarithm` の別名。 | 同じ | 同じ |
-| [`exp`](../../../math/RationalFormalPowerSeries.py#L146) | alias | `exponential` の別名。 | 同じ | 同じ |
-| [`pow`](../../../math/RationalFormalPowerSeries.py#L163) | alias | `power` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`FormalPowerSeries_rational`](../../../math/RationalFormalPowerSeries.py#L166) = `RationalFormalPowerSeries`

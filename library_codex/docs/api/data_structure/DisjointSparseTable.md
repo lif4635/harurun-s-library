@@ -28,4 +28,3 @@ from library_codex.data_structure.DisjointSparseTable import DisjointSparseTable
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`prod(l, r)`](../../../data_structure/DisjointSparseTable.py#L30) | method | 半開区間またはpathの集約値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
-| [`query`](../../../data_structure/DisjointSparseTable.py#L38) | alias | `prod` の別名。 | 同じ | 同じ |

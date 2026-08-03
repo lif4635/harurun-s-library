@@ -60,8 +60,3 @@ partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
 | [`__neg__()`](../../../game/PartizanGame.py#L89) | method | -obj。 | なし | NumStar instance |
 | [`calculate(left_options, right_options)`](../../../game/PartizanGame.py#L101) | method | `calculate`を求める。 | `left_options`: 処理対象を順に並べた列<br>`right_options`: 処理対象を順に並べた列 | NumStar instance / `None` |
 | [`outcome()`](../../../game/PartizanGame.py#L123) | method | `outcome`を求める。 | なし | tuple(`True`, `False`) / tuple(`False`, `True`) / tuple(`False`, `False`) / tuple(`True`, `True`) |
-| [`calc`](../../../game/PartizanGame.py#L121) | alias | `calculate` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`SolvePartizanGame`](../../../game/PartizanGame.py#L172) = `solve_partizan_game`

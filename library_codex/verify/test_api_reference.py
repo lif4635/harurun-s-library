@@ -77,3 +77,9 @@ def test_api_reference_has_actionable_semantics():
     assert "期待 O(N^(1/4) log N)" in factorization
     assert "dict[int, int]" in factorization
     assert "list[int] — 素因数を重複込み" in factorization
+
+    assert "docs/api/algorithm/BasicAlgorithms.md" not in documents
+    assert "docs/api/algorithm/MiscAlgorithms.md" not in documents
+    assert "docs/api/random/Random.md" in documents
+    assert all("| alias |" not in text for text in documents.values())
+    assert all("## Module aliases" not in text for text in documents.values())

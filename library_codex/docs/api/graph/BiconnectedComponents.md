@@ -45,8 +45,3 @@ from library_codex.graph.BiconnectedComponents import BiconnectedComponents, Blo
 | [`is_articulation(vertex)`](../../../graph/BiconnectedComponents.py#L166) | method | `articulation`かどうかを判定する。 | `vertex`: 頂点番号（0-indexed） | bool |
 | [`__len__()`](../../../graph/BiconnectedComponents.py#L171) | method | len(obj)。 | なし | 要素数（int） |
 | [`__getitem__(node)`](../../../graph/BiconnectedComponents.py#L174) | method | obj[key] で取得する。 | `node`: 頂点・内部node番号 | 格納値、sliceなら同種の部分構造 |
-| [`is_arti`](../../../graph/BiconnectedComponents.py#L169) | alias | `is_articulation` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`BiConnectedComponents`](../../../graph/BiconnectedComponents.py#L178) = `BiconnectedComponents`

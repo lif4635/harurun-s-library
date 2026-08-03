@@ -41,9 +41,6 @@ Top-K区間集約・KD木・sortable sequenceを扱う `RangeAddCountTopK`。
 | [`range_add(left, right, delta)`](../../../data_structure/AdvancedRangeStructures.py#L67) | method | 区間・`add`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`delta`: 加算差分 | `None` |
 | [`range_top_k(left, right)`](../../../data_structure/AdvancedRangeStructures.py#L91) | method | 区間・`top`・`k`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | list[object] — 計算結果 |
 | [`top_k()`](../../../data_structure/AdvancedRangeStructures.py#L114) | method | 現在の範囲で値が大きい順にk件の集計結果を返す。 | なし | 計算結果 |
-| [`rangeAdd`](../../../data_structure/AdvancedRangeStructures.py#L89) | alias | `range_add` の別名。 | 同じ | 同じ |
-| [`rangeTopK`](../../../data_structure/AdvancedRangeStructures.py#L112) | alias | `range_top_k` の別名。 | 同じ | 同じ |
-| [`topK`](../../../data_structure/AdvancedRangeStructures.py#L121) | alias | `top_k` の別名。 | 同じ | 同じ |
 
 ## Class `LazyKDTree`
 
@@ -72,4 +69,3 @@ Top-K区間集約・KD木・sortable sequenceを扱う `SortableSegmentTree`。
 | [`update(index, key, value)`](../../../data_structure/AdvancedRangeStructures.py#L344) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, right)`](../../../data_structure/AdvancedRangeStructures.py#L351) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
 | [`sort(left, right, reverse=False)`](../../../data_structure/AdvancedRangeStructures.py#L364) | method | 入力要素を指定した順序で並べ替える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`reverse`: 逆向き・降順を使うかどうか。省略時: `False` | `None` |
-| [`set`](../../../data_structure/AdvancedRangeStructures.py#L349) | alias | `update` の別名。 | 同じ | 同じ |

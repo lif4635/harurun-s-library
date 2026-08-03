@@ -36,9 +36,3 @@ from library_codex.math.BinomialQueries import multipoint_binomial_prefix_sum, S
 | --- | --- | --- | --- | --- |
 | [`first_kind(n, k)`](../../../math/BinomialQueries.py#L94) | method | `first`・`kind`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `-result % prime if quotient + a & 1 else result` |
 | [`second_kind(n, k)`](../../../math/BinomialQueries.py#L112) | method | `second`・`kind`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / `1` / `self._binomial(a, quotient - 1)` / 数値または入力要素型 `self._binomial(a, quotient) * self.second[b][remainder] % prime` |
-| [`FirstKind`](../../../math/BinomialQueries.py#L110) | alias | `first_kind` の別名。 | 同じ | 同じ |
-| [`SecondKind`](../../../math/BinomialQueries.py#L131) | alias | `second_kind` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`multipoint_binomial_sum`](../../../math/BinomialQueries.py#L134) = `multipoint_binomial_prefix_sum`

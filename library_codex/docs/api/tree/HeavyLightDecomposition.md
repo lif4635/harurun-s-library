@@ -42,12 +42,7 @@ Heavy-Light Decomposition（非再帰）を扱う `HeavyLightDecomposition`。
 | [`next_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L94) | method | `next`・`on`・pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | `-1` / `self.jump(u, v, 1)` |
 | [`vertices_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L101) | method | 頂点・`on`・pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | list[int] — 経路上の頂点または辺を順に並べた列 |
 | [`subtree(v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L105) | method | `subtree`を求める。 | `v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[v] + edge`, `self.tout[v]`) |
-| [`path(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L108) | method | pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 |
+| [`path(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L108) | method | 頂点labelをランダムに並べたpath graphを生成する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | Graph — n頂点max(0,n-1)辺のpath graph |
 | [`path_ordered(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L129) | method | path・`ordered`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 |
 | [`index(v)`](../../../tree/HeavyLightDecomposition.py#L154) | method | 指定要素・頂点に対応する内部indexを返す。 | `v`: 頂点番号（0-indexed） | `self.tin[v]` |
 | [`vertex(i)`](../../../tree/HeavyLightDecomposition.py#L157) | method | 頂点を求める。 | `i`: 0-indexedの位置 | `self.rev[i]` |
-| [`nxt`](../../../tree/HeavyLightDecomposition.py#L99) | alias | `next_on_path` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`HLD`](../../../tree/HeavyLightDecomposition.py#L161) = `HeavyLightDecomposition`

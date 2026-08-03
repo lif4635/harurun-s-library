@@ -63,5 +63,3 @@ Range Edge Graph・多次元grid・reverse/grid変換を扱う `DimensionExpande
 | [`bfs(start, transitions=None)`](../../../graph/ExpandedGraph.py#L216) | method | `bfs`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable。省略時: `None` | 距離（数値または入力要素型） |
 | [`bfs01(start, transitions)`](../../../graph/ExpandedGraph.py#L235) | method | `bfs01`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） |
 | [`dijkstra(start, transitions)`](../../../graph/ExpandedGraph.py#L254) | method | `dijkstra`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） |
-| [`ok`](../../../graph/ExpandedGraph.py#L179) | alias | `valid` の別名。 | 同じ | 同じ |
-| [`near`](../../../graph/ExpandedGraph.py#L214) | alias | `neighbors` の別名。 | 同じ | 同じ |

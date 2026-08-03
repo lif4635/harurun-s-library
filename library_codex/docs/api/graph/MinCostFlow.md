@@ -38,8 +38,3 @@ from library_codex.graph.MinCostFlow import MinCostFlowGraph
 | [`edges()`](../../../graph/MinCostFlow.py#L38) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`slope(source, sink, flow_limit=None)`](../../../graph/MinCostFlow.py#L41) | method | `slope`を求める。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | list[object] — 計算結果 |
 | [`flow(source, sink, flow_limit=None)`](../../../graph/MinCostFlow.py#L113) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | `self.slope(source, sink, flow_limit)[-1]` |
-| [`min_cost_flow`](../../../graph/MinCostFlow.py#L116) | alias | `flow` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`MinCostFlow`](../../../graph/MinCostFlow.py#L119) = `MinCostFlowGraph`

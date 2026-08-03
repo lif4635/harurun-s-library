@@ -44,7 +44,3 @@ Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列を扱う `F2Mat
 | [`__mul__(other)`](../../../math/F2Matrix.py#L168) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | `self.multiply(other)` |
 | [`__pow__(exponent)`](../../../math/F2Matrix.py#L171) | method | obj ** exponent。 | `exponent`: 非負の指数 | `self.power(exponent)` |
 | [`__eq__(other)`](../../../math/F2Matrix.py#L174) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-
-## Module aliases
-
-- [`F2_Matrix`](../../../math/F2Matrix.py#L183) = `F2Matrix`

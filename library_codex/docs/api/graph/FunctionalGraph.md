@@ -34,4 +34,3 @@ Functional graph の周期分解・移動・距離を扱う `FunctionalGraph`。
 | [`cycle_size(v)`](../../../graph/FunctionalGraph.py#L106) | method | 閉路・`size`を求める。 | `v`: 頂点番号（0-indexed） | `len(self.cycles[self.component[v]])` |
 | [`reachable_size(v)`](../../../graph/FunctionalGraph.py#L109) | method | `reachable`・`size`を求める。 | `v`: 頂点番号（0-indexed） | 数値または入力要素型 `self.depth[v] + len(self.cycles[self.component[v]])` |
 | [`get_cycle(v)`](../../../graph/FunctionalGraph.py#L112) | method | 閉路を取得する。 | `v`: 頂点番号（0-indexed） | `self.cycles[self.component[v]]` |
-| [`jump`](../../../graph/FunctionalGraph.py#L85) | alias | `move` の別名。 | 同じ | 同じ |

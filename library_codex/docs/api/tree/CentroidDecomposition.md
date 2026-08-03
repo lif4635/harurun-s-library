@@ -32,7 +32,6 @@ from library_codex.tree.CentroidDecomposition import CentroidDecomposition, Cent
 | [`build()`](../../../tree/CentroidDecomposition.py#L74) | method | 内部構造を構築する。 | なし | `self.root` |
 | [`ancestors(vertex)`](../../../tree/CentroidDecomposition.py#L126) | method | 指定頂点から重心分解木の祖先へ向かう経路情報を返す。 | `vertex`: 頂点番号（0-indexed） | `self.paths[vertex]` |
 | [`bfs_layer(start, layer)`](../../../tree/CentroidDecomposition.py#L129) | method | `bfs`・`layer`を求める。 | `start`: 始点・開始位置<br>`layer`: `layer`として使う入力 | tuple(list `[]`, list `[]`) / tuple(`vertices`（list）, 親のlist) |
-| [`run`](../../../tree/CentroidDecomposition.py#L124) | alias | `build` の別名。 | 同じ | 同じ |
 
 ## Class `CentroidDistanceFenwick`
 
@@ -47,4 +46,3 @@ from library_codex.tree.CentroidDecomposition import CentroidDecomposition, Cent
 | [`add(vertex, delta)`](../../../tree/CentroidDecomposition.py#L214) | method | vertexに対応する値へ指定量を加える。 | `vertex`: 頂点番号（0-indexed）<br>`delta`: 加算差分 | `None` |
 | [`set(vertex, value)`](../../../tree/CentroidDecomposition.py#L226) | method | 指定位置・状態を値で置き換える。 | `vertex`: 頂点番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(vertex, lower=0, upper=None)`](../../../tree/CentroidDecomposition.py#L235) | method | 指定した対象への問い合わせ結果を返す。 | `vertex`: 頂点番号（0-indexed）<br>`lower`: 下限（包含関係はAPIの説明を参照）。省略時: `0`<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`range_sum`](../../../tree/CentroidDecomposition.py#L258) | alias | `query` の別名。 | 同じ | 同じ |

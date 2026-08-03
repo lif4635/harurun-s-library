@@ -33,10 +33,6 @@ from library_codex.data_structure.SWAG import SWAGQueue, SWAGDeque, ErasableHeap
 | [`popleft()`](../../../data_structure/SWAG.py#L19) | method | `popleft`を求める。 | なし | `self.front.pop()[0]` |
 | [`fold()`](../../../data_structure/SWAG.py#L31) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` |
 | [`__len__()`](../../../data_structure/SWAG.py#L41) | method | len(obj)。 | なし | 要素数（int） |
-| [`push`](../../../data_structure/SWAG.py#L17) | alias | `append` の別名。 | 同じ | 同じ |
-| [`pop`](../../../data_structure/SWAG.py#L29) | alias | `popleft` の別名。 | 同じ | 同じ |
-| [`prod`](../../../data_structure/SWAG.py#L38) | alias | `fold` の別名。 | 同じ | 同じ |
-| [`query`](../../../data_structure/SWAG.py#L39) | alias | `fold` の別名。 | 同じ | 同じ |
 
 ## Class `SWAGDeque`
 
@@ -54,12 +50,6 @@ from library_codex.data_structure.SWAG import SWAGQueue, SWAGDeque, ErasableHeap
 | [`pop()`](../../../data_structure/SWAG.py#L96) | method | 要素を1つ取り除いて返す。 | なし | `self.back.pop()[0]` |
 | [`fold()`](../../../data_structure/SWAG.py#L106) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` |
 | [`__len__()`](../../../data_structure/SWAG.py#L116) | method | len(obj)。 | なし | 要素数（int） |
-| [`push_front`](../../../data_structure/SWAG.py#L62) | alias | `appendleft` の別名。 | 同じ | 同じ |
-| [`push_back`](../../../data_structure/SWAG.py#L63) | alias | `append` の別名。 | 同じ | 同じ |
-| [`pop_front`](../../../data_structure/SWAG.py#L103) | alias | `popleft` の別名。 | 同じ | 同じ |
-| [`pop_back`](../../../data_structure/SWAG.py#L104) | alias | `pop` の別名。 | 同じ | 同じ |
-| [`prod`](../../../data_structure/SWAG.py#L113) | alias | `fold` の別名。 | 同じ | 同じ |
-| [`query`](../../../data_structure/SWAG.py#L114) | alias | `fold` の別名。 | 同じ | 同じ |
 
 ## Class `ErasableHeap`
 
@@ -76,4 +66,3 @@ from library_codex.data_structure.SWAG import SWAGQueue, SWAGDeque, ErasableHeap
 | [`top()`](../../../data_structure/SWAG.py#L148) | method | 次に取り出される要素を削除せず返す。 | なし | 次に取り出される要素 |
 | [`pop()`](../../../data_structure/SWAG.py#L154) | method | 要素を1つ取り除いて返す。 | なし | 値 |
 | [`__len__()`](../../../data_structure/SWAG.py#L161) | method | len(obj)。 | なし | 要素数（int） |
-| [`remove`](../../../data_structure/SWAG.py#L146) | alias | `erase` の別名。 | 同じ | 同じ |

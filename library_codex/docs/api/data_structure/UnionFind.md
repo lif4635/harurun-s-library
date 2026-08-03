@@ -42,10 +42,6 @@ from library_codex.data_structure.UnionFind import (
 | [`same(first, second)`](../../../data_structure/UnionFind.py#L39) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`size(node)`](../../../data_structure/UnionFind.py#L42) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
 | [`groups()`](../../../data_structure/UnionFind.py#L45) | method | `groups`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`leader`](../../../data_structure/UnionFind.py#L20) | alias | `find` の別名。 | 同じ | 同じ |
-| [`root`](../../../data_structure/UnionFind.py#L21) | alias | `find` の別名。 | 同じ | 同じ |
-| [`unite`](../../../data_structure/UnionFind.py#L36) | alias | `merge` の別名。 | 同じ | 同じ |
-| [`union`](../../../data_structure/UnionFind.py#L37) | alias | `merge` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicUnionFind`
 
@@ -62,8 +58,6 @@ from library_codex.data_structure.UnionFind import (
 | [`merge(first, second)`](../../../data_structure/UnionFind.py#L86) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
 | [`same(first, second)`](../../../data_structure/UnionFind.py#L102) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`size(node)`](../../../data_structure/UnionFind.py#L105) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
-| [`leader`](../../../data_structure/UnionFind.py#L84) | alias | `find` の別名。 | 同じ | 同じ |
-| [`unite`](../../../data_structure/UnionFind.py#L100) | alias | `merge` の別名。 | 同じ | 同じ |
 
 ## Class `WeightedUnionFind`
 
@@ -81,9 +75,6 @@ from library_codex.data_structure.UnionFind import (
 | [`same(first, second)`](../../../data_structure/UnionFind.py#L160) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`diff(first, second)`](../../../data_structure/UnionFind.py#L163) | method | `diff`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `self.weight(second) - self.weight(first)` / `None` |
 | [`size(node)`](../../../data_structure/UnionFind.py#L170) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
-| [`leader`](../../../data_structure/UnionFind.py#L136) | alias | `find` の別名。 | 同じ | 同じ |
-| [`unite`](../../../data_structure/UnionFind.py#L158) | alias | `merge` の別名。 | 同じ | 同じ |
-| [`difference`](../../../data_structure/UnionFind.py#L168) | alias | `diff` の別名。 | 同じ | 同じ |
 
 ## Class `EnumerateUnionFind`
 
@@ -98,7 +89,6 @@ from library_codex.data_structure.UnionFind import (
 | --- | --- | --- | --- | --- |
 | [`merge(first, second)`](../../../data_structure/UnionFind.py#L181) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first_root` / `super().merge(first_root, second_root)` |
 | [`members(node)`](../../../data_structure/UnionFind.py#L191) | method | `members`を求める。 | `node`: 頂点・内部node番号 | list[object] — 計算結果 |
-| [`unite`](../../../data_structure/UnionFind.py#L189) | alias | `merge` の別名。 | 同じ | 同じ |
 
 継承methodは同ページの `UnionFind` を参照してください。
 
@@ -118,7 +108,6 @@ from library_codex.data_structure.UnionFind import (
 | [`set(node, value)`](../../../data_structure/UnionFind.py#L232) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`edges(node)`](../../../data_structure/UnionFind.py#L235) | method | 辺を求める。 | `node`: 頂点・内部node番号 | `self.edge_count[self.find(node)]` |
 | [`has_cycle(node)`](../../../data_structure/UnionFind.py#L238) | method | 閉路かどうかを判定する。 | `node`: 頂点・内部node番号 | bool |
-| [`unite`](../../../data_structure/UnionFind.py#L227) | alias | `merge` の別名。 | 同じ | 同じ |
 
 継承methodは同ページの `UnionFind` を参照してください。
 
@@ -138,8 +127,6 @@ from library_codex.data_structure.UnionFind import (
 | [`size(node, time=None)`](../../../data_structure/UnionFind.py#L292) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号<br>`time`: operation時刻。省略時: `None` | size（int） |
 | [`when_unite(first, second)`](../../../data_structure/UnionFind.py#L301) | method | `when`・`unite`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / `high`（数値または入力要素型） |
 | [`size_ge(node, target)`](../../../data_structure/UnionFind.py#L314) | method | `size`・`ge`を求める。 | `node`: 頂点・内部node番号<br>`target`: 探索・判定・更新の対象値 | `-1` / `high`（数値または入力要素型） |
-| [`leader`](../../../data_structure/UnionFind.py#L265) | alias | `find` の別名。 | 同じ | 同じ |
-| [`unite`](../../../data_structure/UnionFind.py#L287) | alias | `merge` の別名。 | 同じ | 同じ |
 
 ## Class `RangeParallelUnionFind`
 
@@ -155,7 +142,6 @@ from library_codex.data_structure.UnionFind import (
 | [`find(node)`](../../../data_structure/UnionFind.py#L370) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） |
 | [`same(first, second)`](../../../data_structure/UnionFind.py#L373) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`size(node)`](../../../data_structure/UnionFind.py#L376) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
-| [`unite`](../../../data_structure/UnionFind.py#L368) | alias | `merge` の別名。 | 同じ | 同じ |
 
 ## Class `ContiguousUnionFind`
 
@@ -171,7 +157,5 @@ from library_codex.data_structure.UnionFind import (
 | [`merge(first, second)`](../../../data_structure/UnionFind.py#L388) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` / `root` |
 | [`range_merge(left, right)`](../../../data_structure/UnionFind.py#L402) | method | 区間・`merge`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
 | [`interval(node)`](../../../data_structure/UnionFind.py#L414) | method | `interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.left[root]`, `self.right[root]`) |
-| [`unite`](../../../data_structure/UnionFind.py#L400) | alias | `merge` の別名。 | 同じ | 同じ |
-| [`range_unite`](../../../data_structure/UnionFind.py#L412) | alias | `range_merge` の別名。 | 同じ | 同じ |
 
 継承methodは同ページの `UnionFind` を参照してください。

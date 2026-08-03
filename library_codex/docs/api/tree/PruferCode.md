@@ -35,8 +35,3 @@ from library_codex.tree.PruferCode import (
 | [`prufer_encode(tree)`](../../../tree/PruferCode.py#L47) | `prufer`・`encode`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L74) | `prufer`・`encode`・`extended`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `prufer_encode(tree) + [n - 1]` |
 | [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L81) | `prufer`・`decode`・`extended`を求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` |
-
-## Module aliases
-
-- [`encode_prufer`](../../../tree/PruferCode.py#L92) = `prufer_encode`
-- [`decode_prufer`](../../../tree/PruferCode.py#L93) = `prufer_decode`

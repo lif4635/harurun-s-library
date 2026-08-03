@@ -26,9 +26,3 @@ from library_codex.convolution.PRecursive import find_p_recursive, enumerate_p_r
 | [`find_p_recursive(sequence, coefficient_degree, mod=DEFAULT_MOD)`](../../../convolution/PRecursive.py#L21) | `p`・`recursive`を探索する。 | `sequence`: 入力列<br>`coefficient_degree`: 係数・次数として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 | [`enumerate_p_recursive(initial, recurrence, count, mod=DEFAULT_MOD)`](../../../convolution/PRecursive.py#L64) | `p`・`recursive`を列挙する。 | `initial`: 初期値または初項列<br>`recurrence`: P再帰式・線形漸化式の係数<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 | [`kth_term_p_recursive(initial, recurrence, index, mod=DEFAULT_MOD)`](../../../convolution/PRecursive.py#L89) | k番目・`term`・`p`・`recursive`を求める。 | `initial`: 初期値または初項列<br>`recurrence`: P再帰式・線形漸化式の係数<br>`index`: 0-indexedの位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / 数値または入力要素型 `numerator % mod * pow(denominator_product, -1, mod) % mod` |
-
-## Module aliases
-
-- [`FindPRecursive`](../../../convolution/PRecursive.py#L114) = `find_p_recursive`
-- [`EnumPRecursive`](../../../convolution/PRecursive.py#L115) = `enumerate_p_recursive`
-- [`KthtermOfPRecursive`](../../../convolution/PRecursive.py#L116) = `kth_term_p_recursive`

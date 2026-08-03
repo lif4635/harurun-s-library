@@ -24,7 +24,3 @@ from library_codex.convolution.StirlingMatrix import stirling_matrix, stirling_m
 | --- | --- | --- | --- |
 | [`stirling_matrix(values, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/StirlingMatrix.py#L22) | `stirling`・行列を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 |
 | [`stirling_matrix_transpose(values, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/StirlingMatrix.py#L42) | `stirling`・行列・`transpose`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 / `tree.interpolate(transformed)` |
-
-## Module aliases
-
-- [`stirling_matrix_trans`](../../../convolution/StirlingMatrix.py#L59) = `stirling_matrix_transpose`

@@ -81,12 +81,3 @@ subset/superset変換・OR/AND/XOR・subset畳み込み/除算・set power serie
 | [`compose(outer, series)`](../../../convolution/SetFunction.py#L389) | method | 合成を求める。 | `outer`: 外側の多項式/FPS `f`<br>`series`: 昇冪の形式的冪級数係数列 | `self.compose_egf(zero_constant, derivatives)` |
 | [`transpose_compose_egf(series, weights)`](../../../convolution/SetFunction.py#L408) | method | `transpose`・合成・`egf`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列 | 計算結果（数値または入力要素型） |
 | [`power_projection(series, weights, terms, exponential=False)`](../../../convolution/SetFunction.py#L433) | method | 入力した値・多項式を指定指数だけ累乗する。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列<br>`terms`: 返す項数<br>`exponential`: 指数として使う入力。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `coefficients`（数値または入力要素型） |
-
-## Module aliases
-
-- [`or_convolution`](../../../convolution/SetFunction.py#L507) = `bitwise_or_convolution`
-- [`and_convolution`](../../../convolution/SetFunction.py#L508) = `bitwise_and_convolution`
-- [`xor_convolution`](../../../convolution/SetFunction.py#L509) = `bitwise_xor_convolution`
-- [`walsh_hadamard_tranform`](../../../convolution/SetFunction.py#L510) = `walsh_hadamard_transform`
-- [`polynomial_composite_set_power_series`](../../../convolution/SetFunction.py#L511) = `set_series_composition`
-- [`power_projection_of_set_power_series`](../../../convolution/SetFunction.py#L512) = `set_series_power_projection`

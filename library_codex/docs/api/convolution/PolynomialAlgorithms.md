@@ -47,12 +47,3 @@ from library_codex.convolution.PolynomialAlgorithms import (
 | [`power_sums(values, max_exponent, mod=DEFAULT_MOD)`](../../../convolution/PolynomialAlgorithms.py#L234) | 入力した値・多項式を指定指数だけ累乗する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
 | [`prefix_sum_powers(count, max_exponent, mod=DEFAULT_MOD)`](../../../convolution/PolynomialAlgorithms.py#L249) | prefix・和・`powers`を計算する。 | `count`: 個数<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`polynomial_prefix_sum(polynomial, mod=DEFAULT_MOD, inclusive=False)`](../../../convolution/PolynomialAlgorithms.py#L276) | 多項式・prefix・和を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`inclusive`: 端点を含めるかどうか。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `fps_shrink(result, mod)` |
-
-## Module aliases
-
-- [`poly_gcd`](../../../convolution/PolynomialAlgorithms.py#L294) = `polynomial_gcd`
-- [`poly_extgcd`](../../../convolution/PolynomialAlgorithms.py#L295) = `polynomial_extended_gcd`
-- [`poly_inv_mod`](../../../convolution/PolynomialAlgorithms.py#L296) = `polynomial_inverse_mod`
-- [`poly_pow_mod`](../../../convolution/PolynomialAlgorithms.py#L297) = `polynomial_pow_mod`
-- [`resultant`](../../../convolution/PolynomialAlgorithms.py#L298) = `polynomial_resultant`
-- [`root_finding`](../../../convolution/PolynomialAlgorithms.py#L299) = `polynomial_roots`

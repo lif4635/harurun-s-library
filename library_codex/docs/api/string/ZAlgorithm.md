@@ -22,9 +22,3 @@ from library_codex.string.ZAlgorithm import z_algorithm
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`z_algorithm(sequence)`](../../../string/ZAlgorithm.py#L1) | `z`・`algorithm`を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `z`（数値または入力要素型） |
-
-## Module aliases
-
-- [`z_function`](../../../string/ZAlgorithm.py#L28) = `z_algorithm`
-- [`Z_algorithm`](../../../string/ZAlgorithm.py#L29) = `z_algorithm`
-- [`Z_algorism`](../../../string/ZAlgorithm.py#L30) = `z_algorithm`

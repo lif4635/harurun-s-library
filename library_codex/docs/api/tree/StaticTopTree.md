@@ -54,7 +54,6 @@ from library_codex.tree.StaticTopTree import (
 | [`add_edge(first, second)`](../../../tree/StaticTopTree.py#L118) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`build(root=None)`](../../../tree/StaticTopTree.py#L174) | method | 内部構造を構築する。 | `root`: 根の頂点番号・原始根。省略時: `None` | `self.top_tree_root` |
 | [`height()`](../../../tree/StaticTopTree.py#L228) | method | `height`を求める。 | なし | 答え（int） |
-| [`run`](../../../tree/StaticTopTree.py#L226) | alias | `build` の別名。 | 同じ | 同じ |
 
 ## Class `StaticTopTreeEdgeBased`
 
@@ -132,8 +131,3 @@ from library_codex.tree.StaticTopTree import (
 | --- | --- | --- | --- | --- |
 | [`update(vertex)`](../../../tree/StaticTopTree.py#L634) | method | 指定位置・辺・状態を更新する。 | `vertex`: 頂点番号（0-indexed） | `None` |
 | [`get()`](../../../tree/StaticTopTree.py#L640) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
-
-## Module aliases
-
-- [`DPonStaticTopTree`](../../../tree/StaticTopTree.py#L337) = `EdgeTopTreeDP`
-- [`DPonStaticTopTreeVertexBased`](../../../tree/StaticTopTree.py#L644) = `VertexTopTreeDP`

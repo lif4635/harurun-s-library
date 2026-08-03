@@ -30,4 +30,3 @@ from library_codex.data_structure.StaticRMQ import StaticRMQ
 | [`argmin(l, r)`](../../../data_structure/StaticRMQ.py#L71) | method | `argmin`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._small_argmin(l, r)` / `best` |
 | [`query(l, r)`](../../../data_structure/StaticRMQ.py#L98) | method | 指定した対象への問い合わせ結果を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
 | [`__len__()`](../../../data_structure/StaticRMQ.py#L103) | method | len(obj)。 | なし | 要素数（int） |
-| [`prod`](../../../data_structure/StaticRMQ.py#L101) | alias | `query` の別名。 | 同じ | 同じ |

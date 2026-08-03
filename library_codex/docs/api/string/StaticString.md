@@ -76,10 +76,6 @@ SA共有substring view・複数view連結を扱う `StaticString`。
 | [`__le__(other)`](../../../string/StaticString.py#L167) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__gt__(other)`](../../../string/StaticString.py#L170) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__ge__(other)`](../../../string/StaticString.py#L173) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`from_string`](../../../string/StaticString.py#L75) | alias | `from_sequence` の別名。 | 同じ | 同じ |
-| [`to_sequence`](../../../string/StaticString.py#L117) | alias | `materialize` の別名。 | 同じ | 同じ |
-| [`cmp`](../../../string/StaticString.py#L141) | alias | `compare` の別名。 | 同じ | 同じ |
-| [`startsWith`](../../../string/StaticString.py#L146) | alias | `startswith` の別名。 | 同じ | 同じ |
 
 ## Class `MergedStaticString`
 
@@ -105,12 +101,3 @@ SA共有substring view・複数view連結を扱う `MergedStaticString`。
 | [`__le__(other)`](../../../string/StaticString.py#L356) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__gt__(other)`](../../../string/StaticString.py#L359) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__ge__(other)`](../../../string/StaticString.py#L362) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`to_sequence`](../../../string/StaticString.py#L282) | alias | `materialize` の別名。 | 同じ | 同じ |
-| [`cmp`](../../../string/StaticString.py#L339) | alias | `compare` の別名。 | 同じ | 同じ |
-| [`startsWith`](../../../string/StaticString.py#L344) | alias | `startswith` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`toStaticString`](../../../string/StaticString.py#L377) = `to_static_string`
-- [`toStaticStrings`](../../../string/StaticString.py#L404) = `to_static_strings`
-- [`initSuffixArray`](../../../string/StaticString.py#L415) = `init_suffix_array`

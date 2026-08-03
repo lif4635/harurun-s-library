@@ -54,8 +54,6 @@ Conway nimber積・逆元・基底変換を扱う `Nimber`。
 | [`power(exponent)`](../../../math/Nimber.py#L110) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） |
 | [`inverse()`](../../../math/Nimber.py#L125) | method | 逆元・逆変換を求める。 | なし | `self.power((1 << self.bits) - 2)` |
 | [`__truediv__(other)`](../../../math/Nimber.py#L132) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * other.inverse()` |
-| [`pow`](../../../math/Nimber.py#L123) | alias | `power` の別名。 | 同じ | 同じ |
-| [`inv`](../../../math/Nimber.py#L130) | alias | `inverse` の別名。 | 同じ | 同じ |
 
 ## Class `NimberToField`
 
@@ -69,9 +67,3 @@ Conway nimber積・逆元・基底変換を扱う `NimberToField`。
 | --- | --- | --- | --- | --- |
 | [`field2nimber(value)`](../../../math/Nimber.py#L189) | method | `field2nimber`を求める。 | `value`: 追加・設定・問い合わせる値 | Nimber instance |
 | [`nimber2field(value)`](../../../math/Nimber.py#L192) | method | `nimber2field`を求める。 | `value`: 追加・設定・問い合わせる値 | `self._apply(self.nimber_to_field, value)` |
-
-## Module aliases
-
-- [`product16`](../../../math/Nimber.py#L202) = `nim_product16`
-- [`product32`](../../../math/Nimber.py#L203) = `nim_product32`
-- [`product64`](../../../math/Nimber.py#L204) = `nim_product64`

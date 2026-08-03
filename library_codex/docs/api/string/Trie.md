@@ -22,7 +22,7 @@ from library_codex.string.Trie import Trie
 dict/固定alphabet対応Trie（重複・prefix件数・ID保持）を扱う `Trie`。
 
 - constructor: [`Trie(alphabet=None)`](../../../string/Trie.py#L11)
-- 引数: `alphabet`: 文字集合またはalphabet size。省略時: `None`
+- 引数: `alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `None`
 - 返り値: `Trie` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
@@ -40,10 +40,3 @@ dict/固定alphabet対応Trie（重複・prefix件数・ID保持）を扱う `Tr
 | [`longest_prefix(sequence)`](../../../string/Trie.py#L151) | method | `longest`・prefixを求める。 | `sequence`: 入力列 | 計算結果（tuple） |
 | [`erase(word, count=1)`](../../../string/Trie.py#L157) | method | 指定要素を削除する。 | `word`: 登録・検索する文字列・列<br>`count`: 個数。省略時: `1` | bool |
 | [`words()`](../../../string/Trie.py#L176) | method | `words`を求める。 | なし | list[object] — 計算結果 |
-| [`insert`](../../../string/Trie.py#L109) | alias | `add` の別名。 | 同じ | 同じ |
-| [`count_prefix`](../../../string/Trie.py#L132) | alias | `prefix_count` の別名。 | 同じ | 同じ |
-| [`remove`](../../../string/Trie.py#L174) | alias | `erase` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`DenseTrie`](../../../string/Trie.py#L196) = `Trie`

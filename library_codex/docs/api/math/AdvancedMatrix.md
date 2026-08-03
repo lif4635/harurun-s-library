@@ -41,9 +41,3 @@ from library_codex.math.AdvancedMatrix import (
 | [`pfaffian(matrix, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L125) | `pfaffian`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `result % mod` |
 | [`spanning_tree_count(vertex_count, edges, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L161) | 全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(laplacian, mod)` |
 | [`directed_spanning_tree_count(vertex_count, edges, root, inward=True, mod=DEFAULT_MOD)`](../../../math/AdvancedMatrix.py#L193) | 有向・全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`inward`: `inward`として使う入力。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` |
-
-## Module aliases
-
-- [`Hafnian`](../../../math/AdvancedMatrix.py#L226) = `hafnian`
-- [`Pfaffian`](../../../math/AdvancedMatrix.py#L227) = `pfaffian`
-- [`MatrixTree`](../../../math/AdvancedMatrix.py#L228) = `spanning_tree_count`

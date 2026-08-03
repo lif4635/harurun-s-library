@@ -59,17 +59,3 @@ from library_codex.math.Matrix import (
 | [`linear_equation(matrix, vector, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L189) | 線形・`equation`を求める。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(`particular`（数値または入力要素型）, `basis`（list）) / `None` |
 | [`sparse_linear_equation(matrix, vector, width=None, mod=DEFAULT_MOD, elimination_band=None)`](../../../math/Matrix.py#L219) | `sparse`・線形・`equation`を求める。 | `matrix`: 行をlistで持つ行列<br>`vector`: vector・1次元配列<br>`width`: 幅・列数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`elimination_band`: `elimination`・`band`として使う入力。省略時: `None` | 計算結果（数値または入力要素型） / `None` |
 | [`characteristic_polynomial(matrix, mod=DEFAULT_MOD)`](../../../math/Matrix.py#L307) | 特性・多項式を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `polynomials[size]` |
-
-## Module aliases
-
-- [`mat_add`](../../../math/Matrix.py#L369) = `matrix_add`
-- [`mat_sub`](../../../math/Matrix.py#L370) = `matrix_subtract`
-- [`mat_mul`](../../../math/Matrix.py#L371) = `matrix_multiply`
-- [`mat_pow`](../../../math/Matrix.py#L372) = `matrix_power`
-- [`mat_inv`](../../../math/Matrix.py#L373) = `inverse_matrix`
-- [`determinant`](../../../math/Matrix.py#L374) = `matrix_determinant`
-- [`rank`](../../../math/Matrix.py#L375) = `matrix_rank`
-- [`GaussElimination`](../../../math/Matrix.py#L376) = `gauss_elimination`
-- [`LinearEquation`](../../../math/Matrix.py#L377) = `linear_equation`
-- [`LinearEquation_hashmap`](../../../math/Matrix.py#L378) = `sparse_linear_equation`
-- [`CharacteristicPolynomial`](../../../math/Matrix.py#L379) = `characteristic_polynomial`

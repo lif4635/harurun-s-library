@@ -40,7 +40,6 @@ from library_codex.data_structure.RectangleQuery import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`sum(top, left, bottom, right)`](../../../data_structure/RectangleQuery.py#L28) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
-| [`prod`](../../../data_structure/RectangleQuery.py#L37) | alias | `sum` の別名。 | 同じ | 同じ |
 
 ## Class `SegmentTree2D`
 
@@ -55,7 +54,6 @@ from library_codex.data_structure.RectangleQuery import (
 | [`set(row, column, value)`](../../../data_structure/RectangleQuery.py#L76) | method | 指定位置・状態を値で置き換える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`get(row, column)`](../../../data_structure/RectangleQuery.py#L105) | method | 指定位置・辺・状態の値を取得する。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号 | 指定対象に格納された値・edge object |
 | [`prod(top, left, bottom, right)`](../../../data_structure/RectangleQuery.py#L125) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
-| [`query`](../../../data_structure/RectangleQuery.py#L141) | alias | `prod` の別名。 | 同じ | 同じ |
 
 ## Class `CompressedFenwick2D`
 
@@ -70,7 +68,6 @@ from library_codex.data_structure.RectangleQuery import (
 | [`add(x, y, value)`](../../../data_structure/RectangleQuery.py#L164) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prefix_sum(x, y)`](../../../data_structure/RectangleQuery.py#L181) | method | 半開区間 [0, right) の総和を返す。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | prefixの和（入力要素型） |
 | [`sum(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L193) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | 区間・集合の和（入力要素型） |
-| [`prod`](../../../data_structure/RectangleQuery.py#L201) | alias | `sum` の別名。 | 同じ | 同じ |
 
 ## Class `StaticRectangleSum`
 
@@ -85,7 +82,6 @@ from library_codex.data_structure.RectangleQuery import (
 | [`add(x, y, value)`](../../../data_structure/RectangleQuery.py#L211) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L214) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
 | [`solve()`](../../../data_structure/RectangleQuery.py#L217) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
-| [`run`](../../../data_structure/RectangleQuery.py#L238) | alias | `solve` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicPointAddRectangleSum`
 
@@ -100,7 +96,6 @@ from library_codex.data_structure.RectangleQuery import (
 | [`add(x, y, value)`](../../../data_structure/RectangleQuery.py#L247) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L250) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
 | [`solve()`](../../../data_structure/RectangleQuery.py#L253) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
-| [`run`](../../../data_structure/RectangleQuery.py#L264) | alias | `solve` の別名。 | 同じ | 同じ |
 
 ## Class `RectangleAddRectangleSum`
 
@@ -115,9 +110,6 @@ from library_codex.data_structure.RectangleQuery import (
 | [`add(left, bottom, right, top, value)`](../../../data_structure/RectangleQuery.py#L274) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L279) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
 | [`solve()`](../../../data_structure/RectangleQuery.py#L284) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
-| [`add_rectangle`](../../../data_structure/RectangleQuery.py#L277) | alias | `add` の別名。 | 同じ | 同じ |
-| [`add_query`](../../../data_structure/RectangleQuery.py#L282) | alias | `query` の別名。 | 同じ | 同じ |
-| [`run`](../../../data_structure/RectangleQuery.py#L324) | alias | `solve` の別名。 | 同じ | 同じ |
 
 ## Class `PointUpdateRangeTree2D`
 
@@ -134,11 +126,3 @@ from library_codex.data_structure.RectangleQuery import (
 | [`add(x, y, value)`](../../../data_structure/RectangleQuery.py#L387) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`set(x, y, value)`](../../../data_structure/RectangleQuery.py#L396) | method | 指定位置・状態を値で置き換える。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, bottom, right, top)`](../../../data_structure/RectangleQuery.py#L431) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`sum`](../../../data_structure/RectangleQuery.py#L451) | alias | `query` の別名。 | 同じ | 同じ |
-| [`prod`](../../../data_structure/RectangleQuery.py#L452) | alias | `query` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`RangeTree`](../../../data_structure/RectangleQuery.py#L455) = `PointUpdateRangeTree2D`
-- [`SegmentTreeOnRangeTree`](../../../data_structure/RectangleQuery.py#L456) = `PointUpdateRangeTree2D`
-- [`SegmentTreeOnWaveletMatrix`](../../../data_structure/RectangleQuery.py#L457) = `PointUpdateRangeTree2D`

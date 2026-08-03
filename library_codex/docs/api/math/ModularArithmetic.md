@@ -24,10 +24,3 @@ from library_codex.math.ModularArithmetic import modular_square_root, discrete_l
 | --- | --- | --- | --- |
 | [`modular_square_root(value, prime)`](../../../math/ModularArithmetic.py#L4) | 法・平方・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | 値 / `-1` / `min(root, prime - root)` |
 | [`discrete_logarithm(base, target, modulus)`](../../../math/ModularArithmetic.py#L44) | `discrete`・対数を計算する。 | `base`: 底・基準となる値または列<br>`target`: 探索・判定・更新の対象値<br>`modulus`: 法 | `0` / `offset`（int） / `-1` / 数値または入力要素型 `offset + block * width + exponent` |
-
-## Module aliases
-
-- [`mod_sqrt`](../../../math/ModularArithmetic.py#L86) = `modular_square_root`
-- [`tonelli_shanks`](../../../math/ModularArithmetic.py#L87) = `modular_square_root`
-- [`mod_log`](../../../math/ModularArithmetic.py#L88) = `discrete_logarithm`
-- [`ModLog`](../../../math/ModularArithmetic.py#L89) = `discrete_logarithm`

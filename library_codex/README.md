@@ -30,7 +30,7 @@
 
 ## APIドキュメント
 
-- [APIリファレンス](docs/README.md): 全146モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
+- [APIリファレンス](docs/README.md): 全157モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
 - 1モジュール1ページで、category別の索引から辿れる
 - `pypy3 library_codex/tools/build_api_reference.py` でsourceから再生成できる
 - `pypy3 library_codex/tools/build_api_reference.py --check` でsourceとの同期を検査できる
@@ -39,7 +39,18 @@
 
 | ファイル | 概要 | 計算量 |
 | --- | --- | --- |
-| `algorithm/BasicAlgorithms.py` | Fibonacci・転倒数・LIS・0/1 knapsack・subset sum・Mo・doubling | 各標準計算量 |
+| `algorithm/Fibonacci.py` | 高速doublingによるFibonacci数 | $O(\log N)$ |
+| `algorithm/SequenceAlgorithms.py` | 転倒数・LIS・座標圧縮・区間併合 | $O(N\log N)$ |
+| `algorithm/DynamicProgramming.py` | 0/1 knapsack・bitset subset sum・解復元 | $O(NC)$ またはbitset演算依存 |
+| `algorithm/RangeQueries.py` | Mo's algorithmによるoffline区間query | $O((N+Q)\sqrt N)$ 回程度の端点操作 |
+| `algorithm/Doubling.py` | functional graphのbinary liftingと加算集約 | 構築 $O(N\log K)$、query $O(\log K)$ |
+| `algorithm/Search.py` | 整数・実数境界二分探索とquickselect | $O(\log X)$ / 期待 $O(N)$ |
+| `algorithm/BitAlgorithms.py` | set bit・部分mask・上位maskの列挙 | set bit数または出力数に線形 |
+| `algorithm/Sorting.py` | 非負整数radix sort・置換・bucket sort | $O(NB/D + 2^D B/D)$ または $O(N+K)$ |
+| `algorithm/IntegerPartitions.py` | 加法的整数分割の列挙 | 出力サイズに線形 |
+| `algorithm/IntegerUtilities.py` | 合同類・mod乗・完全平方根・10進桁数 | 主に $O(\log N)$ |
+| `algorithm/ErdosGinzburgZiv.py` | Erdős–Ginzburg–Ziv定理の部分列構成 | $O(N^2)$ bit演算 |
+| `algorithm/ModularProgression.py` | mod付き等差数列の通常等差run分割 | $O(\sqrt N + R)$ |
 | `convolution/ArithmeticConvolution.py` | 約数/倍数zeta--Möbius・GCD/LCM畳み込み | $O(N\log\log N)$ |
 | `convolution/AdvancedConvolution.py` | Chirp-Z・middle product・多変数通常/巡回・乗法畳み込み | NTT/Bluestein依存 |
 | `convolution/FormalPowerSeries.py` | FPS四則演算・inv/log/exp/pow・Taylor shift・一括積 | 主要演算 $O(N\log N)$ |
@@ -123,7 +134,8 @@
 | `optimization/AdvancedDP.py` | Monge DP・凸/凹min/max-plus・branch-and-bound・rollback Mo | 各参照計算量 |
 | `optimization/Matroid.py` | graphic/partition/transversal matroid intersection | oracle依存の多項式時間 |
 | `game/GameTheory.py` | 不偏DAG Grundy・numeric partisan game・dyadic surreal | 状態・遷移数に線形 |
-| `random/RandomGraph.py` | xoshiro256**・graph container・各種random graph | 出力サイズに線形 |
+| `random/Random.py` | 再現可能なxoshiro256**乱数・配列・文字列・区間・composition生成 | 各出力サイズに線形 |
+| `random/RandomGraph.py` | edge-list container・木・連結・単純・Erdős–Rényi graph生成 | 主に $O(N+M)$、密グラフは $O(N^2)$ |
 | `heuristic/Heuristics.py` | SA・multipoint SA・bandit・Top-K・log乱数表 | iteration依存 |
 | `string/AhoCorasick.py` | dict/固定alphabet対応Aho--Corasick（軽量・pattern別集計） | 固定alphabet構築 $O(V\sigma)$、集計 $O(T)$、列挙 $O(T+M)$ |
 | `string/CompressedTrie.py` | 辺ラベルを元の語の区間で持つ圧縮Trie | 追加・検索 $O(L)$、ノード数 $O(U)$ |

@@ -24,8 +24,3 @@ from library_codex.string.RunLengthEncoding import run_length_encode, run_length
 | --- | --- | --- | --- |
 | [`run_length_encode(sequence)`](../../../string/RunLengthEncoding.py#L1) | `run`・長さ・`encode`を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
 | [`run_length_decode(encoded, container_type=list)`](../../../string/RunLengthEncoding.py#L20) | `run`・長さ・`decode`を求める。 | `encoded`: 符号化済みbytes/string<br>`container_type`: `container`・`type`として使う入力。省略時: `list` | `''.join(result)` / bytes instance / `bytearray(result)` / tuple — 用途欄に示した複数の結果を順に格納 / ほか（source参照） |
-
-## Module aliases
-
-- [`RunLengthEncoding`](../../../string/RunLengthEncoding.py#L37) = `run_length_encode`
-- [`rle`](../../../string/RunLengthEncoding.py#L38) = `run_length_encode`

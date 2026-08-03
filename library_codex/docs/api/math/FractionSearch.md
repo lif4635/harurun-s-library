@@ -22,7 +22,3 @@ from library_codex.math.FractionSearch import stern_brocot_binary_search
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`stern_brocot_binary_search(predicate, limit)`](../../../math/FractionSearch.py#L4) | `stern`・`brocot`・二分・`search`を求める。 | `predicate`: 判定callback<br>`limit`: 上限。NoneならAPI既定の上限 | tuple(`node.lower_bound()`, `node.upper_bound()`) / tuple(tuple `(0, 1)`, tuple `(0, 1)`) |
-
-## Module aliases
-
-- [`binary_search_on_stern_brocot_tree`](../../../math/FractionSearch.py#L57) = `stern_brocot_binary_search`

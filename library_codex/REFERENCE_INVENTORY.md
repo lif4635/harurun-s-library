@@ -28,7 +28,7 @@
 - [x] `bit-convolution/set-power-series-power-projection.hpp` — `convolution/SetFunction.py`
 ### bit
 
-- [x] `bit/bit-operations.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `bit/bit-operations.hpp` — `algorithm/BitAlgorithms.py`
 ### counting
 
 - [x] `counting/chromatic-polynomial.hpp` — `graph/GraphCounting.py`
@@ -69,7 +69,7 @@
 
 - [x] `math/combination.hpp` — `math/Combinatorics.py`
 - [x] `math/counting-primes.hpp` — `prime/Sieve.py`
-- [x] `math/erdos-ginzburg-ziv-task.hpp` — `algorithm/MiscAlgorithms.py`
+- [x] `math/erdos-ginzburg-ziv-task.hpp` — `algorithm/ErdosGinzburgZiv.py`
 - [x] `math/ext-gcd.hpp` — `math/Combinatorics.py`
 - [x] `math/floor-of-kth-root.hpp` — `math/ModularRoot.py`
 - [x] `math/prime-sieve-explicit.hpp` — `prime/Sieve.py`
@@ -77,7 +77,7 @@
 ### misc
 
 - [-] `misc/fastio.hpp` — language support; feature audit is carried by consumers
-- [x] `misc/sorting.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `misc/sorting.hpp` — `algorithm/Sorting.py`
 ### modulo
 
 - [-] `modulo/static-modint.hpp` — language support; feature audit is carried by consumers
@@ -101,8 +101,8 @@
 - [x] `set/decremental-predecessor-query.hpp` — `data_structure/FastSet.py`
 - [x] `set/dsu-fast.hpp` — `data_structure/UnionFind.py`
 - [x] `set/dsu.hpp` — `data_structure/UnionFind.py`
-- [x] `set/enumerate-paritions.hpp` — `algorithm/MiscAlgorithms.py`
-- [x] `set/subset-sum.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `set/enumerate-paritions.hpp` — `algorithm/IntegerPartitions.py`
+- [x] `set/subset-sum.hpp` — `algorithm/DynamicProgramming.py`
 - [x] `set/word-size-tree.hpp` — `data_structure/FastSet.py`
 ### string
 
@@ -125,11 +125,11 @@
 ### Algorithm
 
 - [x] `Algorithm/cartesian.hpp` — `tree/TreeAlgorithms.py`
-- [x] `Algorithm/fibonacci.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `Algorithm/fibonacci.hpp` — `algorithm/Fibonacci.py`
 - [x] `Algorithm/kprojectselection.hpp` — `optimization/ProjectSelection.py`
 - [x] `Algorithm/matroid.hpp` — `optimization/Matroid.py`
 - [x] `Algorithm/maximalrect.hpp` — `optimization/Optimization.py`
-- [x] `Algorithm/mo.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `Algorithm/mo.hpp` — `algorithm/RangeQueries.py`
 - [x] `Algorithm/mongedp.hpp` — `optimization/AdvancedDP.py`
 - [x] `Algorithm/monotoneminima.hpp` — `optimization/Optimization.py`
 - [x] `Algorithm/projectselection.hpp` — `optimization/ProjectSelection.py`
@@ -404,9 +404,9 @@
 - [x] `dp/branch-and-bound.hpp` — `optimization/AdvancedDP.py`
 - [x] `dp/concave-min-plus-convolution.hpp` — `optimization/AdvancedDP.py`
 - [x] `dp/golden-section-search.hpp` — `optimization/Optimization.py`
-- [x] `dp/inversion-counting.hpp` — `algorithm/BasicAlgorithms.py`
-- [x] `dp/knapsack01.hpp` — `algorithm/BasicAlgorithms.py`
-- [x] `dp/longest-increasing-sequence.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `dp/inversion-counting.hpp` — `algorithm/SequenceAlgorithms.py`
+- [x] `dp/knapsack01.hpp` — `algorithm/DynamicProgramming.py`
+- [x] `dp/longest-increasing-sequence.hpp` — `algorithm/SequenceAlgorithms.py`
 - [x] `dp/maximal-rectangle.hpp` — `optimization/Optimization.py`
 - [x] `dp/monge-d-edge-shortest-path-enumerate.hpp` — `optimization/AdvancedDP.py`
 - [x] `dp/monge-d-edge-shortest-path.hpp` — `optimization/AdvancedDP.py`
@@ -525,12 +525,12 @@
 - [x] `marathon/top-k.hpp` — `heuristic/Heuristics.py`
 ### math-fast
 
-- [x] `math-fast/binary-search.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `math-fast/binary-search.hpp` — `algorithm/Search.py`
 - [x] `math-fast/gcd.hpp` — `math/Combinatorics.py`
 - [x] `math-fast/inv-o1.hpp` — `math/Combinatorics.py`
 - [x] `math-fast/inv.hpp` — `math/Combinatorics.py`
 - [x] `math-fast/mat-prod-strassen.hpp` — `math/Strassen.py`
-- [x] `math-fast/radix-sort.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `math-fast/radix-sort.hpp` — `algorithm/Sorting.py`
 - [x] `math-fast/subset-convolution.hpp` — `convolution/SetFunction.py`
 - [-] `math-fast/vectorize-modint.hpp` — language support; feature audit is carried by consumers
 ### math
@@ -593,13 +593,13 @@
 - [-] `misc/all.hpp` — language support; feature audit is carried by consumers
 - [x] `misc/base64.hpp` — `algorithm/Base64Integers.py`
 - [x] `misc/bitset-find-prev.hpp` — `data_structure/Collections.py`
-- [x] `misc/compress.hpp` — `algorithm/BasicAlgorithms.py`
-- [x] `misc/doubling.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `misc/compress.hpp` — `algorithm/SequenceAlgorithms.py`
+- [x] `misc/doubling.hpp` — `algorithm/Doubling.py`
 - [-] `misc/fastio.hpp` — language support; feature audit is carried by consumers
 - [x] `misc/int_div.hpp` — `math/NumberTheoryExtras.py`
-- [x] `misc/interval-union.hpp` — `algorithm/BasicAlgorithms.py`
-- [x] `misc/mo-fast.hpp` — `algorithm/BasicAlgorithms.py`
-- [x] `misc/mo.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `misc/interval-union.hpp` — `algorithm/SequenceAlgorithms.py`
+- [x] `misc/mo-fast.hpp` — `algorithm/RangeQueries.py`
+- [x] `misc/mo.hpp` — `algorithm/RangeQueries.py`
 - [-] `misc/rng.hpp` — language support; feature audit is carried by consumers
 - [-] `misc/simd.hpp` — language support; feature audit is carried by consumers
 - [-] `misc/timer.hpp` — language support; feature audit is carried by consumers
@@ -707,7 +707,7 @@
 ### set-function
 
 - [x] `set-function/and-convolution.hpp` — `convolution/SetFunction.py`
-- [x] `set-function/enumerate-set.hpp` — `algorithm/BasicAlgorithms.py`
+- [x] `set-function/enumerate-set.hpp` — `algorithm/BitAlgorithms.py`
 - [x] `set-function/exp-of-set-power-series.hpp` — `convolution/SetFunction.py`
 - [x] `set-function/or-convolution.hpp` — `convolution/SetFunction.py`
 - [x] `set-function/polynomial-composite-set-power-series.hpp` — `convolution/SetFunction.py`
@@ -881,12 +881,12 @@
 - [x] `math/isprime.nim` — `prime/Factorization.py`
 - [x] `math/isqrt.nim` — `math/ModularRoot.py`
 - [x] `math/mex_naive.nim` — `math/Structures.py`
-- [x] `math/nearest_equiv.nim` — `algorithm/MiscAlgorithms.py`
+- [x] `math/nearest_equiv.nim` — `algorithm/IntegerUtilities.py`
 - [x] `math/osa_k.nim` — `prime/Sieve.py`
-- [x] `math/powmod.nim` — `algorithm/MiscAlgorithms.py`
+- [x] `math/powmod.nim` — `algorithm/IntegerUtilities.py`
 - [x] `math/primefactor.nim` — `prime/Factorization.py`
 - [x] `math/primitive_root.nim` — `math/ModularRoot.py`
-- [x] `math/sqrt_heuristic_for_floor_sum.nim` — `algorithm/MiscAlgorithms.py`
+- [x] `math/sqrt_heuristic_for_floor_sum.nim` — `algorithm/ModularProgression.py`
 - [x] `math/stern_brocot_tree.nim` — `math/Structures.py`
 - [x] `math/xor_basis.nim` — `math/Structures.py`
 ### matrix
@@ -930,21 +930,21 @@
 - [x] `tree/rerooting.nim` — `tree/Rerooting.py`
 ### utils
 
-- [x] `utils/binary_search.nim` — `algorithm/BasicAlgorithms.py`
-- [x] `utils/bititers.nim` — `algorithm/BasicAlgorithms.py`
+- [x] `utils/binary_search.nim` — `algorithm/Search.py`
+- [x] `utils/bititers.nim` — `algorithm/BitAlgorithms.py`
 - [-] `utils/constants.nim` — language support; feature audit is carried by consumers
 - [x] `utils/cumsum2d.nim` — `data_structure/RectangleQuery.py`
 - [x] `utils/grid_searcher.nim` — `graph/ExpandedGraph.py`
 - [x] `utils/gridutils.nim` — `graph/ExpandedGraph.py`
 - [x] `utils/imos2d.nim` — `data_structure/RectangleQuery.py`
-- [x] `utils/inversion_number.nim` — `algorithm/BasicAlgorithms.py`
+- [x] `utils/inversion_number.nim` — `algorithm/SequenceAlgorithms.py`
 - [-] `utils/itertools.nim` — language support; feature audit is carried by consumers
-- [x] `utils/knapsack.nim` — `algorithm/BasicAlgorithms.py`
-- [x] `utils/kth_element.nim` — `algorithm/BasicAlgorithms.py`
-- [x] `utils/lis.nim` — `algorithm/BasicAlgorithms.py`
+- [x] `utils/knapsack.nim` — `algorithm/DynamicProgramming.py`
+- [x] `utils/kth_element.nim` — `algorithm/Search.py`
+- [x] `utils/lis.nim` — `algorithm/SequenceAlgorithms.py`
 - [-] `utils/list_procs.nim` — language support; feature audit is carried by consumers
 - [-] `utils/memo.nim` — language support; feature audit is carried by consumers
-- [x] `utils/mo.nim` — `algorithm/BasicAlgorithms.py`
+- [x] `utils/mo.nim` — `algorithm/RangeQueries.py`
 - [-] `utils/random_helper.nim` — language support; feature audit is carried by consumers
 - [-] `utils/seqidx.nim` — language support; feature audit is carried by consumers
 - [-] `utils/sequtils2D.nim` — language support; feature audit is carried by consumers

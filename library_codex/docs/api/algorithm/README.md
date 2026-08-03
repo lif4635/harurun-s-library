@@ -6,7 +6,17 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`Base64Integers`](Base64Integers.md) | 符号付き整数列のBase64可変長符号化・復号 | 2 | 0 | 0 |
-| [`BasicAlgorithms`](BasicAlgorithms.md) | Fibonacci・転倒数・LIS・0/1 knapsack・subset sum・Mo・doubling | 24 | 2 | 5 |
-| [`MiscAlgorithms`](MiscAlgorithms.md) | 商列挙・区間列挙などの汎用小アルゴリズム | 8 | 0 | 0 |
+| [`BitAlgorithms`](BitAlgorithms.md) | set bit・部分mask・上位maskの列挙 | 6 | 0 | 0 |
+| [`Doubling`](Doubling.md) | functional graphのbinary liftingと加算集約 | 0 | 1 | 2 |
+| [`DynamicProgramming`](DynamicProgramming.md) | 0/1 knapsack・bitset subset sum・解復元 | 4 | 0 | 0 |
+| [`ErdosGinzburgZiv`](ErdosGinzburgZiv.md) | Erdős–Ginzburg–Ziv定理の部分列構成 | 1 | 0 | 0 |
+| [`Fibonacci`](Fibonacci.md) | 高速doublingによるFibonacci数 | 1 | 0 | 0 |
+| [`IntegerPartitions`](IntegerPartitions.md) | 加法的整数分割の列挙 | 2 | 0 | 0 |
+| [`IntegerUtilities`](IntegerUtilities.md) | 合同類・mod乗・完全平方根・10進桁数 | 4 | 0 | 0 |
+| [`ModularProgression`](ModularProgression.md) | mod付き等差数列の通常等差run分割 | 1 | 0 | 0 |
 | [`PermutationGroup`](PermutationGroup.md) | 置換の合成・逆元と置換群の生成元簡約 | 1 | 0 | 0 |
+| [`RangeQueries`](RangeQueries.md) | Mo's algorithmによるoffline区間query | 0 | 1 | 3 |
+| [`Search`](Search.md) | 整数・実数境界二分探索とquickselect | 3 | 0 | 0 |
+| [`SequenceAlgorithms`](SequenceAlgorithms.md) | 転倒数・LIS・座標圧縮・区間併合 | 4 | 0 | 0 |
 | [`SequenceOrdering`](SequenceOrdering.md) | 点更新される列の辞書順比較・版圧縮 | 0 | 1 | 5 |
+| [`Sorting`](Sorting.md) | 非負整数radix sort・置換・bucket sort | 6 | 0 | 0 |

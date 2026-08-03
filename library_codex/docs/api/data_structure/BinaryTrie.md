@@ -39,7 +39,3 @@ multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
 | [`xor_max(value)`](../../../data_structure/BinaryTrie.py#L128) | method | XOR・最大を求める。 | `value`: 追加・設定・問い合わせる値 | `self.xor_min(value ^ mask)` |
 | [`__contains__(value)`](../../../data_structure/BinaryTrie.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`__len__()`](../../../data_structure/BinaryTrie.py#L135) | method | len(obj)。 | なし | 要素数（int） |
-| [`insert`](../../../data_structure/BinaryTrie.py#L37) | alias | `add` の別名。 | 同じ | 同じ |
-| [`count_of`](../../../data_structure/BinaryTrie.py#L48) | alias | `count_value` の別名。 | 同じ | 同じ |
-| [`erase`](../../../data_structure/BinaryTrie.py#L63) | alias | `discard` の別名。 | 同じ | 同じ |
-| [`apply_xor`](../../../data_structure/BinaryTrie.py#L68) | alias | `xor_all` の別名。 | 同じ | 同じ |

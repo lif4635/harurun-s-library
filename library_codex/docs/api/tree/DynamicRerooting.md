@@ -41,7 +41,6 @@ rake-compress top treeによる動的rerootingを扱う `TopTree`。
 | [`set_key(node, info)`](../../../tree/DynamicRerooting.py#L315) | method | `key`を設定する。 | `node`: 頂点・内部node番号<br>`info`: clusterへ付随させる情報 | `None` |
 | [`query(node)`](../../../tree/DynamicRerooting.py#L320) | method | 指定した対象への問い合わせ結果を返す。 | `node`: 頂点・内部node番号 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
 | [`query_subtree(root, node)`](../../../tree/DynamicRerooting.py#L324) | method | `subtree`を取得する。 | `root`: 根の頂点番号・原始根<br>`node`: 頂点・内部node番号 | 計算結果 |
-| [`push_rev`](../../../tree/DynamicRerooting.py#L164) | alias | `push` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicRerooting`
 
@@ -59,6 +58,3 @@ rake-compress top treeによる動的rerootingを扱う `DynamicRerooting`。
 | [`set_info(vertex, info)`](../../../tree/DynamicRerooting.py#L360) | method | `info`を設定する。 | `vertex`: 頂点番号（0-indexed）<br>`info`: clusterへ付随させる情報 | `None` |
 | [`query(root)`](../../../tree/DynamicRerooting.py#L363) | method | 指定した対象への問い合わせ結果を返す。 | `root`: 根の頂点番号・原始根 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
 | [`query_subtree(root, vertex)`](../../../tree/DynamicRerooting.py#L366) | method | `subtree`を取得する。 | `root`: 根の頂点番号・原始根<br>`vertex`: 頂点番号（0-indexed） | `self.top_tree.query_subtree(self.vertices[root], self.vertices...` |
-| [`link`](../../../tree/DynamicRerooting.py#L348) | alias | `add_edge` の別名。 | 同じ | 同じ |
-| [`del_edge`](../../../tree/DynamicRerooting.py#L354) | alias | `delete_edge` の別名。 | 同じ | 同じ |
-| [`cut`](../../../tree/DynamicRerooting.py#L355) | alias | `delete_edge` の別名。 | 同じ | 同じ |

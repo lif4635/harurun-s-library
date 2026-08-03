@@ -64,7 +64,3 @@ graphic/partition/transversal matroid intersectionを扱う `TransversalMatroid`
 | --- | --- | --- | --- | --- |
 | [`set(selected)`](../../../optimization/Matroid.py#L111) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` |
 | [`circuit(element)`](../../../optimization/Matroid.py#L121) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
-
-## Module aliases
-
-- [`MinimumMatroidIntersection`](../../../optimization/Matroid.py#L210) = `minimum_matroid_intersection`

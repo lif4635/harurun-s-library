@@ -41,19 +41,3 @@ from library_codex.optimization.SlopeTrick import WeightedSlopeTrick
 | [`evaluate(point)`](../../../optimization/SlopeTrick.py#L121) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | 計算結果 |
 | [`merge(other)`](../../../optimization/SlopeTrick.py#L138) | method | 2要素・2成分・2構造を併合する。 | `other`: 同じ型のもう一方のobject・値 | `self` |
 | [`clear()`](../../../optimization/SlopeTrick.py#L171) | method | 保持している要素・状態を空にする。 | なし | `None` |
-| [`shift_y`](../../../optimization/SlopeTrick.py#L42) | alias | `add_constant` の別名。 | 同じ | 同じ |
-| [`add_all`](../../../optimization/SlopeTrick.py#L43) | alias | `add_constant` の別名。 | 同じ | 同じ |
-| [`add_xma`](../../../optimization/SlopeTrick.py#L62) | alias | `add_x_minus_a` の別名。 | 同じ | 同じ |
-| [`add_amx`](../../../optimization/SlopeTrick.py#L81) | alias | `add_a_minus_x` の別名。 | 同じ | 同じ |
-| [`add_abs_xma`](../../../optimization/SlopeTrick.py#L87) | alias | `add_abs` の別名。 | 同じ | 同じ |
-| [`shift_L`](../../../optimization/SlopeTrick.py#L92) | alias | `shift_left` の別名。 | 同じ | 同じ |
-| [`shift_R`](../../../optimization/SlopeTrick.py#L97) | alias | `shift_right` の別名。 | 同じ | 同じ |
-| [`shift_x`](../../../optimization/SlopeTrick.py#L103) | alias | `shift` の別名。 | 同じ | 同じ |
-| [`cum_min`](../../../optimization/SlopeTrick.py#L114) | alias | `chmin_right` の別名。 | 同じ | 同じ |
-| [`cum_min_right`](../../../optimization/SlopeTrick.py#L119) | alias | `chmin_left` の別名。 | 同じ | 同じ |
-| [`eval`](../../../optimization/SlopeTrick.py#L135) | alias | `evaluate` の別名。 | 同じ | 同じ |
-| [`get_value`](../../../optimization/SlopeTrick.py#L136) | alias | `evaluate` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`SlopeTrick`](../../../optimization/SlopeTrick.py#L179) = `WeightedSlopeTrick`

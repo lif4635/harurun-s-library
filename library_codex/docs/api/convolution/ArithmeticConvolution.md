@@ -43,12 +43,3 @@ from library_codex.convolution.ArithmeticConvolution import (
 | [`multiple_mobius_transform(values, mod=None)`](../../../convolution/ArithmeticConvolution.py#L65) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
 | [`gcd_convolution(first, second, mod=DEFAULT_MOD)`](../../../convolution/ArithmeticConvolution.py#L77) | GCD・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
 | [`lcm_convolution(first, second, mod=DEFAULT_MOD)`](../../../convolution/ArithmeticConvolution.py#L95) | LCM・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
-
-## Module aliases
-
-- [`DivisorZeta`](../../../convolution/ArithmeticConvolution.py#L113) = `divisor_zeta_transform`
-- [`DivisorMobius`](../../../convolution/ArithmeticConvolution.py#L114) = `divisor_mobius_transform`
-- [`DivisorReversedZeta`](../../../convolution/ArithmeticConvolution.py#L115) = `multiple_zeta_transform`
-- [`DivisorReversedMobius`](../../../convolution/ArithmeticConvolution.py#L116) = `multiple_mobius_transform`
-- [`GcdConvolution`](../../../convolution/ArithmeticConvolution.py#L117) = `gcd_convolution`
-- [`LcmConvolution`](../../../convolution/ArithmeticConvolution.py#L118) = `lcm_convolution`

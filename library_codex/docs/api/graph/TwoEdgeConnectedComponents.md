@@ -40,5 +40,3 @@ from library_codex.graph.TwoEdgeConnectedComponents import two_edge_connected_co
 | [`get_components()`](../../../graph/TwoEdgeConnectedComponents.py#L87) | method | 連結成分を取得する。 | なし | `self.groups` |
 | [`get_edge_mapping()`](../../../graph/TwoEdgeConnectedComponents.py#L92) | method | 辺・`mapping`を取得する。 | なし | `self.edge_mapping` |
 | [`bridge_forest(with_edge_ids=False)`](../../../graph/TwoEdgeConnectedComponents.py#L95) | method | 橋・forestを求める。 | `with_edge_ids`: with_edge のID列。省略時: `False` | `self.tree` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`run`](../../../graph/TwoEdgeConnectedComponents.py#L82) | alias | `build` の別名。 | 同じ | 同じ |
-| [`get_tecc_vertices`](../../../graph/TwoEdgeConnectedComponents.py#L90) | alias | `get_components` の別名。 | 同じ | 同じ |

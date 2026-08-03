@@ -22,7 +22,3 @@ from library_codex.convolution.IncreasingSequences import number_of_increasing_s
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`number_of_increasing_sequences_between(lower, upper, mod=DEFAULT_MOD)`](../../../convolution/IncreasingSequences.py#L4) | `of`・`increasing`・`sequences`・`between`の個数を求める。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照）<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `0` / 数値または入力要素型 `sum(values) % mod` |
-
-## Module aliases
-
-- [`NumberofIncreasingSequencesBetweenTwoSequences`](../../../convolution/IncreasingSequences.py#L41) = `number_of_increasing_sequences_between`

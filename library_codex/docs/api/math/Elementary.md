@@ -24,8 +24,3 @@ from library_codex.math.Elementary import totient_table, is_primitive_root
 | --- | --- | --- | --- |
 | [`totient_table(limit)`](../../../math/Elementary.py#L12) | `totient`・`table`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` |
 | [`is_primitive_root(value, prime)`](../../../math/Elementary.py#L16) | `primitive`・根かどうかを判定する。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | bool |
-
-## Module aliases
-
-- [`EulersTotientFunction`](../../../math/Elementary.py#L24) = `totient_table`
-- [`isPrimitiveRoot`](../../../math/Elementary.py#L29) = `is_primitive_root`

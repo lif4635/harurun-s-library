@@ -1,118 +1,23 @@
+"""Containers and generators for random undirected graph test cases."""
+
 from dataclasses import dataclass
 
-
-_MASK64 = (1 << 64) - 1
-
-
-class Random:
-    """SplitMix64-seeded xoshiro256** generator."""
-
-    __slots__ = ("state",)
-
-    def __init__(self, seed=0):
-        state = []
-        for _ in range(4):
-            seed = (seed + 0x9E3779B97F4A7C15) & _MASK64
-            value = seed
-            value = ((value ^ (value >> 30)) * 0xBF58476D1CE4E5B9) & _MASK64
-            value = ((value ^ (value >> 27)) * 0x94D049BB133111EB) & _MASK64
-            state.append((value ^ (value >> 31)) & _MASK64)
-        self.state = state
-
-    @staticmethod
-    def _rotate(value, shift):
-        return ((value << shift) | (value >> (64 - shift))) & _MASK64
-
-    def next_u64(self):
-        state = self.state
-        result = self._rotate(state[1] * 5 & _MASK64, 7) * 9 & _MASK64
-        temporary = state[1] << 17 & _MASK64
-        state[2] ^= state[0]
-        state[3] ^= state[1]
-        state[1] ^= state[2]
-        state[0] ^= state[3]
-        state[2] ^= temporary
-        state[3] = self._rotate(state[3], 45)
-        return result
-
-    def randrange(self, lower, upper=None):
-        if upper is None:
-            upper = lower
-            lower = 0
-        if lower >= upper:
-            raise ValueError("empty random range")
-        width = upper - lower
-        limit = (1 << 64) - ((1 << 64) % width)
-        while True:
-            value = self.next_u64()
-            if value < limit:
-                return lower + value % width
-
-    def uniform(self, lower, upper):
-        """Uniform integer in the inclusive interval [lower, upper]."""
-        return self.randrange(lower, upper + 1)
-
-    def uniform_bool(self):
-        return bool(self.next_u64() & 1)
-
-    def uniform01(self):
-        return (self.next_u64() >> 11) * (1.0 / (1 << 53))
-
-    def uniform_pair(self, lower, upper):
-        if upper - lower < 1:
-            raise ValueError("two distinct values are required")
-        first = self.uniform(lower, upper)
-        second = self.uniform(lower, upper - 1)
-        if second >= first:
-            second += 1
-        return (first, second) if first < second else (second, first)
-
-    def shuffle(self, values):
-        for index in range(1, len(values)):
-            target = self.randrange(index + 1)
-            values[index], values[target] = values[target], values[index]
-        return values
-
-    def permutation(self, size):
-        return self.shuffle(list(range(size)))
-
-    perm = permutation
-
-    def choice_distinct(self, count, lower, upper):
-        if count < 0 or count > upper - lower + 1:
-            raise ValueError("invalid sample size")
-        if count * 3 < upper - lower + 1:
-            result = set()
-            while len(result) < count:
-                result.add(self.uniform(lower, upper))
-            return sorted(result)
-        values = list(range(lower, upper + 1))
-        self.shuffle(values)
-        return sorted(values[:count])
-
-    choice = choice_distinct
-
-    def lower_string(self, length):
-        return "".join(chr(self.uniform(97, 122)) for _ in range(length))
+from library_codex.random.Random import Random
 
 
 @dataclass(frozen=True)
 class Edge:
+    """One stored edge using 0-indexed endpoints."""
+
     u: int
     v: int
     weight: int = 1
     index: int = -1
 
-    @property
-    def w(self):
-        return self.weight
-
-    @property
-    def idx(self):
-        return self.index
-
 
 class Graph:
+    """A compact edge-list graph that can be printed as contest input."""
+
     __slots__ = ("n", "weighted", "edges")
 
     def __init__(self, vertex_count=0, weighted=False):
@@ -120,18 +25,24 @@ class Graph:
         self.weighted = weighted
         self.edges = []
 
-    def edges_size(self):
+    def edge_count(self):
+        """Return the number of stored edges."""
         return len(self.edges)
 
     def add_directed_edge(self, first, second, weight=1, index=-1):
+        """Append one directed edge and return its edge-list index."""
         self.edges.append(Edge(first, second, weight, index))
+        return len(self.edges) - 1
 
     def add_undirected_edge(self, first, second, weight=1, index=-1):
+        """Append one undirected edge with its smaller endpoint first."""
         if first > second:
             first, second = second, first
-        self.add_directed_edge(first, second, weight, index)
+        self.edges.append(Edge(first, second, weight, index))
+        return len(self.edges) - 1
 
-    def adjacent_list(self, directed=False):
+    def to_adjacency_list(self, directed=False):
+        """Return adjacency lists containing directed Edge records."""
         graph = [[] for _ in range(self.n)]
         for edge in self.edges:
             graph[edge.u].append(edge)
@@ -139,7 +50,8 @@ class Graph:
                 graph[edge.v].append(Edge(edge.v, edge.u, edge.weight, edge.index))
         return graph
 
-    def adjacent_matrix(self, directed=False):
+    def to_adjacency_matrix(self, directed=False):
+        """Return an n-by-n matrix whose entries are edge weights or zero."""
         matrix = [[0] * self.n for _ in range(self.n)]
         for edge in self.edges:
             matrix[edge.u][edge.v] = edge.weight
@@ -148,6 +60,7 @@ class Graph:
         return matrix
 
     def format_edges(self, zero_indexed=False):
+        """Return newline-separated edge rows, with weights when enabled."""
         offset = 0 if zero_indexed else 1
         lines = []
         for edge in self.edges:
@@ -164,23 +77,47 @@ class Graph:
 
 
 class UndirectedGraphGenerator:
+    """Generate reproducible simple undirected graph families."""
+
     __slots__ = ("random",)
 
     def __init__(self, seed=1):
-        self.random = Random(seed ^ 1333)
+        self.random = Random(seed)
 
     def set_seed(self, seed):
-        self.random = Random(seed ^ 1333)
+        """Reset the generator and return self."""
+        self.random = Random(seed)
+        return self
 
     def _weight(self, weighted, minimum, maximum):
         return self.random.uniform(minimum, maximum) if weighted else 1
 
     def _add(self, graph, first, second, weighted, minimum, maximum):
         graph.add_undirected_edge(
-            first, second, self._weight(weighted, minimum, maximum)
+            first,
+            second,
+            self._weight(weighted, minimum, maximum),
         )
 
+    @staticmethod
+    def _edge_from_index(n, edge_index):
+        """Map [0, nC2) to lexicographically ordered endpoint pairs."""
+        low = 0
+        high = n - 1
+        while low + 1 < high:
+            middle = (low + high) // 2
+            skipped = middle * (2 * n - middle - 1) // 2
+            if skipped <= edge_index:
+                low = middle
+            else:
+                high = middle
+        skipped = low * (2 * n - low - 1) // 2
+        return low, low + 1 + edge_index - skipped
+
     def tree(self, n, weighted=False, weight_min=1, weight_max=1):
+        """Return a uniformly random labelled tree using a Prüfer code."""
+        if n < 0:
+            raise ValueError("n must be nonnegative")
         graph = Graph(n, weighted)
         if n <= 1:
             return graph
@@ -190,6 +127,7 @@ class UndirectedGraphGenerator:
             degree[vertex] += 1
         leaves = [vertex for vertex in range(n) if degree[vertex] == 1]
         import heapq
+
         heapq.heapify(leaves)
         for vertex in code:
             leaf = heapq.heappop(leaves)
@@ -198,70 +136,101 @@ class UndirectedGraphGenerator:
             if degree[vertex] == 1:
                 heapq.heappush(leaves, vertex)
         self._add(graph, leaves[0], leaves[1], weighted, weight_min, weight_max)
+        self.random.shuffle(graph.edges)
         return graph
 
     def path(self, n, weighted=False, weight_min=1, weight_max=1):
+        """Return a path with randomly permuted vertex labels."""
         order = self.random.permutation(n)
         graph = Graph(n, weighted)
         for index in range(n - 1):
-            self._add(graph, order[index], order[index + 1],
-                      weighted, weight_min, weight_max)
+            self._add(
+                graph,
+                order[index],
+                order[index + 1],
+                weighted,
+                weight_min,
+                weight_max,
+            )
         return graph
 
     def star(self, n, weighted=False, weight_min=1, weight_max=1):
+        """Return a star with a uniformly random centre vertex."""
         order = self.random.permutation(n)
         graph = Graph(n, weighted)
         for index in range(1, n):
-            self._add(graph, order[0], order[index], weighted, weight_min, weight_max)
+            self._add(
+                graph,
+                order[0],
+                order[index],
+                weighted,
+                weight_min,
+                weight_max,
+            )
         return graph
 
     def complete(self, n, weighted=False, weight_min=1, weight_max=1):
+        """Return the complete simple graph K_n."""
         graph = Graph(n, weighted)
         for first in range(n):
             for second in range(first + 1, n):
                 self._add(graph, first, second, weighted, weight_min, weight_max)
         return graph
 
-    perfect = complete
-
-    def simple(self, n, weighted=False, weight_min=1, weight_max=1):
+    def simple(self, n, edge_count, weighted=False, weight_min=1, weight_max=1):
+        """Return a uniformly sampled simple graph with exactly edge_count edges."""
+        maximum = n * (n - 1) // 2
+        if n < 0 or not 0 <= edge_count <= maximum:
+            raise ValueError("edge_count is outside the simple-graph range")
+        selected = self.random.sample_range(edge_count, 0, maximum - 1, False)
         graph = Graph(n, weighted)
-        for first in range(n):
-            for second in range(first + 1, n):
-                if self.random.uniform_bool():
-                    self._add(graph, first, second, weighted, weight_min, weight_max)
-        return graph
-
-    def namori(self, n, weighted=False, weight_min=1, weight_max=1):
-        graph = Graph(n, weighted)
-        if n < 2:
-            return graph
-        self._add(graph, 0, self.random.randrange(1, n),
-                  weighted, weight_min, weight_max)
-        for vertex in range(1, n):
-            self._add(graph, vertex, self.random.randrange(vertex),
-                      weighted, weight_min, weight_max)
-        return graph
-
-    def simple_sparse(self, n, weighted=False, weight_min=1, weight_max=1):
-        graph = Graph(n, weighted)
-        if n == 0:
-            return graph
-        count = self.random.randrange(n)
-        possible = [(first, second) for first in range(n)
-                    for second in range(first + 1, n)]
-        self.random.shuffle(possible)
-        for first, second in possible[:count]:
+        for edge_index in selected:
+            first, second = self._edge_from_index(n, edge_index)
             self._add(graph, first, second, weighted, weight_min, weight_max)
         return graph
 
-    def test(self, n, is_tree=True, weighted=False, weight_min=1, weight_max=1):
-        functions = (self.tree, self.path, self.star) if is_tree else (
-            self.tree, self.path, self.star, self.complete, self.simple,
-            self.namori, self.simple_sparse,
-        )
-        function = functions[self.random.randrange(len(functions))]
-        return function(n, weighted, weight_min, weight_max)
+    def connected(self, n, edge_count, weighted=False, weight_min=1, weight_max=1):
+        """Return a connected simple graph with exactly edge_count edges."""
+        minimum = max(0, n - 1)
+        maximum = n * (n - 1) // 2
+        if n < 0 or not minimum <= edge_count <= maximum:
+            raise ValueError("a connected graph needs n-1 <= edge_count <= nC2")
+        graph = self.tree(n, weighted, weight_min, weight_max)
+        used = {(edge.u, edge.v) for edge in graph.edges}
+        missing = edge_count - len(used)
+        if missing == 0:
+            return graph
+        available = [
+            (first, second)
+            for first in range(n)
+            for second in range(first + 1, n)
+            if (first, second) not in used
+        ]
+        for first, second in self.random.sample(available, missing):
+            self._add(graph, first, second, weighted, weight_min, weight_max)
+        self.random.shuffle(graph.edges)
+        return graph
 
+    def erdos_renyi(
+        self,
+        n,
+        probability=0.5,
+        weighted=False,
+        weight_min=1,
+        weight_max=1,
+    ):
+        """Include each possible edge independently with the given probability."""
+        if n < 0 or not 0.0 <= probability <= 1.0:
+            raise ValueError("probability must be in [0, 1]")
+        graph = Graph(n, weighted)
+        for first in range(n):
+            for second in range(first + 1, n):
+                if self.random.uniform01() < probability:
+                    self._add(graph, first, second, weighted, weight_min, weight_max)
+        return graph
 
-undirected = UndirectedGraphGenerator()
+    def unicyclic(self, n, weighted=False, weight_min=1, weight_max=1):
+        """Return a connected simple graph with exactly one cycle."""
+        if n < 3:
+            raise ValueError("a simple unicyclic graph needs at least 3 vertices")
+        return self.connected(n, n, weighted, weight_min, weight_max)

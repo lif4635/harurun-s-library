@@ -43,6 +43,3 @@ from library_codex.graph.BipartiteMatching import bipartite_matching, maximum_bi
 | [`maximum_independent_set()`](../../../graph/BipartiteMatching.py#L130) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if seen]`, list `[i for (i, seen) in enumerate(seen_right) if not seen]`) |
 | [`minimum_edge_cover()`](../../../graph/BipartiteMatching.py#L137) | method | 最小・辺・`cover`を求める。 | なし | list[object] — 計算結果 / `None` |
 | [`dulmage_mendelsohn()`](../../../graph/BipartiteMatching.py#L171) | method | `dulmage`・`mendelsohn`を求める。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` |
-| [`flow`](../../../graph/BipartiteMatching.py#L94) | alias | `solve` の別名。 | 同じ | 同じ |
-| [`maximum_matching`](../../../graph/BipartiteMatching.py#L100) | alias | `pairs` の別名。 | 同じ | 同じ |
-| [`dm_decomposition`](../../../graph/BipartiteMatching.py#L253) | alias | `dulmage_mendelsohn` の別名。 | 同じ | 同じ |

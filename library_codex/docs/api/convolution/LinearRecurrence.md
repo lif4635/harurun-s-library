@@ -37,9 +37,3 @@ from library_codex.convolution.LinearRecurrence import (
 | [`linear_recurrence_nth(initial, coefficients, index, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L85) | 線形・`recurrence`・`nth`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 0-indexedの位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / `0` / `bostan_mori(index, numerator, denominator, mod)` |
 | [`nth_term(index, sequence, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L100) | `nth`・`term`を求める。 | `index`: 0-indexedの位置<br>`sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `sequence[index] % mod` / `0` / `linear_recurrence_nth(sequence, coefficients, index, mod)` |
 | [`kitamasa(index, characteristic, initial, mod=DEFAULT_MOD)`](../../../convolution/LinearRecurrence.py#L111) | `kitamasa`を求める。 | `index`: 0-indexedの位置<br>`characteristic`: 特性として使う入力<br>`initial`: 初期値または初項列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `linear_recurrence_nth(initial, coefficients, index, mod)` |
-
-## Module aliases
-
-- [`find_linear_recurrence`](../../../convolution/LinearRecurrence.py#L122) = `berlekamp_massey`
-- [`BerlekampMassey`](../../../convolution/LinearRecurrence.py#L123) = `berlekamp_massey_polynomial`
-- [`LinearRecurrence`](../../../convolution/LinearRecurrence.py#L124) = `bostan_mori`

@@ -105,12 +105,3 @@ semiring・Pisano・q-binomial・浮動/有理binomialを扱う `QBinomial`。
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`binomial(number, chosen)`](../../../math/AlgebraExtras.py#L249) | method | 二項係数 C(n, k) を計算する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `0` / 数値または入力要素型 `math.comb(high_n, high_k) % self.mod * low % self.mod` |
-
-## Module aliases
-
-- [`Binomial_rational`](../../../math/AlgebraExtras.py#L262) = `RationalBinomial`
-- [`Pisano`](../../../math/AlgebraExtras.py#L263) = `pisano_prime`
-- [`PisanoComposite`](../../../math/AlgebraExtras.py#L264) = `pisano_period`
-- [`powertable`](../../../math/AlgebraExtras.py#L265) = `power_table`
-- [`inv_sum`](../../../math/AlgebraExtras.py#L266) = `inverse_sum`
-- [`QBinom`](../../../math/AlgebraExtras.py#L267) = `QBinomial`

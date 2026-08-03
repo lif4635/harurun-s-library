@@ -33,4 +33,3 @@ from library_codex.data_structure.RadixHeap import RadixHeap
 | [`empty()`](../../../data_structure/RadixHeap.py#L66) | method | 空かどうかを判定する。 | なし | bool |
 | [`__len__()`](../../../data_structure/RadixHeap.py#L69) | method | len(obj)。 | なし | 要素数（int） |
 | [`__bool__()`](../../../data_structure/RadixHeap.py#L72) | method | bool(obj) と真偽値文脈。 | なし | bool |
-| [`peek`](../../../data_structure/RadixHeap.py#L64) | alias | `top` の別名。 | 同じ | 同じ |

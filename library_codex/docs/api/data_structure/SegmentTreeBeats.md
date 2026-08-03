@@ -45,7 +45,3 @@ range chmin/chmax/add/update・range sum/min/max（非再帰）を扱う `Segmen
 | [`all_sum()`](../../../data_structure/SegmentTreeBeats.py#L321) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
 | [`all_min()`](../../../data_structure/SegmentTreeBeats.py#L324) | method | 全体・最小を求める。 | なし | `self.range_min(0, self.n)` |
 | [`all_max()`](../../../data_structure/SegmentTreeBeats.py#L327) | method | 全体・最大を求める。 | なし | `self.range_max(0, self.n)` |
-| [`range_assign`](../../../data_structure/SegmentTreeBeats.py#L244) | alias | `range_update` の別名。 | 同じ | 同じ |
-| [`query_sum`](../../../data_structure/SegmentTreeBeats.py#L306) | alias | `range_sum` の別名。 | 同じ | 同じ |
-| [`query_min`](../../../data_structure/SegmentTreeBeats.py#L307) | alias | `range_min` の別名。 | 同じ | 同じ |
-| [`query_max`](../../../data_structure/SegmentTreeBeats.py#L308) | alias | `range_max` の別名。 | 同じ | 同じ |

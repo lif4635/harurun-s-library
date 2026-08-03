@@ -33,7 +33,3 @@ from library_codex.graph.MergeTree import MergeTree
 | [`arrange(values)`](../../../graph/MergeTree.py#L113) | method | `arrange`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`restore(values)`](../../../graph/MergeTree.py#L120) | method | 計算結果から経路・列・元データを復元する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 計算結果（数値または入力要素型） |
 | [`index(vertex)`](../../../graph/MergeTree.py#L130) | method | 指定要素・頂点に対応する内部indexを返す。 | `vertex`: 頂点番号（0-indexed） | `self.position[vertex]` |
-| [`get_id`](../../../graph/MergeTree.py#L105) | alias | `component_node` の別名。 | 同じ | 同じ |
-| [`get_range`](../../../graph/MergeTree.py#L111) | alias | `component_range` の別名。 | 同じ | 同じ |
-| [`make_seq`](../../../graph/MergeTree.py#L118) | alias | `arrange` の別名。 | 同じ | 同じ |
-| [`restore_seq`](../../../graph/MergeTree.py#L128) | alias | `restore` の別名。 | 同じ | 同じ |

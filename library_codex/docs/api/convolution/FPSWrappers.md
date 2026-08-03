@@ -55,8 +55,3 @@ from library_codex.convolution.FPSWrappers import FPSFraction, DualFormalPowerSe
 | [`__neg__()`](../../../convolution/FPSWrappers.py#L123) | method | -obj。 | なし | DualFormalPowerSeries instance |
 | [`__mul__(other)`](../../../convolution/FPSWrappers.py#L128) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |
 | [`__lshift__(shift)`](../../../convolution/FPSWrappers.py#L135) | method | obj << amount。 | `shift`: 平行移動量・bit shift量 | DualFormalPowerSeries instance |
-
-## Module aliases
-
-- [`fps_fraction`](../../../convolution/FPSWrappers.py#L143) = `FPSFraction`
-- [`DualFPS`](../../../convolution/FPSWrappers.py#L144) = `DualFormalPowerSeries`

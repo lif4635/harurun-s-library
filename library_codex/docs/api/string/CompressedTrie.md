@@ -36,5 +36,3 @@ from library_codex.string.CompressedTrie import CompressedTrie
 | [`prefix_count(prefix)`](../../../string/CompressedTrie.py#L137) | method | prefix・個数を処理する。 | `prefix`: prefix列・prefix長 | int `0 if node == -1 else self.subtree_count[node]` |
 | [`edge_label(node)`](../../../string/CompressedTrie.py#L143) | method | 辺・`label`を求める。 | `node`: 頂点・内部node番号 | tuple — 用途欄に示した複数の結果を順に格納 / `word[self.edge_left[node]:self.edge_right[node]]` |
 | [`to_graph()`](../../../string/CompressedTrie.py#L149) | method | `to`・グラフを求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`insert`](../../../string/CompressedTrie.py#L96) | alias | `add` の別名。 | 同じ | 同じ |
-| [`count_prefix`](../../../string/CompressedTrie.py#L141) | alias | `prefix_count` の別名。 | 同じ | 同じ |

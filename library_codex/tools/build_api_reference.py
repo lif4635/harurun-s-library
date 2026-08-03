@@ -4,7 +4,8 @@
 The library deliberately avoids runtime type machinery and annotations in hot
 code.  This tool therefore reads the source AST instead of importing modules.
 It documents every public top-level function/class, every public class method,
-useful Python protocol methods, aliases, and public constants.
+useful Python protocol methods, and public constants. Compatibility aliases are
+intentionally omitted because they obscure the canonical API.
 """
 
 import argparse
@@ -26,6 +27,10 @@ ROOT = Path(__file__).resolve().parents[1]
 DOC_ROOT = ROOT / "docs"
 API_ROOT = DOC_ROOT / "api"
 SKIP_DIRS = {"verify", "tools", "docs", "__pycache__"}
+COMPATIBILITY_MODULES = {
+    "algorithm/BasicAlgorithms.py",
+    "algorithm/MiscAlgorithms.py",
+}
 
 CATEGORY_DESCRIPTION = {
     "algorithm": "汎用アルゴリズム・列・順列",
@@ -93,6 +98,25 @@ CLASS_ORDER_OVERRIDES = {
 }
 
 MODULE_ARGUMENT_DESCRIPTION = {
+    "random/Random.py": {
+        "values": "抽選・並べ替え対象のsequence",
+        "lower": "生成範囲の下限（含む）",
+        "upper": "生成範囲の上限（randrangeでは含まず、ほかでは含む）",
+        "length": "生成する要素数または文字数",
+        "size": "置換に含める整数の個数",
+        "start": "置換に含める最初の整数",
+        "count": "抽選または生成する個数",
+        "total": "compositionの要素合計",
+        "parts": "compositionの要素数",
+        "seed": "乱数列を再現する整数。同じseedなら同じ結果になる",
+    },
+    "random/RandomGraph.py": {
+        "n": "頂点数",
+        "first": "辺の一方の0-indexed頂点番号",
+        "second": "辺のもう一方の0-indexed頂点番号",
+        "directed": "Trueならstored edgeの向きだけを使う",
+        "seed": "乱数列を再現する整数。同じseedなら同じgraph列になる",
+    },
     "data_structure/DynamicWaveletMatrix.py": {
         "values": "初期値のiterable",
         "update_candidates": "各位置で使用し得る更新候補 `(index, value)` のiterable",
@@ -102,6 +126,60 @@ MODULE_ARGUMENT_DESCRIPTION = {
 }
 
 MODULE_RETURN_SEMANTIC = {
+    "algorithm/SequenceAlgorithms.py": {
+        "inversion_count": "int — i < j かつ values[i] > values[j] となる組の個数",
+        "longest_increasing_subsequence": "int — LIS長。restore=Trueなら (長さ, 元の添字list, 値list)",
+        "coordinate_compress": "tuple[list[object], dict[object, int]] — 昇順の重複なし値列と、各値を0始まり順位へ写すdict",
+        "merge_intervals": "list[tuple[number, number]] — 左端順で互いに重ならない区間(left, right)の列",
+    },
+    "algorithm/DynamicProgramming.py": {
+        "knapsack_01": "list[number | None] — 添字がexact weight、値がその重さでの最大価値。到達不能はNone",
+        "knapsack_01_max": "number — total weightがcapacity以下になる最大価値",
+        "subset_sum_possible": "int — bit iが1ならsum iを作れるbitset",
+        "subset_sum_restore": "list[int] | None — 合計targetになる入力要素の0-indexed添字列。不能ならNone",
+    },
+    "algorithm/RangeQueries.py": {
+        "add_query": "int — 追加したqueryの0-indexed ID",
+        "order": "list[tuple[int, int, int]] — Mo順の(left, right, query_id)列",
+        "run": "list[object] — query ID順に並べたget()の返り値",
+    },
+    "algorithm/Doubling.py": {
+        "jump": "int — steps回遷移した後の頂点番号",
+        "jump_with_sum": "tuple[int, number] — 遷移後の頂点番号と、通過元頂点の値の合計",
+    },
+    "random/Random.py": {
+        "next_u64": "int — 0以上2^64未満の整数",
+        "randrange": "int — [lower, upper)から一様に選んだ整数",
+        "uniform": "int — [lower, upper]から一様に選んだ整数",
+        "uniform_bool": "bool — FalseまたはTrue",
+        "uniform01": "float — 0.0以上1.0未満の値",
+        "choice": "object — 入力sequenceから一様に選んだ1要素",
+        "shuffle": "mutable sequence — 並べ替えた入力と同じobject",
+        "permutation": "list[int] — startからstart+size-1までを1回ずつ含む列",
+        "sample": "list[object] — 入力sequenceから重複なしで選んだcount要素",
+        "sample_range": "list[int] — 閉区間から重複なしで選んだcount個の整数",
+        "integers": "list[int] — 閉区間から独立に生成したlength個の整数",
+        "string": "str — alphabetだけで構成したlength文字の文字列",
+        "intervals": "list[tuple[int, int]] — [lower, upper)内の半開区間(left, right)の列",
+        "composition": "list[int] — 合計がtotalになる長さpartsの非負または正の整数列",
+    },
+    "random/RandomGraph.py": {
+        "edge_count": "int — stored edgeの本数",
+        "add_directed_edge": "int — 追加した辺のedge-list内の0-indexed位置",
+        "add_undirected_edge": "int — 追加した辺のedge-list内の0-indexed位置",
+        "to_adjacency_list": "list[list[Edge]] — 頂点ごとに外向きEdgeを並べた隣接list",
+        "to_adjacency_matrix": "list[list[number]] — 行を始点、列を終点とするn×nの辺重み行列",
+        "format_edges": "str — 1辺1行の改行区切り文字列（末尾改行なし）",
+        "set_seed": "UndirectedGraphGenerator — 状態をresetしたgenerator自身",
+        "tree": "Graph — n頂点n-1辺の木",
+        "path": "Graph — n頂点max(0,n-1)辺のpath graph",
+        "star": "Graph — n頂点max(0,n-1)辺のstar graph",
+        "complete": "Graph — n頂点n(n-1)/2辺の完全graph",
+        "simple": "Graph — n頂点edge_count辺の単純graph",
+        "connected": "Graph — n頂点edge_count辺の連結単純graph",
+        "erdos_renyi": "Graph — 各候補辺を独立にprobabilityで含めた単純graph",
+        "unicyclic": "Graph — n頂点n辺でcycleを1個だけ持つ連結単純graph",
+    },
     "data_structure/DynamicWaveletMatrix.py": {
         "count_lt": "上限未満の要素数（int）",
         "count_le": "上限以下の要素数（int）",
@@ -132,8 +210,6 @@ CLASS_RETURN_SEMANTIC = {
         },
     },
 }
-
-PROTOCOL_ALIAS_MODULES = {"data_structure/DynamicWaveletMatrix.py"}
 
 # Methods that are private by spelling but form part of normal Python usage.
 PROTOCOL_METHODS = {
@@ -1030,29 +1106,6 @@ def public_methods(class_node):
     return methods
 
 
-def aliases_in(body, valid_names, include_protocol=False):
-    aliases = []
-    for node in body:
-        if not isinstance(node, (ast.Assign, ast.AnnAssign)):
-            continue
-        targets = node.targets if isinstance(node, ast.Assign) else [node.target]
-        value = node.value
-        if (isinstance(value, ast.Call) and isinstance(value.func, ast.Name)
-                and value.func.id in ("staticmethod", "classmethod", "property")
-                and len(value.args) == 1):
-            value = value.args[0]
-        if not isinstance(value, ast.Name) or value.id not in valid_names:
-            continue
-        for target in targets:
-            if (isinstance(target, ast.Name)
-                    and (not target.id.startswith("_")
-                         or (include_protocol
-                             and target.id in PROTOCOL_METHODS))
-                    and target.id != value.id):
-                aliases.append((target.id, value.id, node.lineno))
-    return aliases
-
-
 def dataclass_constructor(class_node):
     if "dataclass" not in decorators(class_node):
         return None
@@ -1159,7 +1212,9 @@ def source_modules():
     result = []
     for category in sorted(path for path in ROOT.iterdir() if path.is_dir() and path.name not in SKIP_DIRS):
         for path in sorted(category.glob("*.py")):
-            if path.name != "__init__.py" and not path.name.startswith("_"):
+            relative = path.relative_to(ROOT).as_posix()
+            if (path.name != "__init__.py" and not path.name.startswith("_")
+                    and relative not in COMPATIBILITY_MODULES):
                 result.append(path)
     return result
 
@@ -1230,7 +1285,6 @@ def render_module(path, overview, complexity):
     argument_overrides = MODULE_ARGUMENT_DESCRIPTION.get(relative_key)
     return_overrides = MODULE_RETURN_SEMANTIC.get(relative_key)
     class_return_overrides = CLASS_RETURN_SEMANTIC.get(relative_key, {})
-    include_protocol_aliases = relative_key in PROTOCOL_ALIAS_MODULES
     module_name = ".".join(("library_codex",) + relative.with_suffix("").parts)
     functions = [node for node in tree.body
                  if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and not node.name.startswith("_")]
@@ -1239,9 +1293,7 @@ def render_module(path, overview, complexity):
     if class_order:
         rank = {name: index for index, name in enumerate(class_order)}
         classes.sort(key=lambda node: (rank.get(node.name, len(rank)), node.lineno))
-    defined = {node.name for node in functions + classes}
     classes_by_name = {node.name: node for node in classes}
-    aliases = aliases_in(tree.body, defined, include_protocol_aliases)
     constants = public_constants(tree)
     count_methods = sum(len(public_methods(node)) for node in classes)
     protocol_count = sum(node.name in PROTOCOL_METHODS for cls in classes for node in public_methods(cls))
@@ -1338,11 +1390,7 @@ def render_module(path, overview, complexity):
                 lines.append("- 継承元: %s" % ", ".join(code(name) for name in base_names))
         lines.append("")
         methods = public_methods(class_node)
-        valid = {node.name for node in methods}
-        class_aliases = aliases_in(
-            class_node.body, valid | defined, include_protocol_aliases
-        )
-        if methods or class_aliases:
+        if methods:
             lines.extend([
                 "| method / property | 種別 | 用途 | 引数 | 返り値 |",
                 "| --- | --- | --- | --- | --- |",
@@ -1355,9 +1403,6 @@ def render_module(path, overview, complexity):
                 )
                 for node in methods
             )
-            for alias, target, lineno in class_aliases:
-                api = "[%s](%s)" % (code(alias), source_link(relative, lineno))
-                lines.append("| %s | alias | %s の別名。 | 同じ | 同じ |" % (api, code(target)))
             lines.append("")
         inherited = []
         for base in class_node.bases:
@@ -1369,14 +1414,9 @@ def render_module(path, overview, complexity):
                 "",
             ])
 
-    if aliases:
-        lines.extend(["## Module aliases", ""])
-        for alias, target, lineno in aliases:
-            lines.append("- [%s](%s) = %s" % (code(alias), source_link(relative, lineno), code(target)))
-        lines.append("")
     if not functions and not classes and not constants:
         lines.extend(["公開APIはありません。", ""])
-    return "\n".join(lines).rstrip() + "\n", (len(functions), len(classes), count_methods, len(constants), len(aliases))
+    return "\n".join(lines).rstrip() + "\n", (len(functions), len(classes), count_methods, len(constants), 0)
 
 
 def render_category(category, modules):

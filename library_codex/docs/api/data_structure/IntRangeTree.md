@@ -47,11 +47,6 @@ from library_codex.data_structure.IntRangeTree import RangeAddAssignRangeStats, 
 | [`__getitem__(index)`](../../../data_structure/IntRangeTree.py#L236) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(index, value)`](../../../data_structure/IntRangeTree.py#L239) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`__len__()`](../../../data_structure/IntRangeTree.py#L242) | method | len(obj)。 | なし | 要素数（int） |
-| [`add`](../../../data_structure/IntRangeTree.py#L145) | alias | `range_add` の別名。 | 同じ | 同じ |
-| [`range_update`](../../../data_structure/IntRangeTree.py#L150) | alias | `range_assign` の別名。 | 同じ | 同じ |
-| [`query_sum`](../../../data_structure/IntRangeTree.py#L202) | alias | `range_sum` の別名。 | 同じ | 同じ |
-| [`query_min`](../../../data_structure/IntRangeTree.py#L207) | alias | `range_min` の別名。 | 同じ | 同じ |
-| [`query_max`](../../../data_structure/IntRangeTree.py#L212) | alias | `range_max` の別名。 | 同じ | 同じ |
 
 ## Class `RangeAffineRangeSum`
 
@@ -73,11 +68,3 @@ from library_codex.data_structure.IntRangeTree import RangeAddAssignRangeStats, 
 | [`__getitem__(index)`](../../../data_structure/IntRangeTree.py#L399) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(index, value)`](../../../data_structure/IntRangeTree.py#L402) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`__len__()`](../../../data_structure/IntRangeTree.py#L405) | method | len(obj)。 | なし | 要素数（int） |
-| [`range_affine`](../../../data_structure/IntRangeTree.py#L354) | alias | `apply` の別名。 | 同じ | 同じ |
-| [`query`](../../../data_structure/IntRangeTree.py#L383) | alias | `range_sum` の別名。 | 同じ | 同じ |
-| [`prod`](../../../data_structure/IntRangeTree.py#L384) | alias | `range_sum` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`IntLazySegmentTree`](../../../data_structure/IntRangeTree.py#L409) = `RangeAddAssignRangeStats`
-- [`AffineLazySegmentTree`](../../../data_structure/IntRangeTree.py#L410) = `RangeAffineRangeSum`

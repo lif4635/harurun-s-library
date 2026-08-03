@@ -42,13 +42,3 @@ from library_codex.convolution.MultivariateFPS import MultivariateFormalPowerSer
 | [`logarithm()`](../../../convolution/MultivariateFPS.py#L130) | method | 対数を計算する。 | なし | `(self.derivative() * self.inverse()).integral()` |
 | [`exponential()`](../../../convolution/MultivariateFPS.py#L137) | method | 指数を計算する。 | なし | `current`（数値または入力要素型） |
 | [`power(exponent)`](../../../convolution/MultivariateFPS.py#L152) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | `self.inverse().power(-exponent)` / 計算結果（数値または入力要素型） |
-| [`id`](../../../convolution/MultivariateFPS.py#L36) | alias | `index` の別名。 | 同じ | 同じ |
-| [`diff`](../../../convolution/MultivariateFPS.py#L101) | alias | `derivative` の別名。 | 同じ | 同じ |
-| [`inv`](../../../convolution/MultivariateFPS.py#L128) | alias | `inverse` の別名。 | 同じ | 同じ |
-| [`log`](../../../convolution/MultivariateFPS.py#L135) | alias | `logarithm` の別名。 | 同じ | 同じ |
-| [`exp`](../../../convolution/MultivariateFPS.py#L150) | alias | `exponential` の別名。 | 同じ | 同じ |
-| [`pow`](../../../convolution/MultivariateFPS.py#L169) | alias | `power` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`MultivariateFPS`](../../../convolution/MultivariateFPS.py#L172) = `MultivariateFormalPowerSeries`

@@ -38,5 +38,3 @@ from library_codex.data_structure.PersistentSegmentTree import PersistentSegment
 | [`fork(version=-1)`](../../../data_structure/PersistentSegmentTree.py#L161) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`new_tree()`](../../../data_structure/PersistentSegmentTree.py#L165) | method | `new`・木を求める。 | なし | 数値または入力要素型 `len(self.roots) - 1` |
 | [`node_count()`](../../../data_structure/PersistentSegmentTree.py#L169) | method | `node`・個数を求める。 | なし | 数値または入力要素型 `len(self.data) - 1` |
-| [`update`](../../../data_structure/PersistentSegmentTree.py#L122) | alias | `set` の別名。 | 同じ | 同じ |
-| [`query`](../../../data_structure/PersistentSegmentTree.py#L156) | alias | `prod` の別名。 | 同じ | 同じ |

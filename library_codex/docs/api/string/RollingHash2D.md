@@ -34,7 +34,6 @@ from library_codex.string.RollingHash2D import RollingHash2D, RollingHash2DView
 | [`hash_matrix(matrix)`](../../../string/RollingHash2D.py#L90) | method | hash・行列を求める。 | `matrix`: 行をlistで持つ行列 | `result.get(0, 0, result.height, result.width)` |
 | [`find(pattern)`](../../../string/RollingHash2D.py#L96) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列 | 代表元・位置・node番号（int） |
 | [`__getitem__(index)`](../../../string/RollingHash2D.py#L115) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`query`](../../../string/RollingHash2D.py#L72) | alias | `get` の別名。 | 同じ | 同じ |
 
 ## Class `RollingHash2DView`
 

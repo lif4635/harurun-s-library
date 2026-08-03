@@ -54,7 +54,3 @@ from library_codex.convolution.NTT import (
 | [`butterfly_inv(values, normalize=True)`](../../../convolution/NTT.py#L171) | method | `butterfly`・`inv`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`normalize`: `normalize`として使う入力。省略時: `True` | 値のlist |
 | [`transform(values, inverse=False)`](../../../convolution/NTT.py#L243) | method | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False` | `self.butterfly_inv(values)` / `self.butterfly(values)` |
 | [`convolution(first, second, naive_threshold=60)`](../../../convolution/NTT.py#L248) | method | 畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`naive_threshold`: `naive`・`threshold`として使う入力。省略時: `60` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `convolution_naive(first, second, mod)` |
-
-## Module aliases
-
-- [`NumberTheroemTransform`](../../../convolution/NTT.py#L276) = `NumberTheoreticTransform`

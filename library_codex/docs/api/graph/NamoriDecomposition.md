@@ -44,16 +44,8 @@ from library_codex.graph.NamoriDecomposition import NamoriDecomposition
 | [`distance(u, v)`](../../../graph/NamoriDecomposition.py#L361) | method | 距離を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | `self.distances(u, v)[0]` |
 | [`kth_ancestor(vertex, k)`](../../../graph/NamoriDecomposition.py#L364) | method | k番目・`ancestor`を求める。 | `vertex`: 頂点番号（0-indexed）<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.rev[tin[vertex] - k]` |
 | [`jump_tree(u, v, k)`](../../../graph/NamoriDecomposition.py#L376) | method | `jump`・木を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.kth_ancestor(u, k)` / `self.kth_ancestor(v, distance - k)` |
-| [`path(u, v, edge=False)`](../../../graph/NamoriDecomposition.py#L388) | method | pathを求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 / `None` |
+| [`path(u, v, edge=False)`](../../../graph/NamoriDecomposition.py#L388) | method | 頂点labelをランダムに並べたpath graphを生成する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | Graph — n頂点max(0,n-1)辺のpath graph / `None` |
 | [`path_ordered(u, v, edge=False)`](../../../graph/NamoriDecomposition.py#L411) | method | path・`ordered`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 / `None` |
 | [`subtree(vertex, edge=False)`](../../../graph/NamoriDecomposition.py#L438) | method | `subtree`を求める。 | `vertex`: 頂点番号（0-indexed）<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[vertex] + edge`, `self.tout[vertex]`) |
 | [`index(vertex)`](../../../graph/NamoriDecomposition.py#L441) | method | 指定要素・頂点に対応する内部indexを返す。 | `vertex`: 頂点番号（0-indexed） | `self.tin[vertex]` |
 | [`vertex(index)`](../../../graph/NamoriDecomposition.py#L444) | method | 頂点を求める。 | `index`: 0-indexedの位置 | `self.rev[index]` |
-| [`run`](../../../graph/NamoriDecomposition.py#L268) | alias | `build` の別名。 | 同じ | 同じ |
-| [`incycle`](../../../graph/NamoriDecomposition.py#L273) | alias | `in_cycle` の別名。 | 同じ | 同じ |
-| [`dist`](../../../graph/NamoriDecomposition.py#L348) | alias | `distances` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`Namori`](../../../graph/NamoriDecomposition.py#L448) = `NamoriDecomposition`
-- [`NamoriForest`](../../../graph/NamoriDecomposition.py#L449) = `NamoriDecomposition`

@@ -1,4 +1,4 @@
-from library_codex.algorithm.MiscAlgorithms import (
+from library_codex.algorithm.IntegerUtilities import (
     decimal_digit_count,
     exact_square_root,
     modular_power,

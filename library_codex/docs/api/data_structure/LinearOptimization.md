@@ -31,13 +31,6 @@ from library_codex.data_structure.LinearOptimization import LineContainer2D, Ran
 | [`add(x, y)`](../../../data_structure/LinearOptimization.py#L60) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | `None` |
 | [`max_value(a, b)`](../../../data_structure/LinearOptimization.py#L92) | method | 最大・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | 数値または入力要素型 `b * (self.ymax if b >= 0 else self.ymin)` / 答え（None） |
 | [`min_value(a, b)`](../../../data_structure/LinearOptimization.py#L112) | method | 最小・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `-self.max_value(-a, -b)` |
-| [`insert`](../../../data_structure/LinearOptimization.py#L90) | alias | `add` の別名。 | 同じ | 同じ |
-| [`max_ll`](../../../data_structure/LinearOptimization.py#L115) | alias | `max_value` の別名。 | 同じ | 同じ |
-| [`min_ll`](../../../data_structure/LinearOptimization.py#L116) | alias | `min_value` の別名。 | 同じ | 同じ |
-| [`max_ld`](../../../data_structure/LinearOptimization.py#L117) | alias | `max_value` の別名。 | 同じ | 同じ |
-| [`min_ld`](../../../data_structure/LinearOptimization.py#L118) | alias | `min_value` の別名。 | 同じ | 同じ |
-| [`get_max`](../../../data_structure/LinearOptimization.py#L119) | alias | `max_value` の別名。 | 同じ | 同じ |
-| [`get_min`](../../../data_structure/LinearOptimization.py#L120) | alias | `min_value` の別名。 | 同じ | 同じ |
 
 ## Class `RangeLinearAddRangeMin`
 
@@ -51,6 +44,3 @@ from library_codex.data_structure.LinearOptimization import LineContainer2D, Ran
 | --- | --- | --- | --- | --- |
 | [`add(left, right, slope, intercept)`](../../../data_structure/LinearOptimization.py#L229) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` |
 | [`query(left, right)`](../../../data_structure/LinearOptimization.py#L275) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`update`](../../../data_structure/LinearOptimization.py#L254) | alias | `add` の別名。 | 同じ | 同じ |
-| [`range_add`](../../../data_structure/LinearOptimization.py#L255) | alias | `add` の別名。 | 同じ | 同じ |
-| [`range_min`](../../../data_structure/LinearOptimization.py#L296) | alias | `query` の別名。 | 同じ | 同じ |

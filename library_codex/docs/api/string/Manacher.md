@@ -39,8 +39,3 @@ from library_codex.string.Manacher import (
 | [`enumerate_palindromes(sequence, include_empty=True)`](../../../string/Manacher.py#L74) | `palindromes`を列挙する。 | `sequence`: 入力列<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `True` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
 | [`get_palindromes(sequence)`](../../../string/Manacher.py#L96) | `palindromes`を取得する。 | `sequence`: 入力列 | `enumerate_palindromes(sequence, False)` |
 | [`enumerate_leftmost_palindromes(sequence)`](../../../string/Manacher.py#L100) | `leftmost`・`palindromes`を列挙する。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-
-## Module aliases
-
-- [`manacher_odd`](../../../string/Manacher.py#L27) = `manacher`
-- [`Manacher`](../../../string/Manacher.py#L117) = `enumerate_palindrome_lengths`

@@ -28,9 +28,3 @@ from library_codex.math.ChineseRemainder import inv_gcd, chinese_remainder, chin
 | [`chinese_remainder(residues, moduli)`](../../../math/ChineseRemainder.py#L40) | `chinese`・剰余を求める。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列 | tuple(`0`, `0`) / tuple(`remainder`（int）, `modulus`（int）) |
 | [`chinese_remainder_balanced(residues, moduli)`](../../../math/ChineseRemainder.py#L58) | `chinese`・剰余・`balanced`を求める。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列 | tuple(`0`, `1`) / tuple(`0`, `0`) / `current[0]` |
 | [`garner_mod(residues, moduli, target_modulus)`](../../../math/ChineseRemainder.py#L86) | `garner`・`mod`を求める。 | `residues`: 各法に対する剰余の列<br>`moduli`: 法の列<br>`target_modulus`: 処理中に呼び出す関数または操作 | `constants[-1]` |
-
-## Module aliases
-
-- [`crt`](../../../math/ChineseRemainder.py#L116) = `chinese_remainder`
-- [`garner`](../../../math/ChineseRemainder.py#L117) = `chinese_remainder`
-- [`garner_bigint`](../../../math/ChineseRemainder.py#L118) = `chinese_remainder_balanced`

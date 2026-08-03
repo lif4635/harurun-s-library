@@ -52,4 +52,3 @@ from library_codex.string.PersistentString import PersistentString
 | [`__le__(other)`](../../../string/PersistentString.py#L417) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__gt__(other)`](../../../string/PersistentString.py#L420) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__ge__(other)`](../../../string/PersistentString.py#L423) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`to_string`](../../../string/PersistentString.py#L360) | alias | `to_sequence` の別名。 | 同じ | 同じ |

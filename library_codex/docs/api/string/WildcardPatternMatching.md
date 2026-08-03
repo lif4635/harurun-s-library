@@ -24,7 +24,3 @@ from library_codex.string.WildcardPatternMatching import wildcard_pattern_matchi
 | --- | --- | --- | --- |
 | [`wildcard_pattern_matching(text, pattern, wildcard=0)`](../../../string/WildcardPatternMatching.py#L110) | `wildcard`・`pattern`・matchingを求める。 | `text`: 検索対象の文字列・列<br>`pattern`: 検索patternの文字列・列<br>`wildcard`: wildcardとして扱う記号。省略時: `0` | 数値または入力要素型 `[1] * (text_size + 1)` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `_brute(text, pattern, wildcard)` |
 | [`wildcard_match_positions(text, pattern, wildcard=0)`](../../../string/WildcardPatternMatching.py#L142) | `wildcard`・`match`・`positions`を求める。 | `text`: 検索対象の文字列・列<br>`pattern`: 検索patternの文字列・列<br>`wildcard`: wildcardとして扱う記号。省略時: `0` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-
-## Module aliases
-
-- [`wildcard_matching`](../../../string/WildcardPatternMatching.py#L152) = `wildcard_pattern_matching`

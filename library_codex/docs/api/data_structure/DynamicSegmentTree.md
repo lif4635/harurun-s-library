@@ -34,7 +34,6 @@ from library_codex.data_structure.DynamicSegmentTree import DynamicSegmentTree, 
 | [`add(index, value)`](../../../data_structure/DynamicSegmentTree.py#L75) | method | index番目の値へvalueを加える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prod(query_left, query_right)`](../../../data_structure/DynamicSegmentTree.py#L78) | method | 半開区間またはpathの集約値を返す。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端 | 区間・pathの集約値（入力要素型） |
 | [`all_prod()`](../../../data_structure/DynamicSegmentTree.py#L98) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
-| [`query`](../../../data_structure/DynamicSegmentTree.py#L96) | alias | `prod` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicLazySegmentTree`
 
@@ -50,8 +49,6 @@ from library_codex.data_structure.DynamicSegmentTree import DynamicSegmentTree, 
 | [`prod(query_left, query_right)`](../../../data_structure/DynamicSegmentTree.py#L183) | method | 半開区間またはpathの集約値を返す。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端 | 区間・pathの集約値（入力要素型） |
 | [`get(index)`](../../../data_structure/DynamicSegmentTree.py#L203) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
 | [`all_prod()`](../../../data_structure/DynamicSegmentTree.py#L206) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
-| [`range_apply`](../../../data_structure/DynamicSegmentTree.py#L181) | alias | `apply` の別名。 | 同じ | 同じ |
-| [`query`](../../../data_structure/DynamicSegmentTree.py#L201) | alias | `prod` の別名。 | 同じ | 同じ |
 
 ## Class `PersistentLazySegmentTree`
 
@@ -66,5 +63,3 @@ from library_codex.data_structure.DynamicSegmentTree import DynamicSegmentTree, 
 | [`apply(query_left, query_right, action, version=-1)`](../../../data_structure/DynamicSegmentTree.py#L268) | method | 指定した作用を適用する。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端<br>`action`: 遅延作用・更新作用<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`prod(query_left, query_right, version=-1)`](../../../data_structure/DynamicSegmentTree.py#L307) | method | 半開区間またはpathの集約値を返す。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端<br>`version`: 参照するversion番号。省略時: `-1` | 区間・pathの集約値（入力要素型） |
 | [`get(index, version=-1)`](../../../data_structure/DynamicSegmentTree.py#L346) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置<br>`version`: 参照するversion番号。省略時: `-1` | 指定対象に格納された値・edge object |
-| [`range_apply`](../../../data_structure/DynamicSegmentTree.py#L305) | alias | `apply` の別名。 | 同じ | 同じ |
-| [`query`](../../../data_structure/DynamicSegmentTree.py#L344) | alias | `prod` の別名。 | 同じ | 同じ |

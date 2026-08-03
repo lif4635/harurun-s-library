@@ -7,18 +7,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from algorithm.BasicAlgorithms import (  # noqa: E402
-    Doubling,
-    Mo,
-    binary_search_int,
-    coordinate_compress,
-    fibonacci,
-    inversion_count,
+from algorithm.Doubling import Doubling  # noqa: E402
+from algorithm.DynamicProgramming import (  # noqa: E402
     knapsack_01_max,
-    longest_increasing_subsequence,
-    merge_intervals,
     subset_sum_possible,
     subset_sum_restore,
+)
+from algorithm.Fibonacci import fibonacci  # noqa: E402
+from algorithm.RangeQueries import Mo  # noqa: E402
+from algorithm.Search import binary_search_int  # noqa: E402
+from algorithm.SequenceAlgorithms import (  # noqa: E402
+    coordinate_compress,
+    inversion_count,
+    longest_increasing_subsequence,
+    merge_intervals,
 )
 
 

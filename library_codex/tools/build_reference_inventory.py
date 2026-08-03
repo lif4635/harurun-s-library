@@ -1657,37 +1657,37 @@ COVERED = {
     **{
         ("tko919/library", path): target
         for path, target in {
-            "Algorithm/fibonacci.hpp": "algorithm/BasicAlgorithms.py",
+            "Algorithm/fibonacci.hpp": "algorithm/Fibonacci.py",
             "Algorithm/maximalrect.hpp": "optimization/Optimization.py",
-            "Algorithm/mo.hpp": "algorithm/BasicAlgorithms.py",
+            "Algorithm/mo.hpp": "algorithm/RangeQueries.py",
         }.items()
     },
     **{
-        ("NyaanNyaan/library", path): "algorithm/BasicAlgorithms.py"
-        for path in (
-            "dp/inversion-counting.hpp",
-            "dp/knapsack01.hpp",
-            "dp/longest-increasing-sequence.hpp",
-            "misc/compress.hpp",
-            "misc/doubling.hpp",
-            "misc/interval-union.hpp",
-            "misc/mo-fast.hpp",
-            "misc/mo.hpp",
-        )
+        ("NyaanNyaan/library", path): target
+        for path, target in {
+            "dp/inversion-counting.hpp": "algorithm/SequenceAlgorithms.py",
+            "dp/knapsack01.hpp": "algorithm/DynamicProgramming.py",
+            "dp/longest-increasing-sequence.hpp": "algorithm/SequenceAlgorithms.py",
+            "misc/compress.hpp": "algorithm/SequenceAlgorithms.py",
+            "misc/doubling.hpp": "algorithm/Doubling.py",
+            "misc/interval-union.hpp": "algorithm/SequenceAlgorithms.py",
+            "misc/mo-fast.hpp": "algorithm/RangeQueries.py",
+            "misc/mo.hpp": "algorithm/RangeQueries.py",
+        }.items()
     },
     **{
-        ("kemuniku/cplib", path): "algorithm/BasicAlgorithms.py"
-        for path in (
-            "utils/binary_search.nim",
-            "utils/inversion_number.nim",
-            "utils/knapsack.nim",
-            "utils/lis.nim",
-        )
+        ("kemuniku/cplib", path): target
+        for path, target in {
+            "utils/binary_search.nim": "algorithm/Search.py",
+            "utils/inversion_number.nim": "algorithm/SequenceAlgorithms.py",
+            "utils/knapsack.nim": "algorithm/DynamicProgramming.py",
+            "utils/lis.nim": "algorithm/SequenceAlgorithms.py",
+        }.items()
     },
     (
         "NachiaVivias/cp-library",
         "set/subset-sum.hpp",
-    ): "algorithm/BasicAlgorithms.py",
+    ): "algorithm/DynamicProgramming.py",
     (
         "NachiaVivias/cp-library",
         "set/dsu-fast.hpp",
@@ -1864,8 +1864,8 @@ COVERED = {
             "math/grundy-number.hpp": "math/Structures.py",
             "math/rational.hpp": "math/Structures.py",
             "math/stern-brocot-tree.hpp": "math/Structures.py",
-            "math-fast/binary-search.hpp": "algorithm/BasicAlgorithms.py",
-            "math-fast/radix-sort.hpp": "algorithm/BasicAlgorithms.py",
+            "math-fast/binary-search.hpp": "algorithm/Search.py",
+            "math-fast/radix-sort.hpp": "algorithm/Sorting.py",
             "misc/bitset-find-prev.hpp": "data_structure/Collections.py",
         }.items()
     },
@@ -1883,8 +1883,8 @@ COVERED = {
             "math/mex_naive.nim": "math/Structures.py",
             "math/stern_brocot_tree.nim": "math/Structures.py",
             "math/xor_basis.nim": "math/Structures.py",
-            "utils/bititers.nim": "algorithm/BasicAlgorithms.py",
-            "utils/kth_element.nim": "algorithm/BasicAlgorithms.py",
+            "utils/bititers.nim": "algorithm/BitAlgorithms.py",
+            "utils/kth_element.nim": "algorithm/Search.py",
         }.items()
     },
     (
@@ -1935,19 +1935,19 @@ COVERED = {
     **{
         ("NachiaVivias/cp-library", path): target
         for path, target in {
-            "bit/bit-operations.hpp": "algorithm/BasicAlgorithms.py",
-            "misc/sorting.hpp": "algorithm/BasicAlgorithms.py",
-            "set/enumerate-paritions.hpp": "algorithm/MiscAlgorithms.py",
+            "bit/bit-operations.hpp": "algorithm/BitAlgorithms.py",
+            "misc/sorting.hpp": "algorithm/Sorting.py",
+            "set/enumerate-paritions.hpp": "algorithm/IntegerPartitions.py",
         }.items()
     },
     **{
         ("kemuniku/cplib", path): target
         for path, target in {
             "graph/merge_tree.nim": "graph/MergeTree.py",
-            "math/nearest_equiv.nim": "algorithm/MiscAlgorithms.py",
-            "math/powmod.nim": "algorithm/MiscAlgorithms.py",
-            "math/sqrt_heuristic_for_floor_sum.nim": "algorithm/MiscAlgorithms.py",
-            "utils/mo.nim": "algorithm/BasicAlgorithms.py",
+            "math/nearest_equiv.nim": "algorithm/IntegerUtilities.py",
+            "math/powmod.nim": "algorithm/IntegerUtilities.py",
+            "math/sqrt_heuristic_for_floor_sum.nim": "algorithm/ModularProgression.py",
+            "utils/mo.nim": "algorithm/RangeQueries.py",
         }.items()
     },
     (
@@ -2026,7 +2026,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "math/erdos-ginzburg-ziv-task.hpp",
-    ): "algorithm/MiscAlgorithms.py",
+    ): "algorithm/ErdosGinzburgZiv.py",
     (
         "NyaanNyaan/library",
         "math/elementary-function.hpp",
@@ -2038,7 +2038,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "set-function/enumerate-set.hpp",
-    ): "algorithm/BasicAlgorithms.py",
+    ): "algorithm/BitAlgorithms.py",
     (
         "tko919/library",
         "Convolution/relax.hpp",

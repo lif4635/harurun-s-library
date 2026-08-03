@@ -66,8 +66,6 @@ Affine・XOR基底・Stern--Brocot・DAG Grundy・Fractionを扱う `XorBasis`�
 | [`minimum(xor=0)`](../../../math/Structures.py#L85) | method | 最小を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 |
 | [`xor_kth(xor, index)`](../../../math/Structures.py#L92) | method | XOR・k番目を求める。 | `xor`: 全要素へ作用させるXOR値<br>`index`: 0-indexedの位置 | `-1` / 数値または入力要素型 `self.minimum(xor) ^ self.kth_smallest(index)` |
 | [`rank(value)`](../../../math/Structures.py#L97) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `value`: 追加・設定・問い合わせる値 | rank・出現数（int） |
-| [`add`](../../../math/Structures.py#L56) | alias | `insert` の別名。 | 同じ | 同じ |
-| [`can_make`](../../../math/Structures.py#L67) | alias | `contains` の別名。 | 同じ | 同じ |
 
 ## Class `SternBrocotNode`
 

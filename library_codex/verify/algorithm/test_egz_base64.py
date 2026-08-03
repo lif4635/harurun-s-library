@@ -2,7 +2,7 @@ import itertools
 import random
 
 from library_codex.algorithm.Base64Integers import decode_integers, encode_integers
-from library_codex.algorithm.MiscAlgorithms import erdos_ginzburg_ziv_indices
+from library_codex.algorithm.ErdosGinzburgZiv import erdos_ginzburg_ziv_indices
 
 
 def test_egz_random_and_exhaustive_small():

@@ -61,11 +61,3 @@ dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程�
 | --- | --- | --- | --- | --- |
 | [`add(row, column, value)`](../../../math/BlackBoxLinearAlgebra.py#L30) | method | (row, column)の値へvalueを加える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`matvec(vector, mod=DEFAULT_MOD)`](../../../math/BlackBoxLinearAlgebra.py#L33) | method | `matvec`を求める。 | `vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-
-## Module aliases
-
-- [`mat_minpoly`](../../../math/BlackBoxLinearAlgebra.py#L212) = `black_box_minimal_polynomial`
-- [`fast_pow`](../../../math/BlackBoxLinearAlgebra.py#L213) = `black_box_power`
-- [`fast_det`](../../../math/BlackBoxLinearAlgebra.py#L214) = `black_box_determinant`
-- [`fast_linear_equation`](../../../math/BlackBoxLinearAlgebra.py#L215) = `black_box_linear_solve`
-- [`ModMatrix`](../../../math/BlackBoxLinearAlgebra.py#L216) = `LinearOperator`

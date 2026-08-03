@@ -32,8 +32,3 @@ from library_codex.algorithm.SequenceOrdering import PointUpdateLexSort
 | [`last()`](../../../algorithm/SequenceOrdering.py#L59) | method | `last`を求める。 | なし | `_VersionIterator(self, len(self.positions))` |
 | [`max_sorted_pos()`](../../../algorithm/SequenceOrdering.py#L62) | method | 最大・`sorted`・`pos`を求める。 | なし | `self.maximum_rank` |
 | [`proc()`](../../../algorithm/SequenceOrdering.py#L69) | method | `proc`を求める。 | なし | `positions`（数値または入力要素型） |
-| [`maxSortedPos`](../../../algorithm/SequenceOrdering.py#L67) | alias | `max_sorted_pos` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`PointUpdateLexicographicSort`](../../../algorithm/SequenceOrdering.py#L186) = `PointUpdateLexSort`

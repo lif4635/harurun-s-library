@@ -38,7 +38,3 @@ Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色を扱う `Ch
 | [`is_chordal()`](../../../graph/GraphProperties.py#L47) | method | `chordal`かどうかを判定する。 | なし | bool |
 | [`perfect_elimination_order()`](../../../graph/GraphProperties.py#L73) | method | `perfect`・`elimination`・`order`を求める。 | なし | list[int] — 頂点または要素の位置を結果順に並べた列 |
 | [`induced_cycle()`](../../../graph/GraphProperties.py#L76) | method | `induced`・閉路を求める。 | なし | `self._cycle[:]` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`getMaximumCardinalitySearchOrder`](../../../graph/GraphProperties.py#L118) | alias | `maximum_cardinality_search_order` の別名。 | 同じ | 同じ |
-| [`isChordalGraph`](../../../graph/GraphProperties.py#L119) | alias | `is_chordal` の別名。 | 同じ | 同じ |
-| [`getPerfectEliminationOrdering`](../../../graph/GraphProperties.py#L120) | alias | `perfect_elimination_order` の別名。 | 同じ | 同じ |
-| [`findInducedCycle`](../../../graph/GraphProperties.py#L121) | alias | `induced_cycle` の別名。 | 同じ | 同じ |

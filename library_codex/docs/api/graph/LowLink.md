@@ -37,4 +37,3 @@ from library_codex.graph.LowLink import lowlink, LowLink
 | [`add_edge(u, v)`](../../../graph/LowLink.py#L31) | method | 辺を追加する。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | `edge_id` |
 | [`get_edge(edge_id)`](../../../graph/LowLink.py#L41) | method | edge_idに対応する辺の両端頂点を返す。 | `edge_id`: edge のID（0-indexed） | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |
 | [`build()`](../../../graph/LowLink.py#L44) | method | 内部構造を構築する。 | なし | `self` |
-| [`run`](../../../graph/LowLink.py#L122) | alias | `build` の別名。 | 同じ | 同じ |

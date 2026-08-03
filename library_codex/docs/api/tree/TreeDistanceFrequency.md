@@ -22,7 +22,3 @@ from library_codex.tree.TreeDistanceFrequency import frequency_table_of_tree_dis
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`frequency_table_of_tree_distance(tree, include_same=False)`](../../../tree/TreeDistanceFrequency.py#L7) | 頻度・`table`・`of`・木・距離を求める。 | `tree`: 木の隣接list<br>`include_same`: `include`・`same`を有効にするか。省略時: `False` | list[number] — 頂点または位置ごとの距離 / 答え（数値または入力要素型） |
-
-## Module aliases
-
-- [`FrequencyTableOfTreeDistance`](../../../tree/TreeDistanceFrequency.py#L57) = `frequency_table_of_tree_distance`

@@ -39,11 +39,6 @@ from library_codex.data_structure.LiChaoTree import LiChaoTree, DynamicLiChaoTre
 | [`add_segment(a, b, left, right)`](../../../data_structure/LiChaoTree.py#L87) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
 | [`query_index(i)`](../../../data_structure/LiChaoTree.py#L94) | method | `index`を取得する。 | `i`: 0-indexedの位置 | 数値または入力要素型 `res * self.sign` |
 | [`query(x)`](../../../data_structure/LiChaoTree.py#L108) | method | 指定した対象への問い合わせ結果を返す。 | `x`: 値・座標・問い合わせ対象 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`add`](../../../data_structure/LiChaoTree.py#L65) | alias | `add_line` の別名。 | 同じ | 同じ |
-| [`update`](../../../data_structure/LiChaoTree.py#L66) | alias | `add_line` の別名。 | 同じ | 同じ |
-| [`update_segment`](../../../data_structure/LiChaoTree.py#L92) | alias | `add_segment` の別名。 | 同じ | 同じ |
-| [`get`](../../../data_structure/LiChaoTree.py#L113) | alias | `query` の別名。 | 同じ | 同じ |
-| [`get_min`](../../../data_structure/LiChaoTree.py#L114) | alias | `query` の別名。 | 同じ | 同じ |
 
 ## Class `DynamicLiChaoTree`
 
@@ -58,8 +53,3 @@ from library_codex.data_structure.LiChaoTree import LiChaoTree, DynamicLiChaoTre
 | [`add_line(a, b)`](../../../data_structure/LiChaoTree.py#L159) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` |
 | [`add_segment(a, b, ql, qr)`](../../../data_structure/LiChaoTree.py#L166) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `None` |
 | [`query(x)`](../../../data_structure/LiChaoTree.py#L187) | method | 指定した対象への問い合わせ結果を返す。 | `x`: 値・座標・問い合わせ対象 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`add`](../../../data_structure/LiChaoTree.py#L163) | alias | `add_line` の別名。 | 同じ | 同じ |
-| [`update`](../../../data_structure/LiChaoTree.py#L164) | alias | `add_line` の別名。 | 同じ | 同じ |
-| [`update_segment`](../../../data_structure/LiChaoTree.py#L185) | alias | `add_segment` の別名。 | 同じ | 同じ |
-| [`get`](../../../data_structure/LiChaoTree.py#L211) | alias | `query` の別名。 | 同じ | 同じ |
-| [`get_min`](../../../data_structure/LiChaoTree.py#L212) | alias | `query` の別名。 | 同じ | 同じ |

@@ -31,8 +31,6 @@ from library_codex.math.ArbitraryBinomial import LargePrimeFactorial, PrimePower
 | --- | --- | --- | --- | --- |
 | [`factorial(n)`](../../../math/ArbitraryBinomial.py#L19) | method | n!を指定した法で計算する。 | `n`: 要素数・頂点数・次数 | int `0 if n >= mod else 0` / `cached` / 計算結果（数値または入力要素型） |
 | [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L49) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 計算結果（数値または入力要素型） |
-| [`fact`](../../../math/ArbitraryBinomial.py#L47) | alias | `factorial` の別名。 | 同じ | 同じ |
-| [`C`](../../../math/ArbitraryBinomial.py#L64) | alias | `binomial` の別名。 | 同じ | 同じ |
 
 ## Class `PrimePowerBinomial`
 
@@ -45,7 +43,6 @@ from library_codex.math.ArbitraryBinomial import LargePrimeFactorial, PrimePower
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L99) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod * pow(prime, expon...` |
-| [`C`](../../../math/ArbitraryBinomial.py#L119) | alias | `binomial` の別名。 | 同じ | 同じ |
 
 ## Class `ArbitraryModBinomial`
 
@@ -58,11 +55,3 @@ from library_codex.math.ArbitraryBinomial import LargePrimeFactorial, PrimePower
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`binomial(n, k)`](../../../math/ArbitraryBinomial.py#L140) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / `chinese_remainder(residues, self.moduli)[0]` |
-| [`C`](../../../math/ArbitraryBinomial.py#L147) | alias | `binomial` の別名。 | 同じ | 同じ |
-| [`nCr`](../../../math/ArbitraryBinomial.py#L148) | alias | `binomial` の別名。 | 同じ | 同じ |
-
-## Module aliases
-
-- [`prime_power_binomial`](../../../math/ArbitraryBinomial.py#L151) = `PrimePowerBinomial`
-- [`arbitrary_mod_binomial`](../../../math/ArbitraryBinomial.py#L152) = `ArbitraryModBinomial`
-- [`FactLarge`](../../../math/ArbitraryBinomial.py#L153) = `LargePrimeFactorial`

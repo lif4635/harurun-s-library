@@ -50,10 +50,3 @@ from library_codex.graph.ShortestPath import (
 | [`connected_components(graph)`](../../../graph/ShortestPath.py#L177) | `connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(連結成分番号（数値または入力要素型）, `groups`（list）) |
 | [`bipartite_coloring(graph)`](../../../graph/ShortestPath.py#L199) | `bipartite`・彩色を求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` |
 | [`dfs_forest(graph, root=0, postorder=False)`](../../../graph/ShortestPath.py#L219) | `dfs`・forestを求める。 | `graph`: 隣接listまたはグラフobject<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`postorder`: `postorder`として使う入力。省略時: `False` | tuple(list `[]`, list `[]`) / tuple(頂点・要素を処理順に並べたlist[int], 親情報（数値または入力要素型）) |
-
-## Module aliases
-
-- [`dijkstra_restore`](../../../graph/ShortestPath.py#L252) = `dijkstra`
-- [`bfs_restore`](../../../graph/ShortestPath.py#L253) = `bfs`
-- [`bfs01`](../../../graph/ShortestPath.py#L254) = `zero_one_bfs`
-- [`floyd_warshall`](../../../graph/ShortestPath.py#L255) = `warshall_floyd`
