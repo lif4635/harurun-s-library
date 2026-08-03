@@ -351,12 +351,6 @@ MODULE_RETURN_SEMANTIC = {
 }
 
 CLASS_RETURN_SEMANTIC = {
-    "data_structure/DynamicWaveletMatrix.py": {
-        "OfflineDynamicWaveletMatrix": {
-            "__str__": "str — 現在の列をlist形式で表した文字列",
-            "__repr__": "str — 型名と現在の列を含むdebugger向け文字列",
-        },
-    },
     "math/BinomialQueries.py": {
         "BinomialPrefix": {
             "move": "int — 移動後のsum(C(n,k), 0<=k<=m)",
@@ -365,6 +359,8 @@ CLASS_RETURN_SEMANTIC = {
     },
     "data_structure/DynamicWaveletMatrix.py": {
         "OfflineDynamicWaveletMatrix": {
+            "__str__": "str — 現在の列をlist形式で表した文字列",
+            "__repr__": "str — 型名と現在の列を含むdebugger向け文字列",
             "range_sum": "登録したqueryのID（int）",
             "kth_smallest": "登録したqueryのID（int）",
             "kth_largest": "登録したqueryのID（int）",

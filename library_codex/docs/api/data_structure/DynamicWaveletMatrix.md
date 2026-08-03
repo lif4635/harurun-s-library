@@ -86,8 +86,8 @@ from library_codex.data_structure.DynamicWaveletMatrix import dynamic_range_min_
 | [`access(index: Any) -> int`](../../../data_structure/DynamicWaveletMatrix.py#L2198) | method | 指定位置の元の値を取得する。 | `index`: 0-indexedの位置 | 指定位置の元の値 |
 | [`__iter__() -> Iterator[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2204) | method | iter(obj)・for 文。 | なし | iterator |
 | [`tolist() -> list[int]`](../../../data_structure/DynamicWaveletMatrix.py#L2207) | method | `tolist`を求める。 | なし | 現在の列をcopyしたlist |
-| [`__str__() -> str`](../../../data_structure/DynamicWaveletMatrix.py#L2211) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | `str` / str instance |
-| [`__repr__() -> str`](../../../data_structure/DynamicWaveletMatrix.py#L2214) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `str` / 数値または入力要素型 `'OfflineDynamicWaveletMatrix(%r)' % self.tolist()` |
+| [`__str__() -> str`](../../../data_structure/DynamicWaveletMatrix.py#L2211) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str — 現在の列をlist形式で表した文字列 |
+| [`__repr__() -> str`](../../../data_structure/DynamicWaveletMatrix.py#L2214) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | str — 型名と現在の列を含むdebugger向け文字列 |
 | [`set(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2217) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`add(index: Any, delta: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2243) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `index`: 0-indexedの位置<br>`delta`: 加算差分 | `None` |
 | [`__setitem__(index: Any, value: Any) -> None`](../../../data_structure/DynamicWaveletMatrix.py#L2250) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
