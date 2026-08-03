@@ -1,13 +1,13 @@
 import random
 from math import gcd
 
-from library_codex.math.FastPower import FastPower
-from library_codex.math.GaussianInteger import GaussianInteger, gaussian_gcd
-from library_codex.math.IntegerDivision import ceil_div, floor_div, strict_ceil_div, strict_floor_div
-from library_codex.math.QuadraticEquationMod import quadratic_equation_mod
-from library_codex.math.RationalNumberSearch import RationalNumberSearch
-from library_codex.math.TetrationMod import tetration_mod
-from library_codex.math.TwoSquareRepresentations import two_square_representations
+from library_codex.algebra.FastPower import FastPower
+from library_codex.number_theory.GaussianInteger import GaussianInteger, gaussian_gcd
+from library_codex.number_theory.IntegerDivision import ceil_div, floor_div, strict_ceil_div, strict_floor_div
+from library_codex.number_theory.QuadraticEquationMod import quadratic_equation_mod
+from library_codex.rational.RationalNumberSearch import RationalNumberSearch
+from library_codex.number_theory.TetrationMod import tetration_mod
+from library_codex.number_theory.TwoSquareRepresentations import two_square_representations
 
 
 def _tower(base, height):

@@ -7,11 +7,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.AdvancedConnectivity import (  # noqa: E402
+from graph_connectivity.AdvancedConnectivity import (  # noqa: E402
     ThreeEdgeConnectedComponents,
     incremental_scc_offline,
 )
-from graph.StronglyConnectedComponents import (  # noqa: E402
+from graph_connectivity.StronglyConnectedComponents import (  # noqa: E402
     StronglyConnectedComponents,
 )
 

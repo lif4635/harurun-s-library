@@ -6,7 +6,7 @@ import pytest
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.math.ModularArithmetic import (
+from library_codex.number_theory.ModularArithmetic import (
     discrete_logarithm,
     modular_square_root,
 )

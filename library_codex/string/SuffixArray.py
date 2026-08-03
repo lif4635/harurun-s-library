@@ -1,4 +1,4 @@
-from library_codex.data_structure.StaticRMQ import StaticRMQ
+from library_codex.range_query.StaticRMQ import StaticRMQ
 
 
 def _sa_naive(sequence):

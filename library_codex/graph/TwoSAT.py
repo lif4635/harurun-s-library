@@ -1,6 +1,6 @@
 """2-SATの充足可能性を判定し、真偽割当を返す。"""
 
-from graph.StronglyConnectedComponents import StronglyConnectedComponents
+from graph_connectivity.StronglyConnectedComponents import StronglyConnectedComponents
 
 class TwoSAT:
     """2-SAT with the node convention ``2*v=false, 2*v+1=true``."""

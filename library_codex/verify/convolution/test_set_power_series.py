@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.convolution.SetFunction import (
+from library_codex.bitwise_convolution.SetFunction import (
     SubsetConvolution,
     set_series_composition,
     set_series_exponential,

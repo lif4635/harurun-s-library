@@ -1,29 +1,29 @@
 import math
 import random
 
-from library_codex.convolution.FormalPowerSeries import (
+from library_codex.fps.FormalPowerSeries import (
     fps_exponential,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
     fps_power,
 )
-from library_codex.convolution.BellNumbers import bell_numbers
-from library_codex.convolution.BernoulliNumbers import bernoulli_numbers
-from library_codex.convolution.CircularSeries import circular_series
-from library_codex.convolution.DerangementNumbers import derangement_numbers
-from library_codex.convolution.EulerTransform import euler_transform
-from library_codex.convolution.PartitionNumbers import partition_numbers
-from library_codex.convolution.PascalTransform import pascal_transform
-from library_codex.convolution.PolynomialMobiusTransform import polynomial_mobius_transform
-from library_codex.convolution.SparseFormalPowerSeries import (
+from library_codex.combinatorial_series.BellNumbers import bell_numbers
+from library_codex.combinatorial_series.BernoulliNumbers import bernoulli_numbers
+from library_codex.fps.CircularSeries import circular_series
+from library_codex.combinatorial_series.DerangementNumbers import derangement_numbers
+from library_codex.fps.EulerTransform import euler_transform
+from library_codex.combinatorial_series.PartitionNumbers import partition_numbers
+from library_codex.combinatorial_series.PascalTransform import pascal_transform
+from library_codex.combinatorial_series.PolynomialMobiusTransform import polynomial_mobius_transform
+from library_codex.fps.SparseFormalPowerSeries import (
     sparse_divide,
     sparse_exponential,
     sparse_inverse,
     sparse_logarithm,
     sparse_power,
 )
-from library_codex.convolution.StirlingNumbers import (
+from library_codex.combinatorial_series.StirlingNumbers import (
     stirling_first_column,
     stirling_first_row,
     stirling_second_column,

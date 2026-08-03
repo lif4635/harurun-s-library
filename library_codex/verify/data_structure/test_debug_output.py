@@ -1,25 +1,25 @@
-from library_codex.data_structure.BinaryTrie import BinaryTrie
-from library_codex.data_structure.DualSegmentTree import DualSegmentTree
-from library_codex.data_structure.DynamicWaveletMatrix import (
+from library_codex.ordered_set.BinaryTrie import BinaryTrie
+from library_codex.segment_tree.DualSegmentTree import DualSegmentTree
+from library_codex.range_query.DynamicWaveletMatrix import (
     CompressedDynamicWaveletMatrix,
     OfflineDynamicWaveletMatrix,
 )
-from library_codex.data_structure.DynamicSegmentTree import DynamicSegmentTree
-from library_codex.data_structure.ErasableHeap import ErasableHeap
-from library_codex.data_structure.FastSet import FastSet
-from library_codex.data_structure.FenwickTree import FenwickTree
-from library_codex.data_structure.LazySegmentTree import LazySegmentTree
-from library_codex.data_structure.ImplicitTreap import ImplicitTreap
-from library_codex.data_structure.OrderedMap import OrderedMap
-from library_codex.data_structure.PersistentArray import PersistentArray
-from library_codex.data_structure.PersistentSegmentTree import PersistentSegmentTree
-from library_codex.data_structure.SegmentTree import SegmentTree
-from library_codex.data_structure.SegmentTree2D import SegmentTree2D
-from library_codex.data_structure.SegmentTreeBeats import SegmentTreeBeats
-from library_codex.data_structure.SWAGDeque import SWAGDeque
-from library_codex.data_structure.SWAGQueue import SWAGQueue
-from library_codex.data_structure.TreapSet import TreapSet
-from library_codex.data_structure.UnionFind import UnionFind
+from library_codex.segment_tree.DynamicSegmentTree import DynamicSegmentTree
+from library_codex.sequence_structure.ErasableHeap import ErasableHeap
+from library_codex.ordered_set.FastSet import FastSet
+from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.segment_tree.LazySegmentTree import LazySegmentTree
+from library_codex.sequence_structure.ImplicitTreap import ImplicitTreap
+from library_codex.ordered_set.OrderedMap import OrderedMap
+from library_codex.sequence_structure.PersistentArray import PersistentArray
+from library_codex.segment_tree.PersistentSegmentTree import PersistentSegmentTree
+from library_codex.segment_tree.SegmentTree import SegmentTree
+from library_codex.spatial_structure.SegmentTree2D import SegmentTree2D
+from library_codex.segment_tree.SegmentTreeBeats import SegmentTreeBeats
+from library_codex.sequence_structure.SWAGDeque import SWAGDeque
+from library_codex.sequence_structure.SWAGQueue import SWAGQueue
+from library_codex.ordered_set.TreapSet import TreapSet
+from library_codex.union_find.UnionFind import UnionFind
 
 
 def test_dense_tree_debug_output_uses_logical_values():

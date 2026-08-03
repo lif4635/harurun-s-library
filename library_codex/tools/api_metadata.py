@@ -25,7 +25,7 @@ MODULE_CAPABILITIES = {
         "辺数を固定した単純・連結・二部graph、Erdős–Rényi graph、単閉路graphを生成できる。",
         "生成結果を隣接list・隣接行列・競プロ入力用文字列へ変換できる。",
     ),
-    "convolution/FormalPowerSeries.py": (
+    "fps/FormalPowerSeries.py": (
         "昇冪係数列で形式的冪級数の加減乗除・微分・積分を行える。",
         "逆数・対数・指数・冪・平方根を指定した次数まで計算できる。",
         "法998244353ではroot表と逆変換係数を再利用するradix-4 NTT高速経路が自動で使われる。",
@@ -36,54 +36,54 @@ MODULE_CAPABILITIES = {
         "順変換・逆変換を明示的に実行し、変換済み配列を再利用できる。",
         "法と原始根を指定して、標準設定以外のNTTも構築できる。",
     ),
-    "data_structure/FenwickTree.py": (
+    "fenwick_tree/FenwickTree.py": (
         "1次元列の一点加算とprefix和・半開区間和を O(log N) で処理できる。",
         "区間加算・区間和、疎な添字空間、2次元矩形和の各Fenwick構造を選べる。",
         "累積和が目標値以上になる最初の位置を O(log N) で探索できる。",
     ),
-    "data_structure/SegmentTree.py": (
+    "segment_tree/SegmentTree.py": (
         "任意の結合的演算で一点更新・半開区間集約を O(log N) で処理できる。",
         "add(index, value)で一点をop(value, current)へ更新でき、非可換演算でも順序が固定される。",
         "文字列結合や行列積のような非可換演算でも、左から右の順序を保って集約できる。",
         "prefixの集約値に対する単調な条件を使い、条件が崩れる最初の境界を O(log N) で探せる。",
     ),
-    "data_structure/LazySegmentTree.py": (
+    "segment_tree/LazySegmentTree.py": (
         "半開区間全体への作用と、半開区間の集約値取得をどちらも O(log N) で処理できる。",
         "add(index, value)で遅延作用を反映してから一点をop(value, current)へ更新できる。",
         "区間加算・区間和、区間代入・区間最小などを、mappingとcompositionを指定して構成できる。",
         "一点更新・一点取得に加え、max_right・min_leftによる集約値の境界探索も使える。",
     ),
-    "data_structure/DualSegmentTree.py": (
+    "segment_tree/DualSegmentTree.py": (
         "半開区間全体へ作用を適用し、指定した一点の現在値を O(log N) で取得できる。",
         "区間集約を保持しないため、区間更新と一点取得だけが必要な場合にLazy Segment Treeより単純で軽い。",
         "複数の作用はcompositionで順序を保って合成できる。",
     ),
-    "data_structure/MaxInterval.py": (
+    "segment_tree/MaxInterval.py": (
         "数列の区間和、最大部分配列和、最小部分配列和を1つのマージ可能な値として保持できる。",
         "max_interval_segment_treeで数列を構築すると、一点更新後の全体の最大・最小部分配列和を O(log N) で取得できる。",
         "部分区間をSegmentTree.prodで集約し、その区間内の最大部分配列和をmaximumから取得できる。",
     ),
-    "data_structure/DynamicSegmentTree.py": (
+    "segment_tree/DynamicSegmentTree.py": (
         "巨大な整数座標区間で一点更新と半開区間集約を O(log W) で処理できる。Wは座標幅。",
         "add(index, value)で一点をop(value, current)へ更新でき、更新経路を1回だけ辿る。",
         "更新で通った経路だけnodeを確保するため、実際に触る座標が少ない問題でmemoryを節約できる。",
         "未設定の位置はidentityとして扱い、座標圧縮なしで疎な値を保持できる。",
     ),
-    "data_structure/DynamicLazySegmentTree.py": (
+    "segment_tree/DynamicLazySegmentTree.py": (
         "巨大な整数座標区間で区間作用と区間集約を O(log W) で処理できる。Wは座標幅。",
         "必要になったnodeだけを生成し、疎な座標空間へ区間加算・区間和などを適用できる。",
         "通常のLazy Segment Treeと同じop・mapping・compositionの形で構成できる。",
     ),
-    "data_structure/PersistentLazySegmentTree.py": (
+    "segment_tree/PersistentLazySegmentTree.py": (
         "巨大な整数座標区間への区間作用ごとに新しいversionを作り、過去versionを壊さず保持できる。",
         "任意versionから枝分かれした更新を作り、指定versionの半開区間集約を取得できる。",
         "変更経路だけをcopyするため、配列全体をversionごとに複製せず履歴を保存できる。",
     ),
-    "data_structure/UnionFind.py": (
+    "union_find/UnionFind.py": (
         "要素の併合、同一連結成分判定、代表元と成分sizeの取得をほぼ定数時間で行える。",
         "連結成分数を保ちながら、辺追加だけの連結性問題を処理できる。",
     ),
-    "data_structure/WaveletMatrix.py": (
+    "range_query/WaveletMatrix.py": (
         "静的な数列に対するk番目、順位、頻度、前後の値を対数時間で取得できる。",
         "位置の半開区間と値域を同時に指定した問い合わせを処理できる。",
         "圧縮版を使えば大きな整数座標を値の種類数に応じたbit幅で保持できる。",
@@ -98,11 +98,11 @@ MODULE_CAPABILITIES = {
         "最短距離だけでなく直前頂点も取得し、始点からの経路を復元できる。",
         "全点対最短路や負閉路を含む問題にも対応できる。",
     ),
-    "graph/MaxFlow.py": (
+    "graph_flow/MaxFlow.py": (
         "容量付き有向グラフの最大流を計算できる。",
         "辺ごとの流量と残余容量を確認し、最小カット側の頂点集合を取得できる。",
     ),
-    "math/Matrix.py": (
+    "linear_algebra/Matrix.py": (
         "list of listsで表した行列の加減算・乗算・累乗を行える。",
         "行列式、逆行列、線形方程式を法上または通常の数値上で計算できる。",
     ),
@@ -148,16 +148,16 @@ MODULE_CAPABILITIES.update({
         "2次元ベクトルを正のx軸から反時計回りの偏角順に並べられる。",
         "浮動小数点数を使わないため、整数座標なら誤差なく比較できる。",
     ),
-    "graph/GridBFS.py": (
+    "shortest_path/GridBFS.py": (
         "障害物付きgridで開始cellから全cellへの最短移動回数を求められる。",
         "2点間の最短移動回数だけを取得でき、到達不能は-1で判別できる。",
         "4近傍以外の移動規則や障害物の値も指定できる。",
     ),
-    "math/GrayCode.py": (
+    "combinatorics/GrayCode.py": (
         "整数とGray codeを相互変換できる。",
         "指定したstartからgoalまで全bitmaskを一度ずつ通るHamilton pathを生成できる。",
     ),
-    "math/BinomialQueries.py": (
+    "combinatorics/BinomialQueries.py": (
         "複数のsum(C(n,k), 0<=k<=m)をquery順に一括計算できる。",
         "BinomialPrefixで現在の(n,m)を前後へ動かし、隣接移動ごとにO(1)でprefix和を更新できる。",
         "素数法で巨大なnに対する第1種・第2種Stirling数をqueryできる。",
@@ -453,7 +453,7 @@ COMPLEXITY_BY_MODULE = {
         "bucket_sort_permutation": "O(N+maximum)",
         "bucket_sort": "O(N+maximum)",
     },
-    "algorithm/IntegerPartitions.py": {
+    "combinatorics/IntegerPartitions.py": {
         "integer_partitions": "O(total output size)",
         "integer_partitions_up_to": "O(total output size)",
     },
@@ -464,7 +464,7 @@ COMPLEXITY_BY_MODULE = {
         "integer_nth_root": "O(log number) bit operations",
         "decimal_digit_count": "O(number of digits)",
     },
-    "algorithm/ErdosGinzburgZiv.py": {
+    "combinatorics/ErdosGinzburgZiv.py": {
         "erdos_ginzburg_ziv_indices": "O(order^2) bit operations",
     },
     "algorithm/ModularProgression.py": {
@@ -535,7 +535,7 @@ COMPLEXITY_BY_MODULE = {
     "geometry/ArgumentSort.py": {
         "argument_sort": "O(N log N)",
     },
-    "graph/GridBFS.py": {
+    "shortest_path/GridBFS.py": {
         "grid_bfs": "O(HW)",
         "grid_shortest_path": "O(HW)",
     },

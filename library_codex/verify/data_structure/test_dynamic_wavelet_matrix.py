@@ -3,7 +3,7 @@ from __future__ import annotations
 import random
 import unittest
 
-from library_codex.data_structure.DynamicWaveletMatrix import (
+from library_codex.range_query.DynamicWaveletMatrix import (
     CompressedDynamicWaveletMatrix,
     DynamicWaveletMatrix,
     OfflineDynamicWaveletMatrix,

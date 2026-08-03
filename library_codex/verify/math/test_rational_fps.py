@@ -1,6 +1,6 @@
 from fractions import Fraction
 
-from library_codex.math.RationalFormalPowerSeries import (
+from library_codex.rational.RationalFormalPowerSeries import (
     RationalFormalPowerSeries as FPS,
 )
 

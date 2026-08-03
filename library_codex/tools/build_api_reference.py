@@ -21,6 +21,7 @@ from api_metadata import (
     PURPOSE_BY_NAME,
     RETURN_DETAILS,
 )
+from category_config import CATEGORY_DESCRIPTION, SOURCE_CATEGORIES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,22 +33,6 @@ COMPATIBILITY_MODULES = {
     "algorithm/MiscAlgorithms.py",
 }
 
-CATEGORY_DESCRIPTION = {
-    "algorithm": "汎用アルゴリズム・列・順列",
-    "convolution": "畳み込み・多項式・形式的冪級数",
-    "data_structure": "データ構造",
-    "game": "組合せゲーム",
-    "geometry": "幾何・2次元点",
-    "graph": "グラフアルゴリズム",
-    "heuristic": "ヒューリスティック探索",
-    "math": "数学・線形代数・数論",
-    "optimization": "最適化・DP高速化",
-    "prime": "素数・素因数分解",
-    "random": "乱数・ランダムグラフ",
-    "string": "文字列アルゴリズム",
-    "tree": "木アルゴリズム・動的木",
-}
-
 # Modules added after the overview table in README was written.  The other
 # overviews and complexity notes are read directly from that table.
 MODULE_OVERRIDES = {
@@ -57,43 +42,43 @@ MODULE_OVERRIDES = {
     "algorithm/SequenceOrdering.py": ("点更新される列の辞書順比較・版圧縮", "更新・比較 O(log N)"),
     "convolution/AdvancedSeries.py": ("指数合成・等比点評価など高度なFPS変換", "主に高速多項式演算依存"),
     "convolution/FPSWrappers.py": ("有理FPSと双対FPSの演算ラッパー", "各FPS演算依存"),
-    "convolution/IncreasingSequences.py": ("単調増加列に関する母関数計算", "高速多項式演算依存"),
-    "convolution/MultivariateFPS.py": ("多変数形式的冪級数の逆元・指数・対数・冪", "O(N log N) 系"),
-    "convolution/OnlineFormalPowerSeries.py": ("係数を逐次確定するオンラインFPS演算", "償却 O(N log N) 系"),
-    "convolution/PRecursive.py": ("P再帰列の推定・列挙・巨大添字項", "多項式行列積依存"),
-    "convolution/PolynomialFactorization.py": ("有限体上の多項式GCD・因数分解", "高速Euclid / Cantor--Zassenhaus"),
-    "convolution/StirlingMatrix.py": ("Stirling変換を表す行列作用", "高速多項式演算依存"),
+    "fps/IncreasingSequences.py": ("単調増加列に関する母関数計算", "高速多項式演算依存"),
+    "fps/MultivariateFPS.py": ("多変数形式的冪級数の逆元・指数・対数・冪", "O(N log N) 系"),
+    "fps/OnlineFormalPowerSeries.py": ("係数を逐次確定するオンラインFPS演算", "償却 O(N log N) 系"),
+    "combinatorial_series/PRecursive.py": ("P再帰列の推定・列挙・巨大添字項", "多項式行列積依存"),
+    "polynomial/PolynomialFactorization.py": ("有限体上の多項式GCD・因数分解", "高速Euclid / Cantor--Zassenhaus"),
+    "combinatorial_series/StirlingMatrix.py": ("Stirling変換を表す行列作用", "高速多項式演算依存"),
     "data_structure/AdvancedOrdered.py": ("高度な順序集合・区間集合・永続順序構造", "各操作 O(log N) 系"),
     "data_structure/AdvancedRangeStructures.py": ("Top-K区間集約・KD木・sortable sequence", "各構造の計算量"),
-    "data_structure/DynamicWaveletMatrix.py": ("完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版", "online操作 O(B log N)、offline全処理 O((N+Q) log V log N)"),
+    "range_query/DynamicWaveletMatrix.py": ("完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版", "online操作 O(B log N)、offline全処理 O((N+Q) log V log N)"),
     "data_structure/IntRangeTree.py": ("整数専用range add/assign/affineとsum/min/maxの高速lazy tree", "構築 O(N)、各操作 O(log N)"),
-    "data_structure/SegmentTree.py": ("一点更新・区間集約・境界探索を行う汎用Segment Tree", "構築 O(N)、各操作 O(log N)"),
-    "data_structure/LazySegmentTree.py": ("区間作用と区間集約を行うLazy Segment Tree", "構築 O(N)、各操作 O(log N)"),
-    "data_structure/DualSegmentTree.py": ("区間作用と一点取得に絞ったDual Segment Tree", "構築 O(N)、各操作 O(log N)"),
-    "data_structure/MaxInterval.py": ("一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid", "構築 O(N)、更新・query O(log N)"),
-    "data_structure/DynamicSegmentTree.py": ("巨大な疎な座標向けの一点更新Segment Tree", "各操作 O(log W)、memory O(K log W)"),
-    "data_structure/DynamicLazySegmentTree.py": ("巨大な疎な座標向けのLazy Segment Tree", "各操作 O(log W)、memoryは生成node数に比例"),
-    "data_structure/PersistentLazySegmentTree.py": ("巨大な疎な座標で履歴を保持するPersistent Lazy Segment Tree", "更新 O(log W)追加memory、query O(log W)"),
+    "segment_tree/SegmentTree.py": ("一点更新・区間集約・境界探索を行う汎用Segment Tree", "構築 O(N)、各操作 O(log N)"),
+    "segment_tree/LazySegmentTree.py": ("区間作用と区間集約を行うLazy Segment Tree", "構築 O(N)、各操作 O(log N)"),
+    "segment_tree/DualSegmentTree.py": ("区間作用と一点取得に絞ったDual Segment Tree", "構築 O(N)、各操作 O(log N)"),
+    "segment_tree/MaxInterval.py": ("一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid", "構築 O(N)、更新・query O(log N)"),
+    "segment_tree/DynamicSegmentTree.py": ("巨大な疎な座標向けの一点更新Segment Tree", "各操作 O(log W)、memory O(K log W)"),
+    "segment_tree/DynamicLazySegmentTree.py": ("巨大な疎な座標向けのLazy Segment Tree", "各操作 O(log W)、memoryは生成node数に比例"),
+    "segment_tree/PersistentLazySegmentTree.py": ("巨大な疎な座標で履歴を保持するPersistent Lazy Segment Tree", "更新 O(log W)追加memory、query O(log W)"),
     "data_structure/LinearOptimization.py": ("直線集合とrange linear add/range min", "各操作 O(log^2 N) 系"),
-    "data_structure/RangeLIS.py": ("Seaweed monoidによる静的区間LIS", "構築 O(N^2 log N) 系、query O(log N)"),
+    "segment_tree/RangeLIS.py": ("Seaweed monoidによる静的区間LIS", "構築 O(N^2 log N) 系、query O(log N)"),
     "game/PartizanGame.py": ("partizan gameのSurreal/NumStar値と反復solver", "状態・遷移数依存"),
     "geometry/ArgumentSort.py": ("2次元ベクトルの偏角sort", "O(N log N)"),
     "geometry/ConvexHull.py": ("Andrewの単調鎖法による2次元凸包", "O(N log N)"),
     "geometry/Orientation.py": ("2次元点の外積と向き判定", "O(1)"),
     "geometry/SegmentIntersection.py": ("2次元線分の交差判定", "O(1)"),
-    "graph/AdvancedFlow.py": ("高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット", "最大流依存 / O(V^3)"),
+    "graph_flow/AdvancedFlow.py": ("高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット", "最大流依存 / O(V^3)"),
     "graph/CSRGraph.py": ("CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend", "構築 O(V+E)、各algorithmの標準計算量"),
-    "graph/GridBFS.py": ("障害物付きgridのBFS最短距離", "O(HW)"),
-    "graph/GeneralWeightedMatching.py": ("一般グラフの最大重みmatching", "O(V^3)"),
-    "math/ArbitraryBinomial.py": ("任意合成数法・巨大素数法の二項係数", "素因数分解・sqrt block依存"),
-    "math/BinomialQueries.py": ("二項係数prefix和と巨大添字Stirlingの一括query", "Mo法 / 補間依存"),
-    "math/Elementary.py": ("gcd・lcm・整数根など初等数学関数", "各標準計算量"),
-    "math/FloorPolynomialSum.py": ("floorを含む多項式和", "Euclid pathと次数依存"),
-    "math/FractionSearch.py": ("Stern--Brocot/Farey型の有理数探索", "探索深さ依存"),
-    "math/MultiplicativeFunctions.py": ("乗法的関数・Dirichlet積・Min_25型prefix和", "商集合・素数列挙依存"),
-    "math/Nimber.py": ("Conway nimber積・逆元・基底変換", "固定語長 O(1)"),
-    "math/RationalFormalPowerSeries.py": ("有理形式的冪級数の係数・prefix和", "Bostan--Mori依存"),
-    "math/Strassen.py": ("任意長方形行列の反復Strassen積", "O(N^log2(7))"),
+    "shortest_path/GridBFS.py": ("障害物付きgridのBFS最短距離", "O(HW)"),
+    "graph_matching/GeneralWeightedMatching.py": ("一般グラフの最大重みmatching", "O(V^3)"),
+    "combinatorics/ArbitraryBinomial.py": ("任意合成数法・巨大素数法の二項係数", "素因数分解・sqrt block依存"),
+    "combinatorics/BinomialQueries.py": ("二項係数prefix和と巨大添字Stirlingの一括query", "Mo法 / 補間依存"),
+    "number_theory/Elementary.py": ("gcd・lcm・整数根など初等数学関数", "各標準計算量"),
+    "number_theory/FloorPolynomialSum.py": ("floorを含む多項式和", "Euclid pathと次数依存"),
+    "rational/FractionSearch.py": ("Stern--Brocot/Farey型の有理数探索", "探索深さ依存"),
+    "number_theory/MultiplicativeFunctions.py": ("乗法的関数・Dirichlet積・Min_25型prefix和", "商集合・素数列挙依存"),
+    "game/Nimber.py": ("Conway nimber積・逆元・基底変換", "固定語長 O(1)"),
+    "rational/RationalFormalPowerSeries.py": ("有理形式的冪級数の係数・prefix和", "Bostan--Mori依存"),
+    "linear_algebra/Strassen.py": ("任意長方形行列の反復Strassen積", "O(N^log2(7))"),
     "prime/Factorization.py": (
         "64bit整数の素数判定・素因数分解・約数列挙",
         "素数判定 O(log N)、素因数分解は期待 O(N^(1/4) log N)",
@@ -104,7 +89,7 @@ MODULE_OVERRIDES = {
 }
 
 CLASS_ORDER_OVERRIDES = {
-    "data_structure/DynamicWaveletMatrix.py": (
+    "range_query/DynamicWaveletMatrix.py": (
         "DynamicWaveletMatrix",
         "CompressedDynamicWaveletMatrix",
         "OfflineDynamicWaveletMatrix",
@@ -132,7 +117,7 @@ MODULE_ARGUMENT_DESCRIPTION = {
     "geometry/ArgumentSort.py": {
         "points": "原点からの2次元ベクトル `(x, y)` のiterable",
     },
-    "graph/GridBFS.py": {
+    "shortest_path/GridBFS.py": {
         "grid": "行の長さが等しい2次元sequence",
         "start": "開始cell `(row, column)`",
         "goal": "終了cell `(row, column)`",
@@ -150,12 +135,12 @@ MODULE_ARGUMENT_DESCRIPTION = {
         "number": "対象の非負整数",
         "degree": "求める根の正の次数",
     },
-    "math/GrayCode.py": {
+    "combinatorics/GrayCode.py": {
         "bit_count": "bitmaskのbit数",
         "start": "先頭にする0以上2^bit_count未満のbitmask",
         "goal": "末尾にする0以上2^bit_count未満のbitmask",
     },
-    "math/BinomialQueries.py": {
+    "combinatorics/BinomialQueries.py": {
         "combination": "C(n, k)を返すcallable。範囲外のkには0を返すもの",
         "queries": "求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す",
         "n": "二項係数C(n, k)の上側の整数",
@@ -188,13 +173,13 @@ MODULE_ARGUMENT_DESCRIPTION = {
         "left_size": "二部graphの左側頂点数",
         "right_size": "二部graphの右側頂点数",
     },
-    "data_structure/DynamicWaveletMatrix.py": {
+    "range_query/DynamicWaveletMatrix.py": {
         "values": "初期値のiterable",
         "update_candidates": "各位置で使用し得る更新候補 `(index, value)` のiterable",
         "python_int_sum": "Trueなら区間和をPython任意精度整数で保持する",
         "one_indexed": "Trueなら問題文形式の1-indexed入力として解釈する",
     },
-    "data_structure/MaxInterval.py": {
+    "segment_tree/MaxInterval.py": {
         "values": "最大・最小部分配列和を管理する数列",
         "first": "結合する左側区間のMaxInterval",
         "second": "結合する右側区間のMaxInterval",
@@ -204,50 +189,50 @@ MODULE_ARGUMENT_DESCRIPTION = {
 }
 
 MODULE_RETURN_SEMANTIC = {
-    "data_structure/SegmentTree.py": {
+    "segment_tree/SegmentTree.py": {
         "tolist": "list[object] — 現在のindex順の要素列",
     },
-    "data_structure/LazySegmentTree.py": {
+    "segment_tree/LazySegmentTree.py": {
         "tolist": "list[object] — 全ての遅延作用を反映したindex順の要素列",
     },
-    "data_structure/DualSegmentTree.py": {
+    "segment_tree/DualSegmentTree.py": {
         "tolist": "list[object] — 全ての遅延作用を反映したindex順の要素列",
     },
-    "data_structure/DynamicSegmentTree.py": {
+    "segment_tree/DynamicSegmentTree.py": {
         "items": "list[tuple[int, object]] — identityでないleafの(index, value)をindex昇順に並べた列",
     },
-    "data_structure/PersistentSegmentTree.py": {
+    "segment_tree/PersistentSegmentTree.py": {
         "tolist": "list[object] — 指定versionのindex順の要素列",
     },
-    "data_structure/SegmentTree2D.py": {
+    "spatial_structure/SegmentTree2D.py": {
         "tolist": "list[list[object]] — 現在のgridをrow順に複製した2次元list",
     },
-    "data_structure/SegmentTreeBeats.py": {
+    "segment_tree/SegmentTreeBeats.py": {
         "tolist": "list[number] — 全ての遅延更新を反映したindex順の数列",
     },
-    "data_structure/FenwickTree.py": {
+    "fenwick_tree/FenwickTree.py": {
         "tolist": "list[number] — 現在のindex順の要素列",
     },
-    "data_structure/SWAGQueue.py": {
+    "sequence_structure/SWAGQueue.py": {
         "tolist": "list[object] — queueの先頭から末尾までの要素列",
     },
-    "data_structure/SWAGDeque.py": {
+    "sequence_structure/SWAGDeque.py": {
         "tolist": "list[object] — dequeの左端から右端までの要素列",
     },
-    "data_structure/ErasableHeap.py": {
+    "sequence_structure/ErasableHeap.py": {
         "tolist": "list[number] — 削除予約を除いた値を重複込みで昇順に並べた列",
     },
-    "data_structure/FastSet.py": {
+    "ordered_set/FastSet.py": {
         "tolist": "list[int] — 保持する整数を昇順に並べた列",
     },
-    "data_structure/BinaryTrie.py": {
+    "ordered_set/BinaryTrie.py": {
         "tolist": "list[int] — lazy xor反映後の整数を重複込みで昇順に並べた列",
     },
-    "data_structure/ImplicitTreap.py": {
+    "sequence_structure/ImplicitTreap.py": {
         "to_list": "list[object] — 遅延作用と反転を反映した現在の要素列",
         "tolist": "list[object] — 遅延作用と反転を反映した現在の要素列",
     },
-    "data_structure/TreapSet.py": {
+    "ordered_set/TreapSet.py": {
         "tolist": "list[object] — 保持するkeyを昇順に並べた列",
     },
     "geometry/Orientation.py": {
@@ -263,7 +248,7 @@ MODULE_RETURN_SEMANTIC = {
     "geometry/ArgumentSort.py": {
         "argument_sort": "list[tuple[number, number]] — 正のx軸から反時計回りに並べた新しいlist",
     },
-    "graph/GridBFS.py": {
+    "shortest_path/GridBFS.py": {
         "grid_bfs": "list[list[int]] — 各cellへの最短移動回数。到達不能は-1",
         "grid_shortest_path": "int — goalまでの最短移動回数。到達不能は-1",
     },
@@ -274,10 +259,10 @@ MODULE_RETURN_SEMANTIC = {
     "algorithm/IntegerUtilities.py": {
         "integer_nth_root": "int — value^degree <= numberを満たす最大の非負整数value",
     },
-    "math/GrayCode.py": {
+    "combinatorics/GrayCode.py": {
         "gray_code_path": "iterator[int] — startから始まりgoalで終わる、全2^bit_count個のmask",
     },
-    "math/BinomialQueries.py": {
+    "combinatorics/BinomialQueries.py": {
         "multipoint_binomial_prefix_sum": "list[int] — queryと同じ順のsum(C(n,k), 0<=k<=m)",
     },
     "algorithm/SequenceAlgorithms.py": {
@@ -339,7 +324,7 @@ MODULE_RETURN_SEMANTIC = {
         "erdos_renyi": "Graph — 各候補辺を独立にprobabilityで含めた単純graph",
         "unicyclic": "Graph — n頂点n辺でcycleを1個だけ持つ連結単純graph",
     },
-    "data_structure/DynamicWaveletMatrix.py": {
+    "range_query/DynamicWaveletMatrix.py": {
         "count_lt": "上限未満の要素数（int）",
         "count_le": "上限以下の要素数（int）",
         "range_sum": "指定区間の合計値（int）",
@@ -357,7 +342,7 @@ MODULE_RETURN_SEMANTIC = {
         "min_ge": "指定値以上の最小値、なければdefault",
         "tolist": "現在の列をcopyしたlist",
     },
-    "data_structure/MaxInterval.py": {
+    "segment_tree/MaxInterval.py": {
         "merge_max_interval": "MaxInterval — firstの直後にsecondを連結した区間の集約値",
         "max_interval_segment_tree": "SegmentTree — 各nodeがMaxIntervalを持つSegmentTree。prod(...).maximumで最大部分配列和を取得する",
     },
@@ -377,13 +362,13 @@ MODULE_PURPOSE = {
 }
 
 CLASS_RETURN_SEMANTIC = {
-    "math/BinomialQueries.py": {
+    "combinatorics/BinomialQueries.py": {
         "BinomialPrefix": {
             "move": "int — 移動後のsum(C(n,k), 0<=k<=m)",
             "get": "int — 現在位置のsum(C(n,k), 0<=k<=m)",
         },
     },
-    "data_structure/DynamicWaveletMatrix.py": {
+    "range_query/DynamicWaveletMatrix.py": {
         "OfflineDynamicWaveletMatrix": {
             "__str__": "str — 現在の列をlist形式で表した文字列",
             "__repr__": "str — 型名と現在の列を含むdebugger向け文字列",
@@ -393,7 +378,7 @@ CLASS_RETURN_SEMANTIC = {
             "min_count_sum_at_least": "登録したqueryのID（int）",
         },
     },
-    "data_structure/MaxInterval.py": {
+    "segment_tree/MaxInterval.py": {
         "MaxInterval": {
             "single": "MaxInterval — valueだけを含む長さ1の区間集約値",
         },
@@ -1404,7 +1389,10 @@ def read_overviews():
 
 def source_modules():
     result = []
-    for category in sorted(path for path in ROOT.iterdir() if path.is_dir() and path.name not in SKIP_DIRS):
+    for category_name in SOURCE_CATEGORIES:
+        category = ROOT / category_name
+        if not category.is_dir():
+            continue
         for path in sorted(category.glob("*.py")):
             relative = path.relative_to(ROOT).as_posix()
             if (path.name != "__init__.py" and not path.name.startswith("_")
@@ -1660,7 +1648,7 @@ def render_index(categories, totals):
         "## 最小の使い方",
         "",
         "```python",
-        "from library_codex.data_structure.FenwickTree import FenwickTree",
+        "from library_codex.fenwick_tree.FenwickTree import FenwickTree",
         "",
         "fw = FenwickTree([3, 1, 4, 1, 5])",
         "fw.add(2, 10)            # index 2 に10加算。返り値はNone",

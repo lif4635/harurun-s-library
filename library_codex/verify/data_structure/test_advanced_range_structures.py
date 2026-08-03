@@ -1,8 +1,8 @@
 import random
 
-from library_codex.data_structure.LazyKDTree import LazyKDTree
-from library_codex.data_structure.RangeAddCountTopK import RangeAddCountTopK
-from library_codex.data_structure.SortableSegmentTree import SortableSegmentTree
+from library_codex.spatial_structure.LazyKDTree import LazyKDTree
+from library_codex.segment_tree.RangeAddCountTopK import RangeAddCountTopK
+from library_codex.segment_tree.SortableSegmentTree import SortableSegmentTree
 
 
 def test_range_add_count_top_k_against_brute_force():

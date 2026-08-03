@@ -5,7 +5,7 @@
 
 ## Advanced Flow
 
-`graph/AdvancedFlow.py`
+`graph_flow/AdvancedFlow.py`
 
 - global relabel付きFIFO push-relabel最大流
 - `flow(source, sink, flow_limit)` による部分流・反復実行

@@ -11,21 +11,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
-SOURCE_CATEGORIES = {
-    "algorithm",
-    "convolution",
-    "data_structure",
-    "game",
-    "geometry",
-    "graph",
-    "heuristic",
-    "math",
-    "optimization",
-    "prime",
-    "random",
-    "string",
-    "tree",
-}
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from category_config import DATA_STRUCTURE_CATEGORIES, SOURCE_CATEGORIES
 
 
 def normalize_path(value):
@@ -180,7 +169,7 @@ def plan_for(paths):
         tests.add(ROOT / "verify" / "test_changed_checks.py")
     if source_changed:
         tests.add(ROOT / "verify" / "test_module_boundaries.py")
-    if any(key.startswith("data_structure/") for key in direct):
+    if any(key.split("/", 1)[0] in DATA_STRUCTURE_CATEGORIES for key in direct):
         tests.add(ROOT / "verify" / "data_structure" / "test_debug_output.py")
 
     categories_without_tests = {

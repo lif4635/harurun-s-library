@@ -6,7 +6,7 @@ import pytest
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.convolution.SetFunction import (
+from library_codex.bitwise_convolution.SetFunction import (
     SubsetConvolution,
     bitwise_and_convolution,
     bitwise_or_convolution,

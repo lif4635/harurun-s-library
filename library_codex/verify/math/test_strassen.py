@@ -1,6 +1,6 @@
 import random
 
-from library_codex.math.Strassen import strassen_matrix_multiply
+from library_codex.linear_algebra.Strassen import strassen_matrix_multiply
 
 
 def _naive(first, second, mod=None):

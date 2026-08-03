@@ -55,73 +55,73 @@
 | `algorithm/Search.py` | 整数・実数境界二分探索とquickselect | $O(\log X)$ / 期待 $O(N)$ |
 | `algorithm/BitAlgorithms.py` | set bit・部分mask・上位maskの列挙 | set bit数または出力数に線形 |
 | `algorithm/Sorting.py` | 非負整数radix sort・置換・bucket sort | $O(NB/D + 2^D B/D)$ または $O(N+K)$ |
-| `algorithm/IntegerPartitions.py` | 加法的整数分割の列挙 | 出力サイズに線形 |
+| `combinatorics/IntegerPartitions.py` | 加法的整数分割の列挙 | 出力サイズに線形 |
 | `algorithm/IntegerUtilities.py` | 合同類・mod乗・完全平方根・整数n乗根・10進桁数 | 主に $O(\log N)$ |
-| `algorithm/ErdosGinzburgZiv.py` | Erdős–Ginzburg–Ziv定理の部分列構成 | $O(N^2)$ bit演算 |
+| `combinatorics/ErdosGinzburgZiv.py` | Erdős–Ginzburg–Ziv定理の部分列構成 | $O(N^2)$ bit演算 |
 | `algorithm/ModularProgression.py` | mod付き等差数列の通常等差run分割 | $O(\sqrt N + R)$ |
-| `convolution/ArithmeticConvolution.py` | 約数/倍数zeta--Möbius・GCD/LCM畳み込み | $O(N\log\log N)$ |
-| `convolution/FormalPowerSeries.py` | FPS四則演算・inv/log/exp/pow・Taylor shift・一括積 | 主要演算 $O(N\log N)$ |
-| `convolution/LinearRecurrence.py` | Berlekamp--Massey・Bostan--Mori・線形漸化式第n項 | BM $O(ND)$、第n項 $O(M(D)\log n)$ |
-| `convolution/MultipointEvaluation.py` | 積木による多点評価・多項式補間・連続点補間 | $O(M(N)\log N)$、連続点は $O(N)$ |
+| `arithmetic_convolution/ArithmeticConvolution.py` | 約数/倍数zeta--Möbius・GCD/LCM畳み込み | $O(N\log\log N)$ |
+| `fps/FormalPowerSeries.py` | FPS四則演算・inv/log/exp/pow・Taylor shift・一括積 | 主要演算 $O(N\log N)$ |
+| `combinatorial_series/LinearRecurrence.py` | Berlekamp--Massey・Bostan--Mori・線形漸化式第n項 | BM $O(ND)$、第n項 $O(M(D)\log n)$ |
+| `polynomial/MultipointEvaluation.py` | 積木による多点評価・多項式補間・連続点補間 | $O(M(N)\log N)$、連続点は $O(N)$ |
 | `convolution/NTT.py` | 動的radix-4 NTT・NTT-friendly/任意mod/符号付き整数畳み込み | $O(N\log N)$ |
-| `convolution/PolynomialComposition.py` | 高速FPS合成・Brent--Kung fallback・合成逆関数 | $O(N\log^2N)$（NTT法） |
-| `convolution/SetFunction.py` | subset/superset変換・OR/AND/XOR・subset畳み込み/除算・set power series演算 | $O(N\log N)$ / subset $O(N\log^2 N)$ |
-| `data_structure/DisjointSparseTable.py` | 静的列の半群区間積 | 構築 $O(N\log N)$、クエリ $O(1)$ |
-| `data_structure/LiChaoTree.py` | 固定座標のLi Chao Tree（線分・min/max対応） | 直線追加・取得 $O(\log X)$、線分追加 $O(\log^2 X)$ |
-| `data_structure/PersistentArray.py` | 分岐可能な永続配列（非再帰・フラットプール） | 取得・更新 $O(\log N)$ |
-| `data_structure/PersistentSegmentTree.py` | 汎用演算の永続セグメント木（非再帰） | 更新・区間積 $O(\log N)$ |
-| `data_structure/PersistentUnionFind.py` | 完全永続Union Find（非再帰） | 取得・併合 $O(\log^2 N)$ |
-| `data_structure/RadixHeap.py` | 単調非負整数キー用優先度付きキュー | 償却 $O(\log C)$ |
-| `data_structure/RollbackUnionFind.py` | undo・snapshot・成分和対応Union Find | unite/find $O(\log N)$、undo $O(1)$ |
-| `data_structure/SegmentTreeBeats.py` | range chmin/chmax/add/update・range sum/min/max（非再帰） | 構築 $O(N)$、更新はBeatsの償却計算量 |
-| `data_structure/StaticRMQ.py` | 静的range minimum・最左argmin | 構築・メモリ $O(N)$、クエリ $O(1)$ |
-| `data_structure/WaveletMatrix.py` | 非負整数列のrank・k-th・range frequency | 構築 $O(N\log \sigma)$、クエリ $O(\log \sigma)$ |
-| `data_structure/DynamicWaveletMatrix.py` | 真にonlineな動的WM・候補圧縮版・高速offline版 | online操作 $O(B\log N)$、batch全処理 $O((N+Q)\log V\log N)$ |
-| `data_structure/FenwickTree.py` | 1D Fenwick Treeの一点加算・prefix/区間和 | 更新・取得 $O(\log N)$ |
-| `data_structure/SegmentTree.py` | 非可換Segment Treeと境界二分探索 | 各操作 $O(\log N)$ |
-| `data_structure/DynamicSegmentTree.py` | 巨大座標の疎な動的Segment Tree | 各操作 $O(\log X)$ |
-| `data_structure/UnionFind.py` | 通常Union-Findの併合・連結判定・成分size | ほぼ $O(\alpha(N))$ |
-| `data_structure/BinaryTrie.py` | multiset・全体xor・k-th・xor min/max | $O(B)$ |
-| `data_structure/FastSet.py` | word-size tree型の固定整数universe ordered set | $O(\log_{64}N)$ |
-| `data_structure/ImplicitTreap.py` | 動的列の挿入削除・反転・非可換積・range lazy作用 | 期待 $O(\log N)$ |
-| `graph/BipartiteMatching.py` | 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解 | $O(E\sqrt V)$ |
-| `graph/DijkstraRadixHeap.py` | 非負整数重み用Radix Heap Dijkstra・経路復元 | $O((V+E)\log C)$ |
+| `fps/PolynomialComposition.py` | 高速FPS合成・Brent--Kung fallback・合成逆関数 | $O(N\log^2N)$（NTT法） |
+| `bitwise_convolution/SetFunction.py` | subset/superset変換・OR/AND/XOR・subset畳み込み/除算・set power series演算 | $O(N\log N)$ / subset $O(N\log^2 N)$ |
+| `range_query/DisjointSparseTable.py` | 静的列の半群区間積 | 構築 $O(N\log N)$、クエリ $O(1)$ |
+| `spatial_structure/LiChaoTree.py` | 固定座標のLi Chao Tree（線分・min/max対応） | 直線追加・取得 $O(\log X)$、線分追加 $O(\log^2 X)$ |
+| `sequence_structure/PersistentArray.py` | 分岐可能な永続配列（非再帰・フラットプール） | 取得・更新 $O(\log N)$ |
+| `segment_tree/PersistentSegmentTree.py` | 汎用演算の永続セグメント木（非再帰） | 更新・区間積 $O(\log N)$ |
+| `union_find/PersistentUnionFind.py` | 完全永続Union Find（非再帰） | 取得・併合 $O(\log^2 N)$ |
+| `sequence_structure/RadixHeap.py` | 単調非負整数キー用優先度付きキュー | 償却 $O(\log C)$ |
+| `union_find/RollbackUnionFind.py` | undo・snapshot・成分和対応Union Find | unite/find $O(\log N)$、undo $O(1)$ |
+| `segment_tree/SegmentTreeBeats.py` | range chmin/chmax/add/update・range sum/min/max（非再帰） | 構築 $O(N)$、更新はBeatsの償却計算量 |
+| `range_query/StaticRMQ.py` | 静的range minimum・最左argmin | 構築・メモリ $O(N)$、クエリ $O(1)$ |
+| `range_query/WaveletMatrix.py` | 非負整数列のrank・k-th・range frequency | 構築 $O(N\log \sigma)$、クエリ $O(\log \sigma)$ |
+| `range_query/DynamicWaveletMatrix.py` | 真にonlineな動的WM・候補圧縮版・高速offline版 | online操作 $O(B\log N)$、batch全処理 $O((N+Q)\log V\log N)$ |
+| `fenwick_tree/FenwickTree.py` | 1D Fenwick Treeの一点加算・prefix/区間和 | 更新・取得 $O(\log N)$ |
+| `segment_tree/SegmentTree.py` | 非可換Segment Treeと境界二分探索 | 各操作 $O(\log N)$ |
+| `segment_tree/DynamicSegmentTree.py` | 巨大座標の疎な動的Segment Tree | 各操作 $O(\log X)$ |
+| `union_find/UnionFind.py` | 通常Union-Findの併合・連結判定・成分size | ほぼ $O(\alpha(N))$ |
+| `ordered_set/BinaryTrie.py` | multiset・全体xor・k-th・xor min/max | $O(B)$ |
+| `ordered_set/FastSet.py` | word-size tree型の固定整数universe ordered set | $O(\log_{64}N)$ |
+| `sequence_structure/ImplicitTreap.py` | 動的列の挿入削除・反転・非可換積・range lazy作用 | 期待 $O(\log N)$ |
+| `graph_matching/BipartiteMatching.py` | 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解 | $O(E\sqrt V)$ |
+| `shortest_path/DijkstraRadixHeap.py` | 非負整数重み用Radix Heap Dijkstra・経路復元 | $O((V+E)\log C)$ |
 | `graph/CycleDetection.py` | 有向・無向閉路検出（辺ID、多重辺対応、非再帰） | $O(V+E)$ |
 | `graph/EulerianTrail.py` | 有向・無向Euler路・閉路・成分別分解（非再帰） | $O(V+E)$ |
-| `graph/FunctionalGraph.py` | Functional graph の周期分解・移動・距離 | 構築 $O(N\log N)$、移動 $O(\log N)$（周期上は $O(1)$） |
-| `graph/LowLink.py` | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | $O(V+E)$ |
-| `graph/MaxFlow.py` | ACL互換寄りの反復Dinic・min-cut・辺変更 | Dinicの計算量 |
-| `graph/AdvancedFlow.py` | global relabel付きpush-relabel・Gomory--Hu木・Stoer--Wagner最小カット | 最大流依存 / $O(V^3)$ |
+| `graph_connectivity/FunctionalGraph.py` | Functional graph の周期分解・移動・距離 | 構築 $O(N\log N)$、移動 $O(\log N)$（周期上は $O(1)$） |
+| `graph_connectivity/LowLink.py` | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | $O(V+E)$ |
+| `graph_flow/MaxFlow.py` | ACL互換寄りの反復Dinic・min-cut・辺変更 | Dinicの計算量 |
+| `graph_flow/AdvancedFlow.py` | global relabel付きpush-relabel・Gomory--Hu木・Stoer--Wagner最小カット | 最大流依存 / $O(V^3)$ |
 | `graph/CSRGraph.py` | flat CSR表現・最短路・探索・DAG・連結性・SCC・LowLinkの高速backend | 構築 $O(V+E)$、各標準計算量 |
-| `graph/GridBFS.py` | 障害物付きgridの距離表・2点間最短距離 | $O(HW)$ |
-| `graph/MinCostBFlow.py` | lower/upper・頂点supply・負費用対応minimum-cost b-flow | cost scaling法 |
-| `graph/MinCostFlow.py` | 非負費用のポテンシャル付き最小費用流・slope | $O(FE\log V)$ |
-| `graph/MinimumSpanningTree.py` | Kruskal最小全域森・最小全域木（辺ID付き） | $O(E\log E)$ |
-| `graph/NamoriDecomposition.py` | 重み付き擬森林の周期・付随木分解と距離 | 構築 $O(V+E)$、距離 $O(\log V)$ |
-| `graph/OfflineDynamicConnectivity.py` | 辺追加削除・連結性・成分和のオフライン処理 | $O((Q+K)\log Q\log N)$ |
-| `graph/OnlineDynamicConnectivity.py` | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | amortized polylogarithmic |
-| `graph/TwoEdgeConnectedComponents.py` | 二辺連結成分・橋森・辺の成分対応 | $O(V+E)$ |
-| `graph/StronglyConnectedComponents.py` | 反復Kosaraju・縮約DAG | $O(V+E)$ |
-| `graph/BiconnectedComponents.py` | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | $O(V+E)$ |
-| `graph/KShortestPaths.py` | 有向/無向k-shortest loopless path（辺ID・平行辺対応） | Yen法 $O(KN(E+V)\log V)$ |
-| `graph/GraphProperties.py` | Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色 | MCS $O(V+E)$、彩色は反復matching |
-| `graph/GraphCounting.py` | 彩色多項式・有向/無向全域木数・有向Euler閉路数 | subset法 / Matrix--Tree / BEST定理 |
-| `graph/GraphOrdering.py` | 木制約最適順序・st-numbering・全辺replacement shortest path | $O(N\log N)$ / $O(N+M)$ / $O((N+M)\log N)$ |
-| `graph/AdvancedConnectivity.py` | 三辺連結成分・辺追加offline SCC統合列 | $O(N+M)$ / $O((N+M)\log M)$ |
-| `graph/MergeTree.py` | 先読みunion tree・現在成分の連続葉区間 | 構築 $O((N+Q)\alpha(N))$ |
-| `math/ChineseRemainder.py` | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 通常 $O(K\log M)$、Garner $O(K^2)$ |
-| `math/BlackBoxLinearAlgebra.py` | dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式 | Krylov列生成 $O(NT)$、BM $O(N^2)$ |
-| `math/AdvancedMatrix.py` | 合成数法行列式・Hafnian/Pfaffian・Matrix-Tree | determinant/Pfaffian $O(N^3)$、Hafnian $O(N^3 2^{N/2})$ |
-| `math/F2Matrix.py` | Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列 | 掃き出し $O(HW)$ big-int演算 |
-| `math/Matrix.py` | 動的法の行列演算・rank/det/inverse/連立方程式・特性多項式 | 密行列主要演算 $O(N^3)$ |
+| `shortest_path/GridBFS.py` | 障害物付きgridの距離表・2点間最短距離 | $O(HW)$ |
+| `graph_flow/MinCostBFlow.py` | lower/upper・頂点supply・負費用対応minimum-cost b-flow | cost scaling法 |
+| `graph_flow/MinCostFlow.py` | 非負費用のポテンシャル付き最小費用流・slope | $O(FE\log V)$ |
+| `graph_spanning/MinimumSpanningTree.py` | Kruskal最小全域森・最小全域木（辺ID付き） | $O(E\log E)$ |
+| `graph_connectivity/NamoriDecomposition.py` | 重み付き擬森林の周期・付随木分解と距離 | 構築 $O(V+E)$、距離 $O(\log V)$ |
+| `graph_connectivity/OfflineDynamicConnectivity.py` | 辺追加削除・連結性・成分和のオフライン処理 | $O((Q+K)\log Q\log N)$ |
+| `graph_connectivity/OnlineDynamicConnectivity.py` | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | amortized polylogarithmic |
+| `graph_connectivity/TwoEdgeConnectedComponents.py` | 二辺連結成分・橋森・辺の成分対応 | $O(V+E)$ |
+| `graph_connectivity/StronglyConnectedComponents.py` | 反復Kosaraju・縮約DAG | $O(V+E)$ |
+| `graph_connectivity/BiconnectedComponents.py` | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | $O(V+E)$ |
+| `shortest_path/KShortestPaths.py` | 有向/無向k-shortest loopless path（辺ID・平行辺対応） | Yen法 $O(KN(E+V)\log V)$ |
+| `graph_enumeration/GraphProperties.py` | Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色 | MCS $O(V+E)$、彩色は反復matching |
+| `graph_enumeration/GraphCounting.py` | 彩色多項式・有向/無向全域木数・有向Euler閉路数 | subset法 / Matrix--Tree / BEST定理 |
+| `graph_spanning/GraphOrdering.py` | 木制約最適順序・st-numbering・全辺replacement shortest path | $O(N\log N)$ / $O(N+M)$ / $O((N+M)\log N)$ |
+| `graph_connectivity/AdvancedConnectivity.py` | 三辺連結成分・辺追加offline SCC統合列 | $O(N+M)$ / $O((N+M)\log M)$ |
+| `graph_spanning/MergeTree.py` | 先読みunion tree・現在成分の連続葉区間 | 構築 $O((N+Q)\alpha(N))$ |
+| `number_theory/ChineseRemainder.py` | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 通常 $O(K\log M)$、Garner $O(K^2)$ |
+| `linear_algebra/BlackBoxLinearAlgebra.py` | dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式 | Krylov列生成 $O(NT)$、BM $O(N^2)$ |
+| `linear_algebra/AdvancedMatrix.py` | 合成数法行列式・Hafnian/Pfaffian・Matrix-Tree | determinant/Pfaffian $O(N^3)$、Hafnian $O(N^3 2^{N/2})$ |
+| `linear_algebra/F2Matrix.py` | Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列 | 掃き出し $O(HW)$ big-int演算 |
+| `linear_algebra/Matrix.py` | 動的法の行列演算・rank/det/inverse/連立方程式・特性多項式 | 密行列主要演算 $O(N^3)$ |
 | `geometry/Orientation.py` | 外積と3点の向き判定 | $O(1)$ |
 | `geometry/SegmentIntersection.py` | 端点接触を選べる線分交差判定 | $O(1)$ |
 | `geometry/ConvexHull.py` | Andrew法による凸包 | $O(N\log N)$ |
 | `geometry/ArgumentSort.py` | 浮動小数点数を使わない偏角sort | $O(N\log N)$ |
-| `math/ModularArithmetic.py` | Tonelli--Shanks平方根・拡張BSGS離散対数 | $O(\log^2 P)$ / $O(\sqrt M)$ |
-| `math/ModularRoot.py` | 素数法k乗根・原始根・整数floor/ceil k乗根 | 法k乗根 $O(\min(P,K)^{1/4})$、整数根 $O(\log A)$ |
-| `math/PolynomialMatrix.py` | 多項式行列式・$\det(A+xB)$・多項式行列prefix積・多項式Matrix-Tree | 評価補間 / BSGS |
-| `math/SATSolver.py` | watched literal型の反復SAT solver | 問題依存 |
+| `number_theory/ModularArithmetic.py` | Tonelli--Shanks平方根・拡張BSGS離散対数 | $O(\log^2 P)$ / $O(\sqrt M)$ |
+| `number_theory/ModularRoot.py` | 素数法k乗根・原始根・整数floor/ceil k乗根 | 法k乗根 $O(\min(P,K)^{1/4})$、整数根 $O(\log A)$ |
+| `linear_algebra/PolynomialMatrix.py` | 多項式行列式・$\det(A+xB)$・多項式行列prefix積・多項式Matrix-Tree | 評価補間 / BSGS |
+| `algebra/SATSolver.py` | watched literal型の反復SAT solver | 問題依存 |
 | `prime/Factorization.py` | 64bit整数の素数判定・素因数分解・約数列挙 | 素数判定 O(log N)、素因数分解は期待 O(N^(1/4) log N) |
 | `prime/Sieve.py` | 線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数 | $O(N)$ / sublinear counting |
 | `optimization/ProjectSelection.py` | binary/K値Project Selection・高次all-0/all-1 profit | 1回のmin-cutへ帰着 |
@@ -183,7 +183,7 @@
 問題文の1-indexed入力は、queryの先読みなしでそのまま処理できる。
 
 ```python
-from library_codex.data_structure.DynamicWaveletMatrix import DynamicWaveletMatrix
+from library_codex.range_query.DynamicWaveletMatrix import DynamicWaveletMatrix
 
 solver = DynamicWaveletMatrix(A)
 for _ in range(Q):
@@ -204,7 +204,7 @@ for _ in range(Q):
 $V$ は全候補値の種類数、$K$ は初期値を含む位置別候補の総数。圧縮版の `update_candidates` は実行する操作列ではなく、各位置へ代入し得る値の宣言である。
 
 ```python
-from library_codex.data_structure.DynamicWaveletMatrix import CompressedDynamicWaveletMatrix
+from library_codex.range_query.DynamicWaveletMatrix import CompressedDynamicWaveletMatrix
 
 candidates = [(1, 10), (1, 20), (3, 100)]
 wm = CompressedDynamicWaveletMatrix(A, candidates)
@@ -215,7 +215,7 @@ print(wm.kth_smallest(0, len(A), 2))
 offline版もonline版と同じquery名を使い、query IDを返す。`solve()` が登録順の答えを返す。対応queryは到達最小個数、k-th、区間和。
 
 ```python
-from library_codex.data_structure.DynamicWaveletMatrix import OfflineDynamicWaveletMatrix
+from library_codex.range_query.DynamicWaveletMatrix import OfflineDynamicWaveletMatrix
 
 wm = OfflineDynamicWaveletMatrix(A)
 wm[2] = 10

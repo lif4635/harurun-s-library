@@ -1,9 +1,9 @@
-from library_codex.convolution.PRecursive import (
+from library_codex.combinatorial_series.PRecursive import (
     enumerate_p_recursive,
     find_p_recursive,
     kth_term_p_recursive,
 )
-from library_codex.convolution.FormalPowerSeries import DEFAULT_MOD
+from library_codex.fps.FormalPowerSeries import DEFAULT_MOD
 
 
 def test_find_and_enumerate_p_recursive_factorials():

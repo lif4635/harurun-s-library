@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.graph.GraphCounting import (  # noqa: E402
+from library_codex.graph_enumeration.GraphCounting import (  # noqa: E402
     chromatic_polynomial,
     count_directed_spanning_trees,
     count_eulerian_circuits,

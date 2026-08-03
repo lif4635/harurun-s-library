@@ -4,12 +4,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.AdvancedFlow import (
+from library_codex.graph_flow.AdvancedFlow import (
     PushRelabelMaxFlow,
     gomory_hu_tree,
     stoer_wagner_min_cut,
 )
-from library_codex.graph.MaxFlow import MaxFlowGraph
+from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
 def brute_directed_min_cut(n, edges, source, sink):

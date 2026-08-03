@@ -1,6 +1,6 @@
 import random
 
-from library_codex.data_structure.PointUpdateRangeTree2D import PointUpdateRangeTree2D
+from library_codex.spatial_structure.PointUpdateRangeTree2D import PointUpdateRangeTree2D
 
 
 def test_point_update_range_tree_against_brute_sum():

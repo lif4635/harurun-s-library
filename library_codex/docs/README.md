@@ -25,7 +25,7 @@
 ## 最小の使い方
 
 ```python
-from library_codex.data_structure.FenwickTree import FenwickTree
+from library_codex.fenwick_tree.FenwickTree import FenwickTree
 
 fw = FenwickTree([3, 1, 4, 1, 5])
 fw.add(2, 10)            # index 2 に10加算。返り値はNone
@@ -36,18 +36,39 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 
 | category | 内容 | modules | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: | ---: |
-| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 15 | 36 | 3 | 10 |
-| [convolution](api/convolution/README.md) | 畳み込み・多項式・形式的冪級数 | 44 | 116 | 12 | 72 |
-| [data_structure](api/data_structure/README.md) | データ構造 | 64 | 6 | 66 | 446 |
-| [game](api/game/README.md) | 組合せゲーム | 4 | 2 | 5 | 34 |
-| [geometry](api/geometry/README.md) | 幾何・2次元点 | 4 | 5 | 0 | 0 |
-| [graph](api/graph/README.md) | グラフアルゴリズム | 55 | 72 | 28 | 146 |
-| [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
-| [math](api/math/README.md) | 数学・線形代数・数論 | 42 | 86 | 26 | 126 |
-| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 13 | 13 | 9 | 48 |
-| [prime](api/prime/README.md) | 素数・素因数分解 | 2 | 12 | 1 | 2 |
-| [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
-| [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 232 |
+| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 13 | 33 | 3 | 10 |
+| [convolution](api/convolution/README.md) | 通常の畳み込み・DFT・NTT | 5 | 12 | 1 | 4 |
+| [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 2 | 7 | 0 | 0 |
+| [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
+| [fps](api/fps/README.md) | 有限体上の形式的冪級数と母関数の演算 | 12 | 36 | 8 | 56 |
+| [polynomial](api/polynomial/README.md) | 多項式の評価・補間・GCD・因数分解 | 13 | 24 | 2 | 3 |
+| [combinatorial_series](api/combinatorial_series/README.md) | 組合せ数列・漸化式・数列変換 | 11 | 23 | 0 | 0 |
+| [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 15 | 3 | 16 | 105 |
+| [fenwick_tree](api/fenwick_tree/README.md) | Fenwick木と加算・接頭和 | 3 | 0 | 3 | 17 |
+| [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 10 | 0 | 10 | 58 |
+| [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 10 | 0 | 10 | 105 |
+| [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 9 | 1 | 8 | 66 |
+| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 4 | 1 | 6 | 52 |
+| [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
+| [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 12 | 19 | 6 | 30 |
+| [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 9 | 13 | 2 | 4 |
+| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 12 | 6 | 11 | 66 |
+| [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 4 | 2 | 4 | 26 |
+| [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 5 | 6 | 3 | 10 |
+| [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 5 | 10 | 1 | 6 |
+| [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 8 | 16 | 1 | 4 |
+| [number_theory](api/number_theory/README.md) | 整数演算・合同式・乗法的関数 | 14 | 37 | 4 | 25 |
+| [combinatorics](api/combinatorics/README.md) | 二項係数・組合せ構成 | 10 | 10 | 9 | 25 |
+| [linear_algebra](api/linear_algebra/README.md) | 行列・線形方程式・線形基底 | 8 | 32 | 5 | 31 |
+| [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 3 | 3 | 28 |
+| [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
+| [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 20 | 23 | 24 | 120 |
+| [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 232 |
+| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 13 | 13 | 9 | 48 |
+| [geometry](api/geometry/README.md) | 幾何・2次元点 | 4 | 5 | 0 | 0 |
+| [game](api/game/README.md) | 組合せゲーム | 6 | 8 | 7 | 43 |
+| [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
+| [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
 
 合計: **289 modules / 398 functions / 204 classes / 1280 methods・properties**。

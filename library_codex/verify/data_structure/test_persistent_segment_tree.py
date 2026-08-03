@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.PersistentSegmentTree import PersistentSegmentTree
+from library_codex.segment_tree.PersistentSegmentTree import PersistentSegmentTree
 
 
 def test_random_branching_sum():

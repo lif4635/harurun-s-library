@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.KShortestPaths import (  # noqa: E402
+from shortest_path.KShortestPaths import (  # noqa: E402
     KShortestPathDirected,
     KShortestPathUndirected,
     k_shortest_paths_directed,

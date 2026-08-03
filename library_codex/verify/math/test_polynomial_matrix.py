@@ -1,16 +1,16 @@
 from itertools import permutations
 import random
 
-from library_codex.convolution.FormalPowerSeries import (
+from library_codex.fps.FormalPowerSeries import (
     fps_add,
     fps_multiply,
 )
-from library_codex.convolution.MultipointEvaluation import sample_point_shift
-from library_codex.math.Matrix import (
+from library_codex.polynomial.MultipointEvaluation import sample_point_shift
+from library_codex.linear_algebra.Matrix import (
     identity_matrix,
     matrix_multiply,
 )
-from library_codex.math.PolynomialMatrix import (
+from library_codex.linear_algebra.PolynomialMatrix import (
     determinant_a_plus_xb,
     polynomial_matrix_determinant,
     polynomial_matrix_prefix_product,
@@ -135,7 +135,7 @@ def test_polynomial_matrix_large_prefix_and_tree():
                 (first, second, evaluate(weight, point))
                 for first, second, weight in edges
             ]
-            from library_codex.math.AdvancedMatrix import spanning_tree_count
+            from library_codex.linear_algebra.AdvancedMatrix import spanning_tree_count
 
             assert evaluate(polynomial, point) == spanning_tree_count(
                 size, numeric, MOD

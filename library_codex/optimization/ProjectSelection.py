@@ -1,4 +1,4 @@
-from library_codex.graph.MaxFlow import MaxFlowGraph
+from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
 class ProjectSelection:

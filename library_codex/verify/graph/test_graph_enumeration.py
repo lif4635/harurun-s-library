@@ -7,12 +7,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.ChromaticNumber import chromatic_number  # noqa: E402
-from graph.CountC4PerEdge import count_c4_per_edge  # noqa: E402
-from graph.EnumerateCliques import enumerate_cliques  # noqa: E402
-from graph.EnumerateTriangles import enumerate_triangles  # noqa: E402
+from graph_enumeration.ChromaticNumber import chromatic_number  # noqa: E402
+from graph_enumeration.CountC4PerEdge import count_c4_per_edge  # noqa: E402
+from graph_enumeration.EnumerateCliques import enumerate_cliques  # noqa: E402
+from graph_enumeration.EnumerateTriangles import enumerate_triangles  # noqa: E402
 from graph.GraphFromEdges import graph_from_edges  # noqa: E402
-from graph.MaximumIndependentSet import (  # noqa: E402
+from graph_enumeration.MaximumIndependentSet import (  # noqa: E402
     maximum_independent_set,
     maximum_independent_set_mask,
     maximum_weight_independent_set,

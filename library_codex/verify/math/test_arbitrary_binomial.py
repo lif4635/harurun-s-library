@@ -1,6 +1,6 @@
 from math import comb
 
-from library_codex.math.ArbitraryBinomial import (
+from library_codex.combinatorics.ArbitraryBinomial import (
     ArbitraryModBinomial,
     LargePrimeFactorial,
 )

@@ -12,7 +12,7 @@ from library_codex.convolution.MultidimensionalDFT import (  # noqa: E402
     multidimensional_dft,
     multivariate_circular_convolution,
 )
-from library_codex.convolution.MultiplicativeConvolutionModPrime import (  # noqa: E402
+from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime import (  # noqa: E402
     multiplicative_convolution_mod_prime,
 )
 from library_codex.convolution.MultivariateMultiplication import (  # noqa: E402

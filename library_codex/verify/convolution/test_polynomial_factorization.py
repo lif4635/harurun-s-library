@@ -1,12 +1,12 @@
 import random
 
-from library_codex.convolution.FormalPowerSeries import fps_multiply
-from library_codex.convolution.PolynomialFactorization import (
+from library_codex.fps.FormalPowerSeries import fps_multiply
+from library_codex.polynomial.PolynomialFactorization import (
     factor_polynomial,
     half_gcd,
     polynomial_inverse,
 )
-from library_codex.convolution.PolynomialGCD import polynomial_gcd
+from library_codex.polynomial.PolynomialGCD import polynomial_gcd
 
 
 def test_polynomial_factorization_reconstructs_input():
@@ -41,5 +41,5 @@ def test_half_gcd_and_polynomial_inverse():
     ok, inverse = polynomial_inverse(first, second, mod)
     assert ok
     product = fps_multiply(first, inverse, mod)
-    from library_codex.convolution.FormalPowerSeries import fps_remainder
+    from library_codex.fps.FormalPowerSeries import fps_remainder
     assert fps_remainder(product, second, mod) == [1]

@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.NamoriDecomposition import (
+from library_codex.graph_connectivity.NamoriDecomposition import (
     Namori,
     NamoriDecomposition,
     NamoriForest,

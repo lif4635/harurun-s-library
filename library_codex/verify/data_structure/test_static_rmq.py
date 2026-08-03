@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.StaticRMQ import StaticRMQ
+from library_codex.range_query.StaticRMQ import StaticRMQ
 
 
 def check_all(values):

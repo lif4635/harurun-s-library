@@ -6,7 +6,7 @@ class LineContainer:
     def __init__(
         self, minimize=True, left=-(1 << 63), right=1 << 63
     ):
-        from library_codex.data_structure.DynamicLiChaoTree import DynamicLiChaoTree
+        from library_codex.spatial_structure.DynamicLiChaoTree import DynamicLiChaoTree
 
         self.tree = DynamicLiChaoTree(left, right, minimize)
 

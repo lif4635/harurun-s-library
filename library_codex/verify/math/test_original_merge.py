@@ -8,9 +8,9 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
 from library_codex.algorithm.IntegerUtilities import integer_nth_root  # noqa: E402
-from library_codex.math.BinomialQueries import BinomialPrefix  # noqa: E402
-from library_codex.math.Combination import Combination  # noqa: E402
-from library_codex.math.GrayCode import gray_code_path  # noqa: E402
+from library_codex.combinatorics.BinomialQueries import BinomialPrefix  # noqa: E402
+from library_codex.combinatorics.Combination import Combination  # noqa: E402
+from library_codex.combinatorics.GrayCode import gray_code_path  # noqa: E402
 
 
 def test_integer_nth_root_exact_boundaries():

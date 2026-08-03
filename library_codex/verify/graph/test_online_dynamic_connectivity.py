@@ -1,7 +1,7 @@
 from collections import deque
 import random
 
-from library_codex.graph.OnlineDynamicConnectivity import (
+from library_codex.graph_connectivity.OnlineDynamicConnectivity import (
     OnlineDynamicConnectivity,
 )
 

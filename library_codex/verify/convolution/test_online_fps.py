@@ -1,12 +1,12 @@
 import random
 
-from library_codex.convolution.FormalPowerSeries import (
+from library_codex.fps.FormalPowerSeries import (
     fps_exponential,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
 )
-from library_codex.convolution.OnlineFormalPowerSeries import (
+from library_codex.fps.OnlineFormalPowerSeries import (
     OnlineFormalPowerSeries,
     RelaxedConvolution,
     RelaxedExponential,

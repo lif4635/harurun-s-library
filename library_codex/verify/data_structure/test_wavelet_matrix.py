@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.WaveletMatrix import WaveletMatrix
+from library_codex.range_query.WaveletMatrix import WaveletMatrix
 
 
 def check(a):

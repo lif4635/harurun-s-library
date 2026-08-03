@@ -4,8 +4,8 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.LowLink import LowLink, lowlink
-from library_codex.graph.TwoEdgeConnectedComponents import (
+from library_codex.graph_connectivity.LowLink import LowLink, lowlink
+from library_codex.graph_connectivity.TwoEdgeConnectedComponents import (
     TwoEdgeConnectedComponents,
     two_edge_connected_components,
 )

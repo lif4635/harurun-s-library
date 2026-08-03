@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.DisjointSparseTable import DisjointSparseTable
+from library_codex.range_query.DisjointSparseTable import DisjointSparseTable
 
 
 def test_min():

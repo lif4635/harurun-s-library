@@ -1,14 +1,14 @@
 from itertools import permutations
 import random
 
-from library_codex.math.BlackBoxLinearAlgebra import (
+from library_codex.linear_algebra.BlackBoxLinearAlgebra import (
     SparseMatrix,
     black_box_determinant,
     black_box_linear_solve,
     black_box_minimal_polynomial,
     black_box_power,
 )
-from library_codex.math.Matrix import (
+from library_codex.linear_algebra.Matrix import (
     characteristic_polynomial,
     inverse_matrix,
     linear_equation,

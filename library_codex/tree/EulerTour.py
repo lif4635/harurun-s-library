@@ -1,6 +1,6 @@
 """木のEuler tour順と部分木区間を構築する。"""
 
-from library_codex.data_structure.StaticRMQ import StaticRMQ
+from library_codex.range_query.StaticRMQ import StaticRMQ
 
 def _edge(entry):
     if isinstance(entry, int):

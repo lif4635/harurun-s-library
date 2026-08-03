@@ -3,7 +3,7 @@ import random
 
 import pytest
 
-from library_codex.math.ModularRoot import (
+from library_codex.number_theory.ModularRoot import (
     ceil_kth_root,
     floor_kth_root,
     modular_kth_root,

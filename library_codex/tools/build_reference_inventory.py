@@ -105,7 +105,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "array/divisor-convolution.hpp",
-    ): "convolution/ArithmeticConvolution.py",
+    ): "arithmetic_convolution/ArithmeticConvolution.py",
     (
         "NachiaVivias/cp-library",
         "array/convex-min-plus-convolution.hpp",
@@ -113,27 +113,27 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "bit-convolution/set-power-series-power-projection.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NachiaVivias/cp-library",
         "math/floor-of-kth-root.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "NachiaVivias/cp-library",
         "linear-modulo/characteristic-polynomial.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NachiaVivias/cp-library",
         "linear-modulo/linear-equation.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NachiaVivias/cp-library",
         "linear-modulo/matrix-modulo.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NachiaVivias/cp-library",
         "graph/dynamic-connectivity.hpp",
-    ): "graph/OnlineDynamicConnectivity.py",
+    ): "graph_connectivity/OnlineDynamicConnectivity.py",
     (
         "NachiaVivias/cp-library",
         "tree/static-top-tree.hpp",
@@ -141,7 +141,7 @@ COVERED = {
     (
         "tko919/library",
         "Convolution/divisor.hpp",
-    ): "convolution/ArithmeticConvolution.py",
+    ): "arithmetic_convolution/ArithmeticConvolution.py",
     (
         "tko919/library",
         "Algorithm/kprojectselection.hpp",
@@ -169,11 +169,11 @@ COVERED = {
     (
         "tko919/library",
         "Convolution/subset.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "tko919/library",
         "Graph/bimatching.hpp",
-    ): "graph/BipartiteMatching.py",
+    ): "graph_matching/BipartiteMatching.py",
     (
         "tko919/library",
         "Graph/linkcut.hpp",
@@ -185,27 +185,27 @@ COVERED = {
     (
         "tko919/library",
         "Graph/maxflow.hpp",
-    ): "graph/MaxFlow.py",
+    ): "graph_flow/MaxFlow.py",
     (
         "tko919/library",
         "Graph/mincostflow.hpp",
-    ): "graph/MinCostBFlow.py",
+    ): "graph_flow/MinCostBFlow.py",
     (
         "tko919/library",
         "Math/kthroot.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "tko919/library",
         "Math/bbla.hpp",
-    ): "math/BlackBoxLinearAlgebra.py",
+    ): "linear_algebra/BlackBoxLinearAlgebra.py",
     (
         "tko919/library",
         "Math/charpoly.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "tko919/library",
         "Math/detaplusbx.hpp",
-    ): "math/PolynomialMatrix.py",
+    ): "linear_algebra/PolynomialMatrix.py",
     (
         "tko919/library",
         "Math/gaussian.hpp",
@@ -213,39 +213,39 @@ COVERED = {
     (
         "tko919/library",
         "Math/hafnian.hpp",
-    ): "math/AdvancedMatrix.py",
+    ): "linear_algebra/AdvancedMatrix.py",
     (
         "tko919/library",
         "Math/linearequation.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "tko919/library",
         "Math/matrix.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "tko919/library",
         "Math/pfaffian.hpp",
-    ): "math/AdvancedMatrix.py",
+    ): "linear_algebra/AdvancedMatrix.py",
     (
         "tko919/library",
         "Math/primitive.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "tko919/library",
         "FPS/composition.hpp",
-    ): "convolution/PolynomialComposition.py",
+    ): "fps/PolynomialComposition.py",
     (
         "tko919/library",
         "FPS/compinv.hpp",
-    ): "convolution/PolynomialComposition.py",
+    ): "fps/PolynomialComposition.py",
     (
         "NyaanNyaan/library",
         "fps/fps-composition.hpp",
-    ): "convolution/PolynomialComposition.py",
+    ): "fps/PolynomialComposition.py",
     (
         "NyaanNyaan/library",
         "flow/flow-on-bipartite-graph.hpp",
-    ): "graph/BipartiteMatching.py",
+    ): "graph_matching/BipartiteMatching.py",
     (
         "NyaanNyaan/library",
         "data-structure/line-container.hpp",
@@ -273,99 +273,99 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "fps/fps-composition-old.hpp",
-    ): "convolution/PolynomialComposition.py",
+    ): "fps/PolynomialComposition.py",
     (
         "NyaanNyaan/library",
         "fps/fps-compositional-inverse.hpp",
-    ): "convolution/PolynomialComposition.py",
+    ): "fps/PolynomialComposition.py",
     (
         "NyaanNyaan/library",
         "fps/fps-sqrt.hpp",
-    ): "convolution/FormalPowerSeries.py",
+    ): "fps/FormalPowerSeries.py",
     (
         "NyaanNyaan/library",
         "fps/sample-point-shift.hpp",
-    ): "convolution/MultipointEvaluation.py",
+    ): "polynomial/MultipointEvaluation.py",
     (
         "NyaanNyaan/library",
         "math-fast/subset-convolution.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "math/constexpr-primitive-root.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "NyaanNyaan/library",
         "math/isqrt.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "NyaanNyaan/library",
         "math/kth-root-integral.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "NyaanNyaan/library",
         "math/primitive-root-ll.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "NyaanNyaan/library",
         "matrix/black-box-linear-algebra.hpp",
-    ): "math/BlackBoxLinearAlgebra.py",
+    ): "linear_algebra/BlackBoxLinearAlgebra.py",
     (
         "NyaanNyaan/library",
         "matrix/characteristric-polynomial.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/determinant-arbitrary-mod.hpp",
-    ): "math/AdvancedMatrix.py",
+    ): "linear_algebra/AdvancedMatrix.py",
     (
         "NyaanNyaan/library",
         "matrix/f2-matrix.hpp",
-    ): "math/F2Matrix.py",
+    ): "linear_algebra/F2Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/gauss-elimination.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/hafnian.hpp",
-    ): "math/AdvancedMatrix.py",
+    ): "linear_algebra/AdvancedMatrix.py",
     (
         "NyaanNyaan/library",
         "matrix/inverse-matrix.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/linear-equation.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/linear-equation-hashmap.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/matrix-tree.hpp",
-    ): "math/PolynomialMatrix.py",
+    ): "linear_algebra/PolynomialMatrix.py",
     (
         "NyaanNyaan/library",
         "matrix/matrix.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/matrix-fast.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "matrix/polynomial-matrix-determinant.hpp",
-    ): "math/PolynomialMatrix.py",
+    ): "linear_algebra/PolynomialMatrix.py",
     (
         "NyaanNyaan/library",
         "matrix/polynomial-matrix-prefix-prod.hpp",
-    ): "math/PolynomialMatrix.py",
+    ): "linear_algebra/PolynomialMatrix.py",
     (
         "NyaanNyaan/library",
         "graph/offline-dynamic-connectivity.hpp",
-    ): "graph/OfflineDynamicConnectivity.py",
+    ): "graph_connectivity/OfflineDynamicConnectivity.py",
     (
         "NyaanNyaan/library",
         "lct/link-cut-base.hpp",
@@ -389,55 +389,55 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "multiplicative-function/divisor-multiple-transform.hpp",
-    ): "convolution/ArithmeticConvolution.py",
+    ): "arithmetic_convolution/ArithmeticConvolution.py",
     (
         "NyaanNyaan/library",
         "multiplicative-function/gcd-convolution.hpp",
-    ): "convolution/ArithmeticConvolution.py",
+    ): "arithmetic_convolution/ArithmeticConvolution.py",
     (
         "NyaanNyaan/library",
         "modulo/mod-kth-root.hpp",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "NyaanNyaan/library",
         "modulo/mod-sqrt.hpp",
-    ): "math/ModularArithmetic.py",
+    ): "number_theory/ModularArithmetic.py",
     (
         "NyaanNyaan/library",
         "modulo/gauss-elimination-fast.hpp",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "NyaanNyaan/library",
         "set-function/and-convolution.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "set-function/exp-of-set-power-series.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "set-function/or-convolution.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "set-function/polynomial-composite-set-power-series.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "set-function/subset-convolution.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "set-function/walsh-hadamard-transform.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "set-function/xor-convolution.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "set-function/zeta-mobius-transform.hpp",
-    ): "convolution/SetFunction.py",
+    ): "bitwise_convolution/SetFunction.py",
     (
         "NyaanNyaan/library",
         "tree/static-top-tree-edge-based.hpp",
@@ -449,19 +449,19 @@ COVERED = {
     (
         "kemuniku/cplib",
         "math/isqrt.nim",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "kemuniku/cplib",
         "math/primitive_root.nim",
-    ): "math/ModularRoot.py",
+    ): "number_theory/ModularRoot.py",
     (
         "kemuniku/cplib",
         "matrix/matops.nim",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "kemuniku/cplib",
         "matrix/matrix.nim",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "kemuniku/cplib",
         "matrix/rolling_hash_2d.nim",
@@ -469,7 +469,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "matrix/static_matrix.nim",
-    ): "math/Matrix.py",
+    ): "linear_algebra/Matrix.py",
     (
         "kemuniku/cplib",
         "collections/slopetrick.nim",
@@ -533,7 +533,7 @@ COVERED = {
     (
         "tko919/library",
         "Graph/dmdecomp.hpp",
-    ): "graph/BipartiteMatching.py",
+    ): "graph_matching/BipartiteMatching.py",
     (
         "tko919/library",
         "Graph/euler.hpp",
@@ -549,7 +549,7 @@ COVERED = {
     (
         "tko919/library",
         "Graph/lowlink.hpp",
-    ): "graph/LowLink.py",
+    ): "graph_connectivity/LowLink.py",
     (
         "tko919/library",
         "Graph/prufer.hpp",
@@ -649,31 +649,31 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "array/lazy-segtree.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "NachiaVivias/cp-library",
         "array/li-ciao-tree-flexible.hpp",
-    ): "data_structure/LiChaoTree.py",
+    ): "spatial_structure/LiChaoTree.py",
     (
         "NachiaVivias/cp-library",
         "array/segtree.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "NachiaVivias/cp-library",
         "array/wavelet-matrix.hpp",
-    ): "data_structure/WaveletMatrix.py",
+    ): "range_query/WaveletMatrix.py",
     (
         "NachiaVivias/cp-library",
         "range-query/point-set-range-min.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "tko919/library",
         "DataStructure/2dbit.hpp",
-    ): "data_structure/FenwickTree.py",
+    ): "fenwick_tree/FenwickTree.py",
     (
         "tko919/library",
         "DataStructure/bit.hpp",
-    ): "data_structure/FenwickTree.py",
+    ): "fenwick_tree/FenwickTree.py",
     (
         "tko919/library",
         "DataStructure/dequeswag.hpp",
@@ -681,43 +681,43 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/disjointsparsetable.hpp",
-    ): "data_structure/DisjointSparseTable.py",
+    ): "range_query/DisjointSparseTable.py",
     (
         "tko919/library",
         "DataStructure/dualsegtree.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "tko919/library",
         "DataStructure/fastset.hpp",
-    ): "data_structure/FastSet.py",
+    ): "ordered_set/FastSet.py",
     (
         "tko919/library",
         "DataStructure/lazysegtree.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "tko919/library",
         "DataStructure/lichaotree.hpp",
-    ): "data_structure/LiChaoTree.py",
+    ): "spatial_structure/LiChaoTree.py",
     (
         "tko919/library",
         "DataStructure/persistentarray.hpp",
-    ): "data_structure/PersistentArray.py",
+    ): "sequence_structure/PersistentArray.py",
     (
         "tko919/library",
         "DataStructure/persistentunionfind.hpp",
-    ): "data_structure/PersistentUnionFind.py",
+    ): "union_find/PersistentUnionFind.py",
     (
         "tko919/library",
         "DataStructure/rollbackunionfind.hpp",
-    ): "data_structure/RollbackUnionFind.py",
+    ): "union_find/RollbackUnionFind.py",
     (
         "tko919/library",
         "DataStructure/segtree.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "tko919/library",
         "DataStructure/segtreebeats.hpp",
-    ): "data_structure/SegmentTreeBeats.py",
+    ): "segment_tree/SegmentTreeBeats.py",
     (
         "tko919/library",
         "DataStructure/swag.hpp",
@@ -725,31 +725,31 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/unionfind.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "tko919/library",
         "DataStructure/wavelet.hpp",
-    ): "data_structure/WaveletMatrix.py",
+    ): "range_query/WaveletMatrix.py",
     (
         "tko919/library",
         "DataStructure/weightedunionfind.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/binary-indexed-tree.hpp",
-    ): "data_structure/FenwickTree.py",
+    ): "fenwick_tree/FenwickTree.py",
     (
         "NyaanNyaan/library",
         "data-structure/binary-trie.hpp",
-    ): "data_structure/BinaryTrie.py",
+    ): "ordered_set/BinaryTrie.py",
     (
         "NyaanNyaan/library",
         "data-structure/dynamic-binary-indexed-tree.hpp",
-    ): "data_structure/FenwickTree.py",
+    ): "fenwick_tree/FenwickTree.py",
     (
         "NyaanNyaan/library",
         "data-structure/dynamic-union-find.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/erasable-priority-queue.hpp",
@@ -757,23 +757,23 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/persistent-array.hpp",
-    ): "data_structure/PersistentArray.py",
+    ): "sequence_structure/PersistentArray.py",
     (
         "NyaanNyaan/library",
         "data-structure/persistent-union-find.hpp",
-    ): "data_structure/PersistentUnionFind.py",
+    ): "union_find/PersistentUnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/radix-heap.hpp",
-    ): "data_structure/RadixHeap.py",
+    ): "sequence_structure/RadixHeap.py",
     (
         "NyaanNyaan/library",
         "data-structure/range-sum-range-add-bit.hpp",
-    ): "data_structure/FenwickTree.py",
+    ): "fenwick_tree/FenwickTree.py",
     (
         "NyaanNyaan/library",
         "data-structure/rollback-union-find.hpp",
-    ): "data_structure/RollbackUnionFind.py",
+    ): "union_find/RollbackUnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/slide-window-aggregation-deque.hpp",
@@ -785,55 +785,55 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/sparse-table.hpp",
-    ): "data_structure/DisjointSparseTable.py",
+    ): "range_query/DisjointSparseTable.py",
     (
         "NyaanNyaan/library",
         "data-structure/union-find-enumerate.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/union-find-with-potential.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/union-find.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/van-emde-boas-tree.hpp",
-    ): "data_structure/FastSet.py",
+    ): "ordered_set/FastSet.py",
     (
         "NyaanNyaan/library",
         "data-structure/w-ary-tree.hpp",
-    ): "data_structure/FastSet.py",
+    ): "ordered_set/FastSet.py",
     (
         "NyaanNyaan/library",
         "segment-tree/dynamic-li-chao-tree.hpp",
-    ): "data_structure/LiChaoTree.py",
+    ): "spatial_structure/LiChaoTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/li-chao-tree-abstruct.hpp",
-    ): "data_structure/LiChaoTree.py",
+    ): "spatial_structure/LiChaoTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/li-chao-tree.hpp",
-    ): "data_structure/LiChaoTree.py",
+    ): "spatial_structure/LiChaoTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/persistent-segment-tree.hpp",
-    ): "data_structure/PersistentSegmentTree.py",
+    ): "segment_tree/PersistentSegmentTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/segment-tree-beats-abstract.hpp",
-    ): "data_structure/SegmentTreeBeats.py",
+    ): "segment_tree/SegmentTreeBeats.py",
     (
         "NyaanNyaan/library",
         "segment-tree/segment-tree-beats.hpp",
-    ): "data_structure/SegmentTreeBeats.py",
+    ): "segment_tree/SegmentTreeBeats.py",
     (
         "NyaanNyaan/library",
         "segment-tree/segment-tree.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "kemuniku/cplib",
         "collections/QSWAG.nim",
@@ -845,7 +845,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/binary_trie.nim",
-    ): "data_structure/BinaryTrie.py",
+    ): "ordered_set/BinaryTrie.py",
     (
         "kemuniku/cplib",
         "collections/deletable_heapqueue.nim",
@@ -853,99 +853,99 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/fenwick2d.nim",
-    ): "data_structure/FenwickTree.py",
+    ): "fenwick_tree/FenwickTree.py",
     (
         "kemuniku/cplib",
         "collections/lazysegtree.nim",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "kemuniku/cplib",
         "collections/lichaotree.nim",
-    ): "data_structure/LiChaoTree.py",
+    ): "spatial_structure/LiChaoTree.py",
     (
         "kemuniku/cplib",
         "collections/persistent_array.nim",
-    ): "data_structure/PersistentArray.py",
+    ): "sequence_structure/PersistentArray.py",
     (
         "kemuniku/cplib",
         "collections/persistent_segtree.nim",
-    ): "data_structure/PersistentSegmentTree.py",
+    ): "segment_tree/PersistentSegmentTree.py",
     (
         "kemuniku/cplib",
         "collections/persistent_unionfind.nim",
-    ): "data_structure/PersistentUnionFind.py",
+    ): "union_find/PersistentUnionFind.py",
     (
         "kemuniku/cplib",
         "collections/rollback_unionfind.nim",
-    ): "data_structure/RollbackUnionFind.py",
+    ): "union_find/RollbackUnionFind.py",
     (
         "kemuniku/cplib",
         "collections/segtree.nim",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "kemuniku/cplib",
         "collections/segtree_beats.nim",
-    ): "data_structure/SegmentTreeBeats.py",
+    ): "segment_tree/SegmentTreeBeats.py",
     (
         "kemuniku/cplib",
         "collections/segtree_beats_template.nim",
-    ): "data_structure/SegmentTreeBeats.py",
+    ): "segment_tree/SegmentTreeBeats.py",
     (
         "kemuniku/cplib",
         "collections/staticRMQ.nim",
-    ): "data_structure/StaticRMQ.py",
+    ): "range_query/StaticRMQ.py",
     (
         "kemuniku/cplib",
         "collections/tatyamset.nim",
-    ): "data_structure/FastSet.py",
+    ): "ordered_set/FastSet.py",
     (
         "kemuniku/cplib",
         "collections/unionfind.nim",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "kemuniku/cplib",
         "collections/waveletmatrix.nim",
-    ): "data_structure/WaveletMatrix.py",
+    ): "range_query/WaveletMatrix.py",
     (
         "kemuniku/cplib",
         "collections/weightedunionfind.nim",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "kemuniku/cplib",
         "collections/wordsizetree.nim",
-    ): "data_structure/FastSet.py",
+    ): "ordered_set/FastSet.py",
     (
         "tko919/library",
         "DataStructure/dynamiclazysegtree.hpp",
-    ): "data_structure/DynamicSegmentTree.py",
+    ): "segment_tree/DynamicSegmentTree.py",
     (
         "tko919/library",
         "DataStructure/dynamicsegtree.hpp",
-    ): "data_structure/DynamicSegmentTree.py",
+    ): "segment_tree/DynamicSegmentTree.py",
     (
         "tko919/library",
         "DataStructure/persistentlazysegtree.hpp",
-    ): "data_structure/DynamicSegmentTree.py",
+    ): "segment_tree/DynamicSegmentTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/dynamic-segment-tree.hpp",
-    ): "data_structure/DynamicSegmentTree.py",
+    ): "segment_tree/DynamicSegmentTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/lazy-segment-tree-utility.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/lazy-segment-tree.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/range-weighted-add-range-sum-lazyseg.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "kemuniku/cplib",
         "collections/segtree_var.nim",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "tko919/library",
         "DataStructure/2dsegtree.hpp",
@@ -965,7 +965,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure-2d/2d-binary-indexed-tree.hpp",
-    ): "data_structure/FenwickTree.py",
+    ): "fenwick_tree/FenwickTree.py",
     (
         "NyaanNyaan/library",
         "data-structure-2d/2d-cumulative-sum.hpp",
@@ -997,7 +997,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure-2d/wavelet-matrix.hpp",
-    ): "data_structure/WaveletMatrix.py",
+    ): "range_query/WaveletMatrix.py",
     (
         "tko919/library",
         "DataStructure/hashmap.hpp",
@@ -1013,7 +1013,7 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/rangeparalleluf.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "tko919/library",
         "DataStructure/rangeunionset.hpp",
@@ -1033,7 +1033,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/parallel-union-find.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/persistent-queue.hpp",
@@ -1041,7 +1041,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/range-union-find.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NyaanNyaan/library",
         "data-structure/segment-set.hpp",
@@ -1081,7 +1081,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/group_unionfind.nim",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "kemuniku/cplib",
         "collections/hashset.nim",
@@ -1097,7 +1097,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/ppunionfind.nim",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "kemuniku/cplib",
         "collections/rangeset.nim",
@@ -1109,11 +1109,11 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/root_rangesum.nim",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "kemuniku/cplib",
         "collections/rootvalue_unionfind.nim",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "kemuniku/cplib",
         "collections/staticbitset.nim",
@@ -1125,43 +1125,43 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "array/bbst-list.hpp",
-    ): "data_structure/ImplicitTreap.py",
+    ): "sequence_structure/ImplicitTreap.py",
     (
         "NyaanNyaan/library",
         "data-structure/divide-interval.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "NyaanNyaan/library",
         "data-structure/square-root-decomposition.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/rbst-segment-tree.hpp",
-    ): "data_structure/ImplicitTreap.py",
+    ): "sequence_structure/ImplicitTreap.py",
     (
         "NyaanNyaan/library",
         "segment-tree/rbst-sequence.hpp",
-    ): "data_structure/ImplicitTreap.py",
+    ): "sequence_structure/ImplicitTreap.py",
     (
         "NyaanNyaan/library",
         "segment-tree/segment-tree-max-of-interval.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "kemuniku/cplib",
         "collections/range_reverse_array.nim",
-    ): "data_structure/ImplicitTreap.py",
+    ): "sequence_structure/ImplicitTreap.py",
     (
         "kemuniku/cplib",
         "collections/range_reverse_array_monoid.nim",
-    ): "data_structure/ImplicitTreap.py",
+    ): "sequence_structure/ImplicitTreap.py",
     (
         "kemuniku/cplib",
         "collections/range_reverse_dualsegtree.nim",
-    ): "data_structure/ImplicitTreap.py",
+    ): "sequence_structure/ImplicitTreap.py",
     (
         "kemuniku/cplib",
         "collections/range_reverse_lazysegtree.nim",
-    ): "data_structure/ImplicitTreap.py",
+    ): "sequence_structure/ImplicitTreap.py",
     (
         "kemuniku/cplib",
         "collections/segtree2d.nim",
@@ -1169,7 +1169,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/staticrangecount.nim",
-    ): "data_structure/WaveletMatrix.py",
+    ): "range_query/WaveletMatrix.py",
     (
         "NachiaVivias/cp-library",
         "graph/connected-components.hpp",
@@ -1185,15 +1185,15 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "graph/strongly-connected-components.hpp",
-    ): "graph/StronglyConnectedComponents.py",
+    ): "graph_connectivity/StronglyConnectedComponents.py",
     (
         "NachiaVivias/cp-library",
         "graph/two-edge-connected-components.hpp",
-    ): "graph/TwoEdgeConnectedComponents.py",
+    ): "graph_connectivity/TwoEdgeConnectedComponents.py",
     (
         "tko919/library",
         "Graph/scc.hpp",
-    ): "graph/StronglyConnectedComponents.py",
+    ): "graph_connectivity/StronglyConnectedComponents.py",
     (
         "NyaanNyaan/library",
         "graph/cycle-detection.hpp",
@@ -1201,7 +1201,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "graph/functional-graph.hpp",
-    ): "graph/FunctionalGraph.py",
+    ): "graph_connectivity/FunctionalGraph.py",
     (
         "NyaanNyaan/library",
         "graph/graph-utility.hpp",
@@ -1209,19 +1209,19 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "graph/kruskal.hpp",
-    ): "graph/MinimumSpanningTree.py",
+    ): "graph_spanning/MinimumSpanningTree.py",
     (
         "NyaanNyaan/library",
         "graph/lowlink.hpp",
-    ): "graph/LowLink.py",
+    ): "graph_connectivity/LowLink.py",
     (
         "NyaanNyaan/library",
         "graph/namori.hpp",
-    ): "graph/NamoriDecomposition.py",
+    ): "graph_connectivity/NamoriDecomposition.py",
     (
         "NyaanNyaan/library",
         "graph/strongly-connected-components.hpp",
-    ): "graph/StronglyConnectedComponents.py",
+    ): "graph_connectivity/StronglyConnectedComponents.py",
     (
         "NyaanNyaan/library",
         "graph/topological-sort.hpp",
@@ -1229,7 +1229,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "graph/two-edge-connected-components.hpp",
-    ): "graph/TwoEdgeConnectedComponents.py",
+    ): "graph_connectivity/TwoEdgeConnectedComponents.py",
     (
         "NyaanNyaan/library",
         "lct/lazy-reversible-bbst-base.hpp",
@@ -1273,7 +1273,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "shortest-path/dijkstra-radix-heap.hpp",
-    ): "graph/DijkstraRadixHeap.py",
+    ): "shortest_path/DijkstraRadixHeap.py",
     (
         "NyaanNyaan/library",
         "shortest-path/dijkstra-with-restore.hpp",
@@ -1293,7 +1293,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "graph/SCC.nim",
-    ): "graph/StronglyConnectedComponents.py",
+    ): "graph_connectivity/StronglyConnectedComponents.py",
     (
         "kemuniku/cplib",
         "graph/bellmanford.nim",
@@ -1309,19 +1309,19 @@ COVERED = {
     (
         "kemuniku/cplib",
         "graph/functional_graph.nim",
-    ): "graph/FunctionalGraph.py",
+    ): "graph_connectivity/FunctionalGraph.py",
     (
         "kemuniku/cplib",
         "graph/kruskal.nim",
-    ): "graph/MinimumSpanningTree.py",
+    ): "graph_spanning/MinimumSpanningTree.py",
     (
         "kemuniku/cplib",
         "graph/namori_forest.nim",
-    ): "graph/NamoriDecomposition.py",
+    ): "graph_connectivity/NamoriDecomposition.py",
     (
         "kemuniku/cplib",
         "graph/namori_graph.nim",
-    ): "graph/NamoriDecomposition.py",
+    ): "graph_connectivity/NamoriDecomposition.py",
     (
         "kemuniku/cplib",
         "graph/restore_shortest_path_from_prev.nim",
@@ -1337,19 +1337,19 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "graph/biconnected-components.hpp",
-    ): "graph/BiconnectedComponents.py",
+    ): "graph_connectivity/BiconnectedComponents.py",
     (
         "tko919/library",
         "Graph/blockcut.hpp",
-    ): "graph/BiconnectedComponents.py",
+    ): "graph_connectivity/BiconnectedComponents.py",
     (
         "NyaanNyaan/library",
         "graph/biconnected-components.hpp",
-    ): "graph/BiconnectedComponents.py",
+    ): "graph_connectivity/BiconnectedComponents.py",
     (
         "NyaanNyaan/library",
         "tree/block-cut-tree.hpp",
-    ): "graph/BiconnectedComponents.py",
+    ): "graph_connectivity/BiconnectedComponents.py",
     (
         "NachiaVivias/cp-library",
         "graph/chromatic-number.hpp",
@@ -1385,23 +1385,23 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "graph/bipartite-edge-coloring.hpp",
-    ): "graph/GraphProperties.py",
+    ): "graph_enumeration/GraphProperties.py",
     (
         "NachiaVivias/cp-library",
         "graph/chordal-graph-recognizer.hpp",
-    ): "graph/GraphProperties.py",
+    ): "graph_enumeration/GraphProperties.py",
     (
         "NachiaVivias/cp-library",
         "graph/k-shortest-path-directed.hpp",
-    ): "graph/KShortestPaths.py",
+    ): "shortest_path/KShortestPaths.py",
     (
         "NachiaVivias/cp-library",
         "graph/k-shortest-path-undirected.hpp",
-    ): "graph/KShortestPaths.py",
+    ): "shortest_path/KShortestPaths.py",
     (
         "tko919/library",
         "Graph/edgecoloring.hpp",
-    ): "graph/GraphProperties.py",
+    ): "graph_enumeration/GraphProperties.py",
     (
         "tko919/library",
         "Graph/hungarian.hpp",
@@ -1465,27 +1465,27 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "counting/chromatic-polynomial.hpp",
-    ): "graph/GraphCounting.py",
+    ): "graph_enumeration/GraphCounting.py",
     (
         "NachiaVivias/cp-library",
         "counting/directed-spanning-trees.hpp",
-    ): "graph/GraphCounting.py",
+    ): "graph_enumeration/GraphCounting.py",
     (
         "NachiaVivias/cp-library",
         "counting/euler-cycles.hpp",
-    ): "graph/GraphCounting.py",
+    ): "graph_enumeration/GraphCounting.py",
     (
         "tko919/library",
         "Graph/chromaticpoly.hpp",
-    ): "graph/GraphCounting.py",
+    ): "graph_enumeration/GraphCounting.py",
     (
         "tko919/library",
         "Graph/counteuler.hpp",
-    ): "graph/GraphCounting.py",
+    ): "graph_enumeration/GraphCounting.py",
     (
         "tko919/library",
         "Graph/countspanning.hpp",
-    ): "graph/GraphCounting.py",
+    ): "graph_enumeration/GraphCounting.py",
     (
         "NachiaVivias/cp-library",
         "graph/dfs-tree.hpp",
@@ -1501,23 +1501,23 @@ COVERED = {
     (
         "tko919/library",
         "Graph/bipolar.hpp",
-    ): "graph/GraphOrdering.py",
+    ): "graph_spanning/GraphOrdering.py",
     (
         "tko919/library",
         "Graph/opttoposort.hpp",
-    ): "graph/GraphOrdering.py",
+    ): "graph_spanning/GraphOrdering.py",
     (
         "tko919/library",
         "Graph/shortestpathremedge.hpp",
-    ): "graph/GraphOrdering.py",
+    ): "graph_spanning/GraphOrdering.py",
     (
         "NachiaVivias/cp-library",
         "graph/incremental-scc-offline.hpp",
-    ): "graph/AdvancedConnectivity.py",
+    ): "graph_connectivity/AdvancedConnectivity.py",
     (
         "NachiaVivias/cp-library",
         "graph/three-edge-connected-components.hpp",
-    ): "graph/AdvancedConnectivity.py",
+    ): "graph_connectivity/AdvancedConnectivity.py",
     # Equivalent string implementations across the four reference libraries.
     **{
         ("tko919/library", path): target
@@ -1575,7 +1575,7 @@ COVERED = {
         ("tko919/library", path): target
         for path, target in {
             "Convolution/arbitrary.hpp": "convolution/NTT.py",
-            "Convolution/bitwise.hpp": "convolution/SetFunction.py",
+            "Convolution/bitwise.hpp": "bitwise_convolution/SetFunction.py",
             "Convolution/fft.hpp": "convolution/NTT.py",
             "Convolution/ntt.hpp": "convolution/NTT.py",
         }.items()
@@ -1601,39 +1601,39 @@ COVERED = {
         for path, target in {
             "convolution/convolution.nim": "convolution/NTT.py",
             "convolution/ntt.nim": "convolution/NTT.py",
-            "convolution/xor_convolution.nim": "convolution/SetFunction.py",
+            "convolution/xor_convolution.nim": "bitwise_convolution/SetFunction.py",
         }.items()
     },
     # FPS core, recurrence, evaluation and interpolation equivalents.
     **{
         ("tko919/library", path): target
         for path, target in {
-            "FPS/arbitraryfps.hpp": "convolution/FormalPowerSeries.py",
-            "FPS/berlekampmassey.hpp": "convolution/LinearRecurrence.py",
-            "FPS/fps.hpp": "convolution/FormalPowerSeries.py",
-            "FPS/interpolate.hpp": "convolution/MultipointEvaluation.py",
-            "FPS/multieval.hpp": "convolution/MultipointEvaluation.py",
-            "FPS/nthterm.hpp": "convolution/LinearRecurrence.py",
-            "FPS/prodofpolys.hpp": "convolution/FormalPowerSeries.py",
-            "FPS/samplepointshift.hpp": "convolution/MultipointEvaluation.py",
+            "FPS/arbitraryfps.hpp": "fps/FormalPowerSeries.py",
+            "FPS/berlekampmassey.hpp": "combinatorial_series/LinearRecurrence.py",
+            "FPS/fps.hpp": "fps/FormalPowerSeries.py",
+            "FPS/interpolate.hpp": "polynomial/MultipointEvaluation.py",
+            "FPS/multieval.hpp": "polynomial/MultipointEvaluation.py",
+            "FPS/nthterm.hpp": "combinatorial_series/LinearRecurrence.py",
+            "FPS/prodofpolys.hpp": "fps/FormalPowerSeries.py",
+            "FPS/samplepointshift.hpp": "polynomial/MultipointEvaluation.py",
         }.items()
     },
     **{
         ("NyaanNyaan/library", path): target
         for path, target in {
-            "fps/arbitrary-fps.hpp": "convolution/FormalPowerSeries.py",
-            "fps/berlekamp-massey.hpp": "convolution/LinearRecurrence.py",
-            "fps/fast-interpolate.hpp": "convolution/MultipointEvaluation.py",
-            "fps/fast-multieval.hpp": "convolution/MultipointEvaluation.py",
-            "fps/formal-power-series.hpp": "convolution/FormalPowerSeries.py",
-            "fps/fps-utility.hpp": "convolution/FormalPowerSeries.py",
-            "fps/kitamasa.hpp": "convolution/LinearRecurrence.py",
-            "fps/lagrange-interpolation-point.hpp": "convolution/MultipointEvaluation.py",
-            "fps/multipoint-evaluation.hpp": "convolution/MultipointEvaluation.py",
-            "fps/nth-term.hpp": "convolution/LinearRecurrence.py",
-            "fps/ntt-friendly-fps.hpp": "convolution/FormalPowerSeries.py",
-            "fps/polynomial-interpolation.hpp": "convolution/MultipointEvaluation.py",
-            "fps/taylor-shift.hpp": "convolution/FormalPowerSeries.py",
+            "fps/arbitrary-fps.hpp": "fps/FormalPowerSeries.py",
+            "fps/berlekamp-massey.hpp": "combinatorial_series/LinearRecurrence.py",
+            "fps/fast-interpolate.hpp": "polynomial/MultipointEvaluation.py",
+            "fps/fast-multieval.hpp": "polynomial/MultipointEvaluation.py",
+            "fps/formal-power-series.hpp": "fps/FormalPowerSeries.py",
+            "fps/fps-utility.hpp": "fps/FormalPowerSeries.py",
+            "fps/kitamasa.hpp": "combinatorial_series/LinearRecurrence.py",
+            "fps/lagrange-interpolation-point.hpp": "polynomial/MultipointEvaluation.py",
+            "fps/multipoint-evaluation.hpp": "polynomial/MultipointEvaluation.py",
+            "fps/nth-term.hpp": "combinatorial_series/LinearRecurrence.py",
+            "fps/ntt-friendly-fps.hpp": "fps/FormalPowerSeries.py",
+            "fps/polynomial-interpolation.hpp": "polynomial/MultipointEvaluation.py",
+            "fps/taylor-shift.hpp": "fps/FormalPowerSeries.py",
         }.items()
     },
     # Factorization feature equivalents (sieve-only files remain pending).
@@ -1691,15 +1691,15 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "set/dsu-fast.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NachiaVivias/cp-library",
         "set/dsu.hpp",
-    ): "data_structure/UnionFind.py",
+    ): "union_find/UnionFind.py",
     (
         "NachiaVivias/cp-library",
         "set/word-size-tree.hpp",
-    ): "data_structure/FastSet.py",
+    ): "ordered_set/FastSet.py",
     **{
         ("NyaanNyaan/library", path): "data_structure/Collections.py"
         for path in (
@@ -1710,7 +1710,7 @@ COVERED = {
         )
     },
     **{
-        ("NyaanNyaan/library", path): "data_structure/ImplicitTreap.py"
+        ("NyaanNyaan/library", path): "sequence_structure/ImplicitTreap.py"
         for path in (
             "rbst/lazy-reversible-rbst.hpp",
             "rbst/rbst-base.hpp",
@@ -1737,7 +1737,7 @@ COVERED = {
     **{
         ("tko919/library", path): target
         for path, target in {
-            "Math/F2vector.hpp": "math/F2Matrix.py",
+            "Math/F2vector.hpp": "linear_algebra/F2Matrix.py",
             "Math/comb.hpp": "math/Combinatorics.py",
             "Math/countsquarefree.hpp": "prime/Sieve.py",
             "Math/enumquotient.hpp": "math/Combinatorics.py",
@@ -1755,12 +1755,12 @@ COVERED = {
         ("NyaanNyaan/library", path): target
         for path, target in {
             "math/enumerate-quotient.hpp": "math/Combinatorics.py",
-            "math/f2.hpp": "math/F2Matrix.py",
+            "math/f2.hpp": "linear_algebra/F2Matrix.py",
             "math/floor-sum.hpp": "math/Combinatorics.py",
             "math/gray-code.hpp": "math/Combinatorics.py",
             "math/inv-mod.hpp": "math/Combinatorics.py",
-            "math/sweep-restore.hpp": "math/Matrix.py",
-            "math/sweep.hpp": "math/Matrix.py",
+            "math/sweep-restore.hpp": "linear_algebra/Matrix.py",
+            "math/sweep.hpp": "linear_algebra/Matrix.py",
             "math-fast/gcd.hpp": "math/Combinatorics.py",
             "math-fast/inv-o1.hpp": "math/Combinatorics.py",
             "math-fast/inv.hpp": "math/Combinatorics.py",
@@ -1816,7 +1816,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "fps/fps-composition-fast-old.hpp",
-    ): "convolution/PolynomialComposition.py",
+    ): "fps/PolynomialComposition.py",
     **{
         ("tko919/library", path): "convolution/PolynomialAlgorithms.py"
         for path in (
@@ -1856,7 +1856,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "fps/inversion-formula.hpp",
-    ): "convolution/FormalPowerSeries.py",
+    ): "fps/FormalPowerSeries.py",
     **{
         ("NyaanNyaan/library", path): target
         for path, target in {
@@ -1890,7 +1890,7 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/manhattanmst.hpp",
-    ): "graph/MinimumSpanningTree.py",
+    ): "graph_spanning/MinimumSpanningTree.py",
     (
         "tko919/library",
         "DataStructure/unionrect.hpp",
@@ -1902,11 +1902,11 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "range-query/range-add-range-min.hpp",
-    ): "data_structure/SegmentTree.py",
+    ): "segment_tree/SegmentTree.py",
     (
         "NachiaVivias/cp-library",
         "set/decremental-predecessor-query.hpp",
-    ): "data_structure/FastSet.py",
+    ): "ordered_set/FastSet.py",
     (
         "NachiaVivias/cp-library",
         "string/persistent-string.hpp",
@@ -1918,12 +1918,12 @@ COVERED = {
     **{
         ("NyaanNyaan/library", path): target
         for path, target in {
-            "math/garner.hpp": "math/ChineseRemainder.py",
+            "math/garner.hpp": "number_theory/ChineseRemainder.py",
             "math/gaussian-integer.hpp": "math/NumberTheoryExtras.py",
             "math/two-square.hpp": "math/NumberTheoryExtras.py",
             "misc/int_div.hpp": "math/NumberTheoryExtras.py",
             "modulo/fastpow.hpp": "math/NumberTheoryExtras.py",
-            "modulo/mod-log.hpp": "math/ModularArithmetic.py",
+            "modulo/mod-log.hpp": "number_theory/ModularArithmetic.py",
             "modulo/quadratic-equation.hpp": "math/NumberTheoryExtras.py",
             "modulo/tetration.hpp": "math/NumberTheoryExtras.py",
         }.items()
@@ -1937,13 +1937,13 @@ COVERED = {
         for path, target in {
             "bit/bit-operations.hpp": "algorithm/BitAlgorithms.py",
             "misc/sorting.hpp": "algorithm/Sorting.py",
-            "set/enumerate-paritions.hpp": "algorithm/IntegerPartitions.py",
+            "set/enumerate-paritions.hpp": "combinatorics/IntegerPartitions.py",
         }.items()
     },
     **{
         ("kemuniku/cplib", path): target
         for path, target in {
-            "graph/merge_tree.nim": "graph/MergeTree.py",
+            "graph/merge_tree.nim": "graph_spanning/MergeTree.py",
             "math/nearest_equiv.nim": "algorithm/IntegerUtilities.py",
             "math/powmod.nim": "algorithm/IntegerUtilities.py",
             "math/sqrt_heuristic_for_floor_sum.nim": "algorithm/ModularProgression.py",
@@ -1974,7 +1974,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "math/sat-solver.hpp",
-    ): "math/SATSolver.py",
+    ): "algebra/SATSolver.py",
     **{
         ("NyaanNyaan/library", path): "game/GameTheory.py"
         for path in (
@@ -2026,11 +2026,11 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "math/erdos-ginzburg-ziv-task.hpp",
-    ): "algorithm/ErdosGinzburgZiv.py",
+    ): "combinatorics/ErdosGinzburgZiv.py",
     (
         "NyaanNyaan/library",
         "math/elementary-function.hpp",
-    ): "math/Elementary.py",
+    ): "number_theory/Elementary.py",
     (
         "NyaanNyaan/library",
         "misc/base64.hpp",
@@ -2042,9 +2042,9 @@ COVERED = {
     (
         "tko919/library",
         "Convolution/relax.hpp",
-    ): "convolution/OnlineFormalPowerSeries.py",
+    ): "fps/OnlineFormalPowerSeries.py",
     **{
-        ("NyaanNyaan/library", path): "convolution/OnlineFormalPowerSeries.py"
+        ("NyaanNyaan/library", path): "fps/OnlineFormalPowerSeries.py"
         for path in (
             "fps/differential-equation.hpp",
             "fps/newton-method.hpp",
@@ -2120,7 +2120,7 @@ COVERED = {
         "fps/fps-fraction.hpp",
     ): "convolution/FPSWrappers.py",
     **{
-        (name, path): "convolution/PRecursive.py"
+        (name, path): "combinatorial_series/PRecursive.py"
         for name, path in (
             ("tko919/library", "FPS/p-recursive.hpp"),
             ("NyaanNyaan/library", "fps/find-p-recursive.hpp"),
@@ -2137,21 +2137,21 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "fps/multivariate-fps.hpp",
-    ): "convolution/MultivariateFPS.py",
+    ): "fps/MultivariateFPS.py",
     (
         "NyaanNyaan/library",
         "fps/stirling-matrix.hpp",
-    ): "convolution/StirlingMatrix.py",
+    ): "combinatorial_series/StirlingMatrix.py",
     (
         "NyaanNyaan/library",
         "math/rational-fps.hpp",
-    ): "math/RationalFormalPowerSeries.py",
+    ): "rational/RationalFormalPowerSeries.py",
     (
         "NyaanNyaan/library",
         "math/stern-brocot-tree-binary-search.hpp",
-    ): "math/FractionSearch.py",
+    ): "rational/FractionSearch.py",
     **{
-        ("NyaanNyaan/library", path): "math/Strassen.py"
+        ("NyaanNyaan/library", path): "linear_algebra/Strassen.py"
         for path in (
             "math-fast/mat-prod-strassen.hpp",
             "modulo/strassen.hpp",
@@ -2160,17 +2160,17 @@ COVERED = {
     (
         "tko919/library",
         "FPS/factlarge.hpp",
-    ): "math/ArbitraryBinomial.py",
+    ): "combinatorics/ArbitraryBinomial.py",
     (
         "tko919/library",
         "Math/binomquery.hpp",
-    ): "math/ArbitraryBinomial.py",
+    ): "combinatorics/ArbitraryBinomial.py",
     (
         "tko919/library",
         "Math/stirlingquery.hpp",
-    ): "math/BinomialQueries.py",
+    ): "combinatorics/BinomialQueries.py",
     **{
-        ("NyaanNyaan/library", path): "math/ArbitraryBinomial.py"
+        ("NyaanNyaan/library", path): "combinatorics/ArbitraryBinomial.py"
         for path in (
             "modulo/arbitrary-mod-binomial-large.hpp",
             "modulo/arbitrary-mod-binomial.hpp",
@@ -2179,9 +2179,9 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "modulo/multipoint-binomial-sum.hpp",
-    ): "math/BinomialQueries.py",
+    ): "combinatorics/BinomialQueries.py",
     **{
-        (name, path): "math/MultiplicativeFunctions.py"
+        (name, path): "number_theory/MultiplicativeFunctions.py"
         for name, path in (
             ("tko919/library", "Math/dirichlet.hpp"),
             ("tko919/library", "Math/multiplicative.hpp"),
@@ -2194,7 +2194,7 @@ COVERED = {
         )
     },
     **{
-        (name, path): "math/Nimber.py"
+        (name, path): "game/Nimber.py"
         for name, path in (
             ("tko919/library", "Math/nimber.hpp"),
             ("NyaanNyaan/library", "math/nimber.hpp"),
@@ -2208,9 +2208,9 @@ COVERED = {
     (
         "tko919/library",
         "Math/scarysum.hpp",
-    ): "math/FloorPolynomialSum.py",
+    ): "number_theory/FloorPolynomialSum.py",
     **{
-        ("tko919/library", path): "convolution/PolynomialFactorization.py"
+        ("tko919/library", path): "polynomial/PolynomialFactorization.py"
         for path in (
             "FPS/factorize.hpp",
             "FPS/halfgcd.hpp",
@@ -2219,11 +2219,11 @@ COVERED = {
     (
         "tko919/library",
         "FPS/incseqcount.hpp",
-    ): "convolution/IncreasingSequences.py",
+    ): "fps/IncreasingSequences.py",
     (
         "tko919/library",
         "Graph/generalweightedmatching.hpp",
-    ): "graph/GeneralWeightedMatching.py",
+    ): "graph_matching/GeneralWeightedMatching.py",
     (
         "NachiaVivias/cp-library",
         "range-query/range-add-count-top-k.hpp",
@@ -2237,7 +2237,7 @@ COVERED = {
         "DataStructure/sortablesegtree.hpp",
     ): "data_structure/AdvancedRangeStructures.py",
     **{
-        (name, path): "data_structure/RangeLIS.py"
+        (name, path): "segment_tree/RangeLIS.py"
         for name, path in (
             ("NachiaVivias/cp-library", "range-query/range-lis.hpp"),
             ("tko919/library", "DataStructure/rangelis.hpp"),

@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.MinimumSpanningTree import (
+from library_codex.graph_spanning.MinimumSpanningTree import (
     kruskal,
     minimum_spanning_forest,
     minimum_spanning_tree,

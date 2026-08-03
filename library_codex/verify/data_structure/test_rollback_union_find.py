@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.RollbackUnionFind import RollbackUnionFind
+from library_codex.union_find.RollbackUnionFind import RollbackUnionFind
 
 
 def test_basic_rollback_and_snapshot():

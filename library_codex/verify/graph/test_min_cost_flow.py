@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.MinCostFlow import MinCostFlowGraph
+from library_codex.graph_flow.MinCostFlow import MinCostFlowGraph
 
 
 def brute(n, edges, source, sink):

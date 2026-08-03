@@ -1,15 +1,15 @@
 import random
 
-from library_codex.graph.BFS import bfs
-from library_codex.graph.BellmanFord import bellman_ford
-from library_codex.graph.BipartiteColoring import bipartite_coloring
-from library_codex.graph.ConnectedComponents import connected_components
-from library_codex.graph.Dijkstra import INF, dijkstra
+from library_codex.shortest_path.BFS import bfs
+from library_codex.shortest_path.BellmanFord import bellman_ford
+from library_codex.graph_connectivity.BipartiteColoring import bipartite_coloring
+from library_codex.graph_connectivity.ConnectedComponents import connected_components
+from library_codex.shortest_path.Dijkstra import INF, dijkstra
 from library_codex.graph.RestorePath import restore_path
 from library_codex.graph.TopologicalSort import topological_sort
-from library_codex.graph.WarshallFloyd import warshall_floyd
-from library_codex.graph.ZeroOneBFS import zero_one_bfs
-from library_codex.graph.StronglyConnectedComponents import (
+from library_codex.shortest_path.WarshallFloyd import warshall_floyd
+from library_codex.shortest_path.ZeroOneBFS import zero_one_bfs
+from library_codex.graph_connectivity.StronglyConnectedComponents import (
     StronglyConnectedComponents,
 )
 

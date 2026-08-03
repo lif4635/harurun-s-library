@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.RadixHeap import RadixHeap
+from library_codex.sequence_structure.RadixHeap import RadixHeap
 
 
 def test_random():

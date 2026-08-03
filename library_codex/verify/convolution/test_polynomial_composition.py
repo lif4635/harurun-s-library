@@ -6,11 +6,11 @@ import pytest
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.convolution.FormalPowerSeries import (
+from library_codex.fps.FormalPowerSeries import (
     fps_multiply,
     fps_square_root,
 )
-from library_codex.convolution.PolynomialComposition import (
+from library_codex.fps.PolynomialComposition import (
     fps_compose,
     fps_compositional_inverse,
 )

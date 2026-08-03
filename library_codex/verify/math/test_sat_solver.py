@@ -1,7 +1,7 @@
 import itertools
 import random
 
-from library_codex.math.SATSolver import SatSolver
+from library_codex.algebra.SATSolver import SatSolver
 
 
 def test_sat_solver_against_exhaustive_assignments():

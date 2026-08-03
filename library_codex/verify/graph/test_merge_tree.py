@@ -1,6 +1,6 @@
 import random
 
-from library_codex.graph.MergeTree import MergeTree
+from library_codex.graph_spanning.MergeTree import MergeTree
 
 
 def test_merge_tree_ranges_against_live_components():

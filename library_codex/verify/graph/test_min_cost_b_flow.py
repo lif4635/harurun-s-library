@@ -1,7 +1,7 @@
 from itertools import product
 import random
 
-from library_codex.graph.MinCostBFlow import MinCostBFlow
+from library_codex.graph_flow.MinCostBFlow import MinCostBFlow
 
 
 def brute(vertex_count, edges, supply):

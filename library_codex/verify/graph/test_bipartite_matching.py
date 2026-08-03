@@ -4,12 +4,12 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.BipartiteMatching import (
+from library_codex.graph_matching.BipartiteMatching import (
     BipartiteMatching,
     bipartite_matching,
     maximum_bipartite_matching,
 )
-from library_codex.graph.MaxFlow import MaxFlowGraph
+from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
 def brute(left_size, right_size, graph):

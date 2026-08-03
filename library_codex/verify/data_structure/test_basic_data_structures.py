@@ -3,28 +3,28 @@ import bisect
 import heapq
 import random
 
-from library_codex.data_structure.BinaryTrie import BinaryTrie
-from library_codex.data_structure.FastSet import FastSet
-from library_codex.data_structure.DynamicLazySegmentTree import DynamicLazySegmentTree
-from library_codex.data_structure.DynamicSegmentTree import DynamicSegmentTree
-from library_codex.data_structure.PersistentLazySegmentTree import PersistentLazySegmentTree
-from library_codex.data_structure.DynamicFenwickTree import DynamicFenwickTree
-from library_codex.data_structure.ErasableHeap import ErasableHeap
-from library_codex.data_structure.FenwickTree import FenwickTree
-from library_codex.data_structure.FenwickTree2D import FenwickTree2D
-from library_codex.data_structure.RangeAddRangeSum import RangeAddRangeSum
-from library_codex.data_structure.SWAGDeque import SWAGDeque
-from library_codex.data_structure.SWAGQueue import SWAGQueue
-from library_codex.data_structure.DualSegmentTree import DualSegmentTree
-from library_codex.data_structure.LazySegmentTree import LazySegmentTree
-from library_codex.data_structure.SegmentTree import SegmentTree
-from library_codex.data_structure.DynamicUnionFind import DynamicUnionFind
-from library_codex.data_structure.EnumerateUnionFind import EnumerateUnionFind
-from library_codex.data_structure.MonoidUnionFind import MonoidUnionFind
-from library_codex.data_structure.PartialPersistentUnionFind import PartialPersistentUnionFind
-from library_codex.data_structure.RangeParallelUnionFind import RangeParallelUnionFind
-from library_codex.data_structure.UnionFind import UnionFind
-from library_codex.data_structure.WeightedUnionFind import WeightedUnionFind
+from library_codex.ordered_set.BinaryTrie import BinaryTrie
+from library_codex.ordered_set.FastSet import FastSet
+from library_codex.segment_tree.DynamicLazySegmentTree import DynamicLazySegmentTree
+from library_codex.segment_tree.DynamicSegmentTree import DynamicSegmentTree
+from library_codex.segment_tree.PersistentLazySegmentTree import PersistentLazySegmentTree
+from library_codex.fenwick_tree.DynamicFenwickTree import DynamicFenwickTree
+from library_codex.sequence_structure.ErasableHeap import ErasableHeap
+from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.spatial_structure.FenwickTree2D import FenwickTree2D
+from library_codex.fenwick_tree.RangeAddRangeSum import RangeAddRangeSum
+from library_codex.sequence_structure.SWAGDeque import SWAGDeque
+from library_codex.sequence_structure.SWAGQueue import SWAGQueue
+from library_codex.segment_tree.DualSegmentTree import DualSegmentTree
+from library_codex.segment_tree.LazySegmentTree import LazySegmentTree
+from library_codex.segment_tree.SegmentTree import SegmentTree
+from library_codex.union_find.DynamicUnionFind import DynamicUnionFind
+from library_codex.union_find.EnumerateUnionFind import EnumerateUnionFind
+from library_codex.union_find.MonoidUnionFind import MonoidUnionFind
+from library_codex.union_find.PartialPersistentUnionFind import PartialPersistentUnionFind
+from library_codex.union_find.RangeParallelUnionFind import RangeParallelUnionFind
+from library_codex.union_find.UnionFind import UnionFind
+from library_codex.union_find.WeightedUnionFind import WeightedUnionFind
 
 
 def test_fenwick_variants_random():

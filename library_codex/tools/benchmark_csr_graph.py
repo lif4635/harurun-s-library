@@ -14,9 +14,9 @@ from library_codex.graph.CSRGraph import (
     CSRStronglyConnectedComponents,
     dijkstra_csr,
 )
-from library_codex.graph.LowLink import LowLink
-from library_codex.graph.Dijkstra import dijkstra
-from library_codex.graph.StronglyConnectedComponents import StronglyConnectedComponents
+from library_codex.graph_connectivity.LowLink import LowLink
+from library_codex.shortest_path.Dijkstra import dijkstra
+from library_codex.graph_connectivity.StronglyConnectedComponents import StronglyConnectedComponents
 
 
 def make_edges(n, m, seed, weighted):

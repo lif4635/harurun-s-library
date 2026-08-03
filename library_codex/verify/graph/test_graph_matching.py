@@ -7,9 +7,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.DAGMinimumPathCover import dag_minimum_path_cover  # noqa: E402
-from graph.DynamicBipartiteGraph import DynamicBipartiteGraph  # noqa: E402
-from graph.GeneralMatching import GeneralMatching  # noqa: E402
+from graph_matching.DAGMinimumPathCover import dag_minimum_path_cover  # noqa: E402
+from graph_connectivity.DynamicBipartiteGraph import DynamicBipartiteGraph  # noqa: E402
+from graph_matching.GeneralMatching import GeneralMatching  # noqa: E402
 from graph.TwoSAT import TwoSAT  # noqa: E402
 
 

@@ -1,6 +1,6 @@
 import random
 
-from library_codex.data_structure.RangeLIS import RangeLIS, lis_brute
+from library_codex.segment_tree.RangeLIS import RangeLIS, lis_brute
 
 
 def test_range_lis_against_patience_sorting():

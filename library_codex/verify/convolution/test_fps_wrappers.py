@@ -1,5 +1,5 @@
-from library_codex.convolution.DualFormalPowerSeries import DualFormalPowerSeries
-from library_codex.convolution.FPSFraction import FPSFraction
+from library_codex.fps.DualFormalPowerSeries import DualFormalPowerSeries
+from library_codex.fps.FPSFraction import FPSFraction
 
 
 def test_fps_fraction_and_dual_fps_arithmetic():
@@ -9,7 +9,7 @@ def test_fps_fraction_and_dual_fps_arithmetic():
     assert total.numerator == [2]
     assert total.denominator == [1, 0, -1 % first.mod]
     recovered = ((first * second) / second).shrink()
-    from library_codex.convolution.FormalPowerSeries import fps_multiply
+    from library_codex.fps.FormalPowerSeries import fps_multiply
     assert fps_multiply(recovered.numerator, first.denominator) == fps_multiply(
         first.numerator, recovered.denominator
     )

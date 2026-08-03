@@ -8,7 +8,7 @@ import pytest
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.math.ChineseRemainder import (
+from library_codex.number_theory.ChineseRemainder import (
     chinese_remainder,
     chinese_remainder_balanced,
     garner_mod,

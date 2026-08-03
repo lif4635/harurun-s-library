@@ -1,4 +1,4 @@
-from library_codex.math.FloorPolynomialSum import floor_polynomial_sums
+from library_codex.number_theory.FloorPolynomialSum import floor_polynomial_sums
 
 
 def test_floor_polynomial_sums_against_direct_evaluation():

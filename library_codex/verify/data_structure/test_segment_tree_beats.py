@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.SegmentTreeBeats import INF, SegmentTreeBeats
+from library_codex.segment_tree.SegmentTreeBeats import INF, SegmentTreeBeats
 
 
 def check_random(a, q):

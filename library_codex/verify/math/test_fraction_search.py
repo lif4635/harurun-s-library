@@ -1,6 +1,6 @@
 from math import gcd
 
-from library_codex.math.FractionSearch import stern_brocot_binary_search
+from library_codex.rational.FractionSearch import stern_brocot_binary_search
 
 
 def test_stern_brocot_binary_search_against_enumeration():

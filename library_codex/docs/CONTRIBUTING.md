@@ -11,6 +11,8 @@
 - `Advanced*`、`Extras`、`Collections`のように中身を予測できない寄せ集めを作らない。
 - 通常版、lazy版、dual版など、constructor・制約・計算量が異なるものは分ける。
 - 版番号付きfileや、古い名前を残すだけのalias moduleで衝突を避けない。
+- sourceの置き場所は「実装技法」ではなく、利用者が探す目的で決める。たとえば通常畳み込み、GCD/LCM畳み込み、bitwise畳み込み、FPSを同じ分類へ集めない。
+- 1カテゴリが20 modulesを超える前に、用途の違いが分かるカテゴリへ分ける。カテゴリ定義は`tools/category_config.py`を正本とし、source・APIリファレンス・サイトの分類を同時に更新する。
 
 詳しい境界の例は[モジュール境界の方針](MODULE_BOUNDARIES.md)を参照します。
 

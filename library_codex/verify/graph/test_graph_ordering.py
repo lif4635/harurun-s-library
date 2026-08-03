@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.GraphOrdering import (  # noqa: E402
+from graph_spanning.GraphOrdering import (  # noqa: E402
     bipolar_orientation,
     optimal_tree_topological_order,
     shortest_path_without_each_edge,

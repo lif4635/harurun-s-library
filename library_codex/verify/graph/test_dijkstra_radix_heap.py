@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.DijkstraRadixHeap import (
+from library_codex.shortest_path.DijkstraRadixHeap import (
     dijkstra_radix_heap,
     dijkstra_radix_heap_restore,
     restore_path,

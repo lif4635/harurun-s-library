@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.PersistentArray import PersistentArray
+from library_codex.sequence_structure.PersistentArray import PersistentArray
 
 
 def test_random_branching():

@@ -10,10 +10,10 @@
 | 線分交差判定 | `geometry/SegmentIntersection.py` | 端点接触を含めるか選択可能 |
 | 凸包 | `geometry/ConvexHull.py` | 未定義変数を除去し、重複点・一直線・端点重複を処理 |
 | 偏角sort | `geometry/ArgumentSort.py` | 浮動小数点数を使わず、同じ向きの順序も決定的にした |
-| grid BFS | `graph/GridBFS.py` | 方向定数への暗黙依存をなくし、距離表と2点間距離を分離 |
+| grid BFS | `shortest_path/GridBFS.py` | 方向定数への暗黙依存をなくし、距離表と2点間距離を分離 |
 | 整数n乗根 | `algorithm/IntegerUtilities.py` | 非負整数に対するfloor値を二分探索で返す |
-| Gray codeの端点指定path | `math/GrayCode.py` | 全maskを1回ずつ通るgeneratorとして追加 |
-| 二項係数prefix和の移動 | `math/BinomialQueries.py` | `(n, m)` を前後に動かせる `BinomialPrefix` として整理 |
+| Gray codeの端点指定path | `combinatorics/GrayCode.py` | 全maskを1回ずつ通るgeneratorとして追加 |
+| 二項係数prefix和の移動 | `combinatorics/BinomialQueries.py` | `(n, m)` を前後に動かせる `BinomialPrefix` として整理 |
 | 0/1 treeの転倒数最小化 | `tree/ZeroOneTree.py` | 未定義変数を除去し、反復heap処理と入力検証を追加 |
 
 ## 既により強い実装があるもの

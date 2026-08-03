@@ -1,10 +1,10 @@
 import random
 
-from library_codex.convolution.CompositeExponential import (
+from library_codex.fps.CompositeExponential import (
     composite_exponential_scaled,
     inverse_composite_exponential,
 )
-from library_codex.convolution.StirlingMatrix import (
+from library_codex.combinatorial_series.StirlingMatrix import (
     stirling_matrix,
     stirling_matrix_transpose,
 )

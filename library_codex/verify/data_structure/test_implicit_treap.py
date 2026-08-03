@@ -1,6 +1,6 @@
 import random
 
-from library_codex.data_structure.ImplicitTreap import ImplicitTreap
+from library_codex.sequence_structure.ImplicitTreap import ImplicitTreap
 
 
 def test_implicit_treap_random_sequence_and_noncommutative_product():

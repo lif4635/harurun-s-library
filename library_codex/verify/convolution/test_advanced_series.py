@@ -1,18 +1,18 @@
 import random
 
-from library_codex.convolution.CompositeExponential import composite_exponential
-from library_codex.convolution.GeometricMultipointEvaluation import (
+from library_codex.fps.CompositeExponential import composite_exponential
+from library_codex.polynomial.GeometricMultipointEvaluation import (
     interpolate_geometric,
     multipoint_evaluation_geometric,
 )
-from library_codex.convolution.PolynomialExponentialSum import (
+from library_codex.polynomial.PolynomialExponentialSum import (
     limit_sum_polynomial_exponential,
     sum_polynomial_exponential,
 )
-from library_codex.convolution.PrefixSumPolynomial import prefix_sum_polynomial
-from library_codex.convolution.ProductGeometricSubstitutions import product_geometric_substitutions
-from library_codex.convolution.SumOfRationals import sum_of_rationals
-from library_codex.convolution.FormalPowerSeries import (
+from library_codex.polynomial.PrefixSumPolynomial import prefix_sum_polynomial
+from library_codex.polynomial.ProductGeometricSubstitutions import product_geometric_substitutions
+from library_codex.fps.SumOfRationals import sum_of_rationals
+from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_evaluate,
     fps_inverse,

@@ -1,11 +1,11 @@
 import random
 
-from library_codex.data_structure.CompressedFenwick2D import CompressedFenwick2D
-from library_codex.data_structure.CumulativeSum2D import CumulativeSum2D
-from library_codex.data_structure.DynamicPointAddRectangleSum import DynamicPointAddRectangleSum
-from library_codex.data_structure.RectangleAddRectangleSum import RectangleAddRectangleSum
-from library_codex.data_structure.SegmentTree2D import SegmentTree2D
-from library_codex.data_structure.StaticRectangleSum import StaticRectangleSum
+from library_codex.spatial_structure.CompressedFenwick2D import CompressedFenwick2D
+from library_codex.spatial_structure.CumulativeSum2D import CumulativeSum2D
+from library_codex.spatial_structure.DynamicPointAddRectangleSum import DynamicPointAddRectangleSum
+from library_codex.spatial_structure.RectangleAddRectangleSum import RectangleAddRectangleSum
+from library_codex.spatial_structure.SegmentTree2D import SegmentTree2D
+from library_codex.spatial_structure.StaticRectangleSum import StaticRectangleSum
 
 
 def test_dense_2d_structures_random():

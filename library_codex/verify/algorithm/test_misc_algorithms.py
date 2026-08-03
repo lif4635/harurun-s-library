@@ -14,7 +14,7 @@ from library_codex.algorithm.Sorting import (
     permute,
     permute_in_place,
 )
-from library_codex.algorithm.IntegerPartitions import integer_partitions
+from library_codex.combinatorics.IntegerPartitions import integer_partitions
 from library_codex.algorithm.IntegerUtilities import nearest_congruent_at_least
 from library_codex.algorithm.ModularProgression import split_modular_arithmetic_progression
 

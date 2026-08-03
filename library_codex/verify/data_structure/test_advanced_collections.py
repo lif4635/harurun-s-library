@@ -7,12 +7,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.data_structure.SkewHeap import SkewHeap  # noqa: E402
-from library_codex.data_structure.UnionRectangle import (  # noqa: E402
+from library_codex.sequence_structure.SkewHeap import SkewHeap  # noqa: E402
+from library_codex.spatial_structure.UnionRectangle import (  # noqa: E402
     UnionRectangle,
     union_rectangle_area,
 )
-from library_codex.graph.MinimumSpanningTree import (  # noqa: E402
+from library_codex.graph_spanning.MinimumSpanningTree import (  # noqa: E402
     manhattan_mst,
     minimum_spanning_tree,
 )

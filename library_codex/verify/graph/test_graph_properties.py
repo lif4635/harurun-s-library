@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from graph.GraphProperties import (  # noqa: E402
+from graph_enumeration.GraphProperties import (  # noqa: E402
     ChordalGraphRecognizer,
     bipartite_edge_coloring,
 )

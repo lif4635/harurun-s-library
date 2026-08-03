@@ -1,7 +1,7 @@
 import random
 
 from library_codex.convolution.MultivariateMultiplication import multivariate_multiplication
-from library_codex.convolution.MultivariateFPS import MultivariateFPS
+from library_codex.fps.MultivariateFPS import MultivariateFPS
 
 
 def test_multivariate_fps_arithmetic_and_transcendentals():

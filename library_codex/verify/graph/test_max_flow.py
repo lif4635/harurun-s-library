@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.MaxFlow import MaxFlowGraph
+from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
 def brute_min_cut(n, edges, source, sink):

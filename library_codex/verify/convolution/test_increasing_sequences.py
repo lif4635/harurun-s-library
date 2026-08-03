@@ -1,7 +1,7 @@
 import itertools
 import random
 
-from library_codex.convolution.IncreasingSequences import (
+from library_codex.fps.IncreasingSequences import (
     number_of_increasing_sequences_between,
 )
 

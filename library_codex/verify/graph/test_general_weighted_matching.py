@@ -1,6 +1,6 @@
 import random
 
-from library_codex.graph.GeneralWeightedMatching import GeneralWeightedMatching
+from library_codex.graph_matching.GeneralWeightedMatching import GeneralWeightedMatching
 
 
 def _brute(weights):

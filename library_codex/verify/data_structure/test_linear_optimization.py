@@ -1,7 +1,7 @@
 import random
 
-from library_codex.data_structure.LineContainer2D import LineContainer2D
-from library_codex.data_structure.RangeLinearAddRangeMin import RangeLinearAddRangeMin
+from library_codex.spatial_structure.LineContainer2D import LineContainer2D
+from library_codex.segment_tree.RangeLinearAddRangeMin import RangeLinearAddRangeMin
 
 
 def test_line_container_2d_against_brute_force():

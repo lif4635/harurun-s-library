@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.PersistentUnionFind import PersistentUnionFind
+from library_codex.union_find.PersistentUnionFind import PersistentUnionFind
 
 
 def naive_leader(data, x):

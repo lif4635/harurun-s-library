@@ -1,10 +1,10 @@
 import random
 
-from library_codex.convolution.PowerEnumerate import (
+from library_codex.polynomial.PowerEnumerate import (
     power_coefficient_enumerate,
     power_inner_product_enumerate,
 )
-from library_codex.convolution.FormalPowerSeries import DEFAULT_MOD, fps_multiply
+from library_codex.fps.FormalPowerSeries import DEFAULT_MOD, fps_multiply
 
 
 def test_power_enumeration_against_repeated_multiplication():

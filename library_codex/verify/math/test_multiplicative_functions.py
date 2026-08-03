@@ -1,7 +1,7 @@
 from fractions import Fraction
 from math import isqrt
 
-from library_codex.math.MultiplicativeFunctions import (
+from library_codex.number_theory.MultiplicativeFunctions import (
     DirichletQuotientSeries,
     EnumerateMultiplicativePrefixSum,
     MultiplicativePrefixSum,

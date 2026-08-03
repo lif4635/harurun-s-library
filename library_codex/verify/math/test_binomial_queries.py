@@ -1,10 +1,10 @@
 import random
 
-from library_codex.math.BinomialQueries import (
+from library_codex.combinatorics.BinomialQueries import (
     StirlingNumberQuery,
     multipoint_binomial_prefix_sum,
 )
-from library_codex.math.Combination import Combination
+from library_codex.combinatorics.Combination import Combination
 
 
 def test_multipoint_binomial_prefix_sum():

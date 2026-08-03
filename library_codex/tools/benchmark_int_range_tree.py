@@ -8,10 +8,10 @@ from time import perf_counter
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from library_codex.data_structure.RangeAddAssignRangeStats import RangeAddAssignRangeStats
-from library_codex.data_structure.RangeAffineRangeSum import RangeAffineRangeSum
-from library_codex.data_structure.LazySegmentTree import LazySegmentTree
-from library_codex.data_structure.SegmentTreeBeats import SegmentTreeBeats
+from library_codex.segment_tree.RangeAddAssignRangeStats import RangeAddAssignRangeStats
+from library_codex.segment_tree.RangeAffineRangeSum import RangeAffineRangeSum
+from library_codex.segment_tree.LazySegmentTree import LazySegmentTree
+from library_codex.segment_tree.SegmentTreeBeats import SegmentTreeBeats
 
 
 INF = float("inf")

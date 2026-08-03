@@ -8,8 +8,8 @@ from time import perf_counter
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from library_codex.graph.AdvancedFlow import PushRelabelMaxFlow
-from library_codex.graph.MaxFlow import MaxFlowGraph
+from library_codex.graph_flow.AdvancedFlow import PushRelabelMaxFlow
+from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
 def build_edges(n, density, seed):

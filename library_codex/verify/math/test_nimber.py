@@ -1,6 +1,6 @@
 import random
 
-from library_codex.math.Nimber import Nimber, NimberToField, nim_product
+from library_codex.game.Nimber import Nimber, NimberToField, nim_product
 
 
 def _naive_table(limit):

@@ -1,6 +1,6 @@
 import random
 
-from library_codex.data_structure.MaxInterval import max_interval_segment_tree
+from library_codex.segment_tree.MaxInterval import max_interval_segment_tree
 
 
 def brute_subarray_extrema(values):

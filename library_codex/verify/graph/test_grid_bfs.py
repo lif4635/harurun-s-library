@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.graph.GridBFS import grid_bfs, grid_shortest_path  # noqa: E402
+from library_codex.shortest_path.GridBFS import grid_bfs, grid_shortest_path  # noqa: E402
 
 
 def test_grid_bfs_distance_matrix_and_goal():

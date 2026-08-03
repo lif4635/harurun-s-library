@@ -4,11 +4,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
-from library_codex.data_structure.RangeAddAssignRangeStats import (
+from library_codex.segment_tree.RangeAddAssignRangeStats import (
     INF,
     RangeAddAssignRangeStats,
 )
-from library_codex.data_structure.RangeAffineRangeSum import RangeAffineRangeSum
+from library_codex.segment_tree.RangeAffineRangeSum import RangeAffineRangeSum
 
 
 def test_range_stats_random_against_list():

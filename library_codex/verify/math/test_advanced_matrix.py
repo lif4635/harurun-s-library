@@ -1,15 +1,15 @@
 from itertools import permutations
 import random
 
-from library_codex.math.AdvancedMatrix import (
+from library_codex.linear_algebra.AdvancedMatrix import (
     determinant_arbitrary_mod,
     directed_spanning_tree_count,
     hafnian,
     pfaffian,
     spanning_tree_count,
 )
-from library_codex.math.F2Matrix import F2Matrix
-from library_codex.math.Matrix import matrix_determinant
+from library_codex.linear_algebra.F2Matrix import F2Matrix
+from library_codex.linear_algebra.Matrix import matrix_determinant
 
 
 MOD = 998244353

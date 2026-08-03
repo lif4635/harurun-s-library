@@ -6,7 +6,7 @@ import pytest
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.convolution.LinearRecurrence import (
+from library_codex.combinatorial_series.LinearRecurrence import (
     berlekamp_massey,
     berlekamp_massey_polynomial,
     bostan_mori,

@@ -1,12 +1,10 @@
 import ast
 from pathlib import Path
 
+from library_codex.tools.category_config import SOURCE_CATEGORIES
+
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_CATEGORIES = {
-    "algorithm", "convolution", "data_structure", "game", "graph", "heuristic",
-    "math", "optimization", "prime", "random", "string", "tree",
-}
 REMOVED_UMBRELLA_MODULES = {
     "convolution/AdvancedConvolution.py",
     "convolution/AdvancedSeries.py",
@@ -47,14 +45,25 @@ def test_module_boundaries_and_descriptions_are_reviewed():
     }
     assert not (REMOVED_UMBRELLA_MODULES & modules.keys())
 
-    segment_tree = ast.parse(modules["data_structure/SegmentTree.py"].read_text(encoding="utf-8"))
+    segment_tree = ast.parse(modules["segment_tree/SegmentTree.py"].read_text(encoding="utf-8"))
     assert [node.name for node in segment_tree.body if isinstance(node, ast.ClassDef)] == ["SegmentTree"]
 
-    union_find = ast.parse(modules["data_structure/UnionFind.py"].read_text(encoding="utf-8"))
+    union_find = ast.parse(modules["union_find/UnionFind.py"].read_text(encoding="utf-8"))
     assert [node.name for node in union_find.body if isinstance(node, ast.ClassDef)] == ["UnionFind"]
 
-    dijkstra = ast.parse(modules["graph/Dijkstra.py"].read_text(encoding="utf-8"))
+    dijkstra = ast.parse(modules["shortest_path/Dijkstra.py"].read_text(encoding="utf-8"))
     assert [
         node.name for node in dijkstra.body
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and not node.name.startswith("_")
     ] == ["dijkstra"]
+
+
+def test_source_categories_stay_small_enough_to_scan():
+    counts = {
+        category: sum(
+            1 for path in (ROOT / category).glob("*.py")
+            if not path.name.startswith("_")
+        )
+        for category in SOURCE_CATEGORIES
+    }
+    assert max(counts.values()) <= 20, counts

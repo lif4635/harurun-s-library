@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.OfflineDynamicConnectivity import (
+from library_codex.graph_connectivity.OfflineDynamicConnectivity import (
     OfflineDynamicConnectivity,
 )
 

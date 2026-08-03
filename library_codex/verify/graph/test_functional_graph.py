@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph.FunctionalGraph import FunctionalGraph
+from library_codex.graph_connectivity.FunctionalGraph import FunctionalGraph
 
 
 def orbit(to, s):
