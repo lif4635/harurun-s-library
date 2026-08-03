@@ -107,11 +107,35 @@ class Random:
             self.shuffle(result)
         return result
 
-    def integers(self, length, lower, upper):
-        """Return length independent integers from inclusive [lower, upper]."""
+    def array(self, length, lower, upper, distinct=False, sort_result=False):
+        """Return a test array whose values are in inclusive [lower, upper]."""
         if length < 0:
             raise ValueError("length must be nonnegative")
-        return [self.uniform(lower, upper) for _ in range(length)]
+        if lower > upper:
+            raise ValueError("lower must not exceed upper")
+        if distinct:
+            return self.sample_range(length, lower, upper, sort_result)
+        result = [self.uniform(lower, upper) for _ in range(length)]
+        if sort_result:
+            result.sort()
+        return result
+
+    def bits(self, length, ones=None):
+        """Return a binary array, optionally with an exact number of ones."""
+        if length < 0:
+            raise ValueError("length must be nonnegative")
+        if ones is None:
+            return [self.next_u64() & 1 for _ in range(length)]
+        if not 0 <= ones <= length:
+            raise ValueError("ones must be between zero and length")
+        result = [1] * ones + [0] * (length - ones)
+        return self.shuffle(result)
+
+    def matrix(self, rows, columns, lower, upper):
+        """Return a rows-by-columns random integer matrix."""
+        if rows < 0 or columns < 0:
+            raise ValueError("matrix dimensions must be nonnegative")
+        return [self.array(columns, lower, upper) for _ in range(rows)]
 
     def string(self, length, alphabet="abcdefghijklmnopqrstuvwxyz"):
         """Return a random string of the requested length from alphabet."""

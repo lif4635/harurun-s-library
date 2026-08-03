@@ -169,6 +169,58 @@ class UndirectedGraphGenerator:
             )
         return graph
 
+    def cycle(self, n, weighted=False, weight_min=1, weight_max=1):
+        """Return a simple cycle with randomly permuted vertex labels."""
+        if n < 3:
+            raise ValueError("a simple cycle needs at least 3 vertices")
+        order = self.random.permutation(n)
+        graph = Graph(n, weighted)
+        for index in range(n):
+            self._add(
+                graph,
+                order[index],
+                order[(index + 1) % n],
+                weighted,
+                weight_min,
+                weight_max,
+            )
+        return graph
+
+    def forest(
+        self,
+        n,
+        components,
+        weighted=False,
+        weight_min=1,
+        weight_max=1,
+    ):
+        """Return a random forest with exactly the requested component count."""
+        if n < 0 or components < 0:
+            raise ValueError("n and components must be nonnegative")
+        if (n == 0 and components != 0) or (n > 0 and not 1 <= components <= n):
+            raise ValueError("components must be zero only for n=0, otherwise 1..n")
+        graph = Graph(n, weighted)
+        if n == 0:
+            return graph
+        order = self.random.permutation(n)
+        sizes = self.random.composition(n, components, positive=True)
+        offset = 0
+        for size in sizes:
+            block = order[offset:offset + size]
+            for index in range(1, size):
+                parent = self.random.randrange(index)
+                self._add(
+                    graph,
+                    block[parent],
+                    block[index],
+                    weighted,
+                    weight_min,
+                    weight_max,
+                )
+            offset += size
+        self.random.shuffle(graph.edges)
+        return graph
+
     def complete(self, n, weighted=False, weight_min=1, weight_max=1):
         """Return the complete simple graph K_n."""
         graph = Graph(n, weighted)
@@ -209,6 +261,27 @@ class UndirectedGraphGenerator:
         for first, second in self.random.sample(available, missing):
             self._add(graph, first, second, weighted, weight_min, weight_max)
         self.random.shuffle(graph.edges)
+        return graph
+
+    def bipartite(
+        self,
+        left_size,
+        right_size,
+        edge_count,
+        weighted=False,
+        weight_min=1,
+        weight_max=1,
+    ):
+        """Return a simple bipartite graph with an exact number of edges."""
+        maximum = left_size * right_size
+        if left_size < 0 or right_size < 0 or not 0 <= edge_count <= maximum:
+            raise ValueError("edge_count is outside the bipartite-graph range")
+        graph = Graph(left_size + right_size, weighted)
+        selected = self.random.sample_range(edge_count, 0, maximum - 1, False)
+        for edge_index in selected:
+            first = edge_index // right_size
+            second = left_size + edge_index % right_size
+            self._add(graph, first, second, weighted, weight_min, weight_max)
         return graph
 
     def erdos_renyi(

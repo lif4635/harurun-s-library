@@ -46,8 +46,8 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [math](api/math/README.md) | 数学・線形代数・数論 | 42 | 86 | 26 | 126 |
 | [optimization](api/optimization/README.md) | 最適化・DP高速化 | 13 | 13 | 9 | 48 |
 | [prime](api/prime/README.md) | 素数・素因数分解 | 2 | 12 | 1 | 2 |
-| [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 30 |
+| [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 232 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 20 | 23 | 24 | 120 |
 
-合計: **289 modules / 398 functions / 204 classes / 1275 methods・properties**。
+合計: **289 modules / 398 functions / 204 classes / 1280 methods・properties**。

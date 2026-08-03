@@ -20,7 +20,18 @@ def test_random_reproducibility_and_ranges():
 
 def test_test_case_helpers():
     random = Random(81)
-    assert len(random.integers(50, -3, 7)) == 50
+    array = random.array(50, -3, 7)
+    assert len(array) == 50 and all(-3 <= value <= 7 for value in array)
+    distinct = random.array(20, -30, 30, distinct=True)
+    assert len(distinct) == len(set(distinct)) == 20
+    ordered = random.array(100, -5, 5, sort_result=True)
+    assert ordered == sorted(ordered)
+    bits = random.bits(100, ones=37)
+    assert len(bits) == 100 and sum(bits) == 37 and set(bits) <= {0, 1}
+    matrix = random.matrix(7, 11, -2, 4)
+    assert len(matrix) == 7
+    assert all(len(row) == 11 for row in matrix)
+    assert all(-2 <= value <= 4 for row in matrix for value in row)
     assert set(random.string(200, "abc")) <= set("abc")
     assert sorted(random.sample(list(range(50)), 20)) != list(range(20))
     for allow_empty in (False, True):
@@ -61,6 +72,25 @@ def _assert_simple(graph):
     assert len(pairs) == len(set(pairs))
 
 
+def _component_count(graph):
+    adjacency = graph.to_adjacency_list()
+    seen = [False] * graph.n
+    count = 0
+    for start in range(graph.n):
+        if seen[start]:
+            continue
+        count += 1
+        seen[start] = True
+        queue = deque([start])
+        while queue:
+            vertex = queue.popleft()
+            for edge in adjacency[vertex]:
+                if not seen[edge.v]:
+                    seen[edge.v] = True
+                    queue.append(edge.v)
+    return count
+
+
 def test_graph_and_generators():
     generator = UndirectedGraphGenerator(77)
     for n in range(70):
@@ -72,6 +102,16 @@ def test_graph_and_generators():
         assert path.edge_count() == max(0, n - 1)
         star = generator.star(n)
         assert star.edge_count() == max(0, n - 1)
+        components = 0 if n == 0 else max(1, n // 5)
+        forest = generator.forest(n, components)
+        assert forest.edge_count() == n - components
+        assert _component_count(forest) == components
+        _assert_simple(forest)
+        if n >= 3:
+            cycle = generator.cycle(n)
+            assert cycle.edge_count() == n
+            assert _is_connected(cycle)
+            _assert_simple(cycle)
         complete = generator.complete(n)
         assert complete.edge_count() == n * (n - 1) // 2
 
@@ -86,6 +126,11 @@ def test_graph_and_generators():
             assert connected.edge_count() == connected_count
             _assert_simple(connected)
             assert _is_connected(connected)
+    bipartite = generator.bipartite(17, 13, 80, True, -9, 9)
+    assert bipartite.n == 30 and bipartite.edge_count() == 80
+    _assert_simple(bipartite)
+    assert all(edge.u < 17 <= edge.v for edge in bipartite.edges)
+    assert all(-9 <= edge.weight <= 9 for edge in bipartite.edges)
     graph = Graph(3, True)
     graph.add_undirected_edge(2, 0, 7)
     graph.add_directed_edge(1, 2, 9)
@@ -97,6 +142,7 @@ def test_graph_and_generators():
 
 
 def test_no_redundant_random_alias_methods():
+    assert not hasattr(Random, "integers")
     assert not hasattr(Random, "perm")
     assert not hasattr(Random, "choice_distinct")
     assert not hasattr(UndirectedGraphGenerator, "perfect")

@@ -169,6 +169,11 @@ MODULE_ARGUMENT_DESCRIPTION = {
         "size": "置換に含める整数の個数",
         "start": "置換に含める最初の整数",
         "count": "抽選または生成する個数",
+        "distinct": "Trueなら値の重複を禁止する",
+        "sort_result": "Trueなら生成後に昇順へsortする",
+        "ones": "bit列に含める1の個数。Noneなら各bitを独立に生成する",
+        "rows": "生成する行列の行数",
+        "columns": "生成する行列の列数",
         "total": "compositionの要素合計",
         "parts": "compositionの要素数",
         "seed": "乱数列を再現する整数。同じseedなら同じ結果になる",
@@ -179,6 +184,9 @@ MODULE_ARGUMENT_DESCRIPTION = {
         "second": "辺のもう一方の0-indexed頂点番号",
         "directed": "Trueならstored edgeの向きだけを使う",
         "seed": "乱数列を再現する整数。同じseedなら同じgraph列になる",
+        "components": "生成するforestの連結成分数",
+        "left_size": "二部graphの左側頂点数",
+        "right_size": "二部graphの右側頂点数",
     },
     "data_structure/DynamicWaveletMatrix.py": {
         "values": "初期値のiterable",
@@ -304,7 +312,9 @@ MODULE_RETURN_SEMANTIC = {
         "permutation": "list[int] — startからstart+size-1までを1回ずつ含む列",
         "sample": "list[object] — 入力sequenceから重複なしで選んだcount要素",
         "sample_range": "list[int] — 閉区間から重複なしで選んだcount個の整数",
-        "integers": "list[int] — 閉区間から独立に生成したlength個の整数",
+        "array": "list[int] — 閉区間から生成したlength個の整数。distinct=Trueなら重複なし、sort_result=Trueなら昇順",
+        "bits": "list[int] — 0と1だけを含むlength要素の配列。ones指定時は1をちょうどones個含む",
+        "matrix": "list[list[int]] — rows行columns列の整数行列",
         "string": "str — alphabetだけで構成したlength文字の文字列",
         "intervals": "list[tuple[int, int]] — [lower, upper)内の半開区間(left, right)の列",
         "composition": "list[int] — 合計がtotalになる長さpartsの非負または正の整数列",
@@ -320,9 +330,12 @@ MODULE_RETURN_SEMANTIC = {
         "tree": "Graph — n頂点n-1辺の木",
         "path": "Graph — n頂点max(0,n-1)辺のpath graph",
         "star": "Graph — n頂点max(0,n-1)辺のstar graph",
+        "cycle": "Graph — n頂点n辺の単純cycle graph",
+        "forest": "Graph — n頂点n-components辺で、連結成分数がcomponentsのforest",
         "complete": "Graph — n頂点n(n-1)/2辺の完全graph",
         "simple": "Graph — n頂点edge_count辺の単純graph",
         "connected": "Graph — n頂点edge_count辺の連結単純graph",
+        "bipartite": "Graph — 左右をまたぐedge_count辺だけを持つ単純二部graph",
         "erdos_renyi": "Graph — 各候補辺を独立にprobabilityで含めた単純graph",
         "unicyclic": "Graph — n頂点n辺でcycleを1個だけ持つ連結単純graph",
     },
@@ -347,6 +360,19 @@ MODULE_RETURN_SEMANTIC = {
     "data_structure/MaxInterval.py": {
         "merge_max_interval": "MaxInterval — firstの直後にsecondを連結した区間の集約値",
         "max_interval_segment_tree": "SegmentTree — 各nodeがMaxIntervalを持つSegmentTree。prod(...).maximumで最大部分配列和を取得する",
+    },
+}
+
+MODULE_PURPOSE = {
+    "random/Random.py": {
+        "array": "値域・重複の有無・sortの有無を指定してテスト用配列を生成する。",
+        "bits": "0/1をランダムに並べ、必要なら1の個数を固定する。",
+        "matrix": "指定した行数・列数のランダム整数行列を生成する。",
+    },
+    "random/RandomGraph.py": {
+        "cycle": "頂点labelをランダムに並べた単純cycle graphを生成する。",
+        "forest": "成分数を固定したランダムforestを生成する。",
+        "bipartite": "左右の頂点数と辺数を固定した単純二部graphを生成する。",
     },
 }
 
@@ -821,6 +847,9 @@ def purpose_for(name, node, owner=None, module_key=None):
     doc = first_paragraph(ast.get_docstring(node, clean=True))
     if doc and contains_japanese(doc):
         return doc
+    module_purpose = MODULE_PURPOSE.get(module_key, {}).get(name)
+    if module_purpose:
+        return module_purpose
     if name in PURPOSE_BY_NAME:
         return PURPOSE_BY_NAME[name]
     if name in PROTOCOL_METHODS:

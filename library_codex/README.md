@@ -127,8 +127,8 @@
 | `optimization/ProjectSelection.py` | binary/K値Project Selection・高次all-0/all-1 profit | 1回のmin-cutへ帰着 |
 | `optimization/SlopeTrick.py` | 重み付きSlope Trick・shift/slide/chmin/merge/eval | 更新はheap償却 $O(\log N)$ |
 | `optimization/Matroid.py` | グラフィック・分割・横断マトロイドの共通独立集合を求める | oracle依存の多項式時間 |
-| `random/Random.py` | 再現可能なxoshiro256**乱数・配列・文字列・区間・composition生成 | 各出力サイズに線形 |
-| `random/RandomGraph.py` | edge-list container・木・連結・単純・Erdős–Rényi graph生成 | 主に $O(N+M)$、密グラフは $O(N^2)$ |
+| `random/Random.py` | 再現可能なxoshiro256**乱数・配列・bit列・行列・文字列生成 | 各出力サイズに線形 |
+| `random/RandomGraph.py` | edge-list container・木・forest・二部・連結・単純graph生成 | 主に $O(N+M)$、密グラフは $O(N^2)$ |
 | `string/AhoCorasick.py` | dict/固定alphabet対応Aho--Corasick（軽量・pattern別集計） | 固定alphabet構築 $O(V\sigma)$、集計 $O(T)$、列挙 $O(T+M)$ |
 | `string/CompressedTrie.py` | 辺ラベルを元の語の区間で持つ圧縮Trie | 追加・検索 $O(L)$、ノード数 $O(U)$ |
 | `string/DynamicRollingHash.py` | 点更新・反転hash対応segment tree | 更新・取得 $O(\log N)$ |
