@@ -15,6 +15,13 @@
 - 入力依存のgenericな型は「計算結果」「入力要素型」などと表記します。正確な分岐は各行のsource linkで確認できます。
 - API表は手編集せず、`pypy3 library_codex/tools/build_api_reference.py` で再生成します。`--check` はsourceとの同期だけを検査します。
 
+## 関連資料
+
+- [実装を追加・変更するときの手引き](CONTRIBUTING.md)
+- [モジュール境界の方針](MODULE_BOUNDARIES.md)
+- [デバッグ出力](DEBUG_OUTPUT.md)
+- [元のlibraryから取り込んだもの](ORIGINAL_LIBRARY_MERGE.md)
+
 ## 最小の使い方
 
 ```python
