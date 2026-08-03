@@ -21,8 +21,8 @@ from library_codex.data_structure.OrderedMap import OrderedMap
 
 key順の探索・k番目・lower/upper boundを扱う順序付きmapを扱う `OrderedMap`。
 
-- constructor: [`OrderedMap(items=(), default_factory=lambda: None)`](../../../data_structure/OrderedMap.py#L10)
-- 引数: `items`: 処理対象を順に並べた列。省略時: `()`<br>`default_factory`: `default`・`factory`として使う入力。省略時: `lambda: None`
+- constructor: [`OrderedMap(items=(), default_factory=lambda : None)`](../../../data_structure/OrderedMap.py#L10)
+- 引数: `items`: 処理対象を順に並べた列。省略時: `()`<br>`default_factory`: `default`・`factory`として使う入力。省略時: `lambda : None`
 - 返り値: `OrderedMap` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

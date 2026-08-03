@@ -32,7 +32,7 @@ def limit_sum_polynomial_exponential(values, ratio, mod=DEFAULT_MOD):
     answer = 0
     for index in range(degree + 1):
         accumulated = (accumulated + powers[index] * values[index]) % mod
-        term = (combination.binomial(degree + 1, index + 1)
+        term = (combination.C(degree + 1, index + 1)
                 * powers[degree - index] % mod * accumulated % mod)
         answer += -term if (degree - index) & 1 else term
     return answer % mod * pow(pow(1 - ratio, degree + 1, mod), -1, mod) % mod
@@ -61,7 +61,7 @@ def sum_polynomial_exponential(values, ratio, count, mod=DEFAULT_MOD):
     combination = Combination(degree + 1, mod)
     constant = 0
     for index in range(degree + 1):
-        term = (combination.binomial(degree + 1, index + 1)
+        term = (combination.C(degree + 1, index + 1)
                 * powers[degree - index] % mod * prefixes[index] % mod)
         constant += -term if (degree - index) & 1 else term
     constant %= mod
@@ -74,4 +74,3 @@ def sum_polynomial_exponential(values, ratio, count, mod=DEFAULT_MOD):
         inverse_power = inverse_power * inverse_ratio % mod
     return (pow(ratio, last, mod)
             * interpolate_consecutive(adjusted, last, mod) + constant) % mod
-

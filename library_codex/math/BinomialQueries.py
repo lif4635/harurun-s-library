@@ -29,22 +29,22 @@ def multipoint_binomial_prefix_sum(queries, mod=DEFAULT_MOD):
     for query_index in order:
         target_n, target_m = queries[query_index]
         while current_m > target_m:
-            current = (current - combination.binomial(
+            current = (current - combination.C(
                 current_n, current_m
             )) % mod
             current_m -= 1
         while current_n < target_n:
             current = (current + current
-                       - combination.binomial(current_n, current_m)) % mod
+                       - combination.C(current_n, current_m)) % mod
             current_n += 1
         while current_n > target_n:
             current_n -= 1
-            current = ((current + combination.binomial(
+            current = ((current + combination.C(
                 current_n, current_m
             )) * inverse_two) % mod
         while current_m < target_m:
             current_m += 1
-            current = (current + combination.binomial(
+            current = (current + combination.C(
                 current_n, current_m
             )) % mod
         result[query_index] = current

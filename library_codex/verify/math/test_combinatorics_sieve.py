@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
-from library_codex.math.Combination import Combination  # noqa: E402
+from library_codex.math.Combination import Combination, comb_large  # noqa: E402
 from library_codex.math.EnumerateQuotient import enumerate_quotient  # noqa: E402
 from library_codex.math.FloorSum import floor_sum, mod_affine_range_count  # noqa: E402
 from library_codex.math.GrayCode import gray_code, inverse_gray_code  # noqa: E402
@@ -31,7 +31,13 @@ def test_extended_gcd_combination_and_gray():
     combination = Combination(mod=998244353)
     for n in range(500):
         for k in range(n + 1):
-            assert combination.binomial(n, k) == math.comb(n, k) % 998244353
+            assert combination.C(n, k) == math.comb(n, k) % 998244353
+    assert combination.fact(10) == math.factorial(10) % 998244353
+    assert combination.P(10, 3) == 10 * 9 * 8
+    assert combination.H(4, 3) == math.comb(6, 3)
+    assert comb_large(10**18, 4) == math.comb(10**18, 4) % 998244353
+    for old_name in ("factorial_value", "binomial", "nCr", "permutation", "nPr", "multiset"):
+        assert not hasattr(combination, old_name)
     for value in range(10_000):
         assert inverse_gray_code(gray_code(value)) == value
 

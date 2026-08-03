@@ -3,7 +3,7 @@
 DEFAULT_MOD = 998244353
 
 class Combination:
-    """Dynamically extended factorial table over a prime modulus."""
+    """素数mod上の階乗表を必要なところまで自動で拡張する。"""
 
     __slots__ = ("mod", "factorial", "inverse_factorial")
 
@@ -28,36 +28,34 @@ class Combination:
                 self.inverse_factorial[value] * value % mod
             )
 
-    def factorial_value(self, n):
+    def fact(self, n):
+        """n!をmodで割った余りを返す。O(1)、表の拡張時は償却O(n)。"""
         self.ensure(n)
         return self.factorial[n]
 
-    def binomial(self, n, k):
+    def C(self, n, k):
+        """二項係数C(n, k)を返す。O(1)、表の拡張時は償却O(n)。"""
         if k < 0 or n < k or n < 0:
             return 0
         self.ensure(n)
         return (self.factorial[n] * self.inverse_factorial[k]
                 % self.mod * self.inverse_factorial[n - k] % self.mod)
 
-    C = binomial
-    nCr = binomial
-
-    def permutation(self, n, k):
+    def P(self, n, k):
+        """順列数P(n, k)を返す。O(1)、表の拡張時は償却O(n)。"""
         if k < 0 or n < k or n < 0:
             return 0
         self.ensure(n)
         return self.factorial[n] * self.inverse_factorial[n - k] % self.mod
 
-    P = permutation
-    nPr = permutation
-
-    def multiset(self, n, k):
+    def H(self, n, k):
+        """n種類から重複を許してk個選ぶ重複組合せH(n, k)を返す。O(1)。"""
         if n == 0:
             return int(k == 0)
-        return self.binomial(n + k - 1, k)
+        return self.C(n + k - 1, k)
 
-def binomial_multiplicative(n, k, mod=DEFAULT_MOD):
-    """O(k) binomial for huge n and small k over a prime modulus."""
+def comb_large(n, k, mod=DEFAULT_MOD):
+    """nが大きくkが小さいときに二項係数C(n, k)をO(k)で求める。"""
     if k < 0 or n < k:
         return 0
     k = min(k, n - k)
@@ -66,4 +64,3 @@ def binomial_multiplicative(n, k, mod=DEFAULT_MOD):
         numerator = numerator * (n - k + i) % mod
         denominator = denominator * i % mod
     return numerator * pow(denominator, -1, mod) % mod
-

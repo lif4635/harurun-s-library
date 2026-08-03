@@ -9,13 +9,13 @@
 
 ## できること
 
-- `binomial_multiplicative`: 二項係数・`multiplicative`を求める。
-- `Combination`: 階乗前計算または乗法式で二項係数・順列数を計算するを扱う `Combination`。
+- `comb_large`: nが大きくkが小さいときに二項係数C(n, k)をO(k)で求める。
+- `Combination`: 素数mod上の階乗表を必要なところまで自動で拡張する。
 
 ## Import
 
 ```python
-from library_codex.math.Combination import binomial_multiplicative, Combination
+from library_codex.math.Combination import comb_large, Combination
 ```
 
 ## 公開定数
@@ -28,11 +28,11 @@ from library_codex.math.Combination import binomial_multiplicative, Combination
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`binomial_multiplicative(n, k, mod=DEFAULT_MOD)`](../../../math/Combination.py#L59) | 二項係数・`multiplicative`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod` |
+| [`comb_large(n, k, mod=DEFAULT_MOD)`](../../../math/Combination.py#L57) | nが大きくkが小さいときに二項係数C(n, k)をO(k)で求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod` |
 
 ## Class `Combination`
 
-階乗前計算または乗法式で二項係数・順列数を計算するを扱う `Combination`。
+素数mod上の階乗表を必要なところまで自動で拡張する。
 
 - constructor: [`Combination(size=0, mod=DEFAULT_MOD)`](../../../math/Combination.py#L10)
 - 引数: `size`: 要素数・universe size。省略時: `0`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
@@ -41,7 +41,7 @@ from library_codex.math.Combination import binomial_multiplicative, Combination
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`ensure(size)`](../../../math/Combination.py#L16) | method | `ensure`を求める。 | `size`: 要素数・universe size | `None` |
-| [`factorial_value(n)`](../../../math/Combination.py#L31) | method | 階乗・値を求める。 | `n`: 要素数・頂点数・次数 | `self.factorial[n]` |
-| [`binomial(n, k)`](../../../math/Combination.py#L35) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[k] % self.mod * sel...` |
-| [`permutation(n, k)`](../../../math/Combination.py#L45) | method | 連続する整数を一様ランダムに並べ替えた置換を返す。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | list[int] — startからstart+size-1までを1回ずつ含むランダムな列 |
-| [`multiset(n, k)`](../../../math/Combination.py#L54) | method | `multiset`を求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int instance / `self.binomial(n + k - 1, k)` |
+| [`fact(n)`](../../../math/Combination.py#L31) | method | n!をmodで割った余りを返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数 | `self.factorial[n]` |
+| [`C(n, k)`](../../../math/Combination.py#L36) | method | 二項係数C(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[k] % self.mod * sel...` |
+| [`P(n, k)`](../../../math/Combination.py#L44) | method | 順列数P(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[n - k] % self.mod` |
+| [`H(n, k)`](../../../math/Combination.py#L51) | method | n種類から重複を許してk個選ぶ重複組合せH(n, k)を返す。O(1)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int instance / `self.C(n + k - 1, k)` |

@@ -29,7 +29,7 @@ from library_codex.graph.DimensionExpandedGraph import DimensionExpandedGraph
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../graph/DimensionExpandedGraph.py#L24) | method | len(obj)。 | なし | 要素数（int） |
 | [`valid(coordinate)`](../../../graph/DimensionExpandedGraph.py#L27) | method | `valid`を求める。 | `coordinate`: 多次元座標 | bool |
-| [`id(coordinate)`](../../../graph/DimensionExpandedGraph.py#L34) | method | `id`を求める。 | `coordinate`: 多次元座標 | `sum((value * stride for value, stride in zip(coordinate, self....` |
+| [`id(coordinate)`](../../../graph/DimensionExpandedGraph.py#L34) | method | `id`を求める。 | `coordinate`: 多次元座標 | `sum((value * stride for (value, stride) in zip(coordinate, sel...` |
 | [`coordinate(vertex)`](../../../graph/DimensionExpandedGraph.py#L40) | method | `coordinate`を求める。 | `vertex`: 頂点番号（0-indexed） | tuple — 用途欄に示した複数の結果を順に格納 |
 | [`extra_id(index)`](../../../graph/DimensionExpandedGraph.py#L48) | method | `extra`・`id`を求める。 | `index`: 0-indexedの位置 | 数値または入力要素型 `self.grid_size + index` |
 | [`neighbors(coordinate)`](../../../graph/DimensionExpandedGraph.py#L53) | method | 指定頂点から出る辺を (行き先, 重み, 辺ID) の順で列挙する。 | `coordinate`: 多次元座標 | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする |
