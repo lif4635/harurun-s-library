@@ -1,4 +1,6 @@
 class GraphicMatroid:
+    """無向グラフの森を独立集合とするグラフィックマトロイド。"""
+
     __slots__ = ("n", "edges", "graph", "selected")
 
     def __init__(self, vertex_count, edges):
@@ -39,6 +41,8 @@ class GraphicMatroid:
 
 
 class PartitionMatroid:
+    """グループごとの選択数上限を独立条件とする分割マトロイド。"""
+
     __slots__ = ("groups", "limits", "members")
 
     def __init__(self, groups, limits):
@@ -62,7 +66,7 @@ class PartitionMatroid:
 
 
 class TransversalMatroid:
-    """Elements are left vertices; independence means matchability to right vertices."""
+    """左頂点集合が右頂点集合へマッチング可能かを独立条件とする横断マトロイド。"""
 
     __slots__ = ("left_size", "right_size", "graph", "selected", "match_left",
                  "match_right")
@@ -141,7 +145,7 @@ class TransversalMatroid:
 
 
 def minimum_matroid_intersection(first, second, weights):
-    """Minimum weight common independent set for every attainable cardinality."""
+    """各要素数について、2つのマトロイドに共通する最小重み独立集合を求める。"""
     weights = list(weights)
     size = len(weights)
     selected = [False] * size

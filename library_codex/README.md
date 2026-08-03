@@ -116,7 +116,7 @@
 | `prime/Sieve.py` | 線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数 | $O(N)$ / sublinear counting |
 | `optimization/ProjectSelection.py` | binary/K値Project Selection・高次all-0/all-1 profit | 1回のmin-cutへ帰着 |
 | `optimization/SlopeTrick.py` | 重み付きSlope Trick・shift/slide/chmin/merge/eval | 更新はheap償却 $O(\log N)$ |
-| `optimization/Matroid.py` | graphic/partition/transversal matroid intersection | oracle依存の多項式時間 |
+| `optimization/Matroid.py` | グラフィック・分割・横断マトロイドの共通独立集合を求める | oracle依存の多項式時間 |
 | `random/Random.py` | 再現可能なxoshiro256**乱数・配列・文字列・区間・composition生成 | 各出力サイズに線形 |
 | `random/RandomGraph.py` | edge-list container・木・連結・単純・Erdős–Rényi graph生成 | 主に $O(N+M)$、密グラフは $O(N^2)$ |
 | `string/AhoCorasick.py` | dict/固定alphabet対応Aho--Corasick（軽量・pattern別集計） | 固定alphabet構築 $O(V\sigma)$、集計 $O(T)$、列挙 $O(T+M)$ |

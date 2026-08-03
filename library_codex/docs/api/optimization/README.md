@@ -10,7 +10,7 @@
 | [`GoldenSectionSearch`](GoldenSectionSearch.md) | 単峰関数の最小値または最大値を黄金分割探索する。 | 1 | 0 | 0 |
 | [`KnapsackBranchAndBound`](KnapsackBranchAndBound.md) | 0/1 knapsackを分枝限定法で解く。 | 1 | 0 | 0 |
 | [`LineContainer`](LineContainer.md) | 直線を追加し、任意のxで最小値または最大値を求める。 | 0 | 1 | 2 |
-| [`Matroid`](Matroid.md) | graphic/partition/transversal matroid intersection | 1 | 3 | 6 |
+| [`Matroid`](Matroid.md) | グラフィック・分割・横断マトロイドの共通独立集合を求める | 1 | 3 | 6 |
 | [`MaximalRectangle`](MaximalRectangle.md) | histogramまたは0/1行列に含まれる最大長方形を求める。 | 2 | 0 | 0 |
 | [`MongeShortestPaths`](MongeShortestPaths.md) | Monge重みを持つDAGの最短路を辺数制約付きで計算する。 | 3 | 0 | 0 |
 | [`MonotoneConvexHullTrick`](MonotoneConvexHullTrick.md) | 傾きとquery位置が単調な直線集合の最適値を求める。 | 0 | 1 | 2 |
