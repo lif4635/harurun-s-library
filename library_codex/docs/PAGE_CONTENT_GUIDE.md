@@ -68,6 +68,8 @@ catalogの説明文は`markdown+tex`です。API名・引数名・短いcodeはb
 
 Webサイトはraw HTMLを説明から実行せず、MarkdownとTeXだけを描画します。GitHubの生成APIリファレンスにも同じ原文を載せます。
 
+Webサイトの数式はMathMLと`Fira Math`で表示します。本文やコードから急に古い組版調へ切り替わらないことを優先し、moduleごとに数式フォントを変えません。数式の見た目を変更するときは、英字だけでなく添字、分数、総和、括弧も同じ式で確認します。
+
 ## 見た目と言葉
 
 - 本文は読みやすい日本語を使い、`Functions`、`Arguments`、`Returns`、`Complexity`、`Code`など短いUI labelは英語でよい。
