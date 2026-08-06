@@ -16,8 +16,8 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 461 passed
-- 再帰監査: 3119 functions、direct/mutual recursion なし
+- PyPy 全検証: 471 passed
+- 再帰監査: 3246 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 
@@ -30,12 +30,14 @@
 - `pypy3 library_codex/tools/check_changed.py`: 反復中に変更module・依存先・対応testだけを自動選択
 - `pypy3 library_codex/tools/check_library.py`: 日常用の短いテスト・性能回帰検査
 - `pypy3 library_codex/tools/check_library.py --profile full`: 全テスト・全性能回帰検査
+- `pypy3 library_codex/tools/build_library_catalog.py`: Yura Desk・Webサイト共通の`library-catalog.json`を差分更新
+- `pypy3 library_codex/tools/build_library_catalog.py --check`: catalogとsource・API説明・検索語辞書の同期を検査
 
 どちらもbyte-compile、APIリファレンス同期、再帰禁止、テスト、性能の順に検査し、失敗した時点で非0終了します。
 
 ## APIドキュメント
 
-- [APIリファレンス](docs/README.md): 全290モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
+- [APIリファレンス](docs/README.md): 全モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
 - [モジュール境界の方針](docs/MODULE_BOUNDARIES.md): 分ける基準、同じファイルに残す基準、bundleの依存範囲
 - 1モジュール1ページで、category別の索引から辿れる
 - `pypy3 library_codex/tools/build_api_reference.py` でsourceから再生成できる

@@ -6,6 +6,36 @@ and the website share one reviewable source of truth.
 """
 
 
+# 正式名・source・説明からは拾いにくい通称だけを置く。
+SEARCH_TERMS_BY_MODULE = {
+    "segment_tree/LazySegTree.py": (
+        "遅延セグ木",
+        "lazy segtree",
+        "区間更新",
+        "遅延評価",
+    ),
+    "fenwick_tree/FenwickTree.py": (
+        "BIT",
+        "binary indexed tree",
+        "累積和",
+    ),
+}
+
+
+SEARCH_TERMS_BY_SYMBOL = {
+    ("segment_tree/LazySegTree.py", "max_right"): (
+        "境界探索",
+        "右端二分探索",
+        "区間二分探索",
+    ),
+    ("segment_tree/LazySegTree.py", "min_left"): (
+        "境界探索",
+        "左端二分探索",
+        "区間二分探索",
+    ),
+}
+
+
 MODULE_CAPABILITIES = {
     "algorithm/DynamicProgramming.py": (
         "0/1 knapsackの各重さに対する最大価値と、容量以内の最大価値を求められる。",

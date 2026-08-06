@@ -36,7 +36,15 @@ def test_segment_tree_change_selects_dependents_and_relevant_tests():
     assert "verify/data_structure/test_basic_data_structures.py" in tests
     assert "verify/data_structure/test_debug_output.py" in tests
     assert "verify/test_api_reference.py" in tests
+    assert "verify/test_library_catalog.py" in tests
     assert plan["recursion_paths"]
+
+
+def test_catalog_metadata_change_selects_catalog_contract_test():
+    plan = CHECK_CHANGED.plan_for(["library_codex/tools/api_metadata.py"])
+    tests = relative_tests(plan)
+    assert plan["catalog_changed"]
+    assert "verify/test_library_catalog.py" in tests
 
 
 def test_policy_change_does_not_select_the_full_suite():

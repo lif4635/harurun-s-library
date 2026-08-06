@@ -151,6 +151,14 @@ def plan_for(paths):
         }
         for relative in paths
     )
+    catalog_changed = api_changed or any(
+        relative in {
+            "library_codex/README.md",
+            "library_codex/tools/build_library_catalog.py",
+            "library_codex/tools/category_config.py",
+        }
+        for relative in paths
+    )
     policy_changed = any(
         relative in {
             "AGENTS.md",
@@ -164,6 +172,8 @@ def plan_for(paths):
     )
     if api_changed:
         tests.add(ROOT / "verify" / "test_api_reference.py")
+    if catalog_changed:
+        tests.add(ROOT / "verify" / "test_library_catalog.py")
     if policy_changed:
         tests.add(ROOT / "verify" / "test_contribution_guide.py")
         tests.add(ROOT / "verify" / "test_changed_checks.py")
@@ -196,6 +206,7 @@ def plan_for(paths):
         "python_paths": python_paths,
         "recursion_paths": recursion_paths,
         "api_changed": api_changed,
+        "catalog_changed": catalog_changed,
     }
 
 
@@ -260,6 +271,10 @@ def main():
             "API reference synchronization",
             [sys.executable, str(TOOLS / "build_api_reference.py"), "--check"],
         )
+    run_step(
+        "library catalog synchronization",
+        [sys.executable, str(TOOLS / "build_library_catalog.py"), "--check"],
+    )
     if plan["recursion_paths"]:
         run_step(
             "changed-module recursion audit",

@@ -129,6 +129,22 @@ bundleは選択moduleのsourceから、実際にimportする`library_codex`内�
 - サイトが読むAPI JSON。
 - サイトから取得できる配布ZIP。
 
+## 8. 共通catalogを同期する
+
+`library_codex/library-catalog.json`は、Yura DeskとWebサイトが共通で読むライブラリ索引です。利用側でsourceを再解析したり、独自の検索語辞書を複製したりしません。
+
+catalogのfunction・class・method、signature、説明、引数、返り値、計算量、依存、source、standalone codeは、source ASTと生成済みAPIリファレンスから自動取得します。categoryは`tools/category_config.py`を正本とします。正式名や説明から推測できない通称だけを、`tools/api_metadata.py`の`SEARCH_TERMS_BY_MODULE`または`SEARCH_TERMS_BY_SYMBOL`へ追加してください。
+
+```sh
+pypy3 library_codex/tools/build_api_reference.py
+pypy3 library_codex/tools/build_library_catalog.py
+pypy3 library_codex/tools/build_library_catalog.py --check
+```
+
+通常の生成は、既存catalogのmodule別fingerprintを使い、変更moduleとそのbundle依存先だけを再生成します。入力に変更がなければJSONを書き換えません。生成結果は一時fileへ完成させ、JSONとschemaを検証してから置き換えるため、途中で失敗しても直前の正常なcatalogは維持されます。
+
+`check_changed.py`と`check_library.py`はcatalog同期検査を含みます。source、API説明、category、検索語辞書を変更したら、catalogを再生成してから完了してください。
+
 ## 完了チェックリスト
 
 - [ ] module名だけで主目的が分かる。
@@ -138,5 +154,6 @@ bundleは選択moduleのsourceから、実際にimportする`library_codex`内�
 - [ ] データ構造の論理内容を確認するAPIと表示を検討した。
 - [ ] bundleが単独で動き、無関係な依存を含まない。
 - [ ] APIリファレンスを再生成した。
+- [ ] `library-catalog.json`を再生成し、検索語metadataの参照先が存在する。
 - [ ] 反復中は差分検査を通し、checkpointではquick、release条件に該当するときだけfull検査を通した。
 - [ ] GitHubとサイトの公開物を同期した。

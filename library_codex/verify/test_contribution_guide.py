@@ -36,6 +36,9 @@ def test_contribution_contract_is_installed():
         "randomized test",
         "通常のPythonコード",
         "差分検査",
+        "library-catalog.json",
+        "SEARCH_TERMS_BY_MODULE",
+        "build_library_catalog.py --check",
         "## 完了チェックリスト",
     ):
         assert phrase in guide_text

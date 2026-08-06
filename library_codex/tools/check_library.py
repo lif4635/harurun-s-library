@@ -15,6 +15,7 @@ QUICK_TESTS = (
     ROOT / "verify" / "test_changed_checks.py",
     ROOT / "verify" / "test_contribution_guide.py",
     ROOT / "verify" / "test_api_reference.py",
+    ROOT / "verify" / "test_library_catalog.py",
     ROOT / "verify" / "test_module_boundaries.py",
     ROOT / "verify" / "data_structure" / "test_debug_output.py",
     ROOT / "verify" / "data_structure" / "test_dynamic_wavelet_matrix.py",
@@ -46,6 +47,10 @@ def commands(profile, skip_tests, skip_benchmarks):
         (
             "API reference synchronization",
             [executable, str(TOOLS / "build_api_reference.py"), "--check"],
+        ),
+        (
+            "library catalog synchronization",
+            [executable, str(TOOLS / "build_library_catalog.py"), "--check"],
         ),
         (
             "recursion audit",
