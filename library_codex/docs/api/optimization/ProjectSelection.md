@@ -30,12 +30,12 @@ binary/K値Project Selection・高次all-0/all-1 profitを扱う `ProjectSelecti
 | --- | --- | --- | --- | --- |
 | [`add_constant_cost(cost)`](../../../optimization/ProjectSelection.py#L32) | method | `constant`・`cost`を追加する。 | `cost`: 辺・選択の費用 | `None` |
 | [`add_constant_profit(profit)`](../../../optimization/ProjectSelection.py#L36) | method | `constant`・`profit`を追加する。 | `profit`: 利益（負なら費用） | `None` |
-| [`add_unary_cost(variable, cost_zero, cost_one)`](../../../optimization/ProjectSelection.py#L39) | method | `unary`・`cost`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`cost_zero`: `cost`・`zero`として使う入力<br>`cost_one`: `cost`・`one`として使う入力 | `None` |
-| [`add_unary_profit(variable, profit_zero, profit_one)`](../../../optimization/ProjectSelection.py#L44) | method | `unary`・`profit`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`profit_zero`: `profit`・`zero`として使う入力<br>`profit_one`: `profit`・`one`として使う入力 | `None` |
-| [`add_cost_0(variable, cost)`](../../../optimization/ProjectSelection.py#L47) | method | `cost`・`0`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`cost`: 辺・選択の費用 | `None` |
-| [`add_cost_1(variable, cost)`](../../../optimization/ProjectSelection.py#L50) | method | `cost`・`1`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`cost`: 辺・選択の費用 | `None` |
-| [`add_profit_0(variable, profit)`](../../../optimization/ProjectSelection.py#L53) | method | `profit`・`0`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`profit`: 利益（負なら費用） | `None` |
-| [`add_profit_1(variable, profit)`](../../../optimization/ProjectSelection.py#L56) | method | `profit`・`1`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`profit`: 利益（負なら費用） | `None` |
+| [`add_unary_cost(variable, cost_zero, cost_one)`](../../../optimization/ProjectSelection.py#L39) | method | `unary`・`cost`を追加する。 | `variable`: Boolean変数番号<br>`cost_zero`: `cost`・`zero`として使う入力<br>`cost_one`: `cost`・`one`として使う入力 | `None` |
+| [`add_unary_profit(variable, profit_zero, profit_one)`](../../../optimization/ProjectSelection.py#L44) | method | `unary`・`profit`を追加する。 | `variable`: Boolean変数番号<br>`profit_zero`: `profit`・`zero`として使う入力<br>`profit_one`: `profit`・`one`として使う入力 | `None` |
+| [`add_cost_0(variable, cost)`](../../../optimization/ProjectSelection.py#L47) | method | `cost`・`0`を追加する。 | `variable`: Boolean変数番号<br>`cost`: 辺・選択の費用 | `None` |
+| [`add_cost_1(variable, cost)`](../../../optimization/ProjectSelection.py#L50) | method | `cost`・`1`を追加する。 | `variable`: Boolean変数番号<br>`cost`: 辺・選択の費用 | `None` |
+| [`add_profit_0(variable, profit)`](../../../optimization/ProjectSelection.py#L53) | method | `profit`・`0`を追加する。 | `variable`: Boolean変数番号<br>`profit`: 利益（負なら費用） | `None` |
+| [`add_profit_1(variable, profit)`](../../../optimization/ProjectSelection.py#L56) | method | `profit`・`1`を追加する。 | `variable`: Boolean変数番号<br>`profit`: 利益（負なら費用） | `None` |
 | [`add_cost_01(first, second, cost)`](../../../optimization/ProjectSelection.py#L59) | method | `cost`・`01`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`cost`: 辺・選択の費用 | `None` |
 | [`add_cost_10(first, second, cost)`](../../../optimization/ProjectSelection.py#L66) | method | `cost`・`10`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`cost`: 辺・選択の費用 | `None` |
 | [`add_pair_cost(first, second, costs)`](../../../optimization/ProjectSelection.py#L69) | method | `pair`・`cost`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`costs`: 費用の列 | `None` |
@@ -58,6 +58,6 @@ binary/K値Project Selection・高次all-0/all-1 profitを扱う `KProjectSelect
 | --- | --- | --- | --- | --- |
 | [`add_constant_cost(cost)`](../../../optimization/ProjectSelection.py#L174) | method | `constant`・`cost`を追加する。 | `cost`: 辺・選択の費用 | `None` |
 | [`add_constant_profit(profit)`](../../../optimization/ProjectSelection.py#L177) | method | `constant`・`profit`を追加する。 | `profit`: 利益（負なら費用） | `None` |
-| [`add_unary_cost(variable, costs)`](../../../optimization/ProjectSelection.py#L180) | method | `unary`・`cost`を追加する。 | `variable`: Boolean変数番号（0-indexed）<br>`costs`: 費用の列 | `None` |
+| [`add_unary_cost(variable, costs)`](../../../optimization/ProjectSelection.py#L180) | method | `unary`・`cost`を追加する。 | `variable`: Boolean変数番号<br>`costs`: 費用の列 | `None` |
 | [`add_pair_cost(first, second, costs)`](../../../optimization/ProjectSelection.py#L192) | method | `pair`・`cost`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`costs`: 費用の列 | `None` |
 | [`min_cost()`](../../../optimization/ProjectSelection.py#L222) | method | 最小・`cost`を求める。 | なし | tuple(値, 各変数へ割り当てる0/1のlist（数値または入力要素型）) |

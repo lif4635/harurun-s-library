@@ -29,7 +29,7 @@ from library_codex.string.StringSearch import lcp_naive, StringSearch
 Suffix Arrayによるsubstring LCP・比較・検索を扱う `StringSearch`。
 
 - constructor: [`StringSearch(sequence, upper=None)`](../../../string/StringSearch.py#L17)
-- 引数: `sequence`: 入力列<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None`
+- 引数: `sequence`: 入力列<br>`upper`: 上限。省略時: `None`
 - 返り値: `StringSearch` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

@@ -31,7 +31,7 @@ from library_codex.ordered_set.TreapSet import TreapSet
 | [`discard(key)`](../../../ordered_set/TreapSet.py#L116) | method | 要素があれば削除する。 | `key`: 比較・格納に使うkey | bool |
 | [`bisect_left(key)`](../../../ordered_set/TreapSet.py#L141) | method | 条件を満たす最初の位置を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） |
 | [`bisect_right(key)`](../../../ordered_set/TreapSet.py#L156) | method | 条件を満たす境界の直後を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） |
-| [`kth(index)`](../../../ordered_set/TreapSet.py#L171) | method | 0-indexedでk番目の要素を取得する。 | `index`: 0-indexedの位置 | k番目の値 |
+| [`kth(index)`](../../../ordered_set/TreapSet.py#L171) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置 | k番目の値 |
 | [`ge(key, default=None)`](../../../ordered_set/TreapSet.py#L186) | method | `ge`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` |
 | [`gt(key, default=None)`](../../../ordered_set/TreapSet.py#L190) | method | `gt`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` |
 | [`le(key, default=None)`](../../../ordered_set/TreapSet.py#L194) | method | `le`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` |

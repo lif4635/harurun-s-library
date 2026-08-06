@@ -61,6 +61,13 @@ MODULE_CAPABILITIES = {
         "法998244353ではroot表と逆変換係数を再利用するradix-4 NTT高速経路が自動で使われる。",
         "多項式除算、Taylor shift、合成などの高水準処理へそのまま渡せる係数列を返す。",
     ),
+    "fps/IncreasingSequences.py": (
+        r"各位置で $\mathrm{lower}_i \le x_i < \mathrm{upper}_i$ を満たす広義単調増加列 $x_0 \le \cdots \le x_{N-1}$ の個数を求める。",
+    ),
+    "combinatorial_series/StirlingNumbers.py": (
+        r"固定した $n$ に対する第一種・第二種 Stirling 数の行を $0 \le k \le n$ の順に生成できる。",
+        r"固定した $k$ に対する第一種・第二種 Stirling 数を $0 \le n \le \mathrm{upper}$ の順に生成できる。",
+    ),
     "convolution/NTT.py": (
         "NTT可能な法の上で係数列を高速に畳み込める。",
         "順変換・逆変換を明示的に実行し、変換済み配列を再利用できる。",
@@ -490,6 +497,90 @@ RETURN_DETAILS = {
 # Details that cannot be inferred from the name or AST are therefore keyed by
 # source module, owning class (None for a top-level function), and symbol name.
 API_DETAILS_BY_SYMBOL = {
+    ("fps/IncreasingSequences.py", None, "count_increasing_sequences"): {
+        "description": (
+            r"各位置で $\mathrm{lower}_i \le x_i < \mathrm{upper}_i$ を満たす"
+            r"広義単調増加列 $x_0 \le \cdots \le x_{N-1}$ の個数を求める。"
+        ),
+        "argumentDescriptions": {
+            "lower": (
+                r"各位置の下限を並べた列 $\mathrm{lower}$。位置 $i$ では "
+                r"$\mathrm{lower}_i$ を含む。"
+            ),
+            "upper": (
+                r"各位置の上限を並べた列 $\mathrm{upper}$。位置 $i$ では "
+                r"$\mathrm{upper}_i$ を含まない。"
+            ),
+        },
+        "returnFormat": "int",
+        "returnDescription": (
+            r"条件を満たす列の個数を $\mathrm{mod}$ で割った余り。"
+            r"$0 \le \mathrm{answer} < \mathrm{mod}$。"
+        ),
+    },
+    ("combinatorial_series/StirlingNumbers.py", None, "stirling_first_row"): {
+        "description": (
+            r"固定した $n=\mathrm{order}$ について、第一種 Stirling 数を "
+            r"$0 \le k \le n$ の順に求める。"
+        ),
+        "argumentDescriptions": {
+            "order": r"固定する第1引数 $n$。",
+            "signed": (
+                r"Falseなら符号なし $c(n,k)$、Trueなら符号付き $s(n,k)$ を返す。"
+            ),
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さ $\mathrm{order}+1$ の列 $\mathrm{result}$。"
+            r"$\mathrm{result}[k]$ は指定した符号規約の第一種 Stirling 数。"
+        ),
+    },
+    ("combinatorial_series/StirlingNumbers.py", None, "stirling_second_row"): {
+        "description": (
+            r"固定した $n=\mathrm{order}$ について、第二種 Stirling 数 "
+            r"$S(n,k)$ を $0 \le k \le n$ の順に求める。"
+        ),
+        "argumentDescriptions": {
+            "order": r"固定する第1引数 $n$。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さ $\mathrm{order}+1$ の列 $\mathrm{result}$。"
+            r"$\mathrm{result}[k]=S(\mathrm{order},k)$。"
+        ),
+    },
+    ("combinatorial_series/StirlingNumbers.py", None, "stirling_first_column"): {
+        "description": (
+            r"固定した $k=\mathrm{column}$ について、符号なし第一種 Stirling 数 "
+            r"$c(n,k)$ を $0 \le n \le \mathrm{upper}$ の範囲で求める。"
+        ),
+        "argumentDescriptions": {
+            "column": r"固定する第2引数 $k$。",
+            "upper": r"求める最大の第1引数 $n$。この値を含む。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。"
+            r"$\mathrm{result}[n]=c(n,\mathrm{column})$ で、"
+            r"$n<\mathrm{column}$ の要素は0。"
+        ),
+    },
+    ("combinatorial_series/StirlingNumbers.py", None, "stirling_second_column"): {
+        "description": (
+            r"固定した $k=\mathrm{column}$ について、第二種 Stirling 数 "
+            r"$S(n,k)$ を $0 \le n \le \mathrm{upper}$ の範囲で求める。"
+        ),
+        "argumentDescriptions": {
+            "column": r"固定する第2引数 $k$。",
+            "upper": r"求める最大の第1引数 $n$。この値を含む。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。"
+            r"$\mathrm{result}[n]=S(n,\mathrm{column})$ で、"
+            r"$n<\mathrm{column}$ の要素は0。"
+        ),
+    },
     ("tree/AuxiliaryTree.py", "AuxiliaryTree", "get"): {
         "description": (
             "verticesと、それらを結ぶために必要なLCAだけを含む圧縮木を構築する。"

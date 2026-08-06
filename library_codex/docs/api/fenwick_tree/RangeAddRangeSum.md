@@ -30,4 +30,4 @@ from library_codex.fenwick_tree.RangeAddRangeSum import RangeAddRangeSum
 | [`add(left, right, value)`](../../../fenwick_tree/RangeAddRangeSum.py#L26) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prefix_sum(right)`](../../../fenwick_tree/RangeAddRangeSum.py#L36) | method | 半開区間 [0, right) の総和を返す。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
 | [`sum(left, right)`](../../../fenwick_tree/RangeAddRangeSum.py#L42) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |
-| [`get(index)`](../../../fenwick_tree/RangeAddRangeSum.py#L47) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`get(index)`](../../../fenwick_tree/RangeAddRangeSum.py#L47) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |

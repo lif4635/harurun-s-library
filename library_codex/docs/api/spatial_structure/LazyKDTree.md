@@ -28,5 +28,5 @@ from library_codex.spatial_structure.LazyKDTree import LazyKDTree
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`update(left, right, down, up, action)`](../../../spatial_structure/LazyKDTree.py#L127) | method | 指定位置・辺・状態を更新する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`down`: `down`として使う入力<br>`up`: `up`として使う入力<br>`action`: 遅延作用・更新作用 | `None` |
-| [`set(index, value)`](../../../spatial_structure/LazyKDTree.py#L153) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`set(index, value)`](../../../spatial_structure/LazyKDTree.py#L153) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, right, down, up)`](../../../spatial_structure/LazyKDTree.py#L168) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`down`: `down`として使う入力<br>`up`: `up`として使う入力 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |

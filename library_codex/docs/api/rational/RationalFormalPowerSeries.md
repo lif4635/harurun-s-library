@@ -28,7 +28,7 @@ from library_codex.rational.RationalFormalPowerSeries import RationalFormalPower
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../rational/RationalFormalPowerSeries.py#L37) | method | len(obj)。 | なし | 要素数（int） |
-| [`__getitem__(index)`](../../../rational/RationalFormalPowerSeries.py#L40) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../rational/RationalFormalPowerSeries.py#L40) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 | [`__iter__()`](../../../rational/RationalFormalPowerSeries.py#L43) | method | iter(obj)・for 文。 | なし | iterator |
 | [`__add__(other)`](../../../rational/RationalFormalPowerSeries.py#L51) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | RationalFormalPowerSeries instance |
 | [`__neg__()`](../../../rational/RationalFormalPowerSeries.py#L56) | method | -obj。 | なし | RationalFormalPowerSeries instance |

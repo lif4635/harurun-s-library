@@ -83,10 +83,10 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHash`。
 | [`same(left1, right1, other, left2, right2)`](../../../string/RollingHash.py#L296) | method | 2要素が同じ連結成分に属するか判定する。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`other`: 同じ型のもう一方のobject・値<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | bool |
 | [`lcp(other, left1=0, right1=None, left2=0, right2=None)`](../../../string/RollingHash.py#L303) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`left1`: `left1`として使う入力。省略時: `0`<br>`right1`: `right1`として使う入力。省略時: `None`<br>`left2`: `left2`として使う入力。省略時: `0`<br>`right2`: `right2`として使う入力。省略時: `None` | `low`（数値または入力要素型） |
 | [`compare(other, left1=0, right1=None, left2=0, right2=None)`](../../../string/RollingHash.py#L324) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`left1`: `left1`として使う入力。省略時: `0`<br>`right1`: `right1`として使う入力。省略時: `None`<br>`left2`: `left2`として使う入力。省略時: `0`<br>`right2`: `right2`として使う入力。省略時: `None` | int `0 if end2 else -1` / `1` / int `-1 if self.data[left1 + common] < other.data[left2 + common] e...` |
-| [`find(pattern, lower=0)`](../../../string/RollingHash.py#L340) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列<br>`lower`: 下限（包含関係はAPIの説明を参照）。省略時: `0` | 代表元・位置・node番号（int） |
+| [`find(pattern, lower=0)`](../../../string/RollingHash.py#L340) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列<br>`lower`: 下限。省略時: `0` | 代表元・位置・node番号（int） |
 | [`append(symbol)`](../../../string/RollingHash.py#L353) | method | 要素を追加する。 | `symbol`: 文字・alphabet上の記号 | `None` |
 | [`extend(sequence)`](../../../string/RollingHash.py#L367) | method | `extend`を求める。 | `sequence`: 入力列 | `self` |
-| [`__getitem__(index)`](../../../string/RollingHash.py#L374) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../string/RollingHash.py#L374) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `DoubleRollingHash`
 
@@ -127,7 +127,7 @@ $2^{61}-1$ 静的hash・連結・反転・LCPを扱う `RollingHashView`。
 | [`compare(other)`](../../../string/RollingHash.py#L426) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | `self.base.compare(other.base, self.left, self.right, other.lef...` |
 | [`is_palindrome()`](../../../string/RollingHash.py#L433) | method | `palindrome`かどうかを判定する。 | なし | bool |
 | [`reversed()`](../../../string/RollingHash.py#L436) | method | `reversed`を求める。 | なし | `self.to_hash_string().reversed()` |
-| [`__getitem__(index)`](../../../string/RollingHash.py#L439) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../string/RollingHash.py#L439) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 | [`__eq__(other)`](../../../string/RollingHash.py#L453) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__lt__(other)`](../../../string/RollingHash.py#L461) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
 | [`__str__()`](../../../string/RollingHash.py#L464) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |

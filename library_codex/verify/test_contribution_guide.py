@@ -8,14 +8,17 @@ REPOSITORY = ROOT.parent
 def test_contribution_contract_is_installed():
     agents = REPOSITORY / "AGENTS.md"
     guide = ROOT / "docs" / "CONTRIBUTING.md"
+    page_guide = ROOT / "docs" / "PAGE_CONTENT_GUIDE.md"
     pull_request = REPOSITORY / ".github" / "pull_request_template.md"
 
     assert agents.is_file()
     assert guide.is_file()
+    assert page_guide.is_file()
     assert pull_request.is_file()
 
     agent_text = agents.read_text(encoding="utf-8")
     guide_text = guide.read_text(encoding="utf-8")
+    page_guide_text = page_guide.read_text(encoding="utf-8")
     pull_request_text = pull_request.read_text(encoding="utf-8")
     readme_text = (ROOT / "README.md").read_text(encoding="utf-8")
 
@@ -27,6 +30,7 @@ def test_contribution_contract_is_installed():
         "items()",
         "check_changed.py",
         "check_library.py --profile full",
+        "PAGE_CONTENT_GUIDE.md",
     ):
         assert phrase in agent_text
 
@@ -42,6 +46,16 @@ def test_contribution_contract_is_installed():
         "## 完了チェックリスト",
     ):
         assert phrase in guide_text
+
+    for phrase in (
+        "包含関係は説明を参照",
+        "自明な0-indexed注記",
+        "API_DETAILS_BY_SYMBOL.argumentDescriptions",
+        "markdown+tex",
+        "サイトだけの説明上書きがない",
+        "ページ内容チェックリスト",
+    ):
+        assert phrase in page_guide_text
 
     assert "docs/CONTRIBUTING.md" in readme_text
     assert "tools/check_changed.py" in readme_text

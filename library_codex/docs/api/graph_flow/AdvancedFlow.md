@@ -38,8 +38,8 @@ from library_codex.graph_flow.AdvancedFlow import gomory_hu_tree, stoer_wagner_m
 | --- | --- | --- | --- | --- |
 | [`add_vertex()`](../../../graph_flow/AdvancedFlow.py#L25) | method | 頂点を追加する。 | なし | 数値または入力要素型 `self.n - 1` |
 | [`add_edge(source, target, capacity)`](../../../graph_flow/AdvancedFlow.py#L30) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量 | 数値または入力要素型 `len(self.position) - 1` |
-| [`get_edge(index)`](../../../graph_flow/AdvancedFlow.py#L45) | method | edge_idに対応する辺の両端頂点を返す。 | `index`: 0-indexedの位置 | tuple(`source`, `self.to[edge]`, 数値または入力要素型 `self.capacity[edge] + reverse_capacity`, `reverse_capacity`) |
+| [`get_edge(index)`](../../../graph_flow/AdvancedFlow.py#L45) | method | edge_idに対応する辺の両端頂点を返す。 | `index`: 位置 | tuple(`source`, `self.to[edge]`, 数値または入力要素型 `self.capacity[edge] + reverse_capacity`, `reverse_capacity`) |
 | [`edges()`](../../../graph_flow/AdvancedFlow.py#L55) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`change_edge(index, capacity, flow)`](../../../graph_flow/AdvancedFlow.py#L58) | method | 辺を更新する。 | `index`: 0-indexedの位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` |
+| [`change_edge(index, capacity, flow)`](../../../graph_flow/AdvancedFlow.py#L58) | method | 辺を更新する。 | `index`: 位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` |
 | [`flow(source, sink, flow_limit=None)`](../../../graph_flow/AdvancedFlow.py#L85) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | `self._flow_unlimited(source, sink)` / `0` / `self._flow_unlimited(temporary_source, sink)` |
 | [`min_cut(source)`](../../../graph_flow/AdvancedFlow.py#L202) | method | 最小・`cut`を求める。 | `source`: 始点 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |

@@ -2,6 +2,8 @@
 
 この文書は、今後moduleが増えても今回までに整えた品質を崩さないための作業手順です。判断に迷ったときは「提出コードへそのまま貼れて、API表だけを読んだ人が正しく使えるか」を基準にします。
 
+ページの文章、数式、見た目、分類については[ライブラリページの作成ルール](PAGE_CONTENT_GUIDE.md)も正本として確認します。
+
 ## 1. 追加前に置き場所を決める
 
 まず既存moduleを検索し、同じ目的・同じ内部表現の機能がないか確認します。
@@ -62,7 +64,9 @@ sourceだけで表せない説明は`library_codex/tools/api_metadata.py`へ追�
 
 - classが保持する状態と作成後にできることは`CLASS_DETAILS_BY_SYMBOL`へ書く。
 - 同名の`get`・`query`などを区別する説明は`API_DETAILS_BY_SYMBOL`へ、module path・class名・method名をkeyとして書く。
+- 引数ごとの包含関係や固有の意味は`argumentDescriptions`へ書く。全体規約で自明な0-indexed注記は繰り返さず、例外だけを明記する。
 - tupleの各要素は`returnParts`で名前・型・意味を分ける。listはindex、dictはkey/value、iteratorはyieldする要素が分かる説明にする。
+- 説明文はMarkdownとTeXを使える。codeはbacktick、行内数式は`$...$`、独立した数式は`$$...$$`で書く。
 
 ```sh
 pypy3 library_codex/tools/build_api_reference.py

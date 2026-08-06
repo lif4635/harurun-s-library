@@ -27,16 +27,16 @@ from library_codex.ordered_set.BitSet import BitSet
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`set(index, value=True)`](../../../ordered_set/BitSet.py#L14) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
-| [`reset(index=None)`](../../../ordered_set/BitSet.py#L20) | method | `reset`を求める。 | `index`: 0-indexedの位置。省略時: `None` | `None` |
-| [`flip(index=None)`](../../../ordered_set/BitSet.py#L26) | method | `flip`を求める。 | `index`: 0-indexedの位置。省略時: `None` | `None` |
-| [`get(index)`](../../../ordered_set/BitSet.py#L32) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`set(index, value=True)`](../../../ordered_set/BitSet.py#L14) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
+| [`reset(index=None)`](../../../ordered_set/BitSet.py#L20) | method | `reset`を求める。 | `index`: 位置。省略時: `None` | `None` |
+| [`flip(index=None)`](../../../ordered_set/BitSet.py#L26) | method | `flip`を求める。 | `index`: 位置。省略時: `None` | `None` |
+| [`get(index)`](../../../ordered_set/BitSet.py#L32) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
 | [`count()`](../../../ordered_set/BitSet.py#L35) | method | 条件に合う要素数を返す。 | なし | 個数（int） |
 | [`any()`](../../../ordered_set/BitSet.py#L38) | method | 任意を求める。 | なし | bool |
 | [`all()`](../../../ordered_set/BitSet.py#L41) | method | 全体を求める。 | なし | bool |
-| [`find_next(index)`](../../../ordered_set/BitSet.py#L44) | method | `next`を探索する。 | `index`: 0-indexedの位置 | `-1` / 数値または入力要素型 `max(0, index) + (shifted & -shifted).bit_length() - 1` |
-| [`find_prev(index)`](../../../ordered_set/BitSet.py#L50) | method | `prev`を探索する。 | `index`: 0-indexedの位置 | `-1` / 数値または入力要素型 `value.bit_length() - 1` |
-| [`__getitem__(index)`](../../../ordered_set/BitSet.py#L56) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`find_next(index)`](../../../ordered_set/BitSet.py#L44) | method | `next`を探索する。 | `index`: 位置 | `-1` / 数値または入力要素型 `max(0, index) + (shifted & -shifted).bit_length() - 1` |
+| [`find_prev(index)`](../../../ordered_set/BitSet.py#L50) | method | `prev`を探索する。 | `index`: 位置 | `-1` / 数値または入力要素型 `value.bit_length() - 1` |
+| [`__getitem__(index)`](../../../ordered_set/BitSet.py#L56) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 | [`__len__()`](../../../ordered_set/BitSet.py#L59) | method | len(obj)。 | なし | 要素数（int） |
 | [`__int__()`](../../../ordered_set/BitSet.py#L62) | method | int(obj)。 | なし | int |
 | [`__and__(other)`](../../../ordered_set/BitSet.py#L65) | method | obj & other。 | `other`: 同じ型のもう一方のobject・値 | BitSet instance |

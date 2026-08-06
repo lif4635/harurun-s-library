@@ -36,6 +36,6 @@ from library_codex.ordered_set.PersistentRBSTSet import PersistentRBSTSet
 | [`lower_bound_root(root, key)`](../../../ordered_set/PersistentRBSTSet.py#L127) | method | `lower`・`bound`・根を求める。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | 計算結果（int） |
 | [`lower_bound(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L137) | method | 指定値以上となる最初の位置を返す。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 条件を満たす最小index（int。存在しなければsize） |
 | [`upper_bound(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L140) | method | `upper`・`bound`を求める。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 計算結果（int） |
-| [`kth_root(root, index)`](../../../ordered_set/PersistentRBSTSet.py#L151) | method | k番目・根を求める。 | `root`: 根の頂点番号・原始根<br>`index`: 0-indexedの位置 | `self.key[root]` |
-| [`kth(index, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L164) | method | 0-indexedでk番目の要素を取得する。 | `index`: 0-indexedの位置<br>`version`: 参照するversion番号。省略時: `-1` | k番目の値 |
+| [`kth_root(root, index)`](../../../ordered_set/PersistentRBSTSet.py#L151) | method | k番目・根を求める。 | `root`: 根の頂点番号・原始根<br>`index`: 位置 | `self.key[root]` |
+| [`kth(index, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L164) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1` | k番目の値 |
 | [`to_list(version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L167) | method | `to`・`list`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 計算結果 |

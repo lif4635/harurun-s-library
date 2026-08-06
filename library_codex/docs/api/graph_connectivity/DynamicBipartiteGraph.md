@@ -27,8 +27,8 @@ from library_codex.graph_connectivity.DynamicBipartiteGraph import DynamicBipart
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`find(vertex)`](../../../graph_connectivity/DynamicBipartiteGraph.py#L20) | method | 代表元・位置・対象要素を探す。 | `vertex`: 頂点番号（0-indexed） | 代表元・位置・node番号（int） |
-| [`color(vertex)`](../../../graph_connectivity/DynamicBipartiteGraph.py#L35) | method | `color`を求める。 | `vertex`: 頂点番号（0-indexed） | `self.parity[vertex]` |
+| [`find(vertex)`](../../../graph_connectivity/DynamicBipartiteGraph.py#L20) | method | 代表元・位置・対象要素を探す。 | `vertex`: 頂点番号 | 代表元・位置・node番号（int） |
+| [`color(vertex)`](../../../graph_connectivity/DynamicBipartiteGraph.py#L35) | method | `color`を求める。 | `vertex`: 頂点番号 | `self.parity[vertex]` |
 | [`can_add_edge(first, second)`](../../../graph_connectivity/DynamicBipartiteGraph.py#L39) | method | `add`・辺かどうかを判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`add_edge(first, second)`](../../../graph_connectivity/DynamicBipartiteGraph.py#L49) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`is_bipartite()`](../../../graph_connectivity/DynamicBipartiteGraph.py#L85) | method | `bipartite`かどうかを判定する。 | なし | bool |

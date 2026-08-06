@@ -29,11 +29,11 @@ from library_codex.fenwick_tree.FenwickTree import FenwickTree
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(index, value)`](../../../fenwick_tree/FenwickTree.py#L23) | method | index番目の値へvalueを加える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(index, value)`](../../../fenwick_tree/FenwickTree.py#L23) | method | index番目の値へvalueを加える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prefix_sum(right)`](../../../fenwick_tree/FenwickTree.py#L30) | method | 半開区間 [0, right) の総和を返す。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
 | [`sum(left, right=None)`](../../../fenwick_tree/FenwickTree.py#L40) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 区間・集合の和（入力要素型） |
-| [`get(index)`](../../../fenwick_tree/FenwickTree.py#L47) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../fenwick_tree/FenwickTree.py#L50) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../fenwick_tree/FenwickTree.py#L47) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../fenwick_tree/FenwickTree.py#L50) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`lower_bound(target)`](../../../fenwick_tree/FenwickTree.py#L53) | method | prefix和がtarget以上になる最初の位置を返す。 | `target`: 探索・判定・更新の対象値 | 条件を満たす最小index（int。存在しなければsize） |
 | [`__len__()`](../../../fenwick_tree/FenwickTree.py#L69) | method | len(obj)。 | なし | 要素数（int） |
 | [`tolist()`](../../../fenwick_tree/FenwickTree.py#L72) | method | 現在の要素列をlistで返す。O(N)。 | なし | list[number] — 現在のindex順の要素列 |

@@ -28,7 +28,7 @@ dict/固定alphabet対応Aho--Corasick（軽量・pattern別集計）を扱う `
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(pattern, pattern_id=None)`](../../../string/AhoCorasick.py#L21) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `pattern`: 検索patternの文字列・列<br>`pattern_id`: pattern のID（0-indexed）。省略時: `None` | `internal_id` |
+| [`add(pattern, pattern_id=None)`](../../../string/AhoCorasick.py#L21) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `pattern`: 検索patternの文字列・列<br>`pattern_id`: pattern のID。省略時: `None` | `internal_id` |
 | [`pattern_count`](../../../string/AhoCorasick.py#L35) | property | `pattern`・個数を求める。 | なし | `len(self.pattern_nodes)` |
 | [`build(complete_transitions=True)`](../../../string/AhoCorasick.py#L38) | method | 内部構造を構築する。 | `complete_transitions`: `complete`・`transitions`として使う入力。省略時: `True` | `self` |
 | [`step(state, symbol)`](../../../string/AhoCorasick.py#L126) | method | `step`を求める。 | `state`: rollback状態番号・状態object<br>`symbol`: 文字・alphabet上の記号 | `0` / `next_state` / int `0 if next_state == -1 else next_state` / `transitions[state].get(symbol, 0)` |

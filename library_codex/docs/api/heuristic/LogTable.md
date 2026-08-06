@@ -27,4 +27,4 @@ from library_codex.heuristic.LogTable import LogTable
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`__call__(index)`](../../../heuristic/LogTable.py#L20) | method | obj(...) として呼び出す。 | `index`: 0-indexedの位置 | `self.values[index & self.mask]` |
+| [`__call__(index)`](../../../heuristic/LogTable.py#L20) | method | obj(...) として呼び出す。 | `index`: 位置 | `self.values[index & self.mask]` |

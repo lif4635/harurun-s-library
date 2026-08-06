@@ -58,6 +58,7 @@ def test_api_reference_has_actionable_semantics():
         "を計算して返す。",
         "詳細はclass/moduleの説明に従う。",
         "APIの文脈に従う",
+        "包含関係はAPIの説明を参照",
     )
     errors = []
     for path, text in documents.items():
@@ -86,6 +87,14 @@ def test_api_reference_has_actionable_semantics():
     centroid = documents["docs/api/tree/CentroidDecomposition.md"]
     assert "lower <= dist(vertex, u) < upper" in centroid
     assert "add・setで更新" in centroid
+
+    increasing = documents["docs/api/fps/IncreasingSequences.md"]
+    assert "$\\mathrm{lower}_i \\le x_i < \\mathrm{upper}_i$" in increasing
+    assert "位置 $i$ では $\\mathrm{lower}_i$ を含む" in increasing
+
+    stirling = documents["docs/api/combinatorial_series/StirlingNumbers.md"]
+    assert "$\\mathrm{result}[n]=c(n,\\mathrm{column})$" in stirling
+    assert "求める最大の第1引数 $n$。この値を含む" in stirling
 
     assert "docs/api/algorithm/BasicAlgorithms.md" not in documents
     assert "docs/api/algorithm/MiscAlgorithms.md" not in documents

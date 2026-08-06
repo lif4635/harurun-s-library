@@ -27,6 +27,6 @@ from library_codex.fenwick_tree.DynamicFenwickTree import DynamicFenwickTree
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(index, value)`](../../../fenwick_tree/DynamicFenwickTree.py#L12) | method | index番目の値へvalueを加える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(index, value)`](../../../fenwick_tree/DynamicFenwickTree.py#L12) | method | index番目の値へvalueを加える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prefix_sum(right)`](../../../fenwick_tree/DynamicFenwickTree.py#L24) | method | 半開区間 [0, right) の総和を返す。 | `right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
 | [`sum(left, right)`](../../../fenwick_tree/DynamicFenwickTree.py#L32) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |

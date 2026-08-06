@@ -27,11 +27,11 @@ from library_codex.graph.TwoSAT import TwoSAT
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`literal(variable, value=True)`](../../../graph/TwoSAT.py#L16) | method | `literal`を求める。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | 数値または入力要素型 `variable << 1 \| bool(value)` |
+| [`literal(variable, value=True)`](../../../graph/TwoSAT.py#L16) | method | `literal`を求める。 | `variable`: Boolean変数番号<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | 数値または入力要素型 `variable << 1 \| bool(value)` |
 | [`add_implication_literal(source, target)`](../../../graph/TwoSAT.py#L19) | method | `implication`・`literal`を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値 | `None` |
 | [`add_clause_literal(first, second)`](../../../graph/TwoSAT.py#L23) | method | `clause`・`literal`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`add_clause(first_variable, first_value, second_variable, second_value)`](../../../graph/TwoSAT.py#L27) | method | `clause`を追加する。 | `first_variable`: `first`・`variable`として使う入力<br>`first_value`: 処理対象の値<br>`second_variable`: `second`・`variable`として使う入力<br>`second_value`: 処理対象の値 | `None` |
-| [`set_value(variable, value=True)`](../../../graph/TwoSAT.py#L34) | method | 値を設定する。 | `variable`: Boolean変数番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
+| [`set_value(variable, value=True)`](../../../graph/TwoSAT.py#L34) | method | 値を設定する。 | `variable`: Boolean変数番号<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
 | [`add_xor(first, second)`](../../../graph/TwoSAT.py#L38) | method | XORを追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`add_equal(first, second)`](../../../graph/TwoSAT.py#L42) | method | `equal`を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`solve()`](../../../graph/TwoSAT.py#L46) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist / `None` |

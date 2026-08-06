@@ -19,6 +19,7 @@
 - 計算量欄には通常のBig-Oを示す。アルゴリズム名だけで計算量の説明を済ませない。
 - 「処理を実行します」のように名前を言い換えただけの説明や、同じ意味の日本語・英語の併記を避ける。
 - APIを変えたら`library_codex/tools/api_metadata.py`も確認し、APIリファレンスを再生成する。
+- ページの説明・数式・見た目を変える前に`library_codex/docs/PAGE_CONTENT_GUIDE.md`を読み、サイトだけの説明上書きを作らない。
 
 ## bundle
 

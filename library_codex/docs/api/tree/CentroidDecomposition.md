@@ -30,7 +30,7 @@ from library_codex.tree.CentroidDecomposition import CentroidDecomposition, Cent
 | --- | --- | --- | --- | --- |
 | [`add_edge(first, second)`](../../../tree/CentroidDecomposition.py#L39) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
 | [`build()`](../../../tree/CentroidDecomposition.py#L74) | method | 内部構造を構築する。 | なし | `self.root` |
-| [`ancestors(vertex)`](../../../tree/CentroidDecomposition.py#L126) | method | 指定頂点から重心分解木の祖先へ向かう経路情報を返す。 | `vertex`: 頂点番号（0-indexed） | `self.paths[vertex]` |
+| [`ancestors(vertex)`](../../../tree/CentroidDecomposition.py#L126) | method | 指定頂点から重心分解木の祖先へ向かう経路情報を返す。 | `vertex`: 頂点番号 | `self.paths[vertex]` |
 | [`bfs_layer(start, layer)`](../../../tree/CentroidDecomposition.py#L129) | method | `bfs`・`layer`を求める。 | `start`: 始点・開始位置<br>`layer`: `layer`として使う入力 | tuple(list `[]`, list `[]`) / tuple(`vertices`（list）, 親のlist) |
 
 ## Class `CentroidDistanceFenwick`
@@ -44,6 +44,6 @@ from library_codex.tree.CentroidDecomposition import CentroidDecomposition, Cent
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(vertex, delta)`](../../../tree/CentroidDecomposition.py#L214) | method | 頂点vertexに保存されている値へdeltaを加える。 | `vertex`: 頂点番号（0-indexed）<br>`delta`: 加算差分 | 値は返さない。以後のqueryへ加算後の値を反映する。 |
-| [`set(vertex, value)`](../../../tree/CentroidDecomposition.py#L226) | method | 頂点vertexに保存されている値をvalueへ置き換える。 | `vertex`: 頂点番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値 | 値は返さない。以後のqueryへ新しい値を反映する。 |
-| [`query(vertex, lower=0, upper=None)`](../../../tree/CentroidDecomposition.py#L235) | method | vertexからの距離が半開区間[lower, upper)に入る頂点の値を合計する。upper=Noneなら距離の上限を設けない。 | `vertex`: 頂点番号（0-indexed）<br>`lower`: 下限（包含関係はAPIの説明を参照）。省略時: `0`<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | number — lower <= dist(vertex, u) < upperを満たすすべての頂点uについて、現在のvalues[u]を合計した値。query(vertex)は木全体の値の合計を返す。 |
+| [`add(vertex, delta)`](../../../tree/CentroidDecomposition.py#L214) | method | 頂点vertexに保存されている値へdeltaを加える。 | `vertex`: 頂点番号<br>`delta`: 加算差分 | 値は返さない。以後のqueryへ加算後の値を反映する。 |
+| [`set(vertex, value)`](../../../tree/CentroidDecomposition.py#L226) | method | 頂点vertexに保存されている値をvalueへ置き換える。 | `vertex`: 頂点番号<br>`value`: 追加・設定・問い合わせる値 | 値は返さない。以後のqueryへ新しい値を反映する。 |
+| [`query(vertex, lower=0, upper=None)`](../../../tree/CentroidDecomposition.py#L235) | method | vertexからの距離が半開区間[lower, upper)に入る頂点の値を合計する。upper=Noneなら距離の上限を設けない。 | `vertex`: 頂点番号<br>`lower`: 下限。省略時: `0`<br>`upper`: 上限。省略時: `None` | number — lower <= dist(vertex, u) < upperを満たすすべての頂点uについて、現在のvalues[u]を合計した値。query(vertex)は木全体の値の合計を返す。 |

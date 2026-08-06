@@ -28,11 +28,11 @@ from library_codex.string.DynamicRollingHash import DynamicRollingHash
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../string/DynamicRollingHash.py#L55) | method | len(obj)。 | なし | 要素数（int） |
-| [`update(index, value)`](../../../string/DynamicRollingHash.py#L58) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`update(index, value)`](../../../string/DynamicRollingHash.py#L58) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`get(left=0, right=None)`](../../../string/DynamicRollingHash.py#L123) | method | 指定位置・辺・状態の値を取得する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 指定対象に格納された値・edge object |
 | [`reverse_get(left=0, right=None)`](../../../string/DynamicRollingHash.py#L130) | method | `reverse`・`get`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | `self._query(left, right)[1]` |
 | [`get_value(left=0, right=None)`](../../../string/DynamicRollingHash.py#L135) | method | 値を取得する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | HashString instance |
 | [`same(left1, right1, left2, right2)`](../../../string/DynamicRollingHash.py#L143) | method | 2要素が同じ連結成分に属するか判定する。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | bool |
 | [`is_palindrome(left=0, right=None)`](../../../string/DynamicRollingHash.py#L149) | method | `palindrome`かどうかを判定する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | bool |
 | [`lcp(left1, right1, left2, right2)`](../../../string/DynamicRollingHash.py#L155) | method | `lcp`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | `low`（数値または入力要素型） |
-| [`__getitem__(index)`](../../../string/DynamicRollingHash.py#L169) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../string/DynamicRollingHash.py#L169) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |

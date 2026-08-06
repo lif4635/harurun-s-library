@@ -59,7 +59,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L90) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
-| [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L100) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L100) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `RelaxedExponential`
 
@@ -72,7 +72,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L114) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
-| [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L128) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L128) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `RelaxedLogarithm`
 
@@ -85,7 +85,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L144) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` |
-| [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L159) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L159) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `OnlineFormalPowerSeries`
 
@@ -100,7 +100,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 | [`set_corner(series)`](../../../fps/OnlineFormalPowerSeries.py#L174) | method | `corner`を設定する。 | `series`: 昇冪の形式的冪級数係数列 | `self` |
 | [`set_function(function)`](../../../fps/OnlineFormalPowerSeries.py#L178) | method | `function`を設定する。 | `function`: callback関数 | `self` |
 | [`set(other)`](../../../fps/OnlineFormalPowerSeries.py#L182) | method | 指定位置・状態を値で置き換える。 | `other`: 同じ型のもう一方のobject・値 | `self` |
-| [`get(index)`](../../../fps/OnlineFormalPowerSeries.py#L186) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`get(index)`](../../../fps/OnlineFormalPowerSeries.py#L186) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
 | [`prefix(size)`](../../../fps/OnlineFormalPowerSeries.py#L202) | method | prefixを求める。 | `size`: 要素数・universe size | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `self.values[:size]` |
 | [`__add__(other)`](../../../fps/OnlineFormalPowerSeries.py#L216) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | OnlineFormalPowerSeries instance |
 | [`__sub__(other)`](../../../fps/OnlineFormalPowerSeries.py#L224) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | OnlineFormalPowerSeries instance |

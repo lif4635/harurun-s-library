@@ -37,12 +37,12 @@ from library_codex.string.PersistentString import PersistentString
 | [`__iadd__(other)`](../../../string/PersistentString.py#L245) | method | obj += other。 | `other`: 同じ型のもう一方のobject・値 | `self` |
 | [`__mul__(count)`](../../../string/PersistentString.py#L251) | method | obj * other。 | `count`: 個数 | 計算結果（数値または入力要素型） |
 | [`__imul__(count)`](../../../string/PersistentString.py#L270) | method | obj *= other。 | `count`: 個数 | `self` |
-| [`substr(position, length=None)`](../../../string/PersistentString.py#L275) | method | `substr`を求める。 | `position`: 0-indexedの位置<br>`length`: 長さ。省略時: `None` | `self._from_root(_subroot(self._root, position, right), self._k...` |
-| [`inserted(other, position)`](../../../string/PersistentString.py#L291) | method | `inserted`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 0-indexedの位置 | `self._from_root(root, kind)` |
-| [`insert(other, position)`](../../../string/PersistentString.py#L302) | method | 指定位置へ要素を挿入する。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 0-indexedの位置 | `self` |
+| [`substr(position, length=None)`](../../../string/PersistentString.py#L275) | method | `substr`を求める。 | `position`: 位置<br>`length`: 長さ。省略時: `None` | `self._from_root(_subroot(self._root, position, right), self._k...` |
+| [`inserted(other, position)`](../../../string/PersistentString.py#L291) | method | `inserted`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 位置 | `self._from_root(root, kind)` |
+| [`insert(other, position)`](../../../string/PersistentString.py#L302) | method | 指定位置へ要素を挿入する。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 位置 | `self` |
 | [`deleted(left, right)`](../../../string/PersistentString.py#L308) | method | `deleted`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._from_root(_join(before, suffix), self._kind)` |
 | [`replaced(left, right, other)`](../../../string/PersistentString.py#L316) | method | `replaced`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`other`: 同じ型のもう一方のobject・値 | `self.deleted(left, right).inserted(other, left)` |
-| [`__getitem__(index)`](../../../string/PersistentString.py#L321) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../string/PersistentString.py#L321) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 | [`__iter__()`](../../../string/PersistentString.py#L345) | method | iter(obj)・for 文。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする |
 | [`to_sequence()`](../../../string/PersistentString.py#L349) | method | `to`・`sequence`を求める。 | なし | `''.join(parts)` / `b''.join(parts)` / tuple — 用途欄に示した複数の結果を順に格納 |
 | [`lcp(other)`](../../../string/PersistentString.py#L362) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `len(self)` / 数値または入力要素型 `result + offset` / 計算結果（int） |

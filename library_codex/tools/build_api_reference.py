@@ -119,9 +119,9 @@ MODULE_ARGUMENT_DESCRIPTION = {
     },
     "tree/LCA.py": {
         "tree": "各頂点の隣接頂点を並べた隣接list",
-        "root": "最初に根とする0-indexed頂点番号",
-        "first": "第1の0-indexed頂点番号",
-        "second": "第2の0-indexed頂点番号",
+        "root": "最初に根とする頂点番号",
+        "first": "第1の頂点番号",
+        "second": "第2の頂点番号",
     },
     "segment_tree/LazySegTree.py": {
         "id": "遅延作用を何もしない単位元",
@@ -202,8 +202,8 @@ MODULE_ARGUMENT_DESCRIPTION = {
     },
     "random/RandomGraph.py": {
         "n": "頂点数",
-        "first": "辺の一方の0-indexed頂点番号",
-        "second": "辺のもう一方の0-indexed頂点番号",
+        "first": "辺の一方の頂点番号",
+        "second": "辺のもう一方の頂点番号",
         "directed": "Trueならstored edgeの向きだけを使う",
         "seed": "乱数列を再現する整数。同じseedなら同じgraph列になる",
         "components": "生成するforestの連結成分数",
@@ -491,8 +491,8 @@ ARGUMENT_DESCRIPTION = {
     "x": "値・座標・問い合わせ対象",
     "y": "値・座標・問い合わせ対象",
     "z": "値・座標・問い合わせ対象",
-    "u": "頂点番号（0-indexed）",
-    "v": "頂点番号（0-indexed）",
+    "u": "頂点番号",
+    "v": "頂点番号",
     "s": "始点または入力列",
     "t": "終点または対象値",
     "n": "要素数・頂点数・次数",
@@ -500,33 +500,33 @@ ARGUMENT_DESCRIPTION = {
     "k": "個数・順位・移動量（APIの文脈に従う）",
     "q": "query数・値",
     "p": "位置・素数法・確率（APIの文脈に従う）",
-    "i": "0-indexedの位置",
-    "j": "0-indexedの位置",
-    "index": "0-indexedの位置",
-    "indices": "0-indexed位置の列",
-    "position": "0-indexedの位置",
+    "i": "位置",
+    "j": "位置",
+    "index": "位置",
+    "indices": "位置の列",
+    "position": "位置",
     "left": "半開区間の左端（含む）",
     "right": "半開区間の右端（含まない）",
     "l": "半開区間の左端（含む）",
     "r": "半開区間の右端（含まない）",
     "top": "矩形の上端（含む）",
     "bottom": "矩形の下端（含まない）",
-    "row": "0-indexedの行番号",
-    "column": "0-indexedの列番号",
+    "row": "行番号",
+    "column": "列番号",
     "height": "高さ・行数",
     "width": "幅・列数",
     "size": "要素数・universe size",
     "length": "長さ",
     "count": "個数",
     "limit": "上限。NoneならAPI既定の上限",
-    "lower": "下限（包含関係はAPIの説明を参照）",
-    "upper": "上限（包含関係はAPIの説明を参照）",
+    "lower": "下限",
+    "upper": "上限",
     "start": "始点・開始位置",
     "goal": "終点。Noneなら全体を処理",
     "source": "始点",
     "sink": "終点",
     "root": "根の頂点番号・原始根",
-    "vertex": "頂点番号（0-indexed）",
+    "vertex": "頂点番号",
     "node": "頂点・内部node番号",
     "edge": "辺または隣接list",
     "edges": "辺のiterable/list",
@@ -591,7 +591,7 @@ ARGUMENT_DESCRIPTION = {
     "number": "整数",
     "target": "探索・判定・更新の対象値",
     "amount": "加算量・移動量",
-    "variable": "Boolean変数番号（0-indexed）",
+    "variable": "Boolean変数番号",
     "point": "評価点・座標",
     "base": "底・基準となる値または列",
     "base2": "第2のhash base",
@@ -629,7 +629,7 @@ ARGUMENT_DESCRIPTION = {
     "include_zero": "0も列挙結果に含めるか",
     "vertex_count": "頂点数",
     "operator": "行列作用 `v -> A v` またはoperator object",
-    "permutation": "0-indexed置換 `p[i]` の列",
+    "permutation": "置換 `p[i]` の列",
     "permutations": "生成元となる置換のlist",
     "order": "順序・次数・並べ方",
     "slope": "直線の傾き",
@@ -874,6 +874,18 @@ def class_detail(module_key, name):
     return CLASS_DETAILS_BY_SYMBOL.get((module_key, name), {})
 
 
+def argument_overrides_for(module_key, owner, name, defaults):
+    """Combine module defaults with exact per-symbol argument semantics."""
+    configured = api_detail(module_key, owner, name).get(
+        "argumentDescriptions", {}
+    )
+    if not configured:
+        return defaults
+    result = dict(defaults or {})
+    result.update(configured)
+    return result
+
+
 def split_words(name):
     name = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
     return [part.lower() for part in name.strip("_").split("_") if part]
@@ -1070,7 +1082,7 @@ def argument_description(name, overrides=None):
     if plain in ARGUMENT_DESCRIPTION:
         return ARGUMENT_DESCRIPTION[plain]
     if plain.endswith("_id"):
-        return plain[:-3] + " のID（0-indexed）"
+        return plain[:-3] + " のID"
     if plain.endswith("_ids"):
         return plain[:-4] + " のID列"
     if plain.endswith("_list"):
@@ -1497,7 +1509,13 @@ def method_row(
     purpose = purpose_for(node.name, node, owner, module_key)
     arguments = (
         "なし" if is_property
-        else render_arguments(node, skip_first, argument_overrides)
+        else render_arguments(
+            node,
+            skip_first,
+            argument_overrides_for(
+                module_key, owner, node.name, argument_overrides
+            ),
+        )
     )
     returned = return_description(
         node.name,
@@ -1519,7 +1537,12 @@ def function_row(
     api = "[%s](%s)" % (code(signature), source_link(source_relative, node.lineno))
     return "| %s | %s | %s | %s |" % tuple(markdown_escape(value) for value in (
         api, purpose_for(node.name, node, module_key=module_key),
-        render_arguments(node, overrides=argument_overrides),
+        render_arguments(
+            node,
+            overrides=argument_overrides_for(
+                module_key, None, node.name, argument_overrides
+            ),
+        ),
         return_description(
             node.name,
             node,

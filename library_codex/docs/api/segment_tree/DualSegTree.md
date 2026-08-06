@@ -30,8 +30,8 @@ from library_codex.segment_tree.DualSegTree import DualSegTree
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`apply(left, right, action)`](../../../segment_tree/DualSegTree.py#L55) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | `None` |
-| [`get(index)`](../../../segment_tree/DualSegTree.py#L78) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../segment_tree/DualSegTree.py#L84) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../segment_tree/DualSegTree.py#L78) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../segment_tree/DualSegTree.py#L84) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`tolist()`](../../../segment_tree/DualSegTree.py#L88) | method | 遅延作用を反映した現在の要素列をlistで返す。O(N)。 | なし | list[object] — 全ての遅延作用を反映したindex順の要素列 |
 | [`__str__()`](../../../segment_tree/DualSegTree.py#L94) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
 | [`__repr__()`](../../../segment_tree/DualSegTree.py#L97) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'DualSegTree(%r)' % self.tolist()` |

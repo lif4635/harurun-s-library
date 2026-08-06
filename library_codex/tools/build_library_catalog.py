@@ -974,7 +974,7 @@ FRIENDLY_ARGUMENTS = {
     "boards": "盤面を並べた列",
     "build_dag": "縮約後のDAGも作るか",
     "bottom": "矩形の下端（この行は含まない）",
-    "column": "列番号（0始まり）",
+    "column": "列番号",
     "columns": "列数",
     "count": "処理する個数",
     "calculate": "必要な値を計算して返す関数",
@@ -1012,8 +1012,8 @@ FRIENDLY_ARGUMENTS = {
     "groups": "グループ分けを表す列",
     "grid": "グリッドを表す2次元列",
     "height": "行数",
-    "index": "操作する位置（0始まり）",
-    "indices": "位置番号の列（0始まり）",
+    "index": "操作する位置",
+    "indices": "位置番号の列",
     "initialize": "初期状態を作る関数",
     "inverse": "逆変換を行うか",
     "imaginary_angle": "虚部方向の回転角",
@@ -1066,7 +1066,7 @@ FRIENDLY_ARGUMENTS = {
     "right1": "1つ目の範囲の右端（この位置は含まない）",
     "right2": "2つ目の範囲の右端（この位置は含まない）",
     "right_options": "右側で選べる候補の列",
-    "row": "行番号（0始まり）",
+    "row": "行番号",
     "rows": "行数",
     "size": "要素数",
     "source": "始点の頂点番号",
@@ -1098,7 +1098,7 @@ FRIENDLY_ARGUMENTS = {
     "weight1": "状態1に対応する重み",
     "with_distance": "距離も一緒に返すか",
     "values": "初期値の列",
-    "vertex": "頂点番号（0始まり）",
+    "vertex": "頂点番号",
     "vertex_count": "頂点数",
     "width": "列数",
     "xs": "処理対象の値を並べた列",
@@ -1192,7 +1192,7 @@ def friendly_argument_description(name, description, symbol_name):
         if plain.endswith(("_count", "_length")):
             description = "処理対象の個数"
         elif plain.endswith(("_index", "_position")):
-            description = "位置番号（0始まり）"
+            description = "位置番号"
         elif plain.startswith(("is_", "has_", "use_", "with_")):
             description = "この機能を有効にするか"
         elif re.search(r"(?:add|remove|merge|query|update|calculate|get|put)", plain):
@@ -1504,6 +1504,17 @@ def infer_complexity(
 
 def apply_api_detail(item, module_key, owner):
     detail = api_detail(module_key, owner, item["name"])
+    argument_descriptions = detail.get("argumentDescriptions", {})
+    if argument_descriptions:
+        for argument in item["argumentDetails"]:
+            name = argument["name"].lstrip("*")
+            configured = argument_descriptions.get(name)
+            if configured:
+                argument["description"] = clean_markdown(configured)
+        item["arguments"] = " · ".join(
+            f'{argument["name"]}: {argument["description"]}'
+            for argument in item["argumentDetails"]
+        )
     description = detail.get("description")
     if description:
         description = clean_markdown(description)
@@ -2054,6 +2065,45 @@ def public_api_structure(source_path):
     return functions, classes
 
 
+def public_api_argument_names(source_path, owner, symbol_name):
+    tree = ast.parse(
+        source_path.read_text(encoding="utf-8"), filename=str(source_path)
+    )
+    nodes = tree.body
+    if owner is not None:
+        class_node = next(
+            (
+                node
+                for node in tree.body
+                if isinstance(node, ast.ClassDef) and node.name == owner
+            ),
+            None,
+        )
+        nodes = class_node.body if class_node is not None else ()
+    node = next(
+        (
+            item
+            for item in nodes
+            if isinstance(item, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and item.name == symbol_name
+        ),
+        None,
+    )
+    if node is None:
+        return set()
+    names = [
+        argument.arg
+        for argument in node.args.posonlyargs + node.args.args + node.args.kwonlyargs
+    ]
+    if owner is not None and names and names[0] in {"self", "cls"}:
+        names.pop(0)
+    if node.args.vararg is not None:
+        names.append(node.args.vararg.arg)
+    if node.args.kwarg is not None:
+        names.append(node.args.kwarg.arg)
+    return set(names)
+
+
 def validate_nonempty_text(owner, field, value):
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"empty {field} for {owner}")
@@ -2079,7 +2129,8 @@ def validate_api_details_metadata(library_root):
         return structures[module_key]
 
     allowed_api_fields = {
-        "description", "returnFormat", "returnDescription", "returnParts",
+        "description", "argumentDescriptions", "returnFormat",
+        "returnDescription", "returnParts",
     }
     for key, detail in API_DETAILS_BY_SYMBOL.items():
         if not isinstance(key, tuple) or len(key) != 3:
@@ -2100,6 +2151,22 @@ def validate_api_details_metadata(library_root):
         for field in ("description", "returnFormat", "returnDescription"):
             if field in detail:
                 validate_nonempty_text(key, field, detail[field])
+        argument_descriptions = detail.get("argumentDescriptions", {})
+        if not isinstance(argument_descriptions, dict):
+            raise ValueError(f"argumentDescriptions must be a dict: {key!r}")
+        known_arguments = public_api_argument_names(
+            paths_by_module[module_key], owner, symbol_name
+        )
+        unknown_arguments = set(argument_descriptions) - known_arguments
+        if unknown_arguments:
+            raise ValueError(
+                "unknown argument in API_DETAILS_BY_SYMBOL: "
+                f"{key!r}: {sorted(unknown_arguments)}"
+            )
+        for argument_name, value in argument_descriptions.items():
+            validate_nonempty_text(
+                key, f"argumentDescriptions.{argument_name}", value
+            )
         parts = detail.get("returnParts", ())
         if not isinstance(parts, (tuple, list)):
             raise ValueError(f"returnParts must be a tuple or list: {key!r}")
@@ -2171,11 +2238,13 @@ def validate_catalog(data, library_root):
     if data.get("schemaVersion") != SCHEMA_VERSION:
         raise ValueError(f"unsupported catalog schemaVersion: {data.get('schemaVersion')!r}")
     for key in (
-        "generatedAt", "sourceRevision", "sourceFingerprint", "inputStamp", "stats",
-        "categories", "modules",
+        "generatedAt", "sourceRevision", "sourceFingerprint", "inputStamp",
+        "textFormat", "stats", "categories", "modules",
     ):
         if key not in data:
             raise ValueError(f"catalog is missing {key}")
+    if data["textFormat"] != "markdown+tex":
+        raise ValueError(f"unsupported catalog textFormat: {data['textFormat']!r}")
     modules = data["modules"]
     if not isinstance(modules, list):
         raise ValueError("catalog modules must be a list")
@@ -2467,6 +2536,7 @@ def build_catalog(library_root=ROOT, output=DEFAULT_OUTPUT, force_full=False):
         "sourceFingerprint": source_fingerprint,
         "inputStamp": input_stamp,
         "generatorFingerprint": generator_fingerprint,
+        "textFormat": "markdown+tex",
         "stats": {
             "modules": len(modules),
             "functions": sum(module["counts"]["functions"] for module in modules),

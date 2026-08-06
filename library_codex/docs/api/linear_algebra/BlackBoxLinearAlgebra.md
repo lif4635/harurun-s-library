@@ -59,5 +59,5 @@ dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程�
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(row, column, value)`](../../../linear_algebra/BlackBoxLinearAlgebra.py#L30) | method | (row, column)の値へvalueを加える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(row, column, value)`](../../../linear_algebra/BlackBoxLinearAlgebra.py#L30) | method | (row, column)の値へvalueを加える。 | `row`: 行番号<br>`column`: 列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`matvec(vector, mod=DEFAULT_MOD)`](../../../linear_algebra/BlackBoxLinearAlgebra.py#L33) | method | `matvec`を求める。 | `vector`: vector・1次元配列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |

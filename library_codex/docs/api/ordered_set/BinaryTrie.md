@@ -31,7 +31,7 @@ multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
 | [`count_value(value)`](../../../ordered_set/BinaryTrie.py#L39) | method | 値の個数を求める。 | `value`: 追加・設定・問い合わせる値 | `0` / `self.count[node]` |
 | [`discard(value, amount=1)`](../../../ordered_set/BinaryTrie.py#L50) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `0` / `amount` |
 | [`xor_all(value)`](../../../ordered_set/BinaryTrie.py#L65) | method | XOR・全体を求める。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`kth(index)`](../../../ordered_set/BinaryTrie.py#L70) | method | 0-indexedでk番目の要素を取得する。 | `index`: 0-indexedの位置 | k番目の値 |
+| [`kth(index)`](../../../ordered_set/BinaryTrie.py#L70) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置 | k番目の値 |
 | [`min()`](../../../ordered_set/BinaryTrie.py#L88) | method | 最小を求める。 | なし | `self.kth(0)` |
 | [`max()`](../../../ordered_set/BinaryTrie.py#L91) | method | 最大を求める。 | なし | `self.kth(self.count[0] - 1)` |
 | [`bisect_left(value)`](../../../ordered_set/BinaryTrie.py#L94) | method | 条件を満たす最初の位置を二分探索する。 | `value`: 追加・設定・問い合わせる値 | 境界index（int） |

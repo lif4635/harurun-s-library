@@ -41,7 +41,7 @@ from library_codex.graph_connectivity.BiconnectedComponents import BiconnectedCo
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`id(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L163) | method | `id`を求める。 | `vertex`: 頂点番号（0-indexed） | `self.vertex_id[vertex]` |
-| [`is_articulation(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L166) | method | `articulation`かどうかを判定する。 | `vertex`: 頂点番号（0-indexed） | bool |
+| [`id(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L163) | method | `id`を求める。 | `vertex`: 頂点番号 | `self.vertex_id[vertex]` |
+| [`is_articulation(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L166) | method | `articulation`かどうかを判定する。 | `vertex`: 頂点番号 | bool |
 | [`__len__()`](../../../graph_connectivity/BiconnectedComponents.py#L171) | method | len(obj)。 | なし | 要素数（int） |
 | [`__getitem__(node)`](../../../graph_connectivity/BiconnectedComponents.py#L174) | method | obj[key] で取得する。 | `node`: 頂点・内部node番号 | 格納値、sliceなら同種の部分構造 |

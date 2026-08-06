@@ -24,7 +24,7 @@ from library_codex.random.RandomGraph import Edge, Graph, UndirectedGraphGenerat
 edge-list container・木・forest・二部・連結・単純graph生成を扱う `Edge`。
 
 - constructor: [`Edge(u: int, v: int, weight: int=1, index: int=-1)`](../../../random/RandomGraph.py#L9)
-- 引数: `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed）<br>`weight`: 重み。省略時: `1`<br>`index`: 0-indexedの位置。省略時: `-1`
+- 引数: `u`: 頂点番号<br>`v`: 頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1`
 - 返り値: `Edge` instance
 
 ## Class `Graph`
@@ -38,8 +38,8 @@ edge-list container・木・forest・二部・連結・単純graph生成を扱�
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`edge_count()`](../../../random/RandomGraph.py#L28) | method | 保持している辺の本数を返す。 | なし | int — Graphが保持している辺の本数 |
-| [`add_directed_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L32) | method | 有向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の0-indexed頂点番号<br>`second`: 辺のもう一方の0-indexed頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 0-indexedの位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 |
-| [`add_undirected_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L37) | method | 無向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の0-indexed頂点番号<br>`second`: 辺のもう一方の0-indexed頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 0-indexedの位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 |
+| [`add_directed_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L32) | method | 有向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の頂点番号<br>`second`: 辺のもう一方の頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 |
+| [`add_undirected_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L37) | method | 無向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の頂点番号<br>`second`: 辺のもう一方の頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 |
 | [`to_adjacency_list(directed=False)`](../../../random/RandomGraph.py#L44) | method | edge-listを頂点ごとの隣接辺listへ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[Edge]] — 頂点ごとに外向きEdgeを並べた隣接list |
 | [`to_adjacency_matrix(directed=False)`](../../../random/RandomGraph.py#L53) | method | edge-listを辺重み入りの隣接行列へ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[number]] — 行を始点、列を終点とするn×nの辺重み行列 |
 | [`format_edges(zero_indexed=False)`](../../../random/RandomGraph.py#L62) | method | 辺を競プロ入力で使える改行区切り文字列へ整形する。 | `zero_indexed`: 頂点番号を0始まりで出力するか。省略時: `False` | str — 1辺1行の改行区切り文字列（末尾改行なし） |

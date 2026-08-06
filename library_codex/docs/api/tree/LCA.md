@@ -24,10 +24,10 @@ from library_codex.tree.LCA import LCA
 Euler tourとRMQでLCAをO(1)で返す。
 
 - constructor: [`LCA(tree, root=0)`](../../../tree/LCA.py#L11)
-- 引数: `tree`: 各頂点の隣接頂点を並べた隣接list<br>`root`: 最初に根とする0-indexed頂点番号。省略時: `0`
+- 引数: `tree`: 各頂点の隣接頂点を並べた隣接list<br>`root`: 最初に根とする頂点番号。省略時: `0`
 - 返り値: `LCA` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`__call__(first, second)`](../../../tree/LCA.py#L20) | method | firstとsecondのLCAを返す。異なる連結成分なら-1。O(1)。 | `first`: 第1の0-indexed頂点番号<br>`second`: 第2の0-indexed頂点番号 | int — firstとsecondの最近共通祖先。異なる連結成分なら-1 |
-| [`dist(first, second)`](../../../tree/LCA.py#L24) | method | firstとsecondの辺数距離を返す。異なる連結成分なら-1。O(1)。 | `first`: 第1の0-indexed頂点番号<br>`second`: 第2の0-indexed頂点番号 | int — firstとsecondの辺数距離。異なる連結成分なら-1 |
+| [`__call__(first, second)`](../../../tree/LCA.py#L20) | method | firstとsecondのLCAを返す。異なる連結成分なら-1。O(1)。 | `first`: 第1の頂点番号<br>`second`: 第2の頂点番号 | int — firstとsecondの最近共通祖先。異なる連結成分なら-1 |
+| [`dist(first, second)`](../../../tree/LCA.py#L24) | method | firstとsecondの辺数距離を返す。異なる連結成分なら-1。O(1)。 | `first`: 第1の頂点番号<br>`second`: 第2の頂点番号 | int — firstとsecondの辺数距離。異なる連結成分なら-1 |

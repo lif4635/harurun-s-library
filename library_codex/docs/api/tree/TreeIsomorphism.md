@@ -70,4 +70,4 @@ from library_codex.tree.TreeIsomorphism import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`same_subtree(u, v)`](../../../tree/TreeIsomorphism.py#L115) | method | `same`・`subtree`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | bool |
+| [`same_subtree(u, v)`](../../../tree/TreeIsomorphism.py#L115) | method | `same`・`subtree`を求める。 | `u`: 頂点番号<br>`v`: 頂点番号 | bool |

@@ -34,4 +34,4 @@ from library_codex.graph_connectivity.AdvancedConnectivity import incremental_sc
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L130) | method | obj[key] で取得する。 | `vertex`: 頂点番号（0-indexed） | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L130) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 |

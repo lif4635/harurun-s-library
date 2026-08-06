@@ -57,7 +57,7 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L32) | method | 指定要素・頂点に対応する内部indexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` |
-| [`value(index)`](../../../number_theory/MultiplicativeFunctions.py#L37) | method | 値を求める。 | `index`: 0-indexedの位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` |
+| [`value(index)`](../../../number_theory/MultiplicativeFunctions.py#L37) | method | 値を求める。 | `index`: 位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` |
 | [`__getitem__(key)`](../../../number_theory/MultiplicativeFunctions.py#L42) | method | obj[key] で取得する。 | `key`: 比較・格納に使うkey | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(key, value)`](../../../number_theory/MultiplicativeFunctions.py#L45) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prefix()`](../../../number_theory/MultiplicativeFunctions.py#L48) | method | prefixを求める。 | なし | `self` |

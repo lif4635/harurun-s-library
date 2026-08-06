@@ -27,5 +27,5 @@ from library_codex.ordered_set.PointSetRangeFrequency import PointSetRangeFreque
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`set(index, value)`](../../../ordered_set/PointSetRangeFrequency.py#L19) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`set(index, value)`](../../../ordered_set/PointSetRangeFrequency.py#L19) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`query(left, right, value)`](../../../ordered_set/PointSetRangeFrequency.py#L27) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |

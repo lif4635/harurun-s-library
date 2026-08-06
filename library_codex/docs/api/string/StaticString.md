@@ -64,7 +64,7 @@ SA共有substring view・複数view連結を扱う `StaticString`。
 | --- | --- | --- | --- | --- |
 | [`from_sequence(sequence)`](../../../string/StaticString.py#L72) | classmethod | `from`・`sequence`を求める。 | `sequence`: 入力列 | `StaticStringBase(sequence).view()` |
 | [`__len__()`](../../../string/StaticString.py#L77) | method | len(obj)。 | なし | 要素数（int） |
-| [`__getitem__(index)`](../../../string/StaticString.py#L80) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../string/StaticString.py#L80) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 | [`materialize()`](../../../string/StaticString.py#L114) | method | `materialize`を求める。 | なし | `self.base.sequence[self.left:self.right]` |
 | [`lcp(other)`](../../../string/StaticString.py#L119) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `MergedStaticString((self,)).lcp(other)` / `0` / `self.base.index.lcp_substring(self.left, self.right, other.lef...` / `lcp_naive(self, other)` |
 | [`compare(other)`](../../../string/StaticString.py#L131) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | `-other.compare(self)` / 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` |
@@ -93,7 +93,7 @@ SA共有substring view・複数view連結を扱う `MergedStaticString`。
 | [`__len__()`](../../../string/StaticString.py#L231) | method | len(obj)。 | なし | 要素数（int） |
 | [`__iadd__(other)`](../../../string/StaticString.py#L234) | method | obj += other。 | `other`: 同じ型のもう一方のobject・値 | `self` |
 | [`__add__(other)`](../../../string/StaticString.py#L238) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | 計算結果（MergedStaticString） |
-| [`__getitem__(index)`](../../../string/StaticString.py#L243) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../string/StaticString.py#L243) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
 | [`materialize()`](../../../string/StaticString.py#L275) | method | `materialize`を求める。 | なし | str/bytes/tuple `'' if self._kind in (-1, 1) else b'' if self._kind == 2 else ()` / `_pack(self._kind, [part.materialize() for part in self.parts])` |
 | [`lcp(other)`](../../../string/StaticString.py#L284) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `len(self)` / `0` / 数値または入力要素型 `result + common` / 計算結果（int） |
 | [`compare(other)`](../../../string/StaticString.py#L327) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` |

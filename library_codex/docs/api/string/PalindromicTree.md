@@ -47,6 +47,6 @@ from library_codex.string.PalindromicTree import PalindromicTree
 | [`first_occurrence(palindrome)`](../../../string/PalindromicTree.py#L245) | method | `first`・`occurrence`を求める。 | `palindrome`: 回文node・回文列 | `0` / `-1 if node == -1 else self.first_pos[node]` |
 | [`suffix_link_tree()`](../../../string/PalindromicTree.py#L251) | method | suffix・`link`・木を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`occurrences(palindrome, sort_positions=False)`](../../../string/PalindromicTree.py#L302) | method | `occurrences`を求める。 | `palindrome`: 回文node・回文列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
-| [`longest_suffix_state(position=None)`](../../../string/PalindromicTree.py#L322) | method | `longest`・suffix・`state`を求める。 | `position`: 0-indexedの位置。省略時: `None` | `self.last` / `self.suffix_states[position]` |
-| [`palindromic_suffixes(position=None, include_empty=False)`](../../../string/PalindromicTree.py#L327) | method | `palindromic`・`suffixes`を求める。 | `position`: 0-indexedの位置。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list[object] — 計算結果 |
+| [`longest_suffix_state(position=None)`](../../../string/PalindromicTree.py#L322) | method | `longest`・suffix・`state`を求める。 | `position`: 位置。省略時: `None` | `self.last` / `self.suffix_states[position]` |
+| [`palindromic_suffixes(position=None, include_empty=False)`](../../../string/PalindromicTree.py#L327) | method | `palindromic`・`suffixes`を求める。 | `position`: 位置。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list[object] — 計算結果 |
 | [`frequencies()`](../../../string/PalindromicTree.py#L337) | method | `frequencies`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |

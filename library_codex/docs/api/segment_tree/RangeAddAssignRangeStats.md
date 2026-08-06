@@ -38,11 +38,11 @@ from library_codex.segment_tree.RangeAddAssignRangeStats import RangeAddAssignRa
 | [`range_sum(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L197) | method | 区間・和を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 0)` |
 | [`range_min(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L202) | method | 区間・最小を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 1)` |
 | [`range_max(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L207) | method | 区間・最大を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 2)` |
-| [`get(index)`](../../../segment_tree/RangeAddAssignRangeStats.py#L212) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L220) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../segment_tree/RangeAddAssignRangeStats.py#L212) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L220) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`all_sum()`](../../../segment_tree/RangeAddAssignRangeStats.py#L225) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
 | [`all_min()`](../../../segment_tree/RangeAddAssignRangeStats.py#L228) | method | 全体・最小を求める。 | なし | `self.minimum[1]` |
 | [`all_max()`](../../../segment_tree/RangeAddAssignRangeStats.py#L231) | method | 全体・最大を求める。 | なし | `self.maximum[1]` |
-| [`__getitem__(index)`](../../../segment_tree/RangeAddAssignRangeStats.py#L234) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
-| [`__setitem__(index, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L237) | method | obj[key] = value で更新する。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`__getitem__(index)`](../../../segment_tree/RangeAddAssignRangeStats.py#L234) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
+| [`__setitem__(index, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L237) | method | obj[key] = value で更新する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`__len__()`](../../../segment_tree/RangeAddAssignRangeStats.py#L240) | method | len(obj)。 | なし | 要素数（int） |

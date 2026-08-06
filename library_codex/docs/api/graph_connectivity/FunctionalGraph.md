@@ -27,10 +27,10 @@ Functional graph の周期分解・移動・距離を扱う `FunctionalGraph`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`move(v, k)`](../../../graph_connectivity/FunctionalGraph.py#L77) | method | `move`を求める。 | `v`: 頂点番号（0-indexed）<br>`k`: 選ぶ個数または0-indexedの順位 | `self._jump_tree(v, k)` / `cycle[(self.cycle_pos[v] + k - d) % len(cycle)]` |
-| [`dist(u, v)`](../../../graph_connectivity/FunctionalGraph.py#L87) | method | `dist`を求める。 | `u`: 頂点番号（0-indexed）<br>`v`: 頂点番号（0-indexed） | `-1` / 数値または入力要素型 `d if self._jump_tree(u, d) == v else -1` / 数値または入力要素型 `du + (self.cycle_pos[v] - self.cycle_pos[u]) % len(cycle)` |
-| [`in_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L100) | method | `in`・閉路を求める。 | `v`: 頂点番号（0-indexed） | bool |
-| [`root(v)`](../../../graph_connectivity/FunctionalGraph.py#L103) | method | 根を求める。 | `v`: 頂点番号（0-indexed） | `self.entry[v]` |
-| [`cycle_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L106) | method | 閉路・`size`を求める。 | `v`: 頂点番号（0-indexed） | `len(self.cycles[self.component[v]])` |
-| [`reachable_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L109) | method | `reachable`・`size`を求める。 | `v`: 頂点番号（0-indexed） | 数値または入力要素型 `self.depth[v] + len(self.cycles[self.component[v]])` |
-| [`get_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L112) | method | 閉路を取得する。 | `v`: 頂点番号（0-indexed） | `self.cycles[self.component[v]]` |
+| [`move(v, k)`](../../../graph_connectivity/FunctionalGraph.py#L77) | method | `move`を求める。 | `v`: 頂点番号<br>`k`: 選ぶ個数または0-indexedの順位 | `self._jump_tree(v, k)` / `cycle[(self.cycle_pos[v] + k - d) % len(cycle)]` |
+| [`dist(u, v)`](../../../graph_connectivity/FunctionalGraph.py#L87) | method | `dist`を求める。 | `u`: 頂点番号<br>`v`: 頂点番号 | `-1` / 数値または入力要素型 `d if self._jump_tree(u, d) == v else -1` / 数値または入力要素型 `du + (self.cycle_pos[v] - self.cycle_pos[u]) % len(cycle)` |
+| [`in_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L100) | method | `in`・閉路を求める。 | `v`: 頂点番号 | bool |
+| [`root(v)`](../../../graph_connectivity/FunctionalGraph.py#L103) | method | 根を求める。 | `v`: 頂点番号 | `self.entry[v]` |
+| [`cycle_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L106) | method | 閉路・`size`を求める。 | `v`: 頂点番号 | `len(self.cycles[self.component[v]])` |
+| [`reachable_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L109) | method | `reachable`・`size`を求める。 | `v`: 頂点番号 | 数値または入力要素型 `self.depth[v] + len(self.cycles[self.component[v]])` |
+| [`get_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L112) | method | 閉路を取得する。 | `v`: 頂点番号 | `self.cycles[self.component[v]]` |

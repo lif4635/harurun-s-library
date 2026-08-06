@@ -37,4 +37,4 @@ splay Euler Tour Tree＋HDT level昇格による完全動的連結性を扱う `
 | [`link(first, second)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L342) | method | 異なる木の2頂点を辺で接続する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`-1`, `-1`) / `edge` |
 | [`cut(first, second)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L358) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | ForestCutQuery instance |
 | [`connected(first, second)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L385) | method | n頂点m辺の連結単純無向graphを生成する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | Graph — n頂点edge_count辺の連結単純graph |
-| [`component_size(vertex)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L393) | method | 指定頂点が属する連結成分の頂点数を返す。 | `vertex`: 頂点番号（0-indexed） | `self.forests[0].component_data(vertex)[1]` |
+| [`component_size(vertex)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L393) | method | 指定頂点が属する連結成分の頂点数を返す。 | `vertex`: 頂点番号 | `self.forests[0].component_data(vertex)[1]` |

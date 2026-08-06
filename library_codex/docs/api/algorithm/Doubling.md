@@ -27,5 +27,5 @@ functional graphのbinary liftingと加算集約を扱う `Doubling`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`jump(vertex, steps)`](../../../algorithm/Doubling.py#L22) | method | `jump`を求める。 | `vertex`: 頂点番号（0-indexed）<br>`steps`: 移動step数 | int — steps回遷移した後の頂点番号 |
-| [`jump_with_sum(vertex, steps)`](../../../algorithm/Doubling.py#L31) | method | `jump`・`with`・和を計算する。 | `vertex`: 頂点番号（0-indexed）<br>`steps`: 移動step数 | tuple[int, number] — 遷移後の頂点番号と、通過元頂点の値の合計 |
+| [`jump(vertex, steps)`](../../../algorithm/Doubling.py#L22) | method | `jump`を求める。 | `vertex`: 頂点番号<br>`steps`: 移動step数 | int — steps回遷移した後の頂点番号 |
+| [`jump_with_sum(vertex, steps)`](../../../algorithm/Doubling.py#L31) | method | `jump`・`with`・和を計算する。 | `vertex`: 頂点番号<br>`steps`: 移動step数 | tuple[int, number] — 遷移後の頂点番号と、通過元頂点の値の合計 |

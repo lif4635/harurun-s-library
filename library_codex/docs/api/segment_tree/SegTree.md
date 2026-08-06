@@ -30,9 +30,9 @@ from library_codex.segment_tree.SegTree import SegTree
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`set(index, value)`](../../../segment_tree/SegTree.py#L31) | method | index番目の値をvalueへ置き換える。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`add(index, value)`](../../../segment_tree/SegTree.py#L41) | method | indexの現在値をop(value, current)で置き換える。O(log N)。 | `index`: 0-indexedの位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(index)`](../../../segment_tree/SegTree.py#L52) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`set(index, value)`](../../../segment_tree/SegTree.py#L31) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(index, value)`](../../../segment_tree/SegTree.py#L41) | method | indexの現在値をop(value, current)で置き換える。O(log N)。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`get(index)`](../../../segment_tree/SegTree.py#L52) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
 | [`tolist()`](../../../segment_tree/SegTree.py#L55) | method | 現在の要素列をlistで返す。O(N)。 | なし | list[object] — 現在のindex順の要素列 |
 | [`__str__()`](../../../segment_tree/SegTree.py#L59) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
 | [`__repr__()`](../../../segment_tree/SegTree.py#L62) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegTree(%r)' % self.tolist()` |
@@ -40,4 +40,4 @@ from library_codex.segment_tree.SegTree import SegTree
 | [`all_prod()`](../../../segment_tree/SegTree.py#L85) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
 | [`max_right(left, predicate)`](../../../segment_tree/SegTree.py#L88) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
 | [`min_left(right, predicate)`](../../../segment_tree/SegTree.py#L113) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
-| [`__getitem__(index)`](../../../segment_tree/SegTree.py#L138) | method | obj[key] で取得する。 | `index`: 0-indexedの位置 | 格納値、sliceなら同種の部分構造 |
+| [`__getitem__(index)`](../../../segment_tree/SegTree.py#L138) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |

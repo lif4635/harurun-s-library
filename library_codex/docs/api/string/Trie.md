@@ -30,7 +30,7 @@ dict/固定alphabet対応Trie（重複・prefix件数・ID保持）を扱う `Tr
 | [`__len__()`](../../../string/Trie.py#L36) | method | len(obj)。 | なし | 要素数（int） |
 | [`node_count`](../../../string/Trie.py#L40) | property | `node`・個数を求める。 | なし | `len(self.terminal_count)` |
 | [`move(node, symbol)`](../../../string/Trie.py#L62) | method | `move`を求める。 | `node`: 頂点・内部node番号<br>`symbol`: 文字・alphabet上の記号 | `-1` / `self.transitions[node * self.sigma + index]` / `self.transitions[node].get(symbol, -1)` |
-| [`add(word, word_id=None, count=1)`](../../../string/Trie.py#L72) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `word`: 登録・検索する文字列・列<br>`word_id`: word のID（0-indexed）。省略時: `None`<br>`count`: 個数。省略時: `1` | `node`（int） |
+| [`add(word, word_id=None, count=1)`](../../../string/Trie.py#L72) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `word`: 登録・検索する文字列・列<br>`word_id`: word のID。省略時: `None`<br>`count`: 個数。省略時: `1` | `node`（int） |
 | [`find(word)`](../../../string/Trie.py#L111) | method | 代表元・位置・対象要素を探す。 | `word`: 登録・検索する文字列・列 | 代表元・位置・node番号（int） |
 | [`count(word)`](../../../string/Trie.py#L119) | method | 条件に合う要素数を返す。 | `word`: 登録・検索する文字列・列 | 個数（int） |
 | [`contains(word)`](../../../string/Trie.py#L123) | method | 指定値を保持しているか判定する。 | `word`: 登録・検索する文字列・列 | bool |

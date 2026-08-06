@@ -31,5 +31,5 @@ from library_codex.segment_tree.DynamicLazySegmentTree import DynamicLazySegment
 | --- | --- | --- | --- | --- |
 | [`apply(query_left, query_right, action)`](../../../segment_tree/DynamicLazySegmentTree.py#L64) | method | 指定した作用を適用する。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端<br>`action`: 遅延作用・更新作用 | `None` |
 | [`prod(query_left, query_right)`](../../../segment_tree/DynamicLazySegmentTree.py#L90) | method | 半開区間またはpathの集約値を返す。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端 | 区間・pathの集約値（入力要素型） |
-| [`get(index)`](../../../segment_tree/DynamicLazySegmentTree.py#L110) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置 | 指定対象に格納された値・edge object |
+| [`get(index)`](../../../segment_tree/DynamicLazySegmentTree.py#L110) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
 | [`all_prod()`](../../../segment_tree/DynamicLazySegmentTree.py#L113) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |

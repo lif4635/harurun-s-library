@@ -31,4 +31,4 @@ from library_codex.segment_tree.PersistentLazySegmentTree import PersistentLazyS
 | --- | --- | --- | --- | --- |
 | [`apply(query_left, query_right, action, version=-1)`](../../../segment_tree/PersistentLazySegmentTree.py#L67) | method | 指定した作用を適用する。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端<br>`action`: 遅延作用・更新作用<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`prod(query_left, query_right, version=-1)`](../../../segment_tree/PersistentLazySegmentTree.py#L106) | method | 半開区間またはpathの集約値を返す。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端<br>`version`: 参照するversion番号。省略時: `-1` | 区間・pathの集約値（入力要素型） |
-| [`get(index, version=-1)`](../../../segment_tree/PersistentLazySegmentTree.py#L145) | method | index番目に格納されている値を返す。 | `index`: 0-indexedの位置<br>`version`: 参照するversion番号。省略時: `-1` | 指定対象に格納された値・edge object |
+| [`get(index, version=-1)`](../../../segment_tree/PersistentLazySegmentTree.py#L145) | method | index番目に格納されている値を返す。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1` | 指定対象に格納された値・edge object |

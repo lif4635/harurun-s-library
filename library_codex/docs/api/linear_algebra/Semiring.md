@@ -26,7 +26,7 @@ from library_codex.linear_algebra.Semiring import semiring_matrix_multiply, semi
 | --- | --- | --- | --- |
 | [`semiring_matrix_multiply(first, second, add, multiply, zero)`](../../../linear_algebra/Semiring.py#L26) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値 | list[list[number]] — 各行をlistで持つ行列 |
 | [`semiring_matrix_power(matrix, exponent, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L40) | 入力した値・多項式を指定指数だけ累乗する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | list[list[number]] — 各行をlistで持つ行列 |
-| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L55) | `semiring`・線形・`recurrence`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 0-indexedの位置<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | `initial[index]` / 答え |
+| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L55) | `semiring`・線形・`recurrence`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 位置<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | `initial[index]` / 答え |
 
 ## Class `Semiring`
 

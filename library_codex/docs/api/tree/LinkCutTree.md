@@ -41,8 +41,8 @@ Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分
 | [`path_fold(first, second)`](../../../tree/LinkCutTree.py#L267) | method | path・`fold`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.forward[second]` |
 | [`path_apply(first, second, action)`](../../../tree/LinkCutTree.py#L275) | method | path・`apply`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`action`: 遅延作用・更新作用 | `None` |
 | [`path_length(first, second)`](../../../tree/LinkCutTree.py#L284) | method | path・長さを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.size[second]` |
-| [`kth_on_path(first, second, index)`](../../../tree/LinkCutTree.py#L289) | method | 2頂点間のpath上で始点からk個進んだ頂点を返す。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`index`: 0-indexedの位置 | `-1` / `node` |
-| [`get_kth(node, index)`](../../../tree/LinkCutTree.py#L308) | method | k番目を取得する。 | `node`: 頂点・内部node番号<br>`index`: 0-indexedの位置 | `-1` / `current` |
+| [`kth_on_path(first, second, index)`](../../../tree/LinkCutTree.py#L289) | method | 2頂点間のpath上で始点からk個進んだ頂点を返す。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`index`: 位置 | `-1` / `node` |
+| [`get_kth(node, index)`](../../../tree/LinkCutTree.py#L308) | method | k番目を取得する。 | `node`: 頂点・内部node番号<br>`index`: 位置 | `-1` / `current` |
 | [`set_value(node, value)`](../../../tree/LinkCutTree.py#L327) | method | 値を設定する。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`get_value(node)`](../../../tree/LinkCutTree.py#L335) | method | 値を取得する。 | `node`: 頂点・内部node番号 | `self.value[node]` |
 

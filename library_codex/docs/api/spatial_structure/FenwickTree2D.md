@@ -27,6 +27,6 @@ from library_codex.spatial_structure.FenwickTree2D import FenwickTree2D
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(row, column, value)`](../../../spatial_structure/FenwickTree2D.py#L13) | method | (row, column)の値へvalueを加える。 | `row`: 0-indexedの行番号<br>`column`: 0-indexedの列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
+| [`add(row, column, value)`](../../../spatial_structure/FenwickTree2D.py#L13) | method | (row, column)の値へvalueを加える。 | `row`: 行番号<br>`column`: 列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`prefix_sum(bottom, right)`](../../../spatial_structure/FenwickTree2D.py#L26) | method | 半開区間 [0, right) の総和を返す。 | `bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | prefixの和（入力要素型） |
 | [`sum(top, left, bottom, right)`](../../../spatial_structure/FenwickTree2D.py#L39) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） |

@@ -37,6 +37,7 @@ def test_library_catalog_is_current():
 def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
     data = load_catalog()
     assert data["schemaVersion"] == 1
+    assert data["textFormat"] == "markdown+tex"
     assert data["sourceRevision"]
     assert len(data["sourceFingerprint"]) == 64
     assert data["stats"]["modules"] == len(data["modules"])
@@ -130,6 +131,48 @@ def test_api_detail_metadata_rejects_removed_symbol(monkeypatch):
     )
     with pytest.raises(ValueError, match="unknown symbol"):
         CATALOG.validate_api_details_metadata(ROOT)
+
+
+def test_api_detail_metadata_rejects_removed_argument(monkeypatch):
+    CATALOG.load_configuration(ROOT)
+    monkeypatch.setattr(
+        CATALOG,
+        "API_DETAILS_BY_SYMBOL",
+        {
+            ("fps/IncreasingSequences.py", None, "count_increasing_sequences"): {
+                "argumentDescriptions": {"removed": "存在しない引数"},
+            }
+        },
+    )
+    with pytest.raises(ValueError, match="unknown argument"):
+        CATALOG.validate_api_details_metadata(ROOT)
+
+
+def test_catalog_preserves_markdown_math_and_exact_bounds():
+    data = load_catalog()
+    increasing = module_by_path(
+        data, "library_codex.fps.IncreasingSequences"
+    )
+    count = increasing["functions"][0]
+    assert "$\\mathrm{lower}_i \\le x_i" in count["description"]
+    arguments = {
+        item["name"]: item["description"] for item in count["argumentDetails"]
+    }
+    assert "含む" in arguments["lower"]
+    assert "含まない" in arguments["upper"]
+    assert "APIの説明を参照" not in count["arguments"]
+
+    stirling = module_by_path(
+        data, "library_codex.combinatorial_series.StirlingNumbers"
+    )
+    first_column = next(
+        item for item in stirling["functions"]
+        if item["name"] == "stirling_first_column"
+    )
+    assert "この値を含む" in first_column["arguments"]
+    assert "$\\mathrm{result}[n]=c(n,\\mathrm{column})$" in (
+        first_column["returnDescription"]
+    )
 
 
 def test_structured_returns_and_constructor_capabilities_are_explicit():

@@ -27,8 +27,8 @@ from library_codex.fps.MultivariateFPS import MultivariateFormalPowerSeries
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(*indices)`](../../../fps/MultivariateFPS.py#L24) | method | 指定要素・頂点に対応する内部indexを返す。 | `*indices`: 0-indexed位置の列 | 計算結果（int） |
-| [`get(*indices)`](../../../fps/MultivariateFPS.py#L38) | method | 指定位置・辺・状態の値を取得する。 | `*indices`: 0-indexed位置の列 | 指定対象に格納された値・edge object |
+| [`index(*indices)`](../../../fps/MultivariateFPS.py#L24) | method | 指定要素・頂点に対応する内部indexを返す。 | `*indices`: 位置の列 | 計算結果（int） |
+| [`get(*indices)`](../../../fps/MultivariateFPS.py#L38) | method | 指定位置・辺・状態の値を取得する。 | `*indices`: 位置の列 | 指定対象に格納された値・edge object |
 | [`set(*indices_and_value)`](../../../fps/MultivariateFPS.py#L41) | method | 指定位置・状態を値で置き換える。 | `*indices_and_value`: 処理対象の値 | `None` |
 | [`__add__(other)`](../../../fps/MultivariateFPS.py#L54) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance |
 | [`__neg__()`](../../../fps/MultivariateFPS.py#L64) | method | -obj。 | なし | MultivariateFormalPowerSeries instance |
