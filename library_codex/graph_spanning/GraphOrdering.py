@@ -217,7 +217,7 @@ def _dijkstra_with_parent(graph, start, forced=None):
     return distance, parent_edge
 
 
-def shortest_path_without_each_edge(n, edges, source, target):
+def replacement_paths(n, edges, source, target):
     """Shortest s-t distance after deleting each undirected edge.
 
     Edges are ``(u,v,positive_weight)`` and may be parallel.  All non-selected

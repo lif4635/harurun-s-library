@@ -1,4 +1,4 @@
-class StronglyConnectedComponents:
+class SCC:
     __slots__ = ("n", "graph", "component", "groups", "dag", "count")
 
     def __init__(self, graph):
@@ -66,9 +66,6 @@ class StronglyConnectedComponents:
         return self.component[vertex]
 
 
-def strongly_connected_components(graph):
-    solver = StronglyConnectedComponents(graph)
+def scc(graph):
+    solver = SCC(graph)
     return solver.component, solver.groups
-
-
-SCC = StronglyConnectedComponents

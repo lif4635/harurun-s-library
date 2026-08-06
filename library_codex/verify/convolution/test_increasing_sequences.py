@@ -2,7 +2,7 @@ import itertools
 import random
 
 from library_codex.fps.IncreasingSequences import (
-    number_of_increasing_sequences_between,
+    count_increasing_sequences,
 )
 
 
@@ -20,6 +20,6 @@ def test_increasing_sequences_against_brute_force():
             ):
                 if all(lower[i] <= values[i] < upper[i] for i in range(size)):
                     expected += 1
-            assert number_of_increasing_sequences_between(
+            assert count_increasing_sequences(
                 lower, upper
             ) == expected

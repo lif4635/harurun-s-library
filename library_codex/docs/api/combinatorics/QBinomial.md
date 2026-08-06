@@ -27,4 +27,4 @@ q二項係数を計算するを扱う `QBinomial`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`binomial(number, chosen)`](../../../combinatorics/QBinomial.py#L32) | method | 二項係数 C(n, k) を計算する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `0` / 数値または入力要素型 `math.comb(high_n, high_k) % self.mod * low % self.mod` |
+| [`C(number, chosen)`](../../../combinatorics/QBinomial.py#L32) | method | 二項係数 C(n, k) を計算する。 | `number`: 整数<br>`chosen`: 選ぶ個数 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |

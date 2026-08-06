@@ -6,8 +6,8 @@ only so existing submissions do not stop importing after the split.
 
 from library_codex.algorithm.BitAlgorithms import (
     bit_indices,
-    least_significant_bit_index,
-    most_significant_bit_index,
+    lsb_index,
+    msb_index,
     popcount,
     submasks,
     supermasks,
@@ -29,7 +29,7 @@ from library_codex.algorithm.Search import (
 from library_codex.algorithm.SequenceAlgorithms import (
     coordinate_compress,
     inversion_count,
-    longest_increasing_subsequence,
+    lis,
     merge_intervals,
 )
 from library_codex.algorithm.Sorting import (
@@ -57,10 +57,10 @@ __all__ = [
     "knapsack_01",
     "knapsack_01_max",
     "kth_element",
-    "least_significant_bit_index",
-    "longest_increasing_subsequence",
+    "lis",
+    "lsb_index",
     "merge_intervals",
-    "most_significant_bit_index",
+    "msb_index",
     "permute",
     "permute_in_place",
     "popcount",

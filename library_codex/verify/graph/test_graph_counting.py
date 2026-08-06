@@ -11,7 +11,7 @@ from library_codex.graph_enumeration.GraphCounting import (  # noqa: E402
     chromatic_polynomial,
     count_directed_spanning_trees,
     count_eulerian_circuits,
-    count_undirected_spanning_trees,
+    count_spanning_trees,
     evaluate_polynomial,
 )
 
@@ -82,7 +82,7 @@ def test_undirected_spanning_tree_weighted_against_subsets():
                     for i in selected:
                         product *= edges[i][2]
                     expected += product
-            assert count_undirected_spanning_trees(n, edges) == expected % MOD
+            assert count_spanning_trees(n, edges) == expected % MOD
 
 
 def _directed_tree(n, root, edges, selected, toward):

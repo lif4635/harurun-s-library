@@ -8,7 +8,7 @@ sys.path.append(str(Path(__file__).resolve().parents[3]))
 
 from library_codex.combinatorial_series.LinearRecurrence import (
     berlekamp_massey,
-    berlekamp_massey_polynomial,
+    berlekamp_massey_poly,
     bostan_mori,
     kitamasa,
     linear_recurrence_nth,
@@ -85,7 +85,7 @@ def test_berlekamp_massey_and_nth_term_random():
         initial = [rng.randrange(MOD) for _ in range(order)]
         sequence = generate(initial, coefficients, 5 * order + 20)
         found = berlekamp_massey(sequence)
-        polynomial = berlekamp_massey_polynomial(sequence)
+        polynomial = berlekamp_massey_poly(sequence)
         assert polynomial == [1] + [-value % MOD for value in found]
         for index in range(len(found), len(sequence)):
             assert sequence[index] == sum(

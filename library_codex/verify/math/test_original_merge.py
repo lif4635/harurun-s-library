@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT.parent))
 
 from library_codex.algorithm.IntegerUtilities import integer_nth_root  # noqa: E402
 from library_codex.combinatorics.BinomialQueries import BinomialPrefix  # noqa: E402
-from library_codex.combinatorics.Combination import Combination  # noqa: E402
+from library_codex.combinatorics.Combination import Comb  # noqa: E402
 from library_codex.combinatorics.GrayCode import gray_code_path  # noqa: E402
 
 
@@ -44,7 +44,7 @@ def test_gray_code_hamilton_paths():
 
 def test_binomial_prefix_moves_arbitrarily():
     mod = 998244353
-    combination = Combination(200, mod)
+    combination = Comb(200, mod)
     prefix = BinomialPrefix(combination)
     rng = random.Random(412)
     for _ in range(2_000):

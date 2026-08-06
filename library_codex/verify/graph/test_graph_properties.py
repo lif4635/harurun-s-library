@@ -74,7 +74,7 @@ def test_chordal_recognizer_and_witness_against_bruteforce():
             expected = _brute_chordal(n, edges)
             recognizer = ChordalGraphRecognizer(graph)
             assert recognizer.is_chordal() == expected
-            assert sorted(recognizer.maximum_cardinality_search_order()) == list(range(n))
+            assert sorted(recognizer.mcs_order()) == list(range(n))
             if expected:
                 assert _is_peo(recognizer.perfect_elimination_order(), graph)
                 assert recognizer.induced_cycle() == []

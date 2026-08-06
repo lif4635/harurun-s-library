@@ -3,8 +3,8 @@ import math
 import random
 
 from library_codex.algorithm.BitAlgorithms import (
-    least_significant_bit_index,
-    most_significant_bit_index,
+    lsb_index,
+    msb_index,
     popcount,
 )
 from library_codex.algorithm.Sorting import (
@@ -16,7 +16,7 @@ from library_codex.algorithm.Sorting import (
 )
 from library_codex.combinatorics.IntegerPartitions import integer_partitions
 from library_codex.algorithm.IntegerUtilities import nearest_congruent_at_least
-from library_codex.algorithm.ModularProgression import split_modular_arithmetic_progression
+from library_codex.algorithm.ModularProgression import split_mod_progression
 
 
 def test_bits_sorting_and_permutations():
@@ -24,8 +24,8 @@ def test_bits_sorting_and_permutations():
     for _ in range(1000):
         value = rng.randrange(1, 1 << 200)
         assert popcount(value) == bin(value).count("1")
-        assert most_significant_bit_index(value) == value.bit_length() - 1
-        assert least_significant_bit_index(value) == (value & -value).bit_length() - 1
+        assert msb_index(value) == value.bit_length() - 1
+        assert lsb_index(value) == (value & -value).bit_length() - 1
     for size in range(30):
         permutation = list(range(size))
         rng.shuffle(permutation)
@@ -63,7 +63,7 @@ def test_modular_progression_split():
         for modulus in range(1, 30):
             for multiplier in range(-3, modulus + 3):
                 addend = count * 7 - modulus * 3
-                runs = split_modular_arithmetic_progression(
+                runs = split_mod_progression(
                     multiplier, addend, count, modulus
                 )
                 restored = [None] * count

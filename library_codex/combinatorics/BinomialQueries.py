@@ -1,7 +1,7 @@
 from math import isqrt
 
 from library_codex.fps.FormalPowerSeries import DEFAULT_MOD
-from library_codex.combinatorics.Combination import Combination
+from library_codex.combinatorics.Combination import Comb
 
 
 class BinomialPrefix:
@@ -41,7 +41,7 @@ class BinomialPrefix:
         return self.value
 
 
-def multipoint_binomial_prefix_sum(queries, mod=DEFAULT_MOD):
+def comb_prefix_sums(queries, mod=DEFAULT_MOD):
     """For every (n,m), return sum(C(n,k), 0 <= k <= m)."""
     if not queries:
         return []
@@ -50,7 +50,7 @@ def multipoint_binomial_prefix_sum(queries, mod=DEFAULT_MOD):
         if n < 0 or not 0 <= m <= n:
             raise ValueError("queries require 0 <= m <= n")
         maximum = max(maximum, n)
-    combination = Combination(maximum, mod)
+    combination = Comb(maximum, mod)
     block = max(1, isqrt(maximum + 1))
     order = list(range(len(queries)))
     order.sort(key=lambda index: (
@@ -144,6 +144,3 @@ class StirlingNumberQuery:
         return self._binomial(a, quotient) * self.second[b][remainder] % prime
 
     SecondKind = second_kind
-
-
-multipoint_binomial_sum = multipoint_binomial_prefix_sum

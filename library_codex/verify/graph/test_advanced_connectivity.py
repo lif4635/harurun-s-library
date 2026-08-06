@@ -11,9 +11,7 @@ from graph_connectivity.AdvancedConnectivity import (  # noqa: E402
     ThreeEdgeConnectedComponents,
     incremental_scc_offline,
 )
-from graph_connectivity.StronglyConnectedComponents import (  # noqa: E402
-    StronglyConnectedComponents,
-)
+from graph_connectivity.StronglyConnectedComponents import SCC  # noqa: E402
 
 
 def _connected_after_removal(n, edges, source, target, removed):
@@ -98,7 +96,7 @@ def test_incremental_scc_union_edges_after_every_prefix():
                     used_edge_ids.add(edge_id)
                     a, b = edges[edge_id]
                     dsu.unite(a, b)
-                component = StronglyConnectedComponents(graph).component
+                component = SCC(graph).component
                 for a in range(n):
                     for b in range(n):
                         assert ((dsu.find(a) == dsu.find(b))

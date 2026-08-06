@@ -263,11 +263,11 @@ MODULE_RETURN_SEMANTIC = {
         "gray_code_path": "iterator[int] — startから始まりgoalで終わる、全2^bit_count個のmask",
     },
     "combinatorics/BinomialQueries.py": {
-        "multipoint_binomial_prefix_sum": "list[int] — queryと同じ順のsum(C(n,k), 0<=k<=m)",
+        "comb_prefix_sums": "list[int] — queryと同じ順のsum(C(n,k), 0<=k<=m)",
     },
     "algorithm/SequenceAlgorithms.py": {
         "inversion_count": "int — i < j かつ values[i] > values[j] となる組の個数",
-        "longest_increasing_subsequence": "int — LIS長。restore=Trueなら (長さ, 元の添字list, 値list)",
+        "lis": "int — LIS長。restore=Trueなら (長さ, 元の添字list, 値list)",
         "coordinate_compress": "tuple[list[object], dict[object, int]] — 昇順の重複なし値列と、各値を0始まり順位へ写すdict",
         "merge_intervals": "list[tuple[number, number]] — 左端順で互いに重ならない区間(left, right)の列",
     },

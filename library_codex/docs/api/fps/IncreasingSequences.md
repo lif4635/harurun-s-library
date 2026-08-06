@@ -9,16 +9,16 @@
 
 ## できること
 
-- `number_of_increasing_sequences_between`: `of`・`increasing`・`sequences`・`between`の個数を求める。
+- `count_increasing_sequences`: lower[i]以上upper[i]未満を満たす広義単調増加列の個数を求める。
 
 ## Import
 
 ```python
-from library_codex.fps.IncreasingSequences import number_of_increasing_sequences_between
+from library_codex.fps.IncreasingSequences import count_increasing_sequences
 ```
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`number_of_increasing_sequences_between(lower, upper, mod=DEFAULT_MOD)`](../../../fps/IncreasingSequences.py#L4) | `of`・`increasing`・`sequences`・`between`の個数を求める。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照）<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `0` / 数値または入力要素型 `sum(values) % mod` |
+| [`count_increasing_sequences(lower, upper, mod=DEFAULT_MOD)`](../../../fps/IncreasingSequences.py#L4) | lower[i]以上upper[i]未満を満たす広義単調増加列の個数を求める。 | `lower`: 下限（包含関係はAPIの説明を参照）<br>`upper`: 上限（包含関係はAPIの説明を参照）<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — 条件を満たす列の個数をmodで割った0以上mod未満の値 |

@@ -13,7 +13,7 @@ from library_codex.convolution.MultidimensionalDFT import (  # noqa: E402
     multivariate_circular_convolution,
 )
 from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime import (  # noqa: E402
-    multiplicative_convolution_mod_prime,
+    multiplicative_convolution,
 )
 from library_codex.convolution.MultivariateMultiplication import (  # noqa: E402
     multivariate_multiplication,
@@ -119,6 +119,6 @@ def test_multiplicative_convolution_mod_prime():
                 for j in range(prime):
                     expected[i * j % prime] += first[i] * second[j]
             expected = [value % MOD for value in expected]
-            assert multiplicative_convolution_mod_prime(
+            assert multiplicative_convolution(
                 first, second, prime
             ) == expected

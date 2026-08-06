@@ -4,8 +4,7 @@ from library_codex.convolution.NTT import convolution, get_ntt, primitive_root
 
 DEFAULT_MOD = 998244353
 
-def multiplicative_convolution_mod_prime(first, second, prime,
-                                         mod=DEFAULT_MOD):
+def multiplicative_convolution(first, second, prime, mod=DEFAULT_MOD):
     """h[k] = sum_{i*j=k (mod prime)} first[i]*second[j]."""
     if len(first) != prime or len(second) != prime:
         raise ValueError("arrays must have length prime")
@@ -40,4 +39,3 @@ def multiplicative_convolution_mod_prime(first, second, prime,
     answer[0] = (first[0] * sum_second + second[0] * sum_first
                  - first[0] * second[0]) % mod
     return answer
-

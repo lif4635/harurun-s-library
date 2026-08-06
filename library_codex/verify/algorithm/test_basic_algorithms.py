@@ -19,7 +19,7 @@ from algorithm.Search import binary_search_int  # noqa: E402
 from algorithm.SequenceAlgorithms import (  # noqa: E402
     coordinate_compress,
     inversion_count,
-    longest_increasing_subsequence,
+    lis,
     merge_intervals,
 )
 
@@ -52,7 +52,7 @@ def test_inversion_lis_against_subsequences():
                                 for i in range(len(seq) - 1))
                     if valid:
                         expected = max(expected, len(seq))
-                length, indices, sequence = longest_increasing_subsequence(
+                length, indices, sequence = lis(
                     values, strict, True
                 )
                 assert length == expected == len(indices) == len(sequence)

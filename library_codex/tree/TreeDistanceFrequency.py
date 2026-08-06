@@ -4,7 +4,7 @@ from library_codex.convolution.NTT import convolution_int
 from library_codex.tree.CentroidDecomposition import CentroidDecomposition
 
 
-def frequency_table_of_tree_distance(tree, include_same=False):
+def tree_distance_counts(tree, include_same=False):
     """Return counts indexed by unweighted distance.
 
     By default only unordered pairs of distinct vertices are counted.  With
@@ -52,6 +52,3 @@ def frequency_table_of_tree_distance(tree, include_same=False):
     while len(answer) > 1 and answer[-1] == 0:
         answer.pop()
     return answer
-
-
-FrequencyTableOfTreeDistance = frequency_table_of_tree_distance

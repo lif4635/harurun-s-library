@@ -9,12 +9,12 @@
 
 ## できること
 
-- `multiplicative_convolution_mod_prime`: `multiplicative`・畳み込み・`mod`・素数を計算する。
+- `multiplicative_convolution`: 素数modの乗法に沿った畳み込みを計算する。
 
 ## Import
 
 ```python
-from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime import multiplicative_convolution_mod_prime
+from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime import multiplicative_convolution
 ```
 
 ## 公開定数
@@ -27,4 +27,4 @@ from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime impo
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`multiplicative_convolution_mod_prime(first, second, prime, mod=DEFAULT_MOD)`](../../../arithmetic_convolution/MultiplicativeConvolutionModPrime.py#L7) | `multiplicative`・畳み込み・`mod`・素数を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`prime`: 素数法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 答え（数値または入力要素型） |
+| [`multiplicative_convolution(first, second, prime, mod=DEFAULT_MOD)`](../../../arithmetic_convolution/MultiplicativeConvolutionModPrime.py#L7) | 素数modの乗法に沿った畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`prime`: 素数法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 添字kがsum(first[i]*second[j], i*j≡k mod prime)を表す長さprimeの列 |

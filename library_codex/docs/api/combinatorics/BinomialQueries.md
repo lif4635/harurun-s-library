@@ -16,14 +16,14 @@
 ## Import
 
 ```python
-from library_codex.combinatorics.BinomialQueries import multipoint_binomial_prefix_sum, BinomialPrefix, StirlingNumberQuery
+from library_codex.combinatorics.BinomialQueries import comb_prefix_sums, BinomialPrefix, StirlingNumberQuery
 ```
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`multipoint_binomial_prefix_sum(queries, mod=DEFAULT_MOD)`](../../../combinatorics/BinomialQueries.py#L44) | `multipoint`・二項係数・prefix・和を計算する。 | `queries`: 求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — queryと同じ順のsum(C(n,k), 0<=k<=m) |
+| [`comb_prefix_sums(queries, mod=DEFAULT_MOD)`](../../../combinatorics/BinomialQueries.py#L44) | 複数のsum(C(n,k), 0<=k<=m)をquery順に一括計算する。 | `queries`: 求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 各(n,m)に対するsum(C(n,k), 0<=k<=m)をqueryと同じ順に並べた列 |
 
 ## Class `BinomialPrefix`
 

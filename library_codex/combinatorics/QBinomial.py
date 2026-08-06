@@ -29,7 +29,7 @@ class QBinomial:
         self.factorial = factorial
         self.inverse_factorial = inverse_factorial
 
-    def binomial(self, number, chosen):
+    def C(self, number, chosen):
         if chosen < 0 or chosen > number:
             return 0
         order = self.order
@@ -40,4 +40,3 @@ class QBinomial:
         low = (self.factorial[low_n] * self.inverse_factorial[low_k]
                % self.mod * self.inverse_factorial[low_n - low_k] % self.mod)
         return math.comb(high_n, high_k) % self.mod * low % self.mod
-

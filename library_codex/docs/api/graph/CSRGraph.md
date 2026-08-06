@@ -24,9 +24,9 @@ from library_codex.graph.CSRGraph import (
     connected_components_csr,
     bipartite_coloring_csr,
     scc_ids_csr,
-    strongly_connected_components_csr,
+    scc_csr,
     CSRGraph,
-    CSRStronglyConnectedComponents,
+    CSRSCC,
     CSRLowLink,
 )
 ```
@@ -48,7 +48,7 @@ from library_codex.graph.CSRGraph import (
 | [`connected_components_csr(graph)`](../../../graph/CSRGraph.py#L294) | 無向グラフを連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: 隣接listまたはグラフobject | tuple[list[int], list[list[int]]] — 1つ目は頂点ごとの成分ID、2つ目は各成分に属する頂点の列 |
 | [`bipartite_coloring_csr(graph)`](../../../graph/CSRGraph.py#L322) | `bipartite`・彩色・`csr`を求める。 | `graph`: 隣接listまたはグラフobject | list[int] \| None — 各頂点の色0/1。二部グラフでなければNone |
 | [`scc_ids_csr(graph)`](../../../graph/CSRGraph.py#L348) | 強連結成分数と頂点ごとの成分IDをトポロジカル順で返す。 | `graph`: 隣接listまたはグラフobject | tuple[int, list[int]] — 強連結成分数と、頂点ごとの成分ID |
-| [`strongly_connected_components_csr(graph)`](../../../graph/CSRGraph.py#L436) | 各頂点の強連結成分IDと成分ごとの頂点列を構築する。 | `graph`: 隣接listまたはグラフobject | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 |
+| [`scc_csr(graph)`](../../../graph/CSRGraph.py#L436) | CSR有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: 隣接listまたはグラフobject | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 |
 
 ## Class `CSRGraph`
 
@@ -65,13 +65,13 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 | [`neighbors(vertex)`](../../../graph/CSRGraph.py#L152) | method | 指定頂点から出る辺を (行き先, 重み, 辺ID) の順で列挙する。 | `vertex`: 頂点番号（0-indexed） | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする |
 | [`__len__()`](../../../graph/CSRGraph.py#L162) | method | len(obj)。 | なし | 要素数（int） |
 
-## Class `CSRStronglyConnectedComponents`
+## Class `CSRSCC`
 
-CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CSRStronglyConnectedComponents`。
+CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CSRSCC`。
 
-- constructor: [`CSRStronglyConnectedComponents(graph, build_dag=True)`](../../../graph/CSRGraph.py#L404)
+- constructor: [`CSRSCC(graph, build_dag=True)`](../../../graph/CSRGraph.py#L404)
 - 引数: `graph`: 隣接listまたはグラフobject<br>`build_dag`: 強連結成分を縮約したDAGも構築するか。省略時: `True`
-- 返り値: `CSRStronglyConnectedComponents` instance
+- 返り値: `CSRSCC` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |

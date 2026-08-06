@@ -30,28 +30,28 @@ from library_codex.combinatorics.ArbitraryBinomial import LargePrimeFactorial, P
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`factorial(n)`](../../../combinatorics/ArbitraryBinomial.py#L19) | method | n!を指定した法で計算する。 | `n`: 要素数・頂点数・次数 | int `0 if n >= mod else 0` / `cached` / 計算結果（数値または入力要素型） |
-| [`binomial(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L49) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 計算結果（数値または入力要素型） |
+| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L47) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
 
 ## Class `PrimePowerBinomial`
 
 任意合成数法・巨大素数法の二項係数を扱う `PrimePowerBinomial`。
 
-- constructor: [`PrimePowerBinomial(prime, exponent)`](../../../combinatorics/ArbitraryBinomial.py#L70)
+- constructor: [`PrimePowerBinomial(prime, exponent)`](../../../combinatorics/ArbitraryBinomial.py#L65)
 - 引数: `prime`: 素数法<br>`exponent`: 非負の指数
 - 返り値: `PrimePowerBinomial` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`binomial(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L99) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `numerator * pow(denominator, -1, mod) % mod * pow(prime, expon...` |
+| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L94) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
 
 ## Class `ArbitraryModBinomial`
 
 任意合成数法・巨大素数法の二項係数を扱う `ArbitraryModBinomial`。
 
-- constructor: [`ArbitraryModBinomial(mod)`](../../../combinatorics/ArbitraryBinomial.py#L125)
+- constructor: [`ArbitraryModBinomial(mod)`](../../../combinatorics/ArbitraryBinomial.py#L117)
 - 引数: `mod`: 法。Noneの場合は整数上の演算
 - 返り値: `ArbitraryModBinomial` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`binomial(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L140) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / `chinese_remainder(residues, self.moduli)[0]` |
+| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L132) | method | 二項係数 C(n, k) を計算する。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |

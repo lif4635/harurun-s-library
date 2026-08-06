@@ -11,12 +11,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from library_codex.graph.CSRGraph import (
     CSRGraph,
     CSRLowLink,
-    CSRStronglyConnectedComponents,
+    CSRSCC,
     dijkstra_csr,
 )
 from library_codex.graph_connectivity.LowLink import LowLink
 from library_codex.shortest_path.Dijkstra import dijkstra
-from library_codex.graph_connectivity.StronglyConnectedComponents import StronglyConnectedComponents
+from library_codex.graph_connectivity.StronglyConnectedComponents import SCC
 
 
 def make_edges(n, m, seed, weighted):
@@ -67,10 +67,10 @@ def main():
     elif args.algorithm == "scc":
         if args.backend == "list":
             graph, build_time = timed(lambda: list_graph(args.vertices, edges))
-            answer, solve_time = timed(lambda: StronglyConnectedComponents(graph))
+            answer, solve_time = timed(lambda: SCC(graph))
         else:
             graph, build_time = timed(lambda: CSRGraph(args.vertices, edges))
-            answer, solve_time = timed(lambda: CSRStronglyConnectedComponents(graph))
+            answer, solve_time = timed(lambda: CSRSCC(graph))
         checksum = answer.count
     else:
         pairs = [(source, target) for source, target, _ in edges]

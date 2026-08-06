@@ -79,4 +79,4 @@ def test_q_binomial_against_pascal_recurrence():
                 row[k] = (rows[-1][k] + pow(q, n - k, mod) * rows[-1][k - 1]) % mod
             rows.append(row)
             for k in range(n + 1):
-                assert table.binomial(n, k) == row[k]
+                assert table.C(n, k) == row[k]

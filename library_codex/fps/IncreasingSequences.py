@@ -1,7 +1,7 @@
 from library_codex.fps.FormalPowerSeries import DEFAULT_MOD
 
 
-def number_of_increasing_sequences_between(lower, upper, mod=DEFAULT_MOD):
+def count_increasing_sequences(lower, upper, mod=DEFAULT_MOD):
     """Count weakly increasing x with lower[i] <= x[i] < upper[i]."""
     if len(lower) != len(upper):
         raise ValueError("bound lengths differ")
@@ -36,8 +36,3 @@ def number_of_increasing_sequences_between(lower, upper, mod=DEFAULT_MOD):
                 running -= mod
             values[value] = running if left <= value < right else 0
     return sum(values) % mod
-
-
-NumberofIncreasingSequencesBetweenTwoSequences = (
-    number_of_increasing_sequences_between
-)

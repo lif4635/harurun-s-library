@@ -14,7 +14,7 @@ from library_codex.polynomial.MultipointEvaluation import (
     interpolate_consecutive,
 )
 
-from library_codex.combinatorics.Combination import Combination
+from library_codex.combinatorics.Combination import Comb
 
 def limit_sum_polynomial_exponential(values, ratio, mod=DEFAULT_MOD):
     """Sum ratio**k*f(k), k >= 0, from consecutive samples of f."""
@@ -24,7 +24,7 @@ def limit_sum_polynomial_exponential(values, ratio, mod=DEFAULT_MOD):
     if ratio == 1:
         raise ValueError("the infinite formal sum requires ratio != 1")
     degree = len(values) - 1
-    combination = Combination(degree + 1, mod)
+    combination = Comb(degree + 1, mod)
     powers = [1] * (degree + 1)
     for index in range(degree):
         powers[index + 1] = powers[index] * ratio % mod
@@ -58,7 +58,7 @@ def sum_polynomial_exponential(values, ratio, count, mod=DEFAULT_MOD):
         return values[0] % mod
     if ratio == 1:
         return interpolate_consecutive(prefixes, last, mod)
-    combination = Combination(degree + 1, mod)
+    combination = Comb(degree + 1, mod)
     constant = 0
     for index in range(degree + 1):
         term = (combination.C(degree + 1, index + 1)

@@ -1,6 +1,6 @@
 """Advanced edge-connectivity and incremental SCC algorithms."""
 
-from graph_connectivity.StronglyConnectedComponents import StronglyConnectedComponents
+from graph_connectivity.StronglyConnectedComponents import SCC
 
 
 class ThreeEdgeConnectedComponents:
@@ -179,7 +179,7 @@ def incremental_scc_offline(n, edges):
     full_graph = [[] for _ in range(n)]
     for u, v in edges:
         full_graph[u].append(v)
-    final_component = StronglyConnectedComponents(full_graph).component
+    final_component = SCC(full_graph).component
     active = [edge_id for edge_id, (u, v) in enumerate(edges)
               if final_component[u] == final_component[v]]
     tasks = [(n, 0, active)]
@@ -217,7 +217,7 @@ def incremental_scc_offline(n, edges):
         for position in range(middle):
             edge_id = edge_ids[position]
             graph[work_u[edge_id]].append(work_v[edge_id])
-        component = StronglyConnectedComponents(graph).component
+        component = SCC(graph).component
         left = []
         right = []
         for position in range(split):

@@ -42,7 +42,7 @@ def berlekamp_massey(sequence, mod=DEFAULT_MOD):
     return [-connection[index] % mod for index in range(1, length + 1)]
 
 
-def berlekamp_massey_polynomial(sequence, mod=DEFAULT_MOD):
+def berlekamp_massey_poly(sequence, mod=DEFAULT_MOD):
     coefficients = berlekamp_massey(sequence, mod)
     return [1] + [-value % mod for value in coefficients]
 
@@ -117,8 +117,3 @@ def kitamasa(index, characteristic, initial, mod=DEFAULT_MOD):
         -value * inverse % mod for value in characteristic[1:]
     ]
     return linear_recurrence_nth(initial, coefficients, index, mod)
-
-
-find_linear_recurrence = berlekamp_massey
-BerlekampMassey = berlekamp_massey_polynomial
-LinearRecurrence = bostan_mori

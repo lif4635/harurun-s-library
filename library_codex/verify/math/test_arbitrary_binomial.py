@@ -21,7 +21,7 @@ def test_large_prime_factorial_and_lucas():
     for value in range(1, 10001):
         expected = expected * value % prime
         if value in (2, 10, 99, 1000, 10000):
-            assert factorial.fact(value) == expected
+            assert factorial.factorial(value) == expected
     query = ArbitraryModBinomial(prime)
     for n, k in ((10 ** 18 + 123, 7), (prime + 100, 50),
                  (2 * prime + 91, prime + 12)):
@@ -36,4 +36,3 @@ def test_large_prime_factorial_and_lucas():
                 break
             expected = expected * (comb(ad, bd) % prime) % prime
         assert query.C(n, k) == expected
-

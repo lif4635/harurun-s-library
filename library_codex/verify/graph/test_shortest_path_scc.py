@@ -9,9 +9,7 @@ from library_codex.graph.RestorePath import restore_path
 from library_codex.graph.TopologicalSort import topological_sort
 from library_codex.shortest_path.WarshallFloyd import warshall_floyd
 from library_codex.shortest_path.ZeroOneBFS import zero_one_bfs
-from library_codex.graph_connectivity.StronglyConnectedComponents import (
-    StronglyConnectedComponents,
-)
+from library_codex.graph_connectivity.StronglyConnectedComponents import SCC
 
 
 def test_shortest_path_random_against_floyd():
@@ -93,7 +91,7 @@ def test_scc_random_against_reachability():
                 if reach[first][middle]:
                     for second in range(size):
                         reach[first][second] |= reach[middle][second]
-        solver = StronglyConnectedComponents(graph)
+        solver = SCC(graph)
         for first in range(size):
             for second in range(size):
                 assert solver.same(first, second) == (
@@ -125,5 +123,5 @@ def test_shortest_path_and_scc_deep_without_recursion():
     distance, previous = dijkstra(graph)
     assert distance[-1] == size - 1
     assert len(restore_path(previous, size - 1, 0)) == size
-    solver = StronglyConnectedComponents(graph)
+    solver = SCC(graph)
     assert solver.count == size

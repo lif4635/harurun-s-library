@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT))
 from graph_spanning.GraphOrdering import (  # noqa: E402
     bipolar_orientation,
     optimal_tree_topological_order,
-    shortest_path_without_each_edge,
+    replacement_paths,
 )
 
 
@@ -119,6 +119,6 @@ def test_replacement_shortest_paths_against_repeated_dijkstra():
             target = rng.randrange(n)
             expected = [_dijkstra_removed(n, edges, source, target, edge_id)
                         for edge_id in range(len(edges))]
-            assert shortest_path_without_each_edge(
+            assert replacement_paths(
                 n, edges, source, target
             ) == expected

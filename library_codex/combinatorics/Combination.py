@@ -2,7 +2,7 @@
 
 DEFAULT_MOD = 998244353
 
-class Combination:
+class Comb:
     """素数mod上の階乗表を必要なところまで自動で拡張する。"""
 
     __slots__ = ("mod", "factorial", "inverse_factorial")
@@ -14,6 +14,7 @@ class Combination:
         self.ensure(size)
 
     def ensure(self, size):
+        """階乗表と逆階乗表をsizeまで拡張する。"""
         old = len(self.factorial) - 1
         if size <= old:
             return
@@ -54,7 +55,7 @@ class Combination:
             return int(k == 0)
         return self.C(n + k - 1, k)
 
-def comb_large(n, k, mod=DEFAULT_MOD):
+def comb(n, k, mod=DEFAULT_MOD):
     """nが大きくkが小さいときに二項係数C(n, k)をO(k)で求める。"""
     if k < 0 or n < k:
         return 0

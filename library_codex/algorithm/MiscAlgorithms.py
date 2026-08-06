@@ -12,7 +12,7 @@ from library_codex.algorithm.IntegerUtilities import (
     nearest_congruent_at_least,
 )
 from library_codex.algorithm.ModularProgression import (
-    split_modular_arithmetic_progression,
+    split_mod_progression,
 )
 
 
@@ -24,5 +24,5 @@ __all__ = [
     "integer_partitions_up_to",
     "modular_power",
     "nearest_congruent_at_least",
-    "split_modular_arithmetic_progression",
+    "split_mod_progression",
 ]

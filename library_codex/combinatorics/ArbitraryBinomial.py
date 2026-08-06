@@ -44,9 +44,7 @@ class LargePrimeFactorial:
         self.cache[n] = result
         return result
 
-    fact = factorial
-
-    def binomial(self, n, k):
+    def C(self, n, k):
         if k < 0 or n < k:
             return 0
         mod = self.mod
@@ -60,9 +58,6 @@ class LargePrimeFactorial:
             result = (result * self.factorial(nd) % mod
                       * pow(denominator, -1, mod) % mod)
         return result
-
-    C = binomial
-
 
 class PrimePowerBinomial:
     __slots__ = ("prime", "exponent", "mod", "delta", "prefix")
@@ -96,7 +91,7 @@ class PrimePowerBinomial:
             n //= prime
         return result
 
-    def binomial(self, n, k):
+    def C(self, n, k):
         if n < 0 or k < 0 or n < k:
             return 0
         prime = self.prime
@@ -116,9 +111,6 @@ class PrimePowerBinomial:
         return (numerator * pow(denominator, -1, mod) % mod
                 * pow(prime, exponent, mod) % mod)
 
-    C = binomial
-
-
 class ArbitraryModBinomial:
     __slots__ = ("mod", "components", "moduli")
 
@@ -137,17 +129,9 @@ class ArbitraryModBinomial:
             self.components.append(component)
             self.moduli.append(modulus)
 
-    def binomial(self, n, k):
+    def C(self, n, k):
         if self.mod == 1:
             return 0
-        residues = [component.binomial(n, k)
+        residues = [component.C(n, k)
                     for component in self.components]
         return chinese_remainder(residues, self.moduli)[0]
-
-    C = binomial
-    nCr = binomial
-
-
-prime_power_binomial = PrimePowerBinomial
-arbitrary_mod_binomial = ArbitraryModBinomial
-FactLarge = LargePrimeFactorial

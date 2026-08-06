@@ -22,8 +22,8 @@ from library_codex.algorithm.BitAlgorithms import (
     submasks,
     supermasks,
     popcount,
-    most_significant_bit_index,
-    least_significant_bit_index,
+    msb_index,
+    lsb_index,
 )
 ```
 
@@ -35,5 +35,5 @@ from library_codex.algorithm.BitAlgorithms import (
 | [`submasks(mask, include_zero=True)`](../../../algorithm/BitAlgorithms.py#L12) | maskの部分maskを大きい順に列挙する。 | `mask`: bit mask<br>`include_zero`: 0も列挙結果に含めるか。省略時: `True` | iterator[object] — 用途欄に示した要素を1つずつyieldする |
 | [`supermasks(mask, bit_count)`](../../../algorithm/BitAlgorithms.py#L22) | 指定bit幅の範囲でmaskを含む上位maskを列挙する。 | `mask`: bit mask<br>`bit_count`: 使用bit数 | iterator[object] — 用途欄に示した要素を1つずつyieldする |
 | [`popcount(value)`](../../../algorithm/BitAlgorithms.py#L33) | `popcount`を求める。 | `value`: 追加・設定・問い合わせる値 | `value.bit_count()` |
-| [`most_significant_bit_index(value)`](../../../algorithm/BitAlgorithms.py#L39) | `most`・`significant`・`bit`・`index`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value.bit_length() - 1` |
-| [`least_significant_bit_index(value)`](../../../algorithm/BitAlgorithms.py#L45) | `least`・`significant`・`bit`・`index`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `(value & -value).bit_length() - 1` |
+| [`msb_index(value)`](../../../algorithm/BitAlgorithms.py#L39) | 正整数の最上位1-bitの位置を0-indexedで返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value.bit_length() - 1` |
+| [`lsb_index(value)`](../../../algorithm/BitAlgorithms.py#L45) | 正整数の最下位1-bitの位置を0-indexedで返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `(value & -value).bit_length() - 1` |

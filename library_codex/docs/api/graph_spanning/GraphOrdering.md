@@ -11,12 +11,12 @@
 
 - `optimal_tree_topological_order`: `optimal`・木・`topological`・`order`を求める。
 - `bipolar_orientation`: `bipolar`・`orientation`を求める。
-- `shortest_path_without_each_edge`: 最短・path・`without`・`each`・辺を求める。
+- `replacement_paths`: 各辺を1本ずつ除いた場合のsource-target最短距離をまとめて求める。
 
 ## Import
 
 ```python
-from library_codex.graph_spanning.GraphOrdering import optimal_tree_topological_order, bipolar_orientation, shortest_path_without_each_edge
+from library_codex.graph_spanning.GraphOrdering import optimal_tree_topological_order, bipolar_orientation, replacement_paths
 ```
 
 ## Functions
@@ -25,4 +25,4 @@ from library_codex.graph_spanning.GraphOrdering import optimal_tree_topological_
 | --- | --- | --- | --- |
 | [`optimal_tree_topological_order(parent, weight0, weight1, root=0)`](../../../graph_spanning/GraphOrdering.py#L25) | `optimal`・木・`topological`・`order`を求める。 | `parent`: 親頂点・親配列<br>`weight0`: `weight0`として使う入力<br>`weight1`: `weight1`として使う入力<br>`root`: 根の頂点番号・原始根。省略時: `0` | tuple(`0`, list `[]`) / tuple(`value[component]`, 頂点・要素を処理順に並べたlist[int]) |
 | [`bipolar_orientation(graph, source, target)`](../../../graph_spanning/GraphOrdering.py#L101) | `bipolar`・`orientation`を求める。 | `graph`: 隣接listまたはグラフobject<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値 | `position`（数値または入力要素型） / `None` |
-| [`shortest_path_without_each_edge(n, edges, source, target)`](../../../graph_spanning/GraphOrdering.py#L220) | 最短・path・`without`・`each`・辺を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値 | 数値または入力要素型 `[float('inf')] * len(edges)` / 数値または入力要素型 `[0] * len(edges)` / 答え（数値または入力要素型） |
+| [`replacement_paths(n, edges, source, target)`](../../../graph_spanning/GraphOrdering.py#L220) | 各辺を1本ずつ除いた場合のsource-target最短距離をまとめて求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値 | list[number] — index iはedges[i]を除いたsource-target最短距離。到達不能ならinf |

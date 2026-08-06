@@ -16,7 +16,7 @@ class ChordalGraphRecognizer:
         self._violation = None
         self._cycle = None
 
-    def maximum_cardinality_search_order(self):
+    def mcs_order(self):
         if self._mcs is not None:
             return self._mcs[:]
         n = self.n
@@ -47,7 +47,7 @@ class ChordalGraphRecognizer:
     def is_chordal(self):
         if self._chordal is not None:
             return self._chordal
-        peo = list(reversed(self.maximum_cardinality_search_order()))
+        peo = list(reversed(self.mcs_order()))
         position = [0] * self.n
         for i, v in enumerate(peo):
             position[v] = i
@@ -113,13 +113,6 @@ class ChordalGraphRecognizer:
         path.reverse()
         self._cycle = [v] + path
         return self._cycle[:]
-
-    # Reference-style aliases.
-    getMaximumCardinalitySearchOrder = maximum_cardinality_search_order
-    isChordalGraph = is_chordal
-    getPerfectEliminationOrdering = perfect_elimination_order
-    findInducedCycle = induced_cycle
-
 
 def bipartite_edge_coloring(left_size, right_size, edges):
     """Color a bipartite multigraph with exactly its maximum degree colors.

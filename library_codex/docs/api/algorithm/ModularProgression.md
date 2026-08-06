@@ -9,16 +9,16 @@ mod付き等差数列の通常等差run分割。
 
 ## できること
 
-- `split_modular_arithmetic_progression`: `split`・法・`arithmetic`・`progression`を求める。
+- `split_mod_progression`: (multiplier*i+addend) mod modulusを等差な区間へ分割する。
 
 ## Import
 
 ```python
-from library_codex.algorithm.ModularProgression import split_modular_arithmetic_progression
+from library_codex.algorithm.ModularProgression import split_mod_progression
 ```
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`split_modular_arithmetic_progression(multiplier, addend, count, modulus)`](../../../algorithm/ModularProgression.py#L6) | `split`・法・`arithmetic`・`progression`を求める。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`count`: 個数<br>`modulus`: 法 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
+| [`split_mod_progression(multiplier, addend, count, modulus)`](../../../algorithm/ModularProgression.py#L6) | (multiplier*i+addend) mod modulusを等差な区間へ分割する。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`count`: 個数<br>`modulus`: 法 | list[tuple[int, int, int, int, int]] — (開始index, 開始値, index差, 値の差, 長さ)の列 |

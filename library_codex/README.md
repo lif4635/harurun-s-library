@@ -361,14 +361,14 @@ PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版�
 ### Graph counting / tree distance
 
 - `chromatic_polynomial` は独立集合への順序付き分割を subset power projection で数え、通常の冪基底係数へ変換する
-- `count_directed_spanning_trees` は根へ向かう/根から離れる両向き、`count_undirected_spanning_trees` は重み・多重度に対応する
+- `count_directed_spanning_trees` は根へ向かう/根から離れる両向き、`count_spanning_trees` は無向辺の重み・多重度に対応する
 - `count_eulerian_circuits` は有向多重グラフの次数釣合いと BEST 定理を使う
-- `frequency_table_of_tree_distance` は異なる頂点の unordered pair 数を距離ごとに返し、1万頂点のpathでも再帰を使わない
+- `tree_distance_counts` は異なる頂点の unordered pair 数を距離ごとに返し、1万頂点のpathでも再帰を使わない
 
 ### Graph ordering / advanced connectivity
 
 - `optimal_tree_topological_order` は親が子より先という制約下の全pair目的関数を厳密最小化する
-- `bipolar_orientation` はst-number、`shortest_path_without_each_edge` は各辺削除後の距離をまとめて返す
+- `bipolar_orientation` はst-number、`replacement_paths` は各辺削除後の距離をまとめて返す
 - `ThreeEdgeConnectedComponents` は多重辺対応で二辺/三辺連結成分を同時に保持する
 - `incremental_scc_offline` の時刻別辺IDをDSUへ適用すると、各prefixのSCC分割と一致する
 - lowlink吸収・分割統治・復元・最短路木走査はすべて非再帰
@@ -517,7 +517,7 @@ PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版�
 - `fps_quotient/remainder/divmod` は末尾の0を除いた多項式として除算し、長い除数ではreverse＋FPS逆元を使う
 - `fps_taylor_shift(f,c)` は $f(x+c)$、`fps_product` は長さの短い多項式からheapで併合する
 - 積分・Taylor shiftは必要な整数の逆元を使うため次数が `mod` 未満であることが必要
-- `berlekamp_massey(sequence)` は $a_n=\sum_{i=1}^D c_i a_{n-i}$ の `[c1,...,cD]`、`berlekamp_massey_polynomial` は `[1,-c1,...,-cD]` を返す
+- `berlekamp_massey(sequence)` は $a_n=\sum_{i=1}^D c_i a_{n-i}$ の `[c1,...,cD]`、`berlekamp_massey_poly` は `[1,-c1,...,-cD]` を返す
 - `bostan_mori(n,P,Q)` は $[x^n]P(x)/Q(x)$、`linear_recurrence_nth(initial,coefficients,n)` は既知の漸化式、`nth_term(n,sequence)` はBMで推定した最小漸化式から第n項を求める
 - Bostan--Moriは $\deg P\ge\deg Q$ の多項式部分、定数有理式、巨大indexにも対応する
 - PyPy実測で20万次のFPS逆元は約0.32秒、expは約0.49秒、5万項漸化式の第 $10^{18}$ 項は約4.62秒（最大RSS約108MiB）

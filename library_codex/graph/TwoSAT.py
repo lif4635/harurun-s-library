@@ -1,6 +1,6 @@
 """2-SATの充足可能性を判定し、真偽割当を返す。"""
 
-from graph_connectivity.StronglyConnectedComponents import StronglyConnectedComponents
+from graph_connectivity.StronglyConnectedComponents import SCC
 
 class TwoSAT:
     """2-SAT with the node convention ``2*v=false, 2*v+1=true``."""
@@ -44,7 +44,7 @@ class TwoSAT:
         self.add_clause(first, True, second, False)
 
     def solve(self):
-        scc = StronglyConnectedComponents(self.graph)
+        scc = SCC(self.graph)
         component = scc.component
         answer = [False] * self.n
         for variable in range(self.n):
@@ -57,4 +57,3 @@ class TwoSAT:
         return answer
 
     satisfiable = solve
-

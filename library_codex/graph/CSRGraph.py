@@ -396,7 +396,7 @@ def scc_ids_csr(graph):
     return count, component
 
 
-class CSRStronglyConnectedComponents:
+class CSRSCC:
     """SCC result compatible with the existing high-level SCC object."""
 
     __slots__ = ("n", "graph", "component", "groups", "dag", "count")
@@ -433,8 +433,8 @@ class CSRStronglyConnectedComponents:
         return self.component[vertex]
 
 
-def strongly_connected_components_csr(graph):
-    solver = CSRStronglyConnectedComponents(graph, build_dag=False)
+def scc_csr(graph):
+    solver = CSRSCC(graph, build_dag=False)
     return solver.component, solver.groups
 
 
@@ -540,5 +540,4 @@ class CSRLowLink:
 
 
 FastDijkstra = dijkstra_csr
-FastSCC = CSRStronglyConnectedComponents
 FastLowLink = CSRLowLink

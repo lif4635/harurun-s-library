@@ -36,13 +36,13 @@ def popcount(value):
     return value.bit_count()
 
 
-def most_significant_bit_index(value):
+def msb_index(value):
     if value <= 0:
         raise ValueError("value must be positive")
     return value.bit_length() - 1
 
 
-def least_significant_bit_index(value):
+def lsb_index(value):
     if value <= 0:
         raise ValueError("value must be positive")
     return (value & -value).bit_length() - 1

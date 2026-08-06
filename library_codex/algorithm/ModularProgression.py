@@ -3,7 +3,7 @@
 from math import isqrt
 
 
-def split_modular_arithmetic_progression(multiplier, addend, count, modulus):
+def split_mod_progression(multiplier, addend, count, modulus):
     """Split (multiplier*k+addend)%modulus into O(sqrt(count)) runs."""
     if count < 0 or modulus <= 0:
         raise ValueError("count must be nonnegative and modulus positive")

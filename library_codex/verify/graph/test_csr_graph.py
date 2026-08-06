@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 from library_codex.graph.CSRGraph import (
     CSRGraph,
     CSRLowLink,
-    CSRStronglyConnectedComponents,
+    CSRSCC,
     bfs_csr,
     bipartite_coloring_csr,
     connected_components_csr,
@@ -23,7 +23,7 @@ from library_codex.graph_connectivity.ConnectedComponents import connected_compo
 from library_codex.shortest_path.Dijkstra import dijkstra
 from library_codex.graph.TopologicalSort import topological_sort
 from library_codex.shortest_path.ZeroOneBFS import zero_one_bfs
-from library_codex.graph_connectivity.StronglyConnectedComponents import StronglyConnectedComponents
+from library_codex.graph_connectivity.StronglyConnectedComponents import SCC
 
 
 def adjacency(n, edges, directed=True):
@@ -151,8 +151,8 @@ def test_csr_scc_random_against_existing():
         ]
         plain = adjacency(n, edges)
         graph = CSRGraph(n, edges)
-        expected = StronglyConnectedComponents(plain)
-        result = CSRStronglyConnectedComponents(graph)
+        expected = SCC(plain)
+        result = CSRSCC(graph)
         count, component = scc_ids_csr(graph)
         assert count == result.count
         assert component == result.component
@@ -188,7 +188,7 @@ def test_csr_deep_paths_without_recursion():
     graph = CSRGraph(n, directed_edges)
     assert dijkstra_csr(graph)[0][-1] == n - 1
     assert bfs_csr(graph)[0][-1] == n - 1
-    solver = CSRStronglyConnectedComponents(graph, build_dag=False)
+    solver = CSRSCC(graph, build_dag=False)
     assert solver.count == n
     lowlink = CSRLowLink(n, ((v, v + 1) for v in range(n - 1)))
     assert len(lowlink.bridge_ids) == n - 1

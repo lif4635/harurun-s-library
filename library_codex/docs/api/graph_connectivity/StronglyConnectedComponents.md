@@ -9,34 +9,28 @@
 
 ## できること
 
-- `strongly_connected_components`: `strongly`・`connected`・連結成分を求める。
-- `StronglyConnectedComponents`: 反復Kosaraju・縮約DAGを扱う `StronglyConnectedComponents`。
+- `scc`: 有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。
+- `SCC`: 反復Kosaraju・縮約DAGを扱う `SCC`。
 
 ## Import
 
 ```python
-from library_codex.graph_connectivity.StronglyConnectedComponents import strongly_connected_components, StronglyConnectedComponents
+from library_codex.graph_connectivity.StronglyConnectedComponents import scc, SCC
 ```
-
-## 公開定数
-
-| 定数 | 値 | source |
-| --- | --- | --- |
-| `SCC` | `StronglyConnectedComponents` | [L74](../../../graph_connectivity/StronglyConnectedComponents.py#L74) |
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`strongly_connected_components(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L69) | `strongly`・`connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.component`, `solver.groups`) |
+| [`scc(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L69) | 有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: 隣接listまたはグラフobject | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 |
 
-## Class `StronglyConnectedComponents`
+## Class `SCC`
 
-反復Kosaraju・縮約DAGを扱う `StronglyConnectedComponents`。
+反復Kosaraju・縮約DAGを扱う `SCC`。
 
-- constructor: [`StronglyConnectedComponents(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L4)
+- constructor: [`SCC(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L4)
 - 引数: `graph`: 隣接listまたはグラフobject
-- 返り値: `StronglyConnectedComponents` instance
+- 返り値: `SCC` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |

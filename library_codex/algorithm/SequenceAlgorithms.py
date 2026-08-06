@@ -24,7 +24,7 @@ def inversion_count(values):
     return answer
 
 
-def longest_increasing_subsequence(values, strict=True, restore=False):
+def lis(values, strict=True, restore=False):
     """Return LIS length, or ``(length, indices, subsequence)``."""
     values = list(values)
     tails = []

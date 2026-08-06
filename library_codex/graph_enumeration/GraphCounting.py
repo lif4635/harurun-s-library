@@ -71,7 +71,7 @@ def evaluate_polynomial(coefficients, value, mod=DEFAULT_MOD):
     return result
 
 
-def count_undirected_spanning_trees(n, edges, mod=DEFAULT_MOD):
+def count_spanning_trees(n, edges, mod=DEFAULT_MOD):
     """Weighted/multi-edge Matrix--Tree count.
 
     Entries are ``(u,v)`` or ``(u,v,multiplicity_or_weight)``.
