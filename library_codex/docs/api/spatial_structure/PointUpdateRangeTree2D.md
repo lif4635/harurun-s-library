@@ -31,4 +31,4 @@ from library_codex.spatial_structure.PointUpdateRangeTree2D import PointUpdateRa
 | [`build()`](../../../spatial_structure/PointUpdateRangeTree2D.py#L27) | method | 内部構造を構築する。 | なし | `self` |
 | [`add(x, y, value)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L65) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`set(x, y, value)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L74) | method | 指定位置・状態を値で置き換える。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`query(left, bottom, right, top)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L109) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
+| [`query(left, bottom, right, top)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L109) | method | 半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ 内の点をopで畳み込む。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | 指定長方形にある点の値のopによる畳み込み。空ならidentity。 |

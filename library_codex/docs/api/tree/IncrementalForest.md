@@ -30,11 +30,11 @@ from library_codex.tree.IncrementalForest import IncrementalForest
 | [`add_node()`](../../../tree/IncrementalForest.py#L28) | method | `node`を追加する。 | なし | `vertex` |
 | [`find(vertex)`](../../../tree/IncrementalForest.py#L43) | method | 代表元・位置・対象要素を探す。 | `vertex`: 頂点番号 | 代表元・位置・node番号（int） |
 | [`add_edge(first, second)`](../../../tree/IncrementalForest.py#L55) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / `edge` |
-| [`connected(first, second)`](../../../tree/IncrementalForest.py#L97) | method | n頂点m辺の連結単純無向graphを生成する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | Graph — n頂点edge_count辺の連結単純graph |
+| [`connected(first, second)`](../../../tree/IncrementalForest.py#L97) | method | firstとsecondが現在同じ木に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 2頂点が同じ木に属すればTrue、異なればFalse。 |
 | [`component_size(vertex)`](../../../tree/IncrementalForest.py#L102) | method | 指定頂点が属する連結成分の頂点数を返す。 | `vertex`: 頂点番号 | `-self.dsu[self.find(vertex)]` |
 | [`parent_of(vertex)`](../../../tree/IncrementalForest.py#L107) | method | 指定頂点の親頂点を返す。 | `vertex`: 頂点番号 | `self.parent[vertex]` |
 | [`parent_edge_of(vertex)`](../../../tree/IncrementalForest.py#L112) | method | 指定頂点と親を結ぶ辺IDを返す。 | `vertex`: 頂点番号 | `self.parent_edge[vertex]` |
-| [`depth(vertex)`](../../../tree/IncrementalForest.py#L117) | method | 指定頂点の根からの深さを返す。 | `vertex`: 頂点番号 | `self.depths[vertex]` |
+| [`depth(vertex)`](../../../tree/IncrementalForest.py#L117) | method | vertexが属する木の根からvertexまでの辺数を返す。 | `vertex`: 頂点番号 | `self.depths[vertex]` |
 | [`ancestor_at_depth(vertex, target_depth)`](../../../tree/IncrementalForest.py#L120) | method | `ancestor`・`at`・`depth`を求める。 | `vertex`: 頂点番号<br>`target_depth`: 祖先として取得したい根からの深さ | `-1` / `vertex` |
 | [`lca(first, second)`](../../../tree/IncrementalForest.py#L134) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） |
 | [`middle(first, second, third)`](../../../tree/IncrementalForest.py#L148) | method | `middle`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`third`: 第3入力 | `-1` / 数値または入力要素型 `self.lca(first, second) ^ self.lca(second, third) ^ self.lca(t...` |

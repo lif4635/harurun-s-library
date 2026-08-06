@@ -62,7 +62,7 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 | --- | --- | --- | --- | --- |
 | [`from_adjacency(adjacency, directed=True)`](../../../graph/CSRGraph.py#L70) | classmethod | 隣接listを検証し、同じ辺をCSR形式へ変換する。 | `adjacency`: 各頂点の隣接辺を並べた隣接list<br>`directed`: Trueなら有向graphとして構築する。省略時: `True` | `cls(n, edges, directed=False)` / `cls(n, edges, directed)` |
 | [`transpose()`](../../../graph/CSRGraph.py#L118) | method | 全ての辺の向きを反転したCSRグラフを返す。 | なし | `self` / 計算結果 |
-| [`neighbors(vertex)`](../../../graph/CSRGraph.py#L152) | method | 指定頂点から出る辺を (行き先, 重み, 辺ID) の順で列挙する。 | `vertex`: 頂点番号 | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする |
+| [`neighbors(vertex)`](../../../graph/CSRGraph.py#L152) | method | vertexから出る辺をCSR内の順に列挙する。 | `vertex`: 頂点番号 | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする。 |
 | [`__len__()`](../../../graph/CSRGraph.py#L162) | method | len(obj)。 | なし | 要素数（int） |
 
 ## Class `CSRSCC`
@@ -75,7 +75,7 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`same(first, second)`](../../../graph/CSRGraph.py#L443) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`same(first, second)`](../../../graph/CSRGraph.py#L443) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
 | [`__getitem__(vertex)`](../../../graph/CSRGraph.py#L446) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 |
 
 ## Class `CSRLowLink`
@@ -88,4 +88,4 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`get_edge(edge_id)`](../../../graph/CSRGraph.py#L567) | method | edge_idに対応する辺の両端頂点を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |
+| [`get_edge(edge_id)`](../../../graph/CSRGraph.py#L567) | method | edge_idに対応する辺情報を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |

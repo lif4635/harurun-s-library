@@ -30,6 +30,6 @@ from library_codex.union_find.WeightedUnionFind import WeightedUnionFind
 | [`find(node)`](../../../union_find/WeightedUnionFind.py#L12) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） |
 | [`weight(node)`](../../../union_find/WeightedUnionFind.py#L32) | method | `weight`を求める。 | `node`: 頂点・内部node番号 | `self.potential[node]` |
 | [`merge(first, second, difference)`](../../../union_find/WeightedUnionFind.py#L36) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`difference`: 差として使う入力 | bool |
-| [`same(first, second)`](../../../union_find/WeightedUnionFind.py#L54) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`same(first, second)`](../../../union_find/WeightedUnionFind.py#L54) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
 | [`diff(first, second)`](../../../union_find/WeightedUnionFind.py#L57) | method | `diff`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `self.weight(second) - self.weight(first)` / `None` |
 | [`size(node)`](../../../union_find/WeightedUnionFind.py#L64) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |

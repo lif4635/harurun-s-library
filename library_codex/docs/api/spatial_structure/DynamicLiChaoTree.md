@@ -35,4 +35,4 @@ from library_codex.spatial_structure.DynamicLiChaoTree import DynamicLiChaoTree
 | --- | --- | --- | --- | --- |
 | [`add_line(a, b)`](../../../spatial_structure/DynamicLiChaoTree.py#L47) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` |
 | [`add_segment(a, b, ql, qr)`](../../../spatial_structure/DynamicLiChaoTree.py#L54) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `None` |
-| [`query(x)`](../../../spatial_structure/DynamicLiChaoTree.py#L75) | method | 指定した対象への問い合わせ結果を返す。 | `x`: 値・座標・問い合わせ対象 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
+| [`query(x)`](../../../spatial_structure/DynamicLiChaoTree.py#L75) | method | 追加済みの直線・線分をxで評価し、最小値または最大値を返す。 | `x`: 値・座標・問い合わせ対象 | number — minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。 |

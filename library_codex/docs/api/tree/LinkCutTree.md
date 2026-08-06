@@ -33,7 +33,7 @@ Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分
 | [`access(node)`](../../../tree/LinkCutTree.py#L171) | method | 指定位置の元の値を取得する。 | `node`: 頂点・内部node番号 | 指定位置の元の値 |
 | [`make_root(node)`](../../../tree/LinkCutTree.py#L187) | method | 根を構築する。 | `node`: 頂点・内部node番号 | `None` |
 | [`find_root(node)`](../../../tree/LinkCutTree.py#L193) | method | 根を探索する。 | `node`: 頂点・内部node番号 | `node` |
-| [`connected(first, second)`](../../../tree/LinkCutTree.py#L205) | method | n頂点m辺の連結単純無向graphを生成する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | Graph — n頂点edge_count辺の連結単純graph |
+| [`connected(first, second)`](../../../tree/LinkCutTree.py#L205) | method | firstとsecondが現在同じ木に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 2頂点が同じ木に属すればTrue、異なればFalse。 |
 | [`link(child, parent)`](../../../tree/LinkCutTree.py#L212) | method | 異なる木の2頂点を辺で接続する。 | `child`: 子cluster・子頂点<br>`parent`: 親頂点・親配列 | bool |
 | [`cut(first, second=None)`](../../../tree/LinkCutTree.py#L219) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値。省略時: `None` | bool |
 | [`lca(first, second, root=None)`](../../../tree/LinkCutTree.py#L243) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`root`: 根の頂点番号・原始根。省略時: `None` | 最小共通祖先の頂点番号（int） |
@@ -70,7 +70,7 @@ Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分
 | [`access(node)`](../../../tree/LinkCutTree.py#L466) | method | 指定位置の元の値を取得する。 | `node`: 頂点・内部node番号 | 指定位置の元の値 |
 | [`make_root(node)`](../../../tree/LinkCutTree.py#L489) | method | 根を構築する。 | `node`: 頂点・内部node番号 | `None` |
 | [`find_root(node)`](../../../tree/LinkCutTree.py#L495) | method | 根を探索する。 | `node`: 頂点・内部node番号 | `node` |
-| [`connected(first, second)`](../../../tree/LinkCutTree.py#L506) | method | n頂点m辺の連結単純無向graphを生成する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | Graph — n頂点edge_count辺の連結単純graph |
+| [`connected(first, second)`](../../../tree/LinkCutTree.py#L506) | method | firstとsecondが現在同じ木に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 2頂点が同じ木に属すればTrue、異なればFalse。 |
 | [`link(child, parent)`](../../../tree/LinkCutTree.py#L513) | method | 異なる木の2頂点を辺で接続する。 | `child`: 子cluster・子頂点<br>`parent`: 親頂点・親配列 | bool |
 | [`cut(first, second)`](../../../tree/LinkCutTree.py#L525) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`set_value(node, value)`](../../../tree/LinkCutTree.py#L535) | method | 値を設定する。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
@@ -91,7 +91,7 @@ Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分
 | [`access(node)`](../../../tree/LinkCutTree.py#L713) | method | 指定位置の元の値を取得する。 | `node`: 頂点・内部node番号 | 指定位置の元の値 |
 | [`make_root(node)`](../../../tree/LinkCutTree.py#L735) | method | 根を構築する。 | `node`: 頂点・内部node番号 | `None` |
 | [`find_root(node)`](../../../tree/LinkCutTree.py#L742) | method | 根を探索する。 | `node`: 頂点・内部node番号 | `node` |
-| [`connected(first, second)`](../../../tree/LinkCutTree.py#L753) | method | n頂点m辺の連結単純無向graphを生成する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | Graph — n頂点edge_count辺の連結単純graph |
+| [`connected(first, second)`](../../../tree/LinkCutTree.py#L753) | method | firstとsecondが現在同じ木に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 2頂点が同じ木に属すればTrue、異なればFalse。 |
 | [`link(child, parent)`](../../../tree/LinkCutTree.py#L760) | method | 異なる木の2頂点を辺で接続する。 | `child`: 子cluster・子頂点<br>`parent`: 親頂点・親配列 | bool |
 | [`cut(first, second)`](../../../tree/LinkCutTree.py#L770) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
 | [`set_value(node, value)`](../../../tree/LinkCutTree.py#L780) | method | 値を設定する。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |

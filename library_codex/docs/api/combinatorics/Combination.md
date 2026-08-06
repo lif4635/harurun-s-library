@@ -9,7 +9,7 @@
 
 ## できること
 
-- `comb_small_k`: nが大きくkが小さいときに二項係数C(n, k)を乗法式で求める。 O(min(k, n-k))。1からmin(k, n-k)までがmodで可逆である必要がある。
+- `comb_small_k`: $n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。
 - `Comb`: 素数mod上の階乗表を必要なところまで自動で拡張する。
 
 ## Import
@@ -28,7 +28,7 @@ from library_codex.combinatorics.Combination import comb_small_k, Comb
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`comb_small_k(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L63) | nが大きくkが小さいときに二項係数C(n, k)を乗法式で求める。 O(min(k, n-k))。1からmin(k, n-k)までがmodで可逆である必要がある。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0<br>`mod`: 法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある。省略時: `DEFAULT_MOD` | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
+| [`comb_small_k(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L63) | $n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0<br>`mod`: 法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある。省略時: `DEFAULT_MOD` | int — 二項係数 $\binom{n}{k}$ を $\mathrm{mod}$ で割った余り。$0 \le k \le n$ でなければ0 |
 
 ## Class `Comb`
 
@@ -41,8 +41,8 @@ from library_codex.combinatorics.Combination import comb_small_k, Comb
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`ensure(size)`](../../../combinatorics/Combination.py#L17) | method | 階乗表と逆階乗表をsizeまで拡張する。 | `size`: 要素数・universe size | `None` |
-| [`fact(n)`](../../../combinatorics/Combination.py#L33) | method | n!をmodで割った余りを返す。O(1)、表の拡張時は償却O(n)。 | `n`: 二項係数C(n, k)の上側。0以上の整数 | `self.factorial[n]` |
-| [`C(n, k)`](../../../combinatorics/Combination.py#L38) | method | 二項係数C(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
-| [`__call__(n, k)`](../../../combinatorics/Combination.py#L46) | method | C(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
-| [`P(n, k)`](../../../combinatorics/Combination.py#L50) | method | 順列数P(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[n - k] % self.mod` |
-| [`H(n, k)`](../../../combinatorics/Combination.py#L57) | method | n種類から重複を許してk個選ぶ重複組合せH(n, k)を返す。O(1)。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int instance / `self.C(n + k - 1, k)` |
+| [`fact(n)`](../../../combinatorics/Combination.py#L33) | method | 階乗 $n!\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数 | int — $n!\bmod\mathrm{mod}$。 |
+| [`C(n, k)`](../../../combinatorics/Combination.py#L38) | method | 二項係数 $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 |
+| [`__call__(n, k)`](../../../combinatorics/Combination.py#L46) | method | `C(n, k)` と同じく $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 |
+| [`P(n, k)`](../../../combinatorics/Combination.py#L50) | method | 順列数 $P(n,k)=n!/(n-k)!$ を $\mathrm{mod}$ で割った余りを返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $P(n,k)\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 |
+| [`H(n, k)`](../../../combinatorics/Combination.py#L57) | method | $n$ 種類から重複を許して $k$ 個選ぶ重複組合せ $H(n,k)=\binom{n+k-1}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $H(n,k)\bmod\mathrm{mod}$。 |

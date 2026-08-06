@@ -35,5 +35,5 @@ from library_codex.graph_connectivity.OfflineDynamicConnectivity import OfflineD
 | [`query_components(time)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L89) | method | 連結成分を取得する。 | `time`: operation時刻 | `query_id` |
 | [`query_component_value(time, vertex)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L98) | method | 連結成分・値を取得する。 | `time`: operation時刻<br>`vertex`: 頂点番号 | `query_id` |
 | [`build()`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L136) | method | 内部構造を構築する。 | なし | `self` |
-| [`run(query, add=None, remove=None)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L169) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `query`: 処理中に呼び出す関数または操作<br>`add`: 処理中に呼び出す関数または操作。省略時: `None`<br>`remove`: 処理中に呼び出す関数または操作。省略時: `None` | `None` |
+| [`run(query, add=None, remove=None)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L169) | method | 辺の追加・削除とqueryを時系列順にoffline処理する。 | `query`: 処理中に呼び出す関数または操作<br>`add`: 処理中に呼び出す関数または操作。省略時: `None`<br>`remove`: 処理中に呼び出す関数または操作。省略時: `None` | `None` |
 | [`solve()`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L222) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |

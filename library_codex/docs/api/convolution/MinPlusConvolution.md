@@ -23,4 +23,4 @@ from library_codex.convolution.MinPlusConvolution import minplus_conv
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`minplus_conv(first, second)`](../../../convolution/MinPlusConvolution.py#L4) | 2列のmin-plus畳み込みを全ての添字和について求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[number] — 添字kがmin(first[i]+second[j], i+j=k)を表す長さlen(first)+len(second)-1の列 |
+| [`minplus_conv(first, second)`](../../../convolution/MinPlusConvolution.py#L4) | 2列のmin-plus畳み込み $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ をすべての添字和について求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[number] — $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ を格納した長さ $\lvert\mathrm{first}\rvert+\lvert\mathrm{second}\rvert-1$ の列 |

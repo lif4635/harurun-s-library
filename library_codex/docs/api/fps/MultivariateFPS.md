@@ -27,8 +27,8 @@ from library_codex.fps.MultivariateFPS import MultivariateFormalPowerSeries
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(*indices)`](../../../fps/MultivariateFPS.py#L24) | method | 指定要素・頂点に対応する内部indexを返す。 | `*indices`: 位置の列 | 計算結果（int） |
-| [`get(*indices)`](../../../fps/MultivariateFPS.py#L38) | method | 指定位置・辺・状態の値を取得する。 | `*indices`: 位置の列 | 指定対象に格納された値・edge object |
+| [`index(*indices)`](../../../fps/MultivariateFPS.py#L24) | method | 多変数の指数tupleを、係数配列の1次元indexへ変換する。 | `*indices`: 位置の列 | 計算結果（int） |
+| [`get(*indices)`](../../../fps/MultivariateFPS.py#L38) | method | 指定した指数tupleに対応する係数 $[x_0^{i_0}\cdots x_{d-1}^{i_{d-1}}]f$ を返す。 | `*indices`: 位置の列 | int — $\mathrm{mod}$ で正規化された指定monomialの係数。 |
 | [`set(*indices_and_value)`](../../../fps/MultivariateFPS.py#L41) | method | 指定位置・状態を値で置き換える。 | `*indices_and_value`: 処理対象の値 | `None` |
 | [`__add__(other)`](../../../fps/MultivariateFPS.py#L54) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance |
 | [`__neg__()`](../../../fps/MultivariateFPS.py#L64) | method | -obj。 | なし | MultivariateFormalPowerSeries instance |
@@ -41,4 +41,4 @@ from library_codex.fps.MultivariateFPS import MultivariateFormalPowerSeries
 | [`inverse()`](../../../fps/MultivariateFPS.py#L109) | method | 逆元・逆変換を求める。 | なし | `current`（数値または入力要素型） |
 | [`logarithm()`](../../../fps/MultivariateFPS.py#L130) | method | 対数を計算する。 | なし | `(self.derivative() * self.inverse()).integral()` |
 | [`exponential()`](../../../fps/MultivariateFPS.py#L137) | method | 指数を計算する。 | なし | `current`（数値または入力要素型） |
-| [`power(exponent)`](../../../fps/MultivariateFPS.py#L152) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | `self.inverse().power(-exponent)` / 計算結果（数値または入力要素型） |
+| [`power(exponent)`](../../../fps/MultivariateFPS.py#L152) | method | 多変数形式的冪級数の整数冪 $f^{\mathrm{exponent}}$ を、保持している各変数の次数範囲で求める。 | `exponent`: 非負の指数 | MultivariateFormalPowerSeries — $f^{\mathrm{exponent}}$ の打ち切られた係数を持つ新しいMultivariateFormalPowerSeries。 |

@@ -34,5 +34,5 @@ from library_codex.graph_connectivity.StronglyConnectedComponents import scc, SC
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`same(first, second)`](../../../graph_connectivity/StronglyConnectedComponents.py#L62) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`same(first, second)`](../../../graph_connectivity/StronglyConnectedComponents.py#L62) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
 | [`__getitem__(vertex)`](../../../graph_connectivity/StronglyConnectedComponents.py#L65) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 |

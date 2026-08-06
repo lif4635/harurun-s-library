@@ -31,5 +31,5 @@ from library_codex.ordered_set.RangeSet import RangeSet
 | [`discard(left, right)`](../../../ordered_set/RangeSet.py#L36) | method | 要素があれば削除する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `0` / `removed`（int） |
 | [`contains(value)`](../../../ordered_set/RangeSet.py#L65) | method | 指定値を保持しているか判定する。 | `value`: 追加・設定・問い合わせる値 | bool |
 | [`mex(value=0)`](../../../ordered_set/RangeSet.py#L69) | method | `mex`を求める。 | `value`: 追加・設定・問い合わせる値。省略時: `0` | `self.ends[start]` / 値 |
-| [`intervals()`](../../../ordered_set/RangeSet.py#L75) | method | 指定範囲に収まるランダムな半開区間を生成する。 | なし | list[tuple[int, int]] — [lower, upper)内の半開区間(left, right)の列 |
+| [`intervals()`](../../../ordered_set/RangeSet.py#L75) | method | 現在保持している互いに素な半開区間を始点順に列挙する。 | なし | list[tuple[int, int]] — 保持中の半開区間 $[\mathrm{left},\mathrm{right})$ を始点順に並べた列。 |
 | [`__len__()`](../../../ordered_set/RangeSet.py#L78) | method | len(obj)。 | なし | 要素数（int） |

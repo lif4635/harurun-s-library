@@ -29,7 +29,7 @@ from library_codex.union_find.PartialPersistentUnionFind import PartialPersisten
 | --- | --- | --- | --- | --- |
 | [`find(node, time=None)`](../../../union_find/PartialPersistentUnionFind.py#L16) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号<br>`time`: operation時刻。省略時: `None` | 代表元・位置・node番号（int） |
 | [`merge(first, second, time=None)`](../../../union_find/PartialPersistentUnionFind.py#L27) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`time`: operation時刻。省略時: `None` | bool |
-| [`same(first, second, time=None)`](../../../union_find/PartialPersistentUnionFind.py#L49) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`time`: operation時刻。省略時: `None` | bool |
+| [`same(first, second, time=None)`](../../../union_find/PartialPersistentUnionFind.py#L49) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`time`: operation時刻。省略時: `None` | bool — 同じ連結成分ならTrue、異なればFalse。 |
 | [`size(node, time=None)`](../../../union_find/PartialPersistentUnionFind.py#L52) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号<br>`time`: operation時刻。省略時: `None` | size（int） |
 | [`when_unite(first, second)`](../../../union_find/PartialPersistentUnionFind.py#L61) | method | `when`・`unite`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / `high`（数値または入力要素型） |
 | [`size_ge(node, target)`](../../../union_find/PartialPersistentUnionFind.py#L74) | method | `size`・`ge`を求める。 | `node`: 頂点・内部node番号<br>`target`: 探索・判定・更新の対象値 | `-1` / `high`（数値または入力要素型） |

@@ -28,9 +28,9 @@ from library_codex.string.RollingHash2D import RollingHash2D, RollingHash2DView
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`get(upper, left, lower, right)`](../../../string/RollingHash2D.py#L56) | method | 指定位置・辺・状態の値を取得する。 | `upper`: 上限<br>`left`: 半開区間の左端（含む）<br>`lower`: 下限<br>`right`: 半開区間の右端（含まない） | 指定対象に格納された値・edge object |
+| [`get(upper, left, lower, right)`](../../../string/RollingHash2D.py#L56) | method | 半開長方形 $[\mathrm{upper},\mathrm{lower})\times[\mathrm{left},\mathrm{right})$ の2次元hashを返す。 | `upper`: 上限<br>`left`: 半開区間の左端（含む）<br>`lower`: 下限<br>`right`: 半開区間の右端（含まない） | int \| tuple[int, int] — 指定領域のhash。double hashでは2成分のtuple。 |
 | [`view(upper=0, left=0, lower=None, right=None)`](../../../string/RollingHash2D.py#L74) | method | `view`を求める。 | `upper`: 上限。省略時: `0`<br>`left`: 半開区間の左端（含む）。省略時: `0`<br>`lower`: 下限。省略時: `None`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | RollingHash2DView instance |
-| [`same(rectangle1, rectangle2)`](../../../string/RollingHash2D.py#L81) | method | 2要素が同じ連結成分に属するか判定する。 | `rectangle1`: 第1矩形 `(top, left, bottom, right)`<br>`rectangle2`: 第2矩形 `(top, left, bottom, right)` | bool |
+| [`same(rectangle1, rectangle2)`](../../../string/RollingHash2D.py#L81) | method | 指定した2つの長方形領域が同じ内容か2次元hashで判定する。 | `rectangle1`: 第1矩形 `(top, left, bottom, right)`<br>`rectangle2`: 第2矩形 `(top, left, bottom, right)` | bool — 2つの領域が等しければTrue、異なればFalse。 |
 | [`hash_matrix(matrix)`](../../../string/RollingHash2D.py#L90) | method | hash・行列を求める。 | `matrix`: 行をlistで持つ行列 | `result.get(0, 0, result.height, result.width)` |
 | [`find(pattern)`](../../../string/RollingHash2D.py#L96) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列 | 代表元・位置・node番号（int） |
 | [`__getitem__(index)`](../../../string/RollingHash2D.py#L115) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |

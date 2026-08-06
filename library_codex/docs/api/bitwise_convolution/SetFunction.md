@@ -72,9 +72,9 @@ subset/superset変換・OR/AND/XOR・subset畳み込み/除算・set power serie
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L282) | method | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self._mobius_and_unlift(left, popcount, bits, width)` |
+| [`multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L282) | method | 集合をbit maskで表し、subset convolution $c_S=\sum_{T\subseteq S}\mathrm{first}_T\mathrm{second}_{S\setminus T}$ を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[int] — 入力と同じ長さの列 $c$。mask $S$ の要素は $\sum_{T\subseteq S}\mathrm{first}[T]\mathrm{second}[S\setminus T]\bmod\mathrm{mod}$。 |
 | [`divide(dividend, divisor)`](../../../bitwise_convolution/SetFunction.py#L307) | method | `divide`を求める。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数 | `self._mobius_and_unlift(left, popcount, bits, width)` |
-| [`transpose_multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L335) | method | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 計算結果 |
+| [`transpose_multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L335) | method | subset convolutionの転置作用 $c_S=\sum_{T\supseteq S}\mathrm{first}_T\mathrm{second}_{T\setminus S}$ を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[int] — 入力と同じ長さの列 $c$。mask $S$ の要素は $\sum_{T\supseteq S}\mathrm{first}[T]\mathrm{second}[T\setminus S]\bmod\mathrm{mod}$。 |
 | [`exponential(series)`](../../../bitwise_convolution/SetFunction.py#L340) | method | 指数を計算する。 | `series`: 昇冪の形式的冪級数係数列 | 計算結果（数値または入力要素型） |
 | [`logarithm(series)`](../../../bitwise_convolution/SetFunction.py#L355) | method | 対数を計算する。 | `series`: 昇冪の形式的冪級数係数列 | 計算結果（数値または入力要素型） |
 | [`compose_egf(series, derivatives)`](../../../bitwise_convolution/SetFunction.py#L369) | method | 合成・`egf`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`derivatives`: `derivatives`として使う入力 | `current`（数値または入力要素型） |

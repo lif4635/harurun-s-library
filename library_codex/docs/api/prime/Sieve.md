@@ -47,4 +47,4 @@ from library_codex.prime.Sieve import (
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`is_prime(value)`](../../../prime/Sieve.py#L41) | method | 素数かどうかを判定する。 | `value`: 追加・設定・問い合わせる値 | bool |
-| [`factor_count(value)`](../../../prime/Sieve.py#L44) | method | 各素因数の指数を数える。 | `value`: 追加・設定・問い合わせる値 | dict[int, int] — keyは素因数、valueはその指数 |
+| [`factor_count(value)`](../../../prime/Sieve.py#L44) | method | 篩の表を使ってvalueを素因数分解する。 | `value`: 追加・設定・問い合わせる値 | list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列。 |

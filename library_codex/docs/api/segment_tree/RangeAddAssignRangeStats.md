@@ -35,7 +35,7 @@ from library_codex.segment_tree.RangeAddAssignRangeStats import RangeAddAssignRa
 | --- | --- | --- | --- | --- |
 | [`range_add(left, right, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L140) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
 | [`range_assign(left, right, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L145) | method | 区間・`assign`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`range_sum(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L197) | method | 区間・和を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 0)` |
+| [`range_sum(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L197) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の要素和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。 |
 | [`range_min(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L202) | method | 区間・最小を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 1)` |
 | [`range_max(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L207) | method | 区間・最大を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 2)` |
 | [`get(index)`](../../../segment_tree/RangeAddAssignRangeStats.py#L212) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |

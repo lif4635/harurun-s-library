@@ -31,11 +31,11 @@ Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列を扱う `F2Mat
 | [`identity(size)`](../../../linear_algebra/F2Matrix.py#L34) | classmethod | `identity`を求める。 | `size`: 要素数・universe size | `cls(size, size, [1 << index for index in range(size)])` |
 | [`copy()`](../../../linear_algebra/F2Matrix.py#L37) | method | `copy`を求める。 | なし | F2Matrix instance |
 | [`to_lists()`](../../../linear_algebra/F2Matrix.py#L40) | method | `to`・`lists`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`get(row, column)`](../../../linear_algebra/F2Matrix.py#L46) | method | 指定位置・辺・状態の値を取得する。 | `row`: 行番号<br>`column`: 列番号 | 指定対象に格納された値・edge object |
+| [`get(row, column)`](../../../linear_algebra/F2Matrix.py#L46) | method | $\mathbb F_2$ 行列の(row, column)成分を返す。 | `row`: 行番号<br>`column`: 列番号 | bool — 成分が1ならTrue、0ならFalse。 |
 | [`set(row, column, value=True)`](../../../linear_algebra/F2Matrix.py#L49) | method | 指定位置・状態を値で置き換える。 | `row`: 行番号<br>`column`: 列番号<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` |
 | [`multiply(other)`](../../../linear_algebra/F2Matrix.py#L56) | method | 2つの入力をこの構造の演算規則で乗算する。 | `other`: 同じ型のもう一方のobject・値 | F2Matrix instance |
 | [`and_or_product(other)`](../../../linear_algebra/F2Matrix.py#L70) | method | AND・`or`・積を計算する。 | `other`: 同じ型のもう一方のobject・値 | F2Matrix instance |
-| [`power(exponent)`](../../../linear_algebra/F2Matrix.py#L84) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | 計算結果 |
+| [`power(exponent)`](../../../linear_algebra/F2Matrix.py#L84) | method | $\mathbb F_2$ 上の正方行列の整数冪 $A^{\mathrm{exponent}}$ を求める。 | `exponent`: 非負の指数 | F2Matrix — $A^{\mathrm{exponent}}$ を表す新しいF2Matrix。指数0なら単位行列。 |
 | [`sweep(pivot_end=None)`](../../../linear_algebra/F2Matrix.py#L99) | method | `sweep`を求める。 | `pivot_end`: `pivot`・`end`として使う入力。省略時: `None` | tuple(`rank`（int）, `pivots`（list）) |
 | [`rank()`](../../../linear_algebra/F2Matrix.py#L124) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | なし | rank・出現数（int） |
 | [`determinant()`](../../../linear_algebra/F2Matrix.py#L128) | method | `determinant`を計算する。 | なし | int instance |

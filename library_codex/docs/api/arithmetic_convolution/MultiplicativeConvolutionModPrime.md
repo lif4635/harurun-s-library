@@ -9,7 +9,7 @@
 
 ## できること
 
-- `multiplicative_convolution`: 素数modの乗法に沿った畳み込みを計算する。
+- `multiplicative_convolution`: 素数 $p=\mathrm{prime}$ の剰余類の乗法に沿った畳み込み $c_k=\sum_{ij\equiv k\pmod p}\mathrm{first}_i\mathrm{second}_j$ を求める。
 
 ## Import
 
@@ -27,4 +27,4 @@ from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime impo
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`multiplicative_convolution(first, second, prime, mod=DEFAULT_MOD)`](../../../arithmetic_convolution/MultiplicativeConvolutionModPrime.py#L7) | 素数modの乗法に沿った畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`prime`: 素数法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 添字kがsum(first[i]*second[j], i*j≡k mod prime)を表す長さprimeの列 |
+| [`multiplicative_convolution(first, second, prime, mod=DEFAULT_MOD)`](../../../arithmetic_convolution/MultiplicativeConvolutionModPrime.py#L7) | 素数 $p=\mathrm{prime}$ の剰余類の乗法に沿った畳み込み $c_k=\sum_{ij\equiv k\pmod p}\mathrm{first}_i\mathrm{second}_j$ を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`prime`: 素数法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — $c_k=\sum_{ij\equiv k\pmod p} \mathrm{first}_i\mathrm{second}_j$ を格納した長さ $p=\mathrm{prime}$ の列 |

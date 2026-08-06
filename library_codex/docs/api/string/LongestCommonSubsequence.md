@@ -10,7 +10,7 @@ bit-parallel LCS長・反復Hirschberg復元。
 ## できること
 
 - `lcs_length`: `lcs`・長さを求める。
-- `restore_lcs`: `lcs`を復元する。
+- `restore_lcs`: firstとsecondの最長共通部分列を1つ復元する。
 
 ## Import
 
@@ -29,4 +29,4 @@ from library_codex.string.LongestCommonSubsequence import lcs_length, restore_lc
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`lcs_length(first, second)`](../../../string/LongestCommonSubsequence.py#L17) | `lcs`・長さを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `0` / `_lcs_dp_length(first, second)` / `state.bit_count()` |
-| [`restore_lcs(first, second)`](../../../string/LongestCommonSubsequence.py#L130) | `lcs`を復元する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `_pack_like(original, result)` |
+| [`restore_lcs(first, second)`](../../../string/LongestCommonSubsequence.py#L130) | firstとsecondの最長共通部分列を1つ復元する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] \| str — 両入力の部分列で、長さが最大のものを1つ。文字列入力ならstr、それ以外はlist。 |

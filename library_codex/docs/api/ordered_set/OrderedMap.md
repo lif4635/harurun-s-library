@@ -34,7 +34,7 @@ key順の探索・k番目・lower/upper boundを扱う順序付きmapを扱う `
 | [`erase(key)`](../../../ordered_set/OrderedMap.py#L33) | method | 指定要素を削除する。 | `key`: 比較・格納に使うkey | bool |
 | [`lower_bound(key)`](../../../ordered_set/OrderedMap.py#L42) | method | 指定値以上となる最初の位置を返す。 | `key`: 比較・格納に使うkey | 条件を満たす最小index（int。存在しなければsize） |
 | [`upper_bound(key)`](../../../ordered_set/OrderedMap.py#L45) | method | `upper`・`bound`を求める。 | `key`: 比較・格納に使うkey | `self.keys.bisect_right(key)` |
-| [`kth_element(index)`](../../../ordered_set/OrderedMap.py#L48) | method | 列を部分的に並べ替え、0始まりでk番目に小さい値を返す。 | `index`: 位置 | tuple(`key`, `self.values[key]`) |
+| [`kth_element(index)`](../../../ordered_set/OrderedMap.py#L48) | method | keyの昇順でindex番目にある(key, value)を返す。 | `index`: 位置 | tuple(`key`, `self.values[key]`) |
 | [`count(key)`](../../../ordered_set/OrderedMap.py#L52) | method | 条件に合う要素数を返す。 | `key`: 比較・格納に使うkey | 個数（int） |
 | [`__contains__(key)`](../../../ordered_set/OrderedMap.py#L55) | method | value in obj。 | `key`: 比較・格納に使うkey | bool |
 | [`__len__()`](../../../ordered_set/OrderedMap.py#L58) | method | len(obj)。 | なし | 要素数（int） |

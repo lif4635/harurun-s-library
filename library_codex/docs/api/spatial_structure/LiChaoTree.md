@@ -37,4 +37,4 @@ from library_codex.spatial_structure.LiChaoTree import LiChaoTree
 | [`add_segment_index(a, b, l, r)`](../../../spatial_structure/LiChaoTree.py#L68) | method | `segment`・`index`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `None` |
 | [`add_segment(a, b, left, right)`](../../../spatial_structure/LiChaoTree.py#L87) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
 | [`query_index(i)`](../../../spatial_structure/LiChaoTree.py#L94) | method | `index`を取得する。 | `i`: 位置 | 数値または入力要素型 `res * self.sign` |
-| [`query(x)`](../../../spatial_structure/LiChaoTree.py#L108) | method | 指定した対象への問い合わせ結果を返す。 | `x`: 値・座標・問い合わせ対象 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
+| [`query(x)`](../../../spatial_structure/LiChaoTree.py#L108) | method | 追加済みの直線・線分を登録座標xで評価し、最小値または最大値を返す。 | `x`: 値・座標・問い合わせ対象 | number — minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。 |

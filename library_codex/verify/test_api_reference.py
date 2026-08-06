@@ -1,10 +1,37 @@
+import json
 import re
+import runpy
 import subprocess
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_name_only_metadata_does_not_cross_module_boundaries():
+    metadata = runpy.run_path(str(ROOT / "tools" / "api_metadata.py"))
+    catalog = json.loads((ROOT / "library-catalog.json").read_text(encoding="utf-8"))
+    modules_by_name = {}
+    for module in catalog["modules"]:
+        symbols = list(module["functions"])
+        for class_item in module["classes"]:
+            symbols.extend(class_item["methods"])
+        for symbol in symbols:
+            modules_by_name.setdefault(symbol["name"], set()).add(module["modulePath"])
+
+    for field in ("PURPOSE_BY_NAME", "RETURN_DETAILS"):
+        shared = metadata.get("SHARED_PURPOSE_NAMES", set()) if field == "PURPOSE_BY_NAME" else set()
+        collisions = {
+            name: sorted(modules_by_name[name])
+            for name in metadata[field]
+            if len(modules_by_name.get(name, ())) > 1
+            and name not in shared
+        }
+        assert not collisions, (
+            f"{field} contains names shared by multiple modules; "
+            f"move them to API_DETAILS_BY_SYMBOL: {collisions}"
+        )
 
 
 def test_api_reference_is_current():
@@ -85,7 +112,7 @@ def test_api_reference_has_actionable_semantics():
     assert "任意の頂点集合から圧縮木を繰り返し構築" in auxiliary
 
     centroid = documents["docs/api/tree/CentroidDecomposition.md"]
-    assert "lower <= dist(vertex, u) < upper" in centroid
+    assert r"\operatorname{dist}(\mathrm{vertex},u)" in centroid
     assert "add・setで更新" in centroid
 
     increasing = documents["docs/api/fps/IncreasingSequences.md"]
@@ -95,6 +122,21 @@ def test_api_reference_has_actionable_semantics():
     stirling = documents["docs/api/combinatorial_series/StirlingNumbers.md"]
     assert "$\\mathrm{result}[n]=c(n,\\mathrm{column})$" in stirling
     assert "求める最大の第1引数 $n$。この値を含む" in stirling
+
+    combination = documents["docs/api/combinatorics/Combination.md"]
+    assert r"$\binom{n}{k}" in combination
+
+    min_plus = documents["docs/api/convolution/MinPlusConvolution.md"]
+    assert r"$c_k=\min_{i+j=k}" in min_plus
+
+    fps = documents["docs/api/fps/FormalPowerSeries.md"]
+    assert r"\pmod{x^{\mathrm{degree}}}" in fps
+
+    fenwick = documents["docs/api/fenwick_tree/FenwickTree.md"]
+    assert r"\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i" in fenwick
+
+    segtree = documents["docs/api/segment_tree/SegTree.md"]
+    assert r"\operatorname{op}(a_{\mathrm{left}}" in segtree
 
     assert "docs/api/algorithm/BasicAlgorithms.md" not in documents
     assert "docs/api/algorithm/MiscAlgorithms.md" not in documents

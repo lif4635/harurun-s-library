@@ -11,7 +11,7 @@
 
 - `binary_search_int`: 判定条件が切り替わる整数境界を二分探索する。
 - `binary_search_float`: 判定条件が切り替わる実数境界を指定回数の二分探索で近似する。
-- `kth_element`: 列を部分的に並べ替え、0始まりでk番目に小さい値を返す。
+- `kth_element`: valuesを部分的に並べ替え、index番目に小さい値を返す。
 
 ## Import
 
@@ -25,4 +25,4 @@ from library_codex.algorithm.Search import binary_search_int, binary_search_floa
 | --- | --- | --- | --- |
 | [`binary_search_int(predicate, false_value, true_value)`](../../../algorithm/Search.py#L4) | 判定条件が切り替わる整数境界を二分探索する。 | `predicate`: 判定callback<br>`false_value`: 処理対象の値<br>`true_value`: 処理対象の値 | `true_value`（数値または入力要素型） |
 | [`binary_search_float(predicate, false_value, true_value, iterations=80)`](../../../algorithm/Search.py#L15) | 判定条件が切り替わる実数境界を指定回数の二分探索で近似する。 | `predicate`: 判定callback<br>`false_value`: 処理対象の値<br>`true_value`: 処理対象の値<br>`iterations`: 反復回数。省略時: `80` | `true_value`（数値または入力要素型） |
-| [`kth_element(values, index)`](../../../algorithm/Search.py#L26) | 列を部分的に並べ替え、0始まりでk番目に小さい値を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`index`: 位置 | `pivot` / `values[left]` |
+| [`kth_element(values, index)`](../../../algorithm/Search.py#L26) | valuesを部分的に並べ替え、index番目に小さい値を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`index`: 位置 | `pivot` / `values[left]` |

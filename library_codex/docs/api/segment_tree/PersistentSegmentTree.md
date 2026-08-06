@@ -29,11 +29,11 @@ from library_codex.segment_tree.PersistentSegmentTree import PersistentSegmentTr
 | --- | --- | --- | --- | --- |
 | [`get_root(root, index)`](../../../segment_tree/PersistentSegmentTree.py#L54) | method | 根を取得する。 | `root`: 根の頂点番号・原始根<br>`index`: 位置 | `self.data[root]` |
 | [`get(index, version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L70) | method | index番目に格納されている値を返す。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1` | 指定対象に格納された値・edge object |
-| [`update_root(root, index, value)`](../../../segment_tree/PersistentSegmentTree.py#L119) | method | 根を更新する。 | `root`: 根の頂点番号・原始根<br>`index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `self._update_root(root, index, value, False)` |
-| [`set(index, value, version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L122) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
-| [`add(index, value, version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L129) | method | op(value, current)を格納した新versionを返す。O(log N)。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
+| [`update_root(root, index, value)`](../../../segment_tree/PersistentSegmentTree.py#L119) | method | rootが表す木のindexの値をvalueへ置き換えた新しいrootを作る。 | `root`: 根の頂点番号・原始根<br>`index`: 位置<br>`value`: 追加・設定・問い合わせる値 | int — 更新後の木を表す内部root ID。version一覧へは追加しない。 |
+| [`set(index, value, version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L122) | method | 指定versionのindexの値をvalueへ置き換え、新versionを追加する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | int — 追加されたversionのID。元のversionは変更しない。 |
+| [`add(index, value, version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L129) | method | 指定versionのindexへop(value, current)を格納し、新versionを追加する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | int — 追加されたversionのID。元のversionは変更しない。 |
 | [`prod_root(root, ql, qr)`](../../../segment_tree/PersistentSegmentTree.py#L136) | method | 積・根を求める。 | `root`: 根の頂点番号・原始根<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `self.e` / `res` |
-| [`prod(l, r, version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L158) | method | 半開区間またはpathの集約値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`version`: 参照するversion番号。省略時: `-1` | 区間・pathの集約値（入力要素型） |
+| [`prod(l, r, version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L158) | method | 指定versionの半開区間 $[l,r)$ をopで左から畳み込む。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`version`: 参照するversion番号。省略時: `-1` | 指定version・区間のopによる畳み込み。空区間ならe。 |
 | [`all_prod(version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L163) | method | 全区間の集約値を返す。 | `version`: 参照するversion番号。省略時: `-1` | 全体の集約値（入力要素型） |
 | [`fork(version=-1)`](../../../segment_tree/PersistentSegmentTree.py#L166) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
 | [`new_tree()`](../../../segment_tree/PersistentSegmentTree.py#L170) | method | `new`・木を求める。 | なし | 数値または入力要素型 `len(self.roots) - 1` |

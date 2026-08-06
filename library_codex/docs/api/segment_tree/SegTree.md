@@ -36,8 +36,8 @@ from library_codex.segment_tree.SegTree import SegTree
 | [`tolist()`](../../../segment_tree/SegTree.py#L55) | method | 現在の要素列をlistで返す。O(N)。 | なし | list[object] — 現在のindex順の要素列 |
 | [`__str__()`](../../../segment_tree/SegTree.py#L59) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
 | [`__repr__()`](../../../segment_tree/SegTree.py#L62) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegTree(%r)' % self.tolist()` |
-| [`prod(left, right)`](../../../segment_tree/SegTree.py#L65) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
-| [`all_prod()`](../../../segment_tree/SegTree.py#L85) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
+| [`prod(left, right)`](../../../segment_tree/SegTree.py#L65) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ をopで左から畳み込む。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\operatorname{op}(a_{\mathrm{left}},\ldots,a_{\mathrm{right}-1})$。空区間なら単位元e。 |
+| [`all_prod()`](../../../segment_tree/SegTree.py#L85) | method | 全区間 $[0,n)$ をopで左から畳み込む。 | なし | 全要素のopによる畳み込み。空なら単位元e。 |
 | [`max_right(left, predicate)`](../../../segment_tree/SegTree.py#L88) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
 | [`min_left(right, predicate)`](../../../segment_tree/SegTree.py#L113) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
 | [`__getitem__(index)`](../../../segment_tree/SegTree.py#L138) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |

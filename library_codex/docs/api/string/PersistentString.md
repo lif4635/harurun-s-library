@@ -31,7 +31,7 @@ from library_codex.string.PersistentString import PersistentString
 | [`__len__()`](../../../string/PersistentString.py#L210) | method | len(obj)。 | なし | 要素数（int） |
 | [`size()`](../../../string/PersistentString.py#L214) | method | 要素数または連結成分sizeを返す。 | なし | size（int） |
 | [`empty()`](../../../string/PersistentString.py#L217) | method | 空かどうかを判定する。 | なし | bool |
-| [`depth`](../../../string/PersistentString.py#L221) | property | 指定頂点の根からの深さを返す。 | なし | int `0 if root is None else root.height` |
+| [`depth`](../../../string/PersistentString.py#L221) | property | 内部の永続平衡木の高さを返す。文字列長ではない。 | なし | int `0 if root is None else root.height` |
 | [`copy()`](../../../string/PersistentString.py#L225) | method | `copy`を求める。 | なし | `self._from_root(self._root, self._kind)` |
 | [`__add__(other)`](../../../string/PersistentString.py#L239) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | `self._from_root(_join(self._root, other._root), kind)` |
 | [`__iadd__(other)`](../../../string/PersistentString.py#L245) | method | obj += other。 | `other`: 同じ型のもう一方のobject・値 | `self` |

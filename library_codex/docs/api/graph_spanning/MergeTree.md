@@ -32,4 +32,4 @@ from library_codex.graph_spanning.MergeTree import MergeTree
 | [`component_range(vertex)`](../../../graph_spanning/MergeTree.py#L107) | method | 連結成分・区間を求める。 | `vertex`: 頂点番号 | tuple(`self.entry[node]`, `self.exit[node]`) |
 | [`arrange(values)`](../../../graph_spanning/MergeTree.py#L113) | method | `arrange`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`restore(values)`](../../../graph_spanning/MergeTree.py#L120) | method | 計算結果から経路・列・元データを復元する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 計算結果（数値または入力要素型） |
-| [`index(vertex)`](../../../graph_spanning/MergeTree.py#L130) | method | 指定要素・頂点に対応する内部indexを返す。 | `vertex`: 頂点番号 | `self.position[vertex]` |
+| [`index(vertex)`](../../../graph_spanning/MergeTree.py#L130) | method | vertexに対応するmerge tree内部のindexを返す。 | `vertex`: 頂点番号 | `self.position[vertex]` |

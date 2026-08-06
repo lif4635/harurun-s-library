@@ -174,6 +174,10 @@ def test_catalog_preserves_markdown_math_and_exact_bounds():
         first_column["returnDescription"]
     )
 
+    assert CATALOG.localize_prose(
+        r"shiftした結果 $f(x+\mathrm{shift})$"
+    ) == r"シフトした結果 $f(x+\mathrm{shift})$"
+
 
 def test_structured_returns_and_constructor_capabilities_are_explicit():
     data = load_catalog()
@@ -200,13 +204,81 @@ def test_structured_returns_and_constructor_capabilities_are_explicit():
         item for item in distance_fenwick["methods"] if item["name"] == "query"
     )
     assert query["returnFormat"] == "number"
-    assert "dist(vertex, u) < upper" in query["returnDescription"]
+    assert "\\operatorname{dist}(\\mathrm{vertex},u)" in query["returnDescription"]
 
     audited_paths = {
         issue["path"] for issue in CATALOG.description_quality_issues(data)
     }
     assert not any("AuxiliaryTree" in path for path in audited_paths)
     assert not any("CentroidDistanceFenwick" in path for path in audited_paths)
+
+
+def test_math_descriptions_cover_common_library_families():
+    data = load_catalog()
+
+    combination = module_by_path(data, "library_codex.combinatorics.Combination")
+    comb = next(item for item in combination["classes"] if item["name"] == "Comb")
+    choose = next(item for item in comb["methods"] if item["name"] == "C")
+    assert "$\\binom{n}{k}" in choose["description"]
+
+    min_plus = module_by_path(data, "library_codex.convolution.MinPlusConvolution")
+    assert "$c_k=\\min_{i+j=k}" in min_plus["functions"][0]["description"]
+
+    fps = module_by_path(data, "library_codex.fps.FormalPowerSeries")
+    inverse = next(item for item in fps["functions"] if item["name"] == "fps_inverse")
+    assert "\\pmod{x^{\\mathrm{degree}}}" in inverse["returnDescription"]
+
+    fenwick = module_by_path(data, "library_codex.fenwick_tree.FenwickTree")
+    fenwick_class = next(item for item in fenwick["classes"] if item["name"] == "FenwickTree")
+    range_sum = next(item for item in fenwick_class["methods"] if item["name"] == "sum")
+    assert "\\sum_{i=\\mathrm{left}}^{\\mathrm{right}-1}a_i" in range_sum["returnDescription"]
+
+    segtree = module_by_path(data, "library_codex.segment_tree.SegTree")
+    segtree_class = next(item for item in segtree["classes"] if item["name"] == "SegTree")
+    prod = next(item for item in segtree_class["methods"] if item["name"] == "prod")
+    assert "$\\operatorname{op}(a_{\\mathrm{left}}" in prod["returnDescription"]
+
+    assert all(
+        not class_item["description"].endswith("を扱う。")
+        for module in data["modules"]
+        for class_item in module["classes"]
+    )
+
+
+def test_same_named_apis_keep_module_specific_meanings():
+    data = load_catalog()
+
+    composition = module_by_path(data, "library_codex.fps.PolynomialComposition")
+    compose = next(item for item in composition["functions"] if item["name"] == "composition")
+    assert compose["returnFormat"] == "list[int]"
+    assert "$f(g(x))" in compose["description"]
+    assert "total" not in compose["returnDescription"]
+
+    hld = module_by_path(data, "library_codex.tree.HeavyLightDecomposition")
+    hld_class = next(item for item in hld["classes"] if item["name"] == "HeavyLightDecomposition")
+    hld_path = next(item for item in hld_class["methods"] if item["name"] == "path")
+    assert hld_path["returnFormat"] == "list[tuple[int, int]]"
+    assert "半開区間" in hld_path["returnDescription"]
+
+    random_graph = module_by_path(data, "library_codex.random.RandomGraph")
+    generator = next(
+        item for item in random_graph["classes"]
+        if item["name"] == "UndirectedGraphGenerator"
+    )
+    random_path = next(item for item in generator["methods"] if item["name"] == "path")
+    assert random_path["returnFormat"] == "Graph"
+
+    factorization = module_by_path(data, "library_codex.prime.Factorization")
+    factor_count = next(
+        item for item in factorization["functions"] if item["name"] == "factor_count"
+    )
+    sieve = module_by_path(data, "library_codex.prime.Sieve")
+    linear_sieve = next(item for item in sieve["classes"] if item["name"] == "LinearSieve")
+    sieve_factor_count = next(
+        item for item in linear_sieve["methods"] if item["name"] == "factor_count"
+    )
+    assert factor_count["returnFormat"] == "dict[int, int]"
+    assert sieve_factor_count["returnFormat"] == "list[tuple[int, int]]"
 
 
 def test_stale_fingerprint_is_detected(monkeypatch, tmp_path):

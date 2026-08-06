@@ -28,7 +28,7 @@ from library_codex.fps.DualFormalPowerSeries import DualFormalPowerSeries
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`deg`](../../../fps/DualFormalPowerSeries.py#L25) | property | `deg`を求める。 | なし | `len(self.coefficients)` |
-| [`get()`](../../../fps/DualFormalPowerSeries.py#L28) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
+| [`get()`](../../../fps/DualFormalPowerSeries.py#L28) | method | 現在の係数列のcopyを取り出す。 | なし | list[int] — $[x^i]f(x)$ をindex $i$ に格納した係数列。内部listとは共有しない。 |
 | [`__add__(other)`](../../../fps/DualFormalPowerSeries.py#L38) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |
 | [`__sub__(other)`](../../../fps/DualFormalPowerSeries.py#L45) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |
 | [`__rsub__(other)`](../../../fps/DualFormalPowerSeries.py#L50) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `DualFormalPowerSeries(self._coerce(other), self.mod) - self` |

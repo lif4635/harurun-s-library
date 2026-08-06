@@ -34,4 +34,4 @@ from library_codex.graph_matching.GeneralMatching import maximum_general_matchin
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`pairs()`](../../../graph_matching/GeneralMatching.py#L98) | method | matchingに含まれる左右頂点の組を列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`pairs()`](../../../graph_matching/GeneralMatching.py#L98) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |

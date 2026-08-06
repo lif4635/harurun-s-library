@@ -23,5 +23,5 @@ from library_codex.optimization.ConvexMinPlusConvolution import convex_min_plus_
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`convex_min_plus_convolution(arbitrary, convex, return_argmin=False)`](../../../optimization/ConvexMinPlusConvolution.py#L5) | 一般列と凸列のmin-plus畳み込みを求める。 | `arbitrary`: 任意列側の入力<br>`convex`: 凸列側の入力<br>`return_argmin`: 最小値に加えて選んだ添字も返すか。省略時: `False` | list[number]、return_argmin=Trueならtuple[list[number], list[int]] — 値の列は長さlen(arbitrary)+len(convex)-1、添字列は各値を作ったconvex側の位置 |
-| [`convex_convex_min_plus_convolution(first, second)`](../../../optimization/ConvexMinPlusConvolution.py#L36) | 2つの凸列のmin-plus畳み込みを差分列のmergeで求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[number] — 長さlen(first)+len(second)-1のmin-plus畳み込み |
+| [`convex_min_plus_convolution(arbitrary, convex, return_argmin=False)`](../../../optimization/ConvexMinPlusConvolution.py#L5) | 一般列と凸列のmin-plus畳み込みを求める。 | `arbitrary`: 任意列側の入力<br>`convex`: 凸列側の入力<br>`return_argmin`: 最小値に加えて選んだ添字も返すか。省略時: `False` | list[number]、return_argmin=Trueならtuple[list[number], list[int]] — 値の列 $c$ は $c_k=\min_{i+j=k}(\mathrm{arbitrary}_i+\mathrm{convex}_j)$。長さは $\lvert\mathrm{arbitrary}\rvert+\lvert\mathrm{convex}\rvert-1$。添字列の $k$ 番目は最小値を作った $j$ |
+| [`convex_convex_min_plus_convolution(first, second)`](../../../optimization/ConvexMinPlusConvolution.py#L36) | 2つの凸列のmin-plus畳み込みを差分列のmergeで求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[number] — $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ を格納した長さ $\lvert\mathrm{first}\rvert+\lvert\mathrm{second}\rvert-1$ の列 |

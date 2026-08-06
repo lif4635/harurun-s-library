@@ -35,4 +35,4 @@ from library_codex.spatial_structure.UnionRectangle import union_rectangle_area,
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add(left, right, bottom, top)`](../../../spatial_structure/UnionRectangle.py#L71) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`bottom`: 矩形の下端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
-| [`run()`](../../../spatial_structure/UnionRectangle.py#L74) | method | 登録済みの処理を実行し、入力順に結果を返す。 | なし | `union_rectangle_area(self.rectangles)` |
+| [`run()`](../../../spatial_structure/UnionRectangle.py#L74) | method | 登録した軸平行長方形のunion面積を求める。 | なし | `union_rectangle_area(self.rectangles)` |

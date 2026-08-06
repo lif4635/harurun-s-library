@@ -21,4 +21,4 @@ from library_codex.tree.TreeDistanceFrequency import tree_distance_counts
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`tree_distance_counts(tree, include_same=False)`](../../../tree/TreeDistanceFrequency.py#L7) | 木の頂点pair数を距離ごとに数える。 | `tree`: 木の隣接list<br>`include_same`: `include`・`same`を有効にするか。省略時: `False` | list[int] — index dは距離dのunordered頂点pair数。include_same=Trueならindex 0は頂点数 |
+| [`tree_distance_counts(tree, include_same=False)`](../../../tree/TreeDistanceFrequency.py#L7) | 木の頂点pair数を距離ごとに数える。 | `tree`: 木の隣接list<br>`include_same`: `include`・`same`を有効にするか。省略時: `False` | list[int] — $\mathrm{result}[d]$ は距離が $d$ の頂点のunordered pair数。include_same=Trueなら $\mathrm{result}[0]$ は頂点数 |

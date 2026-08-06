@@ -23,7 +23,7 @@ from library_codex.combinatorics.BinomialQueries import comb_prefix_sums, Binomi
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`comb_prefix_sums(queries, mod=DEFAULT_MOD)`](../../../combinatorics/BinomialQueries.py#L44) | 複数のsum(C(n,k), 0<=k<=m)をquery順に一括計算する。 | `queries`: 求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 各(n,m)に対するsum(C(n,k), 0<=k<=m)をqueryと同じ順に並べた列 |
+| [`comb_prefix_sums(queries, mod=DEFAULT_MOD)`](../../../combinatorics/BinomialQueries.py#L44) | 複数の $\sum_{k=0}^{m}\binom{n}{k}$ をクエリ順に一括計算する。 | `queries`: 求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 各クエリ $(n,m)$ に対する $\sum_{k=0}^{m}\binom{n}{k}$ を、入力と同じ順に並べた列 |
 
 ## Class `BinomialPrefix`
 
@@ -35,8 +35,8 @@ sum(C(n,k), 0 <= k <= m)を隣接する(n,m)へO(1)で動かす。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`move(n, m)`](../../../combinatorics/BinomialQueries.py#L18) | method | 現在位置から(n,m)へ移動し、sum(C(n,k), 0<=k<=m)を返す。O(\|Δn\|+\|Δm\|)。 | `n`: 二項係数C(n, k)の上側の整数<br>`m`: prefix和へ含めるkの上限 | int — 移動後のsum(C(n,k), 0<=k<=m) |
-| [`get()`](../../../combinatorics/BinomialQueries.py#L39) | method | 現在位置の二項係数prefix和を返す。O(1)。 | なし | int — 現在位置のsum(C(n,k), 0<=k<=m) |
+| [`move(n, m)`](../../../combinatorics/BinomialQueries.py#L18) | method | 現在位置から $(n,m)$ へ移動し、$\sum_{k=0}^{m}\binom{n}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側の整数<br>`m`: prefix和へ含めるkの上限 | int — 移動後の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。 |
+| [`get()`](../../../combinatorics/BinomialQueries.py#L39) | method | 現在位置 $(n,m)$ の $\sum_{k=0}^{m}\binom{n}{k}$ を返す。 | なし | int — 現在位置の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。 |
 
 ## Class `StirlingNumberQuery`
 
@@ -48,5 +48,5 @@ sum(C(n,k), 0 <= k <= m)を隣接する(n,m)へO(1)で動かす。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`first_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L109) | method | `first`・`kind`を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `-result % prime if quotient + a & 1 else result` |
-| [`second_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L127) | method | `second`・`kind`を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / `1` / `self._binomial(a, quotient - 1)` / 数値または入力要素型 `self._binomial(a, quotient) * self.second[b][remainder] % prime` |
+| [`first_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L109) | method | 符号なし第一種 Stirling 数 $c(n,k)$ を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $c(n,k)\bmod\mathrm{mod}$。 |
+| [`second_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L127) | method | 第二種 Stirling 数 $S(n,k)$ を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $S(n,k)\bmod\mathrm{mod}$。 |

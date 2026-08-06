@@ -34,4 +34,4 @@ Seaweed monoidによる静的区間LISを扱う `RangeLIS`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`query(left, right)`](../../../segment_tree/RangeLIS.py#L232) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
+| [`query(left, right)`](../../../segment_tree/RangeLIS.py#L232) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる部分列のLIS長を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | int — 指定区間の狭義単調増加部分列の最大長。空区間なら0。 |

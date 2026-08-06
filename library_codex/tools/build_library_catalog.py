@@ -166,16 +166,20 @@ PROSE_REPLACEMENTS = (
 
 
 def localize_prose(value):
-    """Translate incidental English in user-facing prose, not code or types."""
+    """Translate incidental English in prose without rewriting TeX variables."""
     value = clean_markdown(value)
-    for english, japanese in PROSE_REPLACEMENTS:
-        value = re.sub(
-            rf"(?<![A-Za-z_]){re.escape(english)}(?![A-Za-z_])",
-            japanese,
-            value,
-            flags=re.IGNORECASE,
-        )
-    return value
+    protected = re.split(r"(\$\$.*?\$\$|\$[^$\n]*\$)", value, flags=re.DOTALL)
+    for index in range(0, len(protected), 2):
+        prose = protected[index]
+        for english, japanese in PROSE_REPLACEMENTS:
+            prose = re.sub(
+                rf"(?<![A-Za-z_]){re.escape(english)}(?![A-Za-z_])",
+                japanese,
+                prose,
+                flags=re.IGNORECASE,
+            )
+        protected[index] = prose
+    return "".join(protected)
 
 
 def localize_class_description(name, value):
@@ -185,8 +189,10 @@ def localize_class_description(name, value):
         return value
     topic = match.group(1)
     if topic.endswith("を扱う"):
-        return f"{name} は{topic}。"
-    return f"{name} は{topic}を扱う。"
+        topic = topic[:-3]
+    if re.search(r"(?:する|求める|返す|管理する|保持する|構築する)$", topic):
+        return f"{topic}ためのクラス。"
+    return f"{topic}を行うクラス。"
 
 
 def localize_capability(value):
@@ -1235,19 +1241,27 @@ def friendly_purpose(symbol_name, description, argument_details):
     ).strip()
     names = {item["name"].lstrip("*") for item in argument_details}
     if symbol_name in ("add", "range_add") and {"left", "right", "value"} <= names:
-        return "範囲 [left, right) の各要素に value を加える。"
+        return r"半開区間 $[\mathrm{left},\mathrm{right})$ の各要素にvalueを加える。"
     if symbol_name == "add" and {"index", "value"} <= names:
         return "index の値に value を加える。"
     if symbol_name in ("sum", "prod") and {"left", "right"} <= names:
-        return "範囲 [left, right) を集計して返す。"
+        if symbol_name == "sum":
+            return (
+                r"半開区間 $[\mathrm{left},\mathrm{right})$ の和 "
+                r"$\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$ を返す。"
+            )
+        return r"半開区間 $[\mathrm{left},\mathrm{right})$ を演算opで畳み込む。"
     if symbol_name in ("prefix_sum", "sum0") and "right" in names:
-        return "範囲 [0, right) の総和を返す。"
+        return r"接頭区間 $[0,\mathrm{right})$ の和 $\sum_{i=0}^{\mathrm{right}-1}a_i$ を返す。"
     if symbol_name == "get" and "index" in names:
-        return "index にある値を返す。"
+        return r"位置indexにある値 $a_{\mathrm{index}}$ を返す。"
     if symbol_name in ("set", "update") and {"index", "value"} <= names:
         return "index の値を value に置き換える。"
     if symbol_name in ("lower_bound", "bisect_left") and "target" in names:
-        return "累積値が target 以上になる最初の位置を返す。"
+        return (
+            r"累積値がtarget以上になる最初の位置、つまり "
+            r"$\sum_{i=0}^{r-1}a_i\ge\mathrm{target}$ を満たす最小の $r$ を返す。"
+        )
     protocol_purposes = {
         "__add__": "加算した結果を返す。",
         "__radd__": "左右を入れ替えて加算した結果を返す。",
@@ -1325,7 +1339,7 @@ def infer_return_format(value, symbol_name, owner, source_formats):
     return "計算結果（入力型に依存）"
 
 
-def friendly_return_description(symbol_name, value, return_format):
+def friendly_return_description(symbol_name, value, return_format, argument_details=()):
     cleaned = clean_markdown(value)
     lower = symbol_name.lower()
     words = set(lower.strip("_").split("_"))
@@ -1367,8 +1381,24 @@ def friendly_return_description(symbol_name, value, return_format):
         return "要素数。"
     if lower in ("same", "connected", "empty", "contains") or lower.startswith(("is_", "has_", "can_")):
         return "条件を満たすかどうか。"
-    if lower in ("sum", "prod", "prefix_sum", "fold", "query"):
+    argument_names = {
+        item["name"].lstrip("*") for item in argument_details
+    }
+    if lower == "sum" and {"left", "right"} <= argument_names:
+        return r"$\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。"
+    if lower in ("prefix_sum", "sum0") and "right" in argument_names:
+        return r"$\sum_{i=0}^{\mathrm{right}-1}a_i$。"
+    if lower == "prod" and {"left", "right"} <= argument_names:
+        return (
+            r"半開区間 $[\mathrm{left},\mathrm{right})$ の要素を"
+            "演算opで左から畳み込んだ値。"
+        )
+    if lower == "all_prod":
+        return "全要素を演算opで左から畳み込んだ値。"
+    if lower in ("sum", "prod", "fold", "query"):
         return "指定した範囲の集計結果。"
+    if lower in ("get", "__getitem__") and "index" in argument_names:
+        return r"位置indexにある値 $a_{\mathrm{index}}$。"
     if lower in ("get", "__getitem__"):
         return "指定した位置または対象に格納されている値。"
     if lower in ("lower_bound", "upper_bound", "bisect_left", "bisect_right"):
@@ -1396,6 +1426,40 @@ def friendly_return_description(symbol_name, value, return_format):
     if cleaned in ("値", "計算結果", "結果"):
         return "上記の処理結果。"
     return cleaned
+
+
+GENERIC_RETURN_TEXTS = {
+    "上記の処理結果。",
+    "このAPIの結果を呼び出し順・添字順に格納したリスト。",
+    "このAPIの結果要素を1つずつ返すiterator。",
+}
+
+
+def return_description_from_purpose(return_description, description):
+    """Use a concrete purpose sentence when the source only says 'the result'."""
+    if return_description not in GENERIC_RETURN_TEXTS:
+        return return_description
+    first_sentence = description.split("。", 1)[0].strip()
+    if not first_sentence or first_sentence in {
+        "処理を実行する",
+        "指定した対象への問い合わせ結果を返す",
+        "指定位置・辺・状態の値を取得する",
+    }:
+        return return_description
+    replacements = (
+        (r"^(.+?)を(?:計算して)?返す$", r"\1。"),
+        (r"^(.+?)を求める$", r"求めた\1。"),
+        (r"^(.+?)を計算する$", r"計算した\1。"),
+        (r"^(.+?)を生成する$", r"生成した\1。"),
+        (r"^(.+?)を構築する$", r"構築した\1。"),
+        (r"^(.+?)を列挙する$", r"列挙した\1。"),
+        (r"^(.+?)を取得する$", r"取得した\1。"),
+        (r"^(.+?)を判定する$", r"\1かどうか。"),
+    )
+    for pattern, replacement in replacements:
+        if re.fullmatch(pattern, first_sentence):
+            return re.sub(pattern, replacement, first_sentence)
+    return return_description
 
 
 def enrich_container_format(return_format, symbol_name):
@@ -1596,7 +1660,12 @@ def table_symbols(
         return_description = (
             structured_return[1]
             if len(structured_return) == 2
-            else friendly_return_description(symbol_name, returns_value, return_format)
+            else friendly_return_description(
+                symbol_name,
+                returns_value,
+                return_format,
+                argument_details,
+            )
         )
         return_description = re.sub(
             r"\s*/\s*(?:list|dict|set|iterator)\[[^]]+\]\s*—\s*計算結果$",
@@ -1608,6 +1677,10 @@ def table_symbols(
             symbol_name,
             cells[description_index] if len(cells) > description_index else "",
             argument_details,
+        )
+        return_description = return_description_from_purpose(
+            return_description,
+            description,
         )
         item = {
                 "name": symbol_name,

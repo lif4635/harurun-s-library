@@ -30,5 +30,5 @@ from library_codex.union_find.DynamicUnionFind import DynamicUnionFind
 | [`add(node)`](../../../union_find/DynamicUnionFind.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `node`: 頂点・内部node番号 | bool |
 | [`find(node)`](../../../union_find/DynamicUnionFind.py#L19) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） |
 | [`merge(first, second)`](../../../union_find/DynamicUnionFind.py#L37) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`same(first, second)`](../../../union_find/DynamicUnionFind.py#L53) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`same(first, second)`](../../../union_find/DynamicUnionFind.py#L53) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
 | [`size(node)`](../../../union_find/DynamicUnionFind.py#L56) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |

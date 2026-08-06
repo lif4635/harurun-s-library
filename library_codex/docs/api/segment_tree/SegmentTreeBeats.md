@@ -37,10 +37,10 @@ range chmin/chmax/add/update・range sum/min/max（非再帰）を扱う `Segmen
 | [`range_chmax(l, r, x)`](../../../segment_tree/SegmentTreeBeats.py#L235) | method | 区間・`chmax`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
 | [`range_add(l, r, x)`](../../../segment_tree/SegmentTreeBeats.py#L238) | method | 区間・`add`を処理する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
 | [`range_update(l, r, x)`](../../../segment_tree/SegmentTreeBeats.py#L241) | method | 区間・`update`を処理する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | `None` |
-| [`range_sum(l, r)`](../../../segment_tree/SegmentTreeBeats.py#L297) | method | 区間・和を処理する。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 0)` |
+| [`range_sum(l, r)`](../../../segment_tree/SegmentTreeBeats.py#L297) | method | 半開区間 $[l,r)$ の要素和を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | $\sum_{i=l}^{r-1}a_i$。 |
 | [`range_min(l, r)`](../../../segment_tree/SegmentTreeBeats.py#L300) | method | 区間・最小を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 1)` |
 | [`range_max(l, r)`](../../../segment_tree/SegmentTreeBeats.py#L303) | method | 区間・最大を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._range_query(l, r, 2)` |
-| [`get(p)`](../../../segment_tree/SegmentTreeBeats.py#L310) | method | 指定位置・辺・状態の値を取得する。 | `p`: 操作する位置（0始まり）または、このAPIで使う法 | 指定対象に格納された値・edge object |
+| [`get(p)`](../../../segment_tree/SegmentTreeBeats.py#L310) | method | 位置pの現在値 $a_p$ を返す。 | `p`: 操作する位置（0始まり）または、このAPIで使う法 | 遅延更新を反映した $a_p$。 |
 | [`set(p, x)`](../../../segment_tree/SegmentTreeBeats.py#L317) | method | 指定位置・状態を値で置き換える。 | `p`: 操作する位置（0始まり）または、このAPIで使う法<br>`x`: 値・座標・問い合わせ対象 | `None` |
 | [`all_sum()`](../../../segment_tree/SegmentTreeBeats.py#L321) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
 | [`all_min()`](../../../segment_tree/SegmentTreeBeats.py#L324) | method | 全体・最小を求める。 | なし | `self.range_min(0, self.n)` |

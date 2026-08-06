@@ -56,7 +56,7 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L32) | method | 指定要素・頂点に対応する内部indexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` |
+| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L32) | method | valueに対応する商列tableのindexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` |
 | [`value(index)`](../../../number_theory/MultiplicativeFunctions.py#L37) | method | 値を求める。 | `index`: 位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` |
 | [`__getitem__(key)`](../../../number_theory/MultiplicativeFunctions.py#L42) | method | obj[key] で取得する。 | `key`: 比較・格納に使うkey | 格納値、sliceなら同種の部分構造 |
 | [`__setitem__(key, value)`](../../../number_theory/MultiplicativeFunctions.py#L45) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` |
@@ -85,8 +85,8 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L273) | method | 指定要素・頂点に対応する内部indexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `self.size - value if value <= self.square else self.limit // v...` |
+| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L273) | method | valueに対応するprefix tableのindexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `self.size - value if value <= self.square else self.limit // v...` |
 | [`prime_count_table()`](../../../number_theory/MultiplicativeFunctions.py#L281) | method | 素数・個数・`table`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `high + [small[value] for value in range(self.square, 0, -1)]` |
 | [`prime_sum_table()`](../../../number_theory/MultiplicativeFunctions.py#L305) | method | 素数・和・`table`を計算する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`run(prime_prefix, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L332) | method | 登録済みの処理を実行し、入力順に結果を返す。 | `prime_prefix`: 素数・prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | `0` / `self._normalize(answer)` |
+| [`run(prime_prefix, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L332) | method | 素数上のprefix値と素数冪の値から、乗法的関数のprefix和を求める。 | `prime_prefix`: 素数・prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | `0` / `self._normalize(answer)` |
 | [`min_25_sieve(prime_prefix, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L361) | method | 最小・`25`・`sieve`を求める。 | `prime_prefix`: 素数・prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |

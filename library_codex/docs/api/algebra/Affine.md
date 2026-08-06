@@ -27,6 +27,6 @@ from library_codex.algebra.Affine import Affine
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`__call__(value)`](../../../algebra/Affine.py#L13) | method | obj(...) として呼び出す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `result if self.mod is None else result % self.mod` |
+| [`__call__(value)`](../../../algebra/Affine.py#L13) | method | 保持しているaffine変換 $f(x)=ax+b$ をvalueへ適用する。 | `value`: 追加・設定・問い合わせる値 | $a\cdot\mathrm{value}+b$。 |
 | [`__mul__(other)`](../../../algebra/Affine.py#L17) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Affine instance |
 | [`__eq__(other)`](../../../algebra/Affine.py#L23) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |

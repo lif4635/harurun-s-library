@@ -28,7 +28,7 @@ from library_codex.graph_connectivity.BiconnectedComponents import BiconnectedCo
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`components`](../../../graph_connectivity/BiconnectedComponents.py#L109) | property | 現在の連結成分数を返す。 | なし | `self.vertex_components` |
+| [`components`](../../../graph_connectivity/BiconnectedComponents.py#L109) | property | 頂点ごとに、その頂点を含む二頂点連結成分IDを列挙する。 | なし | `self.vertex_components` |
 | [`bc`](../../../graph_connectivity/BiconnectedComponents.py#L113) | property | `bc`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 
 ## Class `BlockCutTree`

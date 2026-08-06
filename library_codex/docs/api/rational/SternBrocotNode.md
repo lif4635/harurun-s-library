@@ -30,7 +30,7 @@ Stern-Brocot木上の有理数と経路を扱うを扱う `SternBrocotNode`。
 | [`get()`](../../../rational/SternBrocotNode.py#L39) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
 | [`lower_bound()`](../../../rational/SternBrocotNode.py#L42) | method | 指定値以上となる最初の位置を返す。 | なし | 条件を満たす最小index（int。存在しなければsize） |
 | [`upper_bound()`](../../../rational/SternBrocotNode.py#L45) | method | `upper`・`bound`を求める。 | なし | tuple(`self.rx`, `self.ry`) |
-| [`depth()`](../../../rational/SternBrocotNode.py#L48) | method | 指定頂点の根からの深さを返す。 | なし | `sum((abs(step) for step in self.path))` |
+| [`depth()`](../../../rational/SternBrocotNode.py#L48) | method | Stern–Brocot木の根1/1から現在の有理数までの辺数を返す。 | なし | `sum((abs(step) for step in self.path))` |
 | [`go_left(steps=1)`](../../../rational/SternBrocotNode.py#L51) | method | `go`・左を求める。 | `steps`: 移動step数。省略時: `1` | `self` |
 | [`go_right(steps=1)`](../../../rational/SternBrocotNode.py#L64) | method | `go`・右を求める。 | `steps`: 移動step数。省略時: `1` | `self` |
 | [`go_parent(steps=1)`](../../../rational/SternBrocotNode.py#L77) | method | `go`・`parent`を求める。 | `steps`: 移動step数。省略時: `1` | bool |

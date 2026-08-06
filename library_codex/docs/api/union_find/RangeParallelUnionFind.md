@@ -29,5 +29,5 @@ from library_codex.union_find.RangeParallelUnionFind import RangeParallelUnionFi
 | --- | --- | --- | --- | --- |
 | [`merge(first, second, length=1, callback=None)`](../../../union_find/RangeParallelUnionFind.py#L12) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`length`: 長さ。省略時: `1`<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | `None` |
 | [`find(node)`](../../../union_find/RangeParallelUnionFind.py#L45) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） |
-| [`same(first, second)`](../../../union_find/RangeParallelUnionFind.py#L48) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`same(first, second)`](../../../union_find/RangeParallelUnionFind.py#L48) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
 | [`size(node)`](../../../union_find/RangeParallelUnionFind.py#L51) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |

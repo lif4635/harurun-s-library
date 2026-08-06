@@ -230,34 +230,29 @@ PURPOSE_BY_NAME = {
     "add_query": "半開区間の問い合わせを登録し、そのquery IDを返す。",
     "best": "現在の評価が最大の候補番号を返す。",
     "bfs_csr": "重みなしグラフでstartから各頂点までの最短辺数と直前頂点を求める。",
-    "C": "二項係数 C(n, k) を計算する。",
     "comb_small_k": "nが大きくkが小さいときに、階乗表を作らず乗法式で二項係数を求める。分母がmodで可逆な範囲で使う。",
     "comb_prefix_sums": "複数のsum(C(n,k), 0<=k<=m)をquery順に一括計算する。",
     "circuit": "要素を加えたときに生じるmatroidの基本回路を返す。",
-    "components": "現在の連結成分数を返す。",
+    "component_size": "指定頂点が属する連結成分の頂点数を返す。",
     "connected_components_csr": "無向グラフを連結成分へ分け、各頂点の成分IDと頂点groupを返す。",
     "dijkstra_csr": "非負重みグラフでstartからの最短距離と経路復元用の直前頂点を求める。",
     "divisors": "正の約数を昇順で列挙する。",
     "euler_phi": "1以上number以下でnumberと互いに素な整数の個数を返す。",
-    "factor_count": "各素因数の指数を数える。",
     "factor_count_pairs": "素因数と指数の組を素因数順に返す。",
     "factorial": "n!を指定した法で計算する。",
     "from_adjacency": "隣接listを検証し、同じ辺をCSR形式へ変換する。",
-    "get_edge": "edge_idに対応する辺の両端頂点を返す。",
+    "get_edge": "edge_idに対応する辺情報を返す。",
     "lower_string": "英小文字からなる指定長のランダム文字列を生成する。",
     "mobius": "整数numberに対するMöbius関数の値を返す。",
     "merge_max_interval": "隣り合う2区間の集約値を結合し、結合後の区間和・最大部分配列和・最小部分配列和を返す。",
     "max_interval_segment_tree": "数列から、各区間の最大・最小部分配列和を取得できるSegmentTreeを構築する。",
     "modular_power": "baseのexponent乗をmodulusで割った余りを返す。",
-    "neighbors": "指定頂点から出る辺を (行き先, 重み, 辺ID) の順で列挙する。",
     "normalize": "保持中の候補を評価順に整理し、上位だけを残す。",
-    "pairs": "matchingに含まれる左右頂点の組を列挙する。",
+    "pairs": "matchingに含まれる頂点pairを列挙する。",
     "play": "次に試す候補を選び、その番号を返す。",
     "pollard_rho": "合成数numberの非自明な因数を1つ探す。",
     "prime_factors": "素因数を重複込みで昇順に列挙する。",
     "reward": "直前に選んだ候補へ観測した報酬を反映する。",
-    "run": "登録済みの処理を実行し、入力順に結果を返す。",
-    "same": "2要素が同じ連結成分に属するか判定する。",
     "scc_ids_csr": "強連結成分数と頂点ごとの成分IDをトポロジカル順で返す。",
     "scc": "有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。",
     "scc_csr": "CSR有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。",
@@ -272,7 +267,6 @@ PURPOSE_BY_NAME = {
     "bit_indices": "整数の2進表現で1になっているbit位置を昇順に列挙する。",
     "bucket_sort": "非負整数keyを使ってvaluesを安定sortした列を返す。",
     "bucket_sort_permutation": "非負整数keyを安定sortしたときの元の添字順を返す。",
-    "component_size": "指定頂点が属する連結成分の頂点数を返す。",
     "coordinate_compress": "値の大小関係を保った0始まりの順位へ座標圧縮する。",
     "count_increasing_sequences": "lower[i]以上upper[i]未満を満たす広義単調増加列の個数を求める。",
     "count_spanning_trees": "無向グラフの全域木の個数をMatrix-Tree theoremで求める。",
@@ -280,7 +274,6 @@ PURPOSE_BY_NAME = {
     "convex_convex_min_plus_convolution": "2つの凸列のmin-plus畳み込みを差分列のmergeで求める。",
     "concave_max_plus_convolution": "凹列と一般列のmax-plus畳み込みを求める。",
     "decimal_digit_count": "非負整数の10進桁数を返す。",
-    "depth": "指定頂点の根からの深さを返す。",
     "ensure_permutation": "列が0からn-1までを1回ずつ含む置換か判定する。",
     "fibonacci": "index番目のFibonacci数を高速doublingで求める。",
     "lis": "最長増加部分列の長さを求め、必要なら添字列と値列も復元する。",
@@ -310,13 +303,11 @@ PURPOSE_BY_NAME = {
     "fps_remainder": "昇冪係数列で表した2多項式の余りを返す。",
     "fps_taylor_shift": "多項式f(x)からf(x+shift)の昇冪係数列を求める。",
     "fps_product": "複数の多項式を短いものから畳み込み、全体の積を返す。",
-    "index": "指定要素・頂点に対応する内部indexを返す。",
     "integer_partitions": "整数totalの分割を辞書式順序で列挙する。",
     "integer_partitions_up_to": "指定上限までの各整数分割を列挙する。",
     "inversion_count": "列で i < j かつ values[i] > values[j] となる組数を求める。",
     "knapsack_01": "各品物を高々1回選ぶ0/1 knapsackの到達可能状態を計算する。",
     "knapsack_01_max": "各品物を高々1回選ぶ0/1 knapsackの最大価値を求める。",
-    "kth_element": "列を部分的に並べ替え、0始まりでk番目に小さい値を返す。",
     "kth_on_path": "2頂点間のpath上で始点からk個進んだ頂点を返す。",
     "merge_intervals": "重なる区間を併合し、互いに交わらない半開区間列を返す。",
     "num_vertices": "現在登録されている頂点数を返す。",
@@ -338,8 +329,6 @@ PURPOSE_BY_NAME = {
     "sample": "列から重複なしで指定個数を一様に選ぶ。",
     "sample_range": "閉区間内の整数から重複なしで指定個数を一様に選ぶ。",
     "string": "指定alphabetから独立に文字を選んだ文字列を生成する。",
-    "intervals": "指定範囲に収まるランダムな半開区間を生成する。",
-    "composition": "合計を固定した非負または正の整数列を一様に生成する。",
     "edge_count": "保持している辺の本数を返す。",
     "add_directed_edge": "有向辺をedge-listへ追加し、その位置を返す。",
     "add_undirected_edge": "無向辺をedge-listへ追加し、その位置を返す。",
@@ -349,15 +338,24 @@ PURPOSE_BY_NAME = {
     "set_seed": "乱数状態を指定seedから作り直し、generator自身を返す。",
     "single": "1要素だけを含む区間のMaxIntervalを作る。",
     "tree": "Prüfer codeからラベル付き木を一様ランダムに生成する。",
-    "path": "頂点labelをランダムに並べたpath graphを生成する。",
     "star": "中心頂点を一様に選んだstar graphを生成する。",
     "complete": "n頂点の完全単純graphを生成する。",
     "simple": "n頂点m辺の単純無向graphを一様に生成する。",
-    "connected": "n頂点m辺の連結単純無向graphを生成する。",
     "erdos_renyi": "各辺を独立に指定確率で含めたG(n,p)を生成する。",
     "unicyclic": "n頂点n辺でcycleをちょうど1個持つ連結graphを生成する。",
     "tree_center": "木の直径に対する中心頂点を1個または2個返す。",
     "tree_centroid": "取り除いた後の各成分が元の半分以下になる重心を返す。",
+}
+
+
+# These names are intentionally shared because their user-facing operation is
+# identical across modules. Other repeated names belong in API_DETAILS_BY_SYMBOL.
+SHARED_PURPOSE_NAMES = {
+    "component_size",
+    "get_edge",
+    "kth_on_path",
+    "pairs",
+    "parent_of",
 }
 
 
@@ -414,27 +412,49 @@ ARGUMENT_DETAILS = {
 
 
 RETURN_DETAILS = {
-    "C": "int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0",
     "bfs_csr": "tuple[list[int], list[int]] — 1つ目は各頂点までの辺数（未到達は-1）、2つ目は経路復元用の直前頂点（未設定は-1）",
     "bipartite_coloring_csr": "list[int] | None — 各頂点の色0/1。二部グラフでなければNone",
     "connected_components_csr": "tuple[list[int], list[list[int]]] — 1つ目は頂点ごとの成分ID、2つ目は各成分に属する頂点の列",
-    "comb_small_k": "int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0",
-    "comb_prefix_sums": "list[int] — 各(n,m)に対するsum(C(n,k), 0<=k<=m)をqueryと同じ順に並べた列",
-    "convex_min_plus_convolution": "list[number]、return_argmin=Trueならtuple[list[number], list[int]] — 値の列は長さlen(arbitrary)+len(convex)-1、添字列は各値を作ったconvex側の位置",
-    "convex_convex_min_plus_convolution": "list[number] — 長さlen(first)+len(second)-1のmin-plus畳み込み",
-    "concave_max_plus_convolution": "list[number]、return_argmax=Trueならtuple[list[number], list[int]] — 値の列は長さlen(concave)+len(arbitrary)-1、添字列は各値を作ったconcave側の位置",
+    "comb_small_k": (
+        r"int — 二項係数 $\binom{n}{k}$ を $\mathrm{mod}$ で割った余り。"
+        r"$0 \le k \le n$ でなければ0"
+    ),
+    "comb_prefix_sums": (
+        r"list[int] — 各クエリ $(n,m)$ に対する "
+        r"$\sum_{k=0}^{m}\binom{n}{k}$ を、入力と同じ順に並べた列"
+    ),
+    "convex_min_plus_convolution": (
+        r"list[number]、return_argmin=Trueならtuple[list[number], list[int]] — "
+        r"値の列 $c$ は $c_k=\min_{i+j=k}(\mathrm{arbitrary}_i+\mathrm{convex}_j)$。"
+        r"長さは $\lvert\mathrm{arbitrary}\rvert+\lvert\mathrm{convex}\rvert-1$。"
+        r"添字列の $k$ 番目は最小値を作った $j$"
+    ),
+    "convex_convex_min_plus_convolution": (
+        r"list[number] — $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ "
+        r"を格納した長さ $\lvert\mathrm{first}\rvert+\lvert\mathrm{second}\rvert-1$ の列"
+    ),
+    "concave_max_plus_convolution": (
+        r"list[number]、return_argmax=Trueならtuple[list[number], list[int]] — "
+        r"値の列 $c$ は $c_k=\max_{i+j=k}(\mathrm{concave}_i+\mathrm{arbitrary}_j)$。"
+        r"長さは $\lvert\mathrm{concave}\rvert+\lvert\mathrm{arbitrary}\rvert-1$。"
+        r"添字列の $k$ 番目は最大値を作った $i$"
+    ),
     "count_increasing_sequences": "int — 条件を満たす列の個数をmodで割った0以上mod未満の値",
     "count_spanning_trees": "int — 無向全域木の重み付き個数をmodで割った値",
     "dijkstra_csr": "tuple[list[number], list[int]] — 1つ目は各頂点への最短距離（未到達はinf）、2つ目は経路復元用の直前頂点（未設定は-1）",
     "divisors": "list[int] — numberの正の約数を昇順に並べた列",
     "euler_phi": "int — 1以上number以下でnumberと互いに素な整数の個数",
-    "factor_count": "dict[int, int] — keyは素因数、valueはその指数",
     "factor_count_pairs": "list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列",
     "mobius": "int — numberのMöbius関数値（-1、0、1のいずれか）",
     "mcs_order": "list[int] — MCSで選ばれた頂点番号を先頭から並べた長さnの列",
-    "minplus_conv": "list[number] — 添字kがmin(first[i]+second[j], i+j=k)を表す長さlen(first)+len(second)-1の列",
-    "multiplicative_convolution": "list[int] — 添字kがsum(first[i]*second[j], i*j≡k mod prime)を表す長さprimeの列",
-    "neighbors": "iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする",
+    "minplus_conv": (
+        r"list[number] — $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ "
+        r"を格納した長さ $\lvert\mathrm{first}\rvert+\lvert\mathrm{second}\rvert-1$ の列"
+    ),
+    "multiplicative_convolution": (
+        r"list[int] — $c_k=\sum_{ij\equiv k\pmod p} "
+        r"\mathrm{first}_i\mathrm{second}_j$ を格納した長さ $p=\mathrm{prime}$ の列"
+    ),
     "pollard_rho": "int — numberの非自明な因数。numberが素数ならnumber自身",
     "prime_factors": "list[int] — 素因数を重複込みで昇順に並べた列",
     "replacement_paths": "list[number] — index iはedges[i]を除いたsource-target最短距離。到達不能ならinf",
@@ -443,7 +463,10 @@ RETURN_DETAILS = {
     "scc_csr": "tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列",
     "split_mod_progression": "list[tuple[int, int, int, int, int]] — (開始index, 開始値, index差, 値の差, 長さ)の列",
     "topological_sort_csr": "list[int] | None — 頂点のトポロジカル順。閉路があればNone",
-    "tree_distance_counts": "list[int] — index dは距離dのunordered頂点pair数。include_same=Trueならindex 0は頂点数",
+    "tree_distance_counts": (
+        r"list[int] — $\mathrm{result}[d]$ は距離が $d$ の頂点のunordered pair数。"
+        r"include_same=Trueなら $\mathrm{result}[0]$ は頂点数"
+    ),
     "zero_one_bfs_csr": "tuple[list[int], list[int]] — 1つ目は各頂点への最短距離（未到達はinf）、2つ目は経路復元用の直前頂点（未設定は-1）",
     "permute": "list[object] — permutationの順にvaluesの要素を並べた新しいlist",
     "permute_in_place": "list[object] — permutationの順へ並べ替えた入力valuesと同じobject",
@@ -453,41 +476,71 @@ RETURN_DETAILS = {
     "fps_add": "list[number] — 2つの入力と同じ法上の和を表す昇冪係数列",
     "fps_subtract": "list[number] — 第1入力から第2入力を引いた昇冪係数列",
     "fps_negate": "list[number] — 各係数の符号を反転した昇冪係数列",
-    "fps_multiply": "list[number] — 多項式積を表す長さlen(first)+len(second)-1の昇冪係数列",
-    "fps_derivative": "list[number] — 微分結果を表す長さmax(0,len(series)-1)の昇冪係数列",
-    "fps_integral": "list[number] — 定数項0から始まる長さlen(series)+1の昇冪係数列",
-    "fps_evaluate": "int — seriesをvalueへ代入したmod未満の値",
-    "fps_inverse": "list[number] — seriesとの積が1 mod x^degreeになる長さdegreeの昇冪係数列",
-    "fps_logarithm": "list[number] — log(series) mod x^degreeの長さdegreeの昇冪係数列",
-    "fps_exponential": "list[number] — exp(series) mod x^degreeの長さdegreeの昇冪係数列",
-    "fps_power": "list[number] — series^exponent mod x^degreeの長さdegreeの昇冪係数列",
-    "fps_square_root": "list[number] | None — 二乗がseriesに一致する長さdegreeの昇冪係数列。存在しなければNone",
+    "fps_multiply": (
+        r"list[number] — 積 $f(x)g(x)$ を表す長さ "
+        r"$\lvert f\rvert+\lvert g\rvert-1$ の昇冪係数列"
+    ),
+    "fps_derivative": (
+        r"list[number] — 導関数 $f'(x)$ を表す長さ "
+        r"$\max(0,\lvert f\rvert-1)$ の昇冪係数列"
+    ),
+    "fps_integral": (
+        r"list[number] — 定数項を0とした不定積分 $\int f(x)\,dx$ を表す、"
+        r"長さ $\lvert f\rvert+1$ の昇冪係数列"
+    ),
+    "fps_evaluate": (
+        r"int — $f(\mathrm{value})\bmod\mathrm{mod}$。"
+        r"$0 \le \mathrm{answer}<\mathrm{mod}$"
+    ),
+    "fps_inverse": (
+        r"list[number] — $f(x)g(x)\equiv1\pmod{x^{\mathrm{degree}}}$ を満たす "
+        r"$g(x)$ の、長さ $\mathrm{degree}$ の昇冪係数列"
+    ),
+    "fps_logarithm": (
+        r"list[number] — $\log f(x)\bmod x^{\mathrm{degree}}$ の、"
+        r"長さ $\mathrm{degree}$ の昇冪係数列"
+    ),
+    "fps_exponential": (
+        r"list[number] — $\exp f(x)\bmod x^{\mathrm{degree}}$ の、"
+        r"長さ $\mathrm{degree}$ の昇冪係数列"
+    ),
+    "fps_power": (
+        r"list[number] — $f(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ の、"
+        r"長さ $\mathrm{degree}$ の昇冪係数列"
+    ),
+    "fps_square_root": (
+        r"list[number] | None — $g(x)^2\equiv f(x)\pmod{x^{\mathrm{degree}}}$ を満たす "
+        r"$g(x)$ の係数列。存在しなければNone"
+    ),
     "fps_quotient": "list[number] — 多項式除算の商を表す昇冪係数列",
     "fps_divmod": "tuple[list[number], list[number]] — 多項式除算の(商, 余り)",
     "fps_remainder": "list[number] — 次数がdivisor未満の余りを表す昇冪係数列",
-    "fps_taylor_shift": "list[number] — f(x+shift)を表す入力と同じ長さの昇冪係数列",
+    "fps_taylor_shift": (
+        r"list[number] — $f(x+\mathrm{shift})$ を表す入力と同じ長さの昇冪係数列"
+    ),
     "fps_product": "list[number] — 全入力多項式の積を表す昇冪係数列",
     "choice": "object — 入力列から一様に選んだ1要素",
     "shuffle": "mutable sequence — 並べ替え後の入力と同じobject",
-    "permutation": "list[int] — startからstart+size-1までを1回ずつ含むランダムな列",
+    "permutation": (
+        r"list[int] — $\mathrm{start}$ から $\mathrm{start}+\mathrm{size}-1$ までを"
+        r"1回ずつ含むランダムな列"
+    ),
     "sample": "list[object] — 入力列から重複なしで選んだcount要素",
     "sample_range": "list[int] — 指定閉区間から重複なしで選んだcount個の整数",
     "string": "str — alphabetから生成したlength文字の文字列",
-    "intervals": "list[tuple[int, int]] — [lower, upper)内の半開区間(left, right)の列",
-    "composition": "list[int] — 合計がtotalになる長さpartsの非負または正の整数列",
     "edge_count": "int — Graphが保持している辺の本数",
     "add_directed_edge": "int — 追加した辺のedge-list内の0-indexed位置",
     "add_undirected_edge": "int — 追加した辺のedge-list内の0-indexed位置",
     "to_adjacency_list": "list[list[Edge]] — 頂点ごとに外向きEdgeを並べた隣接list",
-    "to_adjacency_matrix": "list[list[number]] — 行を始点、列を終点とするn×nの辺重み行列",
+    "to_adjacency_matrix": (
+        r"list[list[number]] — 行を始点、列を終点とする $n\times n$ の辺重み行列"
+    ),
     "format_edges": "str — 1辺1行の改行区切り文字列（末尾改行なし）",
     "set_seed": "UndirectedGraphGenerator — 状態をresetしたgenerator自身",
-    "tree": "Graph — n頂点n-1辺の連結な木",
-    "path": "Graph — n頂点max(0,n-1)辺のpath graph",
-    "star": "Graph — n頂点max(0,n-1)辺のstar graph",
-    "complete": "Graph — n頂点n(n-1)/2辺の完全graph",
+    "tree": r"Graph — $n$ 頂点 $n-1$ 辺の連結な木",
+    "star": r"Graph — $n$ 頂点 $\max(0,n-1)$ 辺のstar graph",
+    "complete": r"Graph — $n$ 頂点 $n(n-1)/2$ 辺の完全graph",
     "simple": "Graph — n頂点edge_count辺で自己loop・多重辺のないgraph",
-    "connected": "Graph — n頂点edge_count辺の連結単純graph",
     "erdos_renyi": "Graph — 各候補辺を独立にprobabilityで含めた単純graph",
     "unicyclic": "Graph — n頂点n辺でcycleを1個だけ持つ連結単純graph",
 }
@@ -622,15 +675,626 @@ API_DETAILS_BY_SYMBOL = {
     },
     ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick", "query"): {
         "description": (
-            "vertexからの距離が半開区間[lower, upper)に入る頂点の値を合計する。"
+            r"vertexからの距離が半開区間 $[\mathrm{lower},\mathrm{upper})$ に入る"
+            "頂点の値を合計する。"
             "upper=Noneなら距離の上限を設けない。"
         ),
         "returnFormat": "number",
         "returnDescription": (
-            "lower <= dist(vertex, u) < upperを満たすすべての頂点uについて、"
-            "現在のvalues[u]を合計した値。query(vertex)は木全体の値の合計を返す。"
+            r"$\mathrm{lower}\le\operatorname{dist}(\mathrm{vertex},u)<\mathrm{upper}$ を"
+            r"満たすすべての頂点 $u$ に対する $\sum_u\mathrm{values}[u]$。"
+            "query(vertex)は木全体の値の合計を返す。"
         ),
     },
+    ("algorithm/IntegerUtilities.py", None, "integer_nth_root"): {
+        "description": (
+            r"$r^{\mathrm{degree}}\le\mathrm{number}$ を満たす最大の非負整数 $r$ を求める。"
+        ),
+        "returnFormat": "int",
+        "returnDescription": (
+            r"$r^{\mathrm{degree}}\le\mathrm{number}<(r+1)^{\mathrm{degree}}$ を満たす $r$。"
+        ),
+    },
+    ("convolution/MinPlusConvolution.py", None, "minplus_conv"): {
+        "description": (
+            r"2列のmin-plus畳み込み $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ "
+            "をすべての添字和について求める。"
+        ),
+    },
+    (
+        "arithmetic_convolution/MultiplicativeConvolutionModPrime.py",
+        None,
+        "multiplicative_convolution",
+    ): {
+        "description": (
+            r"素数 $p=\mathrm{prime}$ の剰余類の乗法に沿った畳み込み "
+            r"$c_k=\sum_{ij\equiv k\pmod p}\mathrm{first}_i\mathrm{second}_j$ を求める。"
+        ),
+    },
+    ("combinatorics/Combination.py", None, "comb_small_k"): {
+        "description": (
+            r"$n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。"
+        ),
+    },
+    ("combinatorics/Combination.py", "Comb", "fact"): {
+        "description": r"階乗 $n!\bmod\mathrm{mod}$ を返す。",
+        "returnFormat": "int",
+        "returnDescription": r"$n!\bmod\mathrm{mod}$。",
+    },
+    ("combinatorics/Combination.py", "Comb", "P"): {
+        "description": r"順列数 $P(n,k)=n!/(n-k)!$ を $\mathrm{mod}$ で割った余りを返す。",
+        "returnFormat": "int",
+        "returnDescription": (
+            r"$P(n,k)\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。"
+        ),
+    },
+    ("combinatorics/Combination.py", "Comb", "H"): {
+        "description": (
+            r"$n$ 種類から重複を許して $k$ 個選ぶ重複組合せ "
+            r"$H(n,k)=\binom{n+k-1}{k}$ を返す。"
+        ),
+        "returnFormat": "int",
+        "returnDescription": r"$H(n,k)\bmod\mathrm{mod}$。",
+    },
+    ("combinatorics/BinomialQueries.py", None, "comb_prefix_sums"): {
+        "description": (
+            r"複数の $\sum_{k=0}^{m}\binom{n}{k}$ をクエリ順に一括計算する。"
+        ),
+    },
+    ("combinatorics/BinomialQueries.py", "BinomialPrefix", "move"): {
+        "description": (
+            r"現在位置から $(n,m)$ へ移動し、$\sum_{k=0}^{m}\binom{n}{k}$ を返す。"
+        ),
+        "returnFormat": "int",
+        "returnDescription": r"移動後の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。",
+    },
+    ("combinatorics/BinomialQueries.py", "BinomialPrefix", "get"): {
+        "description": r"現在位置 $(n,m)$ の $\sum_{k=0}^{m}\binom{n}{k}$ を返す。",
+        "returnFormat": "int",
+        "returnDescription": r"現在位置の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。",
+    },
+    ("combinatorics/BinomialQueries.py", "StirlingNumberQuery", "first_kind"): {
+        "description": r"符号なし第一種 Stirling 数 $c(n,k)$ を求める。",
+        "returnFormat": "int",
+        "returnDescription": r"$c(n,k)\bmod\mathrm{mod}$。",
+    },
+    ("combinatorics/BinomialQueries.py", "StirlingNumberQuery", "second_kind"): {
+        "description": r"第二種 Stirling 数 $S(n,k)$ を求める。",
+        "returnFormat": "int",
+        "returnDescription": r"$S(n,k)\bmod\mathrm{mod}$。",
+    },
+    ("fenwick_tree/FenwickTree.py", "FenwickTree", "prefix_sum"): {
+        "description": r"先頭からright未満までの和 $\sum_{i=0}^{\mathrm{right}-1}a_i$ を返す。",
+        "returnDescription": r"$\sum_{i=0}^{\mathrm{right}-1}a_i$。",
+    },
+    ("fenwick_tree/FenwickTree.py", "FenwickTree", "sum"): {
+        "description": (
+            r"rightを指定したときは半開区間 $[\mathrm{left},\mathrm{right})$ の和を返す。"
+            r"right=Noneなら $[0,\mathrm{left})$ の和を返す。"
+        ),
+        "returnDescription": (
+            r"rightを指定したときは $\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。"
+            r"right=Noneなら $\sum_{i=0}^{\mathrm{left}-1}a_i$。"
+        ),
+    },
+    ("fenwick_tree/FenwickTree.py", "FenwickTree", "get"): {
+        "description": r"位置indexの値 $a_{\mathrm{index}}$ を返す。",
+        "returnDescription": r"$a_{\mathrm{index}}$。",
+    },
+    ("fenwick_tree/FenwickTree.py", "FenwickTree", "lower_bound"): {
+        "description": (
+            r"接頭和 $\sum_{i=0}^{r-1}a_i$ がtarget以上になる最小の $r$ を返す。"
+        ),
+        "returnFormat": "int",
+        "returnDescription": (
+            r"$\sum_{i=0}^{r-1}a_i\ge\mathrm{target}$ を満たす最小の $r$。"
+            "存在しなければ要素数。"
+        ),
+    },
+    ("fenwick_tree/DynamicFenwickTree.py", "DynamicFenwickTree", "prefix_sum"): {
+        "description": r"先頭からright未満までの和 $\sum_{i=0}^{\mathrm{right}-1}a_i$ を返す。",
+        "returnDescription": r"$\sum_{i=0}^{\mathrm{right}-1}a_i$。",
+    },
+    ("fenwick_tree/DynamicFenwickTree.py", "DynamicFenwickTree", "sum"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ の和を返す。",
+        "returnDescription": r"$\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。",
+    },
+    ("segment_tree/SegTree.py", "SegTree", "prod"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ をopで左から畳み込む。",
+        "returnDescription": (
+            r"$\operatorname{op}(a_{\mathrm{left}},\ldots,a_{\mathrm{right}-1})$。"
+            "空区間なら単位元e。"
+        ),
+    },
+    ("segment_tree/SegTree.py", "SegTree", "all_prod"): {
+        "description": r"全区間 $[0,n)$ をopで左から畳み込む。",
+        "returnDescription": r"全要素のopによる畳み込み。空なら単位元e。",
+    },
+    ("segment_tree/LazySegTree.py", "LazySegTree", "prod"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ をopで左から畳み込む。",
+        "returnDescription": (
+            r"$\operatorname{op}(a_{\mathrm{left}},\ldots,a_{\mathrm{right}-1})$。"
+            "空区間なら単位元e。"
+        ),
+    },
+    ("segment_tree/LazySegTree.py", "LazySegTree", "all_prod"): {
+        "description": r"全区間 $[0,n)$ をopで左から畳み込む。",
+        "returnDescription": r"全要素のopによる畳み込み。空なら単位元e。",
+    },
+    ("combinatorics/Combination.py", "Comb", "C"): {
+        "description": r"二項係数 $\binom{n}{k}\bmod\mathrm{mod}$ を返す。",
+        "returnFormat": "int",
+        "returnDescription": (
+            r"$\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。"
+        ),
+    },
+    ("combinatorics/Combination.py", "Comb", "__call__"): {
+        "description": r"`C(n, k)` と同じく $\binom{n}{k}\bmod\mathrm{mod}$ を返す。",
+        "returnFormat": "int",
+        "returnDescription": (
+            r"$\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。"
+        ),
+    },
+    ("combinatorics/ArbitraryBinomial.py", "LargePrimeFactorial", "C"): {
+        "description": r"Lucasの定理で二項係数 $\binom{n}{k}$ を素数modで求める。",
+        "returnFormat": "int",
+        "returnDescription": r"$\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。",
+    },
+    ("combinatorics/ArbitraryBinomial.py", "PrimePowerBinomial", "C"): {
+        "description": (
+            r"二項係数 $\binom{n}{k}$ を素数冪 $\mathrm{prime}^{\mathrm{exponent}}$ で求める。"
+        ),
+        "returnFormat": "int",
+        "returnDescription": r"$\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。",
+    },
+    ("combinatorics/ArbitraryBinomial.py", "ArbitraryModBinomial", "C"): {
+        "description": r"二項係数 $\binom{n}{k}$ を任意の正のmodで求める。",
+        "returnFormat": "int",
+        "returnDescription": r"$\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。",
+    },
+    ("combinatorics/QBinomial.py", "QBinomial", "C"): {
+        "description": r"q二項係数 $C_q(\mathrm{number},\mathrm{chosen})$ を求める。",
+        "returnFormat": "int",
+        "returnDescription": (
+            r"$C_q(\mathrm{number},\mathrm{chosen})\bmod\mathrm{mod}$。"
+            r"$0\le\mathrm{chosen}\le\mathrm{number}$ でなければ0。"
+        ),
+    },
+    ("combinatorics/RationalBinomial.py", "RationalBinomial", "C"): {
+        "description": r"二項係数 $\binom{\mathrm{number}}{\mathrm{chosen}}$ を正確に求める。",
+        "returnFormat": "Fraction",
+        "returnDescription": (
+            r"$\binom{\mathrm{number}}{\mathrm{chosen}}$ を表すFraction。"
+            r"$0\le\mathrm{chosen}\le\mathrm{number}$ でなければ0。"
+        ),
+    },
+    ("fps/PolynomialComposition.py", None, "composition"): {
+        "description": (
+            r"外側の形式的冪級数 $f=\mathrm{outer}$ へ内側の "
+            r"$g=\mathrm{inner}$ を代入し、$f(g(x))$ を求める。"
+        ),
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"$f(g(x))\bmod x^{\mathrm{degree}}$ の係数を定数項から並べた列。"
+        ),
+    },
+    ("random/Random.py", "Random", "composition"): {
+        "description": "合計を固定した非負または正の整数列を一様に生成する。",
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"$\sum_i \mathrm{result}_i=\mathrm{total}$ を満たす、"
+            r"長さ $\mathrm{parts}$ の非負または正の整数列。"
+        ),
+    },
+    ("prime/Factorization.py", None, "factor_count"): {
+        "description": "整数を素因数分解し、各素因数の指数を数える。",
+        "returnFormat": "dict[int, int]",
+        "returnDescription": "keyが素因数、valueがその指数の辞書。",
+    },
+    ("prime/Sieve.py", "LinearSieve", "factor_count"): {
+        "description": "篩の表を使ってvalueを素因数分解する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "(素因数, 指数)を素因数の昇順に並べた列。",
+    },
+    ("graph/CSRGraph.py", "CSRGraph", "neighbors"): {
+        "description": "vertexから出る辺をCSR内の順に列挙する。",
+        "returnFormat": "iterator[tuple[int, number, int]]",
+        "returnDescription": "(行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする。",
+    },
+    ("graph/DimensionExpandedGraph.py", "DimensionExpandedGraph", "neighbors"): {
+        "description": "座標coordinateと1軸だけが1異なる、grid内の直交近傍を列挙する。",
+        "returnFormat": "list[tuple[int, ...]]",
+        "returnDescription": "各軸の前後に隣接する、有効な座標tupleの列。",
+    },
+    ("ordered_set/RangeSet.py", "RangeSet", "intervals"): {
+        "description": "現在保持している互いに素な半開区間を始点順に列挙する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": r"保持中の半開区間 $[\mathrm{left},\mathrm{right})$ を始点順に並べた列。",
+    },
+    ("random/Random.py", "Random", "intervals"): {
+        "description": "指定範囲に収まるランダムな半開区間を生成する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": (
+            r"$[\mathrm{lower},\mathrm{upper})$ 内に収まる半開区間 "
+            r"$[\mathrm{left},\mathrm{right})$ の列。"
+        ),
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "path"): {
+        "description": "uからvへの木のpathを、頂点列上の少数の半開区間へ分解する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": (
+            "HLD順の半開区間(left, right)の列。edge=Falseなら頂点path、"
+            "edge=TrueならLCAを除いた辺pathを覆う。区間の列自体はpath順とは限らない。"
+        ),
+    },
+    ("graph_connectivity/NamoriDecomposition.py", "NamoriDecomposition", "path"): {
+        "description": "同じ付随木にあるuとvのtree pathを、HLD順の半開区間へ分解する。",
+        "returnFormat": "list[tuple[int, int]] | None",
+        "returnDescription": (
+            "HLD順の半開区間(left, right)の列。2頂点が同じ付随木に属さなければNone。"
+            "edge=TrueならLCAに対応する頂点を除く。"
+        ),
+    },
+    ("random/RandomGraph.py", "UndirectedGraphGenerator", "path"): {
+        "description": "頂点labelをランダムに並べたpath graphを生成する。",
+        "returnFormat": "Graph",
+        "returnDescription": r"$n$ 頂点 $\max(0,n-1)$ 辺のpath graph。",
+    },
+    ("random/RandomGraph.py", "UndirectedGraphGenerator", "connected"): {
+        "description": "n頂点edge_count辺の連結単純無向graphを生成する。",
+        "returnFormat": "Graph",
+        "returnDescription": "n頂点edge_count辺の連結単純graph。",
+    },
+    ("graph_connectivity/OnlineDynamicConnectivity.py", "OnlineDynamicConnectivity", "connected"): {
+        "description": "firstとsecondが現在同じ連結成分に属するか判定する。",
+        "returnFormat": "bool",
+        "returnDescription": "2頂点が同じ連結成分ならTrue、異なればFalse。",
+    },
+    ("tree/IncrementalForest.py", "IncrementalForest", "connected"): {
+        "description": "firstとsecondが現在同じ木に属するか判定する。",
+        "returnFormat": "bool",
+        "returnDescription": "2頂点が同じ木に属すればTrue、異なればFalse。",
+    },
+    ("tree/LinkCutTree.py", "LinkCutTree", "connected"): {
+        "description": "firstとsecondが現在同じ木に属するか判定する。",
+        "returnFormat": "bool",
+        "returnDescription": "2頂点が同じ木に属すればTrue、異なればFalse。",
+    },
+    ("tree/LinkCutTree.py", "SubtreeLinkCutTree", "connected"): {
+        "description": "firstとsecondが現在同じ木に属するか判定する。",
+        "returnFormat": "bool",
+        "returnDescription": "2頂点が同じ木に属すればTrue、異なればFalse。",
+    },
+    ("tree/LinkCutTree.py", "SubtreeAddLinkCutTree", "connected"): {
+        "description": "firstとsecondが現在同じ木に属するか判定する。",
+        "returnFormat": "bool",
+        "returnDescription": "2頂点が同じ木に属すればTrue、異なればFalse。",
+    },
+}
+
+
+API_DETAILS_BY_SYMBOL.update({
+    ("graph_connectivity/BiconnectedComponents.py", "BiconnectedComponents", "components"): {
+        "description": "頂点ごとに、その頂点を含む二頂点連結成分IDを列挙する。",
+    },
+    ("union_find/PersistentUnionFind.py", "PersistentUnionFind", "components"): {
+        "description": "指定versionにある連結成分の個数を返す。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "depth"): {
+        "description": "Stern–Brocot木の根1/1から現在の有理数までの辺数を返す。",
+    },
+    ("string/PersistentString.py", "PersistentString", "depth"): {
+        "description": "内部の永続平衡木の高さを返す。文字列長ではない。",
+    },
+    ("tree/IncrementalForest.py", "IncrementalForest", "depth"): {
+        "description": "vertexが属する木の根からvertexまでの辺数を返す。",
+    },
+    ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "index"): {
+        "description": "多変数の指数tupleを、係数配列の1次元indexへ変換する。",
+    },
+    ("graph_connectivity/NamoriDecomposition.py", "NamoriDecomposition", "index"): {
+        "description": "vertexに対応するHLD順のindexを返す。",
+    },
+    ("graph_spanning/MergeTree.py", "MergeTree", "index"): {
+        "description": "vertexに対応するmerge tree内部のindexを返す。",
+    },
+    ("number_theory/MultiplicativeFunctions.py", "DirichletQuotientSeries", "index"): {
+        "description": "valueに対応する商列tableのindexを返す。",
+    },
+    ("number_theory/MultiplicativeFunctions.py", "MultiplicativePrefixSum", "index"): {
+        "description": "valueに対応するprefix tableのindexを返す。",
+    },
+    ("tree/DSUOnTree.py", "DSUOnTree", "index"): {
+        "description": "vertexに対応するEuler tour順のindexを返す。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "index"): {
+        "description": "頂点vに対応するHLD順のindexを返す。",
+    },
+    ("algorithm/Search.py", None, "kth_element"): {
+        "description": "valuesを部分的に並べ替え、index番目に小さい値を返す。",
+    },
+    ("ordered_set/OrderedMap.py", "OrderedMap", "kth_element"): {
+        "description": "keyの昇順でindex番目にある(key, value)を返す。",
+    },
+    ("algorithm/RangeQueries.py", "Mo", "run"): {
+        "description": "登録した区間queryをMo順に処理し、get()の結果をquery ID順に返す。",
+    },
+    ("graph_connectivity/OfflineDynamicConnectivity.py", "OfflineDynamicConnectivity", "run"): {
+        "description": "辺の追加・削除とqueryを時系列順にoffline処理する。",
+    },
+    ("graph_flow/MinCostBFlow.py", "MinCostBFlow", "run"): {
+        "description": "登録した供給・需要と容量を満たす最小費用b-flowを求める。",
+    },
+    ("graph_matching/GeneralWeightedMatching.py", "GeneralWeightedMatching", "run"): {
+        "description": "一般グラフの最大重みmatchingを求める。",
+    },
+    ("heuristic/SimulatedAnnealing.py", "SimulatedAnnealing", "run"): {
+        "description": "proposeで候補を作り、温度に従って受理しながらstateを更新する。",
+    },
+    ("heuristic/SimulatedAnnealing.py", "SAManager", "run"): {
+        "description": "initializeとupdateを使って焼きなましを進め、最良の状態と評価を返す。",
+    },
+    ("number_theory/MultiplicativeFunctions.py", "MultiplicativePrefixSum", "run"): {
+        "description": "素数上のprefix値と素数冪の値から、乗法的関数のprefix和を求める。",
+    },
+    ("optimization/RollbackMo.py", "RollbackMo", "run"): {
+        "description": "登録した区間queryをrollback Moで処理し、query ID順に結果を返す。",
+    },
+    ("spatial_structure/UnionRectangle.py", "UnionRectangle", "run"): {
+        "description": "登録した軸平行長方形のunion面積を求める。",
+    },
+    ("string/PrefixSubstringLCS.py", "PrefixSubstringLCS", "run"): {
+        "description": "登録した各substringとprefixのLCS長をquery ID順にまとめて求める。",
+    },
+    ("tree/DSUOnTree.py", "DSUOnTree", "run"): {
+        "description": "各頂点を根とする部分木queryをDSU on treeでまとめて処理する。",
+    },
+})
+
+
+# Mathematical definitions and concrete return shapes for APIs whose short
+# names are not descriptive enough on their own.  Keep these module-scoped:
+# names such as get/query/prod are intentionally reused with different meaning.
+API_DETAILS_BY_SYMBOL.update({
+    ("algorithm/BitAlgorithms.py", None, "msb_index"): {
+        "description": r"正整数valueの最上位set bitの位置 $\lfloor\log_2(\mathrm{value})\rfloor$ を返す。",
+        "returnFormat": "int",
+        "returnDescription": r"$2^i\le\mathrm{value}<2^{i+1}$ を満たす0-indexedのbit位置 $i$。",
+    },
+    ("algorithm/BitAlgorithms.py", None, "lsb_index"): {
+        "description": "正整数valueで最下位に立っているbitの位置を返す。",
+        "returnFormat": "int",
+        "returnDescription": r"$2^i$ がvalueを割り切る最大の指数 $i$。",
+    },
+    ("bitwise_convolution/SetFunction.py", "SubsetConvolution", "multiply"): {
+        "description": (
+            r"集合をbit maskで表し、subset convolution "
+            r"$c_S=\sum_{T\subseteq S}\mathrm{first}_T\mathrm{second}_{S\setminus T}$ を求める。"
+        ),
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"入力と同じ長さの列 $c$。mask $S$ の要素は "
+            r"$\sum_{T\subseteq S}\mathrm{first}[T]\mathrm{second}[S\setminus T]\bmod\mathrm{mod}$。"
+        ),
+    },
+    ("bitwise_convolution/SetFunction.py", "SubsetConvolution", "transpose_multiply"): {
+        "description": (
+            r"subset convolutionの転置作用 "
+            r"$c_S=\sum_{T\supseteq S}\mathrm{first}_T\mathrm{second}_{T\setminus S}$ を求める。"
+        ),
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"入力と同じ長さの列 $c$。mask $S$ の要素は "
+            r"$\sum_{T\supseteq S}\mathrm{first}[T]\mathrm{second}[T\setminus S]\bmod\mathrm{mod}$。"
+        ),
+    },
+    ("fps/DualFormalPowerSeries.py", "DualFormalPowerSeries", "get"): {
+        "description": "現在の係数列のcopyを取り出す。",
+        "returnFormat": "list[int]",
+        "returnDescription": r"$[x^i]f(x)$ をindex $i$ に格納した係数列。内部listとは共有しない。",
+    },
+    ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "get"): {
+        "description": r"指定した指数tupleに対応する係数 $[x_0^{i_0}\cdots x_{d-1}^{i_{d-1}}]f$ を返す。",
+        "returnFormat": "int",
+        "returnDescription": r"$\mathrm{mod}$ で正規化された指定monomialの係数。",
+    },
+    ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "power"): {
+        "description": r"多変数形式的冪級数の整数冪 $f^{\mathrm{exponent}}$ を、保持している各変数の次数範囲で求める。",
+        "returnFormat": "MultivariateFormalPowerSeries",
+        "returnDescription": r"$f^{\mathrm{exponent}}$ の打ち切られた係数を持つ新しいMultivariateFormalPowerSeries。",
+    },
+    ("fps/SparseFormalPowerSeries.py", None, "sparse_power"): {
+        "description": r"疎な係数列で表した $f(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ を求める。",
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さdegreeの係数列result。$\mathrm{result}[i]=[x^i]f(x)^{\mathrm{exponent}}\bmod\mathrm{mod}$。"
+        ),
+    },
+    ("polynomial/MultipointEvaluation.py", None, "multipoint_evaluation"): {
+        "description": r"多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。",
+        "returnFormat": "list[int]",
+        "returnDescription": r"pointsと同じ長さの列result。$\mathrm{result}[i]=f(\mathrm{points}[i])\bmod\mathrm{mod}$。",
+    },
+    ("polynomial/PowerEnumerate.py", None, "power_coefficient_enumerate"): {
+        "description": (
+            r"$n=\deg f$ として、$[x^n]f(x)^i g(x)$ を "
+            r"$0\le i\le\mathrm{count}$ の順に一括計算する。gはmultiplier。"
+        ),
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さcount+1の列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod\mathrm{mod}$。"
+        ),
+    },
+    ("segment_tree/DynamicLazySegmentTree.py", "DynamicLazySegmentTree", "prod"): {
+        "description": r"半開区間 $[\mathrm{query\_left},\mathrm{query\_right})$ をopで左から畳み込む。",
+        "returnDescription": "指定区間のopによる畳み込み。空区間ならidentity。",
+    },
+    ("segment_tree/DynamicSegmentTree.py", "DynamicSegmentTree", "prod"): {
+        "description": r"半開区間 $[\mathrm{query\_left},\mathrm{query\_right})$ をopで左から畳み込む。",
+        "returnDescription": "指定区間のopによる畳み込み。空区間ならidentity。",
+    },
+    ("segment_tree/PersistentLazySegmentTree.py", "PersistentLazySegmentTree", "apply"): {
+        "description": r"指定versionの半開区間 $[\mathrm{query\_left},\mathrm{query\_right})$ へactionを作用させ、新versionを追加する。",
+        "returnFormat": "int",
+        "returnDescription": "追加されたversionのID。元のversionは変更しない。",
+    },
+    ("segment_tree/PersistentLazySegmentTree.py", "PersistentLazySegmentTree", "prod"): {
+        "description": r"指定versionの半開区間 $[\mathrm{query\_left},\mathrm{query\_right})$ をopで左から畳み込む。",
+        "returnDescription": "指定version・区間のopによる畳み込み。空区間ならidentity。",
+    },
+    ("segment_tree/PersistentSegmentTree.py", "PersistentSegmentTree", "update_root"): {
+        "description": "rootが表す木のindexの値をvalueへ置き換えた新しいrootを作る。",
+        "returnFormat": "int",
+        "returnDescription": "更新後の木を表す内部root ID。version一覧へは追加しない。",
+    },
+    ("segment_tree/PersistentSegmentTree.py", "PersistentSegmentTree", "set"): {
+        "description": "指定versionのindexの値をvalueへ置き換え、新versionを追加する。",
+        "returnFormat": "int",
+        "returnDescription": "追加されたversionのID。元のversionは変更しない。",
+    },
+    ("segment_tree/PersistentSegmentTree.py", "PersistentSegmentTree", "add"): {
+        "description": "指定versionのindexへop(value, current)を格納し、新versionを追加する。",
+        "returnFormat": "int",
+        "returnDescription": "追加されたversionのID。元のversionは変更しない。",
+    },
+    ("segment_tree/PersistentSegmentTree.py", "PersistentSegmentTree", "prod"): {
+        "description": r"指定versionの半開区間 $[l,r)$ をopで左から畳み込む。",
+        "returnDescription": "指定version・区間のopによる畳み込み。空区間ならe。",
+    },
+    ("segment_tree/RangeAddAssignRangeStats.py", "RangeAddAssignRangeStats", "range_sum"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ の要素和を返す。",
+        "returnDescription": r"$\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。",
+    },
+    ("segment_tree/RangeAffineRangeSum.py", "RangeAffineRangeSum", "range_sum"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ の要素和を返す。",
+        "returnDescription": r"$\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。mod指定時はその剰余。",
+    },
+    ("segment_tree/RangeLIS.py", "RangeLIS", "query"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる部分列のLIS長を求める。",
+        "returnFormat": "int",
+        "returnDescription": "指定区間の狭義単調増加部分列の最大長。空区間なら0。",
+    },
+    ("segment_tree/RangeLinearAddRangeMin.py", "RangeLinearAddRangeMin", "query"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。",
+        "returnFormat": "number",
+        "returnDescription": r"$\min_{\mathrm{left}\le i<\mathrm{right}}a_i$。",
+    },
+    ("segment_tree/SegmentTreeBeats.py", "SegmentTreeBeats", "range_sum"): {
+        "description": r"半開区間 $[l,r)$ の要素和を返す。",
+        "returnDescription": r"$\sum_{i=l}^{r-1}a_i$。",
+    },
+    ("segment_tree/SegmentTreeBeats.py", "SegmentTreeBeats", "get"): {
+        "description": r"位置pの現在値 $a_p$ を返す。",
+        "returnDescription": r"遅延更新を反映した $a_p$。",
+    },
+    ("range_query/StaticRMQ.py", "StaticRMQ", "query"): {
+        "description": r"半開区間 $[l,r)$ の最小値を返す。",
+        "returnDescription": r"$\min_{l\le i<r}\mathrm{values}[i]$。",
+    },
+    ("spatial_structure/DynamicLiChaoTree.py", "DynamicLiChaoTree", "query"): {
+        "description": "追加済みの直線・線分をxで評価し、最小値または最大値を返す。",
+        "returnFormat": "number",
+        "returnDescription": r"minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。",
+    },
+    ("spatial_structure/LiChaoTree.py", "LiChaoTree", "query"): {
+        "description": "追加済みの直線・線分を登録座標xで評価し、最小値または最大値を返す。",
+        "returnFormat": "number",
+        "returnDescription": r"minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。",
+    },
+    ("spatial_structure/DynamicPointAddRectangleSum.py", "DynamicPointAddRectangleSum", "query"): {
+        "description": r"半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の点重み和queryを登録する。",
+        "returnFormat": "None",
+        "returnDescription": "値は返さない。solveが登録順の各query結果を返す。",
+    },
+    ("spatial_structure/PointUpdateRangeTree2D.py", "PointUpdateRangeTree2D", "query"): {
+        "description": r"半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ 内の点をopで畳み込む。",
+        "returnDescription": "指定長方形にある点の値のopによる畳み込み。空ならidentity。",
+    },
+    ("spatial_structure/RectangleAddRectangleSum.py", "RectangleAddRectangleSum", "query"): {
+        "description": r"半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の重み総和queryを登録する。",
+        "returnFormat": "None",
+        "returnDescription": "値は返さない。solveが登録順の各query結果を返す。",
+    },
+    ("spatial_structure/StaticRectangleSum.py", "StaticRectangleSum", "query"): {
+        "description": r"半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の点重み和queryを登録する。",
+        "returnFormat": "None",
+        "returnDescription": "値は返さない。solveが登録順の各query結果を返す。",
+    },
+    ("string/DynamicRollingHash.py", "DynamicRollingHash", "get"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ のrolling hashを返す。",
+        "returnFormat": "int | tuple[int, int]",
+        "returnDescription": "指定substringのhash。double hashでは2成分のtuple。",
+    },
+    ("string/RollingHash.py", "RollingHash", "get"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ のrolling hashを返す。",
+        "returnFormat": "int | tuple[int, int]",
+        "returnDescription": "指定substringのhash。double hashでは2成分のtuple。",
+    },
+    ("string/RollingHash2D.py", "RollingHash2D", "get"): {
+        "description": r"半開長方形 $[\mathrm{upper},\mathrm{lower})\times[\mathrm{left},\mathrm{right})$ の2次元hashを返す。",
+        "returnFormat": "int | tuple[int, int]",
+        "returnDescription": "指定領域のhash。double hashでは2成分のtuple。",
+    },
+    ("linear_algebra/F2Matrix.py", "F2Matrix", "get"): {
+        "description": r"$\mathbb F_2$ 行列の(row, column)成分を返す。",
+        "returnFormat": "bool",
+        "returnDescription": "成分が1ならTrue、0ならFalse。",
+    },
+    ("linear_algebra/F2Matrix.py", "F2Matrix", "power"): {
+        "description": r"$\mathbb F_2$ 上の正方行列の整数冪 $A^{\mathrm{exponent}}$ を求める。",
+        "returnFormat": "F2Matrix",
+        "returnDescription": r"$A^{\mathrm{exponent}}$ を表す新しいF2Matrix。指数0なら単位行列。",
+    },
+    ("linear_algebra/Matrix.py", None, "matrix_power"): {
+        "description": r"正方行列の整数冪 $A^{\mathrm{exponent}}$ をbinary exponentiationで求める。",
+        "returnFormat": "list[list[int]]",
+        "returnDescription": r"$A^{\mathrm{exponent}}\bmod\mathrm{mod}$ の各行を格納した2次元list。",
+    },
+    ("algebra/Affine.py", "Affine", "__call__"): {
+        "description": r"保持しているaffine変換 $f(x)=ax+b$ をvalueへ適用する。",
+        "returnDescription": r"$a\cdot\mathrm{value}+b$。",
+    },
+    ("string/LongestCommonSubsequence.py", None, "restore_lcs"): {
+        "description": "firstとsecondの最長共通部分列を1つ復元する。",
+        "returnFormat": "list[object] | str",
+        "returnDescription": "両入力の部分列で、長さが最大のものを1つ。文字列入力ならstr、それ以外はlist。",
+    },
+})
+
+
+for _module, _owner in (
+    ("graph/CSRGraph.py", "CSRSCC"),
+    ("graph_connectivity/StronglyConnectedComponents.py", "SCC"),
+    ("union_find/DynamicUnionFind.py", "DynamicUnionFind"),
+    ("union_find/PartialPersistentUnionFind.py", "PartialPersistentUnionFind"),
+    ("union_find/PersistentUnionFind.py", "PersistentUnionFind"),
+    ("union_find/RangeParallelUnionFind.py", "RangeParallelUnionFind"),
+    ("union_find/RollbackUnionFind.py", "RollbackUnionFind"),
+    ("union_find/UnionFind.py", "UnionFind"),
+    ("union_find/WeightedUnionFind.py", "WeightedUnionFind"),
+):
+    API_DETAILS_BY_SYMBOL[(_module, _owner, "same")] = {
+        "description": "2要素が指定時点で同じ連結成分に属するか判定する。",
+        "returnFormat": "bool",
+        "returnDescription": "同じ連結成分ならTrue、異なればFalse。",
+    }
+
+
+for _module, _owner in (
+    ("string/DynamicRollingHash.py", "DynamicRollingHash"),
+    ("string/RollingHash.py", "RollingHash"),
+):
+    API_DETAILS_BY_SYMBOL[(_module, _owner, "same")] = {
+        "description": "指定した2つの半開区間の文字列が等しいかhashで判定する。",
+        "returnFormat": "bool",
+        "returnDescription": "2つのsubstringが等しければTrue、異なればFalse。",
+    }
+
+
+API_DETAILS_BY_SYMBOL[("string/RollingHash2D.py", "RollingHash2D", "same")] = {
+    "description": "指定した2つの長方形領域が同じ内容か2次元hashで判定する。",
+    "returnFormat": "bool",
+    "returnDescription": "2つの領域が等しければTrue、異なればFalse。",
 }
 
 

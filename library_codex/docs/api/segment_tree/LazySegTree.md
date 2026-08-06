@@ -36,8 +36,8 @@ from library_codex.segment_tree.LazySegTree import LazySegTree
 | [`tolist()`](../../../segment_tree/LazySegTree.py#L99) | method | 遅延作用を反映した現在の要素列をlistで返す。O(N)。 | なし | list[object] — 全ての遅延作用を反映したindex順の要素列 |
 | [`__str__()`](../../../segment_tree/LazySegTree.py#L105) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
 | [`__repr__()`](../../../segment_tree/LazySegTree.py#L108) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'LazySegTree(%r)' % self.tolist()` |
-| [`prod(left, right)`](../../../segment_tree/LazySegTree.py#L111) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| [`prod(left, right)`](../../../segment_tree/LazySegTree.py#L111) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ をopで左から畳み込む。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\operatorname{op}(a_{\mathrm{left}},\ldots,a_{\mathrm{right}-1})$。空区間なら単位元e。 |
 | [`apply(left, right=None, action=None)`](../../../segment_tree/LazySegTree.py#L138) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）。省略時: `None`<br>`action`: 遅延作用・更新作用。省略時: `None` | `None` |
-| [`all_prod()`](../../../segment_tree/LazySegTree.py#L179) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
+| [`all_prod()`](../../../segment_tree/LazySegTree.py#L179) | method | 全区間 $[0,n)$ をopで左から畳み込む。 | なし | 全要素のopによる畳み込み。空なら単位元e。 |
 | [`max_right(left, predicate)`](../../../segment_tree/LazySegTree.py#L182) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
 | [`min_left(right, predicate)`](../../../segment_tree/LazySegTree.py#L208) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |

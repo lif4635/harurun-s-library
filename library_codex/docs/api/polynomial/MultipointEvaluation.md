@@ -9,7 +9,7 @@
 
 ## できること
 
-- `multipoint_evaluation`: 入力した多項式・式を指定点で評価する。
+- `multipoint_evaluation`: 多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。
 - `polynomial_interpolation`: 多項式・補間を計算する。
 - `interpolate_consecutive`: 補間・`consecutive`を求める。
 - `sample_point_shift`: `sample`・`point`・`shift`を求める。
@@ -31,7 +31,7 @@ from library_codex.polynomial.MultipointEvaluation import (
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L148) | 入力した多項式・式を指定点で評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).evaluate(polynomial)` |
+| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L148) | 多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — pointsと同じ長さの列result。$\mathrm{result}[i]=f(\mathrm{points}[i])\bmod\mathrm{mod}$。 |
 | [`polynomial_interpolation(points, values, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L152) | 多項式・補間を計算する。 | `points`: 評価点の列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` |
 | [`interpolate_consecutive(values, point, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L156) | 補間・`consecutive`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `values[point] % mod` / 数値または入力要素型 `result % mod` |
 | [`sample_point_shift(values, point, count=None, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L240) | `sample`・`point`・`shift`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |

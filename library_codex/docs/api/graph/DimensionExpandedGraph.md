@@ -32,7 +32,7 @@ from library_codex.graph.DimensionExpandedGraph import DimensionExpandedGraph
 | [`id(coordinate)`](../../../graph/DimensionExpandedGraph.py#L34) | method | `id`を求める。 | `coordinate`: 多次元座標 | `sum((value * stride for (value, stride) in zip(coordinate, sel...` |
 | [`coordinate(vertex)`](../../../graph/DimensionExpandedGraph.py#L40) | method | `coordinate`を求める。 | `vertex`: 頂点番号 | tuple — 用途欄に示した複数の結果を順に格納 |
 | [`extra_id(index)`](../../../graph/DimensionExpandedGraph.py#L48) | method | `extra`・`id`を求める。 | `index`: 位置 | 数値または入力要素型 `self.grid_size + index` |
-| [`neighbors(coordinate)`](../../../graph/DimensionExpandedGraph.py#L53) | method | 指定頂点から出る辺を (行き先, 重み, 辺ID) の順で列挙する。 | `coordinate`: 多次元座標 | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする |
+| [`neighbors(coordinate)`](../../../graph/DimensionExpandedGraph.py#L53) | method | 座標coordinateと1軸だけが1異なる、grid内の直交近傍を列挙する。 | `coordinate`: 多次元座標 | list[tuple[int, ...]] — 各軸の前後に隣接する、有効な座標tupleの列。 |
 | [`bfs(start, transitions=None)`](../../../graph/DimensionExpandedGraph.py#L69) | method | `bfs`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable。省略時: `None` | 距離（数値または入力要素型） |
 | [`bfs01(start, transitions)`](../../../graph/DimensionExpandedGraph.py#L88) | method | `bfs01`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） |
 | [`dijkstra(start, transitions)`](../../../graph/DimensionExpandedGraph.py#L107) | method | `dijkstra`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） |

@@ -30,7 +30,7 @@ from library_codex.union_find.UnionFind import UnionFind
 | --- | --- | --- | --- | --- |
 | [`find(node)`](../../../union_find/UnionFind.py#L11) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） |
 | [`merge(first, second)`](../../../union_find/UnionFind.py#L25) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`same(first, second)`](../../../union_find/UnionFind.py#L41) | method | 2要素が同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
+| [`same(first, second)`](../../../union_find/UnionFind.py#L41) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
 | [`size(node)`](../../../union_find/UnionFind.py#L44) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
 | [`groups()`](../../../union_find/UnionFind.py#L47) | method | `groups`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
 | [`__str__()`](../../../union_find/UnionFind.py#L53) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |

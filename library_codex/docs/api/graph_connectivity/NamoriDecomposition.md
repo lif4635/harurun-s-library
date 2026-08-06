@@ -28,7 +28,7 @@ from library_codex.graph_connectivity.NamoriDecomposition import NamoriDecomposi
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
 | [`add_edge(u, v, weight=1)`](../../../graph_connectivity/NamoriDecomposition.py#L50) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`weight`: 重み。省略時: `1` | `edge_id` |
-| [`get_edge(edge_id)`](../../../graph_connectivity/NamoriDecomposition.py#L61) | method | edge_idに対応する辺の両端頂点を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`, `self.edge_weight[edge_id]`) |
+| [`get_edge(edge_id)`](../../../graph_connectivity/NamoriDecomposition.py#L61) | method | edge_idに対応する辺情報を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`, `self.edge_weight[edge_id]`) |
 | [`build()`](../../../graph_connectivity/NamoriDecomposition.py#L68) | method | 内部構造を構築する。 | なし | `self` |
 | [`in_cycle(vertex)`](../../../graph_connectivity/NamoriDecomposition.py#L270) | method | `in`・閉路を求める。 | `vertex`: 頂点番号 | `self.on_cycle[vertex]` |
 | [`root(vertex)`](../../../graph_connectivity/NamoriDecomposition.py#L275) | method | 根を求める。 | `vertex`: 頂点番号 | `self.roots[vertex]` |
@@ -44,8 +44,8 @@ from library_codex.graph_connectivity.NamoriDecomposition import NamoriDecomposi
 | [`distance(u, v)`](../../../graph_connectivity/NamoriDecomposition.py#L361) | method | 距離を求める。 | `u`: 頂点番号<br>`v`: 頂点番号 | `self.distances(u, v)[0]` |
 | [`kth_ancestor(vertex, k)`](../../../graph_connectivity/NamoriDecomposition.py#L364) | method | k番目・`ancestor`を求める。 | `vertex`: 頂点番号<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.rev[tin[vertex] - k]` |
 | [`jump_tree(u, v, k)`](../../../graph_connectivity/NamoriDecomposition.py#L376) | method | `jump`・木を求める。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`k`: 選ぶ個数または0-indexedの順位 | `-1` / `self.kth_ancestor(u, k)` / `self.kth_ancestor(v, distance - k)` |
-| [`path(u, v, edge=False)`](../../../graph_connectivity/NamoriDecomposition.py#L388) | method | 頂点labelをランダムに並べたpath graphを生成する。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | Graph — n頂点max(0,n-1)辺のpath graph / `None` |
+| [`path(u, v, edge=False)`](../../../graph_connectivity/NamoriDecomposition.py#L388) | method | 同じ付随木にあるuとvのtree pathを、HLD順の半開区間へ分解する。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | list[tuple[int, int]] \| None — HLD順の半開区間(left, right)の列。2頂点が同じ付随木に属さなければNone。edge=TrueならLCAに対応する頂点を除く。 |
 | [`path_ordered(u, v, edge=False)`](../../../graph_connectivity/NamoriDecomposition.py#L411) | method | path・`ordered`を求める。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 / `None` |
 | [`subtree(vertex, edge=False)`](../../../graph_connectivity/NamoriDecomposition.py#L438) | method | `subtree`を求める。 | `vertex`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[vertex] + edge`, `self.tout[vertex]`) |
-| [`index(vertex)`](../../../graph_connectivity/NamoriDecomposition.py#L441) | method | 指定要素・頂点に対応する内部indexを返す。 | `vertex`: 頂点番号 | `self.tin[vertex]` |
+| [`index(vertex)`](../../../graph_connectivity/NamoriDecomposition.py#L441) | method | vertexに対応するHLD順のindexを返す。 | `vertex`: 頂点番号 | `self.tin[vertex]` |
 | [`vertex(index)`](../../../graph_connectivity/NamoriDecomposition.py#L444) | method | 頂点を求める。 | `index`: 位置 | `self.rev[index]` |
