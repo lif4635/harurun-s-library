@@ -42,6 +42,10 @@ class Comb:
         return (self.factorial[n] * self.inverse_factorial[k]
                 % self.mod * self.inverse_factorial[n - k] % self.mod)
 
+    def __call__(self, n, k):
+        """C(n, k)を返す。"""
+        return self.C(n, k)
+
     def P(self, n, k):
         """順列数P(n, k)を返す。O(1)、表の拡張時は償却O(n)。"""
         if k < 0 or n < k or n < 0:

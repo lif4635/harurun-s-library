@@ -32,6 +32,7 @@ def test_extended_gcd_combination_and_gray():
     for n in range(500):
         for k in range(n + 1):
             assert combination.C(n, k) == math.comb(n, k) % 998244353
+            assert combination(n, k) == combination.C(n, k)
     assert combination.fact(10) == math.factorial(10) % 998244353
     assert combination.P(10, 3) == 10 * 9 * 8
     assert combination.H(4, 3) == math.comb(6, 3)

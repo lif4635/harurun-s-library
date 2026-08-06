@@ -6,7 +6,6 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`AuxiliaryTree`](AuxiliaryTree.md) | 指定頂点集合とLCAだけからvirtual treeを構築する。 | 0 | 1 | 1 |
-| [`CartesianTree`](CartesianTree.md) | 列のCartesian treeをparent列または隣接listとして構築する。 | 2 | 0 | 0 |
 | [`CentroidDecomposition`](CentroidDecomposition.md) | 重心分解・点加算/距離範囲和Fenwick | 0 | 2 | 7 |
 | [`DSUOnTree`](DSUOnTree.md) | Euler区間を用いるDSU on Tree | 0 | 1 | 2 |
 | [`DynamicDiameter`](DynamicDiameter.md) | Static Top Treeによる固定木の動的重み付き直径 | 0 | 1 | 2 |
@@ -15,6 +14,7 @@
 | [`HeavyLightDecomposition`](HeavyLightDecomposition.md) | Heavy-Light Decomposition（非再帰） | 0 | 1 | 11 |
 | [`InclusionTree`](InclusionTree.md) | 包含関係から親子木を構築する。 | 1 | 0 | 0 |
 | [`IncrementalForest`](IncrementalForest.md) | 辺追加だけのforest・LCA・path集約 | 0 | 1 | 15 |
+| [`LCA`](LCA.md) | instanceを直接呼んで最近共通祖先を求めるLCA | 0 | 1 | 2 |
 | [`LinkCutTree`](LinkCutTree.md) | Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和） | 0 | 4 | 36 |
 | [`ProcessOfMergingTree`](ProcessOfMergingTree.md) | 辺が追加される過程を表すmerge treeを構築する。 | 1 | 0 | 0 |
 | [`PruferCode`](PruferCode.md) | Prüfer列の線形encode/decode（標準・拡張形式） | 5 | 0 | 0 |

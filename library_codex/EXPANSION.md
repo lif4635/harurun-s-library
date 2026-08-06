@@ -63,7 +63,7 @@ PyPy 7.3.16、200,000要素・200,000操作での結果。
 | affine / 汎用Lazy Segment Tree | 1.928523 s | 1.97x | 152,728 KiB |
 | affine / `RangeAffineRangeSum` | 0.978862 s | 1.00x | 117,644 KiB |
 
-自由な演算は既存 `LazySegmentTree`、chmin/chmaxも必要なら `SegmentTreeBeats`、
+自由な演算は既存 `LazySegTree`、chmin/chmaxも必要なら `SegmentTreeBeats`、
 対応する頻出整数操作だけなら専用版を使う。
 
 ## 性能回帰チェック

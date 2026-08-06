@@ -10,9 +10,10 @@ from library_codex.tree.DynamicDiameter import DynamicDiameter
 from library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition
 from library_codex.tree.Rerooting import Rerooting
 from library_codex.tree.AuxiliaryTree import AuxiliaryTree
-from library_codex.tree.CartesianTree import cartesian_tree
+from library_codex.sequence_structure.CartesianTree import cartesian_tree
 from library_codex.tree.EulerTour import EulerTour
 from library_codex.tree.InclusionTree import inclusion_tree
+from library_codex.tree.LCA import LCA
 from library_codex.tree.ProcessOfMergingTree import process_of_merging_tree
 from library_codex.tree.RootedTree import inverse_tree, rooted_tree
 from library_codex.tree.TreeDiameter import tree_diameter
@@ -55,6 +56,7 @@ def test_euler_tour_random_lca_and_forest():
         tree = random_tree(size, rng)
         root = rng.randrange(size)
         euler = EulerTour(tree, root)
+        lca = LCA(tree, root)
         hld = HeavyLightDecomposition(tree, root)
         assert len(euler) == size * 2 - 1
         for node in range(size):
@@ -66,12 +68,18 @@ def test_euler_tour_random_lca_and_forest():
             second = rng.randrange(size)
             assert euler.lca(first, second) == hld.lca(first, second)
             assert euler.distance(first, second) == hld.dist(first, second)
+            assert lca(first, second) == hld.lca(first, second)
+            assert lca.dist(first, second) == hld.dist(first, second)
 
     forest = [[1], [0], [3], [2], []]
     euler = EulerTour(forest, 2)
+    lca = LCA(forest, 2)
     assert euler.lca(2, 3) == 2
     assert euler.lca(0, 3) == -1
     assert euler.lca(4, 4) == 4
+    assert lca(2, 3) == 2
+    assert lca(0, 3) == -1
+    assert lca.dist(0, 3) == -1
 
 
 def test_auxiliary_tree_contains_lcas_and_distances():

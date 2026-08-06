@@ -5,6 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`CartesianTree`](CartesianTree.md) | 列のCartesian treeをparent列または隣接listとして構築する。 | 2 | 0 | 0 |
 | [`ErasableHeap`](ErasableHeap.md) | heapから任意の既存値を遅延削除できるpriority queue。 | 0 | 1 | 8 |
 | [`ImplicitTreap`](ImplicitTreap.md) | 動的列の挿入削除・反転・非可換積・range lazy作用 | 0 | 1 | 17 |
 | [`PersistentArray`](PersistentArray.md) | 分岐可能な永続配列（非再帰・フラットプール） | 0 | 1 | 9 |

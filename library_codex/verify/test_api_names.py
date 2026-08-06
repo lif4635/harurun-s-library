@@ -19,6 +19,18 @@ def test_short_canonical_api_names_replace_long_aliases():
             ("comb_prefix_sums",),
             ("multipoint_binomial_prefix_sum", "multipoint_binomial_sum"),
         ),
+        "library_codex.segment_tree.SegTree": (
+            ("SegTree",),
+            ("SegmentTree",),
+        ),
+        "library_codex.segment_tree.LazySegTree": (
+            ("LazySegTree",),
+            ("LazySegmentTree",),
+        ),
+        "library_codex.segment_tree.DualSegTree": (
+            ("DualSegTree",),
+            ("DualSegmentTree",),
+        ),
         "library_codex.fps.IncreasingSequences": (
             ("count_increasing_sequences",),
             (

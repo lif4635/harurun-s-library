@@ -43,4 +43,3 @@ def cartesian_tree_graph(values, minimum=True, directed=True):
             if not directed:
                 graph[node].append(par)
     return graph, root
-

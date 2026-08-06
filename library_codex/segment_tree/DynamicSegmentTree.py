@@ -1,7 +1,7 @@
 """Sparse point updates and range products on a huge integer domain.
 
 Nodes are allocated only on paths that receive a value.  Use this instead of
-an ordinary SegmentTree when the coordinate range is enormous but the number
+an ordinary SegTree when the coordinate range is enormous but the number
 of touched positions is small.
 """
 

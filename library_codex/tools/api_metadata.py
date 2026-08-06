@@ -56,22 +56,22 @@ MODULE_CAPABILITIES = {
         "区間加算・区間和、疎な添字空間、2次元矩形和の各Fenwick構造を選べる。",
         "累積和が目標値以上になる最初の位置を O(log N) で探索できる。",
     ),
-    "segment_tree/SegmentTree.py": (
+    "segment_tree/SegTree.py": (
         "任意の結合的演算で一点更新・半開区間集約を O(log N) で処理できる。",
         "add(index, value)で一点をop(value, current)へ更新でき、非可換演算でも順序が固定される。",
         "文字列結合や行列積のような非可換演算でも、左から右の順序を保って集約できる。",
         "prefixの集約値に対する単調な条件を使い、条件が崩れる最初の境界を O(log N) で探せる。",
     ),
-    "segment_tree/LazySegmentTree.py": (
+    "segment_tree/LazySegTree.py": (
         "半開区間全体への作用と、半開区間の集約値取得をどちらも O(log N) で処理できる。",
         "add(index, value)で遅延作用を反映してから一点をop(value, current)へ更新できる。",
-        "区間加算・区間和、区間代入・区間最小などを、mappingとcompositionを指定して構成できる。",
+        "区間加算・区間和、区間代入・区間最小などを、mapping・composition・作用の単位元idを指定して構成できる。",
         "一点更新・一点取得に加え、max_right・min_leftによる集約値の境界探索も使える。",
     ),
-    "segment_tree/DualSegmentTree.py": (
+    "segment_tree/DualSegTree.py": (
         "半開区間全体へ作用を適用し、指定した一点の現在値を O(log N) で取得できる。",
         "区間集約を保持しないため、区間更新と一点取得だけが必要な場合にLazy Segment Treeより単純で軽い。",
-        "複数の作用はcompositionで順序を保って合成できる。",
+        "複数の作用はcompositionで順序を保って合成し、何もしない作用をidで明示できる。",
     ),
     "segment_tree/MaxInterval.py": (
         "数列の区間和、最大部分配列和、最小部分配列和を1つのマージ可能な値として保持できる。",
@@ -139,6 +139,11 @@ MODULE_CAPABILITIES = {
         "木をheavy pathへ分解し、頂点path・辺pathを少数の半開区間へ変換できる。",
         "LCA、頂点間距離、k個先の頂点、部分木区間を取得できる。",
         "Segment Treeなどと組み合わせてpath query・subtree queryを処理できる。",
+    ),
+    "tree/LCA.py": (
+        "lca = LCA(tree, root) と構築し、lca(u, v)で最近共通祖先を取得できる。",
+        "dist(u, v)で2頂点間の辺数距離を取得できる。",
+        "森にも対応し、異なる連結成分の2頂点には-1を返す。",
     ),
 }
 
@@ -459,9 +464,15 @@ COMPLEXITY_BY_MODULE = {
         "ensure": "追加したtable要素数に比例（全呼び出しを通して償却 O(max size)）",
         "fact": "償却 O(1)、table拡張分を除く",
         "C": "償却 O(1)、table拡張分を除く",
+        "__call__": "償却 O(1)、table拡張分を除く",
         "P": "償却 O(1)、table拡張分を除く",
         "H": "償却 O(1)、table拡張分を除く",
         "comb": "O(min(k, n-k))",
+    },
+    "tree/LCA.py": {
+        "LCA": "構築 O(N)",
+        "__call__": "O(1)",
+        "dist": "O(1)",
     },
     "combinatorics/BinomialQueries.py": {
         "comb_prefix_sums": "O(max_n + Q sqrt(max_n) + Q log Q)",

@@ -15,9 +15,9 @@ from library_codex.spatial_structure.FenwickTree2D import FenwickTree2D
 from library_codex.fenwick_tree.RangeAddRangeSum import RangeAddRangeSum
 from library_codex.sequence_structure.SWAGDeque import SWAGDeque
 from library_codex.sequence_structure.SWAGQueue import SWAGQueue
-from library_codex.segment_tree.DualSegmentTree import DualSegmentTree
-from library_codex.segment_tree.LazySegmentTree import LazySegmentTree
-from library_codex.segment_tree.SegmentTree import SegmentTree
+from library_codex.segment_tree.DualSegTree import DualSegTree
+from library_codex.segment_tree.LazySegTree import LazySegTree
+from library_codex.segment_tree.SegTree import SegTree
 from library_codex.union_find.DynamicUnionFind import DynamicUnionFind
 from library_codex.union_find.EnumerateUnionFind import EnumerateUnionFind
 from library_codex.union_find.MonoidUnionFind import MonoidUnionFind
@@ -103,7 +103,7 @@ def test_fenwick_2d_random():
 def test_segment_tree_noncommutative_and_search():
     rng = random.Random(791520)
     values = [chr(97 + rng.randrange(26)) for _ in range(100)]
-    solver = SegmentTree(lambda first, second: first + second, "", values)
+    solver = SegTree(lambda first, second: first + second, "", values)
     for _ in range(5000):
         if rng.randrange(3) == 0:
             index = rng.randrange(len(values))
@@ -119,7 +119,7 @@ def test_segment_tree_noncommutative_and_search():
             assert solver.prod(left, right) == "".join(values[left:right])
 
     numbers = [rng.randrange(1, 10) for _ in range(100)]
-    solver = SegmentTree(lambda x, y: x + y, 0, numbers)
+    solver = SegTree(lambda x, y: x + y, 0, numbers)
     for left in range(101):
         limit = rng.randrange(100)
         right = left
@@ -142,16 +142,18 @@ def test_lazy_and_dual_segment_tree_random():
     rng = random.Random(490213)
     size = 100
     values = [rng.randrange(-50, 51) for _ in range(size)]
-    solver = LazySegmentTree(
+    solver = LazySegTree(
         lambda first, second: first + second,
         0,
         lambda action, value, length: value + action * length,
         lambda new, old: new + old,
+        0,
         values,
     )
-    dual = DualSegmentTree(
+    dual = DualSegTree(
         lambda action, value: value + action,
         lambda new, old: new + old,
+        0,
         values,
     )
     for _ in range(10000):
@@ -179,11 +181,12 @@ def test_lazy_and_dual_segment_tree_random():
             assert solver.get(index) == dual.get(index) == values[index]
     assert solver.all_prod() == sum(values)
 
-    noncommutative = LazySegmentTree(
+    noncommutative = LazySegTree(
         lambda first, second: first + second,
         (),
         lambda _action, aggregate, _length: aggregate,
         lambda new, _old: new,
+        None,
         [("a",), ("b",), ("c",)],
     )
     noncommutative.add(1, ("x",))

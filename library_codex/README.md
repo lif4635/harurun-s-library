@@ -79,7 +79,7 @@
 | `range_query/WaveletMatrix.py` | 非負整数列のrank・k-th・range frequency | 構築 $O(N\log \sigma)$、クエリ $O(\log \sigma)$ |
 | `range_query/DynamicWaveletMatrix.py` | 真にonlineな動的WM・候補圧縮版・高速offline版 | online操作 $O(B\log N)$、batch全処理 $O((N+Q)\log V\log N)$ |
 | `fenwick_tree/FenwickTree.py` | 1D Fenwick Treeの一点加算・prefix/区間和 | 更新・取得 $O(\log N)$ |
-| `segment_tree/SegmentTree.py` | 非可換Segment Treeと境界二分探索 | 各操作 $O(\log N)$ |
+| `segment_tree/SegTree.py` | 非可換SegTreeと境界二分探索 | 各操作 $O(\log N)$ |
 | `segment_tree/DynamicSegmentTree.py` | 巨大座標の疎な動的Segment Tree | 各操作 $O(\log X)$ |
 | `union_find/UnionFind.py` | 通常Union-Findの併合・連結判定・成分size | ほぼ $O(\alpha(N))$ |
 | `ordered_set/BinaryTrie.py` | multiset・全体xor・k-th・xor min/max | $O(B)$ |

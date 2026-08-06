@@ -5,10 +5,13 @@ positions are queried.  It intentionally stores no range aggregate.
 """
 
 
-class DualSegmentTree:
-    __slots__ = ("n", "size", "log", "value", "lazy", "pending", "mapping", "composition")
+class DualSegTree:
+    __slots__ = (
+        "n", "size", "log", "value", "lazy", "pending",
+        "mapping", "composition", "id",
+    )
 
-    def __init__(self, mapping, composition, values):
+    def __init__(self, mapping, composition, id, values):
         if isinstance(values, int):
             values = [None] * values
         else:
@@ -19,10 +22,11 @@ class DualSegmentTree:
         self.size = size
         self.log = size.bit_length() - 1
         self.value = values
-        self.lazy = [None] * size
+        self.lazy = [id] * size
         self.pending = bytearray(size)
         self.mapping = mapping
         self.composition = composition
+        self.id = id
 
     def _apply_node(self, node, action):
         if self.pending[node]:
@@ -45,7 +49,7 @@ class DualSegmentTree:
                 self.value[left] = self.mapping(action, self.value[left])
             if right < self.n:
                 self.value[right] = self.mapping(action, self.value[right])
-        self.lazy[node] = None
+        self.lazy[node] = self.id
         self.pending[node] = 0
 
     def apply(self, left, right, action):
@@ -91,4 +95,4 @@ class DualSegmentTree:
         return str(self.tolist())
 
     def __repr__(self):
-        return "DualSegmentTree(%r)" % self.tolist()
+        return "DualSegTree(%r)" % self.tolist()

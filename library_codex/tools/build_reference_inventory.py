@@ -477,7 +477,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "array/cartesian-tree.hpp",
-    ): "tree/TreeAlgorithms.py",
+    ): "sequence_structure/CartesianTree.py",
     (
         "NachiaVivias/cp-library",
         "tree/ahu-algorithm.hpp",
@@ -505,7 +505,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "tree/tree-diameter.hpp",
-    ): "tree/TreeAlgorithms.py",
+    ): "tree/TreeDiameter.py",
     (
         "NachiaVivias/cp-library",
         "tree/tree-dp.hpp",
@@ -513,7 +513,7 @@ COVERED = {
     (
         "tko919/library",
         "Algorithm/cartesian.hpp",
-    ): "tree/TreeAlgorithms.py",
+    ): "sequence_structure/CartesianTree.py",
     (
         "tko919/library",
         "Graph/auxiliarytree.hpp",
@@ -545,7 +545,7 @@ COVERED = {
     (
         "tko919/library",
         "Graph/lca.hpp",
-    ): "tree/HeavyLightDecomposition.py",
+    ): "tree/LCA.py",
     (
         "tko919/library",
         "Graph/lowlink.hpp",
@@ -565,7 +565,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "tree/cartesian-tree.hpp",
-    ): "tree/TreeAlgorithms.py",
+    ): "sequence_structure/CartesianTree.py",
     (
         "NyaanNyaan/library",
         "tree/centroid-decomposition.hpp",
@@ -625,7 +625,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "tree/cartesiantree.nim",
-    ): "tree/TreeAlgorithms.py",
+    ): "sequence_structure/CartesianTree.py",
     (
         "kemuniku/cplib",
         "tree/diameter.nim",
@@ -649,7 +649,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "array/lazy-segtree.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "NachiaVivias/cp-library",
         "array/li-ciao-tree-flexible.hpp",
@@ -657,7 +657,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "array/segtree.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "NachiaVivias/cp-library",
         "array/wavelet-matrix.hpp",
@@ -665,7 +665,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "range-query/point-set-range-min.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "tko919/library",
         "DataStructure/2dbit.hpp",
@@ -685,7 +685,7 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/dualsegtree.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "tko919/library",
         "DataStructure/fastset.hpp",
@@ -693,7 +693,7 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/lazysegtree.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "tko919/library",
         "DataStructure/lichaotree.hpp",
@@ -713,7 +713,7 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/segtree.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "tko919/library",
         "DataStructure/segtreebeats.hpp",
@@ -833,7 +833,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "segment-tree/segment-tree.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "kemuniku/cplib",
         "collections/QSWAG.nim",
@@ -857,7 +857,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/lazysegtree.nim",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "kemuniku/cplib",
         "collections/lichaotree.nim",
@@ -881,7 +881,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/segtree.nim",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "kemuniku/cplib",
         "collections/segtree_beats.nim",
@@ -933,19 +933,19 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "segment-tree/lazy-segment-tree-utility.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/lazy-segment-tree.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/range-weighted-add-range-sum-lazyseg.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "kemuniku/cplib",
         "collections/segtree_var.nim",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "tko919/library",
         "DataStructure/2dsegtree.hpp",
@@ -1109,7 +1109,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/root_rangesum.nim",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "kemuniku/cplib",
         "collections/rootvalue_unionfind.nim",
@@ -1129,11 +1129,11 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/divide-interval.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "NyaanNyaan/library",
         "data-structure/square-root-decomposition.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "NyaanNyaan/library",
         "segment-tree/rbst-segment-tree.hpp",
@@ -1145,7 +1145,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "segment-tree/segment-tree-max-of-interval.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "kemuniku/cplib",
         "collections/range_reverse_array.nim",
@@ -1902,7 +1902,7 @@ COVERED = {
     (
         "NachiaVivias/cp-library",
         "range-query/range-add-range-min.hpp",
-    ): "segment_tree/SegmentTree.py",
+    ): "segment_tree/SegTree.py",
     (
         "NachiaVivias/cp-library",
         "set/decremental-predecessor-query.hpp",

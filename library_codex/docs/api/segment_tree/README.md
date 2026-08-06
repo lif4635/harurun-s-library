@@ -5,10 +5,10 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`DualSegmentTree`](DualSegmentTree.md) | 区間作用と一点取得に絞ったDual Segment Tree | 0 | 1 | 6 |
+| [`DualSegTree`](DualSegTree.md) | 区間作用と一点取得に絞ったDualSegTree | 0 | 1 | 6 |
 | [`DynamicLazySegmentTree`](DynamicLazySegmentTree.md) | 巨大な疎な座標向けのLazy Segment Tree | 0 | 1 | 4 |
 | [`DynamicSegmentTree`](DynamicSegmentTree.md) | 巨大な疎な座標向けの一点更新Segment Tree | 0 | 1 | 8 |
-| [`LazySegmentTree`](LazySegmentTree.md) | 区間作用と区間集約を行うLazy Segment Tree | 0 | 1 | 11 |
+| [`LazySegTree`](LazySegTree.md) | 区間作用と区間集約を行うLazySegTree | 0 | 1 | 11 |
 | [`MaxInterval`](MaxInterval.md) | 一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid | 2 | 1 | 1 |
 | [`PersistentLazySegmentTree`](PersistentLazySegmentTree.md) | 巨大な疎な座標で履歴を保持するPersistent Lazy Segment Tree | 0 | 1 | 3 |
 | [`PersistentSegmentTree`](PersistentSegmentTree.md) | 汎用演算の永続セグメント木（非再帰） | 0 | 1 | 14 |
@@ -17,6 +17,6 @@
 | [`RangeAffineRangeSum`](RangeAffineRangeSum.md) | 整数列の区間affine変換と区間和を扱う専用lazy tree。 | 0 | 1 | 10 |
 | [`RangeLIS`](RangeLIS.md) | Seaweed monoidによる静的区間LIS | 1 | 1 | 1 |
 | [`RangeLinearAddRangeMin`](RangeLinearAddRangeMin.md) | indexの一次式を区間加算し、区間最小値を求める構造。 | 0 | 1 | 2 |
-| [`SegmentTree`](SegmentTree.md) | 一点更新・区間集約・境界探索を行う汎用Segment Tree | 0 | 1 | 11 |
+| [`SegTree`](SegTree.md) | 一点更新・区間集約・境界探索を行う汎用SegTree | 0 | 1 | 11 |
 | [`SegmentTreeBeats`](SegmentTreeBeats.md) | range chmin/chmax/add/update・range sum/min/max（非再帰） | 0 | 1 | 15 |
 | [`SortableSegmentTree`](SortableSegmentTree.md) | 部分列の昇順・降順sortと区間monoid積を処理する列構造。 | 0 | 1 | 3 |

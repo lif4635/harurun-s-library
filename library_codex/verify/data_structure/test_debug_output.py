@@ -1,5 +1,5 @@
 from library_codex.ordered_set.BinaryTrie import BinaryTrie
-from library_codex.segment_tree.DualSegmentTree import DualSegmentTree
+from library_codex.segment_tree.DualSegTree import DualSegTree
 from library_codex.range_query.DynamicWaveletMatrix import (
     CompressedDynamicWaveletMatrix,
     OfflineDynamicWaveletMatrix,
@@ -8,12 +8,12 @@ from library_codex.segment_tree.DynamicSegmentTree import DynamicSegmentTree
 from library_codex.sequence_structure.ErasableHeap import ErasableHeap
 from library_codex.ordered_set.FastSet import FastSet
 from library_codex.fenwick_tree.FenwickTree import FenwickTree
-from library_codex.segment_tree.LazySegmentTree import LazySegmentTree
+from library_codex.segment_tree.LazySegTree import LazySegTree
 from library_codex.sequence_structure.ImplicitTreap import ImplicitTreap
 from library_codex.ordered_set.OrderedMap import OrderedMap
 from library_codex.sequence_structure.PersistentArray import PersistentArray
 from library_codex.segment_tree.PersistentSegmentTree import PersistentSegmentTree
-from library_codex.segment_tree.SegmentTree import SegmentTree
+from library_codex.segment_tree.SegTree import SegTree
 from library_codex.spatial_structure.SegmentTree2D import SegmentTree2D
 from library_codex.segment_tree.SegmentTreeBeats import SegmentTreeBeats
 from library_codex.sequence_structure.SWAGDeque import SWAGDeque
@@ -23,17 +23,18 @@ from library_codex.union_find.UnionFind import UnionFind
 
 
 def test_dense_tree_debug_output_uses_logical_values():
-    segment = SegmentTree(lambda a, b: a + b, 0, [1, 2, 3])
+    segment = SegTree(lambda a, b: a + b, 0, [1, 2, 3])
     segment.add(1, 5)
     assert segment.tolist() == [1, 7, 3]
     assert str(segment) == "[1, 7, 3]"
-    assert repr(segment) == "SegmentTree([1, 7, 3])"
+    assert repr(segment) == "SegTree([1, 7, 3])"
 
-    lazy = LazySegmentTree(
+    lazy = LazySegTree(
         lambda a, b: a + b,
         0,
         lambda action, value, length: value + action * length,
         lambda new, old: new + old,
+        0,
         [1, 2, 3],
     )
     lazy.apply(0, 2, 10)
@@ -41,14 +42,15 @@ def test_dense_tree_debug_output_uses_logical_values():
     assert str(lazy) == "[11, 12, 3]"
     assert lazy.prod(0, 3) == 26
 
-    dual = DualSegmentTree(
+    dual = DualSegTree(
         lambda action, value: value + action,
         lambda new, old: new + old,
+        0,
         [1, 2, 3],
     )
     dual.apply(1, 3, 4)
     assert dual.tolist() == [1, 6, 7]
-    assert repr(dual) == "DualSegmentTree([1, 6, 7])"
+    assert repr(dual) == "DualSegTree([1, 6, 7])"
 
     beats = SegmentTreeBeats([5, 1, 8])
     beats.range_add(0, 3, 2)

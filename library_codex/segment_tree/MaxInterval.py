@@ -2,12 +2,12 @@
 
 ``MaxInterval`` is the mergeable state for one interval: total sum, maximum
 and minimum subarray sums, and the corresponding prefix/suffix sums.
-``max_interval_segment_tree`` builds a SegmentTree so changing one value and
+``max_interval_segment_tree`` builds a SegTree so changing one value and
 reading the whole array's best contiguous sum both take logarithmic time.
 Empty subarrays are not selected for nonempty input intervals.
 """
 
-from library_codex.segment_tree.SegmentTree import SegmentTree
+from library_codex.segment_tree.SegTree import SegTree
 
 
 class MaxInterval:
@@ -75,7 +75,7 @@ def merge_max_interval(first, second):
 
 
 def max_interval_segment_tree(values):
-    return SegmentTree(
+    return SegTree(
         merge_max_interval,
         MaxInterval(),
         [MaxInterval.single(value) for value in values],

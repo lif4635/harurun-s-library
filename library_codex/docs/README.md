@@ -47,7 +47,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [fenwick_tree](api/fenwick_tree/README.md) | Fenwick木と加算・接頭和 | 3 | 0 | 3 | 17 |
 | [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 10 | 0 | 10 | 58 |
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 10 | 0 | 10 | 105 |
-| [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 9 | 1 | 8 | 66 |
+| [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 10 | 3 | 8 | 66 |
 | [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 4 | 1 | 6 | 52 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 12 | 19 | 6 | 30 |
@@ -58,12 +58,12 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 5 | 10 | 1 | 6 |
 | [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 8 | 16 | 1 | 4 |
 | [number_theory](api/number_theory/README.md) | 整数演算・合同式・乗法的関数 | 14 | 37 | 4 | 25 |
-| [combinatorics](api/combinatorics/README.md) | 二項係数・組合せ構成 | 10 | 10 | 9 | 25 |
+| [combinatorics](api/combinatorics/README.md) | 二項係数・組合せ構成 | 10 | 10 | 9 | 26 |
 | [linear_algebra](api/linear_algebra/README.md) | 行列・線形方程式・線形基底 | 8 | 32 | 5 | 31 |
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 3 | 3 | 28 |
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
-| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 20 | 23 | 24 | 120 |
+| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 20 | 21 | 25 | 122 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 232 |
 | [optimization](api/optimization/README.md) | 最適化・DP高速化 | 13 | 12 | 9 | 48 |
 | [geometry](api/geometry/README.md) | 幾何・2次元点 | 4 | 5 | 0 | 0 |
@@ -71,4 +71,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
 
-合計: **290 modules / 398 functions / 204 classes / 1280 methods・properties**。
+合計: **291 modules / 398 functions / 205 classes / 1283 methods・properties**。

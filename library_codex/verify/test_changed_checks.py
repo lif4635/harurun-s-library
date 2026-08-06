@@ -18,8 +18,8 @@ def relative_tests(plan):
 
 def test_source_module_key_accepts_only_public_modules():
     assert CHECK_CHANGED.source_module_key(
-        "library_codex/segment_tree/SegmentTree.py"
-    ) == "segment_tree/SegmentTree"
+        "library_codex/segment_tree/SegTree.py"
+    ) == "segment_tree/SegTree"
     assert CHECK_CHANGED.source_module_key(
         "library_codex/verify/data_structure/test_debug_output.py"
     ) is None
@@ -28,10 +28,10 @@ def test_source_module_key_accepts_only_public_modules():
 
 def test_segment_tree_change_selects_dependents_and_relevant_tests():
     plan = CHECK_CHANGED.plan_for(
-        ["library_codex/segment_tree/SegmentTree.py"]
+        ["library_codex/segment_tree/SegTree.py"]
     )
     tests = relative_tests(plan)
-    assert "segment_tree/SegmentTree" in plan["direct"]
+    assert "segment_tree/SegTree" in plan["direct"]
     assert plan["direct"] <= plan["affected"]
     assert "verify/data_structure/test_basic_data_structures.py" in tests
     assert "verify/data_structure/test_debug_output.py" in tests

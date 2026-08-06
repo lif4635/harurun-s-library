@@ -3,9 +3,9 @@
 主要なデータ構造は、内部node配列ではなく利用者から見える論理的な内容を `str(obj)` と `repr(obj)` で表示します。
 
 ```python
-segment = SegmentTree([1, 2, 3], lambda a, b: a + b, 0)
+segment = SegTree(lambda a, b: a + b, 0, [1, 2, 3])
 print(segment)  # [1, 2, 3]
-segment         # SegmentTree([1, 2, 3])
+segment         # SegTree([1, 2, 3])
 ```
 
 ## 出力形式

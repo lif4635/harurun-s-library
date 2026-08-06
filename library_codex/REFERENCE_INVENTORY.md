@@ -12,16 +12,16 @@
 ### array
 
 - [x] `array/bbst-list.hpp` — `sequence_structure/ImplicitTreap.py`
-- [x] `array/cartesian-tree.hpp` — `tree/TreeAlgorithms.py`
+- [x] `array/cartesian-tree.hpp` — `sequence_structure/CartesianTree.py`
 - [x] `array/concave-min-plus-convolution.hpp` — `optimization/AdvancedDP.py`
 - [x] `array/convex-min-plus-convolution.hpp` — `optimization/Optimization.py`
 - [-] `array/csr-array.hpp` — language support; feature audit is carried by consumers
 - [x] `array/deque-operate-aggregation.hpp` — `data_structure/SWAG.py`
 - [x] `array/divisor-convolution.hpp` — `arithmetic_convolution/ArithmeticConvolution.py`
-- [x] `array/lazy-segtree.hpp` — `segment_tree/SegmentTree.py`
+- [x] `array/lazy-segtree.hpp` — `segment_tree/SegTree.py`
 - [x] `array/li-ciao-tree-flexible.hpp` — `spatial_structure/LiChaoTree.py`
 - [x] `array/point-update-lex-sort.hpp` — `algorithm/SequenceOrdering.py`
-- [x] `array/segtree.hpp` — `segment_tree/SegmentTree.py`
+- [x] `array/segtree.hpp` — `segment_tree/SegTree.py`
 - [x] `array/wavelet-matrix.hpp` — `range_query/WaveletMatrix.py`
 ### bit-convolution
 
@@ -92,9 +92,9 @@
 - [x] `permutation/simplify-permitation-subgroup.hpp` — `algorithm/PermutationGroup.py`
 ### range-query
 
-- [x] `range-query/point-set-range-min.hpp` — `segment_tree/SegmentTree.py`
+- [x] `range-query/point-set-range-min.hpp` — `segment_tree/SegTree.py`
 - [x] `range-query/range-add-count-top-k.hpp` — `data_structure/AdvancedRangeStructures.py`
-- [x] `range-query/range-add-range-min.hpp` — `segment_tree/SegmentTree.py`
+- [x] `range-query/range-add-range-min.hpp` — `segment_tree/SegTree.py`
 - [x] `range-query/range-lis.hpp` — `segment_tree/RangeLIS.py`
 ### set
 
@@ -124,7 +124,7 @@
 
 ### Algorithm
 
-- [x] `Algorithm/cartesian.hpp` — `tree/TreeAlgorithms.py`
+- [x] `Algorithm/cartesian.hpp` — `sequence_structure/CartesianTree.py`
 - [x] `Algorithm/fibonacci.hpp` — `algorithm/Fibonacci.py`
 - [x] `Algorithm/kprojectselection.hpp` — `optimization/ProjectSelection.py`
 - [x] `Algorithm/matroid.hpp` — `optimization/Matroid.py`
@@ -155,14 +155,14 @@
 - [x] `DataStructure/chtmonotone.hpp` — `optimization/Optimization.py`
 - [x] `DataStructure/dequeswag.hpp` — `data_structure/SWAG.py`
 - [x] `DataStructure/disjointsparsetable.hpp` — `range_query/DisjointSparseTable.py`
-- [x] `DataStructure/dualsegtree.hpp` — `segment_tree/SegmentTree.py`
+- [x] `DataStructure/dualsegtree.hpp` — `segment_tree/SegTree.py`
 - [x] `DataStructure/dynamiclazysegtree.hpp` — `segment_tree/DynamicSegmentTree.py`
 - [x] `DataStructure/dynamicrectsum.hpp` — `data_structure/RectangleQuery.py`
 - [x] `DataStructure/dynamicsegtree.hpp` — `segment_tree/DynamicSegmentTree.py`
 - [x] `DataStructure/fastset.hpp` — `ordered_set/FastSet.py`
 - [x] `DataStructure/hashmap.hpp` — `data_structure/Collections.py`
 - [x] `DataStructure/lazykdtree.hpp` — `data_structure/AdvancedRangeStructures.py`
-- [x] `DataStructure/lazysegtree.hpp` — `segment_tree/SegmentTree.py`
+- [x] `DataStructure/lazysegtree.hpp` — `segment_tree/SegTree.py`
 - [x] `DataStructure/lichaotree.hpp` — `spatial_structure/LiChaoTree.py`
 - [x] `DataStructure/linkedlist.hpp` — `data_structure/Collections.py`
 - [x] `DataStructure/manhattanmst.hpp` — `graph_spanning/MinimumSpanningTree.py`
@@ -177,7 +177,7 @@
 - [x] `DataStructure/rangeunionset.hpp` — `data_structure/Collections.py`
 - [x] `DataStructure/rbstset.hpp` — `data_structure/Collections.py`
 - [x] `DataStructure/rollbackunionfind.hpp` — `union_find/RollbackUnionFind.py`
-- [x] `DataStructure/segtree.hpp` — `segment_tree/SegmentTree.py`
+- [x] `DataStructure/segtree.hpp` — `segment_tree/SegTree.py`
 - [x] `DataStructure/segtreebeats.hpp` — `segment_tree/SegmentTreeBeats.py`
 - [x] `DataStructure/slopetrick.hpp` — `optimization/SlopeTrick.py`
 - [x] `DataStructure/sortablesegtree.hpp` — `data_structure/AdvancedRangeStructures.py`
@@ -249,7 +249,7 @@
 - [x] `Graph/generalweightedmatching.hpp` — `graph_matching/GeneralWeightedMatching.py`
 - [x] `Graph/hld.hpp` — `tree/HeavyLightDecomposition.py`
 - [x] `Graph/hungarian.hpp` — `graph/GraphOptimization.py`
-- [x] `Graph/lca.hpp` — `tree/HeavyLightDecomposition.py`
+- [x] `Graph/lca.hpp` — `tree/LCA.py`
 - [x] `Graph/linkcut.hpp` — `tree/LinkCutTree.py`
 - [x] `Graph/lowlink.hpp` — `graph_connectivity/LowLink.py`
 - [x] `Graph/maxflow.hpp` — `graph_flow/MaxFlow.py`
@@ -369,7 +369,7 @@
 
 - [x] `data-structure/binary-indexed-tree.hpp` — `fenwick_tree/FenwickTree.py`
 - [x] `data-structure/binary-trie.hpp` — `ordered_set/BinaryTrie.py`
-- [x] `data-structure/divide-interval.hpp` — `segment_tree/SegmentTree.py`
+- [x] `data-structure/divide-interval.hpp` — `segment_tree/SegTree.py`
 - [x] `data-structure/dynamic-binary-indexed-tree.hpp` — `fenwick_tree/FenwickTree.py`
 - [x] `data-structure/dynamic-bitset.hpp` — `data_structure/Collections.py`
 - [x] `data-structure/dynamic-union-find.hpp` — `union_find/UnionFind.py`
@@ -393,7 +393,7 @@
 - [x] `data-structure/slope-trick-weighted.hpp` — `optimization/SlopeTrick.py`
 - [x] `data-structure/slope-trick.hpp` — `optimization/SlopeTrick.py`
 - [x] `data-structure/sparse-table.hpp` — `range_query/DisjointSparseTable.py`
-- [x] `data-structure/square-root-decomposition.hpp` — `segment_tree/SegmentTree.py`
+- [x] `data-structure/square-root-decomposition.hpp` — `segment_tree/SegTree.py`
 - [x] `data-structure/union-find-enumerate.hpp` — `union_find/UnionFind.py`
 - [x] `data-structure/union-find-with-potential.hpp` — `union_find/UnionFind.py`
 - [x] `data-structure/union-find.hpp` — `union_find/UnionFind.py`
@@ -692,18 +692,18 @@
 
 - [x] `segment-tree/dynamic-li-chao-tree.hpp` — `spatial_structure/LiChaoTree.py`
 - [x] `segment-tree/dynamic-segment-tree.hpp` — `segment_tree/DynamicSegmentTree.py`
-- [x] `segment-tree/lazy-segment-tree-utility.hpp` — `segment_tree/SegmentTree.py`
-- [x] `segment-tree/lazy-segment-tree.hpp` — `segment_tree/SegmentTree.py`
+- [x] `segment-tree/lazy-segment-tree-utility.hpp` — `segment_tree/SegTree.py`
+- [x] `segment-tree/lazy-segment-tree.hpp` — `segment_tree/SegTree.py`
 - [x] `segment-tree/li-chao-tree-abstruct.hpp` — `spatial_structure/LiChaoTree.py`
 - [x] `segment-tree/li-chao-tree.hpp` — `spatial_structure/LiChaoTree.py`
 - [x] `segment-tree/persistent-segment-tree.hpp` — `segment_tree/PersistentSegmentTree.py`
-- [x] `segment-tree/range-weighted-add-range-sum-lazyseg.hpp` — `segment_tree/SegmentTree.py`
+- [x] `segment-tree/range-weighted-add-range-sum-lazyseg.hpp` — `segment_tree/SegTree.py`
 - [x] `segment-tree/rbst-segment-tree.hpp` — `sequence_structure/ImplicitTreap.py`
 - [x] `segment-tree/rbst-sequence.hpp` — `sequence_structure/ImplicitTreap.py`
 - [x] `segment-tree/segment-tree-beats-abstract.hpp` — `segment_tree/SegmentTreeBeats.py`
 - [x] `segment-tree/segment-tree-beats.hpp` — `segment_tree/SegmentTreeBeats.py`
-- [x] `segment-tree/segment-tree-max-of-interval.hpp` — `segment_tree/SegmentTree.py`
-- [x] `segment-tree/segment-tree.hpp` — `segment_tree/SegmentTree.py`
+- [x] `segment-tree/segment-tree-max-of-interval.hpp` — `segment_tree/SegTree.py`
+- [x] `segment-tree/segment-tree.hpp` — `segment_tree/SegTree.py`
 ### set-function
 
 - [x] `set-function/and-convolution.hpp` — `bitwise_convolution/SetFunction.py`
@@ -757,7 +757,7 @@
 
 - [x] `tree/auxiliary-tree.hpp` — `tree/TreeAlgorithms.py`
 - [x] `tree/block-cut-tree.hpp` — `graph_connectivity/BiconnectedComponents.py`
-- [x] `tree/cartesian-tree.hpp` — `tree/TreeAlgorithms.py`
+- [x] `tree/cartesian-tree.hpp` — `sequence_structure/CartesianTree.py`
 - [x] `tree/centroid-decomposition.hpp` — `tree/CentroidDecomposition.py`
 - [x] `tree/centroid.hpp` — `tree/TreeIsomorphism.py`
 - [x] `tree/convert-tree.hpp` — `tree/TreeAlgorithms.py`
@@ -796,7 +796,7 @@
 - [x] `collections/group_unionfind.nim` — `union_find/UnionFind.py`
 - [x] `collections/hashset.nim` — `data_structure/Collections.py`
 - [x] `collections/hashtable.nim` — `data_structure/Collections.py`
-- [x] `collections/lazysegtree.nim` — `segment_tree/SegmentTree.py`
+- [x] `collections/lazysegtree.nim` — `segment_tree/SegTree.py`
 - [x] `collections/lichaotree.nim` — `spatial_structure/LiChaoTree.py`
 - [x] `collections/persistent_array.nim` — `sequence_structure/PersistentArray.py`
 - [x] `collections/persistent_binary_trie.nim` — `data_structure/Collections.py`
@@ -810,13 +810,13 @@
 - [x] `collections/rangeset.nim` — `data_structure/Collections.py`
 - [x] `collections/raw_ptr_avlset.nim` — `data_structure/Collections.py`
 - [x] `collections/rollback_unionfind.nim` — `union_find/RollbackUnionFind.py`
-- [x] `collections/root_rangesum.nim` — `segment_tree/SegmentTree.py`
+- [x] `collections/root_rangesum.nim` — `segment_tree/SegTree.py`
 - [x] `collections/rootvalue_unionfind.nim` — `union_find/UnionFind.py`
-- [x] `collections/segtree.nim` — `segment_tree/SegmentTree.py`
+- [x] `collections/segtree.nim` — `segment_tree/SegTree.py`
 - [x] `collections/segtree2d.nim` — `data_structure/RectangleQuery.py`
 - [x] `collections/segtree_beats.nim` — `segment_tree/SegmentTreeBeats.py`
 - [x] `collections/segtree_beats_template.nim` — `segment_tree/SegmentTreeBeats.py`
-- [x] `collections/segtree_var.nim` — `segment_tree/SegmentTree.py`
+- [x] `collections/segtree_var.nim` — `segment_tree/SegTree.py`
 - [x] `collections/slopetrick.nim` — `optimization/SlopeTrick.py`
 - [x] `collections/staticRMQ.nim` — `range_query/StaticRMQ.py`
 - [x] `collections/staticbitset.nim` — `data_structure/Collections.py`
@@ -923,7 +923,7 @@
 - [-] `tmpl/sheep.nim` — language support; feature audit is carried by consumers
 ### tree
 
-- [x] `tree/cartesiantree.nim` — `tree/TreeAlgorithms.py`
+- [x] `tree/cartesiantree.nim` — `sequence_structure/CartesianTree.py`
 - [x] `tree/diameter.nim` — `tree/TreeAlgorithms.py`
 - [x] `tree/heavylightdecomposition.nim` — `tree/HeavyLightDecomposition.py`
 - [x] `tree/prufer.nim` — `tree/PruferCode.py`

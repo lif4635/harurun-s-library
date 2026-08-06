@@ -24,7 +24,7 @@ from library_codex.segment_tree.MaxInterval import merge_max_interval, max_inter
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
 | [`merge_max_interval(first, second)`](../../../segment_tree/MaxInterval.py#L44) | 隣り合う2区間の集約値を結合し、結合後の区間和・最大部分配列和・最小部分配列和を返す。 | `first`: 結合する左側区間のMaxInterval<br>`second`: 結合する右側区間のMaxInterval | MaxInterval — firstの直後にsecondを連結した区間の集約値 |
-| [`max_interval_segment_tree(values)`](../../../segment_tree/MaxInterval.py#L77) | 数列から、各区間の最大・最小部分配列和を取得できるSegmentTreeを構築する。 | `values`: 最大・最小部分配列和を管理する数列 | SegmentTree — 各nodeがMaxIntervalを持つSegmentTree。prod(...).maximumで最大部分配列和を取得する |
+| [`max_interval_segment_tree(values)`](../../../segment_tree/MaxInterval.py#L77) | 数列から、各区間の最大・最小部分配列和を取得できるSegmentTreeを構築する。 | `values`: 最大・最小部分配列和を管理する数列 | SegTree — 各nodeがMaxIntervalを持つSegTree。prod(...).maximumで最大部分配列和を取得する |
 
 ## Class `MaxInterval`
 

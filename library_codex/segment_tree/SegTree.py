@@ -6,7 +6,7 @@ also find the first boundary where a monotone predicate stops holding.
 """
 
 
-class SegmentTree:
+class SegTree:
     __slots__ = ("n", "size", "log", "data", "op", "identity")
 
     def __init__(self, op, identity, values):
@@ -60,7 +60,7 @@ class SegmentTree:
         return str(self.tolist())
 
     def __repr__(self):
-        return "SegmentTree(%r)" % self.tolist()
+        return "SegTree(%r)" % self.tolist()
 
     def prod(self, left, right):
         left += self.size

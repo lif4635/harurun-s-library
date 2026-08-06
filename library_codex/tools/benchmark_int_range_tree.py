@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from library_codex.segment_tree.RangeAddAssignRangeStats import RangeAddAssignRangeStats
 from library_codex.segment_tree.RangeAffineRangeSum import RangeAffineRangeSum
-from library_codex.segment_tree.LazySegmentTree import LazySegmentTree
+from library_codex.segment_tree.LazySegTree import LazySegTree
 from library_codex.segment_tree.SegmentTreeBeats import SegmentTreeBeats
 
 
@@ -60,11 +60,12 @@ def generic_tree(values):
             return new_assign, new_add
         return old_assign, old_add + new_add
 
-    return LazySegmentTree(
+    return LazySegTree(
         operation,
         (0, INF, -INF),
         mapping,
         composition,
+        (None, 0),
         [(value, value, value) for value in values],
     )
 
@@ -85,7 +86,7 @@ def generic_affine_tree(values, mod):
             (new_multiplier * old_addend + new_addend) % mod,
         )
 
-    return LazySegmentTree(operation, 0, mapping, composition, values)
+    return LazySegTree(operation, 0, mapping, composition, (1, 0), values)
 
 
 def run_generic(tree, operations):

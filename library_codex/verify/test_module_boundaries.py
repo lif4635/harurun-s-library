@@ -45,8 +45,8 @@ def test_module_boundaries_and_descriptions_are_reviewed():
     }
     assert not (REMOVED_UMBRELLA_MODULES & modules.keys())
 
-    segment_tree = ast.parse(modules["segment_tree/SegmentTree.py"].read_text(encoding="utf-8"))
-    assert [node.name for node in segment_tree.body if isinstance(node, ast.ClassDef)] == ["SegmentTree"]
+    segment_tree = ast.parse(modules["segment_tree/SegTree.py"].read_text(encoding="utf-8"))
+    assert [node.name for node in segment_tree.body if isinstance(node, ast.ClassDef)] == ["SegTree"]
 
     union_find = ast.parse(modules["union_find/UnionFind.py"].read_text(encoding="utf-8"))
     assert [node.name for node in union_find.body if isinstance(node, ast.ClassDef)] == ["UnionFind"]

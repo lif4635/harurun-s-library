@@ -64,13 +64,14 @@ MODULE_OVERRIDES = {
     "data_structure/AdvancedRangeStructures.py": ("Top-K区間集約・KD木・sortable sequence", "各構造の計算量"),
     "range_query/DynamicWaveletMatrix.py": ("完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版", "online操作 O(B log N)、offline全処理 O((N+Q) log V log N)"),
     "data_structure/IntRangeTree.py": ("整数専用range add/assign/affineとsum/min/maxの高速lazy tree", "構築 O(N)、各操作 O(log N)"),
-    "segment_tree/SegmentTree.py": ("一点更新・区間集約・境界探索を行う汎用Segment Tree", "構築 O(N)、各操作 O(log N)"),
-    "segment_tree/LazySegmentTree.py": ("区間作用と区間集約を行うLazy Segment Tree", "構築 O(N)、各操作 O(log N)"),
-    "segment_tree/DualSegmentTree.py": ("区間作用と一点取得に絞ったDual Segment Tree", "構築 O(N)、各操作 O(log N)"),
+    "segment_tree/SegTree.py": ("一点更新・区間集約・境界探索を行う汎用SegTree", "構築 O(N)、各操作 O(log N)"),
+    "segment_tree/LazySegTree.py": ("区間作用と区間集約を行うLazySegTree", "構築 O(N)、各操作 O(log N)"),
+    "segment_tree/DualSegTree.py": ("区間作用と一点取得に絞ったDualSegTree", "構築 O(N)、各操作 O(log N)"),
     "segment_tree/MaxInterval.py": ("一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid", "構築 O(N)、更新・query O(log N)"),
     "segment_tree/DynamicSegmentTree.py": ("巨大な疎な座標向けの一点更新Segment Tree", "各操作 O(log W)、memory O(K log W)"),
     "segment_tree/DynamicLazySegmentTree.py": ("巨大な疎な座標向けのLazy Segment Tree", "各操作 O(log W)、memoryは生成node数に比例"),
     "segment_tree/PersistentLazySegmentTree.py": ("巨大な疎な座標で履歴を保持するPersistent Lazy Segment Tree", "更新 O(log W)追加memory、query O(log W)"),
+    "tree/LCA.py": ("instanceを直接呼んで最近共通祖先を求めるLCA", "構築 O(N)、query O(1)"),
     "data_structure/LinearOptimization.py": ("直線集合とrange linear add/range min", "各操作 O(log^2 N) 系"),
     "segment_tree/RangeLIS.py": ("Seaweed monoidによる静的区間LIS", "構築 O(N^2 log N) 系、query O(log N)"),
     "game/PartizanGame.py": ("partizan gameのSurreal/NumStar値と反復solver", "状態・遷移数依存"),
@@ -109,6 +110,18 @@ CLASS_ORDER_OVERRIDES = {
 }
 
 MODULE_ARGUMENT_DESCRIPTION = {
+    "tree/LCA.py": {
+        "tree": "各頂点の隣接頂点を並べた隣接list",
+        "root": "最初に根とする0-indexed頂点番号",
+        "first": "第1の0-indexed頂点番号",
+        "second": "第2の0-indexed頂点番号",
+    },
+    "segment_tree/LazySegTree.py": {
+        "id": "遅延作用を何もしない単位元",
+    },
+    "segment_tree/DualSegTree.py": {
+        "id": "遅延作用を何もしない単位元",
+    },
     "graph/CSRGraph.py": {
         "graph": "CSRGraph、または各頂点の隣接辺を並べた隣接list",
         "edges": "graphが頂点数のときに使う辺(source, target[, weight])のiterable",
@@ -209,13 +222,13 @@ MODULE_RETURN_SEMANTIC = {
     "convolution/MinPlusConvolution.py": {
         "minplus_conv": "list[number] — 添字kがmin(first[i]+second[j], i+j=k)を表す長さlen(first)+len(second)-1の列",
     },
-    "segment_tree/SegmentTree.py": {
+    "segment_tree/SegTree.py": {
         "tolist": "list[object] — 現在のindex順の要素列",
     },
-    "segment_tree/LazySegmentTree.py": {
+    "segment_tree/LazySegTree.py": {
         "tolist": "list[object] — 全ての遅延作用を反映したindex順の要素列",
     },
-    "segment_tree/DualSegmentTree.py": {
+    "segment_tree/DualSegTree.py": {
         "tolist": "list[object] — 全ての遅延作用を反映したindex順の要素列",
     },
     "segment_tree/DynamicSegmentTree.py": {
@@ -364,7 +377,7 @@ MODULE_RETURN_SEMANTIC = {
     },
     "segment_tree/MaxInterval.py": {
         "merge_max_interval": "MaxInterval — firstの直後にsecondを連結した区間の集約値",
-        "max_interval_segment_tree": "SegmentTree — 各nodeがMaxIntervalを持つSegmentTree。prod(...).maximumで最大部分配列和を取得する",
+        "max_interval_segment_tree": "SegTree — 各nodeがMaxIntervalを持つSegTree。prod(...).maximumで最大部分配列和を取得する",
     },
 }
 
@@ -382,6 +395,17 @@ MODULE_PURPOSE = {
 }
 
 CLASS_RETURN_SEMANTIC = {
+    "combinatorics/Combination.py": {
+        "Comb": {
+            "__call__": "int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0",
+        },
+    },
+    "tree/LCA.py": {
+        "LCA": {
+            "__call__": "int — firstとsecondの最近共通祖先。異なる連結成分なら-1",
+            "dist": "int — firstとsecondの辺数距離。異なる連結成分なら-1",
+        },
+    },
     "combinatorics/BinomialQueries.py": {
         "BinomialPrefix": {
             "move": "int — 移動後のsum(C(n,k), 0<=k<=m)",

@@ -6,10 +6,10 @@ action changes an aggregate, and how newer and older actions compose.
 """
 
 
-class LazySegmentTree:
+class LazySegTree:
     __slots__ = (
         "n", "size", "log", "data", "lazy", "pending", "length",
-        "op", "identity", "mapping", "composition"
+        "op", "identity", "mapping", "composition", "id"
     )
 
     def __init__(
@@ -18,6 +18,7 @@ class LazySegmentTree:
         identity,
         mapping,
         composition,
+        id,
         values,
     ):
         if isinstance(values, int):
@@ -39,13 +40,14 @@ class LazySegmentTree:
         self.size = size
         self.log = size.bit_length() - 1
         self.data = data
-        self.lazy = [None] * size
+        self.lazy = [id] * size
         self.pending = bytearray(size)
         self.length = length
         self.op = op
         self.identity = identity
         self.mapping = mapping
         self.composition = composition
+        self.id = id
 
     def _update(self, node):
         self.data[node] = self.op(
@@ -68,7 +70,7 @@ class LazySegmentTree:
             action = self.lazy[node]
             self._all_apply(node << 1, action)
             self._all_apply(node << 1 | 1, action)
-            self.lazy[node] = None
+            self.lazy[node] = self.id
             self.pending[node] = 0
 
     def set(self, index, value):
@@ -104,7 +106,7 @@ class LazySegmentTree:
         return str(self.tolist())
 
     def __repr__(self):
-        return "LazySegmentTree(%r)" % self.tolist()
+        return "LazySegTree(%r)" % self.tolist()
 
     def prod(self, left, right):
         if left == right:
