@@ -37,7 +37,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | category | 内容 | modules | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: | ---: |
 | [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 13 | 33 | 3 | 10 |
-| [convolution](api/convolution/README.md) | 通常の畳み込み・DFT・NTT | 5 | 12 | 1 | 4 |
+| [convolution](api/convolution/README.md) | 通常の畳み込み・DFT・NTT | 6 | 13 | 1 | 4 |
 | [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 2 | 7 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
 | [fps](api/fps/README.md) | 有限体上の形式的冪級数と母関数の演算 | 12 | 36 | 8 | 56 |
@@ -65,10 +65,10 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 20 | 23 | 24 | 120 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 232 |
-| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 13 | 13 | 9 | 48 |
+| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 13 | 12 | 9 | 48 |
 | [geometry](api/geometry/README.md) | 幾何・2次元点 | 4 | 5 | 0 | 0 |
 | [game](api/game/README.md) | 組合せゲーム | 6 | 8 | 7 | 43 |
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
 
-合計: **289 modules / 398 functions / 204 classes / 1280 methods・properties**。
+合計: **290 modules / 398 functions / 204 classes / 1280 methods・properties**。

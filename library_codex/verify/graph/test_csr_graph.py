@@ -76,6 +76,38 @@ def test_csr_from_symmetric_undirected_adjacency():
         raise AssertionError("asymmetric undirected adjacency must fail")
 
 
+def test_csr_algorithms_accept_adjacency_lists_directly():
+    weighted = [[(1, 4), (2, 1)], [(3, 2)], [(1, 1), (3, 8)], []]
+    assert dijkstra_csr(weighted, 0)[0] == [0, 2, 1, 4]
+    assert zero_one_bfs_csr([[(1, 0), (2, 1)], [(2, 0)], []], 0)[0] == [0, 0, 0]
+    assert bfs_csr([[1, 2], [3], [3], []], 0)[0] == [0, 1, 1, 2]
+
+    dag = [[1, 2], [3], [3], []]
+    order = topological_sort_csr(dag)
+    assert order is not None
+    assert all(order.index(source) < order.index(target)
+               for source, row in enumerate(dag) for target in row)
+
+    undirected = [[1], [0, 2], [1], []]
+    component, groups = connected_components_csr(undirected)
+    assert component[0] == component[1] == component[2]
+    assert component[3] != component[0]
+    assert sorted(map(sorted, groups)) == [[0, 1, 2], [3]]
+    assert bipartite_coloring_csr(undirected) is not None
+
+    directed = [[1], [0, 2], [3], [2]]
+    count, component = scc_ids_csr(directed)
+    assert count == 2
+    assert component[0] == component[1]
+    assert component[2] == component[3]
+    assert component[0] != component[2]
+    assert CSRSCC(directed).component == component
+
+    lowlink = CSRLowLink(undirected)
+    assert set(lowlink.bridges) == {(0, 1), (1, 2)}
+    assert lowlink.articulation == [1]
+
+
 def test_csr_shortest_paths_random_against_existing():
     rng = random.Random(8201)
     for n in range(1, 100):

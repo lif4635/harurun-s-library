@@ -5,8 +5,8 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`ConvexConcaveConvolution`](ConvexConcaveConvolution.md) | 凸・凹列とのmin-plusまたはmax-plus畳み込みを計算する。 | 2 | 0 | 0 |
-| [`ConvexMinPlusConvolution`](ConvexMinPlusConvolution.md) | 凸列を含むmin-plus畳み込みを高速に計算する。 | 2 | 0 | 0 |
+| [`ConvexConcaveConvolution`](ConvexConcaveConvolution.md) | 凹列を含むmax-plus畳み込み | 1 | 0 | 0 |
+| [`ConvexMinPlusConvolution`](ConvexMinPlusConvolution.md) | 凸列を含むmin-plus畳み込み | 2 | 0 | 0 |
 | [`GoldenSectionSearch`](GoldenSectionSearch.md) | 単峰関数の最小値または最大値を黄金分割探索する。 | 1 | 0 | 0 |
 | [`KnapsackBranchAndBound`](KnapsackBranchAndBound.md) | 0/1 knapsackを分枝限定法で解く。 | 1 | 0 | 0 |
 | [`LineContainer`](LineContainer.md) | 直線を追加し、任意のxで最小値または最大値を求める。 | 0 | 1 | 2 |

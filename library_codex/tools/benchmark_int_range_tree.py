@@ -61,11 +61,11 @@ def generic_tree(values):
         return old_assign, old_add + new_add
 
     return LazySegmentTree(
-        [(value, value, value) for value in values],
         operation,
         (0, INF, -INF),
         mapping,
         composition,
+        [(value, value, value) for value in values],
     )
 
 
@@ -85,7 +85,7 @@ def generic_affine_tree(values, mod):
             (new_multiplier * old_addend + new_addend) % mod,
         )
 
-    return LazySegmentTree(values, operation, 0, mapping, composition)
+    return LazySegmentTree(operation, 0, mapping, composition, values)
 
 
 def run_generic(tree, operations):

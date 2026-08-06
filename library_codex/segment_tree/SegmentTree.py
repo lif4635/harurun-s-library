@@ -9,7 +9,7 @@ also find the first boundary where a monotone predicate stops holding.
 class SegmentTree:
     __slots__ = ("n", "size", "log", "data", "op", "identity")
 
-    def __init__(self, values, op, identity):
+    def __init__(self, op, identity, values):
         if isinstance(values, int):
             n = values
             values = [identity] * n

@@ -35,7 +35,7 @@
 
 ## APIドキュメント
 
-- [APIリファレンス](docs/README.md): 全289モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
+- [APIリファレンス](docs/README.md): 全290モジュールの公開関数・クラス・メソッドについて、用途・signature・引数・返り値・source位置を掲載
 - [モジュール境界の方針](docs/MODULE_BOUNDARIES.md): 分ける基準、同じファイルに残す基準、bundleの依存範囲
 - 1モジュール1ページで、category別の索引から辿れる
 - `pypy3 library_codex/tools/build_api_reference.py` でsourceから再生成できる
@@ -64,6 +64,7 @@
 | `combinatorial_series/LinearRecurrence.py` | Berlekamp--Massey・Bostan--Mori・線形漸化式第n項 | BM $O(ND)$、第n項 $O(M(D)\log n)$ |
 | `polynomial/MultipointEvaluation.py` | 積木による多点評価・多項式補間・連続点補間 | $O(M(N)\log N)$、連続点は $O(N)$ |
 | `convolution/NTT.py` | 動的radix-4 NTT・NTT-friendly/任意mod/符号付き整数畳み込み | $O(N\log N)$ |
+| `convolution/MinPlusConvolution.py` | 一般列どうしのmin-plus畳み込み | $O(NM)$ |
 | `fps/PolynomialComposition.py` | 高速FPS合成・Brent--Kung fallback・合成逆関数 | $O(N\log^2N)$（NTT法） |
 | `bitwise_convolution/SetFunction.py` | subset/superset変換・OR/AND/XOR・subset畳み込み/除算・set power series演算 | $O(N\log N)$ / subset $O(N\log^2 N)$ |
 | `range_query/DisjointSparseTable.py` | 静的列の半群区間積 | 構築 $O(N\log N)$、クエリ $O(1)$ |

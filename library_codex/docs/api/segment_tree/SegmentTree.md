@@ -24,8 +24,8 @@ from library_codex.segment_tree.SegmentTree import SegmentTree
 
 一点更新・区間集約・境界探索を行う汎用Segment Treeを扱う `SegmentTree`。
 
-- constructor: [`SegmentTree(values, op, identity)`](../../../segment_tree/SegmentTree.py#L12)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`<br>`identity`: 演算 `op` の単位元
+- constructor: [`SegmentTree(op, identity, values)`](../../../segment_tree/SegmentTree.py#L12)
+- 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`identity`: 演算 `op` の単位元<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある
 - 返り値: `SegmentTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

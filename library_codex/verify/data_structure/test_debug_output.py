@@ -23,18 +23,18 @@ from library_codex.union_find.UnionFind import UnionFind
 
 
 def test_dense_tree_debug_output_uses_logical_values():
-    segment = SegmentTree([1, 2, 3], lambda a, b: a + b, 0)
+    segment = SegmentTree(lambda a, b: a + b, 0, [1, 2, 3])
     segment.add(1, 5)
     assert segment.tolist() == [1, 7, 3]
     assert str(segment) == "[1, 7, 3]"
     assert repr(segment) == "SegmentTree([1, 7, 3])"
 
     lazy = LazySegmentTree(
-        [1, 2, 3],
         lambda a, b: a + b,
         0,
         lambda action, value, length: value + action * length,
         lambda new, old: new + old,
+        [1, 2, 3],
     )
     lazy.apply(0, 2, 10)
     assert lazy.tolist() == [11, 12, 3]
@@ -42,9 +42,9 @@ def test_dense_tree_debug_output_uses_logical_values():
     assert lazy.prod(0, 3) == 26
 
     dual = DualSegmentTree(
-        [1, 2, 3],
         lambda action, value: value + action,
         lambda new, old: new + old,
+        [1, 2, 3],
     )
     dual.apply(1, 3, 4)
     assert dual.tolist() == [1, 6, 7]

@@ -14,11 +14,11 @@ class LazySegmentTree:
 
     def __init__(
         self,
-        values,
         op,
         identity,
         mapping,
         composition,
+        values,
     ):
         if isinstance(values, int):
             n = values

@@ -36,6 +36,21 @@ MODULE_CAPABILITIES = {
         "順変換・逆変換を明示的に実行し、変換済み配列を再利用できる。",
         "法と原始根を指定して、標準設定以外のNTTも構築できる。",
     ),
+    "convolution/MinPlusConvolution.py": (
+        "任意の2列をmin-plus半環上で畳み込み、全ての添字和に対する最小値を返す。",
+        "空でない入力では結果の長さが必ずlen(first)+len(second)-1になる。",
+        "凸性を仮定しない一般版なので、入力長の積に比例する時間で計算する。",
+    ),
+    "optimization/ConvexMinPlusConvolution.py": (
+        "一方または両方が凸な列のmin-plus畳み込みを高速に計算する。",
+        "どちらの関数も空でない入力には長さlen(first)+len(second)-1の列を返す。",
+        "一般列との畳み込みでは、必要なら最小値を作った凸列側の添字も返せる。",
+    ),
+    "optimization/ConvexConcaveConvolution.py": (
+        "凹列と一般列のmax-plus畳み込みを高速に計算する。",
+        "空でない入力には長さlen(concave)+len(arbitrary)-1の列を返す。",
+        "必要なら最大値を作った凹列側の添字も同時に返せる。",
+    ),
     "fenwick_tree/FenwickTree.py": (
         "1次元列の一点加算とprefix和・半開区間和を O(log N) で処理できる。",
         "区間加算・区間和、疎な添字空間、2次元矩形和の各Fenwick構造を選べる。",
@@ -90,8 +105,8 @@ MODULE_CAPABILITIES = {
     ),
     "graph/CSRGraph.py": (
         "辺をCSR形式の連続配列へ格納し、隣接listより省メモリに走査できる。",
-        "Dijkstra・0-1 BFS・BFS・トポロジカル順序・連結成分をCSR上で直接計算できる。",
-        "SCCとLowLinkもCSR表現のまま処理し、成分ID・橋・関節点を取得できる。",
+        "各アルゴリズムへCSRGraphだけでなく通常の隣接listもそのまま渡せる。",
+        "Dijkstra・BFS・SCC・LowLinkなどを非再帰で計算できる。",
     ),
     "graph/ShortestPath.py": (
         "BFS・0-1 BFS・Dijkstra・Bellman–Fordなどを入力グラフに合わせて選べる。",
@@ -219,6 +234,9 @@ PURPOSE_BY_NAME = {
     "coordinate_compress": "値の大小関係を保った0始まりの順位へ座標圧縮する。",
     "count_increasing_sequences": "lower[i]以上upper[i]未満を満たす広義単調増加列の個数を求める。",
     "count_spanning_trees": "無向グラフの全域木の個数をMatrix-Tree theoremで求める。",
+    "convex_min_plus_convolution": "一般列と凸列のmin-plus畳み込みを求める。",
+    "convex_convex_min_plus_convolution": "2つの凸列のmin-plus畳み込みを差分列のmergeで求める。",
+    "concave_max_plus_convolution": "凹列と一般列のmax-plus畳み込みを求める。",
     "decimal_digit_count": "非負整数の10進桁数を返す。",
     "depth": "指定頂点の根からの深さを返す。",
     "ensure_permutation": "列が0からn-1までを1回ずつ含む置換か判定する。",
@@ -226,6 +244,7 @@ PURPOSE_BY_NAME = {
     "lis": "最長増加部分列の長さを求め、必要なら添字列と値列も復元する。",
     "lsb_index": "正整数の最下位1-bitの位置を0-indexedで返す。",
     "mcs_order": "最大重み探索（MCS）で頂点を選ぶ順序を返す。",
+    "minplus_conv": "2列のmin-plus畳み込みを全ての添字和について求める。",
     "msb_index": "正整数の最上位1-bitの位置を0-indexedで返す。",
     "multiplicative_convolution": "素数modの乗法に沿った畳み込みを計算する。",
     "replacement_paths": "各辺を1本ずつ除いた場合のsource-target最短距離をまとめて求める。",
@@ -359,6 +378,9 @@ RETURN_DETAILS = {
     "connected_components_csr": "tuple[list[int], list[list[int]]] — 1つ目は頂点ごとの成分ID、2つ目は各成分に属する頂点の列",
     "comb": "int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0",
     "comb_prefix_sums": "list[int] — 各(n,m)に対するsum(C(n,k), 0<=k<=m)をqueryと同じ順に並べた列",
+    "convex_min_plus_convolution": "list[number]、return_argmin=Trueならtuple[list[number], list[int]] — 値の列は長さlen(arbitrary)+len(convex)-1、添字列は各値を作ったconvex側の位置",
+    "convex_convex_min_plus_convolution": "list[number] — 長さlen(first)+len(second)-1のmin-plus畳み込み",
+    "concave_max_plus_convolution": "list[number]、return_argmax=Trueならtuple[list[number], list[int]] — 値の列は長さlen(concave)+len(arbitrary)-1、添字列は各値を作ったconcave側の位置",
     "count_increasing_sequences": "int — 条件を満たす列の個数をmodで割った0以上mod未満の値",
     "count_spanning_trees": "int — 無向全域木の重み付き個数をmodで割った値",
     "dijkstra_csr": "tuple[list[number], list[int]] — 1つ目は各頂点への最短距離（未到達はinf）、2つ目は経路復元用の直前頂点（未設定は-1）",
@@ -368,6 +390,7 @@ RETURN_DETAILS = {
     "factor_count_pairs": "list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列",
     "mobius": "int — numberのMöbius関数値（-1、0、1のいずれか）",
     "mcs_order": "list[int] — MCSで選ばれた頂点番号を先頭から並べた長さnの列",
+    "minplus_conv": "list[number] — 添字kがmin(first[i]+second[j], i+j=k)を表す長さlen(first)+len(second)-1の列",
     "multiplicative_convolution": "list[int] — 添字kがsum(first[i]*second[j], i*j≡k mod prime)を表す長さprimeの列",
     "neighbors": "iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする",
     "pollard_rho": "int — numberの非自明な因数。numberが素数ならnumber自身",
@@ -451,6 +474,16 @@ COMPLEXITY_BY_MODULE = {
     },
     "arithmetic_convolution/MultiplicativeConvolutionModPrime.py": {
         "multiplicative_convolution": "O(prime log prime)",
+    },
+    "convolution/MinPlusConvolution.py": {
+        "minplus_conv": "O(len(first) * len(second))",
+    },
+    "optimization/ConvexMinPlusConvolution.py": {
+        "convex_min_plus_convolution": "O(A log(A+C) + C)（Aはarbitrary、Cはconvexの長さ）",
+        "convex_convex_min_plus_convolution": "O(N+M)",
+    },
+    "optimization/ConvexConcaveConvolution.py": {
+        "concave_max_plus_convolution": "O(A log(A+C) + C)（Aはarbitrary、Cはconcaveの長さ）",
     },
     "graph_connectivity/StronglyConnectedComponents.py": {
         "SCC": "O(V+E)",

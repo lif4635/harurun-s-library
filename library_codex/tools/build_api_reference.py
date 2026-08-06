@@ -36,6 +36,18 @@ COMPATIBILITY_MODULES = {
 # Modules added after the overview table in README was written.  The other
 # overviews and complexity notes are read directly from that table.
 MODULE_OVERRIDES = {
+    "convolution/MinPlusConvolution.py": (
+        "一般列どうしのmin-plus畳み込み",
+        "O(len(first) * len(second))",
+    ),
+    "optimization/ConvexMinPlusConvolution.py": (
+        "凸列を含むmin-plus畳み込み",
+        "一般列×凸列 O(A log(A+C)+C)、凸列×凸列 O(N+M)",
+    ),
+    "optimization/ConvexConcaveConvolution.py": (
+        "凹列を含むmax-plus畳み込み",
+        "O(A log(A+C)+C)",
+    ),
     "algorithm/Base64Integers.py": ("符号付き整数列のBase64可変長符号化・復号", "入出力サイズに線形"),
     "algorithm/MiscAlgorithms.py": ("商列挙・区間列挙などの汎用小アルゴリズム", "各標準計算量"),
     "algorithm/PermutationGroup.py": ("置換の合成・逆元と置換群の生成元簡約", "主に O(N^2K)"),
@@ -97,6 +109,11 @@ CLASS_ORDER_OVERRIDES = {
 }
 
 MODULE_ARGUMENT_DESCRIPTION = {
+    "graph/CSRGraph.py": {
+        "graph": "CSRGraph、または各頂点の隣接辺を並べた隣接list",
+        "edges": "graphが頂点数のときに使う辺(source, target[, weight])のiterable",
+        "directed": "Trueなら有向graphとして構築する",
+    },
     "geometry/Orientation.py": {
         "origin": "2本のベクトルの共通始点 `(x, y)`",
         "first": "第1の点 `(x, y)`",
@@ -189,6 +206,9 @@ MODULE_ARGUMENT_DESCRIPTION = {
 }
 
 MODULE_RETURN_SEMANTIC = {
+    "convolution/MinPlusConvolution.py": {
+        "minplus_conv": "list[number] — 添字kがmin(first[i]+second[j], i+j=k)を表す長さlen(first)+len(second)-1の列",
+    },
     "segment_tree/SegmentTree.py": {
         "tolist": "list[object] — 現在のindex順の要素列",
     },

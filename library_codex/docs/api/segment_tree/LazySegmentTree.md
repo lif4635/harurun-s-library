@@ -24,8 +24,8 @@ from library_codex.segment_tree.LazySegmentTree import LazySegmentTree
 
 区間作用と区間集約を行うLazy Segment Treeを扱う `LazySegmentTree`。
 
-- constructor: [`LazySegmentTree(values, op, identity, mapping, composition)`](../../../segment_tree/LazySegmentTree.py#L15)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`<br>`identity`: 演算 `op` の単位元<br>`mapping`: 作用を値へ適用するcallback<br>`composition`: 新旧の作用を合成するcallback
+- constructor: [`LazySegmentTree(op, identity, mapping, composition, values)`](../../../segment_tree/LazySegmentTree.py#L15)
+- 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`identity`: 演算 `op` の単位元<br>`mapping`: 作用を値へ適用するcallback<br>`composition`: 新旧の作用を合成するcallback<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある
 - 返り値: `LazySegmentTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

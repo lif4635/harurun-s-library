@@ -8,7 +8,7 @@ positions are queried.  It intentionally stores no range aggregate.
 class DualSegmentTree:
     __slots__ = ("n", "size", "log", "value", "lazy", "pending", "mapping", "composition")
 
-    def __init__(self, values, mapping, composition):
+    def __init__(self, mapping, composition, values):
         if isinstance(values, int):
             values = [None] * values
         else:

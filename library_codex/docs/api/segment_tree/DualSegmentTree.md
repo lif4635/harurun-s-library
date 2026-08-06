@@ -23,8 +23,8 @@ from library_codex.segment_tree.DualSegmentTree import DualSegmentTree
 
 区間作用と一点取得に絞ったDual Segment Treeを扱う `DualSegmentTree`。
 
-- constructor: [`DualSegmentTree(values, mapping, composition)`](../../../segment_tree/DualSegmentTree.py#L11)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mapping`: 作用を値へ適用するcallback<br>`composition`: 新旧の作用を合成するcallback
+- constructor: [`DualSegmentTree(mapping, composition, values)`](../../../segment_tree/DualSegmentTree.py#L11)
+- 引数: `mapping`: 作用を値へ適用するcallback<br>`composition`: 新旧の作用を合成するcallback<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある
 - 返り値: `DualSegmentTree` instance
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |

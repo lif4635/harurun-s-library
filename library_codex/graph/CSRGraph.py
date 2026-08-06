@@ -163,8 +163,15 @@ class CSRGraph:
         return self.n
 
 
+def _as_csr(graph, directed):
+    if isinstance(graph, CSRGraph):
+        return graph
+    return CSRGraph.from_adjacency(graph, directed=directed)
+
+
 def dijkstra_csr(graph, start=0, goal=None, check_nonnegative=True):
-    """Dijkstra on flat CSR arrays, returning ``(distance, previous)``."""
+    """Dijkstra on a CSR graph or adjacency list."""
+    graph = _as_csr(graph, directed=True)
     n = graph.n
     if not 0 <= start < n:
         raise IndexError("start vertex out of range")
@@ -199,7 +206,8 @@ def dijkstra_csr(graph, start=0, goal=None, check_nonnegative=True):
 
 
 def zero_one_bfs_csr(graph, start=0, check_weights=True):
-    """0-1 BFS on flat CSR arrays, returning ``(distance, previous)``."""
+    """0-1 BFS on a CSR graph or adjacency list."""
+    graph = _as_csr(graph, directed=True)
     n = graph.n
     if not 0 <= start < n:
         raise IndexError("start vertex out of range")
@@ -230,7 +238,8 @@ def zero_one_bfs_csr(graph, start=0, check_weights=True):
 
 
 def bfs_csr(graph, start=0, goal=None):
-    """Unweighted BFS on CSR arrays, returning ``(distance, previous)``."""
+    """Unweighted BFS on a CSR graph or adjacency list."""
+    graph = _as_csr(graph, directed=True)
     n = graph.n
     if not 0 <= start < n:
         raise IndexError("start vertex out of range")
@@ -257,7 +266,8 @@ def bfs_csr(graph, start=0, goal=None):
 
 
 def topological_sort_csr(graph, lexicographical=False):
-    """Return a topological order, or ``None`` when a directed cycle exists."""
+    """Topologically sort a directed CSR graph or adjacency list."""
+    graph = _as_csr(graph, directed=True)
     if not graph.directed:
         raise ValueError("topological sort requires a directed graph")
     n = graph.n
@@ -292,7 +302,8 @@ def topological_sort_csr(graph, lexicographical=False):
 
 
 def connected_components_csr(graph):
-    """Return ``(component_id, groups)`` for an undirected CSR graph."""
+    """Find components of an undirected CSR graph or symmetric adjacency list."""
+    graph = _as_csr(graph, directed=False)
     if graph.directed:
         raise ValueError("connected components require an undirected graph")
     n = graph.n
@@ -320,7 +331,8 @@ def connected_components_csr(graph):
 
 
 def bipartite_coloring_csr(graph):
-    """Return a 0/1 coloring for an undirected graph, or ``None``."""
+    """Color an undirected CSR graph or symmetric adjacency list with 0/1."""
+    graph = _as_csr(graph, directed=False)
     if graph.directed:
         raise ValueError("bipartite coloring requires an undirected graph")
     n = graph.n
@@ -346,7 +358,8 @@ def bipartite_coloring_csr(graph):
 
 
 def scc_ids_csr(graph):
-    """Return ``(component_count, component_id)`` in topological order."""
+    """Find SCCs of a directed CSR graph or adjacency list."""
+    graph = _as_csr(graph, directed=True)
     if not graph.directed:
         raise ValueError("SCC requires a directed graph")
     n = graph.n
@@ -402,6 +415,7 @@ class CSRSCC:
     __slots__ = ("n", "graph", "component", "groups", "dag", "count")
 
     def __init__(self, graph, build_dag=True):
+        graph = _as_csr(graph, directed=True)
         count, component = scc_ids_csr(graph)
         groups = [[] for _ in range(count)]
         for vertex, group in enumerate(component):
@@ -439,7 +453,7 @@ def scc_csr(graph):
 
 
 class CSRLowLink:
-    """Iterative LowLink over an undirected CSR multigraph."""
+    """Iterative LowLink over an undirected CSR graph or adjacency list."""
 
     __slots__ = (
         "n", "graph", "edge_from", "edge_to", "order", "ord", "low",
@@ -447,16 +461,31 @@ class CSRLowLink:
         "is_bridge", "bridge_ids", "bridges", "bridge",
     )
 
-    def __init__(self, n, edges=()):
-        records = edges if isinstance(edges, (list, tuple)) else list(edges)
-        edge_from = []
-        edge_to = []
-        for entry in records:
-            source = entry[0]
-            target = entry[1]
-            edge_from.append(source)
-            edge_to.append(target)
-        graph = CSRGraph(n, records, directed=False)
+    def __init__(self, graph, edges=None):
+        if isinstance(graph, int):
+            n = graph
+            records = () if edges is None else edges
+            records = records if isinstance(records, (list, tuple)) else list(records)
+            edge_from = [entry[0] for entry in records]
+            edge_to = [entry[1] for entry in records]
+            graph = CSRGraph(n, records, directed=False)
+        else:
+            if edges is not None:
+                raise TypeError("edges is only used with a vertex count")
+            graph = _as_csr(graph, directed=False)
+            if graph.directed:
+                raise ValueError("LowLink requires an undirected graph")
+            n = graph.n
+            edge_from = [0] * graph.m
+            edge_to = [0] * graph.m
+            seen_edge = bytearray(graph.m)
+            for source in range(n):
+                for index in range(graph.start[source], graph.start[source + 1]):
+                    edge = graph.edge_id[index]
+                    if not seen_edge[edge]:
+                        seen_edge[edge] = 1
+                        edge_from[edge] = source
+                        edge_to[edge] = graph.to[index]
         offsets = graph.start
         to = graph.to
         arc_edge_id = graph.edge_id

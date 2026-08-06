@@ -2,9 +2,9 @@
 
 from library_codex.optimization.MonotoneMinima import monotone_minima
 
-def convex_min_plus_convolution(arbitrary, convex):
+def convex_min_plus_convolution(arbitrary, convex, return_argmin=False):
     if not arbitrary or not convex:
-        return []
+        return ([], []) if return_argmin else []
     first_size = len(arbitrary)
     second_size = len(convex)
     output_size = first_size + second_size - 1
@@ -24,10 +24,14 @@ def convex_min_plus_convolution(arbitrary, convex):
     indices = monotone_minima(
         output_size, first_size, compare=compare
     )
-    return [
+    values = [
         arbitrary[index] + convex[row - index]
         for row, index in enumerate(indices)
     ]
+    if not return_argmin:
+        return values
+    convex_indices = [row - index for row, index in enumerate(indices)]
+    return values, convex_indices
 
 def convex_convex_min_plus_convolution(first, second):
     if not first or not second:
@@ -55,4 +59,3 @@ def convex_convex_min_plus_convolution(first, second):
             right += 1
         result.append(result[-1] + difference)
     return result
-

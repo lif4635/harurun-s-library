@@ -76,7 +76,7 @@ def merge_max_interval(first, second):
 
 def max_interval_segment_tree(values):
     return SegmentTree(
-        [MaxInterval.single(value) for value in values],
         merge_max_interval,
         MaxInterval(),
+        [MaxInterval.single(value) for value in values],
     )

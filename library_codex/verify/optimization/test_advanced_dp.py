@@ -2,6 +2,8 @@ import random
 
 from library_codex.optimization.ConvexConcaveConvolution import (
     concave_max_plus_convolution,
+)
+from library_codex.optimization.ConvexMinPlusConvolution import (
     convex_min_plus_convolution,
 )
 from library_codex.optimization.KnapsackBranchAndBound import knapsack_branch_and_bound
@@ -26,7 +28,7 @@ def test_convex_and_concave_convolution_against_quadratic():
         expected = [min(convex[i] + arbitrary[k - i]
                         for i in range(n) if 0 <= k - i < m)
                     for k in range(n + m - 1)]
-        values, indices = convex_min_plus_convolution(convex, arbitrary, True)
+        values, indices = convex_min_plus_convolution(arbitrary, convex, True)
         assert values == expected
         assert all(convex[index] + arbitrary[k - index] == values[k]
                    for k, index in enumerate(indices))

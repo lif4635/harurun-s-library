@@ -103,7 +103,7 @@ def test_fenwick_2d_random():
 def test_segment_tree_noncommutative_and_search():
     rng = random.Random(791520)
     values = [chr(97 + rng.randrange(26)) for _ in range(100)]
-    solver = SegmentTree(values, lambda first, second: first + second, "")
+    solver = SegmentTree(lambda first, second: first + second, "", values)
     for _ in range(5000):
         if rng.randrange(3) == 0:
             index = rng.randrange(len(values))
@@ -119,7 +119,7 @@ def test_segment_tree_noncommutative_and_search():
             assert solver.prod(left, right) == "".join(values[left:right])
 
     numbers = [rng.randrange(1, 10) for _ in range(100)]
-    solver = SegmentTree(numbers, lambda x, y: x + y, 0)
+    solver = SegmentTree(lambda x, y: x + y, 0, numbers)
     for left in range(101):
         limit = rng.randrange(100)
         right = left
@@ -143,16 +143,16 @@ def test_lazy_and_dual_segment_tree_random():
     size = 100
     values = [rng.randrange(-50, 51) for _ in range(size)]
     solver = LazySegmentTree(
-        values,
         lambda first, second: first + second,
         0,
         lambda action, value, length: value + action * length,
         lambda new, old: new + old,
+        values,
     )
     dual = DualSegmentTree(
-        values,
         lambda action, value: value + action,
         lambda new, old: new + old,
+        values,
     )
     for _ in range(10000):
         kind = rng.randrange(5)
@@ -180,11 +180,11 @@ def test_lazy_and_dual_segment_tree_random():
     assert solver.all_prod() == sum(values)
 
     noncommutative = LazySegmentTree(
-        [("a",), ("b",), ("c",)],
         lambda first, second: first + second,
         (),
         lambda _action, aggregate, _length: aggregate,
         lambda new, _old: new,
+        [("a",), ("b",), ("c",)],
     )
     noncommutative.add(1, ("x",))
     assert noncommutative.get(1) == ("x", "b")
