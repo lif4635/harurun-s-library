@@ -110,6 +110,11 @@ CLASS_ORDER_OVERRIDES = {
 }
 
 MODULE_ARGUMENT_DESCRIPTION = {
+    "combinatorics/Combination.py": {
+        "n": "二項係数C(n, k)の上側。0以上の整数",
+        "k": "n個から選ぶ個数。範囲外なら結果は0",
+        "mod": "法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある",
+    },
     "tree/LCA.py": {
         "tree": "各頂点の隣接頂点を並べた隣接list",
         "root": "最初に根とする0-indexed頂点番号",

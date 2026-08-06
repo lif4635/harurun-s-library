@@ -1,4 +1,4 @@
-"""階乗前計算または乗法式で二項係数・順列数を計算する。"""
+"""階乗表を使うCombと、小さいk向けの乗法式で二項係数を計算する。"""
 
 DEFAULT_MOD = 998244353
 
@@ -60,8 +60,11 @@ class Comb:
             return int(k == 0)
         return self.C(n + k - 1, k)
 
-def comb(n, k, mod=DEFAULT_MOD):
-    """nが大きくkが小さいときに二項係数C(n, k)をO(k)で求める。"""
+def comb_small_k(n, k, mod=DEFAULT_MOD):
+    """nが大きくkが小さいときに二項係数C(n, k)を乗法式で求める。
+
+    O(min(k, n-k))。1からmin(k, n-k)までがmodで可逆である必要がある。
+    """
     if k < 0 or n < k:
         return 0
     k = min(k, n - k)

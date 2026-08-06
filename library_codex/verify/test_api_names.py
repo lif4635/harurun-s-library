@@ -12,8 +12,8 @@ def test_short_canonical_api_names_replace_long_aliases():
             ("longest_increasing_subsequence",),
         ),
         "library_codex.combinatorics.Combination": (
-            ("Comb", "comb"),
-            ("Combination", "comb_large"),
+            ("Comb", "comb_small_k"),
+            ("Combination", "comb", "comb_large"),
         ),
         "library_codex.combinatorics.BinomialQueries": (
             ("comb_prefix_sums",),
