@@ -20,6 +20,9 @@ CATEGORY_DOMAINS = {}
 DOMAIN_LABELS = {}
 SEARCH_TERMS_BY_MODULE = {}
 SEARCH_TERMS_BY_SYMBOL = {}
+API_DETAILS_BY_SYMBOL = {}
+CLASS_DETAILS_BY_SYMBOL = {}
+COMPLEXITY_BY_MODULE = {}
 SCHEMA_VERSION = 1
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "library-catalog.json"
@@ -96,6 +99,14 @@ def symbol_search_terms(module_key, name, signature, summary):
         (signature,),
         SEARCH_TERMS_BY_SYMBOL.get((module_key, name), ()),
     )
+
+
+def api_detail(module_key, owner, name):
+    return API_DETAILS_BY_SYMBOL.get((module_key, owner, name), {})
+
+
+def class_detail(module_key, name):
+    return CLASS_DETAILS_BY_SYMBOL.get((module_key, name), {})
 
 
 PROSE_REPLACEMENTS = (
@@ -1491,6 +1502,41 @@ def infer_complexity(
     return concise_complexity(hint) if hint else "実装依存"
 
 
+def apply_api_detail(item, module_key, owner):
+    detail = api_detail(module_key, owner, item["name"])
+    description = detail.get("description")
+    if description:
+        description = clean_markdown(description)
+        item["summary"] = description
+        item["description"] = description
+    return_format = detail.get("returnFormat")
+    if return_format:
+        item["returnFormat"] = clean_markdown(return_format)
+    return_description = detail.get("returnDescription")
+    if return_description:
+        item["returnDescription"] = clean_markdown(return_description)
+    if return_format or return_description:
+        item["returns"] = " — ".join(
+            value
+            for value in (
+                item["returnFormat"],
+                item["returnDescription"],
+            )
+            if value
+        )
+    parts = detail.get("returnParts")
+    if parts:
+        item["returnParts"] = [
+            {
+                "name": clean_markdown(part["name"]),
+                "format": clean_markdown(part["format"]),
+                "description": clean_markdown(part["description"]),
+            }
+            for part in parts
+        ]
+    return item
+
+
 def table_symbols(
     section,
     kind,
@@ -1552,8 +1598,7 @@ def table_symbols(
             cells[description_index] if len(cells) > description_index else "",
             argument_details,
         )
-        result.append(
-            {
+        item = {
                 "name": symbol_name,
                 "kind": row_kind,
                 "signature": signature,
@@ -1581,7 +1626,7 @@ def table_symbols(
                 ),
                 "sourceLine": int(source_line_match.group(1)) if source_line_match else None,
             }
-        )
+        result.append(apply_api_detail(item, module_key, owner))
     return result
 
 
@@ -1675,6 +1720,7 @@ def parse_module(path, category, library_root, complexity_overrides):
         constructor_line_match = re.search(r"^- constructor: .*?#L(\d+)\)", segment, re.MULTILINE)
         arguments_match = re.search(r"^- 引数: (.+)$", segment, re.MULTILINE)
         returns_match = re.search(r"^- 返り値: (.+)$", segment, re.MULTILINE)
+        creates_match = re.search(r"^- 作成後: (.+)$", segment, re.MULTILINE)
         methods = table_symbols(
             segment,
             "method",
@@ -1687,7 +1733,19 @@ def parse_module(path, category, library_root, complexity_overrides):
             complexity_overrides,
         )
         resolve_alias_complexities(methods)
-        class_description = localize_class_description(match.group(1), description)
+        configured_class = class_detail(relative_key, match.group(1))
+        configured_description = configured_class.get("description")
+        class_description = (
+            clean_markdown(configured_description)
+            if configured_description
+            else localize_class_description(match.group(1), description)
+        )
+        constructor_creates = configured_class.get("constructorCreates") or (
+            clean_markdown(creates_match.group(1))
+            if creates_match
+            else class_description
+        )
+        constructor_creates = clean_markdown(constructor_creates)
         classes.append(
             {
                 "name": match.group(1),
@@ -1707,7 +1765,8 @@ def parse_module(path, category, library_root, complexity_overrides):
                 ),
                 "constructorReturns": clean_markdown(returns_match.group(1)) if returns_match else f"{match.group(1)} のインスタンス",
                 "constructorReturnFormat": match.group(1),
-                "constructorReturnDescription": f"初期化した {match.group(1)} オブジェクト。",
+                "constructorReturnDescription": constructor_creates,
+                "constructorCreates": constructor_creates,
                 "constructorComplexity": infer_complexity(
                     "__init__",
                     match.group(1),
@@ -1841,16 +1900,66 @@ def catalog_input_stamp(paths, base):
     return digest.hexdigest()
 
 
+def module_metadata_payload(module_key):
+    return {
+        "searchTerms": SEARCH_TERMS_BY_MODULE.get(module_key, ()),
+        "symbolSearchTerms": [
+            [symbol_name, terms]
+            for (path, symbol_name), terms in sorted(
+                SEARCH_TERMS_BY_SYMBOL.items()
+            )
+            if path == module_key
+        ],
+        "apiDetails": [
+            [owner, symbol_name, detail]
+            for (path, owner, symbol_name), detail in sorted(
+                API_DETAILS_BY_SYMBOL.items(),
+                key=lambda item: (
+                    item[0][0], item[0][1] or "", item[0][2]
+                ),
+            )
+            if path == module_key
+        ],
+        "classDetails": [
+            [class_name, detail]
+            for (path, class_name), detail in sorted(
+                CLASS_DETAILS_BY_SYMBOL.items()
+            )
+            if path == module_key
+        ],
+        "complexity": COMPLEXITY_BY_MODULE.get(module_key, {}),
+    }
+
+
 def module_input_fingerprint(source_path, document_path, library_root):
-    return hash_paths((source_path, document_path), library_root.parent)
+    module_key = source_path.relative_to(library_root).as_posix()
+    digest = hashlib.sha256()
+    digest.update(
+        hash_paths((source_path, document_path), library_root.parent).encode(
+            "ascii"
+        )
+    )
+    digest.update(b"\0")
+    digest.update(
+        json.dumps(
+            module_metadata_payload(module_key),
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    )
+    return digest.hexdigest()
 
 
 def generator_input_paths(library_root):
     return (
         Path(__file__).resolve(),
-        library_root / "tools" / "api_metadata.py",
         library_root / "tools" / "category_config.py",
     )
+
+
+def metadata_input_paths(library_root):
+    return (library_root / "tools" / "api_metadata.py",)
 
 
 def catalog_input_paths(library_root, documents=None):
@@ -1859,6 +1968,7 @@ def catalog_input_paths(library_root, documents=None):
         tuple(source_module_paths(library_root).values())
         + tuple(documents.values())
         + generator_input_paths(library_root)
+        + metadata_input_paths(library_root)
         + (library_root / "README.md",)
     )
 
@@ -1921,10 +2031,140 @@ def validate_search_metadata(library_root):
         validate_term_sequence(f"{module_key}:{symbol_name}", terms)
 
 
+def public_api_structure(source_path):
+    tree = ast.parse(
+        source_path.read_text(encoding="utf-8"), filename=str(source_path)
+    )
+    functions = set()
+    classes = {}
+    for node in tree.body:
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if not node.name.startswith("_"):
+                functions.add(node.name)
+        elif isinstance(node, ast.ClassDef) and not node.name.startswith("_"):
+            methods = set()
+            for child in node.body:
+                if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                    if not child.name.startswith("_") or child.name in {
+                        "__call__", "__contains__", "__getitem__", "__iter__",
+                        "__len__", "__repr__", "__setitem__", "__str__",
+                    }:
+                        methods.add(child.name)
+            classes[node.name] = methods
+    return functions, classes
+
+
+def validate_nonempty_text(owner, field, value):
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"empty {field} for {owner}")
+
+
+def validate_api_details_metadata(library_root):
+    paths = source_module_paths(library_root)
+    paths_by_module = {
+        f"{category}/{name}.py": path
+        for (category, name), path in paths.items()
+    }
+    structures = {}
+
+    def structure(module_key, dictionary_name):
+        if module_key not in paths_by_module:
+            raise ValueError(
+                f"unknown module in {dictionary_name}: {module_key}"
+            )
+        if module_key not in structures:
+            structures[module_key] = public_api_structure(
+                paths_by_module[module_key]
+            )
+        return structures[module_key]
+
+    allowed_api_fields = {
+        "description", "returnFormat", "returnDescription", "returnParts",
+    }
+    for key, detail in API_DETAILS_BY_SYMBOL.items():
+        if not isinstance(key, tuple) or len(key) != 3:
+            raise ValueError(f"invalid API_DETAILS_BY_SYMBOL key: {key!r}")
+        module_key, owner, symbol_name = key
+        functions, classes = structure(module_key, "API_DETAILS_BY_SYMBOL")
+        known = functions if owner is None else classes.get(owner)
+        if known is None or symbol_name not in known:
+            raise ValueError(
+                "unknown symbol in API_DETAILS_BY_SYMBOL: "
+                f"{module_key}:{owner}.{symbol_name}"
+            )
+        if not isinstance(detail, dict):
+            raise ValueError(f"API details must be a dict: {key!r}")
+        unknown = set(detail) - allowed_api_fields
+        if unknown:
+            raise ValueError(f"unknown API detail fields for {key!r}: {sorted(unknown)}")
+        for field in ("description", "returnFormat", "returnDescription"):
+            if field in detail:
+                validate_nonempty_text(key, field, detail[field])
+        parts = detail.get("returnParts", ())
+        if not isinstance(parts, (tuple, list)):
+            raise ValueError(f"returnParts must be a tuple or list: {key!r}")
+        names = []
+        for part in parts:
+            if not isinstance(part, dict):
+                raise ValueError(f"return part must be a dict: {key!r}")
+            if set(part) != {"name", "format", "description"}:
+                raise ValueError(f"invalid return part fields: {key!r}")
+            for field in ("name", "format", "description"):
+                validate_nonempty_text(key, f"returnParts.{field}", part[field])
+            names.append(part["name"].strip().casefold())
+        if len(names) != len(set(names)):
+            raise ValueError(f"duplicate return part names: {key!r}")
+
+    allowed_class_fields = {"description", "constructorCreates"}
+    for key, detail in CLASS_DETAILS_BY_SYMBOL.items():
+        if not isinstance(key, tuple) or len(key) != 2:
+            raise ValueError(f"invalid CLASS_DETAILS_BY_SYMBOL key: {key!r}")
+        module_key, class_name = key
+        _, classes = structure(module_key, "CLASS_DETAILS_BY_SYMBOL")
+        if class_name not in classes:
+            raise ValueError(
+                "unknown class in CLASS_DETAILS_BY_SYMBOL: "
+                f"{module_key}:{class_name}"
+            )
+        if not isinstance(detail, dict):
+            raise ValueError(f"class details must be a dict: {key!r}")
+        unknown = set(detail) - allowed_class_fields
+        if unknown:
+            raise ValueError(
+                f"unknown class detail fields for {key!r}: {sorted(unknown)}"
+            )
+        for field, value in detail.items():
+            validate_nonempty_text(key, field, value)
+
+
 SYMBOL_REQUIRED_FIELDS = {
     "name", "signature", "summary", "description", "searchTerms",
-    "arguments", "returns", "complexity", "sourceLine",
+    "arguments", "returns", "returnFormat", "returnDescription",
+    "complexity", "sourceLine",
 }
+
+
+def validate_catalog_return_details(owner, symbol):
+    validate_nonempty_text(owner, "returnFormat", symbol["returnFormat"])
+    validate_nonempty_text(
+        owner, "returnDescription", symbol["returnDescription"]
+    )
+    parts = symbol.get("returnParts")
+    if parts is None:
+        return
+    if not isinstance(parts, list):
+        raise ValueError(f"catalog returnParts must be a list: {owner}")
+    names = []
+    for part in parts:
+        if not isinstance(part, dict):
+            raise ValueError(f"catalog return part must be a dict: {owner}")
+        if set(part) != {"name", "format", "description"}:
+            raise ValueError(f"invalid catalog return part fields: {owner}")
+        for field in ("name", "format", "description"):
+            validate_nonempty_text(owner, f"returnParts.{field}", part[field])
+        names.append(part["name"].strip().casefold())
+    if len(names) != len(set(names)):
+        raise ValueError(f"duplicate catalog return part names: {owner}")
 
 
 def validate_catalog(data, library_root):
@@ -1968,11 +2208,16 @@ def validate_catalog(data, library_root):
             validate_term_sequence(
                 f"{module['modulePath']}:{symbol['name']}", symbol["searchTerms"]
             )
+            validate_catalog_return_details(
+                f"{module['modulePath']}:{symbol['name']}", symbol
+            )
         for class_item in module["classes"]:
             for key in (
                 "name", "summary", "description", "searchTerms", "constructor",
                 "constructorArgumentDetails", "constructorReturns",
-                "constructorComplexity", "constructorSourceLine", "methods",
+                "constructorReturnFormat", "constructorReturnDescription",
+                "constructorCreates", "constructorComplexity",
+                "constructorSourceLine", "methods",
             ):
                 if key not in class_item:
                     raise ValueError(
@@ -1982,6 +2227,11 @@ def validate_catalog(data, library_root):
             validate_term_sequence(
                 f"{module['modulePath']}:{class_item['name']}",
                 class_item["searchTerms"],
+            )
+            validate_nonempty_text(
+                f"{module['modulePath']}:{class_item['name']}",
+                "constructorCreates",
+                class_item["constructorCreates"],
             )
             for method in class_item["methods"]:
                 missing = SYMBOL_REQUIRED_FIELDS - set(method)
@@ -1993,6 +2243,11 @@ def validate_catalog(data, library_root):
                 validate_term_sequence(
                     f"{module['modulePath']}:{class_item['name']}.{method['name']}",
                     method["searchTerms"],
+                )
+                validate_catalog_return_details(
+                    f"{module['modulePath']}:{class_item['name']}."
+                    f"{method['name']}",
+                    method,
                 )
     return data
 
@@ -2095,6 +2350,8 @@ def category_rows(modules):
 def load_configuration(library_root):
     global CATEGORY_LABELS, CATEGORY_DOMAINS, DOMAIN_LABELS
     global SEARCH_TERMS_BY_MODULE, SEARCH_TERMS_BY_SYMBOL
+    global API_DETAILS_BY_SYMBOL, CLASS_DETAILS_BY_SYMBOL
+    global COMPLEXITY_BY_MODULE
     category_config = runpy.run_path(
         str(library_root / "tools" / "category_config.py")
     )
@@ -2104,8 +2361,12 @@ def load_configuration(library_root):
     metadata = runpy.run_path(str(library_root / "tools" / "api_metadata.py"))
     SEARCH_TERMS_BY_MODULE = metadata.get("SEARCH_TERMS_BY_MODULE", {})
     SEARCH_TERMS_BY_SYMBOL = metadata.get("SEARCH_TERMS_BY_SYMBOL", {})
+    API_DETAILS_BY_SYMBOL = metadata.get("API_DETAILS_BY_SYMBOL", {})
+    CLASS_DETAILS_BY_SYMBOL = metadata.get("CLASS_DETAILS_BY_SYMBOL", {})
+    COMPLEXITY_BY_MODULE = metadata.get("COMPLEXITY_BY_MODULE", {})
     validate_search_metadata(library_root)
-    return metadata.get("COMPLEXITY_BY_MODULE", {})
+    validate_api_details_metadata(library_root)
+    return COMPLEXITY_BY_MODULE
 
 
 def catalog_fingerprints(library_root, documents):
@@ -2246,9 +2507,80 @@ def check_catalog(library_root=ROOT, output=DEFAULT_OUTPUT):
     return data
 
 
+GENERIC_RETURN_DESCRIPTIONS = {
+    "上記の処理結果。",
+    "指定した位置または対象に格納されている値。",
+    "指定した範囲の集計結果。",
+    "このAPIの結果を呼び出し順・添字順に格納したリスト。",
+    "keyが入力中の識別対象、valueが対応する計算結果の辞書。",
+    "このAPIの結果要素を1つずつ返すiterator。",
+}
+
+
+def description_quality_issues(data):
+    issues = []
+
+    def add(path, reason, text):
+        issues.append({"path": path, "reason": reason, "text": text})
+
+    def inspect_symbol(path, symbol):
+        description = symbol.get("description", "")
+        returned = symbol.get("returnDescription", "")
+        if description in {
+            "指定した対象への問い合わせ結果を返す。",
+            "指定位置・辺・状態の値を取得する。",
+            "処理を実行する。",
+        }:
+            add(path, "generic-purpose", description)
+        if returned in GENERIC_RETURN_DESCRIPTIONS:
+            add(path, "generic-return", returned)
+        return_format = symbol.get("returnFormat", "")
+        if (
+            (return_format == "tuple" or return_format.startswith("tuple["))
+            and not symbol.get("returnParts")
+            and returned in GENERIC_RETURN_DESCRIPTIONS
+        ):
+            add(path, "tuple-parts-missing", return_format)
+
+    for module in data.get("modules", []):
+        module_path = module.get("modulePath", "unknown")
+        for symbol in module.get("functions", []):
+            inspect_symbol(f"{module_path}:{symbol['name']}", symbol)
+        for class_item in module.get("classes", []):
+            class_path = f"{module_path}:{class_item['name']}"
+            creates = class_item.get("constructorCreates", "")
+            if re.fullmatch(r"初期化した .+ オブジェクト。", creates):
+                add(class_path, "generic-constructor", creates)
+            if class_item.get("description", "").endswith("を扱う。"):
+                add(
+                    class_path,
+                    "generic-class-purpose",
+                    class_item["description"],
+                )
+            for method in class_item.get("methods", []):
+                inspect_symbol(f"{class_path}.{method['name']}", method)
+    return issues
+
+
+def print_description_audit(data):
+    issues = description_quality_issues(data)
+    counts = Counter(issue["reason"] for issue in issues)
+    print(f"description audit: {len(issues)} issues")
+    for reason, count in sorted(counts.items()):
+        print(f"  {reason}: {count}")
+    for issue in issues:
+        print(f"{issue['reason']}\t{issue['path']}\t{issue['text']}")
+    return issues
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
+    parser.add_argument(
+        "--audit-descriptions",
+        action="store_true",
+        help="list vague API purposes and return descriptions without writing",
+    )
     parser.add_argument(
         "--full",
         action="store_true",
@@ -2256,6 +2588,10 @@ def main():
     )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
+    if args.audit_descriptions:
+        data = check_catalog(ROOT, args.output)
+        print_description_audit(data)
+        return
     if args.check:
         data = check_catalog(ROOT, args.output)
         print(

@@ -486,6 +486,87 @@ RETURN_DETAILS = {
 }
 
 
+# API names such as ``get`` and ``query`` are reused throughout the library.
+# Details that cannot be inferred from the name or AST are therefore keyed by
+# source module, owning class (None for a top-level function), and symbol name.
+API_DETAILS_BY_SYMBOL = {
+    ("tree/AuxiliaryTree.py", "AuxiliaryTree", "get"): {
+        "description": (
+            "verticesと、それらを結ぶために必要なLCAだけを含む圧縮木を構築する。"
+            "圧縮木の頂点は0から振り直される。"
+        ),
+        "returnFormat": "(auxiliary, original_vertices)",
+        "returnDescription": (
+            "親から子へ向かう圧縮木の隣接リストと、圧縮後の各頂点を"
+            "元の木の頂点番号へ戻す対応表。入力が空なら両方とも空のlist。"
+        ),
+        "returnParts": (
+            {
+                "name": "auxiliary",
+                "format": "list[list[int]] | list[list[tuple[int, int]]]",
+                "description": (
+                    "auxiliary[i]は圧縮木の頂点iの子indexを並べたlist。"
+                    "空でなければ根はindex 0。with_distance=Trueでは各要素が"
+                    "(child_index, distance)になり、distanceは元の木で親子間に"
+                    "ある辺の本数。"
+                ),
+            },
+            {
+                "name": "original_vertices",
+                "format": "list[int]",
+                "description": (
+                    "original_vertices[i]は、圧縮木の頂点iに対応する元の木の"
+                    "頂点番号。指定した頂点に加えて、構築に必要なLCAも含む。"
+                ),
+            },
+        ),
+    },
+    ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick", "add"): {
+        "description": "頂点vertexに保存されている値へdeltaを加える。",
+        "returnDescription": "値は返さない。以後のqueryへ加算後の値を反映する。",
+    },
+    ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick", "set"): {
+        "description": "頂点vertexに保存されている値をvalueへ置き換える。",
+        "returnDescription": "値は返さない。以後のqueryへ新しい値を反映する。",
+    },
+    ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick", "query"): {
+        "description": (
+            "vertexからの距離が半開区間[lower, upper)に入る頂点の値を合計する。"
+            "upper=Noneなら距離の上限を設けない。"
+        ),
+        "returnFormat": "number",
+        "returnDescription": (
+            "lower <= dist(vertex, u) < upperを満たすすべての頂点uについて、"
+            "現在のvalues[u]を合計した値。query(vertex)は木全体の値の合計を返す。"
+        ),
+    },
+}
+
+
+CLASS_DETAILS_BY_SYMBOL = {
+    ("tree/AuxiliaryTree.py", "AuxiliaryTree"): {
+        "description": (
+            "元の木から、指定した頂点とそれらを結ぶために必要なLCAだけを"
+            "抜き出した圧縮木（virtual tree）を構築する。"
+        ),
+        "constructorCreates": (
+            "同じ木に対して、任意の頂点集合から圧縮木を繰り返し構築できる"
+            "状態を作る。"
+        ),
+    },
+    ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick"): {
+        "description": (
+            "静的な重みなし木の各頂点に値を持たせ、点更新と、指定頂点から"
+            "一定距離にある頂点の値の合計を処理する。距離は元の木で通る辺の本数。"
+        ),
+        "constructorCreates": (
+            "各頂点の値をadd・setで更新し、queryで距離区間ごとの合計を"
+            "求められる状態を作る。valuesを省略した場合、すべての頂点の初期値は0。"
+        ),
+    },
+}
+
+
 # Big-O is kept separate from descriptive algorithm names.  These entries are
 # used when the source alone cannot provide a useful per-API estimate.
 COMPLEXITY_BY_MODULE = {

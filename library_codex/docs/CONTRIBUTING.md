@@ -60,6 +60,10 @@ module冒頭では、実装方式の名前より先に「何ができるか」�
 
 sourceだけで表せない説明は`library_codex/tools/api_metadata.py`へ追加し、次でAPIリファレンスを再生成します。
 
+- classが保持する状態と作成後にできることは`CLASS_DETAILS_BY_SYMBOL`へ書く。
+- 同名の`get`・`query`などを区別する説明は`API_DETAILS_BY_SYMBOL`へ、module path・class名・method名をkeyとして書く。
+- tupleの各要素は`returnParts`で名前・型・意味を分ける。listはindex、dictはkey/value、iteratorはyieldする要素が分かる説明にする。
+
 ```sh
 pypy3 library_codex/tools/build_api_reference.py
 ```
@@ -139,9 +143,12 @@ catalogのfunction・class・method、signature、説明、引数、返り値、
 pypy3 library_codex/tools/build_api_reference.py
 pypy3 library_codex/tools/build_library_catalog.py
 pypy3 library_codex/tools/build_library_catalog.py --check
+pypy3 library_codex/tools/build_library_catalog.py --audit-descriptions
 ```
 
 通常の生成は、既存catalogのmodule別fingerprintを使い、変更moduleとそのbundle依存先だけを再生成します。入力に変更がなければJSONを書き換えません。生成結果は一時fileへ完成させ、JSONとschemaを検証してから置き換えるため、途中で失敗しても直前の正常なcatalogは維持されます。
+
+`--audit-descriptions`はcatalogを書き換えず、「上記の処理結果」「指定した範囲の集計結果」など、利用方法を判断できない説明を一覧にします。新しいAPIを追加したときや説明をまとめて改善するときは、この一覧を減らしてください。metadataはmodule別fingerprintへ分離されているため、特定moduleの説明だけを変えた場合は全moduleを再解析しません。
 
 `check_changed.py`と`check_library.py`はcatalog同期検査を含みます。source、API説明、category、検索語辞書を変更したら、catalogを再生成してから完了してください。
 

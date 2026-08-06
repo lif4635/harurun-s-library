@@ -62,6 +62,8 @@ def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
         for class_item in module["classes"]:
             assert class_item["name"]
             assert class_item["constructor"]
+            assert class_item["constructorCreates"]
+            assert not class_item["constructorCreates"].startswith("初期化した ")
             for method in class_item["methods"]:
                 assert method["name"]
                 assert method["signature"].split("(", 1)[0] == method["name"]
@@ -113,6 +115,55 @@ def test_search_metadata_rejects_empty_and_duplicate_terms():
         CATALOG.validate_term_sequence("example", ("",))
     with pytest.raises(ValueError, match="duplicate search terms"):
         CATALOG.validate_term_sequence("example", ("BIT", "bit"))
+
+
+def test_api_detail_metadata_rejects_removed_symbol(monkeypatch):
+    CATALOG.load_configuration(ROOT)
+    monkeypatch.setattr(
+        CATALOG,
+        "API_DETAILS_BY_SYMBOL",
+        {
+            ("tree/AuxiliaryTree.py", "AuxiliaryTree", "removed"): {
+                "description": "removed",
+            }
+        },
+    )
+    with pytest.raises(ValueError, match="unknown symbol"):
+        CATALOG.validate_api_details_metadata(ROOT)
+
+
+def test_structured_returns_and_constructor_capabilities_are_explicit():
+    data = load_catalog()
+    auxiliary = module_by_path(data, "library_codex.tree.AuxiliaryTree")
+    auxiliary_class = next(
+        item for item in auxiliary["classes"] if item["name"] == "AuxiliaryTree"
+    )
+    get = next(item for item in auxiliary_class["methods"] if item["name"] == "get")
+    assert get["returnFormat"] == "(auxiliary, original_vertices)"
+    assert [part["name"] for part in get["returnParts"]] == [
+        "auxiliary",
+        "original_vertices",
+    ]
+    assert "元の木の頂点番号" in get["returnParts"][1]["description"]
+
+    centroid = module_by_path(data, "library_codex.tree.CentroidDecomposition")
+    distance_fenwick = next(
+        item
+        for item in centroid["classes"]
+        if item["name"] == "CentroidDistanceFenwick"
+    )
+    assert "add・set" in distance_fenwick["constructorCreates"]
+    query = next(
+        item for item in distance_fenwick["methods"] if item["name"] == "query"
+    )
+    assert query["returnFormat"] == "number"
+    assert "dist(vertex, u) < upper" in query["returnDescription"]
+
+    audited_paths = {
+        issue["path"] for issue in CATALOG.description_quality_issues(data)
+    }
+    assert not any("AuxiliaryTree" in path for path in audited_paths)
+    assert not any("CentroidDistanceFenwick" in path for path in audited_paths)
 
 
 def test_stale_fingerprint_is_detected(monkeypatch, tmp_path):
@@ -170,6 +221,30 @@ def test_incremental_build_reparses_only_changed_module_and_dependents(
         if module["inputFingerprint"] == "f" * 64
     }
     assert changed == {("combinatorics", "Combination")}
+
+
+def test_module_scoped_metadata_changes_only_its_fingerprint(monkeypatch):
+    CATALOG.load_configuration(ROOT)
+    auxiliary_source = ROOT / "tree" / "AuxiliaryTree.py"
+    auxiliary_doc = ROOT / "docs" / "api" / "tree" / "AuxiliaryTree.md"
+    combination_source = ROOT / "combinatorics" / "Combination.py"
+    combination_doc = ROOT / "docs" / "api" / "combinatorics" / "Combination.md"
+    before_auxiliary = CATALOG.module_input_fingerprint(
+        auxiliary_source, auxiliary_doc, ROOT
+    )
+    before_combination = CATALOG.module_input_fingerprint(
+        combination_source, combination_doc, ROOT
+    )
+    changed = dict(CATALOG.API_DETAILS_BY_SYMBOL)
+    key = ("tree/AuxiliaryTree.py", "AuxiliaryTree", "get")
+    changed[key] = dict(changed[key], description="changed for test")
+    monkeypatch.setattr(CATALOG, "API_DETAILS_BY_SYMBOL", changed)
+    assert CATALOG.module_input_fingerprint(
+        auxiliary_source, auxiliary_doc, ROOT
+    ) != before_auxiliary
+    assert CATALOG.module_input_fingerprint(
+        combination_source, combination_doc, ROOT
+    ) == before_combination
 
 
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):

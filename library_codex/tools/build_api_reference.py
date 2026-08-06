@@ -16,7 +16,9 @@ import sys
 from pathlib import Path
 
 from api_metadata import (
+    API_DETAILS_BY_SYMBOL,
     ARGUMENT_DETAILS,
+    CLASS_DETAILS_BY_SYMBOL,
     MODULE_CAPABILITIES,
     PURPOSE_BY_NAME,
     RETURN_DETAILS,
@@ -864,6 +866,14 @@ def contains_japanese(text):
     return bool(re.search(r"[ぁ-んァ-ン一-龯]", text or ""))
 
 
+def api_detail(module_key, owner, name):
+    return API_DETAILS_BY_SYMBOL.get((module_key, owner, name), {})
+
+
+def class_detail(module_key, name):
+    return CLASS_DETAILS_BY_SYMBOL.get((module_key, name), {})
+
+
 def split_words(name):
     name = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", name)
     return [part.lower() for part in name.strip("_").split("_") if part]
@@ -878,6 +888,9 @@ def translated_object(name):
 
 
 def purpose_for(name, node, owner=None, module_key=None):
+    configured = api_detail(module_key, owner, name).get("description")
+    if configured:
+        return configured
     doc = first_paragraph(ast.get_docstring(node, clean=True))
     if doc and contains_japanese(doc):
         return doc
@@ -976,7 +989,10 @@ def purpose_for(name, node, owner=None, module_key=None):
     return translated_object(name) + "を求める。"
 
 
-def class_purpose(name, node, module_overview):
+def class_purpose(name, node, module_overview, module_key=None):
+    configured = class_detail(module_key, name).get("description")
+    if configured:
+        return configured
     doc = first_paragraph(ast.get_docstring(node, clean=True))
     if doc and contains_japanese(doc):
         return doc
@@ -1229,7 +1245,9 @@ def container_return_description(function_name, kind, variable_name=None):
     return kind
 
 
-def return_description(name, function, overrides=None):
+def return_description(
+    name, function, overrides=None, module_key=None, owner=None
+):
     if function.returns is not None:
         try:
             annotation = ast.unparse(function.returns)
@@ -1249,6 +1267,18 @@ def return_description(name, function, overrides=None):
                 has_bare = True
             else:
                 returns.append(node.value)
+    configured = api_detail(module_key, owner, name)
+    configured_description = configured.get("returnDescription")
+    if configured_description:
+        configured_format = configured.get("returnFormat")
+        detail = (
+            configured_format + " — " + configured_description
+            if configured_format
+            else configured_description
+        )
+        return detail + (
+            " / " + code("None") if has_bare and "None" not in detail else ""
+        )
     if name in RETURN_DETAILS:
         detail = RETURN_DETAILS[name]
         return detail + (
@@ -1469,7 +1499,13 @@ def method_row(
         "なし" if is_property
         else render_arguments(node, skip_first, argument_overrides)
     )
-    returned = return_description(node.name, node, return_overrides)
+    returned = return_description(
+        node.name,
+        node,
+        return_overrides,
+        module_key=module_key,
+        owner=owner,
+    )
     api = "[%s](%s)" % (code(signature), source_link(source_relative, node.lineno))
     return "| %s | %s | %s | %s | %s |" % tuple(
         markdown_escape(value) for value in (api, kind, purpose, arguments, returned)
@@ -1484,7 +1520,13 @@ def function_row(
     return "| %s | %s | %s | %s |" % tuple(markdown_escape(value) for value in (
         api, purpose_for(node.name, node, module_key=module_key),
         render_arguments(node, overrides=argument_overrides),
-        return_description(node.name, node, return_overrides)
+        return_description(
+            node.name,
+            node,
+            return_overrides,
+            module_key=module_key,
+            owner=None,
+        )
     ))
 
 
@@ -1501,7 +1543,8 @@ def module_capabilities(relative_key, overview, functions, classes):
         if len(result) >= 5:
             break
         result.append("%s: %s" % (
-            code(node.name), class_purpose(node.name, node, overview)
+            code(node.name),
+            class_purpose(node.name, node, overview, relative_key),
         ))
     if not result:
         result.append(overview.rstrip("。") + "を提供する。")
@@ -1602,12 +1645,19 @@ def render_module(path, overview, complexity):
         lines.extend([
             "## Class `%s`" % class_node.name,
             "",
-            class_purpose(class_node.name, class_node, overview),
+            class_purpose(
+                class_node.name, class_node, overview, relative_key
+            ),
             "",
             "- constructor: [`%s`](%s)" % (signature, source_link(relative, constructor_line)),
             "- 引数: %s" % args,
             "- 返り値: `%s` instance" % class_node.name,
         ])
+        creates = class_detail(relative_key, class_node.name).get(
+            "constructorCreates"
+        )
+        if creates:
+            lines.append("- 作成後: %s" % creates)
         if init_owner is not None and init_owner is not class_node:
             lines.append("- constructorは `%s` から継承。" % init_owner.name)
         if class_node.bases:

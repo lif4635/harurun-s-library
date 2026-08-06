@@ -78,6 +78,15 @@ def test_api_reference_has_actionable_semantics():
     assert "dict[int, int]" in factorization
     assert "list[int] — 素因数を重複込み" in factorization
 
+    auxiliary = documents["docs/api/tree/AuxiliaryTree.md"]
+    assert "(auxiliary, original_vertices)" in auxiliary
+    assert "圧縮木の隣接リスト" in auxiliary
+    assert "任意の頂点集合から圧縮木を繰り返し構築" in auxiliary
+
+    centroid = documents["docs/api/tree/CentroidDecomposition.md"]
+    assert "lower <= dist(vertex, u) < upper" in centroid
+    assert "add・setで更新" in centroid
+
     assert "docs/api/algorithm/BasicAlgorithms.md" not in documents
     assert "docs/api/algorithm/MiscAlgorithms.md" not in documents
     assert "docs/api/random/Random.md" in documents

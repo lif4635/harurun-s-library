@@ -9,7 +9,7 @@
 
 ## できること
 
-- `AuxiliaryTree`: 指定頂点集合とLCAだけからvirtual treeを構築するを扱う `AuxiliaryTree`。
+- `AuxiliaryTree`: 元の木から、指定した頂点とそれらを結ぶために必要なLCAだけを抜き出した圧縮木（virtual tree）を構築する。
 
 ## Import
 
@@ -19,12 +19,13 @@ from library_codex.tree.AuxiliaryTree import AuxiliaryTree
 
 ## Class `AuxiliaryTree`
 
-指定頂点集合とLCAだけからvirtual treeを構築するを扱う `AuxiliaryTree`。
+元の木から、指定した頂点とそれらを結ぶために必要なLCAだけを抜き出した圧縮木（virtual tree）を構築する。
 
 - constructor: [`AuxiliaryTree(tree, root=0)`](../../../tree/AuxiliaryTree.py#L8)
 - 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
 - 返り値: `AuxiliaryTree` instance
+- 作成後: 同じ木に対して、任意の頂点集合から圧縮木を繰り返し構築できる状態を作る。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`get(vertices, with_distance=False)`](../../../tree/AuxiliaryTree.py#L12) | method | 指定位置・辺・状態の値を取得する。 | `vertices`: 頂点番号のiterable<br>`with_distance`: 頂点番号だけでなく距離も返すか。省略時: `False` | 指定対象に格納された値・edge object |
+| [`get(vertices, with_distance=False)`](../../../tree/AuxiliaryTree.py#L12) | method | verticesと、それらを結ぶために必要なLCAだけを含む圧縮木を構築する。圧縮木の頂点は0から振り直される。 | `vertices`: 頂点番号のiterable<br>`with_distance`: 頂点番号だけでなく距離も返すか。省略時: `False` | (auxiliary, original_vertices) — 親から子へ向かう圧縮木の隣接リストと、圧縮後の各頂点を元の木の頂点番号へ戻す対応表。入力が空なら両方とも空のlist。 |

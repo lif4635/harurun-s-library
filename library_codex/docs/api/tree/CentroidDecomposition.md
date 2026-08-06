@@ -10,7 +10,7 @@
 ## できること
 
 - `CentroidDecomposition`: 重心分解・点加算/距離範囲和Fenwickを扱う `CentroidDecomposition`。
-- `CentroidDistanceFenwick`: 重心分解・点加算/距離範囲和Fenwickを扱う `CentroidDistanceFenwick`。
+- `CentroidDistanceFenwick`: 静的な重みなし木の各頂点に値を持たせ、点更新と、指定頂点から一定距離にある頂点の値の合計を処理する。距離は元の木で通る辺の本数。
 
 ## Import
 
@@ -35,14 +35,15 @@ from library_codex.tree.CentroidDecomposition import CentroidDecomposition, Cent
 
 ## Class `CentroidDistanceFenwick`
 
-重心分解・点加算/距離範囲和Fenwickを扱う `CentroidDistanceFenwick`。
+静的な重みなし木の各頂点に値を持たせ、点更新と、指定頂点から一定距離にある頂点の値の合計を処理する。距離は元の木で通る辺の本数。
 
 - constructor: [`CentroidDistanceFenwick(tree, values=None)`](../../../tree/CentroidDecomposition.py#L180)
 - 引数: `tree`: 木の隣接list<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `None`
 - 返り値: `CentroidDistanceFenwick` instance
+- 作成後: 各頂点の値をadd・setで更新し、queryで距離区間ごとの合計を求められる状態を作る。valuesを省略した場合、すべての頂点の初期値は0。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`add(vertex, delta)`](../../../tree/CentroidDecomposition.py#L214) | method | vertexに対応する値へ指定量を加える。 | `vertex`: 頂点番号（0-indexed）<br>`delta`: 加算差分 | `None` |
-| [`set(vertex, value)`](../../../tree/CentroidDecomposition.py#L226) | method | 指定位置・状態を値で置き換える。 | `vertex`: 頂点番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`query(vertex, lower=0, upper=None)`](../../../tree/CentroidDecomposition.py#L235) | method | 指定した対象への問い合わせ結果を返す。 | `vertex`: 頂点番号（0-indexed）<br>`lower`: 下限（包含関係はAPIの説明を参照）。省略時: `0`<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
+| [`add(vertex, delta)`](../../../tree/CentroidDecomposition.py#L214) | method | 頂点vertexに保存されている値へdeltaを加える。 | `vertex`: 頂点番号（0-indexed）<br>`delta`: 加算差分 | 値は返さない。以後のqueryへ加算後の値を反映する。 |
+| [`set(vertex, value)`](../../../tree/CentroidDecomposition.py#L226) | method | 頂点vertexに保存されている値をvalueへ置き換える。 | `vertex`: 頂点番号（0-indexed）<br>`value`: 追加・設定・問い合わせる値 | 値は返さない。以後のqueryへ新しい値を反映する。 |
+| [`query(vertex, lower=0, upper=None)`](../../../tree/CentroidDecomposition.py#L235) | method | vertexからの距離が半開区間[lower, upper)に入る頂点の値を合計する。upper=Noneなら距離の上限を設けない。 | `vertex`: 頂点番号（0-indexed）<br>`lower`: 下限（包含関係はAPIの説明を参照）。省略時: `0`<br>`upper`: 上限（包含関係はAPIの説明を参照）。省略時: `None` | number — lower <= dist(vertex, u) < upperを満たすすべての頂点uについて、現在のvalues[u]を合計した値。query(vertex)は木全体の値の合計を返す。 |
