@@ -28,7 +28,7 @@ from library_codex.combinatorics.Combination import comb, Comb
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`comb(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L62) | nが大きくkが小さいときに二項係数C(n, k)をO(k)で求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
+| [`comb(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L63) | nが大きくkが小さいときに二項係数C(n, k)をO(k)で求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
 
 ## Class `Comb`
 
@@ -40,9 +40,9 @@ from library_codex.combinatorics.Combination import comb, Comb
 
 | method / property | 種別 | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- | --- |
-| [`ensure(size)`](../../../combinatorics/Combination.py#L16) | method | 階乗表と逆階乗表をsizeまで拡張する。 | `size`: 要素数・universe size | `None` |
-| [`fact(n)`](../../../combinatorics/Combination.py#L32) | method | n!をmodで割った余りを返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数 | `self.factorial[n]` |
-| [`C(n, k)`](../../../combinatorics/Combination.py#L37) | method | 二項係数C(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
-| [`__call__(n, k)`](../../../combinatorics/Combination.py#L45) | method | C(n, k)を返す。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
-| [`P(n, k)`](../../../combinatorics/Combination.py#L49) | method | 順列数P(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[n - k] % self.mod` |
-| [`H(n, k)`](../../../combinatorics/Combination.py#L56) | method | n種類から重複を許してk個選ぶ重複組合せH(n, k)を返す。O(1)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int instance / `self.C(n + k - 1, k)` |
+| [`ensure(size)`](../../../combinatorics/Combination.py#L17) | method | 階乗表と逆階乗表をsizeまで拡張する。 | `size`: 要素数・universe size | `None` |
+| [`fact(n)`](../../../combinatorics/Combination.py#L33) | method | n!をmodで割った余りを返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数 | `self.factorial[n]` |
+| [`C(n, k)`](../../../combinatorics/Combination.py#L38) | method | 二項係数C(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
+| [`__call__(n, k)`](../../../combinatorics/Combination.py#L46) | method | C(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — C(n,k)をmodで割った0以上mod未満の値。範囲外のn,kなら0 |
+| [`P(n, k)`](../../../combinatorics/Combination.py#L50) | method | 順列数P(n, k)を返す。O(1)、表の拡張時は償却O(n)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | `0` / 数値または入力要素型 `self.factorial[n] * self.inverse_factorial[n - k] % self.mod` |
+| [`H(n, k)`](../../../combinatorics/Combination.py#L57) | method | n種類から重複を許してk個選ぶ重複組合せH(n, k)を返す。O(1)。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int instance / `self.C(n + k - 1, k)` |

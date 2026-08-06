@@ -8,6 +8,7 @@ class Comb:
     __slots__ = ("mod", "factorial", "inverse_factorial")
 
     def __init__(self, size=0, mod=DEFAULT_MOD):
+        """0からsizeまでの階乗表を構築する。O(size)。"""
         self.mod = mod
         self.factorial = [1]
         self.inverse_factorial = [1]
@@ -43,7 +44,7 @@ class Comb:
                 % self.mod * self.inverse_factorial[n - k] % self.mod)
 
     def __call__(self, n, k):
-        """C(n, k)を返す。"""
+        """C(n, k)を返す。O(1)、表の拡張時は償却O(n)。"""
         return self.C(n, k)
 
     def P(self, n, k):

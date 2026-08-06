@@ -9,6 +9,7 @@ class LCA:
     __slots__ = ("n", "parent", "depth", "component", "_euler")
 
     def __init__(self, tree, root=0):
+        """Euler tourとRMQを構築する。O(N)。"""
         euler = EulerTour(tree, root)
         self.n = euler.n
         self.parent = euler.parent
