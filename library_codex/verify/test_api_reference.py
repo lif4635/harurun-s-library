@@ -128,6 +128,9 @@ def test_api_reference_has_actionable_semantics():
 
     min_plus = documents["docs/api/convolution/MinPlusConvolution.md"]
     assert r"$c_k=\min_{i+j=k}" in min_plus
+    assert "minplus_conv_convex(first, second)" in min_plus
+    assert "O(N+M)" in min_plus
+    assert "O(len(first) * len(second))" not in min_plus
 
     fps = documents["docs/api/fps/FormalPowerSeries.md"]
     assert r"\pmod{x^{\mathrm{degree}}}" in fps

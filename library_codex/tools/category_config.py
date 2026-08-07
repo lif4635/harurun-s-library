@@ -23,8 +23,8 @@ CATEGORY_INFO = {
         "domain": "algorithm",
     },
     "convolution": {
-        "label": "通常畳み込み",
-        "description": "通常の畳み込み・DFT・NTT",
+        "label": "畳み込み",
+        "description": "係数畳み込み・min-plus・DFT・NTT",
         "domain": "convolution",
     },
     "arithmetic_convolution": {

@@ -39,10 +39,6 @@ COMPATIBILITY_MODULES = {
 # overviews and complexity notes are read directly from that table.
 MODULE_OVERRIDES = {
     "convolution/MinPlusConvolution.py": (
-        "一般列どうしのmin-plus畳み込み",
-        "O(len(first) * len(second))",
-    ),
-    "optimization/ConvexMinPlusConvolution.py": (
         "凸列を含むmin-plus畳み込み",
         "一般列×凸列 O(A log(A+C)+C)、凸列×凸列 O(N+M)",
     ),
@@ -227,7 +223,8 @@ MODULE_ARGUMENT_DESCRIPTION = {
 
 MODULE_RETURN_SEMANTIC = {
     "convolution/MinPlusConvolution.py": {
-        "minplus_conv": "list[number] — 添字kがmin(first[i]+second[j], i+j=k)を表す長さlen(first)+len(second)-1の列",
+        "minplus_conv": "list[number]、return_argmin=Trueならtuple[list[number], list[int]] — 高速min-plus畳み込みの値と凸列側のargmin",
+        "minplus_conv_convex": "list[number] — 2つの凸列のmin-plus畳み込みを表す長さlen(first)+len(second)-1の列",
     },
     "segment_tree/SegTree.py": {
         "tolist": "list[object] — 現在のindex順の要素列",

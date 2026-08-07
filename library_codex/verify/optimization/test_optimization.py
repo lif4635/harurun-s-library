@@ -1,31 +1,12 @@
 from itertools import product
 import random
 
-from library_codex.convolution.MinPlusConvolution import minplus_conv
-from library_codex.optimization.ConvexMinPlusConvolution import (
-    convex_convex_min_plus_convolution,
-    convex_min_plus_convolution,
+from library_codex.convolution.MinPlusConvolution import (
+    minplus_conv,
+    minplus_conv_convex,
 )
 
 
-def test_minplus_conv_full_output():
-    assert minplus_conv([], [1, 2]) == []
-    assert minplus_conv([3], [4]) == [7]
-    assert minplus_conv([2, -1, 4], [3, 0]) == [5, 2, -1, 4]
-    rng = random.Random(718933)
-    for _ in range(2000):
-        first = [rng.randrange(-50, 51) for _ in range(rng.randrange(1, 20))]
-        second = [rng.randrange(-50, 51) for _ in range(rng.randrange(1, 20))]
-        expected = [
-            min(
-                first[index] + second[total - index]
-                for index in range(len(first))
-                if 0 <= total - index < len(second)
-            )
-            for total in range(len(first) + len(second) - 1)
-        ]
-        assert minplus_conv(first, second) == expected
-        assert len(minplus_conv(first, second)) == len(first) + len(second) - 1
 from library_codex.optimization.GoldenSectionSearch import golden_section_search
 from library_codex.optimization.LineContainer import LineContainer
 from library_codex.optimization.MaximalRectangle import maximal_rectangle, maximal_rectangle_binary
@@ -38,6 +19,9 @@ from library_codex.optimization.ProjectSelection import (
 
 
 def test_monotone_minima_and_convex_min_plus():
+    assert minplus_conv([], [1, 2]) == []
+    assert minplus_conv([3], [4]) == [7]
+    assert minplus_conv_convex([], [1, 2]) == []
     rng = random.Random(718934)
     for rows in range(100):
         columns = rng.randrange(1, 100)
@@ -62,7 +46,13 @@ def test_monotone_minima_and_convex_min_plus():
             )
             for total in range(len(first) + len(second) - 1)
         ]
-        assert convex_min_plus_convolution(first, second) == expected
+        assert minplus_conv(first, second) == expected
+        values, indices = minplus_conv(first, second, return_argmin=True)
+        assert values == expected
+        assert all(
+            values[total] == first[total - index] + second[index]
+            for total, index in enumerate(indices)
+        )
         first_convex = [rng.randrange(-100, 101)]
         for difference in sorted(rng.randrange(-30, 31) for _ in range(rng.randrange(29))):
             first_convex.append(first_convex[-1] + difference)
@@ -74,7 +64,7 @@ def test_monotone_minima_and_convex_min_plus():
             )
             for total in range(len(first_convex) + len(second) - 1)
         ]
-        assert convex_convex_min_plus_convolution(first_convex, second) == expected
+        assert minplus_conv_convex(first_convex, second) == expected
 
 
 def test_monotone_cht_all_directions_and_objectives():

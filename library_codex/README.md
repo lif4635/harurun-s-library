@@ -66,7 +66,7 @@
 | `combinatorial_series/LinearRecurrence.py` | Berlekamp--Massey・Bostan--Mori・線形漸化式第n項 | BM $O(ND)$、第n項 $O(M(D)\log n)$ |
 | `polynomial/MultipointEvaluation.py` | 積木による多点評価・多項式補間・連続点補間 | $O(M(N)\log N)$、連続点は $O(N)$ |
 | `convolution/NTT.py` | 動的radix-4 NTT・NTT-friendly/任意mod/符号付き整数畳み込み | $O(N\log N)$ |
-| `convolution/MinPlusConvolution.py` | 一般列どうしのmin-plus畳み込み | $O(NM)$ |
+| `convolution/MinPlusConvolution.py` | 凸列を含む高速min-plus畳み込み | 一般列×凸列 $O(A\log(A+C)+C)$、凸列×凸列 $O(N+M)$ |
 | `fps/PolynomialComposition.py` | 高速FPS合成・Brent--Kung fallback・合成逆関数 | $O(N\log^2N)$（NTT法） |
 | `bitwise_convolution/SetFunction.py` | subset/superset変換・OR/AND/XOR・subset畳み込み/除算・set power series演算 | $O(N\log N)$ / subset $O(N\log^2 N)$ |
 | `range_query/DisjointSparseTable.py` | 静的列の半群区間積 | 構築 $O(N\log N)$、クエリ $O(1)$ |
@@ -623,7 +623,7 @@ PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版�
 ### Optimization
 
 - `monotone_minima(rows,columns,value=...)` は行ごとのargminが単調な暗黙行列を明示区間スタックで探索する
-- `convex_min_plus_convolution(arbitrary,convex)` と両側convexの差分merge版に対応する
+- `minplus_conv(arbitrary, convex)` と、両側convexを線形時間で処理する `minplus_conv_convex(first, second)` に対応する
 - `MonotoneConvexHullTrick` はmin/max・傾き昇順/降順を指定し、整数交差だけで追加 $O(1)$ 償却・query $O(\log N)$
 - `LineContainer` は任意順の直線を既定64-bit整数座標域の動的Li Chao Treeで処理する
 - `ProjectSelection` はunary/submodular pair/all-zero/all-one項、`KProjectSelection` はMonge pair costをmin-cutへ変換する

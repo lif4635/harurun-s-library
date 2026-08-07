@@ -19,6 +19,12 @@ SEARCH_TERMS_BY_MODULE = {
         "binary indexed tree",
         "累積和",
     ),
+    "convolution/MinPlusConvolution.py": (
+        "高速minplus",
+        "min-plus convolution",
+        "凸畳み込み",
+        "Monge",
+    ),
 }
 
 
@@ -32,6 +38,16 @@ SEARCH_TERMS_BY_SYMBOL = {
         "境界探索",
         "左端二分探索",
         "区間二分探索",
+    ),
+    ("convolution/MinPlusConvolution.py", "minplus_conv"): (
+        "一般列 凸列",
+        "monotone minima",
+        "argmin",
+    ),
+    ("convolution/MinPlusConvolution.py", "minplus_conv_convex"): (
+        "凸列 凸列",
+        "線形時間",
+        "差分merge",
     ),
 }
 
@@ -74,13 +90,8 @@ MODULE_CAPABILITIES = {
         "法と原始根を指定して、標準設定以外のNTTも構築できる。",
     ),
     "convolution/MinPlusConvolution.py": (
-        "任意の2列をmin-plus半環上で畳み込み、全ての添字和に対する最小値を返す。",
-        "空でない入力では結果の長さが必ずlen(first)+len(second)-1になる。",
-        "凸性を仮定しない一般版なので、入力長の積に比例する時間で計算する。",
-    ),
-    "optimization/ConvexMinPlusConvolution.py": (
         "一方または両方が凸な列のmin-plus畳み込みを高速に計算する。",
-        "どちらの関数も空でない入力には長さlen(first)+len(second)-1の列を返す。",
+        "一般列×凸列はmonotone minima、凸列×凸列は差分列のmergeで処理する。",
         "一般列との畳み込みでは、必要なら最小値を作った凸列側の添字も返せる。",
     ),
     "optimization/ConvexConcaveConvolution.py": (
@@ -270,8 +281,7 @@ PURPOSE_BY_NAME = {
     "coordinate_compress": "値の大小関係を保った0始まりの順位へ座標圧縮する。",
     "count_increasing_sequences": "lower[i]以上upper[i]未満を満たす広義単調増加列の個数を求める。",
     "count_spanning_trees": "無向グラフの全域木の個数をMatrix-Tree theoremで求める。",
-    "convex_min_plus_convolution": "一般列と凸列のmin-plus畳み込みを求める。",
-    "convex_convex_min_plus_convolution": "2つの凸列のmin-plus畳み込みを差分列のmergeで求める。",
+    "minplus_conv_convex": "2つの凸列のmin-plus畳み込みを差分列のmergeで求める。",
     "concave_max_plus_convolution": "凹列と一般列のmax-plus畳み込みを求める。",
     "decimal_digit_count": "非負整数の10進桁数を返す。",
     "ensure_permutation": "列が0からn-1までを1回ずつ含む置換か判定する。",
@@ -279,7 +289,7 @@ PURPOSE_BY_NAME = {
     "lis": "最長増加部分列の長さを求め、必要なら添字列と値列も復元する。",
     "lsb_index": "正整数の最下位1-bitの位置を0-indexedで返す。",
     "mcs_order": "最大重み探索（MCS）で頂点を選ぶ順序を返す。",
-    "minplus_conv": "2列のmin-plus畳み込みを全ての添字和について求める。",
+    "minplus_conv": "一般列と凸列のmin-plus畳み込みを高速に求める。",
     "msb_index": "正整数の最上位1-bitの位置を0-indexedで返す。",
     "multiplicative_convolution": "素数modの乗法に沿った畳み込みを計算する。",
     "replacement_paths": "各辺を1本ずつ除いた場合のsource-target最短距離をまとめて求める。",
@@ -423,16 +433,6 @@ RETURN_DETAILS = {
         r"list[int] — 各クエリ $(n,m)$ に対する "
         r"$\sum_{k=0}^{m}\binom{n}{k}$ を、入力と同じ順に並べた列"
     ),
-    "convex_min_plus_convolution": (
-        r"list[number]、return_argmin=Trueならtuple[list[number], list[int]] — "
-        r"値の列 $c$ は $c_k=\min_{i+j=k}(\mathrm{arbitrary}_i+\mathrm{convex}_j)$。"
-        r"長さは $\lvert\mathrm{arbitrary}\rvert+\lvert\mathrm{convex}\rvert-1$。"
-        r"添字列の $k$ 番目は最小値を作った $j$"
-    ),
-    "convex_convex_min_plus_convolution": (
-        r"list[number] — $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ "
-        r"を格納した長さ $\lvert\mathrm{first}\rvert+\lvert\mathrm{second}\rvert-1$ の列"
-    ),
     "concave_max_plus_convolution": (
         r"list[number]、return_argmax=Trueならtuple[list[number], list[int]] — "
         r"値の列 $c$ は $c_k=\max_{i+j=k}(\mathrm{concave}_i+\mathrm{arbitrary}_j)$。"
@@ -448,6 +448,11 @@ RETURN_DETAILS = {
     "mobius": "int — numberのMöbius関数値（-1、0、1のいずれか）",
     "mcs_order": "list[int] — MCSで選ばれた頂点番号を先頭から並べた長さnの列",
     "minplus_conv": (
+        r"list[number] または tuple[list[number], list[int]] — "
+        r"$c_k=\min_{i+j=k}(\mathrm{arbitrary}_i+\mathrm{convex}_j)$ と、"
+        "return_argmin=Trueでは最小値を作る凸列側の添字"
+    ),
+    "minplus_conv_convex": (
         r"list[number] — $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ "
         r"を格納した長さ $\lvert\mathrm{first}\rvert+\lvert\mathrm{second}\rvert-1$ の列"
     ),
@@ -697,8 +702,48 @@ API_DETAILS_BY_SYMBOL = {
     },
     ("convolution/MinPlusConvolution.py", None, "minplus_conv"): {
         "description": (
-            r"2列のmin-plus畳み込み $c_k=\min_{i+j=k}(\mathrm{first}_i+\mathrm{second}_j)$ "
-            "をすべての添字和について求める。"
+            r"一般列 $a=\mathrm{arbitrary}$ と凸列 $b=\mathrm{convex}$ のmin-plus畳み込み "
+            r"$c_k=\min_{i+j=k}(a_i+b_j)$ をmonotone minimaで高速に求める。"
+        ),
+        "argumentDescriptions": {
+            "arbitrary": "任意の数列a。凸性は不要。",
+            "convex": (
+                r"離散凸な数列b。差分 $b_{i+1}-b_i$ が広義単調増加であること。"
+            ),
+            "return_argmin": "最小値に加えて、選ばれた凸列側の添字jも返すか",
+        },
+        "returnFormat": "list[number] | tuple[list[number], list[int]]",
+        "returnDescription": (
+            r"values[k]は $\min_{i+j=k}(a_i+b_j)$。return_argmin=Trueでは "
+            r"$(\mathrm{values},\mathrm{indices})$ を返し、"
+            r"$\mathrm{indices}[k]=j$ は最小値を作った凸列側の添字。"
+        ),
+        "returnParts": (
+            {
+                "name": "values",
+                "format": "list[number]",
+                "description": r"$\mathrm{values}[k]=\min_{i+j=k}(a_i+b_j)$。",
+            },
+            {
+                "name": "indices",
+                "format": "list[int]",
+                "description": "return_argmin=Trueのときだけ返す、最小値を作った凸列側の添字j。",
+            },
+        ),
+    },
+    ("convolution/MinPlusConvolution.py", None, "minplus_conv_convex"): {
+        "description": (
+            r"2つの凸列 $a=\mathrm{first}$、$b=\mathrm{second}$ のmin-plus畳み込み "
+            r"$c_k=\min_{i+j=k}(a_i+b_j)$ を差分列のmergeで求める。"
+        ),
+        "argumentDescriptions": {
+            "first": r"離散凸な数列a。差分 $a_{i+1}-a_i$ が広義単調増加であること。",
+            "second": r"離散凸な数列b。差分 $b_{i+1}-b_i$ が広義単調増加であること。",
+        },
+        "returnFormat": "list[number]",
+        "returnDescription": (
+            r"長さ $\lvert a\rvert+\lvert b\rvert-1$ の列c。"
+            r"$c_k=\min_{i+j=k}(a_i+b_j)$。"
         ),
     },
     (
@@ -1353,11 +1398,8 @@ COMPLEXITY_BY_MODULE = {
         "multiplicative_convolution": "O(prime log prime)",
     },
     "convolution/MinPlusConvolution.py": {
-        "minplus_conv": "O(len(first) * len(second))",
-    },
-    "optimization/ConvexMinPlusConvolution.py": {
-        "convex_min_plus_convolution": "O(A log(A+C) + C)（Aはarbitrary、Cはconvexの長さ）",
-        "convex_convex_min_plus_convolution": "O(N+M)",
+        "minplus_conv": "O(A log(A+C) + C)（Aはarbitrary、Cはconvexの長さ）",
+        "minplus_conv_convex": "O(N+M)",
     },
     "optimization/ConvexConcaveConvolution.py": {
         "concave_max_plus_convolution": "O(A log(A+C) + C)（Aはarbitrary、Cはconcaveの長さ）",

@@ -222,7 +222,13 @@ def test_math_descriptions_cover_common_library_families():
     assert "$\\binom{n}{k}" in choose["description"]
 
     min_plus = module_by_path(data, "library_codex.convolution.MinPlusConvolution")
-    assert "$c_k=\\min_{i+j=k}" in min_plus["functions"][0]["description"]
+    min_plus_functions = {item["name"]: item for item in min_plus["functions"]}
+    assert set(min_plus_functions) == {"minplus_conv", "minplus_conv_convex"}
+    assert "$c_k=\\min_{i+j=k}" in min_plus_functions["minplus_conv"]["description"]
+    assert min_plus_functions["minplus_conv"]["complexity"].startswith("O(A log(")
+    assert min_plus_functions["minplus_conv_convex"]["complexity"] == "O(N+M)"
+    assert "高速minplus" in min_plus["searchTerms"]
+    assert "離散凸" in min_plus_functions["minplus_conv"]["argumentDetails"][1]["description"]
 
     fps = module_by_path(data, "library_codex.fps.FormalPowerSeries")
     inverse = next(item for item in fps["functions"] if item["name"] == "fps_inverse")
