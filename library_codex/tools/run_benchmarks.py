@@ -116,16 +116,16 @@ def range_tree_cases(profile):
 
 def fps998_cases(profile):
     arguments = (
-        ["--size", "65536", "--repeat", "5"]
+        ["--size", "65536", "--composition-size", "16384", "--repeat", "5"]
         if profile == "full"
-        else ["--size", "16384", "--repeat", "3"]
+        else ["--size", "16384", "--composition-size", "4096", "--repeat", "3"]
     )
     results = {}
     for backend in ("generic", "specialized"):
         result = execute(
             "benchmark_fps998.py", ["--backend", backend, *arguments]
         )
-        for operation in ("multiply", "inverse", "exp"):
+        for operation in ("multiply", "inverse", "exp", "composition_inv"):
             matched = re.search(
                 rf"\b{operation}=([0-9.]+)s", result["output"]
             )

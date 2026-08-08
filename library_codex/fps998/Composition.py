@@ -11,7 +11,8 @@ from library_codex.convolution.NTT998 import (
     _check_length,
     _intt,
 )
-from library_codex.fps998.FPS import fps_diff, fps_inv
+from library_codex.fps998.FPS import fps_exp, fps_inv, fps_log
+from library_codex.fps998.PowerProjection import power_coefficient
 from library_codex.convolution.NTT998 import multiply
 
 
@@ -177,7 +178,7 @@ def fps_compose(outer, inner, degree=None):
 
 
 def fps_compositional_inv(series, degree=None):
-    """`series(g(x))=x mod x^degree`となる`g`の係数を返す。O(N log^3 N)。"""
+    """`series(g(x))=x mod x^degree`となる`g`の係数を返す。O(N log^2 N)。"""
 
     if degree is None:
         degree = len(series)
@@ -197,20 +198,33 @@ def fps_compositional_inv(series, degree=None):
         last -= 1
     if last == 1:
         return [0, inverse_linear] + [0] * (degree - 2)
-    result = [0, inverse_linear]
-    current = 2
-    derivative = fps_diff(series)
-    while current < degree:
-        target = min(current << 1, degree)
-        composed = fps_compose(series, result, target)
-        composed[1] = (composed[1] - 1) % MOD
-        derivative_composed = fps_compose(derivative, result, target)
-        correction = multiply(
-            composed,
-            fps_inv(derivative_composed, target),
-        )[:target]
-        result.extend([0] * (target - len(result)))
-        for index, value in enumerate(correction):
-            result[index] = (result[index] - value) % MOD
-        current = target
-    return result[:degree]
+
+    order = degree - 1
+    source = [value % MOD for value in series[:degree]]
+    source.extend([0] * (degree - len(source)))
+    coefficients = power_coefficient(source, count=degree)
+
+    inverses = [0] * degree
+    inverses[1] = 1
+    for index in range(2, degree):
+        inverses[index] = (
+            -(MOD // index) * inverses[MOD % index]
+        ) % MOD
+    for index in range(1, degree):
+        coefficients[index] = (
+            coefficients[index] * order * inverses[index]
+        ) % MOD
+
+    coefficients.reverse()
+    scale = pow(coefficients[0], MOD - 2, MOD)
+    for index in range(degree):
+        coefficients[index] = coefficients[index] * scale % MOD
+
+    exponent = -pow(order, MOD - 2, MOD) % MOD
+    logarithm = fps_log(coefficients, degree - 1)
+    for index in range(degree - 1):
+        logarithm[index] = logarithm[index] * exponent % MOD
+    result = fps_exp(logarithm, degree - 1)
+    for index in range(degree - 1):
+        result[index] = result[index] * inverse_linear % MOD
+    return [0] + result
