@@ -46,11 +46,11 @@ def changed_paths(base=None, explicit=()):
     if explicit:
         return sorted({normalize_path(path) for path in explicit})
     if base:
-        paths = set(git_lines("diff", "--name-only", base, "--"))
+        paths = set(git_lines("diff", "--ignore-space-at-eol", "--name-only", base, "--"))
         paths.update(git_lines("ls-files", "--others", "--exclude-standard"))
         return sorted(paths)
-    paths = set(git_lines("diff", "--name-only", "HEAD", "--"))
-    paths.update(git_lines("diff", "--name-only", "--cached", "--"))
+    paths = set(git_lines("diff", "--ignore-space-at-eol", "--name-only", "HEAD", "--"))
+    paths.update(git_lines("diff", "--ignore-space-at-eol", "--name-only", "--cached", "--"))
     paths.update(git_lines("ls-files", "--others", "--exclude-standard"))
     return sorted(paths)
 

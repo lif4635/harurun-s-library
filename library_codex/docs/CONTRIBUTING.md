@@ -156,6 +156,21 @@ pypy3 library_codex/tools/build_library_catalog.py --audit-descriptions
 
 `check_changed.py`と`check_library.py`はcatalog同期検査を含みます。source、API説明、category、検索語辞書を変更したら、catalogを再生成してから完了してください。
 
+## 9. checkpointを一度に準備する
+
+API referenceとcatalogの生成、変更範囲の検査、必要ならサイトへの差分同期までを一度に行えます。
+
+```sh
+pypy3 library_codex/tools/prepare_checkpoint.py
+pypy3 library_codex/tools/prepare_checkpoint.py --site ../harurun-s-library-site
+pypy3 library_codex/tools/prepare_checkpoint.py --profile quick --site ../harurun-s-library-site
+pypy3 library_codex/tools/prepare_checkpoint.py --profile full --site ../harurun-s-library-site
+```
+
+通常の反復では既定の`changed`を使います。機能がまとまったときだけ`quick`、共通基盤の変更やrelease前だけ`full`を選びます。性能に触れない小さな説明変更では`--no-benchmarks`を付けられます。
+
+このcommandは生成・検査・サイトdata同期までを担当し、commit、push、site deployは行いません。複数の小さな修正を1つのcheckpointへまとめ、内容を確認してから自然な単位でcommitしてください。
+
 ## 完了チェックリスト
 
 - [ ] module名だけで主目的が分かる。

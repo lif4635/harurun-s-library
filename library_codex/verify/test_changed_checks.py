@@ -56,3 +56,17 @@ def test_policy_change_does_not_select_the_full_suite():
     }
     assert not plan["affected"]
     assert not plan["api_changed"]
+
+
+def test_changed_paths_ignores_line_ending_only_differences(monkeypatch):
+    calls = []
+
+    def fake_git_lines(*arguments):
+        calls.append(arguments)
+        return []
+
+    monkeypatch.setattr(CHECK_CHANGED, "git_lines", fake_git_lines)
+    assert CHECK_CHANGED.changed_paths() == []
+    diff_calls = [call for call in calls if call[0] == "diff"]
+    assert diff_calls
+    assert all("--ignore-space-at-eol" in call for call in diff_calls)
