@@ -21,4 +21,4 @@ from library_codex.polynomial.PolynomialPrefixSum import polynomial_prefix_sum
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`polynomial_prefix_sum(polynomial, mod=DEFAULT_MOD, inclusive=False)`](../../../polynomial/PolynomialPrefixSum.py#L19) | 多項式・prefix・和を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`inclusive`: 端点を含めるかどうか。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `fps_shrink(result, mod)` |
+| [`polynomial_prefix_sum(polynomial, mod=DEFAULT_MOD, inclusive=False)`](../../../polynomial/PolynomialPrefixSum.py#L17) | 多項式・prefix・和を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`inclusive`: 端点を含めるかどうか。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `fps_shrink(result, mod)` |

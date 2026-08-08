@@ -4,8 +4,8 @@ from library_codex.fps.FormalPowerSeries import (
     fps_add,
     fps_evaluate,
     fps_multiply,
-    fps_remainder,
 )
+from library_codex.polynomial.PolynomialDivision import poly_mod
 from library_codex.polynomial.PartialFractionDistinct import partial_fraction_distinct
 from library_codex.polynomial.PolynomialGCD import polynomial_extended_gcd, polynomial_gcd
 from library_codex.polynomial.PolynomialModularPower import polynomial_inverse_mod, polynomial_pow_mod
@@ -74,10 +74,10 @@ def test_polynomial_gcd_extended_inverse_and_power():
     modulus = [1, 2, 0, 1]
     value = [3, 1]
     inverse = polynomial_inverse_mod(value, modulus)
-    assert fps_remainder(fps_multiply(value, inverse), modulus) == [1]
+    assert poly_mod(fps_multiply(value, inverse), modulus) == [1]
     direct = [1]
     for _ in range(37):
-        direct = fps_remainder(fps_multiply(direct, value), modulus)
+        direct = poly_mod(fps_multiply(direct, value), modulus)
     assert polynomial_pow_mod(value, 37, modulus) == direct
     assert polynomial_pow_mod(value, -1, modulus) == inverse
 

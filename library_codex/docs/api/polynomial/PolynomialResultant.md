@@ -21,4 +21,4 @@ from library_codex.polynomial.PolynomialResultant import polynomial_resultant
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`polynomial_resultant(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialResultant.py#L17) | 多項式・`resultant`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int `1 if len(second) == 1 else 0` / int `1 if len(first) == 1 else 0` / 数値または入力要素型 `-result % mod if sign else result` |
+| [`polynomial_resultant(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialResultant.py#L16) | 多項式・`resultant`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int `1 if len(second) == 1 else 0` / int `1 if len(first) == 1 else 0` / 数値または入力要素型 `-result % mod if sign else result` |

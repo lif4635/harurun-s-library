@@ -4,11 +4,9 @@ from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_add,
     fps_derivative,
-    fps_divmod,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
     fps_taylor_shift,
@@ -32,4 +30,3 @@ def polynomial_prefix_sum(polynomial, mod=DEFAULT_MOD, inclusive=False):
     if inclusive:
         result = fps_taylor_shift(result, 1, mod)
     return fps_shrink(result, mod)
-

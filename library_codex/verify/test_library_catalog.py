@@ -100,8 +100,11 @@ def test_fps998_family_is_complete_and_isolated_from_generic_ntt():
         "library_codex.fps998.FPS": {
             "shrink", "fps_add", "fps_sub", "fps_neg", "fps_diff",
             "fps_integral", "fps_eval", "fps_inv", "fps_log",
-            "fps_exp", "fps_pow", "fps_sqrt", "fps_div", "fps_mod",
-            "fps_divmod", "taylor_shift", "fps_product",
+            "fps_exp", "fps_pow", "fps_sqrt", "fps_div",
+            "taylor_shift", "fps_product",
+        },
+        "library_codex.polynomial.PolynomialDivision998": {
+            "poly_div", "poly_mod", "poly_divmod",
         },
         "library_codex.fps998.Composition": {
             "fps_compose", "fps_compositional_inv",
@@ -130,7 +133,7 @@ def test_fps998_family_is_complete_and_isolated_from_generic_ntt():
         module = module_by_path(data, module_path)
         assert {item["name"] for item in module["functions"]} == names
         assert module["categoryLabel"] in {
-            "畳み込み", "FPS (998244353)",
+            "畳み込み", "FPS (998244353)", "多項式",
         }
         assert not any(token in module["standaloneCode"] for token in forbidden)
 

@@ -4,11 +4,9 @@ from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_add,
     fps_derivative,
-    fps_divmod,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
     fps_taylor_shift,
@@ -29,4 +27,3 @@ def partial_fraction_distinct(numerator, roots, mod=DEFAULT_MOD):
             raise ValueError("roots must be distinct modulo mod")
         result[index] = numerator_values[index] * pow(denominator, -1, mod) % mod
     return result
-

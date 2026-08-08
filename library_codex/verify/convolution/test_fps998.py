@@ -12,13 +12,11 @@ from library_codex.fps998.FPS import (
     fps_add,
     fps_diff,
     fps_div,
-    fps_divmod,
     fps_eval,
     fps_exp,
     fps_integral,
     fps_inv,
     fps_log,
-    fps_mod,
     fps_neg,
     fps_pow,
     fps_product,
@@ -26,6 +24,11 @@ from library_codex.fps998.FPS import (
     fps_sub,
     shrink,
     taylor_shift,
+)
+from library_codex.polynomial.PolynomialDivision998 import (
+    poly_div,
+    poly_divmod,
+    poly_mod,
 )
 from library_codex.fps998.Composition import (
     fps_compose,
@@ -155,9 +158,19 @@ def test_fps998_power_sqrt_division_shift_and_product():
             quotient.pop()
         while remainder and remainder[-1] == 0:
             remainder.pop()
-        assert fps_divmod(dividend, divisor) == (quotient, remainder)
-        assert fps_div(dividend, divisor) == quotient
-        assert fps_mod(dividend, divisor) == remainder
+        assert poly_divmod(dividend, divisor) == (quotient, remainder)
+        assert poly_div(dividend, divisor) == quotient
+        assert poly_mod(dividend, divisor) == remainder
+
+        denominator = [rng.randrange(1, MOD)] + [
+            rng.randrange(MOD) for _ in range(rng.randrange(20))
+        ]
+        numerator = [rng.randrange(MOD) for _ in range(rng.randrange(20))]
+        formal_quotient = fps_div(numerator, denominator, degree)
+        expected_numerator = [value % MOD for value in numerator[:degree]]
+        expected_numerator.extend([0] * (degree - len(expected_numerator)))
+        assert len(formal_quotient) == degree
+        assert multiply(formal_quotient, denominator)[:degree] == expected_numerator
 
         shift = rng.randrange(MOD)
         point = rng.randrange(MOD)
@@ -171,6 +184,13 @@ def test_fps998_power_sqrt_division_shift_and_product():
         expected = convolution_naive(expected, polynomial, MOD)
     assert fps_product(polynomials) == expected
 
+    divisor = [rng.randrange(MOD) for _ in range(100)]
+    divisor[-1] = 1
+    quotient = [rng.randrange(MOD) for _ in range(120)]
+    remainder = [rng.randrange(MOD) for _ in range(99)]
+    dividend = fps_add(multiply(quotient, divisor), remainder)
+    assert poly_divmod(dividend, divisor) == (quotient, remainder)
+
 
 def test_fps998_validation_and_large_input():
     with pytest.raises(ZeroDivisionError):
@@ -180,7 +200,9 @@ def test_fps998_validation_and_large_input():
     with pytest.raises(ValueError):
         fps_exp([1], 1)
     with pytest.raises(ZeroDivisionError):
-        fps_divmod([1], [])
+        poly_divmod([1], [])
+    with pytest.raises(ZeroDivisionError):
+        fps_div([1], [0], 1)
 
     degree = 50000
     series = [1] + [index * index % MOD for index in range(1, degree)]

@@ -4,15 +4,14 @@ from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_add,
     fps_derivative,
-    fps_divmod,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
     fps_taylor_shift,
 )
+from library_codex.polynomial.PolynomialDivision import poly_divmod, poly_mod
 
 def polynomial_monic(polynomial, mod=DEFAULT_MOD):
     result = fps_shrink(polynomial, mod)
@@ -25,7 +24,7 @@ def polynomial_gcd(first, second, mod=DEFAULT_MOD):
     first = fps_shrink(first, mod)
     second = fps_shrink(second, mod)
     while second:
-        first, second = second, fps_remainder(first, second, mod)
+        first, second = second, poly_mod(first, second, mod)
     return polynomial_monic(first, mod)
 
 def polynomial_extended_gcd(first, second, mod=DEFAULT_MOD):
@@ -35,7 +34,7 @@ def polynomial_extended_gcd(first, second, mod=DEFAULT_MOD):
     old_first, current_first = [1], []
     old_second, current_second = [], [1]
     while remainder:
-        quotient, next_remainder = fps_divmod(old_remainder, remainder, mod)
+        quotient, next_remainder = poly_divmod(old_remainder, remainder, mod)
         old_remainder, remainder = remainder, next_remainder
         old_first, current_first = current_first, fps_subtract(
             old_first, fps_multiply(quotient, current_first, mod), mod
@@ -55,4 +54,3 @@ def polynomial_extended_gcd(first, second, mod=DEFAULT_MOD):
         [value * scale % mod for value in old_first],
         [value * scale % mod for value in old_second],
     )
-

@@ -7,15 +7,14 @@ from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_add,
     fps_derivative,
-    fps_divmod,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
     fps_taylor_shift,
 )
+from library_codex.polynomial.PolynomialDivision import poly_divmod
 
 def _divide_linear(polynomial, root, mod):
     degree = len(polynomial) - 1
@@ -76,7 +75,7 @@ def polynomial_roots(polynomial, mod=DEFAULT_MOD, multiplicity=False):
                 split = polynomial_gcd(
                     factor, fps_subtract(half_power, [1], mod), mod
                 )
-            quotient, remainder = fps_divmod(factor, split, mod)
+            quotient, remainder = poly_divmod(factor, split, mod)
             if remainder:
                 raise ArithmeticError("finite-field factor split failed")
             stack.append(polynomial_monic(split, mod))
@@ -94,4 +93,3 @@ def polynomial_roots(polynomial, mod=DEFAULT_MOD, multiplicity=False):
             answer.append(root)
             remaining = quotient
     return answer
-

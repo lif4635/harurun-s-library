@@ -190,6 +190,18 @@ def fps_inverse(series, degree=None, mod=DEFAULT_MOD):
     return result
 
 
+def fps_div(numerator, denominator, degree=None, mod=DEFAULT_MOD):
+    r"""Return ``numerator / denominator mod x^degree``. O(N log N)."""
+
+    degree = _degree(degree, len(numerator))
+    if degree == 0:
+        return []
+    inverse = fps_inverse(denominator, degree, mod)
+    result = fps_multiply(numerator[:degree], inverse, mod)[:degree]
+    result.extend([0] * (degree - len(result)))
+    return result
+
+
 def fps_logarithm(series, degree=None, mod=DEFAULT_MOD):
     """Return the formal logarithm through ``degree``; series[0] must be 1. O(N log N)."""
 
@@ -381,70 +393,6 @@ def fps_square_root(series, degree=None, mod=DEFAULT_MOD):
     return [0] * shift + result[:needed]
 
 
-def fps_quotient(dividend, divisor, mod=DEFAULT_MOD):
-    """Return the polynomial quotient in ascending coefficient order. O(N log N)."""
-
-    first = fps_shrink(dividend, mod)
-    second = fps_shrink(divisor, mod)
-    if not second:
-        raise ZeroDivisionError("polynomial division by zero")
-    if len(first) < len(second):
-        return []
-    quotient_size = len(first) - len(second) + 1
-    if len(second) <= 64:
-        result = [0] * quotient_size
-        remainder = first[:]
-        try:
-            inverse_leading = pow(second[-1], -1, mod)
-        except ValueError as error:
-            raise ZeroDivisionError("the leading coefficient is not invertible") from error
-        width = len(second)
-        for index in range(quotient_size - 1, -1, -1):
-            value = remainder[index + width - 1] * inverse_leading % mod
-            result[index] = value
-            for offset in range(width):
-                remainder[index + offset] = (
-                    remainder[index + offset] - value * second[offset]
-                ) % mod
-        return result
-    reversed_dividend = list(reversed(first[-quotient_size:]))
-    reversed_divisor = list(reversed(second))
-    result = fps_multiply(
-        reversed_dividend,
-        fps_inverse(reversed_divisor, quotient_size, mod),
-        mod,
-    )[:quotient_size]
-    result.reverse()
-    return result
-
-
-def fps_divmod(dividend, divisor, mod=DEFAULT_MOD):
-    """Return ``(quotient, remainder)`` for polynomial division. O(N log N)."""
-
-    second = fps_shrink(divisor, mod)
-    if not second:
-        raise ZeroDivisionError("polynomial division by zero")
-    first = fps_shrink(dividend, mod)
-    quotient = fps_quotient(first, second, mod)
-    if not quotient:
-        return [], first
-    product = fps_multiply(quotient, second, mod)
-    remainder = [0] * min(len(second) - 1, max(len(first), len(product)))
-    for index in range(len(remainder)):
-        left = first[index] if index < len(first) else 0
-        right = product[index] if index < len(product) else 0
-        remainder[index] = (left - right) % mod
-    while remainder and remainder[-1] == 0:
-        remainder.pop()
-    return quotient, remainder
-
-
-def fps_remainder(dividend, divisor, mod=DEFAULT_MOD):
-    """Return only the remainder of polynomial division. O(N log N)."""
-
-    return fps_divmod(dividend, divisor, mod)[1]
-
-
 def fps_taylor_shift(series, shift, mod=DEFAULT_MOD):
     """Return coefficients of ``f(x + shift)``. O(N log N)."""
 
@@ -514,7 +462,5 @@ fps_log = fps_logarithm
 fps_exp = fps_exponential
 fps_pow = fps_power
 fps_sqrt = fps_square_root
-fps_div = fps_quotient
-fps_mod = fps_remainder
 fps_eval = fps_evaluate
 tayler_shift = fps_taylor_shift

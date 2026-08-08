@@ -187,6 +187,18 @@ def fps_inv(series, degree=None):
     return result
 
 
+def fps_div(numerator, denominator, degree=None):
+    r"""Return ``numerator / denominator mod x^degree``. O(N log N)."""
+
+    degree = _degree(degree, len(numerator))
+    if degree == 0:
+        return []
+    inverse = fps_inv(denominator, degree)
+    result = multiply(numerator[:degree], inverse)[:degree]
+    result.extend([0] * (degree - len(result)))
+    return result
+
+
 def fps_log(series, degree=None):
     r"""$\log f(x)\bmod x^{degree}$を返す。`f[0]`は1。O(N log N)。"""
 
@@ -343,66 +355,6 @@ def fps_sqrt(series, degree=None):
             result[index] = (result[index] + value) * inverse_two % MOD
         current = target
     return [0] * shift + result[:needed]
-
-
-def fps_div(dividend, divisor):
-    """多項式除算の商を昇べき順の係数listで返す。O(N log N)。"""
-
-    first = shrink(dividend)
-    second = shrink(divisor)
-    if not second:
-        raise ZeroDivisionError("polynomial division by zero")
-    if len(first) < len(second):
-        return []
-    quotient_size = len(first) - len(second) + 1
-    if len(second) <= 64:
-        result = [0] * quotient_size
-        remainder = first[:]
-        inverse_leading = pow(second[-1], MOD - 2, MOD)
-        width = len(second)
-        for index in range(quotient_size - 1, -1, -1):
-            value = remainder[index + width - 1] * inverse_leading % MOD
-            result[index] = value
-            for offset in range(width):
-                remainder[index + offset] = (
-                    remainder[index + offset] - value * second[offset]
-                ) % MOD
-        return result
-    reversed_dividend = list(reversed(first[-quotient_size:]))
-    reversed_divisor = list(reversed(second))
-    result = multiply(
-        reversed_dividend,
-        fps_inv(reversed_divisor, quotient_size),
-    )[:quotient_size]
-    result.reverse()
-    return result
-
-
-def fps_divmod(dividend, divisor):
-    """多項式除算の`(商, 余り)`を昇べき順の係数list 2本で返す。O(N log N)。"""
-
-    second = shrink(divisor)
-    if not second:
-        raise ZeroDivisionError("polynomial division by zero")
-    first = shrink(dividend)
-    quotient = fps_div(first, second)
-    if not quotient:
-        return [], first
-    product = multiply(quotient, second)
-    remainder = [0] * min(len(second) - 1, max(len(first), len(product)))
-    for index in range(len(remainder)):
-        left = first[index] if index < len(first) else 0
-        right = product[index] if index < len(product) else 0
-        remainder[index] = (left - right) % MOD
-    while remainder and remainder[-1] == 0:
-        remainder.pop()
-    return quotient, remainder
-
-
-def fps_mod(dividend, divisor):
-    """多項式除算の余りを昇べき順の係数listで返す。O(N log N)。"""
-
-    return fps_divmod(dividend, divisor)[1]
 
 
 def taylor_shift(series, shift):

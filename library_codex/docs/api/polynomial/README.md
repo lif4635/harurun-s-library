@@ -8,6 +8,8 @@
 | [`GeometricMultipointEvaluation`](GeometricMultipointEvaluation.md) | 等比数列上の多点評価と補間を計算する。 | 2 | 0 | 0 |
 | [`MultipointEvaluation`](MultipointEvaluation.md) | 積木による多点評価・多項式補間・連続点補間 | 4 | 1 | 3 |
 | [`PartialFractionDistinct`](PartialFractionDistinct.md) | 相異なる一次因子に対する部分分数分解を計算する。 | 1 | 0 | 0 |
+| [`PolynomialDivision`](PolynomialDivision.md) | Polynomial quotient and remainder in ascending coefficient order. | 3 | 0 | 0 |
+| [`PolynomialDivision998`](PolynomialDivision998.md) | Fast polynomial quotient and remainder modulo 998244353. | 3 | 0 | 0 |
 | [`PolynomialExponentialSum`](PolynomialExponentialSum.md) | 多項式と指数関数の積の有限和・極限和を計算する。 | 2 | 0 | 0 |
 | [`PolynomialFactorization`](PolynomialFactorization.md) | 有限体上の多項式GCD・因数分解 | 3 | 1 | 0 |
 | [`PolynomialGCD`](PolynomialGCD.md) | 多項式のmonic化・gcd・拡張gcdを計算する。 | 3 | 0 | 0 |

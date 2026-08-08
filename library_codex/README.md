@@ -517,7 +517,8 @@ PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版�
 - `fps_add/subtract/negate/multiply`、`fps_derivative/integral/evaluate` が基本演算を提供する
 - `fps_inverse/logarithm/exponential/power(series, degree, mod)` は指定した `degree` 項を返し、NTT可能な法ではNewton法とradix-4 butterflyを直接再利用する
 - `fps_square_root` は先頭0の偶奇と定数項のTonelli--Shanksを処理し、平方根がなければ `None`、あれば指定次数の根を返す
-- `fps_quotient/remainder/divmod` は末尾の0を除いた多項式として除算し、長い除数ではreverse＋FPS逆元を使う
+- `fps_div(numerator,denominator,degree,mod)` は形式的冪級数の商を `x^degree` で打ち切って返す
+- `poly_div/poly_mod/poly_divmod` は末尾の0を除いた多項式として除算し、長い除数ではreverse＋FPS逆元を使う
 - `fps_taylor_shift(f,c)` は $f(x+c)$、`fps_product` は長さの短い多項式からheapで併合する
 - 積分・Taylor shiftは必要な整数の逆元を使うため次数が `mod` 未満であることが必要
 - `berlekamp_massey(sequence)` は $a_n=\sum_{i=1}^D c_i a_{n-i}$ の `[c1,...,cD]`、`berlekamp_massey_poly` は `[1,-c1,...,-cD]` を返す

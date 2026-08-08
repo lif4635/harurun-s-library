@@ -22,5 +22,5 @@ from library_codex.combinatorial_series.PowerSums import power_sums, prefix_sum_
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`power_sums(values, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L35) | 入力した値・多項式を指定指数だけ累乗する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
-| [`prefix_sum_powers(count, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L49) | prefix・和・`powers`を計算する。 | `count`: 個数<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| [`power_sums(values, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L33) | 入力した値・多項式を指定指数だけ累乗する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
+| [`prefix_sum_powers(count, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L47) | prefix・和・`powers`を計算する。 | `count`: 個数<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |

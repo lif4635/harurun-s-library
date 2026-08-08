@@ -9,7 +9,7 @@ sys.path.append(str(Path(__file__).resolve().parents[3]))
 from library_codex.fps.FormalPowerSeries import (
     fps_add,
     fps_derivative,
-    fps_divmod,
+    fps_div,
     fps_evaluate,
     fps_exponential,
     fps_integral,
@@ -19,10 +19,13 @@ from library_codex.fps.FormalPowerSeries import (
     fps_negate,
     fps_power,
     fps_product,
-    fps_quotient,
-    fps_remainder,
     fps_subtract,
     fps_taylor_shift,
+)
+from library_codex.polynomial.PolynomialDivision import (
+    poly_div,
+    poly_divmod,
+    poly_mod,
 )
 from library_codex.convolution.NTT import convolution_naive
 
@@ -138,15 +141,25 @@ def test_power_division_taylor_shift_and_product():
             rng.randrange(MOD) for _ in range(rng.randrange(len(divisor)))
         ]
         dividend = fps_add(fps_multiply(quotient, divisor), remainder)
-        expected_quotient, expected_remainder = fps_divmod(dividend, divisor)
+        expected_quotient, expected_remainder = poly_divmod(dividend, divisor)
         while quotient and quotient[-1] == 0:
             quotient.pop()
         while remainder and remainder[-1] == 0:
             remainder.pop()
         assert expected_quotient == quotient
         assert expected_remainder == remainder
-        assert fps_quotient(dividend, divisor) == quotient
-        assert fps_remainder(dividend, divisor) == remainder
+        assert poly_div(dividend, divisor) == quotient
+        assert poly_mod(dividend, divisor) == remainder
+
+        denominator = [rng.randrange(1, MOD)] + [
+            rng.randrange(MOD) for _ in range(rng.randrange(20))
+        ]
+        numerator = [rng.randrange(MOD) for _ in range(rng.randrange(20))]
+        formal_quotient = fps_div(numerator, denominator, degree)
+        expected_numerator = [value % MOD for value in numerator[:degree]]
+        expected_numerator.extend([0] * (degree - len(expected_numerator)))
+        assert len(formal_quotient) == degree
+        assert fps_multiply(formal_quotient, denominator)[:degree] == expected_numerator
 
         shift = rng.randrange(MOD)
         shifted = fps_taylor_shift(series, shift)
@@ -168,7 +181,7 @@ def test_power_division_taylor_shift_and_product():
     quotient = [rng.randrange(MOD) for _ in range(120)]
     remainder = [rng.randrange(MOD) for _ in range(99)]
     dividend = fps_add(fps_multiply(quotient, divisor), remainder)
-    assert fps_divmod(dividend, divisor) == (quotient, remainder)
+    assert poly_divmod(dividend, divisor) == (quotient, remainder)
 
 
 def test_other_prime_fallback():
@@ -201,7 +214,9 @@ def test_validation_and_negative_power():
     with pytest.raises(ValueError):
         fps_exponential([1], 1)
     with pytest.raises(ZeroDivisionError):
-        fps_divmod([1], [])
+        poly_divmod([1], [])
+    with pytest.raises(ZeroDivisionError):
+        fps_div([1], [0], 1)
     with pytest.raises(ValueError):
         fps_power([0, 1], -1, 5)
     series = [2, 3, 4, 5]

@@ -4,15 +4,14 @@ from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_add,
     fps_derivative,
-    fps_divmod,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
     fps_taylor_shift,
 )
+from library_codex.polynomial.PolynomialDivision import poly_divmod
 
 def polynomial_resultant(first, second, mod=DEFAULT_MOD):
     """Resultant over a field, computed by an iterative Euclidean chain."""
@@ -25,7 +24,7 @@ def polynomial_resultant(first, second, mod=DEFAULT_MOD):
     result = 1
     sign = 0
     while True:
-        _, remainder = fps_divmod(first, second, mod)
+        _, remainder = poly_divmod(first, second, mod)
         first_degree = len(first) - 1
         second_degree = len(second) - 1
         if not remainder:
@@ -42,4 +41,3 @@ def polynomial_resultant(first, second, mod=DEFAULT_MOD):
         ) % mod
         first, second = second, remainder
     return -result % mod if sign else result
-

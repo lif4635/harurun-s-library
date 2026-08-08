@@ -6,15 +6,14 @@ from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_add,
     fps_derivative,
-    fps_divmod,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
     fps_taylor_shift,
 )
+from library_codex.polynomial.PolynomialDivision import poly_mod
 
 def polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD):
     modulus = fps_shrink(modulus, mod)
@@ -23,7 +22,7 @@ def polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD):
     gcd, inverse, _ = polynomial_extended_gcd(polynomial, modulus, mod)
     if gcd != [1]:
         raise ZeroDivisionError("polynomial is not invertible modulo modulus")
-    return fps_remainder(inverse, modulus, mod)
+    return poly_mod(inverse, modulus, mod)
 
 def polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD):
     if exponent < 0:
@@ -33,12 +32,11 @@ def polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD):
     if len(modulus) <= 1:
         raise ValueError("the polynomial modulus must have positive degree")
     result = [1]
-    base = fps_remainder(polynomial, modulus, mod)
+    base = poly_mod(polynomial, modulus, mod)
     while exponent:
         if exponent & 1:
-            result = fps_remainder(fps_multiply(result, base, mod), modulus, mod)
+            result = poly_mod(fps_multiply(result, base, mod), modulus, mod)
         exponent >>= 1
         if exponent:
-            base = fps_remainder(fps_multiply(base, base, mod), modulus, mod)
+            base = poly_mod(fps_multiply(base, base, mod), modulus, mod)
     return result
-

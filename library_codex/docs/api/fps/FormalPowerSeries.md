@@ -5,7 +5,7 @@ FPS四則演算・inv/log/exp/pow・Taylor shift・一括積。
 
 - 計算量の目安: 主要演算 $O(N\log N)$
 - source: [`fps/FormalPowerSeries.py`](../../../fps/FormalPowerSeries.py)
-- 公開API: function 19、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 17、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
@@ -28,13 +28,11 @@ from library_codex.fps.FormalPowerSeries import (
     fps_integral,
     fps_evaluate,
     fps_inverse,
+    fps_div,
     fps_logarithm,
     fps_exponential,
     fps_power,
     fps_square_root,
-    fps_quotient,
-    fps_divmod,
-    fps_remainder,
     fps_taylor_shift,
     fps_product,
 )
@@ -60,12 +58,10 @@ from library_codex.fps.FormalPowerSeries import (
 | [`fps_integral(series, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L108) | 定数項を0として形式的冪級数を積分する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 定数項を0とした不定積分 $\int f(x)\,dx$ を表す、長さ $\lvert f\rvert+1$ の昇べき順係数列。 |
 | [`fps_evaluate(series, value, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L118) | 昇冪係数列で表した多項式を指定した値へ代入する。 | `series`: 昇冪の形式的冪級数係数列<br>`value`: 追加・設定・問い合わせる値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — $f(\mathrm{value})\bmod\mathrm{mod}$。$0 \le \mathrm{answer}<\mathrm{mod}$ |
 | [`fps_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L152) | 形式的冪級数の乗法逆数を指定した係数数まで求める。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $f(x)g(x)\equiv1\pmod{x^{\mathrm{degree}}}$ を満たす $g(x)$ の、長さ $\mathrm{degree}$ の昇冪係数列 |
-| [`fps_logarithm(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L193) | 定数項が1の形式的冪級数の対数を指定した係数数まで求める。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $\log f(x)\bmod x^{\mathrm{degree}}$ の、長さ $\mathrm{degree}$ の昇冪係数列 |
-| [`fps_exponential(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L287) | 定数項が0の形式的冪級数の指数を指定した係数数まで求める。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $\exp f(x)\bmod x^{\mathrm{degree}}$ の、長さ $\mathrm{degree}$ の昇冪係数列 |
-| [`fps_power(series, exponent, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L307) | 形式的冪級数の整数乗を指定した係数数まで求める。 | `series`: 昇冪の形式的冪級数係数列<br>`exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $f(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ の、長さ $\mathrm{degree}$ の昇冪係数列 |
-| [`fps_square_root(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L345) | 形式的冪級数の平方根を指定した係数数まで求め、存在しなければNoneを返す。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] \| None — $g(x)^2\equiv f(x)\pmod{x^{\mathrm{degree}}}$ を満たす $g(x)$ の係数列。存在しなければNone |
-| [`fps_quotient(dividend, divisor, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L384) | 昇冪係数列で表した2多項式の商を返す。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 多項式除算の商を表す昇冪係数列 |
-| [`fps_divmod(dividend, divisor, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L421) | 昇べき順係数列で表した2多項式の商と余りを返す。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple[list[number], list[number]] — 多項式除算の(商, 余り)。 |
-| [`fps_remainder(dividend, divisor, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L442) | 昇冪係数列で表した2多項式の余りを返す。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 次数がdivisor未満の余りを表す昇冪係数列 |
-| [`fps_taylor_shift(series, shift, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L448) | 多項式f(x)からf(x+shift)の昇冪係数列を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`shift`: 平行移動量・bit shift量<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $f(x+\mathrm{shift})$ を表す入力と同じ長さの昇冪係数列 |
-| [`fps_product(polynomials, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L485) | 複数の多項式を短いものから畳み込み、全体の積を返す。 | `polynomials`: 多項式係数列のiterable<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 全入力多項式の積を表す昇べき順係数列。 |
+| [`fps_div(numerator, denominator, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L193) | 形式的冪級数の商 $numerator(x)/denominator(x)$ を $x^{degree}$ で打ち切って返す。 | `numerator`: 分子の昇べき順係数列。<br>`denominator`: 定数項が逆元を持つ分母の昇べき順係数列。<br>`degree`: 返す係数数。省略時はnumeratorの長さ。。省略時: `None`<br>`mod`: 係数の法。省略時は998244353。。省略時: `DEFAULT_MOD` | list[number] — 長さdegreeの $numerator(x)/denominator(x)\bmod x^{degree}$ の昇べき順係数列。 |
+| [`fps_logarithm(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L205) | 定数項が1の形式的冪級数の対数を指定した係数数まで求める。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $\log f(x)\bmod x^{\mathrm{degree}}$ の、長さ $\mathrm{degree}$ の昇冪係数列 |
+| [`fps_exponential(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L299) | 定数項が0の形式的冪級数の指数を指定した係数数まで求める。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $\exp f(x)\bmod x^{\mathrm{degree}}$ の、長さ $\mathrm{degree}$ の昇冪係数列 |
+| [`fps_power(series, exponent, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L319) | 形式的冪級数の整数乗を指定した係数数まで求める。 | `series`: 昇冪の形式的冪級数係数列<br>`exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $f(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ の、長さ $\mathrm{degree}$ の昇冪係数列 |
+| [`fps_square_root(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L357) | 形式的冪級数の平方根を指定した係数数まで求め、存在しなければNoneを返す。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] \| None — $g(x)^2\equiv f(x)\pmod{x^{\mathrm{degree}}}$ を満たす $g(x)$ の係数列。存在しなければNone |
+| [`fps_taylor_shift(series, shift, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L396) | 多項式f(x)からf(x+shift)の昇冪係数列を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`shift`: 平行移動量・bit shift量<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — $f(x+\mathrm{shift})$ を表す入力と同じ長さの昇冪係数列 |
+| [`fps_product(polynomials, mod=DEFAULT_MOD)`](../../../fps/FormalPowerSeries.py#L433) | 複数の多項式を短いものから畳み込み、全体の積を返す。 | `polynomials`: 多項式係数列のiterable<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 全入力多項式の積を表す昇べき順係数列。 |

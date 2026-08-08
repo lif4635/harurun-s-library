@@ -333,8 +333,6 @@ PURPOSE_BY_NAME = {
     "fps_exponential": "定数項が0の形式的冪級数の指数を指定した係数数まで求める。",
     "fps_power": "形式的冪級数の整数乗を指定した係数数まで求める。",
     "fps_square_root": "形式的冪級数の平方根を指定した係数数まで求め、存在しなければNoneを返す。",
-    "fps_quotient": "昇冪係数列で表した2多項式の商を返す。",
-    "fps_remainder": "昇冪係数列で表した2多項式の余りを返す。",
     "fps_taylor_shift": "多項式f(x)からf(x+shift)の昇冪係数列を求める。",
     "integer_partitions": "整数totalの分割を辞書式順序で列挙する。",
     "integer_partitions_up_to": "指定上限までの各整数分割を列挙する。",
@@ -535,8 +533,6 @@ RETURN_DETAILS = {
         r"list[number] | None — $g(x)^2\equiv f(x)\pmod{x^{\mathrm{degree}}}$ を満たす "
         r"$g(x)$ の係数列。存在しなければNone"
     ),
-    "fps_quotient": "list[number] — 多項式除算の商を表す昇冪係数列",
-    "fps_remainder": "list[number] — 次数がdivisor未満の余りを表す昇冪係数列",
     "fps_taylor_shift": (
         r"list[number] — $f(x+\mathrm{shift})$ を表す入力と同じ長さの昇冪係数列"
     ),
@@ -1045,10 +1041,16 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[number]",
         "returnDescription": r"定数項を0とした不定積分 $\int f(x)\,dx$ を表す、長さ $\lvert f\rvert+1$ の昇べき順係数列。",
     },
-    ("fps/FormalPowerSeries.py", None, "fps_divmod"): {
-        "description": "昇べき順係数列で表した2多項式の商と余りを返す。",
-        "returnFormat": "tuple[list[number], list[number]]",
-        "returnDescription": "多項式除算の(商, 余り)。",
+    ("fps/FormalPowerSeries.py", None, "fps_div"): {
+        "description": r"形式的冪級数の商 $numerator(x)/denominator(x)$ を $x^{degree}$ で打ち切って返す。",
+        "argumentDescriptions": {
+            "numerator": "分子の昇べき順係数列。",
+            "denominator": "定数項が逆元を持つ分母の昇べき順係数列。",
+            "degree": "返す係数数。省略時はnumeratorの長さ。",
+            "mod": "係数の法。省略時は998244353。",
+        },
+        "returnFormat": "list[number]",
+        "returnDescription": r"長さdegreeの $numerator(x)/denominator(x)\bmod x^{degree}$ の昇べき順係数列。",
     },
     ("fps/FormalPowerSeries.py", None, "fps_product"): {
         "description": "複数の多項式を短いものから畳み込み、全体の積を返す。",
@@ -1483,12 +1485,24 @@ API_DETAILS_BY_SYMBOL.update({
         "returnDescription": r"存在すれば長さdegreeの係数列resultで、$\mathrm{result}(x)^2\equiv\mathrm{series}(x)\pmod{x^{\mathrm{degree}}}$。存在しなければNone。",
     },
     ("fps998/FPS.py", None, "fps_div"): {
-        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。"},
+        "description": r"998244353上で形式的冪級数の商 $numerator(x)/denominator(x)$ を $x^{degree}$ で打ち切って返す。",
+        "argumentDescriptions": {
+            "numerator": "分子の昇べき順係数列。",
+            "denominator": "定数項が非0である分母の昇べき順係数列。",
+            "degree": "返す係数数。省略時はnumeratorの長さ。",
+        },
         "returnFormat": "list[int]",
-        "returnDescription": "多項式除算の商を最高次側の0を除いた昇べき順で格納したlist。",
+        "returnDescription": r"長さdegreeの $numerator(x)/denominator(x)\bmod x^{degree}$ の昇べき順係数列。",
     },
-    ("fps998/FPS.py", None, "fps_divmod"): {
-        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。"},
+    ("polynomial/PolynomialDivision.py", None, "poly_div"): {
+        "description": "昇べき順係数列で表した2多項式を割り、商を返す。",
+        "argumentDescriptions": {"dividend": "被除多項式の昇べき順係数列。", "divisor": "0でない除多項式の昇べき順係数列。", "mod": "係数の法。"},
+        "returnFormat": "list[number]",
+        "returnDescription": "多項式除算の商を、最高次側の0を除いた昇べき順係数列で返す。",
+    },
+    ("polynomial/PolynomialDivision.py", None, "poly_divmod"): {
+        "description": "昇べき順係数列で表した2多項式を割り、商と余りを返す。",
+        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。", "mod": "係数の法。"},
         "returnFormat": "(quotient, remainder)",
         "returnDescription": "多項式除算の商と余り。余りの次数は除数より小さく、どちらも昇べき順係数list。",
         "returnParts": (
@@ -1496,10 +1510,33 @@ API_DETAILS_BY_SYMBOL.update({
             {"name": "remainder", "format": "list[int]", "description": "除数より次数が小さい余りの昇べき順係数列。"},
         ),
     },
-    ("fps998/FPS.py", None, "fps_mod"): {
-        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。"},
-        "returnFormat": "list[int]",
+    ("polynomial/PolynomialDivision.py", None, "poly_mod"): {
+        "description": "昇べき順係数列で表した2多項式を割り、余りだけを返す。",
+        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。", "mod": "係数の法。"},
+        "returnFormat": "list[number]",
         "returnDescription": "多項式除算の余りを最高次側の0を除いた昇べき順で格納したlist。",
+    },
+    ("polynomial/PolynomialDivision998.py", None, "poly_div"): {
+        "description": "998244353上で2多項式を割り、商を返す。",
+        "argumentDescriptions": {"dividend": "被除多項式の昇べき順係数列。", "divisor": "0でない除多項式の昇べき順係数列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "998244353上の多項式除算の商を、最高次側の0を除いた昇べき順係数列で返す。",
+    },
+    ("polynomial/PolynomialDivision998.py", None, "poly_divmod"): {
+        "description": "998244353上で2多項式を割り、商と余りを返す。",
+        "argumentDescriptions": {"dividend": "被除多項式の昇べき順係数列。", "divisor": "0でない除多項式の昇べき順係数列。"},
+        "returnFormat": "(quotient, remainder)",
+        "returnDescription": "998244353上の多項式除算の商と余り。余りの次数は除数より小さい。",
+        "returnParts": (
+            {"name": "quotient", "format": "list[int]", "description": "商の昇べき順係数列。"},
+            {"name": "remainder", "format": "list[int]", "description": "除数より次数が小さい余りの昇べき順係数列。"},
+        ),
+    },
+    ("polynomial/PolynomialDivision998.py", None, "poly_mod"): {
+        "description": "998244353上で2多項式を割り、余りだけを返す。",
+        "argumentDescriptions": {"dividend": "被除多項式の昇べき順係数列。", "divisor": "0でない除多項式の昇べき順係数列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "998244353上の多項式除算の余りを、最高次側の0を除いた昇べき順係数列で返す。",
     },
     ("fps998/FPS.py", None, "taylor_shift"): {
         "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT, "shift": "変数へ加える有限体の値。"},

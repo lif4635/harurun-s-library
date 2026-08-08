@@ -6,11 +6,9 @@ from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_add,
     fps_derivative,
-    fps_divmod,
     fps_inverse,
     fps_logarithm,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
     fps_taylor_shift,
@@ -71,4 +69,3 @@ def prefix_sum_powers(count, max_exponent, mod=DEFAULT_MOD):
         numerator, fps_inverse(denominator, max_exponent + 1, mod), mod
     )[:max_exponent + 1]
     return [quotient[index] * factorial[index] % mod for index in range(len(quotient))]
-

@@ -2,9 +2,9 @@ import random
 
 from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
-    fps_divmod,
     fps_multiply,
 )
+from library_codex.polynomial.PolynomialDivision import poly_divmod
 from library_codex.combinatorial_series.LinearRecurrence import berlekamp_massey
 from library_codex.linear_algebra.Matrix import matrix_vector_multiply
 
@@ -106,7 +106,7 @@ def _multiply_mod(first, second, polynomial, mod):
     product = fps_multiply(first, second, mod)
     if len(product) < len(polynomial):
         return product
-    return fps_divmod(product, polynomial, mod)[1]
+    return poly_divmod(product, polynomial, mod)[1]
 
 
 def _power_of_x(exponent, polynomial, mod):

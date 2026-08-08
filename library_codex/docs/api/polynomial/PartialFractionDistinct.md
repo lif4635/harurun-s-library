@@ -21,4 +21,4 @@ from library_codex.polynomial.PartialFractionDistinct import partial_fraction_di
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`partial_fraction_distinct(numerator, roots, mod=DEFAULT_MOD)`](../../../polynomial/PartialFractionDistinct.py#L19) | `partial`・`fraction`・`distinct`を求める。 | `numerator`: 有理式の分子多項式<br>`roots`: `roots`として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| [`partial_fraction_distinct(numerator, roots, mod=DEFAULT_MOD)`](../../../polynomial/PartialFractionDistinct.py#L17) | `partial`・`fraction`・`distinct`を求める。 | `numerator`: 有理式の分子多項式<br>`roots`: `roots`として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |

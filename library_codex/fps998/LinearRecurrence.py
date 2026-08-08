@@ -5,7 +5,8 @@ Berlekamp--Masseyで最短漸化式を求め、Bostan--Moriで有理FPS
 """
 
 from library_codex.convolution.NTT998 import MOD, multiply
-from library_codex.fps998.FPS import fps_divmod, shrink
+from library_codex.fps998.FPS import shrink
+from library_codex.polynomial.PolynomialDivision998 import poly_divmod
 
 
 def berlekamp_massey(sequence):
@@ -54,7 +55,7 @@ def bostan_mori(index, numerator, denominator):
     numerator = shrink(numerator)
     polynomial_part = 0
     if len(numerator) >= len(denominator):
-        quotient, numerator = fps_divmod(numerator, denominator)
+        quotient, numerator = poly_divmod(numerator, denominator)
         if index < len(quotient):
             polynomial_part = quotient[index]
     if not numerator:

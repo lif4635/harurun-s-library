@@ -41,5 +41,5 @@ def test_half_gcd_and_polynomial_inverse():
     ok, inverse = polynomial_inverse(first, second, mod)
     assert ok
     product = fps_multiply(first, inverse, mod)
-    from library_codex.fps.FormalPowerSeries import fps_remainder
-    assert fps_remainder(product, second, mod) == [1]
+    from library_codex.polynomial.PolynomialDivision import poly_mod
+    assert poly_mod(product, second, mod) == [1]

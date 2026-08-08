@@ -21,4 +21,4 @@ from library_codex.polynomial.PolynomialRoots import polynomial_roots
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`polynomial_roots(polynomial, mod=DEFAULT_MOD, multiplicity=False)`](../../../polynomial/PolynomialRoots.py#L31) | 多項式・`roots`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`multiplicity`: `multiplicity`として使う入力。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| [`polynomial_roots(polynomial, mod=DEFAULT_MOD, multiplicity=False)`](../../../polynomial/PolynomialRoots.py#L30) | 多項式・`roots`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`multiplicity`: `multiplicity`として使う入力。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] |

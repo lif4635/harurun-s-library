@@ -3,9 +3,9 @@ from library_codex.fps.FormalPowerSeries import (
     fps_add,
     fps_derivative,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
 )
+from library_codex.polynomial.PolynomialDivision import poly_mod
 
 
 def _batch_inverse(values, mod):
@@ -69,7 +69,7 @@ class ProductTree:
             return [0] * self.n
         root = self.products[1]
         if len(current) >= len(root):
-            current = fps_remainder(current, root, mod)
+            current = poly_mod(current, root, mod)
             if not current:
                 return [0] * self.n
         result = [0] * self.n
@@ -100,14 +100,14 @@ class ProductTree:
                 if len(values) < len(right_product):
                     right_values = values
                 else:
-                    right_values = fps_remainder(values, right_product, mod)
+                    right_values = poly_mod(values, right_product, mod)
                 stack.append((right_node, middle, right, right_values))
             left_node = node << 1
             left_product = products[left_node]
             if len(values) < len(left_product):
                 left_values = values
             else:
-                left_values = fps_remainder(values, left_product, mod)
+                left_values = poly_mod(values, left_product, mod)
             stack.append((left_node, left, middle, left_values))
         return result
 

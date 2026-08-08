@@ -1,9 +1,9 @@
 from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
-    fps_divmod,
     fps_multiply,
     fps_shrink,
 )
+from library_codex.polynomial.PolynomialDivision import poly_divmod
 
 
 def berlekamp_massey(sequence, mod=DEFAULT_MOD):
@@ -60,7 +60,7 @@ def bostan_mori(index, numerator, denominator, mod=DEFAULT_MOD):
     numerator = fps_shrink(numerator, mod)
     polynomial_part = 0
     if len(numerator) >= len(denominator):
-        quotient, numerator = fps_divmod(numerator, denominator, mod)
+        quotient, numerator = poly_divmod(numerator, denominator, mod)
         if index < len(quotient):
             polynomial_part = quotient[index]
     if not numerator:

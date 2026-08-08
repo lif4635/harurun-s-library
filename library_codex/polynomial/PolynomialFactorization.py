@@ -1,12 +1,11 @@
 from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_derivative,
-    fps_divmod,
     fps_multiply,
-    fps_remainder,
     fps_shrink,
     fps_subtract,
 )
+from library_codex.polynomial.PolynomialDivision import poly_divmod, poly_mod
 from library_codex.polynomial.PolynomialGCD import (
     polynomial_gcd,
     polynomial_monic,
@@ -30,7 +29,7 @@ def polynomial_inverse(first, modulus, mod=DEFAULT_MOD):
 
 
 def _divide_exact(first, second, mod):
-    quotient, remainder = fps_divmod(first, second, mod)
+    quotient, remainder = poly_divmod(first, second, mod)
     if fps_shrink(remainder, mod):
         raise ArithmeticError("polynomial division was not exact")
     return polynomial_monic(quotient, mod)
@@ -87,7 +86,7 @@ def _equal_degree_factorization(polynomial, degree, mod, state):
                 break
             if mod == 2:
                 trace = []
-                power = fps_remainder(random_polynomial, source, mod)
+                power = poly_mod(random_polynomial, source, mod)
                 for _ in range(degree):
                     trace = fps_subtract(trace, power, mod)
                     power = polynomial_pow_mod(power, 2, source, mod)
@@ -123,7 +122,7 @@ def _factor_square_free(polynomial, mod, state):
             ))
             remaining = _divide_exact(remaining, common, mod)
             if len(remaining) > 1:
-                frobenius = fps_remainder(frobenius, remaining, mod)
+                frobenius = poly_mod(frobenius, remaining, mod)
         degree += 1
     if len(remaining) > 1:
         result.append(polynomial_monic(remaining, mod))

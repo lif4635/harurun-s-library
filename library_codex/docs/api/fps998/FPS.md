@@ -5,7 +5,7 @@
 
 - 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps998/FPS.py`](../../../fps998/FPS.py)
-- 公開API: function 17、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 15、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
@@ -25,13 +25,11 @@ from library_codex.fps998.FPS import (
     fps_integral,
     fps_eval,
     fps_inv,
+    fps_div,
     fps_log,
     fps_exp,
     fps_pow,
     fps_sqrt,
-    fps_div,
-    fps_divmod,
-    fps_mod,
     taylor_shift,
     fps_product,
 )
@@ -49,12 +47,10 @@ from library_codex.fps998.FPS import (
 | [`fps_integral(series)`](../../../fps998/FPS.py#L126) | 定数項を0とした形式積分の係数を昇べき順で返す。O(N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。 | list[int] — 定数項0、長さ $\lvert\mathrm{series}\rvert+1$ の形式積分。`result[i+1]=series[i]/(i+1)`。 |
 | [`fps_eval(series, value)`](../../../fps998/FPS.py#L137) | FPSを多項式とみなし`value`へ代入した値を返す。O(N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`value`: 代入する有限体の値。 | int — $\sum_i\mathrm{series}[i]\mathrm{value}^i\bmod 998244353$。 |
 | [`fps_inv(series, degree=None)`](../../../fps998/FPS.py#L172) | $1/f(x)\bmod x^{degree}$の係数を`degree`個返す。O(N log N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの係数列result。$\mathrm{series}(x)\mathrm{result}(x)\equiv1\pmod{x^{\mathrm{degree}}}$。 |
-| [`fps_log(series, degree=None)`](../../../fps998/FPS.py#L190) | $\log f(x)\bmod x^{degree}$を返す。`f[0]`は1。O(N log N)。 | `series`: 定数項が1である昇べき順係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $\log(\mathrm{series}(x))\bmod x^{\mathrm{degree}}$ の係数列。 |
-| [`fps_exp(series, degree=None)`](../../../fps998/FPS.py#L266) | $\exp f(x)\bmod x^{degree}$を返す。`f[0]`は0。O(N log N)。 | `series`: 定数項が0である昇べき順係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $\exp(\mathrm{series}(x))\bmod x^{\mathrm{degree}}$ の係数列。 |
-| [`fps_pow(series, exponent, degree=None)`](../../../fps998/FPS.py#L280) | $f(x)^{exponent}\bmod x^{degree}$を係数`degree`個で返す。O(N log N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`exponent`: 整数の指数。負の場合は定数項が非0である必要がある。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $\mathrm{series}(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ の係数列。 |
-| [`fps_sqrt(series, degree=None)`](../../../fps998/FPS.py#L314) | $g(x)^2=f(x)\bmod x^{degree}$となる係数列を返し、なければ`None`。O(N log N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] \| None — 存在すれば長さdegreeの係数列resultで、$\mathrm{result}(x)^2\equiv\mathrm{series}(x)\pmod{x^{\mathrm{degree}}}$。存在しなければNone。 |
-| [`fps_div(dividend, divisor)`](../../../fps998/FPS.py#L348) | 多項式除算の商を昇べき順の係数listで返す。O(N log N)。 | `dividend`: 被除数の昇べき順係数列。<br>`divisor`: 0でない除数の昇べき順係数列。 | list[int] — 多項式除算の商を最高次側の0を除いた昇べき順で格納したlist。 |
-| [`fps_divmod(dividend, divisor)`](../../../fps998/FPS.py#L381) | 多項式除算の`(商, 余り)`を昇べき順の係数list 2本で返す。O(N log N)。 | `dividend`: 被除数の昇べき順係数列。<br>`divisor`: 0でない除数の昇べき順係数列。 | (quotient, remainder) — 多項式除算の商と余り。余りの次数は除数より小さく、どちらも昇べき順係数list。 |
-| [`fps_mod(dividend, divisor)`](../../../fps998/FPS.py#L402) | 多項式除算の余りを昇べき順の係数listで返す。O(N log N)。 | `dividend`: 被除数の昇べき順係数列。<br>`divisor`: 0でない除数の昇べき順係数列。 | list[int] — 多項式除算の余りを最高次側の0を除いた昇べき順で格納したlist。 |
-| [`taylor_shift(series, shift)`](../../../fps998/FPS.py#L408) | $f(x+shift)$の係数を`f`と同じ長さのlistで返す。O(N log N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`shift`: 変数へ加える有限体の値。 | list[int] — 入力と同じ長さの $\mathrm{series}(x+\mathrm{shift})$ の昇べき順係数列。 |
-| [`fps_product(polynomials)`](../../../fps998/FPS.py#L436) | 複数の多項式をすべて掛けた係数列を返す。O(S log S log K)。 | `polynomials`: 昇べき順係数listを並べたiterable。 | list[int] — 全入力多項式の積。入力が0本なら[1]、空多項式を含めば空list。 |
+| [`fps_div(numerator, denominator, degree=None)`](../../../fps998/FPS.py#L190) | 998244353上で形式的冪級数の商 $numerator(x)/denominator(x)$ を $x^{degree}$ で打ち切って返す。 | `numerator`: 分子の昇べき順係数列。<br>`denominator`: 定数項が非0である分母の昇べき順係数列。<br>`degree`: 返す係数数。省略時はnumeratorの長さ。。省略時: `None` | list[int] — 長さdegreeの $numerator(x)/denominator(x)\bmod x^{degree}$ の昇べき順係数列。 |
+| [`fps_log(series, degree=None)`](../../../fps998/FPS.py#L202) | $\log f(x)\bmod x^{degree}$を返す。`f[0]`は1。O(N log N)。 | `series`: 定数項が1である昇べき順係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $\log(\mathrm{series}(x))\bmod x^{\mathrm{degree}}$ の係数列。 |
+| [`fps_exp(series, degree=None)`](../../../fps998/FPS.py#L278) | $\exp f(x)\bmod x^{degree}$を返す。`f[0]`は0。O(N log N)。 | `series`: 定数項が0である昇べき順係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $\exp(\mathrm{series}(x))\bmod x^{\mathrm{degree}}$ の係数列。 |
+| [`fps_pow(series, exponent, degree=None)`](../../../fps998/FPS.py#L292) | $f(x)^{exponent}\bmod x^{degree}$を係数`degree`個で返す。O(N log N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`exponent`: 整数の指数。負の場合は定数項が非0である必要がある。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $\mathrm{series}(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ の係数列。 |
+| [`fps_sqrt(series, degree=None)`](../../../fps998/FPS.py#L326) | $g(x)^2=f(x)\bmod x^{degree}$となる係数列を返し、なければ`None`。O(N log N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] \| None — 存在すれば長さdegreeの係数列resultで、$\mathrm{result}(x)^2\equiv\mathrm{series}(x)\pmod{x^{\mathrm{degree}}}$。存在しなければNone。 |
+| [`taylor_shift(series, shift)`](../../../fps998/FPS.py#L360) | $f(x+shift)$の係数を`f`と同じ長さのlistで返す。O(N log N)。 | `series`: 昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。<br>`shift`: 変数へ加える有限体の値。 | list[int] — 入力と同じ長さの $\mathrm{series}(x+\mathrm{shift})$ の昇べき順係数列。 |
+| [`fps_product(polynomials)`](../../../fps998/FPS.py#L388) | 複数の多項式をすべて掛けた係数列を返す。O(S log S log K)。 | `polynomials`: 昇べき順係数listを並べたiterable。 | list[int] — 全入力多項式の積。入力が0本なら[1]、空多項式を含めば空list。 |
