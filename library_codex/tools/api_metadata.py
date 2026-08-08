@@ -77,6 +77,33 @@ MODULE_CAPABILITIES = {
         "法998244353ではroot表と逆変換係数を再利用するradix-4 NTT高速経路が自動で使われる。",
         "多項式除算、Taylor shift、合成などの高水準処理へそのまま渡せる係数列を返す。",
     ),
+    "convolution/NTT998.py": (
+        "998244353固定の係数畳み込みを、汎用mod判定やCRTを通さずradix-4 NTTで計算できる。",
+        "順NTTと正規化済み逆NTTを破壊的に適用し、変換済み係数列を再利用できる。",
+        "同じ係数列同士では専用のsquareを使い、順変換を1回に減らせる。",
+    ),
+    "fps998/FPS.py": (
+        "998244353固定のFPSについて、加減算・微分・積分・評価・多項式除算を計算できる。",
+        "逆元・対数・指数・整数冪・平方根を指定した係数数まで高速に求められる。",
+        "Taylor shiftと複数多項式の一括積も、固定NTTだけを使って計算できる。",
+    ),
+    "fps998/Composition.py": (
+        r"998244353上でFPS合成 $f(g(x))$ と合成逆関数を計算できる。",
+    ),
+    "fps998/PowerProjection.py": (
+        r"多項式 $f$ の各冪 $f^i$ と重み列の係数内積を、複数の $i$ についてまとめて計算できる。",
+    ),
+    "fps998/LinearRecurrence.py": (
+        "Berlekamp--Masseyで列から最短線形漸化式を推定できる。",
+        "Bostan--Moriで有理FPSの巨大添字係数や線形漸化式の第n項を求められる。",
+    ),
+    "fps998/SubsetSum.py": (
+        "重さごとの種類数から、部分集合または多重集合の総重さ別の選び方を生成できる。",
+    ),
+    "fps998/NTT2D.py": (
+        "2次元係数行列へ順NTT・正規化済み逆NTTを適用できる。",
+        "2変数多項式の係数畳み込みを長方形の2次元listで計算できる。",
+    ),
     "fps/IncreasingSequences.py": (
         r"各位置で $\mathrm{lower}_i \le x_i < \mathrm{upper}_i$ を満たす広義単調増加列 $x_0 \le \cdots \le x_{N-1}$ の個数を求める。",
     ),
@@ -296,12 +323,10 @@ PURPOSE_BY_NAME = {
     "split_mod_progression": "(multiplier*i+addend) mod modulusを等差な区間へ分割する。",
     "tree_distance_counts": "木の頂点pair数を距離ごとに数える。",
     "fps_shrink": "昇冪係数列を法で正規化し、末尾の0を除いた新しいlistを返す。",
-    "fps_add": "2つの形式的冪級数を係数ごとに加算する。",
     "fps_subtract": "第1の形式的冪級数から第2の級数を係数ごとに減算する。",
     "fps_negate": "形式的冪級数の全係数の符号を法の上で反転する。",
     "fps_multiply": "2つの昇冪係数列を畳み込み、積の係数列を返す。法998244353では専用NTT経路を使う。",
     "fps_derivative": "昇冪係数列で表した形式的冪級数を微分する。",
-    "fps_integral": "定数項を0として形式的冪級数を積分する。",
     "fps_evaluate": "昇冪係数列で表した多項式を指定した値へ代入する。",
     "fps_inverse": "形式的冪級数の乗法逆数を指定した係数数まで求める。",
     "fps_logarithm": "定数項が1の形式的冪級数の対数を指定した係数数まで求める。",
@@ -309,10 +334,8 @@ PURPOSE_BY_NAME = {
     "fps_power": "形式的冪級数の整数乗を指定した係数数まで求める。",
     "fps_square_root": "形式的冪級数の平方根を指定した係数数まで求め、存在しなければNoneを返す。",
     "fps_quotient": "昇冪係数列で表した2多項式の商を返す。",
-    "fps_divmod": "昇冪係数列で表した2多項式の商と余りを返す。",
     "fps_remainder": "昇冪係数列で表した2多項式の余りを返す。",
     "fps_taylor_shift": "多項式f(x)からf(x+shift)の昇冪係数列を求める。",
-    "fps_product": "複数の多項式を短いものから畳み込み、全体の積を返す。",
     "integer_partitions": "整数totalの分割を辞書式順序で列挙する。",
     "integer_partitions_up_to": "指定上限までの各整数分割を列挙する。",
     "inversion_count": "列で i < j かつ values[i] > values[j] となる組数を求める。",
@@ -478,7 +501,6 @@ RETURN_DETAILS = {
     "tree_center": "list[int] — 木の中心頂点番号を昇順に並べた長さ1または2のlist",
     "tree_centroid": "list[int] — 木の重心頂点番号を昇順に並べた長さ1または2のlist",
     "fps_shrink": "list[number] — 法で正規化し末尾の0を除いた昇冪係数列",
-    "fps_add": "list[number] — 2つの入力と同じ法上の和を表す昇冪係数列",
     "fps_subtract": "list[number] — 第1入力から第2入力を引いた昇冪係数列",
     "fps_negate": "list[number] — 各係数の符号を反転した昇冪係数列",
     "fps_multiply": (
@@ -488,10 +510,6 @@ RETURN_DETAILS = {
     "fps_derivative": (
         r"list[number] — 導関数 $f'(x)$ を表す長さ "
         r"$\max(0,\lvert f\rvert-1)$ の昇冪係数列"
-    ),
-    "fps_integral": (
-        r"list[number] — 定数項を0とした不定積分 $\int f(x)\,dx$ を表す、"
-        r"長さ $\lvert f\rvert+1$ の昇冪係数列"
     ),
     "fps_evaluate": (
         r"int — $f(\mathrm{value})\bmod\mathrm{mod}$。"
@@ -518,12 +536,10 @@ RETURN_DETAILS = {
         r"$g(x)$ の係数列。存在しなければNone"
     ),
     "fps_quotient": "list[number] — 多項式除算の商を表す昇冪係数列",
-    "fps_divmod": "tuple[list[number], list[number]] — 多項式除算の(商, 余り)",
     "fps_remainder": "list[number] — 次数がdivisor未満の余りを表す昇冪係数列",
     "fps_taylor_shift": (
         r"list[number] — $f(x+\mathrm{shift})$ を表す入力と同じ長さの昇冪係数列"
     ),
-    "fps_product": "list[number] — 全入力多項式の積を表す昇冪係数列",
     "choice": "object — 入力列から一様に選んだ1要素",
     "shuffle": "mutable sequence — 並べ替え後の入力と同じobject",
     "permutation": (
@@ -1019,6 +1035,26 @@ API_DETAILS_BY_SYMBOL = {
 
 
 API_DETAILS_BY_SYMBOL.update({
+    ("fps/FormalPowerSeries.py", None, "fps_add"): {
+        "description": "2つの形式的冪級数を係数ごとに加算する。",
+        "returnFormat": "list[number]",
+        "returnDescription": "2つの入力と同じ法上の和を表す昇べき順係数列。",
+    },
+    ("fps/FormalPowerSeries.py", None, "fps_integral"): {
+        "description": "定数項を0として形式的冪級数を積分する。",
+        "returnFormat": "list[number]",
+        "returnDescription": r"定数項を0とした不定積分 $\int f(x)\,dx$ を表す、長さ $\lvert f\rvert+1$ の昇べき順係数列。",
+    },
+    ("fps/FormalPowerSeries.py", None, "fps_divmod"): {
+        "description": "昇べき順係数列で表した2多項式の商と余りを返す。",
+        "returnFormat": "tuple[list[number], list[number]]",
+        "returnDescription": "多項式除算の(商, 余り)。",
+    },
+    ("fps/FormalPowerSeries.py", None, "fps_product"): {
+        "description": "複数の多項式を短いものから畳み込み、全体の積を返す。",
+        "returnFormat": "list[number]",
+        "returnDescription": "全入力多項式の積を表す昇べき順係数列。",
+    },
     ("graph_connectivity/BiconnectedComponents.py", "BiconnectedComponents", "components"): {
         "description": "頂点ごとに、その頂点を含む二頂点連結成分IDを列挙する。",
     },
@@ -1341,6 +1377,196 @@ API_DETAILS_BY_SYMBOL[("string/RollingHash2D.py", "RollingHash2D", "same")] = {
     "returnFormat": "bool",
     "returnDescription": "2つの領域が等しければTrue、異なればFalse。",
 }
+
+
+_FPS998_SERIES_ARGUMENT = (
+    r"昇べき順の係数列。`series[i]`は $x^i$ の係数で、各係数は998244353で扱う。"
+)
+_FPS998_DEGREE_ARGUMENT = (
+    r"返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。"
+)
+
+
+API_DETAILS_BY_SYMBOL.update({
+    ("convolution/NTT998.py", None, "ntt"): {
+        "argumentDescriptions": {
+            "values": "長さが2の冪である係数list。呼び出し後は周波数表現へ書き換わる。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "周波数表現へ破壊的に書き換えた、入力と同じlist object。",
+    },
+    ("convolution/NTT998.py", None, "intt"): {
+        "argumentDescriptions": {
+            "values": "nttで得た長さ2の冪の周波数list。呼び出し後は係数表現へ戻る。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "逆変換と長さの逆数による正規化を適用した、入力と同じlist object。",
+    },
+    ("convolution/NTT998.py", None, "multiply"): {
+        "argumentDescriptions": {
+            "first": "第1の昇べき順係数列。",
+            "second": "第2の昇べき順係数列。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"空でない入力には長さ $\lvert\mathrm{first}\rvert+\lvert\mathrm{second}\rvert-1$ の列 $c$。"
+            r"$c[k]=\sum_{i+j=k}\mathrm{first}[i]\mathrm{second}[j]\bmod 998244353$。"
+            "どちらかが空なら空list。"
+        ),
+    },
+    ("convolution/NTT998.py", None, "square"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"空でなければ長さ $2\lvert\mathrm{series}\rvert-1$ の $\mathrm{series}(x)^2$ の係数列。"
+            "入力が空なら空list。"
+        ),
+    },
+    ("fps998/FPS.py", None, "shrink"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": "各係数を998244353で正規化し、最高次側の0を除いた新しい係数list。",
+    },
+    ("fps998/FPS.py", None, "fps_add"): {
+        "argumentDescriptions": {"first": "第1の昇べき順係数列。", "second": "第2の昇べき順係数列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長い入力と同じ長さの列 $c$。$c[i]=\mathrm{first}[i]+\mathrm{second}[i]\bmod 998244353$。範囲外の係数は0。",
+    },
+    ("fps998/FPS.py", None, "fps_sub"): {
+        "argumentDescriptions": {"first": "被減数の昇べき順係数列。", "second": "減数の昇べき順係数列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長い入力と同じ長さの列 $c$。$c[i]=\mathrm{first}[i]-\mathrm{second}[i]\bmod 998244353$。範囲外の係数は0。",
+    },
+    ("fps998/FPS.py", None, "fps_neg"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"入力と同じ長さの列 $c$。$c[i]=-\mathrm{series}[i]\bmod 998244353$。",
+    },
+    ("fps998/FPS.py", None, "fps_diff"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さ $\max(0,\lvert\mathrm{series}\rvert-1)$ の形式微分。`result[i-1]=i*series[i] mod 998244353`。",
+    },
+    ("fps998/FPS.py", None, "fps_integral"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"定数項0、長さ $\lvert\mathrm{series}\rvert+1$ の形式積分。`result[i+1]=series[i]/(i+1)`。",
+    },
+    ("fps998/FPS.py", None, "fps_eval"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT, "value": "代入する有限体の値。"},
+        "returnFormat": "int",
+        "returnDescription": r"$\sum_i\mathrm{series}[i]\mathrm{value}^i\bmod 998244353$。",
+    },
+    ("fps998/FPS.py", None, "fps_inv"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT, "degree": _FPS998_DEGREE_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さdegreeの係数列result。$\mathrm{series}(x)\mathrm{result}(x)\equiv1\pmod{x^{\mathrm{degree}}}$。",
+    },
+    ("fps998/FPS.py", None, "fps_log"): {
+        "argumentDescriptions": {"series": "定数項が1である昇べき順係数列。", "degree": _FPS998_DEGREE_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さdegreeの $\log(\mathrm{series}(x))\bmod x^{\mathrm{degree}}$ の係数列。",
+    },
+    ("fps998/FPS.py", None, "fps_exp"): {
+        "argumentDescriptions": {"series": "定数項が0である昇べき順係数列。", "degree": _FPS998_DEGREE_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さdegreeの $\exp(\mathrm{series}(x))\bmod x^{\mathrm{degree}}$ の係数列。",
+    },
+    ("fps998/FPS.py", None, "fps_pow"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT, "exponent": "整数の指数。負の場合は定数項が非0である必要がある。", "degree": _FPS998_DEGREE_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さdegreeの $\mathrm{series}(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ の係数列。",
+    },
+    ("fps998/FPS.py", None, "fps_sqrt"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT, "degree": _FPS998_DEGREE_ARGUMENT},
+        "returnFormat": "list[int] | None",
+        "returnDescription": r"存在すれば長さdegreeの係数列resultで、$\mathrm{result}(x)^2\equiv\mathrm{series}(x)\pmod{x^{\mathrm{degree}}}$。存在しなければNone。",
+    },
+    ("fps998/FPS.py", None, "fps_div"): {
+        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "多項式除算の商を最高次側の0を除いた昇べき順で格納したlist。",
+    },
+    ("fps998/FPS.py", None, "fps_divmod"): {
+        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。"},
+        "returnFormat": "(quotient, remainder)",
+        "returnDescription": "多項式除算の商と余り。余りの次数は除数より小さく、どちらも昇べき順係数list。",
+        "returnParts": (
+            {"name": "quotient", "format": "list[int]", "description": "商の昇べき順係数列。"},
+            {"name": "remainder", "format": "list[int]", "description": "除数より次数が小さい余りの昇べき順係数列。"},
+        ),
+    },
+    ("fps998/FPS.py", None, "fps_mod"): {
+        "argumentDescriptions": {"dividend": "被除数の昇べき順係数列。", "divisor": "0でない除数の昇べき順係数列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "多項式除算の余りを最高次側の0を除いた昇べき順で格納したlist。",
+    },
+    ("fps998/FPS.py", None, "taylor_shift"): {
+        "argumentDescriptions": {"series": _FPS998_SERIES_ARGUMENT, "shift": "変数へ加える有限体の値。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"入力と同じ長さの $\mathrm{series}(x+\mathrm{shift})$ の昇べき順係数列。",
+    },
+    ("fps998/FPS.py", None, "fps_product"): {
+        "argumentDescriptions": {"polynomials": "昇べき順係数listを並べたiterable。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "全入力多項式の積。入力が0本なら[1]、空多項式を含めば空list。",
+    },
+    ("fps998/Composition.py", None, "fps_compose"): {
+        "argumentDescriptions": {"outer": r"外側のFPS $f$ の係数列。", "inner": r"内側のFPS $g$ の係数列。", "degree": _FPS998_DEGREE_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さdegreeの $f(g(x))\bmod x^{\mathrm{degree}}$ の係数列。",
+    },
+    ("fps998/Composition.py", None, "fps_compositional_inv"): {
+        "argumentDescriptions": {"series": "定数項0、1次係数が非0であるFPSの係数列。", "degree": _FPS998_DEGREE_ARGUMENT},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さdegreeの係数列 $g$。$\mathrm{series}(g(x))\equiv x\pmod{x^{\mathrm{degree}}}$。",
+    },
+    ("fps998/PowerProjection.py", None, "power_projection"): {
+        "argumentDescriptions": {"polynomial": r"多項式 $f$ の昇べき順係数列。", "weights": r"係数ごとの重み列 $w$。", "count": r"求める冪の個数。$0\le i<\mathrm{count}$を返す。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さcountの列result。$\mathrm{result}[i]=\sum_j\mathrm{weights}[j][x^j]f(x)^i\bmod998244353$。",
+    },
+    ("fps998/PowerProjection.py", None, "power_coefficient"): {
+        "argumentDescriptions": {"polynomial": r"多項式 $f$ の昇べき順係数列。", "multiplier": r"掛け合わせる多項式 $g$。省略時は1。", "count": r"求める冪の個数。省略時は$\deg f+1$。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"$n=\deg f$として、長さcountの列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod998244353$。",
+    },
+    ("fps998/LinearRecurrence.py", None, "bostan_mori"): {
+        "argumentDescriptions": {"index": "求める0以上の係数番号。", "numerator": r"分子 $P(x)$ の昇べき順係数列。", "denominator": r"定数項が非0の分母 $Q(x)$ の昇べき順係数列。"},
+        "returnFormat": "int",
+        "returnDescription": r"$[x^{\mathrm{index}}]P(x)/Q(x)\bmod998244353$。",
+    },
+    ("fps998/LinearRecurrence.py", None, "linear_recurrence_nth"): {
+        "argumentDescriptions": {"initial": "漸化式の次数以上の初期値。", "coefficients": r"$a_n=\sum_i\mathrm{coefficients}[i]a_{n-1-i}$の係数。", "index": "求める0以上の添字。"},
+        "returnFormat": "int",
+        "returnDescription": "指定した線形漸化式で定まるindex番目の値を998244353で割った余り。",
+    },
+    ("fps998/SubsetSum.py", None, "subset_sum"): {
+        "argumentDescriptions": {"counts": "counts[w]が重さwの品物の種類数を表すlist。各種類は0個または1個選ぶ。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"countsと同じ長さの列result。$\mathrm{result}[s]=[x^s]\prod_{w\ge1}(1+x^w)^{\mathrm{counts}[w]}$。",
+    },
+    ("fps998/SubsetSum.py", None, "multiset_sum"): {
+        "argumentDescriptions": {"counts": "counts[w]が重さwの種類数を表すlist。各種類は0個以上選べる。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"countsと同じ長さの列result。$\mathrm{result}[s]=[x^s]\prod_{w\ge1}(1-x^w)^{-\mathrm{counts}[w]}$。",
+    },
+    ("fps998/NTT2D.py", None, "ntt2d"): {
+        "argumentDescriptions": {"values": r"各辺長が2の冪の長方形係数行列。`values[i][j]`は$x^iy^j$の係数。"},
+        "returnFormat": "list[list[int]]",
+        "returnDescription": "2次元周波数表現へ破壊的に書き換えた、入力と同じ2次元list object。",
+    },
+    ("fps998/NTT2D.py", None, "intt2d"): {
+        "argumentDescriptions": {"values": "ntt2dで得た長方形の2次元周波数list。"},
+        "returnFormat": "list[list[int]]",
+        "returnDescription": "逆変換と正規化を適用した、入力と同じ2次元list object。",
+    },
+    ("fps998/NTT2D.py", None, "multiply2d"): {
+        "argumentDescriptions": {"first": "第1の長方形係数行列。", "second": "第2の長方形係数行列。"},
+        "returnFormat": "list[list[int]]",
+        "returnDescription": r"大きさ$(R_1+R_2-1)\times(C_1+C_2-1)$の係数行列。`result[i][j]`は$x^iy^j$の係数。",
+    },
+})
 
 
 CLASS_DETAILS_BY_SYMBOL = {

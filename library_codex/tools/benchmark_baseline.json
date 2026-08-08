@@ -6,7 +6,8 @@
       "csr_lowlink": 1.35,
       "range_stats_generic": 2.0,
       "range_stats_beats": 1.8,
-      "range_affine": 1.2
+      "range_affine": 1.2,
+      "fps998_total": 0.95
     }
   },
   "full": {
@@ -16,7 +17,8 @@
       "csr_lowlink": 2.0,
       "range_stats_generic": 2.5,
       "range_stats_beats": 2.2,
-      "range_affine": 1.5
+      "range_affine": 1.5,
+      "fps998_total": 0.95
     }
   }
 }

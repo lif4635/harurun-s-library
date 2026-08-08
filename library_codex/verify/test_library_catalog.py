@@ -91,6 +91,57 @@ def test_standalone_code_executes_without_library_imports():
     assert "LazySegTree" in namespace
 
 
+def test_fps998_family_is_complete_and_isolated_from_generic_ntt():
+    data = load_catalog()
+    required = {
+        "library_codex.convolution.NTT998": {
+            "ntt", "intt", "multiply", "square",
+        },
+        "library_codex.fps998.FPS": {
+            "shrink", "fps_add", "fps_sub", "fps_neg", "fps_diff",
+            "fps_integral", "fps_eval", "fps_inv", "fps_log",
+            "fps_exp", "fps_pow", "fps_sqrt", "fps_div", "fps_mod",
+            "fps_divmod", "taylor_shift", "fps_product",
+        },
+        "library_codex.fps998.Composition": {
+            "fps_compose", "fps_compositional_inv",
+        },
+        "library_codex.fps998.PowerProjection": {
+            "power_projection", "power_coefficient",
+        },
+        "library_codex.fps998.LinearRecurrence": {
+            "berlekamp_massey", "bostan_mori",
+            "linear_recurrence_nth", "nth_term",
+        },
+        "library_codex.fps998.SubsetSum": {
+            "subset_sum", "multiset_sum",
+        },
+        "library_codex.fps998.NTT2D": {
+            "ntt2d", "intt2d", "multiply2d",
+        },
+    }
+    forbidden = (
+        "def primitive_root",
+        "def convolution_any_mod",
+        "class NumberTheoreticTransform",
+        "library_codex.convolution.NTT import",
+    )
+    for module_path, names in required.items():
+        module = module_by_path(data, module_path)
+        assert {item["name"] for item in module["functions"]} == names
+        assert module["categoryLabel"] in {
+            "畳み込み", "FPS (998244353)",
+        }
+        assert not any(token in module["standaloneCode"] for token in forbidden)
+
+    fps = module_by_path(data, "library_codex.fps998.FPS")
+    namespace = {"__name__": "__fps998_standalone_test__"}
+    exec(compile(fps["standaloneCode"], "<FPS998 standalone>", "exec"), namespace)
+    inverse = namespace["fps_inv"]([1, 2, 3], 16)
+    product = namespace["multiply"]([1, 2, 3], inverse)[:16]
+    assert product == [1] + [0] * 15
+
+
 def test_search_metadata_rejects_removed_module_and_symbol(monkeypatch):
     CATALOG.load_configuration(ROOT)
     monkeypatch.setattr(

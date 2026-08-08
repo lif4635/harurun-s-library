@@ -114,6 +114,32 @@ def range_tree_cases(profile):
     return {"stats": stats, "affine": affine}
 
 
+def fps998_cases(profile):
+    arguments = (
+        ["--size", "65536", "--repeat", "5"]
+        if profile == "full"
+        else ["--size", "16384", "--repeat", "3"]
+    )
+    results = {}
+    for backend in ("generic", "specialized"):
+        result = execute(
+            "benchmark_fps998.py", ["--backend", backend, *arguments]
+        )
+        for operation in ("multiply", "inverse", "exp"):
+            matched = re.search(
+                rf"\b{operation}=([0-9.]+)s", result["output"]
+            )
+            result[f"{operation}_seconds"] = float(matched.group(1))
+        results[backend] = result
+    if results["generic"]["checksum"] != results["specialized"]["checksum"]:
+        raise AssertionError("FPS998 checksum mismatch")
+    results["speedup"] = (
+        results["generic"]["total_seconds"]
+        / results["specialized"]["total_seconds"]
+    )
+    return results
+
+
 def check_thresholds(results, baseline):
     speedups = {
         "csr_dijkstra": results["csr"]["dijkstra"]["speedup"],
@@ -122,6 +148,7 @@ def check_thresholds(results, baseline):
         "range_stats_generic": results["range_tree"]["stats"]["generic_speedup"],
         "range_stats_beats": results["range_tree"]["stats"]["beats_speedup"],
         "range_affine": results["range_tree"]["affine"]["speedup"],
+        "fps998_total": results["fps998"]["speedup"],
     }
     failures = []
     for name, minimum in baseline["minimum_speedup"].items():
@@ -143,6 +170,7 @@ def main():
         "advanced_flow": advanced_flow(args.profile),
         "csr": csr_cases(args.profile),
         "range_tree": range_tree_cases(args.profile),
+        "fps998": fps998_cases(args.profile),
     }
     speedups, failures = check_thresholds(results, baseline_data[args.profile])
     results["speedups"] = speedups

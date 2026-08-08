@@ -11,3 +11,4 @@
 | [`MultidimensionalDFT`](MultidimensionalDFT.md) | 多次元DFTと多変数循環畳み込みを計算する。 | 2 | 0 | 0 |
 | [`MultivariateMultiplication`](MultivariateMultiplication.md) | 多変数多項式を指定shapeの係数配列として乗算する。 | 1 | 0 | 0 |
 | [`NTT`](NTT.md) | 動的radix-4 NTT・NTT-friendly/任意mod/符号付き整数畳み込み | 7 | 1 | 4 |
+| [`NTT998`](NTT998.md) | 998244353 固定の高速NTTと係数畳み込み。 | 4 | 0 | 0 |

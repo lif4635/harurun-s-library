@@ -37,9 +37,14 @@ CATEGORY_INFO = {
         "description": "OR・AND・XOR・subset変換と畳み込み",
         "domain": "convolution",
     },
+    "fps998": {
+        "label": "FPS (998244353)",
+        "description": "998244353固定の高速NTT・FPS・母関数",
+        "domain": "convolution",
+    },
     "fps": {
-        "label": "FPS (F_p)",
-        "description": "有限体上の形式的冪級数と母関数の演算",
+        "label": "FPS (mod)",
+        "description": "modを指定できる形式的冪級数と母関数の演算",
         "domain": "convolution",
     },
     "polynomial": {
