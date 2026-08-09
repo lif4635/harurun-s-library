@@ -1121,7 +1121,7 @@ def render_arguments(node, skip_first=False, overrides=None):
         desc = argument_description(name, overrides)
         value = render_default(default)
         if value is not None:
-            desc += "。省略時: " + code(value)
+            desc = desc.rstrip("。") + "。省略時: " + code(value)
         rows.append("%s: %s" % (code(name), desc))
     return "<br>".join(rows) if rows else "なし"
 
@@ -1434,7 +1434,7 @@ def render_dataclass_arguments(fields):
         desc = argument_description(name)
         value = render_default(default)
         if value is not None:
-            desc += "。省略時: " + code(value)
+            desc = desc.rstrip("。") + "。省略時: " + code(value)
         rows.append("%s: %s" % (code(name), desc))
     return "<br>".join(rows) if rows else "なし"
 

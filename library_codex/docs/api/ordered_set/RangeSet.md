@@ -33,6 +33,6 @@ from library_codex.ordered_set.RangeSet import RangeSet
 | [`add(left, right)`](../../../ordered_set/RangeSet.py#L14) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる整数をすべて追加する。 | `left`: 追加する半開区間の左端。この値を含む。<br>`right`: 追加する半開区間の右端。この値を含まない。 | int — 今回の操作で集合へ新しく加わった整数の個数。空区間なら0。 | O((K+1) log I)（Kは結合する区間数、Iは保持区間数） |
 | [`discard(left, right)`](../../../ordered_set/RangeSet.py#L43) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる整数をすべて削除する。 | `left`: 削除する半開区間の左端。この値を含む。<br>`right`: 削除する半開区間の右端。この値を含まない。 | int — 今回の操作で集合から実際に削除された整数の個数。空区間なら0。 | O((K+1) log I)（Kは交わる区間数、Iは保持区間数） |
 | [`contains(value)`](../../../ordered_set/RangeSet.py#L73) | method | 整数valueが現在の集合に含まれるか判定する。 | `value`: 包含を調べる整数。 | bool — valueが保持中の半開区間のどれかに含まれればTrue。 | O(log I) |
-| [`mex(value=0)`](../../../ordered_set/RangeSet.py#L78) | method | value以上で、現在の集合に含まれない最小の整数を返す。 | `value`: 探索を始める整数。。省略時: `0` | int — value以上で保持中のどの半開区間にも含まれない最小の整数。 | O(log I) |
+| [`mex(value=0)`](../../../ordered_set/RangeSet.py#L78) | method | value以上で、現在の集合に含まれない最小の整数を返す。 | `value`: 探索を始める整数。省略時: `0` | int — value以上で保持中のどの半開区間にも含まれない最小の整数。 | O(log I) |
 | [`intervals()`](../../../ordered_set/RangeSet.py#L85) | method | 現在の整数集合を表す、互いに交わらない半開区間を左端順に列挙する。 | なし | list[tuple[int, int]] — 各2値が半開区間 $[\mathrm{left},\mathrm{right})$ を表す列。tupleは端点を格納する形式であり、数学的な開区間を意味しない。 | O(I) |
 | [`__len__()`](../../../ordered_set/RangeSet.py#L89) | method | 現在保持している、互いに交わらない半開区間の本数を返す。 | なし | int — 保持区間数。集合に含まれる整数の個数ではない。整数の個数はcovered_lengthで取得する。 | O(1) |

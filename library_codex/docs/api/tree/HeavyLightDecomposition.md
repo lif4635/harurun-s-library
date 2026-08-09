@@ -43,7 +43,7 @@ Heavy-Light Decomposition（非再帰）を扱う `HeavyLightDecomposition`。
 | [`next_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L94) | method | `next`・`on`・pathを求める。 | `u`: 頂点番号<br>`v`: 頂点番号 | `-1` / `self.jump(u, v, 1)` | — |
 | [`vertices_on_path(u, v)`](../../../tree/HeavyLightDecomposition.py#L101) | method | 頂点・`on`・pathを求める。 | `u`: 頂点番号<br>`v`: 頂点番号 | list[int] — 経路上の頂点または辺を順に並べた列 | — |
 | [`subtree(v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L105) | method | `subtree`を求める。 | `v`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | tuple(数値または入力要素型 `self.tin[v] + edge`, `self.tout[v]`) | — |
-| [`path(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L108) | method | uからvへの木のpathを、頂点列上の少数の半開区間へ分解する。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | list[tuple[int, int]] — HLD順の半開区間(left, right)の列。edge=Falseなら頂点path、edge=TrueならLCAを除いた辺pathを覆う。区間の列自体はpath順とは限らない。 | — |
+| [`path(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L108) | method | uからvへの木のpathを、頂点列上の少数の半開区間へ分解する。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | list[tuple[int, int]] — HLD順の半開区間 $[\mathrm{left},\mathrm{right})$ の列。edge=Falseなら頂点path、edge=TrueならLCAを除いた辺pathを覆う。区間の列自体はpath順とは限らない。 | — |
 | [`path_ordered(u, v, edge=False)`](../../../tree/HeavyLightDecomposition.py#L129) | method | path・`ordered`を求める。 | `u`: 頂点番号<br>`v`: 頂点番号<br>`edge`: 辺または隣接list。省略時: `False` | list[int] — 経路上の頂点または辺を順に並べた列 | — |
 | [`index(v)`](../../../tree/HeavyLightDecomposition.py#L154) | method | 頂点vに対応するHLD順のindexを返す。 | `v`: 頂点番号 | `self.tin[v]` | — |
 | [`vertex(i)`](../../../tree/HeavyLightDecomposition.py#L157) | method | 頂点を求める。 | `i`: 位置 | `self.rev[i]` | — |

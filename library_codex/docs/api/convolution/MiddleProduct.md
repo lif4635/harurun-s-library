@@ -28,4 +28,4 @@ from library_codex.convolution.MiddleProduct import middle_product
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`middle_product(first, second, mod=DEFAULT_MOD)`](../../../convolution/MiddleProduct.py#L7) | 長い列first上でsecondを1要素ずつずらし、$c_i=\sum_{j=0}^{m-1}\mathrm{second}_j\mathrm{first}_{i+j}$ を高速に求める。 | `first`: 走査される長さnの列。nはsecondの長さm以上。<br>`second`: firstとの内積に使う、空でない長さmの列。<br>`mod`: 各内積を計算する法。。省略時: `DEFAULT_MOD` | list[int] — 長さ $n-m+1$ の列 $c$。$c[i]=\sum_{j=0}^{m-1}\mathrm{second}[j]\mathrm{first}[i+j]\bmod\mathrm{mod}$。 | O(N log N)、短い入力では O(M(N-M+1)) |
+| [`middle_product(first, second, mod=DEFAULT_MOD)`](../../../convolution/MiddleProduct.py#L7) | 長い列first上でsecondを1要素ずつずらし、$c_i=\sum_{j=0}^{m-1}\mathrm{second}_j\mathrm{first}_{i+j}$ を高速に求める。 | `first`: 走査される長さnの列。nはsecondの長さm以上。<br>`second`: firstとの内積に使う、空でない長さmの列。<br>`mod`: 各内積を計算する法。省略時: `DEFAULT_MOD` | list[int] — 長さ $n-m+1$ の列 $c$。$c[i]=\sum_{j=0}^{m-1}\mathrm{second}[j]\mathrm{first}[i+j]\bmod\mathrm{mod}$。 | O(N log N)、短い入力では O(M(N-M+1)) |

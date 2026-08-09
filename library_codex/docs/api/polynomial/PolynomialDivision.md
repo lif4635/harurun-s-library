@@ -22,6 +22,6 @@ from library_codex.polynomial.PolynomialDivision import poly_div, poly_divmod, p
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`poly_div(dividend, divisor, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialDivision.py#L11) | 昇べき順係数列で表した2多項式を割り、商を返す。 | `dividend`: 被除多項式の昇べき順係数列。<br>`divisor`: 0でない除多項式の昇べき順係数列。<br>`mod`: 係数の法。。省略時: `DEFAULT_MOD` | list[number] — 多項式除算の商を、最高次側の0を除いた昇べき順係数列で返す。 | O(N log N) |
-| [`poly_divmod(dividend, divisor, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialDivision.py#L50) | 昇べき順係数列で表した2多項式を割り、商と余りを返す。 | `dividend`: 被除数の昇べき順係数列。<br>`divisor`: 0でない除数の昇べき順係数列。<br>`mod`: 係数の法。。省略時: `DEFAULT_MOD` | (quotient, remainder) — 多項式除算の商と余り。余りの次数は除数より小さく、どちらも昇べき順係数list。 | O(N log N) |
-| [`poly_mod(dividend, divisor, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialDivision.py#L71) | 昇べき順係数列で表した2多項式を割り、余りだけを返す。 | `dividend`: 被除数の昇べき順係数列。<br>`divisor`: 0でない除数の昇べき順係数列。<br>`mod`: 係数の法。。省略時: `DEFAULT_MOD` | list[number] — 多項式除算の余りを最高次側の0を除いた昇べき順で格納したlist。 | O(N log N) |
+| [`poly_div(dividend, divisor, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialDivision.py#L11) | 昇べき順係数列で表した2多項式を割り、商を返す。 | `dividend`: 被除多項式の昇べき順係数列。<br>`divisor`: 0でない除多項式の昇べき順係数列。<br>`mod`: 係数の法。省略時: `DEFAULT_MOD` | list[number] — 多項式除算の商を、最高次側の0を除いた昇べき順係数列で返す。 | O(N log N) |
+| [`poly_divmod(dividend, divisor, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialDivision.py#L50) | 昇べき順係数列で表した2多項式を割り、商と余りを返す。 | `dividend`: 被除数の昇べき順係数列。<br>`divisor`: 0でない除数の昇べき順係数列。<br>`mod`: 係数の法。省略時: `DEFAULT_MOD` | (quotient, remainder) — 多項式除算の商と余り。余りの次数は除数より小さく、どちらも昇べき順係数list。 | O(N log N) |
+| [`poly_mod(dividend, divisor, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialDivision.py#L71) | 昇べき順係数列で表した2多項式を割り、余りだけを返す。 | `dividend`: 被除数の昇べき順係数列。<br>`divisor`: 0でない除数の昇べき順係数列。<br>`mod`: 係数の法。省略時: `DEFAULT_MOD` | list[number] — 多項式除算の余りを最高次側の0を除いた昇べき順で格納したlist。 | O(N log N) |

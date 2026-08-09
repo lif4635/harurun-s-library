@@ -993,7 +993,7 @@ API_DETAILS_BY_SYMBOL = {
         "description": "uからvへの木のpathを、頂点列上の少数の半開区間へ分解する。",
         "returnFormat": "list[tuple[int, int]]",
         "returnDescription": (
-            "HLD順の半開区間(left, right)の列。edge=Falseなら頂点path、"
+            r"HLD順の半開区間 $[\mathrm{left},\mathrm{right})$ の列。edge=Falseなら頂点path、"
             "edge=TrueならLCAを除いた辺pathを覆う。区間の列自体はpath順とは限らない。"
         ),
     },
@@ -1001,7 +1001,8 @@ API_DETAILS_BY_SYMBOL = {
         "description": "同じ付随木にあるuとvのtree pathを、HLD順の半開区間へ分解する。",
         "returnFormat": "list[tuple[int, int]] | None",
         "returnDescription": (
-            "HLD順の半開区間(left, right)の列。2頂点が同じ付随木に属さなければNone。"
+            r"HLD順の半開区間 $[\mathrm{left},\mathrm{right})$ の列。"
+            "2頂点が同じ付随木に属さなければNone。"
             "edge=TrueならLCAに対応する頂点を除く。"
         ),
     },
@@ -1673,7 +1674,7 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[tuple[number, number]]",
         "returnDescription": (
             r"左端順に並んだ半開区間 $[\mathrm{left},\mathrm{right})$ の列。"
-            "返り値の各tupleは(left, right)という2値の格納形式だが、区間の意味は半開。"
+            "各要素は左端と右端の2値を格納するtupleで、区間の意味は半開。"
         ),
     },
     ("convolution/MiddleProduct.py", None, "middle_product"): {
