@@ -25,11 +25,12 @@ from library_codex.graph_connectivity.BiconnectedComponents import BiconnectedCo
 - constructor: [`BiconnectedComponents(vertex_count, edges=None)`](../../../graph_connectivity/BiconnectedComponents.py#L9)
 - 引数: `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list。省略時: `None`
 - 返り値: `BiconnectedComponents` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`components`](../../../graph_connectivity/BiconnectedComponents.py#L109) | property | 頂点ごとに、その頂点を含む二頂点連結成分IDを列挙する。 | なし | `self.vertex_components` |
-| [`bc`](../../../graph_connectivity/BiconnectedComponents.py#L113) | property | `bc`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`components`](../../../graph_connectivity/BiconnectedComponents.py#L109) | property | 頂点ごとに、その頂点を含む二頂点連結成分IDを列挙する。 | なし | `self.vertex_components` | — |
+| [`bc`](../../../graph_connectivity/BiconnectedComponents.py#L113) | property | `bc`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
 
 ## Class `BlockCutTree`
 
@@ -38,10 +39,11 @@ from library_codex.graph_connectivity.BiconnectedComponents import BiconnectedCo
 - constructor: [`BlockCutTree(vertex_count, edges=None)`](../../../graph_connectivity/BiconnectedComponents.py#L127)
 - 引数: `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list。省略時: `None`
 - 返り値: `BlockCutTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`id(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L163) | method | `id`を求める。 | `vertex`: 頂点番号 | `self.vertex_id[vertex]` |
-| [`is_articulation(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L166) | method | `articulation`かどうかを判定する。 | `vertex`: 頂点番号 | bool |
-| [`__len__()`](../../../graph_connectivity/BiconnectedComponents.py#L171) | method | len(obj)。 | なし | 要素数（int） |
-| [`__getitem__(node)`](../../../graph_connectivity/BiconnectedComponents.py#L174) | method | obj[key] で取得する。 | `node`: 頂点・内部node番号 | 格納値、sliceなら同種の部分構造 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`id(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L163) | method | `id`を求める。 | `vertex`: 頂点番号 | `self.vertex_id[vertex]` | — |
+| [`is_articulation(vertex)`](../../../graph_connectivity/BiconnectedComponents.py#L166) | method | `articulation`かどうかを判定する。 | `vertex`: 頂点番号 | bool | — |
+| [`__len__()`](../../../graph_connectivity/BiconnectedComponents.py#L171) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`__getitem__(node)`](../../../graph_connectivity/BiconnectedComponents.py#L174) | method | obj[key] で取得する。 | `node`: 頂点・内部node番号 | 格納値、sliceなら同種の部分構造 | — |

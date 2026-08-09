@@ -3,7 +3,6 @@
 
 非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps/SparseFormalPowerSeries.py`](../../../fps/SparseFormalPowerSeries.py)
 - 公開API: function 5、class 0、method/property 0（Python protocol 0を含む）
 
@@ -28,10 +27,10 @@ from library_codex.fps.SparseFormalPowerSeries import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`sparse_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L14) | `sparse`・逆元を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
-| [`sparse_divide(numerator, denominator, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L37) | `sparse`・`divide`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`sparse_exponential(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L58) | `sparse`・指数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
-| [`sparse_logarithm(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L78) | `sparse`・対数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
-| [`sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L92) | 疎な係数列で表した $f(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さdegreeの係数列result。$\mathrm{result}[i]=[x^i]f(x)^{\mathrm{exponent}}\bmod\mathrm{mod}$。 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`sparse_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L14) | `sparse`・逆元を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） | — |
+| [`sparse_divide(numerator, denominator, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L37) | `sparse`・`divide`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） | — |
+| [`sparse_exponential(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L58) | `sparse`・指数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） | — |
+| [`sparse_logarithm(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L78) | `sparse`・対数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） | — |
+| [`sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD)`](../../../fps/SparseFormalPowerSeries.py#L92) | 疎な係数列で表した $f(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さdegreeの係数列result。$\mathrm{result}[i]=[x^i]f(x)^{\mathrm{exponent}}\bmod\mathrm{mod}$。 | — |

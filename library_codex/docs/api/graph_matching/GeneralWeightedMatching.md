@@ -24,8 +24,9 @@ from library_codex.graph_matching.GeneralWeightedMatching import GeneralWeighted
 - constructor: [`GeneralWeightedMatching(vertex_count, infinity=10 ** 30)`](../../../graph_matching/GeneralWeightedMatching.py#L12)
 - 引数: `vertex_count`: 頂点数<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 30`
 - 返り値: `GeneralWeightedMatching` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_edge(first, second, weight)`](../../../graph_matching/GeneralWeightedMatching.py#L36) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み | `None` |
-| [`run()`](../../../graph_matching/GeneralWeightedMatching.py#L277) | method | 一般グラフの最大重みmatchingを求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_edge(first, second, weight)`](../../../graph_matching/GeneralWeightedMatching.py#L36) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み | `None` | — |
+| [`run()`](../../../graph_matching/GeneralWeightedMatching.py#L277) | method | 一般グラフの最大重みmatchingを求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

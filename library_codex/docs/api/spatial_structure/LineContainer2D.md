@@ -3,7 +3,6 @@
 
 二変数一次式を追加し、指定点での最大値・最小値を求める構造。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`spatial_structure/LineContainer2D.py`](../../../spatial_structure/LineContainer2D.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.spatial_structure.LineContainer2D import LineContainer2D
 - constructor: [`LineContainer2D()`](../../../spatial_structure/LineContainer2D.py#L55)
 - 引数: なし
 - 返り値: `LineContainer2D` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(x, y)`](../../../spatial_structure/LineContainer2D.py#L61) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | `None` |
-| [`max_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L93) | method | 最大・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | 数値または入力要素型 `b * (self.ymax if b >= 0 else self.ymin)` / 答え（None） |
-| [`min_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L113) | method | 最小・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `-self.max_value(-a, -b)` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(x, y)`](../../../spatial_structure/LineContainer2D.py#L61) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | `None` | — |
+| [`max_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L93) | method | 最大・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | 数値または入力要素型 `b * (self.ymax if b >= 0 else self.ymin)` / 答え（None） | — |
+| [`min_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L113) | method | 最小・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `-self.max_value(-a, -b)` | — |

@@ -3,7 +3,6 @@
 
 左右で合法手が異なる有限ゲームの勝敗を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`game/PartisanGameSolver.py`](../../../game/PartisanGameSolver.py)
 - 公開API: function 0、class 1、method/property 1（Python protocol 0を含む）
 
@@ -24,7 +23,8 @@ from library_codex.game.PartisanGameSolver import PartisanGameSolver
 - constructor: [`PartisanGameSolver(options)`](../../../game/PartisanGameSolver.py#L10)
 - 引数: `options`: 局面から遷移先を列挙するcallback
 - 返り値: `PartisanGameSolver` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`get(game)`](../../../game/PartisanGameSolver.py#L15) | method | 指定位置・辺・状態の値を取得する。 | `game`: 局面遷移を提供するgame object | 指定対象に格納された値・edge object |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`get(game)`](../../../game/PartisanGameSolver.py#L15) | method | 指定位置・辺・状態の値を取得する。 | `game`: 局面遷移を提供するgame object | 指定対象に格納された値・edge object | — |

@@ -25,15 +25,16 @@ from library_codex.string.RollingHash2D import RollingHash2D, RollingHash2DView
 - constructor: [`RollingHash2D(matrix=(), row_base=DEFAULT_BASE, column_base=DEFAULT_BASE2)`](../../../string/RollingHash2D.py#L17)
 - 引数: `matrix`: 行をlistで持つ行列。省略時: `()`<br>`row_base`: `row`・`base`として使う入力。省略時: `DEFAULT_BASE`<br>`column_base`: `column`・`base`として使う入力。省略時: `DEFAULT_BASE2`
 - 返り値: `RollingHash2D` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`get(upper, left, lower, right)`](../../../string/RollingHash2D.py#L56) | method | 半開長方形 $[\mathrm{upper},\mathrm{lower})\times[\mathrm{left},\mathrm{right})$ の2次元hashを返す。 | `upper`: 上限<br>`left`: 半開区間の左端（含む）<br>`lower`: 下限<br>`right`: 半開区間の右端（含まない） | int \| tuple[int, int] — 指定領域のhash。double hashでは2成分のtuple。 |
-| [`view(upper=0, left=0, lower=None, right=None)`](../../../string/RollingHash2D.py#L74) | method | `view`を求める。 | `upper`: 上限。省略時: `0`<br>`left`: 半開区間の左端（含む）。省略時: `0`<br>`lower`: 下限。省略時: `None`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | RollingHash2DView instance |
-| [`same(rectangle1, rectangle2)`](../../../string/RollingHash2D.py#L81) | method | 指定した2つの長方形領域が同じ内容か2次元hashで判定する。 | `rectangle1`: 第1矩形 `(top, left, bottom, right)`<br>`rectangle2`: 第2矩形 `(top, left, bottom, right)` | bool — 2つの領域が等しければTrue、異なればFalse。 |
-| [`hash_matrix(matrix)`](../../../string/RollingHash2D.py#L90) | method | hash・行列を求める。 | `matrix`: 行をlistで持つ行列 | `result.get(0, 0, result.height, result.width)` |
-| [`find(pattern)`](../../../string/RollingHash2D.py#L96) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列 | 代表元・位置・node番号（int） |
-| [`__getitem__(index)`](../../../string/RollingHash2D.py#L115) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`get(upper, left, lower, right)`](../../../string/RollingHash2D.py#L56) | method | 半開長方形 $[\mathrm{upper},\mathrm{lower})\times[\mathrm{left},\mathrm{right})$ の2次元hashを返す。 | `upper`: 上限<br>`left`: 半開区間の左端（含む）<br>`lower`: 下限<br>`right`: 半開区間の右端（含まない） | int \| tuple[int, int] — 指定領域のhash。double hashでは2成分のtuple。 | — |
+| [`view(upper=0, left=0, lower=None, right=None)`](../../../string/RollingHash2D.py#L74) | method | `view`を求める。 | `upper`: 上限。省略時: `0`<br>`left`: 半開区間の左端（含む）。省略時: `0`<br>`lower`: 下限。省略時: `None`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | RollingHash2DView instance | — |
+| [`same(rectangle1, rectangle2)`](../../../string/RollingHash2D.py#L81) | method | 指定した2つの長方形領域が同じ内容か2次元hashで判定する。 | `rectangle1`: 第1矩形 `(top, left, bottom, right)`<br>`rectangle2`: 第2矩形 `(top, left, bottom, right)` | bool — 2つの領域が等しければTrue、異なればFalse。 | — |
+| [`hash_matrix(matrix)`](../../../string/RollingHash2D.py#L90) | method | hash・行列を求める。 | `matrix`: 行をlistで持つ行列 | `result.get(0, 0, result.height, result.width)` | — |
+| [`find(pattern)`](../../../string/RollingHash2D.py#L96) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列 | 代表元・位置・node番号（int） | — |
+| [`__getitem__(index)`](../../../string/RollingHash2D.py#L115) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
 
 ## Class `RollingHash2DView`
 
@@ -42,10 +43,11 @@ from library_codex.string.RollingHash2D import RollingHash2D, RollingHash2DView
 - constructor: [`RollingHash2DView(base, upper, left, lower, right)`](../../../string/RollingHash2D.py#L130)
 - 引数: `base`: 底・基準となる値または列<br>`upper`: 上限<br>`left`: 半開区間の左端（含む）<br>`lower`: 下限<br>`right`: 半開区間の右端（含まない）
 - 返り値: `RollingHash2DView` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`shape`](../../../string/RollingHash2D.py#L138) | property | `shape`を求める。 | なし | tuple(数値または入力要素型 `self.lower - self.upper`, 数値または入力要素型 `self.right - self.left`) |
-| [`hash`](../../../string/RollingHash2D.py#L142) | property | hashを求める。 | なし | `self.base.get(self.upper, self.left, self.lower, self.right)` |
-| [`__eq__(other)`](../../../string/RollingHash2D.py#L147) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__getitem__(index)`](../../../string/RollingHash2D.py#L156) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`shape`](../../../string/RollingHash2D.py#L138) | property | `shape`を求める。 | なし | tuple(数値または入力要素型 `self.lower - self.upper`, 数値または入力要素型 `self.right - self.left`) | — |
+| [`hash`](../../../string/RollingHash2D.py#L142) | property | hashを求める。 | なし | `self.base.get(self.upper, self.left, self.lower, self.right)` | — |
+| [`__eq__(other)`](../../../string/RollingHash2D.py#L147) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__getitem__(index)`](../../../string/RollingHash2D.py#L156) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |

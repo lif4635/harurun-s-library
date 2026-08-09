@@ -20,7 +20,7 @@ from library_codex.tree.ZeroOneTree import min_block_inversions, min_inversions
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`min_block_inversions(parent, zero_count, one_count, root=0)`](../../../tree/ZeroOneTree.py#L46) | 各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。 | `parent`: 各頂点の親番号。root自身の親はrootにする<br>`zero_count`: 各頂点blockに含まれる0の個数<br>`one_count`: 各頂点blockに含まれる1の個数<br>`root`: 根の0-indexed頂点番号。省略時: `0` | int — 親優先制約を満たす並べ方の最小転倒数 |
-| [`min_inversions(parent, labels, root=0)`](../../../tree/ZeroOneTree.py#L85) | 0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。 | `parent`: 各頂点の親番号。root自身の親はrootにする<br>`labels`: 各頂点の0または1のラベル<br>`root`: 根の0-indexed頂点番号。省略時: `0` | int — 0/1ラベルを親優先で並べるときの最小転倒数 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`min_block_inversions(parent, zero_count, one_count, root=0)`](../../../tree/ZeroOneTree.py#L46) | 各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。 | `parent`: 各頂点の親番号。root自身の親はrootにする<br>`zero_count`: 各頂点blockに含まれる0の個数<br>`one_count`: 各頂点blockに含まれる1の個数<br>`root`: 根の0-indexed頂点番号。省略時: `0` | int — 親優先制約を満たす並べ方の最小転倒数 | O(N log N) |
+| [`min_inversions(parent, labels, root=0)`](../../../tree/ZeroOneTree.py#L85) | 0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。 | `parent`: 各頂点の親番号。root自身の親はrootにする<br>`labels`: 各頂点の0または1のラベル<br>`root`: 根の0-indexed頂点番号。省略時: `0` | int — 0/1ラベルを親優先で並べるときの最小転倒数 | O(N log N) |

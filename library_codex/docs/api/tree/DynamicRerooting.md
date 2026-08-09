@@ -25,22 +25,23 @@ rake-compress top treeによる動的rerootingを扱う `TopTree`。
 - constructor: [`TopTree(vertex, compress, rake, add_edge, add_vertex)`](../../../tree/DynamicRerooting.py#L142)
 - 引数: `vertex`: 頂点番号<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
 - 返り値: `TopTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`push(node)`](../../../tree/DynamicRerooting.py#L156) | method | 要素を追加する。 | `node`: 頂点・内部node番号 | `None` |
-| [`update(node)`](../../../tree/DynamicRerooting.py#L166) | method | 指定位置・辺・状態を更新する。 | `node`: 頂点・内部node番号 | `None` |
-| [`splay(node)`](../../../tree/DynamicRerooting.py#L218) | method | `splay`を求める。 | `node`: 頂点・内部node番号 | `None` |
-| [`expose(node)`](../../../tree/DynamicRerooting.py#L255) | method | `expose`を求める。 | `node`: 頂点・内部node番号 | `last`（None） |
-| [`link(child, parent)`](../../../tree/DynamicRerooting.py#L278) | method | 異なる木の2頂点を辺で接続する。 | `child`: 子cluster・子頂点<br>`parent`: 親頂点・親配列 | `None` |
-| [`cut(child)`](../../../tree/DynamicRerooting.py#L285) | method | 指定辺をforestから切断する。 | `child`: 子cluster・子頂点 | `None` |
-| [`evert(node)`](../../../tree/DynamicRerooting.py#L294) | method | `evert`を求める。 | `node`: 頂点・内部node番号 | `None` |
-| [`alloc(info)`](../../../tree/DynamicRerooting.py#L299) | method | `alloc`を求める。 | `info`: clusterへ付随させる情報 | `node` |
-| [`is_connected(first, second)`](../../../tree/DynamicRerooting.py#L304) | method | `connected`かどうかを判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool |
-| [`lca(first, second)`](../../../tree/DynamicRerooting.py#L309) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） / `None` |
-| [`set_key(node, info)`](../../../tree/DynamicRerooting.py#L315) | method | `key`を設定する。 | `node`: 頂点・内部node番号<br>`info`: clusterへ付随させる情報 | `None` |
-| [`query(node)`](../../../tree/DynamicRerooting.py#L320) | method | 指定した対象への問い合わせ結果を返す。 | `node`: 頂点・内部node番号 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`query_subtree(root, node)`](../../../tree/DynamicRerooting.py#L324) | method | `subtree`を取得する。 | `root`: 根の頂点番号・原始根<br>`node`: 頂点・内部node番号 | 計算結果 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`push(node)`](../../../tree/DynamicRerooting.py#L156) | method | 要素を追加する。 | `node`: 頂点・内部node番号 | `None` | — |
+| [`update(node)`](../../../tree/DynamicRerooting.py#L166) | method | 指定位置・辺・状態を更新する。 | `node`: 頂点・内部node番号 | `None` | — |
+| [`splay(node)`](../../../tree/DynamicRerooting.py#L218) | method | `splay`を求める。 | `node`: 頂点・内部node番号 | `None` | — |
+| [`expose(node)`](../../../tree/DynamicRerooting.py#L255) | method | `expose`を求める。 | `node`: 頂点・内部node番号 | `last`（None） | — |
+| [`link(child, parent)`](../../../tree/DynamicRerooting.py#L278) | method | 異なる木の2頂点を辺で接続する。 | `child`: 子cluster・子頂点<br>`parent`: 親頂点・親配列 | `None` | — |
+| [`cut(child)`](../../../tree/DynamicRerooting.py#L285) | method | 指定辺をforestから切断する。 | `child`: 子cluster・子頂点 | `None` | — |
+| [`evert(node)`](../../../tree/DynamicRerooting.py#L294) | method | `evert`を求める。 | `node`: 頂点・内部node番号 | `None` | — |
+| [`alloc(info)`](../../../tree/DynamicRerooting.py#L299) | method | `alloc`を求める。 | `info`: clusterへ付随させる情報 | `node` | — |
+| [`is_connected(first, second)`](../../../tree/DynamicRerooting.py#L304) | method | `connected`かどうかを判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool | — |
+| [`lca(first, second)`](../../../tree/DynamicRerooting.py#L309) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） / `None` | — |
+| [`set_key(node, info)`](../../../tree/DynamicRerooting.py#L315) | method | `key`を設定する。 | `node`: 頂点・内部node番号<br>`info`: clusterへ付随させる情報 | `None` | — |
+| [`query(node)`](../../../tree/DynamicRerooting.py#L320) | method | 指定した対象への問い合わせ結果を返す。 | `node`: 頂点・内部node番号 | 問い合わせ結果（型・tuple形状はclassの用途に従う） | — |
+| [`query_subtree(root, node)`](../../../tree/DynamicRerooting.py#L324) | method | `subtree`を取得する。 | `root`: 根の頂点番号・原始根<br>`node`: 頂点・内部node番号 | 計算結果 | — |
 
 ## Class `DynamicRerooting`
 
@@ -49,12 +50,13 @@ rake-compress top treeによる動的rerootingを扱う `DynamicRerooting`。
 - constructor: [`DynamicRerooting(info, vertex, compress, rake, add_edge, add_vertex)`](../../../tree/DynamicRerooting.py#L339)
 - 引数: `info`: clusterへ付随させる情報<br>`vertex`: 頂点番号<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
 - 返り値: `DynamicRerooting` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_edge(first, second)`](../../../tree/DynamicRerooting.py#L344) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
-| [`delete_edge(first, second)`](../../../tree/DynamicRerooting.py#L350) | method | 辺を削除する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
-| [`get_info(vertex)`](../../../tree/DynamicRerooting.py#L357) | method | `info`を取得する。 | `vertex`: 頂点番号 | `self.vertices[vertex].info` |
-| [`set_info(vertex, info)`](../../../tree/DynamicRerooting.py#L360) | method | `info`を設定する。 | `vertex`: 頂点番号<br>`info`: clusterへ付随させる情報 | `None` |
-| [`query(root)`](../../../tree/DynamicRerooting.py#L363) | method | 指定した対象への問い合わせ結果を返す。 | `root`: 根の頂点番号・原始根 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
-| [`query_subtree(root, vertex)`](../../../tree/DynamicRerooting.py#L366) | method | `subtree`を取得する。 | `root`: 根の頂点番号・原始根<br>`vertex`: 頂点番号 | `self.top_tree.query_subtree(self.vertices[root], self.vertices...` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_edge(first, second)`](../../../tree/DynamicRerooting.py#L344) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` | — |
+| [`delete_edge(first, second)`](../../../tree/DynamicRerooting.py#L350) | method | 辺を削除する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` | — |
+| [`get_info(vertex)`](../../../tree/DynamicRerooting.py#L357) | method | `info`を取得する。 | `vertex`: 頂点番号 | `self.vertices[vertex].info` | — |
+| [`set_info(vertex, info)`](../../../tree/DynamicRerooting.py#L360) | method | `info`を設定する。 | `vertex`: 頂点番号<br>`info`: clusterへ付随させる情報 | `None` | — |
+| [`query(root)`](../../../tree/DynamicRerooting.py#L363) | method | 指定した対象への問い合わせ結果を返す。 | `root`: 根の頂点番号・原始根 | 問い合わせ結果（型・tuple形状はclassの用途に従う） | — |
+| [`query_subtree(root, vertex)`](../../../tree/DynamicRerooting.py#L366) | method | `subtree`を取得する。 | `root`: 根の頂点番号・原始根<br>`vertex`: 頂点番号 | `self.top_tree.query_subtree(self.vertices[root], self.vertices...` | — |

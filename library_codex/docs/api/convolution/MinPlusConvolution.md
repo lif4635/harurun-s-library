@@ -21,7 +21,7 @@ from library_codex.convolution.MinPlusConvolution import minplus_conv, minplus_c
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`minplus_conv(arbitrary, convex, return_argmin=False)`](../../../convolution/MinPlusConvolution.py#L6) | 一般列 $a=\mathrm{arbitrary}$ と凸列 $b=\mathrm{convex}$ のmin-plus畳み込み $c_k=\min_{i+j=k}(a_i+b_j)$ をmonotone minimaで高速に求める。 | `arbitrary`: 任意の数列a。凸性は不要。<br>`convex`: 離散凸な数列b。差分 $b_{i+1}-b_i$ が広義単調増加であること。<br>`return_argmin`: 最小値に加えて、選ばれた凸列側の添字jも返すか。省略時: `False` | list[number] \| tuple[list[number], list[int]] — values[k]は $\min_{i+j=k}(a_i+b_j)$。return_argmin=Trueでは $(\mathrm{values},\mathrm{indices})$ を返し、$\mathrm{indices}[k]=j$ は最小値を作った凸列側の添字。 |
-| [`minplus_conv_convex(first, second)`](../../../convolution/MinPlusConvolution.py#L41) | 2つの凸列 $a=\mathrm{first}$、$b=\mathrm{second}$ のmin-plus畳み込み $c_k=\min_{i+j=k}(a_i+b_j)$ を差分列のmergeで求める。 | `first`: 離散凸な数列a。差分 $a_{i+1}-a_i$ が広義単調増加であること。<br>`second`: 離散凸な数列b。差分 $b_{i+1}-b_i$ が広義単調増加であること。 | list[number] — 長さ $\lvert a\rvert+\lvert b\rvert-1$ の列c。$c_k=\min_{i+j=k}(a_i+b_j)$。 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`minplus_conv(arbitrary, convex, return_argmin=False)`](../../../convolution/MinPlusConvolution.py#L6) | 一般列 $a=\mathrm{arbitrary}$ と凸列 $b=\mathrm{convex}$ のmin-plus畳み込み $c_k=\min_{i+j=k}(a_i+b_j)$ をmonotone minimaで高速に求める。 | `arbitrary`: 任意の数列a。凸性は不要。<br>`convex`: 離散凸な数列b。差分 $b_{i+1}-b_i$ が広義単調増加であること。<br>`return_argmin`: 最小値に加えて、選ばれた凸列側の添字jも返すか。省略時: `False` | list[number] \| tuple[list[number], list[int]] — values[k]は $\min_{i+j=k}(a_i+b_j)$。return_argmin=Trueでは $(\mathrm{values},\mathrm{indices})$ を返し、$\mathrm{indices}[k]=j$ は最小値を作った凸列側の添字。 | O(A log(A+C) + C)（Aはarbitrary、Cはconvexの長さ） |
+| [`minplus_conv_convex(first, second)`](../../../convolution/MinPlusConvolution.py#L41) | 2つの凸列 $a=\mathrm{first}$、$b=\mathrm{second}$ のmin-plus畳み込み $c_k=\min_{i+j=k}(a_i+b_j)$ を差分列のmergeで求める。 | `first`: 離散凸な数列a。差分 $a_{i+1}-a_i$ が広義単調増加であること。<br>`second`: 離散凸な数列b。差分 $b_{i+1}-b_i$ が広義単調増加であること。 | list[number] — 長さ $\lvert a\rvert+\lvert b\rvert-1$ の列c。$c_k=\min_{i+j=k}(a_i+b_j)$。 | O(N+M) |

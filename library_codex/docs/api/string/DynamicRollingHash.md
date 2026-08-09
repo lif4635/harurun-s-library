@@ -24,15 +24,16 @@ from library_codex.string.DynamicRollingHash import DynamicRollingHash
 - constructor: [`DynamicRollingHash(sequence=(), base=DEFAULT_BASE)`](../../../string/DynamicRollingHash.py#L17)
 - 引数: `sequence`: 入力列。省略時: `()`<br>`base`: 底・基準となる値または列。省略時: `DEFAULT_BASE`
 - 返り値: `DynamicRollingHash` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__len__()`](../../../string/DynamicRollingHash.py#L55) | method | len(obj)。 | なし | 要素数（int） |
-| [`update(index, value)`](../../../string/DynamicRollingHash.py#L58) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(left=0, right=None)`](../../../string/DynamicRollingHash.py#L123) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ のrolling hashを返す。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | int \| tuple[int, int] — 指定substringのhash。double hashでは2成分のtuple。 |
-| [`reverse_get(left=0, right=None)`](../../../string/DynamicRollingHash.py#L130) | method | `reverse`・`get`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | `self._query(left, right)[1]` |
-| [`get_value(left=0, right=None)`](../../../string/DynamicRollingHash.py#L135) | method | 値を取得する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | HashString instance |
-| [`same(left1, right1, left2, right2)`](../../../string/DynamicRollingHash.py#L143) | method | 指定した2つの半開区間の文字列が等しいかhashで判定する。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | bool — 2つのsubstringが等しければTrue、異なればFalse。 |
-| [`is_palindrome(left=0, right=None)`](../../../string/DynamicRollingHash.py#L149) | method | `palindrome`かどうかを判定する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | bool |
-| [`lcp(left1, right1, left2, right2)`](../../../string/DynamicRollingHash.py#L155) | method | `lcp`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | `low`（数値または入力要素型） |
-| [`__getitem__(index)`](../../../string/DynamicRollingHash.py#L169) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__len__()`](../../../string/DynamicRollingHash.py#L55) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`update(index, value)`](../../../string/DynamicRollingHash.py#L58) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`get(left=0, right=None)`](../../../string/DynamicRollingHash.py#L123) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ のrolling hashを返す。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | int \| tuple[int, int] — 指定substringのhash。double hashでは2成分のtuple。 | — |
+| [`reverse_get(left=0, right=None)`](../../../string/DynamicRollingHash.py#L130) | method | `reverse`・`get`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | `self._query(left, right)[1]` | — |
+| [`get_value(left=0, right=None)`](../../../string/DynamicRollingHash.py#L135) | method | 値を取得する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | HashString instance | — |
+| [`same(left1, right1, left2, right2)`](../../../string/DynamicRollingHash.py#L143) | method | 指定した2つの半開区間の文字列が等しいかhashで判定する。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | bool — 2つのsubstringが等しければTrue、異なればFalse。 | — |
+| [`is_palindrome(left=0, right=None)`](../../../string/DynamicRollingHash.py#L149) | method | `palindrome`かどうかを判定する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | bool | — |
+| [`lcp(left1, right1, left2, right2)`](../../../string/DynamicRollingHash.py#L155) | method | `lcp`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | `low`（数値または入力要素型） | — |
+| [`__getitem__(index)`](../../../string/DynamicRollingHash.py#L169) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |

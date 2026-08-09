@@ -3,7 +3,6 @@
 
 階乗表を使うCombと、小さいk向けの乗法式で二項係数を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`combinatorics/Combination.py`](../../../combinatorics/Combination.py)
 - 公開API: function 1、class 1、method/property 6（Python protocol 1を含む）
 
@@ -26,9 +25,9 @@ from library_codex.combinatorics.Combination import comb_small_k, Comb
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`comb_small_k(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L63) | $n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0<br>`mod`: 法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある。省略時: `DEFAULT_MOD` | int — 二項係数 $\binom{n}{k}$ を $\mathrm{mod}$ で割った余り。$0 \le k \le n$ でなければ0 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`comb_small_k(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L63) | $n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0<br>`mod`: 法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある。省略時: `DEFAULT_MOD` | int — 二項係数 $\binom{n}{k}$ を $\mathrm{mod}$ で割った余り。$0 \le k \le n$ でなければ0 | O(min(k, n-k)) |
 
 ## Class `Comb`
 
@@ -37,12 +36,13 @@ from library_codex.combinatorics.Combination import comb_small_k, Comb
 - constructor: [`Comb(size=0, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L10)
 - 引数: `size`: 要素数・universe size。省略時: `0`<br>`mod`: 法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある。省略時: `DEFAULT_MOD`
 - 返り値: `Comb` instance
+- 計算量: 構築 O(size)
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`ensure(size)`](../../../combinatorics/Combination.py#L17) | method | 階乗表と逆階乗表をsizeまで拡張する。 | `size`: 要素数・universe size | `None` |
-| [`fact(n)`](../../../combinatorics/Combination.py#L33) | method | 階乗 $n!\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数 | int — $n!\bmod\mathrm{mod}$。 |
-| [`C(n, k)`](../../../combinatorics/Combination.py#L38) | method | 二項係数 $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 |
-| [`__call__(n, k)`](../../../combinatorics/Combination.py#L46) | method | `C(n, k)` と同じく $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 |
-| [`P(n, k)`](../../../combinatorics/Combination.py#L50) | method | 順列数 $P(n,k)=n!/(n-k)!$ を $\mathrm{mod}$ で割った余りを返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $P(n,k)\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 |
-| [`H(n, k)`](../../../combinatorics/Combination.py#L57) | method | $n$ 種類から重複を許して $k$ 個選ぶ重複組合せ $H(n,k)=\binom{n+k-1}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $H(n,k)\bmod\mathrm{mod}$。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`ensure(size)`](../../../combinatorics/Combination.py#L17) | method | 階乗表と逆階乗表をsizeまで拡張する。 | `size`: 要素数・universe size | `None` | 追加したtable要素数に比例（全呼び出しを通して償却 O(max size)） |
+| [`fact(n)`](../../../combinatorics/Combination.py#L33) | method | 階乗 $n!\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数 | int — $n!\bmod\mathrm{mod}$。 | 償却 O(1)、table拡張分を除く |
+| [`C(n, k)`](../../../combinatorics/Combination.py#L38) | method | 二項係数 $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
+| [`__call__(n, k)`](../../../combinatorics/Combination.py#L46) | method | `C(n, k)` と同じく $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
+| [`P(n, k)`](../../../combinatorics/Combination.py#L50) | method | 順列数 $P(n,k)=n!/(n-k)!$ を $\mathrm{mod}$ で割った余りを返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $P(n,k)\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
+| [`H(n, k)`](../../../combinatorics/Combination.py#L57) | method | $n$ 種類から重複を許して $k$ 個選ぶ重複組合せ $H(n,k)=\binom{n+k-1}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $H(n,k)\bmod\mathrm{mod}$。 | 償却 O(1)、table拡張分を除く |

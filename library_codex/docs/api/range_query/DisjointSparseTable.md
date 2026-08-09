@@ -24,7 +24,8 @@ from library_codex.range_query.DisjointSparseTable import DisjointSparseTable
 - constructor: [`DisjointSparseTable(op, lst)`](../../../range_query/DisjointSparseTable.py#L4)
 - 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`lst`: `lst`として使う入力
 - 返り値: `DisjointSparseTable` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`prod(l, r)`](../../../range_query/DisjointSparseTable.py#L30) | method | 半開区間またはpathの集約値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`prod(l, r)`](../../../range_query/DisjointSparseTable.py#L30) | method | 半開区間またはpathの集約値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） | — |

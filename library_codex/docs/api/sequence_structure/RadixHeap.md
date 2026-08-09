@@ -24,12 +24,13 @@ from library_codex.sequence_structure.RadixHeap import RadixHeap
 - constructor: [`RadixHeap()`](../../../sequence_structure/RadixHeap.py#L4)
 - 引数: なし
 - 返り値: `RadixHeap` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`push(key, value)`](../../../sequence_structure/RadixHeap.py#L10) | method | 要素を追加する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`pop()`](../../../sequence_structure/RadixHeap.py#L44) | method | 要素を1つ取り除いて返す。 | なし | `item` |
-| [`top()`](../../../sequence_structure/RadixHeap.py#L53) | method | 次に取り出される要素を削除せず返す。 | なし | 次に取り出される要素 |
-| [`empty()`](../../../sequence_structure/RadixHeap.py#L66) | method | 空かどうかを判定する。 | なし | bool |
-| [`__len__()`](../../../sequence_structure/RadixHeap.py#L69) | method | len(obj)。 | なし | 要素数（int） |
-| [`__bool__()`](../../../sequence_structure/RadixHeap.py#L72) | method | bool(obj) と真偽値文脈。 | なし | bool |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`push(key, value)`](../../../sequence_structure/RadixHeap.py#L10) | method | 要素を追加する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`pop()`](../../../sequence_structure/RadixHeap.py#L44) | method | 要素を1つ取り除いて返す。 | なし | `item` | — |
+| [`top()`](../../../sequence_structure/RadixHeap.py#L53) | method | 次に取り出される要素を削除せず返す。 | なし | 次に取り出される要素 | — |
+| [`empty()`](../../../sequence_structure/RadixHeap.py#L66) | method | 空かどうかを判定する。 | なし | bool | — |
+| [`__len__()`](../../../sequence_structure/RadixHeap.py#L69) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`__bool__()`](../../../sequence_structure/RadixHeap.py#L72) | method | bool(obj) と真偽値文脈。 | なし | bool | — |

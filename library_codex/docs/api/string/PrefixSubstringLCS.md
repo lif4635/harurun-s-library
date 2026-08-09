@@ -20,9 +20,9 @@ from library_codex.string.PrefixSubstringLCS import prefix_substring_lcs, Prefix
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`prefix_substring_lcs(first, second, queries)`](../../../string/PrefixSubstringLCS.py#L78) | prefix・`substring`・`lcs`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`queries`: 一括処理するqueryの列 | `solver.run()` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`prefix_substring_lcs(first, second, queries)`](../../../string/PrefixSubstringLCS.py#L78) | prefix・`substring`・`lcs`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`queries`: 一括処理するqueryの列 | `solver.run()` | — |
 
 ## Class `PrefixSubstringLCS`
 
@@ -31,8 +31,9 @@ prefix対substringのオフラインLCSを扱う `PrefixSubstringLCS`。
 - constructor: [`PrefixSubstringLCS(first, second)`](../../../string/PrefixSubstringLCS.py#L4)
 - 引数: `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値
 - 返り値: `PrefixSubstringLCS` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(prefix_end, left, right)`](../../../string/PrefixSubstringLCS.py#L12) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `prefix_end`: prefix・`end`として使う入力<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `query_id` |
-| [`run()`](../../../string/PrefixSubstringLCS.py#L35) | method | 登録した各substringとprefixのLCS長をquery ID順にまとめて求める。 | なし | 計算結果（数値または入力要素型） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(prefix_end, left, right)`](../../../string/PrefixSubstringLCS.py#L12) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `prefix_end`: prefix・`end`として使う入力<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `query_id` | — |
+| [`run()`](../../../string/PrefixSubstringLCS.py#L35) | method | 登録した各substringとprefixのLCS長をquery ID順にまとめて求める。 | なし | 計算結果（数値または入力要素型） | — |

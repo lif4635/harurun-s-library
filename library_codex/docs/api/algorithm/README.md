@@ -12,7 +12,7 @@
 | [`Fibonacci`](Fibonacci.md) | 高速doublingによるFibonacci数 | 1 | 0 | 0 |
 | [`IntegerUtilities`](IntegerUtilities.md) | 合同類・mod乗・完全平方根・整数n乗根・10進桁数 | 5 | 0 | 0 |
 | [`ModularProgression`](ModularProgression.md) | mod付き等差数列の通常等差run分割 | 1 | 0 | 0 |
-| [`PermutationGroup`](PermutationGroup.md) | 置換の合成・逆元と置換群の生成元簡約 | 1 | 0 | 0 |
+| [`PermutationGroup`](PermutationGroup.md) | 置換群の安定化列と軌道代表元 | 1 | 0 | 0 |
 | [`RangeQueries`](RangeQueries.md) | Mo's algorithmによるoffline区間query | 0 | 1 | 3 |
 | [`Search`](Search.md) | 整数・実数境界二分探索とquickselect | 3 | 0 | 0 |
 | [`SequenceAlgorithms`](SequenceAlgorithms.md) | 転倒数・LIS・座標圧縮・区間併合 | 4 | 0 | 0 |

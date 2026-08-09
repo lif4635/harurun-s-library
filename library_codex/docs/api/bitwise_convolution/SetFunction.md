@@ -45,22 +45,22 @@ from library_codex.bitwise_convolution.SetFunction import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`subset_zeta_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L33) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`subset_mobius_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L60) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`superset_zeta_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L87) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`superset_mobius_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L114) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`walsh_hadamard_transform(values, inverse=False, mod=None)`](../../../bitwise_convolution/SetFunction.py#L141) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist |
-| [`bitwise_or_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L183) | bit演算・`or`・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
-| [`bitwise_and_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L195) | bit演算・AND・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
-| [`bitwise_xor_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L207) | bit演算・XOR・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
-| [`subset_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L479) | 部分集合・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).multiply(first, second)` |
-| [`subset_convolution_divide(dividend, divisor, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L483) | 部分集合・畳み込み・`divide`を計算する。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).divide(dividend, divisor)` |
-| [`set_series_exponential(series, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L487) | `series`・指数を設定する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).exponential(series)` |
-| [`set_series_logarithm(series, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L491) | `series`・対数を設定する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).logarithm(series)` |
-| [`set_series_composition(outer, series, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L495) | `series`・合成を設定する。 | `outer`: 外側の多項式/FPS `f`<br>`series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).compose(outer, series)` |
-| [`set_series_power_projection(series, weights, terms, mod=DEFAULT_MOD, exponential=False)`](../../../bitwise_convolution/SetFunction.py#L499) | `series`・冪・`projection`を設定する。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列<br>`terms`: 返す項数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`exponential`: 指数として使う入力。省略時: `False` | `SubsetConvolution(mod).power_projection(series, weights, terms...` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`subset_zeta_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L33) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist | — |
+| [`subset_mobius_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L60) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist | — |
+| [`superset_zeta_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L87) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist | — |
+| [`superset_mobius_transform(values, mod=None)`](../../../bitwise_convolution/SetFunction.py#L114) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist | — |
+| [`walsh_hadamard_transform(values, inverse=False, mod=None)`](../../../bitwise_convolution/SetFunction.py#L141) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | 値のlist | — |
+| [`bitwise_or_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L183) | bit演算・`or`・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | — |
+| [`bitwise_and_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L195) | bit演算・AND・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | — |
+| [`bitwise_xor_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L207) | bit演算・XOR・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | — |
+| [`subset_convolution(first, second, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L479) | 部分集合・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).multiply(first, second)` | — |
+| [`subset_convolution_divide(dividend, divisor, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L483) | 部分集合・畳み込み・`divide`を計算する。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).divide(dividend, divisor)` | — |
+| [`set_series_exponential(series, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L487) | `series`・指数を設定する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).exponential(series)` | — |
+| [`set_series_logarithm(series, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L491) | `series`・対数を設定する。 | `series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).logarithm(series)` | — |
+| [`set_series_composition(outer, series, mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L495) | `series`・合成を設定する。 | `outer`: 外側の多項式/FPS `f`<br>`series`: 昇冪の形式的冪級数係数列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `SubsetConvolution(mod).compose(outer, series)` | — |
+| [`set_series_power_projection(series, weights, terms, mod=DEFAULT_MOD, exponential=False)`](../../../bitwise_convolution/SetFunction.py#L499) | `series`・冪・`projection`を設定する。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列<br>`terms`: 返す項数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`exponential`: 指数として使う入力。省略時: `False` | `SubsetConvolution(mod).power_projection(series, weights, terms...` | — |
 
 ## Class `SubsetConvolution`
 
@@ -69,15 +69,16 @@ subset/superset変換・OR/AND/XOR・subset畳み込み/除算・set power serie
 - constructor: [`SubsetConvolution(mod=DEFAULT_MOD)`](../../../bitwise_convolution/SetFunction.py#L222)
 - 引数: `mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
 - 返り値: `SubsetConvolution` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L282) | method | 集合をbit maskで表し、subset convolution $c_S=\sum_{T\subseteq S}\mathrm{first}_T\mathrm{second}_{S\setminus T}$ を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[int] — 入力と同じ長さの列 $c$。mask $S$ の要素は $\sum_{T\subseteq S}\mathrm{first}[T]\mathrm{second}[S\setminus T]\bmod\mathrm{mod}$。 |
-| [`divide(dividend, divisor)`](../../../bitwise_convolution/SetFunction.py#L307) | method | `divide`を求める。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数 | `self._mobius_and_unlift(left, popcount, bits, width)` |
-| [`transpose_multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L335) | method | subset convolutionの転置作用 $c_S=\sum_{T\supseteq S}\mathrm{first}_T\mathrm{second}_{T\setminus S}$ を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[int] — 入力と同じ長さの列 $c$。mask $S$ の要素は $\sum_{T\supseteq S}\mathrm{first}[T]\mathrm{second}[T\setminus S]\bmod\mathrm{mod}$。 |
-| [`exponential(series)`](../../../bitwise_convolution/SetFunction.py#L340) | method | 指数を計算する。 | `series`: 昇冪の形式的冪級数係数列 | 計算結果（数値または入力要素型） |
-| [`logarithm(series)`](../../../bitwise_convolution/SetFunction.py#L355) | method | 対数を計算する。 | `series`: 昇冪の形式的冪級数係数列 | 計算結果（数値または入力要素型） |
-| [`compose_egf(series, derivatives)`](../../../bitwise_convolution/SetFunction.py#L369) | method | 合成・`egf`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`derivatives`: `derivatives`として使う入力 | `current`（数値または入力要素型） |
-| [`compose(outer, series)`](../../../bitwise_convolution/SetFunction.py#L389) | method | 合成を求める。 | `outer`: 外側の多項式/FPS `f`<br>`series`: 昇冪の形式的冪級数係数列 | `self.compose_egf(zero_constant, derivatives)` |
-| [`transpose_compose_egf(series, weights)`](../../../bitwise_convolution/SetFunction.py#L408) | method | `transpose`・合成・`egf`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列 | 計算結果（数値または入力要素型） |
-| [`power_projection(series, weights, terms, exponential=False)`](../../../bitwise_convolution/SetFunction.py#L433) | method | 入力した値・多項式を指定指数だけ累乗する。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列<br>`terms`: 返す項数<br>`exponential`: 指数として使う入力。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `coefficients`（数値または入力要素型） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L282) | method | 集合をbit maskで表し、subset convolution $c_S=\sum_{T\subseteq S}\mathrm{first}_T\mathrm{second}_{S\setminus T}$ を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[int] — 入力と同じ長さの列 $c$。mask $S$ の要素は $\sum_{T\subseteq S}\mathrm{first}[T]\mathrm{second}[S\setminus T]\bmod\mathrm{mod}$。 | — |
+| [`divide(dividend, divisor)`](../../../bitwise_convolution/SetFunction.py#L307) | method | `divide`を求める。 | `dividend`: 多項式の被除数<br>`divisor`: 多項式の除数 | `self._mobius_and_unlift(left, popcount, bits, width)` | — |
+| [`transpose_multiply(first, second)`](../../../bitwise_convolution/SetFunction.py#L335) | method | subset convolutionの転置作用 $c_S=\sum_{T\supseteq S}\mathrm{first}_T\mathrm{second}_{T\setminus S}$ を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[int] — 入力と同じ長さの列 $c$。mask $S$ の要素は $\sum_{T\supseteq S}\mathrm{first}[T]\mathrm{second}[T\setminus S]\bmod\mathrm{mod}$。 | — |
+| [`exponential(series)`](../../../bitwise_convolution/SetFunction.py#L340) | method | 指数を計算する。 | `series`: 昇冪の形式的冪級数係数列 | 計算結果（数値または入力要素型） | — |
+| [`logarithm(series)`](../../../bitwise_convolution/SetFunction.py#L355) | method | 対数を計算する。 | `series`: 昇冪の形式的冪級数係数列 | 計算結果（数値または入力要素型） | — |
+| [`compose_egf(series, derivatives)`](../../../bitwise_convolution/SetFunction.py#L369) | method | 合成・`egf`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`derivatives`: `derivatives`として使う入力 | `current`（数値または入力要素型） | — |
+| [`compose(outer, series)`](../../../bitwise_convolution/SetFunction.py#L389) | method | 合成を求める。 | `outer`: 外側の多項式/FPS `f`<br>`series`: 昇冪の形式的冪級数係数列 | `self.compose_egf(zero_constant, derivatives)` | — |
+| [`transpose_compose_egf(series, weights)`](../../../bitwise_convolution/SetFunction.py#L408) | method | `transpose`・合成・`egf`を求める。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列 | 計算結果（数値または入力要素型） | — |
+| [`power_projection(series, weights, terms, exponential=False)`](../../../bitwise_convolution/SetFunction.py#L433) | method | 入力した値・多項式を指定指数だけ累乗する。 | `series`: 昇冪の形式的冪級数係数列<br>`weights`: 重みの列<br>`terms`: 返す項数<br>`exponential`: 指数として使う入力。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `coefficients`（数値または入力要素型） | — |

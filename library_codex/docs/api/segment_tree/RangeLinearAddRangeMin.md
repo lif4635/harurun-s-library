@@ -3,7 +3,6 @@
 
 indexの一次式を区間加算し、区間最小値を求める構造。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`segment_tree/RangeLinearAddRangeMin.py`](../../../segment_tree/RangeLinearAddRangeMin.py)
 - 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
 
@@ -24,8 +23,9 @@ indexの一次式を区間加算し、区間最小値を求める構造を扱う
 - constructor: [`RangeLinearAddRangeMin(values, infinity=10 ** 60)`](../../../segment_tree/RangeLinearAddRangeMin.py#L8)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 60`
 - 返り値: `RangeLinearAddRangeMin` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(left, right, slope, intercept)`](../../../segment_tree/RangeLinearAddRangeMin.py#L109) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` |
-| [`query(left, right)`](../../../segment_tree/RangeLinearAddRangeMin.py#L155) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | number — $\min_{\mathrm{left}\le i<\mathrm{right}}a_i$。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(left, right, slope, intercept)`](../../../segment_tree/RangeLinearAddRangeMin.py#L109) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | — |
+| [`query(left, right)`](../../../segment_tree/RangeLinearAddRangeMin.py#L155) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | number — $\min_{\mathrm{left}\le i<\mathrm{right}}a_i$。 | — |

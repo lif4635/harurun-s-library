@@ -3,7 +3,6 @@
 
 任意のhashableな要素を必要時に追加できる動的Union-Find。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`union_find/DynamicUnionFind.py`](../../../union_find/DynamicUnionFind.py)
 - 公開API: function 0、class 1、method/property 5（Python protocol 0を含む）
 
@@ -24,11 +23,12 @@ from library_codex.union_find.DynamicUnionFind import DynamicUnionFind
 - constructor: [`DynamicUnionFind()`](../../../union_find/DynamicUnionFind.py#L6)
 - 引数: なし
 - 返り値: `DynamicUnionFind` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(node)`](../../../union_find/DynamicUnionFind.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `node`: 頂点・内部node番号 | bool |
-| [`find(node)`](../../../union_find/DynamicUnionFind.py#L19) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） |
-| [`merge(first, second)`](../../../union_find/DynamicUnionFind.py#L37) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`same(first, second)`](../../../union_find/DynamicUnionFind.py#L53) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
-| [`size(node)`](../../../union_find/DynamicUnionFind.py#L56) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(node)`](../../../union_find/DynamicUnionFind.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `node`: 頂点・内部node番号 | bool | — |
+| [`find(node)`](../../../union_find/DynamicUnionFind.py#L19) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） | — |
+| [`merge(first, second)`](../../../union_find/DynamicUnionFind.py#L37) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | — |
+| [`same(first, second)`](../../../union_find/DynamicUnionFind.py#L53) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
+| [`size(node)`](../../../union_find/DynamicUnionFind.py#L56) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） | — |

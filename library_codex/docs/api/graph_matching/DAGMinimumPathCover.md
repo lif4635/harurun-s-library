@@ -3,7 +3,6 @@
 
 DAGを覆う頂点素なpathの最小本数を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph_matching/DAGMinimumPathCover.py`](../../../graph_matching/DAGMinimumPathCover.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph_matching.DAGMinimumPathCover import dag_minimum_path_co
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`dag_minimum_path_cover(graph)`](../../../graph_matching/DAGMinimumPathCover.py#L5) | `dag`・最小・path・`cover`を求める。 | `graph`: 隣接listまたはグラフobject | list[int] — 経路上の頂点または辺を順に並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`dag_minimum_path_cover(graph)`](../../../graph_matching/DAGMinimumPathCover.py#L5) | `dag`・最小・path・`cover`を求める。 | `graph`: 隣接listまたはグラフobject | list[int] — 経路上の頂点または辺を順に並べた列 | — |

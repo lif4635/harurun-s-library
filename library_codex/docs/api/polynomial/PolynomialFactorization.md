@@ -22,11 +22,11 @@ from library_codex.polynomial.PolynomialFactorization import half_gcd, polynomia
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`half_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialFactorization.py#L19) | `half`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_gcd(first, second, mod)` |
-| [`polynomial_inverse(first, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialFactorization.py#L24) | 多項式・逆元を計算する。 | `first`: 第1入力・左側の値<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(`True`, `polynomial_inverse_mod(first, modulus, mod)`) / tuple(`False`, list `[]`) |
-| [`factor_polynomial(polynomial, mod=DEFAULT_MOD, seed=712367821)`](../../../polynomial/PolynomialFactorization.py#L132) | 因子・多項式を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `712367821` | list[int] — 素因数を順に並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`half_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialFactorization.py#L19) | `half`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_gcd(first, second, mod)` | — |
+| [`polynomial_inverse(first, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialFactorization.py#L24) | 多項式・逆元を計算する。 | `first`: 第1入力・左側の値<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(`True`, `polynomial_inverse_mod(first, modulus, mod)`) / tuple(`False`, list `[]`) | — |
+| [`factor_polynomial(polynomial, mod=DEFAULT_MOD, seed=712367821)`](../../../polynomial/PolynomialFactorization.py#L132) | 因子・多項式を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `712367821` | list[int] — 素因数を順に並べた列 | — |
 
 ## Class `HalfGCD`
 
@@ -35,3 +35,4 @@ from library_codex.polynomial.PolynomialFactorization import half_gcd, polynomia
 - constructor: [`HalfGCD()`](../../../polynomial/PolynomialFactorization.py#L150)
 - 引数: なし
 - 返り値: `HalfGCD` instance
+- 計算量: —

@@ -19,6 +19,6 @@ from library_codex.rational.FractionSearch import stern_brocot_binary_search
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`stern_brocot_binary_search(predicate, limit)`](../../../rational/FractionSearch.py#L4) | `stern`・`brocot`・二分・`search`を求める。 | `predicate`: 判定callback<br>`limit`: 上限。NoneならAPI既定の上限 | tuple(`node.lower_bound()`, `node.upper_bound()`) / tuple(tuple `(0, 1)`, tuple `(0, 1)`) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`stern_brocot_binary_search(predicate, limit)`](../../../rational/FractionSearch.py#L4) | `stern`・`brocot`・二分・`search`を求める。 | `predicate`: 判定callback<br>`limit`: 上限。NoneならAPI既定の上限 | tuple(`node.lower_bound()`, `node.upper_bound()`) / tuple(tuple `(0, 1)`, tuple `(0, 1)`) | — |

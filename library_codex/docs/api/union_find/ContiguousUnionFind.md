@@ -3,7 +3,6 @@
 
 隣接要素の連結区間と区間併合を管理するUnion-Find。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`union_find/ContiguousUnionFind.py`](../../../union_find/ContiguousUnionFind.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,10 +23,11 @@ from library_codex.union_find.ContiguousUnionFind import ContiguousUnionFind
 - constructor: [`ContiguousUnionFind(size)`](../../../union_find/ContiguousUnionFind.py#L8)
 - 引数: `size`: 要素数・universe size
 - 返り値: `ContiguousUnionFind` instance
+- 計算量: —
 - 継承元: `UnionFind`
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`merge(first, second)`](../../../union_find/ContiguousUnionFind.py#L13) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` / `root` |
-| [`range_merge(left, right)`](../../../union_find/ContiguousUnionFind.py#L27) | method | 区間・`merge`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
-| [`interval(node)`](../../../union_find/ContiguousUnionFind.py#L39) | method | `interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.left[root]`, `self.right[root]`) |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`merge(first, second)`](../../../union_find/ContiguousUnionFind.py#L13) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` / `root` | — |
+| [`range_merge(left, right)`](../../../union_find/ContiguousUnionFind.py#L27) | method | 区間・`merge`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` | — |
+| [`interval(node)`](../../../union_find/ContiguousUnionFind.py#L39) | method | `interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.left[root]`, `self.right[root]`) | — |

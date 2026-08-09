@@ -3,7 +3,6 @@
 
 Bell数列を生成する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`combinatorial_series/BellNumbers.py`](../../../combinatorial_series/BellNumbers.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.combinatorial_series.BellNumbers import bell_numbers
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`bell_numbers(max_index, mod=DEFAULT_MOD)`](../../../combinatorial_series/BellNumbers.py#L29) | `bell`・`numbers`を求める。 | `max_index`: 最大・`index`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`bell_numbers(max_index, mod=DEFAULT_MOD)`](../../../combinatorial_series/BellNumbers.py#L29) | `bell`・`numbers`を求める。 | `max_index`: 最大・`index`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

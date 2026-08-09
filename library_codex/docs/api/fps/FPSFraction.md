@@ -3,7 +3,6 @@
 
 形式的冪級数の分子と分母を保ったまま四則演算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps/FPSFraction.py`](../../../fps/FPSFraction.py)
 - 公開API: function 0、class 1、method/property 8（Python protocol 6を含む）
 
@@ -24,14 +23,15 @@ from library_codex.fps.FPSFraction import FPSFraction
 - constructor: [`FPSFraction(numerator=None, denominator=None, mod=DEFAULT_MOD)`](../../../fps/FPSFraction.py#L14)
 - 引数: `numerator`: 有理式の分子多項式。省略時: `None`<br>`denominator`: 有理式の分母多項式。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
 - 返り値: `FPSFraction` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__add__(other)`](../../../fps/FPSFraction.py#L31) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance |
-| [`__neg__()`](../../../fps/FPSFraction.py#L45) | method | -obj。 | なし | FPSFraction instance |
-| [`__sub__(other)`](../../../fps/FPSFraction.py#L49) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` |
-| [`__rsub__(other)`](../../../fps/FPSFraction.py#L52) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self._coerce(other) - self` |
-| [`__mul__(other)`](../../../fps/FPSFraction.py#L55) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance |
-| [`__truediv__(other)`](../../../fps/FPSFraction.py#L65) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * self._coerce(other).inverse()` |
-| [`inverse()`](../../../fps/FPSFraction.py#L71) | method | 逆元・逆変換を求める。 | なし | FPSFraction instance |
-| [`shrink()`](../../../fps/FPSFraction.py#L76) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__add__(other)`](../../../fps/FPSFraction.py#L31) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance | — |
+| [`__neg__()`](../../../fps/FPSFraction.py#L45) | method | -obj。 | なし | FPSFraction instance | — |
+| [`__sub__(other)`](../../../fps/FPSFraction.py#L49) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` | — |
+| [`__rsub__(other)`](../../../fps/FPSFraction.py#L52) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self._coerce(other) - self` | — |
+| [`__mul__(other)`](../../../fps/FPSFraction.py#L55) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance | — |
+| [`__truediv__(other)`](../../../fps/FPSFraction.py#L65) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * self._coerce(other).inverse()` | — |
+| [`inverse()`](../../../fps/FPSFraction.py#L71) | method | 逆元・逆変換を求める。 | なし | FPSFraction instance | — |
+| [`shrink()`](../../../fps/FPSFraction.py#L76) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` | — |

@@ -3,7 +3,6 @@
 
 辺重みが0または1のグラフの単一始点最短路を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`shortest_path/ZeroOneBFS.py`](../../../shortest_path/ZeroOneBFS.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -25,6 +24,6 @@ from library_codex.shortest_path.ZeroOneBFS import zero_one_bfs
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`zero_one_bfs(graph, start=0)`](../../../shortest_path/ZeroOneBFS.py#L12) | `zero`・`one`・`bfs`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`zero_one_bfs(graph, start=0)`](../../../shortest_path/ZeroOneBFS.py#L12) | `zero`・`one`・`bfs`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) | — |

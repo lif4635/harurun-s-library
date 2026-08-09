@@ -3,7 +3,6 @@
 
 無向グラフの連結成分番号と成分ごとの頂点を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph_connectivity/ConnectedComponents.py`](../../../graph_connectivity/ConnectedComponents.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph_connectivity.ConnectedComponents import connected_compo
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`connected_components(graph)`](../../../graph_connectivity/ConnectedComponents.py#L3) | `connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(連結成分番号（数値または入力要素型）, `groups`（list）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`connected_components(graph)`](../../../graph_connectivity/ConnectedComponents.py#L3) | `connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(連結成分番号（数値または入力要素型）, `groups`（list）) | — |

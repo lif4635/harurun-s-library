@@ -3,7 +3,6 @@
 
 多項式を別の多項式で割った剰余環上の逆元と冪を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`polynomial/PolynomialModularPower.py`](../../../polynomial/PolynomialModularPower.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,7 +19,7 @@ from library_codex.polynomial.PolynomialModularPower import polynomial_inverse_m
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L18) | 多項式・逆元・`mod`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `poly_mod(inverse, modulus, mod)` |
-| [`polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L27) | 多項式・`pow`・`mod`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`exponent`: 非負の指数<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L18) | 多項式・逆元・`mod`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `poly_mod(inverse, modulus, mod)` | — |
+| [`polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L27) | 多項式・`pow`・`mod`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`exponent`: 非負の指数<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | — |

@@ -20,9 +20,9 @@ from library_codex.graph_connectivity.LowLink import lowlink, LowLink
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`lowlink(n, edges)`](../../../graph_connectivity/LowLink.py#L125) | `lowlink`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | LowLink instance |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`lowlink(n, edges)`](../../../graph_connectivity/LowLink.py#L125) | `lowlink`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | LowLink instance | — |
 
 ## Class `LowLink`
 
@@ -31,9 +31,10 @@ from library_codex.graph_connectivity.LowLink import lowlink, LowLink
 - constructor: [`LowLink(n, edges=None)`](../../../graph_connectivity/LowLink.py#L8)
 - 引数: `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list。省略時: `None`
 - 返り値: `LowLink` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_edge(u, v)`](../../../graph_connectivity/LowLink.py#L31) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号 | `edge_id` |
-| [`get_edge(edge_id)`](../../../graph_connectivity/LowLink.py#L41) | method | edge_idに対応する辺情報を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |
-| [`build()`](../../../graph_connectivity/LowLink.py#L44) | method | 内部構造を構築する。 | なし | `self` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_edge(u, v)`](../../../graph_connectivity/LowLink.py#L31) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号 | `edge_id` | — |
+| [`get_edge(edge_id)`](../../../graph_connectivity/LowLink.py#L41) | method | edge_idに対応する辺情報を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) | — |
+| [`build()`](../../../graph_connectivity/LowLink.py#L44) | method | 内部構造を構築する。 | なし | `self` | — |

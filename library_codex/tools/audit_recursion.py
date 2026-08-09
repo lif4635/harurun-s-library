@@ -69,7 +69,7 @@ def build_graph(root, selected=()):
             relative = path.relative_to(root).as_posix()
         except ValueError:
             relative = path.as_posix()
-        tree = ast.parse(path.read_text(), filename=str(path))
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         functions.extend(definitions(tree, relative))
     graph = {name: set() for name, _, _, _ in functions}
     module_functions = {}

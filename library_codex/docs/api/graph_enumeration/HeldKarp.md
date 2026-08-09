@@ -3,7 +3,6 @@
 
 全頂点を一度ずつ通る最短Hamilton pathまたはcycleをbit DPで求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph_enumeration/HeldKarp.py`](../../../graph_enumeration/HeldKarp.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,7 +19,7 @@ from library_codex.graph_enumeration.HeldKarp import held_karp_path, held_karp_c
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`held_karp_path(distance, start=None, goal=None, restore=False)`](../../../graph_enumeration/HeldKarp.py#L3) | `held`・`karp`・pathを求める。 | `distance`: 距離・距離配列<br>`start`: 始点・開始位置。省略時: `None`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None`<br>`restore`: 復元情報も計算するか。省略時: `False` | tuple/int `(0, []) if restore else 0` / 答え / tuple(`inf`（float）, list `[]`) / tuple(答え, 頂点・要素を処理順に並べたlist[int]) |
-| [`held_karp_cycle(distance, start=0, restore=False)`](../../../graph_enumeration/HeldKarp.py#L66) | `held`・`karp`・閉路を求める。 | `distance`: 距離・距離配列<br>`start`: 始点・開始位置。省略時: `0`<br>`restore`: 復元情報も計算するか。省略時: `False` | tuple/int `(result, [start, start] if n else []) if restore else result` / 答え（数値または入力要素型） / tuple(`inf`（float）, list `[]`) / tuple(答え（数値または入力要素型）, 頂点・要素を処理順に並べたlist[int]) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`held_karp_path(distance, start=None, goal=None, restore=False)`](../../../graph_enumeration/HeldKarp.py#L3) | `held`・`karp`・pathを求める。 | `distance`: 距離・距離配列<br>`start`: 始点・開始位置。省略時: `None`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None`<br>`restore`: 復元情報も計算するか。省略時: `False` | tuple/int `(0, []) if restore else 0` / 答え / tuple(`inf`（float）, list `[]`) / tuple(答え, 頂点・要素を処理順に並べたlist[int]) | O(N^2 2^N) |
+| [`held_karp_cycle(distance, start=0, restore=False)`](../../../graph_enumeration/HeldKarp.py#L66) | `held`・`karp`・閉路を求める。 | `distance`: 距離・距離配列<br>`start`: 始点・開始位置。省略時: `0`<br>`restore`: 復元情報も計算するか。省略時: `False` | tuple/int `(result, [start, start] if n else []) if restore else result` / 答え（数値または入力要素型） / tuple(`inf`（float）, list `[]`) / tuple(答え（数値または入力要素型）, 頂点・要素を処理順に並べたlist[int]) | — |

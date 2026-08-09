@@ -3,7 +3,6 @@
 
 矩形への一括加算後に別の矩形和をofflineで求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`spatial_structure/RectangleAddRectangleSum.py`](../../../spatial_structure/RectangleAddRectangleSum.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.spatial_structure.RectangleAddRectangleSum import RectangleAd
 - constructor: [`RectangleAddRectangleSum()`](../../../spatial_structure/RectangleAddRectangleSum.py#L10)
 - 引数: なし
 - 返り値: `RectangleAddRectangleSum` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(left, bottom, right, top, value)`](../../../spatial_structure/RectangleAddRectangleSum.py#L14) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`query(left, bottom, right, top)`](../../../spatial_structure/RectangleAddRectangleSum.py#L19) | method | 半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の重み総和queryを登録する。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | None — 値は返さない。solveが登録順の各query結果を返す。 |
-| [`solve()`](../../../spatial_structure/RectangleAddRectangleSum.py#L24) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(left, bottom, right, top, value)`](../../../spatial_structure/RectangleAddRectangleSum.py#L14) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む）<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`query(left, bottom, right, top)`](../../../spatial_structure/RectangleAddRectangleSum.py#L19) | method | 半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の重み総和queryを登録する。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | None — 値は返さない。solveが登録順の各query結果を返す。 | — |
+| [`solve()`](../../../spatial_structure/RectangleAddRectangleSum.py#L24) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | — |

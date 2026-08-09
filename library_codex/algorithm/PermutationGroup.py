@@ -1,5 +1,16 @@
 def simplify_permutation_subgroup(n, permutations, force_size_n=True):
-    """Return a stabilizer-chain transversal for a generated subgroup."""
+    """Build orbit representatives along a stabilizer chain.
+
+    ``result[i]`` contains one representative for each reachable image of
+    ``i`` under the subgroup that fixes ``i + 1, ..., n - 1``.  Every
+    representative in that level fixes those larger points.  Consequently,
+    flattening the levels generates the same group as the input, and the
+    group order is the product of the nonempty level lengths.
+
+    With ``force_size_n=True`` every representative is a permutation of
+    ``range(n)``.  Otherwise, representatives in level ``i`` have length
+    ``i + 1`` because the omitted suffix is fixed pointwise.
+    """
     if n < 1:
         raise ValueError("n must be positive")
     identity = list(range(n))
@@ -83,4 +94,3 @@ def simplify_permutation_subgroup(n, permutations, force_size_n=True):
 
 
 SimplifyPermutationSubgroup = simplify_permutation_subgroup
-

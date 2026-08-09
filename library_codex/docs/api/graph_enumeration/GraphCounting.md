@@ -34,10 +34,10 @@ from library_codex.graph_enumeration.GraphCounting import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`chromatic_polynomial(graph, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L23) | `chromatic`・多項式を求める。 | `graph`: 隣接listまたはグラフobject<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 答え（数値または入力要素型） |
-| [`evaluate_polynomial(coefficients, value, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L67) | 入力した多項式・式を指定点で評価する。 | `coefficients`: 係数列<br>`value`: 追加・設定・問い合わせる値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
-| [`count_spanning_trees(n, edges, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L74) | 無向グラフの全域木の個数をMatrix-Tree theoremで求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — 無向全域木の重み付き個数をmodで割った値 |
-| [`count_directed_spanning_trees(n, edges, root, toward_root=True, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L98) | 有向・全域・`trees`の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`toward_root`: `toward`・根として使う入力。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` |
-| [`count_eulerian_circuits(n, edges, root=None, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L128) | `eulerian`・`circuits`の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / `1` / 答え（数値または入力要素型） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`chromatic_polynomial(graph, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L23) | `chromatic`・多項式を求める。 | `graph`: 隣接listまたはグラフobject<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / 答え（数値または入力要素型） | O(N 2^N) |
+| [`evaluate_polynomial(coefficients, value, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L67) | 入力した多項式・式を指定点で評価する。 | `coefficients`: 係数列<br>`value`: 追加・設定・問い合わせる値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） | — |
+| [`count_spanning_trees(n, edges, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L74) | 無向グラフの全域木の個数をMatrix-Tree theoremで求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — 無向全域木の重み付き個数をmodで割った値 | O(V^3) |
+| [`count_directed_spanning_trees(n, edges, root, toward_root=True, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L98) | 有向・全域・`trees`の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`toward_root`: `toward`・根として使う入力。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` | — |
+| [`count_eulerian_circuits(n, edges, root=None, mod=DEFAULT_MOD)`](../../../graph_enumeration/GraphCounting.py#L128) | `eulerian`・`circuits`の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / `1` / 答え（数値または入力要素型） | — |

@@ -19,6 +19,7 @@ from api_metadata import (
     API_DETAILS_BY_SYMBOL,
     ARGUMENT_DETAILS,
     CLASS_DETAILS_BY_SYMBOL,
+    COMPLEXITY_BY_MODULE,
     MODULE_CAPABILITIES,
     PURPOSE_BY_NAME,
     RETURN_DETAILS,
@@ -48,7 +49,18 @@ MODULE_OVERRIDES = {
     ),
     "algorithm/Base64Integers.py": ("符号付き整数列のBase64可変長符号化・復号", "入出力サイズに線形"),
     "algorithm/MiscAlgorithms.py": ("商列挙・区間列挙などの汎用小アルゴリズム", "各標準計算量"),
-    "algorithm/PermutationGroup.py": ("置換の合成・逆元と置換群の生成元簡約", "主に O(N^2K)"),
+    "algorithm/PermutationGroup.py": (
+        "置換群の安定化列と軌道代表元",
+        "O(N^2 K)を目安（Kは生成元数）",
+    ),
+    "convolution/MiddleProduct.py": (
+        "長い列と短い列のずらし内積を求める高速middle product",
+        "O(N log N)、短い入力では O(M(N-M+1))",
+    ),
+    "ordered_set/RangeSet.py": (
+        "整数集合を互いに交わらない半開区間で保持するRangeSet",
+        "contains・mex O(log I)、add・discard O((K+1) log I)",
+    ),
     "algorithm/SequenceOrdering.py": ("点更新される列の辞書順比較・版圧縮", "更新・比較 O(log N)"),
     "convolution/AdvancedSeries.py": ("指数合成・等比点評価など高度なFPS変換", "主に高速多項式演算依存"),
     "convolution/FPSWrappers.py": ("有理FPSと双対FPSの演算ラッパー", "各FPS演算依存"),
@@ -1494,6 +1506,21 @@ def source_link(relative_path, lineno=None):
     return "../../../%s%s" % (relative_path.as_posix(), suffix)
 
 
+def symbol_complexity(module_key, node, owner=None):
+    configured = COMPLEXITY_BY_MODULE.get(module_key, {})
+    qualified = "%s.%s" % (owner, node.name) if owner else node.name
+    value = configured.get(qualified) or configured.get(node.name)
+    if value:
+        return value
+    docstring = ast.get_docstring(node, clean=True) or ""
+    terms = []
+    for match in re.finditer(r"O\([^\n.]+?\)", docstring):
+        term = match.group(0)
+        if term not in terms:
+            terms.append(term)
+    return " / ".join(terms) if terms else "—"
+
+
 def method_row(
     node, source_relative, owner, argument_overrides, return_overrides,
     module_key,
@@ -1522,8 +1549,11 @@ def method_row(
         owner=owner,
     )
     api = "[%s](%s)" % (code(signature), source_link(source_relative, node.lineno))
-    return "| %s | %s | %s | %s | %s |" % tuple(
-        markdown_escape(value) for value in (api, kind, purpose, arguments, returned)
+    complexity = symbol_complexity(module_key, node, owner)
+    return "| %s | %s | %s | %s | %s | %s |" % tuple(
+        markdown_escape(value) for value in (
+            api, kind, purpose, arguments, returned, complexity
+        )
     )
 
 
@@ -1532,7 +1562,7 @@ def function_row(
 ):
     signature = render_signature(node.name, node)
     api = "[%s](%s)" % (code(signature), source_link(source_relative, node.lineno))
-    return "| %s | %s | %s | %s |" % tuple(markdown_escape(value) for value in (
+    return "| %s | %s | %s | %s | %s |" % tuple(markdown_escape(value) for value in (
         api, purpose_for(node.name, node, module_key=module_key),
         render_arguments(
             node,
@@ -1546,7 +1576,8 @@ def function_row(
             return_overrides,
             module_key=module_key,
             owner=None,
-        )
+        ),
+        symbol_complexity(module_key, node),
     ))
 
 
@@ -1598,12 +1629,15 @@ def render_module(path, overview, complexity):
         "",
         overview.rstrip("。") + "。",
         "",
-        "- 計算量の目安: %s" % complexity,
+    ]
+    if complexity:
+        lines.append("- 計算量の目安: %s" % complexity)
+    lines.extend([
         "- source: [`%s`](%s)" % (relative.as_posix(), source_link(relative)),
         "- 公開API: function %d、class %d、method/property %d（Python protocol %dを含む）" % (
             len(functions), len(classes), count_methods, protocol_count),
         "",
-    ]
+    ])
     lines.extend(["## できること", ""])
     lines.extend("- " + item for item in module_capabilities(
         relative_key, overview, functions, classes
@@ -1630,8 +1664,8 @@ def render_module(path, overview, complexity):
     if functions:
         lines.extend([
             "## Functions", "",
-            "| signature | 用途 | 引数 | 返り値 |",
-            "| --- | --- | --- | --- |",
+            "| signature | 用途 | 引数 | 返り値 | 計算量 |",
+            "| --- | --- | --- | --- | --- |",
         ])
         lines.extend(
             function_row(
@@ -1673,6 +1707,11 @@ def render_module(path, overview, complexity):
             "- 引数: %s" % args,
             "- 返り値: `%s` instance" % class_node.name,
         ])
+        constructor_complexity = (
+            COMPLEXITY_BY_MODULE.get(relative_key, {}).get(class_node.name)
+            or "—"
+        )
+        lines.append("- 計算量: %s" % constructor_complexity)
         creates = class_detail(relative_key, class_node.name).get(
             "constructorCreates"
         )
@@ -1693,8 +1732,8 @@ def render_module(path, overview, complexity):
         methods = public_methods(class_node)
         if methods:
             lines.extend([
-                "| method / property | 種別 | 用途 | 引数 | 返り値 |",
-                "| --- | --- | --- | --- | --- |",
+                "| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |",
+                "| --- | --- | --- | --- | --- | --- |",
             ])
             lines.extend(
                 method_row(
@@ -1810,7 +1849,7 @@ def build_documents():
                 if module_docstring
                 else translated_object(path.stem)
             )
-            complexity = "各操作の計算量はAPI表を参照"
+            complexity = ""
         else:
             overview, complexity = overviews[key]
         content, counts = render_module(path, overview, complexity)

@@ -19,6 +19,6 @@ from library_codex.algorithm.ModularProgression import split_mod_progression
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`split_mod_progression(multiplier, addend, count, modulus)`](../../../algorithm/ModularProgression.py#L6) | (multiplier*i+addend) mod modulusを等差な区間へ分割する。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`count`: 個数<br>`modulus`: 法 | list[tuple[int, int, int, int, int]] — (開始index, 開始値, index差, 値の差, 長さ)の列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`split_mod_progression(multiplier, addend, count, modulus)`](../../../algorithm/ModularProgression.py#L6) | (multiplier*i+addend) mod modulusを等差な区間へ分割する。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`count`: 個数<br>`modulus`: 法 | list[tuple[int, int, int, int, int]] — (開始index, 開始値, index差, 値の差, 長さ)の列 | O(sqrt(count) + number of runs) |

@@ -22,9 +22,9 @@ from library_codex.linear_algebra.PolynomialMatrix import polynomial_matrix_dete
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`polynomial_matrix_determinant(matrix, mod=DEFAULT_MOD)`](../../../linear_algebra/PolynomialMatrix.py#L37) | 多項式・行列・`determinant`を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `polynomial_interpolation(points, values, mod)` |
-| [`determinant_a_plus_xb(first, second, mod=DEFAULT_MOD, seed=None, trials=8)`](../../../linear_algebra/PolynomialMatrix.py#L62) | `determinant`・`a`・`plus`・`xb`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `8` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `fps_taylor_shift(polynomial, shift, mod)` / `polynomial_matrix_determinant(polynomial_matrix, mod)` |
-| [`polynomial_matrix_prefix_product(matrix, count, mod=DEFAULT_MOD)`](../../../linear_algebra/PolynomialMatrix.py#L120) | 多項式・行列・prefix・積を計算する。 | `matrix`: 行をlistで持つ行列<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `identity_matrix(size)` / 計算結果 |
-| [`spanning_tree_polynomial(vertex_count, edges, mod=DEFAULT_MOD)`](../../../linear_algebra/PolynomialMatrix.py#L184) | 全域・木・多項式を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `polynomial_matrix_determinant(laplacian, mod)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`polynomial_matrix_determinant(matrix, mod=DEFAULT_MOD)`](../../../linear_algebra/PolynomialMatrix.py#L37) | 多項式・行列・`determinant`を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `polynomial_interpolation(points, values, mod)` | — |
+| [`determinant_a_plus_xb(first, second, mod=DEFAULT_MOD, seed=None, trials=8)`](../../../linear_algebra/PolynomialMatrix.py#L62) | `determinant`・`a`・`plus`・`xb`を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `None`<br>`trials`: 乱択試行回数。省略時: `8` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `fps_taylor_shift(polynomial, shift, mod)` / `polynomial_matrix_determinant(polynomial_matrix, mod)` | — |
+| [`polynomial_matrix_prefix_product(matrix, count, mod=DEFAULT_MOD)`](../../../linear_algebra/PolynomialMatrix.py#L120) | 多項式・行列・prefix・積を計算する。 | `matrix`: 行をlistで持つ行列<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `identity_matrix(size)` / 計算結果 | — |
+| [`spanning_tree_polynomial(vertex_count, edges, mod=DEFAULT_MOD)`](../../../linear_algebra/PolynomialMatrix.py#L184) | 全域・木・多項式を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `polynomial_matrix_determinant(laplacian, mod)` | — |

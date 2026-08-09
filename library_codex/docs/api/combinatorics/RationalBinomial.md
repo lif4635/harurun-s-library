@@ -3,7 +3,6 @@
 
 有理数として二項係数を正確に計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`combinatorics/RationalBinomial.py`](../../../combinatorics/RationalBinomial.py)
 - 公開API: function 0、class 1、method/property 7（Python protocol 0を含む）
 
@@ -24,13 +23,14 @@ from library_codex.combinatorics.RationalBinomial import RationalBinomial
 - constructor: [`RationalBinomial()`](../../../combinatorics/RationalBinomial.py#L7)
 - 引数: なし
 - 返り値: `RationalBinomial` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`fac(number)`](../../../combinatorics/RationalBinomial.py#L8) | method | `fac`を求める。 | `number`: 整数 | Fraction `Fraction(math.factorial(number)) if number >= 0 else Fraction(0)` |
-| [`finv(number)`](../../../combinatorics/RationalBinomial.py#L11) | method | `finv`を求める。 | `number`: 整数 | 数値または入力要素型/Fraction `1 / self.fac(number) if number >= 0 else Fraction(0)` |
-| [`inv(number)`](../../../combinatorics/RationalBinomial.py#L14) | method | `inv`を求める。 | `number`: 整数 | Fraction `Fraction(1, number) if number else Fraction(1)` |
-| [`C(number, chosen)`](../../../combinatorics/RationalBinomial.py#L17) | method | 二項係数 $\binom{\mathrm{number}}{\mathrm{chosen}}$ を正確に求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction — $\binom{\mathrm{number}}{\mathrm{chosen}}$ を表すFraction。$0\le\mathrm{chosen}\le\mathrm{number}$ でなければ0。 |
-| [`P(number, chosen)`](../../../combinatorics/RationalBinomial.py#L20) | method | `p`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction `Fraction(math.perm(number, chosen)) if 0 <= chosen <= number e...` |
-| [`H(number, chosen)`](../../../combinatorics/RationalBinomial.py#L23) | method | `h`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction instance / Fraction `Fraction(1) if chosen == 0 else self.C(number + chosen - 1, ch...` |
-| [`multinomial(groups)`](../../../combinatorics/RationalBinomial.py#L28) | method | `multinomial`を求める。 | `groups`: 処理対象を順に並べた列 | Fraction instance |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`fac(number)`](../../../combinatorics/RationalBinomial.py#L8) | method | `fac`を求める。 | `number`: 整数 | Fraction `Fraction(math.factorial(number)) if number >= 0 else Fraction(0)` | — |
+| [`finv(number)`](../../../combinatorics/RationalBinomial.py#L11) | method | `finv`を求める。 | `number`: 整数 | 数値または入力要素型/Fraction `1 / self.fac(number) if number >= 0 else Fraction(0)` | — |
+| [`inv(number)`](../../../combinatorics/RationalBinomial.py#L14) | method | `inv`を求める。 | `number`: 整数 | Fraction `Fraction(1, number) if number else Fraction(1)` | — |
+| [`C(number, chosen)`](../../../combinatorics/RationalBinomial.py#L17) | method | 二項係数 $\binom{\mathrm{number}}{\mathrm{chosen}}$ を正確に求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction — $\binom{\mathrm{number}}{\mathrm{chosen}}$ を表すFraction。$0\le\mathrm{chosen}\le\mathrm{number}$ でなければ0。 | — |
+| [`P(number, chosen)`](../../../combinatorics/RationalBinomial.py#L20) | method | `p`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction `Fraction(math.perm(number, chosen)) if 0 <= chosen <= number e...` | — |
+| [`H(number, chosen)`](../../../combinatorics/RationalBinomial.py#L23) | method | `h`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | Fraction instance / Fraction `Fraction(1) if chosen == 0 else self.C(number + chosen - 1, ch...` | — |
+| [`multinomial(groups)`](../../../combinatorics/RationalBinomial.py#L28) | method | `multinomial`を求める。 | `groups`: 処理対象を順に並べた列 | Fraction instance | — |

@@ -24,33 +24,34 @@ from library_codex.string.PersistentString import PersistentString
 - constructor: [`PersistentString(sequence='')`](../../../string/PersistentString.py#L193)
 - 引数: `sequence`: 入力列。省略時: `''`
 - 返り値: `PersistentString` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`MaxSize()`](../../../string/PersistentString.py#L207) | method | 最大・`size`を求める。 | なし | `_MAX_SIZE` |
-| [`__len__()`](../../../string/PersistentString.py#L210) | method | len(obj)。 | なし | 要素数（int） |
-| [`size()`](../../../string/PersistentString.py#L214) | method | 要素数または連結成分sizeを返す。 | なし | size（int） |
-| [`empty()`](../../../string/PersistentString.py#L217) | method | 空かどうかを判定する。 | なし | bool |
-| [`depth`](../../../string/PersistentString.py#L221) | property | 内部の永続平衡木の高さを返す。文字列長ではない。 | なし | int `0 if root is None else root.height` |
-| [`copy()`](../../../string/PersistentString.py#L225) | method | `copy`を求める。 | なし | `self._from_root(self._root, self._kind)` |
-| [`__add__(other)`](../../../string/PersistentString.py#L239) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | `self._from_root(_join(self._root, other._root), kind)` |
-| [`__iadd__(other)`](../../../string/PersistentString.py#L245) | method | obj += other。 | `other`: 同じ型のもう一方のobject・値 | `self` |
-| [`__mul__(count)`](../../../string/PersistentString.py#L251) | method | obj * other。 | `count`: 個数 | 計算結果（数値または入力要素型） |
-| [`__imul__(count)`](../../../string/PersistentString.py#L270) | method | obj *= other。 | `count`: 個数 | `self` |
-| [`substr(position, length=None)`](../../../string/PersistentString.py#L275) | method | `substr`を求める。 | `position`: 位置<br>`length`: 長さ。省略時: `None` | `self._from_root(_subroot(self._root, position, right), self._k...` |
-| [`inserted(other, position)`](../../../string/PersistentString.py#L291) | method | `inserted`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 位置 | `self._from_root(root, kind)` |
-| [`insert(other, position)`](../../../string/PersistentString.py#L302) | method | 指定位置へ要素を挿入する。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 位置 | `self` |
-| [`deleted(left, right)`](../../../string/PersistentString.py#L308) | method | `deleted`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._from_root(_join(before, suffix), self._kind)` |
-| [`replaced(left, right, other)`](../../../string/PersistentString.py#L316) | method | `replaced`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`other`: 同じ型のもう一方のobject・値 | `self.deleted(left, right).inserted(other, left)` |
-| [`__getitem__(index)`](../../../string/PersistentString.py#L321) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
-| [`__iter__()`](../../../string/PersistentString.py#L345) | method | iter(obj)・for 文。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする |
-| [`to_sequence()`](../../../string/PersistentString.py#L349) | method | `to`・`sequence`を求める。 | なし | `''.join(parts)` / `b''.join(parts)` / tuple — 用途欄に示した複数の結果を順に格納 |
-| [`lcp(other)`](../../../string/PersistentString.py#L362) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `len(self)` / 数値または入力要素型 `result + offset` / 計算結果（int） |
-| [`compare(other)`](../../../string/PersistentString.py#L395) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` |
-| [`__eq__(other)`](../../../string/PersistentString.py#L404) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__lt__(other)`](../../../string/PersistentString.py#L414) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__le__(other)`](../../../string/PersistentString.py#L417) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__gt__(other)`](../../../string/PersistentString.py#L420) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__ge__(other)`](../../../string/PersistentString.py#L423) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__str__()`](../../../string/PersistentString.py#L426) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self._kind == 1 else str(value)` |
-| [`__repr__()`](../../../string/PersistentString.py#L430) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'PersistentString({self.to_sequence()!r})'` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`MaxSize()`](../../../string/PersistentString.py#L207) | method | 最大・`size`を求める。 | なし | `_MAX_SIZE` | — |
+| [`__len__()`](../../../string/PersistentString.py#L210) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`size()`](../../../string/PersistentString.py#L214) | method | 要素数または連結成分sizeを返す。 | なし | size（int） | — |
+| [`empty()`](../../../string/PersistentString.py#L217) | method | 空かどうかを判定する。 | なし | bool | — |
+| [`depth`](../../../string/PersistentString.py#L221) | property | 内部の永続平衡木の高さを返す。文字列長ではない。 | なし | int `0 if root is None else root.height` | — |
+| [`copy()`](../../../string/PersistentString.py#L225) | method | `copy`を求める。 | なし | `self._from_root(self._root, self._kind)` | — |
+| [`__add__(other)`](../../../string/PersistentString.py#L239) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | `self._from_root(_join(self._root, other._root), kind)` | — |
+| [`__iadd__(other)`](../../../string/PersistentString.py#L245) | method | obj += other。 | `other`: 同じ型のもう一方のobject・値 | `self` | — |
+| [`__mul__(count)`](../../../string/PersistentString.py#L251) | method | obj * other。 | `count`: 個数 | 計算結果（数値または入力要素型） | — |
+| [`__imul__(count)`](../../../string/PersistentString.py#L270) | method | obj *= other。 | `count`: 個数 | `self` | — |
+| [`substr(position, length=None)`](../../../string/PersistentString.py#L275) | method | `substr`を求める。 | `position`: 位置<br>`length`: 長さ。省略時: `None` | `self._from_root(_subroot(self._root, position, right), self._k...` | — |
+| [`inserted(other, position)`](../../../string/PersistentString.py#L291) | method | `inserted`を求める。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 位置 | `self._from_root(root, kind)` | — |
+| [`insert(other, position)`](../../../string/PersistentString.py#L302) | method | 指定位置へ要素を挿入する。 | `other`: 同じ型のもう一方のobject・値<br>`position`: 位置 | `self` | — |
+| [`deleted(left, right)`](../../../string/PersistentString.py#L308) | method | `deleted`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._from_root(_join(before, suffix), self._kind)` | — |
+| [`replaced(left, right, other)`](../../../string/PersistentString.py#L316) | method | `replaced`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`other`: 同じ型のもう一方のobject・値 | `self.deleted(left, right).inserted(other, left)` | — |
+| [`__getitem__(index)`](../../../string/PersistentString.py#L321) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
+| [`__iter__()`](../../../string/PersistentString.py#L345) | method | iter(obj)・for 文。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |
+| [`to_sequence()`](../../../string/PersistentString.py#L349) | method | `to`・`sequence`を求める。 | なし | `''.join(parts)` / `b''.join(parts)` / tuple — 用途欄に示した複数の結果を順に格納 | — |
+| [`lcp(other)`](../../../string/PersistentString.py#L362) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `len(self)` / 数値または入力要素型 `result + offset` / 計算結果（int） | — |
+| [`compare(other)`](../../../string/PersistentString.py#L395) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` | — |
+| [`__eq__(other)`](../../../string/PersistentString.py#L404) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__lt__(other)`](../../../string/PersistentString.py#L414) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__le__(other)`](../../../string/PersistentString.py#L417) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__gt__(other)`](../../../string/PersistentString.py#L420) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__ge__(other)`](../../../string/PersistentString.py#L423) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__str__()`](../../../string/PersistentString.py#L426) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self._kind == 1 else str(value)` | — |
+| [`__repr__()`](../../../string/PersistentString.py#L430) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'PersistentString({self.to_sequence()!r})'` | — |

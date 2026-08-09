@@ -1544,6 +1544,8 @@ def infer_complexity(
     hint = class_documented.get(owner, "") if owner else ""
     if not hint:
         hint = module_complexity
+    if hint == "各操作の計算量はAPI表を参照":
+        hint = ""
     clauses = complexity_clauses(hint)
 
     preferences = []
@@ -1634,9 +1636,11 @@ def table_symbols(
         if kind == "function":
             row_kind = "function"
             description_index, arguments_index, returns_index = 1, 2, 3
+            complexity_index = 4
         else:
             row_kind = clean_markdown(cells[1]) if len(cells) > 1 else "method"
             description_index, arguments_index, returns_index = 2, 3, 4
+            complexity_index = 5
         signature = signature_match.group(1)
         symbol_name = signature.split("(", 1)[0]
         source_line_match = re.search(r"#L(\d+)", cells[0])
@@ -1682,6 +1686,13 @@ def table_symbols(
             return_description,
             description,
         )
+        explicit_complexity = (
+            clean_markdown(cells[complexity_index])
+            if len(cells) > complexity_index
+            else ""
+        )
+        if explicit_complexity == "—":
+            explicit_complexity = ""
         item = {
                 "name": symbol_name,
                 "kind": row_kind,
@@ -1699,7 +1710,7 @@ def table_symbols(
                 "returns": clean_markdown(returns_value),
                 "returnFormat": return_format,
                 "returnDescription": return_description,
-                "complexity": infer_complexity(
+                "complexity": explicit_complexity or infer_complexity(
                     symbol_name,
                     owner,
                     module_complexity,

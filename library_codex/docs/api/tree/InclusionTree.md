@@ -3,7 +3,6 @@
 
 包含関係から親子木を構築する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`tree/InclusionTree.py`](../../../tree/InclusionTree.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.tree.InclusionTree import inclusion_tree
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`inclusion_tree(intervals, universe_size=None)`](../../../tree/InclusionTree.py#L3) | `inclusion`・木を求める。 | `intervals`: 区間 `(left, right)` のiterable<br>`universe_size`: 処理対象の個数。省略時: `None` | tuple(`graph`（list）, list `[(left, right) for (left, right, _) in indexed]`, list `[original for (_, _, original) in indexed]`) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`inclusion_tree(intervals, universe_size=None)`](../../../tree/InclusionTree.py#L3) | `inclusion`・木を求める。 | `intervals`: 区間 `(left, right)` のiterable<br>`universe_size`: 処理対象の個数。省略時: `None` | tuple(`graph`（list）, list `[(left, right) for left, right, _ in indexed]`, list `[original for _, _, original in indexed]`) | — |

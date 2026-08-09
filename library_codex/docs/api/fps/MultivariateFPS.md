@@ -24,21 +24,22 @@ from library_codex.fps.MultivariateFPS import MultivariateFormalPowerSeries
 - constructor: [`MultivariateFormalPowerSeries(coefficients=None, base=(), mod=DEFAULT_MOD)`](../../../fps/MultivariateFPS.py#L8)
 - 引数: `coefficients`: 係数列。省略時: `None`<br>`base`: 底・基準となる値または列。省略時: `()`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
 - 返り値: `MultivariateFormalPowerSeries` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`index(*indices)`](../../../fps/MultivariateFPS.py#L24) | method | 多変数の指数tupleを、係数配列の1次元indexへ変換する。 | `*indices`: 位置の列 | 計算結果（int） |
-| [`get(*indices)`](../../../fps/MultivariateFPS.py#L38) | method | 指定した指数tupleに対応する係数 $[x_0^{i_0}\cdots x_{d-1}^{i_{d-1}}]f$ を返す。 | `*indices`: 位置の列 | int — $\mathrm{mod}$ で正規化された指定monomialの係数。 |
-| [`set(*indices_and_value)`](../../../fps/MultivariateFPS.py#L41) | method | 指定位置・状態を値で置き換える。 | `*indices_and_value`: 処理対象の値 | `None` |
-| [`__add__(other)`](../../../fps/MultivariateFPS.py#L54) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance |
-| [`__neg__()`](../../../fps/MultivariateFPS.py#L64) | method | -obj。 | なし | MultivariateFormalPowerSeries instance |
-| [`__sub__(other)`](../../../fps/MultivariateFPS.py#L70) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, MultivariateFormalPowerSer...` |
-| [`__rsub__(other)`](../../../fps/MultivariateFPS.py#L74) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `-self + other` |
-| [`__mul__(other)`](../../../fps/MultivariateFPS.py#L77) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance |
-| [`__truediv__(other)`](../../../fps/MultivariateFPS.py#L89) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * other.inverse()` / 数値または入力要素型 `self * pow(other, -1, self.mod)` |
-| [`derivative()`](../../../fps/MultivariateFPS.py#L94) | method | 入力した多項式・級数を形式微分する。 | なし | MultivariateFormalPowerSeries instance |
-| [`integral()`](../../../fps/MultivariateFPS.py#L103) | method | 入力した多項式・級数を形式積分する。 | なし | MultivariateFormalPowerSeries instance |
-| [`inverse()`](../../../fps/MultivariateFPS.py#L109) | method | 逆元・逆変換を求める。 | なし | `current`（数値または入力要素型） |
-| [`logarithm()`](../../../fps/MultivariateFPS.py#L130) | method | 対数を計算する。 | なし | `(self.derivative() * self.inverse()).integral()` |
-| [`exponential()`](../../../fps/MultivariateFPS.py#L137) | method | 指数を計算する。 | なし | `current`（数値または入力要素型） |
-| [`power(exponent)`](../../../fps/MultivariateFPS.py#L152) | method | 多変数形式的冪級数の整数冪 $f^{\mathrm{exponent}}$ を、保持している各変数の次数範囲で求める。 | `exponent`: 非負の指数 | MultivariateFormalPowerSeries — $f^{\mathrm{exponent}}$ の打ち切られた係数を持つ新しいMultivariateFormalPowerSeries。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`index(*indices)`](../../../fps/MultivariateFPS.py#L24) | method | 多変数の指数tupleを、係数配列の1次元indexへ変換する。 | `*indices`: 位置の列 | 計算結果（int） | — |
+| [`get(*indices)`](../../../fps/MultivariateFPS.py#L38) | method | 指定した指数tupleに対応する係数 $[x_0^{i_0}\cdots x_{d-1}^{i_{d-1}}]f$ を返す。 | `*indices`: 位置の列 | int — $\mathrm{mod}$ で正規化された指定monomialの係数。 | — |
+| [`set(*indices_and_value)`](../../../fps/MultivariateFPS.py#L41) | method | 指定位置・状態を値で置き換える。 | `*indices_and_value`: 処理対象の値 | `None` | — |
+| [`__add__(other)`](../../../fps/MultivariateFPS.py#L54) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance | — |
+| [`__neg__()`](../../../fps/MultivariateFPS.py#L64) | method | -obj。 | なし | MultivariateFormalPowerSeries instance | — |
+| [`__sub__(other)`](../../../fps/MultivariateFPS.py#L70) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, MultivariateFormalPowerSer...` | — |
+| [`__rsub__(other)`](../../../fps/MultivariateFPS.py#L74) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `-self + other` | — |
+| [`__mul__(other)`](../../../fps/MultivariateFPS.py#L77) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | MultivariateFormalPowerSeries instance | — |
+| [`__truediv__(other)`](../../../fps/MultivariateFPS.py#L89) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * other.inverse()` / 数値または入力要素型 `self * pow(other, -1, self.mod)` | — |
+| [`derivative()`](../../../fps/MultivariateFPS.py#L94) | method | 入力した多項式・級数を形式微分する。 | なし | MultivariateFormalPowerSeries instance | — |
+| [`integral()`](../../../fps/MultivariateFPS.py#L103) | method | 入力した多項式・級数を形式積分する。 | なし | MultivariateFormalPowerSeries instance | — |
+| [`inverse()`](../../../fps/MultivariateFPS.py#L109) | method | 逆元・逆変換を求める。 | なし | `current`（数値または入力要素型） | — |
+| [`logarithm()`](../../../fps/MultivariateFPS.py#L130) | method | 対数を計算する。 | なし | `(self.derivative() * self.inverse()).integral()` | — |
+| [`exponential()`](../../../fps/MultivariateFPS.py#L137) | method | 指数を計算する。 | なし | `current`（数値または入力要素型） | — |
+| [`power(exponent)`](../../../fps/MultivariateFPS.py#L152) | method | 多変数形式的冪級数の整数冪 $f^{\mathrm{exponent}}$ を、保持している各変数の次数範囲で求める。 | `exponent`: 非負の指数 | MultivariateFormalPowerSeries — $f^{\mathrm{exponent}}$ の打ち切られた係数を持つ新しいMultivariateFormalPowerSeries。 | — |

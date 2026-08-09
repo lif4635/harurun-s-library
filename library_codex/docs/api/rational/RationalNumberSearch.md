@@ -3,7 +3,6 @@
 
 条件を満たす有理数をStern-Brocot木上で探索する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`rational/RationalNumberSearch.py`](../../../rational/RationalNumberSearch.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.rational.RationalNumberSearch import RationalNumberSearch
 - constructor: [`RationalNumberSearch(maximum)`](../../../rational/RationalNumberSearch.py#L8)
 - 引数: `maximum`: 最大として使う入力
 - 返り値: `RationalNumberSearch` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`has_next()`](../../../rational/RationalNumberSearch.py#L17) | method | `next`かどうかを判定する。 | なし | bool |
-| [`get_next()`](../../../rational/RationalNumberSearch.py#L20) | method | `next`を取得する。 | なし | tuple(数値または入力要素型 `self.a0 + self.a1`, 数値または入力要素型 `self.b0 + self.b1`) / tuple(数値または入力要素型 `self.a0 + self.right * self.a1`, 数値または入力要素型 `self.b0 + self.right * self.b1`) / tuple(数値または入力要素型 `self.a1 + self.right * self.a0`, 数値または入力要素型 `self.b1 + self.right * self.b0`) / tuple(数値または入力要素型 `self.a0 + middle * self.a1`, 数値または入力要素型 `self.b0 + middle * self.b1`) / ほか（source参照） |
-| [`give(to_right)`](../../../rational/RationalNumberSearch.py#L35) | method | `give`を求める。 | `to_right`: `to`・右として使う入力 | `None` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`has_next()`](../../../rational/RationalNumberSearch.py#L17) | method | `next`かどうかを判定する。 | なし | bool | — |
+| [`get_next()`](../../../rational/RationalNumberSearch.py#L20) | method | `next`を取得する。 | なし | tuple(数値または入力要素型 `self.a0 + self.a1`, 数値または入力要素型 `self.b0 + self.b1`) / tuple(数値または入力要素型 `self.a0 + self.right * self.a1`, 数値または入力要素型 `self.b0 + self.right * self.b1`) / tuple(数値または入力要素型 `self.a1 + self.right * self.a0`, 数値または入力要素型 `self.b1 + self.right * self.b0`) / tuple(数値または入力要素型 `self.a0 + middle * self.a1`, 数値または入力要素型 `self.b0 + middle * self.b1`) / ほか（source参照） | — |
+| [`give(to_right)`](../../../rational/RationalNumberSearch.py#L35) | method | `give`を求める。 | `to_right`: `to`・右として使う入力 | `None` | — |

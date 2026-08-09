@@ -3,7 +3,6 @@
 
 形式的冪級数と双対列の変換・作用を扱う。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps/DualFormalPowerSeries.py`](../../../fps/DualFormalPowerSeries.py)
 - 公開API: function 0、class 1、method/property 8（Python protocol 6を含む）
 
@@ -24,14 +23,15 @@ from library_codex.fps.DualFormalPowerSeries import DualFormalPowerSeries
 - constructor: [`DualFormalPowerSeries(coefficients=None, mod=DEFAULT_MOD)`](../../../fps/DualFormalPowerSeries.py#L20)
 - 引数: `coefficients`: 係数列。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
 - 返り値: `DualFormalPowerSeries` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`deg`](../../../fps/DualFormalPowerSeries.py#L25) | property | `deg`を求める。 | なし | `len(self.coefficients)` |
-| [`get()`](../../../fps/DualFormalPowerSeries.py#L28) | method | 現在の係数列のcopyを取り出す。 | なし | list[int] — $[x^i]f(x)$ をindex $i$ に格納した係数列。内部listとは共有しない。 |
-| [`__add__(other)`](../../../fps/DualFormalPowerSeries.py#L38) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |
-| [`__sub__(other)`](../../../fps/DualFormalPowerSeries.py#L45) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |
-| [`__rsub__(other)`](../../../fps/DualFormalPowerSeries.py#L50) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `DualFormalPowerSeries(self._coerce(other), self.mod) - self` |
-| [`__neg__()`](../../../fps/DualFormalPowerSeries.py#L53) | method | -obj。 | なし | DualFormalPowerSeries instance |
-| [`__mul__(other)`](../../../fps/DualFormalPowerSeries.py#L58) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance |
-| [`__lshift__(shift)`](../../../fps/DualFormalPowerSeries.py#L65) | method | obj << amount。 | `shift`: 平行移動量・bit shift量 | DualFormalPowerSeries instance |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`deg`](../../../fps/DualFormalPowerSeries.py#L25) | property | `deg`を求める。 | なし | `len(self.coefficients)` | — |
+| [`get()`](../../../fps/DualFormalPowerSeries.py#L28) | method | 現在の係数列のcopyを取り出す。 | なし | list[int] — $[x^i]f(x)$ をindex $i$ に格納した係数列。内部listとは共有しない。 | — |
+| [`__add__(other)`](../../../fps/DualFormalPowerSeries.py#L38) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | — |
+| [`__sub__(other)`](../../../fps/DualFormalPowerSeries.py#L45) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | — |
+| [`__rsub__(other)`](../../../fps/DualFormalPowerSeries.py#L50) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `DualFormalPowerSeries(self._coerce(other), self.mod) - self` | — |
+| [`__neg__()`](../../../fps/DualFormalPowerSeries.py#L53) | method | -obj。 | なし | DualFormalPowerSeries instance | — |
+| [`__mul__(other)`](../../../fps/DualFormalPowerSeries.py#L58) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | — |
+| [`__lshift__(shift)`](../../../fps/DualFormalPowerSeries.py#L65) | method | obj << amount。 | `shift`: 平行移動量・bit shift量 | DualFormalPowerSeries instance | — |

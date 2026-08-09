@@ -3,7 +3,6 @@
 
 998244353上で多項式の冪に関する係数をまとめて列挙する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps998/PowerProjection.py`](../../../fps998/PowerProjection.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,7 +18,7 @@ from library_codex.fps998.PowerProjection import power_projection, power_coeffic
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`power_projection(polynomial, weights, count)`](../../../fps998/PowerProjection.py#L92) | `result[i]=sum_j weights[j][x^j]polynomial(x)^i`を`0<=i<count`で返す。O(N log^2 N)。 | `polynomial`: 多項式 $f$ の昇べき順係数列。<br>`weights`: 係数ごとの重み列 $w$。<br>`count`: 求める冪の個数。$0\le i<\mathrm{count}$を返す。 | list[int] — 長さcountの列result。$\mathrm{result}[i]=\sum_j\mathrm{weights}[j][x^j]f(x)^i\bmod998244353$。 |
-| [`power_coefficient(polynomial, multiplier=None, count=None)`](../../../fps998/PowerProjection.py#L125) | `[x^n]polynomial(x)^i multiplier(x)`を`0<=i<count`で返す。O(N log^2 N)。 | `polynomial`: 多項式 $f$ の昇べき順係数列。<br>`multiplier`: 掛け合わせる多項式 $g$。省略時は1。。省略時: `None`<br>`count`: 求める冪の個数。省略時は$\deg f+1$。。省略時: `None` | list[int] — $n=\deg f$として、長さcountの列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod998244353$。 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`power_projection(polynomial, weights, count)`](../../../fps998/PowerProjection.py#L92) | `result[i]=sum_j weights[j][x^j]polynomial(x)^i`を`0<=i<count`で返す。O(N log^2 N)。 | `polynomial`: 多項式 $f$ の昇べき順係数列。<br>`weights`: 係数ごとの重み列 $w$。<br>`count`: 求める冪の個数。$0\le i<\mathrm{count}$を返す。 | list[int] — 長さcountの列result。$\mathrm{result}[i]=\sum_j\mathrm{weights}[j][x^j]f(x)^i\bmod998244353$。 | O(N log^2 N) |
+| [`power_coefficient(polynomial, multiplier=None, count=None)`](../../../fps998/PowerProjection.py#L125) | `[x^n]polynomial(x)^i multiplier(x)`を`0<=i<count`で返す。O(N log^2 N)。 | `polynomial`: 多項式 $f$ の昇べき順係数列。<br>`multiplier`: 掛け合わせる多項式 $g$。省略時は1。。省略時: `None`<br>`count`: 求める冪の個数。省略時は$\deg f+1$。。省略時: `None` | list[int] — $n=\deg f$として、長さcountの列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod998244353$。 | O(N log^2 N) |

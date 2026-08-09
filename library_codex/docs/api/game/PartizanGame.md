@@ -21,9 +21,9 @@ from library_codex.game.PartizanGame import solve_partizan_game, Surreal, NumSta
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`solve_partizan_game(states, options)`](../../../game/PartizanGame.py#L133) | `solve`・`partizan`・`game`を求める。 | `states`: 初期局面・局面集合<br>`options`: 局面から遷移先を列挙するcallback | dict[object, object] — keyは識別対象、valueは対応する計算結果 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`solve_partizan_game(states, options)`](../../../game/PartizanGame.py#L133) | `solve`・`partizan`・`game`を求める。 | `states`: 初期局面・局面集合<br>`options`: 局面から遷移先を列挙するcallback | dict[object, object] — keyは識別対象、valueは対応する計算結果 | — |
 
 ## Class `Surreal`
 
@@ -32,18 +32,19 @@ partizan gameのSurreal/NumStar値と反復solverを扱う `Surreal`。
 - constructor: [`Surreal(numerator=0, denominator=1)`](../../../game/PartizanGame.py#L7)
 - 引数: `numerator`: 有理式の分子多項式。省略時: `0`<br>`denominator`: 有理式の分母多項式。省略時: `1`
 - 返り値: `Surreal` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__eq__(other)`](../../../game/PartizanGame.py#L11) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__lt__(other)`](../../../game/PartizanGame.py#L14) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__le__(other)`](../../../game/PartizanGame.py#L17) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__gt__(other)`](../../../game/PartizanGame.py#L20) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__ge__(other)`](../../../game/PartizanGame.py#L23) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__add__(other)`](../../../game/PartizanGame.py#L26) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Surreal instance |
-| [`__neg__()`](../../../game/PartizanGame.py#L32) | method | -obj。 | なし | Surreal instance |
-| [`__sub__(other)`](../../../game/PartizanGame.py#L35) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, Surreal) else -other)` |
-| [`between(left, right, include_left=False, include_right=False)`](../../../game/PartizanGame.py#L39) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`include_left`: 左端を結果に含めるか。省略時: `False`<br>`include_right`: 右端を結果に含めるか。省略時: `False` | Surreal instance |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__eq__(other)`](../../../game/PartizanGame.py#L11) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__lt__(other)`](../../../game/PartizanGame.py#L14) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__le__(other)`](../../../game/PartizanGame.py#L17) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__gt__(other)`](../../../game/PartizanGame.py#L20) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__ge__(other)`](../../../game/PartizanGame.py#L23) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__add__(other)`](../../../game/PartizanGame.py#L26) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Surreal instance | — |
+| [`__neg__()`](../../../game/PartizanGame.py#L32) | method | -obj。 | なし | Surreal instance | — |
+| [`__sub__(other)`](../../../game/PartizanGame.py#L35) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, Surreal) else -other)` | — |
+| [`between(left, right, include_left=False, include_right=False)`](../../../game/PartizanGame.py#L39) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`include_left`: 左端を結果に含めるか。省略時: `False`<br>`include_right`: 右端を結果に含めるか。省略時: `False` | Surreal instance | — |
 
 ## Class `NumStar`
 
@@ -52,11 +53,12 @@ partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
 - constructor: [`NumStar(number=0, star=0)`](../../../game/PartizanGame.py#L74)
 - 引数: `number`: 整数。省略時: `0`<br>`star`: `star`として使う入力。省略時: `0`
 - 返り値: `NumStar` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__eq__(other)`](../../../game/PartizanGame.py#L81) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__add__(other)`](../../../game/PartizanGame.py#L84) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | NumStar instance |
-| [`__neg__()`](../../../game/PartizanGame.py#L89) | method | -obj。 | なし | NumStar instance |
-| [`calculate(left_options, right_options)`](../../../game/PartizanGame.py#L101) | method | `calculate`を求める。 | `left_options`: 処理対象を順に並べた列<br>`right_options`: 処理対象を順に並べた列 | NumStar instance / `None` |
-| [`outcome()`](../../../game/PartizanGame.py#L123) | method | `outcome`を求める。 | なし | tuple(`True`, `False`) / tuple(`False`, `True`) / tuple(`False`, `False`) / tuple(`True`, `True`) |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__eq__(other)`](../../../game/PartizanGame.py#L81) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__add__(other)`](../../../game/PartizanGame.py#L84) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | NumStar instance | — |
+| [`__neg__()`](../../../game/PartizanGame.py#L89) | method | -obj。 | なし | NumStar instance | — |
+| [`calculate(left_options, right_options)`](../../../game/PartizanGame.py#L101) | method | `calculate`を求める。 | `left_options`: 処理対象を順に並べた列<br>`right_options`: 処理対象を順に並べた列 | NumStar instance / `None` | — |
+| [`outcome()`](../../../game/PartizanGame.py#L123) | method | `outcome`を求める。 | なし | tuple(`True`, `False`) / tuple(`False`, `True`) / tuple(`False`, `False`) / tuple(`True`, `True`) | — |

@@ -24,23 +24,24 @@ from library_codex.rational.RationalFormalPowerSeries import RationalFormalPower
 - constructor: [`RationalFormalPowerSeries(coefficients=())`](../../../rational/RationalFormalPowerSeries.py#L34)
 - 引数: `coefficients`: 係数列。省略時: `()`
 - 返り値: `RationalFormalPowerSeries` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__len__()`](../../../rational/RationalFormalPowerSeries.py#L37) | method | len(obj)。 | なし | 要素数（int） |
-| [`__getitem__(index)`](../../../rational/RationalFormalPowerSeries.py#L40) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
-| [`__iter__()`](../../../rational/RationalFormalPowerSeries.py#L43) | method | iter(obj)・for 文。 | なし | iterator |
-| [`__add__(other)`](../../../rational/RationalFormalPowerSeries.py#L51) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | RationalFormalPowerSeries instance |
-| [`__neg__()`](../../../rational/RationalFormalPowerSeries.py#L56) | method | -obj。 | なし | RationalFormalPowerSeries instance |
-| [`__sub__(other)`](../../../rational/RationalFormalPowerSeries.py#L59) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, RationalFormalPowerSeries)...` |
-| [`__rsub__(other)`](../../../rational/RationalFormalPowerSeries.py#L63) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `-self + other` |
-| [`__mul__(other)`](../../../rational/RationalFormalPowerSeries.py#L66) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | RationalFormalPowerSeries instance |
-| [`pre(size)`](../../../rational/RationalFormalPowerSeries.py#L73) | method | `pre`を求める。 | `size`: 要素数・universe size | RationalFormalPowerSeries instance |
-| [`shrink()`](../../../rational/RationalFormalPowerSeries.py#L78) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` |
-| [`derivative()`](../../../rational/RationalFormalPowerSeries.py#L82) | method | 入力した多項式・級数を形式微分する。 | なし | RationalFormalPowerSeries instance |
-| [`integral()`](../../../rational/RationalFormalPowerSeries.py#L90) | method | 入力した多項式・級数を形式積分する。 | なし | RationalFormalPowerSeries instance |
-| [`evaluate(point)`](../../../rational/RationalFormalPowerSeries.py#L96) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | 計算結果（数値または入力要素型） |
-| [`inverse(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L105) | method | 逆元・逆変換を求める。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance |
-| [`logarithm(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L120) | method | 対数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | `(self.derivative() * self.inverse(degree)).pre(max(0, degree -...` |
-| [`exponential(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L131) | method | 指数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance |
-| [`power(exponent, degree=None)`](../../../rational/RationalFormalPowerSeries.py#L148) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None` | `self.inverse(degree).power(-exponent, degree)` / `result.pre(degree)` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__len__()`](../../../rational/RationalFormalPowerSeries.py#L37) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`__getitem__(index)`](../../../rational/RationalFormalPowerSeries.py#L40) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
+| [`__iter__()`](../../../rational/RationalFormalPowerSeries.py#L43) | method | iter(obj)・for 文。 | なし | iterator | — |
+| [`__add__(other)`](../../../rational/RationalFormalPowerSeries.py#L51) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | RationalFormalPowerSeries instance | — |
+| [`__neg__()`](../../../rational/RationalFormalPowerSeries.py#L56) | method | -obj。 | なし | RationalFormalPowerSeries instance | — |
+| [`__sub__(other)`](../../../rational/RationalFormalPowerSeries.py#L59) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, RationalFormalPowerSeries)...` | — |
+| [`__rsub__(other)`](../../../rational/RationalFormalPowerSeries.py#L63) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `-self + other` | — |
+| [`__mul__(other)`](../../../rational/RationalFormalPowerSeries.py#L66) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | RationalFormalPowerSeries instance | — |
+| [`pre(size)`](../../../rational/RationalFormalPowerSeries.py#L73) | method | `pre`を求める。 | `size`: 要素数・universe size | RationalFormalPowerSeries instance | — |
+| [`shrink()`](../../../rational/RationalFormalPowerSeries.py#L78) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` | — |
+| [`derivative()`](../../../rational/RationalFormalPowerSeries.py#L82) | method | 入力した多項式・級数を形式微分する。 | なし | RationalFormalPowerSeries instance | — |
+| [`integral()`](../../../rational/RationalFormalPowerSeries.py#L90) | method | 入力した多項式・級数を形式積分する。 | なし | RationalFormalPowerSeries instance | — |
+| [`evaluate(point)`](../../../rational/RationalFormalPowerSeries.py#L96) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | 計算結果（数値または入力要素型） | — |
+| [`inverse(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L105) | method | 逆元・逆変換を求める。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance | — |
+| [`logarithm(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L120) | method | 対数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | `(self.derivative() * self.inverse(degree)).pre(max(0, degree -...` | — |
+| [`exponential(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L131) | method | 指数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance | — |
+| [`power(exponent, degree=None)`](../../../rational/RationalFormalPowerSeries.py#L148) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None` | `self.inverse(degree).power(-exponent, degree)` / `result.pre(degree)` | — |

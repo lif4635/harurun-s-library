@@ -3,7 +3,6 @@
 
 軸平行矩形の和集合面積をsweep lineで求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`spatial_structure/UnionRectangle.py`](../../../spatial_structure/UnionRectangle.py)
 - 公開API: function 1、class 1、method/property 2（Python protocol 0を含む）
 
@@ -20,9 +19,9 @@ from library_codex.spatial_structure.UnionRectangle import union_rectangle_area,
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`union_rectangle_area(rectangles)`](../../../spatial_structure/UnionRectangle.py#L3) | `union`・`rectangle`・`area`を求める。 | `rectangles`: 矩形 `(left, bottom, right, top)` のiterable | `0` / `area`（int） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`union_rectangle_area(rectangles)`](../../../spatial_structure/UnionRectangle.py#L3) | `union`・`rectangle`・`area`を求める。 | `rectangles`: 矩形 `(left, bottom, right, top)` のiterable | `0` / `area`（int） | — |
 
 ## Class `UnionRectangle`
 
@@ -31,8 +30,9 @@ from library_codex.spatial_structure.UnionRectangle import union_rectangle_area,
 - constructor: [`UnionRectangle()`](../../../spatial_structure/UnionRectangle.py#L68)
 - 引数: なし
 - 返り値: `UnionRectangle` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(left, right, bottom, top)`](../../../spatial_structure/UnionRectangle.py#L71) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`bottom`: 矩形の下端（含まない）<br>`top`: 矩形の上端（含む） | `None` |
-| [`run()`](../../../spatial_structure/UnionRectangle.py#L74) | method | 登録した軸平行長方形のunion面積を求める。 | なし | `union_rectangle_area(self.rectangles)` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(left, right, bottom, top)`](../../../spatial_structure/UnionRectangle.py#L71) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`bottom`: 矩形の下端（含まない）<br>`top`: 矩形の上端（含む） | `None` | — |
+| [`run()`](../../../spatial_structure/UnionRectangle.py#L74) | method | 登録した軸平行長方形のunion面積を求める。 | なし | `union_rectangle_area(self.rectangles)` | — |

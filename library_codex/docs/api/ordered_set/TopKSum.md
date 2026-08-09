@@ -3,7 +3,6 @@
 
 要素の追加・削除をしながら大きい方または小さい方k個の和を保つ構造。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`ordered_set/TopKSum.py`](../../../ordered_set/TopKSum.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.ordered_set.TopKSum import TopKSum
 - constructor: [`TopKSum(k, largest=True)`](../../../ordered_set/TopKSum.py#L8)
 - 引数: `k`: 選ぶ個数または0-indexedの順位<br>`largest`: 最大として使う入力。省略時: `True`
 - 返り値: `TopKSum` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(value)`](../../../ordered_set/TopKSum.py#L58) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`discard(value)`](../../../ordered_set/TopKSum.py#L65) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`sum()`](../../../ordered_set/TopKSum.py#L72) | method | 半開区間・集合の和を返す。 | なし | 区間・集合の和（入力要素型） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(value)`](../../../ordered_set/TopKSum.py#L58) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`discard(value)`](../../../ordered_set/TopKSum.py#L65) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`sum()`](../../../ordered_set/TopKSum.py#L72) | method | 半開区間・集合の和を返す。 | なし | 区間・集合の和（入力要素型） | — |

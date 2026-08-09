@@ -21,8 +21,8 @@ from library_codex.graph.EulerianTrail import eulerian_trail, eulerian_cycle, eu
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`eulerian_trail(n, edges, directed=False, start=None)`](../../../graph/EulerianTrail.py#L1) | `eulerian`・`trail`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None` | tuple(list `[start]`, list `[]`) / tuple — 用途欄に示した複数の結果を順に格納 / tuple(`vertices`（list）, `trail`（list）) / `None` |
-| [`eulerian_cycle(n, edges, directed=False, start=None)`](../../../graph/EulerianTrail.py#L94) | `eulerian`・閉路を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None` | 計算結果 / `None` |
-| [`eulerian_trails(n, edges, directed=False)`](../../../graph/EulerianTrail.py#L103) | `eulerian`・`trails`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 / `None` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`eulerian_trail(n, edges, directed=False, start=None)`](../../../graph/EulerianTrail.py#L1) | `eulerian`・`trail`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None` | tuple(list `[start]`, list `[]`) / tuple — 用途欄に示した複数の結果を順に格納 / tuple(`vertices`（list）, `trail`（list）) / `None` | — |
+| [`eulerian_cycle(n, edges, directed=False, start=None)`](../../../graph/EulerianTrail.py#L94) | `eulerian`・閉路を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None` | 計算結果 / `None` | — |
+| [`eulerian_trails(n, edges, directed=False)`](../../../graph/EulerianTrail.py#L103) | `eulerian`・`trails`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 / `None` | — |

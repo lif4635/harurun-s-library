@@ -29,12 +29,12 @@ from library_codex.polynomial.MultipointEvaluation import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L148) | 多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — pointsと同じ長さの列result。$\mathrm{result}[i]=f(\mathrm{points}[i])\bmod\mathrm{mod}$。 |
-| [`polynomial_interpolation(points, values, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L152) | 多項式・補間を計算する。 | `points`: 評価点の列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` |
-| [`interpolate_consecutive(values, point, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L156) | 補間・`consecutive`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `values[point] % mod` / 数値または入力要素型 `result % mod` |
-| [`sample_point_shift(values, point, count=None, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L240) | `sample`・`point`・`shift`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L148) | 多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — pointsと同じ長さの列result。$\mathrm{result}[i]=f(\mathrm{points}[i])\bmod\mathrm{mod}$。 | — |
+| [`polynomial_interpolation(points, values, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L152) | 多項式・補間を計算する。 | `points`: 評価点の列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` | — |
+| [`interpolate_consecutive(values, point, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L156) | 補間・`consecutive`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `values[point] % mod` / 数値または入力要素型 `result % mod` | — |
+| [`sample_point_shift(values, point, count=None, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L240) | `sample`・`point`・`shift`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
 
 ## Class `ProductTree`
 
@@ -43,9 +43,10 @@ from library_codex.polynomial.MultipointEvaluation import (
 - constructor: [`ProductTree(points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L33)
 - 引数: `points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
 - 返り値: `ProductTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`polynomial`](../../../polynomial/MultipointEvaluation.py#L56) | property | 多項式を求める。 | なし | list[number] — 昇冪順の係数列 [a0, a1, ...] / `self.products[1][:]` |
-| [`evaluate(polynomial, direct_threshold=64)`](../../../polynomial/MultipointEvaluation.py#L61) | method | 指定点で値を評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`direct_threshold`: `direct`・`threshold`として使う入力。省略時: `64` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[0] * self.n` / 計算結果（数値または入力要素型） |
-| [`interpolate(values)`](../../../polynomial/MultipointEvaluation.py#L114) | method | 補間を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `result[:self.n]` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`polynomial`](../../../polynomial/MultipointEvaluation.py#L56) | property | 多項式を求める。 | なし | list[number] — 昇冪順の係数列 [a0, a1, ...] / `self.products[1][:]` | — |
+| [`evaluate(polynomial, direct_threshold=64)`](../../../polynomial/MultipointEvaluation.py#L61) | method | 指定点で値を評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`direct_threshold`: `direct`・`threshold`として使う入力。省略時: `64` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[0] * self.n` / 計算結果（数値または入力要素型） | — |
+| [`interpolate(values)`](../../../polynomial/MultipointEvaluation.py#L114) | method | 補間を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `result[:self.n]` | — |

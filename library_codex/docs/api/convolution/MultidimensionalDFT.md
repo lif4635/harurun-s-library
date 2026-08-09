@@ -3,7 +3,6 @@
 
 多次元DFTと多変数循環畳み込みを計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`convolution/MultidimensionalDFT.py`](../../../convolution/MultidimensionalDFT.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -26,7 +25,7 @@ from library_codex.convolution.MultidimensionalDFT import multidimensional_dft, 
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L9) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`base`: 底・基準となる値または列<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 計算結果 |
-| [`multivariate_circular_convolution(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L47) | `multivariate`・`circular`・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `multidimensional_dft(left, base, True, mod)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L9) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`base`: 底・基準となる値または列<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 計算結果 | — |
+| [`multivariate_circular_convolution(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L47) | `multivariate`・`circular`・畳み込みを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `multidimensional_dft(left, base, True, mod)` | — |

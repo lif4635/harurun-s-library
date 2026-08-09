@@ -26,6 +26,7 @@ edge-list container・木・forest・二部・連結・単純graph生成を扱�
 - constructor: [`Edge(u: int, v: int, weight: int=1, index: int=-1)`](../../../random/RandomGraph.py#L9)
 - 引数: `u`: 頂点番号<br>`v`: 頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1`
 - 返り値: `Edge` instance
+- 計算量: O(1)
 
 ## Class `Graph`
 
@@ -34,16 +35,17 @@ edge-list container・木・forest・二部・連結・単純graph生成を扱�
 - constructor: [`Graph(vertex_count=0, weighted=False)`](../../../random/RandomGraph.py#L23)
 - 引数: `vertex_count`: 頂点数。省略時: `0`<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`
 - 返り値: `Graph` instance
+- 計算量: O(1)
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`edge_count()`](../../../random/RandomGraph.py#L28) | method | 保持している辺の本数を返す。 | なし | int — Graphが保持している辺の本数 |
-| [`add_directed_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L32) | method | 有向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の頂点番号<br>`second`: 辺のもう一方の頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 |
-| [`add_undirected_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L37) | method | 無向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の頂点番号<br>`second`: 辺のもう一方の頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 |
-| [`to_adjacency_list(directed=False)`](../../../random/RandomGraph.py#L44) | method | edge-listを頂点ごとの隣接辺listへ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[Edge]] — 頂点ごとに外向きEdgeを並べた隣接list |
-| [`to_adjacency_matrix(directed=False)`](../../../random/RandomGraph.py#L53) | method | edge-listを辺重み入りの隣接行列へ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[number]] — 行を始点、列を終点とする $n\times n$ の辺重み行列 |
-| [`format_edges(zero_indexed=False)`](../../../random/RandomGraph.py#L62) | method | 辺を競プロ入力で使える改行区切り文字列へ整形する。 | `zero_indexed`: 頂点番号を0始まりで出力するか。省略時: `False` | str — 1辺1行の改行区切り文字列（末尾改行なし） |
-| [`__str__()`](../../../random/RandomGraph.py#L73) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | 数値または入力要素型 `header + ('\n' + edges if edges else '')` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`edge_count()`](../../../random/RandomGraph.py#L28) | method | 保持している辺の本数を返す。 | なし | int — Graphが保持している辺の本数 | O(1) |
+| [`add_directed_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L32) | method | 有向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の頂点番号<br>`second`: 辺のもう一方の頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 | 償却 O(1) |
+| [`add_undirected_edge(first, second, weight=1, index=-1)`](../../../random/RandomGraph.py#L37) | method | 無向辺をedge-listへ追加し、その位置を返す。 | `first`: 辺の一方の頂点番号<br>`second`: 辺のもう一方の頂点番号<br>`weight`: 重み。省略時: `1`<br>`index`: 位置。省略時: `-1` | int — 追加した辺のedge-list内の0-indexed位置 | 償却 O(1) |
+| [`to_adjacency_list(directed=False)`](../../../random/RandomGraph.py#L44) | method | edge-listを頂点ごとの隣接辺listへ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[Edge]] — 頂点ごとに外向きEdgeを並べた隣接list | O(N+M) |
+| [`to_adjacency_matrix(directed=False)`](../../../random/RandomGraph.py#L53) | method | edge-listを辺重み入りの隣接行列へ変換する。 | `directed`: Trueならstored edgeの向きだけを使う。省略時: `False` | list[list[number]] — 行を始点、列を終点とする $n\times n$ の辺重み行列 | O(N^2+M) |
+| [`format_edges(zero_indexed=False)`](../../../random/RandomGraph.py#L62) | method | 辺を競プロ入力で使える改行区切り文字列へ整形する。 | `zero_indexed`: 頂点番号を0始まりで出力するか。省略時: `False` | str — 1辺1行の改行区切り文字列（末尾改行なし） | O(M) |
+| [`__str__()`](../../../random/RandomGraph.py#L73) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | 数値または入力要素型 `header + ('\n' + edges if edges else '')` | — |
 
 ## Class `UndirectedGraphGenerator`
 
@@ -52,18 +54,19 @@ edge-list container・木・forest・二部・連結・単純graph生成を扱�
 - constructor: [`UndirectedGraphGenerator(seed=1)`](../../../random/RandomGraph.py#L84)
 - 引数: `seed`: 乱数列を再現する整数。同じseedなら同じgraph列になる。省略時: `1`
 - 返り値: `UndirectedGraphGenerator` instance
+- 計算量: O(1)
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set_seed(seed)`](../../../random/RandomGraph.py#L87) | method | 乱数状態を指定seedから作り直し、generator自身を返す。 | `seed`: 乱数列を再現する整数。同じseedなら同じgraph列になる | UndirectedGraphGenerator — 状態をresetしたgenerator自身 |
-| [`tree(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L117) | method | Prüfer codeからラベル付き木を一様ランダムに生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $n-1$ 辺の連結な木 |
-| [`path(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L142) | method | 頂点labelをランダムに並べたpath graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $\max(0,n-1)$ 辺のpath graph。 |
-| [`star(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L157) | method | 中心頂点を一様に選んだstar graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $\max(0,n-1)$ 辺のstar graph |
-| [`cycle(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L172) | method | 頂点labelをランダムに並べた単純cycle graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点n辺の単純cycle graph |
-| [`forest(n, components, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L189) | method | 成分数を固定したランダムforestを生成する。 | `n`: 頂点数<br>`components`: 生成するforestの連結成分数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点n-components辺で、連結成分数がcomponentsのforest |
-| [`complete(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L224) | method | n頂点の完全単純graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $n(n-1)/2$ 辺の完全graph |
-| [`simple(n, edge_count, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L232) | method | n頂点m辺の単純無向graphを一様に生成する。 | `n`: 頂点数<br>`edge_count`: 生成する辺の本数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点edge_count辺で自己loop・多重辺のないgraph |
-| [`connected(n, edge_count, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L244) | method | n頂点edge_count辺の連結単純無向graphを生成する。 | `n`: 頂点数<br>`edge_count`: 生成する辺の本数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点edge_count辺の連結単純graph。 |
-| [`bipartite(left_size, right_size, edge_count, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L266) | method | 左右の頂点数と辺数を固定した単純二部graphを生成する。 | `left_size`: 二部graphの左側頂点数<br>`right_size`: 二部graphの右側頂点数<br>`edge_count`: 生成する辺の本数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — 左右をまたぐedge_count辺だけを持つ単純二部graph |
-| [`erdos_renyi(n, probability=0.5, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L287) | method | 各辺を独立に指定確率で含めたG(n,p)を生成する。 | `n`: 頂点数<br>`probability`: 各候補を選ぶ確率（0.0以上1.0以下）。省略時: `0.5`<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — 各候補辺を独立にprobabilityで含めた単純graph |
-| [`unicyclic(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L305) | method | n頂点n辺でcycleをちょうど1個持つ連結graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点n辺でcycleを1個だけ持つ連結単純graph |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set_seed(seed)`](../../../random/RandomGraph.py#L87) | method | 乱数状態を指定seedから作り直し、generator自身を返す。 | `seed`: 乱数列を再現する整数。同じseedなら同じgraph列になる | UndirectedGraphGenerator — 状態をresetしたgenerator自身 | O(1) |
+| [`tree(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L117) | method | Prüfer codeからラベル付き木を一様ランダムに生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $n-1$ 辺の連結な木 | O(N log N) |
+| [`path(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L142) | method | 頂点labelをランダムに並べたpath graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $\max(0,n-1)$ 辺のpath graph。 | O(N) |
+| [`star(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L157) | method | 中心頂点を一様に選んだstar graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $\max(0,n-1)$ 辺のstar graph | O(N) |
+| [`cycle(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L172) | method | 頂点labelをランダムに並べた単純cycle graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点n辺の単純cycle graph | O(N) |
+| [`forest(n, components, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L189) | method | 成分数を固定したランダムforestを生成する。 | `n`: 頂点数<br>`components`: 生成するforestの連結成分数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点n-components辺で、連結成分数がcomponentsのforest | 期待 O(N) |
+| [`complete(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L224) | method | n頂点の完全単純graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — $n$ 頂点 $n(n-1)/2$ 辺の完全graph | O(N^2) |
+| [`simple(n, edge_count, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L232) | method | n頂点m辺の単純無向graphを一様に生成する。 | `n`: 頂点数<br>`edge_count`: 生成する辺の本数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点edge_count辺で自己loop・多重辺のないgraph | 期待 O(M log N) |
+| [`connected(n, edge_count, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L244) | method | n頂点edge_count辺の連結単純無向graphを生成する。 | `n`: 頂点数<br>`edge_count`: 生成する辺の本数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点edge_count辺の連結単純graph。 | O(N^2+M) |
+| [`bipartite(left_size, right_size, edge_count, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L266) | method | 左右の頂点数と辺数を固定した単純二部graphを生成する。 | `left_size`: 二部graphの左側頂点数<br>`right_size`: 二部graphの右側頂点数<br>`edge_count`: 生成する辺の本数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — 左右をまたぐedge_count辺だけを持つ単純二部graph | 期待 O(M) |
+| [`erdos_renyi(n, probability=0.5, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L287) | method | 各辺を独立に指定確率で含めたG(n,p)を生成する。 | `n`: 頂点数<br>`probability`: 各候補を選ぶ確率（0.0以上1.0以下）。省略時: `0.5`<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — 各候補辺を独立にprobabilityで含めた単純graph | O(N^2) |
+| [`unicyclic(n, weighted=False, weight_min=1, weight_max=1)`](../../../random/RandomGraph.py#L305) | method | n頂点n辺でcycleをちょうど1個持つ連結graphを生成する。 | `n`: 頂点数<br>`weighted`: 辺重みを生成し、出力にも含めるか。省略時: `False`<br>`weight_min`: 生成する辺重みの下限（含む）。省略時: `1`<br>`weight_max`: 生成する辺重みの上限（含む）。省略時: `1` | Graph — n頂点n辺でcycleを1個だけ持つ連結単純graph | O(N^2) |

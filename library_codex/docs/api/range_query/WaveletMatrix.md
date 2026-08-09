@@ -26,17 +26,18 @@ from library_codex.range_query.WaveletMatrix import WaveletMatrix
 - constructor: [`WaveletMatrix(a)`](../../../range_query/WaveletMatrix.py#L7)
 - 引数: `a`: 第1入力（意味は関数の説明を参照）
 - 返り値: `WaveletMatrix` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`access(k)`](../../../range_query/WaveletMatrix.py#L48) | method | 指定位置の元の値を取得する。 | `k`: 選ぶ個数または0-indexedの順位 | 指定位置の元の値 |
-| [`rank(l, r, x)`](../../../range_query/WaveletMatrix.py#L69) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | rank・出現数（int） |
-| [`kth_smallest(l, r, k)`](../../../range_query/WaveletMatrix.py#L96) | method | k番目・最小を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | `res`（int） |
-| [`kth_largest(l, r, k)`](../../../range_query/WaveletMatrix.py#L125) | method | k番目・最大を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | `self.kth_smallest(l, r, r - l - k - 1)` |
-| [`count_lt(l, r, upper)`](../../../range_query/WaveletMatrix.py#L129) | method | `lt`の個数を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`upper`: 上限 | `0` / 数値または入力要素型 `r - l` / `res`（int） |
-| [`count_le(l, r, upper)`](../../../range_query/WaveletMatrix.py#L160) | method | `le`の個数を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`upper`: 上限 | `self.count_lt(l, r, upper + 1)` |
-| [`range_freq(l, r, lower, upper=None)`](../../../range_query/WaveletMatrix.py#L165) | method | 半開区間内で値域条件に合う要素数を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`lower`: 下限<br>`upper`: 上限。省略時: `None` | 条件に合う要素数（int） |
-| [`prev_value(l, r, upper, default=-1)`](../../../range_query/WaveletMatrix.py#L170) | method | `prev`・値を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`upper`: 上限<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == 0 else self.kth_smallest(l, r, k - 1)` |
-| [`next_value(l, r, lower, default=-1)`](../../../range_query/WaveletMatrix.py#L174) | method | `next`・値を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`lower`: 下限<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == r - l else self.kth_smallest(l, r, k)` |
-| [`max_le(l, r, x, default=-1)`](../../../range_query/WaveletMatrix.py#L178) | method | 最大・`le`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == 0 else self.kth_smallest(l, r, k - 1)` |
-| [`min_ge(l, r, x, default=-1)`](../../../range_query/WaveletMatrix.py#L182) | method | 最小・`ge`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象<br>`default`: 省略時に使う値。省略時: `-1` | `self.next_value(l, r, x, default)` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`access(k)`](../../../range_query/WaveletMatrix.py#L48) | method | 指定位置の元の値を取得する。 | `k`: 選ぶ個数または0-indexedの順位 | 指定位置の元の値 | — |
+| [`rank(l, r, x)`](../../../range_query/WaveletMatrix.py#L69) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象 | rank・出現数（int） | — |
+| [`kth_smallest(l, r, k)`](../../../range_query/WaveletMatrix.py#L96) | method | k番目・最小を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | `res`（int） | — |
+| [`kth_largest(l, r, k)`](../../../range_query/WaveletMatrix.py#L125) | method | k番目・最大を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`k`: 選ぶ個数または0-indexedの順位 | `self.kth_smallest(l, r, r - l - k - 1)` | — |
+| [`count_lt(l, r, upper)`](../../../range_query/WaveletMatrix.py#L129) | method | `lt`の個数を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`upper`: 上限 | `0` / 数値または入力要素型 `r - l` / `res`（int） | — |
+| [`count_le(l, r, upper)`](../../../range_query/WaveletMatrix.py#L160) | method | `le`の個数を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`upper`: 上限 | `self.count_lt(l, r, upper + 1)` | — |
+| [`range_freq(l, r, lower, upper=None)`](../../../range_query/WaveletMatrix.py#L165) | method | 半開区間内で値域条件に合う要素数を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`lower`: 下限<br>`upper`: 上限。省略時: `None` | 条件に合う要素数（int） | — |
+| [`prev_value(l, r, upper, default=-1)`](../../../range_query/WaveletMatrix.py#L170) | method | `prev`・値を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`upper`: 上限<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == 0 else self.kth_smallest(l, r, k - 1)` | — |
+| [`next_value(l, r, lower, default=-1)`](../../../range_query/WaveletMatrix.py#L174) | method | `next`・値を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`lower`: 下限<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == r - l else self.kth_smallest(l, r, k)` | — |
+| [`max_le(l, r, x, default=-1)`](../../../range_query/WaveletMatrix.py#L178) | method | 最大・`le`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象<br>`default`: 省略時に使う値。省略時: `-1` | `default if k == 0 else self.kth_smallest(l, r, k - 1)` | — |
+| [`min_ge(l, r, x, default=-1)`](../../../range_query/WaveletMatrix.py#L182) | method | 最小・`ge`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない）<br>`x`: 値・座標・問い合わせ対象<br>`default`: 省略時に使う値。省略時: `-1` | `self.next_value(l, r, x, default)` | — |

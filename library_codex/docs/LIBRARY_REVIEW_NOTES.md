@@ -1,0 +1,184 @@
+# ライブラリ・サイト見直しメモ
+
+更新日: 2026-08-10
+
+この文書は、ライブラリとサイトを見ながら出た判断・疑問・後回し事項を、次の作業で失わないためのメモである。聞き取りが曖昧な名称は推測で確定せず、候補名と要確認事項を併記する。
+
+## 今回決めたこと
+
+### IntegerUtilities
+
+`algorithm/IntegerUtilities.py` は `integer_nth_root` だけを残す方向で整理する。
+
+削除候補:
+
+- `exact_square_root`
+- `modular_power`
+- `nearest_congruent_at_least`
+- `decimal_digit_count`
+
+削除時は実装ファイルだけでなく、次も同時に更新する。
+
+- `number_theory/Elementary.py` と `algorithm/MiscAlgorithms.py` の import・再公開
+- `modpow`、`SqrtInt`、`isDigit` などの旧名
+- test
+- API metadata、catalog、bundle、サイト
+
+特別な理由がない互換 alias は残さない。
+
+### FPS
+
+FPS、Polynomial、Convolution の境界と、998244353 専用実装の構成は、別の回で丁寧に精査する。今回は勢いで統合・削除しない。
+
+### Fenwick Tree
+
+利用時の名前は `FenwickTree` より `BIT` の方が好みに合う。rename する場合は互換 alias を増やさず、依存箇所、import、bundle、説明、サイトを一括して変更できるかを先に調べる。
+
+## 説明を直す対象
+
+### PermutationGroup
+
+対象: `algorithm/PermutationGroup.py`
+
+`simplify_permutation_subgroup(n, permutations)` は、単に置換を「簡単にする」関数ではない。入力された生成元と同じ置換群を表す、安定化列に沿った代表元の集まりを作る。
+
+返り値 `levels` の意味:
+
+- `levels[i]` は、`i + 1, ..., n - 1` を固定する部分群の中で、位置 `i` の移り先ごとに選んだ代表置換のリスト
+- 各 level 内では、位置 `i` の移り先が重複しない
+- 全 level の置換を合わせると、入力と同じ部分群を生成する
+- 群の要素数は、各 level の長さの積から求められる
+
+用途は、生成元で与えられた置換群の圧縮、群の位数計算、所属判定などの土台。ただし現状は test 以外の利用箇所がなく、サイトの説明と返り値型は実態を説明できていない。保持するなら上記の意味と簡単な例をページ先頭に書く。使わないなら削除候補として再検討する。
+
+`SimplifyPermutationSubgroup` alias も、互換性が必要でなければ削除候補。
+
+### Search
+
+対象: `algorithm/Search.py`
+
+#### binary_search_int / binary_search_float
+
+一般的な `[left, right)` を直接受け取る API ではない。`predicate(false_value) == False` と `predicate(true_value) == True` が既知である二点を渡し、その境界を探す。昇順・降順のどちら向きの二点でも動く。この前提を signature の近くへ明記する。
+
+#### kth_element
+
+発言中の「QELEMENT」は `kth_element`、「新フラ」は C++ の `std::nth_element` を指す可能性が高い。
+
+現在の実装:
+
+- 入力をコピーするため、呼び出し元の list は並べ替えない
+- 中央の位置にある値を pivot にする
+- pivot 未満、同値、超過の三分割を行う quickselect
+- `index` は 0 始まりで、`index` 番目に小さい値を返す
+- 平均的には線形時間を期待できるが、pivot が偏り続けると最悪二乗時間
+- 分割処理が Python の loop なので、実際のサイズによっては C 実装の `sorted(values)[index]` より遅い可能性がある
+
+C++ 標準ライブラリの実装はこれより堅牢で、libstdc++ は introselect と深さ制限後の fallback、libc++ は median-of-three などを使う。現在の関数を「高速版」として残す前に、少なくとも次を比較する。
+
+- 現行 quickselect
+- `sorted(values)[index]`
+- median-of-three または random pivot
+- introselect 型の fallback 付き実装
+
+ランダム、昇順、降順、同値が多い配列、敵対的な並びで benchmark する。結果に応じて改良または削除を決める。
+
+### 区間
+
+#### RangeSet
+
+対象: `ordered_set/RangeSet.py`
+
+この module の区間はすべて半開区間 `[left, right)` とする。
+
+- `add(left, right)`: `[left, right)` を追加し、新しく集合に加わった整数の個数を返す。重なる区間と隣接区間は結合する
+- `discard(left, right)`: `[left, right)` を削除し、実際に集合から消えた整数の個数を返す
+- `contains(value)`: 一点 `value` が集合に含まれるかを返す
+- `mex(value=0)`: `value` 以上で集合に含まれない最小の整数を返す
+- `intervals()`: 集合を表す、互いに交わらない半開区間を左端順で返す
+
+「区間リスト」だけでは開閉が分からないため、module 冒頭、引数、返り値のすべてで `[left, right)` を見えるようにする。具体例も追加する。
+
+#### merge_intervals
+
+対象: `algorithm/SequenceAlgorithms.py`
+
+こちらも半開区間 `[left, right)` として説明する。`merge_adjacent=True` なら `[a, b)` と `[b, c)` も結合する。引数 `merge_adjacent` の説明を具体化する。
+
+### 名称を特定できていないもの
+
+発言中の「point と upper...」「転行線...」に該当する page / symbol は、現時点では一意に特定できていない。似た名前から決め打ちで変更せず、次に実際のページ名または URL を確認する。
+
+## Convolution・Polynomial・FPS の境界
+
+サイトでは次の役割を明確に分ける。
+
+- Convolution: 係数列同士の積を計算する基礎処理
+- Polynomial: 有限次数の多項式として、除算、剰余、補間、多点評価などを扱う
+- FPS998: mod 998244353 上の形式的冪級数として、指定次数で打ち切った inverse、log、exp、pow、composition などを扱う
+
+### MiddleProduct
+
+対象: `convolution/MiddleProduct.py`
+
+2026-08-10に標準的なmiddle productへ置き換えた。現在は、長さnの列aと長さmの列bに対し、`c[i] = sum(b[j] * a[i+j])` を長さn-m+1で返す。
+
+998244353では、長さn以上の最小2冪による循環NTTを使う。不要な係数が返す範囲へ巡回しないことを利用し、全畳み込みに必要な長さより小さい変換で済ませる。PyPy、n=131072、m=65536の計測では、専用実装38.1ms、全畳み込み後の切り出し81.2msだった。
+
+発言中の「real product」はこの module を指している可能性が高いが、要確認。
+
+### MultipointEvaluation
+
+対象: `polynomial/MultipointEvaluation.py`
+
+`multipoint_evaluation(f, points)` は、係数列 `f` が表す一つの多項式を、`points` の各点で評価し、その値を入力順の list で返す。Convolution そのものではなく、内部で高速な多項式積を利用する Polynomial の処理。
+
+`polynomial_interpolation` は、点と値の組から、その全点を通る多項式の係数列を復元する。点評価と補間を同じ page に置くなら、互いに逆方向の処理だと冒頭で説明する。
+
+FPS 全体の本格的な再整理は後回しにするが、この三分類だけは先にサイトのカテゴリ説明へ出す。
+
+## サイト共通の問題
+
+### 計算量
+
+生成済み API 文書には「各操作の計算量はAPI表を参照」が155 pageにあり、関数・method表にも計算量欄がなかった。
+
+2026-08-10に生成処理を修正し、この文言は0件になった。function・constructor・methodごとの計算量を表へ追加し、metadataまたはsource docstringに根拠がない項目はダッシュ表示にして、moduleの計算量を無理に流用しない。
+
+直し方:
+
+- function / method ごとに Complexity を表示する
+- module 全体に一つの曖昧な計算量を書かない
+- API 表を参照させる文だけを置かない
+- 根拠のない複雑度を自動生成しない。分からない場合は空欄にして要整備として検出する
+- `tools/build_api_reference.py` の fallback 文言から直し、再生成後にも戻らないようにする
+
+### iPhone の「ホーム画面に追加」アイコン
+
+site source には次の asset が既にある。
+
+- `apple-touch-icon.png` (180 x 180)
+- `icon-192.png`
+- `icon-512.png`
+- `site.webmanifest`
+
+そのため、単純な画像ファイルの欠落とは限らない。実際の公開 HTML に `apple-touch-icon` が出ているか、iOS の icon cache、manifest / metadata の配信 URL、インストール後の表示状態を確認する。必要なら cache bust できる明示的な filename と `<link rel="apple-touch-icon">` を用意する。
+
+## 次に進める順番
+
+1. IntegerUtilities の削除対象と参照元を整理し、`integer_nth_root` だけへ縮小する
+2. API ごとの Complexity を表示できるよう生成基盤を直す
+3. RangeSet、Search、PermutationGroup の説明と返り値を直す
+4. `kth_element` はPyPyで有効だったため、introselect型fallbackを加えた実装を保持する
+5. Convolution / Polynomial / FPS998 のカテゴリ説明を追加する
+6. iPhone の公開 icon metadata を実機相当で確認する
+7. FPS998 を旧ライブラリの機能範囲・速度と照合しながら別途精査する
+
+## 今回はまだ実施しないこと
+
+- 上記 API の削除・rename
+- FPS の全面再編
+- `kth_element` の追加API変更
+- icon の差し替え
+
+このメモを先に正本として残し、各変更は test、catalog、bundle、サイトを同期できる単位で順に行う。

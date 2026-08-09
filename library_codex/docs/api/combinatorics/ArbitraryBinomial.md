@@ -26,11 +26,12 @@ from library_codex.combinatorics.ArbitraryBinomial import LargePrimeFactorial, P
 - constructor: [`LargePrimeFactorial(mod)`](../../../combinatorics/ArbitraryBinomial.py#L13)
 - 引数: `mod`: 法。Noneの場合は整数上の演算
 - 返り値: `LargePrimeFactorial` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`factorial(n)`](../../../combinatorics/ArbitraryBinomial.py#L19) | method | n!を指定した法で計算する。 | `n`: 要素数・頂点数・次数 | int `0 if n >= mod else 0` / `cached` / 計算結果（数値または入力要素型） |
-| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L47) | method | Lucasの定理で二項係数 $\binom{n}{k}$ を素数modで求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`factorial(n)`](../../../combinatorics/ArbitraryBinomial.py#L19) | method | n!を指定した法で計算する。 | `n`: 要素数・頂点数・次数 | int `0 if n >= mod else 0` / `cached` / 計算結果（数値または入力要素型） | — |
+| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L47) | method | Lucasの定理で二項係数 $\binom{n}{k}$ を素数modで求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。 | — |
 
 ## Class `PrimePowerBinomial`
 
@@ -39,10 +40,11 @@ from library_codex.combinatorics.ArbitraryBinomial import LargePrimeFactorial, P
 - constructor: [`PrimePowerBinomial(prime, exponent)`](../../../combinatorics/ArbitraryBinomial.py#L65)
 - 引数: `prime`: 素数法<br>`exponent`: 非負の指数
 - 返り値: `PrimePowerBinomial` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L94) | method | 二項係数 $\binom{n}{k}$ を素数冪 $\mathrm{prime}^{\mathrm{exponent}}$ で求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L94) | method | 二項係数 $\binom{n}{k}$ を素数冪 $\mathrm{prime}^{\mathrm{exponent}}$ で求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。 | — |
 
 ## Class `ArbitraryModBinomial`
 
@@ -51,7 +53,8 @@ from library_codex.combinatorics.ArbitraryBinomial import LargePrimeFactorial, P
 - constructor: [`ArbitraryModBinomial(mod)`](../../../combinatorics/ArbitraryBinomial.py#L117)
 - 引数: `mod`: 法。Noneの場合は整数上の演算
 - 返り値: `ArbitraryModBinomial` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L132) | method | 二項係数 $\binom{n}{k}$ を任意の正のmodで求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`C(n, k)`](../../../combinatorics/ArbitraryBinomial.py#L132) | method | 二項係数 $\binom{n}{k}$ を任意の正のmodで求める。 | `n`: 要素数・頂点数・次数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $\binom{n}{k}\bmod\mathrm{mod}$。範囲外なら0。 | — |

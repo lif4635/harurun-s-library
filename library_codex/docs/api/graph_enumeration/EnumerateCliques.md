@@ -3,7 +3,6 @@
 
 小規模無向グラフのcliqueを列挙する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph_enumeration/EnumerateCliques.py`](../../../graph_enumeration/EnumerateCliques.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph_enumeration.EnumerateCliques import enumerate_cliques
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph_enumeration/EnumerateCliques.py#L22) | `cliques`を列挙する。 | `graph`: 隣接listまたはグラフobject<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list/None/int `result if callback is None else count` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph_enumeration/EnumerateCliques.py#L22) | `cliques`を列挙する。 | `graph`: 隣接listまたはグラフobject<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list/None/int `result if callback is None else count` | — |

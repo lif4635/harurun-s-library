@@ -24,8 +24,9 @@ functional graphのbinary liftingと加算集約を扱う `Doubling`。
 - constructor: [`Doubling(successor, max_steps, values=None)`](../../../algorithm/Doubling.py#L9)
 - 引数: `successor`: `successor`として使う入力<br>`max_steps`: 最大・`steps`の上限<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `None`
 - 返り値: `Doubling` instance
+- 計算量: O(N log K)
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`jump(vertex, steps)`](../../../algorithm/Doubling.py#L22) | method | `jump`を求める。 | `vertex`: 頂点番号<br>`steps`: 移動step数 | int — steps回遷移した後の頂点番号 |
-| [`jump_with_sum(vertex, steps)`](../../../algorithm/Doubling.py#L31) | method | `jump`・`with`・和を計算する。 | `vertex`: 頂点番号<br>`steps`: 移動step数 | tuple[int, number] — 遷移後の頂点番号と、通過元頂点の値の合計 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`jump(vertex, steps)`](../../../algorithm/Doubling.py#L22) | method | `jump`を求める。 | `vertex`: 頂点番号<br>`steps`: 移動step数 | int — steps回遷移した後の頂点番号 | O(log K) |
+| [`jump_with_sum(vertex, steps)`](../../../algorithm/Doubling.py#L31) | method | `jump`・`with`・和を計算する。 | `vertex`: 頂点番号<br>`steps`: 移動step数 | tuple[int, number] — 遷移後の頂点番号と、通過元頂点の値の合計 | O(log K) |

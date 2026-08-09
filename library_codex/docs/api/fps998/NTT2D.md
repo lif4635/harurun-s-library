@@ -3,7 +3,6 @@
 
 998244353上の2次元NTTと2変数係数畳み込み。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps998/NTT2D.py`](../../../fps998/NTT2D.py)
 - 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,8 +19,8 @@ from library_codex.fps998.NTT2D import ntt2d, intt2d, multiply2d
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`ntt2d(values)`](../../../fps998/NTT2D.py#L23) | 2次元係数行列を破壊的に順変換し、同じ2次元listを返す。O(RC(log R+log C))。 | `values`: 各辺長が2の冪の長方形係数行列。`values[i][j]`は$x^iy^j$の係数。 | list[list[int]] — 2次元周波数表現へ破壊的に書き換えた、入力と同じ2次元list object。 |
-| [`intt2d(values)`](../../../fps998/NTT2D.py#L41) | 2次元周波数行列を破壊的に正規化済み逆変換して返す。O(RC(log R+log C))。 | `values`: ntt2dで得た長方形の2次元周波数list。 | list[list[int]] — 逆変換と正規化を適用した、入力と同じ2次元list object。 |
-| [`multiply2d(first, second)`](../../../fps998/NTT2D.py#L59) | 2つの2変数係数行列の積を`(R1+R2-1)x(C1+C2-1)`で返す。O(RC(log R+log C))。 | `first`: 第1の長方形係数行列。<br>`second`: 第2の長方形係数行列。 | list[list[int]] — 大きさ$(R_1+R_2-1)\times(C_1+C_2-1)$の係数行列。`result[i][j]`は$x^iy^j$の係数。 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`ntt2d(values)`](../../../fps998/NTT2D.py#L23) | 2次元係数行列を破壊的に順変換し、同じ2次元listを返す。O(RC(log R+log C))。 | `values`: 各辺長が2の冪の長方形係数行列。`values[i][j]`は$x^iy^j$の係数。 | list[list[int]] — 2次元周波数表現へ破壊的に書き換えた、入力と同じ2次元list object。 | O(RC(log R+log C) |
+| [`intt2d(values)`](../../../fps998/NTT2D.py#L41) | 2次元周波数行列を破壊的に正規化済み逆変換して返す。O(RC(log R+log C))。 | `values`: ntt2dで得た長方形の2次元周波数list。 | list[list[int]] — 逆変換と正規化を適用した、入力と同じ2次元list object。 | O(RC(log R+log C) |
+| [`multiply2d(first, second)`](../../../fps998/NTT2D.py#L59) | 2つの2変数係数行列の積を`(R1+R2-1)x(C1+C2-1)`で返す。O(RC(log R+log C))。 | `first`: 第1の長方形係数行列。<br>`second`: 第2の長方形係数行列。 | list[list[int]] — 大きさ$(R_1+R_2-1)\times(C_1+C_2-1)$の係数行列。`result[i][j]`は$x^iy^j$の係数。 | O(RC(log R+log C) |

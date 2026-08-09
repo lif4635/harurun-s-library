@@ -3,7 +3,6 @@
 
 点の重み追加と矩形和queryが混ざる列をofflineで処理する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`spatial_structure/DynamicPointAddRectangleSum.py`](../../../spatial_structure/DynamicPointAddRectangleSum.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.spatial_structure.DynamicPointAddRectangleSum import DynamicP
 - constructor: [`DynamicPointAddRectangleSum()`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L8)
 - 引数: なし
 - 返り値: `DynamicPointAddRectangleSum` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(x, y, value)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`query(left, bottom, right, top)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L14) | method | 半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の点重み和queryを登録する。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | None — 値は返さない。solveが登録順の各query結果を返す。 |
-| [`solve()`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L17) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(x, y, value)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`query(left, bottom, right, top)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L14) | method | 半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の点重み和queryを登録する。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | None — 値は返さない。solveが登録順の各query結果を返す。 | — |
+| [`solve()`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L17) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | — |

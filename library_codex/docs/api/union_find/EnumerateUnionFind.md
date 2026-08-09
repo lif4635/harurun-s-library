@@ -3,7 +3,6 @@
 
 各連結成分に含まれる要素を列挙できるUnion-Find。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`union_find/EnumerateUnionFind.py`](../../../union_find/EnumerateUnionFind.py)
 - 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.union_find.EnumerateUnionFind import EnumerateUnionFind
 - constructor: [`EnumerateUnionFind(size)`](../../../union_find/EnumerateUnionFind.py#L8)
 - 引数: `size`: 要素数・universe size
 - 返り値: `EnumerateUnionFind` instance
+- 計算量: —
 - 継承元: `UnionFind`
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`merge(first, second)`](../../../union_find/EnumerateUnionFind.py#L12) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first_root` / `super().merge(first_root, second_root)` |
-| [`members(node)`](../../../union_find/EnumerateUnionFind.py#L22) | method | `members`を求める。 | `node`: 頂点・内部node番号 | list[object] — 計算結果 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`merge(first, second)`](../../../union_find/EnumerateUnionFind.py#L12) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first_root` / `super().merge(first_root, second_root)` | — |
+| [`members(node)`](../../../union_find/EnumerateUnionFind.py#L22) | method | `members`を求める。 | `node`: 頂点・内部node番号 | list[object] — 計算結果 | — |

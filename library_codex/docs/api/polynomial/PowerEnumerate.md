@@ -3,7 +3,6 @@
 
 多項式の冪に関する内積または係数をまとめて列挙する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`polynomial/PowerEnumerate.py`](../../../polynomial/PowerEnumerate.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,7 +19,7 @@ from library_codex.polynomial.PowerEnumerate import power_inner_product_enumerat
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`power_inner_product_enumerate(polynomial, weights, count, mod=DEFAULT_MOD)`](../../../polynomial/PowerEnumerate.py#L74) | 入力した値・多項式を指定指数だけ累乗する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`weights`: 重みの列<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * (count + 1)` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 |
-| [`power_coefficient_enumerate(polynomial, multiplier=None, count=None, mod=DEFAULT_MOD)`](../../../polynomial/PowerEnumerate.py#L107) | $n=\deg f$ として、$[x^n]f(x)^i g(x)$ を $0\le i\le\mathrm{count}$ の順に一括計算する。gはmultiplier。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`multiplier`: 乗数または乗算する多項式。省略時: `None`<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さcount+1の列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod\mathrm{mod}$。 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`power_inner_product_enumerate(polynomial, weights, count, mod=DEFAULT_MOD)`](../../../polynomial/PowerEnumerate.py#L74) | 入力した値・多項式を指定指数だけ累乗する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`weights`: 重みの列<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * (count + 1)` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 | — |
+| [`power_coefficient_enumerate(polynomial, multiplier=None, count=None, mod=DEFAULT_MOD)`](../../../polynomial/PowerEnumerate.py#L107) | $n=\deg f$ として、$[x^n]f(x)^i g(x)$ を $0\le i\le\mathrm{count}$ の順に一括計算する。gはmultiplier。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`multiplier`: 乗数または乗算する多項式。省略時: `None`<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さcount+1の列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod\mathrm{mod}$。 | — |

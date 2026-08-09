@@ -3,7 +3,6 @@
 
 無向グラフに含まれる三角形を重複なく列挙する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph_enumeration/EnumerateTriangles.py`](../../../graph_enumeration/EnumerateTriangles.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph_enumeration.EnumerateTriangles import enumerate_triangl
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`enumerate_triangles(n, edges, callback=None)`](../../../graph_enumeration/EnumerateTriangles.py#L3) | `triangles`を列挙する。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | list/None/int `result if callback is None else count` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`enumerate_triangles(n, edges, callback=None)`](../../../graph_enumeration/EnumerateTriangles.py#L3) | `triangles`を列挙する。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | list/None/int `result if callback is None else count` | O(n + m sqrt(m) |

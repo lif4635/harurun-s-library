@@ -22,9 +22,9 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`minimum_matroid_intersection(first, second, weights)`](../../../optimization/Matroid.py#L147) | 各要素数について、2つのマトロイドに共通する最小重み独立集合を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weights`: 重みの列 | tuple(`costs`（list）, `selections`（list）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`minimum_matroid_intersection(first, second, weights)`](../../../optimization/Matroid.py#L147) | 各要素数について、2つのマトロイドに共通する最小重み独立集合を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weights`: 重みの列 | tuple(`costs`（list）, `selections`（list）) | — |
 
 ## Class `GraphicMatroid`
 
@@ -33,11 +33,12 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 - constructor: [`GraphicMatroid(vertex_count, edges)`](../../../optimization/Matroid.py#L6)
 - 引数: `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list
 - 返り値: `GraphicMatroid` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(selected)`](../../../optimization/Matroid.py#L15) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` |
-| [`circuit(edge)`](../../../optimization/Matroid.py#L18) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `edge`: 辺または隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(selected)`](../../../optimization/Matroid.py#L15) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` | — |
+| [`circuit(edge)`](../../../optimization/Matroid.py#L18) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `edge`: 辺または隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
 
 ## Class `PartitionMatroid`
 
@@ -46,11 +47,12 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 - constructor: [`PartitionMatroid(groups, limits)`](../../../optimization/Matroid.py#L48)
 - 引数: `groups`: 処理対象を順に並べた列<br>`limits`: `limits`として使う入力
 - 返り値: `PartitionMatroid` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(selected)`](../../../optimization/Matroid.py#L53) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` |
-| [`circuit(element)`](../../../optimization/Matroid.py#L61) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `self.members[group] + [element]` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(selected)`](../../../optimization/Matroid.py#L53) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` | — |
+| [`circuit(element)`](../../../optimization/Matroid.py#L61) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `self.members[group] + [element]` | — |
 
 ## Class `TransversalMatroid`
 
@@ -59,8 +61,9 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 - constructor: [`TransversalMatroid(left_size, right_size, edges)`](../../../optimization/Matroid.py#L74)
 - 引数: `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list
 - 返り値: `TransversalMatroid` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(selected)`](../../../optimization/Matroid.py#L115) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` |
-| [`circuit(element)`](../../../optimization/Matroid.py#L125) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(selected)`](../../../optimization/Matroid.py#L115) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` | — |
+| [`circuit(element)`](../../../optimization/Matroid.py#L125) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |

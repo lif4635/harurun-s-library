@@ -27,14 +27,15 @@ from library_codex.segment_tree.DynamicSegmentTree import DynamicSegmentTree
 - constructor: [`DynamicSegmentTree(left, right, op, identity)`](../../../segment_tree/DynamicSegmentTree.py#L14)
 - 引数: `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`op`: 結合的な二項演算 `op(left, right)`<br>`identity`: 演算 `op` の単位元
 - 返り値: `DynamicSegmentTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(index, value)`](../../../segment_tree/DynamicSegmentTree.py#L69) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(index)`](../../../segment_tree/DynamicSegmentTree.py#L72) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
-| [`add(index, value)`](../../../segment_tree/DynamicSegmentTree.py#L88) | method | indexの現在値をop(value, current)で置き換える。O(log W)。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`prod(query_left, query_right)`](../../../segment_tree/DynamicSegmentTree.py#L92) | method | 半開区間 $[\mathrm{query\_left},\mathrm{query\_right})$ をopで左から畳み込む。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端 | 指定区間のopによる畳み込み。空区間ならidentity。 |
-| [`all_prod()`](../../../segment_tree/DynamicSegmentTree.py#L112) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） |
-| [`items()`](../../../segment_tree/DynamicSegmentTree.py#L115) | method | identityでない設定済みleafを(index, value)の昇順listで返す。O(K)。 | なし | list[tuple[int, object]] — identityでないleafの(index, value)をindex昇順に並べた列 |
-| [`__str__()`](../../../segment_tree/DynamicSegmentTree.py#L133) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
-| [`__repr__()`](../../../segment_tree/DynamicSegmentTree.py#L136) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'DynamicSegmentTree(%r)' % dict(self.items())` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(index, value)`](../../../segment_tree/DynamicSegmentTree.py#L69) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`get(index)`](../../../segment_tree/DynamicSegmentTree.py#L72) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | — |
+| [`add(index, value)`](../../../segment_tree/DynamicSegmentTree.py#L88) | method | indexの現在値をop(value, current)で置き換える。O(log W)。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log W) |
+| [`prod(query_left, query_right)`](../../../segment_tree/DynamicSegmentTree.py#L92) | method | 半開区間 $[\mathrm{query\_left},\mathrm{query\_right})$ をopで左から畳み込む。 | `query_left`: 問い合わせ半開区間の左端<br>`query_right`: 問い合わせ半開区間の右端 | 指定区間のopによる畳み込み。空区間ならidentity。 | — |
+| [`all_prod()`](../../../segment_tree/DynamicSegmentTree.py#L112) | method | 全区間の集約値を返す。 | なし | 全体の集約値（入力要素型） | — |
+| [`items()`](../../../segment_tree/DynamicSegmentTree.py#L115) | method | identityでない設定済みleafを(index, value)の昇順listで返す。O(K)。 | なし | list[tuple[int, object]] — identityでないleafの(index, value)をindex昇順に並べた列 | O(K) |
+| [`__str__()`](../../../segment_tree/DynamicSegmentTree.py#L133) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
+| [`__repr__()`](../../../segment_tree/DynamicSegmentTree.py#L136) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'DynamicSegmentTree(%r)' % dict(self.items())` | — |

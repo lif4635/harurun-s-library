@@ -25,13 +25,14 @@ from library_codex.union_find.UnionFind import UnionFind
 - constructor: [`UnionFind(size)`](../../../union_find/UnionFind.py#L6)
 - 引数: `size`: 要素数・universe size
 - 返り値: `UnionFind` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`find(node)`](../../../union_find/UnionFind.py#L11) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） |
-| [`merge(first, second)`](../../../union_find/UnionFind.py#L25) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`same(first, second)`](../../../union_find/UnionFind.py#L41) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
-| [`size(node)`](../../../union_find/UnionFind.py#L44) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） |
-| [`groups()`](../../../union_find/UnionFind.py#L47) | method | `groups`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`__str__()`](../../../union_find/UnionFind.py#L53) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
-| [`__repr__()`](../../../union_find/UnionFind.py#L56) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'UnionFind(%r)' % self.groups()` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`find(node)`](../../../union_find/UnionFind.py#L11) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） | — |
+| [`merge(first, second)`](../../../union_find/UnionFind.py#L25) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | — |
+| [`same(first, second)`](../../../union_find/UnionFind.py#L41) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
+| [`size(node)`](../../../union_find/UnionFind.py#L44) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） | — |
+| [`groups()`](../../../union_find/UnionFind.py#L47) | method | `groups`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`__str__()`](../../../union_find/UnionFind.py#L53) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
+| [`__repr__()`](../../../union_find/UnionFind.py#L56) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'UnionFind(%r)' % self.groups()` | — |

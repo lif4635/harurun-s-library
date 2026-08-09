@@ -3,7 +3,6 @@
 
 多項式のmonic化・gcd・拡張gcdを計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`polynomial/PolynomialGCD.py`](../../../polynomial/PolynomialGCD.py)
 - 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
@@ -21,8 +20,8 @@ from library_codex.polynomial.PolynomialGCD import polynomial_monic, polynomial_
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`polynomial_monic(polynomial, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L16) | 多項式・`monic`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] |
-| [`polynomial_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L23) | 多項式・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_monic(first, mod)` |
-| [`polynomial_extended_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L30) | 多項式・`extended`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`, list `[]`) / tuple(list `[value * scale % mod for value in old_remainder]`, list `[value * scale % mod for value in old_first]`, list `[value * scale % mod for value in old_second]`) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`polynomial_monic(polynomial, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L16) | 多項式・`monic`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | — |
+| [`polynomial_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L23) | 多項式・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_monic(first, mod)` | — |
+| [`polynomial_extended_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L30) | 多項式・`extended`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`, list `[]`) / tuple(list `[value * scale % mod for value in old_remainder]`, list `[value * scale % mod for value in old_first]`, list `[value * scale % mod for value in old_second]`) | — |

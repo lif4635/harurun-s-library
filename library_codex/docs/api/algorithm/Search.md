@@ -11,7 +11,7 @@
 
 - `binary_search_int`: 判定条件が切り替わる整数境界を二分探索する。
 - `binary_search_float`: 判定条件が切り替わる実数境界を指定回数の二分探索で近似する。
-- `kth_element`: valuesを部分的に並べ替え、index番目に小さい値を返す。
+- `kth_element`: valuesを変更せず、0始まりでindex番目に小さい値をintroselect型のquickselectで返す。整列済み・逆順の入力は線形走査で検出し、分割が偏り続けた場合はsortへ切り替える。
 
 ## Import
 
@@ -21,8 +21,8 @@ from library_codex.algorithm.Search import binary_search_int, binary_search_floa
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`binary_search_int(predicate, false_value, true_value)`](../../../algorithm/Search.py#L4) | 判定条件が切り替わる整数境界を二分探索する。 | `predicate`: 判定callback<br>`false_value`: 処理対象の値<br>`true_value`: 処理対象の値 | `true_value`（数値または入力要素型） |
-| [`binary_search_float(predicate, false_value, true_value, iterations=80)`](../../../algorithm/Search.py#L15) | 判定条件が切り替わる実数境界を指定回数の二分探索で近似する。 | `predicate`: 判定callback<br>`false_value`: 処理対象の値<br>`true_value`: 処理対象の値<br>`iterations`: 反復回数。省略時: `80` | `true_value`（数値または入力要素型） |
-| [`kth_element(values, index)`](../../../algorithm/Search.py#L26) | valuesを部分的に並べ替え、index番目に小さい値を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`index`: 位置 | `pivot` / `values[left]` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`binary_search_int(predicate, false_value, true_value)`](../../../algorithm/Search.py#L4) | 判定条件が切り替わる整数境界を二分探索する。 | `predicate`: 判定callback<br>`false_value`: 処理対象の値<br>`true_value`: 処理対象の値 | `true_value`（数値または入力要素型） | O(log \|true_value-false_value\|) |
+| [`binary_search_float(predicate, false_value, true_value, iterations=80)`](../../../algorithm/Search.py#L15) | 判定条件が切り替わる実数境界を指定回数の二分探索で近似する。 | `predicate`: 判定callback<br>`false_value`: 処理対象の値<br>`true_value`: 処理対象の値<br>`iterations`: 反復回数。省略時: `80` | `true_value`（数値または入力要素型） | O(iterations) |
+| [`kth_element(values, index)`](../../../algorithm/Search.py#L26) | valuesを変更せず、0始まりでindex番目に小さい値をintroselect型のquickselectで返す。整列済み・逆順の入力は線形走査で検出し、分割が偏り続けた場合はsortへ切り替える。 | `values`: 大小比較できる値のiterable。入力object自体は変更しない。<br>`index`: 小さい順で取得する位置。0以上len(values)未満。 | object — valuesを昇順に並べたとき、0始まりでindex番目に置かれる値。 | 期待 O(N)、最悪 O(N log N) |

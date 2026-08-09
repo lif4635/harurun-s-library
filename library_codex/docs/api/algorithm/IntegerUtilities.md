@@ -26,10 +26,10 @@ from library_codex.algorithm.IntegerUtilities import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`nearest_congruent_at_least(value, lower_bound, modulus)`](../../../algorithm/IntegerUtilities.py#L6) | `nearest`・`congruent`・`at`・`least`を求める。 | `value`: 追加・設定・問い合わせる値<br>`lower_bound`: 探索対象とする値の下限<br>`modulus`: 法 | 数値または入力要素型 `value + (lower_bound - value + modulus - 1) // modulus * modulus` / 数値または入力要素型 `value - (value - lower_bound) // modulus * modulus` |
-| [`modular_power(base, exponent, modulus)`](../../../algorithm/IntegerUtilities.py#L16) | baseのexponent乗をmodulusで割った余りを返す。 | `base`: 底・基準となる値または列<br>`exponent`: 非負の指数<br>`modulus`: 法 | `pow(base, exponent, modulus)` |
-| [`exact_square_root(number)`](../../../algorithm/IntegerUtilities.py#L23) | `exact`・平方・根を求める。 | `number`: 対象の非負整数 | `-1` / `root if root * root == number else -1` |
-| [`integer_nth_root(number, degree)`](../../../algorithm/IntegerUtilities.py#L31) | $r^{\mathrm{degree}}\le\mathrm{number}$ を満たす最大の非負整数 $r$ を求める。 | `number`: 対象の非負整数<br>`degree`: 求める根の正の次数 | int — $r^{\mathrm{degree}}\le\mathrm{number}<(r+1)^{\mathrm{degree}}$ を満たす $r$。 |
-| [`decimal_digit_count(number, zero=1)`](../../../algorithm/IntegerUtilities.py#L53) | 非負整数の10進桁数を返す。 | `number`: 対象の非負整数<br>`zero`: 加法単位元・0相当の値。省略時: `1` | `zero` / `len(str(abs(number)))` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`nearest_congruent_at_least(value, lower_bound, modulus)`](../../../algorithm/IntegerUtilities.py#L6) | `nearest`・`congruent`・`at`・`least`を求める。 | `value`: 追加・設定・問い合わせる値<br>`lower_bound`: 探索対象とする値の下限<br>`modulus`: 法 | 数値または入力要素型 `value + (lower_bound - value + modulus - 1) // modulus * modulus` / 数値または入力要素型 `value - (value - lower_bound) // modulus * modulus` | O(1) integer operations |
+| [`modular_power(base, exponent, modulus)`](../../../algorithm/IntegerUtilities.py#L16) | baseのexponent乗をmodulusで割った余りを返す。 | `base`: 底・基準となる値または列<br>`exponent`: 非負の指数<br>`modulus`: 法 | `pow(base, exponent, modulus)` | O(log exponent) |
+| [`exact_square_root(number)`](../../../algorithm/IntegerUtilities.py#L23) | `exact`・平方・根を求める。 | `number`: 対象の非負整数 | `-1` / `root if root * root == number else -1` | O(log number) bit operations |
+| [`integer_nth_root(number, degree)`](../../../algorithm/IntegerUtilities.py#L31) | $r^{\mathrm{degree}}\le\mathrm{number}$ を満たす最大の非負整数 $r$ を求める。 | `number`: 対象の非負整数<br>`degree`: 求める根の正の次数 | int — $r^{\mathrm{degree}}\le\mathrm{number}<(r+1)^{\mathrm{degree}}$ を満たす $r$。 | O(log number) bit operations |
+| [`decimal_digit_count(number, zero=1)`](../../../algorithm/IntegerUtilities.py#L53) | 非負整数の10進桁数を返す。 | `number`: 対象の非負整数<br>`zero`: 加法単位元・0相当の値。省略時: `1` | `zero` / `len(str(abs(number)))` | O(number of digits) |

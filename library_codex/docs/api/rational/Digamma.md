@@ -3,7 +3,6 @@
 
 digamma関数を数値的に評価する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`rational/Digamma.py`](../../../rational/Digamma.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.rational.Digamma import digamma
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`digamma(value)`](../../../rational/Digamma.py#L5) | `digamma`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `result + math.log(value) - 0.5 * inverse - square / 12.0 + fou...` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`digamma(value)`](../../../rational/Digamma.py#L5) | `digamma`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `result + math.log(value) - 0.5 * inverse - square / 12.0 + fou...` | — |

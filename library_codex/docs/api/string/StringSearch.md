@@ -20,9 +20,9 @@ from library_codex.string.StringSearch import lcp_naive, StringSearch
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`lcp_naive(first, second)`](../../../string/StringSearch.py#L4) | `lcp`・`naive`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 0-indexedの位置（int） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`lcp_naive(first, second)`](../../../string/StringSearch.py#L4) | `lcp`・`naive`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 0-indexedの位置（int） | — |
 
 ## Class `StringSearch`
 
@@ -31,11 +31,12 @@ Suffix Arrayによるsubstring LCP・比較・検索を扱う `StringSearch`。
 - constructor: [`StringSearch(sequence, upper=None)`](../../../string/StringSearch.py#L17)
 - 引数: `sequence`: 入力列<br>`upper`: 上限。省略時: `None`
 - 返り値: `StringSearch` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`lcp(*arguments)`](../../../string/StringSearch.py#L27) | method | `lcp`を求める。 | `*arguments`: 位置引数のtuple | `self.index.lcp_substring(first[0], first[1], second[0], second...` / `self.index.lcp_suffix(first, second)` / `self.index.lcp_substring(*arguments)` |
-| [`strcmp(*arguments)`](../../../string/StringSearch.py#L39) | method | `strcmp`を求める。 | `*arguments`: 位置引数のtuple | `self.index.compare_substring(first[0], first[1], second[0], se...` / `self.index.compare_suffix(first, second)` / `self.index.compare_substring(*arguments)` |
-| [`search(pattern)`](../../../string/StringSearch.py#L55) | method | 対象を探索する。 | `pattern`: 検索patternの文字列・列 | `self.index.search(pattern)` |
-| [`count(pattern)`](../../../string/StringSearch.py#L60) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） |
-| [`occurrences(pattern, sort_positions=False)`](../../../string/StringSearch.py#L63) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `self.index.occurrences(pattern, sort_positions)` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`lcp(*arguments)`](../../../string/StringSearch.py#L27) | method | `lcp`を求める。 | `*arguments`: 位置引数のtuple | `self.index.lcp_substring(first[0], first[1], second[0], second...` / `self.index.lcp_suffix(first, second)` / `self.index.lcp_substring(*arguments)` | — |
+| [`strcmp(*arguments)`](../../../string/StringSearch.py#L39) | method | `strcmp`を求める。 | `*arguments`: 位置引数のtuple | `self.index.compare_substring(first[0], first[1], second[0], se...` / `self.index.compare_suffix(first, second)` / `self.index.compare_substring(*arguments)` | — |
+| [`search(pattern)`](../../../string/StringSearch.py#L55) | method | 対象を探索する。 | `pattern`: 検索patternの文字列・列 | `self.index.search(pattern)` | — |
+| [`count(pattern)`](../../../string/StringSearch.py#L60) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） | — |
+| [`occurrences(pattern, sort_positions=False)`](../../../string/StringSearch.py#L63) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `self.index.occurrences(pattern, sort_positions)` | — |

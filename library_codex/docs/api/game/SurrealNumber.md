@@ -3,7 +3,6 @@
 
 dyadic有理数としてsurreal numberの比較・四則演算・子を扱う。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`game/SurrealNumber.py`](../../../game/SurrealNumber.py)
 - 公開API: function 1、class 1、method/property 16（Python protocol 10を含む）
 
@@ -20,9 +19,9 @@ from library_codex.game.SurrealNumber import reduce_surreal, SurrealNumber
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`reduce_surreal(left, right)`](../../../game/SurrealNumber.py#L110) | `reduce`・`surreal`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `SurrealNumber.between(left, right)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`reduce_surreal(left, right)`](../../../game/SurrealNumber.py#L110) | `reduce`・`surreal`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `SurrealNumber.between(left, right)` | — |
 
 ## Class `SurrealNumber`
 
@@ -31,22 +30,23 @@ dyadic有理数としてsurreal numberの比較・四則演算・子を扱うを
 - constructor: [`SurrealNumber(numerator=0, exponent=0)`](../../../game/SurrealNumber.py#L8)
 - 引数: `numerator`: 有理式の分子多項式。省略時: `0`<br>`exponent`: 非負の指数。省略時: `0`
 - 返り値: `SurrealNumber` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`p`](../../../game/SurrealNumber.py#L20) | property | `p`を求める。 | なし | `self.numerator` |
-| [`q`](../../../game/SurrealNumber.py#L24) | property | `q`を求める。 | なし | `self.exponent` |
-| [`__add__(other)`](../../../game/SurrealNumber.py#L30) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | SurrealNumber instance |
-| [`__sub__(other)`](../../../game/SurrealNumber.py#L37) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` |
-| [`__neg__()`](../../../game/SurrealNumber.py#L40) | method | -obj。 | なし | SurrealNumber instance |
-| [`__lt__(other)`](../../../game/SurrealNumber.py#L46) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__le__(other)`](../../../game/SurrealNumber.py#L49) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__gt__(other)`](../../../game/SurrealNumber.py#L52) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__ge__(other)`](../../../game/SurrealNumber.py#L55) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__eq__(other)`](../../../game/SurrealNumber.py#L58) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__hash__()`](../../../game/SurrealNumber.py#L64) | method | hash(obj)。 | なし | `hash((self.numerator, self.exponent))` |
-| [`__repr__()`](../../../game/SurrealNumber.py#L67) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'SurrealNumber({self.numerator})'` / `f'SurrealNumber({self.numerator}, {self.exponent})'` |
-| [`children()`](../../../game/SurrealNumber.py#L72) | method | `children`を求める。 | なし | tuple(SurrealNumber `SurrealNumber(-1)`, SurrealNumber `SurrealNumber(1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator * 2 - 1, 1)`, SurrealNumber `SurrealNumber(self.numerator + 1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator - 1)`, SurrealNumber `SurrealNumber(self.numerator * 2 + 1, 1)`) / tuple(数値または入力要素型 `self - difference`, 数値または入力要素型 `self + difference`) |
-| [`larger()`](../../../game/SurrealNumber.py#L86) | method | `larger`を求める。 | なし | 計算結果（SurrealNumber） |
-| [`smaller()`](../../../game/SurrealNumber.py#L92) | method | `smaller`を求める。 | なし | 計算結果（SurrealNumber） |
-| [`between(left, right)`](../../../game/SurrealNumber.py#L99) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 計算結果（SurrealNumber） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`p`](../../../game/SurrealNumber.py#L20) | property | `p`を求める。 | なし | `self.numerator` | — |
+| [`q`](../../../game/SurrealNumber.py#L24) | property | `q`を求める。 | なし | `self.exponent` | — |
+| [`__add__(other)`](../../../game/SurrealNumber.py#L30) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | SurrealNumber instance | — |
+| [`__sub__(other)`](../../../game/SurrealNumber.py#L37) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` | — |
+| [`__neg__()`](../../../game/SurrealNumber.py#L40) | method | -obj。 | なし | SurrealNumber instance | — |
+| [`__lt__(other)`](../../../game/SurrealNumber.py#L46) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__le__(other)`](../../../game/SurrealNumber.py#L49) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__gt__(other)`](../../../game/SurrealNumber.py#L52) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__ge__(other)`](../../../game/SurrealNumber.py#L55) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__eq__(other)`](../../../game/SurrealNumber.py#L58) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__hash__()`](../../../game/SurrealNumber.py#L64) | method | hash(obj)。 | なし | `hash((self.numerator, self.exponent))` | — |
+| [`__repr__()`](../../../game/SurrealNumber.py#L67) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'SurrealNumber({self.numerator})'` / `f'SurrealNumber({self.numerator}, {self.exponent})'` | — |
+| [`children()`](../../../game/SurrealNumber.py#L72) | method | `children`を求める。 | なし | tuple(SurrealNumber `SurrealNumber(-1)`, SurrealNumber `SurrealNumber(1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator * 2 - 1, 1)`, SurrealNumber `SurrealNumber(self.numerator + 1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator - 1)`, SurrealNumber `SurrealNumber(self.numerator * 2 + 1, 1)`) / tuple(数値または入力要素型 `self - difference`, 数値または入力要素型 `self + difference`) | — |
+| [`larger()`](../../../game/SurrealNumber.py#L86) | method | `larger`を求める。 | なし | 計算結果（SurrealNumber） | — |
+| [`smaller()`](../../../game/SurrealNumber.py#L92) | method | `smaller`を求める。 | なし | 計算結果（SurrealNumber） | — |
+| [`between(left, right)`](../../../game/SurrealNumber.py#L99) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 計算結果（SurrealNumber） | — |

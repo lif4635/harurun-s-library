@@ -3,7 +3,6 @@
 
 heap同士のmeldと全要素へのlazy加算に対応するSkew Heap。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`sequence_structure/SkewHeap.py`](../../../sequence_structure/SkewHeap.py)
 - 公開API: function 0、class 1、method/property 6（Python protocol 0を含む）
 
@@ -24,12 +23,13 @@ heap同士のmeldと全要素へのlazy加算に対応するSkew Heapを扱う `
 - constructor: [`SkewHeap(min_heap=True)`](../../../sequence_structure/SkewHeap.py#L8)
 - 引数: `min_heap`: 最小・`heap`の下限。省略時: `True`
 - 返り値: `SkewHeap` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`new_node(key, value=None)`](../../../sequence_structure/SkewHeap.py#L16) | method | `new`・`node`を求める。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値。省略時: `None` | `node` |
-| [`meld(first, second)`](../../../sequence_structure/SkewHeap.py#L42) | method | `meld`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `second` / `first` / `root` |
-| [`push(root, key, value=None)`](../../../sequence_structure/SkewHeap.py#L61) | method | 要素を追加する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値。省略時: `None` | `self.meld(root, self.new_node(key, value))` |
-| [`add_all(root, delta)`](../../../sequence_structure/SkewHeap.py#L64) | method | 全体を追加する。 | `root`: 根の頂点番号・原始根<br>`delta`: 加算差分 | `root` |
-| [`top(root)`](../../../sequence_structure/SkewHeap.py#L71) | method | 次に取り出される要素を削除せず返す。 | `root`: 根の頂点番号・原始根 | 次に取り出される要素 |
-| [`pop(root)`](../../../sequence_structure/SkewHeap.py#L77) | method | 要素を1つ取り除いて返す。 | `root`: 根の頂点番号・原始根 | `self.meld(self.left[root], self.right[root])` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`new_node(key, value=None)`](../../../sequence_structure/SkewHeap.py#L16) | method | `new`・`node`を求める。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値。省略時: `None` | `node` | — |
+| [`meld(first, second)`](../../../sequence_structure/SkewHeap.py#L42) | method | `meld`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `second` / `first` / `root` | — |
+| [`push(root, key, value=None)`](../../../sequence_structure/SkewHeap.py#L61) | method | 要素を追加する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値。省略時: `None` | `self.meld(root, self.new_node(key, value))` | — |
+| [`add_all(root, delta)`](../../../sequence_structure/SkewHeap.py#L64) | method | 全体を追加する。 | `root`: 根の頂点番号・原始根<br>`delta`: 加算差分 | `root` | — |
+| [`top(root)`](../../../sequence_structure/SkewHeap.py#L71) | method | 次に取り出される要素を削除せず返す。 | `root`: 根の頂点番号・原始根 | 次に取り出される要素 | — |
+| [`pop(root)`](../../../sequence_structure/SkewHeap.py#L77) | method | 要素を1つ取り除いて返す。 | `root`: 根の頂点番号・原始根 | `self.meld(self.left[root], self.right[root])` | — |

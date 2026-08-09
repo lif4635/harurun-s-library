@@ -21,10 +21,10 @@ from library_codex.segment_tree.MaxInterval import merge_max_interval, max_inter
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`merge_max_interval(first, second)`](../../../segment_tree/MaxInterval.py#L44) | 隣り合う2区間の集約値を結合し、結合後の区間和・最大部分配列和・最小部分配列和を返す。 | `first`: 結合する左側区間のMaxInterval<br>`second`: 結合する右側区間のMaxInterval | MaxInterval — firstの直後にsecondを連結した区間の集約値 |
-| [`max_interval_segment_tree(values)`](../../../segment_tree/MaxInterval.py#L77) | 数列から、各区間の最大・最小部分配列和を取得できるSegmentTreeを構築する。 | `values`: 最大・最小部分配列和を管理する数列 | SegTree — 各nodeがMaxIntervalを持つSegTree。prod(...).maximumで最大部分配列和を取得する |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`merge_max_interval(first, second)`](../../../segment_tree/MaxInterval.py#L44) | 隣り合う2区間の集約値を結合し、結合後の区間和・最大部分配列和・最小部分配列和を返す。 | `first`: 結合する左側区間のMaxInterval<br>`second`: 結合する右側区間のMaxInterval | MaxInterval — firstの直後にsecondを連結した区間の集約値 | — |
+| [`max_interval_segment_tree(values)`](../../../segment_tree/MaxInterval.py#L77) | 数列から、各区間の最大・最小部分配列和を取得できるSegmentTreeを構築する。 | `values`: 最大・最小部分配列和を管理する数列 | SegTree — 各nodeがMaxIntervalを持つSegTree。prod(...).maximumで最大部分配列和を取得する | — |
 
 ## Class `MaxInterval`
 
@@ -33,7 +33,8 @@ from library_codex.segment_tree.MaxInterval import merge_max_interval, max_inter
 - constructor: [`MaxInterval(value=0, length=0)`](../../../segment_tree/MaxInterval.py#L19)
 - 引数: `value`: 区間内の全要素に共通する初期値。省略時: `0`<br>`length`: 同じ初期値を持つ区間の要素数。0なら単位元。省略時: `0`
 - 返り値: `MaxInterval` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`single(value)`](../../../segment_tree/MaxInterval.py#L40) | classmethod | 1要素だけを含む区間のMaxIntervalを作る。 | `value`: 区間内の全要素に共通する初期値 | MaxInterval — valueだけを含む長さ1の区間集約値 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`single(value)`](../../../segment_tree/MaxInterval.py#L40) | classmethod | 1要素だけを含む区間のMaxIntervalを作る。 | `value`: 区間内の全要素に共通する初期値 | MaxInterval — valueだけを含む長さ1の区間集約値 | — |

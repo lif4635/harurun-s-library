@@ -24,9 +24,10 @@ Mo's algorithmによるoffline区間queryを扱う `Mo`。
 - constructor: [`Mo(n, query_count=0, block_size=None)`](../../../algorithm/RangeQueries.py#L9)
 - 引数: `n`: 要素数・頂点数・次数<br>`query_count`: 処理中に呼び出す関数または操作。省略時: `0`<br>`block_size`: 1ブロックに含める要素数。省略時: `None`
 - 返り値: `Mo` instance
+- 計算量: 構築 O(1)
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_query(left, right)`](../../../algorithm/RangeQueries.py#L14) | method | 半開区間の問い合わせを登録し、そのquery IDを返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | int — 追加したqueryの0-indexed ID |
-| [`order()`](../../../algorithm/RangeQueries.py#L20) | method | `order`を求める。 | なし | list[tuple[int, int, int]] — Mo順の(left, right, query_id)列 |
-| [`run(add_left, add_right, remove_left, remove_right, get)`](../../../algorithm/RangeQueries.py#L30) | method | 登録した区間queryをMo順に処理し、get()の結果をquery ID順に返す。 | `add_left`: 処理中に呼び出す関数または操作<br>`add_right`: 処理中に呼び出す関数または操作<br>`remove_left`: 処理中に呼び出す関数または操作<br>`remove_right`: 処理中に呼び出す関数または操作<br>`get`: 処理中に呼び出す関数または操作 | list[object] — query ID順に並べたget()の返り値 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_query(left, right)`](../../../algorithm/RangeQueries.py#L14) | method | 半開区間の問い合わせを登録し、そのquery IDを返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | int — 追加したqueryの0-indexed ID | O(1) |
+| [`order()`](../../../algorithm/RangeQueries.py#L20) | method | `order`を求める。 | なし | list[tuple[int, int, int]] — Mo順の(left, right, query_id)列 | O(Q log Q) |
+| [`run(add_left, add_right, remove_left, remove_right, get)`](../../../algorithm/RangeQueries.py#L30) | method | 登録した区間queryをMo順に処理し、get()の結果をquery ID順に返す。 | `add_left`: 処理中に呼び出す関数または操作<br>`add_right`: 処理中に呼び出す関数または操作<br>`remove_left`: 処理中に呼び出す関数または操作<br>`remove_right`: 処理中に呼び出す関数または操作<br>`get`: 処理中に呼び出す関数または操作 | list[object] — query ID順に並べたget()の返り値 | O((N+Q) sqrt(N)) 回程度のcallback |

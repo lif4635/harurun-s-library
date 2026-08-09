@@ -21,6 +21,6 @@ from library_codex.optimization.ConvexConcaveConvolution import concave_max_plus
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`concave_max_plus_convolution(concave, arbitrary, return_argmax=False)`](../../../optimization/ConvexConcaveConvolution.py#L5) | 凹列と一般列のmax-plus畳み込みを求める。 | `concave`: 凹列側の入力<br>`arbitrary`: 任意列側の入力<br>`return_argmax`: 最大値に加えて選んだ添字も返すか。省略時: `False` | list[number]、return_argmax=Trueならtuple[list[number], list[int]] — 値の列 $c$ は $c_k=\max_{i+j=k}(\mathrm{concave}_i+\mathrm{arbitrary}_j)$。長さは $\lvert\mathrm{concave}\rvert+\lvert\mathrm{arbitrary}\rvert-1$。添字列の $k$ 番目は最大値を作った $i$ |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`concave_max_plus_convolution(concave, arbitrary, return_argmax=False)`](../../../optimization/ConvexConcaveConvolution.py#L5) | 凹列と一般列のmax-plus畳み込みを求める。 | `concave`: 凹列側の入力<br>`arbitrary`: 任意列側の入力<br>`return_argmax`: 最大値に加えて選んだ添字も返すか。省略時: `False` | list[number]、return_argmax=Trueならtuple[list[number], list[int]] — 値の列 $c$ は $c_k=\max_{i+j=k}(\mathrm{concave}_i+\mathrm{arbitrary}_j)$。長さは $\lvert\mathrm{concave}\rvert+\lvert\mathrm{arbitrary}\rvert-1$。添字列の $k$ 番目は最大値を作った $i$ | O(A log(A+C) + C)（Aはarbitrary、Cはconcaveの長さ） |

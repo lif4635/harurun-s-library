@@ -3,7 +3,6 @@
 
 二次元gridの一点更新と半開矩形monoid積を扱うSegment Tree。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`spatial_structure/SegmentTree2D.py`](../../../spatial_structure/SegmentTree2D.py)
 - 公開API: function 0、class 1、method/property 6（Python protocol 2を含む）
 
@@ -24,12 +23,13 @@ from library_codex.spatial_structure.SegmentTree2D import SegmentTree2D
 - constructor: [`SegmentTree2D(matrix, op, identity)`](../../../spatial_structure/SegmentTree2D.py#L8)
 - 引数: `matrix`: 行をlistで持つ行列<br>`op`: 結合的な二項演算 `op(left, right)`<br>`identity`: 演算 `op` の単位元
 - 返り値: `SegmentTree2D` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(row, column, value)`](../../../spatial_structure/SegmentTree2D.py#L39) | method | 指定位置・状態を値で置き換える。 | `row`: 行番号<br>`column`: 列番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(row, column)`](../../../spatial_structure/SegmentTree2D.py#L68) | method | 指定位置・辺・状態の値を取得する。 | `row`: 行番号<br>`column`: 列番号 | 指定対象に格納された値・edge object |
-| [`tolist()`](../../../spatial_structure/SegmentTree2D.py#L71) | method | 現在のgridを行ごとのlistとして返す。O(HW)。 | なし | list[list[object]] — 現在のgridをrow順に複製した2次元list |
-| [`__str__()`](../../../spatial_structure/SegmentTree2D.py#L79) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
-| [`__repr__()`](../../../spatial_structure/SegmentTree2D.py#L82) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegmentTree2D(%r)' % self.tolist()` |
-| [`prod(top, left, bottom, right)`](../../../spatial_structure/SegmentTree2D.py#L102) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(row, column, value)`](../../../spatial_structure/SegmentTree2D.py#L39) | method | 指定位置・状態を値で置き換える。 | `row`: 行番号<br>`column`: 列番号<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`get(row, column)`](../../../spatial_structure/SegmentTree2D.py#L68) | method | 指定位置・辺・状態の値を取得する。 | `row`: 行番号<br>`column`: 列番号 | 指定対象に格納された値・edge object | — |
+| [`tolist()`](../../../spatial_structure/SegmentTree2D.py#L71) | method | 現在のgridを行ごとのlistとして返す。O(HW)。 | なし | list[list[object]] — 現在のgridをrow順に複製した2次元list | O(HW) |
+| [`__str__()`](../../../spatial_structure/SegmentTree2D.py#L79) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
+| [`__repr__()`](../../../spatial_structure/SegmentTree2D.py#L82) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegmentTree2D(%r)' % self.tolist()` | — |
+| [`prod(top, left, bottom, right)`](../../../spatial_structure/SegmentTree2D.py#L102) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） | — |

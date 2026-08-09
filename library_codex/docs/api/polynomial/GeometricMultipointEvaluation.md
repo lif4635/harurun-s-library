@@ -3,7 +3,6 @@
 
 等比数列上の多点評価と補間を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`polynomial/GeometricMultipointEvaluation.py`](../../../polynomial/GeometricMultipointEvaluation.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,7 +19,7 @@ from library_codex.polynomial.GeometricMultipointEvaluation import multipoint_ev
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`multipoint_evaluation_geometric(polynomial, initial, ratio, count, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L17) | 入力した多項式・式を指定点で評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[0] * count` / 数値または入力要素型 `[first] + [polynomial[0] % mod] * (count - 1)` |
-| [`interpolate_geometric(values, initial, ratio, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L63) | 補間・`geometric`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`multipoint_evaluation_geometric(polynomial, initial, ratio, count, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L17) | 入力した多項式・式を指定点で評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[0] * count` / 数値または入力要素型 `[first] + [polynomial[0] % mod] * (count - 1)` | — |
+| [`interpolate_geometric(values, initial, ratio, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L63) | 補間・`geometric`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` | — |

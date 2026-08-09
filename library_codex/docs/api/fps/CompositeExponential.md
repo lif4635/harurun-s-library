@@ -3,7 +3,6 @@
 
 合成指数型母関数とその逆変換を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps/CompositeExponential.py`](../../../fps/CompositeExponential.py)
 - 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
@@ -21,8 +20,8 @@ from library_codex.fps.CompositeExponential import composite_exponential, compos
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`composite_exponential(polynomial, degree, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L19) | `composite`・指数を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 |
-| [`composite_exponential_scaled(polynomial, scale=1, degree=None, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L42) | `composite`・指数・`scaled`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`scale`: scale係数。省略時: `1`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 |
-| [`inverse_composite_exponential(series, scale=1, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L66) | 逆元・`composite`・指数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`scale`: scale係数。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`composite_exponential(polynomial, degree, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L19) | `composite`・指数を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 | — |
+| [`composite_exponential_scaled(polynomial, scale=1, degree=None, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L42) | `composite`・指数・`scaled`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`scale`: scale係数。省略時: `1`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 | — |
+| [`inverse_composite_exponential(series, scale=1, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L66) | 逆元・`composite`・指数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`scale`: scale係数。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） | — |

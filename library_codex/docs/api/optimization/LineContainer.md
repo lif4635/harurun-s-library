@@ -3,7 +3,6 @@
 
 直線を追加し、任意のxで最小値または最大値を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`optimization/LineContainer.py`](../../../optimization/LineContainer.py)
 - 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
 
@@ -24,8 +23,9 @@ from library_codex.optimization.LineContainer import LineContainer
 - constructor: [`LineContainer(minimize=True, left=-(1 << 63), right=1 << 63)`](../../../optimization/LineContainer.py#L6)
 - 引数: `minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True`<br>`left`: 半開区間の左端（含む）。省略時: `-(1 << 63)`<br>`right`: 半開区間の右端（含まない）。省略時: `1 << 63`
 - 返り値: `LineContainer` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_line(slope, intercept)`](../../../optimization/LineContainer.py#L13) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` |
-| [`query(point)`](../../../optimization/LineContainer.py#L18) | method | 指定した対象への問い合わせ結果を返す。 | `point`: 評価点・座標 | 問い合わせ結果（型・tuple形状はclassの用途に従う） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_line(slope, intercept)`](../../../optimization/LineContainer.py#L13) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | — |
+| [`query(point)`](../../../optimization/LineContainer.py#L18) | method | 指定した対象への問い合わせ結果を返す。 | `point`: 評価点・座標 | 問い合わせ結果（型・tuple形状はclassの用途に従う） | — |

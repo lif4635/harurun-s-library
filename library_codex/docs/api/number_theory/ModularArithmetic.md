@@ -20,7 +20,7 @@ from library_codex.number_theory.ModularArithmetic import modular_square_root, d
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`modular_square_root(value, prime)`](../../../number_theory/ModularArithmetic.py#L4) | 法・平方・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | 値 / `-1` / `min(root, prime - root)` |
-| [`discrete_logarithm(base, target, modulus)`](../../../number_theory/ModularArithmetic.py#L44) | `discrete`・対数を計算する。 | `base`: 底・基準となる値または列<br>`target`: 探索・判定・更新の対象値<br>`modulus`: 法 | `0` / `offset`（int） / `-1` / 数値または入力要素型 `offset + block * width + exponent` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`modular_square_root(value, prime)`](../../../number_theory/ModularArithmetic.py#L4) | 法・平方・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | 値 / `-1` / `min(root, prime - root)` | — |
+| [`discrete_logarithm(base, target, modulus)`](../../../number_theory/ModularArithmetic.py#L44) | `discrete`・対数を計算する。 | `base`: 底・基準となる値または列<br>`target`: 探索・判定・更新の対象値<br>`modulus`: 法 | `0` / `offset`（int） / `-1` / 数値または入力要素型 `offset + block * width + exponent` | — |

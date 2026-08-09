@@ -21,9 +21,9 @@ from library_codex.combinatorics.BinomialQueries import comb_prefix_sums, Binomi
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`comb_prefix_sums(queries, mod=DEFAULT_MOD)`](../../../combinatorics/BinomialQueries.py#L44) | 複数の $\sum_{k=0}^{m}\binom{n}{k}$ をクエリ順に一括計算する。 | `queries`: 求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 各クエリ $(n,m)$ に対する $\sum_{k=0}^{m}\binom{n}{k}$ を、入力と同じ順に並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`comb_prefix_sums(queries, mod=DEFAULT_MOD)`](../../../combinatorics/BinomialQueries.py#L44) | 複数の $\sum_{k=0}^{m}\binom{n}{k}$ をクエリ順に一括計算する。 | `queries`: 求める `(n, m)` の列。各queryはsum(C(n,k), 0<=k<=m)を表す<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 各クエリ $(n,m)$ に対する $\sum_{k=0}^{m}\binom{n}{k}$ を、入力と同じ順に並べた列 | O(max_n + Q sqrt(max_n) + Q log Q) |
 
 ## Class `BinomialPrefix`
 
@@ -32,11 +32,12 @@ sum(C(n,k), 0 <= k <= m)を隣接する(n,m)へO(1)で動かす。
 - constructor: [`BinomialPrefix(combination)`](../../../combinatorics/BinomialQueries.py#L12)
 - 引数: `combination`: C(n, k)を返すcallable。範囲外のkには0を返すもの
 - 返り値: `BinomialPrefix` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`move(n, m)`](../../../combinatorics/BinomialQueries.py#L18) | method | 現在位置から $(n,m)$ へ移動し、$\sum_{k=0}^{m}\binom{n}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側の整数<br>`m`: prefix和へ含めるkの上限 | int — 移動後の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。 |
-| [`get()`](../../../combinatorics/BinomialQueries.py#L39) | method | 現在位置 $(n,m)$ の $\sum_{k=0}^{m}\binom{n}{k}$ を返す。 | なし | int — 現在位置の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`move(n, m)`](../../../combinatorics/BinomialQueries.py#L18) | method | 現在位置から $(n,m)$ へ移動し、$\sum_{k=0}^{m}\binom{n}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側の整数<br>`m`: prefix和へ含めるkの上限 | int — 移動後の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。 | O(\|Δn\|+\|Δm\|) |
+| [`get()`](../../../combinatorics/BinomialQueries.py#L39) | method | 現在位置 $(n,m)$ の $\sum_{k=0}^{m}\binom{n}{k}$ を返す。 | なし | int — 現在位置の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。 | O(1) |
 
 ## Class `StirlingNumberQuery`
 
@@ -45,8 +46,9 @@ sum(C(n,k), 0 <= k <= m)を隣接する(n,m)へO(1)で動かす。
 - constructor: [`StirlingNumberQuery(prime)`](../../../combinatorics/BinomialQueries.py#L72)
 - 引数: `prime`: 素数法
 - 返り値: `StirlingNumberQuery` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`first_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L109) | method | 符号なし第一種 Stirling 数 $c(n,k)$ を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $c(n,k)\bmod\mathrm{mod}$。 |
-| [`second_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L127) | method | 第二種 Stirling 数 $S(n,k)$ を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $S(n,k)\bmod\mathrm{mod}$。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`first_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L109) | method | 符号なし第一種 Stirling 数 $c(n,k)$ を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $c(n,k)\bmod\mathrm{mod}$。 | — |
+| [`second_kind(n, k)`](../../../combinatorics/BinomialQueries.py#L127) | method | 第二種 Stirling 数 $S(n,k)$ を求める。 | `n`: 二項係数C(n, k)の上側の整数<br>`k`: 選ぶ個数または0-indexedの順位 | int — $S(n,k)\bmod\mathrm{mod}$。 | — |

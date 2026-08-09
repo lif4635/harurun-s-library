@@ -30,13 +30,13 @@ from library_codex.prime.Factorization import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`is_prime(number)`](../../../prime/Factorization.py#L8) | 素数かどうかを判定する。 | `number`: 整数 | bool |
-| [`pollard_rho(number)`](../../../prime/Factorization.py#L37) | 合成数numberの非自明な因数を1つ探す。 | `number`: 整数 | int — numberの非自明な因数。numberが素数ならnumber自身 |
-| [`prime_factors(number)`](../../../prime/Factorization.py#L81) | 素因数を重複込みで昇順に列挙する。 | `number`: 整数 | list[int] — 素因数を重複込みで昇順に並べた列 |
-| [`factor_count(number)`](../../../prime/Factorization.py#L107) | 整数を素因数分解し、各素因数の指数を数える。 | `number`: 整数 | dict[int, int] — keyが素因数、valueがその指数の辞書。 |
-| [`divisors(number)`](../../../prime/Factorization.py#L114) | 正の約数を昇順で列挙する。 | `number`: 整数 | list[int] — numberの正の約数を昇順に並べた列 |
-| [`euler_phi(number)`](../../../prime/Factorization.py#L129) | 1以上number以下でnumberと互いに素な整数の個数を返す。 | `number`: 整数 | int — 1以上number以下でnumberと互いに素な整数の個数 |
-| [`mobius(number)`](../../../prime/Factorization.py#L138) | 整数numberに対するMöbius関数の値を返す。 | `number`: 整数 | int — numberのMöbius関数値（-1、0、1のいずれか） |
-| [`factor_count_pairs(number)`](../../../prime/Factorization.py#L146) | 素因数と指数の組を素因数順に返す。 | `number`: 整数 | list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`is_prime(number)`](../../../prime/Factorization.py#L8) | 素数かどうかを判定する。 | `number`: 整数 | bool | O(log N) 回の64bit mod乗算 |
+| [`pollard_rho(number)`](../../../prime/Factorization.py#L37) | 合成数numberの非自明な因数を1つ探す。 | `number`: 整数 | int — numberの非自明な因数。numberが素数ならnumber自身 | 期待 O(sqrt(p))（pは最小の素因数） |
+| [`prime_factors(number)`](../../../prime/Factorization.py#L81) | 素因数を重複込みで昇順に列挙する。 | `number`: 整数 | list[int] — 素因数を重複込みで昇順に並べた列 | 期待 O(N^(1/4) log N) |
+| [`factor_count(number)`](../../../prime/Factorization.py#L107) | 整数を素因数分解し、各素因数の指数を数える。 | `number`: 整数 | dict[int, int] — keyが素因数、valueがその指数の辞書。 | 期待 O(N^(1/4) log N) |
+| [`divisors(number)`](../../../prime/Factorization.py#L114) | 正の約数を昇順で列挙する。 | `number`: 整数 | list[int] — numberの正の約数を昇順に並べた列 | 期待 O(N^(1/4) log N + tau(N)) |
+| [`euler_phi(number)`](../../../prime/Factorization.py#L129) | 1以上number以下でnumberと互いに素な整数の個数を返す。 | `number`: 整数 | int — 1以上number以下でnumberと互いに素な整数の個数 | 期待 O(N^(1/4) log N) |
+| [`mobius(number)`](../../../prime/Factorization.py#L138) | 整数numberに対するMöbius関数の値を返す。 | `number`: 整数 | int — numberのMöbius関数値（-1、0、1のいずれか） | 期待 O(N^(1/4) log N) |
+| [`factor_count_pairs(number)`](../../../prime/Factorization.py#L146) | 素因数と指数の組を素因数順に返す。 | `number`: 整数 | list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列 | 期待 O(N^(1/4) log N) |

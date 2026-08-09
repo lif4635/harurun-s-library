@@ -3,7 +3,6 @@
 
 等比数列上の多項式評価をchirp-z変換でまとめて求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`convolution/ChirpZ.py`](../../../convolution/ChirpZ.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -25,6 +24,6 @@ from library_codex.convolution.ChirpZ import chirp_z
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`chirp_z(polynomial, ratio, count=None, start=1, mod=DEFAULT_MOD)`](../../../convolution/ChirpZ.py#L7) | `chirp`・`z`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数。省略時: `None`<br>`start`: 始点・開始位置。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * count` / 計算結果（数値または入力要素型） / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`chirp_z(polynomial, ratio, count=None, start=1, mod=DEFAULT_MOD)`](../../../convolution/ChirpZ.py#L7) | `chirp`・`z`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数。省略時: `None`<br>`start`: 始点・開始位置。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * count` / 計算結果（数値または入力要素型） / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

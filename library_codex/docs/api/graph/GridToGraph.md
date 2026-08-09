@@ -3,7 +3,6 @@
 
 通行可能なgridを隣接listへ変換する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph/GridToGraph.py`](../../../graph/GridToGraph.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph.GridToGraph import grid_to_graph
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`grid_to_graph(grid, passable=lambda value: value != '#')`](../../../graph/GridToGraph.py#L3) | `grid`・`to`・グラフを求める。 | `grid`: `grid`として使う入力<br>`passable`: `passable`として使う入力。省略時: `lambda value: value != '#'` | tuple(`graph`（list）, `lambda row, column: row * width + column`, `lambda vertex: divmod(vertex, width)`) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`grid_to_graph(grid, passable=lambda value: value != '#')`](../../../graph/GridToGraph.py#L3) | `grid`・`to`・グラフを求める。 | `grid`: `grid`として使う入力<br>`passable`: `passable`として使う入力。省略時: `lambda value: value != '#'` | tuple(`graph`（list）, `lambda row, column: row * width + column`, `lambda vertex: divmod(vertex, width)`) | — |

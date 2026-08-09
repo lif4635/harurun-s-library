@@ -20,9 +20,9 @@ from library_codex.algorithm.DynamicProgramming import knapsack_01, knapsack_01_
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`knapsack_01(weights, values, capacity)`](../../../algorithm/DynamicProgramming.py#L4) | 各品物を高々1回選ぶ0/1 knapsackの到達可能状態を計算する。 | `weights`: 重みの列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`capacity`: 容量 | list[number \| None] — 添字がexact weight、値がその重さでの最大価値。到達不能はNone |
-| [`knapsack_01_max(weights, values, capacity)`](../../../algorithm/DynamicProgramming.py#L22) | 各品物を高々1回選ぶ0/1 knapsackの最大価値を求める。 | `weights`: 重みの列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`capacity`: 容量 | number — total weightがcapacity以下になる最大価値 |
-| [`subset_sum_possible(values, limit=None)`](../../../algorithm/DynamicProgramming.py#L31) | 部分集合・和・`possible`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`limit`: 上限。NoneならAPI既定の上限。省略時: `None` | int — bit iが1ならsum iを作れるbitset |
-| [`subset_sum_restore(values, target)`](../../../algorithm/DynamicProgramming.py#L44) | 部分集合・和・`restore`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`target`: 探索・判定・更新の対象値 | list[int] \| None — 合計targetになる入力要素の0-indexed添字列。不能ならNone / `None` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`knapsack_01(weights, values, capacity)`](../../../algorithm/DynamicProgramming.py#L4) | 各品物を高々1回選ぶ0/1 knapsackの到達可能状態を計算する。 | `weights`: 重みの列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`capacity`: 容量 | list[number \| None] — 添字がexact weight、値がその重さでの最大価値。到達不能はNone | O(NC) |
+| [`knapsack_01_max(weights, values, capacity)`](../../../algorithm/DynamicProgramming.py#L22) | 各品物を高々1回選ぶ0/1 knapsackの最大価値を求める。 | `weights`: 重みの列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`capacity`: 容量 | number — total weightがcapacity以下になる最大価値 | O(NC) |
+| [`subset_sum_possible(values, limit=None)`](../../../algorithm/DynamicProgramming.py#L31) | 部分集合・和・`possible`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`limit`: 上限。NoneならAPI既定の上限。省略時: `None` | int — bit iが1ならsum iを作れるbitset | O(N) Python big-int shift/or operations |
+| [`subset_sum_restore(values, target)`](../../../algorithm/DynamicProgramming.py#L44) | 部分集合・和・`restore`を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`target`: 探索・判定・更新の対象値 | list[int] \| None — 合計targetになる入力要素の0-indexed添字列。不能ならNone / `None` | O(N + T) Python big-int operations |

@@ -3,7 +3,6 @@
 
 一般グラフの最大matchingを求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph_matching/GeneralMatching.py`](../../../graph_matching/GeneralMatching.py)
 - 公開API: function 1、class 1、method/property 1（Python protocol 0を含む）
 
@@ -20,9 +19,9 @@ from library_codex.graph_matching.GeneralMatching import maximum_general_matchin
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`maximum_general_matching(graph)`](../../../graph_matching/GeneralMatching.py#L103) | 最大・`general`・matchingを求める。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.matching_size`, `solver.mate`) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`maximum_general_matching(graph)`](../../../graph_matching/GeneralMatching.py#L103) | 最大・`general`・matchingを求める。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.matching_size`, `solver.mate`) | — |
 
 ## Class `GeneralMatching`
 
@@ -31,7 +30,8 @@ from library_codex.graph_matching.GeneralMatching import maximum_general_matchin
 - constructor: [`GeneralMatching(graph)`](../../../graph_matching/GeneralMatching.py#L8)
 - 引数: `graph`: 隣接listまたはグラフobject
 - 返り値: `GeneralMatching` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`pairs()`](../../../graph_matching/GeneralMatching.py#L98) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`pairs()`](../../../graph_matching/GeneralMatching.py#L98) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

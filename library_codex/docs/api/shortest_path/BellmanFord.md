@@ -3,7 +3,6 @@
 
 負辺を含むグラフの最短路と負閉路の影響を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`shortest_path/BellmanFord.py`](../../../shortest_path/BellmanFord.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -25,6 +24,6 @@ from library_codex.shortest_path.BellmanFord import bellman_ford
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`bellman_ford(vertex_count, edges, start=0)`](../../../shortest_path/BellmanFord.py#L5) | `bellman`・`ford`を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）, `negative`) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`bellman_ford(vertex_count, edges, start=0)`](../../../shortest_path/BellmanFord.py#L5) | `bellman`・`ford`を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）, `negative`) | — |

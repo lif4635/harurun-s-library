@@ -3,7 +3,6 @@
 
 有向グラフの全辺を反転した隣接listを作る。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph/ReverseGraph.py`](../../../graph/ReverseGraph.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph.ReverseGraph import reverse_graph
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`reverse_graph(graph)`](../../../graph/ReverseGraph.py#L3) | `reverse`・グラフを求める。 | `graph`: 隣接listまたはグラフobject | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`reverse_graph(graph)`](../../../graph/ReverseGraph.py#L3) | `reverse`・グラフを求める。 | `graph`: 隣接listまたはグラフobject | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

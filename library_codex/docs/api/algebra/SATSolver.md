@@ -24,10 +24,11 @@ watched literal型の反復SAT solverを扱う `SatSolver`。
 - constructor: [`SatSolver(variable_count)`](../../../algebra/SATSolver.py#L6)
 - 引数: `variable_count`: 処理対象の個数
 - 返り値: `SatSolver` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_clause(clause)`](../../../algebra/SATSolver.py#L25) | method | `clause`を追加する。 | `clause`: SAT節を表すliteral列 | `None` |
-| [`if_then(first_variable, first_value, second_variable, second_value)`](../../../algebra/SATSolver.py#L38) | method | `if`・`then`を求める。 | `first_variable`: `first`・`variable`として使う入力<br>`first_value`: 処理対象の値<br>`second_variable`: `second`・`variable`として使う入力<br>`second_value`: 処理対象の値 | `None` |
-| [`set_val(variable, value)`](../../../algebra/SATSolver.py#L42) | method | `val`を設定する。 | `variable`: Boolean変数番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`solve(assumptions=())`](../../../algebra/SATSolver.py#L49) | method | 設定済みの問題を解き、答えを返す。 | `assumptions`: 一時的に真と仮定するliteral列。省略時: `()` | 登録順の答えのlist |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_clause(clause)`](../../../algebra/SATSolver.py#L25) | method | `clause`を追加する。 | `clause`: SAT節を表すliteral列 | `None` | — |
+| [`if_then(first_variable, first_value, second_variable, second_value)`](../../../algebra/SATSolver.py#L38) | method | `if`・`then`を求める。 | `first_variable`: `first`・`variable`として使う入力<br>`first_value`: 処理対象の値<br>`second_variable`: `second`・`variable`として使う入力<br>`second_value`: 処理対象の値 | `None` | — |
+| [`set_val(variable, value)`](../../../algebra/SATSolver.py#L42) | method | `val`を設定する。 | `variable`: Boolean変数番号<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`solve(assumptions=())`](../../../algebra/SATSolver.py#L49) | method | 設定済みの問題を解き、答えを返す。 | `assumptions`: 一時的に真と仮定するliteral列。省略時: `()` | 登録順の答えのlist | — |

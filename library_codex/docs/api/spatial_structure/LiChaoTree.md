@@ -30,11 +30,12 @@ from library_codex.spatial_structure.LiChaoTree import LiChaoTree
 - constructor: [`LiChaoTree(xs, minimize=True)`](../../../spatial_structure/LiChaoTree.py#L10)
 - 引数: `xs`: `xs`として使う入力<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True`
 - 返り値: `LiChaoTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_line(a, b)`](../../../spatial_structure/LiChaoTree.py#L61) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` |
-| [`add_segment_index(a, b, l, r)`](../../../spatial_structure/LiChaoTree.py#L68) | method | `segment`・`index`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `None` |
-| [`add_segment(a, b, left, right)`](../../../spatial_structure/LiChaoTree.py#L87) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
-| [`query_index(i)`](../../../spatial_structure/LiChaoTree.py#L94) | method | `index`を取得する。 | `i`: 位置 | 数値または入力要素型 `res * self.sign` |
-| [`query(x)`](../../../spatial_structure/LiChaoTree.py#L108) | method | 追加済みの直線・線分を登録座標xで評価し、最小値または最大値を返す。 | `x`: 値・座標・問い合わせ対象 | number — minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_line(a, b)`](../../../spatial_structure/LiChaoTree.py#L61) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` | — |
+| [`add_segment_index(a, b, l, r)`](../../../spatial_structure/LiChaoTree.py#L68) | method | `segment`・`index`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `None` | — |
+| [`add_segment(a, b, left, right)`](../../../spatial_structure/LiChaoTree.py#L87) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` | — |
+| [`query_index(i)`](../../../spatial_structure/LiChaoTree.py#L94) | method | `index`を取得する。 | `i`: 位置 | 数値または入力要素型 `res * self.sign` | — |
+| [`query(x)`](../../../spatial_structure/LiChaoTree.py#L108) | method | 追加済みの直線・線分を登録座標xで評価し、最小値または最大値を返す。 | `x`: 値・座標・問い合わせ対象 | number — minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。 | — |

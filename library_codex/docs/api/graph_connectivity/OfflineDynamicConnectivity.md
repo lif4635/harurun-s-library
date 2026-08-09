@@ -24,16 +24,17 @@ from library_codex.graph_connectivity.OfflineDynamicConnectivity import OfflineD
 - constructor: [`OfflineDynamicConnectivity(n, q, values=None)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L20)
 - 引数: `n`: 要素数・頂点数・次数<br>`q`: query数・値<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `None`
 - 返り値: `OfflineDynamicConnectivity` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_edge(time, u, v)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L41) | method | 辺を追加する。 | `time`: operation時刻<br>`u`: 頂点番号<br>`v`: 頂点番号 | `None` |
-| [`remove_edge(time, u, v)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L50) | method | 辺を削除する。 | `time`: operation時刻<br>`u`: 頂点番号<br>`v`: 頂点番号 | `None` |
-| [`add_value(time, vertex, delta)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L61) | method | 値を追加する。 | `time`: operation時刻<br>`vertex`: 頂点番号<br>`delta`: 加算差分 | `None` |
-| [`query_same(time, u, v)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L69) | method | `same`を取得する。 | `time`: operation時刻<br>`u`: 頂点番号<br>`v`: 頂点番号 | `query_id` |
-| [`query_size(time, vertex)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L79) | method | `size`を取得する。 | `time`: operation時刻<br>`vertex`: 頂点番号 | `query_id` |
-| [`query_components(time)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L89) | method | 連結成分を取得する。 | `time`: operation時刻 | `query_id` |
-| [`query_component_value(time, vertex)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L98) | method | 連結成分・値を取得する。 | `time`: operation時刻<br>`vertex`: 頂点番号 | `query_id` |
-| [`build()`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L136) | method | 内部構造を構築する。 | なし | `self` |
-| [`run(query, add=None, remove=None)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L169) | method | 辺の追加・削除とqueryを時系列順にoffline処理する。 | `query`: 処理中に呼び出す関数または操作<br>`add`: 処理中に呼び出す関数または操作。省略時: `None`<br>`remove`: 処理中に呼び出す関数または操作。省略時: `None` | `None` |
-| [`solve()`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L222) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_edge(time, u, v)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L41) | method | 辺を追加する。 | `time`: operation時刻<br>`u`: 頂点番号<br>`v`: 頂点番号 | `None` | — |
+| [`remove_edge(time, u, v)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L50) | method | 辺を削除する。 | `time`: operation時刻<br>`u`: 頂点番号<br>`v`: 頂点番号 | `None` | — |
+| [`add_value(time, vertex, delta)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L61) | method | 値を追加する。 | `time`: operation時刻<br>`vertex`: 頂点番号<br>`delta`: 加算差分 | `None` | — |
+| [`query_same(time, u, v)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L69) | method | `same`を取得する。 | `time`: operation時刻<br>`u`: 頂点番号<br>`v`: 頂点番号 | `query_id` | — |
+| [`query_size(time, vertex)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L79) | method | `size`を取得する。 | `time`: operation時刻<br>`vertex`: 頂点番号 | `query_id` | — |
+| [`query_components(time)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L89) | method | 連結成分を取得する。 | `time`: operation時刻 | `query_id` | — |
+| [`query_component_value(time, vertex)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L98) | method | 連結成分・値を取得する。 | `time`: operation時刻<br>`vertex`: 頂点番号 | `query_id` | — |
+| [`build()`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L136) | method | 内部構造を構築する。 | なし | `self` | — |
+| [`run(query, add=None, remove=None)`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L169) | method | 辺の追加・削除とqueryを時系列順にoffline処理する。 | `query`: 処理中に呼び出す関数または操作<br>`add`: 処理中に呼び出す関数または操作。省略時: `None`<br>`remove`: 処理中に呼び出す関数または操作。省略時: `None` | `None` | — |
+| [`solve()`](../../../graph_connectivity/OfflineDynamicConnectivity.py#L222) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | — |

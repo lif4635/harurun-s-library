@@ -70,6 +70,48 @@ def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
                 assert method["signature"].split("(", 1)[0] == method["name"]
 
 
+def test_catalog_has_precise_group_middle_product_and_half_open_range_details():
+    data = load_catalog()
+
+    group = module_by_path(data, "library_codex.algorithm.PermutationGroup")
+    simplify = next(
+        item for item in group["functions"]
+        if item["name"] == "simplify_permutation_subgroup"
+    )
+    assert simplify["returnFormat"] == "list[list[list[int]]]"
+    assert "level長が[0, 2, 3]" in simplify["returnDescription"]
+
+    middle = module_by_path(data, "library_codex.convolution.MiddleProduct")
+    assert middle["functions"][0]["signature"] == (
+        "middle_product(first, second, mod=DEFAULT_MOD)"
+    )
+    assert r"c[i]=\sum_{j=0}^{m-1}" in middle["functions"][0]["returnDescription"]
+
+    ranges = module_by_path(data, "library_codex.ordered_set.RangeSet")
+    methods = {
+        method["name"]: method
+        for class_item in ranges["classes"]
+        for method in class_item["methods"]
+    }
+    assert "半開区間" in methods["add"]["description"]
+    assert "数学的な開区間を意味しない" in methods["intervals"]["returnDescription"]
+    assert "整数の個数ではない" in methods["__len__"]["returnDescription"]
+
+    all_symbols = [
+        symbol
+        for module in data["modules"]
+        for symbol in module["functions"] + [
+            method
+            for class_item in module["classes"]
+            for method in class_item["methods"]
+        ]
+    ]
+    assert all(
+        symbol["complexity"] != "各操作の計算量はAPI表を参照"
+        for symbol in all_symbols
+    )
+
+
 def test_catalog_contains_required_search_terms_and_lazy_boundaries():
     data = load_catalog()
     lazy = module_by_path(data, "library_codex.segment_tree.LazySegTree")

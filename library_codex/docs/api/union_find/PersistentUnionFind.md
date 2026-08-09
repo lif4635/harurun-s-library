@@ -24,13 +24,14 @@ from library_codex.union_find.PersistentUnionFind import PersistentUnionFind
 - constructor: [`PersistentUnionFind(n)`](../../../union_find/PersistentUnionFind.py#L7)
 - 引数: `n`: 要素数・頂点数・次数
 - 返り値: `PersistentUnionFind` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`leader(x, version=-1)`](../../../union_find/PersistentUnionFind.py#L23) | method | `leader`を求める。 | `x`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | `self._leader_size(self.roots[version], x)[0]` |
-| [`size(x, version=-1)`](../../../union_find/PersistentUnionFind.py#L29) | method | 要素数または連結成分sizeを返す。 | `x`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | size（int） |
-| [`same(x, y, version=-1)`](../../../union_find/PersistentUnionFind.py#L32) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | bool — 同じ連結成分ならTrue、異なればFalse。 |
-| [`unite(x, y, version=-1)`](../../../union_find/PersistentUnionFind.py#L36) | method | 2要素が属する連結成分を併合する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
-| [`fork(version=-1)`](../../../union_find/PersistentUnionFind.py#L54) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` |
-| [`components(version=-1)`](../../../union_find/PersistentUnionFind.py#L59) | method | 指定versionにある連結成分の個数を返す。 | `version`: 参照するversion番号。省略時: `-1` | `self.component_count[version]` |
-| [`groups(version=-1)`](../../../union_find/PersistentUnionFind.py#L62) | method | `groups`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`leader(x, version=-1)`](../../../union_find/PersistentUnionFind.py#L23) | method | `leader`を求める。 | `x`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | `self._leader_size(self.roots[version], x)[0]` | — |
+| [`size(x, version=-1)`](../../../union_find/PersistentUnionFind.py#L29) | method | 要素数または連結成分sizeを返す。 | `x`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | size（int） | — |
+| [`same(x, y, version=-1)`](../../../union_find/PersistentUnionFind.py#L32) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
+| [`unite(x, y, version=-1)`](../../../union_find/PersistentUnionFind.py#L36) | method | 2要素が属する連結成分を併合する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` | — |
+| [`fork(version=-1)`](../../../union_find/PersistentUnionFind.py#L54) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` | — |
+| [`components(version=-1)`](../../../union_find/PersistentUnionFind.py#L59) | method | 指定versionにある連結成分の個数を返す。 | `version`: 参照するversion番号。省略時: `-1` | `self.component_count[version]` | — |
+| [`groups(version=-1)`](../../../union_find/PersistentUnionFind.py#L62) | method | `groups`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

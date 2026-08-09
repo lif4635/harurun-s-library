@@ -19,6 +19,6 @@ from library_codex.fps.IncreasingSequences import count_increasing_sequences
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`count_increasing_sequences(lower, upper, mod=DEFAULT_MOD)`](../../../fps/IncreasingSequences.py#L4) | 各位置で $\mathrm{lower}_i \le x_i < \mathrm{upper}_i$ を満たす広義単調増加列 $x_0 \le \cdots \le x_{N-1}$ の個数を求める。 | `lower`: 各位置の下限を並べた列 $\mathrm{lower}$。位置 $i$ では $\mathrm{lower}_i$ を含む。<br>`upper`: 各位置の上限を並べた列 $\mathrm{upper}$。位置 $i$ では $\mathrm{upper}_i$ を含まない。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — 条件を満たす列の個数を $\mathrm{mod}$ で割った余り。$0 \le \mathrm{answer} < \mathrm{mod}$。 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`count_increasing_sequences(lower, upper, mod=DEFAULT_MOD)`](../../../fps/IncreasingSequences.py#L4) | 各位置で $\mathrm{lower}_i \le x_i < \mathrm{upper}_i$ を満たす広義単調増加列 $x_0 \le \cdots \le x_{N-1}$ の個数を求める。 | `lower`: 各位置の下限を並べた列 $\mathrm{lower}$。位置 $i$ では $\mathrm{lower}_i$ を含む。<br>`upper`: 各位置の上限を並べた列 $\mathrm{upper}$。位置 $i$ では $\mathrm{upper}_i$ を含まない。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int — 条件を満たす列の個数を $\mathrm{mod}$ で割った余り。$0 \le \mathrm{answer} < \mathrm{mod}$。 | O(NW)（Wは正規化後の値域幅） |

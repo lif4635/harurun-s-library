@@ -20,9 +20,9 @@ from library_codex.graph_connectivity.TwoEdgeConnectedComponents import two_edge
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`two_edge_connected_components(n, edges)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L109) | `two`・辺・`connected`・連結成分を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | TwoEdgeConnectedComponents instance |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`two_edge_connected_components(n, edges)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L109) | `two`・辺・`connected`・連結成分を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | TwoEdgeConnectedComponents instance | — |
 
 ## Class `TwoEdgeConnectedComponents`
 
@@ -31,12 +31,13 @@ from library_codex.graph_connectivity.TwoEdgeConnectedComponents import two_edge
 - constructor: [`TwoEdgeConnectedComponents(n, edges=None)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L10)
 - 引数: `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list。省略時: `None`
 - 返り値: `TwoEdgeConnectedComponents` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_edge(u, v)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L26) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号 | `self.lowlink.add_edge(u, v)` |
-| [`build()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L30) | method | 内部構造を構築する。 | なし | `self` |
-| [`__getitem__(vertex)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L84) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 |
-| [`get_components()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L87) | method | 連結成分を取得する。 | なし | `self.groups` |
-| [`get_edge_mapping()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L92) | method | 辺・`mapping`を取得する。 | なし | `self.edge_mapping` |
-| [`bridge_forest(with_edge_ids=False)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L95) | method | 橋・forestを求める。 | `with_edge_ids`: with_edge のID列。省略時: `False` | `self.tree` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_edge(u, v)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L26) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号 | `self.lowlink.add_edge(u, v)` | — |
+| [`build()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L30) | method | 内部構造を構築する。 | なし | `self` | — |
+| [`__getitem__(vertex)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L84) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |
+| [`get_components()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L87) | method | 連結成分を取得する。 | なし | `self.groups` | — |
+| [`get_edge_mapping()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L92) | method | 辺・`mapping`を取得する。 | なし | `self.edge_mapping` | — |
+| [`bridge_forest(with_edge_ids=False)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L95) | method | 橋・forestを求める。 | `with_edge_ids`: with_edge のID列。省略時: `False` | `self.tree` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

@@ -3,7 +3,6 @@
 
 rollback可能な状態更新を使ってoffline区間queryを処理する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`optimization/RollbackMo.py`](../../../optimization/RollbackMo.py)
 - 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
 
@@ -24,8 +23,9 @@ rollback可能な状態更新を使ってoffline区間queryを処理するを扱
 - constructor: [`RollbackMo(size)`](../../../optimization/RollbackMo.py#L8)
 - 引数: `size`: 要素数・universe size
 - 返り値: `RollbackMo` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(left, right)`](../../../optimization/RollbackMo.py#L12) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `len(self.queries) - 1` |
-| [`run(initialize, insert, snapshot, rollback, output)`](../../../optimization/RollbackMo.py#L20) | method | 登録した区間queryをrollback Moで処理し、query ID順に結果を返す。 | `initialize`: 初期状態を作って返す関数<br>`insert`: 要素を現在の状態へ追加する関数<br>`snapshot`: 現在状態を保存し、巻き戻し位置を返す関数<br>`rollback`: snapshotで保存した状態まで巻き戻す関数<br>`output`: 各queryの現在の答えを返す関数 | 答えのlist（数値または入力要素型） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(left, right)`](../../../optimization/RollbackMo.py#L12) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `len(self.queries) - 1` | — |
+| [`run(initialize, insert, snapshot, rollback, output)`](../../../optimization/RollbackMo.py#L20) | method | 登録した区間queryをrollback Moで処理し、query ID順に結果を返す。 | `initialize`: 初期状態を作って返す関数<br>`insert`: 要素を現在の状態へ追加する関数<br>`snapshot`: 現在状態を保存し、巻き戻し位置を返す関数<br>`rollback`: snapshotで保存した状態まで巻き戻す関数<br>`output`: 各queryの現在の答えを返す関数 | 答えのlist（数値または入力要素型） | — |

@@ -29,11 +29,11 @@ from library_codex.algorithm.Sorting import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`radix_sort_nonnegative(values, bits=64, digit_bits=11)`](../../../algorithm/Sorting.py#L4) | 非負整数列をradix sortで昇順に並べる。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`bits`: 使用bit数。省略時: `64`<br>`digit_bits`: radix 1桁に使うbit数。省略時: `11` | list[int] — 頂点または要素の位置を結果順に並べた列 |
-| [`ensure_permutation(permutation)`](../../../algorithm/Sorting.py#L28) | 列が0からn-1までを1回ずつ含む置換か判定する。 | `permutation`: 置換 `p[i]` の列 | bool |
-| [`permute(values, permutation)`](../../../algorithm/Sorting.py#L39) | permutationに従ってvaluesを並べ替えた新しいlistを返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`permutation`: 置換 `p[i]` の列 | list[object] — permutationの順にvaluesの要素を並べた新しいlist |
-| [`permute_in_place(values, permutation)`](../../../algorithm/Sorting.py#L46) | permutationに従ってvalues自体を破壊的に並べ替える。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`permutation`: 置換 `p[i]` の列 | list[object] — permutationの順へ並べ替えた入力valuesと同じobject |
-| [`bucket_sort_permutation(keys, maximum=None)`](../../../algorithm/Sorting.py#L61) | 非負整数keyを安定sortしたときの元の添字順を返す。 | `keys`: 整列keyの列またはkey callback<br>`maximum`: 最大として使う入力。省略時: `None` | list[int] — 頂点または要素の位置を結果順に並べた列 / 計算結果（数値または入力要素型） |
-| [`bucket_sort(values, key=lambda value: value, maximum=None)`](../../../algorithm/Sorting.py#L82) | 非負整数keyを使ってvaluesを安定sortした列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`key`: 比較・格納に使うkey。省略時: `lambda value: value`<br>`maximum`: 最大として使う入力。省略時: `None` | `permute(values, bucket_sort_permutation(keys, maximum))` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`radix_sort_nonnegative(values, bits=64, digit_bits=11)`](../../../algorithm/Sorting.py#L4) | 非負整数列をradix sortで昇順に並べる。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`bits`: 使用bit数。省略時: `64`<br>`digit_bits`: radix 1桁に使うbit数。省略時: `11` | list[int] — 頂点または要素の位置を結果順に並べた列 | O((N+2^digit_bits) ceil(bits/digit_bits)) |
+| [`ensure_permutation(permutation)`](../../../algorithm/Sorting.py#L28) | 列が0からn-1までを1回ずつ含む置換か判定する。 | `permutation`: 置換 `p[i]` の列 | bool | O(N) |
+| [`permute(values, permutation)`](../../../algorithm/Sorting.py#L39) | permutationに従ってvaluesを並べ替えた新しいlistを返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`permutation`: 置換 `p[i]` の列 | list[object] — permutationの順にvaluesの要素を並べた新しいlist | O(N) |
+| [`permute_in_place(values, permutation)`](../../../algorithm/Sorting.py#L46) | permutationに従ってvalues自体を破壊的に並べ替える。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`permutation`: 置換 `p[i]` の列 | list[object] — permutationの順へ並べ替えた入力valuesと同じobject | O(N) |
+| [`bucket_sort_permutation(keys, maximum=None)`](../../../algorithm/Sorting.py#L61) | 非負整数keyを安定sortしたときの元の添字順を返す。 | `keys`: 整列keyの列またはkey callback<br>`maximum`: 最大として使う入力。省略時: `None` | list[int] — 頂点または要素の位置を結果順に並べた列 / 計算結果（数値または入力要素型） | O(N+maximum) |
+| [`bucket_sort(values, key=lambda value: value, maximum=None)`](../../../algorithm/Sorting.py#L82) | 非負整数keyを使ってvaluesを安定sortした列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`key`: 比較・格納に使うkey。省略時: `lambda value: value`<br>`maximum`: 最大として使う入力。省略時: `None` | `permute(values, bucket_sort_permutation(keys, maximum))` | O(N+maximum) |

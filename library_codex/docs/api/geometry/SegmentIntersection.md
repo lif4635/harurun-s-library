@@ -20,6 +20,6 @@ from library_codex.geometry.SegmentIntersection import segments_intersect
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`segments_intersect(first, second, third, fourth, touch=True)`](../../../geometry/SegmentIntersection.py#L13) | 線分[first, second]と[third, fourth]が交差するかを返す。O(1)。 | `first`: 第1線分の一方の端点 `(x, y)`<br>`second`: 第1線分のもう一方の端点 `(x, y)`<br>`third`: 第2線分の一方の端点 `(x, y)`<br>`fourth`: 第2線分のもう一方の端点 `(x, y)`<br>`touch`: Trueなら端点接触と重なりも交差に含める。省略時: `True` | bool — 指定した条件で2線分が交差すればTrue |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`segments_intersect(first, second, third, fourth, touch=True)`](../../../geometry/SegmentIntersection.py#L13) | 線分[first, second]と[third, fourth]が交差するかを返す。O(1)。 | `first`: 第1線分の一方の端点 `(x, y)`<br>`second`: 第1線分のもう一方の端点 `(x, y)`<br>`third`: 第2線分の一方の端点 `(x, y)`<br>`fourth`: 第2線分のもう一方の端点 `(x, y)`<br>`touch`: Trueなら端点接触と重なりも交差に含める。省略時: `True` | bool — 指定した条件で2線分が交差すればTrue | O(1) |

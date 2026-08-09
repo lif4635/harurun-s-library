@@ -20,9 +20,9 @@ from library_codex.segment_tree.RangeLIS import lis_brute, RangeLIS
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`lis_brute(sequence)`](../../../segment_tree/RangeLIS.py#L245) | `lis`・`brute`を求める。 | `sequence`: 入力列 | `len(tails)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`lis_brute(sequence)`](../../../segment_tree/RangeLIS.py#L245) | `lis`・`brute`を求める。 | `sequence`: 入力列 | `len(tails)` | — |
 
 ## Class `RangeLIS`
 
@@ -31,7 +31,8 @@ Seaweed monoidによる静的区間LISを扱う `RangeLIS`。
 - constructor: [`RangeLIS(sequence)`](../../../segment_tree/RangeLIS.py#L216)
 - 引数: `sequence`: 入力列
 - 返り値: `RangeLIS` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`query(left, right)`](../../../segment_tree/RangeLIS.py#L232) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる部分列のLIS長を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | int — 指定区間の狭義単調増加部分列の最大長。空区間なら0。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`query(left, right)`](../../../segment_tree/RangeLIS.py#L232) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる部分列のLIS長を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | int — 指定区間の狭義単調増加部分列の最大長。空区間なら0。 | — |

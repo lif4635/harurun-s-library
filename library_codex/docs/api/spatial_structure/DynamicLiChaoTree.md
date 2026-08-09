@@ -3,7 +3,6 @@
 
 整数座標区間でnodeを動的生成するLi Chao Tree。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`spatial_structure/DynamicLiChaoTree.py`](../../../spatial_structure/DynamicLiChaoTree.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -30,9 +29,10 @@ from library_codex.spatial_structure.DynamicLiChaoTree import DynamicLiChaoTree
 - constructor: [`DynamicLiChaoTree(left, right, minimize=True)`](../../../spatial_structure/DynamicLiChaoTree.py#L8)
 - 引数: `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True`
 - 返り値: `DynamicLiChaoTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_line(a, b)`](../../../spatial_structure/DynamicLiChaoTree.py#L47) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` |
-| [`add_segment(a, b, ql, qr)`](../../../spatial_structure/DynamicLiChaoTree.py#L54) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `None` |
-| [`query(x)`](../../../spatial_structure/DynamicLiChaoTree.py#L75) | method | 追加済みの直線・線分をxで評価し、最小値または最大値を返す。 | `x`: 値・座標・問い合わせ対象 | number — minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_line(a, b)`](../../../spatial_structure/DynamicLiChaoTree.py#L47) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` | — |
+| [`add_segment(a, b, ql, qr)`](../../../spatial_structure/DynamicLiChaoTree.py#L54) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `None` | — |
+| [`query(x)`](../../../spatial_structure/DynamicLiChaoTree.py#L75) | method | 追加済みの直線・線分をxで評価し、最小値または最大値を返す。 | `x`: 値・座標・問い合わせ対象 | number — minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。 | — |

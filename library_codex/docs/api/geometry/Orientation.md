@@ -20,7 +20,7 @@ from library_codex.geometry.Orientation import cross, orientation
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`cross(origin, first, second)`](../../../geometry/Orientation.py#L4) | ベクトル origin→first と origin→second の外積を返す。O(1)。 | `origin`: 2本のベクトルの共通始点 `(x, y)`<br>`first`: 第1の点 `(x, y)`<br>`second`: 第2の点 `(x, y)` | number — origin→firstとorigin→secondの符号付き外積 |
-| [`orientation(first, second, third)`](../../../geometry/Orientation.py#L10) | 3点の向きを反時計回りなら1、時計回りなら-1、一直線なら0で返す。O(1)。 | `first`: 第1の点 `(x, y)`<br>`second`: 第2の点 `(x, y)`<br>`third`: 第3の点 `(x, y)` | int — 反時計回りは1、時計回りは-1、一直線は0 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`cross(origin, first, second)`](../../../geometry/Orientation.py#L4) | ベクトル origin→first と origin→second の外積を返す。O(1)。 | `origin`: 2本のベクトルの共通始点 `(x, y)`<br>`first`: 第1の点 `(x, y)`<br>`second`: 第2の点 `(x, y)` | number — origin→firstとorigin→secondの符号付き外積 | O(1) |
+| [`orientation(first, second, third)`](../../../geometry/Orientation.py#L10) | 3点の向きを反時計回りなら1、時計回りなら-1、一直線なら0で返す。O(1)。 | `first`: 第1の点 `(x, y)`<br>`second`: 第2の点 `(x, y)`<br>`third`: 第3の点 `(x, y)` | int — 反時計回りは1、時計回りは-1、一直線は0 | O(1) |

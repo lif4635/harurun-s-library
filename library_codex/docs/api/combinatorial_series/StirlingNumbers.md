@@ -3,7 +3,6 @@
 
 第一種・第二種Stirling数の行または列を生成する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`combinatorial_series/StirlingNumbers.py`](../../../combinatorial_series/StirlingNumbers.py)
 - 公開API: function 4、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,9 +19,9 @@ from library_codex.combinatorial_series.StirlingNumbers import stirling_first_ro
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`stirling_first_row(order, mod=DEFAULT_MOD, signed=False)`](../../../combinatorial_series/StirlingNumbers.py#L29) | 固定した $n=\mathrm{order}$ について、第一種 Stirling 数を $0 \le k \le n$ の順に求める。 | `order`: 固定する第1引数 $n$。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`signed`: Falseなら符号なし $c(n,k)$、Trueなら符号付き $s(n,k)$ を返す。。省略時: `False` | list[int] — 長さ $\mathrm{order}+1$ の列 $\mathrm{result}$。$\mathrm{result}[k]$ は指定した符号規約の第一種 Stirling 数。 |
-| [`stirling_second_row(order, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingNumbers.py#L53) | 固定した $n=\mathrm{order}$ について、第二種 Stirling 数 $S(n,k)$ を $0 \le k \le n$ の順に求める。 | `order`: 固定する第1引数 $n$。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さ $\mathrm{order}+1$ の列 $\mathrm{result}$。$\mathrm{result}[k]=S(\mathrm{order},k)$。 |
-| [`stirling_first_column(column, upper, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingNumbers.py#L64) | 固定した $k=\mathrm{column}$ について、符号なし第一種 Stirling 数 $c(n,k)$ を $0 \le n \le \mathrm{upper}$ の範囲で求める。 | `column`: 固定する第2引数 $k$。<br>`upper`: 求める最大の第1引数 $n$。この値を含む。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。$\mathrm{result}[n]=c(n,\mathrm{column})$ で、$n<\mathrm{column}$ の要素は0。 |
-| [`stirling_second_column(column, upper, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingNumbers.py#L79) | 固定した $k=\mathrm{column}$ について、第二種 Stirling 数 $S(n,k)$ を $0 \le n \le \mathrm{upper}$ の範囲で求める。 | `column`: 固定する第2引数 $k$。<br>`upper`: 求める最大の第1引数 $n$。この値を含む。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。$\mathrm{result}[n]=S(n,\mathrm{column})$ で、$n<\mathrm{column}$ の要素は0。 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`stirling_first_row(order, mod=DEFAULT_MOD, signed=False)`](../../../combinatorial_series/StirlingNumbers.py#L29) | 固定した $n=\mathrm{order}$ について、第一種 Stirling 数を $0 \le k \le n$ の順に求める。 | `order`: 固定する第1引数 $n$。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`signed`: Falseなら符号なし $c(n,k)$、Trueなら符号付き $s(n,k)$ を返す。。省略時: `False` | list[int] — 長さ $\mathrm{order}+1$ の列 $\mathrm{result}$。$\mathrm{result}[k]$ は指定した符号規約の第一種 Stirling 数。 | — |
+| [`stirling_second_row(order, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingNumbers.py#L53) | 固定した $n=\mathrm{order}$ について、第二種 Stirling 数 $S(n,k)$ を $0 \le k \le n$ の順に求める。 | `order`: 固定する第1引数 $n$。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さ $\mathrm{order}+1$ の列 $\mathrm{result}$。$\mathrm{result}[k]=S(\mathrm{order},k)$。 | — |
+| [`stirling_first_column(column, upper, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingNumbers.py#L64) | 固定した $k=\mathrm{column}$ について、符号なし第一種 Stirling 数 $c(n,k)$ を $0 \le n \le \mathrm{upper}$ の範囲で求める。 | `column`: 固定する第2引数 $k$。<br>`upper`: 求める最大の第1引数 $n$。この値を含む。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。$\mathrm{result}[n]=c(n,\mathrm{column})$ で、$n<\mathrm{column}$ の要素は0。 | — |
+| [`stirling_second_column(column, upper, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingNumbers.py#L79) | 固定した $k=\mathrm{column}$ について、第二種 Stirling 数 $S(n,k)$ を $0 \le n \le \mathrm{upper}$ の範囲で求める。 | `column`: 固定する第2引数 $k$。<br>`upper`: 求める最大の第1引数 $n$。この値を含む。<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。$\mathrm{result}[n]=S(n,\mathrm{column})$ で、$n<\mathrm{column}$ の要素は0。 | — |

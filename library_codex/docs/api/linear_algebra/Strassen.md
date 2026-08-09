@@ -19,6 +19,6 @@ from library_codex.linear_algebra.Strassen import strassen_matrix_multiply
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`strassen_matrix_multiply(first, second, mod=DEFAULT_MOD, threshold=32)`](../../../linear_algebra/Strassen.py#L44) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`threshold`: naive法等へ切り替える閾値。省略時: `32` | list[list[number]] — 各行をlistで持つ行列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`strassen_matrix_multiply(first, second, mod=DEFAULT_MOD, threshold=32)`](../../../linear_algebra/Strassen.py#L44) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`threshold`: naive法等へ切り替える閾値。省略時: `32` | list[list[number]] — 各行をlistで持つ行列 | — |

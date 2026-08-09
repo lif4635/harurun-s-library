@@ -21,10 +21,10 @@ from library_codex.graph_flow.AdvancedFlow import gomory_hu_tree, stoer_wagner_m
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`gomory_hu_tree(n, edges, flow_class=PushRelabelMaxFlow)`](../../../graph_flow/AdvancedFlow.py#L220) | `gomory`・`hu`・木を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`flow_class`: flow・`class`として使う入力。省略時: `PushRelabelMaxFlow` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`stoer_wagner_min_cut(n, edges)`](../../../graph_flow/AdvancedFlow.py#L264) | `stoer`・`wagner`・最小・`cut`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(`0`, list `[0]`) / tuple(`best_value`（None）, `best_side`（list）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`gomory_hu_tree(n, edges, flow_class=PushRelabelMaxFlow)`](../../../graph_flow/AdvancedFlow.py#L220) | `gomory`・`hu`・木を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`flow_class`: flow・`class`として使う入力。省略時: `PushRelabelMaxFlow` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`stoer_wagner_min_cut(n, edges)`](../../../graph_flow/AdvancedFlow.py#L264) | `stoer`・`wagner`・最小・`cut`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(`0`, list `[0]`) / tuple(`best_value`（None）, `best_side`（list）) | O(V^3) |
 
 ## Class `PushRelabelMaxFlow`
 
@@ -33,13 +33,14 @@ from library_codex.graph_flow.AdvancedFlow import gomory_hu_tree, stoer_wagner_m
 - constructor: [`PushRelabelMaxFlow(n)`](../../../graph_flow/AdvancedFlow.py#L16)
 - 引数: `n`: 要素数・頂点数・次数
 - 返り値: `PushRelabelMaxFlow` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_vertex()`](../../../graph_flow/AdvancedFlow.py#L25) | method | 頂点を追加する。 | なし | 数値または入力要素型 `self.n - 1` |
-| [`add_edge(source, target, capacity)`](../../../graph_flow/AdvancedFlow.py#L30) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量 | 数値または入力要素型 `len(self.position) - 1` |
-| [`get_edge(index)`](../../../graph_flow/AdvancedFlow.py#L45) | method | edge_idに対応する辺情報を返す。 | `index`: 位置 | tuple(`source`, `self.to[edge]`, 数値または入力要素型 `self.capacity[edge] + reverse_capacity`, `reverse_capacity`) |
-| [`edges()`](../../../graph_flow/AdvancedFlow.py#L55) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`change_edge(index, capacity, flow)`](../../../graph_flow/AdvancedFlow.py#L58) | method | 辺を更新する。 | `index`: 位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` |
-| [`flow(source, sink, flow_limit=None)`](../../../graph_flow/AdvancedFlow.py#L85) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | `self._flow_unlimited(source, sink)` / `0` / `self._flow_unlimited(temporary_source, sink)` |
-| [`min_cut(source)`](../../../graph_flow/AdvancedFlow.py#L202) | method | 最小・`cut`を求める。 | `source`: 始点 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_vertex()`](../../../graph_flow/AdvancedFlow.py#L25) | method | 頂点を追加する。 | なし | 数値または入力要素型 `self.n - 1` | — |
+| [`add_edge(source, target, capacity)`](../../../graph_flow/AdvancedFlow.py#L30) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量 | 数値または入力要素型 `len(self.position) - 1` | — |
+| [`get_edge(index)`](../../../graph_flow/AdvancedFlow.py#L45) | method | edge_idに対応する辺情報を返す。 | `index`: 位置 | tuple(`source`, `self.to[edge]`, 数値または入力要素型 `self.capacity[edge] + reverse_capacity`, `reverse_capacity`) | — |
+| [`edges()`](../../../graph_flow/AdvancedFlow.py#L55) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`change_edge(index, capacity, flow)`](../../../graph_flow/AdvancedFlow.py#L58) | method | 辺を更新する。 | `index`: 位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` | — |
+| [`flow(source, sink, flow_limit=None)`](../../../graph_flow/AdvancedFlow.py#L85) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | `self._flow_unlimited(source, sink)` / `0` / `self._flow_unlimited(temporary_source, sink)` | — |
+| [`min_cut(source)`](../../../graph_flow/AdvancedFlow.py#L202) | method | 最小・`cut`を求める。 | `source`: 始点 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

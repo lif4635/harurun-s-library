@@ -3,7 +3,6 @@
 
 巨大な累乗塔を法の下で計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`number_theory/TetrationMod.py`](../../../number_theory/TetrationMod.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.number_theory.TetrationMod import tetration_mod
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`tetration_mod(base, height, modulus)`](../../../number_theory/TetrationMod.py#L24) | `tetration`・`mod`を求める。 | `base`: 底・基準となる値または列<br>`height`: 高さ・行数<br>`modulus`: 法 | 数値または入力要素型 `value % modulus` / 数値または入力要素型 `1 % modulus` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`tetration_mod(base, height, modulus)`](../../../number_theory/TetrationMod.py#L24) | `tetration`・`mod`を求める。 | `base`: 底・基準となる値または列<br>`height`: 高さ・行数<br>`modulus`: 法 | 数値または入力要素型 `value % modulus` / 数値または入力要素型 `1 % modulus` | — |

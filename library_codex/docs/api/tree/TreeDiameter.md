@@ -3,7 +3,6 @@
 
 重み付きまたは重みなし木の直径とpathを求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`tree/TreeDiameter.py`](../../../tree/TreeDiameter.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,7 +19,7 @@ from library_codex.tree.TreeDiameter import tree_diameter, diameter
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`tree_diameter(tree)`](../../../tree/TreeDiameter.py#L8) | 木・直径を求める。 | `tree`: 木の隣接list | tuple(`0`, list `[]`) / tuple(`distance[second]`, pathを表すlist) |
-| [`diameter(tree)`](../../../tree/TreeDiameter.py#L48) | 直径を求める。 | `tree`: 木の隣接list | `tree_diameter(tree)[0]` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`tree_diameter(tree)`](../../../tree/TreeDiameter.py#L8) | 木・直径を求める。 | `tree`: 木の隣接list | tuple(`0`, list `[]`) / tuple(`distance[second]`, pathを表すlist) | — |
+| [`diameter(tree)`](../../../tree/TreeDiameter.py#L48) | 直径を求める。 | `tree`: 木の隣接list | `tree_diameter(tree)[0]` | — |

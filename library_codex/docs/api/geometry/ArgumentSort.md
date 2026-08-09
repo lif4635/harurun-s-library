@@ -20,6 +20,6 @@ from library_codex.geometry.ArgumentSort import argument_sort
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`argument_sort(points)`](../../../geometry/ArgumentSort.py#L28) | ベクトルを正のx軸から反時計回りの偏角順に返す。O(N log N)。 | `points`: 原点からの2次元ベクトル `(x, y)` のiterable | list[tuple[number, number]] — 正のx軸から反時計回りに並べた新しいlist |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`argument_sort(points)`](../../../geometry/ArgumentSort.py#L28) | ベクトルを正のx軸から反時計回りの偏角順に返す。O(N log N)。 | `points`: 原点からの2次元ベクトル `(x, y)` のiterable | list[tuple[number, number]] — 正のx軸から反時計回りに並べた新しいlist | O(N log N) |

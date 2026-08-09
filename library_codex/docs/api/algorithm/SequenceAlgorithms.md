@@ -20,9 +20,9 @@ from library_codex.algorithm.SequenceAlgorithms import inversion_count, lis, coo
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`inversion_count(values)`](../../../algorithm/SequenceAlgorithms.py#L6) | 列で i < j かつ values[i] > values[j] となる組数を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | int — i < j かつ values[i] > values[j] となる組の個数 |
-| [`lis(values, strict=True, restore=False)`](../../../algorithm/SequenceAlgorithms.py#L27) | 最長増加部分列の長さを求め、必要なら添字列と値列も復元する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`strict`: 狭義（等値を許さない）として扱うか。省略時: `True`<br>`restore`: 復元情報も計算するか。省略時: `False` | int — LIS長。restore=Trueなら (長さ, 元の添字list, 値list) |
-| [`coordinate_compress(values)`](../../../algorithm/SequenceAlgorithms.py#L55) | 値の大小関係を保った0始まりの順位へ座標圧縮する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | tuple[list[object], dict[object, int]] — 昇順の重複なし値列と、各値を0始まり順位へ写すdict |
-| [`merge_intervals(intervals, merge_adjacent=True)`](../../../algorithm/SequenceAlgorithms.py#L62) | 重なる区間を併合し、互いに交わらない半開区間列を返す。 | `intervals`: 区間 `(left, right)` のiterable<br>`merge_adjacent`: 処理中に呼び出す関数または操作。省略時: `True` | list[tuple[number, number]] — 左端順で互いに重ならない区間(left, right)の列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`inversion_count(values)`](../../../algorithm/SequenceAlgorithms.py#L6) | 列で i < j かつ values[i] > values[j] となる組数を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | int — i < j かつ values[i] > values[j] となる組の個数 | O(N log N) |
+| [`lis(values, strict=True, restore=False)`](../../../algorithm/SequenceAlgorithms.py#L27) | 最長増加部分列の長さを求め、必要なら添字列と値列も復元する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`strict`: 狭義（等値を許さない）として扱うか。省略時: `True`<br>`restore`: 復元情報も計算するか。省略時: `False` | int — LIS長。restore=Trueなら (長さ, 元の添字list, 値list) | O(N log N) |
+| [`coordinate_compress(values)`](../../../algorithm/SequenceAlgorithms.py#L55) | 値の大小関係を保った0始まりの順位へ座標圧縮する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | tuple[list[object], dict[object, int]] — 昇順の重複なし値列と、各値を0始まり順位へ写すdict | O(N log N) |
+| [`merge_intervals(intervals, merge_adjacent=True)`](../../../algorithm/SequenceAlgorithms.py#L62) | 半開区間 $[\mathrm{left},\mathrm{right})$ を左端順にまとめ、互いに重ならない半開区間列を返す。 | `intervals`: 各要素の2値が半開区間 $[\mathrm{left},\mathrm{right})$ を表すiterable。<br>`merge_adjacent`: Trueなら $[a,b)$ と $[b,c)$ のように端が接する区間も $[a,c)$ へ結合する。Falseなら重なる区間だけを結合する。。省略時: `True` | list[tuple[number, number]] — 左端順に並んだ半開区間 $[\mathrm{left},\mathrm{right})$ の列。返り値の各tupleは(left, right)という2値の格納形式だが、区間の意味は半開。 | O(N log N) |

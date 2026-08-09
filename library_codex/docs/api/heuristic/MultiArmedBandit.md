@@ -3,7 +3,6 @@
 
 複数候補の試行結果から次に選ぶ候補を決める多腕バンディット。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`heuristic/MultiArmedBandit.py`](../../../heuristic/MultiArmedBandit.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.heuristic.MultiArmedBandit import MultiArmedBandit
 - constructor: [`MultiArmedBandit(arm_count, seed=1)`](../../../heuristic/MultiArmedBandit.py#L11)
 - 引数: `arm_count`: 選択肢（arm）の個数<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `1`
 - 返り値: `MultiArmedBandit` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`play()`](../../../heuristic/MultiArmedBandit.py#L25) | method | 次に試す候補を選び、その番号を返す。 | なし | `self.last` / `arm` |
-| [`reward(value)`](../../../heuristic/MultiArmedBandit.py#L42) | method | 直前に選んだ候補へ観測した報酬を反映する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`best()`](../../../heuristic/MultiArmedBandit.py#L64) | method | 現在の評価が最大の候補番号を返す。 | なし | `max(range(self.n), key=self.weights.__getitem__)` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`play()`](../../../heuristic/MultiArmedBandit.py#L25) | method | 次に試す候補を選び、その番号を返す。 | なし | `self.last` / `arm` | — |
+| [`reward(value)`](../../../heuristic/MultiArmedBandit.py#L42) | method | 直前に選んだ候補へ観測した報酬を反映する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`best()`](../../../heuristic/MultiArmedBandit.py#L64) | method | 現在の評価が最大の候補番号を返す。 | なし | `max(range(self.n), key=self.weights.__getitem__)` | — |

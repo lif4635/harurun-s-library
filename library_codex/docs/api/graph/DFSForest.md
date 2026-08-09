@@ -3,7 +3,6 @@
 
 深さ優先探索forestの親・順序・終了順を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph/DFSForest.py`](../../../graph/DFSForest.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph.DFSForest import dfs_forest
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`dfs_forest(graph, root=0, postorder=False)`](../../../graph/DFSForest.py#L3) | `dfs`・forestを求める。 | `graph`: 隣接listまたはグラフobject<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`postorder`: `postorder`として使う入力。省略時: `False` | tuple(list `[]`, list `[]`) / tuple(頂点・要素を処理順に並べたlist[int], 親情報（数値または入力要素型）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`dfs_forest(graph, root=0, postorder=False)`](../../../graph/DFSForest.py#L3) | `dfs`・forestを求める。 | `graph`: 隣接listまたはグラフobject<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`postorder`: `postorder`として使う入力。省略時: `False` | tuple(list `[]`, list `[]`) / tuple(頂点・要素を処理順に並べたlist[int], 親情報（数値または入力要素型）) | — |

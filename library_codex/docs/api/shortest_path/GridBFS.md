@@ -27,7 +27,7 @@ from library_codex.shortest_path.GridBFS import grid_bfs, grid_shortest_path
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`grid_bfs(grid, start, moves=DIR4, blocked='#')`](../../../shortest_path/GridBFS.py#L9) | startから各cellへの最短移動回数を、到達不能を-1として返す。O(HW)。 | `grid`: 行の長さが等しい2次元sequence<br>`start`: 開始cell `(row, column)`<br>`moves`: 1回の移動 `(delta_row, delta_column)` のiterable。省略時: `DIR4`<br>`blocked`: 通過できないcellの値。省略時: `'#'` | list[list[int]] — 各cellへの最短移動回数。到達不能は-1 |
-| [`grid_shortest_path(grid, start, goal, moves=DIR4, blocked='#')`](../../../shortest_path/GridBFS.py#L40) | startからgoalへの最短移動回数を返し、到達不能なら-1を返す。O(HW)。 | `grid`: 行の長さが等しい2次元sequence<br>`start`: 開始cell `(row, column)`<br>`goal`: 終了cell `(row, column)`<br>`moves`: 1回の移動 `(delta_row, delta_column)` のiterable。省略時: `DIR4`<br>`blocked`: 通過できないcellの値。省略時: `'#'` | int — goalまでの最短移動回数。到達不能は-1 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`grid_bfs(grid, start, moves=DIR4, blocked='#')`](../../../shortest_path/GridBFS.py#L9) | startから各cellへの最短移動回数を、到達不能を-1として返す。O(HW)。 | `grid`: 行の長さが等しい2次元sequence<br>`start`: 開始cell `(row, column)`<br>`moves`: 1回の移動 `(delta_row, delta_column)` のiterable。省略時: `DIR4`<br>`blocked`: 通過できないcellの値。省略時: `'#'` | list[list[int]] — 各cellへの最短移動回数。到達不能は-1 | O(HW) |
+| [`grid_shortest_path(grid, start, goal, moves=DIR4, blocked='#')`](../../../shortest_path/GridBFS.py#L40) | startからgoalへの最短移動回数を返し、到達不能なら-1を返す。O(HW)。 | `grid`: 行の長さが等しい2次元sequence<br>`start`: 開始cell `(row, column)`<br>`goal`: 終了cell `(row, column)`<br>`moves`: 1回の移動 `(delta_row, delta_column)` のiterable。省略時: `DIR4`<br>`blocked`: 通過できないcellの値。省略時: `'#'` | int — goalまでの最短移動回数。到達不能は-1 | O(HW) |

@@ -3,7 +3,6 @@
 
 Monge重みを持つDAGの最短路を辺数制約付きで計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`optimization/MongeShortestPaths.py`](../../../optimization/MongeShortestPaths.py)
 - 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
@@ -21,8 +20,8 @@ from library_codex.optimization.MongeShortestPaths import monge_shortest_paths, 
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`monge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L5) | `monge`・最短・`paths`を求める。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 距離（数値または入力要素型） |
-| [`monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L54) | `monge`・`d`・辺・最短・pathを求める。 | `target`: 探索・判定・更新の対象値<br>`edge_count`: 生成する辺の本数<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | `infinity` / `distance[target]` |
-| [`enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L63) | `monge`・`d`・辺・最短・`paths`を列挙する。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 答え（数値または入力要素型） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`monge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L5) | `monge`・最短・`paths`を求める。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 距離（数値または入力要素型） | — |
+| [`monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L54) | `monge`・`d`・辺・最短・pathを求める。 | `target`: 探索・判定・更新の対象値<br>`edge_count`: 生成する辺の本数<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | `infinity` / `distance[target]` | — |
+| [`enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L63) | `monge`・`d`・辺・最短・`paths`を列挙する。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 答え（数値または入力要素型） | — |

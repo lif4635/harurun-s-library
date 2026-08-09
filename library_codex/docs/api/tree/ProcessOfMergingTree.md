@@ -3,7 +3,6 @@
 
 辺が追加される過程を表すmerge treeを構築する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`tree/ProcessOfMergingTree.py`](../../../tree/ProcessOfMergingTree.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.tree.ProcessOfMergingTree import process_of_merging_tree
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`process_of_merging_tree(edges, size=None, sort_edges=False)`](../../../tree/ProcessOfMergingTree.py#L3) | `process`・`of`・`merging`・木を求める。 | `edges`: 辺のiterable/list<br>`size`: 要素数・universe size。省略時: `None`<br>`sort_edges`: `sort`・辺として使う入力。省略時: `False` | tuple(`graph[:auxiliary]`, `weights`（list）, 数値または入力要素型 `auxiliary - 1`) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`process_of_merging_tree(edges, size=None, sort_edges=False)`](../../../tree/ProcessOfMergingTree.py#L3) | `process`・`of`・`merging`・木を求める。 | `edges`: 辺のiterable/list<br>`size`: 要素数・universe size。省略時: `None`<br>`sort_edges`: `sort`・辺として使う入力。省略時: `False` | tuple(`graph[:auxiliary]`, `weights`（list）, 数値または入力要素型 `auxiliary - 1`) | — |

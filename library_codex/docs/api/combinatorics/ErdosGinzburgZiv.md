@@ -19,6 +19,6 @@ from library_codex.combinatorics.ErdosGinzburgZiv import erdos_ginzburg_ziv_indi
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`erdos_ginzburg_ziv_indices(order, values)`](../../../combinatorics/ErdosGinzburgZiv.py#L6) | `erdos`・`ginzburg`・`ziv`・`indices`を求める。 | `order`: 順序・次数・並べ方<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある | list[int] — 頂点または要素の位置を結果順に並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`erdos_ginzburg_ziv_indices(order, values)`](../../../combinatorics/ErdosGinzburgZiv.py#L6) | `erdos`・`ginzburg`・`ziv`・`indices`を求める。 | `order`: 順序・次数・並べ方<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある | list[int] — 頂点または要素の位置を結果順に並べた列 | O(order^2) bit operations |

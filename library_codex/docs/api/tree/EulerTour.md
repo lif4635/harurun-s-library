@@ -3,7 +3,6 @@
 
 木のEuler tour順と部分木区間を構築する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`tree/EulerTour.py`](../../../tree/EulerTour.py)
 - 公開API: function 0、class 1、method/property 7（Python protocol 1を含む）
 
@@ -24,13 +23,14 @@ from library_codex.tree.EulerTour import EulerTour
 - constructor: [`EulerTour(tree, root=0)`](../../../tree/EulerTour.py#L23)
 - 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
 - 返り値: `EulerTour` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`idx(node)`](../../../tree/EulerTour.py#L93) | method | `idx`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) |
-| [`lca(first, second)`](../../../tree/EulerTour.py#L96) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） |
-| [`distance(first, second)`](../../../tree/EulerTour.py#L105) | method | 距離を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / 数値または入力要素型 `self.depth[first] + self.depth[second] - (self.depth[ancestor]...` |
-| [`node_intervals(first, second)`](../../../tree/EulerTour.py#L117) | method | `node`・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`edge_intervals(first, second)`](../../../tree/EulerTour.py#L128) | method | 辺・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`subtree_interval(node)`](../../../tree/EulerTour.py#L137) | method | `subtree`・`interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) |
-| [`__len__()`](../../../tree/EulerTour.py#L142) | method | len(obj)。 | なし | 要素数（int） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`idx(node)`](../../../tree/EulerTour.py#L93) | method | `idx`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) | — |
+| [`lca(first, second)`](../../../tree/EulerTour.py#L96) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） | — |
+| [`distance(first, second)`](../../../tree/EulerTour.py#L105) | method | 距離を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / 数値または入力要素型 `self.depth[first] + self.depth[second] - (self.depth[ancestor]...` | — |
+| [`node_intervals(first, second)`](../../../tree/EulerTour.py#L117) | method | `node`・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`edge_intervals(first, second)`](../../../tree/EulerTour.py#L128) | method | 辺・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`subtree_interval(node)`](../../../tree/EulerTour.py#L137) | method | `subtree`・`interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) | — |
+| [`__len__()`](../../../tree/EulerTour.py#L142) | method | len(obj)。 | なし | 要素数（int） | — |

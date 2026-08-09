@@ -24,35 +24,36 @@ from library_codex.string.SuffixAutomaton import SuffixAutomaton
 - constructor: [`SuffixAutomaton(sequence=None, alphabet=None)`](../../../string/SuffixAutomaton.py#L13)
 - 引数: `sequence`: 入力列。省略時: `None`<br>`alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `None`
 - 返り値: `SuffixAutomaton` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__len__()`](../../../string/SuffixAutomaton.py#L53) | method | len(obj)。 | なし | 要素数（int） |
-| [`state_count`](../../../string/SuffixAutomaton.py#L57) | property | `state`・個数を求める。 | なし | `len(self.length)` |
-| [`node_count`](../../../string/SuffixAutomaton.py#L61) | property | `node`・個数を求める。 | なし | `len(self.length)` |
-| [`size()`](../../../string/SuffixAutomaton.py#L64) | method | 要素数または連結成分sizeを返す。 | なし | size（int） |
-| [`max_length`](../../../string/SuffixAutomaton.py#L68) | property | 最大・長さを求める。 | なし | `self.length` |
-| [`distinct_count`](../../../string/SuffixAutomaton.py#L72) | property | `distinct`・個数を求める。 | なし | `self._distinct` |
-| [`transition(state, symbol)`](../../../string/SuffixAutomaton.py#L136) | method | `transition`を求める。 | `state`: rollback状態番号・状態object<br>`symbol`: 文字・alphabet上の記号 | `-1` / `self._get(state, symbol)` |
-| [`children(state)`](../../../string/SuffixAutomaton.py#L144) | method | `children`を求める。 | `state`: rollback状態番号・状態object | list[object] — 計算結果 / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`extend(symbol)`](../../../string/SuffixAutomaton.py#L157) | method | `extend`を求める。 | `symbol`: 文字・alphabet上の記号 | `current` |
-| [`build(sequence)`](../../../string/SuffixAutomaton.py#L236) | method | 内部構造を構築する。 | `sequence`: 入力列 | `self` |
-| [`find(pattern)`](../../../string/SuffixAutomaton.py#L243) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列 | 代表元・位置・node番号（int） |
-| [`contains(pattern)`](../../../string/SuffixAutomaton.py#L251) | method | 指定値を保持しているか判定する。 | `pattern`: 検索patternの文字列・列 | bool |
-| [`state_interval(state)`](../../../string/SuffixAutomaton.py#L256) | method | `state`・`interval`を求める。 | `state`: rollback状態番号・状態object | tuple(`0`, `0`) / tuple(数値または入力要素型 `self.length[self.link[state]] + 1`, `self.length[state]`) |
-| [`topological_order(reverse=False)`](../../../string/SuffixAutomaton.py#L261) | method | `topological`・`order`を求める。 | `reverse`: 逆向き・降順を使うかどうか。省略時: `False` | 数値または入力要素型 `order[::-1] if reverse else order` |
-| [`tsort()`](../../../string/SuffixAutomaton.py#L279) | method | `tsort`を求める。 | なし | `self.ord` |
-| [`suffix_link_tree()`](../../../string/SuffixAutomaton.py#L283) | method | suffix・`link`・木を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`terminal_states()`](../../../string/SuffixAutomaton.py#L291) | method | `terminal`・`states`を求める。 | なし | `terminal` |
-| [`is_terminal_state(state)`](../../../string/SuffixAutomaton.py#L302) | method | `terminal`・`state`かどうかを判定する。 | `state`: rollback状態番号・状態object | bool |
-| [`occurrence_counts()`](../../../string/SuffixAutomaton.py#L305) | method | `occurrence`・`counts`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`count(pattern)`](../../../string/SuffixAutomaton.py#L318) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） |
-| [`first_occurrence(pattern)`](../../../string/SuffixAutomaton.py#L326) | method | `first`・`occurrence`を求める。 | `pattern`: 検索patternの文字列・列 | `0` / `-1` / 数値または入力要素型 `self.first_pos[state] - size + 1` |
-| [`occurrences(pattern, sort_positions=False)`](../../../string/SuffixAutomaton.py#L368) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
-| [`distinct_substrings()`](../../../string/SuffixAutomaton.py#L389) | method | `distinct`・`substrings`を求める。 | なし | `self._distinct` |
-| [`sum_distinct_substring_lengths()`](../../../string/SuffixAutomaton.py#L394) | method | 和・`distinct`・`substring`・`lengths`を計算する。 | なし | 計算結果（int） |
-| [`text()`](../../../string/SuffixAutomaton.py#L443) | method | `text`を求める。 | なし | `self._pack(self.sequence)` |
-| [`kth_substring(k, one_indexed=False)`](../../../string/SuffixAutomaton.py#L446) | method | k番目・`substring`を求める。 | `k`: 選ぶ個数または0-indexedの順位<br>`one_indexed`: `one`・`indexed`として使う入力。省略時: `False` | `self._pack(result)` |
-| [`longest_repeated_substring_info(min_occurrences=2)`](../../../string/SuffixAutomaton.py#L476) | method | `longest`・`repeated`・`substring`・`info`を求める。 | `min_occurrences`: 最小・`occurrences`の下限。省略時: `2` | tuple(`0`, `0`, `0`) / tuple(`best_length`（int）, `start`（数値または入力要素型）, `best_state`（int）) |
-| [`longest_repeated_substring(min_occurrences=2)`](../../../string/SuffixAutomaton.py#L495) | method | `longest`・`repeated`・`substring`を求める。 | `min_occurrences`: 最小・`occurrences`の下限。省略時: `2` | `self._slice(start, start + length)` |
-| [`longest_common_substring(other)`](../../../string/SuffixAutomaton.py#L501) | method | `longest`・`common`・`substring`を求める。 | `other`: 同じ型のもう一方のobject・値 | tuple(`0`, `0`, `0`) / tuple(`best_length`（int）, `base_start`（数値または入力要素型）, `other_start`（数値または入力要素型）) |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__len__()`](../../../string/SuffixAutomaton.py#L53) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`state_count`](../../../string/SuffixAutomaton.py#L57) | property | `state`・個数を求める。 | なし | `len(self.length)` | — |
+| [`node_count`](../../../string/SuffixAutomaton.py#L61) | property | `node`・個数を求める。 | なし | `len(self.length)` | — |
+| [`size()`](../../../string/SuffixAutomaton.py#L64) | method | 要素数または連結成分sizeを返す。 | なし | size（int） | — |
+| [`max_length`](../../../string/SuffixAutomaton.py#L68) | property | 最大・長さを求める。 | なし | `self.length` | — |
+| [`distinct_count`](../../../string/SuffixAutomaton.py#L72) | property | `distinct`・個数を求める。 | なし | `self._distinct` | — |
+| [`transition(state, symbol)`](../../../string/SuffixAutomaton.py#L136) | method | `transition`を求める。 | `state`: rollback状態番号・状態object<br>`symbol`: 文字・alphabet上の記号 | `-1` / `self._get(state, symbol)` | — |
+| [`children(state)`](../../../string/SuffixAutomaton.py#L144) | method | `children`を求める。 | `state`: rollback状態番号・状態object | list[object] — 計算結果 / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`extend(symbol)`](../../../string/SuffixAutomaton.py#L157) | method | `extend`を求める。 | `symbol`: 文字・alphabet上の記号 | `current` | — |
+| [`build(sequence)`](../../../string/SuffixAutomaton.py#L236) | method | 内部構造を構築する。 | `sequence`: 入力列 | `self` | — |
+| [`find(pattern)`](../../../string/SuffixAutomaton.py#L243) | method | 代表元・位置・対象要素を探す。 | `pattern`: 検索patternの文字列・列 | 代表元・位置・node番号（int） | — |
+| [`contains(pattern)`](../../../string/SuffixAutomaton.py#L251) | method | 指定値を保持しているか判定する。 | `pattern`: 検索patternの文字列・列 | bool | — |
+| [`state_interval(state)`](../../../string/SuffixAutomaton.py#L256) | method | `state`・`interval`を求める。 | `state`: rollback状態番号・状態object | tuple(`0`, `0`) / tuple(数値または入力要素型 `self.length[self.link[state]] + 1`, `self.length[state]`) | — |
+| [`topological_order(reverse=False)`](../../../string/SuffixAutomaton.py#L261) | method | `topological`・`order`を求める。 | `reverse`: 逆向き・降順を使うかどうか。省略時: `False` | 数値または入力要素型 `order[::-1] if reverse else order` | — |
+| [`tsort()`](../../../string/SuffixAutomaton.py#L279) | method | `tsort`を求める。 | なし | `self.ord` | — |
+| [`suffix_link_tree()`](../../../string/SuffixAutomaton.py#L283) | method | suffix・`link`・木を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`terminal_states()`](../../../string/SuffixAutomaton.py#L291) | method | `terminal`・`states`を求める。 | なし | `terminal` | — |
+| [`is_terminal_state(state)`](../../../string/SuffixAutomaton.py#L302) | method | `terminal`・`state`かどうかを判定する。 | `state`: rollback状態番号・状態object | bool | — |
+| [`occurrence_counts()`](../../../string/SuffixAutomaton.py#L305) | method | `occurrence`・`counts`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`count(pattern)`](../../../string/SuffixAutomaton.py#L318) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） | — |
+| [`first_occurrence(pattern)`](../../../string/SuffixAutomaton.py#L326) | method | `first`・`occurrence`を求める。 | `pattern`: 検索patternの文字列・列 | `0` / `-1` / 数値または入力要素型 `self.first_pos[state] - size + 1` | — |
+| [`occurrences(pattern, sort_positions=False)`](../../../string/SuffixAutomaton.py#L368) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`distinct_substrings()`](../../../string/SuffixAutomaton.py#L389) | method | `distinct`・`substrings`を求める。 | なし | `self._distinct` | — |
+| [`sum_distinct_substring_lengths()`](../../../string/SuffixAutomaton.py#L394) | method | 和・`distinct`・`substring`・`lengths`を計算する。 | なし | 計算結果（int） | — |
+| [`text()`](../../../string/SuffixAutomaton.py#L443) | method | `text`を求める。 | なし | `self._pack(self.sequence)` | — |
+| [`kth_substring(k, one_indexed=False)`](../../../string/SuffixAutomaton.py#L446) | method | k番目・`substring`を求める。 | `k`: 選ぶ個数または0-indexedの順位<br>`one_indexed`: `one`・`indexed`として使う入力。省略時: `False` | `self._pack(result)` | — |
+| [`longest_repeated_substring_info(min_occurrences=2)`](../../../string/SuffixAutomaton.py#L476) | method | `longest`・`repeated`・`substring`・`info`を求める。 | `min_occurrences`: 最小・`occurrences`の下限。省略時: `2` | tuple(`0`, `0`, `0`) / tuple(`best_length`（int）, `start`（数値または入力要素型）, `best_state`（int）) | — |
+| [`longest_repeated_substring(min_occurrences=2)`](../../../string/SuffixAutomaton.py#L495) | method | `longest`・`repeated`・`substring`を求める。 | `min_occurrences`: 最小・`occurrences`の下限。省略時: `2` | `self._slice(start, start + length)` | — |
+| [`longest_common_substring(other)`](../../../string/SuffixAutomaton.py#L501) | method | `longest`・`common`・`substring`を求める。 | `other`: 同じ型のもう一方のobject・値 | tuple(`0`, `0`, `0`) / tuple(`best_length`（int）, `base_start`（数値または入力要素型）, `other_start`（数値または入力要素型）) | — |

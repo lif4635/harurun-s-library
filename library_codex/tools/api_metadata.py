@@ -223,6 +223,19 @@ MODULE_CAPABILITIES = {
 }
 
 MODULE_CAPABILITIES.update({
+    "algorithm/PermutationGroup.py": (
+        "置換の生成元から、点を後ろから順に固定する安定化列の代表置換を構築できる。",
+        "各levelの代表元数を掛け合わせて、生成された有限置換群の要素数を求められる。",
+        "全levelを平坦化すると、入力と同じ置換群を生成する置換listとして再利用できる。",
+    ),
+    "convolution/MiddleProduct.py": (
+        r"長い列 $a$ と短い列 $b$ から、$c_i=\sum_j b_j a_{i+j}$ をまとめて計算できる。",
+        "998244353では、長い列の長さ以上の最小の2冪だけを使う循環NTTで計算する。",
+    ),
+    "ordered_set/RangeSet.py": (
+        r"整数集合を、互いに交わらない半開区間 $[\mathrm{left},\mathrm{right})$ の列として保持できる。",
+        "半開区間の一括追加・一括削除、1点の包含判定、指定値以上のmexを処理できる。",
+    ),
     "algorithm/IntegerUtilities.py": (
         "合同類の代表値、mod乗、完全平方根、整数n乗根、10進桁数を求められる。",
         "integer_nth_rootは浮動小数点数を使わず、floor(number^(1/degree))を返す。",
@@ -1606,7 +1619,139 @@ API_DETAILS_BY_SYMBOL.update({
 })
 
 
+API_DETAILS_BY_SYMBOL.update({
+    ("algorithm/PermutationGroup.py", None, "simplify_permutation_subgroup"): {
+        "description": (
+            "入力された生成元と同じ置換群を表す、安定化列の軌道代表元を構築する。"
+            "位置をn-1から順に固定し、各位置が移れる先ごとに代表置換を1つ残す。"
+        ),
+        "argumentDescriptions": {
+            "n": "置換が作用する点の個数。点は0からn-1。",
+            "permutations": (
+                "置換群の生成元。各置換pは長さnのlistで、p[i]が点iの移り先。"
+            ),
+            "force_size_n": (
+                "Trueなら全代表置換を長さnで返す。Falseならlevel iの固定済み末尾を省き、"
+                "各代表を長さi+1で返す。"
+            ),
+        },
+        "returnFormat": "list[list[list[int]]]",
+        "returnDescription": (
+            "外側のindex iが、i+1からn-1を固定した部分群のlevel。"
+            "levels[i]には、点iの到達可能な移り先ごとに代表置換が1つ入る。"
+            "level内のp[i]は重複せず、全levelの置換を合わせると入力と同じ群を生成する。"
+            "群の要素数は、空levelを1として各levelの長さを掛けた値。"
+            "例えば3点の対称群S3ではlevel長が[0, 2, 3]となり、群の要素数は1*2*3=6。"
+        ),
+    },
+    ("algorithm/Search.py", None, "kth_element"): {
+        "description": (
+            "valuesを変更せず、0始まりでindex番目に小さい値をintroselect型のquickselectで返す。"
+            "整列済み・逆順の入力は線形走査で検出し、分割が偏り続けた場合はsortへ切り替える。"
+        ),
+        "argumentDescriptions": {
+            "values": "大小比較できる値のiterable。入力object自体は変更しない。",
+            "index": "小さい順で取得する位置。0以上len(values)未満。",
+        },
+        "returnFormat": "object",
+        "returnDescription": "valuesを昇順に並べたとき、0始まりでindex番目に置かれる値。",
+    },
+    ("algorithm/SequenceAlgorithms.py", None, "merge_intervals"): {
+        "description": (
+            r"半開区間 $[\mathrm{left},\mathrm{right})$ を左端順にまとめ、"
+            "互いに重ならない半開区間列を返す。"
+        ),
+        "argumentDescriptions": {
+            "intervals": (
+                r"各要素の2値が半開区間 $[\mathrm{left},\mathrm{right})$ を表すiterable。"
+            ),
+            "merge_adjacent": (
+                r"Trueなら $[a,b)$ と $[b,c)$ のように端が接する区間も $[a,c)$ へ結合する。"
+                "Falseなら重なる区間だけを結合する。"
+            ),
+        },
+        "returnFormat": "list[tuple[number, number]]",
+        "returnDescription": (
+            r"左端順に並んだ半開区間 $[\mathrm{left},\mathrm{right})$ の列。"
+            "返り値の各tupleは(left, right)という2値の格納形式だが、区間の意味は半開。"
+        ),
+    },
+    ("convolution/MiddleProduct.py", None, "middle_product"): {
+        "description": (
+            r"長い列first上でsecondを1要素ずつずらし、"
+            r"$c_i=\sum_{j=0}^{m-1}\mathrm{second}_j\mathrm{first}_{i+j}$ を高速に求める。"
+        ),
+        "argumentDescriptions": {
+            "first": "走査される長さnの列。nはsecondの長さm以上。",
+            "second": "firstとの内積に使う、空でない長さmの列。",
+            "mod": "各内積を計算する法。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さ $n-m+1$ の列 $c$。$c[i]=\sum_{j=0}^{m-1}"
+            r"\mathrm{second}[j]\mathrm{first}[i+j]\bmod\mathrm{mod}$。"
+        ),
+    },
+    ("ordered_set/RangeSet.py", "RangeSet", "add"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる整数をすべて追加する。",
+        "argumentDescriptions": {
+            "left": "追加する半開区間の左端。この値を含む。",
+            "right": "追加する半開区間の右端。この値を含まない。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "今回の操作で集合へ新しく加わった整数の個数。空区間なら0。",
+    },
+    ("ordered_set/RangeSet.py", "RangeSet", "discard"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に含まれる整数をすべて削除する。",
+        "argumentDescriptions": {
+            "left": "削除する半開区間の左端。この値を含む。",
+            "right": "削除する半開区間の右端。この値を含まない。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "今回の操作で集合から実際に削除された整数の個数。空区間なら0。",
+    },
+    ("ordered_set/RangeSet.py", "RangeSet", "contains"): {
+        "description": "整数valueが現在の集合に含まれるか判定する。",
+        "argumentDescriptions": {"value": "包含を調べる整数。"},
+        "returnFormat": "bool",
+        "returnDescription": "valueが保持中の半開区間のどれかに含まれればTrue。",
+    },
+    ("ordered_set/RangeSet.py", "RangeSet", "mex"): {
+        "description": "value以上で、現在の集合に含まれない最小の整数を返す。",
+        "argumentDescriptions": {"value": "探索を始める整数。"},
+        "returnFormat": "int",
+        "returnDescription": "value以上で保持中のどの半開区間にも含まれない最小の整数。",
+    },
+    ("ordered_set/RangeSet.py", "RangeSet", "intervals"): {
+        "description": "現在の整数集合を表す、互いに交わらない半開区間を左端順に列挙する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": (
+            r"各2値が半開区間 $[\mathrm{left},\mathrm{right})$ を表す列。"
+            "tupleは端点を格納する形式であり、数学的な開区間を意味しない。"
+        ),
+    },
+    ("ordered_set/RangeSet.py", "RangeSet", "__len__"): {
+        "description": "現在保持している、互いに交わらない半開区間の本数を返す。",
+        "returnFormat": "int",
+        "returnDescription": (
+            "保持区間数。集合に含まれる整数の個数ではない。"
+            "整数の個数はcovered_lengthで取得する。"
+        ),
+    },
+})
+
+
 CLASS_DETAILS_BY_SYMBOL = {
+    ("ordered_set/RangeSet.py", "RangeSet"): {
+        "description": (
+            r"整数集合を、互いに交わらない半開区間 $[\mathrm{left},\mathrm{right})$ "
+            "の列へまとめて保持する。長い連続区間を1整数ずつ保存せずに扱える。"
+        ),
+        "constructorCreates": (
+            "空の整数集合を作る。add・discardは半開区間を一括更新し、"
+            "contains・mex・intervalsで現在の集合を調べられる。"
+        ),
+    },
     ("tree/AuxiliaryTree.py", "AuxiliaryTree"): {
         "description": (
             "元の木から、指定した頂点とそれらを結ぶために必要なLCAだけを"
@@ -1716,7 +1861,22 @@ COMPLEXITY_BY_MODULE = {
     "algorithm/Search.py": {
         "binary_search_int": "O(log |true_value-false_value|)",
         "binary_search_float": "O(iterations)",
-        "kth_element": "期待 O(N)、最悪 O(N^2)",
+        "kth_element": "期待 O(N)、最悪 O(N log N)",
+    },
+    "algorithm/PermutationGroup.py": {
+        "simplify_permutation_subgroup": "O(N^2 K) を目安（Kは生成元数）",
+    },
+    "convolution/MiddleProduct.py": {
+        "middle_product": "O(N log N)、短い入力では O(M(N-M+1))",
+    },
+    "ordered_set/RangeSet.py": {
+        "RangeSet": "O(1)",
+        "add": "O((K+1) log I)（Kは結合する区間数、Iは保持区間数）",
+        "discard": "O((K+1) log I)（Kは交わる区間数、Iは保持区間数）",
+        "contains": "O(log I)",
+        "mex": "O(log I)",
+        "intervals": "O(I)",
+        "__len__": "O(1)",
     },
     "algorithm/BitAlgorithms.py": {
         "bit_indices": "O(popcount(mask))",

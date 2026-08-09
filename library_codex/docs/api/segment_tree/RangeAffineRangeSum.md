@@ -3,7 +3,6 @@
 
 整数列の区間affine変換と区間和を扱う専用lazy tree。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`segment_tree/RangeAffineRangeSum.py`](../../../segment_tree/RangeAffineRangeSum.py)
 - 公開API: function 0、class 1、method/property 10（Python protocol 3を含む）
 
@@ -24,16 +23,17 @@ from library_codex.segment_tree.RangeAffineRangeSum import RangeAffineRangeSum
 - constructor: [`RangeAffineRangeSum(values, mod=None)`](../../../segment_tree/RangeAffineRangeSum.py#L11)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None`
 - 返り値: `RangeAffineRangeSum` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`apply(left, right, multiplier, addend)`](../../../segment_tree/RangeAffineRangeSum.py#L82) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値 | `None` |
-| [`range_add(left, right, value)`](../../../segment_tree/RangeAffineRangeSum.py#L113) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`range_multiply(left, right, value)`](../../../segment_tree/RangeAffineRangeSum.py#L116) | method | 2つの入力をこの構造の演算規則で乗算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`range_sum(left, right)`](../../../segment_tree/RangeAffineRangeSum.py#L119) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の要素和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。mod指定時はその剰余。 |
-| [`get(index)`](../../../segment_tree/RangeAffineRangeSum.py#L143) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
-| [`set(index, value)`](../../../segment_tree/RangeAffineRangeSum.py#L148) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`all_sum()`](../../../segment_tree/RangeAffineRangeSum.py#L153) | method | 全体・和を計算する。 | なし | `self.sum[1]` |
-| [`__getitem__(index)`](../../../segment_tree/RangeAffineRangeSum.py#L156) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
-| [`__setitem__(index, value)`](../../../segment_tree/RangeAffineRangeSum.py#L159) | method | obj[key] = value で更新する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`__len__()`](../../../segment_tree/RangeAffineRangeSum.py#L162) | method | len(obj)。 | なし | 要素数（int） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`apply(left, right, multiplier, addend)`](../../../segment_tree/RangeAffineRangeSum.py#L82) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値 | `None` | — |
+| [`range_add(left, right, value)`](../../../segment_tree/RangeAffineRangeSum.py#L113) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`range_multiply(left, right, value)`](../../../segment_tree/RangeAffineRangeSum.py#L116) | method | 2つの入力をこの構造の演算規則で乗算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`range_sum(left, right)`](../../../segment_tree/RangeAffineRangeSum.py#L119) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の要素和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。mod指定時はその剰余。 | — |
+| [`get(index)`](../../../segment_tree/RangeAffineRangeSum.py#L143) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | — |
+| [`set(index, value)`](../../../segment_tree/RangeAffineRangeSum.py#L148) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`all_sum()`](../../../segment_tree/RangeAffineRangeSum.py#L153) | method | 全体・和を計算する。 | なし | `self.sum[1]` | — |
+| [`__getitem__(index)`](../../../segment_tree/RangeAffineRangeSum.py#L156) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
+| [`__setitem__(index, value)`](../../../segment_tree/RangeAffineRangeSum.py#L159) | method | obj[key] = value で更新する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`__len__()`](../../../segment_tree/RangeAffineRangeSum.py#L162) | method | len(obj)。 | なし | 要素数（int） | — |

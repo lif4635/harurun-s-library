@@ -3,7 +3,6 @@
 
 列へEuler変換または逆変換を適用する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps/EulerTransform.py`](../../../fps/EulerTransform.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.fps.EulerTransform import euler_transform
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`euler_transform(values, mod=DEFAULT_MOD)`](../../../fps/EulerTransform.py#L14) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_exponential(logarithm, size, mod)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`euler_transform(values, mod=DEFAULT_MOD)`](../../../fps/EulerTransform.py#L14) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_exponential(logarithm, size, mod)` | — |

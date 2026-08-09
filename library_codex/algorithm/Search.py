@@ -24,14 +24,46 @@ def binary_search_float(predicate, false_value, true_value, iterations=80):
 
 
 def kth_element(values, index):
-    """Return the 0-indexed k-th smallest value by iterative quickselect."""
+    """Return the 0-indexed k-th smallest value by introspective quickselect."""
     values = list(values)
-    if not 0 <= index < len(values):
+    size = len(values)
+    if not 0 <= index < size:
         raise IndexError("index out of range")
+
+    ascending = True
+    descending = True
+    for position in range(1, size):
+        previous = values[position - 1]
+        current = values[position]
+        if previous > current:
+            ascending = False
+        elif previous < current:
+            descending = False
+        if not ascending and not descending:
+            break
+    if ascending:
+        return values[index]
+    if descending:
+        return values[size - 1 - index]
+
     left = 0
-    right = len(values) - 1
+    right = size - 1
+    depth_limit = 2 * size.bit_length()
     while left < right:
-        pivot = values[(left + right) >> 1]
+        if right - left <= 64 or depth_limit == 0:
+            remaining = values[left:right + 1]
+            remaining.sort()
+            return remaining[index - left]
+        depth_limit -= 1
+
+        middle = (left + right) >> 1
+        first = values[left]
+        center = values[middle]
+        last = values[right]
+        if first < center:
+            pivot = center if center < last else (last if first < last else first)
+        else:
+            pivot = first if first < last else (last if center < last else center)
         lower = left
         current = left
         upper = right

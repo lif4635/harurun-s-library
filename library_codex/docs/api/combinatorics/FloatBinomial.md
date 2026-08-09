@@ -3,7 +3,6 @@
 
 浮動小数点数で二項係数を逐次計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`combinatorics/FloatBinomial.py`](../../../combinatorics/FloatBinomial.py)
 - 公開API: function 0、class 1、method/property 4（Python protocol 0を含む）
 
@@ -24,10 +23,11 @@ from library_codex.combinatorics.FloatBinomial import FloatBinomial
 - constructor: [`FloatBinomial(maximum)`](../../../combinatorics/FloatBinomial.py#L9)
 - 引数: `maximum`: 最大として使う入力
 - 返り値: `FloatBinomial` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`logfac(number)`](../../../combinatorics/FloatBinomial.py#L14) | method | `logfac`を求める。 | `number`: 整数 | `self.log_factorial[number]` |
-| [`logfinv(number)`](../../../combinatorics/FloatBinomial.py#L17) | method | `logfinv`を求める。 | `number`: 整数 | `-self.log_factorial[number]` |
-| [`logC(number, chosen)`](../../../combinatorics/FloatBinomial.py#L20) | method | `log`・`c`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[chosen] - self...` |
-| [`logP(number, chosen)`](../../../combinatorics/FloatBinomial.py#L26) | method | `log`・`p`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[number - chosen]` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`logfac(number)`](../../../combinatorics/FloatBinomial.py#L14) | method | `logfac`を求める。 | `number`: 整数 | `self.log_factorial[number]` | — |
+| [`logfinv(number)`](../../../combinatorics/FloatBinomial.py#L17) | method | `logfinv`を求める。 | `number`: 整数 | `-self.log_factorial[number]` | — |
+| [`logC(number, chosen)`](../../../combinatorics/FloatBinomial.py#L20) | method | `log`・`c`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[chosen] - self...` | — |
+| [`logP(number, chosen)`](../../../combinatorics/FloatBinomial.py#L26) | method | `log`・`p`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[number - chosen]` | — |

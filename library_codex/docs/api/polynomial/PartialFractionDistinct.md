@@ -3,7 +3,6 @@
 
 相異なる一次因子に対する部分分数分解を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`polynomial/PartialFractionDistinct.py`](../../../polynomial/PartialFractionDistinct.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.polynomial.PartialFractionDistinct import partial_fraction_di
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`partial_fraction_distinct(numerator, roots, mod=DEFAULT_MOD)`](../../../polynomial/PartialFractionDistinct.py#L17) | `partial`・`fraction`・`distinct`を求める。 | `numerator`: 有理式の分子多項式<br>`roots`: `roots`として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`partial_fraction_distinct(numerator, roots, mod=DEFAULT_MOD)`](../../../polynomial/PartialFractionDistinct.py#L17) | `partial`・`fraction`・`distinct`を求める。 | `numerator`: 有理式の分子多項式<br>`roots`: `roots`として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 計算結果（数値または入力要素型） | — |

@@ -3,7 +3,6 @@
 
 整数のgcd・lcm・拡張gcdと法逆元を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`number_theory/IntegerArithmetic.py`](../../../number_theory/IntegerArithmetic.py)
 - 公開API: function 5、class 0、method/property 0（Python protocol 0を含む）
 
@@ -34,10 +33,10 @@ from library_codex.number_theory.IntegerArithmetic import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`gcd(first, second)`](../../../number_theory/IntegerArithmetic.py#L5) | GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`lcm(first, second)`](../../../number_theory/IntegerArithmetic.py#L12) | LCMを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | int `0 if not first or not second else abs(first // gcd(first, seco...` |
-| [`extended_gcd(first, second)`](../../../number_theory/IntegerArithmetic.py#L15) | `extended`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`old_r`, `old_x`, `old_y`) |
-| [`inverse_mod(value, modulus)`](../../../number_theory/IntegerArithmetic.py#L29) | 逆元・`mod`を計算する。 | `value`: 追加・設定・問い合わせる値<br>`modulus`: 法 | 数値または入力要素型 `inverse % modulus` |
-| [`inverse_table(size, mod=DEFAULT_MOD)`](../../../number_theory/IntegerArithmetic.py#L35) | 逆元・`table`を計算する。 | `size`: 要素数・universe size<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `inverse`（数値または入力要素型） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`gcd(first, second)`](../../../number_theory/IntegerArithmetic.py#L5) | GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | — |
+| [`lcm(first, second)`](../../../number_theory/IntegerArithmetic.py#L12) | LCMを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | int `0 if not first or not second else abs(first // gcd(first, seco...` | — |
+| [`extended_gcd(first, second)`](../../../number_theory/IntegerArithmetic.py#L15) | `extended`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`old_r`, `old_x`, `old_y`) | — |
+| [`inverse_mod(value, modulus)`](../../../number_theory/IntegerArithmetic.py#L29) | 逆元・`mod`を計算する。 | `value`: 追加・設定・問い合わせる値<br>`modulus`: 法 | 数値または入力要素型 `inverse % modulus` | — |
+| [`inverse_table(size, mod=DEFAULT_MOD)`](../../../number_theory/IntegerArithmetic.py#L35) | 逆元・`table`を計算する。 | `size`: 要素数・universe size<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `inverse`（数値または入力要素型） | — |

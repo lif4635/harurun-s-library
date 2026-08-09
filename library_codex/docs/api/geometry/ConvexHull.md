@@ -20,6 +20,6 @@ from library_codex.geometry.ConvexHull import convex_hull
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`convex_hull(points, keep_collinear=False)`](../../../geometry/ConvexHull.py#L6) | 凸包の頂点を反時計回りに、始点を重ねず返す。O(N log N)。 | `points`: 2次元点 `(x, y)` のiterable<br>`keep_collinear`: Trueなら凸包の辺上にある点も残す。省略時: `False` | list[tuple[number, number]] — 反時計回りの凸包頂点列。始点は末尾に重ねない |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`convex_hull(points, keep_collinear=False)`](../../../geometry/ConvexHull.py#L6) | 凸包の頂点を反時計回りに、始点を重ねず返す。O(N log N)。 | `points`: 2次元点 `(x, y)` のiterable<br>`keep_collinear`: Trueなら凸包の辺上にある点も残す。省略時: `False` | list[tuple[number, number]] — 反時計回りの凸包頂点列。始点は末尾に重ねない | O(N log N) |

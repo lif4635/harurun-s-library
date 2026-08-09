@@ -3,7 +3,6 @@
 
 Fibonacci数列を法としたときの周期を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`combinatorics/PisanoPeriod.py`](../../../combinatorics/PisanoPeriod.py)
 - 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
@@ -20,7 +19,7 @@ from library_codex.combinatorics.PisanoPeriod import pisano_prime, pisano_period
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`pisano_prime(prime)`](../../../combinatorics/PisanoPeriod.py#L18) | `pisano`・素数を求める。 | `prime`: 素数法 | `3` / `20` / `period` |
-| [`pisano_period(modulus)`](../../../combinatorics/PisanoPeriod.py#L29) | `pisano`・`period`を求める。 | `modulus`: 法 | `1` / 計算結果（int） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`pisano_prime(prime)`](../../../combinatorics/PisanoPeriod.py#L18) | `pisano`・素数を求める。 | `prime`: 素数法 | `3` / `20` / `period` | — |
+| [`pisano_period(modulus)`](../../../combinatorics/PisanoPeriod.py#L29) | `pisano`・`period`を求める。 | `modulus`: 法 | `1` / 計算結果（int） | — |

@@ -39,16 +39,16 @@ from library_codex.graph.CSRGraph import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`dijkstra_csr(graph, start=0, goal=None, check_nonnegative=True)`](../../../graph/CSRGraph.py#L172) | 非負重みグラフでstartからの最短距離と経路復元用の直前頂点を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None`<br>`check_nonnegative`: 負の辺重みがないことを検査するか。省略時: `True` | tuple[list[number], list[int]] — 1つ目は各頂点への最短距離（未到達はinf）、2つ目は経路復元用の直前頂点（未設定は-1） |
-| [`zero_one_bfs_csr(graph, start=0, check_weights=True)`](../../../graph/CSRGraph.py#L208) | 重みが0または1のグラフでstartからの最短距離と直前頂点を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`check_weights`: 全ての辺重みが0または1か検査するか。省略時: `True` | tuple[list[int], list[int]] — 1つ目は各頂点への最短距離（未到達はinf）、2つ目は経路復元用の直前頂点（未設定は-1） |
-| [`bfs_csr(graph, start=0, goal=None)`](../../../graph/CSRGraph.py#L240) | 重みなしグラフでstartから各頂点までの最短辺数と直前頂点を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple[list[int], list[int]] — 1つ目は各頂点までの辺数（未到達は-1）、2つ目は経路復元用の直前頂点（未設定は-1） |
-| [`topological_sort_csr(graph, lexicographical=False)`](../../../graph/CSRGraph.py#L268) | 有向非巡回グラフの頂点をトポロジカル順に並べる。閉路があればNoneを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list[int] \| None — 頂点のトポロジカル順。閉路があればNone |
-| [`connected_components_csr(graph)`](../../../graph/CSRGraph.py#L304) | 無向グラフを連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[list[int], list[list[int]]] — 1つ目は頂点ごとの成分ID、2つ目は各成分に属する頂点の列 |
-| [`bipartite_coloring_csr(graph)`](../../../graph/CSRGraph.py#L333) | `bipartite`・彩色・`csr`を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | list[int] \| None — 各頂点の色0/1。二部グラフでなければNone |
-| [`scc_ids_csr(graph)`](../../../graph/CSRGraph.py#L360) | 強連結成分数と頂点ごとの成分IDをトポロジカル順で返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[int, list[int]] — 強連結成分数と、頂点ごとの成分ID |
-| [`scc_csr(graph)`](../../../graph/CSRGraph.py#L450) | CSR有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`dijkstra_csr(graph, start=0, goal=None, check_nonnegative=True)`](../../../graph/CSRGraph.py#L172) | 非負重みグラフでstartからの最短距離と経路復元用の直前頂点を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None`<br>`check_nonnegative`: 負の辺重みがないことを検査するか。省略時: `True` | tuple[list[number], list[int]] — 1つ目は各頂点への最短距離（未到達はinf）、2つ目は経路復元用の直前頂点（未設定は-1） | — |
+| [`zero_one_bfs_csr(graph, start=0, check_weights=True)`](../../../graph/CSRGraph.py#L208) | 重みが0または1のグラフでstartからの最短距離と直前頂点を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`check_weights`: 全ての辺重みが0または1か検査するか。省略時: `True` | tuple[list[int], list[int]] — 1つ目は各頂点への最短距離（未到達はinf）、2つ目は経路復元用の直前頂点（未設定は-1） | — |
+| [`bfs_csr(graph, start=0, goal=None)`](../../../graph/CSRGraph.py#L240) | 重みなしグラフでstartから各頂点までの最短辺数と直前頂点を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple[list[int], list[int]] — 1つ目は各頂点までの辺数（未到達は-1）、2つ目は経路復元用の直前頂点（未設定は-1） | — |
+| [`topological_sort_csr(graph, lexicographical=False)`](../../../graph/CSRGraph.py#L268) | 有向非巡回グラフの頂点をトポロジカル順に並べる。閉路があればNoneを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list[int] \| None — 頂点のトポロジカル順。閉路があればNone | — |
+| [`connected_components_csr(graph)`](../../../graph/CSRGraph.py#L304) | 無向グラフを連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[list[int], list[list[int]]] — 1つ目は頂点ごとの成分ID、2つ目は各成分に属する頂点の列 | — |
+| [`bipartite_coloring_csr(graph)`](../../../graph/CSRGraph.py#L333) | `bipartite`・彩色・`csr`を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | list[int] \| None — 各頂点の色0/1。二部グラフでなければNone | — |
+| [`scc_ids_csr(graph)`](../../../graph/CSRGraph.py#L360) | 強連結成分数と頂点ごとの成分IDをトポロジカル順で返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[int, list[int]] — 強連結成分数と、頂点ごとの成分ID | — |
+| [`scc_csr(graph)`](../../../graph/CSRGraph.py#L450) | CSR有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 | O(V+E) |
 
 ## Class `CSRGraph`
 
@@ -57,13 +57,14 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 - constructor: [`CSRGraph(n, edges=(), directed=True)`](../../../graph/CSRGraph.py#L20)
 - 引数: `n`: 要素数・頂点数・次数<br>`edges`: graphが頂点数のときに使う辺(source, target[, weight])のiterable。省略時: `()`<br>`directed`: Trueなら有向graphとして構築する。省略時: `True`
 - 返り値: `CSRGraph` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`from_adjacency(adjacency, directed=True)`](../../../graph/CSRGraph.py#L70) | classmethod | 隣接listを検証し、同じ辺をCSR形式へ変換する。 | `adjacency`: 各頂点の隣接辺を並べた隣接list<br>`directed`: Trueなら有向graphとして構築する。省略時: `True` | `cls(n, edges, directed=False)` / `cls(n, edges, directed)` |
-| [`transpose()`](../../../graph/CSRGraph.py#L118) | method | 全ての辺の向きを反転したCSRグラフを返す。 | なし | `self` / 計算結果 |
-| [`neighbors(vertex)`](../../../graph/CSRGraph.py#L152) | method | vertexから出る辺をCSR内の順に列挙する。 | `vertex`: 頂点番号 | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする。 |
-| [`__len__()`](../../../graph/CSRGraph.py#L162) | method | len(obj)。 | なし | 要素数（int） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`from_adjacency(adjacency, directed=True)`](../../../graph/CSRGraph.py#L70) | classmethod | 隣接listを検証し、同じ辺をCSR形式へ変換する。 | `adjacency`: 各頂点の隣接辺を並べた隣接list<br>`directed`: Trueなら有向graphとして構築する。省略時: `True` | `cls(n, edges, directed=False)` / `cls(n, edges, directed)` | — |
+| [`transpose()`](../../../graph/CSRGraph.py#L118) | method | 全ての辺の向きを反転したCSRグラフを返す。 | なし | `self` / 計算結果 | — |
+| [`neighbors(vertex)`](../../../graph/CSRGraph.py#L152) | method | vertexから出る辺をCSR内の順に列挙する。 | `vertex`: 頂点番号 | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする。 | — |
+| [`__len__()`](../../../graph/CSRGraph.py#L162) | method | len(obj)。 | なし | 要素数（int） | — |
 
 ## Class `CSRSCC`
 
@@ -72,11 +73,12 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 - constructor: [`CSRSCC(graph, build_dag=True)`](../../../graph/CSRGraph.py#L417)
 - 引数: `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`build_dag`: 強連結成分を縮約したDAGも構築するか。省略時: `True`
 - 返り値: `CSRSCC` instance
+- 計算量: O(V+E)
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`same(first, second)`](../../../graph/CSRGraph.py#L443) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 |
-| [`__getitem__(vertex)`](../../../graph/CSRGraph.py#L446) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`same(first, second)`](../../../graph/CSRGraph.py#L443) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
+| [`__getitem__(vertex)`](../../../graph/CSRGraph.py#L446) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |
 
 ## Class `CSRLowLink`
 
@@ -85,7 +87,8 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 - constructor: [`CSRLowLink(graph, edges=None)`](../../../graph/CSRGraph.py#L464)
 - 引数: `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`edges`: graphが頂点数のときに使う辺(source, target[, weight])のiterable。省略時: `None`
 - 返り値: `CSRLowLink` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`get_edge(edge_id)`](../../../graph/CSRGraph.py#L567) | method | edge_idに対応する辺情報を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`get_edge(edge_id)`](../../../graph/CSRGraph.py#L567) | method | edge_idに対応する辺情報を返す。 | `edge_id`: edge のID | tuple(`self.edge_from[edge_id]`, `self.edge_to[edge_id]`) | — |

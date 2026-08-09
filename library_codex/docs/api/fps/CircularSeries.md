@@ -3,7 +3,6 @@
 
 循環構造の母関数係数を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fps/CircularSeries.py`](../../../fps/CircularSeries.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.fps.CircularSeries import circular_series
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`circular_series(real_angle, imaginary_angle=None, degree=None, mod=DEFAULT_MOD)`](../../../fps/CircularSeries.py#L16) | `circular`・`series`を求める。 | `real_angle`: `real`・`angle`として使う入力<br>`imaginary_angle`: `imaginary`・`angle`として使う入力。省略時: `None`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`) / tuple(`real`（数値または入力要素型）, `imaginary`（数値または入力要素型）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`circular_series(real_angle, imaginary_angle=None, degree=None, mod=DEFAULT_MOD)`](../../../fps/CircularSeries.py#L16) | `circular`・`series`を求める。 | `real_angle`: `real`・`angle`として使う入力<br>`imaginary_angle`: `imaginary`・`angle`として使う入力。省略時: `None`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`) / tuple(`real`（数値または入力要素型）, `imaginary`（数値または入力要素型）) | — |

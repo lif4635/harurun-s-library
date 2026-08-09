@@ -15,8 +15,8 @@
 | [`RangeAddAssignRangeStats`](RangeAddAssignRangeStats.md) | 整数列の区間加算・代入と区間sum/min/maxを扱う専用lazy tree。 | 0 | 1 | 13 |
 | [`RangeAddCountTopK`](RangeAddCountTopK.md) | 区間一括加算後の値を大きい順に個数付きで上位k件集約する構造。 | 0 | 2 | 3 |
 | [`RangeAffineRangeSum`](RangeAffineRangeSum.md) | 整数列の区間affine変換と区間和を扱う専用lazy tree。 | 0 | 1 | 10 |
-| [`RangeLIS`](RangeLIS.md) | Seaweed monoidによる静的区間LIS | 1 | 1 | 1 |
 | [`RangeLinearAddRangeMin`](RangeLinearAddRangeMin.md) | indexの一次式を区間加算し、区間最小値を求める構造。 | 0 | 1 | 2 |
-| [`SegTree`](SegTree.md) | 一点更新・区間集約・境界探索を行う汎用SegTree | 0 | 1 | 11 |
+| [`RangeLIS`](RangeLIS.md) | Seaweed monoidによる静的区間LIS | 1 | 1 | 1 |
 | [`SegmentTreeBeats`](SegmentTreeBeats.md) | range chmin/chmax/add/update・range sum/min/max（非再帰） | 0 | 1 | 15 |
+| [`SegTree`](SegTree.md) | 一点更新・区間集約・境界探索を行う汎用SegTree | 0 | 1 | 11 |
 | [`SortableSegmentTree`](SortableSegmentTree.md) | 部分列の昇順・降順sortと区間monoid積を処理する列構造。 | 0 | 1 | 3 |

@@ -19,6 +19,6 @@ from library_codex.algorithm.Fibonacci import fibonacci
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`fibonacci(index, mod=None)`](../../../algorithm/Fibonacci.py#L4) | index番目のFibonacci数を高速doublingで求める。 | `index`: 位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | `first` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`fibonacci(index, mod=None)`](../../../algorithm/Fibonacci.py#L4) | index番目のFibonacci数を高速doublingで求める。 | `index`: 位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | `first` | O(log index) |

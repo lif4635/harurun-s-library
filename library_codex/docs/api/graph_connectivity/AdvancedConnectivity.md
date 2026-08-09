@@ -20,9 +20,9 @@ from library_codex.graph_connectivity.AdvancedConnectivity import incremental_sc
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`incremental_scc_offline(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L162) | `incremental`・`scc`・`offline`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 計算結果 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`incremental_scc_offline(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L162) | `incremental`・`scc`・`offline`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 計算結果 | O((N+M) |
 
 ## Class `ThreeEdgeConnectedComponents`
 
@@ -31,7 +31,8 @@ from library_codex.graph_connectivity.AdvancedConnectivity import incremental_sc
 - constructor: [`ThreeEdgeConnectedComponents(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L19)
 - 引数: `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list
 - 返り値: `ThreeEdgeConnectedComponents` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L130) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L130) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |

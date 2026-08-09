@@ -24,8 +24,9 @@ Static Top Treeによる固定木の動的重み付き直径を扱う `DynamicDi
 - constructor: [`DynamicDiameter(tree)`](../../../tree/DynamicDiameter.py#L66)
 - 引数: `tree`: 木の隣接list
 - 返り値: `DynamicDiameter` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`get()`](../../../tree/DynamicDiameter.py#L132) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
-| [`update(first, second, weight)`](../../../tree/DynamicDiameter.py#L136) | method | 指定位置・辺・状態を更新する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み | `None` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`get()`](../../../tree/DynamicDiameter.py#L132) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |
+| [`update(first, second, weight)`](../../../tree/DynamicDiameter.py#L136) | method | 指定位置・辺・状態を更新する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み | `None` | — |

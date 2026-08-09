@@ -3,7 +3,6 @@
 
 連結成分ごとのmonoid集約値と辺数を保持するUnion-Find。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`union_find/MonoidUnionFind.py`](../../../union_find/MonoidUnionFind.py)
 - 公開API: function 0、class 1、method/property 5（Python protocol 0を含む）
 
@@ -24,12 +23,13 @@ from library_codex.union_find.MonoidUnionFind import MonoidUnionFind
 - constructor: [`MonoidUnionFind(values, op)`](../../../union_find/MonoidUnionFind.py#L8)
 - 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`
 - 返り値: `MonoidUnionFind` instance
+- 計算量: —
 - 継承元: `UnionFind`
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`merge(first, second)`](../../../union_find/MonoidUnionFind.py#L15) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` |
-| [`get(node)`](../../../union_find/MonoidUnionFind.py#L33) | method | 指定位置・辺・状態の値を取得する。 | `node`: 頂点・内部node番号 | 指定対象に格納された値・edge object |
-| [`set(node, value)`](../../../union_find/MonoidUnionFind.py#L36) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`edges(node)`](../../../union_find/MonoidUnionFind.py#L39) | method | 辺を求める。 | `node`: 頂点・内部node番号 | `self.edge_count[self.find(node)]` |
-| [`has_cycle(node)`](../../../union_find/MonoidUnionFind.py#L42) | method | 閉路かどうかを判定する。 | `node`: 頂点・内部node番号 | bool |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`merge(first, second)`](../../../union_find/MonoidUnionFind.py#L15) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | — |
+| [`get(node)`](../../../union_find/MonoidUnionFind.py#L33) | method | 指定位置・辺・状態の値を取得する。 | `node`: 頂点・内部node番号 | 指定対象に格納された値・edge object | — |
+| [`set(node, value)`](../../../union_find/MonoidUnionFind.py#L36) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`edges(node)`](../../../union_find/MonoidUnionFind.py#L39) | method | 辺を求める。 | `node`: 頂点・内部node番号 | `self.edge_count[self.find(node)]` | — |
+| [`has_cycle(node)`](../../../union_find/MonoidUnionFind.py#L42) | method | 閉路かどうかを判定する。 | `node`: 頂点・内部node番号 | bool | — |

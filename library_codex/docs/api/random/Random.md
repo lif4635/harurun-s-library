@@ -26,22 +26,23 @@ from library_codex.random.Random import Random
 - constructor: [`Random(seed=0)`](../../../random/Random.py#L12)
 - 引数: `seed`: 乱数列を再現する整数。同じseedなら同じ結果になる。省略時: `0`
 - 返り値: `Random` instance
+- 計算量: O(1)
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`next_u64()`](../../../random/Random.py#L26) | method | 内部状態を1回進め、符号なし64bit整数を返す。 | なし | int — 0以上2^64未満の整数 |
-| [`randrange(lower, upper=None)`](../../../random/Random.py#L39) | method | 半開区間から偏りのないランダム整数を1個返す。 | `lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）。省略時: `None` | int — [lower, upper)から一様に選んだ整数 |
-| [`uniform(lower, upper)`](../../../random/Random.py#L53) | method | 両端を含む閉区間から偏りのないランダム整数を1個返す。 | `lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む） | int — [lower, upper]から一様に選んだ整数 |
-| [`uniform_bool()`](../../../random/Random.py#L57) | method | FalseとTrueを同じ確率で返す。 | なし | bool — FalseまたはTrue |
-| [`uniform01()`](../../../random/Random.py#L61) | method | 0以上1未満の実数を53bit精度で生成する。 | なし | float — 0.0以上1.0未満の値 |
-| [`choice(values)`](../../../random/Random.py#L65) | method | 空でない列から1要素を一様に選ぶ。 | `values`: 抽選・並べ替え対象のsequence | object — 入力列から一様に選んだ1要素 |
-| [`shuffle(values)`](../../../random/Random.py#L71) | method | mutableな列をFisher–Yates法で破壊的に並べ替える。 | `values`: 抽選・並べ替え対象のsequence | mutable sequence — 並べ替え後の入力と同じobject |
-| [`permutation(size, start=0)`](../../../random/Random.py#L78) | method | 連続する整数を一様ランダムに並べ替えた置換を返す。 | `size`: 置換に含める整数の個数<br>`start`: 置換に含める最初の整数。省略時: `0` | list[int] — $\mathrm{start}$ から $\mathrm{start}+\mathrm{size}-1$ までを1回ずつ含むランダムな列 |
-| [`sample(values, count)`](../../../random/Random.py#L84) | method | 列から重複なしで指定個数を一様に選ぶ。 | `values`: 抽選・並べ替え対象のsequence<br>`count`: 抽選または生成する個数 | list[object] — 入力列から重複なしで選んだcount要素 |
-| [`sample_range(count, lower, upper, sort_result=True)`](../../../random/Random.py#L94) | method | 閉区間内の整数から重複なしで指定個数を一様に選ぶ。 | `count`: 抽選または生成する個数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）<br>`sort_result`: Trueなら生成後に昇順へsortする。省略時: `True` | list[int] — 指定閉区間から重複なしで選んだcount個の整数 |
-| [`array(length, lower, upper, distinct=False, sort_result=False)`](../../../random/Random.py#L110) | method | 値域・重複の有無・sortの有無を指定してテスト用配列を生成する。 | `length`: 生成する要素数または文字数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）<br>`distinct`: Trueなら値の重複を禁止する。省略時: `False`<br>`sort_result`: Trueなら生成後に昇順へsortする。省略時: `False` | list[int] — 閉区間から生成したlength個の整数。distinct=Trueなら重複なし、sort_result=Trueなら昇順 |
-| [`bits(length, ones=None)`](../../../random/Random.py#L123) | method | 0/1をランダムに並べ、必要なら1の個数を固定する。 | `length`: 生成する要素数または文字数<br>`ones`: bit列に含める1の個数。Noneなら各bitを独立に生成する。省略時: `None` | list[int] — 0と1だけを含むlength要素の配列。ones指定時は1をちょうどones個含む |
-| [`matrix(rows, columns, lower, upper)`](../../../random/Random.py#L134) | method | 指定した行数・列数のランダム整数行列を生成する。 | `rows`: 生成する行列の行数<br>`columns`: 生成する行列の列数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む） | list[list[int]] — rows行columns列の整数行列 |
-| [`string(length, alphabet='abcdefghijklmnopqrstuvwxyz')`](../../../random/Random.py#L140) | method | 指定alphabetから独立に文字を選んだ文字列を生成する。 | `length`: 生成する要素数または文字数<br>`alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `'abcdefghijklmnopqrstuvwxyz'` | str — alphabetから生成したlength文字の文字列 |
-| [`intervals(count, lower, upper, allow_empty=False)`](../../../random/Random.py#L148) | method | 指定範囲に収まるランダムな半開区間を生成する。 | `count`: 抽選または生成する個数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）<br>`allow_empty`: 長さ0の半開区間も許すか。省略時: `False` | list[tuple[int, int]] — $[\mathrm{lower},\mathrm{upper})$ 内に収まる半開区間 $[\mathrm{left},\mathrm{right})$ の列。 |
-| [`composition(total, parts, positive=False)`](../../../random/Random.py#L165) | method | 合計を固定した非負または正の整数列を一様に生成する。 | `total`: compositionの要素合計<br>`parts`: compositionの要素数<br>`positive`: 各要素を1以上に制限するか。省略時: `False` | list[int] — $\sum_i \mathrm{result}_i=\mathrm{total}$ を満たす、長さ $\mathrm{parts}$ の非負または正の整数列。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`next_u64()`](../../../random/Random.py#L26) | method | 内部状態を1回進め、符号なし64bit整数を返す。 | なし | int — 0以上2^64未満の整数 | O(1) |
+| [`randrange(lower, upper=None)`](../../../random/Random.py#L39) | method | 半開区間から偏りのないランダム整数を1個返す。 | `lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）。省略時: `None` | int — [lower, upper)から一様に選んだ整数 | 期待 O(1) |
+| [`uniform(lower, upper)`](../../../random/Random.py#L53) | method | 両端を含む閉区間から偏りのないランダム整数を1個返す。 | `lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む） | int — [lower, upper]から一様に選んだ整数 | 期待 O(1) |
+| [`uniform_bool()`](../../../random/Random.py#L57) | method | FalseとTrueを同じ確率で返す。 | なし | bool — FalseまたはTrue | O(1) |
+| [`uniform01()`](../../../random/Random.py#L61) | method | 0以上1未満の実数を53bit精度で生成する。 | なし | float — 0.0以上1.0未満の値 | O(1) |
+| [`choice(values)`](../../../random/Random.py#L65) | method | 空でない列から1要素を一様に選ぶ。 | `values`: 抽選・並べ替え対象のsequence | object — 入力列から一様に選んだ1要素 | O(1) |
+| [`shuffle(values)`](../../../random/Random.py#L71) | method | mutableな列をFisher–Yates法で破壊的に並べ替える。 | `values`: 抽選・並べ替え対象のsequence | mutable sequence — 並べ替え後の入力と同じobject | O(N) |
+| [`permutation(size, start=0)`](../../../random/Random.py#L78) | method | 連続する整数を一様ランダムに並べ替えた置換を返す。 | `size`: 置換に含める整数の個数<br>`start`: 置換に含める最初の整数。省略時: `0` | list[int] — $\mathrm{start}$ から $\mathrm{start}+\mathrm{size}-1$ までを1回ずつ含むランダムな列 | O(N) |
+| [`sample(values, count)`](../../../random/Random.py#L84) | method | 列から重複なしで指定個数を一様に選ぶ。 | `values`: 抽選・並べ替え対象のsequence<br>`count`: 抽選または生成する個数 | list[object] — 入力列から重複なしで選んだcount要素 | O(N) memory、O(count) swaps |
+| [`sample_range(count, lower, upper, sort_result=True)`](../../../random/Random.py#L94) | method | 閉区間内の整数から重複なしで指定個数を一様に選ぶ。 | `count`: 抽選または生成する個数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）<br>`sort_result`: Trueなら生成後に昇順へsortする。省略時: `True` | list[int] — 指定閉区間から重複なしで選んだcount個の整数 | 期待 O(count) |
+| [`array(length, lower, upper, distinct=False, sort_result=False)`](../../../random/Random.py#L110) | method | 値域・重複の有無・sortの有無を指定してテスト用配列を生成する。 | `length`: 生成する要素数または文字数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）<br>`distinct`: Trueなら値の重複を禁止する。省略時: `False`<br>`sort_result`: Trueなら生成後に昇順へsortする。省略時: `False` | list[int] — 閉区間から生成したlength個の整数。distinct=Trueなら重複なし、sort_result=Trueなら昇順 | sort_result=Falseなら期待 O(length)、Trueなら O(length log length) |
+| [`bits(length, ones=None)`](../../../random/Random.py#L123) | method | 0/1をランダムに並べ、必要なら1の個数を固定する。 | `length`: 生成する要素数または文字数<br>`ones`: bit列に含める1の個数。Noneなら各bitを独立に生成する。省略時: `None` | list[int] — 0と1だけを含むlength要素の配列。ones指定時は1をちょうどones個含む | O(length) |
+| [`matrix(rows, columns, lower, upper)`](../../../random/Random.py#L134) | method | 指定した行数・列数のランダム整数行列を生成する。 | `rows`: 生成する行列の行数<br>`columns`: 生成する行列の列数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む） | list[list[int]] — rows行columns列の整数行列 | 期待 O(rows * columns) |
+| [`string(length, alphabet='abcdefghijklmnopqrstuvwxyz')`](../../../random/Random.py#L140) | method | 指定alphabetから独立に文字を選んだ文字列を生成する。 | `length`: 生成する要素数または文字数<br>`alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `'abcdefghijklmnopqrstuvwxyz'` | str — alphabetから生成したlength文字の文字列 | O(length) |
+| [`intervals(count, lower, upper, allow_empty=False)`](../../../random/Random.py#L148) | method | 指定範囲に収まるランダムな半開区間を生成する。 | `count`: 抽選または生成する個数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）<br>`allow_empty`: 長さ0の半開区間も許すか。省略時: `False` | list[tuple[int, int]] — $[\mathrm{lower},\mathrm{upper})$ 内に収まる半開区間 $[\mathrm{left},\mathrm{right})$ の列。 | 期待 O(count) |
+| [`composition(total, parts, positive=False)`](../../../random/Random.py#L165) | method | 合計を固定した非負または正の整数列を一様に生成する。 | `total`: compositionの要素合計<br>`parts`: compositionの要素数<br>`positive`: 各要素を1以上に制限するか。省略時: `False` | list[int] — $\sum_i \mathrm{result}_i=\mathrm{total}$ を満たす、長さ $\mathrm{parts}$ の非負または正の整数列。 | 期待 O(parts) |

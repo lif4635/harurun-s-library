@@ -3,7 +3,6 @@
 
 逆数和を指定精度で数値計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`rational/InverseSum.py`](../../../rational/InverseSum.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.rational.InverseSum import inverse_sum
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`inverse_sum(left, right)`](../../../rational/InverseSum.py#L5) | 逆元・和を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `digamma(right) - digamma(left)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`inverse_sum(left, right)`](../../../rational/InverseSum.py#L5) | 逆元・和を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `digamma(right) - digamma(left)` | — |

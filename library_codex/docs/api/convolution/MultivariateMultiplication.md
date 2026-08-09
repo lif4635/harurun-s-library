@@ -3,7 +3,6 @@
 
 多変数多項式を指定shapeの係数配列として乗算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`convolution/MultivariateMultiplication.py`](../../../convolution/MultivariateMultiplication.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -25,6 +24,6 @@ from library_codex.convolution.MultivariateMultiplication import multivariate_mu
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultivariateMultiplication.py#L7) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultivariateMultiplication.py#L7) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

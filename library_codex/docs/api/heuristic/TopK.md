@@ -3,7 +3,6 @@
 
 評価値が上位k件に入る要素だけを保持する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`heuristic/TopK.py`](../../../heuristic/TopK.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.heuristic.TopK import TopK
 - constructor: [`TopK(count, hash_function=hash)`](../../../heuristic/TopK.py#L6)
 - 引数: `count`: 個数<br>`hash_function`: 候補を同一判定するためのhash関数。省略時: `hash`
 - 返り値: `TopK` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`insert(value)`](../../../heuristic/TopK.py#L13) | method | 指定位置へ要素を挿入する。 | `value`: 追加・設定・問い合わせる値 | `None` |
-| [`normalize()`](../../../heuristic/TopK.py#L21) | method | 保持中の候補を評価順に整理し、上位だけを残す。 | なし | `None` |
-| [`get()`](../../../heuristic/TopK.py#L26) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`insert(value)`](../../../heuristic/TopK.py#L13) | method | 指定位置へ要素を挿入する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`normalize()`](../../../heuristic/TopK.py#L21) | method | 保持中の候補を評価順に整理し、上位だけを残す。 | なし | `None` | — |
+| [`get()`](../../../heuristic/TopK.py#L26) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |

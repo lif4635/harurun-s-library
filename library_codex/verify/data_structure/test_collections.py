@@ -106,10 +106,12 @@ def test_range_set_random_boolean_universe():
         left = rng.randrange(size + 1)
         right = rng.randrange(left, size + 1)
         if rng.randrange(2):
-            solver.add(left, right)
+            expected_added = sum(not value for value in present[left:right])
+            assert solver.add(left, right) == expected_added
             present[left:right] = [True] * (right - left)
         else:
-            solver.discard(left, right)
+            expected_removed = sum(present[left:right])
+            assert solver.discard(left, right) == expected_removed
             present[left:right] = [False] * (right - left)
         assert solver.covered_length == sum(present)
         value = rng.randrange(size)
@@ -124,6 +126,7 @@ def test_range_set_random_boolean_universe():
                 interval_right - interval_left
             )
         assert reconstructed == present
+        assert len(solver) == len(solver.intervals())
 
 
 def test_persistent_queue_branched_versions():

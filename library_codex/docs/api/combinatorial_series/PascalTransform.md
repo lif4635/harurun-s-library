@@ -3,7 +3,6 @@
 
 列へPascal変換または逆変換を適用する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`combinatorial_series/PascalTransform.py`](../../../combinatorial_series/PascalTransform.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.combinatorial_series.PascalTransform import pascal_transform
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`pascal_transform(values, inverse=False, transpose=False, mod=DEFAULT_MOD)`](../../../combinatorial_series/PascalTransform.py#L29) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`transpose`: `transpose`として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`pascal_transform(values, inverse=False, transpose=False, mod=DEFAULT_MOD)`](../../../combinatorial_series/PascalTransform.py#L29) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`transpose`: `transpose`として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

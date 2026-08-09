@@ -20,7 +20,7 @@ from library_codex.combinatorial_series.StirlingMatrix import stirling_matrix, s
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`stirling_matrix(values, inverse=False, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingMatrix.py#L22) | `stirling`・行列を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 |
-| [`stirling_matrix_transpose(values, inverse=False, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingMatrix.py#L42) | `stirling`・行列・`transpose`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 / `tree.interpolate(transformed)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`stirling_matrix(values, inverse=False, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingMatrix.py#L22) | `stirling`・行列を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 | — |
+| [`stirling_matrix_transpose(values, inverse=False, mod=DEFAULT_MOD)`](../../../combinatorial_series/StirlingMatrix.py#L42) | `stirling`・行列・`transpose`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[list[number]] — 各行をlistで持つ行列 / `tree.interpolate(transformed)` | — |

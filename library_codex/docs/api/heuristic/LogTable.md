@@ -3,7 +3,6 @@
 
 整数入力に対する対数値を小さな表で近似して高速に返す。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`heuristic/LogTable.py`](../../../heuristic/LogTable.py)
 - 公開API: function 0、class 1、method/property 1（Python protocol 1を含む）
 
@@ -24,7 +23,8 @@ from library_codex.heuristic.LogTable import LogTable
 - constructor: [`LogTable(bits=16, seed=88172645463325252)`](../../../heuristic/LogTable.py#L8)
 - 引数: `bits`: 使用bit数。省略時: `16`<br>`seed`: 乱数seed。Noneなら実装既定値。省略時: `88172645463325252`
 - 返り値: `LogTable` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__call__(index)`](../../../heuristic/LogTable.py#L20) | method | obj(...) として呼び出す。 | `index`: 位置 | `self.values[index & self.mask]` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__call__(index)`](../../../heuristic/LogTable.py#L20) | method | obj(...) として呼び出す。 | `index`: 位置 | `self.values[index & self.mask]` | — |

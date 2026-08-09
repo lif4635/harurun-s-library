@@ -3,7 +3,6 @@
 
 多項式値列のprefix和を補間して求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`polynomial/PolynomialPrefixSum.py`](../../../polynomial/PolynomialPrefixSum.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.polynomial.PolynomialPrefixSum import polynomial_prefix_sum
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`polynomial_prefix_sum(polynomial, mod=DEFAULT_MOD, inclusive=False)`](../../../polynomial/PolynomialPrefixSum.py#L17) | 多項式・prefix・和を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`inclusive`: 端点を含めるかどうか。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `fps_shrink(result, mod)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`polynomial_prefix_sum(polynomial, mod=DEFAULT_MOD, inclusive=False)`](../../../polynomial/PolynomialPrefixSum.py#L17) | 多項式・prefix・和を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`inclusive`: 端点を含めるかどうか。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `fps_shrink(result, mod)` | — |

@@ -3,7 +3,6 @@
 
 無向グラフが二部グラフか判定し、2色の割当を返す。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph_connectivity/BipartiteColoring.py`](../../../graph_connectivity/BipartiteColoring.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph_connectivity.BipartiteColoring import bipartite_colorin
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`bipartite_coloring(graph)`](../../../graph_connectivity/BipartiteColoring.py#L5) | `bipartite`・彩色を求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`bipartite_coloring(graph)`](../../../graph_connectivity/BipartiteColoring.py#L5) | `bipartite`・彩色を求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` | — |

@@ -40,3 +40,13 @@ def test_simplify_permutation_subgroup_small_random_groups():
                 order *= len(level) or 1
             assert order == len(_closure(n, generators))
 
+
+def test_symmetric_group_three_has_stabilizer_chain_sizes_three_and_two():
+    generators = [[1, 0, 2], [0, 2, 1]]
+    levels = simplify_permutation_subgroup(3, generators)
+
+    assert [len(level) for level in levels] == [0, 2, 3]
+    assert {permutation[2] for permutation in levels[2]} == {0, 1, 2}
+    assert {permutation[1] for permutation in levels[1]} == {0, 1}
+    assert all(permutation[2] == 2 for permutation in levels[1])
+    assert 2 * 3 == len(_closure(3, generators))

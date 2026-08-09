@@ -3,7 +3,6 @@
 
 巨大な添字範囲で触れたnodeだけを持つ疎なFenwick Tree。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`fenwick_tree/DynamicFenwickTree.py`](../../../fenwick_tree/DynamicFenwickTree.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 0を含む）
 
@@ -24,9 +23,10 @@ from library_codex.fenwick_tree.DynamicFenwickTree import DynamicFenwickTree
 - constructor: [`DynamicFenwickTree(size)`](../../../fenwick_tree/DynamicFenwickTree.py#L6)
 - 引数: `size`: 要素数・universe size
 - 返り値: `DynamicFenwickTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(index, value)`](../../../fenwick_tree/DynamicFenwickTree.py#L12) | method | index番目の値へvalueを加える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`prefix_sum(right)`](../../../fenwick_tree/DynamicFenwickTree.py#L24) | method | 先頭からright未満までの和 $\sum_{i=0}^{\mathrm{right}-1}a_i$ を返す。 | `right`: 半開区間の右端（含まない） | $\sum_{i=0}^{\mathrm{right}-1}a_i$。 |
-| [`sum(left, right)`](../../../fenwick_tree/DynamicFenwickTree.py#L32) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(index, value)`](../../../fenwick_tree/DynamicFenwickTree.py#L12) | method | index番目の値へvalueを加える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`prefix_sum(right)`](../../../fenwick_tree/DynamicFenwickTree.py#L24) | method | 先頭からright未満までの和 $\sum_{i=0}^{\mathrm{right}-1}a_i$ を返す。 | `right`: 半開区間の右端（含まない） | $\sum_{i=0}^{\mathrm{right}-1}a_i$。 | — |
+| [`sum(left, right)`](../../../fenwick_tree/DynamicFenwickTree.py#L32) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。 | — |

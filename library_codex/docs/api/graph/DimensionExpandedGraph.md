@@ -3,7 +3,6 @@
 
 座標状態を追加次元へ展開したグラフを構築する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph/DimensionExpandedGraph.py`](../../../graph/DimensionExpandedGraph.py)
 - 公開API: function 0、class 1、method/property 9（Python protocol 1を含む）
 
@@ -24,15 +23,16 @@ from library_codex.graph.DimensionExpandedGraph import DimensionExpandedGraph
 - constructor: [`DimensionExpandedGraph(*shape, extra=0)`](../../../graph/DimensionExpandedGraph.py#L12)
 - 引数: `*shape`: `shape`として使う入力<br>`extra`: `extra`として使う入力。省略時: `0`
 - 返り値: `DimensionExpandedGraph` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__len__()`](../../../graph/DimensionExpandedGraph.py#L24) | method | len(obj)。 | なし | 要素数（int） |
-| [`valid(coordinate)`](../../../graph/DimensionExpandedGraph.py#L27) | method | `valid`を求める。 | `coordinate`: 多次元座標 | bool |
-| [`id(coordinate)`](../../../graph/DimensionExpandedGraph.py#L34) | method | `id`を求める。 | `coordinate`: 多次元座標 | `sum((value * stride for (value, stride) in zip(coordinate, sel...` |
-| [`coordinate(vertex)`](../../../graph/DimensionExpandedGraph.py#L40) | method | `coordinate`を求める。 | `vertex`: 頂点番号 | tuple — 用途欄に示した複数の結果を順に格納 |
-| [`extra_id(index)`](../../../graph/DimensionExpandedGraph.py#L48) | method | `extra`・`id`を求める。 | `index`: 位置 | 数値または入力要素型 `self.grid_size + index` |
-| [`neighbors(coordinate)`](../../../graph/DimensionExpandedGraph.py#L53) | method | 座標coordinateと1軸だけが1異なる、grid内の直交近傍を列挙する。 | `coordinate`: 多次元座標 | list[tuple[int, ...]] — 各軸の前後に隣接する、有効な座標tupleの列。 |
-| [`bfs(start, transitions=None)`](../../../graph/DimensionExpandedGraph.py#L69) | method | `bfs`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable。省略時: `None` | 距離（数値または入力要素型） |
-| [`bfs01(start, transitions)`](../../../graph/DimensionExpandedGraph.py#L88) | method | `bfs01`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） |
-| [`dijkstra(start, transitions)`](../../../graph/DimensionExpandedGraph.py#L107) | method | `dijkstra`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__len__()`](../../../graph/DimensionExpandedGraph.py#L24) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`valid(coordinate)`](../../../graph/DimensionExpandedGraph.py#L27) | method | `valid`を求める。 | `coordinate`: 多次元座標 | bool | — |
+| [`id(coordinate)`](../../../graph/DimensionExpandedGraph.py#L34) | method | `id`を求める。 | `coordinate`: 多次元座標 | `sum((value * stride for value, stride in zip(coordinate, self....` | — |
+| [`coordinate(vertex)`](../../../graph/DimensionExpandedGraph.py#L40) | method | `coordinate`を求める。 | `vertex`: 頂点番号 | tuple — 用途欄に示した複数の結果を順に格納 | — |
+| [`extra_id(index)`](../../../graph/DimensionExpandedGraph.py#L48) | method | `extra`・`id`を求める。 | `index`: 位置 | 数値または入力要素型 `self.grid_size + index` | — |
+| [`neighbors(coordinate)`](../../../graph/DimensionExpandedGraph.py#L53) | method | 座標coordinateと1軸だけが1異なる、grid内の直交近傍を列挙する。 | `coordinate`: 多次元座標 | list[tuple[int, ...]] — 各軸の前後に隣接する、有効な座標tupleの列。 | — |
+| [`bfs(start, transitions=None)`](../../../graph/DimensionExpandedGraph.py#L69) | method | `bfs`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable。省略時: `None` | 距離（数値または入力要素型） | — |
+| [`bfs01(start, transitions)`](../../../graph/DimensionExpandedGraph.py#L88) | method | `bfs01`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） | — |
+| [`dijkstra(start, transitions)`](../../../graph/DimensionExpandedGraph.py#L107) | method | `dijkstra`を求める。 | `start`: 始点・開始位置<br>`transitions`: 遷移・隣接移動のiterable | 距離（数値または入力要素型） | — |

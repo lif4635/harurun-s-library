@@ -28,10 +28,10 @@ from library_codex.tree.PruferCode import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L4) | `prufer`・`decode`・辺を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 辺のlist |
-| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L34) | `prufer`・`decode`を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L47) | `prufer`・`encode`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L74) | `prufer`・`encode`・`extended`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `prufer_encode(tree) + [n - 1]` |
-| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L81) | `prufer`・`decode`・`extended`を求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L4) | `prufer`・`decode`・辺を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 辺のlist | — |
+| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L34) | `prufer`・`decode`を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L47) | `prufer`・`encode`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L74) | `prufer`・`encode`・`extended`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `prufer_encode(tree) + [n - 1]` | — |
+| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L81) | `prufer`・`decode`・`extended`を求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` | — |

@@ -3,7 +3,6 @@
 
 非負重みグラフの単一始点最短距離と直前頂点を求める。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`shortest_path/Dijkstra.py`](../../../shortest_path/Dijkstra.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -25,6 +24,6 @@ from library_codex.shortest_path.Dijkstra import dijkstra
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`dijkstra(graph, start=0, goal=None)`](../../../shortest_path/Dijkstra.py#L12) | `dijkstra`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`dijkstra(graph, start=0, goal=None)`](../../../shortest_path/Dijkstra.py#L12) | `dijkstra`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) | — |

@@ -20,9 +20,9 @@ from library_codex.graph_enumeration.GraphProperties import bipartite_edge_color
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph_enumeration/GraphProperties.py#L117) | `bipartite`・辺・彩色を求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(各頂点の色を格納したlist[int], 答え（数値または入力要素型）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph_enumeration/GraphProperties.py#L117) | `bipartite`・辺・彩色を求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(各頂点の色を格納したlist[int], 答え（数値または入力要素型）) | — |
 
 ## Class `ChordalGraphRecognizer`
 
@@ -31,10 +31,11 @@ Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色を扱う `Ch
 - constructor: [`ChordalGraphRecognizer(graph)`](../../../graph_enumeration/GraphProperties.py#L9)
 - 引数: `graph`: 隣接listまたはグラフobject
 - 返り値: `ChordalGraphRecognizer` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`mcs_order()`](../../../graph_enumeration/GraphProperties.py#L19) | method | 最大重み探索（MCS）で頂点を選ぶ順序を返す。 | なし | list[int] — MCSで選ばれた頂点番号を先頭から並べた長さnの列 |
-| [`is_chordal()`](../../../graph_enumeration/GraphProperties.py#L47) | method | `chordal`かどうかを判定する。 | なし | bool |
-| [`perfect_elimination_order()`](../../../graph_enumeration/GraphProperties.py#L73) | method | `perfect`・`elimination`・`order`を求める。 | なし | list[int] — 頂点または要素の位置を結果順に並べた列 |
-| [`induced_cycle()`](../../../graph_enumeration/GraphProperties.py#L76) | method | `induced`・閉路を求める。 | なし | `self._cycle[:]` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`mcs_order()`](../../../graph_enumeration/GraphProperties.py#L19) | method | 最大重み探索（MCS）で頂点を選ぶ順序を返す。 | なし | list[int] — MCSで選ばれた頂点番号を先頭から並べた長さnの列 | O(V+E) |
+| [`is_chordal()`](../../../graph_enumeration/GraphProperties.py#L47) | method | `chordal`かどうかを判定する。 | なし | bool | — |
+| [`perfect_elimination_order()`](../../../graph_enumeration/GraphProperties.py#L73) | method | `perfect`・`elimination`・`order`を求める。 | なし | list[int] — 頂点または要素の位置を結果順に並べた列 | — |
+| [`induced_cycle()`](../../../graph_enumeration/GraphProperties.py#L76) | method | `induced`・閉路を求める。 | なし | `self._cycle[:]` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

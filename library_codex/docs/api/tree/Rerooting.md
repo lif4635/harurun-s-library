@@ -20,9 +20,9 @@ from library_codex.tree.Rerooting import rerooting_dp, Rerooting
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`rerooting_dp(tree, merge, identity, put_edge, put_vertex, root=0)`](../../../tree/Rerooting.py#L166) | `rerooting`・`dp`を求める。 | `tree`: 木の隣接list<br>`merge`: 処理中に呼び出す関数または操作<br>`identity`: 演算 `op` の単位元<br>`put_edge`: 処理中に呼び出す関数または操作<br>`put_vertex`: 処理中に呼び出す関数または操作<br>`root`: 根の頂点番号・原始根。省略時: `0` | `Rerooting(tree, merge, identity, put_edge, put_vertex, root).a...` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`rerooting_dp(tree, merge, identity, put_edge, put_vertex, root=0)`](../../../tree/Rerooting.py#L166) | `rerooting`・`dp`を求める。 | `tree`: 木の隣接list<br>`merge`: 処理中に呼び出す関数または操作<br>`identity`: 演算 `op` の単位元<br>`put_edge`: 処理中に呼び出す関数または操作<br>`put_vertex`: 処理中に呼び出す関数または操作<br>`root`: 根の頂点番号・原始根。省略時: `0` | `Rerooting(tree, merge, identity, put_edge, put_vertex, root).a...` | — |
 
 ## Class `Rerooting`
 
@@ -31,9 +31,10 @@ from library_codex.tree.Rerooting import rerooting_dp, Rerooting
 - constructor: [`Rerooting(tree, merge, identity, put_edge, put_vertex, root=0)`](../../../tree/Rerooting.py#L27)
 - 引数: `tree`: 木の隣接list<br>`merge`: 処理中に呼び出す関数または操作<br>`identity`: 演算 `op` の単位元<br>`put_edge`: 処理中に呼び出す関数または操作<br>`put_vertex`: 処理中に呼び出す関数または操作<br>`root`: 根の頂点番号・原始根。省略時: `0`
 - 返り値: `Rerooting` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`solve()`](../../../tree/Rerooting.py#L62) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
-| [`__getitem__(vertex)`](../../../tree/Rerooting.py#L159) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 |
-| [`edge_side(endpoint, other)`](../../../tree/Rerooting.py#L162) | method | 辺・`side`を求める。 | `endpoint`: `endpoint`として使う入力<br>`other`: 同じ型のもう一方のobject・値 | `self.directed_side[endpoint, other]` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`solve()`](../../../tree/Rerooting.py#L62) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | — |
+| [`__getitem__(vertex)`](../../../tree/Rerooting.py#L159) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |
+| [`edge_side(endpoint, other)`](../../../tree/Rerooting.py#L162) | method | 辺・`side`を求める。 | `endpoint`: `endpoint`として使う入力<br>`other`: 同じ型のもう一方のobject・値 | `self.directed_side[endpoint, other]` | — |

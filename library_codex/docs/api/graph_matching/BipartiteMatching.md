@@ -21,10 +21,10 @@ from library_codex.graph_matching.BipartiteMatching import bipartite_matching, m
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`bipartite_matching(graph, right_size)`](../../../graph_matching/BipartiteMatching.py#L256) | `bipartite`・matchingを求める。 | `graph`: 隣接listまたはグラフobject<br>`right_size`: 二部グラフ右側の頂点数 | `matcher.match_left` |
-| [`maximum_bipartite_matching(left_size, right_size, edges)`](../../../graph_matching/BipartiteMatching.py#L265) | 最大・`bipartite`・matchingを求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | `matcher.maximum_matching()` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`bipartite_matching(graph, right_size)`](../../../graph_matching/BipartiteMatching.py#L256) | `bipartite`・matchingを求める。 | `graph`: 隣接listまたはグラフobject<br>`right_size`: 二部グラフ右側の頂点数 | `matcher.match_left` | — |
+| [`maximum_bipartite_matching(left_size, right_size, edges)`](../../../graph_matching/BipartiteMatching.py#L265) | 最大・`bipartite`・matchingを求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | `matcher.maximum_matching()` | — |
 
 ## Class `BipartiteMatching`
 
@@ -33,13 +33,14 @@ from library_codex.graph_matching.BipartiteMatching import bipartite_matching, m
 - constructor: [`BipartiteMatching(left_size, right_size)`](../../../graph_matching/BipartiteMatching.py#L7)
 - 引数: `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数
 - 返り値: `BipartiteMatching` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add_edge(left, right)`](../../../graph_matching/BipartiteMatching.py#L16) | method | 辺を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` |
-| [`solve()`](../../../graph_matching/BipartiteMatching.py#L56) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist |
-| [`pairs()`](../../../graph_matching/BipartiteMatching.py#L96) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`minimum_vertex_cover()`](../../../graph_matching/BipartiteMatching.py#L123) | method | 最小・頂点・`cover`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if not seen]`, list `[i for (i, seen) in enumerate(seen_right) if seen]`) |
-| [`maximum_independent_set()`](../../../graph_matching/BipartiteMatching.py#L130) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if seen]`, list `[i for (i, seen) in enumerate(seen_right) if not seen]`) |
-| [`minimum_edge_cover()`](../../../graph_matching/BipartiteMatching.py#L137) | method | 最小・辺・`cover`を求める。 | なし | list[object] — 計算結果 / `None` |
-| [`dulmage_mendelsohn()`](../../../graph_matching/BipartiteMatching.py#L171) | method | `dulmage`・`mendelsohn`を求める。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add_edge(left, right)`](../../../graph_matching/BipartiteMatching.py#L16) | method | 辺を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` | — |
+| [`solve()`](../../../graph_matching/BipartiteMatching.py#L56) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | — |
+| [`pairs()`](../../../graph_matching/BipartiteMatching.py#L96) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`minimum_vertex_cover()`](../../../graph_matching/BipartiteMatching.py#L123) | method | 最小・頂点・`cover`を求める。 | なし | tuple(list `[i for i, seen in enumerate(seen_left) if not seen]`, list `[i for i, seen in enumerate(seen_right) if seen]`) | — |
+| [`maximum_independent_set()`](../../../graph_matching/BipartiteMatching.py#L130) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for i, seen in enumerate(seen_left) if seen]`, list `[i for i, seen in enumerate(seen_right) if not seen]`) | — |
+| [`minimum_edge_cover()`](../../../graph_matching/BipartiteMatching.py#L137) | method | 最小・辺・`cover`を求める。 | なし | list[object] — 計算結果 / `None` | — |
+| [`dulmage_mendelsohn()`](../../../graph_matching/BipartiteMatching.py#L171) | method | `dulmage`・`mendelsohn`を求める。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` | — |

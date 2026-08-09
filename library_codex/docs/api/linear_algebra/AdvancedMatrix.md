@@ -34,10 +34,10 @@ from library_codex.linear_algebra.AdvancedMatrix import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`determinant_arbitrary_mod(matrix, mod)`](../../../linear_algebra/AdvancedMatrix.py#L7) | `determinant`・`arbitrary`・`mod`を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算 | `0` / 数値または入力要素型 `result % mod` |
-| [`hafnian(matrix, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L54) | `hafnian`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `returned[-1]` |
-| [`pfaffian(matrix, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L125) | `pfaffian`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `result % mod` |
-| [`spanning_tree_count(vertex_count, edges, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L161) | 全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(laplacian, mod)` |
-| [`directed_spanning_tree_count(vertex_count, edges, root, inward=True, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L193) | 有向・全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`inward`: `inward`として使う入力。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`determinant_arbitrary_mod(matrix, mod)`](../../../linear_algebra/AdvancedMatrix.py#L7) | `determinant`・`arbitrary`・`mod`を計算する。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算 | `0` / 数値または入力要素型 `result % mod` | — |
+| [`hafnian(matrix, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L54) | `hafnian`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `returned[-1]` | — |
+| [`pfaffian(matrix, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L125) | `pfaffian`を求める。 | `matrix`: 行をlistで持つ行列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `result % mod` | — |
+| [`spanning_tree_count(vertex_count, edges, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L161) | 全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(laplacian, mod)` | — |
+| [`directed_spanning_tree_count(vertex_count, edges, root, inward=True, mod=DEFAULT_MOD)`](../../../linear_algebra/AdvancedMatrix.py#L193) | 有向・全域・木・個数を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根<br>`inward`: `inward`として使う入力。省略時: `True`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `1` / `matrix_determinant(minor, mod)` | — |

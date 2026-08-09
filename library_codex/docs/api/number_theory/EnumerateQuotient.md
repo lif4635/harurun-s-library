@@ -3,7 +3,6 @@
 
 nを整数で割った商が等しい添字区間を列挙する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`number_theory/EnumerateQuotient.py`](../../../number_theory/EnumerateQuotient.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.number_theory.EnumerateQuotient import enumerate_quotient
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`enumerate_quotient(number)`](../../../number_theory/EnumerateQuotient.py#L3) | `quotient`を列挙する。 | `number`: 整数 | iterator[object] — 用途欄に示した要素を1つずつyieldする |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`enumerate_quotient(number)`](../../../number_theory/EnumerateQuotient.py#L3) | `quotient`を列挙する。 | `number`: 整数 | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |

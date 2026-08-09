@@ -22,9 +22,9 @@ from library_codex.graph_spanning.MinimumSpanningTree import minimum_spanning_fo
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`minimum_spanning_forest(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L1) | 最小・全域・forestを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`（int）, `selected`（list）, 連結成分情報) |
-| [`minimum_spanning_tree(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L35) | 最小・全域・木を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`, `selected`) / `None` |
-| [`kruskal(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L42) | `kruskal`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | `minimum_spanning_forest(n, edges)[0]` |
-| [`manhattan_mst(points)`](../../../graph_spanning/MinimumSpanningTree.py#L46) | `manhattan`・`mst`を求める。 | `points`: 評価点の列 | tuple(`0`, list `[]`) / tuple(`cost`（int）, 答え（list）) |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`minimum_spanning_forest(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L1) | 最小・全域・forestを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`（int）, `selected`（list）, 連結成分情報) | — |
+| [`minimum_spanning_tree(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L35) | 最小・全域・木を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`, `selected`) / `None` | — |
+| [`kruskal(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L42) | `kruskal`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | `minimum_spanning_forest(n, edges)[0]` | — |
+| [`manhattan_mst(points)`](../../../graph_spanning/MinimumSpanningTree.py#L46) | `manhattan`・`mst`を求める。 | `points`: 評価点の列 | tuple(`0`, list `[]`) / tuple(`cost`（int）, 答え（list）) | O(N log N) |

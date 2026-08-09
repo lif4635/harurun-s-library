@@ -3,7 +3,6 @@
 
 一次関数の評価・合成・反転を扱う。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`algebra/Affine.py`](../../../algebra/Affine.py)
 - 公開API: function 0、class 1、method/property 3（Python protocol 3を含む）
 
@@ -24,9 +23,10 @@ from library_codex.algebra.Affine import Affine
 - constructor: [`Affine(a=1, b=0, mod=None)`](../../../algebra/Affine.py#L8)
 - 引数: `a`: 第1入力（意味は関数の説明を参照）。省略時: `1`<br>`b`: 第2入力（意味は関数の説明を参照）。省略時: `0`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None`
 - 返り値: `Affine` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`__call__(value)`](../../../algebra/Affine.py#L13) | method | 保持しているaffine変換 $f(x)=ax+b$ をvalueへ適用する。 | `value`: 追加・設定・問い合わせる値 | $a\cdot\mathrm{value}+b$。 |
-| [`__mul__(other)`](../../../algebra/Affine.py#L17) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Affine instance |
-| [`__eq__(other)`](../../../algebra/Affine.py#L23) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`__call__(value)`](../../../algebra/Affine.py#L13) | method | 保持しているaffine変換 $f(x)=ax+b$ をvalueへ適用する。 | `value`: 追加・設定・問い合わせる値 | $a\cdot\mathrm{value}+b$。 | — |
+| [`__mul__(other)`](../../../algebra/Affine.py#L17) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Affine instance | — |
+| [`__eq__(other)`](../../../algebra/Affine.py#L23) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |

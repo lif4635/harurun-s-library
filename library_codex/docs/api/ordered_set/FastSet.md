@@ -24,17 +24,18 @@ word-size tree型の固定整数universe ordered setを扱う `FastSet`。
 - constructor: [`FastSet(size, values=())`](../../../ordered_set/FastSet.py#L4)
 - 引数: `size`: 要素数・universe size<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`
 - 返り値: `FastSet` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`add(value)`](../../../ordered_set/FastSet.py#L20) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | bool |
-| [`discard(value)`](../../../ordered_set/FastSet.py#L42) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | bool |
-| [`next(value)`](../../../ordered_set/FastSet.py#L62) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 数値または入力要素型 `index if index < self.n else -1` |
-| [`prev(value)`](../../../ordered_set/FastSet.py#L89) | method | `prev`を求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 0-indexedの位置（int）（数値または入力要素型） |
-| [`min()`](../../../ordered_set/FastSet.py#L120) | method | 最小を求める。 | なし | 値 |
-| [`max()`](../../../ordered_set/FastSet.py#L126) | method | 最大を求める。 | なし | 値 |
-| [`__contains__(value)`](../../../ordered_set/FastSet.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool |
-| [`__len__()`](../../../ordered_set/FastSet.py#L138) | method | len(obj)。 | なし | 要素数（int） |
-| [`tolist()`](../../../ordered_set/FastSet.py#L141) | method | 保持する整数を昇順listで返す。O(K log_64 N)。 | なし | list[int] — 保持する整数を昇順に並べた列 |
-| [`__str__()`](../../../ordered_set/FastSet.py#L150) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
-| [`__repr__()`](../../../ordered_set/FastSet.py#L153) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'FastSet(%r)' % self.tolist()` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`add(value)`](../../../ordered_set/FastSet.py#L20) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | bool | — |
+| [`discard(value)`](../../../ordered_set/FastSet.py#L42) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | bool | — |
+| [`next(value)`](../../../ordered_set/FastSet.py#L62) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 数値または入力要素型 `index if index < self.n else -1` | — |
+| [`prev(value)`](../../../ordered_set/FastSet.py#L89) | method | `prev`を求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 0-indexedの位置（int）（数値または入力要素型） | — |
+| [`min()`](../../../ordered_set/FastSet.py#L120) | method | 最小を求める。 | なし | 値 | — |
+| [`max()`](../../../ordered_set/FastSet.py#L126) | method | 最大を求める。 | なし | 値 | — |
+| [`__contains__(value)`](../../../ordered_set/FastSet.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool | — |
+| [`__len__()`](../../../ordered_set/FastSet.py#L138) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`tolist()`](../../../ordered_set/FastSet.py#L141) | method | 保持する整数を昇順listで返す。O(K log_64 N)。 | なし | list[int] — 保持する整数を昇順に並べた列 | O(K log_64 N) |
+| [`__str__()`](../../../ordered_set/FastSet.py#L150) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
+| [`__repr__()`](../../../ordered_set/FastSet.py#L153) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'FastSet(%r)' % self.tolist()` | — |

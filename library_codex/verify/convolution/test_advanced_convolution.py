@@ -24,7 +24,7 @@ from library_codex.convolution.NTT import convolution  # noqa: E402
 MOD = 998244353
 
 
-def test_chirp_z_and_middle_product_against_direct():
+def test_chirp_z_against_direct():
     rng = random.Random(110)
     for length in range(30):
         for count in range(30):
@@ -41,13 +41,34 @@ def test_chirp_z_and_middle_product_against_direct():
                     expected.append(value)
                     point = point * ratio % MOD
                 assert chirp_z(polynomial, ratio, count, start) == expected
-                second = [rng.randrange(MOD) for _ in range(rng.randrange(20))]
-                product = convolution(polynomial, second)
-                begin = rng.randrange(-5, 40)
-                assert middle_product(polynomial, second, begin, count) == [
-                    product[i] if 0 <= i < len(product) else 0
-                    for i in range(begin, begin + count)
-                ]
+
+
+def test_middle_product_against_direct_correlation():
+    rng = random.Random(114)
+    sizes = ((1, 1), (8, 3), (61, 61), (127, 63), (128, 67), (257, 129))
+    for first_size, second_size in sizes:
+        for _ in range(12):
+            first = [rng.randrange(MOD) for _ in range(first_size)]
+            second = [rng.randrange(MOD) for _ in range(second_size)]
+            expected = [
+                sum(second[j] * first[i + j] for j in range(second_size)) % MOD
+                for i in range(first_size - second_size + 1)
+            ]
+            first_before = first[:]
+            second_before = second[:]
+            assert middle_product(first, second) == expected
+            assert first == first_before
+            assert second == second_before
+
+
+def test_middle_product_rejects_invalid_lengths():
+    for first, second in (([], []), ([1], []), ([1], [1, 2])):
+        try:
+            middle_product(first, second)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError((first, second))
 
 
 def _digits(index, base):

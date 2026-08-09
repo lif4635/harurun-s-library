@@ -60,7 +60,7 @@ def coordinate_compress(values):
 
 
 def merge_intervals(intervals, merge_adjacent=True):
-    """Merge overlapping intervals and optionally touching intervals."""
+    """Merge half-open intervals [left, right), optionally including adjacency."""
     intervals = sorted(intervals)
     result = []
     for left, right in intervals:

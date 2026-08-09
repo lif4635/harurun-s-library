@@ -47,13 +47,14 @@ from library_codex.tree.StaticTopTree import (
 - constructor: [`StaticTopTree(tree, root=0)`](../../../tree/StaticTopTree.py#L76)
 - 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
 - 返り値: `StaticTopTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`from_edges(size, edges, root=0)`](../../../tree/StaticTopTree.py#L111) | classmethod | `from`・辺を求める。 | `size`: 要素数・universe size<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `0` | 計算結果 |
-| [`add_edge(first, second)`](../../../tree/StaticTopTree.py#L118) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` |
-| [`build(root=None)`](../../../tree/StaticTopTree.py#L174) | method | 内部構造を構築する。 | `root`: 根の頂点番号・原始根。省略時: `None` | `self.top_tree_root` |
-| [`height()`](../../../tree/StaticTopTree.py#L228) | method | `height`を求める。 | なし | 答え（int） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`from_edges(size, edges, root=0)`](../../../tree/StaticTopTree.py#L111) | classmethod | `from`・辺を求める。 | `size`: 要素数・universe size<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `0` | 計算結果 | — |
+| [`add_edge(first, second)`](../../../tree/StaticTopTree.py#L118) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` | — |
+| [`build(root=None)`](../../../tree/StaticTopTree.py#L174) | method | 内部構造を構築する。 | `root`: 根の頂点番号・原始根。省略時: `None` | `self.top_tree_root` | — |
+| [`height()`](../../../tree/StaticTopTree.py#L228) | method | `height`を求める。 | なし | 答え（int） | — |
 
 ## Class `StaticTopTreeEdgeBased`
 
@@ -62,6 +63,7 @@ from library_codex.tree.StaticTopTree import (
 - constructor: [`StaticTopTreeEdgeBased(tree, root=0)`](../../../tree/StaticTopTree.py#L76)
 - 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
 - 返り値: `StaticTopTreeEdgeBased` instance
+- 計算量: —
 - constructorは `StaticTopTree` から継承。
 - 継承元: `StaticTopTree`
 
@@ -74,12 +76,13 @@ from library_codex.tree.StaticTopTree import (
 - constructor: [`DynamicTreeDP(top_tree, vertex, rake, compress)`](../../../tree/StaticTopTree.py#L249)
 - 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号<br>`rake`: `rake`として使う入力<br>`compress`: `compress`として使う入力
 - 返り値: `DynamicTreeDP` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(node, value)`](../../../tree/StaticTopTree.py#L272) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`update(node)`](../../../tree/StaticTopTree.py#L279) | method | 指定位置・辺・状態を更新する。 | `node`: 頂点・内部node番号 | `None` |
-| [`get()`](../../../tree/StaticTopTree.py#L285) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(node, value)`](../../../tree/StaticTopTree.py#L272) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`update(node)`](../../../tree/StaticTopTree.py#L279) | method | 指定位置・辺・状態を更新する。 | `node`: 頂点・内部node番号 | `None` | — |
+| [`get()`](../../../tree/StaticTopTree.py#L285) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |
 
 ## Class `EdgeTopTreeDP`
 
@@ -88,11 +91,12 @@ from library_codex.tree.StaticTopTree import (
 - constructor: [`EdgeTopTreeDP(top_tree, edge, compress, rake)`](../../../tree/StaticTopTree.py#L292)
 - 引数: `top_tree`: `top`・木として使う入力<br>`edge`: 辺または隣接list<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力
 - 返り値: `EdgeTopTreeDP` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`update(edge_leaf)`](../../../tree/StaticTopTree.py#L327) | method | 指定位置・辺・状態を更新する。 | `edge_leaf`: 辺・`leaf`として使う入力 | `None` |
-| [`get()`](../../../tree/StaticTopTree.py#L333) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`update(edge_leaf)`](../../../tree/StaticTopTree.py#L327) | method | 指定位置・辺・状態を更新する。 | `edge_leaf`: 辺・`leaf`として使う入力 | `None` | — |
+| [`get()`](../../../tree/StaticTopTree.py#L333) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |
 
 ## Class `DynamicRerootingDP`
 
@@ -101,11 +105,12 @@ from library_codex.tree.StaticTopTree import (
 - constructor: [`DynamicRerootingDP(top_tree, vertex, rake_forward, rake_backward, compress, identity)`](../../../tree/StaticTopTree.py#L350)
 - 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号<br>`rake_forward`: `rake`・`forward`として使う入力<br>`rake_backward`: `rake`・`backward`として使う入力<br>`compress`: `compress`として使う入力<br>`identity`: 演算 `op` の単位元
 - 返り値: `DynamicRerootingDP` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(node, value)`](../../../tree/StaticTopTree.py#L390) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(vertex)`](../../../tree/StaticTopTree.py#L397) | method | 指定位置・辺・状態の値を取得する。 | `vertex`: 頂点番号 | 指定対象に格納された値・edge object |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(node, value)`](../../../tree/StaticTopTree.py#L390) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`get(vertex)`](../../../tree/StaticTopTree.py#L397) | method | 指定位置・辺・状態の値を取得する。 | `vertex`: 頂点番号 | 指定対象に格納された値・edge object | — |
 
 ## Class `StaticTopTreeVertexBased`
 
@@ -114,10 +119,11 @@ from library_codex.tree.StaticTopTree import (
 - constructor: [`StaticTopTreeVertexBased(tree, root=0)`](../../../tree/StaticTopTree.py#L444)
 - 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
 - 返り値: `StaticTopTreeVertexBased` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`height()`](../../../tree/StaticTopTree.py#L554) | method | `height`を求める。 | なし | 答え（int） |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`height()`](../../../tree/StaticTopTree.py#L554) | method | `height`を求める。 | なし | 答え（int） | — |
 
 ## Class `VertexTopTreeDP`
 
@@ -126,8 +132,9 @@ from library_codex.tree.StaticTopTree import (
 - constructor: [`VertexTopTreeDP(top_tree, vertex, compress, rake, add_edge, add_vertex)`](../../../tree/StaticTopTree.py#L582)
 - 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
 - 返り値: `VertexTopTreeDP` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`update(vertex)`](../../../tree/StaticTopTree.py#L634) | method | 指定位置・辺・状態を更新する。 | `vertex`: 頂点番号 | `None` |
-| [`get()`](../../../tree/StaticTopTree.py#L640) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`update(vertex)`](../../../tree/StaticTopTree.py#L634) | method | 指定位置・辺・状態を更新する。 | `vertex`: 頂点番号 | `None` | — |
+| [`get()`](../../../tree/StaticTopTree.py#L640) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |

@@ -24,8 +24,9 @@ Euler区間を用いるDSU on Treeを扱う `DSUOnTree`。
 - constructor: [`DSUOnTree(tree, root=0)`](../../../tree/DSUOnTree.py#L14)
 - 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
 - 返り値: `DSUOnTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`index(vertex)`](../../../tree/DSUOnTree.py#L74) | method | vertexに対応するEuler tour順のindexを返す。 | `vertex`: 頂点番号 | `self.down[vertex]` |
-| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L79) | method | 各頂点を根とする部分木queryをDSU on treeでまとめて処理する。 | `add`: 処理中に呼び出す関数または操作<br>`query`: 処理中に呼び出す関数または操作<br>`remove`: 処理中に呼び出す関数または操作<br>`reset`: `reset`として使う入力。省略時: `None` | `None` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`index(vertex)`](../../../tree/DSUOnTree.py#L74) | method | vertexに対応するEuler tour順のindexを返す。 | `vertex`: 頂点番号 | `self.down[vertex]` | — |
+| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L79) | method | 各頂点を根とする部分木queryをDSU on treeでまとめて処理する。 | `add`: 処理中に呼び出す関数または操作<br>`query`: 処理中に呼び出す関数または操作<br>`remove`: 処理中に呼び出す関数または操作<br>`reset`: `reset`として使う入力。省略時: `None` | `None` | — |

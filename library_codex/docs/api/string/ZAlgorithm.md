@@ -19,6 +19,6 @@ from library_codex.string.ZAlgorithm import z_algorithm
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`z_algorithm(sequence)`](../../../string/ZAlgorithm.py#L1) | `z`・`algorithm`を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `z`（数値または入力要素型） |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`z_algorithm(sequence)`](../../../string/ZAlgorithm.py#L1) | `z`・`algorithm`を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `z`（数値または入力要素型） | — |

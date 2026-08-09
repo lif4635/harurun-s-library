@@ -3,7 +3,6 @@
 
 整数を2つの平方数の和で表す組を列挙する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`number_theory/TwoSquareRepresentations.py`](../../../number_theory/TwoSquareRepresentations.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.number_theory.TwoSquareRepresentations import two_square_repr
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`two_square_representations(number)`](../../../number_theory/TwoSquareRepresentations.py#L35) | `two`・平方・`representations`を求める。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `sorted(result)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`two_square_representations(number)`](../../../number_theory/TwoSquareRepresentations.py#L35) | `two`・平方・`representations`を求める。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `sorted(result)` | — |

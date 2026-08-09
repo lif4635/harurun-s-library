@@ -3,7 +3,6 @@
 
 多項式へ等比数列を代入した値の積を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`polynomial/ProductGeometricSubstitutions.py`](../../../polynomial/ProductGeometricSubstitutions.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.polynomial.ProductGeometricSubstitutions import product_geome
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`product_geometric_substitutions(polynomial, ratio, count, degree=None, mod=DEFAULT_MOD)`](../../../polynomial/ProductGeometricSubstitutions.py#L12) | 積・`geometric`・`substitutions`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[1] + [0] * (degree - 1)` / `fps_exponential(logarithm, degree, mod)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`product_geometric_substitutions(polynomial, ratio, count, degree=None, mod=DEFAULT_MOD)`](../../../polynomial/ProductGeometricSubstitutions.py#L12) | 積・`geometric`・`substitutions`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[1] + [0] * (degree - 1)` / `fps_exponential(logarithm, degree, mod)` | — |

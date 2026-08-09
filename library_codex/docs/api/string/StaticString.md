@@ -30,11 +30,11 @@ from library_codex.string.StaticString import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`to_static_string(sequence)`](../../../string/StaticString.py#L373) | `to`・`static`・文字列を求める。 | `sequence`: 入力列 | `StaticString.from_sequence(sequence)` |
-| [`to_static_strings(sequences)`](../../../string/StaticString.py#L380) | `to`・`static`・`strings`を求める。 | `sequences`: 入力列のiterable | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
-| [`init_suffix_array(value)`](../../../string/StaticString.py#L407) | `init`・suffix・配列を求める。 | `value`: 追加・設定・問い合わせる値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `value.suffix_array()` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`to_static_string(sequence)`](../../../string/StaticString.py#L373) | `to`・`static`・文字列を求める。 | `sequence`: 入力列 | `StaticString.from_sequence(sequence)` | — |
+| [`to_static_strings(sequences)`](../../../string/StaticString.py#L380) | `to`・`static`・`strings`を求める。 | `sequences`: 入力列のiterable | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`init_suffix_array(value)`](../../../string/StaticString.py#L407) | `init`・suffix・配列を求める。 | `value`: 追加・設定・問い合わせる値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `value.suffix_array()` | — |
 
 ## Class `StaticStringBase`
 
@@ -43,14 +43,15 @@ SA共有substring view・複数view連結を扱う `StaticStringBase`。
 - constructor: [`StaticStringBase(sequence)`](../../../string/StaticString.py#L31)
 - 引数: `sequence`: 入力列
 - 返り値: `StaticStringBase` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`view(left=0, right=None)`](../../../string/StaticString.py#L41) | method | `view`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | StaticString instance |
-| [`suffix_lowerbound(pattern)`](../../../string/StaticString.py#L46) | method | suffix・`lowerbound`を求める。 | `pattern`: 検索patternの文字列・列 | `self.index.search(pattern)[0]` |
-| [`suffix_upperbound(pattern)`](../../../string/StaticString.py#L49) | method | suffix・`upperbound`を求める。 | `pattern`: 検索patternの文字列・列 | `self.index.search(pattern)[1]` |
-| [`count(pattern)`](../../../string/StaticString.py#L52) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） |
-| [`occurrences(pattern, sort_positions=False)`](../../../string/StaticString.py#L55) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `self.index.occurrences(pattern, sort_positions)` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`view(left=0, right=None)`](../../../string/StaticString.py#L41) | method | `view`を求める。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | StaticString instance | — |
+| [`suffix_lowerbound(pattern)`](../../../string/StaticString.py#L46) | method | suffix・`lowerbound`を求める。 | `pattern`: 検索patternの文字列・列 | `self.index.search(pattern)[0]` | — |
+| [`suffix_upperbound(pattern)`](../../../string/StaticString.py#L49) | method | suffix・`upperbound`を求める。 | `pattern`: 検索patternの文字列・列 | `self.index.search(pattern)[1]` | — |
+| [`count(pattern)`](../../../string/StaticString.py#L52) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） | — |
+| [`occurrences(pattern, sort_positions=False)`](../../../string/StaticString.py#L55) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `self.index.occurrences(pattern, sort_positions)` | — |
 
 ## Class `StaticString`
 
@@ -59,25 +60,26 @@ SA共有substring view・複数view連結を扱う `StaticString`。
 - constructor: [`StaticString(base, left=0, right=None)`](../../../string/StaticString.py#L62)
 - 引数: `base`: 底・基準となる値または列<br>`left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None`
 - 返り値: `StaticString` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`from_sequence(sequence)`](../../../string/StaticString.py#L72) | classmethod | `from`・`sequence`を求める。 | `sequence`: 入力列 | `StaticStringBase(sequence).view()` |
-| [`__len__()`](../../../string/StaticString.py#L77) | method | len(obj)。 | なし | 要素数（int） |
-| [`__getitem__(index)`](../../../string/StaticString.py#L80) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
-| [`materialize()`](../../../string/StaticString.py#L114) | method | `materialize`を求める。 | なし | `self.base.sequence[self.left:self.right]` |
-| [`lcp(other)`](../../../string/StaticString.py#L119) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `MergedStaticString((self,)).lcp(other)` / `0` / `self.base.index.lcp_substring(self.left, self.right, other.lef...` / `lcp_naive(self, other)` |
-| [`compare(other)`](../../../string/StaticString.py#L131) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | `-other.compare(self)` / 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` |
-| [`startswith(prefix)`](../../../string/StaticString.py#L143) | method | `startswith`を求める。 | `prefix`: prefix列・prefix長 | bool |
-| [`suffix_array()`](../../../string/StaticString.py#L148) | method | suffix・配列を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
-| [`__add__(other)`](../../../string/StaticString.py#L154) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | MergedStaticString instance |
-| [`__eq__(other)`](../../../string/StaticString.py#L157) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__lt__(other)`](../../../string/StaticString.py#L164) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__le__(other)`](../../../string/StaticString.py#L167) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__gt__(other)`](../../../string/StaticString.py#L170) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__ge__(other)`](../../../string/StaticString.py#L173) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__str__()`](../../../string/StaticString.py#L176) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self.base._kind == 1 else str(value)` |
-| [`__repr__()`](../../../string/StaticString.py#L180) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'StaticString({self.materialize()!r})'` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`from_sequence(sequence)`](../../../string/StaticString.py#L72) | classmethod | `from`・`sequence`を求める。 | `sequence`: 入力列 | `StaticStringBase(sequence).view()` | — |
+| [`__len__()`](../../../string/StaticString.py#L77) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`__getitem__(index)`](../../../string/StaticString.py#L80) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
+| [`materialize()`](../../../string/StaticString.py#L114) | method | `materialize`を求める。 | なし | `self.base.sequence[self.left:self.right]` | — |
+| [`lcp(other)`](../../../string/StaticString.py#L119) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `MergedStaticString((self,)).lcp(other)` / `0` / `self.base.index.lcp_substring(self.left, self.right, other.lef...` / `lcp_naive(self, other)` | — |
+| [`compare(other)`](../../../string/StaticString.py#L131) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | `-other.compare(self)` / 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` | — |
+| [`startswith(prefix)`](../../../string/StaticString.py#L143) | method | `startswith`を求める。 | `prefix`: prefix列・prefix長 | bool | — |
+| [`suffix_array()`](../../../string/StaticString.py#L148) | method | suffix・配列を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`__add__(other)`](../../../string/StaticString.py#L154) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | MergedStaticString instance | — |
+| [`__eq__(other)`](../../../string/StaticString.py#L157) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__lt__(other)`](../../../string/StaticString.py#L164) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__le__(other)`](../../../string/StaticString.py#L167) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__gt__(other)`](../../../string/StaticString.py#L170) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__ge__(other)`](../../../string/StaticString.py#L173) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__str__()`](../../../string/StaticString.py#L176) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self.base._kind == 1 else str(value)` | — |
+| [`__repr__()`](../../../string/StaticString.py#L180) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'StaticString({self.materialize()!r})'` | — |
 
 ## Class `MergedStaticString`
 
@@ -86,22 +88,23 @@ SA共有substring view・複数view連結を扱う `MergedStaticString`。
 - constructor: [`MergedStaticString(parts=())`](../../../string/StaticString.py#L187)
 - 引数: `parts`: `parts`として使う入力。省略時: `()`
 - 返り値: `MergedStaticString` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`S`](../../../string/StaticString.py#L195) | property | `s`を求める。 | なし | `self.parts` |
-| [`__len__()`](../../../string/StaticString.py#L231) | method | len(obj)。 | なし | 要素数（int） |
-| [`__iadd__(other)`](../../../string/StaticString.py#L234) | method | obj += other。 | `other`: 同じ型のもう一方のobject・値 | `self` |
-| [`__add__(other)`](../../../string/StaticString.py#L238) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | 計算結果（MergedStaticString） |
-| [`__getitem__(index)`](../../../string/StaticString.py#L243) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
-| [`materialize()`](../../../string/StaticString.py#L275) | method | `materialize`を求める。 | なし | str/bytes/tuple `'' if self._kind in (-1, 1) else b'' if self._kind == 2 else ()` / `_pack(self._kind, [part.materialize() for part in self.parts])` |
-| [`lcp(other)`](../../../string/StaticString.py#L284) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `len(self)` / `0` / 数値または入力要素型 `result + common` / 計算結果（int） |
-| [`compare(other)`](../../../string/StaticString.py#L327) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` |
-| [`startswith(prefix)`](../../../string/StaticString.py#L341) | method | `startswith`を求める。 | `prefix`: prefix列・prefix長 | bool |
-| [`__eq__(other)`](../../../string/StaticString.py#L346) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__lt__(other)`](../../../string/StaticString.py#L353) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__le__(other)`](../../../string/StaticString.py#L356) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__gt__(other)`](../../../string/StaticString.py#L359) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__ge__(other)`](../../../string/StaticString.py#L362) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool |
-| [`__str__()`](../../../string/StaticString.py#L365) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self._kind in (-1, 1) else str(value)` |
-| [`__repr__()`](../../../string/StaticString.py#L369) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'MergedStaticString({self.materialize()!r})'` |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`S`](../../../string/StaticString.py#L195) | property | `s`を求める。 | なし | `self.parts` | — |
+| [`__len__()`](../../../string/StaticString.py#L231) | method | len(obj)。 | なし | 要素数（int） | — |
+| [`__iadd__(other)`](../../../string/StaticString.py#L234) | method | obj += other。 | `other`: 同じ型のもう一方のobject・値 | `self` | — |
+| [`__add__(other)`](../../../string/StaticString.py#L238) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | 計算結果（MergedStaticString） | — |
+| [`__getitem__(index)`](../../../string/StaticString.py#L243) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
+| [`materialize()`](../../../string/StaticString.py#L275) | method | `materialize`を求める。 | なし | str/bytes/tuple `'' if self._kind in (-1, 1) else b'' if self._kind == 2 else ()` / `_pack(self._kind, [part.materialize() for part in self.parts])` | — |
+| [`lcp(other)`](../../../string/StaticString.py#L284) | method | `lcp`を求める。 | `other`: 同じ型のもう一方のobject・値 | `len(self)` / `0` / 数値または入力要素型 `result + common` / 計算結果（int） | — |
+| [`compare(other)`](../../../string/StaticString.py#L327) | method | `compare`を求める。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `(first_size > second_size) - (first_size < second_size)` / 数値または入力要素型 `(self[common] > other[common]) - (self[common] < other[common])` | — |
+| [`startswith(prefix)`](../../../string/StaticString.py#L341) | method | `startswith`を求める。 | `prefix`: prefix列・prefix長 | bool | — |
+| [`__eq__(other)`](../../../string/StaticString.py#L346) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__lt__(other)`](../../../string/StaticString.py#L353) | method | obj < other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__le__(other)`](../../../string/StaticString.py#L356) | method | obj <= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__gt__(other)`](../../../string/StaticString.py#L359) | method | obj > other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__ge__(other)`](../../../string/StaticString.py#L362) | method | obj >= other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__str__()`](../../../string/StaticString.py#L365) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str `value if self._kind in (-1, 1) else str(value)` | — |
+| [`__repr__()`](../../../string/StaticString.py#L369) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'MergedStaticString({self.materialize()!r})'` | — |

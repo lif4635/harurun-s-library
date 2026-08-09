@@ -29,12 +29,12 @@ from library_codex.prime.Sieve import (
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`prime_sieve(limit)`](../../../prime/Sieve.py#L58) | 素数・`sieve`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).primes` |
-| [`prime_count(number)`](../../../prime/Sieve.py#L62) | 素数・個数を求める。 | `number`: 整数 | `0` / `count[0]` |
-| [`count_square_free(number)`](../../../prime/Sieve.py#L91) | 平方・`free`の個数を求める。 | `number`: 整数 | `0` / `sum((mobius[value] * (number // (value * value)) for value in ...` |
-| [`sum_totient(limit)`](../../../prime/Sieve.py#L101) | 和・`totient`を計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `0` / `sum(LinearSieve(limit).phi[1:])` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`prime_sieve(limit)`](../../../prime/Sieve.py#L58) | 素数・`sieve`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).primes` | — |
+| [`prime_count(number)`](../../../prime/Sieve.py#L62) | 素数・個数を求める。 | `number`: 整数 | `0` / `count[0]` | O(n^(3/4) |
+| [`count_square_free(number)`](../../../prime/Sieve.py#L91) | 平方・`free`の個数を求める。 | `number`: 整数 | `0` / `sum((mobius[value] * (number // (value * value)) for value in ...` | O(sqrt(number) |
+| [`sum_totient(limit)`](../../../prime/Sieve.py#L101) | 和・`totient`を計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `0` / `sum(LinearSieve(limit).phi[1:])` | — |
 
 ## Class `LinearSieve`
 
@@ -43,8 +43,9 @@ from library_codex.prime.Sieve import (
 - constructor: [`LinearSieve(limit)`](../../../prime/Sieve.py#L9)
 - 引数: `limit`: 上限。NoneならAPI既定の上限
 - 返り値: `LinearSieve` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`is_prime(value)`](../../../prime/Sieve.py#L41) | method | 素数かどうかを判定する。 | `value`: 追加・設定・問い合わせる値 | bool |
-| [`factor_count(value)`](../../../prime/Sieve.py#L44) | method | 篩の表を使ってvalueを素因数分解する。 | `value`: 追加・設定・問い合わせる値 | list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列。 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`is_prime(value)`](../../../prime/Sieve.py#L41) | method | 素数かどうかを判定する。 | `value`: 追加・設定・問い合わせる値 | bool | — |
+| [`factor_count(value)`](../../../prime/Sieve.py#L44) | method | 篩の表を使ってvalueを素因数分解する。 | `value`: 追加・設定・問い合わせる値 | list[tuple[int, int]] — (素因数, 指数)を素因数の昇順に並べた列。 | — |

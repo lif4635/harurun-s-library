@@ -146,3 +146,24 @@ def test_api_reference_has_actionable_semantics():
     assert "docs/api/random/Random.md" in documents
     assert all("| alias |" not in text for text in documents.values())
     assert all("## Module aliases" not in text for text in documents.values())
+    assert all(
+        "各操作の計算量はAPI表を参照" not in text
+        for text in documents.values()
+    )
+    assert all(
+        "| signature | 用途 | 引数 | 返り値 | 計算量 |" in text
+        for text in documents.values()
+        if "## Functions" in text
+    )
+
+    permutation_group = documents["docs/api/algorithm/PermutationGroup.md"]
+    assert "list[list[list[int]]]" in permutation_group
+    assert "level長が[0, 2, 3]" in permutation_group
+
+    middle_product = documents["docs/api/convolution/MiddleProduct.md"]
+    assert "middle_product(first, second, mod=DEFAULT_MOD)" in middle_product
+    assert r"c[i]=\sum_{j=0}^{m-1}" in middle_product
+
+    range_set = documents["docs/api/ordered_set/RangeSet.md"]
+    assert r"$[\mathrm{left},\mathrm{right})$" in range_set
+    assert "数学的な開区間を意味しない" in range_set

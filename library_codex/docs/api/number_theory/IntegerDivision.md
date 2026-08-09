@@ -3,7 +3,6 @@
 
 符号を含む整数除算の床・天井と厳密不等号版を計算する。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`number_theory/IntegerDivision.py`](../../../number_theory/IntegerDivision.py)
 - 公開API: function 4、class 0、method/property 0（Python protocol 0を含む）
 
@@ -22,9 +21,9 @@ from library_codex.number_theory.IntegerDivision import floor_div, ceil_div, str
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L3) | `floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `numerator // denominator` |
-| [`ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L8) | `ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | `-(-numerator // denominator)` |
-| [`strict_floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L13) | `strict`・`floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient - (remainder == 0)` |
-| [`strict_ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L18) | `strict`・`ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient + (numerator % denominator == 0)` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L3) | `floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `numerator // denominator` | — |
+| [`ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L8) | `ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | `-(-numerator // denominator)` | — |
+| [`strict_floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L13) | `strict`・`floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient - (remainder == 0)` | — |
+| [`strict_ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L18) | `strict`・`ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient + (numerator % denominator == 0)` | — |

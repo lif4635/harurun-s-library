@@ -27,17 +27,18 @@ from library_codex.segment_tree.SegTree import SegTree
 - constructor: [`SegTree(op, identity, values)`](../../../segment_tree/SegTree.py#L12)
 - 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`identity`: 演算 `op` の単位元<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある
 - 返り値: `SegTree` instance
+- 計算量: —
 
-| method / property | 種別 | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- | --- |
-| [`set(index, value)`](../../../segment_tree/SegTree.py#L31) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`add(index, value)`](../../../segment_tree/SegTree.py#L41) | method | indexの現在値をop(value, current)で置き換える。O(log N)。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` |
-| [`get(index)`](../../../segment_tree/SegTree.py#L52) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object |
-| [`tolist()`](../../../segment_tree/SegTree.py#L55) | method | 現在の要素列をlistで返す。O(N)。 | なし | list[object] — 現在のindex順の要素列 |
-| [`__str__()`](../../../segment_tree/SegTree.py#L59) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance |
-| [`__repr__()`](../../../segment_tree/SegTree.py#L62) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegTree(%r)' % self.tolist()` |
-| [`prod(left, right)`](../../../segment_tree/SegTree.py#L65) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ をopで左から畳み込む。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\operatorname{op}(a_{\mathrm{left}},\ldots,a_{\mathrm{right}-1})$。空区間なら単位元e。 |
-| [`all_prod()`](../../../segment_tree/SegTree.py#L85) | method | 全区間 $[0,n)$ をopで左から畳み込む。 | なし | 全要素のopによる畳み込み。空なら単位元e。 |
-| [`max_right(left, predicate)`](../../../segment_tree/SegTree.py#L88) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） |
-| [`min_left(right, predicate)`](../../../segment_tree/SegTree.py#L113) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） |
-| [`__getitem__(index)`](../../../segment_tree/SegTree.py#L138) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 |
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`set(index, value)`](../../../segment_tree/SegTree.py#L31) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`add(index, value)`](../../../segment_tree/SegTree.py#L41) | method | indexの現在値をop(value, current)で置き換える。O(log N)。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N) |
+| [`get(index)`](../../../segment_tree/SegTree.py#L52) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | — |
+| [`tolist()`](../../../segment_tree/SegTree.py#L55) | method | 現在の要素列をlistで返す。O(N)。 | なし | list[object] — 現在のindex順の要素列 | O(N) |
+| [`__str__()`](../../../segment_tree/SegTree.py#L59) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
+| [`__repr__()`](../../../segment_tree/SegTree.py#L62) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'SegTree(%r)' % self.tolist()` | — |
+| [`prod(left, right)`](../../../segment_tree/SegTree.py#L65) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ をopで左から畳み込む。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\operatorname{op}(a_{\mathrm{left}},\ldots,a_{\mathrm{right}-1})$。空区間なら単位元e。 | — |
+| [`all_prod()`](../../../segment_tree/SegTree.py#L85) | method | 全区間 $[0,n)$ をopで左から畳み込む。 | なし | 全要素のopによる畳み込み。空なら単位元e。 | — |
+| [`max_right(left, predicate)`](../../../segment_tree/SegTree.py#L88) | method | 左端からpredicateを満たす最大の右端を探す。 | `left`: 半開区間の左端（含む）<br>`predicate`: 判定callback | 半開区間の右端index（int） | — |
+| [`min_left(right, predicate)`](../../../segment_tree/SegTree.py#L113) | method | 右端まででpredicateを満たす最小の左端を探す。 | `right`: 半開区間の右端（含まない）<br>`predicate`: 判定callback | 半開区間の左端index（int） | — |
+| [`__getitem__(index)`](../../../segment_tree/SegTree.py#L138) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |

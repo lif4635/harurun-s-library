@@ -3,7 +3,6 @@
 
 DAGの頂点を辺の向きに沿う順序へ並べる。
 
-- 計算量の目安: 各操作の計算量はAPI表を参照
 - source: [`graph/TopologicalSort.py`](../../../graph/TopologicalSort.py)
 - 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
 
@@ -19,6 +18,6 @@ from library_codex.graph.TopologicalSort import topological_sort
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`topological_sort(graph, lexicographical=False)`](../../../graph/TopologicalSort.py#L7) | 入力要素を指定した順序で並べ替える。 | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list/None `result if len(result) == n else None` |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`topological_sort(graph, lexicographical=False)`](../../../graph/TopologicalSort.py#L7) | 入力要素を指定した順序で並べ替える。 | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list/None `result if len(result) == n else None` | — |

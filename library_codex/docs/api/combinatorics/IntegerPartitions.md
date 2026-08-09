@@ -20,7 +20,7 @@ from library_codex.combinatorics.IntegerPartitions import integer_partitions, in
 
 ## Functions
 
-| signature | 用途 | 引数 | 返り値 |
-| --- | --- | --- | --- |
-| [`integer_partitions(number)`](../../../combinatorics/IntegerPartitions.py#L4) | 整数totalの分割を辞書式順序で列挙する。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 |
-| [`integer_partitions_up_to(limit)`](../../../combinatorics/IntegerPartitions.py#L28) | 指定上限までの各整数分割を列挙する。 | `limit`: 上限。NoneならAPI既定の上限 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 |
+| signature | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- |
+| [`integer_partitions(number)`](../../../combinatorics/IntegerPartitions.py#L4) | 整数totalの分割を辞書式順序で列挙する。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | O(total output size) |
+| [`integer_partitions_up_to(limit)`](../../../combinatorics/IntegerPartitions.py#L28) | 指定上限までの各整数分割を列挙する。 | `limit`: 上限。NoneならAPI既定の上限 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(total output size) |
