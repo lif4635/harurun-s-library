@@ -4,9 +4,57 @@ Berlekamp--Masseyで最短漸化式を求め、Bostan--Moriで有理FPS
 `P(x)/Q(x)`の指定係数を計算する。
 """
 
-from library_codex.convolution.NTT998 import MOD, multiply
+from library_codex.convolution.NTT998 import MOD, _butterfly, _intt, multiply
 from library_codex.fps998.FPS import shrink
 from library_codex.polynomial.PolynomialDivision998 import poly_divmod
+
+
+def _bostan_mori_step(numerator, denominator, parity):
+    numerator_size = len(numerator)
+    denominator_size = len(denominator)
+    if min(numerator_size, denominator_size) <= 60:
+        opposite = denominator[:]
+        for position in range(1, denominator_size, 2):
+            opposite[position] = -opposite[position] % MOD
+        multiplied_numerator = multiply(numerator, opposite)
+        multiplied_denominator = multiply(denominator, opposite)
+        return (
+            multiplied_numerator[parity::2],
+            multiplied_denominator[::2],
+        )
+
+    numerator_output_size = numerator_size + denominator_size - 1
+    denominator_output_size = denominator_size * 2 - 1
+    size = 1 << (
+        max(numerator_output_size, denominator_output_size) - 1
+    ).bit_length()
+    frequency_p = [value % MOD for value in numerator]
+    frequency_q = [value % MOD for value in denominator]
+    frequency_p.extend([0] * (size - numerator_size))
+    frequency_q.extend([0] * (size - denominator_size))
+    _butterfly(frequency_p)
+    _butterfly(frequency_q)
+    reduced_q = [0] * (size >> 1)
+    for position in range(0, size, 2):
+        frequency_q[position], frequency_q[position + 1] = (
+            frequency_q[position + 1],
+            frequency_q[position],
+        )
+        frequency_p[position] = (
+            frequency_p[position] * frequency_q[position]
+        ) % MOD
+        frequency_p[position + 1] = (
+            frequency_p[position + 1] * frequency_q[position + 1]
+        ) % MOD
+        reduced_q[position >> 1] = (
+            frequency_q[position] * frequency_q[position + 1]
+        ) % MOD
+    _intt(frequency_p)
+    _intt(reduced_q)
+    return (
+        frequency_p[parity:numerator_output_size:2],
+        reduced_q[:denominator_size],
+    )
 
 
 def berlekamp_massey(sequence):
@@ -61,13 +109,11 @@ def bostan_mori(index, numerator, denominator):
     if not numerator:
         return polynomial_part
     while index:
-        opposite = denominator[:]
-        for position in range(1, len(opposite), 2):
-            opposite[position] = -opposite[position] % MOD
-        multiplied_numerator = multiply(numerator, opposite)
-        multiplied_denominator = multiply(denominator, opposite)
-        numerator = multiplied_numerator[index & 1::2]
-        denominator = multiplied_denominator[::2]
+        numerator, denominator = _bostan_mori_step(
+            numerator,
+            denominator,
+            index & 1,
+        )
         index >>= 1
         if not numerator:
             return polynomial_part

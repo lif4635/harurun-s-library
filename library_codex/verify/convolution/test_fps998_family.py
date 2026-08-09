@@ -29,6 +29,17 @@ def _naive_recurrence(initial, coefficients, size):
     return result
 
 
+def _rational_coefficients(numerator, denominator, size):
+    inverse = pow(denominator[0], MOD - 2, MOD)
+    result = []
+    for index in range(size):
+        value = numerator[index] if index < len(numerator) else 0
+        for offset in range(1, min(index + 1, len(denominator))):
+            value -= denominator[offset] * result[index - offset]
+        result.append(value * inverse % MOD)
+    return result
+
+
 def test_fps998_linear_recurrence_family():
     rng = random.Random(9984)
     for _ in range(1000):
@@ -44,6 +55,22 @@ def test_fps998_linear_recurrence_family():
         numerator = multiply(initial, denominator)[:order]
         assert bostan_mori(index, numerator, denominator) == sequence[index]
         assert len(learned) <= order
+
+
+def test_fps998_bostan_mori_ntt_path_against_series_expansion():
+    rng = random.Random(20260809)
+    for _ in range(100):
+        denominator = [rng.randrange(1, MOD)] + [
+            rng.randrange(MOD) for _ in range(rng.randrange(60, 150))
+        ]
+        numerator = [
+            rng.randrange(MOD) for _ in range(rng.randrange(50, 180))
+        ]
+        index = rng.randrange(400)
+        expected = _rational_coefficients(
+            numerator, denominator, index + 1
+        )[index]
+        assert bostan_mori(index, numerator, denominator) == expected
 
 
 def test_fps998_power_projection_against_naive():

@@ -245,6 +245,26 @@ def test_fps998_compositional_inverse_against_naive():
         )
 
 
+def test_fps998_sparse_large_relations():
+    degree = 4096
+    unit = [0] * degree
+    unit[0] = 1
+    for index in (1, 3, 17, 65, 257, 1025):
+        unit[index] = (index * index + 13) % MOD
+
+    inverse = fps_inv(unit, degree)
+    assert multiply(unit, inverse)[:degree] == [1] + [0] * (degree - 1)
+
+    logarithm = fps_log(unit, degree)
+    assert fps_exp(logarithm, degree) == unit
+
+    exponent = 123456789
+    powered = fps_pow(unit, exponent, degree)
+    assert fps_log(powered, degree) == [
+        value * exponent % MOD for value in logarithm
+    ]
+
+
 if __name__ == "__main__":
     test_fps998_basic_operations_against_naive()
     test_fps998_inverse_log_and_exp_against_naive()

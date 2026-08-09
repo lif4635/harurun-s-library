@@ -21,5 +21,5 @@ from library_codex.fps998.Composition import fps_compose, fps_compositional_inv
 
 | signature | 用途 | 引数 | 返り値 |
 | --- | --- | --- | --- |
-| [`fps_compose(outer, inner, degree=None)`](../../../fps998/Composition.py#L152) | `outer(inner(x)) mod x^degree`の係数を`degree`個返す。O(N log^2 N)。 | `outer`: 外側のFPS $f$ の係数列。<br>`inner`: 内側のFPS $g$ の係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $f(g(x))\bmod x^{\mathrm{degree}}$ の係数列。 |
-| [`fps_compositional_inv(series, degree=None)`](../../../fps998/Composition.py#L180) | `series(g(x))=x mod x^degree`となる`g`の係数を返す。O(N log^2 N)。 | `series`: 定数項0、1次係数が非0であるFPSの係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの係数列 $g$。$\mathrm{series}(g(x))\equiv x\pmod{x^{\mathrm{degree}}}$。 |
+| [`fps_compose(outer, inner, degree=None)`](../../../fps998/Composition.py#L157) | `outer(inner(x)) mod x^degree`の係数を`degree`個返す。O(N log^2 N)。 | `outer`: 外側のFPS $f$ の係数列。<br>`inner`: 内側のFPS $g$ の係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの $f(g(x))\bmod x^{\mathrm{degree}}$ の係数列。 |
+| [`fps_compositional_inv(series, degree=None)`](../../../fps998/Composition.py#L185) | `series(g(x))=x mod x^degree`となる`g`の係数を返す。O(N log^2 N)。 | `series`: 定数項0、1次係数が非0であるFPSの係数列。<br>`degree`: 返す係数数。結果は $x^{\mathrm{degree}}$ で打ち切る。省略時は入力列の長さ。。省略時: `None` | list[int] — 長さdegreeの係数列 $g$。$\mathrm{series}(g(x))\equiv x\pmod{x^{\mathrm{degree}}}$。 |

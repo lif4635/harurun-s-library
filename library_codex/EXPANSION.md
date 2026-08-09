@@ -69,6 +69,7 @@ PyPy 7.3.16、200,000要素・200,000操作での結果。
 ## 性能回帰チェック
 
 - `tools/run_benchmarks.py`: 各ベンチマークを一括実行する
+- `tools/benchmark_fps998_core.py`: FPS998の密・疎演算、合成、power projection、線形漸化式を個別計測する
 - `tools/benchmark_baseline.json`: quick/full profileの最低速度比
 - backend間のchecksumも比較し、答えが異なる場合は失敗する
 - `--output result.json` で計測結果をJSON保存できる

@@ -1,3 +1,4 @@
+from array import array
 from math import isqrt
 
 from library_codex.fps.FormalPowerSeries import (
@@ -103,7 +104,9 @@ def _descend_q(series, n, height, blocks, transform):
         child[target:target + child_degree + 1] = reduced[
             source:source + child_degree + 1
         ]
-    return child
+    if transform.mod < 1 << 32:
+        frequency = array("I", frequency)
+    return child, frequency
 
 
 def _reverse_frequency_blocks(values):
@@ -118,10 +121,7 @@ def _reverse_frequency_blocks(values):
         start <<= 1
 
 
-def _ascend_p(child, series, n, height, blocks, transform):
-    frequency_q = _build_frequency_q(
-        series, n, height, blocks, transform
-    )
+def _ascend_p(child, frequency_q, n, height, blocks, transform):
     total = len(frequency_q)
     frequency_p = [0] * total
     child_height = height >> 1
@@ -163,10 +163,10 @@ def _compose_ntt(outer, inner, degree, mod, transform):
     block_height = height
     blocks = 1
     while n:
-        frames.append((current, n, block_height, blocks))
-        current = _descend_q(
+        current, frequency_q = _descend_q(
             current, n, block_height, blocks, transform
         )
+        frames.append((frequency_q, n, block_height, blocks))
         n >>= 1
         block_height >>= 1
         blocks <<= 1
@@ -182,9 +182,9 @@ def _compose_ntt(outer, inner, degree, mod, transform):
         result[blocks - 1 - index] = product[index + blocks]
 
     while frames:
-        series, n, block_height, blocks = frames.pop()
+        frequency_q, n, block_height, blocks = frames.pop()
         result = _ascend_p(
-            result, series, n, block_height, blocks, transform
+            result, frequency_q, n, block_height, blocks, transform
         )
     result = result[:degree]
     result.reverse()

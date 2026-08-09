@@ -206,6 +206,22 @@ def test_other_prime_fallback():
         )
 
 
+def test_sparse_large_other_prime():
+    mod = 10**9 + 7
+    degree = 600
+    unit = [0] * degree
+    unit[0] = 1
+    for index in (1, 7, 31, 127, 511):
+        unit[index] = (index * index + 19) % mod
+    assert fps_inverse(unit, degree, mod) == naive_inverse(unit, degree, mod)
+
+    source = unit[:]
+    source[0] = 0
+    assert fps_exponential(source, degree, mod) == naive_exponential(
+        source, degree, mod
+    )
+
+
 def test_validation_and_negative_power():
     with pytest.raises(ZeroDivisionError):
         fps_inverse([0], 1)

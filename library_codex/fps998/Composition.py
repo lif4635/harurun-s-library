@@ -5,6 +5,8 @@
 となる`g`の係数列を返す。
 """
 
+from array import array
+
 from library_codex.convolution.NTT998 import (
     MOD,
     _butterfly,
@@ -70,7 +72,7 @@ def _descend_q(series, n, height, blocks):
         child[target:target + child_degree + 1] = reduced[
             source:source + child_degree + 1
         ]
-    return child
+    return child, array("I", frequency)
 
 
 def _reverse_frequency_blocks(values):
@@ -85,8 +87,7 @@ def _reverse_frequency_blocks(values):
         start <<= 1
 
 
-def _ascend_p(child, series, n, height, blocks):
-    frequency_q = _build_frequency_q(series, n, height, blocks)
+def _ascend_p(child, frequency_q, n, height, blocks):
     total = len(frequency_q)
     frequency_p = [0] * total
     child_height = height >> 1
@@ -125,8 +126,10 @@ def _compose_ntt(outer, inner, degree):
     block_height = height
     blocks = 1
     while n:
-        frames.append((current, n, block_height, blocks))
-        current = _descend_q(current, n, block_height, blocks)
+        current, frequency_q = _descend_q(
+            current, n, block_height, blocks
+        )
+        frames.append((frequency_q, n, block_height, blocks))
         n >>= 1
         block_height >>= 1
         blocks <<= 1
@@ -142,8 +145,10 @@ def _compose_ntt(outer, inner, degree):
         result[blocks - 1 - index] = product[index + blocks]
 
     while frames:
-        series, n, block_height, blocks = frames.pop()
-        result = _ascend_p(result, series, n, block_height, blocks)
+        frequency_q, n, block_height, blocks = frames.pop()
+        result = _ascend_p(
+            result, frequency_q, n, block_height, blocks
+        )
     result = result[:degree]
     result.reverse()
     return result
