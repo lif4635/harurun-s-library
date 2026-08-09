@@ -17,7 +17,11 @@ from library_codex.convolution.NTT998 import (
 
 
 _INVERSES = [0, 1]
-_SPARSE_THRESHOLD = 24
+_SPARSE_INV_THRESHOLD = 160
+_SPARSE_DIV_THRESHOLD = 200
+_SPARSE_LOG_THRESHOLD = 200
+_SPARSE_EXP_THRESHOLD = 320
+_SPARSE_POWER_THRESHOLD = 32
 
 
 def _mod_sqrt(value):
@@ -70,13 +74,13 @@ def _inverses(size):
     return values
 
 
-def _sparse_terms(series, degree):
+def _sparse_terms(series, degree, threshold):
     terms = []
     for index in range(1, min(len(series), degree)):
         value = series[index] % MOD
         if value:
             terms.append((index, value))
-            if len(terms) > _SPARSE_THRESHOLD:
+            if len(terms) > threshold:
                 return None
     return terms
 
@@ -91,6 +95,18 @@ def _fps_inv_sparse(series, degree, first_inverse, terms):
                 break
             total += coefficient * result[index - offset]
         result[index] = -total * first_inverse % MOD
+    return result
+
+
+def _fps_div_sparse(numerator, degree, first_inverse, terms):
+    result = [0] * degree
+    for index in range(degree):
+        total = numerator[index] % MOD if index < len(numerator) else 0
+        for offset, coefficient in terms:
+            if offset > index:
+                break
+            total -= coefficient * result[index - offset]
+        result[index] = total * first_inverse % MOD
     return result
 
 
@@ -248,7 +264,7 @@ def fps_inv(series, degree=None):
     if not series or series[0] % MOD == 0:
         raise ZeroDivisionError("fps inverse requires nonzero constant coefficient")
     first_inverse = pow(series[0] % MOD, MOD - 2, MOD)
-    terms = _sparse_terms(series, degree)
+    terms = _sparse_terms(series, degree, _SPARSE_INV_THRESHOLD)
     if terms is not None:
         return _fps_inv_sparse(series, degree, first_inverse, terms)
     result = [first_inverse]
@@ -267,6 +283,16 @@ def fps_div(numerator, denominator, degree=None):
     degree = _degree(degree, len(numerator))
     if degree == 0:
         return []
+    if not denominator or denominator[0] % MOD == 0:
+        raise ZeroDivisionError("fps division requires nonzero denominator constant")
+    first_inverse = pow(denominator[0] % MOD, MOD - 2, MOD)
+    terms = _sparse_terms(
+        denominator, degree, _SPARSE_DIV_THRESHOLD
+    )
+    if terms is not None:
+        return _fps_div_sparse(
+            numerator, degree, first_inverse, terms
+        )
     inverse = fps_inv(denominator, degree)
     result = multiply(numerator[:degree], inverse)[:degree]
     result.extend([0] * (degree - len(result)))
@@ -281,7 +307,7 @@ def fps_log(series, degree=None):
         return []
     if not series or series[0] % MOD != 1:
         raise ValueError("fps logarithm requires constant coefficient 1")
-    terms = _sparse_terms(series, degree)
+    terms = _sparse_terms(series, degree, _SPARSE_LOG_THRESHOLD)
     if terms is not None:
         return _fps_log_sparse(series, degree, terms)
     product = multiply(fps_diff(series), fps_inv(series, degree))
@@ -360,7 +386,7 @@ def fps_exp(series, degree=None):
         return []
     if series and series[0] % MOD:
         raise ValueError("fps exponential requires constant coefficient 0")
-    terms = _sparse_terms(series, degree)
+    terms = _sparse_terms(series, degree, _SPARSE_EXP_THRESHOLD)
     if terms is not None:
         return _fps_exp_sparse(degree, terms)
     _check_length(1 << (degree - 1).bit_length())
@@ -395,7 +421,9 @@ def fps_pow(series, exponent, degree=None):
     normalized = [
         value * inverse_coefficient % MOD for value in series[leading:]
     ]
-    terms = _sparse_terms(normalized, needed)
+    terms = _sparse_terms(
+        normalized, needed, _SPARSE_POWER_THRESHOLD
+    )
     if terms is not None:
         result = _fps_power_unit_sparse(needed, exponent, terms)
     else:
@@ -429,7 +457,9 @@ def fps_sqrt(series, degree=None):
         return None
     inverse_constant = pow(source[0], MOD - 2, MOD)
     normalized = [value * inverse_constant % MOD for value in source]
-    terms = _sparse_terms(normalized, needed)
+    terms = _sparse_terms(
+        normalized, needed, _SPARSE_POWER_THRESHOLD
+    )
     if terms is not None:
         result = _fps_power_unit_sparse(
             needed, (MOD + 1) >> 1, terms

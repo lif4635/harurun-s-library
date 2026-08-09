@@ -14,7 +14,11 @@ from library_codex.number_theory.ModularArithmetic import modular_square_root
 DEFAULT_MOD = 998244353
 _INVERSE_CACHE = {}
 _DEFAULT_TRANSFORM = get_ntt(DEFAULT_MOD)
-_SPARSE_THRESHOLD = 24
+_SPARSE_INV_THRESHOLD = 160
+_SPARSE_DIV_THRESHOLD = 200
+_SPARSE_LOG_THRESHOLD = 200
+_SPARSE_EXP_THRESHOLD = 320
+_SPARSE_POWER_THRESHOLD = 32
 
 
 def _degree(degree, default):
@@ -37,13 +41,13 @@ def _inverses(size, mod):
     return values
 
 
-def _sparse_terms(series, degree, mod):
+def _sparse_terms(series, degree, mod, threshold):
     terms = []
     for index in range(1, min(len(series), degree)):
         value = series[index] % mod
         if value:
             terms.append((index, value))
-            if len(terms) > _SPARSE_THRESHOLD:
+            if len(terms) > threshold:
                 return None
     return terms
 
@@ -58,6 +62,18 @@ def _fps_inverse_sparse(degree, first_inverse, terms, mod):
                 break
             total += coefficient * result[index - offset]
         result[index] = -total * first_inverse % mod
+    return result
+
+
+def _fps_div_sparse(numerator, degree, first_inverse, terms, mod):
+    result = [0] * degree
+    for index in range(degree):
+        total = numerator[index] % mod if index < len(numerator) else 0
+        for offset, coefficient in terms:
+            if offset > index:
+                break
+            total -= coefficient * result[index - offset]
+        result[index] = total * first_inverse % mod
     return result
 
 
@@ -231,7 +247,9 @@ def fps_inverse(series, degree=None, mod=DEFAULT_MOD):
         first_inverse = pow(series[0] % mod, -1, mod)
     except ValueError as error:
         raise ZeroDivisionError("the constant coefficient is not invertible") from error
-    terms = _sparse_terms(series, degree, mod)
+    terms = _sparse_terms(
+        series, degree, mod, _SPARSE_INV_THRESHOLD
+    )
     if terms is not None:
         return _fps_inverse_sparse(degree, first_inverse, terms, mod)
     result = [first_inverse]
@@ -269,6 +287,21 @@ def fps_div(numerator, denominator, degree=None, mod=DEFAULT_MOD):
     degree = _degree(degree, len(numerator))
     if degree == 0:
         return []
+    if not denominator:
+        raise ZeroDivisionError("fps division requires a denominator")
+    try:
+        first_inverse = pow(denominator[0] % mod, -1, mod)
+    except ValueError as error:
+        raise ZeroDivisionError(
+            "denominator constant coefficient must be invertible"
+        ) from error
+    terms = _sparse_terms(
+        denominator, degree, mod, _SPARSE_DIV_THRESHOLD
+    )
+    if terms is not None:
+        return _fps_div_sparse(
+            numerator, degree, first_inverse, terms, mod
+        )
     inverse = fps_inverse(denominator, degree, mod)
     result = fps_multiply(numerator[:degree], inverse, mod)[:degree]
     result.extend([0] * (degree - len(result)))
@@ -283,7 +316,9 @@ def fps_logarithm(series, degree=None, mod=DEFAULT_MOD):
         return []
     if not series or series[0] % mod != 1:
         raise ValueError("fps logarithm requires constant coefficient 1")
-    terms = _sparse_terms(series, degree, mod)
+    terms = _sparse_terms(
+        series, degree, mod, _SPARSE_LOG_THRESHOLD
+    )
     if terms is not None:
         return _fps_logarithm_sparse(series, degree, terms, mod)
     product = fps_multiply(
@@ -380,7 +415,9 @@ def fps_exponential(series, degree=None, mod=DEFAULT_MOD):
         return []
     if series and series[0] % mod:
         raise ValueError("fps exponential requires constant coefficient 0")
-    terms = _sparse_terms(series, degree, mod)
+    terms = _sparse_terms(
+        series, degree, mod, _SPARSE_EXP_THRESHOLD
+    )
     if terms is not None:
         return _fps_exponential_sparse(degree, terms, mod)
     transform = _DEFAULT_TRANSFORM if mod == DEFAULT_MOD else None
@@ -424,7 +461,9 @@ def fps_power(series, exponent, degree=None, mod=DEFAULT_MOD):
     normalized = [
         value * inverse_coefficient % mod for value in series[leading:]
     ]
-    terms = _sparse_terms(normalized, needed, mod)
+    terms = _sparse_terms(
+        normalized, needed, mod, _SPARSE_POWER_THRESHOLD
+    )
     if terms is not None:
         result = _fps_power_unit_sparse(needed, exponent, terms, mod)
     else:
@@ -463,7 +502,9 @@ def fps_square_root(series, degree=None, mod=DEFAULT_MOD):
         raise ZeroDivisionError("fps square root requires invertible 2") from error
     inverse_constant = pow(source[0], -1, mod)
     normalized = [value * inverse_constant % mod for value in source]
-    terms = _sparse_terms(normalized, needed, mod)
+    terms = _sparse_terms(
+        normalized, needed, mod, _SPARSE_POWER_THRESHOLD
+    )
     if terms is not None:
         result = _fps_power_unit_sparse(
             needed, inverse_two, terms, mod

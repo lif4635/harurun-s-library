@@ -265,6 +265,21 @@ def test_fps998_sparse_large_relations():
     ]
 
 
+def test_fps998_sparse_division_threshold_boundary():
+    degree = 512
+    numerator = [
+        (index * index + 5 * index + 3) % MOD
+        for index in range(degree)
+    ]
+    for term_count in (200, 201):
+        denominator = [3] + [0] * (degree - 1)
+        for index in range(1, term_count + 1):
+            denominator[index] = (index * index + 13) % MOD
+        quotient = fps_div(numerator, denominator, degree)
+        assert len(quotient) == degree
+        assert multiply(quotient, denominator)[:degree] == numerator
+
+
 if __name__ == "__main__":
     test_fps998_basic_operations_against_naive()
     test_fps998_inverse_log_and_exp_against_naive()

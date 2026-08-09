@@ -222,6 +222,22 @@ def test_sparse_large_other_prime():
     )
 
 
+def test_sparse_division_threshold_boundary():
+    mod = 10**9 + 7
+    degree = 256
+    numerator = [
+        (index * index + 5 * index + 3) % mod
+        for index in range(degree)
+    ]
+    for term_count in (200, 201):
+        denominator = [3] + [0] * (degree - 1)
+        for index in range(1, term_count + 1):
+            denominator[index] = (index * index + 13) % mod
+        quotient = fps_div(numerator, denominator, degree, mod)
+        assert len(quotient) == degree
+        assert fps_multiply(quotient, denominator, mod)[:degree] == numerator
+
+
 def test_validation_and_negative_power():
     with pytest.raises(ZeroDivisionError):
         fps_inverse([0], 1)
