@@ -255,6 +255,32 @@ def _inverse_step(series, result, current, target):
     result.extend(left[current:target])
 
 
+def _inverse_step_from_frequency(
+    series_frequency, inverse_frequency, result, current
+):
+    """Extend ``result = 1 / series`` from ``current`` to ``2 * current``.
+
+    ``series_frequency`` is the length ``2 * current`` transform of the
+    series.  ``inverse_frequency`` is the length ``current`` transform of
+    the already known inverse.  Reusing both transforms is useful when an
+    outer Newton iteration already needs them (notably FPS square root).
+    """
+
+    half = current
+    size = half << 1
+    error = [
+        series_frequency[index] * inverse_frequency[index] % MOD
+        for index in range(half)
+    ]
+    _intt(error)
+    error = error[half >> 1:] + [0] * (half >> 1)
+    _butterfly(error)
+    for index in range(half):
+        error[index] = error[index] * inverse_frequency[index] % MOD
+    _intt(error)
+    result.extend([-value % MOD for value in error[:half >> 1]])
+
+
 def fps_inv(series, degree=None):
     r"""$1/f(x)\bmod x^{degree}$の係数を`degree`個返す。O(N log N)。"""
 
@@ -467,15 +493,40 @@ def fps_sqrt(series, degree=None):
         return [0] * shift + [value * root % MOD for value in result]
     inverse_two = (MOD + 1) >> 1
     result = [root]
+    inverse_result = [pow(root, MOD - 2, MOD)]
+    inverse_frequency = None
     current = 1
     while current < needed:
-        target = min(current << 1, needed)
-        quotient = multiply(source[:target], fps_inv(result, target))[:target]
-        result.extend([0] * (target - len(result)))
-        for index in range(target):
-            value = quotient[index] if index < len(quotient) else 0
-            result[index] = (result[index] + value) * inverse_two % MOD
-        current = target
+        size = current << 1
+        _check_length(size)
+
+        result_frequency = result + [0] * current
+        _butterfly(result_frequency)
+
+        if current > 1:
+            _inverse_step_from_frequency(
+                result_frequency,
+                inverse_frequency,
+                inverse_result,
+                current,
+            )
+
+        inverse_frequency = inverse_result + [0] * current
+        _butterfly(inverse_frequency)
+        source_frequency = source[:size]
+        source_frequency.extend([0] * (size - len(source_frequency)))
+        _butterfly(source_frequency)
+        for index in range(size):
+            value = result_frequency[index]
+            source_frequency[index] = (
+                source_frequency[index] - value * value
+            ) * inverse_frequency[index] % MOD
+        _intt(source_frequency)
+        result.extend(
+            value * inverse_two % MOD
+            for value in source_frequency[current:size]
+        )
+        current = size
     return [0] * shift + result[:needed]
 
 
@@ -520,6 +571,17 @@ def fps_product(polynomials):
         serial += 1
     if not heap:
         return [1]
+    if all(item[0] == heap[0][0] for item in heap):
+        level = [item[2] for item in heap]
+        while len(level) > 1:
+            next_level = []
+            paired = len(level) & ~1
+            for index in range(0, paired, 2):
+                next_level.append(multiply(level[index], level[index + 1]))
+            if paired < len(level):
+                next_level.append(level[-1])
+            level = next_level
+        return level[0]
     heapify(heap)
     while len(heap) > 1:
         _, _, first = heappop(heap)

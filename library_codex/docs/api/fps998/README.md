@@ -8,6 +8,7 @@
 | [`Composition`](Composition.md) | 998244353上でFPS合成と合成逆関数を計算する。 | 2 | 0 | 0 |
 | [`FPS`](FPS.md) | 998244353上の形式的冪級数を昇べき順の係数listで計算する。 | 15 | 0 | 0 |
 | [`LinearRecurrence`](LinearRecurrence.md) | 998244353上で線形漸化式の推定と巨大添字の項を計算する。 | 4 | 0 | 0 |
+| [`MultipointEvaluation`](MultipointEvaluation.md) | Fast multipoint evaluation over 998244353. | 2 | 0 | 0 |
 | [`NTT2D`](NTT2D.md) | 998244353上の2次元NTTと2変数係数畳み込み。 | 3 | 0 | 0 |
 | [`PowerProjection`](PowerProjection.md) | 998244353上で多項式の冪に関する係数をまとめて列挙する。 | 2 | 0 | 0 |
 | [`SubsetSum`](SubsetSum.md) | 998244353上で部分集合・多重集合の重さ別個数を母関数から求める。 | 2 | 0 | 0 |

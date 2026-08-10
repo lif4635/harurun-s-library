@@ -40,7 +40,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [convolution](api/convolution/README.md) | 係数畳み込み・min-plus・DFT・NTT | 7 | 18 | 1 | 4 |
 | [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 2 | 7 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
-| [fps998](api/fps998/README.md) | 998244353固定の高速NTT・FPS・母関数 | 6 | 28 | 0 | 0 |
+| [fps998](api/fps998/README.md) | 998244353固定の高速NTT・FPS・母関数 | 7 | 30 | 0 | 0 |
 | [fps](api/fps/README.md) | modを指定できる形式的冪級数と母関数の演算 | 12 | 34 | 8 | 56 |
 | [polynomial](api/polynomial/README.md) | 多項式の評価・補間・GCD・因数分解 | 15 | 30 | 2 | 3 |
 | [combinatorial_series](api/combinatorial_series/README.md) | 組合せ数列・漸化式・数列変換 | 11 | 23 | 0 | 0 |
@@ -72,4 +72,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
 
-合計: **299 modules / 429 functions / 205 classes / 1283 methods・properties**。
+合計: **300 modules / 431 functions / 205 classes / 1283 methods・properties**。

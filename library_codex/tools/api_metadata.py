@@ -8,6 +8,12 @@ and the website share one reviewable source of truth.
 
 # 正式名・source・説明からは拾いにくい通称だけを置く。
 SEARCH_TERMS_BY_MODULE = {
+    "fps998/MultipointEvaluation.py": (
+        "高速多点評価",
+        "multipoint evaluation",
+        "積木",
+        "subproduct tree",
+    ),
     "segment_tree/LazySegTree.py": (
         "遅延セグ木",
         "lazy segtree",
@@ -53,6 +59,10 @@ SEARCH_TERMS_BY_SYMBOL = {
 
 
 MODULE_CAPABILITIES = {
+    "fps998/MultipointEvaluation.py": (
+        "998244353 上の多項式を、与えられたすべての点で一括評価できる。",
+        "積多項式を NTT 表現のまま保持し、root の逆数を一度だけ作って評価情報を積木へ伝播する。",
+    ),
     "algorithm/DynamicProgramming.py": (
         "0/1 knapsackの各重さに対する最大価値と、容量以内の最大価値を求められる。",
         "非負整数のsubset sumをPython整数bitsetで判定し、実際に選ぶ添字も復元できる。",
@@ -578,6 +588,30 @@ RETURN_DETAILS = {
 # Details that cannot be inferred from the name or AST are therefore keyed by
 # source module, owning class (None for a top-level function), and symbol name.
 API_DETAILS_BY_SYMBOL = {
+    ("fps998/MultipointEvaluation.py", None, "multipoint_evaluation"): {
+        "description": "998244353 上の多項式を、すべての評価点で高速に一括評価する。",
+        "argumentDescriptions": {
+            "polynomial": "昇べき順の係数列。polynomial[i] は x^i の係数。",
+            "points": "評価する点を並べた列。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            "points と同じ長さの列 result。"
+            "result[i] = polynomial(points[i]) mod 998244353。"
+        ),
+    },
+    ("fps998/MultipointEvaluation.py", None, "polynomial_interpolation"): {
+        "description": "998244353 上で、相異なる点と値から多項式を復元する。",
+        "argumentDescriptions": {
+            "points": "互いに異なる補間点を並べた列。",
+            "values": "values[i] が points[i] における値となる列。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            "長さ len(points) の昇べき順係数列 result。"
+            "result(points[i]) = values[i] mod 998244353。"
+        ),
+    },
     ("fps/IncreasingSequences.py", None, "count_increasing_sequences"): {
         "description": (
             r"各位置で $\mathrm{lower}_i \le x_i < \mathrm{upper}_i$ を満たす"
@@ -1917,6 +1951,10 @@ CLASS_DETAILS_BY_SYMBOL = {
 # Big-O is kept separate from descriptive algorithm names.  These entries are
 # used when the source alone cannot provide a useful per-API estimate.
 COMPLEXITY_BY_MODULE = {
+    "fps998/MultipointEvaluation.py": {
+        "multipoint_evaluation": "O((N+M) log^2(N+M))",
+        "polynomial_interpolation": "O(N log^2 N)",
+    },
     "combinatorics/Combination.py": {
         "Comb": "構築 O(size)",
         "ensure": "追加したtable要素数に比例（全呼び出しを通して償却 O(max size)）",

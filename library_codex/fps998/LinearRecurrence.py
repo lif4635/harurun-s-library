@@ -67,8 +67,12 @@ def berlekamp_massey(sequence):
     previous_discrepancy = 1
     for position, raw_value in enumerate(sequence):
         discrepancy = raw_value % MOD
-        for index in range(1, length + 1):
+        index = 1
+        while index <= length:
             discrepancy += connection[index] * sequence[position - index]
+            if index & 7 == 0:
+                discrepancy %= MOD
+            index += 1
         discrepancy %= MOD
         if discrepancy == 0:
             shift += 1

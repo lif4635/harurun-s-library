@@ -219,15 +219,11 @@ def _multiply_naive(first, second):
     return [value % mod for value in result]
 
 
-def multiply(first, second):
-    """2つの係数列の積を長さ`len(first)+len(second)-1`で返す。O(N log N)。"""
-
+def _multiply_without_boundary(first, second):
+    if min(len(first), len(second)) <= 60:
+        return _multiply_naive(first, second)
     first_size = len(first)
     second_size = len(second)
-    if first_size == 0 or second_size == 0:
-        return []
-    if min(first_size, second_size) <= 60:
-        return _multiply_naive(first, second)
     output_size = first_size + second_size - 1
     size = 1 << (output_size - 1).bit_length()
     _check_length(size)
@@ -252,6 +248,38 @@ def multiply(first, second):
         left[index] = left[index] * inverse_size % MOD
     del left[output_size:]
     return left
+
+
+def multiply(first, second):
+    """2つの係数列の積を長さ`len(first)+len(second)-1`で返す。O(N log N)。"""
+
+    first_size = len(first)
+    second_size = len(second)
+    if first_size == 0 or second_size == 0:
+        return []
+    if min(first_size, second_size) <= 60:
+        return _multiply_naive(first, second)
+    if first_size < second_size:
+        first, second = second, first
+        first_size, second_size = second_size, first_size
+    output_size = first_size + second_size - 1
+    lower_power = 1 << (output_size.bit_length() - 1)
+    boundary_excess = output_size - lower_power
+    if 0 < boundary_excess <= 128:
+        prefix = _multiply_without_boundary(
+            first[:-boundary_excess], second
+        )
+        prefix.extend([0] * boundary_excess)
+        tail_start = first_size - boundary_excess
+        for index in range(tail_start, first_size):
+            left = first[index] % MOD
+            if left:
+                for offset, right in enumerate(second):
+                    prefix[index + offset] += left * right
+        for index in range(tail_start, output_size):
+            prefix[index] %= MOD
+        return prefix
+    return _multiply_without_boundary(first, second)
 
 
 def square(series):

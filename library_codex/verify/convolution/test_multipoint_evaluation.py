@@ -7,6 +7,10 @@ import pytest
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
 from library_codex.fps.FormalPowerSeries import fps_evaluate
+from library_codex.fps998.MultipointEvaluation import (
+    multipoint_evaluation as multipoint_evaluation_998,
+    polynomial_interpolation as polynomial_interpolation_998,
+)
 from library_codex.polynomial.MultipointEvaluation import (
     ProductTree,
     interpolate_consecutive,
@@ -42,6 +46,18 @@ def test_interpolation_random_recovers_polynomial():
         tree = ProductTree(points)
         assert tree.interpolate(values) == polynomial
         assert tree.evaluate(tree.interpolate(values)) == values
+
+
+def test_fixed_998_paths_random_and_non_power_of_two():
+    rng = random.Random(998)
+    for size in range(1, 80):
+        points = rng.sample(range(1, 10**6), size)
+        polynomial = [rng.randrange(MOD) for _ in range(size)]
+        expected = [fps_evaluate(polynomial, point) for point in points]
+        assert multipoint_evaluation_998(polynomial, points) == expected
+        assert polynomial_interpolation_998(points, expected) == polynomial
+    with pytest.raises(ValueError):
+        polynomial_interpolation_998([1, 1], [2, 3])
 
 
 def test_duplicate_empty_and_constant_cases():
