@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T20:39:52+00:00",
+  "generatedAt": "2026-08-10T20:45:38+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "77165d0b0e18c9d996aefb92430d58be42ab3c123eb9a0d3a485c1a80e04b117",
-  "inputStamp": "5a57b5e9b7bc1e9d47914d1512e910e20ed540aeb1186c0af3a31667a46c4f03",
+  "sourceFingerprint": "a7d5f7d7416c13c645f32f434126e13349eea9f906258b6cfb54ba0d3cfa1fa3",
+  "inputStamp": "95ed962e77b016c174a69d3ed39d2c7f94d15e4171199131a0acf73480d821c3",
   "generatorFingerprint": "ba9fbb19fb9e838a06d4df4dc01b62fdd1dc71c2a0267530fe8d78dd668b09a3",
   "textFormat": "markdown+tex",
   "stats": {
@@ -12,7 +12,7 @@
     "functions": 447,
     "classes": 207,
     "methods": 1297,
-    "tests": 471
+    "tests": 551
   },
   "categories": [
     {
