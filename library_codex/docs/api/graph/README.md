@@ -7,7 +7,9 @@
 | --- | --- | ---: | ---: | ---: |
 | [`CSRGraph`](CSRGraph.md) | CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend | 8 | 3 | 7 |
 | [`CycleDetection`](CycleDetection.md) | 有向・無向閉路検出（辺ID、多重辺対応、非再帰） | 2 | 0 | 0 |
+| [`DAGAntichain`](DAGAntichain.md) | DAGが表す半順序の最大反鎖を求める。 | 1 | 0 | 0 |
 | [`DFSForest`](DFSForest.md) | 深さ優先探索forestの親・順序・終了順を求める。 | 1 | 0 | 0 |
+| [`DegreeSequence`](DegreeSequence.md) | 次数列が単純無向グラフとして実現可能か判定し、辺を構成する。 | 2 | 0 | 0 |
 | [`DimensionExpandedGraph`](DimensionExpandedGraph.md) | 座標状態を追加次元へ展開したグラフを構築する。 | 0 | 1 | 9 |
 | [`EulerianTrail`](EulerianTrail.md) | 有向・無向Euler路・閉路・成分別分解（非再帰） | 3 | 0 | 0 |
 | [`GraphFromEdges`](GraphFromEdges.md) | 辺listからbit mask形式の無向隣接表を作る。 | 1 | 0 | 0 |

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T16:34:48+00:00",
+  "generatedAt": "2026-08-10T20:39:52+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "db4209bb46a0c154303bba68c44584b4fb4fdca060325bf2c00fd1b5a4afd78b",
-  "inputStamp": "4b1525d2f5ada7c8e3ae14db07b1c762f06c1ba3df74b12e226160b1508f780b",
+  "sourceFingerprint": "77165d0b0e18c9d996aefb92430d58be42ab3c123eb9a0d3a485c1a80e04b117",
+  "inputStamp": "5a57b5e9b7bc1e9d47914d1512e910e20ed540aeb1186c0af3a31667a46c4f03",
   "generatorFingerprint": "ba9fbb19fb9e838a06d4df4dc01b62fdd1dc71c2a0267530fe8d78dd668b09a3",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 310,
-    "functions": 441,
+    "modules": 315,
+    "functions": 447,
     "classes": 207,
     "methods": 1297,
     "tests": 471
@@ -20,8 +20,8 @@
       "label": "アルゴリズム",
       "domain": "algorithm",
       "domainLabel": "Algorithms",
-      "modules": 14,
-      "functions": 30,
+      "modules": 15,
+      "functions": 31,
       "classes": 3,
       "methods": 10
     },
@@ -170,8 +170,8 @@
       "label": "グラフ基盤",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 12,
-      "functions": 19,
+      "modules": 14,
+      "functions": 22,
       "classes": 6,
       "methods": 30
     },
@@ -180,8 +180,8 @@
       "label": "最短路",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 10,
-      "functions": 14,
+      "modules": 11,
+      "functions": 15,
       "classes": 2,
       "methods": 4
     },
@@ -190,8 +190,8 @@
       "label": "連結性・分解",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 14,
-      "functions": 9,
+      "modules": 15,
+      "functions": 10,
       "classes": 11,
       "methods": 66
     },
@@ -380,7 +380,7 @@
     {
       "slug": "algorithm",
       "label": "Algorithms",
-      "modules": 14
+      "modules": 15
     },
     {
       "slug": "convolution",
@@ -395,7 +395,7 @@
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 59
+      "modules": 63
     },
     {
       "slug": "math",
@@ -434,6 +434,77 @@
     }
   ],
   "modules": [
+    {
+      "category": "algorithm",
+      "categoryLabel": "アルゴリズム",
+      "domain": "algorithm",
+      "domainLabel": "Algorithms",
+      "name": "AllButOne",
+      "modulePath": "library_codex.algorithm.AllButOne",
+      "summary": "列の各位置について、その要素だけを除いた積をまとめて求める。",
+      "capabilities": [
+        "各位置について、その要素だけを除いた残り全要素の積をO(N)でまとめて求められる。",
+        "可換性を仮定せず元の順序を保つため、文字列結合・行列積などにも使える。逆元や除算は不要。"
+      ],
+      "searchTerms": [
+        "AllButOne",
+        "All But One",
+        "library_codex.algorithm.AllButOne",
+        "library codex algorithm All But One",
+        "algorithm/AllButOne.py",
+        "アルゴリズム",
+        "1要素除外積",
+        "all but one products",
+        "prefix suffix product"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/algorithm/AllButOne.py",
+      "inputFingerprint": "c657f59b10d34f13f59bcb9daea1bd87bf2655297242c1e0d57da76402c0b4cb",
+      "importCode": "from library_codex.algorithm.AllButOne import all_but_one",
+      "sourceCode": "\"\"\"列の各位置について、その要素だけを除いた積をまとめて求める。\"\"\"\n\n\ndef all_but_one(values, op, identity):\n    \"\"\"result[i]をvalues[i]だけ除いた、元の順序での積として返す。\"\"\"\n    values = list(values)\n    n = len(values)\n    result = [identity] * n\n    product = identity\n    for index, value in enumerate(values):\n        result[index] = product\n        product = op(product, value)\n    product = identity\n    for index in range(n - 1, -1, -1):\n        result[index] = op(result[index], product)\n        product = op(values[index], product)\n    return result\n",
+      "standaloneCode": "\"\"\"列の各位置について、その要素だけを除いた積をまとめて求める。\"\"\"\n\n\ndef all_but_one(values, op, identity):\n    \"\"\"result[i]をvalues[i]だけ除いた、元の順序での積として返す。\"\"\"\n    values = list(values)\n    n = len(values)\n    result = [identity] * n\n    product = identity\n    for index, value in enumerate(values):\n        result[index] = product\n        product = op(product, value)\n    product = identity\n    for index in range(n - 1, -1, -1):\n        result[index] = op(result[index], product)\n        product = op(values[index], product)\n    return result\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "all_but_one",
+          "kind": "function",
+          "signature": "all_but_one(values, op, identity)",
+          "summary": "prefix積とsuffix積を組み合わせ、各位置の要素だけを除いた積を除算なしで求める。",
+          "description": "prefix積とsuffix積を組み合わせ、各位置の要素だけを除いた積を除算なしで求める。",
+          "searchTerms": [
+            "all_but_one",
+            "all but one",
+            "all_but_one(values, op, identity)"
+          ],
+          "arguments": "values: 積をとる順序つきの値の列。iteratorも受け取り、内部でlistにする。 · op: 2つの値を結合する結合的な演算op(left, right)。可換でなくてもよい。 · identity: opの単位元。空のprefix・suffixと、要素が1個だけの入力の結果に使う。",
+          "argumentDetails": [
+            {
+              "name": "values",
+              "description": "積をとる順序つきの値の列。iteratorも受け取り、内部でlistにする。"
+            },
+            {
+              "name": "op",
+              "description": "2つの値を結合する結合的な演算op(left, right)。可換でなくてもよい。"
+            },
+            {
+              "name": "identity",
+              "description": "opの単位元。空のprefix・suffixと、要素が1個だけの入力の結果に使う。"
+            }
+          ],
+          "returns": "list[object] — valuesと同じ長さのresult。result[i]は $\\mathrm{values}[0]\\mathbin{\\mathrm{op}}\\cdots\\mathbin{\\mathrm{values}[i-1]}\\mathbin{\\mathrm{op}}\\mathrm{values}[i+1]\\mathbin{\\mathrm{op}}\\cdots$ を元の順序で計算した値。",
+          "returnFormat": "list[object]",
+          "returnDescription": "valuesと同じ長さのresult。result[i]は $\\mathrm{values}[0]\\mathbin{\\mathrm{op}}\\cdots\\mathbin{\\mathrm{values}[i-1]}\\mathbin{\\mathrm{op}}\\mathrm{values}[i+1]\\mathbin{\\mathrm{op}}\\cdots$ を元の順序で計算した値。",
+          "complexity": "O(N) time、O(N) memory、opを2N回呼ぶ",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
     {
       "category": "algorithm",
       "categoryLabel": "アルゴリズム",
@@ -27579,6 +27650,70 @@
       "categoryLabel": "グラフ基盤",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "DAGAntichain",
+      "modulePath": "library_codex.graph.DAGAntichain",
+      "summary": "DAGが表す半順序の最大反鎖を求める。",
+      "capabilities": [
+        "DAGから、どちらから他方へも到達できない頂点を最大個数選べる。",
+        "利用側で推移閉包や比較可能性グラフを作らず、通常のDAG隣接listをそのまま渡せる。"
+      ],
+      "searchTerms": [
+        "DAGAntichain",
+        "library_codex.graph.DAGAntichain",
+        "library codex graph DAGAntichain",
+        "graph/DAGAntichain.py",
+        "グラフ基盤",
+        "最大反鎖",
+        "maximum antichain",
+        "Dilworth"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph/DAGAntichain.py",
+      "inputFingerprint": "be6f5f7cedbc186041e97b0657049ab2249ce56b4a2eebb00fd5e0dd88a0af89",
+      "importCode": "from library_codex.graph.DAGAntichain import maximum_antichain",
+      "sourceCode": "\"\"\"DAGが表す半順序の最大反鎖を求める。\"\"\"\n\nfrom library_codex.graph_matching.BipartiteMatching import BipartiteMatching\n\n\ndef _to_vertex(edge):\n    return edge if isinstance(edge, int) else edge[0]\n\n\ndef maximum_antichain(graph):\n    \"\"\"互いに到達不能な頂点を最大個数選んで返す。\"\"\"\n    n = len(graph)\n    adjacency = [[] for _ in range(n)]\n    indegree = [0] * n\n    for vertex, row in enumerate(graph):\n        target = adjacency[vertex]\n        for edge in row:\n            to = _to_vertex(edge)\n            if not 0 <= to < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            target.append(to)\n            indegree[to] += 1\n\n    order = [v for v in range(n) if indegree[v] == 0]\n    head = 0\n    while head < len(order):\n        vertex = order[head]\n        head += 1\n        for to in adjacency[vertex]:\n            indegree[to] -= 1\n            if indegree[to] == 0:\n                order.append(to)\n    if len(order) != n:\n        raise ValueError(\"maximum_antichain requires a DAG\")\n\n    reachable = [0] * n\n    for vertex in reversed(order):\n        bits = 0\n        for to in adjacency[vertex]:\n            bits |= reachable[to] | (1 << to)\n        reachable[vertex] = bits\n\n    matcher = BipartiteMatching(n, n)\n    for vertex, bits in enumerate(reachable):\n        while bits:\n            least = bits & -bits\n            matcher.add_edge(vertex, least.bit_length() - 1)\n            bits ^= least\n    left_cover, right_cover = matcher.minimum_vertex_cover()\n    excluded = bytearray(n)\n    for vertex in left_cover:\n        excluded[vertex] = 1\n    for vertex in right_cover:\n        excluded[vertex] = 1\n    return [vertex for vertex in range(n) if not excluded[vertex]]\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: graph_matching/BipartiteMatching.py\nclass BipartiteMatching:\n    __slots__ = ('left_size', 'right_size', 'graph', 'match_left', 'match_right', 'matching_size')\n\n    def __init__(self, left_size, right_size):\n        assert left_size >= 0 and right_size >= 0\n        self.left_size = left_size\n        self.right_size = right_size\n        self.graph = [[] for _ in range(left_size)]\n        self.match_left = [-1] * left_size\n        self.match_right = [-1] * right_size\n        self.matching_size = 0\n\n    def add_edge(self, left, right):\n        assert 0 <= left < self.left_size and 0 <= right < self.right_size\n        self.graph[left].append(right)\n\n    def _augment(self, start, dist, target_depth, current):\n        graph = self.graph\n        match_left = self.match_left\n        match_right = self.match_right\n        stack = [start]\n        while stack:\n            left = stack[-1]\n            edges = graph[left]\n            i = current[left]\n            descended = False\n            while i < len(edges):\n                right = edges[i]\n                i += 1\n                current[left] = i\n                mate = match_right[right]\n                if mate == -1:\n                    if dist[left] + 1 != target_depth:\n                        continue\n                    next_right = right\n                    for u in reversed(stack):\n                        old = match_left[u]\n                        match_left[u] = next_right\n                        match_right[next_right] = u\n                        next_right = old\n                        dist[u] = -1\n                    return True\n                if dist[mate] == dist[left] + 1:\n                    stack.append(mate)\n                    descended = True\n                    break\n            if descended:\n                continue\n            dist[left] = -1\n            stack.pop()\n        return False\n\n    def solve(self):\n        left_size = self.left_size\n        graph = self.graph\n        match_left = self.match_left\n        match_right = self.match_right\n        while True:\n            dist = [-1] * left_size\n            que = []\n            for left in range(left_size):\n                if match_left[left] == -1:\n                    dist[left] = 0\n                    que.append(left)\n            target_depth = -1\n            for left in que:\n                depth = dist[left] + 1\n                if target_depth != -1 and depth >= target_depth:\n                    continue\n                for right in graph[left]:\n                    mate = match_right[right]\n                    if mate == -1:\n                        target_depth = depth\n                    elif dist[mate] == -1:\n                        dist[mate] = depth\n                        que.append(mate)\n            if target_depth == -1:\n                break\n            current = [0] * left_size\n            augmented = 0\n            for left in range(left_size):\n                if match_left[left] == -1 and dist[left] == 0:\n                    augmented += self._augment(left, dist, target_depth, current)\n            if augmented == 0:\n                break\n            self.matching_size += augmented\n        return self.matching_size\n    flow = solve\n\n    def pairs(self):\n        self.solve()\n        return [(left, right) for (left, right) in enumerate(self.match_left) if right != -1]\n    maximum_matching = pairs\n\n    def _alternating_reachable(self):\n        self.solve()\n        seen_left = [False] * self.left_size\n        seen_right = [False] * self.right_size\n        que = []\n        for (left, right) in enumerate(self.match_left):\n            if right == -1:\n                seen_left[left] = True\n                que.append(left)\n        for left in que:\n            matched = self.match_left[left]\n            for right in self.graph[left]:\n                if right == matched or seen_right[right]:\n                    continue\n                seen_right[right] = True\n                mate = self.match_right[right]\n                if mate != -1 and (not seen_left[mate]):\n                    seen_left[mate] = True\n                    que.append(mate)\n        return (seen_left, seen_right)\n\n    def minimum_vertex_cover(self):\n        (seen_left, seen_right) = self._alternating_reachable()\n        return ([i for (i, seen) in enumerate(seen_left) if not seen], [i for (i, seen) in enumerate(seen_right) if seen])\n\n    def maximum_independent_set(self):\n        (seen_left, seen_right) = self._alternating_reachable()\n        return ([i for (i, seen) in enumerate(seen_left) if seen], [i for (i, seen) in enumerate(seen_right) if not seen])\n\n    def minimum_edge_cover(self):\n        self.solve()\n        covered_left = [False] * self.left_size\n        covered_right = [False] * self.right_size\n        result = []\n        first_left = [-1] * self.right_size\n        for (left, edges) in enumerate(self.graph):\n            if not edges:\n                return None\n            for right in edges:\n                if first_left[right] == -1:\n                    first_left[right] = left\n        if any((left == -1 for left in first_left)):\n            return None\n        for (left, right) in enumerate(self.match_left):\n            if right != -1:\n                result.append((left, right))\n                covered_left[left] = True\n                covered_right[right] = True\n        for left in range(self.left_size):\n            if not covered_left[left]:\n                right = self.graph[left][0]\n                result.append((left, right))\n                covered_left[left] = True\n                covered_right[right] = True\n        for right in range(self.right_size):\n            if not covered_right[right]:\n                left = first_left[right]\n                result.append((left, right))\n                covered_left[left] = True\n                covered_right[right] = True\n        return result\n\n    def dulmage_mendelsohn(self):\n        self.solve()\n        left_size = self.left_size\n        n = left_size + self.right_size\n        graph = [[] for _ in range(n)]\n        reverse = [[] for _ in range(n)]\n        for (left, edges) in enumerate(self.graph):\n            matched = self.match_left[left]\n            for right in edges:\n                rv = left_size + right\n                graph[left].append(rv)\n                reverse[rv].append(left)\n                if right == matched:\n                    graph[rv].append(left)\n                    reverse[left].append(rv)\n        used = [False] * n\n        vinf = []\n        que = []\n        for (left, right) in enumerate(self.match_left):\n            if right == -1:\n                used[left] = True\n                que.append(left)\n        for v in que:\n            vinf.append(v)\n            for to in graph[v]:\n                if not used[to]:\n                    used[to] = True\n                    que.append(to)\n        vzero = []\n        que = []\n        for (right, left) in enumerate(self.match_right):\n            v = left_size + right\n            if left == -1 and (not used[v]):\n                used[v] = True\n                que.append(v)\n        for v in que:\n            vzero.append(v)\n            for to in reverse[v]:\n                if not used[to]:\n                    used[to] = True\n                    que.append(to)\n        seen = used.copy()\n        order = []\n        for start in range(n):\n            if seen[start]:\n                continue\n            seen[start] = True\n            stack = [(start, 0)]\n            while stack:\n                (v, i) = stack[-1]\n                if i == len(graph[v]):\n                    order.append(v)\n                    stack.pop()\n                    continue\n                to = graph[v][i]\n                stack[-1] = (v, i + 1)\n                if not seen[to] and (not used[to]):\n                    seen[to] = True\n                    stack.append((to, 0))\n        component = [-1] * n\n        groups = []\n        for start in reversed(order):\n            if component[start] != -1:\n                continue\n            cid = len(groups)\n            group = []\n            component[start] = cid\n            stack = [start]\n            while stack:\n                v = stack.pop()\n                group.append(v)\n                for to in reverse[v]:\n                    if not used[to] and component[to] == -1:\n                        component[to] = cid\n                        stack.append(to)\n            groups.append(group)\n        return [vzero] + groups + [vinf]\n    dm_decomposition = dulmage_mendelsohn\n\ndef bipartite_matching(graph, right_size):\n    matcher = BipartiteMatching(len(graph), right_size)\n    for (left, edges) in enumerate(graph):\n        for right in edges:\n            matcher.add_edge(left, right)\n    matcher.solve()\n    return matcher.match_left\n\ndef maximum_bipartite_matching(left_size, right_size, edges):\n    matcher = BipartiteMatching(left_size, right_size)\n    for (left, right) in edges:\n        matcher.add_edge(left, right)\n    return matcher.maximum_matching()\n\n# 本体\n\"\"\"DAGが表す半順序の最大反鎖を求める。\"\"\"\n\ndef _to_vertex(edge):\n    return edge if isinstance(edge, int) else edge[0]\n\ndef maximum_antichain(graph):\n    \"\"\"互いに到達不能な頂点を最大個数選んで返す。\"\"\"\n    n = len(graph)\n    adjacency = [[] for _ in range(n)]\n    indegree = [0] * n\n    for (vertex, row) in enumerate(graph):\n        target = adjacency[vertex]\n        for edge in row:\n            to = _to_vertex(edge)\n            if not 0 <= to < n:\n                raise IndexError('an edge endpoint is outside the graph')\n            target.append(to)\n            indegree[to] += 1\n    order = [v for v in range(n) if indegree[v] == 0]\n    head = 0\n    while head < len(order):\n        vertex = order[head]\n        head += 1\n        for to in adjacency[vertex]:\n            indegree[to] -= 1\n            if indegree[to] == 0:\n                order.append(to)\n    if len(order) != n:\n        raise ValueError('maximum_antichain requires a DAG')\n    reachable = [0] * n\n    for vertex in reversed(order):\n        bits = 0\n        for to in adjacency[vertex]:\n            bits |= reachable[to] | 1 << to\n        reachable[vertex] = bits\n    matcher = BipartiteMatching(n, n)\n    for (vertex, bits) in enumerate(reachable):\n        while bits:\n            least = bits & -bits\n            matcher.add_edge(vertex, least.bit_length() - 1)\n            bits ^= least\n    (left_cover, right_cover) = matcher.minimum_vertex_cover()\n    excluded = bytearray(n)\n    for vertex in left_cover:\n        excluded[vertex] = 1\n    for vertex in right_cover:\n        excluded[vertex] = 1\n    return [vertex for vertex in range(n) if not excluded[vertex]]\n",
+      "bundledDependencies": [
+        "library_codex.graph_matching.BipartiteMatching"
+      ],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "maximum_antichain",
+          "kind": "function",
+          "signature": "maximum_antichain(graph)",
+          "summary": "DAGの到達関係を半順序とみなし、互いに比較不能な頂点からなる最大反鎖を1つ返す。",
+          "description": "DAGの到達関係を半順序とみなし、互いに比較不能な頂点からなる最大反鎖を1つ返す。",
+          "searchTerms": [
+            "maximum_antichain",
+            "maximum antichain",
+            "maximum_antichain(graph)"
+          ],
+          "arguments": "graph: DAGの有向隣接list。要素は行き先、または先頭要素が行き先のtuple。辺u→vはuがvより前にある関係を表す。cycleがあればValueError。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "DAGの有向隣接list。要素は行き先、または先頭要素が行き先のtuple。辺u→vはuがvより前にある関係を表す。cycleがあればValueError。"
+            }
+          ],
+          "returns": "list[int] — 最大反鎖に選んだ頂点番号を昇順に並べた列。任意の異なる2頂点u, vについて、uからvにもvからuにも到達できない。",
+          "returnFormat": "list[int]",
+          "returnDescription": "最大反鎖に選んだ頂点番号を昇順に並べた列。任意の異なる2頂点u, vについて、uからvにもvからuにも到達できない。",
+          "complexity": "O((V + E) ceil(V / W) + R sqrt(V)) time、O(V ceil(V / W) + R) memory（Rは到達可能な異なる頂点pair数、Wはbitsetの機械語幅）",
+          "sourceLine": 10
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph",
+      "categoryLabel": "グラフ基盤",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "DFSForest",
       "modulePath": "library_codex.graph.DFSForest",
       "summary": "深さ優先探索森の親・順序・終了順を求める。",
@@ -27636,6 +27771,92 @@
           "returnDescription": "求めたdfs・森。",
           "complexity": "O(V+E)",
           "sourceLine": 3
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph",
+      "categoryLabel": "グラフ基盤",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "DegreeSequence",
+      "modulePath": "library_codex.graph.DegreeSequence",
+      "summary": "次数列が単純無向グラフとして実現可能か判定し、辺を構成する。",
+      "capabilities": [
+        "整数列が単純無向グラフの次数列として実現可能か判定できる。",
+        "実現可能なとき、自己loopと平行辺を含まない具体的な辺listを1つ構成できる。"
+      ],
+      "searchTerms": [
+        "DegreeSequence",
+        "Degree Sequence",
+        "library_codex.graph.DegreeSequence",
+        "library codex graph Degree Sequence",
+        "graph/DegreeSequence.py",
+        "グラフ基盤",
+        "次数列",
+        "Erdos Gallai",
+        "Havel Hakimi"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph/DegreeSequence.py",
+      "inputFingerprint": "b2e9778ff0999828bff00c3ff1fd6778e8569afab5d8a513c0f96f7ffa760431",
+      "importCode": "from library_codex.graph.DegreeSequence import is_graphical, realize",
+      "sourceCode": "\"\"\"次数列が単純無向グラフとして実現可能か判定し、辺を構成する。\"\"\"\n\nimport heapq\n\n\ndef is_graphical(degrees):\n    \"\"\"degreesを次数列にもつ単純無向グラフが存在するか返す。\"\"\"\n    degree = list(degrees)\n    n = len(degree)\n    counts = [0] * n\n    total_degree = 0\n    for value in degree:\n        if value < 0 or value >= n:\n            return False\n        counts[value] += 1\n        total_degree += value\n    if total_degree & 1:\n        return False\n    degree = []\n    for value in range(n - 1, -1, -1):\n        degree.extend([value] * counts[value])\n    prefix = [0] * (n + 1)\n    for index, value in enumerate(degree):\n        prefix[index + 1] = prefix[index] + value\n\n    boundary = 0\n    total = prefix[n]\n    for size in range(n, 0, -1):\n        while boundary < n and degree[boundary] >= size:\n            boundary += 1\n        if boundary < size:\n            right = size * (size - 1) + total - prefix[size]\n        else:\n            right = (\n                size * (size - 1)\n                + (boundary - size) * size\n                + total - prefix[boundary]\n            )\n        if prefix[size] > right:\n            return False\n    return True\n\n\ndef realize(degrees):\n    \"\"\"degreesを実現する単純無向グラフの辺listを返す。\"\"\"\n    degree = list(degrees)\n    if not is_graphical(degree):\n        return None\n    heap = [(-value, vertex) for vertex, value in enumerate(degree) if value]\n    heapq.heapify(heap)\n    edges = []\n    while heap:\n        negative, vertex = heapq.heappop(heap)\n        need = -negative\n        selected = []\n        if need > len(heap):\n            return None\n        for _ in range(need):\n            other_negative, other = heapq.heappop(heap)\n            edges.append((vertex, other))\n            other_negative += 1\n            if other_negative:\n                selected.append((other_negative, other))\n        for entry in selected:\n            heapq.heappush(heap, entry)\n    return edges\n",
+      "standaloneCode": "\"\"\"次数列が単純無向グラフとして実現可能か判定し、辺を構成する。\"\"\"\n\nimport heapq\n\n\ndef is_graphical(degrees):\n    \"\"\"degreesを次数列にもつ単純無向グラフが存在するか返す。\"\"\"\n    degree = list(degrees)\n    n = len(degree)\n    counts = [0] * n\n    total_degree = 0\n    for value in degree:\n        if value < 0 or value >= n:\n            return False\n        counts[value] += 1\n        total_degree += value\n    if total_degree & 1:\n        return False\n    degree = []\n    for value in range(n - 1, -1, -1):\n        degree.extend([value] * counts[value])\n    prefix = [0] * (n + 1)\n    for index, value in enumerate(degree):\n        prefix[index + 1] = prefix[index] + value\n\n    boundary = 0\n    total = prefix[n]\n    for size in range(n, 0, -1):\n        while boundary < n and degree[boundary] >= size:\n            boundary += 1\n        if boundary < size:\n            right = size * (size - 1) + total - prefix[size]\n        else:\n            right = (\n                size * (size - 1)\n                + (boundary - size) * size\n                + total - prefix[boundary]\n            )\n        if prefix[size] > right:\n            return False\n    return True\n\n\ndef realize(degrees):\n    \"\"\"degreesを実現する単純無向グラフの辺listを返す。\"\"\"\n    degree = list(degrees)\n    if not is_graphical(degree):\n        return None\n    heap = [(-value, vertex) for vertex, value in enumerate(degree) if value]\n    heapq.heapify(heap)\n    edges = []\n    while heap:\n        negative, vertex = heapq.heappop(heap)\n        need = -negative\n        selected = []\n        if need > len(heap):\n            return None\n        for _ in range(need):\n            other_negative, other = heapq.heappop(heap)\n            edges.append((vertex, other))\n            other_negative += 1\n            if other_negative:\n                selected.append((other_negative, other))\n        for entry in selected:\n            heapq.heappush(heap, entry)\n    return edges\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "is_graphical",
+          "kind": "function",
+          "signature": "is_graphical(degrees)",
+          "summary": "Erdős–Gallai条件により、指定した次数をもつ単純無向グラフが存在するか判定する。",
+          "description": "Erdős–Gallai条件により、指定した次数をもつ単純無向グラフが存在するか判定する。",
+          "searchTerms": [
+            "is_graphical",
+            "is graphical",
+            "is_graphical(degrees)"
+          ],
+          "arguments": "degrees: 頂点番号順の非負整数列。degrees[v]を頂点vの希望次数とする。",
+          "argumentDetails": [
+            {
+              "name": "degrees",
+              "description": "頂点番号順の非負整数列。degrees[v]を頂点vの希望次数とする。"
+            }
+          ],
+          "returns": "bool — 自己loopと平行辺を使わず、全頂点vの次数をdegrees[v]にできるならTrue。",
+          "returnFormat": "bool",
+          "returnDescription": "自己loopと平行辺を使わず、全頂点vの次数をdegrees[v]にできるならTrue。",
+          "complexity": "O(N) time、O(N) memory",
+          "sourceLine": 6
+        },
+        {
+          "name": "realize",
+          "kind": "function",
+          "signature": "realize(degrees)",
+          "summary": "Havel–Hakimi法により、指定した次数列を実現する単純無向グラフを1つ構成する。",
+          "description": "Havel–Hakimi法により、指定した次数列を実現する単純無向グラフを1つ構成する。",
+          "searchTerms": [
+            "realize",
+            "realize(degrees)"
+          ],
+          "arguments": "degrees: 頂点番号順の非負整数列。degrees[v]を頂点vの希望次数とする。",
+          "argumentDetails": [
+            {
+              "name": "degrees",
+              "description": "頂点番号順の非負整数列。degrees[v]を頂点vの希望次数とする。"
+            }
+          ],
+          "returns": "list[tuple[int, int]] | None — 実現可能なら無向辺(first, second)を1回ずつ並べた列。各pairはfirst != secondで、同じ無向辺は重複しない。実現不能ならNone。",
+          "returnFormat": "list[tuple[int, int]] | None",
+          "returnDescription": "実現可能なら無向辺(first, second)を1回ずつ並べた列。各pairはfirst != secondで、同じ無向辺は重複しない。実現不能ならNone。",
+          "complexity": "O(N + M log N) time、O(N + M) memory（Mは構成する辺数）",
+          "sourceLine": 44
         }
       ],
       "classes": []
@@ -29788,6 +30009,85 @@
           "returnDescription": "存在するwalkのコストを小さい順に最大k個並べた列。walkがk個未満なら存在する分だけ返し、source=targetでは空walkのコスト0が先頭になる。",
           "complexity": "O((V+E) log V + E log E + K log K) time、O(V + E log E + K) memory",
           "sourceLine": 33
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "shortest_path",
+      "categoryLabel": "最短路",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "Top2Dijkstra",
+      "modulePath": "library_codex.shortest_path.Top2Dijkstra",
+      "summary": "各頂点に最も近い異なる2個のsourceと距離を求める。",
+      "capabilities": [
+        "非負重みグラフの各頂点について、最も近いsourceと2番目に近い異なるsourceを距離つきで求められる。",
+        "複数始点Dijkstraを2候補まで拡張し、sourceごとのDijkstraを個別には実行しない。辺重みを省略した隣接リストは重み1として扱う。"
+      ],
+      "searchTerms": [
+        "Top2Dijkstra",
+        "Top2 Dijkstra",
+        "library_codex.shortest_path.Top2Dijkstra",
+        "library codex shortest path Top2 Dijkstra",
+        "shortest_path/Top2Dijkstra.py",
+        "最短路",
+        "最近傍2点",
+        "multi source dijkstra",
+        "グラフVoronoi"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/shortest_path/Top2Dijkstra.py",
+      "inputFingerprint": "f5ddabe2a4a4a5d208372ee50e9e4dff19316fc83b6e176e452b308bc64c9331",
+      "importCode": "from library_codex.shortest_path.Top2Dijkstra import top2_dijkstra",
+      "sourceCode": "\"\"\"各頂点に最も近い異なる2個のsourceと距離を求める。\"\"\"\n\nimport heapq\n\n\nINF = float(\"inf\")\n\n\ndef _edge(entry):\n    if isinstance(entry, int):\n        return entry, 1\n    return entry[0], entry[1]\n\n\ndef top2_dijkstra(graph, sources):\n    \"\"\"各頂点について距離が小さい順の異なる2始点を返す。\"\"\"\n    n = len(graph)\n    nearest = [[] for _ in range(n)]\n    heap = []\n    used_sources = set()\n    for source in sources:\n        if not 0 <= source < n:\n            raise IndexError(\"a source is outside the graph\")\n        if source not in used_sources:\n            used_sources.add(source)\n            heapq.heappush(heap, (0, source, source))\n\n    while heap:\n        distance, source, vertex = heapq.heappop(heap)\n        current = nearest[vertex]\n        if any(label == source for _, label in current) or len(current) == 2:\n            continue\n        current.append((distance, source))\n        for entry in graph[vertex]:\n            to, weight = _edge(entry)\n            if not 0 <= to < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            if weight < 0:\n                raise ValueError(\"top2_dijkstra requires nonnegative weights\")\n            heapq.heappush(heap, (distance + weight, source, to))\n\n    missing = (INF, -1)\n    return [\n        (row[0] if row else missing, row[1] if len(row) == 2 else missing)\n        for row in nearest\n    ]\n",
+      "standaloneCode": "\"\"\"各頂点に最も近い異なる2個のsourceと距離を求める。\"\"\"\n\nimport heapq\n\n\nINF = float(\"inf\")\n\n\ndef _edge(entry):\n    if isinstance(entry, int):\n        return entry, 1\n    return entry[0], entry[1]\n\n\ndef top2_dijkstra(graph, sources):\n    \"\"\"各頂点について距離が小さい順の異なる2始点を返す。\"\"\"\n    n = len(graph)\n    nearest = [[] for _ in range(n)]\n    heap = []\n    used_sources = set()\n    for source in sources:\n        if not 0 <= source < n:\n            raise IndexError(\"a source is outside the graph\")\n        if source not in used_sources:\n            used_sources.add(source)\n            heapq.heappush(heap, (0, source, source))\n\n    while heap:\n        distance, source, vertex = heapq.heappop(heap)\n        current = nearest[vertex]\n        if any(label == source for _, label in current) or len(current) == 2:\n            continue\n        current.append((distance, source))\n        for entry in graph[vertex]:\n            to, weight = _edge(entry)\n            if not 0 <= to < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            if weight < 0:\n                raise ValueError(\"top2_dijkstra requires nonnegative weights\")\n            heapq.heappush(heap, (distance + weight, source, to))\n\n    missing = (INF, -1)\n    return [\n        (row[0] if row else missing, row[1] if len(row) == 2 else missing)\n        for row in nearest\n    ]\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "top2_dijkstra",
+          "kind": "function",
+          "signature": "top2_dijkstra(graph, sources)",
+          "summary": "すべてのsourceから同時にDijkstraを行い、各頂点でsource番号が異なる上位2候補だけを残す。",
+          "description": "すべてのsourceから同時にDijkstraを行い、各頂点でsource番号が異なる上位2候補だけを残す。",
+          "searchTerms": [
+            "top2_dijkstra",
+            "top2 dijkstra",
+            "top2_dijkstra(graph, sources)"
+          ],
+          "arguments": "graph: 非負重み有向辺を(to, weight)で並べた隣接list。整数toだけの要素は重み1として扱う。無向辺は両方向へ入れる。 · sources: 距離0から探索を始める頂点番号の列。重複は1個へまとめる。source番号そのものを候補の識別子にする。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "非負重み有向辺を(to, weight)で並べた隣接list。整数toだけの要素は重み1として扱う。無向辺は両方向へ入れる。"
+            },
+            {
+              "name": "sources",
+              "description": "距離0から探索を始める頂点番号の列。重複は1個へまとめる。source番号そのものを候補の識別子にする。"
+            }
+          ],
+          "returns": "list[tuple[tuple[number, int], tuple[number, int]]] — 頂点番号順のresult。result[v]は((d1, s1), (d2, s2))で、d1 <= d2、s1とs2は異なるsource番号。第2候補がなければ(d2, s2)は(inf, -1)、第1候補もなければ両方が(inf, -1)。同距離ではsource番号が小さい方を先にする。",
+          "returnFormat": "list[tuple[tuple[number, int], tuple[number, int]]]",
+          "returnDescription": "頂点番号順のresult。result[v]は((d1, s1), (d2, s2))で、d1 <= d2、s1とs2は異なるsource番号。第2候補がなければ(d2, s2)は(inf, -1)、第1候補もなければ両方が(inf, -1)。同距離ではsource番号が小さい方を先にする。",
+          "complexity": "O((V + E) log(V + E)) time、O(V + E) memory",
+          "sourceLine": 15,
+          "returnParts": [
+            {
+              "name": "nearest",
+              "format": "tuple[number, int]",
+              "description": "第1要素は最短距離、第2要素はその距離を与えるsource番号。同距離ならsource番号が小さい方を先にする。"
+            },
+            {
+              "name": "second",
+              "format": "tuple[number, int]",
+              "description": "nearestと異なるsourceのうち次に近い(distance, source)。候補がなければ(inf, -1)。"
+            }
+          ]
         }
       ],
       "classes": []
@@ -32284,6 +32584,73 @@
           ]
         }
       ]
+    },
+    {
+      "category": "graph_connectivity",
+      "categoryLabel": "連結性・分解",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "Reachability",
+      "modulePath": "library_codex.graph_connectivity.Reachability",
+      "summary": "有向グラフ上の複数の到達可能性クエリをまとめて判定する。",
+      "capabilities": [
+        "有向グラフで、複数の(source, target)についてsourceからtargetへ到達できるかをまとめて判定できる。",
+        "cycleを含むグラフをSCCへ縮約し、同じ始点成分のクエリを再利用して1回ずつDFSするより速く処理する。"
+      ],
+      "searchTerms": [
+        "Reachability",
+        "library_codex.graph_connectivity.Reachability",
+        "library codex graph connectivity Reachability",
+        "graph_connectivity/Reachability.py",
+        "連結性・分解",
+        "到達可能性",
+        "offline reachability",
+        "一括到達判定"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_connectivity/Reachability.py",
+      "inputFingerprint": "387712a8ef8a6600afbb65cad654872f4acb33ba22a039d01c36893a9739efec",
+      "importCode": "from library_codex.graph_connectivity.Reachability import reachability",
+      "sourceCode": "\"\"\"有向グラフ上の複数の到達可能性queryをまとめて判定する。\"\"\"\n\nfrom library_codex.graph_connectivity.StronglyConnectedComponents import SCC\n\n\ndef reachability(graph, queries):\n    \"\"\"各(source, target)についてsourceからtargetへ到達できるか返す。\"\"\"\n    n = len(graph)\n    pairs = list(queries)\n    for source, target in pairs:\n        if not 0 <= source < n or not 0 <= target < n:\n            raise IndexError(\"a query vertex is outside the graph\")\n    if not pairs:\n        return []\n\n    decomposition = SCC(graph)\n    component = decomposition.component\n    dag = decomposition.dag\n    count = decomposition.count\n\n    indegree = [0] * count\n    for edges in dag:\n        for to in edges:\n            indegree[to] += 1\n    order = [v for v in range(count) if indegree[v] == 0]\n    head = 0\n    while head < len(order):\n        vertex = order[head]\n        head += 1\n        for to in dag[vertex]:\n            indegree[to] -= 1\n            if indegree[to] == 0:\n                order.append(to)\n\n    result = [False] * len(pairs)\n    by_source = {}\n    for index, (source, target) in enumerate(pairs):\n        first = component[source]\n        second = component[target]\n        if first == second:\n            result[index] = True\n        else:\n            by_source.setdefault(first, []).append((index, second))\n\n    sources = list(by_source)\n    batch_size = 2048\n    for begin in range(0, len(sources), batch_size):\n        batch = sources[begin:begin + batch_size]\n        reached = [0] * count\n        for bit, source in enumerate(batch):\n            reached[source] = 1 << bit\n        for vertex in order:\n            bits = reached[vertex]\n            if bits:\n                for to in dag[vertex]:\n                    reached[to] |= bits\n        for bit, source in enumerate(batch):\n            flag = 1 << bit\n            for index, target in by_source[source]:\n                result[index] = bool(reached[target] & flag)\n    return result\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: graph_connectivity/StronglyConnectedComponents.py\nclass SCC:\n    __slots__ = ('n', 'graph', 'component', 'groups', 'dag', 'count')\n\n    def __init__(self, graph):\n        n = len(graph)\n        adjacency = [[] for _ in range(n)]\n        reverse = [[] for _ in range(n)]\n        for (node, row) in enumerate(graph):\n            target = adjacency[node]\n            for entry in row:\n                other = entry if isinstance(entry, int) else entry[0]\n                target.append(other)\n                reverse[other].append(node)\n        seen = bytearray(n)\n        order = []\n        for start in range(n):\n            if seen[start]:\n                continue\n            seen[start] = 1\n            stack = [(start, 0)]\n            while stack:\n                (node, index) = stack[-1]\n                if index == len(adjacency[node]):\n                    order.append(node)\n                    stack.pop()\n                    continue\n                other = adjacency[node][index]\n                stack[-1] = (node, index + 1)\n                if not seen[other]:\n                    seen[other] = 1\n                    stack.append((other, 0))\n        component = [-1] * n\n        groups = []\n        for start in reversed(order):\n            if component[start] >= 0:\n                continue\n            component[start] = len(groups)\n            group = []\n            stack = [start]\n            while stack:\n                node = stack.pop()\n                group.append(node)\n                for other in reverse[node]:\n                    if component[other] < 0:\n                        component[other] = component[start]\n                        stack.append(other)\n            groups.append(group)\n        dag_sets = [set() for _ in groups]\n        for (node, row) in enumerate(adjacency):\n            first = component[node]\n            for other in row:\n                second = component[other]\n                if first != second:\n                    dag_sets[first].add(second)\n        self.n = n\n        self.graph = adjacency\n        self.component = component\n        self.groups = groups\n        self.dag = [list(row) for row in dag_sets]\n        self.count = len(groups)\n\n    def same(self, first, second):\n        return self.component[first] == self.component[second]\n\n    def __getitem__(self, vertex):\n        return self.component[vertex]\n\ndef scc(graph):\n    solver = SCC(graph)\n    return (solver.component, solver.groups)\n\n# 本体\n\"\"\"有向グラフ上の複数の到達可能性queryをまとめて判定する。\"\"\"\n\ndef reachability(graph, queries):\n    \"\"\"各(source, target)についてsourceからtargetへ到達できるか返す。\"\"\"\n    n = len(graph)\n    pairs = list(queries)\n    for (source, target) in pairs:\n        if not 0 <= source < n or not 0 <= target < n:\n            raise IndexError('a query vertex is outside the graph')\n    if not pairs:\n        return []\n    decomposition = SCC(graph)\n    component = decomposition.component\n    dag = decomposition.dag\n    count = decomposition.count\n    indegree = [0] * count\n    for edges in dag:\n        for to in edges:\n            indegree[to] += 1\n    order = [v for v in range(count) if indegree[v] == 0]\n    head = 0\n    while head < len(order):\n        vertex = order[head]\n        head += 1\n        for to in dag[vertex]:\n            indegree[to] -= 1\n            if indegree[to] == 0:\n                order.append(to)\n    result = [False] * len(pairs)\n    by_source = {}\n    for (index, (source, target)) in enumerate(pairs):\n        first = component[source]\n        second = component[target]\n        if first == second:\n            result[index] = True\n        else:\n            by_source.setdefault(first, []).append((index, second))\n    sources = list(by_source)\n    batch_size = 2048\n    for begin in range(0, len(sources), batch_size):\n        batch = sources[begin:begin + batch_size]\n        reached = [0] * count\n        for (bit, source) in enumerate(batch):\n            reached[source] = 1 << bit\n        for vertex in order:\n            bits = reached[vertex]\n            if bits:\n                for to in dag[vertex]:\n                    reached[to] |= bits\n        for (bit, source) in enumerate(batch):\n            flag = 1 << bit\n            for (index, target) in by_source[source]:\n                result[index] = bool(reached[target] & flag)\n    return result\n",
+      "bundledDependencies": [
+        "library_codex.graph_connectivity.StronglyConnectedComponents"
+      ],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "reachability",
+          "kind": "function",
+          "signature": "reachability(graph, queries)",
+          "summary": "有向graphをSCCへ縮約し、複数の始点からの到達情報をbitsetでまとめて伝播する。",
+          "description": "有向graphをSCCへ縮約し、複数の始点からの到達情報をbitsetでまとめて伝播する。",
+          "searchTerms": [
+            "reachability",
+            "reachability(graph, queries)"
+          ],
+          "arguments": "graph: graph[v]にvから出る有向辺の行き先、または先頭要素が行き先のtupleを並べた隣接list。cycle・自己loop・平行辺を許す。 · queries: 判定する(source, target)を並べた列。source=targetは長さ0のpathで常に到達可能とする。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "graph[v]にvから出る有向辺の行き先、または先頭要素が行き先のtupleを並べた隣接list。cycle・自己loop・平行辺を許す。"
+            },
+            {
+              "name": "queries",
+              "description": "判定する(source, target)を並べた列。source=targetは長さ0のpathで常に到達可能とする。"
+            }
+          ],
+          "returns": "list[bool] — queriesと同じ長さのresult。result[q]はqueries[q]のsourceからtargetへ有向辺を0本以上たどって到達できるときTrue。",
+          "returnFormat": "list[bool]",
+          "returnDescription": "queriesと同じ長さのresult。result[q]はqueries[q]のsourceからtargetへ有向辺を0本以上たどって到達できるときTrue。",
+          "complexity": "O(V + E + (C + D) ceil(S / W) + Q) time、O(V + E + C + D + Q) memory（C, DはSCC縮約DAGの頂点・辺数、Sは異なる始点成分数、Wはbitsetの機械語幅）",
+          "sourceLine": 6
+        }
+      ],
+      "classes": []
     },
     {
       "category": "graph_connectivity",

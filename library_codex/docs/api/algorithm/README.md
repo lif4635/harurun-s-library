@@ -5,6 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`AllButOne`](AllButOne.md) | 列の各位置について、その要素だけを除いた積をまとめて求める。 | 1 | 0 | 0 |
 | [`Base64Integers`](Base64Integers.md) | 符号付き整数列のBase64可変長符号化・復号 | 2 | 0 | 0 |
 | [`BitAlgorithms`](BitAlgorithms.md) | set bit・部分mask・上位maskの列挙 | 6 | 0 | 0 |
 | [`Doubling`](Doubling.md) | functional graphのbinary liftingと加算集約 | 0 | 1 | 2 |

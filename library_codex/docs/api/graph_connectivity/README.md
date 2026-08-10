@@ -17,5 +17,6 @@
 | [`NamoriDecomposition`](NamoriDecomposition.md) | 重み付き擬森林の周期・付随木分解と距離 | 0 | 1 | 22 |
 | [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md) | 辺追加削除・連結性・成分和のオフライン処理 | 0 | 1 | 10 |
 | [`OnlineDynamicConnectivity`](OnlineDynamicConnectivity.md) | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | 0 | 1 | 4 |
+| [`Reachability`](Reachability.md) | 有向グラフ上の複数の到達可能性queryをまとめて判定する。 | 1 | 0 | 0 |
 | [`StronglyConnectedComponents`](StronglyConnectedComponents.md) | 反復Kosaraju・縮約DAG | 1 | 1 | 2 |
 | [`TwoEdgeConnectedComponents`](TwoEdgeConnectedComponents.md) | 二辺連結成分・橋森・辺の成分対応 | 1 | 1 | 6 |

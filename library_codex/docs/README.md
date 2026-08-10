@@ -36,7 +36,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 
 | category | 内容 | modules | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: | ---: |
-| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 14 | 30 | 3 | 10 |
+| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 15 | 31 | 3 | 10 |
 | [convolution](api/convolution/README.md) | 係数畳み込み・min-plus・DFT・NTT | 7 | 18 | 1 | 4 |
 | [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 2 | 7 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
@@ -51,9 +51,9 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 10 | 3 | 8 | 66 |
 | [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 6 | 4 | 6 | 52 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
-| [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 12 | 19 | 6 | 30 |
-| [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 10 | 14 | 2 | 4 |
-| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 14 | 9 | 11 | 66 |
+| [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 14 | 22 | 6 | 30 |
+| [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 11 | 15 | 2 | 4 |
+| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 15 | 10 | 11 | 66 |
 | [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 4 | 2 | 4 | 26 |
 | [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 6 | 7 | 3 | 10 |
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 5 | 10 | 1 | 6 |
@@ -73,4 +73,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **310 modules / 441 functions / 207 classes / 1297 methods・properties**。
+合計: **315 modules / 447 functions / 207 classes / 1297 methods・properties**。

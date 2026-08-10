@@ -2359,6 +2359,133 @@ COMPLEXITY_BY_MODULE.update({
     },
 })
 
+
+# MASPyPy/libraryを参照して追加した到達可能性・DAG・次数列などのAPI。
+SEARCH_TERMS_BY_MODULE.update({
+    "graph_connectivity/Reachability.py": (
+        "到達可能性", "offline reachability", "一括到達判定",
+    ),
+    "shortest_path/Top2Dijkstra.py": (
+        "最近傍2点", "multi source dijkstra", "グラフVoronoi",
+    ),
+    "graph/DAGAntichain.py": (
+        "最大反鎖", "maximum antichain", "Dilworth",
+    ),
+    "graph/DegreeSequence.py": (
+        "次数列", "Erdos Gallai", "Havel Hakimi",
+    ),
+    "algorithm/AllButOne.py": (
+        "1要素除外積", "all but one products", "prefix suffix product",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "graph_connectivity/Reachability.py": (
+        "有向グラフで、複数の(source, target)についてsourceからtargetへ到達できるかをまとめて判定できる。",
+        "cycleを含むグラフをSCCへ縮約し、同じ始点成分のqueryを再利用して1回ずつDFSするより速く処理する。",
+    ),
+    "shortest_path/Top2Dijkstra.py": (
+        "非負重みグラフの各頂点について、最も近いsourceと2番目に近い異なるsourceを距離つきで求められる。",
+        "複数始点Dijkstraを2候補まで拡張し、sourceごとのDijkstraを個別には実行しない。辺重みを省略した隣接listは重み1として扱う。",
+    ),
+    "graph/DAGAntichain.py": (
+        "DAGから、どちらから他方へも到達できない頂点を最大個数選べる。",
+        "利用側で推移閉包や比較可能性graphを作らず、通常のDAG隣接listをそのまま渡せる。",
+    ),
+    "graph/DegreeSequence.py": (
+        "整数列が単純無向グラフの次数列として実現可能か判定できる。",
+        "実現可能なとき、自己loopと平行辺を含まない具体的な辺listを1つ構成できる。",
+    ),
+    "algorithm/AllButOne.py": (
+        "各位置について、その要素だけを除いた残り全要素の積をO(N)でまとめて求められる。",
+        "可換性を仮定せず元の順序を保つため、文字列結合・行列積などにも使える。逆元や除算は不要。",
+    ),
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("graph_connectivity/Reachability.py", None, "reachability"): {
+        "description": "有向graphをSCCへ縮約し、複数の始点からの到達情報をbitsetでまとめて伝播する。",
+        "argumentDescriptions": {
+            "graph": "graph[v]にvから出る有向辺の行き先、または先頭要素が行き先のtupleを並べた隣接list。cycle・自己loop・平行辺を許す。",
+            "queries": "判定する(source, target)を並べた列。source=targetは長さ0のpathで常に到達可能とする。",
+        },
+        "returnFormat": "list[bool]",
+        "returnDescription": "queriesと同じ長さのresult。result[q]はqueries[q]のsourceからtargetへ有向辺を0本以上たどって到達できるときTrue。",
+    },
+    ("shortest_path/Top2Dijkstra.py", None, "top2_dijkstra"): {
+        "description": "すべてのsourceから同時にDijkstraを行い、各頂点でsource番号が異なる上位2候補だけを残す。",
+        "argumentDescriptions": {
+            "graph": "非負重み有向辺を(to, weight)で並べた隣接list。整数toだけの要素は重み1として扱う。無向辺は両方向へ入れる。",
+            "sources": "距離0から探索を始める頂点番号の列。重複は1個へまとめる。source番号そのものを候補の識別子にする。",
+        },
+        "returnFormat": "list[tuple[tuple[number, int], tuple[number, int]]]",
+        "returnDescription": "頂点番号順のresult。result[v]は((d1, s1), (d2, s2))で、d1 <= d2、s1とs2は異なるsource番号。第2候補がなければ(d2, s2)は(inf, -1)、第1候補もなければ両方が(inf, -1)。同距離ではsource番号が小さい方を先にする。",
+        "returnParts": (
+            {
+                "name": "nearest", "format": "tuple[number, int]",
+                "description": "第1要素は最短距離、第2要素はその距離を与えるsource番号。同距離ならsource番号が小さい方を先にする。",
+            },
+            {
+                "name": "second", "format": "tuple[number, int]",
+                "description": "nearestと異なるsourceのうち次に近い(distance, source)。候補がなければ(inf, -1)。",
+            },
+        ),
+    },
+    ("graph/DAGAntichain.py", None, "maximum_antichain"): {
+        "description": "DAGの到達関係を半順序とみなし、互いに比較不能な頂点からなる最大反鎖を1つ返す。",
+        "argumentDescriptions": {
+            "graph": "DAGの有向隣接list。要素は行き先、または先頭要素が行き先のtuple。辺u→vはuがvより前にある関係を表す。cycleがあればValueError。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "最大反鎖に選んだ頂点番号を昇順に並べた列。任意の異なる2頂点u, vについて、uからvにもvからuにも到達できない。",
+    },
+    ("graph/DegreeSequence.py", None, "is_graphical"): {
+        "description": "Erdős–Gallai条件により、指定した次数をもつ単純無向グラフが存在するか判定する。",
+        "argumentDescriptions": {
+            "degrees": "頂点番号順の非負整数列。degrees[v]を頂点vの希望次数とする。",
+        },
+        "returnFormat": "bool",
+        "returnDescription": "自己loopと平行辺を使わず、全頂点vの次数をdegrees[v]にできるならTrue。",
+    },
+    ("graph/DegreeSequence.py", None, "realize"): {
+        "description": "Havel–Hakimi法により、指定した次数列を実現する単純無向グラフを1つ構成する。",
+        "argumentDescriptions": {
+            "degrees": "頂点番号順の非負整数列。degrees[v]を頂点vの希望次数とする。",
+        },
+        "returnFormat": "list[tuple[int, int]] | None",
+        "returnDescription": "実現可能なら無向辺(first, second)を1回ずつ並べた列。各pairはfirst != secondで、同じ無向辺は重複しない。実現不能ならNone。",
+    },
+    ("algorithm/AllButOne.py", None, "all_but_one"): {
+        "description": "prefix積とsuffix積を組み合わせ、各位置の要素だけを除いた積を除算なしで求める。",
+        "argumentDescriptions": {
+            "values": "積をとる順序つきの値の列。iteratorも受け取り、内部でlistにする。",
+            "op": "2つの値を結合する結合的な演算op(left, right)。可換でなくてもよい。",
+            "identity": "opの単位元。空のprefix・suffixと、要素が1個だけの入力の結果に使う。",
+        },
+        "returnFormat": "list[object]",
+        "returnDescription": r"valuesと同じ長さのresult。result[i]は $\mathrm{values}[0]\mathbin{\mathrm{op}}\cdots\mathbin{\mathrm{values}[i-1]}\mathbin{\mathrm{op}}\mathrm{values}[i+1]\mathbin{\mathrm{op}}\cdots$ を元の順序で計算した値。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "graph_connectivity/Reachability.py": {
+        "reachability": "O(V + E + (C + D) ceil(S / W) + Q) time、O(V + E + C + D + Q) memory（C, DはSCC縮約DAGの頂点・辺数、Sは異なる始点成分数、Wはbitsetの機械語幅）",
+    },
+    "shortest_path/Top2Dijkstra.py": {
+        "top2_dijkstra": "O((V + E) log(V + E)) time、O(V + E) memory",
+    },
+    "graph/DAGAntichain.py": {
+        "maximum_antichain": "O((V + E) ceil(V / W) + R sqrt(V)) time、O(V ceil(V / W) + R) memory（Rは到達可能な異なる頂点pair数、Wはbitsetの機械語幅）",
+    },
+    "graph/DegreeSequence.py": {
+        "is_graphical": "O(N) time、O(N) memory",
+        "realize": "O(N + M log N) time、O(N + M) memory（Mは構成する辺数）",
+    },
+    "algorithm/AllButOne.py": {
+        "all_but_one": "O(N) time、O(N) memory、opを2N回呼ぶ",
+    },
+})
+
 # Return contracts that cannot be reconstructed reliably from return
 # expressions alone.  Keep concrete container shape and sentinel meaning here.
 API_DETAILS_BY_SYMBOL.update({
