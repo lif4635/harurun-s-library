@@ -1297,6 +1297,49 @@ API_DETAILS_BY_SYMBOL.update({
             r"\sum_j \mathrm{weights}[j][x^j]f(x)^i\bmod\mathrm{mod}$。"
         ),
     },
+    ("polynomial/PolynomialGCD.py", None, "polynomial_gcd"): {
+        "description": "2つの多項式のmonicな最大公約多項式を求める。",
+        "argumentDescriptions": {
+            "first": "定数項から昇冪順に並べた第1多項式の係数列。",
+            "second": "定数項から昇冪順に並べた第2多項式の係数列。",
+            "mod": "係数体の法。通常は素数を指定する。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "定数項から昇冪順に並べたmonicなGCDの係数列。両方が0多項式なら空list。",
+    },
+    ("polynomial/PolynomialGCD.py", None, "polynomial_extended_gcd"): {
+        "description": r"$s\,\mathrm{first}+t\,\mathrm{second}=g$ を満たすmonicなGCD $g$ とBézout係数 $s,t$ を求める。",
+        "argumentDescriptions": {
+            "first": "定数項から昇冪順に並べた第1多項式の係数列。",
+            "second": "定数項から昇冪順に並べた第2多項式の係数列。",
+            "mod": "係数体の法。通常は素数を指定する。",
+        },
+        "returnFormat": "tuple[list[int], list[int], list[int]]",
+        "returnDescription": "(g, s, t)。各要素は定数項から昇冪順の係数列。両入力が0多項式なら3つとも空list。",
+        "returnParts": (
+            {"name": "g", "format": "list[int]", "description": "monicな最大公約多項式の係数列。"},
+            {"name": "s", "format": "list[int]", "description": "firstへ掛けるBézout係数多項式。"},
+            {"name": "t", "format": "list[int]", "description": "secondへ掛けるBézout係数多項式。"},
+        ),
+    },
+    ("polynomial/PolynomialResultant.py", None, "polynomial_resultant"): {
+        "description": "2つの多項式のresultantをmod上で求める。共通因子を持つ場合は0。",
+        "argumentDescriptions": {
+            "first": "定数項から昇冪順に並べた第1多項式の係数列。",
+            "second": "定数項から昇冪順に並べた第2多項式の係数列。",
+            "mod": "係数体の法。通常は素数を指定する。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "modで正規化したresultant。",
+    },
+    ("segment_tree/SortableSegmentTree.py", "SortableSegmentTree", "query"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ のvaluesを、現在の並び順でopにより左から畳み込む。",
+        "returnDescription": "指定区間のopによる畳み込み。空区間ならidentity。",
+    },
+    ("spatial_structure/LazyKDTree.py", "LazyKDTree", "query"): {
+        "description": r"点 $(x,y)$ が半開矩形 $[\mathrm{left},\mathrm{right})\times[\mathrm{down},\mathrm{up})$ に入るweightsをcombineで集約する。",
+        "returnDescription": "指定矩形に入る点のweightsをcombineした値。点がなければidentity。",
+    },
     ("segment_tree/DynamicLazySegmentTree.py", "DynamicLazySegmentTree", "prod"): {
         "description": r"半開区間 $[\mathrm{query\_left},\mathrm{query\_right})$ をopで左から畳み込む。",
         "returnDescription": "指定区間のopによる畳み込み。空区間ならidentity。",
@@ -1818,6 +1861,26 @@ API_DETAILS_BY_SYMBOL.update({
 
 
 CLASS_DETAILS_BY_SYMBOL = {
+    ("segment_tree/SortableSegmentTree.py", "SortableSegmentTree"): {
+        "description": (
+            "列の部分区間をkeyの昇順・降順へ並べ替えながら、現在の並び順に沿った"
+            "区間モノイド積を求める。点更新ではkeyとvalueを同時に置き換える。"
+        ),
+        "constructorCreates": (
+            "keysとvaluesの対応を保った列を作る。updateで1要素を置き換え、"
+            "sortで半開区間を並べ替え、queryでその区間のvaluesをopにより集約できる。"
+        ),
+    },
+    ("spatial_structure/LazyKDTree.py", "LazyKDTree"): {
+        "description": (
+            "固定された二次元点集合に重みを持たせ、半開矩形への遅延作用と"
+            "半開矩形内の重みの集約を処理する平衡KD-tree。"
+        ),
+        "constructorCreates": (
+            "各点(xs[i], ys[i])にweights[i]を対応させた木を作る。updateで矩形内へ"
+            "作用し、setで1点の重みを置き換え、queryで矩形内をcombineできる。"
+        ),
+    },
     ("ordered_set/RangeSet.py", "RangeSet"): {
         "description": (
             r"整数集合を、互いに交わらない半開区間 $[\mathrm{left},\mathrm{right})$ "
@@ -2113,9 +2176,11 @@ COMPLEXITY_BY_MODULE.update({
         "query": "O(log^2 N)",
     },
     "segment_tree/SortableSegmentTree.py": {
-        "update": "O(sqrt(N)) 回のop呼び出し",
-        "query": "O(sqrt(N)) 回のop呼び出し",
-        "sort": "O(L log L + sqrt(N))（L = right-left）",
+        "SortableSegmentTree": "O(N) time・memory、O(N) 回のop呼び出し",
+        "SortableSegmentTree.__init__": "O(N) time・memory、O(N) 回のop呼び出し",
+        "update": "O(log N) time、O(log N) 回のop呼び出し",
+        "query": "O(log N) time、O(log N) 回のop呼び出し",
+        "sort": "O(L log L + L + log N) time、O(L + log N) 回のop呼び出し（L = right-left）",
     },
     "fenwick_tree/DynamicFenwickTree.py": {
         "add": "O(log N) expected dictionary operations",
@@ -2449,8 +2514,8 @@ COMPLEXITY_BY_MODULE.update({
     },
     "polynomial/PolynomialGCD.py": {
         "polynomial_monic": "O(N)",
-        "polynomial_gcd": "最悪 O(N*M(N)) modular operations（Euclid法）",
-        "polynomial_extended_gcd": "最悪 O(N*M(N)) modular operations（Euclid法）",
+        "polynomial_gcd": "O(M(N) log N) modular operations（Half-GCD法）",
+        "polynomial_extended_gcd": "O(M(N) log N) modular operations（Half-GCD法）",
     },
     "polynomial/PolynomialModularPower.py": {
         "polynomial_inverse_mod": "polynomial_extended_gcd(N) + polynomial division",
@@ -2460,7 +2525,7 @@ COMPLEXITY_BY_MODULE.update({
         "polynomial_prefix_sum": "O(M(N)) modular operations",
     },
     "polynomial/PolynomialResultant.py": {
-        "polynomial_resultant": "最悪 O(N*M(N)) modular operations（Euclid法）",
+        "polynomial_resultant": "O(M(N) log N) modular operations（Half-GCD法）",
     },
     "polynomial/PolynomialRoots.py": {
         "polynomial_roots": "期待 O(M(N) log N log mod)、小さいmodでは O(N*mod)",
@@ -2740,6 +2805,8 @@ COMPLEXITY_BY_MODULE.update({
         "sum": "O(log H log W)",
     },
     "spatial_structure/LazyKDTree.py": {
+        "LazyKDTree": "O(N log N) time、O(N) memory、O(N) 回のcombine呼び出し",
+        "LazyKDTree.__init__": "O(N log N) time、O(N) memory、O(N) 回のcombine呼び出し",
         "update": "期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにmapping/composition",
         "set": "O(log N)（構築された平衡木の高さ）+ 各祖先でcombine",
         "query": "期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにcombine",

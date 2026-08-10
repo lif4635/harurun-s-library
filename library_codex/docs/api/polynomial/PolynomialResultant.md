@@ -8,7 +8,7 @@
 
 ## できること
 
-- `polynomial_resultant`: 多項式・`resultant`を求める。
+- `polynomial_resultant`: 2つの多項式のresultantをmod上で求める。共通因子を持つ場合は0。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.polynomial.PolynomialResultant import polynomial_resultant
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`polynomial_resultant(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialResultant.py#L16) | 多項式・`resultant`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | int `1 if len(second) == 1 else 0` / int `1 if len(first) == 1 else 0` / 数値または入力要素型 `-result % mod if sign else result` | 最悪 O(N*M(N)) modular operations（Euclid法）（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_resultant(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialResultant.py#L10) | 2つの多項式のresultantをmod上で求める。共通因子を持つ場合は0。 | `first`: 定数項から昇冪順に並べた第1多項式の係数列。<br>`second`: 定数項から昇冪順に並べた第2多項式の係数列。<br>`mod`: 係数体の法。通常は素数を指定する。省略時: `DEFAULT_MOD` | int — modで正規化したresultant。 | O(M(N) log N) modular operations（Half-GCD法）（M(L)は長さLの多項式乗算cost） |

@@ -140,6 +140,28 @@ def fps998_cases(profile):
     return results
 
 
+def polynomial_gcd_case(profile):
+    degree = "8192" if profile == "full" else "4096"
+    result = execute("benchmark_polynomial_gcd.py", ["--degree", degree])
+    matched = re.search(r"\bratio=([0-9.]+)x", result["output"])
+    result["speedup"] = float(matched.group(1))
+    return result
+
+
+def sortable_segment_tree_case(profile):
+    size, queries = (
+        ("200000", "200000") if profile == "full"
+        else ("100000", "100000")
+    )
+    result = execute(
+        "benchmark_sortable_segment_tree.py",
+        ["--size", size, "--queries", queries],
+    )
+    matched = re.search(r"\bratio=([0-9.]+)x", result["output"])
+    result["speedup"] = float(matched.group(1))
+    return result
+
+
 def check_thresholds(results, baseline):
     speedups = {
         "csr_dijkstra": results["csr"]["dijkstra"]["speedup"],
@@ -149,6 +171,8 @@ def check_thresholds(results, baseline):
         "range_stats_beats": results["range_tree"]["stats"]["beats_speedup"],
         "range_affine": results["range_tree"]["affine"]["speedup"],
         "fps998_total": results["fps998"]["speedup"],
+        "polynomial_half_gcd": results["polynomial_gcd"]["speedup"],
+        "sortable_segment_tree": results["sortable_segment_tree"]["speedup"],
     }
     failures = []
     for name, minimum in baseline["minimum_speedup"].items():
@@ -171,6 +195,8 @@ def main():
         "csr": csr_cases(args.profile),
         "range_tree": range_tree_cases(args.profile),
         "fps998": fps998_cases(args.profile),
+        "polynomial_gcd": polynomial_gcd_case(args.profile),
+        "sortable_segment_tree": sortable_segment_tree_case(args.profile),
     }
     speedups, failures = check_thresholds(results, baseline_data[args.profile])
     results["speedups"] = speedups

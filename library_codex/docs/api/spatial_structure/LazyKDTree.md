@@ -8,7 +8,7 @@
 
 ## できること
 
-- `LazyKDTree`: 二次元点への矩形更新と矩形集約を行うlazy KD-treeを扱う `LazyKDTree`。
+- `LazyKDTree`: 固定された二次元点集合に重みを持たせ、半開矩形への遅延作用と半開矩形内の重みの集約を処理する平衡KD-tree。
 
 ## Import
 
@@ -18,15 +18,16 @@ from library_codex.spatial_structure.LazyKDTree import LazyKDTree
 
 ## Class `LazyKDTree`
 
-二次元点への矩形更新と矩形集約を行うlazy KD-treeを扱う `LazyKDTree`。
+固定された二次元点集合に重みを持たせ、半開矩形への遅延作用と半開矩形内の重みの集約を処理する平衡KD-tree。
 
-- constructor: [`LazyKDTree(xs, ys, weights, combine=lambda a, b: a + b, identity=0, mapping=lambda value, action, size: value + action * size, composition=lambda old, new: old + new, lazy_identity=0)`](../../../spatial_structure/LazyKDTree.py#L10)
+- constructor: [`LazyKDTree(xs, ys, weights, combine=lambda a, b: a + b, identity=0, mapping=lambda value, action, size: value + action * size, composition=lambda old, new: old + new, lazy_identity=0)`](../../../spatial_structure/LazyKDTree.py#L11)
 - 引数: `xs`: `xs`として使う入力<br>`ys`: `ys`として使う入力<br>`weights`: 重みの列<br>`combine`: 2つの集約値をまとめる二項関数。省略時: `lambda a, b: a + b`<br>`identity`: 演算 `op` の単位元。省略時: `0`<br>`mapping`: 作用を値へ適用するcallback。省略時: `lambda value, action, size: value + action * size`<br>`composition`: 新旧の作用を合成するcallback。省略時: `lambda old, new: old + new`<br>`lazy_identity`: 遅延作用を何もしない値。省略時: `0`
 - 返り値: `LazyKDTree` instance
-- 計算量: —
+- 計算量: O(N log N) time、O(N) memory、O(N) 回のcombine呼び出し
+- 作成後: 各点(xs[i], ys[i])にweights[i]を対応させた木を作る。updateで矩形内へ作用し、setで1点の重みを置き換え、queryで矩形内をcombineできる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`update(left, right, down, up, action)`](../../../spatial_structure/LazyKDTree.py#L127) | method | 指定位置・辺・状態を更新する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`down`: `down`として使う入力<br>`up`: `up`として使う入力<br>`action`: 遅延作用・更新作用 | `None` | 期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにmapping/composition |
-| [`set(index, value)`](../../../spatial_structure/LazyKDTree.py#L153) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N)（構築された平衡木の高さ）+ 各祖先でcombine |
-| [`query(left, right, down, up)`](../../../spatial_structure/LazyKDTree.py#L168) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`down`: `down`として使う入力<br>`up`: `up`として使う入力 | 問い合わせ結果（型・tuple形状はclassの用途に従う） | 期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにcombine |
+| [`update(left, right, down, up, action)`](../../../spatial_structure/LazyKDTree.py#L158) | method | 指定位置・辺・状態を更新する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`down`: `down`として使う入力<br>`up`: `up`として使う入力<br>`action`: 遅延作用・更新作用 | `None` | 期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにmapping/composition |
+| [`set(index, value)`](../../../spatial_structure/LazyKDTree.py#L184) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N)（構築された平衡木の高さ）+ 各祖先でcombine |
+| [`query(left, right, down, up)`](../../../spatial_structure/LazyKDTree.py#L199) | method | 点 $(x,y)$ が半開矩形 $[\mathrm{left},\mathrm{right})\times[\mathrm{down},\mathrm{up})$ に入るweightsをcombineで集約する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`down`: `down`として使う入力<br>`up`: `up`として使う入力 | 指定矩形に入る点のweightsをcombineした値。点がなければidentity。 | 期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにcombine |

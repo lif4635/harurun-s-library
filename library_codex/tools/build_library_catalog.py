@@ -2078,7 +2078,10 @@ def module_input_fingerprint(source_path, document_path, library_root):
     module_key = source_path.relative_to(library_root).as_posix()
     digest = hashlib.sha256()
     digest.update(
-        hash_paths((source_path, document_path), library_root.parent).encode(
+        hash_paths(
+            (*transitive_internal_dependencies(source_path, library_root), document_path),
+            library_root.parent,
+        ).encode(
             "ascii"
         )
     )
@@ -2105,10 +2108,29 @@ def metadata_input_paths(library_root):
     return (library_root / "tools" / "api_metadata.py",)
 
 
+def transitive_internal_dependencies(source_path, library_root):
+    """Return source and every library file embedded in its standalone code."""
+
+    visited = set()
+    stack = [source_path]
+    while stack:
+        path = stack.pop()
+        if path in visited:
+            continue
+        visited.add(path)
+        stack.extend(internal_dependencies(path, library_root))
+    return tuple(visited)
+
+
 def catalog_input_paths(library_root, documents=None):
     documents = documents or api_documents(library_root / "docs" / "api")
+    all_sources = tuple(
+        path
+        for category in CATEGORY_LABELS
+        for path in sorted((library_root / category).glob("*.py"))
+    )
     return (
-        tuple(source_module_paths(library_root).values())
+        all_sources
         + tuple(documents.values())
         + generator_input_paths(library_root)
         + metadata_input_paths(library_root)

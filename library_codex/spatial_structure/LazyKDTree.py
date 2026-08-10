@@ -1,6 +1,7 @@
 """二次元点への矩形更新と矩形集約を行うlazy KD-tree。"""
 
 class LazyKDTree:
+    """Balanced static-point KD-tree built in O(N log N)."""
     __slots__ = (
         "n", "root", "left", "right", "parent", "xmin", "xmax", "ymin",
         "ymax", "point_x", "point_y", "point_value", "size", "value", "lazy", "pending", "position", "combine",
@@ -39,14 +40,23 @@ class LazyKDTree:
         if n == 0:
             self.root = -1
             return
-        points = [(xs[i], ys[i], weights[i], i) for i in range(n)]
-        tasks = [(points, 0, -1, 0)]
+        # Keep both coordinate orders while splitting.  Sorting every subtree
+        # independently costs O(N log^2 N); partitioning the other order at
+        # each level builds the same balanced KD-tree in O(N log N).
+        x_order = sorted(range(n), key=lambda i: (xs[i], ys[i], i))
+        y_order = sorted(range(n), key=lambda i: (ys[i], xs[i], i))
+        tasks = [(x_order, y_order, 0, -1, 0)]
+        marks = [0] * n
+        generation = 0
         root = -1
         while tasks:
-            subset, depth, parent, side = tasks.pop()
-            subset.sort(key=lambda point: point[depth & 1])
-            middle = len(subset) >> 1
-            x, y, weight, original = subset[middle]
+            x_sorted, y_sorted, depth, parent, side = tasks.pop()
+            axis_order = x_sorted if depth & 1 == 0 else y_sorted
+            middle = len(axis_order) >> 1
+            original = axis_order[middle]
+            x = xs[original]
+            y = ys[original]
+            weight = weights[original]
             node = len(self.left)
             self.left.append(-1)
             self.right.append(-1)
@@ -69,10 +79,31 @@ class LazyKDTree:
                 self.left[parent] = node
             else:
                 self.right[parent] = node
-            if middle + 1 < len(subset):
-                tasks.append((subset[middle + 1:], depth + 1, node, 1))
-            if middle:
-                tasks.append((subset[:middle], depth + 1, node, 0))
+            left_order = axis_order[:middle]
+            right_order = axis_order[middle + 1:]
+            generation += 1
+            for index in left_order:
+                marks[index] = generation
+            if (depth & 1) == 0:
+                left_x = left_order
+                right_x = right_order
+                left_y = [i for i in y_sorted if marks[i] == generation]
+                right_y = [
+                    i for i in y_sorted
+                    if i != original and marks[i] != generation
+                ]
+            else:
+                left_y = left_order
+                right_y = right_order
+                left_x = [i for i in x_sorted if marks[i] == generation]
+                right_x = [
+                    i for i in x_sorted
+                    if i != original and marks[i] != generation
+                ]
+            if right_order:
+                tasks.append((right_x, right_y, depth + 1, node, 1))
+            if left_order:
+                tasks.append((left_x, left_y, depth + 1, node, 0))
         self.root = root
         for node in range(n - 1, -1, -1):
             self._pull(node)

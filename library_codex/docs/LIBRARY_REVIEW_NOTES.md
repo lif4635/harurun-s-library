@@ -167,6 +167,16 @@ callableを受け取るAPIは、全体のBig-Oだけでなく `op`、`compare`�
 - `SurrealNumber.larger/smaller/between`: 数直線を1ずつ歩く処理をdyadic有理数の直接計算へ変更
 - `QBinomial` constructor: q整数を毎回再計算する二乗時間前計算を線形時間へ変更
 
+2026-08-10の追加高速化では次も改善した。
+
+- `polynomial_gcd` / `polynomial_extended_gcd`: 大次数をHalf-GCD法へ変更。小次数は従来Euclid法を使うhybridで、計算量は $O(M(N)\log N)$
+- `polynomial_resultant`: Half-GCDが生成するEuclid商の列から次数・最高次係数を復元し、$O(M(N)\log N)$ で計算
+- `PolynomialFactorization` / `polynomial_inverse_mod`: 上記GCD・拡張GCDを内部利用するため同時に高速化
+- `SortableSegmentTree`: 平方分割からsegment treeへ変更し、`update` / `query`を $O(\log N)$ に改善。range sortはPython組み込みsortを維持
+- `LazyKDTree` constructor: 各部分木の再sortをやめ、x/yの事前sort列をlevelごとにpartitionして $O(N\log N)$ 構築へ変更
+
+PyPyでの比較では、多項式GCD+resultantは4096次で約1.2倍、8192次で約2.4〜2.6倍、`SortableSegmentTree`のupdate/query混合workloadは10万操作で約2倍、20万操作で約2.9倍だった。性能検査は従来法とのchecksum一致も確認する。
+
 ### iPhone の「ホーム画面に追加」アイコン
 
 site source には次の asset が既にある。

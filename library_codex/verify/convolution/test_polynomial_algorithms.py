@@ -4,6 +4,7 @@ from library_codex.fps.FormalPowerSeries import (
     fps_add,
     fps_evaluate,
     fps_multiply,
+    fps_product,
 )
 from library_codex.polynomial.PolynomialDivision import poly_mod
 from library_codex.polynomial.PartialFractionDistinct import partial_fraction_distinct
@@ -92,6 +93,35 @@ def test_resultant_against_sylvester_determinant():
         assert polynomial_resultant(first, second) == _sylvester_resultant(
             first, second, MOD
         )
+
+
+def test_half_gcd_large_path_and_resultant_records():
+    rng = random.Random(12026)
+    common = [rng.randrange(MOD) for _ in range(1550)]
+    common[-1] = 1
+    first = fps_multiply(common, [17, 1])
+    second = fps_multiply(common, [29, 1])
+    assert polynomial_gcd(first, second) == common
+    gcd, left, right = polynomial_extended_gcd(first, second)
+    assert gcd == common
+    assert _shrink(fps_add(
+        fps_multiply(left, first), fps_multiply(right, second)
+    )) == common
+
+    roots = list(range(1, 1601))
+    first = fps_product([[-root % MOD, 1] for root in roots])
+    second = [rng.randrange(MOD) for _ in range(1599)] + [1]
+    expected = 1
+    for root in roots:
+        expected = expected * fps_evaluate(second, root) % MOD
+    assert polynomial_resultant(first, second) == expected
+
+    common = fps_product([
+        [-root % MOD, 1] for root in range(2001, 3601)
+    ])
+    assert polynomial_resultant(
+        fps_multiply(common, [31, 1]), common
+    ) == 0
 
 
 def test_root_finding_distinct_and_multiplicity():

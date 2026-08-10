@@ -8,7 +8,7 @@
 
 ## できること
 
-- `SortableSegmentTree`: 部分列の昇順・降順sortと区間monoid積を処理する列構造を扱う `SortableSegmentTree`。
+- `SortableSegmentTree`: 列の部分区間をkeyの昇順・降順へ並べ替えながら、現在の並び順に沿った区間モノイド積を求める。点更新ではkeyとvalueを同時に置き換える。
 
 ## Import
 
@@ -18,15 +18,16 @@ from library_codex.segment_tree.SortableSegmentTree import SortableSegmentTree
 
 ## Class `SortableSegmentTree`
 
-部分列の昇順・降順sortと区間monoid積を処理する列構造を扱う `SortableSegmentTree`。
+列の部分区間をkeyの昇順・降順へ並べ替えながら、現在の並び順に沿った区間モノイド積を求める。点更新ではkeyとvalueを同時に置き換える。
 
-- constructor: [`SortableSegmentTree(keys, values, op=lambda a, b: a + b, identity=0, block_size=None)`](../../../segment_tree/SortableSegmentTree.py#L11)
-- 引数: `keys`: 整列keyの列またはkey callback<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`。省略時: `lambda a, b: a + b`<br>`identity`: 演算 `op` の単位元。省略時: `0`<br>`block_size`: 1ブロックに含める要素数。省略時: `None`
+- constructor: [`SortableSegmentTree(keys, values, op=lambda a, b: a + b, identity=0)`](../../../segment_tree/SortableSegmentTree.py#L10)
+- 引数: `keys`: 整列keyの列またはkey callback<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`op`: 結合的な二項演算 `op(left, right)`。省略時: `lambda a, b: a + b`<br>`identity`: 演算 `op` の単位元。省略時: `0`
 - 返り値: `SortableSegmentTree` instance
-- 計算量: —
+- 計算量: O(N) time・memory、O(N) 回のop呼び出し
+- 作成後: keysとvaluesの対応を保った列を作る。updateで1要素を置き換え、sortで半開区間を並べ替え、queryでその区間のvaluesをopにより集約できる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`update(index, key, value)`](../../../segment_tree/SortableSegmentTree.py#L38) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | O(sqrt(N)) 回のop呼び出し |
-| [`query(left, right)`](../../../segment_tree/SortableSegmentTree.py#L45) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 問い合わせ結果（型・tuple形状はclassの用途に従う） | O(sqrt(N)) 回のop呼び出し |
-| [`sort(left, right, reverse=False)`](../../../segment_tree/SortableSegmentTree.py#L58) | method | 入力要素を指定した順序で並べ替える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`reverse`: 逆向き・降順を使うかどうか。省略時: `False` | `None` | O(L log L + sqrt(N))（L = right-left） |
+| [`update(index, key, value)`](../../../segment_tree/SortableSegmentTree.py#L43) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N) time、O(log N) 回のop呼び出し |
+| [`query(left, right)`](../../../segment_tree/SortableSegmentTree.py#L54) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ のvaluesを、現在の並び順でopにより左から畳み込む。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 指定区間のopによる畳み込み。空区間ならidentity。 | O(log N) time、O(log N) 回のop呼び出し |
+| [`sort(left, right, reverse=False)`](../../../segment_tree/SortableSegmentTree.py#L71) | method | 入力要素を指定した順序で並べ替える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`reverse`: 逆向き・降順を使うかどうか。省略時: `False` | `None` | O(L log L + L + log N) time、O(L + log N) 回のop呼び出し（L = right-left） |

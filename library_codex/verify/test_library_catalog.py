@@ -140,6 +140,45 @@ def test_integer_utilities_and_bit_use_the_new_public_api_only():
     )
 
 
+def test_accelerated_modules_publish_the_new_api_and_complexities():
+    data = load_catalog()
+
+    polynomial = module_by_path(data, "library_codex.polynomial.PolynomialGCD")
+    polynomial_functions = {
+        item["name"]: item for item in polynomial["functions"]
+    }
+    assert "Half-GCD" in polynomial_functions["polynomial_gcd"]["complexity"]
+    extended = polynomial_functions["polynomial_extended_gcd"]
+    assert extended["returnFormat"] == "tuple[list[int], list[int], list[int]]"
+    assert [part["name"] for part in extended["returnParts"]] == ["g", "s", "t"]
+
+    resultant = module_by_path(
+        data, "library_codex.polynomial.PolynomialResultant"
+    )
+    assert "Half-GCD" in resultant["functions"][0]["complexity"]
+
+    sortable = module_by_path(
+        data, "library_codex.segment_tree.SortableSegmentTree"
+    )
+    sortable_class = next(
+        item for item in sortable["classes"]
+        if item["name"] == "SortableSegmentTree"
+    )
+    assert "block_size" not in sortable_class["constructor"]
+    sortable_methods = {
+        item["name"]: item for item in sortable_class["methods"]
+    }
+    assert "set" not in sortable_methods
+    assert sortable_methods["query"]["complexity"].startswith("O(log N)")
+    assert sortable_methods["update"]["complexity"].startswith("O(log N)")
+
+    kd_tree = module_by_path(data, "library_codex.spatial_structure.LazyKDTree")
+    kd_class = next(
+        item for item in kd_tree["classes"] if item["name"] == "LazyKDTree"
+    )
+    assert kd_class["constructorComplexity"].startswith("O(N log N)")
+
+
 def test_catalog_contains_required_search_terms_and_lazy_boundaries():
     data = load_catalog()
     lazy = module_by_path(data, "library_codex.segment_tree.LazySegTree")
@@ -466,6 +505,27 @@ def test_incremental_build_reparses_only_changed_module_and_dependents(
         if module["inputFingerprint"] == "f" * 64
     }
     assert changed == {("combinatorics", "Combination")}
+
+
+def test_internal_bundle_dependencies_are_catalog_inputs(monkeypatch):
+    CATALOG.load_configuration(ROOT)
+    gcd_source = ROOT / "polynomial" / "PolynomialGCD.py"
+    gcd_doc = ROOT / "docs" / "api" / "polynomial" / "PolynomialGCD.md"
+    half_gcd = ROOT / "polynomial" / "_HalfGCD.py"
+    assert half_gcd in CATALOG.catalog_input_paths(ROOT)
+
+    before = CATALOG.module_input_fingerprint(gcd_source, gcd_doc, ROOT)
+    original_dependencies = CATALOG.internal_dependencies
+
+    def replace_half_gcd(source_path, library_root):
+        dependencies = original_dependencies(source_path, library_root)
+        if source_path == gcd_source:
+            dependencies.append(ROOT / "random" / "RandomGraph.py")
+        return dependencies
+
+    monkeypatch.setattr(CATALOG, "internal_dependencies", replace_half_gcd)
+    after = CATALOG.module_input_fingerprint(gcd_source, gcd_doc, ROOT)
+    assert after != before
 
 
 def test_module_scoped_metadata_changes_only_its_fingerprint(monkeypatch):

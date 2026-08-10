@@ -9,8 +9,8 @@
 ## できること
 
 - `polynomial_monic`: 多項式・`monic`を求める。
-- `polynomial_gcd`: 多項式・GCDを求める。
-- `polynomial_extended_gcd`: 多項式・`extended`・GCDを求める。
+- `polynomial_gcd`: 2つの多項式のmonicな最大公約多項式を求める。
+- `polynomial_extended_gcd`: $s\,\mathrm{first}+t\,\mathrm{second}=g$ を満たすmonicなGCD $g$ とBézout係数 $s,t$ を求める。
 
 ## Import
 
@@ -22,6 +22,6 @@ from library_codex.polynomial.PolynomialGCD import polynomial_monic, polynomial_
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`polynomial_monic(polynomial, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L16) | 多項式・`monic`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | O(N) |
-| [`polynomial_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L23) | 多項式・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_monic(first, mod)` | 最悪 O(N*M(N)) modular operations（Euclid法）（M(L)は長さLの多項式乗算cost） |
-| [`polynomial_extended_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L30) | 多項式・`extended`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`, list `[]`) / tuple(list `[value * scale % mod for value in old_remainder]`, list `[value * scale % mod for value in old_first]`, list `[value * scale % mod for value in old_second]`) | 最悪 O(N*M(N)) modular operations（Euclid法）（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_monic(polynomial, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L15) | 多項式・`monic`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | O(N) |
+| [`polynomial_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L22) | 2つの多項式のmonicな最大公約多項式を求める。 | `first`: 定数項から昇冪順に並べた第1多項式の係数列。<br>`second`: 定数項から昇冪順に並べた第2多項式の係数列。<br>`mod`: 係数体の法。通常は素数を指定する。省略時: `DEFAULT_MOD` | list[int] — 定数項から昇冪順に並べたmonicなGCDの係数列。両方が0多項式なら空list。 | O(M(N) log N) modular operations（Half-GCD法）（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_extended_gcd(first, second, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialGCD.py#L32) | $s\,\mathrm{first}+t\,\mathrm{second}=g$ を満たすmonicなGCD $g$ とBézout係数 $s,t$ を求める。 | `first`: 定数項から昇冪順に並べた第1多項式の係数列。<br>`second`: 定数項から昇冪順に並べた第2多項式の係数列。<br>`mod`: 係数体の法。通常は素数を指定する。省略時: `DEFAULT_MOD` | tuple[list[int], list[int], list[int]] — (g, s, t)。各要素は定数項から昇冪順の係数列。両入力が0多項式なら3つとも空list。 | O(M(N) log N) modular operations（Half-GCD法）（M(L)は長さLの多項式乗算cost） |
