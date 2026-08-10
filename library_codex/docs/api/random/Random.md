@@ -5,13 +5,15 @@
 
 - 計算量の目安: 各出力サイズに線形
 - source: [`random/Random.py`](../../../random/Random.py)
-- 公開API: function 0、class 1、method/property 16（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 18（Python protocol 0を含む）
 
 ## できること
 
 - seedから再現可能な整数・真偽値・実数を高速に生成できる。
 - テスト用の配列・bit列・行列・文字列・置換・重複なし標本を直接作れる。
 - 合計値を固定した非負または正の整数列を一様なcompositionとして生成できる。
+- 指定した組数のbalanced bracket stringを一様ランダムに生成できる。
+- Monge不等式を満たす整数行列を、再現可能なランダムテストとして生成できる。
 
 ## Import
 
@@ -46,3 +48,5 @@ from library_codex.random.Random import Random
 | [`string(length, alphabet='abcdefghijklmnopqrstuvwxyz')`](../../../random/Random.py#L140) | method | 指定alphabetから独立に文字を選んだ文字列を生成する。 | `length`: 生成する要素数または文字数<br>`alphabet`: 生成文字の候補を並べた空でない文字列または列。省略時: `'abcdefghijklmnopqrstuvwxyz'` | str — alphabetから生成したlength文字の文字列 | O(length) |
 | [`intervals(count, lower, upper, allow_empty=False)`](../../../random/Random.py#L148) | method | 指定範囲に収まるランダムな半開区間を生成する。 | `count`: 抽選または生成する個数<br>`lower`: 生成範囲の下限（含む）<br>`upper`: 生成範囲の上限（randrangeでは含まず、ほかでは含む）<br>`allow_empty`: 長さ0の半開区間も許すか。省略時: `False` | list[tuple[int, int]] — $[\mathrm{lower},\mathrm{upper})$ 内に収まる半開区間 $[\mathrm{left},\mathrm{right})$ の列。 | 期待 O(count) |
 | [`composition(total, parts, positive=False)`](../../../random/Random.py#L165) | method | 合計を固定した非負または正の整数列を一様に生成する。 | `total`: compositionの要素合計<br>`parts`: compositionの要素数<br>`positive`: 各要素を1以上に制限するか。省略時: `False` | list[int] — $\sum_i \mathrm{result}_i=\mathrm{total}$ を満たす、長さ $\mathrm{parts}$ の非負または正の整数列。 | 期待 O(parts) |
+| [`brackets(pairs, opening='(', closing=')')`](../../../random/Random.py#L181) | method | 指定した組数のbalanced bracket stringを一様ランダムに生成する。 | `pairs`: openingとclosingをそれぞれ使う個数。<br>`opening`: opening bracketとして出力する文字列。省略時: `'('`<br>`closing`: closing bracketとして出力する文字列。省略時: `')'` | str — openingとclosingをpairs個ずつ含み、左から読んだ各prefixでopening数がclosing数以上となる文字列。 | O(pairs) |
+| [`monge(rows, columns, difference_max=10, offset=10)`](../../../random/Random.py#L201) | method | Monge不等式を満たすランダムな整数行列を生成する。 | `rows`: 生成する行数。<br>`columns`: 生成する列数。<br>`difference_max`: 隣接4要素のMonge差へ使う0以上の乱数の上限。省略時: `10`<br>`offset`: 各行・各列へ加える独立な整数offsetの絶対値上限。省略時: `10` | list[list[int]] — rows行columns列のmatrix。$i_1<i_2, j_1<j_2$ に対して $A_{i_1,j_1}+A_{i_2,j_2}\le A_{i_1,j_2}+A_{i_2,j_1}$ を満たす。 | O(rows * columns) |

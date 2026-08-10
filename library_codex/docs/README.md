@@ -36,7 +36,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 
 | category | 内容 | modules | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: | ---: |
-| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 13 | 29 | 3 | 10 |
+| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 14 | 30 | 3 | 10 |
 | [convolution](api/convolution/README.md) | 係数畳み込み・min-plus・DFT・NTT | 7 | 18 | 1 | 4 |
 | [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 2 | 7 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
@@ -49,11 +49,11 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 10 | 0 | 10 | 58 |
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 10 | 0 | 10 | 105 |
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 10 | 3 | 8 | 66 |
-| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 4 | 1 | 6 | 52 |
+| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 5 | 2 | 6 | 52 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 12 | 19 | 6 | 30 |
 | [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 9 | 13 | 2 | 4 |
-| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 12 | 6 | 11 | 66 |
+| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 13 | 7 | 11 | 66 |
 | [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 4 | 2 | 4 | 26 |
 | [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 5 | 6 | 3 | 10 |
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 5 | 10 | 1 | 6 |
@@ -66,10 +66,10 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 20 | 21 | 25 | 122 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 232 |
-| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 12 | 10 | 9 | 48 |
+| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 14 | 11 | 10 | 50 |
 | [geometry](api/geometry/README.md) | 幾何・2次元点 | 4 | 5 | 0 | 0 |
 | [game](api/game/README.md) | 組合せゲーム | 6 | 8 | 7 | 43 |
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
-| [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
+| [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **300 modules / 431 functions / 205 classes / 1286 methods・properties**。
+合計: **305 modules / 435 functions / 206 classes / 1290 methods・properties**。

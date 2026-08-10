@@ -1689,6 +1689,12 @@ def render_module(path, overview, complexity):
         lines.append("")
 
     for class_node in classes:
+        constructor_argument_overrides = dict(argument_overrides or {})
+        constructor_argument_overrides.update(
+            class_detail(relative_key, class_node.name).get(
+                "argumentDescriptions", {}
+            )
+        )
         method_return_overrides = return_overrides
         specific_returns = class_return_overrides.get(class_node.name)
         if specific_returns:
@@ -1706,7 +1712,7 @@ def render_module(path, overview, complexity):
             constructor_line = class_node.lineno
         else:
             signature = render_signature(class_node.name, init, True)
-            args = render_arguments(init, True, argument_overrides)
+            args = render_arguments(init, True, constructor_argument_overrides)
             constructor_line = init.lineno
         lines.extend([
             "## Class `%s`" % class_node.name,

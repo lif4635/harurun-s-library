@@ -1178,6 +1178,23 @@ def friendly_argument_description(name, description, symbol_name):
     if default_match:
         default = f"。省略時は {default_match.group(1)}"
         description = description[: default_match.start()]
+    # Exact API metadata is the source of truth.  The name-based wording below
+    # is only a fallback for descriptions produced from an otherwise unknown
+    # parameter; applying it unconditionally used to erase useful contracts
+    # such as ``value(row, column)`` for LARSCH.
+    generic_descriptions = {
+        "",
+        "値",
+        "処理対象の値",
+        "処理の対象",
+        f"{plain} として使う値",
+    }
+    needs_fallback = (
+        description.strip() in generic_descriptions
+        or "APIの文脈に従う" in description
+    )
+    if not needs_fallback:
+        return localize_prose(description.rstrip("。") + default)
     if plain == "value":
         if re.search(r"add|append|push", symbol_name):
             description = "加える値"
@@ -2336,7 +2353,9 @@ def validate_api_details_metadata(library_root):
         if len(names) != len(set(names)):
             raise ValueError(f"duplicate return part names: {key!r}")
 
-    allowed_class_fields = {"description", "constructorCreates"}
+    allowed_class_fields = {
+        "description", "constructorCreates", "argumentDescriptions"
+    }
     for key, detail in CLASS_DETAILS_BY_SYMBOL.items():
         if not isinstance(key, tuple) or len(key) != 2:
             raise ValueError(f"invalid CLASS_DETAILS_BY_SYMBOL key: {key!r}")
@@ -2354,8 +2373,27 @@ def validate_api_details_metadata(library_root):
             raise ValueError(
                 f"unknown class detail fields for {key!r}: {sorted(unknown)}"
             )
-        for field, value in detail.items():
-            validate_nonempty_text(key, field, value)
+        for field in ("description", "constructorCreates"):
+            if field in detail:
+                validate_nonempty_text(key, field, detail[field])
+        argument_descriptions = detail.get("argumentDescriptions", {})
+        if not isinstance(argument_descriptions, dict):
+            raise ValueError(
+                f"class argumentDescriptions must be a dict: {key!r}"
+            )
+        known_arguments = public_api_argument_names(
+            paths_by_module[module_key], class_name, "__init__"
+        )
+        unknown_arguments = set(argument_descriptions) - known_arguments
+        if unknown_arguments:
+            raise ValueError(
+                "unknown constructor argument in CLASS_DETAILS_BY_SYMBOL: "
+                f"{key!r}: {sorted(unknown_arguments)}"
+            )
+        for argument_name, value in argument_descriptions.items():
+            validate_nonempty_text(
+                key, f"argumentDescriptions.{argument_name}", value
+            )
 
 
 SYMBOL_REQUIRED_FIELDS = {

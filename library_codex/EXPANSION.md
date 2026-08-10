@@ -1,7 +1,20 @@
 # 追加機能とベンチマーク
 
-`library_codex` を参照元4ライブラリの外へ広げ、既存APIを壊さずに追加した機能をまとめる。
-すべて非再帰・標準ライブラリのみで動作する。
+`library_codex` を参照元ライブラリの外へ広げ、既存APIを壊さずに追加した機能をまとめる。
+標準ライブラリだけで動作し、入力依存で深くなる再帰は使わない。
+
+## MASPyPy first batch
+
+`maspypy/library`のアルゴリズム構成を追加候補として照合し、Pythonでも用途と速度を保てるものを独立moduleとして追加した。
+
+- `optimization/SMAWK.py`: totally monotone行列の全row argminを $O(H+W)$ 回の比較で求める
+- `optimization/LARSCH.py`: 下三角Monge行列のargminをrow順に償却 $O(1)$ で取得する
+- `range_query/RangeMex.py`: 複数の静的半開区間mexを $O((N+Q)\log N)$ で一括計算する
+- `algorithm/ParallelBinarySearch.py`: 同じ更新列を共有する複数queryの単調境界を並列二分探索する
+- `graph_connectivity/DominatorTree.py`: 有向グラフのimmediate dominatorを求める
+- `random/Random.py`: balanced bracket stringとMonge行列のtest生成を追加する
+
+各実装は小さいrandom caseを愚直解または定義と比較する。MASPyPy固有のC++基盤や既存moduleと重なる別実装は、そのまま移植しない。
 
 ## Advanced Flow
 

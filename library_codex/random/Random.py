@@ -177,3 +177,51 @@ class Random:
             positions[index + 1] - positions[index] - 1 + offset
             for index in range(parts)
         ]
+
+    def brackets(self, pairs, opening="(", closing=")"):
+        """Return a uniformly random balanced bracket string with pairs pairs."""
+        if pairs < 0:
+            raise ValueError("pairs must be nonnegative")
+        if not isinstance(opening, str) or not isinstance(closing, str):
+            raise TypeError("opening and closing must be strings")
+        steps = [1] * (pairs + 1) + [-1] * pairs
+        self.shuffle(steps)
+        balance = 0
+        minimum = 0
+        start = 0
+        for index, step in enumerate(steps, 1):
+            balance += step
+            if balance <= minimum:
+                minimum = balance
+                start = index
+        steps = steps[start:] + steps[:start]
+        steps = steps[1:]
+        return "".join(opening if step > 0 else closing for step in steps)
+
+    def monge(self, rows, columns, difference_max=10, offset=10):
+        """Return a random integer Monge matrix of shape rows by columns."""
+        if rows < 0 or columns < 0:
+            raise ValueError("matrix dimensions must be nonnegative")
+        if difference_max < 0 or offset < 0:
+            raise ValueError("difference_max and offset must be nonnegative")
+        matrix = [[0] * columns for _ in range(rows)]
+        for row in range(1, rows):
+            previous = matrix[row - 1]
+            current = matrix[row]
+            for column in range(1, columns):
+                current[column] = (
+                    previous[column]
+                    + current[column - 1]
+                    - previous[column - 1]
+                    - self.uniform(0, difference_max)
+                )
+        row_offset = [self.uniform(-offset, offset) for _ in range(rows)]
+        column_offset = [
+            self.uniform(-offset, offset) for _ in range(columns)
+        ]
+        for row in range(rows):
+            current = matrix[row]
+            addition = row_offset[row]
+            for column in range(columns):
+                current[column] += addition + column_offset[column]
+        return matrix

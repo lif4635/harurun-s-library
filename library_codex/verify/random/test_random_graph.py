@@ -50,6 +50,40 @@ def test_test_case_helpers():
                 assert min(positive) >= 1
 
 
+def test_random_balanced_brackets_and_monge_matrices():
+    first = Random(192837)
+    second = Random(192837)
+    assert [first.brackets(30) for _ in range(100)] == [
+        second.brackets(30) for _ in range(100)
+    ]
+    random = Random(564738)
+    for pairs in range(100):
+        brackets = random.brackets(pairs)
+        assert len(brackets) == 2 * pairs
+        balance = 0
+        for bracket in brackets:
+            balance += 1 if bracket == "(" else -1
+            assert balance >= 0
+        assert balance == 0
+    assert random.brackets(3, "[", "]").count("[") == 3
+
+    for rows in range(20):
+        for columns in range(20):
+            matrix = random.monge(rows, columns, 20, 100)
+            assert len(matrix) == rows
+            assert all(len(row) == columns for row in matrix)
+            for first_row in range(rows):
+                for second_row in range(first_row + 1, rows):
+                    for first_column in range(columns):
+                        for second_column in range(first_column + 1, columns):
+                            assert (
+                                matrix[first_row][first_column]
+                                + matrix[second_row][second_column]
+                                <= matrix[first_row][second_column]
+                                + matrix[second_row][first_column]
+                            )
+
+
 def _is_connected(graph):
     if graph.n == 0:
         return True

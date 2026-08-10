@@ -9,6 +9,7 @@
 | [`BiconnectedComponents`](BiconnectedComponents.md) | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | 0 | 2 | 6 |
 | [`BipartiteColoring`](BipartiteColoring.md) | 無向グラフが二部グラフか判定し、2色の割当を返す。 | 1 | 0 | 0 |
 | [`ConnectedComponents`](ConnectedComponents.md) | 無向グラフの連結成分番号と成分ごとの頂点を求める。 | 1 | 0 | 0 |
+| [`DominatorTree`](DominatorTree.md) | 有向グラフで始点から各頂点への全経路が必ず通る直前の支配頂点を求める。 | 1 | 0 | 0 |
 | [`DynamicBipartiteGraph`](DynamicBipartiteGraph.md) | 辺追加される無向グラフの二部性を管理する。 | 0 | 1 | 5 |
 | [`FunctionalGraph`](FunctionalGraph.md) | Functional graph の周期分解・移動・距離 | 0 | 1 | 7 |
 | [`LowLink`](LowLink.md) | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | 1 | 1 | 3 |

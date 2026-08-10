@@ -12,6 +12,7 @@
 | [`Fibonacci`](Fibonacci.md) | 高速doublingによるFibonacci数 | 1 | 0 | 0 |
 | [`IntegerUtilities`](IntegerUtilities.md) | 非負整数の整数n乗根 | 1 | 0 | 0 |
 | [`ModularProgression`](ModularProgression.md) | mod付き等差数列の通常等差run分割 | 1 | 0 | 0 |
+| [`ParallelBinarySearch`](ParallelBinarySearch.md) | 同じ更新列に対する複数の単調判定の境界を並列二分探索する。 | 1 | 0 | 0 |
 | [`PermutationGroup`](PermutationGroup.md) | 置換群の安定化列と軌道代表元 | 1 | 0 | 0 |
 | [`RangeQueries`](RangeQueries.md) | Mo's algorithmによるoffline区間query | 0 | 1 | 3 |
 | [`Search`](Search.md) | 整数・実数境界二分探索とquickselect | 3 | 0 | 0 |

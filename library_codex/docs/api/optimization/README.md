@@ -8,6 +8,7 @@
 | [`ConvexConcaveConvolution`](ConvexConcaveConvolution.md) | 凹列を含むmax-plus畳み込み | 1 | 0 | 0 |
 | [`GoldenSectionSearch`](GoldenSectionSearch.md) | 単峰関数の最小値または最大値を黄金分割探索する。 | 1 | 0 | 0 |
 | [`KnapsackBranchAndBound`](KnapsackBranchAndBound.md) | 0/1 knapsackを分枝限定法で解く。 | 1 | 0 | 0 |
+| [`LARSCH`](LARSCH.md) | Monge 型の下三角行列について、行を順に受け取って最小列を求める。 | 0 | 1 | 2 |
 | [`LineContainer`](LineContainer.md) | 直線を追加し、任意のxで最小値または最大値を求める。 | 0 | 1 | 2 |
 | [`Matroid`](Matroid.md) | グラフィック・分割・横断マトロイドの共通独立集合を求める | 1 | 3 | 6 |
 | [`MaximalRectangle`](MaximalRectangle.md) | histogramまたは0/1行列に含まれる最大長方形を求める。 | 2 | 0 | 0 |
@@ -16,4 +17,5 @@
 | [`MonotoneMinima`](MonotoneMinima.md) | Monge性を持つ行列の各行最小位置を高速に求める。 | 1 | 0 | 0 |
 | [`ProjectSelection`](ProjectSelection.md) | binary/K値Project Selection・高次all-0/all-1 profit | 0 | 2 | 22 |
 | [`RollbackMo`](RollbackMo.md) | rollback可能な状態更新を使ってoffline区間queryを処理する。 | 0 | 1 | 2 |
+| [`SMAWK`](SMAWK.md) | Totally monotone な行列の各行の最小列を線形回数の比較で求める。 | 1 | 0 | 0 |
 | [`SlopeTrick`](SlopeTrick.md) | 重み付きSlope Trick・shift/slide/chmin/merge/eval | 0 | 1 | 14 |

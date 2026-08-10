@@ -1,6 +1,6 @@
 # Roadmap
 
-4ライブラリのファイル名をそのまま集めるのではなく、同じ機能の別実装をまとめた上で
+参照ライブラリのファイル名をそのまま集めるのではなく、同じ機能の別実装をまとめた上で
 PyPy向けに移植する。比較の基準にしたスナップショットは次の通り。
 
 | library | commit |
@@ -9,6 +9,7 @@ PyPy向けに移植する。比較の基準にしたスナップショットは�
 | tko919/library | `3478d17` |
 | NyaanNyaan/library | `b3981ad` |
 | kemuniku/cplib | `8c61d81` |
+| maspypy/library | `ede5df5` |
 
 ## Staging済み
 
@@ -95,6 +96,8 @@ PyPy向けに移植する。比較の基準にしたスナップショットは�
 - [x] Graphic・partition・transversal matroid intersection
 - [x] Random graph generator / simulated annealing helpers / multi-armed bandit / Top-K
 - [x] Semiring recurrence / Pisano period / q-binomial / rational・floating binomial
+- [x] MASPyPy first batch: SMAWK / LARSCH / Range Mex / Parallel Binary Search / Dominator Tree
+- [x] MASPyPy random helpers: balanced bracket / Monge matrix
 
 ## 完了状況
 
@@ -103,7 +106,10 @@ PyPy向けに移植する。比較の基準にしたスナップショットは�
 - [x] direct / mutual recursion 監査（2830 functions）
 - [~] Geometry 22 件はユーザー指定により保留
 
-この一覧は優先順位用。全792ソースの完了判定は `REFERENCE_INVENTORY.md` を正とし、
+従来4ライブラリについては全792ソースの完了判定を `REFERENCE_INVENTORY.md` の正本で管理する。
+MASPyPyは追加候補の参照元として2026-08-11から段階的に精査し、既存機能との重複、
+PyPyでの実用速度、用途の明確さを確認したbatchだけをこのRoadmapへ追加する。
+一覧を増やすこと自体を目的にせず、
 各項目を追加するたびに参照元とローカル実装の対応を `[x]` へ更新する。
 
 ## 追加時の確認

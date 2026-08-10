@@ -5,5 +5,5 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`Random`](Random.md) | 再現可能なxoshiro256**乱数・配列・bit列・行列・文字列生成 | 0 | 1 | 16 |
+| [`Random`](Random.md) | 再現可能なxoshiro256**乱数・配列・bit列・行列・文字列生成 | 0 | 1 | 18 |
 | [`RandomGraph`](RandomGraph.md) | edge-list container・木・forest・二部・連結・単純graph生成 | 0 | 3 | 19 |

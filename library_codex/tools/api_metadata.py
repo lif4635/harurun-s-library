@@ -3103,3 +3103,164 @@ COMPLEXITY_BY_MODULE.update({
         "is_bipartite": "O(1)",
     },
 })
+
+
+# MASPyPy/libraryを追加候補の参照元として精査した第一バッチ。
+SEARCH_TERMS_BY_MODULE.update({
+    "optimization/SMAWK.py": (
+        "全単調行列",
+        "totally monotone matrix",
+        "行最小",
+    ),
+    "optimization/LARSCH.py": (
+        "オンライン行最小",
+        "Monge DP",
+        "下三角Monge",
+    ),
+    "range_query/RangeMex.py": ("区間mex", "range mex"),
+    "algorithm/ParallelBinarySearch.py": (
+        "並列二分探索",
+        "offline binary search",
+    ),
+    "graph_connectivity/DominatorTree.py": (
+        "支配木",
+        "immediate dominator",
+        "Lengauer Tarjan",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "optimization/SMAWK.py": (
+        "要素を必要なときだけcallbackで評価し、totally monotoneな行列の各行の最小列を求められる。",
+        "同じ最小値を取る列が複数ある場合は、最小の列番号を返す。",
+    ),
+    "optimization/LARSCH.py": (
+        "下三角Monge行列のrow 0, 1, ...について、列0からrowまでの最小位置を順番に取得できる。",
+        "行列全体を保存せず、callbackで必要な要素だけを評価する。",
+    ),
+    "range_query/RangeMex.py": (
+        "静的な整数列に対する複数の半開区間mexを、queryの入力順で一括計算できる。",
+        "負数とlen(values)より大きい値はmexへ影響しないため、内部表へ保存しない。",
+    ),
+    "algorithm/ParallelBinarySearch.py": (
+        "同じ更新列を共有する複数の単調判定について、true側とfalse側の境界をまとめて二分探索できる。",
+        "判定方向に応じてokとngを入れ替え、最初にtrueとなる時刻と最後にtrueである時刻の両方を求められる。",
+    ),
+    "graph_connectivity/DominatorTree.py": (
+        "有向グラフで、rootから頂点vへ至るすべてのpathが最後に共通して通るimmediate dominatorを求められる。",
+        "rootから到達できない頂点も含む隣接listをそのまま渡せる。",
+    ),
+})
+MODULE_CAPABILITIES["random/Random.py"] += (
+    "指定した組数のbalanced bracket stringを一様ランダムに生成できる。",
+    "Monge不等式を満たす整数行列を、再現可能なランダムテストとして生成できる。",
+)
+
+API_DETAILS_BY_SYMBOL.update({
+    ("optimization/SMAWK.py", None, "smawk"): {
+        "description": "totally monotoneな行列について、各行で最小値を取る最小の列番号を求める。",
+        "argumentDescriptions": {
+            "rows": "行数。",
+            "columns": "列数。rowsが正なら1以上でなければならない。",
+            "value": "value(row, column)で行列要素を返すcallback。betterを指定する場合は不要。",
+            "better": "better(row, candidate, current)でcandidate列の方が真に小さいときTrueを返すcallback。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さrowsの列result。result[row]はその行で最小値を取る最小の列番号。",
+    },
+    ("optimization/LARSCH.py", "LARSCH", "get_argmin"): {
+        "description": "まだ返していない次のrowについて、列0からrowまでの最小位置を返す。",
+        "returnFormat": "int",
+        "returnDescription": "次のrowで最小値を取る最小のcolumn。row 0から順に1個ずつ返す。",
+    },
+    ("optimization/LARSCH.py", "LARSCH", "reset"): {
+        "description": "同じ行列のrow 0からargminを取り直せる状態へ戻す。",
+        "returnFormat": "None",
+        "returnDescription": "値は返さない。次のget_argminがrow 0を処理するように内部位置を戻す。",
+    },
+    ("range_query/RangeMex.py", None, "range_mex"): {
+        "description": "整数列の複数の半開区間について、区間内に現れない最小の非負整数を求める。",
+        "argumentDescriptions": {
+            "values": "mexを調べる整数列。",
+            "queries": r"半開区間 $[\mathrm{left},\mathrm{right})$ を表す2要素列の並び。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": r"queriesと同じ長さの列result。result[i]はqueries[i]が表す半開区間のmex。",
+    },
+    ("algorithm/ParallelBinarySearch.py", None, "parallel_binary_search"): {
+        "description": "同じ時系列更新に対する複数の単調な判定をまとめて二分探索し、各queryのtrue側境界を求める。",
+        "argumentDescriptions": {
+            "query_count": "判定するqueryの個数。checkへ0からquery_count-1を渡す。",
+            "ok": "すべてのqueryでcheckがTrueだと既知の更新回数。",
+            "ng": "すべてのqueryでcheckがFalseだと既知の更新回数。okより小さくても大きくてもよい。",
+            "reset": "引数なしで、更新を0回適用した状態へ戻すcallback。探索roundごとに呼ぶ。",
+            "update": "update(t)で0-indexedのt番目の更新を1回適用するcallback。",
+            "check": "現在まで更新した状態で、check(query)がそのqueryの判定結果をboolで返すcallback。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さquery_countの列result。ng < okならresult[q]は最初にTrueとなる更新回数、ok < ngなら最後にTrueである更新回数。",
+    },
+    ("graph_connectivity/DominatorTree.py", None, "dominator_tree"): {
+        "description": "rootからvへの全有向pathに含まれる頂点のうち、vに最も近いstrict dominatorを各vについて求める。",
+        "argumentDescriptions": {
+            "graph": "graph[u]にuから出る行き先v、または先頭要素がvのtupleを並べた有向隣接list。",
+            "root": "pathの始点とする頂点。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "頂点数と同じ長さのidom。idom[root]=root、到達不能な頂点は-1、それ以外のidom[v]はvのimmediate dominator。",
+    },
+    ("random/Random.py", "Random", "brackets"): {
+        "description": "指定した組数のbalanced bracket stringを一様ランダムに生成する。",
+        "argumentDescriptions": {
+            "pairs": "openingとclosingをそれぞれ使う個数。",
+            "opening": "opening bracketとして出力する文字列。",
+            "closing": "closing bracketとして出力する文字列。",
+        },
+        "returnFormat": "str",
+        "returnDescription": "openingとclosingをpairs個ずつ含み、左から読んだ各prefixでopening数がclosing数以上となる文字列。",
+    },
+    ("random/Random.py", "Random", "monge"): {
+        "description": "Monge不等式を満たすランダムな整数行列を生成する。",
+        "argumentDescriptions": {
+            "rows": "生成する行数。",
+            "columns": "生成する列数。",
+            "difference_max": "隣接4要素のMonge差へ使う0以上の乱数の上限。",
+            "offset": "各行・各列へ加える独立な整数offsetの絶対値上限。",
+        },
+        "returnFormat": "list[list[int]]",
+        "returnDescription": r"rows行columns列のmatrix。$i_1<i_2, j_1<j_2$ に対して $A_{i_1,j_1}+A_{i_2,j_2}\le A_{i_1,j_2}+A_{i_2,j_1}$ を満たす。",
+    },
+})
+
+CLASS_DETAILS_BY_SYMBOL[("optimization/LARSCH.py", "LARSCH")] = {
+    "description": "下三角Monge行列をcallbackで評価し、各rowのargminをrow順にオンライン取得する。",
+    "constructorCreates": "size行の下三角行列を表すvalue(row, column)を保持する。get_argminを呼ぶたびに次のrowについて、0以上row以下で最小値を取る最小columnを返せる。",
+    "argumentDescriptions": {
+        "size": "行数。",
+        "value": "value(row, column)で下三角行列の要素を返すcallback。0 <= column <= row < sizeの範囲で呼ばれる。",
+    },
+}
+
+COMPLEXITY_BY_MODULE.update({
+    "optimization/SMAWK.py": {
+        "smawk": "O(rows + columns) 回のvalueまたはbetter呼び出し、O(rows + columns) memory",
+    },
+    "optimization/LARSCH.py": {
+        "LARSCH": "構築 O(log N) time、O(log N) memory",
+        "get_argmin": "全N回を通して O(N) 回のvalue呼び出し（1回あたり償却 O(1)）",
+        "reset": "O(log N)",
+    },
+    "range_query/RangeMex.py": {
+        "range_mex": "O((N+Q) log N) time、O(N+Q) memory",
+    },
+    "algorithm/ParallelBinarySearch.py": {
+        "parallel_binary_search": "O((U+Q) log(|ok-ng|+1)) callback呼び出し、O(U+Q) memory",
+    },
+    "graph_connectivity/DominatorTree.py": {
+        "dominator_tree": "O((V+E) alpha(V)) time、O(V+E) memory",
+    },
+})
+COMPLEXITY_BY_MODULE["random/Random.py"].update({
+    "brackets": "O(pairs)",
+    "monge": "O(rows * columns)",
+})

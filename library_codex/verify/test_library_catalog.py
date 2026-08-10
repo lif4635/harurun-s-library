@@ -311,6 +311,21 @@ def test_api_detail_metadata_rejects_removed_argument(monkeypatch):
         CATALOG.validate_api_details_metadata(ROOT)
 
 
+def test_class_detail_metadata_rejects_removed_constructor_argument(monkeypatch):
+    CATALOG.load_configuration(ROOT)
+    monkeypatch.setattr(
+        CATALOG,
+        "CLASS_DETAILS_BY_SYMBOL",
+        {
+            ("optimization/LARSCH.py", "LARSCH"): {
+                "argumentDescriptions": {"removed": "存在しない引数"},
+            }
+        },
+    )
+    with pytest.raises(ValueError, match="unknown constructor argument"):
+        CATALOG.validate_api_details_metadata(ROOT)
+
+
 def test_catalog_preserves_markdown_math_and_exact_bounds():
     data = load_catalog()
     increasing = module_by_path(
@@ -363,6 +378,16 @@ def test_structured_returns_and_constructor_capabilities_are_explicit():
         if item["name"] == "CentroidDistanceFenwick"
     )
     assert "add・set" in distance_fenwick["constructorCreates"]
+
+    larsch = module_by_path(data, "library_codex.optimization.LARSCH")
+    larsch_class = next(
+        item for item in larsch["classes"] if item["name"] == "LARSCH"
+    )
+    constructor_arguments = {
+        item["name"]: item["description"]
+        for item in larsch_class["constructorArgumentDetails"]
+    }
+    assert "下三角行列" in constructor_arguments["value"]
     query = next(
         item for item in distance_fenwick["methods"] if item["name"] == "query"
     )
