@@ -560,3 +560,27 @@ def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path)
         CATALOG.write_catalog_atomic(output, {"schemaVersion": -1}, ROOT)
     assert output.read_bytes() == before
     assert not list(tmp_path.glob("*.tmp"))
+
+
+def test_catalog_has_no_vague_public_api_descriptions():
+    data = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
+    assert CATALOG.description_quality_issues(data) == []
+
+
+def test_description_audit_detects_generic_return_and_tuple_parts():
+    data = {
+        "modules": [{
+            "modulePath": "library_codex.example.Sample",
+            "functions": [{
+                "name": "query",
+                "description": "指定した対象への問い合わせ結果を返す。",
+                "returnFormat": "tuple[int, int]",
+                "returnDescription": "指定した範囲の集計結果。",
+            }],
+            "classes": [],
+        }],
+    }
+    reasons = {
+        issue["reason"] for issue in CATALOG.description_quality_issues(data)
+    }
+    assert reasons == {"generic-purpose", "generic-return", "tuple-parts-missing"}

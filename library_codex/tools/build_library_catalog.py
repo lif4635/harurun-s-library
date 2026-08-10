@@ -2814,7 +2814,8 @@ def main():
     args = parser.parse_args()
     if args.audit_descriptions:
         data = check_catalog(ROOT, args.output)
-        print_description_audit(data)
+        if print_description_audit(data):
+            raise SystemExit(1)
         return
     if args.check:
         data = check_catalog(ROOT, args.output)

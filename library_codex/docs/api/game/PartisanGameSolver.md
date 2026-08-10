@@ -27,4 +27,4 @@ from library_codex.game.PartisanGameSolver import PartisanGameSolver
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get(game)`](../../../game/PartisanGameSolver.py#L15) | method | 指定位置・辺・状態の値を取得する。 | `game`: 局面遷移を提供するgame object | 指定対象に格納された値・edge object | 未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回 |
+| [`get(game)`](../../../game/PartisanGameSolver.py#L15) | method | gameから始まるshort numeric partisan gameの値を返す。 | `game`: 局面遷移を提供するgame object | SurrealNumber — 全てのleft optionより大きく、全てのright optionより小さい最も単純なdyadic有理数。 | 未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回 |

@@ -29,4 +29,4 @@ from library_codex.ordered_set.TopKSum import TopKSum
 | --- | --- | --- | --- | --- | --- |
 | [`add(value)`](../../../ordered_set/TopKSum.py#L58) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | 期待 O(log N) |
 | [`discard(value)`](../../../ordered_set/TopKSum.py#L65) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | `None` | 期待 O(log N) |
-| [`sum()`](../../../ordered_set/TopKSum.py#L72) | method | 半開区間・集合の和を返す。 | なし | 区間・集合の和（入力要素型） | O(1) |
+| [`sum()`](../../../ordered_set/TopKSum.py#L72) | method | 現在のmultisetから選ばれる上位または下位k個の合計を返す。 | なし | number — largest=Trueなら大きい方、Falseなら小さい方から最大k個の和。要素数がk未満なら全要素の和。 | O(1) |

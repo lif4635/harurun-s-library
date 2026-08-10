@@ -27,6 +27,6 @@ from library_codex.game.ImpartialGameSolver import ImpartialGameSolver
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get(board)`](../../../game/ImpartialGameSolver.py#L23) | method | 指定位置・辺・状態の値を取得する。 | `board`: `board`として使う入力 | 指定対象に格納された値・edge object | 未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回 |
+| [`get(board)`](../../../game/ImpartialGameSolver.py#L23) | method | boardから始まる有限不偏ゲームのGrundy数を返す。 | `board`: `board`として使う入力 | int — 遷移先のGrundy数集合に含まれない最小の非負整数。0なら後手必勝、非0なら先手必勝。 | 未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回 |
 | [`get_sum(boards)`](../../../game/ImpartialGameSolver.py#L63) | method | 和を取得する。 | `boards`: `boards`として使う入力 | 計算結果（int） | O(K) + 未計算stateの探索cost |
 | [`get_best_move(game)`](../../../game/ImpartialGameSolver.py#L69) | method | `best`・`move`を取得する。 | `game`: 局面遷移を提供するgame object | tuple(0-indexedの位置（int）, `move`) / `move` / `None` | O(outdegree(game)) options確認 + 未計算stateの探索cost |

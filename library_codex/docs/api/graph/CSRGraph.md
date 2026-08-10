@@ -78,7 +78,7 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`same(first, second)`](../../../graph/CSRGraph.py#L443) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
-| [`__getitem__(vertex)`](../../../graph/CSRGraph.py#L446) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |
+| [`__getitem__(vertex)`](../../../graph/CSRGraph.py#L446) | method | vertexが属する強連結成分のIDを返す。 | `vertex`: 頂点番号 | int — component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。 | — |
 
 ## Class `CSRLowLink`
 

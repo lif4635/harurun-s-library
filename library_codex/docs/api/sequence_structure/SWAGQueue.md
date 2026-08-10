@@ -29,7 +29,7 @@ queue全体のmonoid積をpush・popと同じ償却計算量で保つSWAGを扱�
 | --- | --- | --- | --- | --- | --- |
 | [`append(value)`](../../../sequence_structure/SWAGQueue.py#L12) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | 償却 O(1) 回のop呼び出し |
 | [`popleft()`](../../../sequence_structure/SWAGQueue.py#L18) | method | `popleft`を求める。 | なし | `self.front.pop()[0]` | 償却 O(1) 回のop呼び出し |
-| [`fold()`](../../../sequence_structure/SWAGQueue.py#L30) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` | O(1) 回のop呼び出し |
+| [`fold()`](../../../sequence_structure/SWAGQueue.py#L30) | method | queue全体を先頭から末尾へopで畳み込む。 | なし | object — op(...op(a[0], a[1]), ... , a[-1])。空ならidentity。 | O(1) 回のop呼び出し |
 | [`__len__()`](../../../sequence_structure/SWAGQueue.py#L40) | method | len(obj)。 | なし | 要素数（int） | — |
 | [`tolist()`](../../../sequence_structure/SWAGQueue.py#L43) | method | queueの先頭から順に要素を並べたlistを返す。O(N)。 | なし | list[object] — queueの先頭から末尾までの要素列 | O(N) |
 | [`__str__()`](../../../sequence_structure/SWAGQueue.py#L49) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | O(N) |

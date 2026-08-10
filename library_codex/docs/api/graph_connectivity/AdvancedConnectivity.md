@@ -35,4 +35,4 @@ from library_codex.graph_connectivity.AdvancedConnectivity import incremental_sc
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L130) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |
+| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L130) | method | vertexが属する3-edge-connected成分のIDを返す。 | `vertex`: 頂点番号 | int — component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。 | — |

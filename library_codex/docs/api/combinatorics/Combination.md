@@ -4,7 +4,7 @@
 階乗表を使うCombと、小さいk向けの乗法式で二項係数を計算する。
 
 - source: [`combinatorics/Combination.py`](../../../combinatorics/Combination.py)
-- 公開API: function 1、class 1、method/property 8（Python protocol 1を含む）
+- 公開API: function 1、class 1、method/property 9（Python protocol 1を含む）
 
 ## できること
 
@@ -27,7 +27,7 @@ from library_codex.combinatorics.Combination import comb_small_k, Comb
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`comb_small_k(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L80) | $n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0<br>`mod`: 法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある。省略時: `DEFAULT_MOD` | int — 二項係数 $\binom{n}{k}$ を $\mathrm{mod}$ で割った余り。$0 \le k \le n$ でなければ0 | O(min(k, n-k)) |
+| [`comb_small_k(n, k, mod=DEFAULT_MOD)`](../../../combinatorics/Combination.py#L89) | $n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0<br>`mod`: 法。Combでは素数を使い、comb_small_kでは1からmin(k, n-k)までがmodで可逆である必要がある。省略時: `DEFAULT_MOD` | int — 二項係数 $\binom{n}{k}$ を $\mathrm{mod}$ で割った余り。$0 \le k \le n$ でなければ0 | O(min(k, n-k)) |
 
 ## Class `Comb`
 
@@ -41,10 +41,11 @@ from library_codex.combinatorics.Combination import comb_small_k, Comb
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`ensure(size)`](../../../combinatorics/Combination.py#L17) | method | 階乗表と逆階乗表をsizeまで拡張する。 | `size`: 要素数・universe size | `None` | 追加したtable要素数に比例（全呼び出しを通して償却 O(max size)） |
-| [`fact(n)`](../../../combinatorics/Combination.py#L33) | method | 階乗 $n!\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数 | int — $n!\bmod\mathrm{mod}$。 | 償却 O(1)、table拡張分を除く |
-| [`inv(n)`](../../../combinatorics/Combination.py#L38) | method | 正の整数 $n$ の乗法逆元 $n^{-1}\bmod\mathrm{mod}$ を返す。 | `n`: 逆元を求める整数。$1\le n<\mathrm{mod}$。 | int — $n\,x\equiv1\pmod{\mathrm{mod}}$ を満たす $x$。 | 償却 O(1)、table拡張分を除く |
-| [`C(n, k)`](../../../combinatorics/Combination.py#L45) | method | 二項係数 $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
-| [`__call__(n, k)`](../../../combinatorics/Combination.py#L53) | method | `C(n, k)` と同じく $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
-| [`P(n, k)`](../../../combinatorics/Combination.py#L57) | method | 順列数 $P(n,k)=n!/(n-k)!$ を $\mathrm{mod}$ で割った余りを返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $P(n,k)\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
-| [`H(n, k)`](../../../combinatorics/Combination.py#L64) | method | $n$ 種類から重複を許して $k$ 個選ぶ重複組合せ $H(n,k)=\binom{n+k-1}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $H(n,k)\bmod\mathrm{mod}$。 | 償却 O(1)、table拡張分を除く |
-| [`catalan(n, m, k=0)`](../../../combinatorics/Combination.py#L70) | method | $(0,0)$ から右へ $n$ 回、上へ $m$ 回進み、途中の全ての点で $y\le x+k$ を保つ格子路の本数を求める。境界 $y=x+k$ 上は通れる。 | `n`: 右へ進む回数。0以上。<br>`m`: 上へ進む回数。0以上。<br>`k`: 許す高さの差。経路は $y\le x+k$ を満たす。省略時: `0` | int — 条件を満たす格子路数をmodで割った余り。終点が境界より上なら0。 | 償却 O(1)、table拡張分を除く |
+| [`F(n)`](../../../combinatorics/Combination.py#L33) | method | 階乗 $n!\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数 | int — $n!\bmod\mathrm{mod}$。 | 償却 O(1)、table拡張分を除く |
+| [`Fi(n)`](../../../combinatorics/Combination.py#L40) | method | 逆階乗 $(n!)^{-1}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数 | int — $n!\,x\equiv1\pmod{\mathrm{mod}}$ を満たす $x$。 | 償却 O(1)、table拡張分を除く |
+| [`inv(n)`](../../../combinatorics/Combination.py#L47) | method | 正の整数 $n$ の乗法逆元 $n^{-1}\bmod\mathrm{mod}$ を返す。 | `n`: 逆元を求める整数。$1\le n<\mathrm{mod}$。 | int — $n\,x\equiv1\pmod{\mathrm{mod}}$ を満たす $x$。 | 償却 O(1)、table拡張分を除く |
+| [`C(n, k)`](../../../combinatorics/Combination.py#L54) | method | 二項係数 $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
+| [`__call__(n, k)`](../../../combinatorics/Combination.py#L62) | method | `C(n, k)` と同じく $\binom{n}{k}\bmod\mathrm{mod}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $\binom{n}{k}\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
+| [`P(n, k)`](../../../combinatorics/Combination.py#L66) | method | 順列数 $P(n,k)=n!/(n-k)!$ を $\mathrm{mod}$ で割った余りを返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $P(n,k)\bmod\mathrm{mod}$。$0\le k\le n$ でなければ0。 | 償却 O(1)、table拡張分を除く |
+| [`H(n, k)`](../../../combinatorics/Combination.py#L73) | method | $n$ 種類から重複を許して $k$ 個選ぶ重複組合せ $H(n,k)=\binom{n+k-1}{k}$ を返す。 | `n`: 二項係数C(n, k)の上側。0以上の整数<br>`k`: n個から選ぶ個数。範囲外なら結果は0 | int — $H(n,k)\bmod\mathrm{mod}$。 | 償却 O(1)、table拡張分を除く |
+| [`catalan(n, m, k=0)`](../../../combinatorics/Combination.py#L79) | method | $(0,0)$ から右へ $n$ 回、上へ $m$ 回進み、途中の全ての点で $y\le x+k$ を保つ格子路の本数を求める。境界 $y=x+k$ 上は通れる。 | `n`: 右へ進む回数。0以上。<br>`m`: 上へ進む回数。0以上。<br>`k`: 許す高さの差。経路は $y\le x+k$ を満たす。省略時: `0` | int — 条件を満たす格子路数をmodで割った余り。終点が境界より上なら0。 | 償却 O(1)、table拡張分を除く |

@@ -59,7 +59,7 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 | --- | --- | --- | --- | --- | --- |
 | [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L32) | method | valueに対応する商列tableのindexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` | — |
 | [`value(index)`](../../../number_theory/MultiplicativeFunctions.py#L37) | method | 値を求める。 | `index`: 位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` | — |
-| [`__getitem__(key)`](../../../number_theory/MultiplicativeFunctions.py#L42) | method | obj[key] で取得する。 | `key`: 比較・格納に使うkey | 格納値、sliceなら同種の部分構造 | — |
+| [`__getitem__(key)`](../../../number_theory/MultiplicativeFunctions.py#L42) | method | quotient-seriesの内部indexに保存されたprefix値を返す。 | `key`: 比較・格納に使うkey | number — data[key]。実際の引数xに対応する値はseries[series.index(x)]で取得する。 | — |
 | [`__setitem__(key, value)`](../../../number_theory/MultiplicativeFunctions.py#L45) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
 | [`prefix()`](../../../number_theory/MultiplicativeFunctions.py#L48) | method | prefixを求める。 | なし | `self` | — |
 | [`difference()`](../../../number_theory/MultiplicativeFunctions.py#L57) | method | 差を求める。 | なし | `self` | — |
@@ -75,7 +75,7 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get(value)`](../../../number_theory/MultiplicativeFunctions.py#L243) | method | 指定位置・辺・状態の値を取得する。 | `value`: 追加・設定・問い合わせる値 | 指定対象に格納された値・edge object | — |
+| [`get(value)`](../../../number_theory/MultiplicativeFunctions.py#L243) | method | 構築時に復元した乗法的関数fのprefix和をvalueで取得する。 | `value`: 追加・設定・問い合わせる値 | number — S_f(value)=sum(1<=i<=value) f(i)。valueはN//iとして現れる商、またはsqrt(N)以下の整数。 | — |
 
 ## Class `MultiplicativePrefixSum`
 

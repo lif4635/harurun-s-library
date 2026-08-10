@@ -82,7 +82,7 @@ from library_codex.tree.StaticTopTree import (
 | --- | --- | --- | --- | --- | --- |
 | [`set(node, value)`](../../../tree/StaticTopTree.py#L272) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
 | [`update(node)`](../../../tree/StaticTopTree.py#L279) | method | 指定位置・辺・状態を更新する。 | `node`: 頂点・内部node番号 | `None` | — |
-| [`get()`](../../../tree/StaticTopTree.py#L285) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |
+| [`get()`](../../../tree/StaticTopTree.py#L285) | method | static top tree全体をvertex・compress・rakeで合成した現在値を返す。 | なし | object — top_tree_root clusterのDP値。setで変更したleaf値をすべて反映する。 | — |
 
 ## Class `EdgeTopTreeDP`
 
@@ -96,7 +96,7 @@ from library_codex.tree.StaticTopTree import (
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`update(edge_leaf)`](../../../tree/StaticTopTree.py#L327) | method | 指定位置・辺・状態を更新する。 | `edge_leaf`: 辺・`leaf`として使う入力 | `None` | — |
-| [`get()`](../../../tree/StaticTopTree.py#L333) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |
+| [`get()`](../../../tree/StaticTopTree.py#L333) | method | 全辺clusterをedge・compress・rakeで合成した現在値を返す。 | なし | object — top_tree_root clusterのedge-based DP値。updateした辺leafを反映する。 | — |
 
 ## Class `DynamicRerootingDP`
 
@@ -110,7 +110,7 @@ from library_codex.tree.StaticTopTree import (
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`set(node, value)`](../../../tree/StaticTopTree.py#L390) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`get(vertex)`](../../../tree/StaticTopTree.py#L397) | method | 指定位置・辺・状態の値を取得する。 | `vertex`: 頂点番号 | 指定対象に格納された値・edge object | — |
+| [`get(vertex)`](../../../tree/StaticTopTree.py#L397) | method | vertexを根とみなしたstatic tree全体のDP値を返す。 | `vertex`: 頂点番号 | object — rake_forward・rake_backward・compressで全clusterをvertex向きに合成した値。 | — |
 
 ## Class `StaticTopTreeVertexBased`
 
@@ -137,4 +137,4 @@ from library_codex.tree.StaticTopTree import (
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`update(vertex)`](../../../tree/StaticTopTree.py#L634) | method | 指定位置・辺・状態を更新する。 | `vertex`: 頂点番号 | `None` | — |
-| [`get()`](../../../tree/StaticTopTree.py#L640) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | — |
+| [`get()`](../../../tree/StaticTopTree.py#L640) | method | 全頂点clusterを指定したDP callbackで合成した現在値を返す。 | なし | object — top_tree_rootのvertex-based path DP値。updateした頂点値を反映する。 | — |

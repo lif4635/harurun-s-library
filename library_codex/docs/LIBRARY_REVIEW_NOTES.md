@@ -51,9 +51,9 @@ bundle、説明、catalog、site dataを同じ変更単位で更新する。
 - 全 level の置換を合わせると、入力と同じ部分群を生成する
 - 群の要素数は、各 level の長さの積から求められる
 
-用途は、生成元で与えられた置換群の圧縮、群の位数計算、所属判定などの土台。ただし現状は test 以外の利用箇所がなく、サイトの説明と返り値型は実態を説明できていない。保持するなら上記の意味と簡単な例をページ先頭に書く。使わないなら削除候補として再検討する。
-
-`SimplifyPermutationSubgroup` alias も、互換性が必要でなければ削除候補。
+用途は、生成元で与えられた置換群の圧縮、群の位数計算、所属判定などの土台。
+randomized testで元の生成元と同じ群を生成すること、各level長の積が群の位数になることを確認しているため保持する。
+サイトにはlevelの意味と $S_3$ の例を掲載した。不要な `SimplifyPermutationSubgroup` aliasは2026-08-10に削除した。
 
 ### Search
 
@@ -67,23 +67,16 @@ bundle、説明、catalog、site dataを同じ変更単位で更新する。
 
 発言中の「QELEMENT」は `kth_element`、「新フラ」は C++ の `std::nth_element` を指す可能性が高い。
 
-現在の実装:
+2026-08-10にintroselect型へ改善した現在の実装:
 
 - 入力をコピーするため、呼び出し元の list は並べ替えない
-- 中央の位置にある値を pivot にする
+- 先頭・中央・末尾のmedianをpivotにする
 - pivot 未満、同値、超過の三分割を行う quickselect
 - `index` は 0 始まりで、`index` 番目に小さい値を返す
-- 平均的には線形時間を期待できるが、pivot が偏り続けると最悪二乗時間
-- 分割処理が Python の loop なので、実際のサイズによっては C 実装の `sorted(values)[index]` より遅い可能性がある
+- 平均線形時間。分割が偏り続けた場合はsortへ切り替え、最悪 $O(N\log N)$
 
-C++ 標準ライブラリの実装はこれより堅牢で、libstdc++ は introselect と深さ制限後の fallback、libc++ は median-of-three などを使う。現在の関数を「高速版」として残す前に、少なくとも次を比較する。
-
-- 現行 quickselect
-- `sorted(values)[index]`
-- median-of-three または random pivot
-- introselect 型の fallback 付き実装
-
-ランダム、昇順、降順、同値が多い配列、敵対的な並びで benchmark する。結果に応じて改良または削除を決める。
+20万要素のPyPy実測では、random列で`sorted`の約6.2倍、重複が多い列で約3.5倍高速だった。
+整列済み・逆順ではPython組み込みsortの方が速いが、現在の早期判定でも1〜2ms程度であり、選択APIとして保持する。
 
 ### 区間
 
@@ -106,10 +99,6 @@ C++ 標準ライブラリの実装はこれより堅牢で、libstdc++ は intro
 対象: `algorithm/SequenceAlgorithms.py`
 
 こちらも半開区間 `[left, right)` として説明する。`merge_adjacent=True` なら `[a, b)` と `[b, c)` も結合する。引数 `merge_adjacent` の説明を具体化する。
-
-### 名称を特定できていないもの
-
-発言中の「point と upper...」「転行線...」に該当する page / symbol は、現時点では一意に特定できていない。似た名前から決め打ちで変更せず、次に実際のページ名または URL を確認する。
 
 ## Convolution・Polynomial・FPS の境界
 
@@ -186,20 +175,17 @@ site source には次の asset が既にある。
 - `icon-512.png`
 - `site.webmanifest`
 
-そのため、単純な画像ファイルの欠落とは限らない。実際の公開 HTML に `apple-touch-icon` が出ているか、iOS の icon cache、manifest / metadata の配信 URL、インストール後の表示状態を確認する。必要なら cache bust できる明示的な filename と `<link rel="apple-touch-icon">` を用意する。
+2026-08-10に正規の猫画像を新しい`yura-touch-icon.png`へ複製し、HTMLの`apple-touch-icon`とmanifestの180px iconをこのURLへ切り替えた。
+manifestには`id`・`scope`・各iconの`purpose: any`も明示した。以前のURLを掴んだiOS cacheを避けつつ、旧URLも既存端末用に残す。
 
-## 次に進める順番
+## 2026-08-10の残件解消
 
-1. 返り値の形式と各要素の意味を全moduleで継続監査する
-2. 計算量監査で見つけた改善候補をbenchmark付きで順に直す
-3. Convolution / Polynomial / FPS998 のカテゴリ説明を追加する
-4. iPhone の公開 icon metadata を実機相当で確認する
-5. FPS998 を旧ライブラリの機能範囲・速度と照合しながら別途精査する
+- `Comb`の階乗・逆階乗を正規名`F(n)`・`Fi(n)`で呼べるようにし、冗長な`fact`は削除した。
+- catalog全体の返り値説明を監査し、曖昧なpurpose・return・tuple説明52件を0件にした。
+- description auditを通常検査へ組み込み、今後同じ曖昧説明が追加された場合は検査を失敗させる。
+- quick性能回帰9系統を再計測し、全て基準を通過した。`kth_element`も入力傾向別に再計測した。
+- Convolution / Polynomial / FPS998のカテゴリ分離、FPS998の旧機能範囲・Library Checker上位実装との演算別比較は完了済み。
+- iPhone用iconをcache更新可能な専用URLへ移した。
 
-## 今回はまだ実施しないこと
-
-- FPS の全面再編
-- `kth_element` の追加API変更
-- icon の差し替え
-
-このメモを先に正本として残し、各変更は test、catalog、bundle、サイトを同期できる単位で順に行う。
+意図的に保留しているのは`REFERENCE_INVENTORY.md`で`[~]`とした高度なGeometry 22件だけである。
+各変更は今後もtest、catalog、bundle、サイトを同期できる単位で行う。

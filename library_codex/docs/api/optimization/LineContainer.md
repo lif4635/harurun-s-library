@@ -28,4 +28,4 @@ from library_codex.optimization.LineContainer import LineContainer
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`add_line(slope, intercept)`](../../../optimization/LineContainer.py#L13) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | 償却 O(log N) |
-| [`query(point)`](../../../optimization/LineContainer.py#L18) | method | 指定した対象への問い合わせ結果を返す。 | `point`: 評価点・座標 | 問い合わせ結果（型・tuple形状はclassの用途に従う） | O(log N) |
+| [`query(point)`](../../../optimization/LineContainer.py#L18) | method | 追加済みの全直線をpointで評価した最小値または最大値を返す。 | `point`: 評価点・座標 | number — minimize=Trueならmin(a*point+b)、Falseならmax(a*point+b)。直線がなければ符号付きの無限大sentinel。 | O(log N) |

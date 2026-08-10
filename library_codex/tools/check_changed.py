@@ -275,6 +275,14 @@ def main():
         "library catalog synchronization",
         [sys.executable, str(TOOLS / "build_library_catalog.py"), "--check"],
     )
+    run_step(
+        "API description quality",
+        [
+            sys.executable,
+            str(TOOLS / "build_library_catalog.py"),
+            "--audit-descriptions",
+        ],
+    )
     if plan["recursion_paths"]:
         run_step(
             "changed-module recursion audit",

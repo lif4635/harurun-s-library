@@ -37,7 +37,7 @@ from library_codex.graph_connectivity.TwoEdgeConnectedComponents import two_edge
 | --- | --- | --- | --- | --- | --- |
 | [`add_edge(u, v)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L26) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号 | None — 値は返さない。build前のgraphへ無向辺を追加する。 | — |
 | [`build()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L30) | method | 内部構造を構築する。 | なし | `self` | — |
-| [`__getitem__(vertex)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L84) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |
+| [`__getitem__(vertex)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L84) | method | vertexが属する2-edge-connected成分のIDを返す。 | `vertex`: 頂点番号 | int — component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。 | — |
 | [`get_components()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L87) | method | 連結成分を取得する。 | なし | `self.groups` | — |
 | [`get_edge_mapping()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L92) | method | 辺・`mapping`を取得する。 | なし | `self.edge_mapping` | — |
 | [`bridge_forest(with_edge_ids=False)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L95) | method | 橋・forestを求める。 | `with_edge_ids`: with_edge のID列。省略時: `False` | `self.tree` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

@@ -28,4 +28,4 @@ from library_codex.range_query.DisjointSparseTable import DisjointSparseTable
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`prod(l, r)`](../../../range_query/DisjointSparseTable.py#L30) | method | 半開区間またはpathの集約値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | 区間・pathの集約値（入力要素型） | — |
+| [`prod(l, r)`](../../../range_query/DisjointSparseTable.py#L30) | method | 非空の半開区間[l, r)を元の並び順でopにより畳み込む。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | object — op(...op(values[l], values[l+1]), ... , values[r-1])。 | — |

@@ -29,7 +29,7 @@ from library_codex.union_find.MonoidUnionFind import MonoidUnionFind
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`merge(first, second)`](../../../union_find/MonoidUnionFind.py#L15) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | 償却 O(alpha(N)) + O(1) 回のop呼び出し（alphaは逆Ackermann関数） |
-| [`get(node)`](../../../union_find/MonoidUnionFind.py#L33) | method | 指定位置・辺・状態の値を取得する。 | `node`: 頂点・内部node番号 | 指定対象に格納された値・edge object | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
+| [`get(node)`](../../../union_find/MonoidUnionFind.py#L33) | method | nodeが属する連結成分に保持しているmonoid集約値を返す。 | `node`: 頂点・内部node番号 | object — 同じ連結成分の初期値をmerge順にopでまとめた値。set後は設定した成分値。 | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
 | [`set(node, value)`](../../../union_find/MonoidUnionFind.py#L36) | method | 指定位置・状態を値で置き換える。 | `node`: 頂点・内部node番号<br>`value`: 追加・設定・問い合わせる値 | `None` | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
 | [`edges(node)`](../../../union_find/MonoidUnionFind.py#L39) | method | 辺を求める。 | `node`: 頂点・内部node番号 | `self.edge_count[self.find(node)]` | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
 | [`has_cycle(node)`](../../../union_find/MonoidUnionFind.py#L42) | method | 閉路かどうかを判定する。 | `node`: 頂点・内部node番号 | bool | 償却 O(alpha(N))（alphaは逆Ackermann関数） |

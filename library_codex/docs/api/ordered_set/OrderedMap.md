@@ -28,8 +28,8 @@ key順の探索・k番目・lower/upper boundを扱う順序付きmapを扱う `
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`__setitem__(key, value)`](../../../ordered_set/OrderedMap.py#L17) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | 期待 O(log N) |
-| [`__getitem__(key)`](../../../ordered_set/OrderedMap.py#L21) | method | obj[key] で取得する。 | `key`: 比較・格納に使うkey | 格納値、sliceなら同種の部分構造 | 期待 O(log N) |
-| [`get(key, default=None)`](../../../ordered_set/OrderedMap.py#L27) | method | 指定位置・辺・状態の値を取得する。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | 指定対象に格納された値・edge object | 期待 O(1) |
+| [`__getitem__(key)`](../../../ordered_set/OrderedMap.py#L21) | method | keyに対応する値を返す。未登録ならdefault_factory()の結果を登録して返す。 | `key`: 比較・格納に使うkey | object — keyに登録された値。未登録だった場合は新しく登録したdefault_factory()の結果。 | 期待 O(log N) |
+| [`get(key, default=None)`](../../../ordered_set/OrderedMap.py#L27) | method | keyに対応する値を、mapを変更せず取得する。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | object — 登録済みなら対応する値、未登録ならdefault。新しいkeyは追加しない。 | 期待 O(1) |
 | [`find(key)`](../../../ordered_set/OrderedMap.py#L30) | method | 代表元・位置・対象要素を探す。 | `key`: 比較・格納に使うkey | 代表元・位置・node番号（int） | 期待 O(1) |
 | [`erase(key)`](../../../ordered_set/OrderedMap.py#L33) | method | 指定要素を削除する。 | `key`: 比較・格納に使うkey | bool | 期待 O(log N) |
 | [`lower_bound(key)`](../../../ordered_set/OrderedMap.py#L42) | method | 指定値以上となる最初の位置を返す。 | `key`: 比較・格納に使うkey | 条件を満たす最小index（int。存在しなければsize） | 期待 O(log N) |

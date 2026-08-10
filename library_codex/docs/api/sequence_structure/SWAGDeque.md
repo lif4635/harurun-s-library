@@ -31,7 +31,7 @@ deque両端の追加・削除をしながら全体のmonoid積を保つSWAGを�
 | [`append(value)`](../../../sequence_structure/SWAGDeque.py#L16) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | 償却 O(1) 回のop呼び出し |
 | [`popleft()`](../../../sequence_structure/SWAGDeque.py#L47) | method | `popleft`を求める。 | なし | `self.front.pop()[0]` | 償却 O(1) 回のop呼び出し |
 | [`pop()`](../../../sequence_structure/SWAGDeque.py#L54) | method | 要素を1つ取り除いて返す。 | なし | object — deque右端から削除した要素。 | 償却 O(1) 回のop呼び出し |
-| [`fold()`](../../../sequence_structure/SWAGDeque.py#L64) | method | 指定範囲・pathを演算で集約する。 | なし | `self.back[-1][1] if self.back else self.identity` / `self.front[-1][1]` / `self.op(self.front[-1][1], self.back[-1][1])` | O(1) 回のop呼び出し |
+| [`fold()`](../../../sequence_structure/SWAGDeque.py#L64) | method | deque全体を左端から右端へopで畳み込む。 | なし | object — op(...op(a[0], a[1]), ... , a[-1])。空ならidentity。 | O(1) 回のop呼び出し |
 | [`__len__()`](../../../sequence_structure/SWAGDeque.py#L74) | method | len(obj)。 | なし | 要素数（int） | — |
 | [`tolist()`](../../../sequence_structure/SWAGDeque.py#L77) | method | dequeの左端から順に要素を並べたlistを返す。O(N)。 | なし | list[object] — dequeの左端から右端までの要素列 | O(N) |
 | [`__str__()`](../../../sequence_structure/SWAGDeque.py#L83) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | O(N) |

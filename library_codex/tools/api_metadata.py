@@ -823,10 +823,15 @@ API_DETAILS_BY_SYMBOL = {
             r"$n$ が大きく $k$ が小さいとき、二項係数 $\binom{n}{k}$ を乗法式で求める。"
         ),
     },
-    ("combinatorics/Combination.py", "Comb", "fact"): {
+    ("combinatorics/Combination.py", "Comb", "F"): {
         "description": r"階乗 $n!\bmod\mathrm{mod}$ を返す。",
         "returnFormat": "int",
         "returnDescription": r"$n!\bmod\mathrm{mod}$。",
+    },
+    ("combinatorics/Combination.py", "Comb", "Fi"): {
+        "description": r"逆階乗 $(n!)^{-1}\bmod\mathrm{mod}$ を返す。",
+        "returnFormat": "int",
+        "returnDescription": r"$n!\,x\equiv1\pmod{\mathrm{mod}}$ を満たす $x$。",
     },
     ("combinatorics/Combination.py", "Comb", "inv"): {
         "description": r"正の整数 $n$ の乗法逆元 $n^{-1}\bmod\mathrm{mod}$ を返す。",
@@ -1986,7 +1991,8 @@ COMPLEXITY_BY_MODULE = {
     "combinatorics/Combination.py": {
         "Comb": "構築 O(size)",
         "ensure": "追加したtable要素数に比例（全呼び出しを通して償却 O(max size)）",
-        "fact": "償却 O(1)、table拡張分を除く",
+        "F": "償却 O(1)、table拡張分を除く",
+        "Fi": "償却 O(1)、table拡張分を除く",
         "inv": "償却 O(1)、table拡張分を除く",
         "C": "償却 O(1)、table拡張分を除く",
         "__call__": "償却 O(1)、table拡張分を除く",
@@ -2527,6 +2533,162 @@ API_DETAILS_BY_SYMBOL.update({
     },
     ("heuristic/LogTable.py", "LogTable", "__call__"): {
         "returnFormat": "float", "returnDescription": "周期表に保存したindex位置の対数近似値。",
+    },
+})
+
+# Public accessors whose meaning depends on their owning data structure.  Keep
+# these contracts explicit so get/query/__getitem__ never fall back to a vague
+# "stored value" description.
+API_DETAILS_BY_SYMBOL.update({
+    ("union_find/MonoidUnionFind.py", "MonoidUnionFind", "get"): {
+        "description": "nodeが属する連結成分に保持しているmonoid集約値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "同じ連結成分の初期値をmerge順にopでまとめた値。set後は設定した成分値。",
+    },
+    ("ordered_set/OrderedMap.py", "OrderedMap", "__getitem__"): {
+        "description": "keyに対応する値を返す。未登録ならdefault_factory()の結果を登録して返す。",
+        "returnFormat": "object",
+        "returnDescription": "keyに登録された値。未登録だった場合は新しく登録したdefault_factory()の結果。",
+    },
+    ("ordered_set/OrderedMap.py", "OrderedMap", "get"): {
+        "description": "keyに対応する値を、mapを変更せず取得する。",
+        "returnFormat": "object",
+        "returnDescription": "登録済みなら対応する値、未登録ならdefault。新しいkeyは追加しない。",
+    },
+    ("ordered_set/PointSetRangeFrequency.py", "PointSetRangeFrequency", "query"): {
+        "description": "半開区間[left, right)にvalueが現れる回数を返す。",
+        "returnFormat": "int",
+        "returnDescription": "values[left:right]のうちvalueと等しい要素の個数。",
+    },
+    ("ordered_set/TopKSum.py", "TopKSum", "sum"): {
+        "description": "現在のmultisetから選ばれる上位または下位k個の合計を返す。",
+        "returnFormat": "number",
+        "returnDescription": "largest=Trueなら大きい方、Falseなら小さい方から最大k個の和。要素数がk未満なら全要素の和。",
+    },
+    ("sequence_structure/SWAGDeque.py", "SWAGDeque", "fold"): {
+        "description": "deque全体を左端から右端へopで畳み込む。",
+        "returnFormat": "object",
+        "returnDescription": "op(...op(a[0], a[1]), ... , a[-1])。空ならidentity。",
+    },
+    ("sequence_structure/SWAGQueue.py", "SWAGQueue", "fold"): {
+        "description": "queue全体を先頭から末尾へopで畳み込む。",
+        "returnFormat": "object",
+        "returnDescription": "op(...op(a[0], a[1]), ... , a[-1])。空ならidentity。",
+    },
+    ("range_query/DisjointSparseTable.py", "DisjointSparseTable", "prod"): {
+        "description": "非空の半開区間[l, r)を元の並び順でopにより畳み込む。",
+        "returnFormat": "object",
+        "returnDescription": "op(...op(values[l], values[l+1]), ... , values[r-1])。",
+    },
+    ("spatial_structure/SegmentTree2D.py", "SegmentTree2D", "get"): {
+        "description": "指定したrow・columnの現在値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "現在の2次元配列におけるvalues[row][column]。",
+    },
+    ("graph/CSRGraph.py", "CSRSCC", "__getitem__"): {
+        "description": "vertexが属する強連結成分のIDを返す。",
+        "returnFormat": "int",
+        "returnDescription": "component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。",
+    },
+    ("graph_connectivity/AdvancedConnectivity.py", "ThreeEdgeConnectedComponents", "__getitem__"): {
+        "description": "vertexが属する3-edge-connected成分のIDを返す。",
+        "returnFormat": "int",
+        "returnDescription": "component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。",
+    },
+    ("graph_connectivity/BiconnectedComponents.py", "BlockCutTree", "__getitem__"): {
+        "description": "block-cut tree上のnodeに隣接するnode IDを返す。",
+        "returnFormat": "list[int]",
+        "returnDescription": "tree[node]と同じ隣接list。0以上articulation_count未満は関節点node、それ以降は二重頂点連結成分node。",
+    },
+    ("graph_connectivity/StronglyConnectedComponents.py", "SCC", "__getitem__"): {
+        "description": "vertexが属する強連結成分のIDを返す。",
+        "returnFormat": "int",
+        "returnDescription": "component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。",
+    },
+    ("graph_connectivity/TwoEdgeConnectedComponents.py", "TwoEdgeConnectedComponents", "__getitem__"): {
+        "description": "vertexが属する2-edge-connected成分のIDを返す。",
+        "returnFormat": "int",
+        "returnDescription": "component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。",
+    },
+    ("number_theory/MultiplicativeFunctions.py", "DirichletQuotientSeries", "__getitem__"): {
+        "description": "quotient-seriesの内部indexに保存されたprefix値を返す。",
+        "returnFormat": "number",
+        "returnDescription": "data[key]。実際の引数xに対応する値はseries[series.index(x)]で取得する。",
+    },
+    ("number_theory/MultiplicativeFunctions.py", "EnumerateMultiplicativePrefixSum", "get"): {
+        "description": "構築時に復元した乗法的関数fのprefix和をvalueで取得する。",
+        "returnFormat": "number",
+        "returnDescription": "S_f(value)=sum(1<=i<=value) f(i)。valueはN//iとして現れる商、またはsqrt(N)以下の整数。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "get"): {
+        "description": "現在nodeが表す正の既約分数を返す。",
+        "returnFormat": "tuple[int, int]",
+        "returnDescription": "(numerator, denominator)。値はnumerator/denominatorで、両方とも正、gcdは1。",
+    },
+    ("tree/DynamicDiameter.py", "DynamicDiameter", "get"): {
+        "description": "現在の辺重みに対する木の直径長と、その両端点を返す。",
+        "returnFormat": "tuple[number, tuple[int, int]]",
+        "returnDescription": "(distance, (first, second))。distanceはfirstからsecondまでの重み和。単一頂点なら距離0で両端は同じ頂点。",
+    },
+    ("tree/DynamicRerooting.py", "TopTree", "query"): {
+        "description": "nodeを根とみなした連結木全体のrerooting DP値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "vertex・compress・rake・add_edge・add_vertexで木全体を合成した、node根のDP値。",
+    },
+    ("tree/DynamicRerooting.py", "DynamicRerooting", "query"): {
+        "description": "rootを根とみなした連結木全体のrerooting DP値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "constructorへ渡した5つのDP callbackで木全体を合成した、root根のDP値。",
+    },
+    ("tree/Rerooting.py", "Rerooting", "__getitem__"): {
+        "description": "vertexを根としたときの全方位tree DP結果を返す。",
+        "returnFormat": "object",
+        "returnDescription": "answer[vertex]と同じ値。全隣接部分木の寄与をmergeし、put_vertexを適用したDP値。",
+    },
+    ("tree/StaticTopTree.py", "DynamicTreeDP", "get"): {
+        "description": "static top tree全体をvertex・compress・rakeで合成した現在値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "top_tree_root clusterのDP値。setで変更したleaf値をすべて反映する。",
+    },
+    ("tree/StaticTopTree.py", "EdgeTopTreeDP", "get"): {
+        "description": "全辺clusterをedge・compress・rakeで合成した現在値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "top_tree_root clusterのedge-based DP値。updateした辺leafを反映する。",
+    },
+    ("tree/StaticTopTree.py", "DynamicRerootingDP", "get"): {
+        "description": "vertexを根とみなしたstatic tree全体のDP値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "rake_forward・rake_backward・compressで全clusterをvertex向きに合成した値。",
+    },
+    ("tree/StaticTopTree.py", "VertexTopTreeDP", "get"): {
+        "description": "全頂点clusterを指定したDP callbackで合成した現在値を返す。",
+        "returnFormat": "object",
+        "returnDescription": "top_tree_rootのvertex-based path DP値。updateした頂点値を反映する。",
+    },
+    ("optimization/LineContainer.py", "LineContainer", "query"): {
+        "description": "追加済みの全直線をpointで評価した最小値または最大値を返す。",
+        "returnFormat": "number",
+        "returnDescription": "minimize=Trueならmin(a*point+b)、Falseならmax(a*point+b)。直線がなければ符号付きの無限大sentinel。",
+    },
+    ("optimization/MonotoneConvexHullTrick.py", "MonotoneConvexHullTrick", "query"): {
+        "description": "追加済みの全直線をpointで評価した最小値または最大値を返す。",
+        "returnFormat": "number",
+        "returnDescription": "minimize=Trueならmin(a*point+b)、Falseならmax(a*point+b)。空ならValueError。",
+    },
+    ("game/ImpartialGameSolver.py", "ImpartialGameSolver", "get"): {
+        "description": "boardから始まる有限不偏ゲームのGrundy数を返す。",
+        "returnFormat": "int",
+        "returnDescription": "遷移先のGrundy数集合に含まれない最小の非負整数。0なら後手必勝、非0なら先手必勝。",
+    },
+    ("game/PartisanGameSolver.py", "PartisanGameSolver", "get"): {
+        "description": "gameから始まるshort numeric partisan gameの値を返す。",
+        "returnFormat": "SurrealNumber",
+        "returnDescription": "全てのleft optionより大きく、全てのright optionより小さい最も単純なdyadic有理数。",
+    },
+    ("heuristic/TopK.py", "TopK", "get"): {
+        "description": "hash keyごとの最良値から、小さい方count件を昇順で返す。",
+        "returnFormat": "list[object]",
+        "returnDescription": "長さmin(count, 異なるhash key数)の昇順list。同じhash keyでは比較上最小のvalueだけを残す。",
     },
 })
 

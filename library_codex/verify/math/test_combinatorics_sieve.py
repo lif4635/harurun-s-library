@@ -33,7 +33,8 @@ def test_extended_gcd_combination_and_gray():
         for k in range(n + 1):
             assert combination.C(n, k) == math.comb(n, k) % 998244353
             assert combination(n, k) == combination.C(n, k)
-    assert combination.fact(10) == math.factorial(10) % 998244353
+    assert combination.F(10) == math.factorial(10) % 998244353
+    assert combination.Fi(10) * combination.F(10) % 998244353 == 1
     for value in range(1, 500):
         assert combination.inv(value) * value % 998244353 == 1
     assert combination.P(10, 3) == 10 * 9 * 8
@@ -73,9 +74,17 @@ def test_extended_gcd_combination_and_gray():
         pass
     else:
         raise AssertionError("inv(mod) must reject a non-invertible value")
+    for method in (combination.F, combination.Fi):
+        try:
+            method(-1)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("factorial methods must reject negative n")
     assert comb_small_k(10**18, 4) == math.comb(10**18, 4) % 998244353
     for old_name in (
-        "factorial_value", "binomial", "nCr", "permutation", "nPr", "multiset",
+        "fact", "factorial_value", "binomial", "nCr", "permutation", "nPr",
+        "multiset",
     ):
         assert not hasattr(combination, old_name)
     for value in range(10_000):

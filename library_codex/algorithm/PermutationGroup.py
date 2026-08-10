@@ -91,6 +91,3 @@ def simplify_permutation_subgroup(n, permutations, force_size_n=True):
             else:
                 result[fixed].append(permutation)
     return result
-
-
-SimplifyPermutationSubgroup = simplify_permutation_subgroup

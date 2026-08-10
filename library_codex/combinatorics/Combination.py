@@ -30,10 +30,19 @@ class Comb:
                 self.inverse_factorial[value] * value % mod
             )
 
-    def fact(self, n):
+    def F(self, n):
         """n!をmodで割った余りを返す。O(1)、表の拡張時は償却O(n)。"""
+        if n < 0:
+            raise ValueError("n must be nonnegative")
         self.ensure(n)
         return self.factorial[n]
+
+    def Fi(self, n):
+        """1/n!をmodで割った余りを返す。O(1)、表の拡張時は償却O(n)。"""
+        if n < 0:
+            raise ValueError("n must be nonnegative")
+        self.ensure(n)
+        return self.inverse_factorial[n]
 
     def inv(self, n):
         """nのmodにおける乗法逆元を返す。O(1)、表の拡張時は償却O(n)。"""

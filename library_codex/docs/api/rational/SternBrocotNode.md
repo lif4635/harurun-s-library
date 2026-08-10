@@ -27,7 +27,7 @@ Stern-Brocot木上の有理数と経路を扱うを扱う `SternBrocotNode`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get()`](../../../rational/SternBrocotNode.py#L39) | method | 指定位置・辺・状態の値を取得する。 | なし | 指定対象に格納された値・edge object | O(1) |
+| [`get()`](../../../rational/SternBrocotNode.py#L39) | method | 現在nodeが表す正の既約分数を返す。 | なし | tuple[int, int] — (numerator, denominator)。値はnumerator/denominatorで、両方とも正、gcdは1。 | O(1) |
 | [`lower_bound()`](../../../rational/SternBrocotNode.py#L42) | method | 指定値以上となる最初の位置を返す。 | なし | 条件を満たす最小index（int。存在しなければsize） | O(1) |
 | [`upper_bound()`](../../../rational/SternBrocotNode.py#L45) | method | `upper`・`bound`を求める。 | なし | tuple(`self.rx`, `self.ry`) | O(1) |
 | [`depth()`](../../../rational/SternBrocotNode.py#L48) | method | Stern–Brocot木の根1/1から現在の有理数までの辺数を返す。 | なし | `sum((abs(step) for step in self.path))` | O(R)（Rはrun-length path長） |

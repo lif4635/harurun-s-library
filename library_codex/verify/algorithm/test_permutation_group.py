@@ -2,6 +2,7 @@ import itertools
 import random
 
 from library_codex.algorithm.PermutationGroup import simplify_permutation_subgroup
+import library_codex.algorithm.PermutationGroup as permutation_group_module
 
 
 def _compose(first, second):
@@ -50,3 +51,7 @@ def test_symmetric_group_three_has_stabilizer_chain_sizes_three_and_two():
     assert {permutation[1] for permutation in levels[1]} == {0, 1}
     assert all(permutation[2] == 2 for permutation in levels[1])
     assert 2 * 3 == len(_closure(3, generators))
+
+
+def test_no_redundant_camel_case_alias():
+    assert not hasattr(permutation_group_module, "SimplifyPermutationSubgroup")

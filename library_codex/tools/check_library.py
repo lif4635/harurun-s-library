@@ -53,6 +53,14 @@ def commands(profile, skip_tests, skip_benchmarks):
             [executable, str(TOOLS / "build_library_catalog.py"), "--check"],
         ),
         (
+            "API description quality",
+            [
+                executable,
+                str(TOOLS / "build_library_catalog.py"),
+                "--audit-descriptions",
+            ],
+        ),
+        (
             "recursion audit",
             [executable, str(TOOLS / "audit_recursion.py")],
         ),

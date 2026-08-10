@@ -152,7 +152,7 @@ pypy3 library_codex/tools/build_library_catalog.py --audit-descriptions
 
 通常の生成は、既存catalogのmodule別fingerprintを使い、変更moduleとそのbundle依存先だけを再生成します。入力に変更がなければJSONを書き換えません。生成結果は一時fileへ完成させ、JSONとschemaを検証してから置き換えるため、途中で失敗しても直前の正常なcatalogは維持されます。
 
-`--audit-descriptions`はcatalogを書き換えず、「上記の処理結果」「指定した範囲の集計結果」など、利用方法を判断できない説明を一覧にします。新しいAPIを追加したときや説明をまとめて改善するときは、この一覧を減らしてください。metadataはmodule別fingerprintへ分離されているため、特定moduleの説明だけを変えた場合は全moduleを再解析しません。
+`--audit-descriptions`はcatalogを書き換えず、「上記の処理結果」「指定した範囲の集計結果」など、利用方法を判断できない説明を一覧にします。1件でも見つかれば非0で終了し、`check_changed.py`と`check_library.py`も失敗します。metadataはmodule別fingerprintへ分離されているため、特定moduleの説明だけを変えた場合は全moduleを再解析しません。
 
 `check_changed.py`と`check_library.py`はcatalog同期検査を含みます。source、API説明、category、検索語辞書を変更したら、catalogを再生成してから完了してください。
 
