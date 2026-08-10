@@ -7,7 +7,7 @@ from library_codex.range_query.DynamicWaveletMatrix import (
 from library_codex.segment_tree.DynamicSegmentTree import DynamicSegmentTree
 from library_codex.sequence_structure.ErasableHeap import ErasableHeap
 from library_codex.ordered_set.FastSet import FastSet
-from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.fenwick_tree.BIT import BIT
 from library_codex.segment_tree.LazySegTree import LazySegTree
 from library_codex.sequence_structure.ImplicitTreap import ImplicitTreap
 from library_codex.ordered_set.OrderedMap import OrderedMap
@@ -84,10 +84,10 @@ def test_sparse_persistent_and_2d_tree_debug_output():
 
 
 def test_linear_container_debug_output():
-    fenwick = FenwickTree([3, 1, 4, 1, 5])
+    fenwick = BIT([3, 1, 4, 1, 5])
     fenwick.add(2, 10)
     assert fenwick.tolist() == [3, 1, 14, 1, 5]
-    assert repr(fenwick) == "FenwickTree([3, 1, 14, 1, 5])"
+    assert repr(fenwick) == "BIT([3, 1, 14, 1, 5])"
 
     queue = SWAGQueue(lambda a, b: a + b, "")
     for value in "abcd":

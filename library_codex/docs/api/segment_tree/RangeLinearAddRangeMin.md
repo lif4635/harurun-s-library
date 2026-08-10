@@ -27,5 +27,5 @@ indexの一次式を区間加算し、区間最小値を求める構造を扱う
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(left, right, slope, intercept)`](../../../segment_tree/RangeLinearAddRangeMin.py#L109) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | — |
-| [`query(left, right)`](../../../segment_tree/RangeLinearAddRangeMin.py#L155) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | number — $\min_{\mathrm{left}\le i<\mathrm{right}}a_i$。 | — |
+| [`add(left, right, slope, intercept)`](../../../segment_tree/RangeLinearAddRangeMin.py#L109) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | O(log^2 N) |
+| [`query(left, right)`](../../../segment_tree/RangeLinearAddRangeMin.py#L155) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | number — $\min_{\mathrm{left}\le i<\mathrm{right}}a_i$。 | O(log^2 N) |

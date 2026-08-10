@@ -28,4 +28,4 @@ from library_codex.tree.AuxiliaryTree import AuxiliaryTree
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get(vertices, with_distance=False)`](../../../tree/AuxiliaryTree.py#L12) | method | verticesと、それらを結ぶために必要なLCAだけを含む圧縮木を構築する。圧縮木の頂点は0から振り直される。 | `vertices`: 頂点番号のiterable<br>`with_distance`: 頂点番号だけでなく距離も返すか。省略時: `False` | (auxiliary, original_vertices) — 親から子へ向かう圧縮木の隣接リストと、圧縮後の各頂点を元の木の頂点番号へ戻す対応表。入力が空なら両方とも空のlist。 | — |
+| [`get(vertices, with_distance=False)`](../../../tree/AuxiliaryTree.py#L12) | method | verticesと、それらを結ぶために必要なLCAだけを含む圧縮木を構築する。圧縮木の頂点は0から振り直される。 | `vertices`: 頂点番号のiterable<br>`with_distance`: 頂点番号だけでなく距離も返すか。省略時: `False` | (auxiliary, original_vertices) — 親から子へ向かう圧縮木の隣接リストと、圧縮後の各頂点を元の木の頂点番号へ戻す対応表。入力が空なら両方とも空のlist。 | O(K log K) + O(K) 回のLCA呼び出し（Kは指定頂点数） |

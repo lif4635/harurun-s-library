@@ -27,11 +27,11 @@ from library_codex.fps.FPSFraction import FPSFraction
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`__add__(other)`](../../../fps/FPSFraction.py#L31) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance | — |
-| [`__neg__()`](../../../fps/FPSFraction.py#L45) | method | -obj。 | なし | FPSFraction instance | — |
-| [`__sub__(other)`](../../../fps/FPSFraction.py#L49) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` | — |
-| [`__rsub__(other)`](../../../fps/FPSFraction.py#L52) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self._coerce(other) - self` | — |
-| [`__mul__(other)`](../../../fps/FPSFraction.py#L55) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance | — |
-| [`__truediv__(other)`](../../../fps/FPSFraction.py#L65) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * self._coerce(other).inverse()` | — |
-| [`inverse()`](../../../fps/FPSFraction.py#L71) | method | 逆元・逆変換を求める。 | なし | FPSFraction instance | — |
-| [`shrink()`](../../../fps/FPSFraction.py#L76) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` | — |
+| [`__add__(other)`](../../../fps/FPSFraction.py#L31) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance | 3回の多項式乗算 + O(N) |
+| [`__neg__()`](../../../fps/FPSFraction.py#L45) | method | -obj。 | なし | FPSFraction instance | O(N) |
+| [`__sub__(other)`](../../../fps/FPSFraction.py#L49) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` | 3回の多項式乗算 + O(N) |
+| [`__rsub__(other)`](../../../fps/FPSFraction.py#L52) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self._coerce(other) - self` | 3回の多項式乗算 + O(N) |
+| [`__mul__(other)`](../../../fps/FPSFraction.py#L55) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | FPSFraction instance | 2回の多項式乗算 |
+| [`__truediv__(other)`](../../../fps/FPSFraction.py#L65) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * self._coerce(other).inverse()` | 2回の多項式乗算 |
+| [`inverse()`](../../../fps/FPSFraction.py#L71) | method | 逆元・逆変換を求める。 | なし | FPSFraction instance | O(N) |
+| [`shrink()`](../../../fps/FPSFraction.py#L76) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` | O(N) |

@@ -20,4 +20,4 @@ from library_codex.combinatorial_series.PolynomialMobiusTransform import polynom
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`polynomial_mobius_transform(polynomial, a, b, c, d, degree=None, mod=DEFAULT_MOD)`](../../../combinatorial_series/PolynomialMobiusTransform.py#L16) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`c`: 定数・係数・第3入力<br>`d`: `d`として使う入力<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_compose(polynomial, inner, degree, mod)` | — |
+| [`polynomial_mobius_transform(polynomial, a, b, c, d, degree=None, mod=DEFAULT_MOD)`](../../../combinatorial_series/PolynomialMobiusTransform.py#L16) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`c`: 定数・係数・第3入力<br>`d`: `d`として使う入力<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_compose(polynomial, inner, degree, mod)` | fps_compose(N) + O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |

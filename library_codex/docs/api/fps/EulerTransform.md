@@ -20,4 +20,4 @@ from library_codex.fps.EulerTransform import euler_transform
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`euler_transform(values, mod=DEFAULT_MOD)`](../../../fps/EulerTransform.py#L14) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_exponential(logarithm, size, mod)` | — |
+| [`euler_transform(values, mod=DEFAULT_MOD)`](../../../fps/EulerTransform.py#L14) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `fps_exponential(logarithm, size, mod)` | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |

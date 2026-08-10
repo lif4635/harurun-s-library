@@ -22,5 +22,5 @@ from library_codex.number_theory.Elementary import totient_table, is_primitive_r
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`totient_table(limit)`](../../../number_theory/Elementary.py#L12) | `totient`・`table`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` | — |
-| [`is_primitive_root(value, prime)`](../../../number_theory/Elementary.py#L16) | `primitive`・根かどうかを判定する。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | bool | — |
+| [`totient_table(limit)`](../../../number_theory/Elementary.py#L7) | `totient`・`table`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` | — |
+| [`is_primitive_root(value, prime)`](../../../number_theory/Elementary.py#L11) | `primitive`・根かどうかを判定する。 | `value`: 追加・設定・問い合わせる値<br>`prime`: 素数法 | bool | — |

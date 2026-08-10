@@ -38,7 +38,7 @@ from library_codex.shortest_path.KShortestPaths import k_shortest_paths_directed
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_edge(source, target, weight)`](../../../shortest_path/KShortestPaths.py#L135) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`weight`: 重み | 数値または入力要素型 `len(self.edges) - 1` | — |
+| [`add_edge(source, target, weight)`](../../../shortest_path/KShortestPaths.py#L135) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`weight`: 重み | int — 追加した辺の0-indexed edge ID。 | — |
 | [`solve(k)`](../../../shortest_path/KShortestPaths.py#L140) | method | 設定済みの問題を解き、答えを返す。 | `k`: 選ぶ個数または0-indexedの順位 | 登録順の答えのlist | — |
 | [`get_next_smallest()`](../../../shortest_path/KShortestPaths.py#L145) | method | `next`・最小を取得する。 | なし | 計算結果 / `None` | — |
 

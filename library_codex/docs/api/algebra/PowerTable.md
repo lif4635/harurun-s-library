@@ -20,4 +20,4 @@ from library_codex.algebra.PowerTable import power_table
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`power_table(limit, exponent, mod=None)`](../../../algebra/PowerTable.py#L3) | 入力した値・多項式を指定指数だけ累乗する。 | `limit`: 上限。NoneならAPI既定の上限<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`power_table(limit, exponent, mod=None)`](../../../algebra/PowerTable.py#L3) | 入力した値・多項式を指定指数だけ累乗する。 | `limit`: 上限。NoneならAPI既定の上限<br>`exponent`: 非負の指数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(length) |

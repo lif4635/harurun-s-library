@@ -9,9 +9,11 @@ class QBinomial:
         self.q = q % mod
         self.mod = mod
         quantum = 1
+        quantum_numbers = []
         factorial = [1]
         order = None
         for index in range(1, maximum + 2):
+            quantum_numbers.append(quantum)
             factorial.append(factorial[-1] * quantum % mod)
             quantum = (quantum * self.q + 1) % mod
             if quantum == 0:
@@ -24,8 +26,9 @@ class QBinomial:
         inverse_factorial = [1] * len(factorial)
         inverse_factorial[-1] = pow(factorial[-1], -1, mod)
         for index in range(len(factorial) - 1, 0, -1):
-            quantum_index = sum(pow(self.q, power, mod) for power in range(index)) % mod
-            inverse_factorial[index - 1] = inverse_factorial[index] * quantum_index % mod
+            inverse_factorial[index - 1] = (
+                inverse_factorial[index] * quantum_numbers[index - 1] % mod
+            )
         self.factorial = factorial
         self.inverse_factorial = inverse_factorial
 

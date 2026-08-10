@@ -20,4 +20,4 @@ from library_codex.rational.InverseSum import inverse_sum
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`inverse_sum(left, right)`](../../../rational/InverseSum.py#L5) | 逆元・和を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `digamma(right) - digamma(left)` | — |
+| [`inverse_sum(left, right)`](../../../rational/InverseSum.py#L5) | 逆元・和を計算する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 数値または入力要素型 `digamma(right) - digamma(left)` | O(sqrt(N)) |

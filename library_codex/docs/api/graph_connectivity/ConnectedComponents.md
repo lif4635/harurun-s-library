@@ -20,4 +20,4 @@ from library_codex.graph_connectivity.ConnectedComponents import connected_compo
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`connected_components(graph)`](../../../graph_connectivity/ConnectedComponents.py#L3) | `connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(連結成分番号（数値または入力要素型）, `groups`（list）) | — |
+| [`connected_components(graph)`](../../../graph_connectivity/ConnectedComponents.py#L3) | `connected`・連結成分を求める。 | `graph`: 隣接listまたはグラフobject | tuple(連結成分番号（数値または入力要素型）, `groups`（list）) | O(V+E) |

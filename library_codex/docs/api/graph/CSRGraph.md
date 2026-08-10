@@ -61,7 +61,7 @@ CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackendを扱う `CS
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`from_adjacency(adjacency, directed=True)`](../../../graph/CSRGraph.py#L70) | classmethod | 隣接listを検証し、同じ辺をCSR形式へ変換する。 | `adjacency`: 各頂点の隣接辺を並べた隣接list<br>`directed`: Trueなら有向graphとして構築する。省略時: `True` | `cls(n, edges, directed=False)` / `cls(n, edges, directed)` | — |
+| [`from_adjacency(adjacency, directed=True)`](../../../graph/CSRGraph.py#L70) | classmethod | 隣接listを検証し、同じ辺をCSR形式へ変換する。 | `adjacency`: 各頂点の隣接辺を並べた隣接list<br>`directed`: Trueなら有向graphとして構築する。省略時: `True` | CSRGraph — 入力隣接listと同じ辺を連続配列に格納したCSRGraph。 | — |
 | [`transpose()`](../../../graph/CSRGraph.py#L118) | method | 全ての辺の向きを反転したCSRグラフを返す。 | なし | `self` / 計算結果 | — |
 | [`neighbors(vertex)`](../../../graph/CSRGraph.py#L152) | method | vertexから出る辺をCSR内の順に列挙する。 | `vertex`: 頂点番号 | iterator[tuple[int, number, int]] — (行き先頂点, 辺重み, 元の辺ID)を辺ごとにyieldする。 | — |
 | [`__len__()`](../../../graph/CSRGraph.py#L162) | method | len(obj)。 | なし | 要素数（int） | — |

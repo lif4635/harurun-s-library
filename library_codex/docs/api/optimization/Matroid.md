@@ -52,7 +52,7 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`set(selected)`](../../../optimization/Matroid.py#L53) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` | — |
-| [`circuit(element)`](../../../optimization/Matroid.py#L61) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `self.members[group] + [element]` | — |
+| [`circuit(element)`](../../../optimization/Matroid.py#L61) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[int] — elementを追加すると依存になるときの基本回路の要素番号。独立なら空list。 | — |
 
 ## Class `TransversalMatroid`
 

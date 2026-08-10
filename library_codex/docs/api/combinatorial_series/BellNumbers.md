@@ -20,4 +20,4 @@ from library_codex.combinatorial_series.BellNumbers import bell_numbers
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bell_numbers(max_index, mod=DEFAULT_MOD)`](../../../combinatorial_series/BellNumbers.py#L29) | `bell`・`numbers`を求める。 | `max_index`: 最大・`index`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`bell_numbers(max_index, mod=DEFAULT_MOD)`](../../../combinatorial_series/BellNumbers.py#L29) | `bell`・`numbers`を求める。 | `max_index`: 最大・`index`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |

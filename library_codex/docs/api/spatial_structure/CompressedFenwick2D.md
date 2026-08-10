@@ -27,6 +27,6 @@ from library_codex.spatial_structure.CompressedFenwick2D import CompressedFenwic
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(x, y, value)`](../../../spatial_structure/CompressedFenwick2D.py#L25) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`prefix_sum(x, y)`](../../../spatial_structure/CompressedFenwick2D.py#L42) | method | 半開区間 [0, right) の総和を返す。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | prefixの和（入力要素型） | — |
-| [`sum(left, bottom, right, top)`](../../../spatial_structure/CompressedFenwick2D.py#L54) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | 区間・集合の和（入力要素型） | — |
+| [`add(x, y, value)`](../../../spatial_structure/CompressedFenwick2D.py#L25) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log^2 N) |
+| [`prefix_sum(x, y)`](../../../spatial_structure/CompressedFenwick2D.py#L42) | method | 半開区間 [0, right) の総和を返す。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | prefixの和（入力要素型） | O(log^2 N) |
+| [`sum(left, bottom, right, top)`](../../../spatial_structure/CompressedFenwick2D.py#L54) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | 区間・集合の和（入力要素型） | O(log^2 N) |

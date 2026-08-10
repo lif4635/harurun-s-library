@@ -1,6 +1,6 @@
 """区間加算と区間和を2本のFenwick Treeで処理する構造。"""
 
-from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.fenwick_tree.BIT import BIT
 
 class RangeAddRangeSum:
     __slots__ = ("n", "first", "second")
@@ -13,8 +13,8 @@ class RangeAddRangeSum:
             values = list(values)
             n = len(values)
         self.n = n
-        self.first = FenwickTree(n + 1)
-        self.second = FenwickTree(n + 1)
+        self.first = BIT(n + 1)
+        self.second = BIT(n + 1)
         if values is not None:
             previous = 0
             for index, value in enumerate(values):

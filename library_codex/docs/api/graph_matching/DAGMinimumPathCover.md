@@ -20,4 +20,4 @@ from library_codex.graph_matching.DAGMinimumPathCover import dag_minimum_path_co
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`dag_minimum_path_cover(graph)`](../../../graph_matching/DAGMinimumPathCover.py#L5) | `dag`・最小・path・`cover`を求める。 | `graph`: 隣接listまたはグラフobject | list[int] — 経路上の頂点または辺を順に並べた列 | — |
+| [`dag_minimum_path_cover(graph)`](../../../graph_matching/DAGMinimumPathCover.py#L5) | `dag`・最小・path・`cover`を求める。 | `graph`: 隣接listまたはグラフobject | list[int] — 経路上の頂点または辺を順に並べた列 | O(E sqrt(V) + V+E) |

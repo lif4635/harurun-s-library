@@ -40,8 +40,8 @@ from library_codex.rational.RationalFormalPowerSeries import RationalFormalPower
 | [`shrink()`](../../../rational/RationalFormalPowerSeries.py#L78) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` | — |
 | [`derivative()`](../../../rational/RationalFormalPowerSeries.py#L82) | method | 入力した多項式・級数を形式微分する。 | なし | RationalFormalPowerSeries instance | — |
 | [`integral()`](../../../rational/RationalFormalPowerSeries.py#L90) | method | 入力した多項式・級数を形式積分する。 | なし | RationalFormalPowerSeries instance | — |
-| [`evaluate(point)`](../../../rational/RationalFormalPowerSeries.py#L96) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | 計算結果（数値または入力要素型） | — |
+| [`evaluate(point)`](../../../rational/RationalFormalPowerSeries.py#L96) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | Fraction — 係数列を多項式としてpointへ代入した有理数。 | — |
 | [`inverse(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L105) | method | 逆元・逆変換を求める。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance | — |
 | [`logarithm(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L120) | method | 対数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | `(self.derivative() * self.inverse(degree)).pre(max(0, degree -...` | — |
 | [`exponential(degree=None)`](../../../rational/RationalFormalPowerSeries.py#L131) | method | 指数を計算する。 | `degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries instance | — |
-| [`power(exponent, degree=None)`](../../../rational/RationalFormalPowerSeries.py#L148) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None` | `self.inverse(degree).power(-exponent, degree)` / `result.pre(degree)` | — |
+| [`power(exponent, degree=None)`](../../../rational/RationalFormalPowerSeries.py#L148) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数<br>`degree`: 必要な係数数・次数上限。省略時: `None` | RationalFormalPowerSeries — self^exponentをdegree項で打ち切った新しい有理FPS。 | — |

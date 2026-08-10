@@ -25,9 +25,9 @@
 ## 最小の使い方
 
 ```python
-from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.fenwick_tree.BIT import BIT
 
-fw = FenwickTree([3, 1, 4, 1, 5])
+fw = BIT([3, 1, 4, 1, 5])
 fw.add(2, 10)            # index 2 に10加算。返り値はNone
 answer = fw.sum(1, 4)    # [1, 4) の和を返す
 ```
@@ -36,7 +36,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 
 | category | 内容 | modules | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: | ---: |
-| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 13 | 33 | 3 | 10 |
+| [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 13 | 29 | 3 | 10 |
 | [convolution](api/convolution/README.md) | 係数畳み込み・min-plus・DFT・NTT | 7 | 18 | 1 | 4 |
 | [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 2 | 7 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
@@ -72,4 +72,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 35 |
 
-合計: **299 modules / 433 functions / 205 classes / 1283 methods・properties**。
+合計: **299 modules / 429 functions / 205 classes / 1283 methods・properties**。

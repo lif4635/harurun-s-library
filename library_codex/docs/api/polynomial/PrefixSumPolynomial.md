@@ -20,4 +20,4 @@ from library_codex.polynomial.PrefixSumPolynomial import prefix_sum_polynomial
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`prefix_sum_polynomial(polynomial, mod=DEFAULT_MOD)`](../../../polynomial/PrefixSumPolynomial.py#L17) | prefix・和・多項式を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `tree.interpolate(values)` | — |
+| [`prefix_sum_polynomial(polynomial, mod=DEFAULT_MOD)`](../../../polynomial/PrefixSumPolynomial.py#L17) | prefix・和・多項式を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] / `tree.interpolate(values)` | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |

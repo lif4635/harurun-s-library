@@ -27,4 +27,4 @@ from library_codex.spatial_structure.CumulativeSum2D import CumulativeSum2D
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`sum(top, left, bottom, right)`](../../../spatial_structure/CumulativeSum2D.py#L25) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） | — |
+| [`sum(top, left, bottom, right)`](../../../spatial_structure/CumulativeSum2D.py#L25) | method | 半開区間 [left, right) の値を集約して返す。 | `top`: 矩形の上端（含む）<br>`left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない） | 区間・集合の和（入力要素型） | O(1) |

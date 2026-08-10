@@ -27,20 +27,20 @@ from library_codex.ordered_set.TreapSet import TreapSet
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(key)`](../../../ordered_set/TreapSet.py#L84) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `key`: 比較・格納に使うkey | bool | — |
-| [`discard(key)`](../../../ordered_set/TreapSet.py#L116) | method | 要素があれば削除する。 | `key`: 比較・格納に使うkey | bool | — |
-| [`bisect_left(key)`](../../../ordered_set/TreapSet.py#L141) | method | 条件を満たす最初の位置を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） | — |
-| [`bisect_right(key)`](../../../ordered_set/TreapSet.py#L156) | method | 条件を満たす境界の直後を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） | — |
-| [`kth(index)`](../../../ordered_set/TreapSet.py#L171) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置 | k番目の値 | — |
-| [`ge(key, default=None)`](../../../ordered_set/TreapSet.py#L186) | method | `ge`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | — |
-| [`gt(key, default=None)`](../../../ordered_set/TreapSet.py#L190) | method | `gt`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | — |
-| [`le(key, default=None)`](../../../ordered_set/TreapSet.py#L194) | method | `le`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | — |
-| [`lt(key, default=None)`](../../../ordered_set/TreapSet.py#L198) | method | `lt`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | — |
-| [`min()`](../../../ordered_set/TreapSet.py#L202) | method | 最小を求める。 | なし | `self.kth(0)` | — |
-| [`max()`](../../../ordered_set/TreapSet.py#L205) | method | 最大を求める。 | なし | `self.kth(len(self) - 1)` | — |
-| [`__contains__(key)`](../../../ordered_set/TreapSet.py#L208) | method | value in obj。 | `key`: 比較・格納に使うkey | bool | — |
+| [`add(key)`](../../../ordered_set/TreapSet.py#L84) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `key`: 比較・格納に使うkey | bool | 期待 O(log N) |
+| [`discard(key)`](../../../ordered_set/TreapSet.py#L116) | method | 要素があれば削除する。 | `key`: 比較・格納に使うkey | bool | 期待 O(log N) |
+| [`bisect_left(key)`](../../../ordered_set/TreapSet.py#L141) | method | 条件を満たす最初の位置を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） | 期待 O(log N) |
+| [`bisect_right(key)`](../../../ordered_set/TreapSet.py#L156) | method | 条件を満たす境界の直後を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） | 期待 O(log N) |
+| [`kth(index)`](../../../ordered_set/TreapSet.py#L171) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置 | k番目の値 | 期待 O(log N) |
+| [`ge(key, default=None)`](../../../ordered_set/TreapSet.py#L186) | method | `ge`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | 期待 O(log N) |
+| [`gt(key, default=None)`](../../../ordered_set/TreapSet.py#L190) | method | `gt`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | 期待 O(log N) |
+| [`le(key, default=None)`](../../../ordered_set/TreapSet.py#L194) | method | `le`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | 期待 O(log N) |
+| [`lt(key, default=None)`](../../../ordered_set/TreapSet.py#L198) | method | `lt`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | 期待 O(log N) |
+| [`min()`](../../../ordered_set/TreapSet.py#L202) | method | 最小を求める。 | なし | `self.kth(0)` | 期待 O(log N) |
+| [`max()`](../../../ordered_set/TreapSet.py#L205) | method | 最大を求める。 | なし | `self.kth(len(self) - 1)` | 期待 O(log N) |
+| [`__contains__(key)`](../../../ordered_set/TreapSet.py#L208) | method | value in obj。 | `key`: 比較・格納に使うkey | bool | 期待 O(log N) |
 | [`__len__()`](../../../ordered_set/TreapSet.py#L211) | method | len(obj)。 | なし | 要素数（int） | — |
 | [`__iter__()`](../../../ordered_set/TreapSet.py#L215) | method | iter(obj)・for 文。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |
 | [`tolist()`](../../../ordered_set/TreapSet.py#L226) | method | 保持するkeyを昇順listで返す。O(N)。 | なし | list[object] — 保持するkeyを昇順に並べた列 | O(N) |
-| [`__str__()`](../../../ordered_set/TreapSet.py#L230) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
-| [`__repr__()`](../../../ordered_set/TreapSet.py#L233) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'TreapSet(%r)' % self.tolist()` | — |
+| [`__str__()`](../../../ordered_set/TreapSet.py#L230) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | O(N) |
+| [`__repr__()`](../../../ordered_set/TreapSet.py#L233) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'TreapSet(%r)' % self.tolist()` | O(N) |

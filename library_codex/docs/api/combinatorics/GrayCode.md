@@ -21,6 +21,6 @@ from library_codex.combinatorics.GrayCode import gray_code, inverse_gray_code, g
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`gray_code(value)`](../../../combinatorics/GrayCode.py#L5) | `gray`・`code`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value ^ value >> 1` | — |
-| [`inverse_gray_code(value)`](../../../combinatorics/GrayCode.py#L8) | 逆元・`gray`・`code`を計算する。 | `value`: 追加・設定・問い合わせる値 | 計算結果（int） | — |
+| [`gray_code(value)`](../../../combinatorics/GrayCode.py#L5) | `gray`・`code`を求める。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value ^ value >> 1` | O(1) Python integer operations |
+| [`inverse_gray_code(value)`](../../../combinatorics/GrayCode.py#L8) | 逆元・`gray`・`code`を計算する。 | `value`: 追加・設定・問い合わせる値 | 計算結果（int） | O(log value) shifts/xors |
 | [`gray_code_path(bit_count, start, goal)`](../../../combinatorics/GrayCode.py#L16) | startからgoalまで全bitmaskを一度ずつ通るGray code列を返す。O(2^N)。 | `bit_count`: bitmaskのbit数<br>`start`: 先頭にする0以上2^bit_count未満のbitmask<br>`goal`: 末尾にする0以上2^bit_count未満のbitmask | iterator[object] — 用途欄に示した要素を1つずつyieldする | O(2^N) |

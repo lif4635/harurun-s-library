@@ -20,4 +20,4 @@ from library_codex.shortest_path.DialDijkstra import dial_dijkstra
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`dial_dijkstra(graph, starts, max_weight, restore=False)`](../../../shortest_path/DialDijkstra.py#L3) | `dial`・`dijkstra`を求める。 | `graph`: 隣接listまたはグラフobject<br>`starts`: `starts`として使う入力<br>`max_weight`: 最大・`weight`の上限<br>`restore`: 復元情報も計算するか。省略時: `False` | tuple/数値または入力要素型 `(distance, parent) if restore else distance` | — |
+| [`dial_dijkstra(graph, starts, max_weight, restore=False)`](../../../shortest_path/DialDijkstra.py#L3) | `dial`・`dijkstra`を求める。 | `graph`: 隣接listまたはグラフobject<br>`starts`: `starts`として使う入力<br>`max_weight`: 最大・`weight`の上限<br>`restore`: 復元情報も計算するか。省略時: `False` | tuple/数値または入力要素型 `(distance, parent) if restore else distance` | O(E+V*C)（Cは最大辺重み） |

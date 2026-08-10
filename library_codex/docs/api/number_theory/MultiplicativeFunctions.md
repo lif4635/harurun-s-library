@@ -37,7 +37,7 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`dirichlet_multiply(first, second)`](../../../number_theory/MultiplicativeFunctions.py#L67) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 計算結果（DirichletQuotientSeries） | — |
+| [`dirichlet_multiply(first, second)`](../../../number_theory/MultiplicativeFunctions.py#L67) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | DirichletQuotientSeries — firstとsecondのDirichlet畳み込みのprefix値を保持する新しいseries。 | — |
 | [`dirichlet_divide(convolution, divisor)`](../../../number_theory/MultiplicativeFunctions.py#L111) | `dirichlet`・`divide`を求める。 | `convolution`: 畳み込みとして使う入力<br>`divisor`: 多項式の除数 | 計算結果（DirichletQuotientSeries） | — |
 | [`enumerate_multiplicative_function(limit, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L165) | `multiplicative`・`function`を列挙する。 | `limit`: 上限。NoneならAPI既定の上限<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） | — |
 | [`mobius_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L187) | Möbius・値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).mobius` | — |

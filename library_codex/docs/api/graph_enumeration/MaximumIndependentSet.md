@@ -22,6 +22,6 @@ from library_codex.graph_enumeration.MaximumIndependentSet import maximum_indepe
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`maximum_independent_set_mask(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L41) | 最大・独立・`set`・`mask`を求める。 | `graph`: 隣接listまたはグラフobject | tuple(`0`, `0`) / tuple(`best`（数値または入力要素型）, `best_mask`（数値または入力要素型）) | — |
-| [`maximum_independent_set(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L92) | 最大・独立・`set`を求める。 | `graph`: 隣接listまたはグラフobject | `_mask_vertices(mask)` | — |
-| [`maximum_weight_independent_set(graph, weight)`](../../../graph_enumeration/MaximumIndependentSet.py#L97) | 最大・`weight`・独立・`set`を求める。 | `graph`: 隣接listまたはグラフobject<br>`weight`: 重み | tuple(`best_weight`（int）, `best_mask`（int）) | — |
+| [`maximum_independent_set_mask(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L41) | 最大・独立・`set`・`mask`を求める。 | `graph`: 隣接listまたはグラフobject | tuple(`0`, `0`) / tuple(`best`（数値または入力要素型）, `best_mask`（数値または入力要素型）) | 最悪 O(2^V) |
+| [`maximum_independent_set(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L92) | 最大・独立・`set`を求める。 | `graph`: 隣接listまたはグラフobject | `_mask_vertices(mask)` | 最悪 O(2^V + V) |
+| [`maximum_weight_independent_set(graph, weight)`](../../../graph_enumeration/MaximumIndependentSet.py#L97) | 最大・`weight`・独立・`set`を求める。 | `graph`: 隣接listまたはグラフobject<br>`weight`: 重み | tuple(`best_weight`（int）, `best_mask`（int）) | 最悪 O(2^V) |

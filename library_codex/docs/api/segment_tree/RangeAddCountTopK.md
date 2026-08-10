@@ -37,6 +37,6 @@ from library_codex.segment_tree.RangeAddCountTopK import TopKNode, RangeAddCount
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`range_add(left, right, delta)`](../../../segment_tree/RangeAddCountTopK.py#L66) | method | 区間・`add`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`delta`: 加算差分 | `None` | — |
-| [`range_top_k(left, right)`](../../../segment_tree/RangeAddCountTopK.py#L90) | method | 区間・`top`・`k`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | list[object] — 計算結果 | — |
-| [`top_k()`](../../../segment_tree/RangeAddCountTopK.py#L113) | method | 現在の範囲で値が大きい順にk件の集計結果を返す。 | なし | 計算結果 | — |
+| [`range_add(left, right, delta)`](../../../segment_tree/RangeAddCountTopK.py#L66) | method | 区間・`add`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`delta`: 加算差分 | `None` | O(K log N) |
+| [`range_top_k(left, right)`](../../../segment_tree/RangeAddCountTopK.py#L90) | method | 区間・`top`・`k`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | list[object] — 計算結果 | O(K log N) |
+| [`top_k()`](../../../segment_tree/RangeAddCountTopK.py#L113) | method | 現在の範囲で値が大きい順にk件の集計結果を返す。 | なし | 計算結果 | O(K) |

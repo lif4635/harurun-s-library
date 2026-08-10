@@ -28,7 +28,7 @@ from library_codex.heuristic.SimulatedAnnealing import SimulatedAnnealing, SAMan
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`run(state, propose, max_iterations=None)`](../../../heuristic/SimulatedAnnealing.py#L22) | method | proposeで候補を作り、温度に従って受理しながらstateを更新する。 | `state`: rollback状態番号・状態object<br>`propose`: 現在状態から次の候補状態と評価差を作る関数<br>`max_iterations`: 反復回数の上限。Noneなら時間だけで終了判定する。省略時: `None` | `state` | — |
+| [`run(state, propose, max_iterations=None)`](../../../heuristic/SimulatedAnnealing.py#L22) | method | proposeで候補を作り、温度に従って受理しながらstateを更新する。 | `state`: rollback状態番号・状態object<br>`propose`: 現在状態から次の候補状態と評価差を作る関数<br>`max_iterations`: 反復回数の上限。Noneなら時間だけで終了判定する。省略時: `None` | `state` | O(iterations) propose/score/random呼び出し |
 
 ## Class `SAManager`
 
@@ -41,4 +41,4 @@ from library_codex.heuristic.SimulatedAnnealing import SimulatedAnnealing, SAMan
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`run(initialize, update, max_iterations=None)`](../../../heuristic/SimulatedAnnealing.py#L60) | method | initializeとupdateを使って焼きなましを進め、最良の状態と評価を返す。 | `initialize`: 初期状態を作って返す関数<br>`update`: 候補状態を1回更新し、状態と評価を返す関数<br>`max_iterations`: 反復回数の上限。Noneなら時間だけで終了判定する。省略時: `None` | `max(states, key=lambda pair: pair[1])` | — |
+| [`run(initialize, update, max_iterations=None)`](../../../heuristic/SimulatedAnnealing.py#L60) | method | initializeとupdateを使って焼きなましを進め、最良の状態と評価を返す。 | `initialize`: 初期状態を作って返す関数<br>`update`: 候補状態を1回更新し、状態と評価を返す関数<br>`max_iterations`: 反復回数の上限。Noneなら時間だけで終了判定する。省略時: `None` | `max(states, key=lambda pair: pair[1])` | O(iterations) update呼び出し |

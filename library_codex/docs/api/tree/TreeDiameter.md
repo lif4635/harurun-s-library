@@ -21,5 +21,5 @@ from library_codex.tree.TreeDiameter import tree_diameter, diameter
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`tree_diameter(tree)`](../../../tree/TreeDiameter.py#L8) | 木・直径を求める。 | `tree`: 木の隣接list | tuple(`0`, list `[]`) / tuple(`distance[second]`, pathを表すlist) | — |
-| [`diameter(tree)`](../../../tree/TreeDiameter.py#L48) | 直径を求める。 | `tree`: 木の隣接list | `tree_diameter(tree)[0]` | — |
+| [`tree_diameter(tree)`](../../../tree/TreeDiameter.py#L8) | 木・直径を求める。 | `tree`: 木の隣接list | tuple(`0`, list `[]`) / tuple(`distance[second]`, pathを表すlist) | O(V) |
+| [`diameter(tree)`](../../../tree/TreeDiameter.py#L48) | 直径を求める。 | `tree`: 木の隣接list | `tree_diameter(tree)[0]` | O(V) |

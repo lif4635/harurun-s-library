@@ -27,11 +27,11 @@ from library_codex.linear_algebra.XorBasis import XorBasis
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`insert(value)`](../../../linear_algebra/XorBasis.py#L13) | method | 指定位置へ要素を挿入する。 | `value`: 追加・設定・問い合わせる値 | bool | — |
+| [`insert(value)`](../../../linear_algebra/XorBasis.py#L13) | method | 指定位置へ要素を挿入する。 | `value`: 追加・設定・問い合わせる値 | bool | O(B)（Bは管理値のbit幅） |
 | [`__len__()`](../../../linear_algebra/XorBasis.py#L29) | method | len(obj)。 | なし | 要素数（int） | — |
-| [`contains(value)`](../../../linear_algebra/XorBasis.py#L32) | method | 指定値を保持しているか判定する。 | `value`: 追加・設定・問い合わせる値 | bool | — |
-| [`kth_smallest(index)`](../../../linear_algebra/XorBasis.py#L40) | method | k番目・最小を求める。 | `index`: 位置 | `-1` / 計算結果（int） | — |
-| [`maximum(xor=0)`](../../../linear_algebra/XorBasis.py#L49) | method | 最大を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 | — |
-| [`minimum(xor=0)`](../../../linear_algebra/XorBasis.py#L56) | method | 最小を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 | — |
-| [`xor_kth(xor, index)`](../../../linear_algebra/XorBasis.py#L63) | method | XOR・k番目を求める。 | `xor`: 全要素へ作用させるXOR値<br>`index`: 位置 | `-1` / 数値または入力要素型 `self.minimum(xor) ^ self.kth_smallest(index)` | — |
-| [`rank(value)`](../../../linear_algebra/XorBasis.py#L68) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `value`: 追加・設定・問い合わせる値 | rank・出現数（int） | — |
+| [`contains(value)`](../../../linear_algebra/XorBasis.py#L32) | method | 指定値を保持しているか判定する。 | `value`: 追加・設定・問い合わせる値 | bool | O(B)（Bは管理値のbit幅） |
+| [`kth_smallest(index)`](../../../linear_algebra/XorBasis.py#L40) | method | k番目・最小を求める。 | `index`: 位置 | `-1` / 計算結果（int） | O(B^2) |
+| [`maximum(xor=0)`](../../../linear_algebra/XorBasis.py#L49) | method | 最大を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 | O(B)（Bは管理値のbit幅） |
+| [`minimum(xor=0)`](../../../linear_algebra/XorBasis.py#L56) | method | 最小を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 | O(B)（Bは管理値のbit幅） |
+| [`xor_kth(xor, index)`](../../../linear_algebra/XorBasis.py#L63) | method | XOR・k番目を求める。 | `xor`: 全要素へ作用させるXOR値<br>`index`: 位置 | `-1` / 数値または入力要素型 `self.minimum(xor) ^ self.kth_smallest(index)` | O(B^2) |
+| [`rank(value)`](../../../linear_algebra/XorBasis.py#L68) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `value`: 追加・設定・問い合わせる値 | rank・出現数（int） | O(1)（Bは管理値のbit幅） |

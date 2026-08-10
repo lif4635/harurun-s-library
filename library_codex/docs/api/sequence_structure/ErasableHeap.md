@@ -27,11 +27,11 @@ heapから任意の既存値を遅延削除できるpriority queueを扱う `Era
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`push(value)`](../../../sequence_structure/ErasableHeap.py#L22) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`erase(value)`](../../../sequence_structure/ErasableHeap.py#L26) | method | 指定要素を削除する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`top()`](../../../sequence_structure/ErasableHeap.py#L33) | method | 次に取り出される要素を削除せず返す。 | なし | 次に取り出される要素 | — |
-| [`pop()`](../../../sequence_structure/ErasableHeap.py#L39) | method | 要素を1つ取り除いて返す。 | なし | 値 | — |
+| [`push(value)`](../../../sequence_structure/ErasableHeap.py#L22) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | O(log N) |
+| [`erase(value)`](../../../sequence_structure/ErasableHeap.py#L26) | method | 指定要素を削除する。 | `value`: 追加・設定・問い合わせる値 | `None` | 償却 O(log N) |
+| [`top()`](../../../sequence_structure/ErasableHeap.py#L33) | method | 次に取り出される要素を削除せず返す。 | なし | 次に取り出される要素 | 償却 O(log N) |
+| [`pop()`](../../../sequence_structure/ErasableHeap.py#L39) | method | 要素を1つ取り除いて返す。 | なし | number — 削除したheap先頭の値。 | 償却 O(log N) |
 | [`__len__()`](../../../sequence_structure/ErasableHeap.py#L46) | method | len(obj)。 | なし | 要素数（int） | — |
 | [`tolist()`](../../../sequence_structure/ErasableHeap.py#L49) | method | 削除予約を除いた現在の値を昇順listで返す。O(N log N)。 | なし | list[number] — 削除予約を除いた値を重複込みで昇順に並べた列 | O(N log N) |
-| [`__str__()`](../../../sequence_structure/ErasableHeap.py#L67) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
-| [`__repr__()`](../../../sequence_structure/ErasableHeap.py#L70) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'ErasableHeap(%r)' % self.tolist()` | — |
+| [`__str__()`](../../../sequence_structure/ErasableHeap.py#L67) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | O(N log N) |
+| [`__repr__()`](../../../sequence_structure/ErasableHeap.py#L70) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'ErasableHeap(%r)' % self.tolist()` | O(N log N) |

@@ -10,7 +10,7 @@ from library_codex.segment_tree.DynamicSegmentTree import DynamicSegmentTree
 from library_codex.segment_tree.PersistentLazySegmentTree import PersistentLazySegmentTree
 from library_codex.fenwick_tree.DynamicFenwickTree import DynamicFenwickTree
 from library_codex.sequence_structure.ErasableHeap import ErasableHeap
-from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.fenwick_tree.BIT import BIT
 from library_codex.spatial_structure.FenwickTree2D import FenwickTree2D
 from library_codex.fenwick_tree.RangeAddRangeSum import RangeAddRangeSum
 from library_codex.sequence_structure.SWAGDeque import SWAGDeque
@@ -31,7 +31,7 @@ def test_fenwick_variants_random():
     rng = random.Random(820413)
     for size in range(1, 100):
         values = [rng.randrange(20) for _ in range(size)]
-        fenwick = FenwickTree(values)
+        fenwick = BIT(values)
         dynamic = DynamicFenwickTree(size)
         for index, value in enumerate(values):
             dynamic.add(index, value)
@@ -50,7 +50,7 @@ def test_fenwick_variants_random():
                 assert dynamic.sum(left, right) == expected
 
         positive = [rng.randrange(1, 20) for _ in range(size)]
-        fenwick = FenwickTree(positive)
+        fenwick = BIT(positive)
         prefix = [0]
         for value in positive:
             prefix.append(prefix[-1] + value)

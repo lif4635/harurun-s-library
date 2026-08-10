@@ -29,8 +29,8 @@ ACL互換寄りの反復Dinic・min-cut・辺変更を扱う `MaxFlowGraph`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_vertex()`](../../../graph_flow/MaxFlow.py#L10) | method | 頂点を追加する。 | なし | 数値または入力要素型 `self.n - 1` | — |
-| [`add_edge(source, target, capacity)`](../../../graph_flow/MaxFlow.py#L15) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量 | 数値または入力要素型 `len(self.pos) - 1` | — |
+| [`add_vertex()`](../../../graph_flow/MaxFlow.py#L10) | method | 頂点を追加する。 | なし | int — 追加した頂点の0-indexed番号。 | — |
+| [`add_edge(source, target, capacity)`](../../../graph_flow/MaxFlow.py#L15) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量 | int — 追加した辺の0-indexed edge ID。 | — |
 | [`get_edge(i)`](../../../graph_flow/MaxFlow.py#L27) | method | edge_idに対応する辺情報を返す。 | `i`: 位置 | tuple(`source`, `edge[0]`, 数値または入力要素型 `edge[2] + reverse[2]`, `reverse[2]`) | — |
 | [`edges()`](../../../graph_flow/MaxFlow.py#L33) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
 | [`change_edge(i, capacity, flow)`](../../../graph_flow/MaxFlow.py#L36) | method | 辺を更新する。 | `i`: 位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` | — |

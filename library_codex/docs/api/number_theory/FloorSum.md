@@ -21,5 +21,5 @@ from library_codex.number_theory.FloorSum import floor_sum, mod_affine_range_cou
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`floor_sum(n, modulus, multiplier, addend)`](../../../number_theory/FloorSum.py#L3) | `floor`・和を計算する。 | `n`: 要素数・頂点数・次数<br>`modulus`: 法<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値 | 答え（数値または入力要素型） | — |
-| [`mod_affine_range_count(multiplier, addend, modulus, x_limit, y_limit)`](../../../number_theory/FloorSum.py#L26) | `mod`・`affine`・区間・個数を求める。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`modulus`: 法<br>`x_limit`: `x`・`limit`として使う入力<br>`y_limit`: `y`・`limit`として使う入力 | 数値または入力要素型 `floor_sum(x_limit, modulus, multiplier, addend + modulus) - fl...` | — |
+| [`floor_sum(n, modulus, multiplier, addend)`](../../../number_theory/FloorSum.py#L3) | `floor`・和を計算する。 | `n`: 要素数・頂点数・次数<br>`modulus`: 法<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値 | 答え（数値または入力要素型） | O(log max(modulus, multiplier)) |
+| [`mod_affine_range_count(multiplier, addend, modulus, x_limit, y_limit)`](../../../number_theory/FloorSum.py#L26) | `mod`・`affine`・区間・個数を求める。 | `multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`modulus`: 法<br>`x_limit`: `x`・`limit`として使う入力<br>`y_limit`: `y`・`limit`として使う入力 | 数値または入力要素型 `floor_sum(x_limit, modulus, multiplier, addend + modulus) - fl...` | O(log modulus) |

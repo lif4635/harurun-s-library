@@ -669,11 +669,11 @@ COVERED = {
     (
         "tko919/library",
         "DataStructure/2dbit.hpp",
-    ): "fenwick_tree/FenwickTree.py",
+    ): "fenwick_tree/BIT.py",
     (
         "tko919/library",
         "DataStructure/bit.hpp",
-    ): "fenwick_tree/FenwickTree.py",
+    ): "fenwick_tree/BIT.py",
     (
         "tko919/library",
         "DataStructure/dequeswag.hpp",
@@ -737,7 +737,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/binary-indexed-tree.hpp",
-    ): "fenwick_tree/FenwickTree.py",
+    ): "fenwick_tree/BIT.py",
     (
         "NyaanNyaan/library",
         "data-structure/binary-trie.hpp",
@@ -745,7 +745,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/dynamic-binary-indexed-tree.hpp",
-    ): "fenwick_tree/FenwickTree.py",
+    ): "fenwick_tree/BIT.py",
     (
         "NyaanNyaan/library",
         "data-structure/dynamic-union-find.hpp",
@@ -769,7 +769,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure/range-sum-range-add-bit.hpp",
-    ): "fenwick_tree/FenwickTree.py",
+    ): "fenwick_tree/BIT.py",
     (
         "NyaanNyaan/library",
         "data-structure/rollback-union-find.hpp",
@@ -853,7 +853,7 @@ COVERED = {
     (
         "kemuniku/cplib",
         "collections/fenwick2d.nim",
-    ): "fenwick_tree/FenwickTree.py",
+    ): "fenwick_tree/BIT.py",
     (
         "kemuniku/cplib",
         "collections/lazysegtree.nim",
@@ -965,7 +965,7 @@ COVERED = {
     (
         "NyaanNyaan/library",
         "data-structure-2d/2d-binary-indexed-tree.hpp",
-    ): "fenwick_tree/FenwickTree.py",
+    ): "fenwick_tree/BIT.py",
     (
         "NyaanNyaan/library",
         "data-structure-2d/2d-cumulative-sum.hpp",

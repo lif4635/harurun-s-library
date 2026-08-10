@@ -27,6 +27,6 @@ from library_codex.segment_tree.SortableSegmentTree import SortableSegmentTree
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`update(index, key, value)`](../../../segment_tree/SortableSegmentTree.py#L38) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`query(left, right)`](../../../segment_tree/SortableSegmentTree.py#L45) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 問い合わせ結果（型・tuple形状はclassの用途に従う） | — |
-| [`sort(left, right, reverse=False)`](../../../segment_tree/SortableSegmentTree.py#L58) | method | 入力要素を指定した順序で並べ替える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`reverse`: 逆向き・降順を使うかどうか。省略時: `False` | `None` | — |
+| [`update(index, key, value)`](../../../segment_tree/SortableSegmentTree.py#L38) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | O(sqrt(N)) 回のop呼び出し |
+| [`query(left, right)`](../../../segment_tree/SortableSegmentTree.py#L45) | method | 指定した対象への問い合わせ結果を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 問い合わせ結果（型・tuple形状はclassの用途に従う） | O(sqrt(N)) 回のop呼び出し |
+| [`sort(left, right, reverse=False)`](../../../segment_tree/SortableSegmentTree.py#L58) | method | 入力要素を指定した順序で並べ替える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`reverse`: 逆向き・降順を使うかどうか。省略時: `False` | `None` | O(L log L + sqrt(N))（L = right-left） |

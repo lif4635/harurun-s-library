@@ -20,4 +20,4 @@ from library_codex.graph.GridToGraph import grid_to_graph
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`grid_to_graph(grid, passable=lambda value: value != '#')`](../../../graph/GridToGraph.py#L3) | `grid`・`to`・グラフを求める。 | `grid`: `grid`として使う入力<br>`passable`: `passable`として使う入力。省略時: `lambda value: value != '#'` | tuple(`graph`（list）, `lambda row, column: row * width + column`, `lambda vertex: divmod(vertex, width)`) | — |
+| [`grid_to_graph(grid, passable=lambda value: value != '#')`](../../../graph/GridToGraph.py#L3) | `grid`・`to`・グラフを求める。 | `grid`: `grid`として使う入力<br>`passable`: `passable`として使う入力。省略時: `lambda value: value != '#'` | tuple(`graph`（list）, `lambda row, column: row * width + column`, `lambda vertex: divmod(vertex, width)`) | O(HW + E) |

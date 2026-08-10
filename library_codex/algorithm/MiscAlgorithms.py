@@ -5,24 +5,14 @@ from library_codex.combinatorics.IntegerPartitions import (
     integer_partitions,
     integer_partitions_up_to,
 )
-from library_codex.algorithm.IntegerUtilities import (
-    decimal_digit_count,
-    exact_square_root,
-    modular_power,
-    nearest_congruent_at_least,
-)
 from library_codex.algorithm.ModularProgression import (
     split_mod_progression,
 )
 
 
 __all__ = [
-    "decimal_digit_count",
     "erdos_ginzburg_ziv_indices",
-    "exact_square_root",
     "integer_partitions",
     "integer_partitions_up_to",
-    "modular_power",
-    "nearest_congruent_at_least",
     "split_mod_progression",
 ]

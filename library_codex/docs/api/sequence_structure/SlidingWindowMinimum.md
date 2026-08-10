@@ -20,4 +20,4 @@ from library_codex.sequence_structure.SlidingWindowMinimum import sliding_window
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`sliding_window_minimum(values, width)`](../../../sequence_structure/SlidingWindowMinimum.py#L3) | `sliding`・`window`・最小を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`width`: 幅・列数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`sliding_window_minimum(values, width)`](../../../sequence_structure/SlidingWindowMinimum.py#L3) | `sliding`・`window`・最小を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`width`: 幅・列数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | O(N) |

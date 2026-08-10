@@ -23,9 +23,9 @@ from library_codex.linear_algebra.Semiring import semiring_matrix_multiply, semi
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`semiring_matrix_multiply(first, second, add, multiply, zero)`](../../../linear_algebra/Semiring.py#L26) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値 | list[list[number]] — 各行をlistで持つ行列 | — |
-| [`semiring_matrix_power(matrix, exponent, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L40) | 入力した値・多項式を指定指数だけ累乗する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | list[list[number]] — 各行をlistで持つ行列 | — |
-| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L55) | `semiring`・線形・`recurrence`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 位置<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | `initial[index]` / 答え | — |
+| [`semiring_matrix_multiply(first, second, add, multiply, zero)`](../../../linear_algebra/Semiring.py#L26) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値 | list[list[number]] — 各行をlistで持つ行列 | H*D*W回ずつのmultiply/add呼び出し |
+| [`semiring_matrix_power(matrix, exponent, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L40) | 入力した値・多項式を指定指数だけ累乗する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | list[list[number]] — 各行をlistで持つ行列 | O(N^3 log exponent) 回のmultiply/add呼び出し |
+| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L55) | `semiring`・線形・`recurrence`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 位置<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | `initial[index]` / 答え | O(K^2 log index) 回のmultiply/add呼び出し |
 
 ## Class `Semiring`
 
@@ -38,6 +38,6 @@ from library_codex.linear_algebra.Semiring import semiring_matrix_multiply, semi
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`__add__(other)`](../../../linear_algebra/Semiring.py#L13) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Semiring instance | — |
-| [`__mul__(other)`](../../../linear_algebra/Semiring.py#L18) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Semiring instance | — |
-| [`__eq__(other)`](../../../linear_algebra/Semiring.py#L23) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`__add__(other)`](../../../linear_algebra/Semiring.py#L13) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Semiring instance | addを1回呼び出す |
+| [`__mul__(other)`](../../../linear_algebra/Semiring.py#L18) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Semiring instance | multiplyを1回呼び出す |
+| [`__eq__(other)`](../../../linear_algebra/Semiring.py#L23) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | 保持値の比較を1回行う |

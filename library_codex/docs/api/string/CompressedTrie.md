@@ -34,6 +34,6 @@ from library_codex.string.CompressedTrie import CompressedTrie
 | [`find(word)`](../../../string/CompressedTrie.py#L124) | method | 代表元・位置・対象要素を探す。 | `word`: 登録・検索する文字列・列 | 代表元・位置・node番号（int） | — |
 | [`count(word)`](../../../string/CompressedTrie.py#L128) | method | 条件に合う要素数を返す。 | `word`: 登録・検索する文字列・列 | 個数（int） | — |
 | [`contains(word)`](../../../string/CompressedTrie.py#L132) | method | 指定値を保持しているか判定する。 | `word`: 登録・検索する文字列・列 | bool | — |
-| [`prefix_count(prefix)`](../../../string/CompressedTrie.py#L137) | method | prefix・個数を処理する。 | `prefix`: prefix列・prefix長 | int `0 if node == -1 else self.subtree_count[node]` | — |
+| [`prefix_count(prefix)`](../../../string/CompressedTrie.py#L137) | method | prefix・個数を処理する。 | `prefix`: prefix列・prefix長 | int — prefixを接頭辞に持つ登録済み文字列の個数。 | — |
 | [`edge_label(node)`](../../../string/CompressedTrie.py#L143) | method | 辺・`label`を求める。 | `node`: 頂点・内部node番号 | tuple — 用途欄に示した複数の結果を順に格納 / `word[self.edge_left[node]:self.edge_right[node]]` | — |
 | [`to_graph()`](../../../string/CompressedTrie.py#L149) | method | `to`・グラフを求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

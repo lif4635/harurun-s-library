@@ -1,6 +1,6 @@
-"""一点加算・prefix和・区間和を対数時間で扱うFenwick Tree。"""
+"""一点加算・prefix和・区間和を対数時間で扱うBIT。"""
 
-class FenwickTree:
+class BIT:
     __slots__ = ("n", "bit")
 
     def __init__(self, values):
@@ -21,6 +21,7 @@ class FenwickTree:
             self.bit = bit
 
     def add(self, index, value):
+        """a[index]へvalueを加える。"""
         index += 1
         bit = self.bit
         while index <= self.n:
@@ -28,6 +29,7 @@ class FenwickTree:
             index += index & -index
 
     def prefix_sum(self, right):
+        """半開区間[0, right)の和を返す。"""
         result = 0
         bit = self.bit
         while right:
@@ -35,22 +37,22 @@ class FenwickTree:
             right &= right - 1
         return result
 
-    sum0 = prefix_sum
-
     def sum(self, left, right=None):
+        """[left, right)の和を返す。right省略時は[0, left)の和。"""
         if right is None:
             return self.prefix_sum(left)
         return self.prefix_sum(right) - self.prefix_sum(left)
 
-    prod = sum
-
     def get(self, index):
+        """a[index]を返す。"""
         return self.sum(index, index + 1)
 
     def set(self, index, value):
+        """a[index]をvalueへ置き換える。"""
         self.add(index, value - self.get(index))
 
     def lower_bound(self, target):
+        """prefix和がtarget以上になる最小の右端を返す。"""
         if target <= 0:
             return 0
         index = 0
@@ -63,8 +65,6 @@ class FenwickTree:
                 index = next_index
             step >>= 1
         return index if index < self.n else self.n
-
-    bisect_left = lower_bound
 
     def __len__(self):
         return self.n
@@ -82,4 +82,4 @@ class FenwickTree:
         return str(self.tolist())
 
     def __repr__(self):
-        return "FenwickTree(%r)" % self.tolist()
+        return "BIT(%r)" % self.tolist()

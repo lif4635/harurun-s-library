@@ -22,6 +22,11 @@ def test_surreal_arithmetic_children_and_between():
             if left < right:
                 middle = SurrealNumber.between(left, right)
                 assert left < middle < right
+    assert SurrealNumber(10 ** 30).larger() == SurrealNumber(10 ** 30 + 1)
+    assert SurrealNumber(-(10 ** 30)).smaller() == SurrealNumber(-(10 ** 30) - 1)
+    assert SurrealNumber.between(
+        SurrealNumber(10 ** 30), SurrealNumber(10 ** 30 + 1)
+    ) == SurrealNumber(2 * 10 ** 30 + 1, 1)
 
 
 def test_impartial_solver_subtraction_and_split_games():

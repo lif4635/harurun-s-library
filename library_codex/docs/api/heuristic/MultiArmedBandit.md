@@ -27,6 +27,6 @@ from library_codex.heuristic.MultiArmedBandit import MultiArmedBandit
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`play()`](../../../heuristic/MultiArmedBandit.py#L25) | method | 次に試す候補を選び、その番号を返す。 | なし | `self.last` / `arm` | — |
-| [`reward(value)`](../../../heuristic/MultiArmedBandit.py#L42) | method | 直前に選んだ候補へ観測した報酬を反映する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`best()`](../../../heuristic/MultiArmedBandit.py#L64) | method | 現在の評価が最大の候補番号を返す。 | なし | `max(range(self.n), key=self.weights.__getitem__)` | — |
+| [`play()`](../../../heuristic/MultiArmedBandit.py#L25) | method | 次に試す候補を選び、その番号を返す。 | なし | `self.last` / `arm` | O(K) |
+| [`reward(value)`](../../../heuristic/MultiArmedBandit.py#L42) | method | 直前に選んだ候補へ観測した報酬を反映する。 | `value`: 追加・設定・問い合わせる値 | `None` | O(1) |
+| [`best()`](../../../heuristic/MultiArmedBandit.py#L64) | method | 現在の評価が最大の候補番号を返す。 | なし | `max(range(self.n), key=self.weights.__getitem__)` | O(K)（Kはarm数） |

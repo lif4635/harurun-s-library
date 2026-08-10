@@ -1,8 +1,3 @@
-from library_codex.algorithm.IntegerUtilities import (
-    decimal_digit_count,
-    exact_square_root,
-    modular_power,
-)
 from library_codex.number_theory.IntegerArithmetic import extended_gcd
 from library_codex.number_theory.ModularRoot import primitive_root
 from library_codex.prime.Factorization import divisors, euler_phi, factor_count
@@ -24,10 +19,7 @@ def is_primitive_root(value, prime):
 EulersTotientFunction = totient_table
 Divisor = divisors
 PrimeFactors = lambda number: list(factor_count(number).items())
-modpow = modular_power
 PrimitiveRoot = primitive_root
 isPrimitiveRoot = is_primitive_root
 phi = euler_phi
 extgcd = lambda first, second: extended_gcd(first, second)[1:]
-SqrtInt = exact_square_root
-isDigit = decimal_digit_count

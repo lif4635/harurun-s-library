@@ -9,10 +9,10 @@
 | [`BernoulliNumbers`](BernoulliNumbers.md) | Bernoulli数列を生成する。 | 1 | 0 | 0 |
 | [`DerangementNumbers`](DerangementNumbers.md) | 完全順列数列を生成する。 | 1 | 0 | 0 |
 | [`LinearRecurrence`](LinearRecurrence.md) | Berlekamp--Massey・Bostan--Mori・線形漸化式第n項 | 6 | 0 | 0 |
+| [`PRecursive`](PRecursive.md) | P再帰列の推定・列挙・巨大添字項 | 3 | 0 | 0 |
 | [`PartitionNumbers`](PartitionNumbers.md) | 整数分割数列を生成する。 | 1 | 0 | 0 |
 | [`PascalTransform`](PascalTransform.md) | 列へPascal変換または逆変換を適用する。 | 1 | 0 | 0 |
 | [`PolynomialMobiusTransform`](PolynomialMobiusTransform.md) | 多項式列へMöbius型変換を適用する。 | 1 | 0 | 0 |
 | [`PowerSums`](PowerSums.md) | 冪和とそのprefix値を計算する。 | 2 | 0 | 0 |
-| [`PRecursive`](PRecursive.md) | P再帰列の推定・列挙・巨大添字項 | 3 | 0 | 0 |
 | [`StirlingMatrix`](StirlingMatrix.md) | Stirling変換を表す行列作用 | 2 | 0 | 0 |
 | [`StirlingNumbers`](StirlingNumbers.md) | 第一種・第二種Stirling数の行または列を生成する。 | 4 | 0 | 0 |

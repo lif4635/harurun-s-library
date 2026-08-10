@@ -10,7 +10,7 @@
 | [`Doubling`](Doubling.md) | functional graphのbinary liftingと加算集約 | 0 | 1 | 2 |
 | [`DynamicProgramming`](DynamicProgramming.md) | 0/1 knapsack・bitset subset sum・解復元 | 4 | 0 | 0 |
 | [`Fibonacci`](Fibonacci.md) | 高速doublingによるFibonacci数 | 1 | 0 | 0 |
-| [`IntegerUtilities`](IntegerUtilities.md) | 合同類・mod乗・完全平方根・整数n乗根・10進桁数 | 5 | 0 | 0 |
+| [`IntegerUtilities`](IntegerUtilities.md) | 非負整数の整数n乗根 | 1 | 0 | 0 |
 | [`ModularProgression`](ModularProgression.md) | mod付き等差数列の通常等差run分割 | 1 | 0 | 0 |
 | [`PermutationGroup`](PermutationGroup.md) | 置換群の安定化列と軌道代表元 | 1 | 0 | 0 |
 | [`RangeQueries`](RangeQueries.md) | Mo's algorithmによるoffline区間query | 0 | 1 | 3 |

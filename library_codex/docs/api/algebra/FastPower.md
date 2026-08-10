@@ -27,4 +27,4 @@ from library_codex.algebra.FastPower import FastPower
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`__call__(exponent)`](../../../algebra/FastPower.py#L27) | method | obj(...) として呼び出す。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） | — |
+| [`__call__(exponent)`](../../../algebra/FastPower.py#L27) | method | obj(...) として呼び出す。 | `exponent`: 非負の指数 | int — 前計算表で求めたbase^exponent mod mod。 | — |

@@ -20,4 +20,4 @@ from library_codex.graph_connectivity.BipartiteColoring import bipartite_colorin
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bipartite_coloring(graph)`](../../../graph_connectivity/BipartiteColoring.py#L5) | `bipartite`・彩色を求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` | — |
+| [`bipartite_coloring(graph)`](../../../graph_connectivity/BipartiteColoring.py#L5) | `bipartite`・彩色を求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` | O(V+E) |

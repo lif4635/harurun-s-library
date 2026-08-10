@@ -20,4 +20,4 @@ from library_codex.shortest_path.BFS import bfs
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bfs(graph, start=0, goal=None)`](../../../shortest_path/BFS.py#L5) | `bfs`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) | — |
+| [`bfs(graph, start=0, goal=None)`](../../../shortest_path/BFS.py#L5) | `bfs`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) | O(V+E) |

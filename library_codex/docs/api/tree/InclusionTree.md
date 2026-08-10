@@ -20,4 +20,4 @@ from library_codex.tree.InclusionTree import inclusion_tree
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`inclusion_tree(intervals, universe_size=None)`](../../../tree/InclusionTree.py#L3) | `inclusion`・木を求める。 | `intervals`: 区間 `(left, right)` のiterable<br>`universe_size`: 処理対象の個数。省略時: `None` | tuple(`graph`（list）, list `[(left, right) for left, right, _ in indexed]`, list `[original for _, _, original in indexed]`) | — |
+| [`inclusion_tree(intervals, universe_size=None)`](../../../tree/InclusionTree.py#L3) | `inclusion`・木を求める。 | `intervals`: 区間 `(left, right)` のiterable<br>`universe_size`: 処理対象の個数。省略時: `None` | tuple(`graph`（list）, list `[(left, right) for (left, right, _) in indexed]`, list `[original for (_, _, original) in indexed]`) | O(N log N) |

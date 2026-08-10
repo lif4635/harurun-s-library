@@ -20,4 +20,4 @@ from library_codex.graph.TopologicalSort import topological_sort
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`topological_sort(graph, lexicographical=False)`](../../../graph/TopologicalSort.py#L7) | 入力要素を指定した順序で並べ替える。 | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list/None `result if len(result) == n else None` | — |
+| [`topological_sort(graph, lexicographical=False)`](../../../graph/TopologicalSort.py#L7) | 入力要素を指定した順序で並べ替える。 | `graph`: 隣接listまたはグラフobject<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list[int] \| None — 頂点のトポロジカル順。閉路があればNone。 | O(V+E) |

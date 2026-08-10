@@ -20,4 +20,4 @@ from library_codex.optimization.MonotoneMinima import monotone_minima
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`monotone_minima(rows, columns, value=None, compare=None)`](../../../optimization/MonotoneMinima.py#L3) | `monotone`・`minima`を求める。 | `rows`: 行数<br>`columns`: 列数<br>`value`: 追加・設定・問い合わせる値。省略時: `None`<br>`compare`: 2候補を比較するcallback。省略時: `None` | 計算結果（数値または入力要素型） | — |
+| [`monotone_minima(rows, columns, value=None, compare=None)`](../../../optimization/MonotoneMinima.py#L3) | `monotone`・`minima`を求める。 | `rows`: 行数<br>`columns`: 列数<br>`value`: 追加・設定・問い合わせる値。省略時: `None`<br>`compare`: 2候補を比較するcallback。省略時: `None` | 計算結果（数値または入力要素型） | O(columns*log(rows+1)+rows) 回のcompare呼び出し |

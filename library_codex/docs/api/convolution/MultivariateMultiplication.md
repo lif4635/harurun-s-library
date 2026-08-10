@@ -26,4 +26,4 @@ from library_codex.convolution.MultivariateMultiplication import multivariate_mu
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultivariateMultiplication.py#L7) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultivariateMultiplication.py#L7) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(D*S log S + D^2*S) modular operations（D=len(base), S=product(base)） |

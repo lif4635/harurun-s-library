@@ -58,7 +58,7 @@
 | `algorithm/BitAlgorithms.py` | set bit・部分mask・上位maskの列挙 | set bit数または出力数に線形 |
 | `algorithm/Sorting.py` | 非負整数radix sort・置換・bucket sort | $O(NB/D + 2^D B/D)$ または $O(N+K)$ |
 | `combinatorics/IntegerPartitions.py` | 加法的整数分割の列挙 | 出力サイズに線形 |
-| `algorithm/IntegerUtilities.py` | 合同類・mod乗・完全平方根・整数n乗根・10進桁数 | 主に $O(\log N)$ |
+| `algorithm/IntegerUtilities.py` | 非負整数の整数n乗根 | degree固定で $O(\log B)$ 回の多倍長整数演算（$B$ はbit長） |
 | `combinatorics/ErdosGinzburgZiv.py` | Erdős–Ginzburg–Ziv定理の部分列構成 | $O(N^2)$ bit演算 |
 | `algorithm/ModularProgression.py` | mod付き等差数列の通常等差run分割 | $O(\sqrt N + R)$ |
 | `arithmetic_convolution/ArithmeticConvolution.py` | 約数/倍数zeta--Möbius・GCD/LCM畳み込み | $O(N\log\log N)$ |
@@ -80,7 +80,7 @@
 | `range_query/StaticRMQ.py` | 静的range minimum・最左argmin | 構築・メモリ $O(N)$、クエリ $O(1)$ |
 | `range_query/WaveletMatrix.py` | 非負整数列のrank・k-th・range frequency | 構築 $O(N\log \sigma)$、クエリ $O(\log \sigma)$ |
 | `range_query/DynamicWaveletMatrix.py` | 真にonlineな動的WM・候補圧縮版・高速offline版 | online操作 $O(B\log N)$、batch全処理 $O((N+Q)\log V\log N)$ |
-| `fenwick_tree/FenwickTree.py` | 1D Fenwick Treeの一点加算・prefix/区間和 | 更新・取得 $O(\log N)$ |
+| `fenwick_tree/BIT.py` | 1D Fenwick Treeの一点加算・prefix/区間和 | 更新・取得 $O(\log N)$ |
 | `segment_tree/SegTree.py` | 非可換SegTreeと境界二分探索 | 各操作 $O(\log N)$ |
 | `segment_tree/DynamicSegmentTree.py` | 巨大座標の疎な動的Segment Tree | 各操作 $O(\log X)$ |
 | `union_find/UnionFind.py` | 通常Union-Findの併合・連結判定・成分size | ほぼ $O(\alpha(N))$ |

@@ -1343,6 +1343,11 @@ def friendly_return_description(symbol_name, value, return_format, argument_deta
     cleaned = clean_markdown(value)
     lower = symbol_name.lower()
     words = set(lower.strip("_").split("_"))
+    if "数値または入力要素型" in cleaned:
+        # Raw AST return expressions are implementation details, not an API
+        # contract.  Let return_description_from_purpose turn the reviewed
+        # purpose into a user-facing result description instead.
+        return "上記の処理結果。"
     instance_match = re.fullmatch(r"([A-Za-z_]\w*) instance(?:\s*/\s*None)?", cleaned)
     if instance_match:
         description = f"{instance_match.group(1)} のインスタンス。"
@@ -1530,7 +1535,13 @@ def infer_complexity(
     complexity_overrides,
 ):
     override_key = f"{owner}.{name}" if owner else name
-    exact_override = complexity_overrides.get(module_key, {}).get(override_key)
+    module_overrides = complexity_overrides.get(module_key, {})
+    exact_override = module_overrides.get(override_key)
+    if not exact_override:
+        # Most metadata modules expose a single public class.  Keep a concise
+        # method-name entry useful there while allowing Class.method to
+        # override it when multiple classes reuse the same name differently.
+        exact_override = module_overrides.get(name)
     if exact_override:
         return exact_override
     exact = documented.get((owner, name))
@@ -1566,6 +1577,24 @@ def infer_complexity(
             if preference.lower() in clause.lower():
                 return concise_complexity(clause)
     return concise_complexity(hint) if hint else "実装依存"
+
+
+def clarify_complexity(value, module_key):
+    notes = []
+    if re.search(r"\bM\([A-Z][A-Za-z]*\)", value) and "多項式乗算cost" not in value:
+        notes.append("M(L)は長さLの多項式乗算cost")
+    if "alpha(N)" in value and "逆Ackermann" not in value:
+        notes.append("alphaは逆Ackermann関数")
+    if "O(B)" in value and "Bは" not in value:
+        if module_key == "ordered_set/BitSet.py":
+            notes.append("Bはsize-bit Python整数の機械語word数")
+        elif module_key == "linear_algebra/XorBasis.py":
+            notes.append("Bは管理値のbit幅")
+        elif module_key in {
+            "number_theory/GaussianInteger.py", "game/SurrealNumber.py"
+        }:
+            notes.append("Bは整数成分のbit長")
+    return value + ("（" + "、".join(notes) + "）" if notes else "")
 
 
 def apply_api_detail(item, module_key, owner):
@@ -1648,14 +1677,15 @@ def table_symbols(
         returns_value = cells[returns_index] if len(cells) > returns_index else ""
         argument_details = parse_argument_details(arguments_value, symbol_name)
         structured_return = clean_markdown(returns_value).split(" — ", 1)
+        raw_ast_return = "数値または入力要素型" in clean_markdown(returns_value)
         return_format = (
             structured_return[0]
-            if len(structured_return) == 2
+            if len(structured_return) == 2 and not raw_ast_return
             else infer_return_format(
                 returns_value,
                 symbol_name,
                 owner,
-                source_formats,
+                {} if raw_ast_return else source_formats,
             )
         )
         return_format = normalize_return_format(
@@ -1663,7 +1693,7 @@ def table_symbols(
         )
         return_description = (
             structured_return[1]
-            if len(structured_return) == 2
+            if len(structured_return) == 2 and not raw_ast_return
             else friendly_return_description(
                 symbol_name,
                 returns_value,
@@ -1671,6 +1701,17 @@ def table_symbols(
                 argument_details,
             )
         )
+        if "数値または入力要素型" in return_description:
+            useful_parts = [
+                part.strip()
+                for part in return_description.split(" / ")
+                if "数値または入力要素型" not in part
+                and "source参照" not in part
+                and part.strip() not in {"ほか", "計算結果"}
+            ]
+            return_description = (
+                useful_parts[0] if useful_parts else "上記の処理結果。"
+            )
         return_description = re.sub(
             r"\s*/\s*(?:list|dict|set|iterator)\[[^]]+\]\s*—\s*計算結果$",
             "",
@@ -1707,7 +1748,12 @@ def table_symbols(
                 ),
                 "arguments": clean_markdown(arguments_value),
                 "argumentDetails": argument_details,
-                "returns": clean_markdown(returns_value),
+                # Do not publish the AST-derived expression from the API
+                # markdown.  Consumers need the reviewed contract: its shape
+                # and what the value means.
+                "returns": " — ".join(
+                    value for value in (return_format, return_description) if value
+                ),
                 "returnFormat": return_format,
                 "returnDescription": return_description,
                 "complexity": explicit_complexity or infer_complexity(
@@ -1721,7 +1767,9 @@ def table_symbols(
                 ),
                 "sourceLine": int(source_line_match.group(1)) if source_line_match else None,
             }
-        result.append(apply_api_detail(item, module_key, owner))
+        item = apply_api_detail(item, module_key, owner)
+        item["complexity"] = clarify_complexity(item["complexity"], module_key)
+        result.append(item)
     return result
 
 

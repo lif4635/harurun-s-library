@@ -84,16 +84,15 @@ class SurrealNumber:
     child = children
 
     def larger(self):
-        result = SurrealNumber()
-        while self >= result:
-            result = result.children()[1]
-        return result
+        if self.numerator < 0:
+            return SurrealNumber()
+        return SurrealNumber((self.numerator >> self.exponent) + 1)
 
     def smaller(self):
-        result = SurrealNumber()
-        while self <= result:
-            result = result.children()[0]
-        return result
+        if self.numerator > 0:
+            return SurrealNumber()
+        ceiling = -((-self.numerator) >> self.exponent)
+        return SurrealNumber(ceiling - 1)
 
     @staticmethod
     def between(left, right):
@@ -101,12 +100,20 @@ class SurrealNumber:
         right = right if isinstance(right, SurrealNumber) else SurrealNumber(right)
         if not left < right:
             raise ValueError("left must be smaller than right")
-        result = SurrealNumber()
-        while left >= result or result >= right:
-            lower, upper = result.children()
-            result = lower if right <= result else upper
-        return result
+        exponent = 0
+        while True:
+            if exponent >= left.exponent:
+                lower = left.numerator << (exponent - left.exponent)
+            else:
+                lower = left.numerator // (1 << (left.exponent - exponent))
+            numerator = lower + 1
+
+            common = max(exponent, right.exponent)
+            scaled_numerator = numerator << (common - exponent)
+            scaled_right = right.numerator << (common - right.exponent)
+            if scaled_numerator < scaled_right:
+                return SurrealNumber(numerator, exponent)
+            exponent += 1
 
 def reduce_surreal(left, right):
     return SurrealNumber.between(left, right)
-

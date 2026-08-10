@@ -48,5 +48,5 @@ from library_codex.polynomial.MultipointEvaluation import (
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`polynomial`](../../../polynomial/MultipointEvaluation.py#L56) | property | 多項式を求める。 | なし | list[number] — 昇冪順の係数列 [a0, a1, ...] / `self.products[1][:]` | — |
-| [`evaluate(polynomial, direct_threshold=64)`](../../../polynomial/MultipointEvaluation.py#L61) | method | 指定点で値を評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`direct_threshold`: `direct`・`threshold`として使う入力。省略時: `64` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[0] * self.n` / 計算結果（数値または入力要素型） | — |
+| [`evaluate(polynomial, direct_threshold=64)`](../../../polynomial/MultipointEvaluation.py#L61) | method | 指定点で値を評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`direct_threshold`: `direct`・`threshold`として使う入力。省略時: `64` | list[int] — 登録したpointsと同じ順のpolynomial(points[i])。 | — |
 | [`interpolate(values)`](../../../polynomial/MultipointEvaluation.py#L114) | method | 補間を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `result[:self.n]` | — |

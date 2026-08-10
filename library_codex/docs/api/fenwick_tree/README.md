@@ -5,6 +5,6 @@ Fenwick木と加算・接頭和のAPI一覧です。
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`BIT`](BIT.md) | 1D Fenwick Treeの一点加算・prefix/区間和 | 0 | 1 | 10 |
 | [`DynamicFenwickTree`](DynamicFenwickTree.md) | 巨大な添字範囲で触れたnodeだけを持つ疎なFenwick Tree。 | 0 | 1 | 3 |
-| [`FenwickTree`](FenwickTree.md) | 1D Fenwick Treeの一点加算・prefix/区間和 | 0 | 1 | 10 |
 | [`RangeAddRangeSum`](RangeAddRangeSum.md) | 区間加算と区間和を2本のFenwick Treeで処理する構造。 | 0 | 1 | 4 |

@@ -21,7 +21,7 @@ from library_codex.number_theory.GaussianInteger import gaussian_gcd, GaussianIn
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`gaussian_gcd(first, second)`](../../../number_theory/GaussianInteger.py#L84) | `gaussian`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | — |
+| [`gaussian_gcd(first, second)`](../../../number_theory/GaussianInteger.py#L84) | `gaussian`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | O(log min(norm(first), norm(second))) 回のGaussian整数除算 |
 
 ## Class `GaussianInteger`
 
@@ -34,16 +34,16 @@ Gaussian整数の四則演算と最大公約数を扱うを扱う `GaussianInteg
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`x`](../../../number_theory/GaussianInteger.py#L11) | property | `x`を求める。 | なし | `self.real` | — |
-| [`y`](../../../number_theory/GaussianInteger.py#L15) | property | `y`を求める。 | なし | `self.imag` | — |
-| [`norm()`](../../../number_theory/GaussianInteger.py#L18) | method | `norm`を求める。 | なし | 数値または入力要素型 `self.real * self.real + self.imag * self.imag` | — |
-| [`conjugate()`](../../../number_theory/GaussianInteger.py#L21) | method | `conjugate`を求める。 | なし | GaussianInteger instance | — |
-| [`__add__(other)`](../../../number_theory/GaussianInteger.py#L26) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | — |
-| [`__sub__(other)`](../../../number_theory/GaussianInteger.py#L29) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | — |
-| [`__neg__()`](../../../number_theory/GaussianInteger.py#L32) | method | -obj。 | なし | GaussianInteger instance | — |
-| [`__mul__(other)`](../../../number_theory/GaussianInteger.py#L35) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | — |
-| [`__eq__(other)`](../../../number_theory/GaussianInteger.py#L43) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
-| [`__repr__()`](../../../number_theory/GaussianInteger.py#L47) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'GaussianInteger({self.real}, {self.imag})'` | — |
-| [`__pow__(exponent)`](../../../number_theory/GaussianInteger.py#L50) | method | obj ** exponent。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） | — |
-| [`__floordiv__(other)`](../../../number_theory/GaussianInteger.py#L78) | method | obj // other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[0]` | — |
-| [`__mod__(other)`](../../../number_theory/GaussianInteger.py#L81) | method | obj % other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[1]` | — |
+| [`x`](../../../number_theory/GaussianInteger.py#L11) | property | `x`を求める。 | なし | `self.real` | O(1) |
+| [`y`](../../../number_theory/GaussianInteger.py#L15) | property | `y`を求める。 | なし | `self.imag` | O(1) |
+| [`norm()`](../../../number_theory/GaussianInteger.py#L18) | method | `norm`を求める。 | なし | 数値または入力要素型 `self.real * self.real + self.imag * self.imag` | O(M(B)) bit time（M(L)は長さLの多項式乗算cost） |
+| [`conjugate()`](../../../number_theory/GaussianInteger.py#L21) | method | `conjugate`を求める。 | なし | GaussianInteger instance | O(1) |
+| [`__add__(other)`](../../../number_theory/GaussianInteger.py#L26) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | O(B) bit time（Bは整数成分のbit長） |
+| [`__sub__(other)`](../../../number_theory/GaussianInteger.py#L29) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | O(B) bit time（Bは整数成分のbit長） |
+| [`__neg__()`](../../../number_theory/GaussianInteger.py#L32) | method | -obj。 | なし | GaussianInteger instance | O(B) bit time（Bは整数成分のbit長） |
+| [`__mul__(other)`](../../../number_theory/GaussianInteger.py#L35) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | O(M(B)) bit time（M(L)は長さLの多項式乗算cost） |
+| [`__eq__(other)`](../../../number_theory/GaussianInteger.py#L43) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | O(B) bit time（Bは整数成分のbit長） |
+| [`__repr__()`](../../../number_theory/GaussianInteger.py#L47) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'GaussianInteger({self.real}, {self.imag})'` | O(B)（Bは整数成分のbit長） |
+| [`__pow__(exponent)`](../../../number_theory/GaussianInteger.py#L50) | method | obj ** exponent。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） | O(log exponent) Gaussian整数乗算 |
+| [`__floordiv__(other)`](../../../number_theory/GaussianInteger.py#L78) | method | obj // other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[0]` | O(M(B)) bit time（M(L)は長さLの多項式乗算cost） |
+| [`__mod__(other)`](../../../number_theory/GaussianInteger.py#L81) | method | obj % other。 | `other`: 同じ型のもう一方のobject・値 | `divmod(self, other)[1]` | O(M(B)) bit time（Bは成分のbit長）（M(L)は長さLの多項式乗算cost） |

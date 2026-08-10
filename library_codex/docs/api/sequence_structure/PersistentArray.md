@@ -30,8 +30,8 @@ from library_codex.sequence_structure.PersistentArray import PersistentArray
 | --- | --- | --- | --- | --- | --- |
 | [`get_root(root, index)`](../../../sequence_structure/PersistentArray.py#L47) | method | 根を取得する。 | `root`: 根の頂点番号・原始根<br>`index`: 位置 | `self.default` / `self.default if root == 0 else pool[(root << shift) + (index &...` | — |
 | [`get(index, version=-1)`](../../../sequence_structure/PersistentArray.py#L58) | method | index番目に格納されている値を返す。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1` | 指定対象に格納された値・edge object | — |
-| [`update_root(root, index, value)`](../../../sequence_structure/PersistentArray.py#L61) | method | 根を更新する。 | `root`: 根の頂点番号・原始根<br>`index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `child`（数値または入力要素型） | — |
-| [`set(index, value, version=-1)`](../../../sequence_structure/PersistentArray.py#L93) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` | — |
+| [`update_root(root, index, value)`](../../../sequence_structure/PersistentArray.py#L61) | method | 根を更新する。 | `root`: 根の頂点番号・原始根<br>`index`: 位置<br>`value`: 追加・設定・問い合わせる値 | int — 更新後の永続配列を表すroot node番号。 | — |
+| [`set(index, value, version=-1)`](../../../sequence_structure/PersistentArray.py#L93) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | int — 更新後に追加されたversion番号。 | — |
 | [`fork(version=-1)`](../../../sequence_structure/PersistentArray.py#L100) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` | — |
 | [`tolist(version=-1)`](../../../sequence_structure/PersistentArray.py#L104) | method | `tolist`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
 | [`node_count()`](../../../sequence_structure/PersistentArray.py#L108) | method | `node`・個数を求める。 | なし | 数値または入力要素型 `len(self.pool) // self.branch - 1` | — |

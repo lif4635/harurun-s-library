@@ -27,6 +27,6 @@ from library_codex.ordered_set.TopKSum import TopKSum
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(value)`](../../../ordered_set/TopKSum.py#L58) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`discard(value)`](../../../ordered_set/TopKSum.py#L65) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`sum()`](../../../ordered_set/TopKSum.py#L72) | method | 半開区間・集合の和を返す。 | なし | 区間・集合の和（入力要素型） | — |
+| [`add(value)`](../../../ordered_set/TopKSum.py#L58) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | 期待 O(log N) |
+| [`discard(value)`](../../../ordered_set/TopKSum.py#L65) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | `None` | 期待 O(log N) |
+| [`sum()`](../../../ordered_set/TopKSum.py#L72) | method | 半開区間・集合の和を返す。 | なし | 区間・集合の和（入力要素型） | O(1) |

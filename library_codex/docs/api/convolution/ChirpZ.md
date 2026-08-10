@@ -26,4 +26,4 @@ from library_codex.convolution.ChirpZ import chirp_z
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`chirp_z(polynomial, ratio, count=None, start=1, mod=DEFAULT_MOD)`](../../../convolution/ChirpZ.py#L7) | `chirp`・`z`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数。省略時: `None`<br>`start`: 始点・開始位置。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * count` / 計算結果（数値または入力要素型） / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`chirp_z(polynomial, ratio, count=None, start=1, mod=DEFAULT_MOD)`](../../../convolution/ChirpZ.py#L7) | `chirp`・`z`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数。省略時: `None`<br>`start`: 始点・開始位置。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[0] * count` / 計算結果（数値または入力要素型） / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(M(N+C)) modular operations（Nは係数数、Cは評価点数） |

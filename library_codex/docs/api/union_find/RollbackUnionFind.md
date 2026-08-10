@@ -32,7 +32,7 @@ undo・snapshot・成分和対応Union Findを扱う `RollbackUnionFind`。
 | [`same(x, y)`](../../../union_find/RollbackUnionFind.py#L33) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
 | [`size(x)`](../../../union_find/RollbackUnionFind.py#L38) | method | 要素数または連結成分sizeを返す。 | `x`: 値・座標・問い合わせ対象 | size（int） | — |
 | [`merge(x, y)`](../../../union_find/RollbackUnionFind.py#L41) | method | 2要素・2成分・2構造を併合する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | bool | — |
-| [`add_value(x, delta)`](../../../union_find/RollbackUnionFind.py#L63) | method | 値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`delta`: 加算差分 | `values[x]` | — |
+| [`add_value(x, delta)`](../../../union_find/RollbackUnionFind.py#L63) | method | 値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`delta`: 加算差分 | number — deltaを加えた後の、xが属する連結成分の集約値。 | — |
 | [`component_value(x)`](../../../union_find/RollbackUnionFind.py#L72) | method | 連結成分・値を求める。 | `x`: 値・座標・問い合わせ対象 | `values[self.leader(x)]` | — |
 | [`get_state()`](../../../union_find/RollbackUnionFind.py#L79) | method | `state`を取得する。 | なし | `len(self.history)` | — |
 | [`snapshot()`](../../../union_find/RollbackUnionFind.py#L84) | method | 現在のrollback位置を保存して返す。 | なし | rollback状態番号（int） | — |

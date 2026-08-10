@@ -21,7 +21,7 @@ from library_codex.graph_matching.GeneralMatching import maximum_general_matchin
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`maximum_general_matching(graph)`](../../../graph_matching/GeneralMatching.py#L103) | 最大・`general`・matchingを求める。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.matching_size`, `solver.mate`) | — |
+| [`maximum_general_matching(graph)`](../../../graph_matching/GeneralMatching.py#L103) | 最大・`general`・matchingを求める。 | `graph`: 隣接listまたはグラフobject | tuple(`solver.matching_size`, `solver.mate`) | O(V^3) |
 
 ## Class `GeneralMatching`
 
@@ -34,4 +34,4 @@ from library_codex.graph_matching.GeneralMatching import maximum_general_matchin
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`pairs()`](../../../graph_matching/GeneralMatching.py#L98) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`pairs()`](../../../graph_matching/GeneralMatching.py#L98) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(V) |

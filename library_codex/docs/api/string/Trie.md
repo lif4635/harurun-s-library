@@ -35,7 +35,7 @@ dict/固定alphabet対応Trie（重複・prefix件数・ID保持）を扱う `Tr
 | [`find(word)`](../../../string/Trie.py#L111) | method | 代表元・位置・対象要素を探す。 | `word`: 登録・検索する文字列・列 | 代表元・位置・node番号（int） | — |
 | [`count(word)`](../../../string/Trie.py#L119) | method | 条件に合う要素数を返す。 | `word`: 登録・検索する文字列・列 | 個数（int） | — |
 | [`contains(word)`](../../../string/Trie.py#L123) | method | 指定値を保持しているか判定する。 | `word`: 登録・検索する文字列・列 | bool | — |
-| [`prefix_count(prefix)`](../../../string/Trie.py#L128) | method | prefix・個数を処理する。 | `prefix`: prefix列・prefix長 | int `0 if node == -1 else self.subtree_count[node]` | — |
+| [`prefix_count(prefix)`](../../../string/Trie.py#L128) | method | prefix・個数を処理する。 | `prefix`: prefix列・prefix長 | int — prefixを接頭辞に持つ登録済み文字列の個数。 | — |
 | [`ids(node)`](../../../string/Trie.py#L134) | method | `ids`を求める。 | `node`: 頂点・内部node番号 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
 | [`iter_prefixes(sequence)`](../../../string/Trie.py#L140) | method | `iter`・`prefixes`を求める。 | `sequence`: 入力列 | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |
 | [`longest_prefix(sequence)`](../../../string/Trie.py#L151) | method | `longest`・prefixを求める。 | `sequence`: 入力列 | 計算結果（tuple） | — |

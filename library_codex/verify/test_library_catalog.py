@@ -110,12 +110,40 @@ def test_catalog_has_precise_group_middle_product_and_half_open_range_details():
         symbol["complexity"] != "各操作の計算量はAPI表を参照"
         for symbol in all_symbols
     )
+    assert all(symbol["complexity"] != "実装依存" for symbol in all_symbols)
+    assert all(
+        "数値または入力要素型" not in symbol["returnDescription"]
+        for symbol in all_symbols
+    )
+    assert all(
+        symbol["returnDescription"] not in {
+            "上記の処理結果。",
+            "このAPIの結果を呼び出し順・添字順に格納したリスト。",
+        }
+        for symbol in all_symbols
+    )
+
+
+def test_integer_utilities_and_bit_use_the_new_public_api_only():
+    data = load_catalog()
+    integers = module_by_path(data, "library_codex.algorithm.IntegerUtilities")
+    assert [item["name"] for item in integers["functions"]] == ["integer_nth_root"]
+
+    bit = module_by_path(data, "library_codex.fenwick_tree.BIT")
+    bit_class = next(item for item in bit["classes"] if item["name"] == "BIT")
+    method_names = {item["name"] for item in bit_class["methods"]}
+    assert {"add", "prefix_sum", "sum", "get", "set", "lower_bound"} <= method_names
+    assert {"sum0", "prod", "bisect_left"}.isdisjoint(method_names)
+    assert not any(
+        module["modulePath"] == "library_codex.fenwick_tree.FenwickTree"
+        for module in data["modules"]
+    )
 
 
 def test_catalog_contains_required_search_terms_and_lazy_boundaries():
     data = load_catalog()
     lazy = module_by_path(data, "library_codex.segment_tree.LazySegTree")
-    fenwick = module_by_path(data, "library_codex.fenwick_tree.FenwickTree")
+    fenwick = module_by_path(data, "library_codex.fenwick_tree.BIT")
     assert "遅延セグ木" in lazy["searchTerms"]
     assert "BIT" in fenwick["searchTerms"]
     lazy_class = next(item for item in lazy["classes"] if item["name"] == "LazySegTree")
@@ -330,8 +358,8 @@ def test_math_descriptions_cover_common_library_families():
     inverse = next(item for item in fps["functions"] if item["name"] == "fps_inverse")
     assert "\\pmod{x^{\\mathrm{degree}}}" in inverse["returnDescription"]
 
-    fenwick = module_by_path(data, "library_codex.fenwick_tree.FenwickTree")
-    fenwick_class = next(item for item in fenwick["classes"] if item["name"] == "FenwickTree")
+    fenwick = module_by_path(data, "library_codex.fenwick_tree.BIT")
+    fenwick_class = next(item for item in fenwick["classes"] if item["name"] == "BIT")
     range_sum = next(item for item in fenwick_class["methods"] if item["name"] == "sum")
     assert "\\sum_{i=\\mathrm{left}}^{\\mathrm{right}-1}a_i" in range_sum["returnDescription"]
 

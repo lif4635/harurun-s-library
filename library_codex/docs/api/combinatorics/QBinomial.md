@@ -23,8 +23,8 @@ q二項係数を計算するを扱う `QBinomial`。
 - constructor: [`QBinomial(q, maximum, mod=998244353)`](../../../combinatorics/QBinomial.py#L8)
 - 引数: `q`: query数・値<br>`maximum`: 最大として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `998244353`
 - 返り値: `QBinomial` instance
-- 計算量: —
+- 計算量: O(maximum) modular multiplications + 1 modular inverse
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`C(number, chosen)`](../../../combinatorics/QBinomial.py#L32) | method | q二項係数 $C_q(\mathrm{number},\mathrm{chosen})$ を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | int — $C_q(\mathrm{number},\mathrm{chosen})\bmod\mathrm{mod}$。$0\le\mathrm{chosen}\le\mathrm{number}$ でなければ0。 | — |
+| [`C(number, chosen)`](../../../combinatorics/QBinomial.py#L35) | method | q二項係数 $C_q(\mathrm{number},\mathrm{chosen})$ を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | int — $C_q(\mathrm{number},\mathrm{chosen})\bmod\mathrm{mod}$。$0\le\mathrm{chosen}\le\mathrm{number}$ でなければ0。 | math.comb(floor(n/order), floor(k/order))のcost + O(1) modular operations |

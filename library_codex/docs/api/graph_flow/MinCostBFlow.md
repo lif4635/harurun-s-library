@@ -28,7 +28,7 @@ lower/upper・頂点supply・負費用対応minimum-cost b-flowを扱う `MinCos
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_edge(source, target, lower, upper, cost)`](../../../graph_flow/MinCostBFlow.py#L30) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`lower`: 下限<br>`upper`: 上限<br>`cost`: 辺・選択の費用 | 数値または入力要素型 `len(self.edge_data) - 1` | — |
+| [`add_edge(source, target, lower, upper, cost)`](../../../graph_flow/MinCostBFlow.py#L30) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`lower`: 下限<br>`upper`: 上限<br>`cost`: 辺・選択の費用 | int — 追加した辺の0-indexed edge ID。 | — |
 | [`add_supply(vertex, amount)`](../../../graph_flow/MinCostBFlow.py#L41) | method | `supply`を追加する。 | `vertex`: 頂点番号<br>`amount`: 加算量・移動量 | `None` | — |
 | [`add_demand(vertex, amount)`](../../../graph_flow/MinCostBFlow.py#L50) | method | `demand`を追加する。 | `vertex`: 頂点番号<br>`amount`: 加算量・移動量 | `None` | — |
 | [`run()`](../../../graph_flow/MinCostBFlow.py#L141) | method | 登録した供給・需要と容量を満たす最小費用b-flowを求める。 | なし | tuple(bool `not self.edge_data`, `0`) / tuple(`False`, `0`) / tuple(`True`, `total_cost`（int）) | — |

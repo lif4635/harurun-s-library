@@ -135,7 +135,7 @@ def test_api_reference_has_actionable_semantics():
     fps = documents["docs/api/fps/FormalPowerSeries.md"]
     assert r"\pmod{x^{\mathrm{degree}}}" in fps
 
-    fenwick = documents["docs/api/fenwick_tree/FenwickTree.md"]
+    fenwick = documents["docs/api/fenwick_tree/BIT.md"]
     assert r"\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i" in fenwick
 
     segtree = documents["docs/api/segment_tree/SegTree.md"]

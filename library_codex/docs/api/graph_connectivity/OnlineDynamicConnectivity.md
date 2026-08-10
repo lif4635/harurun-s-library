@@ -35,7 +35,7 @@ splay Euler Tour Tree＋HDT level昇格による完全動的連結性を扱う `
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`link(first, second)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L342) | method | 異なる木の2頂点を辺で接続する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`-1`, `-1`) / `edge` | — |
+| [`link(first, second)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L342) | method | 異なる木の2頂点を辺で接続する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple[int, int] — 新しく全域forestへ入った正規化済み辺(u,v)。多重辺・自己loop・既に連結なら(-1,-1)。 | — |
 | [`cut(first, second)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L358) | method | 指定辺をforestから切断する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | ForestCutQuery instance | — |
 | [`connected(first, second)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L385) | method | firstとsecondが現在同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 2頂点が同じ連結成分ならTrue、異なればFalse。 | — |
 | [`component_size(vertex)`](../../../graph_connectivity/OnlineDynamicConnectivity.py#L393) | method | 指定頂点が属する連結成分の頂点数を返す。 | `vertex`: 頂点番号 | `self.forests[0].component_data(vertex)[1]` | — |

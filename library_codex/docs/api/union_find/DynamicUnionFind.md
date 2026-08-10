@@ -27,8 +27,8 @@ from library_codex.union_find.DynamicUnionFind import DynamicUnionFind
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(node)`](../../../union_find/DynamicUnionFind.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `node`: 頂点・内部node番号 | bool | — |
-| [`find(node)`](../../../union_find/DynamicUnionFind.py#L19) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） | — |
-| [`merge(first, second)`](../../../union_find/DynamicUnionFind.py#L37) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | — |
-| [`same(first, second)`](../../../union_find/DynamicUnionFind.py#L53) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
-| [`size(node)`](../../../union_find/DynamicUnionFind.py#L56) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） | — |
+| [`add(node)`](../../../union_find/DynamicUnionFind.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `node`: 頂点・内部node番号 | bool | 期待 O(1) |
+| [`find(node)`](../../../union_find/DynamicUnionFind.py#L19) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） | 償却 O(alpha(N)) expected dictionary operations（alphaは逆Ackermann関数） |
+| [`merge(first, second)`](../../../union_find/DynamicUnionFind.py#L37) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | 償却 O(alpha(N)) expected dictionary operations（alphaは逆Ackermann関数） |
+| [`same(first, second)`](../../../union_find/DynamicUnionFind.py#L53) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | 償却 O(alpha(N)) expected dictionary operations（alphaは逆Ackermann関数） |
+| [`size(node)`](../../../union_find/DynamicUnionFind.py#L56) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） | 償却 O(alpha(N)) expected dictionary operations（alphaは逆Ackermann関数） |

@@ -8,16 +8,16 @@
 
 ### IntegerUtilities
 
-`algorithm/IntegerUtilities.py` は `integer_nth_root` だけを残す方向で整理する。
+2026-08-10に `algorithm/IntegerUtilities.py` を `integer_nth_root` だけへ整理した。
 
-削除候補:
+削除済み:
 
 - `exact_square_root`
 - `modular_power`
 - `nearest_congruent_at_least`
 - `decimal_digit_count`
 
-削除時は実装ファイルだけでなく、次も同時に更新する。
+実装ファイルと同時に、次も更新した。
 
 - `number_theory/Elementary.py` と `algorithm/MiscAlgorithms.py` の import・再公開
 - `modpow`、`SqrtInt`、`isDigit` などの旧名
@@ -32,7 +32,9 @@ FPS、Polynomial、Convolution の境界と、998244353 専用実装の構成は
 
 ### Fenwick Tree
 
-利用時の名前は `FenwickTree` より `BIT` の方が好みに合う。rename する場合は互換 alias を増やさず、依存箇所、import、bundle、説明、サイトを一括して変更できるかを先に調べる。
+2026-08-10に `fenwick_tree/FenwickTree.py` / `FenwickTree` を
+`fenwick_tree/BIT.py` / `BIT` へ変更した。互換aliasは設けず、内部依存、import、
+bundle、説明、catalog、site dataを同じ変更単位で更新する。
 
 ## 説明を直す対象
 
@@ -153,6 +155,18 @@ FPS 全体の本格的な再整理は後回しにするが、この三分類だ�
 - 根拠のない複雑度を自動生成しない。分からない場合は空欄にして要整備として検出する
 - `tools/build_api_reference.py` の fallback 文言から直し、再生成後にも戻らないようにする
 
+2026-08-10の追加監査で、公開function・methodの「実装依存」を0件にした。
+callableを受け取るAPIは、全体のBig-Oだけでなく `op`、`compare`、`cost`、
+`transitions`、`options` などを何回呼ぶかを書く。`M(N)`、`alpha(N)`、`B` のような
+記号は、同じ計算量欄で意味も説明する。
+
+計算量を埋める過程で標準的な実装より不必要に遅いと判明した場合は、説明だけで
+済ませず、正しさをtestした上で改善する。2026-08-10には次を改善した。
+
+- `integer_nth_root`: 値域の二分探索から整数Newton法へ変更
+- `SurrealNumber.larger/smaller/between`: 数直線を1ずつ歩く処理をdyadic有理数の直接計算へ変更
+- `QBinomial` constructor: q整数を毎回再計算する二乗時間前計算を線形時間へ変更
+
 ### iPhone の「ホーム画面に追加」アイコン
 
 site source には次の asset が既にある。
@@ -166,17 +180,14 @@ site source には次の asset が既にある。
 
 ## 次に進める順番
 
-1. IntegerUtilities の削除対象と参照元を整理し、`integer_nth_root` だけへ縮小する
-2. API ごとの Complexity を表示できるよう生成基盤を直す
-3. RangeSet、Search、PermutationGroup の説明と返り値を直す
-4. `kth_element` はPyPyで有効だったため、introselect型fallbackを加えた実装を保持する
-5. Convolution / Polynomial / FPS998 のカテゴリ説明を追加する
-6. iPhone の公開 icon metadata を実機相当で確認する
-7. FPS998 を旧ライブラリの機能範囲・速度と照合しながら別途精査する
+1. 返り値の形式と各要素の意味を全moduleで継続監査する
+2. 計算量監査で見つけた改善候補をbenchmark付きで順に直す
+3. Convolution / Polynomial / FPS998 のカテゴリ説明を追加する
+4. iPhone の公開 icon metadata を実機相当で確認する
+5. FPS998 を旧ライブラリの機能範囲・速度と照合しながら別途精査する
 
 ## 今回はまだ実施しないこと
 
-- 上記 API の削除・rename
 - FPS の全面再編
 - `kth_element` の追加API変更
 - icon の差し替え

@@ -2,7 +2,7 @@
 
 from bisect import bisect_left
 
-from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.fenwick_tree.BIT import BIT
 
 class RectangleAddRectangleSum:
     __slots__ = ("rectangles", "queries")
@@ -40,7 +40,7 @@ class RectangleAddRectangleSum:
         events.sort()
         requests.sort()
         ys = sorted(set(ys))
-        bits = [FenwickTree(len(ys)) for _ in range(4)]
+        bits = [BIT(len(ys)) for _ in range(4)]
         result = [0] * len(self.queries)
         event_index = 0
         for x, y, sign, query_index in requests:

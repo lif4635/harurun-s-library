@@ -26,4 +26,4 @@ from library_codex.shortest_path.BellmanFord import bellman_ford
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bellman_ford(vertex_count, edges, start=0)`](../../../shortest_path/BellmanFord.py#L5) | `bellman`・`ford`を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）, `negative`) | — |
+| [`bellman_ford(vertex_count, edges, start=0)`](../../../shortest_path/BellmanFord.py#L5) | `bellman`・`ford`を求める。 | `vertex_count`: 頂点数<br>`edges`: 辺のiterable/list<br>`start`: 始点・開始位置。省略時: `0` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）, `negative`) | O(VE) |

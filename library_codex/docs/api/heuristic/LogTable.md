@@ -27,4 +27,4 @@ from library_codex.heuristic.LogTable import LogTable
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`__call__(index)`](../../../heuristic/LogTable.py#L20) | method | obj(...) として呼び出す。 | `index`: 位置 | `self.values[index & self.mask]` | — |
+| [`__call__(index)`](../../../heuristic/LogTable.py#L20) | method | obj(...) として呼び出す。 | `index`: 位置 | float — 周期表に保存したindex位置の対数近似値。 | O(1) |

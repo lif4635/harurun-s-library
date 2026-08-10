@@ -149,9 +149,9 @@
 - [x] `Convolution/subset.hpp` — `bitwise_convolution/SetFunction.py`
 ### DataStructure
 
-- [x] `DataStructure/2dbit.hpp` — `fenwick_tree/FenwickTree.py`
+- [x] `DataStructure/2dbit.hpp` — `fenwick_tree/BIT.py`
 - [x] `DataStructure/2dsegtree.hpp` — `data_structure/RectangleQuery.py`
-- [x] `DataStructure/bit.hpp` — `fenwick_tree/FenwickTree.py`
+- [x] `DataStructure/bit.hpp` — `fenwick_tree/BIT.py`
 - [x] `DataStructure/chtmonotone.hpp` — `optimization/Optimization.py`
 - [x] `DataStructure/dequeswag.hpp` — `data_structure/SWAG.py`
 - [x] `DataStructure/disjointsparsetable.hpp` — `range_query/DisjointSparseTable.py`
@@ -353,7 +353,7 @@
 - [-] `atcoder/twosat.hpp` — language support; feature audit is carried by consumers
 ### data-structure-2d
 
-- [x] `data-structure-2d/2d-binary-indexed-tree.hpp` — `fenwick_tree/FenwickTree.py`
+- [x] `data-structure-2d/2d-binary-indexed-tree.hpp` — `fenwick_tree/BIT.py`
 - [x] `data-structure-2d/2d-cumulative-sum.hpp` — `data_structure/RectangleQuery.py`
 - [x] `data-structure-2d/2d-segment-tree.hpp` — `data_structure/RectangleQuery.py`
 - [x] `data-structure-2d/abstract-range-tree.hpp` — `data_structure/RectangleQuery.py`
@@ -367,10 +367,10 @@
 - [x] `data-structure-2d/wavelet-matrix.hpp` — `range_query/WaveletMatrix.py`
 ### data-structure
 
-- [x] `data-structure/binary-indexed-tree.hpp` — `fenwick_tree/FenwickTree.py`
+- [x] `data-structure/binary-indexed-tree.hpp` — `fenwick_tree/BIT.py`
 - [x] `data-structure/binary-trie.hpp` — `ordered_set/BinaryTrie.py`
 - [x] `data-structure/divide-interval.hpp` — `segment_tree/SegTree.py`
-- [x] `data-structure/dynamic-binary-indexed-tree.hpp` — `fenwick_tree/FenwickTree.py`
+- [x] `data-structure/dynamic-binary-indexed-tree.hpp` — `fenwick_tree/BIT.py`
 - [x] `data-structure/dynamic-bitset.hpp` — `data_structure/Collections.py`
 - [x] `data-structure/dynamic-union-find.hpp` — `union_find/UnionFind.py`
 - [x] `data-structure/erasable-priority-queue.hpp` — `data_structure/SWAG.py`
@@ -382,7 +382,7 @@
 - [x] `data-structure/persistent-queue.hpp` — `data_structure/Collections.py`
 - [x] `data-structure/persistent-union-find.hpp` — `union_find/PersistentUnionFind.py`
 - [x] `data-structure/radix-heap.hpp` — `sequence_structure/RadixHeap.py`
-- [x] `data-structure/range-sum-range-add-bit.hpp` — `fenwick_tree/FenwickTree.py`
+- [x] `data-structure/range-sum-range-add-bit.hpp` — `fenwick_tree/BIT.py`
 - [x] `data-structure/range-union-find.hpp` — `union_find/UnionFind.py`
 - [x] `data-structure/rollback-union-find.hpp` — `union_find/RollbackUnionFind.py`
 - [x] `data-structure/segment-set.hpp` — `data_structure/Collections.py`
@@ -792,7 +792,7 @@
 - [x] `collections/bitvector.nim` — `data_structure/Collections.py`
 - [x] `collections/defaultdict.nim` — `data_structure/Collections.py`
 - [x] `collections/deletable_heapqueue.nim` — `data_structure/SWAG.py`
-- [x] `collections/fenwick2d.nim` — `fenwick_tree/FenwickTree.py`
+- [x] `collections/fenwick2d.nim` — `fenwick_tree/BIT.py`
 - [x] `collections/group_unionfind.nim` — `union_find/UnionFind.py`
 - [x] `collections/hashset.nim` — `data_structure/Collections.py`
 - [x] `collections/hashtable.nim` — `data_structure/Collections.py`

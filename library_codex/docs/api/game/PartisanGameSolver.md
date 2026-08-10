@@ -27,4 +27,4 @@ from library_codex.game.PartisanGameSolver import PartisanGameSolver
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get(game)`](../../../game/PartisanGameSolver.py#L15) | method | 指定位置・辺・状態の値を取得する。 | `game`: 局面遷移を提供するgame object | 指定対象に格納された値・edge object | — |
+| [`get(game)`](../../../game/PartisanGameSolver.py#L15) | method | 指定位置・辺・状態の値を取得する。 | `game`: 局面遷移を提供するgame object | 指定対象に格納された値・edge object | 未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回 |

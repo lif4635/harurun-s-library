@@ -39,6 +39,6 @@ from library_codex.optimization.SlopeTrick import WeightedSlopeTrick
 | [`slide(left, right)`](../../../optimization/SlopeTrick.py#L105) | method | `slide`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` | — |
 | [`chmin_right()`](../../../optimization/SlopeTrick.py#L111) | method | `chmin`・右を求める。 | なし | `None` | — |
 | [`chmin_left()`](../../../optimization/SlopeTrick.py#L116) | method | `chmin`・左を求める。 | なし | `None` | — |
-| [`evaluate(point)`](../../../optimization/SlopeTrick.py#L121) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | 計算結果 | — |
+| [`evaluate(point)`](../../../optimization/SlopeTrick.py#L121) | method | 指定点で値を評価する。 | `point`: 評価点・座標 | number — 保持する区分線形凸関数のpointにおける値。 | — |
 | [`merge(other)`](../../../optimization/SlopeTrick.py#L138) | method | 2要素・2成分・2構造を併合する。 | `other`: 同じ型のもう一方のobject・値 | `self` | — |
 | [`clear()`](../../../optimization/SlopeTrick.py#L171) | method | 保持している要素・状態を空にする。 | なし | `None` | — |

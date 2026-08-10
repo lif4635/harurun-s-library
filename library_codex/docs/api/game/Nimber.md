@@ -52,7 +52,7 @@ Conway nimber積・逆元・基底変換を扱う `Nimber`。
 | [`__eq__(other)`](../../../game/Nimber.py#L94) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
 | [`__add__(other)`](../../../game/Nimber.py#L97) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Nimber instance | — |
 | [`__mul__(other)`](../../../game/Nimber.py#L104) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Nimber instance | — |
-| [`power(exponent)`](../../../game/Nimber.py#L110) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | 計算結果（数値または入力要素型） | — |
+| [`power(exponent)`](../../../game/Nimber.py#L110) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | Nimber — nim積に関するselfのexponent乗。 | — |
 | [`inverse()`](../../../game/Nimber.py#L125) | method | 逆元・逆変換を求める。 | なし | `self.power((1 << self.bits) - 2)` | — |
 | [`__truediv__(other)`](../../../game/Nimber.py#L132) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * other.inverse()` | — |
 

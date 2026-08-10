@@ -31,8 +31,8 @@ from library_codex.string.SuffixArray import (
 | --- | --- | --- | --- | --- |
 | [`sa_is(sequence, upper)`](../../../string/SuffixArray.py#L68) | `sa`・`is`を求める。 | `sequence`: 入力列<br>`upper`: 上限 | list[object] — 計算結果 | — |
 | [`suffix_array(sequence, upper=None)`](../../../string/SuffixArray.py#L163) | suffix・配列を求める。 | `sequence`: 入力列<br>`upper`: 上限。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `sa_is(converted, 255)` / `sa_is(converted, maximum)` / `sa_is(sequence, 255)` / ほか（source参照） | — |
-| [`suffix_array_with_empty(sequence, upper=None)`](../../../string/SuffixArray.py#L184) | suffix・配列・`with`・`empty`を処理する。 | `sequence`: 入力列<br>`upper`: 上限。省略時: `None` | 数値または入力要素型 `[len(sequence)] + suffix_array(sequence, upper)` | — |
-| [`lcp_array(sequence, suffix_array)`](../../../string/SuffixArray.py#L188) | `lcp`・配列を求める。 | `sequence`: 入力列<br>`suffix_array`: 対応するsuffix array | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `lcp`（数値または入力要素型） | — |
+| [`suffix_array_with_empty(sequence, upper=None)`](../../../string/SuffixArray.py#L184) | suffix・配列・`with`・`empty`を処理する。 | `sequence`: 入力列<br>`upper`: 上限。省略時: `None` | list[int] — 空suffixの位置len(sequence)を先頭に加えたsuffix array。 | — |
+| [`lcp_array(sequence, suffix_array)`](../../../string/SuffixArray.py#L188) | `lcp`・配列を求める。 | `sequence`: 入力列<br>`suffix_array`: 対応するsuffix array | list[int] — lcp[i]がsuffix_array[i]とsuffix_array[i+1]の最長共通接頭辞長となるlist。 | — |
 
 ## Class `SuffixArray`
 
@@ -52,7 +52,7 @@ from library_codex.string.SuffixArray import (
 | [`lcp_substring(left1, right1, left2, right2)`](../../../string/SuffixArray.py#L262) | method | `lcp`・`substring`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | `0` / `value if value < limit else limit` | — |
 | [`compare_suffix(i, j)`](../../../string/SuffixArray.py#L271) | method | `compare`・suffixを求める。 | `i`: 位置<br>`j`: 位置 | `0` / int `-1 if self.rank[i] < self.rank[j] else 1` | — |
 | [`compare_substring(left1, right1, left2, right2)`](../../../string/SuffixArray.py#L277) | method | `compare`・`substring`を求める。 | `left1`: `left1`として使う入力<br>`right1`: `right1`として使う入力<br>`left2`: `left2`として使う入力<br>`right2`: `right2`として使う入力 | int `0 if end2 else -1` / `1` / int `-1 if self.sequence[left1 + common] < self.sequence[left2 + co...` | — |
-| [`search(pattern)`](../../../string/SuffixArray.py#L322) | method | 対象を探索する。 | `pattern`: 検索patternの文字列・列 | tuple(`self._bound(pattern, False)`, `self._bound(pattern, True)`) | — |
+| [`search(pattern)`](../../../string/SuffixArray.py#L322) | method | 対象を探索する。 | `pattern`: 検索patternの文字列・列 | tuple[int, int] — patternをprefixに持つsuffixがsuffix array上で占める半開区間(left,right)。 | — |
 | [`count(pattern)`](../../../string/SuffixArray.py#L329) | method | 条件に合う要素数を返す。 | `pattern`: 検索patternの文字列・列 | 個数（int） | — |
 | [`occurrences(pattern, sort_positions=False)`](../../../string/SuffixArray.py#L333) | method | `occurrences`を求める。 | `pattern`: 検索patternの文字列・列<br>`sort_positions`: 位置listを整列するか。省略時: `False` | `sorted(result) if sort_positions else result` | — |
 | [`distinct_substrings()`](../../../string/SuffixArray.py#L338) | method | `distinct`・`substrings`を求める。 | なし | 数値または入力要素型 `n * (n + 1) // 2 - sum(self.lcp)` | — |

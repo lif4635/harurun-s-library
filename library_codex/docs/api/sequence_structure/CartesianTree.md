@@ -21,5 +21,5 @@ from library_codex.sequence_structure.CartesianTree import cartesian_tree, carte
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`cartesian_tree(values, minimum=True)`](../../../sequence_structure/CartesianTree.py#L3) | `cartesian`・木を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 値の下限。Noneなら入力から決める。省略時: `True` | tuple(親情報（数値または入力要素型）, `left`（数値または入力要素型）, `right`（数値または入力要素型）, `root`) | — |
-| [`cartesian_tree_graph(values, minimum=True, directed=True)`](../../../sequence_structure/CartesianTree.py#L37) | `cartesian`・木・グラフを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 値の下限。Noneなら入力から決める。省略時: `True`<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | tuple(`graph`（list）, `root`) | — |
+| [`cartesian_tree(values, minimum=True)`](../../../sequence_structure/CartesianTree.py#L3) | `cartesian`・木を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 値の下限。Noneなら入力から決める。省略時: `True` | tuple(親情報（数値または入力要素型）, `left`（数値または入力要素型）, `right`（数値または入力要素型）, `root`) | O(N) |
+| [`cartesian_tree_graph(values, minimum=True, directed=True)`](../../../sequence_structure/CartesianTree.py#L37) | `cartesian`・木・グラフを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`minimum`: 値の下限。Noneなら入力から決める。省略時: `True`<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | tuple(`graph`（list）, `root`) | O(N) |

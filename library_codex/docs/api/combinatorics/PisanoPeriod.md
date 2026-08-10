@@ -21,5 +21,5 @@ from library_codex.combinatorics.PisanoPeriod import pisano_prime, pisano_period
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`pisano_prime(prime)`](../../../combinatorics/PisanoPeriod.py#L18) | `pisano`・素数を求める。 | `prime`: 素数法 | `3` / `20` / `period` | — |
-| [`pisano_period(modulus)`](../../../combinatorics/PisanoPeriod.py#L29) | `pisano`・`period`を求める。 | `modulus`: 法 | `1` / 計算結果（int） | — |
+| [`pisano_prime(prime)`](../../../combinatorics/PisanoPeriod.py#L18) | `pisano`・素数を求める。 | `prime`: 素数法 | `3` / `20` / `period` | 因数分解 + O(tau(C) log C) modular operations（Cはp-1または2(p+1)） |
+| [`pisano_period(modulus)`](../../../combinatorics/PisanoPeriod.py#L29) | `pisano`・`period`を求める。 | `modulus`: 法 | `1` / 計算結果（int） | modulusと各候補周期の因数分解cost |

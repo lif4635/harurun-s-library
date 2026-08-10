@@ -27,9 +27,9 @@ from library_codex.ordered_set.PersistentBinaryTrie import PersistentBinaryTrie
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`count_value(value, version=-1)`](../../../ordered_set/PersistentBinaryTrie.py#L27) | method | 値の個数を求める。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | `0` / `self.count[node]` | — |
-| [`add(value, version=-1, amount=1)`](../../../ordered_set/PersistentBinaryTrie.py#L35) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1`<br>`amount`: 加算量・移動量。省略時: `1` | 数値または入力要素型 `len(self.roots) - 1` | — |
-| [`discard(value, version=-1, amount=1)`](../../../ordered_set/PersistentBinaryTrie.py#L60) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1`<br>`amount`: 加算量・移動量。省略時: `1` | `self.add(value, version, -amount)` | — |
-| [`kth(index, version=-1, xor=0)`](../../../ordered_set/PersistentBinaryTrie.py#L64) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1`<br>`xor`: 全要素へ作用させるXOR値。省略時: `0` | k番目の値 | — |
-| [`xor_min(value, version=-1)`](../../../ordered_set/PersistentBinaryTrie.py#L81) | method | XOR・最小を求める。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | `self.kth(0, version, value)` | — |
+| [`count_value(value, version=-1)`](../../../ordered_set/PersistentBinaryTrie.py#L27) | method | 値の個数を求める。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | `0` / `self.count[node]` | O(B) |
+| [`add(value, version=-1, amount=1)`](../../../ordered_set/PersistentBinaryTrie.py#L35) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1`<br>`amount`: 加算量・移動量。省略時: `1` | int — 更新後に追加されたversion番号。元のversionは変更しない。 | O(B) |
+| [`discard(value, version=-1, amount=1)`](../../../ordered_set/PersistentBinaryTrie.py#L60) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1`<br>`amount`: 加算量・移動量。省略時: `1` | int — 削除後に追加されたversion番号。存在数を超える分は削除しない。 | O(B) |
+| [`kth(index, version=-1, xor=0)`](../../../ordered_set/PersistentBinaryTrie.py#L64) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1`<br>`xor`: 全要素へ作用させるXOR値。省略時: `0` | k番目の値 | O(B) |
+| [`xor_min(value, version=-1)`](../../../ordered_set/PersistentBinaryTrie.py#L81) | method | XOR・最小を求める。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | `self.kth(0, version, value)` | O(B)（Bは管理するbit幅） |
 | [`__len__()`](../../../ordered_set/PersistentBinaryTrie.py#L84) | method | len(obj)。 | なし | 要素数（int） | — |

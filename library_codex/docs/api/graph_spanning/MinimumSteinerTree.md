@@ -22,4 +22,4 @@ from library_codex.graph_spanning.MinimumSteinerTree import minimum_steiner_tree
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
 | [`minimum_steiner_tree(n, edges, terminals)`](../../../graph_spanning/MinimumSteinerTree.py#L5) | 最小・`steiner`・木を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`terminals`: Steiner木で接続するterminal頂点列 | tuple(`0`, list `[]`) / tuple(`inf`（float）, list `[]`) / tuple(答え, list `list(selected)`) | O(3^K N + 2^K (N+M) |
-| [`steiner_tree_dp(n, edges, terminals)`](../../../graph_spanning/MinimumSteinerTree.py#L81) | `steiner`・木・`dp`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`terminals`: Steiner木で接続するterminal頂点列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`steiner_tree_dp(n, edges, terminals)`](../../../graph_spanning/MinimumSteinerTree.py#L81) | `steiner`・木・`dp`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`terminals`: Steiner木で接続するterminal頂点列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(3^K V + 2^K (V+E) log V)（Kはterminal数） |

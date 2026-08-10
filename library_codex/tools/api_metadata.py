@@ -14,7 +14,7 @@ SEARCH_TERMS_BY_MODULE = {
         "区間更新",
         "遅延評価",
     ),
-    "fenwick_tree/FenwickTree.py": (
+    "fenwick_tree/BIT.py": (
         "BIT",
         "binary indexed tree",
         "累積和",
@@ -126,7 +126,7 @@ MODULE_CAPABILITIES = {
         "空でない入力には長さlen(concave)+len(arbitrary)-1の列を返す。",
         "必要なら最大値を作った凹列側の添字も同時に返せる。",
     ),
-    "fenwick_tree/FenwickTree.py": (
+    "fenwick_tree/BIT.py": (
         "1次元列の一点加算とprefix和・半開区間和を O(log N) で処理できる。",
         "区間加算・区間和、疎な添字空間、2次元矩形和の各Fenwick構造を選べる。",
         "累積和が目標値以上になる最初の位置を O(log N) で探索できる。",
@@ -237,8 +237,8 @@ MODULE_CAPABILITIES.update({
         "半開区間の一括追加・一括削除、1点の包含判定、指定値以上のmexを処理できる。",
     ),
     "algorithm/IntegerUtilities.py": (
-        "合同類の代表値、mod乗、完全平方根、整数n乗根、10進桁数を求められる。",
-        "integer_nth_rootは浮動小数点数を使わず、floor(number^(1/degree))を返す。",
+        "非負整数の整数n乗根を、浮動小数点数を使わず正確に求められる。",
+        "integer_nth_rootはNewton法でfloor(number^(1/degree))を返す。",
     ),
     "geometry/Orientation.py": (
         "2本の2次元ベクトルの符号付き外積を求められる。",
@@ -297,7 +297,6 @@ PURPOSE_BY_NAME = {
     "mobius": "整数numberに対するMöbius関数の値を返す。",
     "merge_max_interval": "隣り合う2区間の集約値を結合し、結合後の区間和・最大部分配列和・最小部分配列和を返す。",
     "max_interval_segment_tree": "数列から、各区間の最大・最小部分配列和を取得できるSegmentTreeを構築する。",
-    "modular_power": "baseのexponent乗をmodulusで割った余りを返す。",
     "normalize": "保持中の候補を評価順に整理し、上位だけを残す。",
     "pairs": "matchingに含まれる頂点pairを列挙する。",
     "play": "次に試す候補を選び、その番号を返す。",
@@ -323,7 +322,6 @@ PURPOSE_BY_NAME = {
     "count_spanning_trees": "無向グラフの全域木の個数をMatrix-Tree theoremで求める。",
     "minplus_conv_convex": "2つの凸列のmin-plus畳み込みを差分列のmergeで求める。",
     "concave_max_plus_convolution": "凹列と一般列のmax-plus畳み込みを求める。",
-    "decimal_digit_count": "非負整数の10進桁数を返す。",
     "ensure_permutation": "列が0からn-1までを1回ずつ含む置換か判定する。",
     "fibonacci": "index番目のFibonacci数を高速doublingで求める。",
     "lis": "最長増加部分列の長さを求め、必要なら添字列と値列も復元する。",
@@ -833,11 +831,11 @@ API_DETAILS_BY_SYMBOL = {
         "returnFormat": "int",
         "returnDescription": r"$S(n,k)\bmod\mathrm{mod}$。",
     },
-    ("fenwick_tree/FenwickTree.py", "FenwickTree", "prefix_sum"): {
+    ("fenwick_tree/BIT.py", "BIT", "prefix_sum"): {
         "description": r"先頭からright未満までの和 $\sum_{i=0}^{\mathrm{right}-1}a_i$ を返す。",
         "returnDescription": r"$\sum_{i=0}^{\mathrm{right}-1}a_i$。",
     },
-    ("fenwick_tree/FenwickTree.py", "FenwickTree", "sum"): {
+    ("fenwick_tree/BIT.py", "BIT", "sum"): {
         "description": (
             r"rightを指定したときは半開区間 $[\mathrm{left},\mathrm{right})$ の和を返す。"
             r"right=Noneなら $[0,\mathrm{left})$ の和を返す。"
@@ -847,11 +845,11 @@ API_DETAILS_BY_SYMBOL = {
             r"right=Noneなら $\sum_{i=0}^{\mathrm{left}-1}a_i$。"
         ),
     },
-    ("fenwick_tree/FenwickTree.py", "FenwickTree", "get"): {
+    ("fenwick_tree/BIT.py", "BIT", "get"): {
         "description": r"位置indexの値 $a_{\mathrm{index}}$ を返す。",
         "returnDescription": r"$a_{\mathrm{index}}$。",
     },
-    ("fenwick_tree/FenwickTree.py", "FenwickTree", "lower_bound"): {
+    ("fenwick_tree/BIT.py", "BIT", "lower_bound"): {
         "description": (
             r"接頭和 $\sum_{i=0}^{r-1}a_i$ がtarget以上になる最小の $r$ を返す。"
         ),
@@ -1148,6 +1146,72 @@ API_DETAILS_BY_SYMBOL.update({
     },
 })
 
+API_DETAILS_BY_SYMBOL.update({
+    ("sequence_structure/SWAGDeque.py", "SWAGDeque", "pop"): {
+        "returnFormat": "object", "returnDescription": "deque右端から削除した要素。",
+    },
+    ("string/CompressedTrie.py", "CompressedTrie", "prefix_count"): {
+        "returnFormat": "int", "returnDescription": "prefixを接頭辞に持つ登録済み文字列の個数。",
+    },
+    ("string/Trie.py", "Trie", "prefix_count"): {
+        "returnFormat": "int", "returnDescription": "prefixを接頭辞に持つ登録済み文字列の個数。",
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("fps/CompositeExponential.py", None, "inverse_composite_exponential"): {
+        "returnFormat": "list[int]", "returnDescription": "入力seriesを逆変換した、入力と同じ長さの係数列。",
+    },
+    ("fps/PolynomialComposition.py", None, "fps_compose"): {
+        "returnFormat": "list[int]", "returnDescription": "outer(inner(x)) mod x^degreeの昇冪係数をdegree個並べたlist。",
+    },
+    ("fps/PolynomialComposition.py", None, "fps_compositional_inverse"): {
+        "returnFormat": "list[int]", "returnDescription": "series(g(x))=x mod x^degreeを満たすgの昇冪係数列。",
+    },
+    ("fps/SparseFormalPowerSeries.py", None, "sparse_inverse"): {
+        "returnFormat": "list[int]", "returnDescription": "1/series mod x^degreeの昇冪係数をdegree個並べたlist。",
+    },
+    ("fps/SparseFormalPowerSeries.py", None, "sparse_exponential"): {
+        "returnFormat": "list[int]", "returnDescription": "exp(series) mod x^degreeの昇冪係数をdegree個並べたlist。",
+    },
+    ("fps/SparseFormalPowerSeries.py", None, "sparse_logarithm"): {
+        "returnFormat": "list[int]", "returnDescription": "log(series) mod x^degreeの昇冪係数をdegree個並べたlist。",
+    },
+    ("polynomial/GeometricMultipointEvaluation.py", None, "multipoint_evaluation_geometric"): {
+        "returnFormat": "list[int]", "returnDescription": "polynomial(initial*ratio^i)をi=0..count-1の順に並べたlist。",
+    },
+    ("combinatorial_series/DerangementNumbers.py", None, "derangement_numbers"): {
+        "returnFormat": "list[int]", "returnDescription": "0からmax_indexまでの完全順列数を添字順に並べたlist。",
+    },
+    ("combinatorial_series/PowerSums.py", None, "power_sums"): {
+        "returnFormat": "list[int]", "returnDescription": "result[k]=sum(value^k for value in values) mod modとなるlist。",
+    },
+    ("tree/PruferCode.py", None, "prufer_encode_extended"): {
+        "returnFormat": "list[int]", "returnDescription": "通常のPruefer列の末尾へroot n-1を加えた長さn-1の列。",
+    },
+    ("string/Manacher.py", None, "enumerate_palindrome_lengths"): {
+        "returnFormat": "list[int]", "returnDescription": "各中心の最長回文長を、文字中心と隙間中心の順に並べたlist。",
+    },
+    ("string/Manacher.py", None, "enumerate_palindromes"): {
+        "returnFormat": "list[int]", "returnDescription": "各中心で得られる回文半径を統合したlist。",
+    },
+    ("string/SuffixArray.py", None, "lcp_array"): {
+        "returnFormat": "list[int]", "returnDescription": "lcp[i]がsuffix_array[i]とsuffix_array[i+1]の最長共通接頭辞長となるlist。",
+    },
+    ("string/ZAlgorithm.py", None, "z_algorithm"): {
+        "returnFormat": "list[int]", "returnDescription": "z[i]がsequenceとsequence[i:]の最長共通接頭辞長となるlist。",
+    },
+    ("bitwise_convolution/SetFunction.py", "SubsetConvolution", "power_projection"): {
+        "returnFormat": "list[int]", "returnDescription": "各冪に対する指定係数内積を冪の昇順に並べたlist。",
+    },
+    ("polynomial/MultipointEvaluation.py", "ProductTree", "evaluate"): {
+        "returnFormat": "list[int]", "returnDescription": "登録したpointsと同じ順のpolynomial(points[i])。",
+    },
+    ("optimization/Matroid.py", "PartitionMatroid", "circuit"): {
+        "returnFormat": "list[int]", "returnDescription": "elementを追加すると依存になるときの基本回路の要素番号。独立なら空list。",
+    },
+})
+
 
 # Mathematical definitions and concrete return shapes for APIs whose short
 # names are not descriptive enough on their own.  Keep these module-scoped:
@@ -1220,6 +1284,17 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[int]",
         "returnDescription": (
             r"長さcount+1の列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod\mathrm{mod}$。"
+        ),
+    },
+    ("polynomial/PowerEnumerate.py", None, "power_inner_product_enumerate"): {
+        "description": (
+            r"各 $i=0,\ldots,\mathrm{count}$ について、係数列weightsとの内積 "
+            r"$\sum_j \mathrm{weights}[j][x^j]f(x)^i$ を一括計算する。"
+        ),
+        "returnFormat": "list[int]",
+        "returnDescription": (
+            r"長さcount+1の列result。$\mathrm{result}[i]="
+            r"\sum_j \mathrm{weights}[j][x^j]f(x)^i\bmod\mathrm{mod}$。"
         ),
     },
     ("segment_tree/DynamicLazySegmentTree.py", "DynamicLazySegmentTree", "prod"): {
@@ -1900,11 +1975,23 @@ COMPLEXITY_BY_MODULE = {
         "integer_partitions_up_to": "O(total output size)",
     },
     "algorithm/IntegerUtilities.py": {
-        "nearest_congruent_at_least": "O(1) integer operations",
-        "modular_power": "O(log exponent)",
-        "exact_square_root": "O(log number) bit operations",
-        "integer_nth_root": "O(log number) bit operations",
-        "decimal_digit_count": "O(number of digits)",
+        "integer_nth_root": (
+            "degreeを固定すると O(log B) 回の多倍長整数演算"
+            "（B = number.bit_length()）"
+        ),
+    },
+    "fenwick_tree/BIT.py": {
+        "BIT": "O(N)（列から構築）、O(N) memory。size指定なら O(N) 初期化",
+        "add": "O(log N)",
+        "prefix_sum": "O(log N)",
+        "sum": "O(log N)",
+        "get": "O(log N)",
+        "set": "O(log N)",
+        "lower_bound": "O(log N)。prefix和が単調非減少であることが必要",
+        "__len__": "O(1)",
+        "tolist": "O(N)",
+        "__str__": "O(N)",
+        "__repr__": "O(N)",
     },
     "combinatorics/ErdosGinzburgZiv.py": {
         "erdos_ginzburg_ziv_indices": "O(order^2) bit operations",
@@ -1986,3 +2073,736 @@ COMPLEXITY_BY_MODULE = {
         "min_inversions": "O(N log N)",
     },
 }
+
+
+# Detailed per-operation costs.  Symbols receiving callables also state the
+# number of user operations when that cost is not safely treated as O(1).
+COMPLEXITY_BY_MODULE.update({
+    "segment_tree/RangeAddAssignRangeStats.py": {
+        "range_add": "O(log N)",
+        "range_assign": "O(log N)",
+        "range_sum": "O(log N)",
+        "range_min": "O(log N)",
+        "range_max": "O(log N)",
+        "get": "O(log N)",
+        "set": "O(log N)",
+        "all_sum": "O(1)",
+        "all_min": "O(1)",
+        "all_max": "O(1)",
+        "__getitem__": "O(log N)",
+        "__setitem__": "O(log N)",
+    },
+    "segment_tree/RangeAffineRangeSum.py": {
+        "apply": "O(log N)",
+        "range_add": "O(log N)",
+        "range_multiply": "O(log N)",
+        "range_sum": "O(log N)",
+        "get": "O(log N)",
+        "set": "O(log N)",
+        "all_sum": "O(1)",
+        "__getitem__": "O(log N)",
+        "__setitem__": "O(log N)",
+    },
+    "segment_tree/RangeAddCountTopK.py": {
+        "range_add": "O(K log N)",
+        "range_top_k": "O(K log N)",
+        "top_k": "O(K)",
+    },
+    "segment_tree/RangeLinearAddRangeMin.py": {
+        "add": "O(log^2 N)",
+        "query": "O(log^2 N)",
+    },
+    "segment_tree/SortableSegmentTree.py": {
+        "update": "O(sqrt(N)) 回のop呼び出し",
+        "query": "O(sqrt(N)) 回のop呼び出し",
+        "sort": "O(L log L + sqrt(N))（L = right-left）",
+    },
+    "fenwick_tree/DynamicFenwickTree.py": {
+        "add": "O(log N) expected dictionary operations",
+        "prefix_sum": "O(log N) expected dictionary operations",
+        "sum": "O(log N) expected dictionary operations",
+    },
+    "fenwick_tree/RangeAddRangeSum.py": {
+        "add": "O(log N)",
+        "prefix_sum": "O(log N)",
+        "sum": "O(log N)",
+        "get": "O(log N)",
+    },
+    "union_find/ContiguousUnionFind.py": {
+        "merge": "償却 O(alpha(N))",
+        "range_merge": "償却 O((K+1) alpha(N))（Kは新しく跨ぐ境界数）",
+        "interval": "償却 O(alpha(N))",
+    },
+    "union_find/DynamicUnionFind.py": {
+        "add": "期待 O(1)",
+        "find": "償却 O(alpha(N)) expected dictionary operations",
+        "merge": "償却 O(alpha(N)) expected dictionary operations",
+        "same": "償却 O(alpha(N)) expected dictionary operations",
+        "size": "償却 O(alpha(N)) expected dictionary operations",
+    },
+    "union_find/EnumerateUnionFind.py": {
+        "merge": "償却 O(alpha(N))",
+        "members": "O(component size)",
+    },
+    "union_find/MonoidUnionFind.py": {
+        "merge": "償却 O(alpha(N)) + O(1) 回のop呼び出し",
+        "get": "償却 O(alpha(N))",
+        "set": "償却 O(alpha(N))",
+        "edges": "償却 O(alpha(N))",
+        "has_cycle": "償却 O(alpha(N))",
+    },
+    "union_find/PartialPersistentUnionFind.py": {
+        "find": "O(log N)",
+        "merge": "O(log N)",
+        "same": "O(log N)",
+        "size": "O(log N)",
+        "when_unite": "O(log T log N)（Tはmerge回数）",
+        "size_ge": "O(log T log N)",
+    },
+    "union_find/RangeParallelUnionFind.py": {
+        "merge": "償却 O(alpha(N))",
+        "find": "償却 O(alpha(N))",
+        "same": "償却 O(alpha(N))",
+        "size": "償却 O(alpha(N))",
+    },
+    "union_find/WeightedUnionFind.py": {
+        "find": "償却 O(alpha(N))",
+        "weight": "償却 O(alpha(N))",
+        "merge": "償却 O(alpha(N))",
+        "same": "償却 O(alpha(N))",
+        "diff": "償却 O(alpha(N))",
+        "size": "償却 O(alpha(N))",
+    },
+    "ordered_set/BitSet.py": {
+        "set": "O(B)", "reset": "O(B)", "flip": "O(B)",
+        "get": "O(B)", "count": "O(B)", "any": "O(1)",
+        "all": "O(B)", "find_next": "O(B)", "find_prev": "O(B)",
+        "__getitem__": "O(B)", "__int__": "O(1)",
+        "__and__": "O(B)", "__or__": "O(B)", "__xor__": "O(B)",
+        "__invert__": "O(B)", "__lshift__": "O(B)", "__rshift__": "O(B)（Bはsizeを機械語word数で割った値）",
+    },
+    "ordered_set/OrderedMap.py": {
+        "__setitem__": "期待 O(log N)",
+        "__getitem__": "期待 O(log N)",
+        "get": "期待 O(1)", "find": "期待 O(1)",
+        "erase": "期待 O(log N)",
+        "lower_bound": "期待 O(log N)", "upper_bound": "期待 O(log N)",
+        "kth_element": "期待 O(log N)", "count": "期待 O(1)",
+        "__contains__": "期待 O(1)",
+        "__str__": "O(N)", "__repr__": "O(N)",
+    },
+    "ordered_set/PersistentBinaryTrie.py": {
+        "count_value": "O(B)", "add": "O(B)", "discard": "O(B)",
+        "kth": "O(B)", "xor_min": "O(B)（Bは管理するbit幅）",
+    },
+    "ordered_set/PersistentRBSTSet.py": {
+        "contains_root": "期待 O(log N)", "insert_root": "期待 O(log N)",
+        "erase_root": "期待 O(log N)", "insert": "期待 O(log N)",
+        "erase": "期待 O(log N)", "contains": "期待 O(log N)",
+        "lower_bound_root": "期待 O(log N)", "lower_bound": "期待 O(log N)",
+        "upper_bound": "期待 O(log N)", "kth_root": "期待 O(log N)",
+        "kth": "期待 O(log N)",
+    },
+    "ordered_set/PointSetRangeFrequency.py": {
+        "set": "O(log^2 N)", "query": "O(log^2 N)",
+    },
+    "ordered_set/TopKSum.py": {
+        "add": "期待 O(log N)", "discard": "期待 O(log N)", "sum": "O(1)",
+    },
+    "ordered_set/TreapSet.py": {
+        "add": "期待 O(log N)", "discard": "期待 O(log N)",
+        "bisect_left": "期待 O(log N)", "bisect_right": "期待 O(log N)",
+        "kth": "期待 O(log N)", "ge": "期待 O(log N)",
+        "gt": "期待 O(log N)", "le": "期待 O(log N)",
+        "lt": "期待 O(log N)", "min": "期待 O(log N)",
+        "max": "期待 O(log N)", "__contains__": "期待 O(log N)",
+        "__str__": "O(N)", "__repr__": "O(N)",
+    },
+})
+
+# Return contracts that cannot be reconstructed reliably from return
+# expressions alone.  Keep concrete container shape and sentinel meaning here.
+API_DETAILS_BY_SYMBOL.update({
+    ("algorithm/Search.py", None, "binary_search_int"): {
+        "returnFormat": "int",
+        "returnDescription": "predicateがTrueになる側で、境界に最も近い整数。",
+    },
+    ("algorithm/Search.py", None, "binary_search_float"): {
+        "returnFormat": "float",
+        "returnDescription": "指定回数だけ絞り込んだ、predicateがTrueになる側の境界近似値。",
+    },
+    ("graph/CycleDetection.py", None, "find_cycle"): {
+        "returnFormat": "tuple[list[int], list[int]]",
+        "returnDescription": "閉路上の頂点列と、同じ順で閉路を構成するedge ID列。閉路がなければ([], [])。",
+    },
+    ("graph/TopologicalSort.py", None, "topological_sort"): {
+        "returnFormat": "list[int] | None",
+        "returnDescription": "頂点のトポロジカル順。閉路があればNone。",
+    },
+    ("graph_enumeration/GraphCounting.py", None, "evaluate_polynomial"): {
+        "returnFormat": "number",
+        "returnDescription": "昇冪係数で与えた多項式をpointへ代入した値。",
+    },
+    ("number_theory/MultiplicativeFunctions.py", None, "dirichlet_multiply"): {
+        "returnFormat": "DirichletQuotientSeries",
+        "returnDescription": "firstとsecondのDirichlet畳み込みのprefix値を保持する新しいseries。",
+    },
+    ("linear_algebra/BlackBoxLinearAlgebra.py", None, "black_box_power"): {
+        "returnFormat": "list[int]",
+        "returnDescription": "operator^exponentをvectorへ作用させた、元と同じ長さのベクトル。",
+    },
+    ("linear_algebra/Matrix.py", None, "matrix_vector_multiply"): {
+        "returnFormat": "list[int]",
+        "returnDescription": "result[row]=sum(matrix[row][j]*vector[j]) mod modとなる行数長のベクトル。",
+    },
+    ("string/SuffixArray.py", None, "suffix_array_with_empty"): {
+        "returnFormat": "list[int]",
+        "returnDescription": "空suffixの位置len(sequence)を先頭に加えたsuffix array。",
+    },
+    ("union_find/EnumerateUnionFind.py", "EnumerateUnionFind", "merge"): {
+        "returnFormat": "int",
+        "returnDescription": "併合後の連結成分の代表頂点。既に同じ成分なら現在の代表頂点。",
+    },
+    ("union_find/PersistentUnionFind.py", "PersistentUnionFind", "unite"): {
+        "returnFormat": "int",
+        "returnDescription": "併合後に追加されたversion番号。既に同じ成分でも新versionを1つ追加する。",
+    },
+    ("union_find/RollbackUnionFind.py", "RollbackUnionFind", "add_value"): {
+        "returnFormat": "number",
+        "returnDescription": "deltaを加えた後の、xが属する連結成分の集約値。",
+    },
+    ("ordered_set/BitSet.py", "BitSet", "find_next"): {
+        "returnFormat": "int",
+        "returnDescription": "index以上で最初に1であるbit位置。存在しなければ-1。",
+    },
+    ("ordered_set/BitSet.py", "BitSet", "find_prev"): {
+        "returnFormat": "int",
+        "returnDescription": "index以下で最後に1であるbit位置。存在しなければ-1。",
+    },
+    ("ordered_set/PersistentBinaryTrie.py", "PersistentBinaryTrie", "add"): {
+        "returnFormat": "int",
+        "returnDescription": "更新後に追加されたversion番号。元のversionは変更しない。",
+    },
+    ("ordered_set/PersistentBinaryTrie.py", "PersistentBinaryTrie", "discard"): {
+        "returnFormat": "int",
+        "returnDescription": "削除後に追加されたversion番号。存在数を超える分は削除しない。",
+    },
+    ("ordered_set/PersistentRBSTSet.py", "PersistentRBSTSet", "insert_root"): {
+        "returnFormat": "int",
+        "returnDescription": "keyを含む新しい永続木のroot node番号。既存rootは変更しない。",
+    },
+    ("ordered_set/PersistentRBSTSet.py", "PersistentRBSTSet", "insert"): {
+        "returnFormat": "int", "returnDescription": "挿入後に追加されたversion番号。",
+    },
+    ("ordered_set/PersistentRBSTSet.py", "PersistentRBSTSet", "erase"): {
+        "returnFormat": "int", "returnDescription": "削除後に追加されたversion番号。",
+    },
+    ("sequence_structure/ErasableHeap.py", "ErasableHeap", "pop"): {
+        "returnFormat": "number", "returnDescription": "削除したheap先頭の値。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "pop"): {
+        "returnFormat": "object", "returnDescription": "削除したindex位置の要素。",
+    },
+    ("sequence_structure/PersistentArray.py", "PersistentArray", "update_root"): {
+        "returnFormat": "int", "returnDescription": "更新後の永続配列を表すroot node番号。",
+    },
+    ("sequence_structure/PersistentArray.py", "PersistentArray", "set"): {
+        "returnFormat": "int", "returnDescription": "更新後に追加されたversion番号。",
+    },
+    ("sequence_structure/PersistentQueue.py", "PersistentQueue", "append"): {
+        "returnFormat": "int", "returnDescription": "末尾へ追加したqueueの新しいversion番号。",
+    },
+    ("sequence_structure/SkewHeap.py", "SkewHeap", "push"): {
+        "returnFormat": "int", "returnDescription": "新しいnodeをmeldした後のheap root番号。",
+    },
+    ("sequence_structure/SkewHeap.py", "SkewHeap", "pop"): {
+        "returnFormat": "int", "returnDescription": "先頭nodeを除いた後のheap root番号。空なら-1。",
+    },
+    ("graph/CSRGraph.py", "CSRGraph", "from_adjacency"): {
+        "returnFormat": "CSRGraph", "returnDescription": "入力隣接listと同じ辺を連続配列に格納したCSRGraph。",
+    },
+    ("shortest_path/KShortestPaths.py", "KShortestPathDirected", "add_edge"): {
+        "returnFormat": "int", "returnDescription": "追加した辺の0-indexed edge ID。",
+    },
+    ("graph_connectivity/OnlineDynamicConnectivity.py", "OnlineDynamicConnectivity", "link"): {
+        "returnFormat": "tuple[int, int]",
+        "returnDescription": "新しく全域forestへ入った正規化済み辺(u,v)。多重辺・自己loop・既に連結なら(-1,-1)。",
+    },
+    ("graph_connectivity/TwoEdgeConnectedComponents.py", "TwoEdgeConnectedComponents", "add_edge"): {
+        "returnFormat": "None", "returnDescription": "値は返さない。build前のgraphへ無向辺を追加する。",
+    },
+    ("graph_flow/AdvancedFlow.py", "PushRelabelMaxFlow", "add_vertex"): {
+        "returnFormat": "int", "returnDescription": "追加した頂点の0-indexed番号。",
+    },
+    ("graph_flow/AdvancedFlow.py", "PushRelabelMaxFlow", "add_edge"): {
+        "returnFormat": "int", "returnDescription": "追加した辺の0-indexed edge ID。",
+    },
+    ("graph_flow/AdvancedFlow.py", "PushRelabelMaxFlow", "flow"): {
+        "returnFormat": "number", "returnDescription": "今回残余graphへ追加して流せたflow量。",
+    },
+    ("graph_flow/MaxFlow.py", "MaxFlowGraph", "add_vertex"): {
+        "returnFormat": "int", "returnDescription": "追加した頂点の0-indexed番号。",
+    },
+    ("graph_flow/MaxFlow.py", "MaxFlowGraph", "add_edge"): {
+        "returnFormat": "int", "returnDescription": "追加した辺の0-indexed edge ID。",
+    },
+    ("graph_flow/MinCostBFlow.py", "MinCostBFlow", "add_edge"): {
+        "returnFormat": "int", "returnDescription": "追加した辺の0-indexed edge ID。",
+    },
+    ("graph_flow/MinCostFlow.py", "MinCostFlowGraph", "add_edge"): {
+        "returnFormat": "int", "returnDescription": "追加した辺の0-indexed edge ID。",
+    },
+    ("graph_flow/MinCostFlow.py", "MinCostFlowGraph", "flow"): {
+        "returnFormat": "tuple[number, number]",
+        "returnDescription": "(実際に流したflow量, その最小cost)。",
+    },
+    ("graph_spanning/MergeTree.py", "MergeTree", "restore"): {
+        "returnFormat": "list[object]", "returnDescription": "arrangeで並べ替えた値を元の頂点番号順へ戻したlist。",
+    },
+    ("combinatorics/ArbitraryBinomial.py", "LargePrimeFactorial", "factorial"): {
+        "returnFormat": "int", "returnDescription": "n! mod prime。",
+    },
+    ("rational/RationalFormalPowerSeries.py", "RationalFormalPowerSeries", "evaluate"): {
+        "returnFormat": "Fraction", "returnDescription": "係数列を多項式としてpointへ代入した有理数。",
+    },
+    ("rational/RationalFormalPowerSeries.py", "RationalFormalPowerSeries", "power"): {
+        "returnFormat": "RationalFormalPowerSeries",
+        "returnDescription": "self^exponentをdegree項で打ち切った新しい有理FPS。",
+    },
+    ("algebra/FastPower.py", "FastPower", "__call__"): {
+        "returnFormat": "int", "returnDescription": "前計算表で求めたbase^exponent mod mod。",
+    },
+    ("string/PrefixSubstringLCS.py", "PrefixSubstringLCS", "run"): {
+        "returnFormat": "list[int]", "returnDescription": "登録したquery ID順のLCS長。",
+    },
+    ("string/StringSearch.py", "StringSearch", "search"): {
+        "returnFormat": "tuple[int, int]",
+        "returnDescription": "patternをprefixに持つsuffixがsuffix array上で占める半開区間(left,right)。",
+    },
+    ("string/SuffixArray.py", "SuffixArray", "search"): {
+        "returnFormat": "tuple[int, int]",
+        "returnDescription": "patternをprefixに持つsuffixがsuffix array上で占める半開区間(left,right)。",
+    },
+    ("optimization/RollbackMo.py", "RollbackMo", "add"): {
+        "returnFormat": "int", "returnDescription": "追加したqueryの0-indexed ID。",
+    },
+    ("optimization/SlopeTrick.py", "WeightedSlopeTrick", "evaluate"): {
+        "returnFormat": "number", "returnDescription": "保持する区分線形凸関数のpointにおける値。",
+    },
+    ("game/Nimber.py", "Nimber", "power"): {
+        "returnFormat": "Nimber", "returnDescription": "nim積に関するselfのexponent乗。",
+    },
+    ("heuristic/LogTable.py", "LogTable", "__call__"): {
+        "returnFormat": "float", "returnDescription": "周期表に保存したindex位置の対数近似値。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "convolution/ChirpZ.py": {
+        "chirp_z": "O(M(N+C)) modular operations（Nは係数数、Cは評価点数）",
+    },
+    "convolution/MultidimensionalDFT.py": {
+        "multidimensional_dft": "O(S * sum(log base[i])) modular operations（S=product(base)）",
+        "multivariate_circular_convolution": "3回のmultidimensional_dft + O(S)",
+    },
+    "convolution/MultivariateMultiplication.py": {
+        "multivariate_multiplication": "O(D*S log S + D^2*S) modular operations（D=len(base), S=product(base)）",
+    },
+    "fps/CircularSeries.py": {"circular_series": "O(M(N)) modular operations"},
+    "fps/CompositeExponential.py": {
+        "composite_exponential": "O(M(N) log P) modular operations（Pは入力係数数）",
+        "composite_exponential_scaled": "O(M(N) log P) modular operations",
+        "inverse_composite_exponential": "O(M(N) log N) modular operations",
+    },
+    "fps/DualFormalPowerSeries.py": {
+        "deg": "O(1)", "get": "O(N)",
+        "__add__": "O(N)", "__sub__": "O(N)", "__rsub__": "O(N)",
+        "__neg__": "O(N)", "__mul__": "O(M(N)) modular operations",
+        "__lshift__": "O(N+shift)",
+    },
+    "fps/EulerTransform.py": {"euler_transform": "O(M(N)) modular operations"},
+    "fps/FPSFraction.py": {
+        "__add__": "3回の多項式乗算 + O(N)", "__neg__": "O(N)",
+        "__sub__": "3回の多項式乗算 + O(N)",
+        "__rsub__": "3回の多項式乗算 + O(N)",
+        "__mul__": "2回の多項式乗算", "__truediv__": "2回の多項式乗算",
+        "inverse": "O(N)", "shrink": "O(N)",
+    },
+    "fps/SparseFormalPowerSeries.py": {
+        "sparse_inverse": "O(NK)", "sparse_divide": "O(NK)",
+        "sparse_exponential": "O(NK)", "sparse_logarithm": "O(NK)",
+        "sparse_power": "O(NK)（Nは出力次数、Kは非零項数）",
+    },
+    "fps/SumOfRationals.py": {
+        "sum_of_rationals": "O(M(N) log K) modular operations（Kは分数数、Nは最終次数）",
+    },
+    "polynomial/GeometricMultipointEvaluation.py": {
+        "multipoint_evaluation_geometric": "O(M(N+C)) modular operations",
+        "interpolate_geometric": "O(M(N) log N) modular operations",
+    },
+    "polynomial/PartialFractionDistinct.py": {
+        "partial_fraction_distinct": "O(M(N) log N) modular operations",
+    },
+    "polynomial/PolynomialExponentialSum.py": {
+        "limit_sum_polynomial_exponential": "O(M(N)) modular operations",
+        "sum_polynomial_exponential": "O(M(N)) modular operations",
+    },
+    "polynomial/PolynomialGCD.py": {
+        "polynomial_monic": "O(N)",
+        "polynomial_gcd": "最悪 O(N*M(N)) modular operations（Euclid法）",
+        "polynomial_extended_gcd": "最悪 O(N*M(N)) modular operations（Euclid法）",
+    },
+    "polynomial/PolynomialModularPower.py": {
+        "polynomial_inverse_mod": "polynomial_extended_gcd(N) + polynomial division",
+        "polynomial_pow_mod": "O(M(N) log exponent) modular operations",
+    },
+    "polynomial/PolynomialPrefixSum.py": {
+        "polynomial_prefix_sum": "O(M(N)) modular operations",
+    },
+    "polynomial/PolynomialResultant.py": {
+        "polynomial_resultant": "最悪 O(N*M(N)) modular operations（Euclid法）",
+    },
+    "polynomial/PolynomialRoots.py": {
+        "polynomial_roots": "期待 O(M(N) log N log mod)、小さいmodでは O(N*mod)",
+    },
+    "polynomial/PowerEnumerate.py": {
+        "power_inner_product_enumerate": "O(M(N) log N + M(C)) modular operations",
+        "power_coefficient_enumerate": "O(M(N) log N + M(C)) modular operations",
+    },
+    "polynomial/PrefixSumPolynomial.py": {
+        "prefix_sum_polynomial": "O(M(N)) modular operations",
+    },
+    "polynomial/ProductGeometricSubstitutions.py": {
+        "product_geometric_substitutions": "O(M(N) log count) modular operations",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "combinatorial_series/BellNumbers.py": {
+        "bell_numbers": "O(M(N)) modular operations",
+    },
+    "combinatorial_series/BernoulliNumbers.py": {
+        "bernoulli_numbers": "O(M(N)) modular operations",
+    },
+    "combinatorial_series/DerangementNumbers.py": {
+        "derangement_numbers": "O(N)",
+    },
+    "combinatorial_series/PartitionNumbers.py": {
+        "partition_numbers": "O(M(N)) modular operations",
+    },
+    "combinatorial_series/PascalTransform.py": {
+        "pascal_transform": "O(M(N)) modular operations",
+    },
+    "combinatorial_series/PolynomialMobiusTransform.py": {
+        "polynomial_mobius_transform": "fps_compose(N) + O(M(N)) modular operations",
+    },
+    "combinatorial_series/PowerSums.py": {
+        "power_sums": "O(M(K) log N) modular operations（K=max_exponent+1）",
+        "prefix_sum_powers": "O(M(K)) modular operations",
+    },
+    "combinatorial_series/StirlingNumbers.py": {
+        "stirling_first_row": "O(M(N) log N) modular operations",
+        "stirling_second_row": "O(M(N)) modular operations",
+        "stirling_first_column": "O(M(N) log column) modular operations",
+        "stirling_second_column": "O(M(N) log column) modular operations",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "tree/AuxiliaryTree.py": {
+        "get": "O(K log K) + O(K) 回のLCA呼び出し（Kは指定頂点数）",
+    },
+    "tree/EulerTour.py": {
+        "idx": "O(1)", "lca": "O(1)", "distance": "O(1)",
+        "node_intervals": "O(1)", "edge_intervals": "O(1)",
+        "subtree_interval": "O(1)",
+    },
+    "tree/InclusionTree.py": {"inclusion_tree": "O(N log N)"},
+    "tree/ProcessOfMergingTree.py": {"process_of_merging_tree": "O(N alpha(N))"},
+    "tree/RootedTree.py": {"rooted_tree": "O(V+E)", "inverse_tree": "O(V)"},
+    "tree/TreeDiameter.py": {"tree_diameter": "O(V)", "diameter": "O(V)"},
+    "optimization/GoldenSectionSearch.py": {
+        "golden_section_search": "O(iterations) function evaluations",
+    },
+    "optimization/KnapsackBranchAndBound.py": {
+        "knapsack_branch_and_bound": "最悪 O(2^N)、各nodeの上界評価は O(1) amortized",
+    },
+    "optimization/LineContainer.py": {
+        "add_line": "償却 O(log N)", "query": "O(log N)",
+    },
+    "optimization/MaximalRectangle.py": {
+        "maximal_rectangle": "O(HW)", "maximal_rectangle_binary": "O(HW)",
+    },
+    "optimization/MongeShortestPaths.py": {
+        "monge_shortest_paths": "O(N log N) cost呼び出し",
+        "monge_d_edge_shortest_path": "O(D*(N log N)) cost呼び出し",
+    },
+    "optimization/MonotoneConvexHullTrick.py": {
+        "add_line": "償却 O(1)", "query": "償却 O(1)（xが単調な場合）",
+    },
+    "optimization/MonotoneMinima.py": {
+        "monotone_minima": "O(columns*log(rows+1)+rows) 回のcompare呼び出し",
+    },
+    "optimization/RollbackMo.py": {
+        "add": "O(1)",
+        "run": "O((N+Q)*sqrt(Q)) insert呼び出し + O(Q) snapshot/rollback/output呼び出し",
+    },
+    "game/GrundyNumbers.py": {
+        "grundy_numbers": "O(V+E)", "mex": "O(N)",
+    },
+    "game/ImpartialGameSolver.py": {
+        "get": "未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回",
+        "get_sum": "O(K) + 未計算stateの探索cost",
+        "get_best_move": "O(outdegree(game)) options確認 + 未計算stateの探索cost",
+    },
+    "game/PartisanGameSolver.py": {
+        "get": "未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回",
+    },
+    "game/SurrealNumber.py": {
+        "reduce_surreal": "O(E) dyadic比較（Eは必要となる2冪分母の指数）",
+        "p": "O(1)", "q": "O(1)",
+        "__add__": "O(B) bit time", "__sub__": "O(B) bit time",
+        "__neg__": "O(B) bit time", "__lt__": "O(B) bit time",
+        "__le__": "O(B) bit time", "__gt__": "O(B) bit time",
+        "__ge__": "O(B) bit time", "__eq__": "O(B) bit time",
+        "__hash__": "O(B) bit time", "__repr__": "O(B)",
+        "children": "O(B) bit time", "larger": "O(B) bit time",
+        "smaller": "O(B) bit time",
+        "between": "O(E) dyadic比較（Bは分子bit長、Eは選ばれる分母指数）",
+    },
+    "heuristic/LogTable.py": {"__call__": "O(1)"},
+    "heuristic/MultiArmedBandit.py": {
+        "play": "O(K)", "reward": "O(1)", "best": "O(K)（Kはarm数）",
+    },
+    "heuristic/SimulatedAnnealing.py": {
+        "SimulatedAnnealing.run": "O(iterations) propose/score/random呼び出し",
+        "SAManager.run": "O(iterations) update呼び出し",
+    },
+    "heuristic/TopK.py": {
+        "insert": "償却 O(log K)", "normalize": "O(N log N)",
+        "get": "O(K)",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "graph_matching/DAGMinimumPathCover.py": {
+        "dag_minimum_path_cover": "O(E sqrt(V) + V+E)",
+    },
+    "graph_matching/GeneralMatching.py": {
+        "maximum_general_matching": "O(V^3)", "pairs": "O(V)",
+    },
+    "graph_matching/Hungarian.py": {"hungarian_max": "O(N^3)"},
+    "graph_spanning/MinimumSteinerTree.py": {
+        "steiner_tree_dp": "O(3^K V + 2^K (V+E) log V)（Kはterminal数）",
+    },
+    "graph_enumeration/ChromaticNumber.py": {
+        "chromatic_number_from_edges": "O(V 2^V)",
+    },
+    "graph_enumeration/HeldKarp.py": {"held_karp_cycle": "O(V^2 2^V)"},
+    "graph_enumeration/MaximumIndependentSet.py": {
+        "maximum_independent_set_mask": "最悪 O(2^V)",
+        "maximum_independent_set": "最悪 O(2^V + V)",
+        "maximum_weight_independent_set": "最悪 O(2^V)",
+    },
+    "number_theory/FloorSum.py": {
+        "floor_sum": "O(log max(modulus, multiplier))",
+        "mod_affine_range_count": "O(log modulus)",
+    },
+    "number_theory/GaussianInteger.py": {
+        "gaussian_gcd": "O(log min(norm(first), norm(second))) 回のGaussian整数除算",
+        "x": "O(1)", "y": "O(1)",
+        "norm": "O(M(B)) bit time", "conjugate": "O(1)",
+        "__add__": "O(B) bit time", "__sub__": "O(B) bit time",
+        "__neg__": "O(B) bit time", "__mul__": "O(M(B)) bit time",
+        "__eq__": "O(B) bit time", "__repr__": "O(B)",
+        "__pow__": "O(log exponent) Gaussian整数乗算",
+        "__floordiv__": "O(M(B)) bit time", "__mod__": "O(M(B)) bit time（Bは成分のbit長）",
+    },
+    "number_theory/IntegerArithmetic.py": {
+        "gcd": "O(log min(|first|,|second|)) 回の整数剰余",
+        "lcm": "O(log min(|first|,|second|)) 回の整数剰余",
+        "extended_gcd": "O(log min(|first|,|second|)) 回の整数剰余",
+        "inverse_mod": "O(log modulus) 回の整数剰余",
+        "inverse_table": "O(limit)",
+    },
+    "number_theory/IntegerDivision.py": {
+        "floor_div": "O(1) 回の整数除算", "ceil_div": "O(1) 回の整数除算",
+        "strict_floor_div": "O(1) 回の整数除算", "strict_ceil_div": "O(1) 回の整数除算",
+    },
+    "number_theory/QuadraticEquationMod.py": {
+        "quadratic_equation_mod": "期待 O(log^2 p) modular multiplications（Tonelli--Shanksを含む）",
+    },
+    "number_theory/TetrationMod.py": {
+        "tetration_mod": "法のEuler-phi連鎖ごとの因数分解 + O(log modulus) modular multiplications",
+    },
+    "number_theory/TwoSquareRepresentations.py": {
+        "two_square_representations": "期待 O(N^(1/4) log N + R)（Rは出力数）",
+    },
+    "combinatorics/FloatBinomial.py": {
+        "logfac": "O(1)", "logfinv": "O(1)",
+        "logC": "O(1)", "logP": "O(1)",
+    },
+    "combinatorics/GrayCode.py": {
+        "gray_code": "O(1) Python integer operations",
+        "inverse_gray_code": "O(log value) shifts/xors",
+    },
+    "combinatorics/PisanoPeriod.py": {
+        "pisano_prime": "因数分解 + O(tau(C) log C) modular operations（Cはp-1または2(p+1)）",
+        "pisano_period": "modulusと各候補周期の因数分解cost",
+    },
+    "combinatorics/QBinomial.py": {
+        "QBinomial": "O(maximum) modular multiplications + 1 modular inverse",
+        "C": "math.comb(floor(n/order), floor(k/order))のcost + O(1) modular operations",
+    },
+    "combinatorics/RationalBinomial.py": {
+        "fac": "O(1)", "finv": "O(1)", "inv": "O(1)",
+        "C": "O(1)", "P": "O(1)", "H": "O(1)",
+        "multinomial": "O(K)（Kはparts数）",
+    },
+    "linear_algebra/Semiring.py": {
+        "semiring_matrix_multiply": "H*D*W回ずつのmultiply/add呼び出し",
+        "semiring_matrix_power": "O(N^3 log exponent) 回のmultiply/add呼び出し",
+        "semiring_linear_recurrence": "O(K^2 log index) 回のmultiply/add呼び出し",
+        "__add__": "addを1回呼び出す", "__mul__": "multiplyを1回呼び出す",
+        "__eq__": "保持値の比較を1回行う",
+    },
+    "linear_algebra/XorBasis.py": {
+        "insert": "O(B)", "contains": "O(B)", "kth_smallest": "O(B^2)",
+        "maximum": "O(B)", "minimum": "O(B)", "xor_kth": "O(B^2)",
+        "rank": "O(1)（Bは管理値のbit幅）",
+    },
+    "rational/Digamma.py": {"digamma": "O(max(0, threshold-x)) scalar steps"},
+    "rational/InverseSum.py": {"inverse_sum": "O(sqrt(N))"},
+    "rational/RationalNumberSearch.py": {
+        "has_next": "O(1)", "get_next": "O(1)", "give": "O(1)",
+    },
+    "rational/SternBrocotNode.py": {
+        "get": "O(1)", "lower_bound": "O(1)", "upper_bound": "O(1)",
+        "depth": "O(R)（Rはrun-length path長）",
+        "go_left": "償却 O(1)", "go_right": "償却 O(1)",
+        "go_parent": "O(number of removed runs)", "lca": "O(min(R1,R2))",
+    },
+    "algebra/Affine.py": {
+        "__call__": "O(1)", "__mul__": "O(1)", "__eq__": "O(1)",
+    },
+    "algebra/PowerTable.py": {"power_table": "O(length)"},
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "sequence_structure/CartesianTree.py": {
+        "cartesian_tree": "O(N)", "cartesian_tree_graph": "O(N)",
+    },
+    "sequence_structure/ErasableHeap.py": {
+        "push": "O(log N)", "erase": "償却 O(log N)",
+        "top": "償却 O(log N)", "pop": "償却 O(log N)",
+        "__str__": "O(N log N)", "__repr__": "O(N log N)",
+    },
+    "sequence_structure/PersistentQueue.py": {
+        "append": "O(1)", "popleft": "O(1)", "front": "O(1)",
+    },
+    "sequence_structure/SWAGDeque.py": {
+        "appendleft": "償却 O(1) 回のop呼び出し",
+        "append": "償却 O(1) 回のop呼び出し",
+        "popleft": "償却 O(1) 回のop呼び出し",
+        "pop": "償却 O(1) 回のop呼び出し",
+        "fold": "O(1) 回のop呼び出し",
+        "__str__": "O(N)", "__repr__": "O(N)",
+    },
+    "sequence_structure/SWAGQueue.py": {
+        "append": "償却 O(1) 回のop呼び出し",
+        "popleft": "償却 O(1) 回のop呼び出し",
+        "fold": "O(1) 回のop呼び出し",
+        "__str__": "O(N)", "__repr__": "O(N)",
+    },
+    "sequence_structure/SkewHeap.py": {
+        "new_node": "O(1)", "meld": "償却 O(log N)",
+        "push": "償却 O(log N)", "add_all": "O(1)",
+        "top": "O(1)", "pop": "償却 O(log N)",
+    },
+    "sequence_structure/SlidingWindowMinimum.py": {
+        "sliding_window_minimum": "O(N)",
+    },
+    "spatial_structure/CompressedFenwick2D.py": {
+        "add": "O(log^2 N)", "prefix_sum": "O(log^2 N)",
+        "sum": "O(log^2 N)",
+    },
+    "spatial_structure/CumulativeSum2D.py": {"sum": "O(1)"},
+    "spatial_structure/DynamicLiChaoTree.py": {
+        "add_line": "O(log W)", "add_segment": "O(log^2 W)",
+        "query": "O(log W)（Wは座標domain幅）",
+    },
+    "spatial_structure/DynamicPointAddRectangleSum.py": {
+        "add": "O(1)", "query": "O(1)",
+        "solve": "O((U+Q) log^2 U)（Uは点追加数、Qはquery数）",
+    },
+    "spatial_structure/FenwickTree2D.py": {
+        "add": "O(log H log W)", "prefix_sum": "O(log H log W)",
+        "sum": "O(log H log W)",
+    },
+    "spatial_structure/LazyKDTree.py": {
+        "update": "期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにmapping/composition",
+        "set": "O(log N)（構築された平衡木の高さ）+ 各祖先でcombine",
+        "query": "期待 O(sqrt(N))、最悪 O(N) + 訪問nodeごとにcombine",
+    },
+    "spatial_structure/PointUpdateRangeTree2D.py": {
+        "add_point": "O(1)（build前の登録）", "build": "O(N log N)",
+        "add": "O(log^2 N)", "set": "O(log^2 N)",
+        "query": "O(log^2 N) 回のop呼び出し",
+    },
+    "spatial_structure/RectangleAddRectangleSum.py": {
+        "add": "O(1)", "query": "O(1)",
+        "solve": "O((R+Q) log(R+Q))（Rは矩形追加数、Qはquery数）",
+    },
+    "spatial_structure/SegmentTree2D.py": {
+        "set": "O(log H log W) 回のop呼び出し",
+        "get": "O(1)", "prod": "O(log H log W) 回のop呼び出し",
+        "__str__": "O(HW)", "__repr__": "O(HW)",
+    },
+    "spatial_structure/StaticRectangleSum.py": {
+        "add": "O(1)", "query": "O(1)",
+        "solve": "O((N+Q) log N)（Nは点数、Qはquery数）",
+    },
+    "spatial_structure/UnionRectangle.py": {
+        "union_rectangle_area": "O(N log N)",
+        "add": "O(1)", "run": "O(N log N)",
+    },
+    "graph/DFSForest.py": {"dfs_forest": "O(V+E)"},
+    "graph/DimensionExpandedGraph.py": {
+        "valid": "O(D)", "id": "O(D)", "coordinate": "O(D)",
+        "extra_id": "O(1)", "neighbors": "O(D)",
+        "bfs": "O(V+E)。transitionsは到達頂点ごとに1回、既定gridでは E<=2DV",
+        "bfs01": "O(V+E)。transitions呼び出しを含む",
+        "dijkstra": "O((V+E) log V)。transitionsは確定頂点ごとに1回",
+    },
+    "graph/GraphFromEdges.py": {"graph_from_edges": "O(V+E)"},
+    "graph/GridToGraph.py": {"grid_to_graph": "O(HW + E)"},
+    "graph/RangeEdgeGraph.py": {
+        "add_point_to_point": "O(1)",
+        "add_point_to_range": "O(log N)", "add_range_to_point": "O(log N)",
+        "add_range_to_range": "O(log N)", "add_edge": "O(1)",
+    },
+    "graph/RestorePath.py": {"restore_path": "O(path length)"},
+    "graph/ReverseGraph.py": {"reverse_graph": "O(V+E)"},
+    "graph/TopologicalSort.py": {"topological_sort": "O(V+E)"},
+    "graph/TwoSAT.py": {
+        "literal": "O(1)", "add_implication_literal": "O(1)",
+        "add_clause_literal": "O(1)", "add_clause": "O(1)",
+        "set_value": "O(1)", "add_xor": "O(1)", "add_equal": "O(1)",
+        "solve": "O(V+E)",
+    },
+    "shortest_path/BFS.py": {"bfs": "O(V+E)"},
+    "shortest_path/BellmanFord.py": {"bellman_ford": "O(VE)"},
+    "shortest_path/DialDijkstra.py": {
+        "dial_dijkstra": "O(E+V*C)（Cは最大辺重み）",
+    },
+    "shortest_path/Dijkstra.py": {"dijkstra": "O((V+E) log V)"},
+    "shortest_path/WarshallFloyd.py": {"warshall_floyd": "O(V^3)"},
+    "shortest_path/ZeroOneBFS.py": {"zero_one_bfs": "O(V+E)"},
+    "graph_connectivity/BipartiteColoring.py": {"bipartite_coloring": "O(V+E)"},
+    "graph_connectivity/ConnectedComponents.py": {"connected_components": "O(V+E)"},
+    "graph_connectivity/DynamicBipartiteGraph.py": {
+        "find": "償却 O(alpha(N))", "color": "償却 O(alpha(N))",
+        "can_add_edge": "償却 O(alpha(N))", "add_edge": "償却 O(alpha(N))",
+        "is_bipartite": "O(1)",
+    },
+})

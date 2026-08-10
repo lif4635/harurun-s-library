@@ -259,7 +259,7 @@ MODULE_RETURN_SEMANTIC = {
     "segment_tree/SegmentTreeBeats.py": {
         "tolist": "list[number] — 全ての遅延更新を反映したindex順の数列",
     },
-    "fenwick_tree/FenwickTree.py": {
+    "fenwick_tree/BIT.py": {
         "tolist": "list[number] — 現在のindex順の要素列",
     },
     "sequence_structure/SWAGQueue.py": {
@@ -1511,7 +1511,19 @@ def symbol_complexity(module_key, node, owner=None):
     qualified = "%s.%s" % (owner, node.name) if owner else node.name
     value = configured.get(qualified) or configured.get(node.name)
     if value:
-        return value
+        notes = []
+        if re.search(r"\bM\([A-Z][A-Za-z]*\)", value) and "多項式乗算cost" not in value:
+            notes.append("M(L)は長さLの多項式乗算cost")
+        if "alpha(N)" in value and "逆Ackermann" not in value:
+            notes.append("alphaは逆Ackermann関数")
+        if "O(B)" in value and "Bは" not in value:
+            if module_key == "ordered_set/BitSet.py":
+                notes.append("Bはsize-bit Python整数の機械語word数")
+            elif module_key == "linear_algebra/XorBasis.py":
+                notes.append("Bは管理値のbit幅")
+            elif module_key in {"number_theory/GaussianInteger.py", "game/SurrealNumber.py"}:
+                notes.append("Bは整数成分のbit長")
+        return value + ("（" + "、".join(notes) + "）" if notes else "")
     docstring = ast.get_docstring(node, clean=True) or ""
     terms = []
     for match in re.finditer(r"O\([^\n.]+?\)", docstring):
@@ -1806,9 +1818,9 @@ def render_index(categories, totals):
         "## 最小の使い方",
         "",
         "```python",
-        "from library_codex.fenwick_tree.FenwickTree import FenwickTree",
+        "from library_codex.fenwick_tree.BIT import BIT",
         "",
-        "fw = FenwickTree([3, 1, 4, 1, 5])",
+        "fw = BIT([3, 1, 4, 1, 5])",
         "fw.add(2, 10)            # index 2 に10加算。返り値はNone",
         "answer = fw.sum(1, 4)    # [1, 4) の和を返す",
         "```",

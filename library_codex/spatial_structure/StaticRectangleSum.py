@@ -2,7 +2,7 @@
 
 from bisect import bisect_left
 
-from library_codex.fenwick_tree.FenwickTree import FenwickTree
+from library_codex.fenwick_tree.BIT import BIT
 
 class StaticRectangleSum:
     __slots__ = ("points", "queries")
@@ -25,7 +25,7 @@ class StaticRectangleSum:
             events.append((left, -1, index, bottom, top))
             events.append((right, 1, index, bottom, top))
         events.sort()
-        fenwick = FenwickTree(len(ys))
+        fenwick = BIT(len(ys))
         result = [0] * len(self.queries)
         point_index = 0
         for x, sign, index, bottom, top in events:

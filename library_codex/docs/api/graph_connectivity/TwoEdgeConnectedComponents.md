@@ -35,7 +35,7 @@ from library_codex.graph_connectivity.TwoEdgeConnectedComponents import two_edge
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_edge(u, v)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L26) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号 | `self.lowlink.add_edge(u, v)` | — |
+| [`add_edge(u, v)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L26) | method | 辺を追加する。 | `u`: 頂点番号<br>`v`: 頂点番号 | None — 値は返さない。build前のgraphへ無向辺を追加する。 | — |
 | [`build()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L30) | method | 内部構造を構築する。 | なし | `self` | — |
 | [`__getitem__(vertex)`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L84) | method | obj[key] で取得する。 | `vertex`: 頂点番号 | 格納値、sliceなら同種の部分構造 | — |
 | [`get_components()`](../../../graph_connectivity/TwoEdgeConnectedComponents.py#L87) | method | 連結成分を取得する。 | なし | `self.groups` | — |

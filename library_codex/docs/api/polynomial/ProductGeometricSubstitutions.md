@@ -20,4 +20,4 @@ from library_codex.polynomial.ProductGeometricSubstitutions import product_geome
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`product_geometric_substitutions(polynomial, ratio, count, degree=None, mod=DEFAULT_MOD)`](../../../polynomial/ProductGeometricSubstitutions.py#L12) | 積・`geometric`・`substitutions`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[1] + [0] * (degree - 1)` / `fps_exponential(logarithm, degree, mod)` | — |
+| [`product_geometric_substitutions(polynomial, ratio, count, degree=None, mod=DEFAULT_MOD)`](../../../polynomial/ProductGeometricSubstitutions.py#L12) | 積・`geometric`・`substitutions`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 数値または入力要素型 `[1] + [0] * (degree - 1)` / `fps_exponential(logarithm, degree, mod)` | O(M(N) log count) modular operations（M(L)は長さLの多項式乗算cost） |

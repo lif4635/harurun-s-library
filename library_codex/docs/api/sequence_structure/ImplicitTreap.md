@@ -31,7 +31,7 @@ from library_codex.sequence_structure.ImplicitTreap import ImplicitTreap
 | [`insert(index, value)`](../../../sequence_structure/ImplicitTreap.py#L188) | method | 指定位置へ要素を挿入する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
 | [`append(value)`](../../../sequence_structure/ImplicitTreap.py#L192) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
 | [`appendleft(value)`](../../../sequence_structure/ImplicitTreap.py#L195) | method | `appendleft`を求める。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`pop(index=-1)`](../../../sequence_structure/ImplicitTreap.py#L198) | method | 要素を1つ取り除いて返す。 | `index`: 位置。省略時: `-1` | 値 | — |
+| [`pop(index=-1)`](../../../sequence_structure/ImplicitTreap.py#L198) | method | 要素を1つ取り除いて返す。 | `index`: 位置。省略時: `-1` | object — 削除したindex位置の要素。 | — |
 | [`get(index)`](../../../sequence_structure/ImplicitTreap.py#L211) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | — |
 | [`set(index, value)`](../../../sequence_structure/ImplicitTreap.py#L228) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
 | [`reverse_range(left, right)`](../../../sequence_structure/ImplicitTreap.py#L250) | method | `reverse`・区間を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` | — |

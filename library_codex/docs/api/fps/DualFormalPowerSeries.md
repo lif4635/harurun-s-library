@@ -27,11 +27,11 @@ from library_codex.fps.DualFormalPowerSeries import DualFormalPowerSeries
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`deg`](../../../fps/DualFormalPowerSeries.py#L25) | property | `deg`を求める。 | なし | `len(self.coefficients)` | — |
-| [`get()`](../../../fps/DualFormalPowerSeries.py#L28) | method | 現在の係数列のcopyを取り出す。 | なし | list[int] — $[x^i]f(x)$ をindex $i$ に格納した係数列。内部listとは共有しない。 | — |
-| [`__add__(other)`](../../../fps/DualFormalPowerSeries.py#L38) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | — |
-| [`__sub__(other)`](../../../fps/DualFormalPowerSeries.py#L45) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | — |
-| [`__rsub__(other)`](../../../fps/DualFormalPowerSeries.py#L50) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `DualFormalPowerSeries(self._coerce(other), self.mod) - self` | — |
-| [`__neg__()`](../../../fps/DualFormalPowerSeries.py#L53) | method | -obj。 | なし | DualFormalPowerSeries instance | — |
-| [`__mul__(other)`](../../../fps/DualFormalPowerSeries.py#L58) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | — |
-| [`__lshift__(shift)`](../../../fps/DualFormalPowerSeries.py#L65) | method | obj << amount。 | `shift`: 平行移動量・bit shift量 | DualFormalPowerSeries instance | — |
+| [`deg`](../../../fps/DualFormalPowerSeries.py#L25) | property | `deg`を求める。 | なし | `len(self.coefficients)` | O(1) |
+| [`get()`](../../../fps/DualFormalPowerSeries.py#L28) | method | 現在の係数列のcopyを取り出す。 | なし | list[int] — $[x^i]f(x)$ をindex $i$ に格納した係数列。内部listとは共有しない。 | O(N) |
+| [`__add__(other)`](../../../fps/DualFormalPowerSeries.py#L38) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | O(N) |
+| [`__sub__(other)`](../../../fps/DualFormalPowerSeries.py#L45) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | O(N) |
+| [`__rsub__(other)`](../../../fps/DualFormalPowerSeries.py#L50) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `DualFormalPowerSeries(self._coerce(other), self.mod) - self` | O(N) |
+| [`__neg__()`](../../../fps/DualFormalPowerSeries.py#L53) | method | -obj。 | なし | DualFormalPowerSeries instance | O(N) |
+| [`__mul__(other)`](../../../fps/DualFormalPowerSeries.py#L58) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | DualFormalPowerSeries instance | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`__lshift__(shift)`](../../../fps/DualFormalPowerSeries.py#L65) | method | obj << amount。 | `shift`: 平行移動量・bit shift量 | DualFormalPowerSeries instance | O(N+shift) |

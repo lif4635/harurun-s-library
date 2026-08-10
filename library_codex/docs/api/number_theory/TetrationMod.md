@@ -20,4 +20,4 @@ from library_codex.number_theory.TetrationMod import tetration_mod
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`tetration_mod(base, height, modulus)`](../../../number_theory/TetrationMod.py#L24) | `tetration`・`mod`を求める。 | `base`: 底・基準となる値または列<br>`height`: 高さ・行数<br>`modulus`: 法 | 数値または入力要素型 `value % modulus` / 数値または入力要素型 `1 % modulus` | — |
+| [`tetration_mod(base, height, modulus)`](../../../number_theory/TetrationMod.py#L24) | `tetration`・`mod`を求める。 | `base`: 底・基準となる値または列<br>`height`: 高さ・行数<br>`modulus`: 法 | 数値または入力要素型 `value % modulus` / 数値または入力要素型 `1 % modulus` | 法のEuler-phi連鎖ごとの因数分解 + O(log modulus) modular multiplications |

@@ -15,7 +15,6 @@ from library_codex.algorithm.Sorting import (
     permute_in_place,
 )
 from library_codex.combinatorics.IntegerPartitions import integer_partitions
-from library_codex.algorithm.IntegerUtilities import nearest_congruent_at_least
 from library_codex.algorithm.ModularProgression import split_mod_progression
 
 
@@ -41,7 +40,7 @@ def test_bits_sorting_and_permutations():
         assert bucket_sort(pairs, key=lambda pair: pair[0], maximum=7) == sorted(pairs)
 
 
-def test_integer_partitions_and_nearest_congruent():
+def test_integer_partitions():
     known = [1, 1, 2, 3, 5, 7, 11, 15, 22, 30, 42, 56]
     for number, count in enumerate(known):
         partitions = integer_partitions(number)
@@ -50,12 +49,6 @@ def test_integer_partitions_and_nearest_congruent():
         assert all(sum(partition) == number and all(
             partition[i] >= partition[i + 1] for i in range(len(partition) - 1)
         ) for partition in partitions)
-    for value in range(-20, 21):
-        for lower in range(-20, 21):
-            for modulus in range(1, 11):
-                result = nearest_congruent_at_least(value, lower, modulus)
-                assert result >= lower and (result - value) % modulus == 0
-                assert result - modulus < lower
 
 
 def test_modular_progression_split():

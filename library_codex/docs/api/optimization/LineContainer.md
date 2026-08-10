@@ -27,5 +27,5 @@ from library_codex.optimization.LineContainer import LineContainer
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_line(slope, intercept)`](../../../optimization/LineContainer.py#L13) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | — |
-| [`query(point)`](../../../optimization/LineContainer.py#L18) | method | 指定した対象への問い合わせ結果を返す。 | `point`: 評価点・座標 | 問い合わせ結果（型・tuple形状はclassの用途に従う） | — |
+| [`add_line(slope, intercept)`](../../../optimization/LineContainer.py#L13) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | 償却 O(log N) |
+| [`query(point)`](../../../optimization/LineContainer.py#L18) | method | 指定した対象への問い合わせ結果を返す。 | `point`: 評価点・座標 | 問い合わせ結果（型・tuple形状はclassの用途に従う） | O(log N) |
