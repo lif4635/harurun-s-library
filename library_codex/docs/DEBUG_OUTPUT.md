@@ -31,3 +31,7 @@ segment         # SegTree([1, 2, 3])
 これらはデバッグ用です。通常は保持要素数に対して線形時間が必要で、Heap・BinaryTrieなどはsortや1要素ずつの復元も行います。提出コードの反復処理内では呼ばず、状態確認に使ってください。
 
 Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅延更新をleafへ反映してから値を返します。集約結果は変わりません。
+
+## Tree Wavelet Matrix
+
+`TreeWaveletMatrix.tolist()`と`str(obj)`は、constructorへ渡した頂点値を頂点番号順のlistで返します。`repr(obj)`は`TreeWaveletMatrix([...])`の形です。内部のHLD順や圧縮後のrankは表示しません。

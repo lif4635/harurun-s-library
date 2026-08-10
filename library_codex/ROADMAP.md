@@ -98,6 +98,7 @@ PyPy向けに移植する。比較の基準にしたスナップショットは�
 - [x] Semiring recurrence / Pisano period / q-binomial / rational・floating binomial
 - [x] MASPyPy first batch: SMAWK / LARSCH / Range Mex / Parallel Binary Search / Dominator Tree
 - [x] MASPyPy random helpers: balanced bracket / Monge matrix
+- [x] MASPyPy second batch: complement graph / range XOR basis / K-shortest walk / stable matching / tree Wavelet Matrix
 
 ## 完了状況
 

@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T15:27:06+00:00",
+  "generatedAt": "2026-08-10T16:34:48+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "8e3cdc3e5440da61b8c5761154b667bfea63a2b596933cee8c52f8e6b59253d3",
-  "inputStamp": "6498be3ee4c7f0577d5bf3d2489a90e826547520bc565108a5de31314cf258e8",
-  "generatorFingerprint": "55d328e5467d759488ebf2a6b361a41c24be3830c3aa5a02f5a9aa0fd0b6b96d",
+  "sourceFingerprint": "db4209bb46a0c154303bba68c44584b4fb4fdca060325bf2c00fd1b5a4afd78b",
+  "inputStamp": "4b1525d2f5ada7c8e3ae14db07b1c762f06c1ba3df74b12e226160b1508f780b",
+  "generatorFingerprint": "ba9fbb19fb9e838a06d4df4dc01b62fdd1dc71c2a0267530fe8d78dd668b09a3",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 305,
-    "functions": 435,
-    "classes": 206,
-    "methods": 1290,
+    "modules": 310,
+    "functions": 441,
+    "classes": 207,
+    "methods": 1297,
     "tests": 471
   },
   "categories": [
@@ -150,8 +150,8 @@
       "label": "静的区間クエリ",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 5,
-      "functions": 2,
+      "modules": 6,
+      "functions": 4,
       "classes": 6,
       "methods": 52
     },
@@ -180,8 +180,8 @@
       "label": "最短路",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 9,
-      "functions": 13,
+      "modules": 10,
+      "functions": 14,
       "classes": 2,
       "methods": 4
     },
@@ -190,8 +190,8 @@
       "label": "連結性・分解",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 13,
-      "functions": 7,
+      "modules": 14,
+      "functions": 9,
       "classes": 11,
       "methods": 66
     },
@@ -210,8 +210,8 @@
       "label": "マッチング",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 5,
-      "functions": 6,
+      "modules": 6,
+      "functions": 7,
       "classes": 3,
       "methods": 10
     },
@@ -306,6 +306,16 @@
       "methods": 122
     },
     {
+      "slug": "tree_query",
+      "label": "木上クエリ",
+      "domain": "tree",
+      "domainLabel": "Tree",
+      "modules": 1,
+      "functions": 0,
+      "classes": 1,
+      "methods": 7
+    },
+    {
       "slug": "string",
       "label": "文字列",
       "domain": "string",
@@ -380,12 +390,12 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 66
+      "modules": 67
     },
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 56
+      "modules": 59
     },
     {
       "slug": "math",
@@ -395,7 +405,7 @@
     {
       "slug": "tree",
       "label": "Tree",
-      "modules": 20
+      "modules": 21
     },
     {
       "slug": "string",
@@ -24186,6 +24196,104 @@
       "categoryLabel": "静的区間クエリ",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
+      "name": "RangeXorBasis",
+      "modulePath": "library_codex.range_query.RangeXorBasis",
+      "summary": "静的整数列の複数の半開区間について、XOR線形基底を一括計算する。",
+      "capabilities": [
+        "静的な非負整数列の複数の半開区間について、区間内の値が張るXOR線形基底を一括計算できる。",
+        "各区間から任意個の値を選んだsubset XORとinitialとのXORを最大化できる。"
+      ],
+      "searchTerms": [
+        "RangeXorBasis",
+        "Range Xor Basis",
+        "library_codex.range_query.RangeXorBasis",
+        "library codex range query Range Xor Basis",
+        "range_query/RangeXorBasis.py",
+        "静的区間クエリ",
+        "区間XOR基底",
+        "部分集合XOR"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/range_query/RangeXorBasis.py",
+      "inputFingerprint": "557b82f1350bc505e64a20b870211b686bd30e2bd70b4f203b749e0f8f343c44",
+      "importCode": "from library_codex.range_query.RangeXorBasis import range_xor_basis, range_max_xor",
+      "sourceCode": "\"\"\"静的整数列の複数の半開区間について、XOR線形基底を一括計算する。\"\"\"\n\n\ndef _prepare(values, queries):\n    values = list(values)\n    if any(value < 0 for value in values):\n        raise ValueError(\"values must be nonnegative\")\n    n = len(values)\n    grouped = [[] for _ in range(n + 1)]\n    for query_id, query in enumerate(queries):\n        left, right = query\n        if not 0 <= left <= right <= n:\n            raise IndexError(\"query must be a half-open interval in values\")\n        grouped[right].append((query_id, left))\n    return values, grouped\n\n\ndef _solve(values, queries, calculate):\n    queries = list(queries)\n    values, grouped = _prepare(values, queries)\n    bit_count = max((value.bit_length() for value in values), default=0)\n    basis = [0] * bit_count\n    position = [-1] * bit_count\n    answer = [None] * len(queries)\n\n    for right in range(len(values) + 1):\n        for query_id, left in grouped[right]:\n            current = [\n                basis[bit]\n                for bit in range(bit_count - 1, -1, -1)\n                if position[bit] >= left\n            ]\n            answer[query_id] = calculate(current, query_id)\n        if right == len(values):\n            break\n\n        value = values[right]\n        inserted_at = right\n        for bit in range(bit_count - 1, -1, -1):\n            if value >> bit & 1 == 0:\n                continue\n            if basis[bit] == 0:\n                basis[bit] = value\n                position[bit] = inserted_at\n                break\n            if inserted_at > position[bit]:\n                value, basis[bit] = basis[bit], value\n                inserted_at, position[bit] = position[bit], inserted_at\n            value ^= basis[bit]\n    return answer\n\n\ndef range_xor_basis(values, queries):\n    \"\"\"各半開区間に含まれる値が張るXOR線形基底を返す。\"\"\"\n    return _solve(values, queries, lambda basis, _query_id: basis)\n\n\ndef range_max_xor(values, queries, initial=0):\n    \"\"\"各半開区間から任意個の値を選び、initialとのXORを最大化する。\"\"\"\n    if initial < 0:\n        raise ValueError(\"initial must be nonnegative\")\n\n    def calculate(basis, _query_id):\n        result = initial\n        for value in basis:\n            candidate = result ^ value\n            if candidate > result:\n                result = candidate\n        return result\n\n    return _solve(values, queries, calculate)\n",
+      "standaloneCode": "\"\"\"静的整数列の複数の半開区間について、XOR線形基底を一括計算する。\"\"\"\n\n\ndef _prepare(values, queries):\n    values = list(values)\n    if any(value < 0 for value in values):\n        raise ValueError(\"values must be nonnegative\")\n    n = len(values)\n    grouped = [[] for _ in range(n + 1)]\n    for query_id, query in enumerate(queries):\n        left, right = query\n        if not 0 <= left <= right <= n:\n            raise IndexError(\"query must be a half-open interval in values\")\n        grouped[right].append((query_id, left))\n    return values, grouped\n\n\ndef _solve(values, queries, calculate):\n    queries = list(queries)\n    values, grouped = _prepare(values, queries)\n    bit_count = max((value.bit_length() for value in values), default=0)\n    basis = [0] * bit_count\n    position = [-1] * bit_count\n    answer = [None] * len(queries)\n\n    for right in range(len(values) + 1):\n        for query_id, left in grouped[right]:\n            current = [\n                basis[bit]\n                for bit in range(bit_count - 1, -1, -1)\n                if position[bit] >= left\n            ]\n            answer[query_id] = calculate(current, query_id)\n        if right == len(values):\n            break\n\n        value = values[right]\n        inserted_at = right\n        for bit in range(bit_count - 1, -1, -1):\n            if value >> bit & 1 == 0:\n                continue\n            if basis[bit] == 0:\n                basis[bit] = value\n                position[bit] = inserted_at\n                break\n            if inserted_at > position[bit]:\n                value, basis[bit] = basis[bit], value\n                inserted_at, position[bit] = position[bit], inserted_at\n            value ^= basis[bit]\n    return answer\n\n\ndef range_xor_basis(values, queries):\n    \"\"\"各半開区間に含まれる値が張るXOR線形基底を返す。\"\"\"\n    return _solve(values, queries, lambda basis, _query_id: basis)\n\n\ndef range_max_xor(values, queries, initial=0):\n    \"\"\"各半開区間から任意個の値を選び、initialとのXORを最大化する。\"\"\"\n    if initial < 0:\n        raise ValueError(\"initial must be nonnegative\")\n\n    def calculate(basis, _query_id):\n        result = initial\n        for value in basis:\n            candidate = result ^ value\n            if candidate > result:\n                result = candidate\n        return result\n\n    return _solve(values, queries, calculate)\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "range_xor_basis",
+          "kind": "function",
+          "signature": "range_xor_basis(values, queries)",
+          "summary": "各半開区間内の値から任意個を選んで作れるXOR全体を張る線形基底を求める。",
+          "description": "各半開区間内の値から任意個を選んで作れるXOR全体を張る線形基底を求める。",
+          "searchTerms": [
+            "range_xor_basis",
+            "range xor basis",
+            "range_xor_basis(values, queries)"
+          ],
+          "arguments": "values: 非負整数を並べた静的な入力列。 · queries: 半開区間 $[\\mathrm{left},\\mathrm{right})$ を表す2要素列の並び。",
+          "argumentDetails": [
+            {
+              "name": "values",
+              "description": "非負整数を並べた静的な入力列。"
+            },
+            {
+              "name": "queries",
+              "description": "半開区間 $[\\mathrm{left},\\mathrm{right})$ を表す2要素列の並び。"
+            }
+          ],
+          "returns": "list[list[int]] — queriesと同じ長さのbases。bases[q]はqueries[q]内の値と同じsubset XOR全体を張る独立な整数列で、最高bitが高い順に並ぶ。",
+          "returnFormat": "list[list[int]]",
+          "returnDescription": "queriesと同じ長さのbases。bases[q]はqueries[q]内の値と同じsubset XOR全体を張る独立な整数列で、最高bitが高い順に並ぶ。",
+          "complexity": "O((N+Q) B) time、O(N+Q+QB) memory（Bは値の最大bit長、出力を含む）",
+          "sourceLine": 53
+        },
+        {
+          "name": "range_max_xor",
+          "kind": "function",
+          "signature": "range_max_xor(values, queries, initial=0)",
+          "summary": "各半開区間から任意個の値を選び、そのXORとinitialとのXORを最大化する。",
+          "description": "各半開区間から任意個の値を選び、そのXORとinitialとのXORを最大化する。",
+          "searchTerms": [
+            "range_max_xor",
+            "range max xor",
+            "range_max_xor(values, queries, initial=0)"
+          ],
+          "arguments": "values: 非負整数を並べた静的な入力列。 · queries: 半開区間 $[\\mathrm{left},\\mathrm{right})$ を表す2要素列の並び。 · initial: 各queryでsubset XORと組み合わせる共通の非負整数。空subsetも選べる。",
+          "argumentDetails": [
+            {
+              "name": "values",
+              "description": "非負整数を並べた静的な入力列。"
+            },
+            {
+              "name": "queries",
+              "description": "半開区間 $[\\mathrm{left},\\mathrm{right})$ を表す2要素列の並び。"
+            },
+            {
+              "name": "initial",
+              "description": "各queryでsubset XORと組み合わせる共通の非負整数。空subsetも選べる。"
+            }
+          ],
+          "returns": "list[int] — queriesと同じ長さのresult。result[q]は $\\max_{S\\subseteq[\\mathrm{left},\\mathrm{right})}(\\mathrm{initial}\\mathbin{\\mathtt{xor}}\\bigoplus_{i\\in S}\\mathrm{values}[i])$。",
+          "returnFormat": "list[int]",
+          "returnDescription": "queriesと同じ長さのresult。result[q]は $\\max_{S\\subseteq[\\mathrm{left},\\mathrm{right})}(\\mathrm{initial}\\mathbin{\\mathtt{xor}}\\bigoplus_{i\\in S}\\mathrm{values}[i])$。",
+          "complexity": "O((N+Q) B) time、O(N+Q) memory（Bは値とinitialの最大bit長）",
+          "sourceLine": 58
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "range_query",
+      "categoryLabel": "静的区間クエリ",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
       "name": "StaticRMQ",
       "modulePath": "library_codex.range_query.StaticRMQ",
       "summary": "静的区間 minimum・最左argmin。",
@@ -29610,6 +29718,85 @@
       "categoryLabel": "最短路",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "KShortestWalks",
+      "modulePath": "library_codex.shortest_path.KShortestWalks",
+      "summary": "非負辺重みの有向グラフで、同じ頂点や辺を再訪してよいwalkをコスト順に列挙する。",
+      "capabilities": [
+        "非負辺重みの有向グラフで、sourceからtargetへ至るwalkのコストを小さい順に最大k個列挙できる。",
+        "既存KShortestPathsと異なり、同じ頂点・辺を何度でも通るwalkを対象にする。cycleや平行辺も区別する。"
+      ],
+      "searchTerms": [
+        "KShortestWalks",
+        "KShortest Walks",
+        "library_codex.shortest_path.KShortestWalks",
+        "library codex shortest path KShortest Walks",
+        "shortest_path/KShortestWalks.py",
+        "最短路",
+        "k shortest walk",
+        "sidetrack",
+        "Eppstein"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/shortest_path/KShortestWalks.py",
+      "inputFingerprint": "0a81f0d923cf5cb506a4a9deb792f6033d6864f584c1c3f2cb2deb9ddeb309ea",
+      "importCode": "from library_codex.shortest_path.KShortestWalks import k_shortest_walks",
+      "sourceCode": "\"\"\"非負辺重みの有向グラフで、同じ頂点や辺を再訪してよいwalkをコスト順に列挙する。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef _rank(node):\n    return 0 if node is None else node[3]\n\n\ndef _meld(first, second):\n    \"\"\"2つの永続leftist heapを、入力を変更せずに併合する。\"\"\"\n    path = []\n    while first is not None and second is not None:\n        if second[0] < first[0]:\n            first, second = second, first\n        path.append(first)\n        first = first[2]\n    root = first if first is not None else second\n    while path:\n        old = path.pop()\n        left = old[1]\n        right = root\n        if _rank(left) < _rank(right):\n            left, right = right, left\n        root = (old[0], left, right, _rank(right) + 1)\n    return root\n\n\ndef _insert(root, item):\n    return _meld(root, (item, None, None, 1))\n\n\ndef k_shortest_walks(vertex_count, edges, source, target, k):\n    \"\"\"sourceからtargetへのwalkのコストを、小さい順に最大k個返す。\"\"\"\n    if k <= 0:\n        return []\n    if not 0 <= source < vertex_count or not 0 <= target < vertex_count:\n        raise IndexError(\"source or target is outside the graph\")\n\n    graph = [[] for _ in range(vertex_count)]\n    reverse = [[] for _ in range(vertex_count)]\n    for edge_id, edge in enumerate(edges):\n        start, end, cost = edge\n        if not 0 <= start < vertex_count or not 0 <= end < vertex_count:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if cost < 0:\n            raise ValueError(\"edge weights must be nonnegative\")\n        graph[start].append((end, cost, edge_id))\n        reverse[end].append((start, cost, edge_id))\n\n    infinity = float(\"inf\")\n    distance = [infinity] * vertex_count\n    parent = [-1] * vertex_count\n    parent_edge = [-1] * vertex_count\n    distance[target] = 0\n    heap = [(0, target)]\n    while heap:\n        dist, vertex = heappop(heap)\n        if dist != distance[vertex]:\n            continue\n        for predecessor, cost, edge_id in reverse[vertex]:\n            candidate = dist + cost\n            if candidate < distance[predecessor]:\n                distance[predecessor] = candidate\n                parent[predecessor] = vertex\n                parent_edge[predecessor] = edge_id\n                heappush(heap, (candidate, predecessor))\n\n    if distance[source] == infinity:\n        return []\n\n    children = [[] for _ in range(vertex_count)]\n    for vertex in range(vertex_count):\n        if parent[vertex] != -1:\n            children[parent[vertex]].append(vertex)\n\n    roots = [None] * vertex_count\n    order = [target]\n    for vertex in order:\n        root = None if vertex == target else roots[parent[vertex]]\n        tree_edge = parent_edge[vertex]\n        for to, cost, edge_id in graph[vertex]:\n            if edge_id == tree_edge or distance[to] == infinity:\n                continue\n            delta = cost + distance[to] - distance[vertex]\n            root = _insert(root, (delta, to, edge_id))\n        roots[vertex] = root\n        order.extend(children[vertex])\n\n    answer = [distance[source]]\n    root = roots[source]\n    if root is None:\n        return answer\n\n    candidates = []\n    serial = 0\n    heappush(candidates, (answer[0] + root[0][0], serial, root))\n    while candidates and len(answer) < k:\n        cost, _, node = heappop(candidates)\n        answer.append(cost)\n        delta, to, _edge_id = node[0]\n        left = node[1]\n        right = node[2]\n        if left is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + left[0][0] - delta, serial, left\n            ))\n        if right is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + right[0][0] - delta, serial, right\n            ))\n        next_root = roots[to]\n        if next_root is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + next_root[0][0], serial, next_root\n            ))\n    return answer\n",
+      "standaloneCode": "\"\"\"非負辺重みの有向グラフで、同じ頂点や辺を再訪してよいwalkをコスト順に列挙する。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef _rank(node):\n    return 0 if node is None else node[3]\n\n\ndef _meld(first, second):\n    \"\"\"2つの永続leftist heapを、入力を変更せずに併合する。\"\"\"\n    path = []\n    while first is not None and second is not None:\n        if second[0] < first[0]:\n            first, second = second, first\n        path.append(first)\n        first = first[2]\n    root = first if first is not None else second\n    while path:\n        old = path.pop()\n        left = old[1]\n        right = root\n        if _rank(left) < _rank(right):\n            left, right = right, left\n        root = (old[0], left, right, _rank(right) + 1)\n    return root\n\n\ndef _insert(root, item):\n    return _meld(root, (item, None, None, 1))\n\n\ndef k_shortest_walks(vertex_count, edges, source, target, k):\n    \"\"\"sourceからtargetへのwalkのコストを、小さい順に最大k個返す。\"\"\"\n    if k <= 0:\n        return []\n    if not 0 <= source < vertex_count or not 0 <= target < vertex_count:\n        raise IndexError(\"source or target is outside the graph\")\n\n    graph = [[] for _ in range(vertex_count)]\n    reverse = [[] for _ in range(vertex_count)]\n    for edge_id, edge in enumerate(edges):\n        start, end, cost = edge\n        if not 0 <= start < vertex_count or not 0 <= end < vertex_count:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if cost < 0:\n            raise ValueError(\"edge weights must be nonnegative\")\n        graph[start].append((end, cost, edge_id))\n        reverse[end].append((start, cost, edge_id))\n\n    infinity = float(\"inf\")\n    distance = [infinity] * vertex_count\n    parent = [-1] * vertex_count\n    parent_edge = [-1] * vertex_count\n    distance[target] = 0\n    heap = [(0, target)]\n    while heap:\n        dist, vertex = heappop(heap)\n        if dist != distance[vertex]:\n            continue\n        for predecessor, cost, edge_id in reverse[vertex]:\n            candidate = dist + cost\n            if candidate < distance[predecessor]:\n                distance[predecessor] = candidate\n                parent[predecessor] = vertex\n                parent_edge[predecessor] = edge_id\n                heappush(heap, (candidate, predecessor))\n\n    if distance[source] == infinity:\n        return []\n\n    children = [[] for _ in range(vertex_count)]\n    for vertex in range(vertex_count):\n        if parent[vertex] != -1:\n            children[parent[vertex]].append(vertex)\n\n    roots = [None] * vertex_count\n    order = [target]\n    for vertex in order:\n        root = None if vertex == target else roots[parent[vertex]]\n        tree_edge = parent_edge[vertex]\n        for to, cost, edge_id in graph[vertex]:\n            if edge_id == tree_edge or distance[to] == infinity:\n                continue\n            delta = cost + distance[to] - distance[vertex]\n            root = _insert(root, (delta, to, edge_id))\n        roots[vertex] = root\n        order.extend(children[vertex])\n\n    answer = [distance[source]]\n    root = roots[source]\n    if root is None:\n        return answer\n\n    candidates = []\n    serial = 0\n    heappush(candidates, (answer[0] + root[0][0], serial, root))\n    while candidates and len(answer) < k:\n        cost, _, node = heappop(candidates)\n        answer.append(cost)\n        delta, to, _edge_id = node[0]\n        left = node[1]\n        right = node[2]\n        if left is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + left[0][0] - delta, serial, left\n            ))\n        if right is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + right[0][0] - delta, serial, right\n            ))\n        next_root = roots[to]\n        if next_root is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + next_root[0][0], serial, next_root\n            ))\n    return answer\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "k_shortest_walks",
+          "kind": "function",
+          "signature": "k_shortest_walks(vertex_count, edges, source, target, k)",
+          "summary": "sourceからtargetへ至るwalkを辺列の違いで区別し、コストを小さい順に最大k個列挙する。",
+          "description": "sourceからtargetへ至るwalkを辺列の違いで区別し、コストを小さい順に最大k個列挙する。",
+          "searchTerms": [
+            "k_shortest_walks",
+            "k shortest walks",
+            "k_shortest_walks(vertex_count, edges, source, target, k)"
+          ],
+          "arguments": "vertex_count: 有向グラフの頂点数。 · edges: 有向辺を(from, to, nonnegative_cost)で並べた列。平行辺は別の辺として扱う。 · source: walkの始点。 · target: walkの終点。 · k: 先頭から取得するwalk数の上限。0以下なら空listを返す。",
+          "argumentDetails": [
+            {
+              "name": "vertex_count",
+              "description": "有向グラフの頂点数。"
+            },
+            {
+              "name": "edges",
+              "description": "有向辺を(from, to, nonnegative_cost)で並べた列。平行辺は別の辺として扱う。"
+            },
+            {
+              "name": "source",
+              "description": "walkの始点。"
+            },
+            {
+              "name": "target",
+              "description": "walkの終点。"
+            },
+            {
+              "name": "k",
+              "description": "先頭から取得するwalk数の上限。0以下なら空listを返す。"
+            }
+          ],
+          "returns": "list[number] — 存在するwalkのコストを小さい順に最大k個並べた列。walkがk個未満なら存在する分だけ返し、source=targetでは空walkのコスト0が先頭になる。",
+          "returnFormat": "list[number]",
+          "returnDescription": "存在するwalkのコストを小さい順に最大k個並べた列。walkがk個未満なら存在する分だけ返し、source=targetでは空walkのコスト0が先頭になる。",
+          "complexity": "O((V+E) log V + E log E + K log K) time、O(V + E log E + K) memory",
+          "sourceLine": 33
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "shortest_path",
+      "categoryLabel": "最短路",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "WarshallFloyd",
       "modulePath": "library_codex.shortest_path.WarshallFloyd",
       "summary": "全頂点対最短距離を計算する。",
@@ -30125,6 +30312,108 @@
           "returnDescription": "求めた二部グラフ・彩色。",
           "complexity": "O(V+E)",
           "sourceLine": 5
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_connectivity",
+      "categoryLabel": "連結性・分解",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "ComplementGraph",
+      "modulePath": "library_codex.graph_connectivity.ComplementGraph",
+      "summary": "隣接リストを明示的に反転せず、補グラフを幅優先探索する。",
+      "capabilities": [
+        "元の隣接リストで辺が存在しない異なる頂点対を辺とみなし、補グラフを明示構築せずにBFSできる。",
+        "無向グラフの補グラフを連結成分へ分けられる。元のグラフが密でも、補辺を列挙せず処理する。"
+      ],
+      "searchTerms": [
+        "ComplementGraph",
+        "Complement Graph",
+        "library_codex.graph_connectivity.ComplementGraph",
+        "library codex graph connectivity Complement Graph",
+        "graph_connectivity/ComplementGraph.py",
+        "連結性・分解",
+        "補グラフ",
+        "補グラフBFS"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_connectivity/ComplementGraph.py",
+      "inputFingerprint": "b46843045666b3abeb824f5cd2462e78d28a1cc6938ff2819ca44abf00bfb189",
+      "importCode": "from library_codex.graph_connectivity.ComplementGraph import complement_bfs, complement_components",
+      "sourceCode": "\"\"\"隣接listを明示的に反転せず、補グラフを幅優先探索する。\"\"\"\n\n\ndef _to_vertex(edge):\n    return edge if isinstance(edge, int) else edge[0]\n\n\ndef complement_bfs(graph, source):\n    \"\"\"元のgraphに辺がない頂点対を辺とみなし、sourceからBFSする。\"\"\"\n    n = len(graph)\n    if not 0 <= source < n:\n        raise IndexError(\"source is outside the graph\")\n\n    distance = [-1] * n\n    parent = [-1] * n\n    distance[source] = 0\n    queue = [source]\n    unvisited = [v for v in range(n) if v != source]\n    marked = [0] * n\n    stamp = 0\n    head = 0\n    while head < len(queue):\n        vertex = queue[head]\n        head += 1\n        stamp += 1\n        for edge in graph[vertex]:\n            to = _to_vertex(edge)\n            if not 0 <= to < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            marked[to] = stamp\n\n        index = len(unvisited) - 1\n        while index >= 0:\n            to = unvisited[index]\n            if marked[to] != stamp:\n                distance[to] = distance[vertex] + 1\n                parent[to] = vertex\n                queue.append(to)\n                unvisited[index] = unvisited[-1]\n                unvisited.pop()\n            index -= 1\n    return distance, parent\n\n\ndef complement_components(graph):\n    \"\"\"無向graphの補グラフにおける連結成分を列挙する。\"\"\"\n    n = len(graph)\n    unvisited = list(range(n))\n    marked = [0] * n\n    stamp = 0\n    components = []\n    while unvisited:\n        root = unvisited.pop()\n        component = [root]\n        head = 0\n        while head < len(component):\n            vertex = component[head]\n            head += 1\n            stamp += 1\n            for edge in graph[vertex]:\n                to = _to_vertex(edge)\n                if not 0 <= to < n:\n                    raise IndexError(\"an edge endpoint is outside the graph\")\n                marked[to] = stamp\n\n            index = len(unvisited) - 1\n            while index >= 0:\n                to = unvisited[index]\n                if marked[to] != stamp:\n                    component.append(to)\n                    unvisited[index] = unvisited[-1]\n                    unvisited.pop()\n                index -= 1\n        components.append(component)\n    return components\n",
+      "standaloneCode": "\"\"\"隣接listを明示的に反転せず、補グラフを幅優先探索する。\"\"\"\n\n\ndef _to_vertex(edge):\n    return edge if isinstance(edge, int) else edge[0]\n\n\ndef complement_bfs(graph, source):\n    \"\"\"元のgraphに辺がない頂点対を辺とみなし、sourceからBFSする。\"\"\"\n    n = len(graph)\n    if not 0 <= source < n:\n        raise IndexError(\"source is outside the graph\")\n\n    distance = [-1] * n\n    parent = [-1] * n\n    distance[source] = 0\n    queue = [source]\n    unvisited = [v for v in range(n) if v != source]\n    marked = [0] * n\n    stamp = 0\n    head = 0\n    while head < len(queue):\n        vertex = queue[head]\n        head += 1\n        stamp += 1\n        for edge in graph[vertex]:\n            to = _to_vertex(edge)\n            if not 0 <= to < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            marked[to] = stamp\n\n        index = len(unvisited) - 1\n        while index >= 0:\n            to = unvisited[index]\n            if marked[to] != stamp:\n                distance[to] = distance[vertex] + 1\n                parent[to] = vertex\n                queue.append(to)\n                unvisited[index] = unvisited[-1]\n                unvisited.pop()\n            index -= 1\n    return distance, parent\n\n\ndef complement_components(graph):\n    \"\"\"無向graphの補グラフにおける連結成分を列挙する。\"\"\"\n    n = len(graph)\n    unvisited = list(range(n))\n    marked = [0] * n\n    stamp = 0\n    components = []\n    while unvisited:\n        root = unvisited.pop()\n        component = [root]\n        head = 0\n        while head < len(component):\n            vertex = component[head]\n            head += 1\n            stamp += 1\n            for edge in graph[vertex]:\n                to = _to_vertex(edge)\n                if not 0 <= to < n:\n                    raise IndexError(\"an edge endpoint is outside the graph\")\n                marked[to] = stamp\n\n            index = len(unvisited) - 1\n            while index >= 0:\n                to = unvisited[index]\n                if marked[to] != stamp:\n                    component.append(to)\n                    unvisited[index] = unvisited[-1]\n                    unvisited.pop()\n                index -= 1\n        components.append(component)\n    return components\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "complement_bfs",
+          "kind": "function",
+          "signature": "complement_bfs(graph, source)",
+          "summary": "元のgraphに辺がない異なる頂点対を辺とみなし、その補グラフでsourceからBFSする。",
+          "description": "元のgraphに辺がない異なる頂点対を辺とみなし、その補グラフでsourceからBFSする。",
+          "searchTerms": [
+            "complement_bfs",
+            "complement bfs",
+            "complement_bfs(graph, source)"
+          ],
+          "arguments": "graph: graph[v]に元の有向辺の行き先、または先頭要素が行き先のtupleを並べた隣接list。補辺そのものは渡さない。 · source: 補グラフ上の距離を測る始点。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "graph[v]に元の有向辺の行き先、または先頭要素が行き先のtupleを並べた隣接list。補辺そのものは渡さない。"
+            },
+            {
+              "name": "source",
+              "description": "補グラフ上の距離を測る始点。"
+            }
+          ],
+          "returns": "tuple[list[int], list[int]] — 第1要素はdistance、第2要素はparent。どちらも頂点番号順の長さVの列。",
+          "returnFormat": "tuple[list[int], list[int]]",
+          "returnDescription": "第1要素はdistance、第2要素はparent。どちらも頂点番号順の長さVの列。",
+          "complexity": "O(V+E) time、O(V) memory（Eは元graphの辺数）",
+          "sourceLine": 8,
+          "returnParts": [
+            {
+              "name": "distance",
+              "format": "list[int]",
+              "description": "distance[v]は補グラフでのsourceからvへの最短辺数。到達不能なら-1。"
+            },
+            {
+              "name": "parent",
+              "format": "list[int]",
+              "description": "parent[v]はBFS木でvの直前にある頂点。sourceと到達不能頂点では-1。"
+            }
+          ]
+        },
+        {
+          "name": "complement_components",
+          "kind": "function",
+          "signature": "complement_components(graph)",
+          "summary": "無向graphの補グラフを連結成分へ分ける。",
+          "description": "無向graphの補グラフを連結成分へ分ける。",
+          "searchTerms": [
+            "complement_components",
+            "complement components",
+            "complement_components(graph)"
+          ],
+          "arguments": "graph: 各無向辺を両端の隣接listへ入れた元グラフ。要素は行き先、または先頭要素が行き先のtuple。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "各無向辺を両端の隣接listへ入れた元グラフ。要素は行き先、または先頭要素が行き先のtuple。"
+            }
+          ],
+          "returns": "list[list[int]] — 補グラフの連結成分を発見順に並べた列。各内側listにはその成分の頂点をBFS発見順で1回ずつ格納する。",
+          "returnFormat": "list[list[int]]",
+          "returnDescription": "補グラフの連結成分を発見順に並べた列。各内側listにはその成分の頂点をBFS発見順で1回ずつ格納する。",
+          "complexity": "O(V+E) time、O(V) memory（無向辺を両方向に数えた元graphの辺数をEとする）",
+          "sourceLine": 45
         }
       ],
       "classes": []
@@ -33978,6 +34267,85 @@
           "returnDescription": "求めたhungarian・最大。",
           "complexity": "O(N^3)",
           "sourceLine": 62
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_matching",
+      "categoryLabel": "マッチング",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "StableMatching",
+      "modulePath": "library_codex.graph_matching.StableMatching",
+      "summary": "両側に厳密な希望順位がある二部集合の、提案側最適な安定マッチングを求める。",
+      "capabilities": [
+        "両側の厳密な希望順を満たすstable マッチングのうち、first側の各要素にとって最適なものを求められる。",
+        "希望listを途中で切ることで、相手によってマッチングを拒否できる不完全listも扱える。"
+      ],
+      "searchTerms": [
+        "StableMatching",
+        "Stable Matching",
+        "library_codex.graph_matching.StableMatching",
+        "library codex graph matching Stable Matching",
+        "graph_matching/StableMatching.py",
+        "マッチング",
+        "安定結婚",
+        "stable marriage",
+        "Gale Shapley"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_matching/StableMatching.py",
+      "inputFingerprint": "96252d778b9751cec55bf0630a92fe69e9eaebfee8205e95da022b27bc565f53",
+      "importCode": "from library_codex.graph_matching.StableMatching import stable_matching",
+      "sourceCode": "\"\"\"両側に厳密な希望順位がある二部集合の、提案側最適な安定マッチングを求める。\"\"\"\n\n\ndef stable_matching(first_preferences, second_preferences):\n    \"\"\"first側から提案するGale--Shapley法で安定マッチングを返す。\"\"\"\n    first_preferences = [list(order) for order in first_preferences]\n    second_preferences = [list(order) for order in second_preferences]\n    first_count = len(first_preferences)\n    second_count = len(second_preferences)\n\n    for order in first_preferences:\n        if len(order) != len(set(order)):\n            raise ValueError(\"a preference list contains a duplicate\")\n        if any(not 0 <= second < second_count for second in order):\n            raise IndexError(\"a preference refers to an unknown second vertex\")\n\n    rank = []\n    for order in second_preferences:\n        if len(order) != len(set(order)):\n            raise ValueError(\"a preference list contains a duplicate\")\n        if any(not 0 <= first < first_count for first in order):\n            raise IndexError(\"a preference refers to an unknown first vertex\")\n        rank.append({first: position for position, first in enumerate(order)})\n\n    match_first = [-1] * first_count\n    match_second = [-1] * second_count\n    next_choice = [0] * first_count\n    free = list(range(first_count - 1, -1, -1))\n    while free:\n        first = free.pop()\n        choices = first_preferences[first]\n        while next_choice[first] < len(choices):\n            second = choices[next_choice[first]]\n            next_choice[first] += 1\n            second_rank = rank[second]\n            if first not in second_rank:\n                continue\n            current = match_second[second]\n            if current == -1 or second_rank[first] < second_rank[current]:\n                match_first[first] = second\n                match_second[second] = first\n                if current != -1:\n                    match_first[current] = -1\n                    free.append(current)\n                break\n    return match_first, match_second\n",
+      "standaloneCode": "\"\"\"両側に厳密な希望順位がある二部集合の、提案側最適な安定マッチングを求める。\"\"\"\n\n\ndef stable_matching(first_preferences, second_preferences):\n    \"\"\"first側から提案するGale--Shapley法で安定マッチングを返す。\"\"\"\n    first_preferences = [list(order) for order in first_preferences]\n    second_preferences = [list(order) for order in second_preferences]\n    first_count = len(first_preferences)\n    second_count = len(second_preferences)\n\n    for order in first_preferences:\n        if len(order) != len(set(order)):\n            raise ValueError(\"a preference list contains a duplicate\")\n        if any(not 0 <= second < second_count for second in order):\n            raise IndexError(\"a preference refers to an unknown second vertex\")\n\n    rank = []\n    for order in second_preferences:\n        if len(order) != len(set(order)):\n            raise ValueError(\"a preference list contains a duplicate\")\n        if any(not 0 <= first < first_count for first in order):\n            raise IndexError(\"a preference refers to an unknown first vertex\")\n        rank.append({first: position for position, first in enumerate(order)})\n\n    match_first = [-1] * first_count\n    match_second = [-1] * second_count\n    next_choice = [0] * first_count\n    free = list(range(first_count - 1, -1, -1))\n    while free:\n        first = free.pop()\n        choices = first_preferences[first]\n        while next_choice[first] < len(choices):\n            second = choices[next_choice[first]]\n            next_choice[first] += 1\n            second_rank = rank[second]\n            if first not in second_rank:\n                continue\n            current = match_second[second]\n            if current == -1 or second_rank[first] < second_rank[current]:\n                match_first[first] = second\n                match_second[second] = first\n                if current != -1:\n                    match_first[current] = -1\n                    free.append(current)\n                break\n    return match_first, match_second\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "stable_matching",
+          "kind": "function",
+          "signature": "stable_matching(first_preferences, second_preferences)",
+          "summary": "first側から順に提案し、blocking pairがないmatchingのうちfirst側最適なものを求める。",
+          "description": "first側から順に提案し、blocking pairがないmatchingのうちfirst側最適なものを求める。",
+          "searchTerms": [
+            "stable_matching",
+            "stable matching",
+            "stable_matching(first_preferences, second_preferences)"
+          ],
+          "arguments": "first_preferences: first_preferences[first]に、受け入れ可能なsecond番号を希望が高い順に重複なく並べる。省略したsecondは受け入れない。 · second_preferences: second_preferences[second]に、受け入れ可能なfirst番号を希望が高い順に重複なく並べる。省略したfirstは受け入れない。",
+          "argumentDetails": [
+            {
+              "name": "first_preferences",
+              "description": "first_preferences[first]に、受け入れ可能なsecond番号を希望が高い順に重複なく並べる。省略したsecondは受け入れない。"
+            },
+            {
+              "name": "second_preferences",
+              "description": "second_preferences[second]に、受け入れ可能なfirst番号を希望が高い順に重複なく並べる。省略したfirstは受け入れない。"
+            }
+          ],
+          "returns": "tuple[list[int], list[int]] — 第1要素はmatch_first、第2要素はmatch_second。両側から同じmatchingを参照できる。",
+          "returnFormat": "tuple[list[int], list[int]]",
+          "returnDescription": "第1要素はmatch_first、第2要素はmatch_second。両側から同じmatchingを参照できる。",
+          "complexity": "O(P) time、O(P+N+M) memory（Pは両側の希望listの合計長）",
+          "sourceLine": 4,
+          "returnParts": [
+            {
+              "name": "match_first",
+              "format": "list[int]",
+              "description": "match_first[first]は対応するsecond番号。matchingされなければ-1。"
+            },
+            {
+              "name": "match_second",
+              "format": "list[int]",
+              "description": "match_second[second]は対応するfirst番号。matchingされなければ-1。"
+            }
+          ]
         }
       ],
       "classes": []
@@ -48919,6 +49287,266 @@
         }
       ],
       "classes": []
+    },
+    {
+      "category": "tree_query",
+      "categoryLabel": "木上クエリ",
+      "domain": "tree",
+      "domainLabel": "Tree",
+      "name": "TreeWaveletMatrix",
+      "modulePath": "library_codex.tree_query.TreeWaveletMatrix",
+      "summary": "静的な頂点値について、木の経路・部分木内の順位と値域個数を求める。",
+      "capabilities": [
+        "静的な木の2頂点間経路またはrooted subtreeについて、k番目に小さい頂点値を求められる。",
+        "経路・部分木内で、半開値域lower以上upper未満に入る頂点数を数えられる。負数と重複値も扱える。"
+      ],
+      "searchTerms": [
+        "TreeWaveletMatrix",
+        "Tree Wavelet Matrix",
+        "library_codex.tree_query.TreeWaveletMatrix",
+        "library codex tree query Tree Wavelet Matrix",
+        "tree_query/TreeWaveletMatrix.py",
+        "木上クエリ",
+        "木上wavelet matrix",
+        "path kth",
+        "部分木k番目"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/tree_query/TreeWaveletMatrix.py",
+      "inputFingerprint": "08733c908b57f136ac8187973bd0c2fbfda14c5282dec9d78fa4362f424eec2b",
+      "importCode": "from library_codex.tree_query.TreeWaveletMatrix import TreeWaveletMatrix",
+      "sourceCode": "\"\"\"静的な頂点値について、木のpath・部分木内の順位と値域個数を求める。\"\"\"\n\nfrom bisect import bisect_left\n\nfrom library_codex.range_query.WaveletMatrix import WaveletMatrix\nfrom library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition\n\n\nclass TreeWaveletMatrix:\n    __slots__ = (\"hld\", \"wm\", \"sorted_values\", \"_values\")\n\n    def __init__(self, tree, values, root=0):\n        n = len(tree)\n        values = list(values)\n        if len(values) != n:\n            raise ValueError(\"values must contain one value for each vertex\")\n        adjacency = [\n            [edge if isinstance(edge, int) else edge[0] for edge in row]\n            for row in tree\n        ]\n        hld = HeavyLightDecomposition(adjacency, root)\n        sorted_values = sorted(set(values))\n        index = {value: rank for rank, value in enumerate(sorted_values)}\n        ordered = [index[values[hld.rev[position]]] for position in range(n)]\n        self.hld = hld\n        self.wm = WaveletMatrix(ordered)\n        self.sorted_values = sorted_values\n        self._values = values\n\n    @staticmethod\n    def _ones(wm, level, position):\n        block = wm.blocks[level]\n        block_index = position >> 6\n        offset = position & 63\n        mask = (1 << offset) - 1\n        return (\n            wm.prefix[level][block_index]\n            + (block[block_index] & mask).bit_count()\n        )\n\n    def _count_lt(self, segments, upper):\n        wm = self.wm\n        if upper <= 0:\n            return 0\n        total = sum(right - left for left, right in segments)\n        if upper >= len(self.sorted_values):\n            return total\n        result = 0\n        current = segments\n        for level in range(wm.log - 1, -1, -1):\n            following = []\n            one = upper >> level & 1\n            middle = wm.mid[level]\n            for left, right in current:\n                left_one = self._ones(wm, level, left)\n                right_one = self._ones(wm, level, right)\n                if one:\n                    result += right - left - right_one + left_one\n                    following.append((middle + left_one, middle + right_one))\n                else:\n                    following.append((left - left_one, right - right_one))\n            current = following\n        return result\n\n    def _kth(self, segments, k):\n        wm = self.wm\n        total = sum(right - left for left, right in segments)\n        if not 0 <= k < total:\n            raise IndexError(\"k is outside the selected vertices\")\n        rank = 0\n        current = segments\n        for level in range(wm.log - 1, -1, -1):\n            zeros = 0\n            counts = []\n            for left, right in current:\n                left_one = self._ones(wm, level, left)\n                right_one = self._ones(wm, level, right)\n                counts.append((left, right, left_one, right_one))\n                zeros += right - left - right_one + left_one\n            following = []\n            if k < zeros:\n                for left, right, left_one, right_one in counts:\n                    following.append((left - left_one, right - right_one))\n            else:\n                k -= zeros\n                rank |= 1 << level\n                middle = wm.mid[level]\n                for _left, _right, left_one, right_one in counts:\n                    following.append((middle + left_one, middle + right_one))\n            current = following\n        return self.sorted_values[rank]\n\n    def kth_path(self, first, second, k):\n        \"\"\"firstからsecondまでの頂点値で、k番目に小さい値を返す。\"\"\"\n        return self._kth(self.hld.path(first, second), k)\n\n    def count_path(self, first, second, lower, upper):\n        \"\"\"path上でlower以上upper未満の値を持つ頂点数を返す。\"\"\"\n        segments = self.hld.path(first, second)\n        values = self.sorted_values\n        return (\n            self._count_lt(segments, bisect_left(values, upper))\n            - self._count_lt(segments, bisect_left(values, lower))\n        )\n\n    def kth_subtree(self, vertex, k):\n        \"\"\"rooted treeのvertex部分木で、k番目に小さい頂点値を返す。\"\"\"\n        return self._kth([self.hld.subtree(vertex)], k)\n\n    def count_subtree(self, vertex, lower, upper):\n        \"\"\"vertex部分木でlower以上upper未満の値を持つ頂点数を返す。\"\"\"\n        segments = [self.hld.subtree(vertex)]\n        values = self.sorted_values\n        return (\n            self._count_lt(segments, bisect_left(values, upper))\n            - self._count_lt(segments, bisect_left(values, lower))\n        )\n\n    def tolist(self):\n        return list(self._values)\n\n    def __str__(self):\n        return str(self._values)\n\n    def __repr__(self):\n        return \"TreeWaveletMatrix(%r)\" % self._values\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: range_query/WaveletMatrix.py\n_range_query_wavelet_matrix_MASK = [(1 << i) - 1 for i in range(64)]\n\nclass WaveletMatrix:\n    __slots__ = ('n', 'log', 'mid', 'blocks', 'prefix')\n\n    def __init__(self, a):\n        n = len(a)\n        if n:\n            assert min(a) >= 0\n            log = max(1, max(a).bit_length())\n        else:\n            log = 1\n        mid = [0] * log\n        blocks = [None] * log\n        prefix = [None] * log\n        cur = list(a)\n        block_count = (n >> 6) + 1\n        for h in range(log - 1, -1, -1):\n            block = [0] * block_count\n            zero = []\n            one = []\n            bit = 1 << h\n            for (i, x) in enumerate(cur):\n                if x & bit:\n                    block[i >> 6] |= 1 << (i & 63)\n                    one.append(x)\n                else:\n                    zero.append(x)\n            pref = [0] * (block_count + 1)\n            for (i, x) in enumerate(block):\n                pref[i + 1] = pref[i] + x.bit_count()\n            mid[h] = len(zero)\n            blocks[h] = block\n            prefix[h] = pref\n            cur = zero + one\n        self.n = n\n        self.log = log\n        self.mid = mid\n        self.blocks = blocks\n        self.prefix = prefix\n\n    def access(self, k):\n        assert 0 <= k < self.n\n        res = 0\n        mask = _range_query_wavelet_matrix_MASK\n        blocks = self.blocks\n        prefix = self.prefix\n        mid = self.mid\n        for h in range(self.log - 1, -1, -1):\n            block = blocks[h]\n            b = k >> 6\n            o = k & 63\n            ones = prefix[h][b] + (block[b] & mask[o]).bit_count()\n            if block[b] >> o & 1:\n                res |= 1 << h\n                k = mid[h] + ones\n            else:\n                k -= ones\n        return res\n    __getitem__ = access\n\n    def rank(self, l, r, x):\n        assert 0 <= l <= r <= self.n\n        if x < 0 or x >= 1 << self.log:\n            return 0\n        mask = _range_query_wavelet_matrix_MASK\n        blocks = self.blocks\n        prefix = self.prefix\n        mid = self.mid\n        for h in range(self.log - 1, -1, -1):\n            block = blocks[h]\n            pref = prefix[h]\n            lb = l >> 6\n            rb = r >> 6\n            lo = l & 63\n            ro = r & 63\n            l1 = pref[lb] + (block[lb] & mask[lo]).bit_count()\n            r1 = pref[rb] + (block[rb] & mask[ro]).bit_count()\n            if x >> h & 1:\n                l = mid[h] + l1\n                r = mid[h] + r1\n            else:\n                l -= l1\n                r -= r1\n        return r - l\n    count = rank\n\n    def kth_smallest(self, l, r, k):\n        assert 0 <= l <= r <= self.n and 0 <= k < r - l\n        res = 0\n        mask = _range_query_wavelet_matrix_MASK\n        blocks = self.blocks\n        prefix = self.prefix\n        mid = self.mid\n        for h in range(self.log - 1, -1, -1):\n            block = blocks[h]\n            pref = prefix[h]\n            lb = l >> 6\n            rb = r >> 6\n            lo = l & 63\n            ro = r & 63\n            l1 = pref[lb] + (block[lb] & mask[lo]).bit_count()\n            r1 = pref[rb] + (block[rb] & mask[ro]).bit_count()\n            zeros = r - l - r1 + l1\n            if k < zeros:\n                l -= l1\n                r -= r1\n            else:\n                k -= zeros\n                res |= 1 << h\n                l = mid[h] + l1\n                r = mid[h] + r1\n        return res\n    quantile = kth_smallest\n\n    def kth_largest(self, l, r, k):\n        assert 0 <= k < r - l\n        return self.kth_smallest(l, r, r - l - k - 1)\n\n    def count_lt(self, l, r, upper):\n        assert 0 <= l <= r <= self.n\n        if upper <= 0:\n            return 0\n        if upper >= 1 << self.log:\n            return r - l\n        res = 0\n        mask = _range_query_wavelet_matrix_MASK\n        blocks = self.blocks\n        prefix = self.prefix\n        mid = self.mid\n        for h in range(self.log - 1, -1, -1):\n            block = blocks[h]\n            pref = prefix[h]\n            lb = l >> 6\n            rb = r >> 6\n            lo = l & 63\n            ro = r & 63\n            l1 = pref[lb] + (block[lb] & mask[lo]).bit_count()\n            r1 = pref[rb] + (block[rb] & mask[ro]).bit_count()\n            if upper >> h & 1:\n                res += r - l - r1 + l1\n                l = mid[h] + l1\n                r = mid[h] + r1\n            else:\n                l -= l1\n                r -= r1\n        return res\n    range_lowerbound = count_lt\n\n    def count_le(self, l, r, upper):\n        return self.count_lt(l, r, upper + 1)\n    range_upperbound = count_le\n\n    def range_freq(self, l, r, lower, upper=None):\n        if upper is None:\n            return self.count_lt(l, r, lower)\n        return self.count_lt(l, r, upper) - self.count_lt(l, r, lower)\n\n    def prev_value(self, l, r, upper, default=-1):\n        k = self.count_lt(l, r, upper)\n        return default if k == 0 else self.kth_smallest(l, r, k - 1)\n\n    def next_value(self, l, r, lower, default=-1):\n        k = self.count_lt(l, r, lower)\n        return default if k == r - l else self.kth_smallest(l, r, k)\n\n    def max_le(self, l, r, x, default=-1):\n        k = self.count_le(l, r, x)\n        return default if k == 0 else self.kth_smallest(l, r, k - 1)\n\n    def min_ge(self, l, r, x, default=-1):\n        return self.next_value(l, r, x, default)\n\n# 依存: tree/HeavyLightDecomposition.py\nclass HeavyLightDecomposition:\n    __slots__ = ('n', 'parent', 'depth', 'size', 'head', 'tin', 'tout', 'rev')\n\n    def __init__(self, edge, root=0):\n        n = len(edge)\n        assert 0 <= root < n\n        parent = [-1] * n\n        depth = [0] * n\n        order = [root]\n        for u in order:\n            for v in edge[u]:\n                if v != parent[u]:\n                    parent[v] = u\n                    depth[v] = depth[u] + 1\n                    order.append(v)\n        size = [1] * n\n        heavy = [-1] * n\n        for u in reversed(order):\n            best = 0\n            for v in edge[u]:\n                if parent[v] == u:\n                    sv = size[v]\n                    size[u] += sv\n                    if sv > best:\n                        best = sv\n                        heavy[u] = v\n        head = [0] * n\n        tin = [0] * n\n        rev = [0] * n\n        stack = [(root, root)]\n        timer = 0\n        while stack:\n            (u, h) = stack.pop()\n            while u != -1:\n                head[u] = h\n                tin[u] = timer\n                rev[timer] = u\n                timer += 1\n                hu = heavy[u]\n                for v in edge[u]:\n                    if parent[v] == u and v != hu:\n                        stack.append((v, v))\n                u = hu\n        self.n = n\n        self.parent = parent\n        self.depth = depth\n        self.size = size\n        self.head = head\n        self.tin = tin\n        self.tout = [tin[v] + size[v] for v in range(n)]\n        self.rev = rev\n\n    def lca(self, u, v):\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                u = parent[head[u]]\n            else:\n                v = parent[head[v]]\n        return u if depth[u] < depth[v] else v\n\n    def dist(self, u, v):\n        w = self.lca(u, v)\n        return self.depth[u] + self.depth[v] - (self.depth[w] << 1)\n\n    def kth_ancestor(self, v, k):\n        if k < 0 or self.depth[v] < k:\n            return -1\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while depth[v] - depth[head[v]] < k:\n            k -= depth[v] - depth[head[v]] + 1\n            v = parent[head[v]]\n        return self.rev[tin[v] - k]\n\n    def jump(self, u, v, k):\n        w = self.lca(u, v)\n        up = self.depth[u] - self.depth[w]\n        distance = up + self.depth[v] - self.depth[w]\n        if k < 0 or distance < k:\n            return -1\n        if k <= up:\n            return self.kth_ancestor(u, k)\n        return self.kth_ancestor(v, distance - k)\n\n    def next_on_path(self, u, v):\n        if u == v:\n            return -1\n        return self.jump(u, v, 1)\n    nxt = next_on_path\n\n    def vertices_on_path(self, u, v):\n        distance = self.dist(u, v)\n        return [self.jump(u, v, k) for k in range(distance + 1)]\n\n    def subtree(self, v, edge=False):\n        return (self.tin[v] + edge, self.tout[v])\n\n    def path(self, u, v, edge=False):\n        res = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                res.append((tin[head[u]], tin[u] + 1))\n                u = parent[head[u]]\n            else:\n                res.append((tin[head[v]], tin[v] + 1))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            (l, r) = (tin[v] + edge, tin[u] + 1)\n        else:\n            (l, r) = (tin[u] + edge, tin[v] + 1)\n        if l < r:\n            res.append((l, r))\n        return res\n\n    def path_ordered(self, u, v, edge=False):\n        up = []\n        down = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                up.append((tin[head[u]], tin[u] + 1, True))\n                u = parent[head[u]]\n            else:\n                down.append((tin[head[v]], tin[v] + 1, False))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            (l, r) = (tin[v] + edge, tin[u] + 1)\n            if l < r:\n                up.append((l, r, True))\n        else:\n            (l, r) = (tin[u] + edge, tin[v] + 1)\n            if l < r:\n                down.append((l, r, False))\n        up.extend(reversed(down))\n        return up\n\n    def index(self, v):\n        return self.tin[v]\n\n    def vertex(self, i):\n        return self.rev[i]\nHLD = HeavyLightDecomposition\n\n# 本体\n\"\"\"静的な頂点値について、木のpath・部分木内の順位と値域個数を求める。\"\"\"\nfrom bisect import bisect_left\n\nclass TreeWaveletMatrix:\n    __slots__ = ('hld', 'wm', 'sorted_values', '_values')\n\n    def __init__(self, tree, values, root=0):\n        n = len(tree)\n        values = list(values)\n        if len(values) != n:\n            raise ValueError('values must contain one value for each vertex')\n        adjacency = [[edge if isinstance(edge, int) else edge[0] for edge in row] for row in tree]\n        hld = HeavyLightDecomposition(adjacency, root)\n        sorted_values = sorted(set(values))\n        index = {value: rank for (rank, value) in enumerate(sorted_values)}\n        ordered = [index[values[hld.rev[position]]] for position in range(n)]\n        self.hld = hld\n        self.wm = WaveletMatrix(ordered)\n        self.sorted_values = sorted_values\n        self._values = values\n\n    @staticmethod\n    def _ones(wm, level, position):\n        block = wm.blocks[level]\n        block_index = position >> 6\n        offset = position & 63\n        mask = (1 << offset) - 1\n        return wm.prefix[level][block_index] + (block[block_index] & mask).bit_count()\n\n    def _count_lt(self, segments, upper):\n        wm = self.wm\n        if upper <= 0:\n            return 0\n        total = sum((right - left for (left, right) in segments))\n        if upper >= len(self.sorted_values):\n            return total\n        result = 0\n        current = segments\n        for level in range(wm.log - 1, -1, -1):\n            following = []\n            one = upper >> level & 1\n            middle = wm.mid[level]\n            for (left, right) in current:\n                left_one = self._ones(wm, level, left)\n                right_one = self._ones(wm, level, right)\n                if one:\n                    result += right - left - right_one + left_one\n                    following.append((middle + left_one, middle + right_one))\n                else:\n                    following.append((left - left_one, right - right_one))\n            current = following\n        return result\n\n    def _kth(self, segments, k):\n        wm = self.wm\n        total = sum((right - left for (left, right) in segments))\n        if not 0 <= k < total:\n            raise IndexError('k is outside the selected vertices')\n        rank = 0\n        current = segments\n        for level in range(wm.log - 1, -1, -1):\n            zeros = 0\n            counts = []\n            for (left, right) in current:\n                left_one = self._ones(wm, level, left)\n                right_one = self._ones(wm, level, right)\n                counts.append((left, right, left_one, right_one))\n                zeros += right - left - right_one + left_one\n            following = []\n            if k < zeros:\n                for (left, right, left_one, right_one) in counts:\n                    following.append((left - left_one, right - right_one))\n            else:\n                k -= zeros\n                rank |= 1 << level\n                middle = wm.mid[level]\n                for (_left, _right, left_one, right_one) in counts:\n                    following.append((middle + left_one, middle + right_one))\n            current = following\n        return self.sorted_values[rank]\n\n    def kth_path(self, first, second, k):\n        \"\"\"firstからsecondまでの頂点値で、k番目に小さい値を返す。\"\"\"\n        return self._kth(self.hld.path(first, second), k)\n\n    def count_path(self, first, second, lower, upper):\n        \"\"\"path上でlower以上upper未満の値を持つ頂点数を返す。\"\"\"\n        segments = self.hld.path(first, second)\n        values = self.sorted_values\n        return self._count_lt(segments, bisect_left(values, upper)) - self._count_lt(segments, bisect_left(values, lower))\n\n    def kth_subtree(self, vertex, k):\n        \"\"\"rooted treeのvertex部分木で、k番目に小さい頂点値を返す。\"\"\"\n        return self._kth([self.hld.subtree(vertex)], k)\n\n    def count_subtree(self, vertex, lower, upper):\n        \"\"\"vertex部分木でlower以上upper未満の値を持つ頂点数を返す。\"\"\"\n        segments = [self.hld.subtree(vertex)]\n        values = self.sorted_values\n        return self._count_lt(segments, bisect_left(values, upper)) - self._count_lt(segments, bisect_left(values, lower))\n\n    def tolist(self):\n        return list(self._values)\n\n    def __str__(self):\n        return str(self._values)\n\n    def __repr__(self):\n        return 'TreeWaveletMatrix(%r)' % self._values\n",
+      "bundledDependencies": [
+        "library_codex.range_query.WaveletMatrix",
+        "library_codex.tree.HeavyLightDecomposition"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 7
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "TreeWaveletMatrix",
+          "summary": "静的な頂点値をHLD順にWavelet Matrixへ格納し、木のpath・部分木で順位と値域個数を検索する。",
+          "description": "静的な頂点値をHLD順にWavelet Matrixへ格納し、木のpath・部分木で順位と値域個数を検索する。",
+          "searchTerms": [
+            "TreeWaveletMatrix",
+            "Tree Wavelet Matrix",
+            "TreeWaveletMatrix(tree, values, root=0)"
+          ],
+          "constructor": "TreeWaveletMatrix(tree, values, root=0)",
+          "constructorArguments": "tree: 連結な無向木の隣接list。要素は行き先、または先頭要素が行き先のtuple。 · values: 頂点番号順に1個ずつ並べた長さVの整数列。負数と重複を許す。 · root: kth_subtreeとcount_subtreeで親子関係を決める根。path queryの結果には影響しない。省略時: 0",
+          "constructorArgumentDetails": [
+            {
+              "name": "tree",
+              "description": "連結な無向木の隣接リスト。要素は行き先、または先頭要素が行き先のtuple"
+            },
+            {
+              "name": "values",
+              "description": "頂点番号順に1個ずつ並べた長さVの整数列。負数と重複を許す"
+            },
+            {
+              "name": "root",
+              "description": "kth_subtreeとcount_subtreeで親子関係を決める根。経路 クエリの結果には影響しない。省略時は 0"
+            }
+          ],
+          "constructorReturns": "TreeWaveletMatrix instance",
+          "constructorReturnFormat": "TreeWaveletMatrix",
+          "constructorReturnDescription": "treeの各頂点値を保持する。kth_path・count_pathで2頂点間pathを、kth_subtree・count_subtreeでrooted subtreeを検索できる。",
+          "constructorCreates": "treeの各頂点値を保持する。kth_path・count_pathで2頂点間pathを、kth_subtree・count_subtreeでrooted subtreeを検索できる。",
+          "constructorComplexity": "実装依存",
+          "constructorSourceLine": 12,
+          "methods": [
+            {
+              "name": "kth_path",
+              "kind": "method",
+              "signature": "kth_path(first, second, k)",
+              "summary": "firstからsecondまでの両端を含む単純path上で、k番目に小さい頂点値を返す。",
+              "description": "firstからsecondまでの両端を含む単純path上で、k番目に小さい頂点値を返す。",
+              "searchTerms": [
+                "kth_path",
+                "kth path",
+                "kth_path(first, second, k)"
+              ],
+              "arguments": "first: pathの一端。 · second: pathの他端。 · k: 小さい方から数えた順位。0 <= k < path頂点数。",
+              "argumentDetails": [
+                {
+                  "name": "first",
+                  "description": "pathの一端。"
+                },
+                {
+                  "name": "second",
+                  "description": "pathの他端。"
+                },
+                {
+                  "name": "k",
+                  "description": "小さい方から数えた順位。0 <= k < path頂点数。"
+                }
+              ],
+              "returns": "int — path上の頂点値を重複込みで昇順に並べたときのk番目の値。",
+              "returnFormat": "int",
+              "returnDescription": "path上の頂点値を重複込みで昇順に並べたときのk番目の値。",
+              "complexity": "O(log V log S)",
+              "sourceLine": 93
+            },
+            {
+              "name": "count_path",
+              "kind": "method",
+              "signature": "count_path(first, second, lower, upper)",
+              "summary": "firstからsecondまでの両端を含む単純path上で、指定値域に入る頂点数を数える。",
+              "description": "firstからsecondまでの両端を含む単純path上で、指定値域に入る頂点数を数える。",
+              "searchTerms": [
+                "count_path",
+                "count path",
+                "count_path(first, second, lower, upper)"
+              ],
+              "arguments": "first: pathの一端。 · second: pathの他端。 · lower: 含める値の下端。 · upper: 含めない値の上端。",
+              "argumentDetails": [
+                {
+                  "name": "first",
+                  "description": "pathの一端。"
+                },
+                {
+                  "name": "second",
+                  "description": "pathの他端。"
+                },
+                {
+                  "name": "lower",
+                  "description": "含める値の下端。"
+                },
+                {
+                  "name": "upper",
+                  "description": "含めない値の上端。"
+                }
+              ],
+              "returns": "int — path上で $\\mathrm{lower}\\le\\mathrm{values}[v]<\\mathrm{upper}$ を満たす頂点vの個数。",
+              "returnFormat": "int",
+              "returnDescription": "path上で $\\mathrm{lower}\\le\\mathrm{values}[v]<\\mathrm{upper}$ を満たす頂点vの個数。",
+              "complexity": "O(log V log S)",
+              "sourceLine": 97
+            },
+            {
+              "name": "kth_subtree",
+              "kind": "method",
+              "signature": "kth_subtree(vertex, k)",
+              "summary": "constructorで指定したrootに対するvertex部分木で、k番目に小さい頂点値を返す。",
+              "description": "constructorで指定したrootに対するvertex部分木で、k番目に小さい頂点値を返す。",
+              "searchTerms": [
+                "kth_subtree",
+                "kth subtree",
+                "kth_subtree(vertex, k)"
+              ],
+              "arguments": "vertex: 部分木の根。vertex自身を含む。 · k: 小さい方から数えた順位。0 <= k < 部分木頂点数。",
+              "argumentDetails": [
+                {
+                  "name": "vertex",
+                  "description": "部分木の根。vertex自身を含む。"
+                },
+                {
+                  "name": "k",
+                  "description": "小さい方から数えた順位。0 <= k < 部分木頂点数。"
+                }
+              ],
+              "returns": "int — vertex部分木の頂点値を重複込みで昇順に並べたときのk番目の値。",
+              "returnFormat": "int",
+              "returnDescription": "vertex部分木の頂点値を重複込みで昇順に並べたときのk番目の値。",
+              "complexity": "O(log S)",
+              "sourceLine": 106
+            },
+            {
+              "name": "count_subtree",
+              "kind": "method",
+              "signature": "count_subtree(vertex, lower, upper)",
+              "summary": "constructorで指定したrootに対するvertex部分木で、指定値域に入る頂点数を数える。",
+              "description": "constructorで指定したrootに対するvertex部分木で、指定値域に入る頂点数を数える。",
+              "searchTerms": [
+                "count_subtree",
+                "count subtree",
+                "count_subtree(vertex, lower, upper)"
+              ],
+              "arguments": "vertex: 部分木の根。vertex自身を含む。 · lower: 含める値の下端。 · upper: 含めない値の上端。",
+              "argumentDetails": [
+                {
+                  "name": "vertex",
+                  "description": "部分木の根。vertex自身を含む。"
+                },
+                {
+                  "name": "lower",
+                  "description": "含める値の下端。"
+                },
+                {
+                  "name": "upper",
+                  "description": "含めない値の上端。"
+                }
+              ],
+              "returns": "int — vertex部分木で $\\mathrm{lower}\\le\\mathrm{values}[v]<\\mathrm{upper}$ を満たす頂点vの個数。",
+              "returnFormat": "int",
+              "returnDescription": "vertex部分木で $\\mathrm{lower}\\le\\mathrm{values}[v]<\\mathrm{upper}$ を満たす頂点vの個数。",
+              "complexity": "O(log S)",
+              "sourceLine": 110
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "constructorへ渡した頂点値を頂点番号順のlistとして返す。",
+              "description": "constructorへ渡した頂点値を頂点番号順のlistとして返す。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[int] — 長さVの列result。result[v]は頂点vへ設定した値。",
+              "returnFormat": "list[int]",
+              "returnDescription": "長さVの列result。result[v]は頂点vへ設定した値。",
+              "complexity": "O(V)",
+              "sourceLine": 119
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "constructorへ渡した頂点値を頂点番号順のlist形式で表示する。",
+              "description": "constructorへ渡した頂点値を頂点番号順のlist形式で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — 頂点番号順のvaluesをPython listと同じ形式で表した文字列。",
+              "returnFormat": "str",
+              "returnDescription": "頂点番号順のvaluesをPython listと同じ形式で表した文字列。",
+              "complexity": "O(V)",
+              "sourceLine": 122
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名とconstructorへ渡した頂点値をデバッグ用に表示する。",
+              "description": "型名とconstructorへ渡した頂点値をデバッグ用に表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — TreeWaveletMatrix(values)の形で、valuesを頂点番号順のlistとして含む文字列。",
+              "returnFormat": "str",
+              "returnDescription": "TreeWaveletMatrix(values)の形で、valuesを頂点番号順のlistとして含む文字列。",
+              "complexity": "O(V)",
+              "sourceLine": 125
+            }
+          ]
+        }
+      ]
     },
     {
       "category": "string",

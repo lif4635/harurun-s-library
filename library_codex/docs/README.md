@@ -49,13 +49,13 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 10 | 0 | 10 | 58 |
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 10 | 0 | 10 | 105 |
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 10 | 3 | 8 | 66 |
-| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 5 | 2 | 6 | 52 |
+| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 6 | 4 | 6 | 52 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 12 | 19 | 6 | 30 |
-| [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 9 | 13 | 2 | 4 |
-| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 13 | 7 | 11 | 66 |
+| [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 10 | 14 | 2 | 4 |
+| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 14 | 9 | 11 | 66 |
 | [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 4 | 2 | 4 | 26 |
-| [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 5 | 6 | 3 | 10 |
+| [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 6 | 7 | 3 | 10 |
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 5 | 10 | 1 | 6 |
 | [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 8 | 16 | 1 | 4 |
 | [number_theory](api/number_theory/README.md) | 整数演算・合同式・乗法的関数 | 14 | 37 | 4 | 25 |
@@ -65,6 +65,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 20 | 21 | 25 | 122 |
+| [tree_query](api/tree_query/README.md) | path・部分木上の静的検索 | 1 | 0 | 1 | 7 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 27 | 21 | 232 |
 | [optimization](api/optimization/README.md) | 最適化・DP高速化 | 14 | 11 | 10 | 50 |
 | [geometry](api/geometry/README.md) | 幾何・2次元点 | 4 | 5 | 0 | 0 |
@@ -72,4 +73,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **305 modules / 435 functions / 206 classes / 1290 methods・properties**。
+合計: **310 modules / 441 functions / 207 classes / 1297 methods・properties**。

@@ -16,6 +16,18 @@
 
 各実装は小さいrandom caseを愚直解または定義と比較する。MASPyPy固有のC++基盤や既存moduleと重なる別実装は、そのまま移植しない。
 
+## MASPyPy second batch
+
+第一弾と同じ`ede5df5`を照合し、既存305 modulesに同じ公開機能がなく、入力と返り値を単独で説明できるものを追加した。
+
+- `graph_connectivity/ComplementGraph.py`: 元の辺を全反転せずに補グラフのBFSと連結成分を求める
+- `range_query/RangeXorBasis.py`: 静的な複数半開区間のXOR線形基底・最大subset XORを一括計算する
+- `shortest_path/KShortestWalks.py`: 頂点・辺の再訪を許す有向walkのコストを小さい順に列挙する
+- `graph_matching/StableMatching.py`: 不完全な厳密希望listにも対応する提案側最適Gale--Shapley matching
+- `tree_query/TreeWaveletMatrix.py`: 静的な木のpath・部分木でk番目の頂点値と値域内の頂点数を求める
+
+`KShortestWalks`はcycleを含まない既存`KShortestPaths`とは別の問題を解く。`TreeWaveletMatrix`は既存HLDとWavelet Matrixを依存として再利用し、bundleにもその2依存だけを含める。
+
 ## Advanced Flow
 
 `graph_flow/AdvancedFlow.py`

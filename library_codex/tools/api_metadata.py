@@ -3264,3 +3264,198 @@ COMPLEXITY_BY_MODULE["random/Random.py"].update({
     "brackets": "O(pairs)",
     "monge": "O(rows * columns)",
 })
+
+
+# MASPyPy/libraryを追加候補の参照元として精査した第二バッチ。
+SEARCH_TERMS_BY_MODULE.update({
+    "graph_connectivity/ComplementGraph.py": (
+        "補グラフ", "complement graph", "補グラフBFS",
+    ),
+    "range_query/RangeXorBasis.py": (
+        "区間XOR基底", "range xor basis", "部分集合XOR",
+    ),
+    "shortest_path/KShortestWalks.py": (
+        "k shortest walk", "sidetrack", "Eppstein",
+    ),
+    "graph_matching/StableMatching.py": (
+        "安定結婚", "stable marriage", "Gale Shapley",
+    ),
+    "tree_query/TreeWaveletMatrix.py": (
+        "木上wavelet matrix", "path kth", "部分木k番目",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "graph_connectivity/ComplementGraph.py": (
+        "元の隣接listで辺が存在しない異なる頂点対を辺とみなし、補グラフを明示構築せずにBFSできる。",
+        "無向グラフの補グラフを連結成分へ分けられる。元のグラフが密でも、補辺を列挙せず処理する。",
+    ),
+    "range_query/RangeXorBasis.py": (
+        "静的な非負整数列の複数の半開区間について、区間内の値が張るXOR線形基底を一括計算できる。",
+        "各区間から任意個の値を選んだsubset XORとinitialとのXORを最大化できる。",
+    ),
+    "shortest_path/KShortestWalks.py": (
+        "非負辺重みの有向グラフで、sourceからtargetへ至るwalkのコストを小さい順に最大k個列挙できる。",
+        "既存KShortestPathsと異なり、同じ頂点・辺を何度でも通るwalkを対象にする。cycleや平行辺も区別する。",
+    ),
+    "graph_matching/StableMatching.py": (
+        "両側の厳密な希望順を満たすstable matchingのうち、first側の各要素にとって最適なものを求められる。",
+        "希望listを途中で切ることで、相手によってmatchingを拒否できる不完全listも扱える。",
+    ),
+    "tree_query/TreeWaveletMatrix.py": (
+        "静的な木の2頂点間pathまたはrooted subtreeについて、k番目に小さい頂点値を求められる。",
+        "path・部分木内で、半開値域lower以上upper未満に入る頂点数を数えられる。負数と重複値も扱える。",
+    ),
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("graph_connectivity/ComplementGraph.py", None, "complement_bfs"): {
+        "description": "元のgraphに辺がない異なる頂点対を辺とみなし、その補グラフでsourceからBFSする。",
+        "argumentDescriptions": {
+            "graph": "graph[v]に元の有向辺の行き先、または先頭要素が行き先のtupleを並べた隣接list。補辺そのものは渡さない。",
+            "source": "補グラフ上の距離を測る始点。",
+        },
+        "returnFormat": "tuple[list[int], list[int]]",
+        "returnDescription": "第1要素はdistance、第2要素はparent。どちらも頂点番号順の長さVの列。",
+        "returnParts": (
+            {
+                "name": "distance", "format": "list[int]",
+                "description": "distance[v]は補グラフでのsourceからvへの最短辺数。到達不能なら-1。",
+            },
+            {
+                "name": "parent", "format": "list[int]",
+                "description": "parent[v]はBFS木でvの直前にある頂点。sourceと到達不能頂点では-1。",
+            },
+        ),
+    },
+    ("graph_connectivity/ComplementGraph.py", None, "complement_components"): {
+        "description": "無向graphの補グラフを連結成分へ分ける。",
+        "argumentDescriptions": {
+            "graph": "各無向辺を両端の隣接listへ入れた元グラフ。要素は行き先、または先頭要素が行き先のtuple。",
+        },
+        "returnFormat": "list[list[int]]",
+        "returnDescription": "補グラフの連結成分を発見順に並べた列。各内側listにはその成分の頂点をBFS発見順で1回ずつ格納する。",
+    },
+    ("range_query/RangeXorBasis.py", None, "range_xor_basis"): {
+        "description": "各半開区間内の値から任意個を選んで作れるXOR全体を張る線形基底を求める。",
+        "argumentDescriptions": {
+            "values": "非負整数を並べた静的な入力列。",
+            "queries": r"半開区間 $[\mathrm{left},\mathrm{right})$ を表す2要素列の並び。",
+        },
+        "returnFormat": "list[list[int]]",
+        "returnDescription": "queriesと同じ長さのbases。bases[q]はqueries[q]内の値と同じsubset XOR全体を張る独立な整数列で、最高bitが高い順に並ぶ。",
+    },
+    ("range_query/RangeXorBasis.py", None, "range_max_xor"): {
+        "description": "各半開区間から任意個の値を選び、そのXORとinitialとのXORを最大化する。",
+        "argumentDescriptions": {
+            "values": "非負整数を並べた静的な入力列。",
+            "queries": r"半開区間 $[\mathrm{left},\mathrm{right})$ を表す2要素列の並び。",
+            "initial": "各queryでsubset XORと組み合わせる共通の非負整数。空subsetも選べる。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": r"queriesと同じ長さのresult。result[q]は $\max_{S\subseteq[\mathrm{left},\mathrm{right})}(\mathrm{initial}\mathbin{\mathtt{xor}}\bigoplus_{i\in S}\mathrm{values}[i])$。",
+    },
+    ("shortest_path/KShortestWalks.py", None, "k_shortest_walks"): {
+        "description": "sourceからtargetへ至るwalkを辺列の違いで区別し、コストを小さい順に最大k個列挙する。",
+        "argumentDescriptions": {
+            "vertex_count": "有向グラフの頂点数。",
+            "edges": "有向辺を(from, to, nonnegative_cost)で並べた列。平行辺は別の辺として扱う。",
+            "source": "walkの始点。",
+            "target": "walkの終点。",
+            "k": "先頭から取得するwalk数の上限。0以下なら空listを返す。",
+        },
+        "returnFormat": "list[number]",
+        "returnDescription": "存在するwalkのコストを小さい順に最大k個並べた列。walkがk個未満なら存在する分だけ返し、source=targetでは空walkのコスト0が先頭になる。",
+    },
+    ("graph_matching/StableMatching.py", None, "stable_matching"): {
+        "description": "first側から順に提案し、blocking pairがないmatchingのうちfirst側最適なものを求める。",
+        "argumentDescriptions": {
+            "first_preferences": "first_preferences[first]に、受け入れ可能なsecond番号を希望が高い順に重複なく並べる。省略したsecondは受け入れない。",
+            "second_preferences": "second_preferences[second]に、受け入れ可能なfirst番号を希望が高い順に重複なく並べる。省略したfirstは受け入れない。",
+        },
+        "returnFormat": "tuple[list[int], list[int]]",
+        "returnDescription": "第1要素はmatch_first、第2要素はmatch_second。両側から同じmatchingを参照できる。",
+        "returnParts": (
+            {
+                "name": "match_first", "format": "list[int]",
+                "description": "match_first[first]は対応するsecond番号。matchingされなければ-1。",
+            },
+            {
+                "name": "match_second", "format": "list[int]",
+                "description": "match_second[second]は対応するfirst番号。matchingされなければ-1。",
+            },
+        ),
+    },
+    ("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix", "kth_path"): {
+        "description": "firstからsecondまでの両端を含む単純path上で、k番目に小さい頂点値を返す。",
+        "argumentDescriptions": {"first": "pathの一端。", "second": "pathの他端。", "k": "小さい方から数えた順位。0 <= k < path頂点数。"},
+        "returnFormat": "int",
+        "returnDescription": "path上の頂点値を重複込みで昇順に並べたときのk番目の値。",
+    },
+    ("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix", "count_path"): {
+        "description": "firstからsecondまでの両端を含む単純path上で、指定値域に入る頂点数を数える。",
+        "argumentDescriptions": {"first": "pathの一端。", "second": "pathの他端。", "lower": "含める値の下端。", "upper": "含めない値の上端。"},
+        "returnFormat": "int",
+        "returnDescription": r"path上で $\mathrm{lower}\le\mathrm{values}[v]<\mathrm{upper}$ を満たす頂点vの個数。",
+    },
+    ("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix", "kth_subtree"): {
+        "description": "constructorで指定したrootに対するvertex部分木で、k番目に小さい頂点値を返す。",
+        "argumentDescriptions": {"vertex": "部分木の根。vertex自身を含む。", "k": "小さい方から数えた順位。0 <= k < 部分木頂点数。"},
+        "returnFormat": "int",
+        "returnDescription": "vertex部分木の頂点値を重複込みで昇順に並べたときのk番目の値。",
+    },
+    ("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix", "count_subtree"): {
+        "description": "constructorで指定したrootに対するvertex部分木で、指定値域に入る頂点数を数える。",
+        "argumentDescriptions": {"vertex": "部分木の根。vertex自身を含む。", "lower": "含める値の下端。", "upper": "含めない値の上端。"},
+        "returnFormat": "int",
+        "returnDescription": r"vertex部分木で $\mathrm{lower}\le\mathrm{values}[v]<\mathrm{upper}$ を満たす頂点vの個数。",
+    },
+    ("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix", "tolist"): {
+        "description": "constructorへ渡した頂点値を頂点番号順のlistとして返す。",
+        "returnFormat": "list[int]",
+        "returnDescription": "長さVの列result。result[v]は頂点vへ設定した値。",
+    },
+    ("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix", "__str__"): {
+        "description": "constructorへ渡した頂点値を頂点番号順のlist形式で表示する。",
+        "returnFormat": "str",
+        "returnDescription": "頂点番号順のvaluesをPython listと同じ形式で表した文字列。",
+    },
+    ("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix", "__repr__"): {
+        "description": "型名とconstructorへ渡した頂点値をデバッグ用に表示する。",
+        "returnFormat": "str",
+        "returnDescription": "`TreeWaveletMatrix(values)`の形で、valuesを頂点番号順のlistとして含む文字列。",
+    },
+})
+
+CLASS_DETAILS_BY_SYMBOL[("tree_query/TreeWaveletMatrix.py", "TreeWaveletMatrix")] = {
+    "description": "静的な頂点値をHLD順にWavelet Matrixへ格納し、木のpath・部分木で順位と値域個数を検索する。",
+    "constructorCreates": "treeの各頂点値を保持する。kth_path・count_pathで2頂点間pathを、kth_subtree・count_subtreeでrooted subtreeを検索できる。",
+    "argumentDescriptions": {
+        "tree": "連結な無向木の隣接list。要素は行き先、または先頭要素が行き先のtuple。",
+        "values": "頂点番号順に1個ずつ並べた長さVの整数列。負数と重複を許す。",
+        "root": "kth_subtreeとcount_subtreeで親子関係を決める根。path queryの結果には影響しない。",
+    },
+}
+
+COMPLEXITY_BY_MODULE.update({
+    "graph_connectivity/ComplementGraph.py": {
+        "complement_bfs": "O(V+E) time、O(V) memory（Eは元graphの辺数）",
+        "complement_components": "O(V+E) time、O(V) memory（無向辺を両方向に数えた元graphの辺数をEとする）",
+    },
+    "range_query/RangeXorBasis.py": {
+        "range_xor_basis": "O((N+Q) B) time、O(N+Q+QB) memory（Bは値の最大bit長、出力を含む）",
+        "range_max_xor": "O((N+Q) B) time、O(N+Q) memory（Bは値とinitialの最大bit長）",
+    },
+    "shortest_path/KShortestWalks.py": {
+        "k_shortest_walks": "O((V+E) log V + E log E + K log K) time、O(V + E log E + K) memory",
+    },
+    "graph_matching/StableMatching.py": {
+        "stable_matching": "O(P) time、O(P+N+M) memory（Pは両側の希望listの合計長）",
+    },
+    "tree_query/TreeWaveletMatrix.py": {
+        "TreeWaveletMatrix": "O(V log S) time、O(V log S) memory（Sは異なる頂点値の個数）",
+        "kth_path": "O(log V log S)", "count_path": "O(log V log S)",
+        "kth_subtree": "O(log S)", "count_subtree": "O(log S)",
+        "tolist": "O(V)", "__str__": "O(V)", "__repr__": "O(V)",
+    },
+})

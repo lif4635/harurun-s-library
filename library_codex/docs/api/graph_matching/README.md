@@ -10,3 +10,4 @@
 | [`GeneralMatching`](GeneralMatching.md) | 一般グラフの最大matchingを求める。 | 1 | 1 | 1 |
 | [`GeneralWeightedMatching`](GeneralWeightedMatching.md) | 一般グラフの最大重みmatching | 0 | 1 | 2 |
 | [`Hungarian`](Hungarian.md) | 二部割当問題の最小費用または最大利益を求める。 | 2 | 0 | 0 |
+| [`StableMatching`](StableMatching.md) | 両側に厳密な希望順位がある二部集合の、提案側最適な安定マッチングを求める。 | 1 | 0 | 0 |

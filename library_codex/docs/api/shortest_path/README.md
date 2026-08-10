@@ -12,5 +12,6 @@
 | [`DijkstraRadixHeap`](DijkstraRadixHeap.md) | 非負整数重み用Radix Heap Dijkstra・経路復元 | 3 | 0 | 0 |
 | [`GridBFS`](GridBFS.md) | 障害物付きgridのBFS最短距離 | 2 | 0 | 0 |
 | [`KShortestPaths`](KShortestPaths.md) | 有向/無向k-shortest loopless path（辺ID・平行辺対応） | 2 | 2 | 4 |
+| [`KShortestWalks`](KShortestWalks.md) | 非負辺重みの有向グラフで、同じ頂点や辺を再訪してよいwalkをコスト順に列挙する。 | 1 | 0 | 0 |
 | [`WarshallFloyd`](WarshallFloyd.md) | 全頂点対最短距離を計算する。 | 1 | 0 | 0 |
 | [`ZeroOneBFS`](ZeroOneBFS.md) | 辺重みが0または1のグラフの単一始点最短路を求める。 | 1 | 0 | 0 |

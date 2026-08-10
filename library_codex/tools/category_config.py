@@ -162,6 +162,11 @@ CATEGORY_INFO = {
         "description": "木アルゴリズム・動的木",
         "domain": "tree",
     },
+    "tree_query": {
+        "label": "木上クエリ",
+        "description": "path・部分木上の静的検索",
+        "domain": "tree",
+    },
     "string": {
         "label": "文字列",
         "description": "文字列アルゴリズム",
