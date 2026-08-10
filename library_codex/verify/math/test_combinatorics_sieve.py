@@ -34,8 +34,45 @@ def test_extended_gcd_combination_and_gray():
             assert combination.C(n, k) == math.comb(n, k) % 998244353
             assert combination(n, k) == combination.C(n, k)
     assert combination.fact(10) == math.factorial(10) % 998244353
+    for value in range(1, 500):
+        assert combination.inv(value) * value % 998244353 == 1
     assert combination.P(10, 3) == 10 * 9 * 8
     assert combination.H(4, 3) == math.comb(6, 3)
+    assert [combination.catalan(n, n) for n in range(8)] == [
+        1, 1, 2, 5, 14, 42, 132, 429,
+    ]
+    assert combination.catalan(3, 2) == 5
+    assert combination.catalan(2, 3) == 0
+    assert combination.catalan(2, 3, 1) == 5
+    assert combination.catalan(2, 4, 1) == 0
+    assert combination.catalan(-1, 0) == 0
+    assert combination.catalan(0, 0, -1) == 0
+    for n in range(9):
+        for m in range(9):
+            for k in range(5):
+                paths = [[0] * (m + 1) for _ in range(n + 1)]
+                paths[0][0] = 1
+                for x in range(n + 1):
+                    for y in range(m + 1):
+                        if y > x + k or (x == 0 and y == 0):
+                            continue
+                        paths[x][y] = (
+                            (paths[x - 1][y] if x else 0)
+                            + (paths[x][y - 1] if y else 0)
+                        )
+                assert combination.catalan(n, m, k) == paths[n][m]
+    try:
+        combination.inv(0)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("inv(0) must reject a non-invertible value")
+    try:
+        Comb(mod=7).inv(7)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("inv(mod) must reject a non-invertible value")
     assert comb_small_k(10**18, 4) == math.comb(10**18, 4) % 998244353
     for old_name in (
         "factorial_value", "binomial", "nCr", "permutation", "nPr", "multiset",

@@ -35,6 +35,13 @@ class Comb:
         self.ensure(n)
         return self.factorial[n]
 
+    def inv(self, n):
+        """nのmodにおける乗法逆元を返す。O(1)、表の拡張時は償却O(n)。"""
+        if not 0 < n < self.mod:
+            raise ValueError("n must satisfy 0 < n < mod")
+        self.ensure(n)
+        return self.factorial[n - 1] * self.inverse_factorial[n] % self.mod
+
     def C(self, n, k):
         """二項係数C(n, k)を返す。O(1)、表の拡張時は償却O(n)。"""
         if k < 0 or n < k or n < 0:
@@ -59,6 +66,16 @@ class Comb:
         if n == 0:
             return int(k == 0)
         return self.C(n + k - 1, k)
+
+    def catalan(self, n, m, k=0):
+        """y <= x + kを保つ(n, m)までの格子路数を返す。O(1)。
+
+        (0, 0)から右へn回、上へm回進む。境界y = x + k上は通れるが、
+        その上へ出る経路は数えない。
+        """
+        if n < 0 or m < 0 or k < 0 or m > n + k:
+            return 0
+        return (self.C(n + m, m) - self.C(n + m, m - k - 1)) % self.mod
 
 def comb_small_k(n, k, mod=DEFAULT_MOD):
     """nが大きくkが小さいときに二項係数C(n, k)を乗法式で求める。

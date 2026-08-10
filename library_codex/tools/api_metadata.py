@@ -35,6 +35,11 @@ SEARCH_TERMS_BY_MODULE = {
 
 
 SEARCH_TERMS_BY_SYMBOL = {
+    ("combinatorics/Combination.py", "catalan"): (
+        "カタラン数",
+        "投票問題",
+        "ballot path",
+    ),
     ("segment_tree/LazySegTree.py", "max_right"): (
         "境界探索",
         "右端二分探索",
@@ -823,6 +828,14 @@ API_DETAILS_BY_SYMBOL = {
         "returnFormat": "int",
         "returnDescription": r"$n!\bmod\mathrm{mod}$。",
     },
+    ("combinatorics/Combination.py", "Comb", "inv"): {
+        "description": r"正の整数 $n$ の乗法逆元 $n^{-1}\bmod\mathrm{mod}$ を返す。",
+        "argumentDescriptions": {
+            "n": r"逆元を求める整数。$1\le n<\mathrm{mod}$。",
+        },
+        "returnFormat": "int",
+        "returnDescription": r"$n\,x\equiv1\pmod{\mathrm{mod}}$ を満たす $x$。",
+    },
     ("combinatorics/Combination.py", "Comb", "P"): {
         "description": r"順列数 $P(n,k)=n!/(n-k)!$ を $\mathrm{mod}$ で割った余りを返す。",
         "returnFormat": "int",
@@ -837,6 +850,21 @@ API_DETAILS_BY_SYMBOL = {
         ),
         "returnFormat": "int",
         "returnDescription": r"$H(n,k)\bmod\mathrm{mod}$。",
+    },
+    ("combinatorics/Combination.py", "Comb", "catalan"): {
+        "description": (
+            r"$(0,0)$ から右へ $n$ 回、上へ $m$ 回進み、途中の全ての点で "
+            r"$y\le x+k$ を保つ格子路の本数を求める。境界 $y=x+k$ 上は通れる。"
+        ),
+        "argumentDescriptions": {
+            "n": "右へ進む回数。0以上。",
+            "m": "上へ進む回数。0以上。",
+            "k": r"許す高さの差。経路は $y\le x+k$ を満たす。",
+        },
+        "returnFormat": "int",
+        "returnDescription": (
+            r"条件を満たす格子路数をmodで割った余り。終点が境界より上なら0。"
+        ),
     },
     ("combinatorics/BinomialQueries.py", None, "comb_prefix_sums"): {
         "description": (
@@ -1959,10 +1987,12 @@ COMPLEXITY_BY_MODULE = {
         "Comb": "構築 O(size)",
         "ensure": "追加したtable要素数に比例（全呼び出しを通して償却 O(max size)）",
         "fact": "償却 O(1)、table拡張分を除く",
+        "inv": "償却 O(1)、table拡張分を除く",
         "C": "償却 O(1)、table拡張分を除く",
         "__call__": "償却 O(1)、table拡張分を除く",
         "P": "償却 O(1)、table拡張分を除く",
         "H": "償却 O(1)、table拡張分を除く",
+        "catalan": "償却 O(1)、table拡張分を除く",
         "comb_small_k": "O(min(k, n-k))",
     },
     "tree/LCA.py": {
