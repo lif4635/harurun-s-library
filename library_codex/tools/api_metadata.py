@@ -2360,6 +2360,154 @@ COMPLEXITY_BY_MODULE.update({
 })
 
 
+# MASPyPy/libraryを追加候補の参照元として精査した第四バッチ。
+SEARCH_TERMS_BY_MODULE.update({
+    "algorithm/OfflineSetIntersection.py": (
+        "集合積", "共通要素数", "offline set intersection",
+    ),
+    "optimization/SortedListsSelection.py": (
+        "sorted lists selection", "k-way merge", "複数列k番目",
+    ),
+    "optimization/SortedMatrixSelection.py": (
+        "sorted matrix kth", "Young tableau", "行列k番目",
+    ),
+    "graph/TransitiveReduction.py": (
+        "推移簡約", "transitive reduction", "冗長辺削除",
+    ),
+    "graph_connectivity/Cactus.py": (
+        "カクタス", "cactus graph", "サボテングラフ",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "algorithm/OfflineSetIntersection.py": (
+        "複数の集合対について、共通して含まれる異なる要素の個数をquery順に一括計算できる。",
+        "同じqueryをまとめ、頻出要素をbitset化するため、巨大な集合をqueryごとに走査し直さない。",
+    ),
+    "optimization/SortedListsSelection.py": (
+        "複数の昇順listを安定mergeしたときのk番目の値を、全要素をmergeせず求められる。",
+        "先頭k要素が各listから何個ずつ選ばれるかを返し、そのまま各listのprefix境界として使える。",
+    ),
+    "optimization/SortedMatrixSelection.py": (
+        "各row・各columnが昇順の整数行列について、全要素中のk番目の値を二分探索で求められる。",
+        "先頭k要素が各rowから何個ずつ選ばれるかも返せる。同値はrow番号、次にcolumn番号が小さい方を先に扱う。",
+    ),
+    "graph/TransitiveReduction.py": (
+        "DAGの到達可能性を変えずに、他のpathで代替できる冗長な有向辺をすべて取り除ける。",
+        "結果を元と同じ頂点番号の隣接listとして返し、重複辺も1本へ正規化する。",
+    ),
+    "graph_connectivity/Cactus.py": (
+        "単純無向グラフの各辺が高々1個の単純cycleに属するか判定できる。非連結グラフも扱う。",
+        "cactusならcycleを入力edge ID列へ分解し、各辺がbridgeかどのcycleに属するかを取得できる。",
+    ),
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("algorithm/OfflineSetIntersection.py", None, "intersection_sizes"): {
+        "description": "指定された集合対ごとに、両方へ含まれる異なる要素の個数をまとめて求める。",
+        "argumentDescriptions": {
+            "sets": "集合として扱うiterableの並び。同じrow内の重複要素は1個として数える。要素はhash可能であればよい。",
+            "queries": "比較するset番号のpair (first, second) の並び。向きを区別せず、重複queryは内部で共有する。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": r"queriesと同じ長さのresult。result[q]はquery $(i,j)$ に対する $\lvert\mathrm{set}(\mathrm{sets}[i])\cap\mathrm{set}(\mathrm{sets}[j])\rvert$。",
+    },
+    ("optimization/SortedListsSelection.py", None, "take"): {
+        "description": "複数の昇順listを値、row番号、row内位置の順で安定mergeし、先頭k要素の出所を数える。",
+        "argumentDescriptions": {
+            "rows": "それぞれ昇順にsort済みで、lenとindex参照ができるsequenceの並び。空sequenceと重複値を許す。",
+            "k": "merge後の先頭から選ぶ要素数。0以上、全要素数以下。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "rowsと同じ長さのcounts。counts[row]は先頭k要素にrows[row]のprefixが何個入るかを表し、sum(counts)=k。",
+    },
+    ("optimization/SortedListsSelection.py", None, "kth"): {
+        "description": "複数の昇順listをmergeした列のk番目の値を、全体を構築せず求める。",
+        "argumentDescriptions": {
+            "rows": "それぞれ昇順にsort済みで、lenとindex参照ができるsequenceの並び。空sequenceと重複値を許す。",
+            "k": "小さい方から数えた0-indexed順位。0以上、全要素数未満。",
+        },
+        "returnFormat": "object",
+        "returnDescription": "全rowの要素を重複込みで昇順に並べたときの0-indexed k番目の値。入力要素をそのまま返す。",
+    },
+    ("optimization/SortedMatrixSelection.py", None, "take"): {
+        "description": "各row・columnが昇順の整数行列で、小さい方からk要素が各rowから何個ずつ選ばれるか求める。",
+        "argumentDescriptions": {
+            "matrix": "全rowが同じ長さで、各rowと各columnが非減少の整数行列。空行列を許す。",
+            "k": "全要素を昇順に並べたとき先頭から選ぶ個数。0以上、rows * columns以下。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "row数と同じ長さのcounts。counts[row]は選ばれた要素がそのrowのprefixに何個あるかを表す。同値ではrow番号、次にcolumn番号が小さい方を優先し、sum(counts)=k。",
+    },
+    ("optimization/SortedMatrixSelection.py", None, "kth"): {
+        "description": "各row・columnが昇順の整数行列について、全要素中のk番目の値を求める。",
+        "argumentDescriptions": {
+            "matrix": "全rowが同じ長さで、各rowと各columnが非減少の整数行列。",
+            "k": "小さい方から数えた0-indexed順位。0以上、rows * columns未満。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "行列の全要素を重複込みで昇順に並べたときの0-indexed k番目の整数。",
+    },
+    ("graph/TransitiveReduction.py", None, "transitive_reduction"): {
+        "description": "DAGの全頂点対の到達可能性を保ったまま、他の有向pathで代替できる辺を削除する。",
+        "argumentDescriptions": {
+            "graph": "graph[u]に有向辺u→vの行き先v、または先頭要素がvのtupleを並べたDAGの隣接list。重複辺を許す。",
+        },
+        "returnFormat": "list[list[int]]",
+        "returnDescription": "頂点数と同じ長さの隣接list reduced。reduced[u]には残す有向辺u→vの行き先vを並べる。元graphと到達可能性が同じで、各辺を1本でも除くとその性質が崩れる。",
+    },
+    ("graph_connectivity/Cactus.py", None, "decompose"): {
+        "description": "単純無向グラフがcactusなら、単純cycleと各edgeの所属を入力edge IDで返す。cactusとは各辺が高々1個の単純cycleに属するグラフを指す。",
+        "argumentDescriptions": {
+            "vertex_count": "頂点数。頂点番号は0以上vertex_count未満。",
+            "edges": "無向辺を(first, second)で並べた列。edge IDは入力順の0-indexed位置。self-loopと平行辺は単純グラフでないため不受理。",
+        },
+        "returnFormat": "tuple[list[list[int]], list[int]] | None",
+        "returnDescription": "cactusなら(cycles, edge_cycle)、そうでなければNone。",
+        "returnParts": (
+            {
+                "name": "cycles", "format": "list[list[int]]",
+                "description": "各単純cycleを、その周上を一周する順に並べた入力edge IDのlistとして格納する。cycle同士でedge IDは重複しない。",
+            },
+            {
+                "name": "edge_cycle", "format": "list[int]",
+                "description": "edgesと同じ長さ。edge_cycle[e]は辺eが属するcyclesのindexで、cycleに属さないbridgeでは-1。",
+            },
+        ),
+    },
+    ("graph_connectivity/Cactus.py", None, "is_cactus"): {
+        "description": "単純無向グラフの各辺が高々1個の単純cycleに属するか判定する。非連結グラフも全成分を調べる。",
+        "argumentDescriptions": {
+            "vertex_count": "頂点数。頂点番号は0以上vertex_count未満。",
+            "edges": "無向辺を(first, second)で並べた列。self-loopまたは平行辺を含む場合はFalse。",
+        },
+        "returnFormat": "bool",
+        "returnDescription": "入力が単純無向cactusならTrue、1本の辺が複数cycleに含まれるか単純グラフでなければFalse。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "algorithm/OfflineSetIntersection.py": {
+        "intersection_sizes": "O(M sqrt(U) + U ceil(H/W)) time、O(M+U+A ceil(H/W)) memory（Mはqueryに現れる集合の異なる要素数の合計、Uは向きを除いた異なるquery数、Hはsqrt(U)個以上の集合に現れる要素数、Wは整数bitsetの処理幅）",
+    },
+    "optimization/SortedListsSelection.py": {
+        "take": "O(R log(K+1) log R) time、O(R+log(K+1)) memory（Rはrow数、K=k）",
+        "kth": "O(R log(K+2) log R) time、O(R+log(K+2)) memory（Rはrow数、K=k）",
+    },
+    "optimization/SortedMatrixSelection.py": {
+        "kth": "O((R+C) log D) time、O(1) extra memory（D=max(matrix)-min(matrix)+1）",
+        "take": "O((R+C) log D + R log C) time、O(R) memory（D=max(matrix)-min(matrix)+1）",
+    },
+    "graph/TransitiveReduction.py": {
+        "transitive_reduction": "O(E log E + (V+E) ceil(V/W)) time、O(E+V ceil(V/W)) memory（Wは整数bitsetの処理幅）",
+    },
+    "graph_connectivity/Cactus.py": {
+        "decompose": "O(V+E) time、O(V+E) memory",
+        "is_cactus": "O(V+E) time、O(V+E) memory",
+    },
+})
+
+
 # MASPyPy/libraryを参照して追加した到達可能性・DAG・次数列などのAPI。
 SEARCH_TERMS_BY_MODULE.update({
     "graph_connectivity/Reachability.py": (

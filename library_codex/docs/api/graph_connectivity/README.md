@@ -8,6 +8,7 @@
 | [`AdvancedConnectivity`](AdvancedConnectivity.md) | 三辺連結成分・辺追加offline SCC統合列 | 1 | 1 | 1 |
 | [`BiconnectedComponents`](BiconnectedComponents.md) | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | 0 | 2 | 6 |
 | [`BipartiteColoring`](BipartiteColoring.md) | 無向グラフが二部グラフか判定し、2色の割当を返す。 | 1 | 0 | 0 |
+| [`Cactus`](Cactus.md) | 単純無向グラフがcactusか判定し、辺をcycleへ分解する。 | 2 | 0 | 0 |
 | [`ComplementGraph`](ComplementGraph.md) | 隣接listを明示的に反転せず、補グラフを幅優先探索する。 | 2 | 0 | 0 |
 | [`ConnectedComponents`](ConnectedComponents.md) | 無向グラフの連結成分番号と成分ごとの頂点を求める。 | 1 | 0 | 0 |
 | [`DominatorTree`](DominatorTree.md) | 有向グラフで始点から各頂点への全経路が必ず通る直前の支配頂点を求める。 | 1 | 0 | 0 |

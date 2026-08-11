@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T20:45:38+00:00",
+  "generatedAt": "2026-08-11T05:43:14+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "a7d5f7d7416c13c645f32f434126e13349eea9f906258b6cfb54ba0d3cfa1fa3",
-  "inputStamp": "95ed962e77b016c174a69d3ed39d2c7f94d15e4171199131a0acf73480d821c3",
+  "sourceFingerprint": "4758324fd1c37f989204b90f32b11b1a41cbebdef3889d108c0593a74fde9f4d",
+  "inputStamp": "e5a23c22af483096cdf4087b19b2fb457b5ec1af75d6ad9cce22c83fa8911d5c",
   "generatorFingerprint": "ba9fbb19fb9e838a06d4df4dc01b62fdd1dc71c2a0267530fe8d78dd668b09a3",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 315,
-    "functions": 447,
+    "modules": 320,
+    "functions": 455,
     "classes": 207,
     "methods": 1297,
-    "tests": 551
+    "tests": 561
   },
   "categories": [
     {
@@ -20,8 +20,8 @@
       "label": "アルゴリズム",
       "domain": "algorithm",
       "domainLabel": "Algorithms",
-      "modules": 15,
-      "functions": 31,
+      "modules": 16,
+      "functions": 32,
       "classes": 3,
       "methods": 10
     },
@@ -170,8 +170,8 @@
       "label": "グラフ基盤",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 14,
-      "functions": 22,
+      "modules": 15,
+      "functions": 23,
       "classes": 6,
       "methods": 30
     },
@@ -190,8 +190,8 @@
       "label": "連結性・分解",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 15,
-      "functions": 10,
+      "modules": 16,
+      "functions": 12,
       "classes": 11,
       "methods": 66
     },
@@ -330,8 +330,8 @@
       "label": "最適化・DP",
       "domain": "optimization",
       "domainLabel": "Optimization",
-      "modules": 14,
-      "functions": 11,
+      "modules": 16,
+      "functions": 15,
       "classes": 10,
       "methods": 50
     },
@@ -380,7 +380,7 @@
     {
       "slug": "algorithm",
       "label": "Algorithms",
-      "modules": 15
+      "modules": 16
     },
     {
       "slug": "convolution",
@@ -395,7 +395,7 @@
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 63
+      "modules": 65
     },
     {
       "slug": "math",
@@ -415,7 +415,7 @@
     {
       "slug": "optimization",
       "label": "Optimization",
-      "modules": 14
+      "modules": 16
     },
     {
       "slug": "geometry",
@@ -1253,6 +1253,72 @@
           "returnFormat": "list[tuple[int, int, int, int, int]]",
           "returnDescription": "(開始index, 開始値, index差, 値の差, 長さ)の列",
           "complexity": "O(sqrt(count) + number of runs)",
+          "sourceLine": 6
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "algorithm",
+      "categoryLabel": "アルゴリズム",
+      "domain": "algorithm",
+      "domainLabel": "Algorithms",
+      "name": "OfflineSetIntersection",
+      "modulePath": "library_codex.algorithm.OfflineSetIntersection",
+      "summary": "複数の集合対について、共通要素数をまとめて求める。",
+      "capabilities": [
+        "複数の集合対について、共通して含まれる異なる要素の個数をクエリ順に一括計算できる。",
+        "同じクエリをまとめ、頻出要素をbitset化するため、巨大な集合をクエリごとに走査し直さない。"
+      ],
+      "searchTerms": [
+        "OfflineSetIntersection",
+        "Offline Set Intersection",
+        "library_codex.algorithm.OfflineSetIntersection",
+        "library codex algorithm Offline Set Intersection",
+        "algorithm/OfflineSetIntersection.py",
+        "アルゴリズム",
+        "集合積",
+        "共通要素数"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/algorithm/OfflineSetIntersection.py",
+      "inputFingerprint": "0e50f927d1393fd8744db1a373a0383347e5b496feed92a049ba75b7798c00f6",
+      "importCode": "from library_codex.algorithm.OfflineSetIntersection import intersection_sizes",
+      "sourceCode": "\"\"\"複数の集合対について、共通要素数をまとめて求める。\"\"\"\n\nfrom math import isqrt\n\n\ndef intersection_sizes(sets, queries):\n    \"\"\"各(i, j)についてsets[i]とsets[j]の共通要素数を返す。\"\"\"\n    rows = [set(row) for row in sets]\n    pairs = list(queries)\n    n = len(rows)\n    for first, second in pairs:\n        if not 0 <= first < n or not 0 <= second < n:\n            raise IndexError(\"a query set index is outside the input\")\n    if not pairs:\n        return []\n\n    unique = []\n    query_id = {}\n    ids = []\n    for first, second in pairs:\n        if first > second:\n            first, second = second, first\n        pair = (first, second)\n        index = query_id.get(pair)\n        if index is None:\n            index = len(unique)\n            query_id[pair] = index\n            unique.append(pair)\n        ids.append(index)\n\n    active_vertices = sorted({vertex for pair in unique for vertex in pair})\n    active_id = {vertex: index for index, vertex in enumerate(active_vertices)}\n    element_id = {}\n    encoded = []\n    members = []\n    for vertex in active_vertices:\n        current = []\n        for value in rows[vertex]:\n            index = element_id.get(value)\n            if index is None:\n                index = len(members)\n                element_id[value] = index\n                members.append([])\n            current.append(index)\n            members[index].append(active_id[vertex])\n        encoded.append(current)\n\n    threshold = max(1, isqrt(len(unique)))\n    heavy_id = [-1] * len(members)\n    heavy_count = 0\n    for element, containing in enumerate(members):\n        if len(containing) >= threshold:\n            heavy_id[element] = heavy_count\n            heavy_count += 1\n\n    heavy_mask = [0] * len(active_vertices)\n    light = [[] for _ in active_vertices]\n    for vertex, elements in enumerate(encoded):\n        mask = 0\n        target = light[vertex]\n        for element in elements:\n            bit = heavy_id[element]\n            if bit < 0:\n                target.append(element)\n            else:\n                mask |= 1 << bit\n        heavy_mask[vertex] = mask\n\n    answer = [0] * len(unique)\n    by_first = [[] for _ in active_vertices]\n    for query, (first, second) in enumerate(unique):\n        left = active_id[first]\n        right = active_id[second]\n        answer[query] = (heavy_mask[left] & heavy_mask[right]).bit_count()\n        by_first[left].append((query, right))\n\n    counts = [0] * len(active_vertices)\n    touched = []\n    for first, grouped in enumerate(by_first):\n        if not grouped or not light[first]:\n            continue\n        for element in light[first]:\n            for second in members[element]:\n                if counts[second] == 0:\n                    touched.append(second)\n                counts[second] += 1\n        for query, second in grouped:\n            answer[query] += counts[second]\n        for second in touched:\n            counts[second] = 0\n        touched.clear()\n    return [answer[index] for index in ids]\n",
+      "standaloneCode": "\"\"\"複数の集合対について、共通要素数をまとめて求める。\"\"\"\n\nfrom math import isqrt\n\n\ndef intersection_sizes(sets, queries):\n    \"\"\"各(i, j)についてsets[i]とsets[j]の共通要素数を返す。\"\"\"\n    rows = [set(row) for row in sets]\n    pairs = list(queries)\n    n = len(rows)\n    for first, second in pairs:\n        if not 0 <= first < n or not 0 <= second < n:\n            raise IndexError(\"a query set index is outside the input\")\n    if not pairs:\n        return []\n\n    unique = []\n    query_id = {}\n    ids = []\n    for first, second in pairs:\n        if first > second:\n            first, second = second, first\n        pair = (first, second)\n        index = query_id.get(pair)\n        if index is None:\n            index = len(unique)\n            query_id[pair] = index\n            unique.append(pair)\n        ids.append(index)\n\n    active_vertices = sorted({vertex for pair in unique for vertex in pair})\n    active_id = {vertex: index for index, vertex in enumerate(active_vertices)}\n    element_id = {}\n    encoded = []\n    members = []\n    for vertex in active_vertices:\n        current = []\n        for value in rows[vertex]:\n            index = element_id.get(value)\n            if index is None:\n                index = len(members)\n                element_id[value] = index\n                members.append([])\n            current.append(index)\n            members[index].append(active_id[vertex])\n        encoded.append(current)\n\n    threshold = max(1, isqrt(len(unique)))\n    heavy_id = [-1] * len(members)\n    heavy_count = 0\n    for element, containing in enumerate(members):\n        if len(containing) >= threshold:\n            heavy_id[element] = heavy_count\n            heavy_count += 1\n\n    heavy_mask = [0] * len(active_vertices)\n    light = [[] for _ in active_vertices]\n    for vertex, elements in enumerate(encoded):\n        mask = 0\n        target = light[vertex]\n        for element in elements:\n            bit = heavy_id[element]\n            if bit < 0:\n                target.append(element)\n            else:\n                mask |= 1 << bit\n        heavy_mask[vertex] = mask\n\n    answer = [0] * len(unique)\n    by_first = [[] for _ in active_vertices]\n    for query, (first, second) in enumerate(unique):\n        left = active_id[first]\n        right = active_id[second]\n        answer[query] = (heavy_mask[left] & heavy_mask[right]).bit_count()\n        by_first[left].append((query, right))\n\n    counts = [0] * len(active_vertices)\n    touched = []\n    for first, grouped in enumerate(by_first):\n        if not grouped or not light[first]:\n            continue\n        for element in light[first]:\n            for second in members[element]:\n                if counts[second] == 0:\n                    touched.append(second)\n                counts[second] += 1\n        for query, second in grouped:\n            answer[query] += counts[second]\n        for second in touched:\n            counts[second] = 0\n        touched.clear()\n    return [answer[index] for index in ids]\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "intersection_sizes",
+          "kind": "function",
+          "signature": "intersection_sizes(sets, queries)",
+          "summary": "指定された集合対ごとに、両方へ含まれる異なる要素の個数をまとめて求める。",
+          "description": "指定された集合対ごとに、両方へ含まれる異なる要素の個数をまとめて求める。",
+          "searchTerms": [
+            "intersection_sizes",
+            "intersection sizes",
+            "intersection_sizes(sets, queries)"
+          ],
+          "arguments": "sets: 集合として扱うiterableの並び。同じrow内の重複要素は1個として数える。要素はhash可能であればよい。 · queries: 比較するset番号のpair (first, second) の並び。向きを区別せず、重複queryは内部で共有する。",
+          "argumentDetails": [
+            {
+              "name": "sets",
+              "description": "集合として扱うiterableの並び。同じrow内の重複要素は1個として数える。要素はhash可能であればよい。"
+            },
+            {
+              "name": "queries",
+              "description": "比較するset番号のpair (first, second) の並び。向きを区別せず、重複queryは内部で共有する。"
+            }
+          ],
+          "returns": "list[int] — queriesと同じ長さのresult。result[q]はquery $(i,j)$ に対する $\\lvert\\mathrm{set}(\\mathrm{sets}[i])\\cap\\mathrm{set}(\\mathrm{sets}[j])\\rvert$。",
+          "returnFormat": "list[int]",
+          "returnDescription": "queriesと同じ長さのresult。result[q]はquery $(i,j)$ に対する $\\lvert\\mathrm{set}(\\mathrm{sets}[i])\\cap\\mathrm{set}(\\mathrm{sets}[j])\\rvert$。",
+          "complexity": "O(M sqrt(U) + U ceil(H/W)) time、O(M+U+A ceil(H/W)) memory（Mはqueryに現れる集合の異なる要素数の合計、Uは向きを除いた異なるquery数、Hはsqrt(U)個以上の集合に現れる要素数、Wは整数bitsetの処理幅）",
           "sourceLine": 6
         }
       ],
@@ -28863,6 +28929,68 @@
       "categoryLabel": "グラフ基盤",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "TransitiveReduction",
+      "modulePath": "library_codex.graph.TransitiveReduction",
+      "summary": "DAGの到達関係を変えず、推移的に不要な辺を取り除く。",
+      "capabilities": [
+        "DAGの到達可能性を変えずに、他の経路で代替できる冗長な有向辺をすべて取り除ける。",
+        "結果を元と同じ頂点番号の隣接リストとして返し、重複辺も1本へ正規化する。"
+      ],
+      "searchTerms": [
+        "TransitiveReduction",
+        "Transitive Reduction",
+        "library_codex.graph.TransitiveReduction",
+        "library codex graph Transitive Reduction",
+        "graph/TransitiveReduction.py",
+        "グラフ基盤",
+        "推移簡約",
+        "冗長辺削除"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph/TransitiveReduction.py",
+      "inputFingerprint": "907ea874e0711d3e41c8a2ac8adc4a9e1272c09a6af4ff0ce16dca5cc309fe57",
+      "importCode": "from library_codex.graph.TransitiveReduction import transitive_reduction",
+      "sourceCode": "\"\"\"DAGの到達関係を変えず、推移的に不要な辺を取り除く。\"\"\"\n\n\ndef _to_vertex(edge):\n    return edge if isinstance(edge, int) else edge[0]\n\n\ndef transitive_reduction(graph):\n    \"\"\"graphと同じ到達関係をもつ、辺数最小のDAG隣接listを返す。\"\"\"\n    n = len(graph)\n    adjacency = [[] for _ in range(n)]\n    indegree = [0] * n\n    for vertex, row in enumerate(graph):\n        seen = set()\n        for edge in row:\n            to = _to_vertex(edge)\n            if not 0 <= to < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            if to not in seen:\n                seen.add(to)\n                adjacency[vertex].append(to)\n                indegree[to] += 1\n\n    order = [vertex for vertex in range(n) if indegree[vertex] == 0]\n    head = 0\n    while head < len(order):\n        vertex = order[head]\n        head += 1\n        for to in adjacency[vertex]:\n            indegree[to] -= 1\n            if indegree[to] == 0:\n                order.append(to)\n    if len(order) != n:\n        raise ValueError(\"transitive_reduction requires a DAG\")\n\n    position = [0] * n\n    for index, vertex in enumerate(order):\n        position[vertex] = index\n    reachable = [0] * n\n    result = [[] for _ in range(n)]\n    for vertex in reversed(order):\n        covered = 0\n        kept = result[vertex]\n        for to in sorted(adjacency[vertex], key=position.__getitem__):\n            bit = 1 << to\n            if covered & bit:\n                continue\n            kept.append(to)\n            covered |= bit | reachable[to]\n        reachable[vertex] = covered\n    return result\n",
+      "standaloneCode": "\"\"\"DAGの到達関係を変えず、推移的に不要な辺を取り除く。\"\"\"\n\n\ndef _to_vertex(edge):\n    return edge if isinstance(edge, int) else edge[0]\n\n\ndef transitive_reduction(graph):\n    \"\"\"graphと同じ到達関係をもつ、辺数最小のDAG隣接listを返す。\"\"\"\n    n = len(graph)\n    adjacency = [[] for _ in range(n)]\n    indegree = [0] * n\n    for vertex, row in enumerate(graph):\n        seen = set()\n        for edge in row:\n            to = _to_vertex(edge)\n            if not 0 <= to < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            if to not in seen:\n                seen.add(to)\n                adjacency[vertex].append(to)\n                indegree[to] += 1\n\n    order = [vertex for vertex in range(n) if indegree[vertex] == 0]\n    head = 0\n    while head < len(order):\n        vertex = order[head]\n        head += 1\n        for to in adjacency[vertex]:\n            indegree[to] -= 1\n            if indegree[to] == 0:\n                order.append(to)\n    if len(order) != n:\n        raise ValueError(\"transitive_reduction requires a DAG\")\n\n    position = [0] * n\n    for index, vertex in enumerate(order):\n        position[vertex] = index\n    reachable = [0] * n\n    result = [[] for _ in range(n)]\n    for vertex in reversed(order):\n        covered = 0\n        kept = result[vertex]\n        for to in sorted(adjacency[vertex], key=position.__getitem__):\n            bit = 1 << to\n            if covered & bit:\n                continue\n            kept.append(to)\n            covered |= bit | reachable[to]\n        reachable[vertex] = covered\n    return result\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "transitive_reduction",
+          "kind": "function",
+          "signature": "transitive_reduction(graph)",
+          "summary": "DAGの全頂点対の到達可能性を保ったまま、他の有向pathで代替できる辺を削除する。",
+          "description": "DAGの全頂点対の到達可能性を保ったまま、他の有向pathで代替できる辺を削除する。",
+          "searchTerms": [
+            "transitive_reduction",
+            "transitive reduction",
+            "transitive_reduction(graph)"
+          ],
+          "arguments": "graph: graph[u]に有向辺u→vの行き先v、または先頭要素がvのtupleを並べたDAGの隣接list。重複辺を許す。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "graph[u]に有向辺u→vの行き先v、または先頭要素がvのtupleを並べたDAGの隣接list。重複辺を許す。"
+            }
+          ],
+          "returns": "list[list[int]] — 頂点数と同じ長さの隣接list reduced。reduced[u]には残す有向辺u→vの行き先vを並べる。元graphと到達可能性が同じで、各辺を1本でも除くとその性質が崩れる。",
+          "returnFormat": "list[list[int]]",
+          "returnDescription": "頂点数と同じ長さの隣接list reduced。reduced[u]には残す有向辺u→vの行き先vを並べる。元graphと到達可能性が同じで、各辺を1本でも除くとその性質が崩れる。",
+          "complexity": "O(E log E + (V+E) ceil(V/W)) time、O(E+V ceil(V/W)) memory（Wは整数bitsetの処理幅）",
+          "sourceLine": 8
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph",
+      "categoryLabel": "グラフ基盤",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "TwoSAT",
       "modulePath": "library_codex.graph.TwoSAT",
       "summary": "2-SATの充足可能性を判定し、真偽割当を返す。",
@@ -30612,6 +30740,111 @@
           "returnDescription": "求めた二部グラフ・彩色。",
           "complexity": "O(V+E)",
           "sourceLine": 5
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_connectivity",
+      "categoryLabel": "連結性・分解",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "Cactus",
+      "modulePath": "library_codex.graph_connectivity.Cactus",
+      "summary": "単純無向グラフがcactusか判定し、辺をcycleへ分解する。",
+      "capabilities": [
+        "単純無向グラフの各辺が高々1個の単純cycleに属するか判定できる。非連結グラフも扱う。",
+        "cactusならcycleを入力辺 ID列へ分解し、各辺がbridgeかどのcycleに属するかを取得できる。"
+      ],
+      "searchTerms": [
+        "Cactus",
+        "library_codex.graph_connectivity.Cactus",
+        "library codex graph connectivity Cactus",
+        "graph_connectivity/Cactus.py",
+        "連結性・分解",
+        "カクタス",
+        "cactus graph",
+        "サボテングラフ"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_connectivity/Cactus.py",
+      "inputFingerprint": "cca3d245c4b2dcc00a677f0387991e8682c7ea86082b1f5196d41aa5ea42f1bc",
+      "importCode": "from library_codex.graph_connectivity.Cactus import decompose, is_cactus",
+      "sourceCode": "\"\"\"単純無向グラフがcactusか判定し、辺をcycleへ分解する。\"\"\"\n\n\ndef decompose(vertex_count, edges):\n    \"\"\"各辺が高々1個の単純cycleに属するならcycle列と所属表を返す。\"\"\"\n    if vertex_count < 0:\n        raise ValueError(\"vertex_count must be nonnegative\")\n    edges = list(edges)\n    graph = [[] for _ in range(vertex_count)]\n    used_pairs = set()\n    for edge_id, (first, second) in enumerate(edges):\n        if not 0 <= first < vertex_count or not 0 <= second < vertex_count:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if first == second:\n            return None\n        pair = (first, second) if first < second else (second, first)\n        if pair in used_pairs:\n            return None\n        used_pairs.add(pair)\n        graph[first].append((second, edge_id))\n        graph[second].append((first, edge_id))\n\n    parent = [-1] * vertex_count\n    parent_edge = [-1] * vertex_count\n    depth = [0] * vertex_count\n    state = bytearray(vertex_count)\n    back_edges = []\n    for root in range(vertex_count):\n        if state[root]:\n            continue\n        state[root] = 1\n        stack = [(root, 0)]\n        while stack:\n            vertex, index = stack[-1]\n            if index == len(graph[vertex]):\n                state[vertex] = 2\n                stack.pop()\n                continue\n            to, edge_id = graph[vertex][index]\n            stack[-1] = (vertex, index + 1)\n            if edge_id == parent_edge[vertex]:\n                continue\n            if state[to] == 0:\n                parent[to] = vertex\n                parent_edge[to] = edge_id\n                depth[to] = depth[vertex] + 1\n                state[to] = 1\n                stack.append((to, 0))\n            elif state[to] == 1 and depth[to] < depth[vertex]:\n                back_edges.append((vertex, to, edge_id))\n\n    edge_cycle = [-1] * len(edges)\n    cycles = []\n    for descendant, ancestor, closing_edge in back_edges:\n        path = []\n        vertex = descendant\n        while depth[vertex] > depth[ancestor]:\n            edge_id = parent_edge[vertex]\n            if edge_cycle[edge_id] != -1:\n                return None\n            path.append(edge_id)\n            vertex = parent[vertex]\n        if vertex != ancestor or edge_cycle[closing_edge] != -1:\n            return None\n        cycle_id = len(cycles)\n        cycle = list(reversed(path))\n        cycle.append(closing_edge)\n        for edge_id in cycle:\n            edge_cycle[edge_id] = cycle_id\n        cycles.append(cycle)\n    return cycles, edge_cycle\n\n\ndef is_cactus(vertex_count, edges):\n    \"\"\"単純無向グラフの各辺が高々1個の単純cycleに属するか返す。\"\"\"\n    return decompose(vertex_count, edges) is not None\n",
+      "standaloneCode": "\"\"\"単純無向グラフがcactusか判定し、辺をcycleへ分解する。\"\"\"\n\n\ndef decompose(vertex_count, edges):\n    \"\"\"各辺が高々1個の単純cycleに属するならcycle列と所属表を返す。\"\"\"\n    if vertex_count < 0:\n        raise ValueError(\"vertex_count must be nonnegative\")\n    edges = list(edges)\n    graph = [[] for _ in range(vertex_count)]\n    used_pairs = set()\n    for edge_id, (first, second) in enumerate(edges):\n        if not 0 <= first < vertex_count or not 0 <= second < vertex_count:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if first == second:\n            return None\n        pair = (first, second) if first < second else (second, first)\n        if pair in used_pairs:\n            return None\n        used_pairs.add(pair)\n        graph[first].append((second, edge_id))\n        graph[second].append((first, edge_id))\n\n    parent = [-1] * vertex_count\n    parent_edge = [-1] * vertex_count\n    depth = [0] * vertex_count\n    state = bytearray(vertex_count)\n    back_edges = []\n    for root in range(vertex_count):\n        if state[root]:\n            continue\n        state[root] = 1\n        stack = [(root, 0)]\n        while stack:\n            vertex, index = stack[-1]\n            if index == len(graph[vertex]):\n                state[vertex] = 2\n                stack.pop()\n                continue\n            to, edge_id = graph[vertex][index]\n            stack[-1] = (vertex, index + 1)\n            if edge_id == parent_edge[vertex]:\n                continue\n            if state[to] == 0:\n                parent[to] = vertex\n                parent_edge[to] = edge_id\n                depth[to] = depth[vertex] + 1\n                state[to] = 1\n                stack.append((to, 0))\n            elif state[to] == 1 and depth[to] < depth[vertex]:\n                back_edges.append((vertex, to, edge_id))\n\n    edge_cycle = [-1] * len(edges)\n    cycles = []\n    for descendant, ancestor, closing_edge in back_edges:\n        path = []\n        vertex = descendant\n        while depth[vertex] > depth[ancestor]:\n            edge_id = parent_edge[vertex]\n            if edge_cycle[edge_id] != -1:\n                return None\n            path.append(edge_id)\n            vertex = parent[vertex]\n        if vertex != ancestor or edge_cycle[closing_edge] != -1:\n            return None\n        cycle_id = len(cycles)\n        cycle = list(reversed(path))\n        cycle.append(closing_edge)\n        for edge_id in cycle:\n            edge_cycle[edge_id] = cycle_id\n        cycles.append(cycle)\n    return cycles, edge_cycle\n\n\ndef is_cactus(vertex_count, edges):\n    \"\"\"単純無向グラフの各辺が高々1個の単純cycleに属するか返す。\"\"\"\n    return decompose(vertex_count, edges) is not None\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "decompose",
+          "kind": "function",
+          "signature": "decompose(vertex_count, edges)",
+          "summary": "単純無向グラフがcactusなら、単純cycleと各edgeの所属を入力edge IDで返す。cactusとは各辺が高々1個の単純cycleに属するグラフを指す。",
+          "description": "単純無向グラフがcactusなら、単純cycleと各edgeの所属を入力edge IDで返す。cactusとは各辺が高々1個の単純cycleに属するグラフを指す。",
+          "searchTerms": [
+            "decompose",
+            "decompose(vertex_count, edges)"
+          ],
+          "arguments": "vertex_count: 頂点数。頂点番号は0以上vertex_count未満。 · edges: 無向辺を(first, second)で並べた列。edge IDは入力順の0-indexed位置。self-loopと平行辺は単純グラフでないため不受理。",
+          "argumentDetails": [
+            {
+              "name": "vertex_count",
+              "description": "頂点数。頂点番号は0以上vertex_count未満。"
+            },
+            {
+              "name": "edges",
+              "description": "無向辺を(first, second)で並べた列。edge IDは入力順の0-indexed位置。self-loopと平行辺は単純グラフでないため不受理。"
+            }
+          ],
+          "returns": "tuple[list[list[int]], list[int]] | None — cactusなら(cycles, edge_cycle)、そうでなければNone。",
+          "returnFormat": "tuple[list[list[int]], list[int]] | None",
+          "returnDescription": "cactusなら(cycles, edge_cycle)、そうでなければNone。",
+          "complexity": "O(V+E) time、O(V+E) memory",
+          "sourceLine": 4,
+          "returnParts": [
+            {
+              "name": "cycles",
+              "format": "list[list[int]]",
+              "description": "各単純cycleを、その周上を一周する順に並べた入力edge IDのlistとして格納する。cycle同士でedge IDは重複しない。"
+            },
+            {
+              "name": "edge_cycle",
+              "format": "list[int]",
+              "description": "edgesと同じ長さ。edge_cycle[e]は辺eが属するcyclesのindexで、cycleに属さないbridgeでは-1。"
+            }
+          ]
+        },
+        {
+          "name": "is_cactus",
+          "kind": "function",
+          "signature": "is_cactus(vertex_count, edges)",
+          "summary": "単純無向グラフの各辺が高々1個の単純cycleに属するか判定する。非連結グラフも全成分を調べる。",
+          "description": "単純無向グラフの各辺が高々1個の単純cycleに属するか判定する。非連結グラフも全成分を調べる。",
+          "searchTerms": [
+            "is_cactus",
+            "is cactus",
+            "is_cactus(vertex_count, edges)"
+          ],
+          "arguments": "vertex_count: 頂点数。頂点番号は0以上vertex_count未満。 · edges: 無向辺を(first, second)で並べた列。self-loopまたは平行辺を含む場合はFalse。",
+          "argumentDetails": [
+            {
+              "name": "vertex_count",
+              "description": "頂点数。頂点番号は0以上vertex_count未満。"
+            },
+            {
+              "name": "edges",
+              "description": "無向辺を(first, second)で並べた列。self-loopまたは平行辺を含む場合はFalse。"
+            }
+          ],
+          "returns": "bool — 入力が単純無向cactusならTrue、1本の辺が複数cycleに含まれるか単純グラフでなければFalse。",
+          "returnFormat": "bool",
+          "returnDescription": "入力が単純無向cactusならTrue、1本の辺が複数cycleに含まれるか単純グラフでなければFalse。",
+          "complexity": "O(V+E) time、O(V+E) memory",
+          "sourceLine": 74
         }
       ],
       "classes": []
@@ -59868,6 +60101,191 @@
           ]
         }
       ]
+    },
+    {
+      "category": "optimization",
+      "categoryLabel": "最適化・DP",
+      "domain": "optimization",
+      "domainLabel": "Optimization",
+      "name": "SortedListsSelection",
+      "modulePath": "library_codex.optimization.SortedListsSelection",
+      "summary": "複数の昇順listをmergeしたときの先頭k要素を、全体をmergeせず選ぶ。",
+      "capabilities": [
+        "複数の昇順listを安定mergeしたときのk番目の値を、全要素をmergeせず求められる。",
+        "先頭k要素が各listから何個ずつ選ばれるかを返し、そのまま各listの接頭境界として使える。"
+      ],
+      "searchTerms": [
+        "SortedListsSelection",
+        "Sorted Lists Selection",
+        "library_codex.optimization.SortedListsSelection",
+        "library codex optimization Sorted Lists Selection",
+        "optimization/SortedListsSelection.py",
+        "最適化・DP",
+        "k-way merge",
+        "複数列k番目"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/optimization/SortedListsSelection.py",
+      "inputFingerprint": "e632cb0045aa93ce2d112b6b4c16d382d03387a1dcacdb32d7eca92a8ebf636a",
+      "importCode": "from library_codex.optimization.SortedListsSelection import take, kth",
+      "sourceCode": "\"\"\"複数の昇順listをmergeしたときの先頭k要素を、全体をmergeせず選ぶ。\"\"\"\n\nimport heapq\n\n\ndef _extend(rows, lengths, counts, k, shift):\n    heap = []\n    for row, count in enumerate(counts):\n        index = ((count + 1) << shift) - 1\n        if index < lengths[row]:\n            heap.append((rows[row][index], row))\n    heapq.heapify(heap)\n    while k:\n        _, row = heapq.heappop(heap)\n        counts[row] += 1\n        k -= 1\n        if k:\n            index = ((counts[row] + 1) << shift) - 1\n            if index < lengths[row]:\n                heapq.heappush(heap, (rows[row][index], row))\n    return counts\n\n\ndef _take(rows, lengths, k):\n    frames = []\n    shift = 0\n    while True:\n        total = sum(length >> shift for length in lengths)\n        if k == 0:\n            counts = [0] * len(rows)\n            break\n        if k == total:\n            counts = [length >> shift for length in lengths]\n            break\n\n        blocks = sum(length >= 1 << shift for length in lengths)\n        if k <= blocks:\n            counts = _extend(rows, lengths, [0] * len(rows), k, shift)\n            break\n        coarse = (k - blocks) >> 1\n        frames.append((shift, k - (coarse << 1)))\n        k = coarse\n        shift += 1\n\n    while frames:\n        shift, remainder = frames.pop()\n        for index in range(len(counts)):\n            counts[index] <<= 1\n        counts = _extend(rows, lengths, counts, remainder, shift)\n    return counts\n\n\ndef take(rows, k):\n    \"\"\"全rowをstable mergeした先頭k要素が各rowから何個来るか返す。\"\"\"\n    rows = list(rows)\n    lengths = [len(row) for row in rows]\n    total = sum(lengths)\n    if not 0 <= k <= total:\n        raise IndexError(\"k is outside the merged sequence\")\n    return _take(rows, lengths, k)\n\n\ndef kth(rows, k):\n    \"\"\"全rowをstable mergeした列のk番目の値を返す。\"\"\"\n    rows = list(rows)\n    total = sum(map(len, rows))\n    if not 0 <= k < total:\n        raise IndexError(\"k is outside the merged sequence\")\n    counts = _take(rows, [len(row) for row in rows], k + 1)\n    return max(\n        (rows[row][count - 1], row)\n        for row, count in enumerate(counts)\n        if count\n    )[0]\n",
+      "standaloneCode": "\"\"\"複数の昇順listをmergeしたときの先頭k要素を、全体をmergeせず選ぶ。\"\"\"\n\nimport heapq\n\n\ndef _extend(rows, lengths, counts, k, shift):\n    heap = []\n    for row, count in enumerate(counts):\n        index = ((count + 1) << shift) - 1\n        if index < lengths[row]:\n            heap.append((rows[row][index], row))\n    heapq.heapify(heap)\n    while k:\n        _, row = heapq.heappop(heap)\n        counts[row] += 1\n        k -= 1\n        if k:\n            index = ((counts[row] + 1) << shift) - 1\n            if index < lengths[row]:\n                heapq.heappush(heap, (rows[row][index], row))\n    return counts\n\n\ndef _take(rows, lengths, k):\n    frames = []\n    shift = 0\n    while True:\n        total = sum(length >> shift for length in lengths)\n        if k == 0:\n            counts = [0] * len(rows)\n            break\n        if k == total:\n            counts = [length >> shift for length in lengths]\n            break\n\n        blocks = sum(length >= 1 << shift for length in lengths)\n        if k <= blocks:\n            counts = _extend(rows, lengths, [0] * len(rows), k, shift)\n            break\n        coarse = (k - blocks) >> 1\n        frames.append((shift, k - (coarse << 1)))\n        k = coarse\n        shift += 1\n\n    while frames:\n        shift, remainder = frames.pop()\n        for index in range(len(counts)):\n            counts[index] <<= 1\n        counts = _extend(rows, lengths, counts, remainder, shift)\n    return counts\n\n\ndef take(rows, k):\n    \"\"\"全rowをstable mergeした先頭k要素が各rowから何個来るか返す。\"\"\"\n    rows = list(rows)\n    lengths = [len(row) for row in rows]\n    total = sum(lengths)\n    if not 0 <= k <= total:\n        raise IndexError(\"k is outside the merged sequence\")\n    return _take(rows, lengths, k)\n\n\ndef kth(rows, k):\n    \"\"\"全rowをstable mergeした列のk番目の値を返す。\"\"\"\n    rows = list(rows)\n    total = sum(map(len, rows))\n    if not 0 <= k < total:\n        raise IndexError(\"k is outside the merged sequence\")\n    counts = _take(rows, [len(row) for row in rows], k + 1)\n    return max(\n        (rows[row][count - 1], row)\n        for row, count in enumerate(counts)\n        if count\n    )[0]\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "take",
+          "kind": "function",
+          "signature": "take(rows, k)",
+          "summary": "複数の昇順listを値、row番号、row内位置の順で安定mergeし、先頭k要素の出所を数える。",
+          "description": "複数の昇順listを値、row番号、row内位置の順で安定mergeし、先頭k要素の出所を数える。",
+          "searchTerms": [
+            "take",
+            "take(rows, k)"
+          ],
+          "arguments": "rows: それぞれ昇順にsort済みで、lenとindex参照ができるsequenceの並び。空sequenceと重複値を許す。 · k: merge後の先頭から選ぶ要素数。0以上、全要素数以下。",
+          "argumentDetails": [
+            {
+              "name": "rows",
+              "description": "それぞれ昇順にsort済みで、lenとindex参照ができるsequenceの並び。空sequenceと重複値を許す。"
+            },
+            {
+              "name": "k",
+              "description": "merge後の先頭から選ぶ要素数。0以上、全要素数以下。"
+            }
+          ],
+          "returns": "list[int] — rowsと同じ長さのcounts。counts[row]は先頭k要素にrows[row]のprefixが何個入るかを表し、sum(counts)=k。",
+          "returnFormat": "list[int]",
+          "returnDescription": "rowsと同じ長さのcounts。counts[row]は先頭k要素にrows[row]のprefixが何個入るかを表し、sum(counts)=k。",
+          "complexity": "O(R log(K+1) log R) time、O(R+log(K+1)) memory（Rはrow数、K=k）",
+          "sourceLine": 53
+        },
+        {
+          "name": "kth",
+          "kind": "function",
+          "signature": "kth(rows, k)",
+          "summary": "複数の昇順listをmergeした列のk番目の値を、全体を構築せず求める。",
+          "description": "複数の昇順listをmergeした列のk番目の値を、全体を構築せず求める。",
+          "searchTerms": [
+            "kth",
+            "kth(rows, k)"
+          ],
+          "arguments": "rows: それぞれ昇順にsort済みで、lenとindex参照ができるsequenceの並び。空sequenceと重複値を許す。 · k: 小さい方から数えた0-indexed順位。0以上、全要素数未満。",
+          "argumentDetails": [
+            {
+              "name": "rows",
+              "description": "それぞれ昇順にsort済みで、lenとindex参照ができるsequenceの並び。空sequenceと重複値を許す。"
+            },
+            {
+              "name": "k",
+              "description": "小さい方から数えた0-indexed順位。0以上、全要素数未満。"
+            }
+          ],
+          "returns": "object — 全rowの要素を重複込みで昇順に並べたときの0-indexed k番目の値。入力要素をそのまま返す。",
+          "returnFormat": "object",
+          "returnDescription": "全rowの要素を重複込みで昇順に並べたときの0-indexed k番目の値。入力要素をそのまま返す。",
+          "complexity": "O(R log(K+2) log R) time、O(R+log(K+2)) memory（Rはrow数、K=k）",
+          "sourceLine": 63
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "optimization",
+      "categoryLabel": "最適化・DP",
+      "domain": "optimization",
+      "domainLabel": "Optimization",
+      "name": "SortedMatrixSelection",
+      "modulePath": "library_codex.optimization.SortedMatrixSelection",
+      "summary": "行・列とも昇順の整数matrixから、順位で要素を選ぶ。",
+      "capabilities": [
+        "各row・各columnが昇順の整数行列について、全要素中のk番目の値を二分探索で求められる。",
+        "先頭k要素が各rowから何個ずつ選ばれるかも返せる。同値はrow番号、次にcolumn番号が小さい方を先に扱う。"
+      ],
+      "searchTerms": [
+        "SortedMatrixSelection",
+        "Sorted Matrix Selection",
+        "library_codex.optimization.SortedMatrixSelection",
+        "library codex optimization Sorted Matrix Selection",
+        "optimization/SortedMatrixSelection.py",
+        "最適化・DP",
+        "sorted matrix kth",
+        "Young tableau",
+        "行列k番目"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/optimization/SortedMatrixSelection.py",
+      "inputFingerprint": "8136fba8283e5d1934e9456821810fad604f229bf8c63f0907a95d99995c14ce",
+      "importCode": "from library_codex.optimization.SortedMatrixSelection import kth, take",
+      "sourceCode": "\"\"\"行・列とも昇順の整数matrixから、順位で要素を選ぶ。\"\"\"\n\nfrom bisect import bisect_left, bisect_right\n\n\ndef _shape(matrix):\n    rows = len(matrix)\n    columns = len(matrix[0]) if rows else 0\n    if any(len(row) != columns for row in matrix):\n        raise ValueError(\"matrix rows must have equal length\")\n    return rows, columns\n\n\ndef _count_le(matrix, value, rows, columns):\n    row = rows - 1\n    column = 0\n    count = 0\n    while row >= 0 and column < columns:\n        if matrix[row][column] <= value:\n            count += row + 1\n            column += 1\n        else:\n            row -= 1\n    return count\n\n\ndef kth(matrix, k):\n    \"\"\"matrix全要素を昇順に並べたときのk番目の値を返す。\"\"\"\n    rows, columns = _shape(matrix)\n    if not 0 <= k < rows * columns:\n        raise IndexError(\"k is outside the matrix\")\n    lower = matrix[0][0]\n    upper = matrix[-1][-1]\n    while lower < upper:\n        middle = (lower + upper) // 2\n        if _count_le(matrix, middle, rows, columns) > k:\n            upper = middle\n        else:\n            lower = middle + 1\n    return lower\n\n\ndef take(matrix, k):\n    \"\"\"先頭k要素が各rowから何個来るか、row優先の同値順で返す。\"\"\"\n    rows, columns = _shape(matrix)\n    total = rows * columns\n    if not 0 <= k <= total:\n        raise IndexError(\"k is outside the matrix\")\n    if k == 0:\n        return [0] * rows\n    if k == total:\n        return [columns] * rows\n\n    boundary = kth(matrix, k - 1)\n    counts = [bisect_left(row, boundary) for row in matrix]\n    remaining = k - sum(counts)\n    for index, row in enumerate(matrix):\n        equal = bisect_right(row, boundary) - counts[index]\n        selected = min(equal, remaining)\n        counts[index] += selected\n        remaining -= selected\n        if remaining == 0:\n            break\n    return counts\n",
+      "standaloneCode": "\"\"\"行・列とも昇順の整数matrixから、順位で要素を選ぶ。\"\"\"\n\nfrom bisect import bisect_left, bisect_right\n\n\ndef _shape(matrix):\n    rows = len(matrix)\n    columns = len(matrix[0]) if rows else 0\n    if any(len(row) != columns for row in matrix):\n        raise ValueError(\"matrix rows must have equal length\")\n    return rows, columns\n\n\ndef _count_le(matrix, value, rows, columns):\n    row = rows - 1\n    column = 0\n    count = 0\n    while row >= 0 and column < columns:\n        if matrix[row][column] <= value:\n            count += row + 1\n            column += 1\n        else:\n            row -= 1\n    return count\n\n\ndef kth(matrix, k):\n    \"\"\"matrix全要素を昇順に並べたときのk番目の値を返す。\"\"\"\n    rows, columns = _shape(matrix)\n    if not 0 <= k < rows * columns:\n        raise IndexError(\"k is outside the matrix\")\n    lower = matrix[0][0]\n    upper = matrix[-1][-1]\n    while lower < upper:\n        middle = (lower + upper) // 2\n        if _count_le(matrix, middle, rows, columns) > k:\n            upper = middle\n        else:\n            lower = middle + 1\n    return lower\n\n\ndef take(matrix, k):\n    \"\"\"先頭k要素が各rowから何個来るか、row優先の同値順で返す。\"\"\"\n    rows, columns = _shape(matrix)\n    total = rows * columns\n    if not 0 <= k <= total:\n        raise IndexError(\"k is outside the matrix\")\n    if k == 0:\n        return [0] * rows\n    if k == total:\n        return [columns] * rows\n\n    boundary = kth(matrix, k - 1)\n    counts = [bisect_left(row, boundary) for row in matrix]\n    remaining = k - sum(counts)\n    for index, row in enumerate(matrix):\n        equal = bisect_right(row, boundary) - counts[index]\n        selected = min(equal, remaining)\n        counts[index] += selected\n        remaining -= selected\n        if remaining == 0:\n            break\n    return counts\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "kth",
+          "kind": "function",
+          "signature": "kth(matrix, k)",
+          "summary": "各row・columnが昇順の整数行列について、全要素中のk番目の値を求める。",
+          "description": "各row・columnが昇順の整数行列について、全要素中のk番目の値を求める。",
+          "searchTerms": [
+            "kth",
+            "kth(matrix, k)"
+          ],
+          "arguments": "matrix: 全rowが同じ長さで、各rowと各columnが非減少の整数行列。 · k: 小さい方から数えた0-indexed順位。0以上、rows * columns未満。",
+          "argumentDetails": [
+            {
+              "name": "matrix",
+              "description": "全rowが同じ長さで、各rowと各columnが非減少の整数行列。"
+            },
+            {
+              "name": "k",
+              "description": "小さい方から数えた0-indexed順位。0以上、rows * columns未満。"
+            }
+          ],
+          "returns": "int — 行列の全要素を重複込みで昇順に並べたときの0-indexed k番目の整数。",
+          "returnFormat": "int",
+          "returnDescription": "行列の全要素を重複込みで昇順に並べたときの0-indexed k番目の整数。",
+          "complexity": "O((R+C) log D) time、O(1) extra memory（D=max(matrix)-min(matrix)+1）",
+          "sourceLine": 27
+        },
+        {
+          "name": "take",
+          "kind": "function",
+          "signature": "take(matrix, k)",
+          "summary": "各row・columnが昇順の整数行列で、小さい方からk要素が各rowから何個ずつ選ばれるか求める。",
+          "description": "各row・columnが昇順の整数行列で、小さい方からk要素が各rowから何個ずつ選ばれるか求める。",
+          "searchTerms": [
+            "take",
+            "take(matrix, k)"
+          ],
+          "arguments": "matrix: 全rowが同じ長さで、各rowと各columnが非減少の整数行列。空行列を許す。 · k: 全要素を昇順に並べたとき先頭から選ぶ個数。0以上、rows * columns以下。",
+          "argumentDetails": [
+            {
+              "name": "matrix",
+              "description": "全rowが同じ長さで、各rowと各columnが非減少の整数行列。空行列を許す。"
+            },
+            {
+              "name": "k",
+              "description": "全要素を昇順に並べたとき先頭から選ぶ個数。0以上、rows * columns以下。"
+            }
+          ],
+          "returns": "list[int] — row数と同じ長さのcounts。counts[row]は選ばれた要素がそのrowのprefixに何個あるかを表す。同値ではrow番号、次にcolumn番号が小さい方を優先し、sum(counts)=k。",
+          "returnFormat": "list[int]",
+          "returnDescription": "row数と同じ長さのcounts。counts[row]は選ばれた要素がそのrowのprefixに何個あるかを表す。同値ではrow番号、次にcolumn番号が小さい方を優先し、sum(counts)=k。",
+          "complexity": "O((R+C) log D + R log C) time、O(R) memory（D=max(matrix)-min(matrix)+1）",
+          "sourceLine": 43
+        }
+      ],
+      "classes": []
     },
     {
       "category": "geometry",

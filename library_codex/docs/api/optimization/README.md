@@ -19,3 +19,5 @@
 | [`RollbackMo`](RollbackMo.md) | rollback可能な状態更新を使ってoffline区間queryを処理する。 | 0 | 1 | 2 |
 | [`SMAWK`](SMAWK.md) | Totally monotone な行列の各行の最小列を線形回数の比較で求める。 | 1 | 0 | 0 |
 | [`SlopeTrick`](SlopeTrick.md) | 重み付きSlope Trick・shift/slide/chmin/merge/eval | 0 | 1 | 14 |
+| [`SortedListsSelection`](SortedListsSelection.md) | 複数の昇順listをmergeしたときの先頭k要素を、全体をmergeせず選ぶ。 | 2 | 0 | 0 |
+| [`SortedMatrixSelection`](SortedMatrixSelection.md) | 行・列とも昇順の整数matrixから、順位で要素を選ぶ。 | 2 | 0 | 0 |
