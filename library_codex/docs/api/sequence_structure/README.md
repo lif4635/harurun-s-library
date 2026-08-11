@@ -11,6 +11,7 @@
 | [`PersistentArray`](PersistentArray.md) | 分岐可能な永続配列（非再帰・フラットプール） | 0 | 1 | 9 |
 | [`PersistentQueue`](PersistentQueue.md) | 過去versionを残したままappend・popleftできる永続queue。 | 0 | 1 | 4 |
 | [`RadixHeap`](RadixHeap.md) | 単調非負整数キー用優先度付きキュー | 0 | 1 | 6 |
+| [`RollbackArray`](RollbackArray.md) | 値の変更をsnapshot時点まで巻き戻せる配列。 | 0 | 1 | 10 |
 | [`SWAGDeque`](SWAGDeque.md) | deque両端の追加・削除をしながら全体のmonoid積を保つSWAG。 | 0 | 1 | 9 |
 | [`SWAGQueue`](SWAGQueue.md) | queue全体のmonoid積をpush・popと同じ償却計算量で保つSWAG。 | 0 | 1 | 7 |
 | [`SkewHeap`](SkewHeap.md) | heap同士のmeldと全要素へのlazy加算に対応するSkew Heap。 | 0 | 1 | 6 |

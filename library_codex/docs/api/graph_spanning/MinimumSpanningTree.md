@@ -5,19 +5,22 @@ Kruskal最小全域森・最小全域木（辺ID付き）。
 
 - 計算量の目安: $O(E\log E)$
 - source: [`graph_spanning/MinimumSpanningTree.py`](../../../graph_spanning/MinimumSpanningTree.py)
-- 公開API: function 4、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 5、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
-- `minimum_spanning_forest`: 最小・全域・forestを求める。
-- `minimum_spanning_tree`: 最小・全域・木を求める。
-- `kruskal`: `kruskal`を求める。
-- `manhattan_mst`: `manhattan`・`mst`を求める。
+- 最小全域木と辺集合が異なる次善の全域木を復元し、同costを許す場合と真に大きいcostだけの場合を選べる。
 
 ## Import
 
 ```python
-from library_codex.graph_spanning.MinimumSpanningTree import minimum_spanning_forest, minimum_spanning_tree, kruskal, manhattan_mst
+from library_codex.graph_spanning.MinimumSpanningTree import (
+    minimum_spanning_forest,
+    minimum_spanning_tree,
+    kruskal,
+    second_spanning_tree,
+    manhattan_mst,
+)
 ```
 
 ## Functions
@@ -27,4 +30,5 @@ from library_codex.graph_spanning.MinimumSpanningTree import minimum_spanning_fo
 | [`minimum_spanning_forest(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L1) | 最小・全域・forestを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`（int）, `selected`（list）, 連結成分情報) | — |
 | [`minimum_spanning_tree(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L35) | 最小・全域・木を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`, `selected`) / `None` | — |
 | [`kruskal(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L42) | `kruskal`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | `minimum_spanning_forest(n, edges)[0]` | — |
-| [`manhattan_mst(points)`](../../../graph_spanning/MinimumSpanningTree.py#L46) | `manhattan`・`mst`を求める。 | `points`: 評価点の列 | tuple(`0`, list `[]`) / tuple(`cost`（int）, 答え（list）) | O(N log N) |
+| [`second_spanning_tree(n, edges, strict=False)`](../../../graph_spanning/MinimumSpanningTree.py#L46) | Kruskalで得たMSTから1辺を交換し、辺集合が異なる最小costの全域木を求める。 | `n`: 頂点数。<br>`edges`: (first, second, weight)を並べた無向辺列。<br>`strict`: FalseならMSTと同costの別treeも許す。TrueならcostがMSTより真に大きいtreeだけを対象にする。省略時: `False` | tuple[number, number, list[int], list[int], int, int] \| None — 存在すれば(mst_cost, second_cost, mst_edges, second_edges, added, removed)。edge listは入力edge indexで、second_edgesはmst_edgesからremovedを除きaddedを加えたもの。別treeが存在しなければNone。 | O((V+E) log V) time、O(V log V + E) memory |
+| [`manhattan_mst(points)`](../../../graph_spanning/MinimumSpanningTree.py#L142) | `manhattan`・`mst`を求める。 | `points`: 評価点の列 | tuple(`0`, list `[]`) / tuple(`cost`（int）, 答え（list）) | O(N log N) |

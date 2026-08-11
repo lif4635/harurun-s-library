@@ -18,5 +18,6 @@
 | [`RestorePath`](RestorePath.md) | 直前頂点列から始点から終点までのpathを復元する。 | 1 | 0 | 0 |
 | [`ReverseGraph`](ReverseGraph.md) | 有向グラフの全辺を反転した隣接listを作る。 | 1 | 0 | 0 |
 | [`TopologicalSort`](TopologicalSort.md) | DAGの頂点を辺の向きに沿う順序へ並べる。 | 1 | 0 | 0 |
+| [`TournamentPath`](TournamentPath.md) | tournament graphのHamilton pathを構成する。 | 1 | 0 | 0 |
 | [`TransitiveReduction`](TransitiveReduction.md) | DAGの到達関係を変えず、推移的に不要な辺を取り除く。 | 1 | 0 | 0 |
-| [`TwoSAT`](TwoSAT.md) | 2-SATの充足可能性を判定し、真偽割当を返す。 | 0 | 1 | 8 |
+| [`TwoSAT`](TwoSAT.md) | 2-SATの充足可能性を判定し、真偽割当を返す。 | 0 | 1 | 10 |

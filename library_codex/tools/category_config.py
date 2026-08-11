@@ -172,6 +172,11 @@ CATEGORY_INFO = {
         "description": "文字列アルゴリズム",
         "domain": "string",
     },
+    "string_sequence": {
+        "label": "文字列の変換・分解",
+        "description": "編集距離・巡回shift・Lyndon分解・共通substring",
+        "domain": "string",
+    },
     "optimization": {
         "label": "最適化・DP",
         "description": "最適化・DP高速化",

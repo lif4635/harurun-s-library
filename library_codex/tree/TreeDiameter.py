@@ -48,3 +48,26 @@ def tree_diameter(tree):
 def diameter(tree):
     return tree_diameter(tree)[0]
 
+
+def tree_metric_center(tree):
+    """木を連続なmetric空間とみなした中心位置と半径を返す。"""
+    diameter_value, path = tree_diameter(tree)
+    if not path:
+        return 0, (-1, -1, 0)
+    if len(path) == 1:
+        return 0, (path[0], path[0], 0)
+    target = diameter_value / 2
+    elapsed = 0
+    for first, second in zip(path, path[1:]):
+        weight = None
+        for entry in tree[first]:
+            other, current_weight = _edge(entry)
+            if other == second:
+                weight = current_weight
+                break
+        if elapsed + weight == target:
+            return target, (second, second, 0)
+        if elapsed + weight > target:
+            return target, (first, second, target - elapsed)
+        elapsed += weight
+    return target, (path[-1], path[-1], 0)

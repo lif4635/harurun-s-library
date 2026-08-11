@@ -17,3 +17,4 @@
 | [`PisanoPeriod`](PisanoPeriod.md) | Fibonacci数列を法としたときの周期を求める。 | 2 | 0 | 0 |
 | [`QBinomial`](QBinomial.md) | q二項係数を計算する。 | 0 | 1 | 1 |
 | [`RationalBinomial`](RationalBinomial.md) | 有理数として二項係数を正確に計算する。 | 0 | 1 | 7 |
+| [`SetPartitions`](SetPartitions.md) | 有限列の集合分割を重複なく列挙する。 | 1 | 0 | 0 |

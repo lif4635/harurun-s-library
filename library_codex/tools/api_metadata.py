@@ -2359,6 +2359,245 @@ COMPLEXITY_BY_MODULE.update({
     },
 })
 
+# 実用範囲を横断して追加し、既存APIへの自然な統合も行った第六バッチ。
+SEARCH_TERMS_BY_MODULE.update({
+    "geometry/ClosestPair.py": ("最近点対", "closest pair of points", "平面走査"),
+    "geometry/PolygonMetrics.py": ("多角形面積", "Pickの定理", "格子多角形", "polygon centroid"),
+    "string_sequence/EditDistance.py": ("編集距離", "Levenshtein distance", "編集列復元"),
+    "string_sequence/MinimumCyclicShift.py": ("最小巡回shift", "minimum rotation", "Booth algorithm"),
+    "string_sequence/LyndonFactorization.py": ("Lyndon分解", "Chen Fox Lyndon", "Duval algorithm"),
+    "string_sequence/LongestCommonSubstring.py": ("最長共通部分文字列", "longest common substring", "suffix automaton"),
+    "number_theory/DiscreteLog.py": ("離散対数", "discrete logarithm", "BSGS", "baby step giant step"),
+    "graph/TournamentPath.py": ("トーナメント", "tournament graph", "Hamilton path"),
+    "sequence_structure/RollbackArray.py": ("rollback配列", "undo array", "巻き戻し"),
+    "ordered_set/DecrementalSet.py": ("削除専用集合", "successor DSU", "decremental successor"),
+    "combinatorics/SetPartitions.py": ("集合分割列挙", "set partition", "restricted growth string"),
+    "graph_matching/BipartiteEdgeColoring.py": ("二部グラフ辺彩色", "bipartite edge coloring", "König line coloring"),
+})
+
+MODULE_CAPABILITIES.update({
+    "geometry/ClosestPair.py": (
+        "2次元点集合からEuclidean距離が最小の2点を、入力indexと距離の二乗で取得できる。",
+        "再帰を使わないdivide-and-conquerで、全点pairを列挙せずに求める。",
+    ),
+    "geometry/PolygonMetrics.py": (
+        "頂点順から多角形の符号付き面積の2倍と、一様な多角形板の重心を求められる。",
+        "整数格子上の単純多角形について、境界上と内部の格子点数をPickの定理で求められる。",
+    ),
+    "string_sequence/EditDistance.py": (
+        "2列を一致させるための挿入・削除・置換の最小回数を求められる。",
+        "距離だけでなく、元の2列のindexに対応した最短編集手順も復元できる。",
+    ),
+    "string_sequence/MinimumCyclicShift.py": (
+        "列を巡回shiftして得られる列のうち、辞書順最小なものの開始位置を線形時間で求められる。",
+    ),
+    "string_sequence/LyndonFactorization.py": (
+        "列を辞書順が非増加となるLyndon語の一意な列へ線形時間で分解できる。",
+        "元の列をcopyせず、各因子を半開区間で返す。",
+    ),
+    "string_sequence/LongestCommonSubstring.py": (
+        "2列に連続して現れる最長の共通部分列について、長さと両方の出現区間を求められる。",
+        "firstのsuffix automatonを構築し、列の切り出しや候補substringの列挙を行わない。",
+    ),
+    "number_theory/DiscreteLog.py": (
+        "baseの何乗が指定値と合同になるか、存在する最小の非負指数を求められる。",
+        "baseとmodulusが互いに素でない場合や合成数modulusもextended BSGSで扱える。",
+    ),
+    "graph/TournamentPath.py": (
+        "任意の2頂点間にちょうど一方向の辺があるtournament graphで、全頂点を1回通る有向pathを構成できる。",
+    ),
+    "sequence_structure/RollbackArray.py": (
+        "配列のpoint assignmentを保存し、snapshot取得時点まで変更を巻き戻せる。",
+        "copyを作らず、1変更ずつundoすることもできる。",
+    ),
+    "ordered_set/DecrementalSet.py": (
+        "初めに全整数を含む集合から要素を削除し、指定値以上・以下で最も近い生存要素を求められる。",
+        "要素の再挿入を行わない代わりに、successor DSUで各操作をほぼ定数時間にする。",
+    ),
+    "combinatorics/SetPartitions.py": (
+        "有限列を空でないblockへ分ける集合分割を、block順による重複なしで1件ずつ列挙できる。",
+        "block数を指定したStirling数に対応する分割だけを取り出せる。",
+    ),
+    "graph_matching/BipartiteEdgeColoring.py": (
+        "二部multigraphの辺を、同じ頂点に接する辺が異色になるよう彩色できる。",
+        "最大次数Deltaと同じ最小色数を使い、入力辺ごとの0-indexed色番号を返す。",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "graph/TwoSAT.py": MODULE_CAPABILITIES.get("graph/TwoSAT.py", ()) + (
+        "literal列のうち高々1個だけをtrueにする制約を、線形個の補助変数と節で追加できる。",
+    ),
+    "graph_spanning/MinimumSpanningTree.py": MODULE_CAPABILITIES.get("graph_spanning/MinimumSpanningTree.py", ()) + (
+        "最小全域木と辺集合が異なる次善の全域木を復元し、同costを許す場合と真に大きいcostだけの場合を選べる。",
+    ),
+    "graph_flow/MaxFlow.py": MODULE_CAPABILITIES.get("graph_flow/MaxFlow.py", ()) + (
+        "各有向辺へlower/upper flowを指定した実行可能circulationと、下限制約付き最大s-t flowを求められる。",
+    ),
+    "tree/TreeDiameter.py": MODULE_CAPABILITIES.get("tree/TreeDiameter.py", ()) + (
+        "重み付き木を辺の内部も含む連続metric空間とみなし、直径の中点にある中心位置と半径を求められる。",
+    ),
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("geometry/ClosestPair.py", None, "closest_pair"): {
+        "description": "2次元点集合でEuclidean距離が最小となる2点を反復型divide-and-conquerで求める。",
+        "argumentDescriptions": {"points": "2個以上の2次元点(x, y)の列。重複点を許す。"},
+        "returnFormat": "tuple[int, int, number]",
+        "returnDescription": "(first, second, distance_squared)を返す。first < secondで、distance_squaredは入力座標から計算したEuclidean距離の二乗。同距離ではindex pairが辞書順最小のもの。",
+    },
+    ("geometry/PolygonMetrics.py", None, "signed_doubled_area"): {
+        "description": "shoelace formulaで、多角形の向きを符号に残した面積の2倍を求める。",
+        "argumentDescriptions": {"polygon": "頂点を周上の順に並べた(x, y)列。始点を末尾へ重ねない。"},
+        "returnFormat": "number",
+        "returnDescription": "反時計回りなら正、時計回りなら負となる面積の2倍。整数座標では整数。頂点が2個以下なら0。",
+    },
+    ("geometry/PolygonMetrics.py", None, "polygon_centroid"): {
+        "description": "内部密度が一様な非退化多角形の面積重心を求める。",
+        "argumentDescriptions": {"polygon": "頂点を周上の順に並べた、面積が0でない単純多角形。向きはどちらでもよい。"},
+        "returnFormat": "tuple[float, float]",
+        "returnDescription": "多角形板の重心座標(x, y)。辺上の点の平均ではなく、内部面積に関する重心。",
+    },
+    ("geometry/PolygonMetrics.py", None, "pick_lattice_points"): {
+        "description": "Pickの定理から、単純格子多角形の境界上と内部の格子点数を求める。",
+        "argumentDescriptions": {"polygon": "3個以上の整数格子点を周上の順に並べた単純多角形。"},
+        "returnFormat": "tuple[int, int]",
+        "returnDescription": "(boundary, interior)。boundaryは辺と頂点を含む境界上、interiorは境界を除く内部の整数格子点数。",
+    },
+    ("string_sequence/EditDistance.py", None, "edit_distance"): {
+        "description": "firstをsecondへ変える挿入・削除・置換の最小回数を求める。各操作のcostは1。",
+        "argumentDescriptions": {"first": "変換元のindex可能な列。", "second": "変換先のindex可能な列。"},
+        "returnFormat": "int",
+        "returnDescription": "Levenshtein距離。非負整数で、同じ列では0。",
+    },
+    ("string_sequence/EditDistance.py", None, "edit_distance_with_path"): {
+        "description": "Levenshtein距離と、その距離を達成する編集手順を復元する。",
+        "argumentDescriptions": {"first": "変換元のindex可能な列。", "second": "変換先のindex可能な列。"},
+        "returnFormat": "tuple[int, list[tuple[str, int, int]]]",
+        "returnDescription": "(distance, steps)。各stepは(operation, first_index, second_index)で、operationはmatch・replace・delete・insertのいずれか。deleteのsecond_indexとinsertのfirst_indexは、その時点での境界位置を表す。",
+    },
+    ("string_sequence/MinimumCyclicShift.py", None, "minimum_cyclic_shift"): {
+        "description": "Booth法で、全巡回shiftのうち辞書順最小な列の開始位置を求める。",
+        "argumentDescriptions": {"sequence": "比較可能な要素を並べたindex可能な列。"},
+        "returnFormat": "int",
+        "returnDescription": "0以上len(sequence)未満の開始index。sequence[index:]+sequence[:index]が辞書順最小。同じrotationが複数ある場合は最小index。空列では0。",
+    },
+    ("string_sequence/LyndonFactorization.py", None, "lyndon_factorization"): {
+        "description": "Duval法で、列のChen--Fox--Lyndon分解を求める。",
+        "argumentDescriptions": {"sequence": "比較可能な要素を並べたindex可能な列。"},
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "Lyndon因子を元の列における半開区間(left, right)で先頭から並べたlist。区間は隙間なくsequence全体を覆い、対応する因子列は辞書順非増加。",
+    },
+    ("string_sequence/LongestCommonSubstring.py", None, "longest_common_substring"): {
+        "description": "firstとsecondの両方に連続して現れる最長列をsuffix automatonで求める。",
+        "argumentDescriptions": {"first": "hash可能な要素を並べた1つ目の列。", "second": "同じ種類の要素を並べた2つ目の列。"},
+        "returnFormat": "tuple[int, tuple[int, int], tuple[int, int]]",
+        "returnDescription": "(length, first_range, second_range)。各rangeは一致するsubstringの半開区間で、長さはlength。同じ最長substringが複数ある場合はいずれか1つを返す。共通要素がなければ(0, (0, 0), (0, 0))。",
+    },
+    ("number_theory/DiscreteLog.py", None, "discrete_log"): {
+        "description": r"$mathrm{base}^x\equiv\mathrm{value}\pmod{\mathrm{modulus}}$ を満たす最小の非負整数xをextended baby-step giant-stepで求める。",
+        "argumentDescriptions": {"base": "冪の底となる整数。modulusで正規化する。", "value": "合同させる整数。modulusで正規化する。", "modulus": "正の法。素数でなくてもよく、baseと互いに素でなくてもよい。"},
+        "returnFormat": "int",
+        "returnDescription": "解が存在すれば最小の非負指数x、存在しなければ-1。modulus=1では0。",
+    },
+    ("graph/TournamentPath.py", None, "tournament_hamiltonian_path"): {
+        "description": "tournament graphの全頂点を1回ずつ通る有向Hamilton pathを挿入法で構成する。",
+        "argumentDescriptions": {"graph": "graph[u]にuから有向辺が出る頂点を並べた隣接list。異なる全頂点pairのちょうど一方向だけを含める。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "全頂点を1回ずつ含む頂点列path。各iでpath[i]からpath[i+1]への辺が存在する。空graphでは空list。",
+    },
+    ("combinatorics/SetPartitions.py", None, "set_partitions"): {
+        "description": "valuesを空でないblockへ分ける集合分割をrestricted growth string順で生成する。",
+        "argumentDescriptions": {"values": "分割する有限iterable。位置が異なる要素は値が等しくても別要素として扱う。", "block_count": "指定時はblock数がちょうどこの値の分割だけを生成する。0以上len(values)以下。"},
+        "returnFormat": "Iterator[list[list[object]]]",
+        "returnDescription": "集合分割を1件ずつ生成するiterator。各結果はblockのlistで、各blockは元のvalues内の順序を保つ。blockの並びは最初に現れる要素の位置順に正規化される。",
+    },
+    ("graph_matching/BipartiteEdgeColoring.py", None, "bipartite_edge_coloring"): {
+        "description": "二部multigraphをDelta-regular graphへ補完し、perfect matchingへ分解して最小辺彩色を求める。",
+        "argumentDescriptions": {"left_size": "左側頂点数。左頂点は0以上left_size未満。", "right_size": "右側頂点数。右頂点は0以上right_size未満。", "edges": "(left, right)で並べた辺列。平行辺を許す。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "edgesと同じ長さのcolors。colors[e]は0以上Delta未満で、同じ端点を共有する2辺は異なる色。辺がなければ空list。",
+    },
+    ("graph/TwoSAT.py", "TwoSAT", "add_variable"): {
+        "description": "制約表現に使える補助boolean変数を1個追加する。solveの返り値にはconstructorで作った元のn変数だけを含める。",
+        "returnFormat": "int", "returnDescription": "追加した変数の0-indexed変数番号。literalへ渡してliteral番号を作れる。",
+    },
+    ("graph/TwoSAT.py", "TwoSAT", "add_at_most_one"): {
+        "description": "指定したliteralのうち、同時にtrueになれるものを高々1個へ制限する。",
+        "argumentDescriptions": {"literals": "TwoSAT.literalまたは同じ規約で作ったliteral番号のiterable。正literalと負literalを混在できる。"},
+        "returnFormat": "None", "returnDescription": "値は返さない。K-1個の補助変数とO(K)個の2-CNF節を内部graphへ追加する。",
+    },
+    ("graph_spanning/MinimumSpanningTree.py", None, "second_spanning_tree"): {
+        "description": "Kruskalで得たMSTから1辺を交換し、辺集合が異なる最小costの全域木を求める。",
+        "argumentDescriptions": {"n": "頂点数。", "edges": "(first, second, weight)を並べた無向辺列。", "strict": "FalseならMSTと同costの別treeも許す。TrueならcostがMSTより真に大きいtreeだけを対象にする。"},
+        "returnFormat": "tuple[number, number, list[int], list[int], int, int] | None",
+        "returnDescription": "存在すれば(mst_cost, second_cost, mst_edges, second_edges, added, removed)。edge listは入力edge indexで、second_edgesはmst_edgesからremovedを除きaddedを加えたもの。別treeが存在しなければNone。",
+    },
+    ("graph_flow/MaxFlow.py", None, "feasible_circulation"): {
+        "description": "各有向辺のlower/upper境界と全頂点のflow保存則を満たすcirculationを構成する。",
+        "argumentDescriptions": {"n": "頂点数。", "edges": "(source, target, lower, upper)を並べた有向辺列。0 <= lower <= upper。"},
+        "returnFormat": "list[number] | None", "returnDescription": "実行可能ならedgesと同じ長さのflow。各flowは対応する境界内で、各頂点の流入量と流出量が等しい。存在しなければNone。",
+    },
+    ("graph_flow/MaxFlow.py", None, "max_flow_with_bounds"): {
+        "description": "各有向辺のlower/upper境界を守るsourceからsinkへの最大flowを求める。",
+        "argumentDescriptions": {"n": "頂点数。", "edges": "(from, to, lower, upper)を並べた有向辺列。", "source": "flowの始点。", "sink": "flowの終点。sourceと異なる頂点。"},
+        "returnFormat": "tuple[number, list[number]] | None", "returnDescription": "実行可能なら(value, flows)。valueはsourceからsinkへの最大flow値、flowsは各入力辺を流す量。実行可能flowがなければNone。",
+    },
+    ("tree/TreeDiameter.py", None, "tree_metric_center"): {
+        "description": "重み付き木を辺の内部も含む連続metric空間とみなし、全頂点までの最大距離を最小にする中心を求める。",
+        "argumentDescriptions": {"tree": "連結な無向木の隣接list。要素は行き先int、または(to, nonnegative_weight)。各辺を両端へ入れる。"},
+        "returnFormat": "tuple[number, tuple[int, int, number]]", "returnDescription": "(radius, location)。location=(first, second, offset)はfirstからsecondへ向かう辺上でfirstからoffset進んだ位置。中心が頂点vなら(v, v, 0)。空treeでは(0, (-1, -1, 0))。",
+    },
+})
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("sequence_structure/RollbackArray.py", "RollbackArray"): {
+        "description": "point assignment前の値をstackへ保存し、任意の過去snapshotまでLIFO順に巻き戻せる配列。",
+        "constructorCreates": "valuesを現在値としてcopyする。setで更新し、snapshotで履歴位置を取得し、rollbackまたはundoで更新を取り消せる。",
+        "argumentDescriptions": {"values": "初期値を並べた有限iterable。"},
+    },
+    ("ordered_set/DecrementalSet.py", "DecrementalSet"): {
+        "description": "0以上size未満をすべて含む初期集合から、削除と前後要素検索だけを行うsuccessor DSU。",
+        "constructorCreates": "全整数が生存する削除専用集合。discard後もnext・prevで指定値以上・以下の最も近い生存値を探せる。",
+        "argumentDescriptions": {"size": "管理する非負整数の上端。初期要素は0以上size未満。"},
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("sequence_structure/RollbackArray.py", "RollbackArray", "get"): {"description": "現在のindex番目の値を返す。", "argumentDescriptions": {"index": "取得する配列index。"}, "returnFormat": "object", "returnDescription": "最後にsetされ、まだrollbackされていない現在値。"},
+    ("sequence_structure/RollbackArray.py", "RollbackArray", "set"): {"description": "index番目をvalueへ変更し、変更前の値を履歴へ保存する。", "argumentDescriptions": {"index": "変更する配列index。", "value": "新しい値。"}, "returnFormat": "None", "returnDescription": "値は返さない。snapshot状態が1つ進む。"},
+    ("sequence_structure/RollbackArray.py", "RollbackArray", "snapshot"): {"description": "現在の履歴位置をrollback用stateとして取得する。", "returnFormat": "int", "returnDescription": "0以上の履歴長。この値を後でrollbackへ渡すと現在状態まで戻せる。"},
+    ("sequence_structure/RollbackArray.py", "RollbackArray", "undo"): {"description": "直前のsetを1回だけ取り消す。", "returnFormat": "None", "returnDescription": "値は返さない。履歴が空ならIndexError。"},
+    ("sequence_structure/RollbackArray.py", "RollbackArray", "rollback"): {"description": "state取得後に行ったsetをすべて取り消す。", "argumentDescriptions": {"state": "以前snapshotで取得した、現在の履歴長以下の整数。"}, "returnFormat": "None", "returnDescription": "値は返さない。valuesと履歴位置をstate時点へ戻す。"},
+    ("sequence_structure/RollbackArray.py", "RollbackArray", "tolist"): {"description": "現在値を新しいPython listとして返す。", "returnFormat": "list[object]", "returnDescription": "constructorとsetの現在状態をindex順にcopyしたlist。"},
+    ("ordered_set/DecrementalSet.py", "DecrementalSet", "discard"): {"description": "valueが生存していれば集合から永久に削除する。", "argumentDescriptions": {"value": "削除する整数。管理範囲外も許す。"}, "returnFormat": "bool", "returnDescription": "今回削除したならTrue、既に削除済みまたは範囲外ならFalse。"},
+    ("ordered_set/DecrementalSet.py", "DecrementalSet", "next"): {"description": "value以上で最小の生存要素を返す。", "argumentDescriptions": {"value": "検索下限。管理範囲外も許す。"}, "returnFormat": "int", "returnDescription": "該当する生存整数。存在しなければ-1。"},
+    ("ordered_set/DecrementalSet.py", "DecrementalSet", "prev"): {"description": "value以下で最大の生存要素を返す。", "argumentDescriptions": {"value": "検索上限。管理範囲外も許す。"}, "returnFormat": "int", "returnDescription": "該当する生存整数。存在しなければ-1。"},
+    ("ordered_set/DecrementalSet.py", "DecrementalSet", "tolist"): {"description": "現在生存する整数を昇順listで返す。", "returnFormat": "list[int]", "returnDescription": "discardされていない0以上size未満の整数を昇順に並べた新しいlist。"},
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "geometry/ClosestPair.py": {"closest_pair": "O(N log N) time、O(N) memory"},
+    "geometry/PolygonMetrics.py": {"signed_doubled_area": "O(N) time、O(N) memory", "polygon_centroid": "O(N) time、O(N) memory", "pick_lattice_points": "O(N log C) time、O(N) memory（Cは辺の座標差の最大値）"},
+    "string_sequence/EditDistance.py": {"edit_distance": "O(NM) time、O(min(N,M)) memory", "edit_distance_with_path": "O(NM) time、O(NM) memory"},
+    "string_sequence/MinimumCyclicShift.py": {"minimum_cyclic_shift": "O(N) time、O(1) memory"},
+    "string_sequence/LyndonFactorization.py": {"lyndon_factorization": "O(N) time、O(K) output memory（Kは因子数）"},
+    "string_sequence/LongestCommonSubstring.py": {"longest_common_substring": "期待 O(N+M) time、O(N) memory（hash table操作を期待O(1)とする）"},
+    "number_theory/DiscreteLog.py": {"discrete_log": "O(sqrt(modulus) log modulus) time、O(sqrt(modulus)) memory"},
+    "graph/TournamentPath.py": {"tournament_hamiltonian_path": "O(V^2) time、O(V^2) memory（入力検証用setを含む）"},
+    "sequence_structure/RollbackArray.py": {"RollbackArray": "構築 O(N) time・memory", "get": "O(1)", "set": "O(1)", "snapshot": "O(1)", "undo": "O(1)", "rollback": "取り消す更新数に比例", "tolist": "O(N)", "__len__": "O(1)", "__getitem__": "O(1)", "__str__": "O(N)", "__repr__": "O(N)"},
+    "ordered_set/DecrementalSet.py": {"DecrementalSet": "構築 O(N) time・memory", "discard": "償却 O(alpha(N))", "next": "償却 O(alpha(N))", "prev": "償却 O(alpha(N))", "tolist": "O(K alpha(N))（Kは生存要素数）", "__contains__": "O(1)", "__len__": "O(1)", "__str__": "O(K alpha(N))", "__repr__": "O(K alpha(N))"},
+    "combinatorics/SetPartitions.py": {"set_partitions": "全分割ではO(B_N * N) time、O(N) working memory（B_NはBell数、出力を除く）"},
+    "graph_matching/BipartiteEdgeColoring.py": {"bipartite_edge_coloring": "O(Delta * E * sqrt(V)) time、O(Delta*V + E) memory"},
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "graph/TwoSAT.py": {**COMPLEXITY_BY_MODULE.get("graph/TwoSAT.py", {}), "add_variable": "O(1)", "add_at_most_one": "O(K) time・追加節・補助変数"},
+    "graph_spanning/MinimumSpanningTree.py": {**COMPLEXITY_BY_MODULE.get("graph_spanning/MinimumSpanningTree.py", {}), "second_spanning_tree": "O((V+E) log V) time、O(V log V + E) memory"},
+    "graph_flow/MaxFlow.py": {**COMPLEXITY_BY_MODULE.get("graph_flow/MaxFlow.py", {}), "feasible_circulation": "1回のmax-flowとO(V+E)", "max_flow_with_bounds": "2回のmax-flowとO(V+E)"},
+    "tree/TreeDiameter.py": {**COMPLEXITY_BY_MODULE.get("tree/TreeDiameter.py", {}), "tree_metric_center": "O(V) time、O(V) memory"},
+})
+
 
 # MASPyPy/libraryを参照候補として精査した第五バッチ。
 SEARCH_TERMS_BY_MODULE.update({
@@ -2368,7 +2607,7 @@ SEARCH_TERMS_BY_MODULE.update({
     "geometry/FurthestPair.py": ("最遠点対", "凸包直径", "rotating calipers"),
     "graph_matching/StableRoommates.py": ("安定ルームメイト", "stable roommates", "Irving algorithm"),
     "graph_enumeration/MaximalIndependentSets.py": ("極大独立集合列挙", "maximal independent set enumeration", "Moon Moser"),
-    "graph_connectivity/OddCycle.py": ("奇閉路", "odd cycle witness", "二部グラフ反例"),
+    "graph_connectivity/BipartiteColoring.py": ("奇閉路", "odd cycle witness", "二部グラフ反例"),
     "combinatorics/DeBruijnSequence.py": ("de Bruijn列", "ド・ブラン列", "universal cycle"),
     "combinatorics/FactorialNumberSystem.py": ("Lehmer code", "階乗進法", "置換rank"),
     "number_theory/DigitFrequency.py": ("桁出現回数", "digit DP", "digit frequency"),
@@ -2402,7 +2641,7 @@ MODULE_CAPABILITIES.update({
         "無向グラフのすべての極大独立集合を、全subsetを走査せず重複なく列挙できる。",
         "結果をgeneratorで1件ずつ返すため、指数個の集合を一度にmemoryへ保持しない。",
     ),
-    "graph_connectivity/OddCycle.py": (
+    "graph_connectivity/BipartiteColoring.py": (
         "無向グラフが二部グラフでないとき、その反例となる奇cycleを1つ復元できる。",
         "二部グラフなら空listを返し、全連結成分を線形時間で調べる。",
     ),
@@ -2493,7 +2732,7 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "Iterator[list[int]]",
         "returnDescription": "極大独立集合を1件ずつ生成するiterator。各listは選んだ頂点番号を昇順に1回ずつ含む。空graphでは空集合を表す空listを1回生成する。",
     },
-    ("graph_connectivity/OddCycle.py", None, "find_odd_cycle"): {
+    ("graph_connectivity/BipartiteColoring.py", None, "find_odd_cycle"): {
         "description": "無向グラフを2色BFSし、同色を結ぶ辺が見つかったとき奇cycleを復元する。",
         "argumentDescriptions": {
             "graph": "無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。self-loopを許す。",
@@ -2593,7 +2832,7 @@ COMPLEXITY_BY_MODULE.update({
     "geometry/FurthestPair.py": {"furthest_pair": "O(N log N) time、O(N) memory"},
     "graph_matching/StableRoommates.py": {"stable_roommates": "O(N^2) time、O(N^2) memory"},
     "graph_enumeration/MaximalIndependentSets.py": {"maximal_independent_sets": "O(V * 3^(V/3) + E) time、O(V^2/W) working memory（出力を除く）"},
-    "graph_connectivity/OddCycle.py": {"find_odd_cycle": "O(V+E) time、O(V) memory"},
+    "graph_connectivity/BipartiteColoring.py": {"find_odd_cycle": "O(V+E) time、O(V) memory"},
     "combinatorics/DeBruijnSequence.py": {"de_bruijn": "O(K^N) time、O(K^N) memory（Kはalphabet size、Nはorder）"},
     "combinatorics/FactorialNumberSystem.py": {
         "permutation_to_lehmer": "O(N log N) time、O(N) memory",
@@ -3621,7 +3860,10 @@ COMPLEXITY_BY_MODULE.update({
     "shortest_path/Dijkstra.py": {"dijkstra": "O((V+E) log V)"},
     "shortest_path/WarshallFloyd.py": {"warshall_floyd": "O(V^3)"},
     "shortest_path/ZeroOneBFS.py": {"zero_one_bfs": "O(V+E)"},
-    "graph_connectivity/BipartiteColoring.py": {"bipartite_coloring": "O(V+E)"},
+    "graph_connectivity/BipartiteColoring.py": {
+        "bipartite_coloring": "O(V+E)",
+        "find_odd_cycle": "O(V+E) time、O(V) memory",
+    },
     "graph_connectivity/ConnectedComponents.py": {"connected_components": "O(V+E)"},
     "graph_connectivity/DynamicBipartiteGraph.py": {
         "find": "償却 O(alpha(N))", "color": "償却 O(alpha(N))",
@@ -3985,3 +4227,10 @@ COMPLEXITY_BY_MODULE.update({
         "tolist": "O(V)", "__str__": "O(V)", "__repr__": "O(V)",
     },
 })
+
+# 後段の既存complexity定義へ、第六バッチで増えたmethodを合流する。
+COMPLEXITY_BY_MODULE["graph/TwoSAT.py"].update({
+    "add_variable": "O(1)",
+    "add_at_most_one": "O(K) time・追加節・補助変数",
+})
+COMPLEXITY_BY_MODULE["tree/TreeDiameter.py"]["tree_metric_center"] = "O(V) time、O(V) memory"

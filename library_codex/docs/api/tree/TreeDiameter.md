@@ -4,17 +4,16 @@
 重み付きまたは重みなし木の直径とpathを求める。
 
 - source: [`tree/TreeDiameter.py`](../../../tree/TreeDiameter.py)
-- 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
-- `tree_diameter`: 木・直径を求める。
-- `diameter`: 直径を求める。
+- 重み付き木を辺の内部も含む連続metric空間とみなし、直径の中点にある中心位置と半径を求められる。
 
 ## Import
 
 ```python
-from library_codex.tree.TreeDiameter import tree_diameter, diameter
+from library_codex.tree.TreeDiameter import tree_diameter, diameter, tree_metric_center
 ```
 
 ## Functions
@@ -23,3 +22,4 @@ from library_codex.tree.TreeDiameter import tree_diameter, diameter
 | --- | --- | --- | --- | --- |
 | [`tree_diameter(tree)`](../../../tree/TreeDiameter.py#L8) | 木・直径を求める。 | `tree`: 木の隣接list | tuple(`0`, list `[]`) / tuple(`distance[second]`, pathを表すlist) | O(V) |
 | [`diameter(tree)`](../../../tree/TreeDiameter.py#L48) | 直径を求める。 | `tree`: 木の隣接list | `tree_diameter(tree)[0]` | O(V) |
+| [`tree_metric_center(tree)`](../../../tree/TreeDiameter.py#L52) | 重み付き木を辺の内部も含む連続metric空間とみなし、全頂点までの最大距離を最小にする中心を求める。 | `tree`: 連結な無向木の隣接list。要素は行き先int、または(to, nonnegative_weight)。各辺を両端へ入れる。 | tuple[number, tuple[int, int, number]] — (radius, location)。location=(first, second, offset)はfirstからsecondへ向かう辺上でfirstからoffset進んだ位置。中心が頂点vなら(v, v, 0)。空treeでは(0, (-1, -1, 0))。 | O(V) time、O(V) memory |

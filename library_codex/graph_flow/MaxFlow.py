@@ -129,3 +129,73 @@ class MaxFlowGraph:
 
 
 MaxFlow = MaxFlowGraph
+
+
+def feasible_circulation(n, edges):
+    """各辺のlower以上upper以下を満たすcirculationを1つ返す。"""
+    edges = list(edges)
+    source = n
+    sink = n + 1
+    graph = MaxFlowGraph(n + 2)
+    balance = [0] * n
+    original = []
+    for first, second, lower, upper in edges:
+        if not 0 <= first < n or not 0 <= second < n:
+            raise IndexError("edge endpoint is out of range")
+        if not 0 <= lower <= upper:
+            raise ValueError("edge bounds must satisfy 0 <= lower <= upper")
+        original.append((graph.add_edge(first, second, upper - lower), lower))
+        balance[first] -= lower
+        balance[second] += lower
+    demand = 0
+    for vertex, value in enumerate(balance):
+        if value > 0:
+            graph.add_edge(source, vertex, value)
+            demand += value
+        elif value < 0:
+            graph.add_edge(vertex, sink, -value)
+    if graph.flow(source, sink) != demand:
+        return None
+    return [lower + graph.get_edge(edge_id)[3]
+            for edge_id, lower in original]
+
+
+def max_flow_with_bounds(n, edges, source, sink):
+    """各辺のlower/upperを満たすsource-sink flowの最大値と辺flowを返す。"""
+    if source == sink or not 0 <= source < n or not 0 <= sink < n:
+        raise ValueError("source and sink must be distinct valid vertices")
+    edges = list(edges)
+    super_source = n
+    super_sink = n + 1
+    graph = MaxFlowGraph(n + 2)
+    balance = [0] * n
+    original = []
+    upper_sum = 0
+    for first, second, lower, upper in edges:
+        if not 0 <= first < n or not 0 <= second < n:
+            raise IndexError("edge endpoint is out of range")
+        if not 0 <= lower <= upper:
+            raise ValueError("edge bounds must satisfy 0 <= lower <= upper")
+        original.append((graph.add_edge(first, second, upper - lower), lower))
+        balance[first] -= lower
+        balance[second] += lower
+        upper_sum += upper
+    bridge = graph.add_edge(sink, source, upper_sum + 1)
+    auxiliary = []
+    demand = 0
+    for vertex, value in enumerate(balance):
+        if value > 0:
+            auxiliary.append(graph.add_edge(super_source, vertex, value))
+            demand += value
+        elif value < 0:
+            auxiliary.append(graph.add_edge(vertex, super_sink, -value))
+    if graph.flow(super_source, super_sink) != demand:
+        return None
+    base_flow = graph.get_edge(bridge)[3]
+    graph.change_edge(bridge, 0, 0)
+    for edge_id in auxiliary:
+        graph.change_edge(edge_id, 0, 0)
+    value = base_flow + graph.flow(source, sink)
+    flows = [lower + graph.get_edge(edge_id)[3]
+             for edge_id, lower in original]
+    return value, flows

@@ -7,6 +7,7 @@
 | --- | --- | ---: | ---: | ---: |
 | [`ChineseRemainder`](ChineseRemainder.md) | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 4 | 0 | 0 |
 | [`DigitFrequency`](DigitFrequency.md) | 整数区間を位取り表記したときの各digit出現数を数える。 | 1 | 0 | 0 |
+| [`DiscreteLog`](DiscreteLog.md) | 合成数modulusにも対応する離散対数を求める。 | 1 | 0 | 0 |
 | [`Elementary`](Elementary.md) | gcd・lcm・整数根など初等数学関数 | 2 | 0 | 0 |
 | [`EnumerateQuotient`](EnumerateQuotient.md) | nを整数で割った商が等しい添字区間を列挙する。 | 1 | 0 | 0 |
 | [`FloorPolynomialSum`](FloorPolynomialSum.md) | floorを含む多項式和 | 1 | 0 | 0 |

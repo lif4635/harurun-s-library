@@ -7,7 +7,7 @@
 | --- | --- | ---: | ---: | ---: |
 | [`AdvancedConnectivity`](AdvancedConnectivity.md) | 三辺連結成分・辺追加offline SCC統合列 | 1 | 1 | 1 |
 | [`BiconnectedComponents`](BiconnectedComponents.md) | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | 0 | 2 | 6 |
-| [`BipartiteColoring`](BipartiteColoring.md) | 無向グラフが二部グラフか判定し、2色の割当を返す。 | 1 | 0 | 0 |
+| [`BipartiteColoring`](BipartiteColoring.md) | 無向グラフが二部グラフか判定し、2色の割当を返す。 | 2 | 0 | 0 |
 | [`Cactus`](Cactus.md) | 単純無向グラフがcactusか判定し、辺をcycleへ分解する。 | 2 | 0 | 0 |
 | [`ComplementGraph`](ComplementGraph.md) | 隣接listを明示的に反転せず、補グラフを幅優先探索する。 | 2 | 0 | 0 |
 | [`ConnectedComponents`](ConnectedComponents.md) | 無向グラフの連結成分番号と成分ごとの頂点を求める。 | 1 | 0 | 0 |
@@ -16,7 +16,6 @@
 | [`FunctionalGraph`](FunctionalGraph.md) | Functional graph の周期分解・移動・距離 | 0 | 1 | 7 |
 | [`LowLink`](LowLink.md) | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | 1 | 1 | 3 |
 | [`NamoriDecomposition`](NamoriDecomposition.md) | 重み付き擬森林の周期・付随木分解と距離 | 0 | 1 | 22 |
-| [`OddCycle`](OddCycle.md) | 無向グラフから奇cycleを1つ復元する。 | 1 | 0 | 0 |
 | [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md) | 辺追加削除・連結性・成分和のオフライン処理 | 0 | 1 | 10 |
 | [`OnlineDynamicConnectivity`](OnlineDynamicConnectivity.md) | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | 0 | 1 | 4 |
 | [`Reachability`](Reachability.md) | 有向グラフ上の複数の到達可能性queryをまとめて判定する。 | 1 | 0 | 0 |

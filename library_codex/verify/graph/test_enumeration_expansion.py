@@ -1,6 +1,6 @@
 import random
 
-from library_codex.graph_connectivity.OddCycle import find_odd_cycle
+from library_codex.graph_connectivity.BipartiteColoring import find_odd_cycle
 from library_codex.graph_enumeration.MaximalIndependentSets import maximal_independent_sets
 
 
