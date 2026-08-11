@@ -2360,6 +2360,257 @@ COMPLEXITY_BY_MODULE.update({
 })
 
 
+# MASPyPy/libraryを参照候補として精査した第五バッチ。
+SEARCH_TERMS_BY_MODULE.update({
+    "geometry/PointInPolygon.py": ("点の内外判定", "point in polygon", "境界判定"),
+    "geometry/MinkowskiSum.py": ("Minkowski和", "凸多角形の和", "polygon sum"),
+    "geometry/MinimumEnclosingCircle.py": ("最小包含円", "minimum covering circle", "smallest enclosing circle"),
+    "geometry/FurthestPair.py": ("最遠点対", "凸包直径", "rotating calipers"),
+    "graph_matching/StableRoommates.py": ("安定ルームメイト", "stable roommates", "Irving algorithm"),
+    "graph_enumeration/MaximalIndependentSets.py": ("極大独立集合列挙", "maximal independent set enumeration", "Moon Moser"),
+    "graph_connectivity/OddCycle.py": ("奇閉路", "odd cycle witness", "二部グラフ反例"),
+    "combinatorics/DeBruijnSequence.py": ("de Bruijn列", "ド・ブラン列", "universal cycle"),
+    "combinatorics/FactorialNumberSystem.py": ("Lehmer code", "階乗進法", "置換rank"),
+    "number_theory/DigitFrequency.py": ("桁出現回数", "digit DP", "digit frequency"),
+    "number_theory/PythagoreanTriples.py": ("ピタゴラス数", "直角三角形", "Berggren tree"),
+    "optimization/AliensTrick.py": ("Alien DP", "Aliens trick", "Lagrangian relaxation", "ラグランジュ緩和"),
+    "range_query/StaticRangeGroup.py": ("静的区間積", "prefix inverse", "group range query"),
+})
+
+MODULE_CAPABILITIES.update({
+    "geometry/PointInPolygon.py": (
+        "単純多角形に対する点を、内部・境界上・外部の3状態で判定できる。",
+        "凸性や頂点の向きを仮定せず、凹多角形にもそのまま使える。",
+    ),
+    "geometry/MinkowskiSum.py": (
+        "2つの凸多角形から、各多角形の点を1つずつ足して得られる集合の凸包を構築できる。",
+        "strictな凸多角形では辺vectorを角度順にmergeし、頂点対を全列挙しない。",
+    ),
+    "geometry/MinimumEnclosingCircle.py": (
+        "2次元点集合をすべて覆う半径最小の円について、中心と半径を求められる。",
+        "円を決定する入力点のindexも返すため、結果の根拠を復元・検証できる。",
+    ),
+    "geometry/FurthestPair.py": (
+        "2次元点集合からEuclidean距離が最大の2点を求められる。",
+        "凸包とrotating calipersを使い、全点pairを調べず入力indexと距離の二乗を返す。",
+    ),
+    "graph_matching/StableRoommates.py": (
+        "1つの集団の完全な希望順から、互いに今の相手より好むblocking pairが存在しないpair分けを求められる。",
+        "stable solutionが存在しないinstanceもNoneとして判定できる。",
+    ),
+    "graph_enumeration/MaximalIndependentSets.py": (
+        "無向グラフのすべての極大独立集合を、全subsetを走査せず重複なく列挙できる。",
+        "結果をgeneratorで1件ずつ返すため、指数個の集合を一度にmemoryへ保持しない。",
+    ),
+    "graph_connectivity/OddCycle.py": (
+        "無向グラフが二部グラフでないとき、その反例となる奇cycleを1つ復元できる。",
+        "二部グラフなら空listを返し、全連結成分を線形時間で調べる。",
+    ),
+    "combinatorics/DeBruijnSequence.py": (
+        "指定alphabetの長さorderの列を、巡回部分列としてそれぞれ1回ずつ含むde Bruijn列を構築できる。",
+        "再帰を使わないEuler tourとして生成し、binary以外のalphabetも扱える。",
+    ),
+    "combinatorics/FactorialNumberSystem.py": (
+        "置換をLehmer codeへ変換し、Lehmer codeから元の置換を復元できる。",
+        "0-indexed辞書順rankと置換も相互変換できる。",
+    ),
+    "number_theory/DigitFrequency.py": (
+        "非負整数の半開区間を任意baseの標準表記で並べたとき、各digitが現れる総回数を数えられる。",
+        "区間内の整数を列挙せず、桁位置ごとの周期をまとめて計算する。",
+    ),
+    "number_theory/PythagoreanTriples.py": (
+        "斜辺が上限以下のPythagorean tripleを重複なくgeneratorで列挙できる。",
+        "primitive tripleだけ、またはその正整数倍を含む全tripleを選べる。",
+    ),
+    "optimization/AliensTrick.py": (
+        "選択個数に整数penaltyを加えた最適化oracleから、選択個数を固定した最適値を復元できる。",
+        "penalty範囲を指数探索してから二分探索し、最小化と最大化の両方を扱う。",
+        "count=targetの解がLagrangian relaxationで復元できる離散凸・離散凹な問題を対象にする。",
+    ),
+    "range_query/StaticRangeGroup.py": (
+        "groupをなす静的な値列について、半開区間積をO(1)で取得できる。",
+        "非可換groupでもprefix積の左逆元を使い、演算順序を保って区間積を返す。",
+    ),
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("geometry/PointInPolygon.py", None, "point_location"): {
+        "description": "単純多角形に対する点の位置を、内部・境界・外部の3値で判定する。",
+        "argumentDescriptions": {
+            "polygon": "多角形の頂点を周上の順に並べた(x, y)列。時計回り・反時計回りのどちらでもよく、始点を末尾へ重ねない。",
+            "point": "判定する点(x, y)。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "pointがpolygonの内部なら1、辺または頂点上なら0、外部なら-1。空polygonでは-1。",
+    },
+    ("geometry/MinkowskiSum.py", None, "minkowski_sum"): {
+        "description": "2つの凸多角形のMinkowski和を表すstrictな凸包を構築する。",
+        "argumentDescriptions": {
+            "first": "1個以上の頂点を周上の順に並べた凸多角形。向き、始点、末尾の始点重複、辺上の余分な頂点は正規化する。",
+            "second": "firstと同じ形式のもう1つの凸多角形。",
+        },
+        "returnFormat": "list[tuple[number, number]]",
+        "returnDescription": r"$\{a+b\mid a\in\mathrm{first}, b\in\mathrm{second}\}$ の凸包頂点を、辞書順最小点から反時計回りに並べた列。始点を末尾へ重ねず、一直線上の中間点を含まない。どちらかが空なら空list。",
+    },
+    ("geometry/MinimumEnclosingCircle.py", None, "minimum_enclosing_circle"): {
+        "description": "入力点をすべて内部または境界に含む円のうち、半径が最小のものをrandomized incremental法で求める。",
+        "argumentDescriptions": {
+            "points": "1個以上の2次元点(x, y)の列。重複点を許す。",
+            "seed": "処理順をshuffleする乱数seed。同じ入力とseedでは同じsupportを返す。",
+        },
+        "returnFormat": "tuple[tuple[float, float], float, tuple[int, ...]]",
+        "returnDescription": "(center, radius, support)を返す。",
+        "returnParts": (
+            {"name": "center", "format": "tuple[float, float]", "description": "最小包含円の中心座標(x, y)。"},
+            {"name": "radius", "format": "float", "description": "最小包含円の非負半径。"},
+            {"name": "support", "format": "tuple[int, ...]", "description": "円を決定する1個から3個の入力点indexを昇順に並べたtuple。"},
+        ),
+    },
+    ("geometry/FurthestPair.py", None, "furthest_pair"): {
+        "description": "入力点集合のEuclidean距離が最大となる2点を凸包とrotating calipersで求める。",
+        "argumentDescriptions": {"points": "1個以上の2次元点(x, y)の列。重複点を許す。"},
+        "returnFormat": "tuple[int, int, number]",
+        "returnDescription": "(first, second, distance_squared)を返す。",
+        "returnParts": (
+            {"name": "first", "format": "int", "description": "距離最大pairの小さい方の入力index。"},
+            {"name": "second", "format": "int", "description": "距離最大pairの大きい方の入力index。点が1個ならfirstと同じ。"},
+            {"name": "distance_squared", "format": "number", "description": "2点間Euclidean距離の二乗。平方根を取らないため整数座標では整数。"},
+        ),
+    },
+    ("graph_matching/StableRoommates.py", None, "stable_roommates"): {
+        "description": "全員を2人pairへ分け、互いに現在のpartnerより相手を好む2人が存在しないstable matchingを求める。",
+        "argumentDescriptions": {
+            "preferences": "preferences[person]にperson以外の全員を好みが高い順に1回ずつ並べた、偶数人の厳密な希望順。",
+        },
+        "returnFormat": "list[int] | None",
+        "returnDescription": "solutionがあれば人数と同じ長さのpartner。partner[person]はpair相手で、partner[partner[person]]=person。存在しない場合または人数が奇数ならNone。空入力では空list。",
+    },
+    ("graph_enumeration/MaximalIndependentSets.py", None, "maximal_independent_sets"): {
+        "description": "これ以上どの頂点も追加できない独立集合をすべて重複なく生成する。最大cardinalityだけでなく、包含関係について極大な集合をすべて対象にする。",
+        "argumentDescriptions": {
+            "graph": "単純無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。",
+        },
+        "returnFormat": "Iterator[list[int]]",
+        "returnDescription": "極大独立集合を1件ずつ生成するiterator。各listは選んだ頂点番号を昇順に1回ずつ含む。空graphでは空集合を表す空listを1回生成する。",
+    },
+    ("graph_connectivity/OddCycle.py", None, "find_odd_cycle"): {
+        "description": "無向グラフを2色BFSし、同色を結ぶ辺が見つかったとき奇cycleを復元する。",
+        "argumentDescriptions": {
+            "graph": "無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。self-loopを許す。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "奇cycleの異なる頂点を周上の順に並べた列。末尾から先頭にも辺がある。self-loopでは長さ1。graphが二部グラフなら空list。",
+    },
+    ("combinatorics/DeBruijnSequence.py", None, "de_bruijn"): {
+        "description": "alphabet上の長さorderの列が巡回部分列としてちょうど1回ずつ現れるde Bruijn列を構築する。",
+        "argumentDescriptions": {
+            "order": "含めるwordの正の長さ。",
+            "alphabet": "重複のないhash可能なsymbolの並び。既定値は(0, 1)。",
+        },
+        "returnFormat": "list[object]",
+        "returnDescription": r"長さ $|\mathrm{alphabet}|^{\mathrm{order}}$ の巡回列。末尾の後を先頭へつないで長さorderのwindowを取ると、alphabet上の全wordが1回ずつ現れる。",
+    },
+    ("combinatorics/FactorialNumberSystem.py", None, "permutation_to_lehmer"): {
+        "description": "0以上n未満の置換をLehmer codeへ変換する。",
+        "argumentDescriptions": {"permutation": "0からn-1を1回ずつ含む置換。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "置換と同じ長さのcode。code[i]はpermutation[i]より右にある、permutation[i]未満の値の個数で、0 <= code[i] < n-i。",
+    },
+    ("combinatorics/FactorialNumberSystem.py", None, "lehmer_to_permutation"): {
+        "description": "Lehmer codeを0以上n未満の置換へ復元する。",
+        "argumentDescriptions": {"code": "長さnで、各位置iが0 <= code[i] < n-iを満たす整数列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "codeが表す0からn-1の置換。permutation_to_lehmerへ渡すと元のcodeへ戻る。",
+    },
+    ("combinatorics/FactorialNumberSystem.py", None, "permutation_rank"): {
+        "description": "置換が辞書順で何番目かを0-indexedで求める。",
+        "argumentDescriptions": {"permutation": "0からn-1を1回ずつ含む置換。"},
+        "returnFormat": "int",
+        "returnDescription": "0以上n!未満の辞書順rank。",
+    },
+    ("combinatorics/FactorialNumberSystem.py", None, "unrank_permutation"): {
+        "description": "指定sizeの置換を辞書順に並べたときのrank番目を復元する。",
+        "argumentDescriptions": {"size": "置換の非負要素数。", "rank": "0以上size!未満の0-indexed辞書順順位。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "0からsize-1を1回ずつ含む辞書順rank番目の置換。",
+    },
+    ("number_theory/DigitFrequency.py", None, "digit_frequency"): {
+        "description": "半開整数区間の各整数をleading zeroなしのbase進表記にしたとき、各digitが現れる総回数を数える。整数0の表記はdigit 0を1個含む。",
+        "argumentDescriptions": {"lower": "含める非負整数の下端。", "upper": "含めない上端。lower以上。", "base": "2以上の位取りの基数。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "長さbaseのcounts。counts[digit]はlower <= value < upperの標準base進表記にdigitが現れる総回数。",
+    },
+    ("number_theory/PythagoreanTriples.py", None, "pythagorean_triples"): {
+        "description": r"$a<b$、$a^2+b^2=c^2$、$c\le\mathrm{limit}$ を満たす正整数tripleをBerggren木から重複なく生成する。",
+        "argumentDescriptions": {"limit": "斜辺cの非負上限。", "primitive_only": "Trueならgcd(a,b)=1のprimitive tripleだけ、Falseならその全正整数倍も生成する。"},
+        "returnFormat": "Iterator[tuple[int, int, int]]",
+        "returnDescription": "条件を満たす(a, b, c)を1件ずつ生成するiterator。順序はcの昇順とは限らないが、同じtripleは重複しない。",
+    },
+    ("optimization/AliensTrick.py", None, "aliens_trick"): {
+        "description": "base_score + penalty * countの最適値を返すoracleを整数penaltyで呼び、countをtargetへ固定したbase_scoreを復元する。",
+        "argumentDescriptions": {
+            "target": "固定したい非負の選択個数。",
+            "solve": "solve(penalty)が(penalized_score, count)を返すcallback。同値解では、minimize=Trueならpenalty増加に対してcountが非増加、Falseなら非減少になるよう一貫したtie処理をcallback側で行う。",
+            "minimize": "Trueなら最小化、Falseなら最大化oracleとして扱う。",
+            "max_abs_penalty": "bracket探索で許すpenalty絶対値の上限。targetを挟めなければValueError。",
+        },
+        "returnFormat": "tuple[number, int]",
+        "returnDescription": "(base_score, penalty)を返す。",
+        "returnParts": (
+            {"name": "base_score", "format": "number", "description": "count=targetに固定した元の目的関数の最適値。"},
+            {"name": "penalty", "format": "int", "description": "復元に使った整数penalty。solve(penalty)の値からpenalty * targetを除くとbase_scoreになるか、隣接penaltyのLagrangian boundとしてbase_scoreを作る。"},
+        ),
+    },
+    ("range_query/StaticRangeGroup.py", "StaticRangeGroup", "prod"): {
+        "description": "構築時の値列の半開区間積を元の順序で返す。",
+        "argumentDescriptions": {"left": "含める左端。", "right": "含めない右端。left以上size以下。"},
+        "returnFormat": "object",
+        "returnDescription": "values[left]からvalues[right-1]までをopで左から順に結合したgroup要素。空区間ではidentity。",
+    },
+    ("range_query/StaticRangeGroup.py", "StaticRangeGroup", "prefix"): {
+        "description": "構築時の値列の半開prefix積を返す。",
+        "argumentDescriptions": {"right": "含めない右端。0以上size以下。"},
+        "returnFormat": "object",
+        "returnDescription": "values[0]からvalues[right-1]までをopで左から順に結合したgroup要素。right=0ではidentity。",
+    },
+})
+
+CLASS_DETAILS_BY_SYMBOL[("range_query/StaticRangeGroup.py", "StaticRangeGroup")] = {
+    "description": "静的なgroup要素列のprefix積を保存し、左prefixの逆元で半開区間積をO(1)取得する。",
+    "constructorCreates": "valuesのprefix積を1回構築する。prod(left, right)で任意の半開区間積、prefix(right)で先頭からの積を取得できる。",
+    "argumentDescriptions": {
+        "values": "group要素の静的なiterable。",
+        "op": "group演算op(first, second)。結合的でidentityとinverseに整合し、可換でなくてもよい。",
+        "inverse": "group要素valueの両側逆元を返すcallback。",
+        "identity": "opの単位元。",
+    },
+}
+
+COMPLEXITY_BY_MODULE.update({
+    "geometry/PointInPolygon.py": {"point_location": "O(N) time、O(1) memory"},
+    "geometry/MinkowskiSum.py": {"minkowski_sum": "strictな凸入力ではO(N+M) time、O(N+M) memory。向き不整合・共線点を含む入力の正規化fallbackではO(N log N + M log M) time"},
+    "geometry/MinimumEnclosingCircle.py": {"minimum_enclosing_circle": "期待 O(N) time、最悪 O(N^3) time、O(N) memory"},
+    "geometry/FurthestPair.py": {"furthest_pair": "O(N log N) time、O(N) memory"},
+    "graph_matching/StableRoommates.py": {"stable_roommates": "O(N^2) time、O(N^2) memory"},
+    "graph_enumeration/MaximalIndependentSets.py": {"maximal_independent_sets": "O(V * 3^(V/3) + E) time、O(V^2/W) working memory（出力を除く）"},
+    "graph_connectivity/OddCycle.py": {"find_odd_cycle": "O(V+E) time、O(V) memory"},
+    "combinatorics/DeBruijnSequence.py": {"de_bruijn": "O(K^N) time、O(K^N) memory（Kはalphabet size、Nはorder）"},
+    "combinatorics/FactorialNumberSystem.py": {
+        "permutation_to_lehmer": "O(N log N) time、O(N) memory",
+        "lehmer_to_permutation": "O(N log N) time、O(N) memory",
+        "permutation_rank": "O(N log N) time、O(N) memory",
+        "unrank_permutation": "O(N log N) time、O(N) memory",
+    },
+    "number_theory/DigitFrequency.py": {"digit_frequency": "O(base * log_base(upper+1)) time、O(base) memory"},
+    "number_theory/PythagoreanTriples.py": {"pythagorean_triples": "primitive_only=Trueでは生成するprimitive triple数に比例、Falseでは出力triple数に比例するtime。O(log limit) DFS stack memory"},
+    "optimization/AliensTrick.py": {"aliens_trick": "O(log P) 回のsolve呼び出し、O(1) extra memory（Pは探索したpenalty幅）"},
+    "range_query/StaticRangeGroup.py": {
+        "StaticRangeGroup": "構築 O(N) time、O(N) memory",
+        "prod": "O(1)", "prefix": "O(1)",
+    },
+})
+
+
 # MASPyPy/libraryを追加候補の参照元として精査した第四バッチ。
 SEARCH_TERMS_BY_MODULE.update({
     "algorithm/OfflineSetIntersection.py": (

@@ -8,7 +8,9 @@
 | [`ArbitraryBinomial`](ArbitraryBinomial.md) | 任意合成数法・巨大素数法の二項係数 | 0 | 3 | 4 |
 | [`BinomialQueries`](BinomialQueries.md) | 二項係数prefix和と巨大添字Stirlingの一括query | 1 | 2 | 4 |
 | [`Combination`](Combination.md) | 階乗表を使うCombと、小さいk向けの乗法式で二項係数を計算する。 | 1 | 1 | 9 |
+| [`DeBruijnSequence`](DeBruijnSequence.md) | 指定alphabetの全長order列を1回ずつ含む巡回列を作る。 | 1 | 0 | 0 |
 | [`ErdosGinzburgZiv`](ErdosGinzburgZiv.md) | Erdős–Ginzburg–Ziv定理の部分列構成 | 1 | 0 | 0 |
+| [`FactorialNumberSystem`](FactorialNumberSystem.md) | 置換とLehmer code・辞書順順位を相互変換する。 | 4 | 0 | 0 |
 | [`FloatBinomial`](FloatBinomial.md) | 浮動小数点数で二項係数を逐次計算する。 | 0 | 1 | 4 |
 | [`GrayCode`](GrayCode.md) | 整数とGray codeを相互変換する。 | 3 | 0 | 0 |
 | [`IntegerPartitions`](IntegerPartitions.md) | 加法的整数分割の列挙 | 2 | 0 | 0 |

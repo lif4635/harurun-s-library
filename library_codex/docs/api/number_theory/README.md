@@ -6,6 +6,7 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`ChineseRemainder`](ChineseRemainder.md) | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 4 | 0 | 0 |
+| [`DigitFrequency`](DigitFrequency.md) | 整数区間を位取り表記したときの各digit出現数を数える。 | 1 | 0 | 0 |
 | [`Elementary`](Elementary.md) | gcd・lcm・整数根など初等数学関数 | 2 | 0 | 0 |
 | [`EnumerateQuotient`](EnumerateQuotient.md) | nを整数で割った商が等しい添字区間を列挙する。 | 1 | 0 | 0 |
 | [`FloorPolynomialSum`](FloorPolynomialSum.md) | floorを含む多項式和 | 1 | 0 | 0 |
@@ -16,6 +17,7 @@
 | [`ModularArithmetic`](ModularArithmetic.md) | Tonelli--Shanks平方根・拡張BSGS離散対数 | 2 | 0 | 0 |
 | [`ModularRoot`](ModularRoot.md) | 素数法k乗根・原始根・整数floor/ceil k乗根 | 4 | 0 | 0 |
 | [`MultiplicativeFunctions`](MultiplicativeFunctions.md) | 乗法的関数・Dirichlet積・Min_25型prefix和 | 8 | 3 | 12 |
+| [`PythagoreanTriples`](PythagoreanTriples.md) | 斜辺上限までのPythagorean tripleを重複なく列挙する。 | 1 | 0 | 0 |
 | [`QuadraticEquationMod`](QuadraticEquationMod.md) | 法の下で二次方程式の解を列挙する。 | 1 | 0 | 0 |
 | [`TetrationMod`](TetrationMod.md) | 巨大な累乗塔を法の下で計算する。 | 1 | 0 | 0 |
 | [`TwoSquareRepresentations`](TwoSquareRepresentations.md) | 整数を2つの平方数の和で表す組を列挙する。 | 1 | 0 | 0 |

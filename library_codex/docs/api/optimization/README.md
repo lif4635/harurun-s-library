@@ -5,6 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`AliensTrick`](AliensTrick.md) | 個数penalty付き最適化から個数固定の最適値を復元する。 | 1 | 0 | 0 |
 | [`ConvexConcaveConvolution`](ConvexConcaveConvolution.md) | 凹列を含むmax-plus畳み込み | 1 | 0 | 0 |
 | [`GoldenSectionSearch`](GoldenSectionSearch.md) | 単峰関数の最小値または最大値を黄金分割探索する。 | 1 | 0 | 0 |
 | [`KnapsackBranchAndBound`](KnapsackBranchAndBound.md) | 0/1 knapsackを分枝限定法で解く。 | 1 | 0 | 0 |

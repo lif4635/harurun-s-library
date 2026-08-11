@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-11T05:43:14+00:00",
+  "generatedAt": "2026-08-11T19:14:37+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "4758324fd1c37f989204b90f32b11b1a41cbebdef3889d108c0593a74fde9f4d",
-  "inputStamp": "e5a23c22af483096cdf4087b19b2fb457b5ec1af75d6ad9cce22c83fa8911d5c",
+  "sourceFingerprint": "627ed47644c1d5d02d66d4b19be569a69fa17c896dfc78a1caf1dede05633047",
+  "inputStamp": "3da98e07c3034c4264faa3abc7277c173c199a6ceb2151ff0bd5b602f7027945",
   "generatorFingerprint": "ba9fbb19fb9e838a06d4df4dc01b62fdd1dc71c2a0267530fe8d78dd668b09a3",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 320,
-    "functions": 455,
-    "classes": 207,
-    "methods": 1297,
-    "tests": 561
+    "modules": 333,
+    "functions": 470,
+    "classes": 208,
+    "methods": 1299,
+    "tests": 575
   },
   "categories": [
     {
@@ -150,10 +150,10 @@
       "label": "静的区間クエリ",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 6,
+      "modules": 7,
       "functions": 4,
-      "classes": 6,
-      "methods": 52
+      "classes": 7,
+      "methods": 54
     },
     {
       "slug": "spatial_structure",
@@ -190,8 +190,8 @@
       "label": "連結性・分解",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 16,
-      "functions": 12,
+      "modules": 17,
+      "functions": 13,
       "classes": 11,
       "methods": 66
     },
@@ -210,8 +210,8 @@
       "label": "マッチング",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 6,
-      "functions": 7,
+      "modules": 7,
+      "functions": 8,
       "classes": 3,
       "methods": 10
     },
@@ -230,8 +230,8 @@
       "label": "列挙・小規模グラフ",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 8,
-      "functions": 16,
+      "modules": 9,
+      "functions": 17,
       "classes": 1,
       "methods": 4
     },
@@ -240,8 +240,8 @@
       "label": "整数・数論",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 14,
-      "functions": 37,
+      "modules": 16,
+      "functions": 39,
       "classes": 4,
       "methods": 25
     },
@@ -250,8 +250,8 @@
       "label": "組合せ",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 10,
-      "functions": 10,
+      "modules": 12,
+      "functions": 15,
       "classes": 9,
       "methods": 29
     },
@@ -330,8 +330,8 @@
       "label": "最適化・DP",
       "domain": "optimization",
       "domainLabel": "Optimization",
-      "modules": 16,
-      "functions": 15,
+      "modules": 17,
+      "functions": 16,
       "classes": 10,
       "methods": 50
     },
@@ -340,8 +340,8 @@
       "label": "幾何",
       "domain": "geometry",
       "domainLabel": "Geometry",
-      "modules": 4,
-      "functions": 5,
+      "modules": 8,
+      "functions": 9,
       "classes": 0,
       "methods": 0
     },
@@ -390,17 +390,17 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 67
+      "modules": 68
     },
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 65
+      "modules": 68
     },
     {
       "slug": "math",
       "label": "Math",
-      "modules": 44
+      "modules": 48
     },
     {
       "slug": "tree",
@@ -415,12 +415,12 @@
     {
       "slug": "optimization",
       "label": "Optimization",
-      "modules": 16
+      "modules": 17
     },
     {
       "slug": "geometry",
       "label": "Geometry",
-      "modules": 4
+      "modules": 8
     },
     {
       "slug": "game",
@@ -24565,6 +24565,133 @@
       "categoryLabel": "静的区間クエリ",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
+      "name": "StaticRangeGroup",
+      "modulePath": "library_codex.range_query.StaticRangeGroup",
+      "summary": "グループの静的列で半開区間積をO(1)取得する。",
+      "capabilities": [
+        "グループをなす静的な値列について、半開区間積をO(1)で取得できる。",
+        "非可換グループでも接頭積の左逆元を使い、演算順序を保って区間積を返す。"
+      ],
+      "searchTerms": [
+        "StaticRangeGroup",
+        "Static Range Group",
+        "library_codex.range_query.StaticRangeGroup",
+        "library codex range query Static Range Group",
+        "range_query/StaticRangeGroup.py",
+        "静的区間クエリ",
+        "静的区間積",
+        "prefix inverse",
+        "group range query"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/range_query/StaticRangeGroup.py",
+      "inputFingerprint": "d89f83684a3f2498847b2fa5330921d58d57f367e17459f97b05416ac2b28808",
+      "importCode": "from library_codex.range_query.StaticRangeGroup import StaticRangeGroup",
+      "sourceCode": "\"\"\"groupの静的列で半開区間積をO(1)取得する。\"\"\"\n\n\nclass StaticRangeGroup:\n    \"\"\"prefix積と逆元を使う静的な半開区間積query。\"\"\"\n\n    __slots__ = (\"size\", \"op\", \"inverse\", \"identity\", \"prefix_values\")\n\n    def __init__(self, values, op, inverse, identity):\n        self.op = op\n        self.inverse = inverse\n        self.identity = identity\n        prefix_values = [identity]\n        current = identity\n        for value in values:\n            current = op(current, value)\n            prefix_values.append(current)\n        self.prefix_values = prefix_values\n        self.size = len(prefix_values) - 1\n\n    def prod(self, left, right):\n        \"\"\"半開区間[left, right)の積を返す。\"\"\"\n        if not 0 <= left <= right <= self.size:\n            raise IndexError(\"range is outside the sequence\")\n        return self.op(self.inverse(self.prefix_values[left]),\n                       self.prefix_values[right])\n\n    def prefix(self, right):\n        \"\"\"半開prefix [0, right)の積を返す。\"\"\"\n        if not 0 <= right <= self.size:\n            raise IndexError(\"right is outside the sequence\")\n        return self.prefix_values[right]\n",
+      "standaloneCode": "\"\"\"groupの静的列で半開区間積をO(1)取得する。\"\"\"\n\n\nclass StaticRangeGroup:\n    \"\"\"prefix積と逆元を使う静的な半開区間積query。\"\"\"\n\n    __slots__ = (\"size\", \"op\", \"inverse\", \"identity\", \"prefix_values\")\n\n    def __init__(self, values, op, inverse, identity):\n        self.op = op\n        self.inverse = inverse\n        self.identity = identity\n        prefix_values = [identity]\n        current = identity\n        for value in values:\n            current = op(current, value)\n            prefix_values.append(current)\n        self.prefix_values = prefix_values\n        self.size = len(prefix_values) - 1\n\n    def prod(self, left, right):\n        \"\"\"半開区間[left, right)の積を返す。\"\"\"\n        if not 0 <= left <= right <= self.size:\n            raise IndexError(\"range is outside the sequence\")\n        return self.op(self.inverse(self.prefix_values[left]),\n                       self.prefix_values[right])\n\n    def prefix(self, right):\n        \"\"\"半開prefix [0, right)の積を返す。\"\"\"\n        if not 0 <= right <= self.size:\n            raise IndexError(\"right is outside the sequence\")\n        return self.prefix_values[right]\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 2
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "StaticRangeGroup",
+          "summary": "静的なgroup要素列のprefix積を保存し、左prefixの逆元で半開区間積をO(1)取得する。",
+          "description": "静的なgroup要素列のprefix積を保存し、左prefixの逆元で半開区間積をO(1)取得する。",
+          "searchTerms": [
+            "StaticRangeGroup",
+            "Static Range Group",
+            "StaticRangeGroup(values, op, inverse, identity)"
+          ],
+          "constructor": "StaticRangeGroup(values, op, inverse, identity)",
+          "constructorArguments": "values: group要素の静的なiterable。 · op: group演算op(first, second)。結合的でidentityとinverseに整合し、可換でなくてもよい。 · inverse: group要素valueの両側逆元を返すcallback。 · identity: opの単位元。",
+          "constructorArgumentDetails": [
+            {
+              "name": "values",
+              "description": "グループ要素の静的な反復可能オブジェクト"
+            },
+            {
+              "name": "op",
+              "description": "グループ演算op(first, second)。結合的でidentityとinverseに整合し、可換でなくてもよい"
+            },
+            {
+              "name": "inverse",
+              "description": "グループ要素valueの両側逆元を返すコールバック"
+            },
+            {
+              "name": "identity",
+              "description": "opの単位元"
+            }
+          ],
+          "constructorReturns": "StaticRangeGroup instance",
+          "constructorReturnFormat": "StaticRangeGroup",
+          "constructorReturnDescription": "valuesのprefix積を1回構築する。prod(left, right)で任意の半開区間積、prefix(right)で先頭からの積を取得できる。",
+          "constructorCreates": "valuesのprefix積を1回構築する。prod(left, right)で任意の半開区間積、prefix(right)で先頭からの積を取得できる。",
+          "constructorComplexity": "実装依存",
+          "constructorSourceLine": 9,
+          "methods": [
+            {
+              "name": "prod",
+              "kind": "method",
+              "signature": "prod(left, right)",
+              "summary": "構築時の値列の半開区間積を元の順序で返す。",
+              "description": "構築時の値列の半開区間積を元の順序で返す。",
+              "searchTerms": [
+                "prod",
+                "prod(left, right)"
+              ],
+              "arguments": "left: 含める左端。 · right: 含めない右端。left以上size以下。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "含める左端。"
+                },
+                {
+                  "name": "right",
+                  "description": "含めない右端。left以上size以下。"
+                }
+              ],
+              "returns": "object — values[left]からvalues[right-1]までをopで左から順に結合したgroup要素。空区間ではidentity。",
+              "returnFormat": "object",
+              "returnDescription": "values[left]からvalues[right-1]までをopで左から順に結合したgroup要素。空区間ではidentity。",
+              "complexity": "O(1)",
+              "sourceLine": 21
+            },
+            {
+              "name": "prefix",
+              "kind": "method",
+              "signature": "prefix(right)",
+              "summary": "構築時の値列の半開prefix積を返す。",
+              "description": "構築時の値列の半開prefix積を返す。",
+              "searchTerms": [
+                "prefix",
+                "prefix(right)"
+              ],
+              "arguments": "right: 含めない右端。0以上size以下。",
+              "argumentDetails": [
+                {
+                  "name": "right",
+                  "description": "含めない右端。0以上size以下。"
+                }
+              ],
+              "returns": "object — values[0]からvalues[right-1]までをopで左から順に結合したgroup要素。right=0ではidentity。",
+              "returnFormat": "object",
+              "returnDescription": "values[0]からvalues[right-1]までをopで左から順に結合したgroup要素。right=0ではidentity。",
+              "complexity": "O(1)",
+              "sourceLine": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "range_query",
+      "categoryLabel": "静的区間クエリ",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
       "name": "WaveletMatrix",
       "modulePath": "library_codex.range_query.WaveletMatrix",
       "summary": "非負整数列のランク・k-th・区間 frequency。",
@@ -32311,6 +32438,69 @@
       "categoryLabel": "連結性・分解",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "OddCycle",
+      "modulePath": "library_codex.graph_connectivity.OddCycle",
+      "summary": "無向グラフから奇cycleを1つ復元する。",
+      "capabilities": [
+        "無向グラフが二部グラフでないとき、その反例となる奇cycleを1つ復元できる。",
+        "二部グラフなら空listを返し、全連結成分を線形時間で調べる。"
+      ],
+      "searchTerms": [
+        "OddCycle",
+        "Odd Cycle",
+        "library_codex.graph_connectivity.OddCycle",
+        "library codex graph connectivity Odd Cycle",
+        "graph_connectivity/OddCycle.py",
+        "連結性・分解",
+        "奇閉路",
+        "odd cycle witness",
+        "二部グラフ反例"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_connectivity/OddCycle.py",
+      "inputFingerprint": "743c131234dc6d763d5ac211007ecb2c4141caaabafecf943af9eb79cdcd9782",
+      "importCode": "from library_codex.graph_connectivity.OddCycle import find_odd_cycle",
+      "sourceCode": "\"\"\"無向グラフから奇cycleを1つ復元する。\"\"\"\n\nfrom collections import deque\n\n\ndef find_odd_cycle(graph):\n    \"\"\"奇cycleの頂点を周上の順に返し、二部グラフなら空listを返す。\"\"\"\n    n = len(graph)\n    color = [-1] * n\n    parent = [-1] * n\n    depth = [0] * n\n    for start in range(n):\n        if color[start] >= 0:\n            continue\n        color[start] = 0\n        queue = deque([start])\n        while queue:\n            vertex = queue.popleft()\n            for entry in graph[vertex]:\n                other = entry if isinstance(entry, int) else entry[0]\n                if not 0 <= other < n:\n                    raise IndexError(\"an edge endpoint is outside the graph\")\n                if color[other] < 0:\n                    color[other] = color[vertex] ^ 1\n                    parent[other] = vertex\n                    depth[other] = depth[vertex] + 1\n                    queue.append(other)\n                elif color[other] == color[vertex]:\n                    first = vertex\n                    second = other\n                    first_path = []\n                    second_path = []\n                    while depth[first] > depth[second]:\n                        first_path.append(first)\n                        first = parent[first]\n                    while depth[second] > depth[first]:\n                        second_path.append(second)\n                        second = parent[second]\n                    while first != second:\n                        first_path.append(first)\n                        second_path.append(second)\n                        first = parent[first]\n                        second = parent[second]\n                    first_path.append(first)\n                    return first_path + list(reversed(second_path))\n    return []\n",
+      "standaloneCode": "\"\"\"無向グラフから奇cycleを1つ復元する。\"\"\"\n\nfrom collections import deque\n\n\ndef find_odd_cycle(graph):\n    \"\"\"奇cycleの頂点を周上の順に返し、二部グラフなら空listを返す。\"\"\"\n    n = len(graph)\n    color = [-1] * n\n    parent = [-1] * n\n    depth = [0] * n\n    for start in range(n):\n        if color[start] >= 0:\n            continue\n        color[start] = 0\n        queue = deque([start])\n        while queue:\n            vertex = queue.popleft()\n            for entry in graph[vertex]:\n                other = entry if isinstance(entry, int) else entry[0]\n                if not 0 <= other < n:\n                    raise IndexError(\"an edge endpoint is outside the graph\")\n                if color[other] < 0:\n                    color[other] = color[vertex] ^ 1\n                    parent[other] = vertex\n                    depth[other] = depth[vertex] + 1\n                    queue.append(other)\n                elif color[other] == color[vertex]:\n                    first = vertex\n                    second = other\n                    first_path = []\n                    second_path = []\n                    while depth[first] > depth[second]:\n                        first_path.append(first)\n                        first = parent[first]\n                    while depth[second] > depth[first]:\n                        second_path.append(second)\n                        second = parent[second]\n                    while first != second:\n                        first_path.append(first)\n                        second_path.append(second)\n                        first = parent[first]\n                        second = parent[second]\n                    first_path.append(first)\n                    return first_path + list(reversed(second_path))\n    return []\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "find_odd_cycle",
+          "kind": "function",
+          "signature": "find_odd_cycle(graph)",
+          "summary": "無向グラフを2色BFSし、同色を結ぶ辺が見つかったとき奇cycleを復元する。",
+          "description": "無向グラフを2色BFSし、同色を結ぶ辺が見つかったとき奇cycleを復元する。",
+          "searchTerms": [
+            "find_odd_cycle",
+            "find odd cycle",
+            "find_odd_cycle(graph)"
+          ],
+          "arguments": "graph: 無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。self-loopを許す。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。self-loopを許す。"
+            }
+          ],
+          "returns": "list[int] — 奇cycleの異なる頂点を周上の順に並べた列。末尾から先頭にも辺がある。self-loopでは長さ1。graphが二部グラフなら空list。",
+          "returnFormat": "list[int]",
+          "returnDescription": "奇cycleの異なる頂点を周上の順に並べた列。末尾から先頭にも辺がある。self-loopでは長さ1。graphが二部グラフなら空list。",
+          "complexity": "O(V+E) time、O(V) memory",
+          "sourceLine": 6
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_connectivity",
+      "categoryLabel": "連結性・分解",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "OfflineDynamicConnectivity",
       "modulePath": "library_codex.graph_connectivity.OfflineDynamicConnectivity",
       "summary": "辺追加削除・連結性・成分和のオフライン処理。",
@@ -34951,6 +35141,68 @@
       "classes": []
     },
     {
+      "category": "graph_matching",
+      "categoryLabel": "マッチング",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "StableRoommates",
+      "modulePath": "library_codex.graph_matching.StableRoommates",
+      "summary": "1つの集団をblocking pairのないpairへ分ける。",
+      "capabilities": [
+        "1つの集団の完全な希望順から、互いに今の相手より好むblocking pairが存在しないpair分けを求められる。",
+        "stable solutionが存在しないinstanceもNoneとして判定できる。"
+      ],
+      "searchTerms": [
+        "StableRoommates",
+        "Stable Roommates",
+        "library_codex.graph_matching.StableRoommates",
+        "library codex graph matching Stable Roommates",
+        "graph_matching/StableRoommates.py",
+        "マッチング",
+        "安定ルームメイト",
+        "Irving algorithm"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_matching/StableRoommates.py",
+      "inputFingerprint": "0727d253b106a3698e010ca2c045b7e0ad5ad43add0574c7f48d57d97296ae0f",
+      "importCode": "from library_codex.graph_matching.StableRoommates import stable_roommates",
+      "sourceCode": "\"\"\"1つの集団をblocking pairのないpairへ分ける。\"\"\"\n\n\ndef stable_roommates(preferences):\n    \"\"\"完全で厳密な希望順に対するstable roommate matchingを返す。\"\"\"\n    preferences = [list(row) for row in preferences]\n    n = len(preferences)\n    if n == 0:\n        return []\n    if n & 1:\n        return None\n    expected = set(range(n))\n    for person, row in enumerate(preferences):\n        if len(row) != n - 1 or set(row) != expected - {person}:\n            raise ValueError(\"each preference row must rank every other person once\")\n\n    rank = [[0] * n for _ in range(n)]\n    for person, row in enumerate(preferences):\n        for position, other in enumerate(row):\n            rank[person][other] = position\n    exists = [bytearray(b\"\\x01\") * n for _ in range(n)]\n    for person in range(n):\n        exists[person][person] = 0\n    left = [0] * n\n    right = [n - 1] * n\n    proposed_to = [-1] * n\n    proposal_from = [-1] * n\n\n    def clip(person):\n        row = preferences[person]\n        while left[person] < right[person] and not exists[person][row[left[person]]]:\n            left[person] += 1\n        while left[person] < right[person] and not exists[person][row[right[person] - 1]]:\n            right[person] -= 1\n\n    queue = list(range(n))\n    while True:\n        while queue:\n            person = queue.pop()\n            while True:\n                clip(person)\n                if left[person] == right[person]:\n                    return None\n                other = preferences[person][left[person]]\n                current = proposal_from[other]\n                if current >= 0 and rank[other][person] > rank[other][current]:\n                    exists[person][other] = exists[other][person] = 0\n                    left[person] += 1\n                    continue\n                if current >= 0:\n                    exists[current][other] = exists[other][current] = 0\n                    proposed_to[current] = -1\n                    proposal_from[other] = -1\n                    queue.append(current)\n                proposed_to[person] = other\n                proposal_from[other] = person\n                while preferences[other][right[other] - 1] != person:\n                    right[other] -= 1\n                    rejected = preferences[other][right[other]]\n                    exists[other][rejected] = exists[rejected][other] = 0\n                break\n\n        start = -1\n        for person in range(n):\n            clip(person)\n            if right[person] - left[person] > 1:\n                start = person\n                break\n        if start < 0:\n            break\n\n        def next_rotation(person):\n            clip(person)\n            first = preferences[person][left[person]]\n            left[person] += 1\n            clip(person)\n            left[person] -= 1\n            preferences[person][left[person]] = first\n            return proposal_from[preferences[person][left[person] + 1]]\n\n        slow = next_rotation(start)\n        fast = next_rotation(next_rotation(start))\n        while slow != fast:\n            slow = next_rotation(slow)\n            fast = next_rotation(next_rotation(fast))\n        cycle = [slow]\n        person = next_rotation(slow)\n        while person != slow:\n            cycle.append(person)\n            person = next_rotation(person)\n        for person in cycle:\n            other = proposed_to[person]\n            proposal_from[other] = -1\n            proposed_to[person] = -1\n            exists[person][other] = exists[other][person] = 0\n            queue.append(person)\n\n    if any(other < 0 or proposed_to[other] != person\n           for person, other in enumerate(proposed_to)):\n        return None\n    return proposed_to\n",
+      "standaloneCode": "\"\"\"1つの集団をblocking pairのないpairへ分ける。\"\"\"\n\n\ndef stable_roommates(preferences):\n    \"\"\"完全で厳密な希望順に対するstable roommate matchingを返す。\"\"\"\n    preferences = [list(row) for row in preferences]\n    n = len(preferences)\n    if n == 0:\n        return []\n    if n & 1:\n        return None\n    expected = set(range(n))\n    for person, row in enumerate(preferences):\n        if len(row) != n - 1 or set(row) != expected - {person}:\n            raise ValueError(\"each preference row must rank every other person once\")\n\n    rank = [[0] * n for _ in range(n)]\n    for person, row in enumerate(preferences):\n        for position, other in enumerate(row):\n            rank[person][other] = position\n    exists = [bytearray(b\"\\x01\") * n for _ in range(n)]\n    for person in range(n):\n        exists[person][person] = 0\n    left = [0] * n\n    right = [n - 1] * n\n    proposed_to = [-1] * n\n    proposal_from = [-1] * n\n\n    def clip(person):\n        row = preferences[person]\n        while left[person] < right[person] and not exists[person][row[left[person]]]:\n            left[person] += 1\n        while left[person] < right[person] and not exists[person][row[right[person] - 1]]:\n            right[person] -= 1\n\n    queue = list(range(n))\n    while True:\n        while queue:\n            person = queue.pop()\n            while True:\n                clip(person)\n                if left[person] == right[person]:\n                    return None\n                other = preferences[person][left[person]]\n                current = proposal_from[other]\n                if current >= 0 and rank[other][person] > rank[other][current]:\n                    exists[person][other] = exists[other][person] = 0\n                    left[person] += 1\n                    continue\n                if current >= 0:\n                    exists[current][other] = exists[other][current] = 0\n                    proposed_to[current] = -1\n                    proposal_from[other] = -1\n                    queue.append(current)\n                proposed_to[person] = other\n                proposal_from[other] = person\n                while preferences[other][right[other] - 1] != person:\n                    right[other] -= 1\n                    rejected = preferences[other][right[other]]\n                    exists[other][rejected] = exists[rejected][other] = 0\n                break\n\n        start = -1\n        for person in range(n):\n            clip(person)\n            if right[person] - left[person] > 1:\n                start = person\n                break\n        if start < 0:\n            break\n\n        def next_rotation(person):\n            clip(person)\n            first = preferences[person][left[person]]\n            left[person] += 1\n            clip(person)\n            left[person] -= 1\n            preferences[person][left[person]] = first\n            return proposal_from[preferences[person][left[person] + 1]]\n\n        slow = next_rotation(start)\n        fast = next_rotation(next_rotation(start))\n        while slow != fast:\n            slow = next_rotation(slow)\n            fast = next_rotation(next_rotation(fast))\n        cycle = [slow]\n        person = next_rotation(slow)\n        while person != slow:\n            cycle.append(person)\n            person = next_rotation(person)\n        for person in cycle:\n            other = proposed_to[person]\n            proposal_from[other] = -1\n            proposed_to[person] = -1\n            exists[person][other] = exists[other][person] = 0\n            queue.append(person)\n\n    if any(other < 0 or proposed_to[other] != person\n           for person, other in enumerate(proposed_to)):\n        return None\n    return proposed_to\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "stable_roommates",
+          "kind": "function",
+          "signature": "stable_roommates(preferences)",
+          "summary": "全員を2人pairへ分け、互いに現在のpartnerより相手を好む2人が存在しないstable matchingを求める。",
+          "description": "全員を2人pairへ分け、互いに現在のpartnerより相手を好む2人が存在しないstable matchingを求める。",
+          "searchTerms": [
+            "stable_roommates",
+            "stable roommates",
+            "stable_roommates(preferences)"
+          ],
+          "arguments": "preferences: preferences[person]にperson以外の全員を好みが高い順に1回ずつ並べた、偶数人の厳密な希望順。",
+          "argumentDetails": [
+            {
+              "name": "preferences",
+              "description": "preferences[person]にperson以外の全員を好みが高い順に1回ずつ並べた、偶数人の厳密な希望順。"
+            }
+          ],
+          "returns": "list[int] | None — solutionがあれば人数と同じ長さのpartner。partner[person]はpair相手で、partner[partner[person]]=person。存在しない場合または人数が奇数ならNone。空入力では空list。",
+          "returnFormat": "list[int] | None",
+          "returnDescription": "solutionがあれば人数と同じ長さのpartner。partner[person]はpair相手で、partner[partner[person]]=person。存在しない場合または人数が奇数ならNone。空入力では空list。",
+          "complexity": "O(N^2) time、O(N^2) memory",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
+    {
       "category": "graph_spanning",
       "categoryLabel": "全域構造",
       "domain": "graph",
@@ -36407,6 +36659,69 @@
       "categoryLabel": "列挙・小規模グラフ",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "MaximalIndependentSets",
+      "modulePath": "library_codex.graph_enumeration.MaximalIndependentSets",
+      "summary": "無向グラフの極大独立集合を重複なく列挙する。",
+      "capabilities": [
+        "無向グラフのすべての極大独立集合を、全subsetを走査せず重複なく列挙できる。",
+        "結果をgeneratorで1件ずつ返すため、指数個の集合を一度にmemoryへ保持しない。"
+      ],
+      "searchTerms": [
+        "MaximalIndependentSets",
+        "Maximal Independent Sets",
+        "library_codex.graph_enumeration.MaximalIndependentSets",
+        "library codex graph enumeration Maximal Independent Sets",
+        "graph_enumeration/MaximalIndependentSets.py",
+        "列挙・小規模グラフ",
+        "極大独立集合列挙",
+        "maximal independent set enumeration",
+        "Moon Moser"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_enumeration/MaximalIndependentSets.py",
+      "inputFingerprint": "0e09efb1249f98522893d98becb80ec55513e38c9096bf43497b4d098dabee5b",
+      "importCode": "from library_codex.graph_enumeration.MaximalIndependentSets import maximal_independent_sets",
+      "sourceCode": "\"\"\"無向グラフの極大独立集合を重複なく列挙する。\"\"\"\n\n\ndef maximal_independent_sets(graph):\n    \"\"\"すべての極大独立集合を頂点listとして順に生成する。\"\"\"\n    n = len(graph)\n    adjacency = [0] * n\n    for vertex, row in enumerate(graph):\n        mask = 0\n        for entry in row:\n            other = entry if isinstance(entry, int) else entry[0]\n            if not 0 <= other < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            if other != vertex:\n                mask |= 1 << other\n        adjacency[vertex] = mask\n    full = (1 << n) - 1\n    stack = [[0, full, None]]\n    while stack:\n        chosen, remaining, candidates = stack[-1]\n        if remaining == 0:\n            stack.pop()\n            result = []\n            bits = chosen\n            while bits:\n                bit = bits & -bits\n                result.append(bit.bit_length() - 1)\n                bits ^= bit\n            yield result\n            continue\n        if candidates is None:\n            bits = remaining\n            pivot = -1\n            degree = n + 1\n            while bits:\n                bit = bits & -bits\n                vertex = bit.bit_length() - 1\n                current = (remaining & adjacency[vertex]).bit_count()\n                if current < degree:\n                    pivot = vertex\n                    degree = current\n                bits ^= bit\n            candidates = remaining & (adjacency[pivot] | 1 << pivot)\n            stack[-1][2] = candidates\n        if candidates == 0:\n            stack.pop()\n            continue\n        bit = candidates & -candidates\n        stack[-1][2] ^= bit\n        vertex = bit.bit_length() - 1\n        stack.append([chosen | bit, remaining & ~bit & ~adjacency[vertex], None])\n",
+      "standaloneCode": "\"\"\"無向グラフの極大独立集合を重複なく列挙する。\"\"\"\n\n\ndef maximal_independent_sets(graph):\n    \"\"\"すべての極大独立集合を頂点listとして順に生成する。\"\"\"\n    n = len(graph)\n    adjacency = [0] * n\n    for vertex, row in enumerate(graph):\n        mask = 0\n        for entry in row:\n            other = entry if isinstance(entry, int) else entry[0]\n            if not 0 <= other < n:\n                raise IndexError(\"an edge endpoint is outside the graph\")\n            if other != vertex:\n                mask |= 1 << other\n        adjacency[vertex] = mask\n    full = (1 << n) - 1\n    stack = [[0, full, None]]\n    while stack:\n        chosen, remaining, candidates = stack[-1]\n        if remaining == 0:\n            stack.pop()\n            result = []\n            bits = chosen\n            while bits:\n                bit = bits & -bits\n                result.append(bit.bit_length() - 1)\n                bits ^= bit\n            yield result\n            continue\n        if candidates is None:\n            bits = remaining\n            pivot = -1\n            degree = n + 1\n            while bits:\n                bit = bits & -bits\n                vertex = bit.bit_length() - 1\n                current = (remaining & adjacency[vertex]).bit_count()\n                if current < degree:\n                    pivot = vertex\n                    degree = current\n                bits ^= bit\n            candidates = remaining & (adjacency[pivot] | 1 << pivot)\n            stack[-1][2] = candidates\n        if candidates == 0:\n            stack.pop()\n            continue\n        bit = candidates & -candidates\n        stack[-1][2] ^= bit\n        vertex = bit.bit_length() - 1\n        stack.append([chosen | bit, remaining & ~bit & ~adjacency[vertex], None])\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "maximal_independent_sets",
+          "kind": "function",
+          "signature": "maximal_independent_sets(graph)",
+          "summary": "これ以上どの頂点も追加できない独立集合をすべて重複なく生成する。最大cardinalityだけでなく、包含関係について極大な集合をすべて対象にする。",
+          "description": "これ以上どの頂点も追加できない独立集合をすべて重複なく生成する。最大cardinalityだけでなく、包含関係について極大な集合をすべて対象にする。",
+          "searchTerms": [
+            "maximal_independent_sets",
+            "maximal independent sets",
+            "maximal_independent_sets(graph)"
+          ],
+          "arguments": "graph: 単純無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "単純無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。"
+            }
+          ],
+          "returns": "Iterator[list[int]] — 極大独立集合を1件ずつ生成するiterator。各listは選んだ頂点番号を昇順に1回ずつ含む。空graphでは空集合を表す空listを1回生成する。",
+          "returnFormat": "Iterator[list[int]]",
+          "returnDescription": "極大独立集合を1件ずつ生成するiterator。各listは選んだ頂点番号を昇順に1回ずつ含む。空graphでは空集合を表す空listを1回生成する。",
+          "complexity": "O(V * 3^(V/3) + E) time、O(V^2/W) working memory（出力を除く）",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_enumeration",
+      "categoryLabel": "列挙・小規模グラフ",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "MaximumIndependentSet",
       "modulePath": "library_codex.graph_enumeration.MaximumIndependentSet",
       "summary": "小規模グラフの最大独立集合と最大重み独立集合を求める。",
@@ -36665,6 +36980,76 @@
           "returnDescription": "求めたgarner・mod。",
           "complexity": "O(Klog M) / O(K^2)",
           "sourceLine": 86
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "number_theory",
+      "categoryLabel": "整数・数論",
+      "domain": "math",
+      "domainLabel": "Math",
+      "name": "DigitFrequency",
+      "modulePath": "library_codex.number_theory.DigitFrequency",
+      "summary": "整数区間を位取り表記したときの各digit出現数を数える。",
+      "capabilities": [
+        "非負整数の半開区間を任意baseの標準表記で並べたとき、各digitが現れる総回数を数えられる。",
+        "区間内の整数を列挙せず、桁位置ごとの周期をまとめて計算する。"
+      ],
+      "searchTerms": [
+        "DigitFrequency",
+        "Digit Frequency",
+        "library_codex.number_theory.DigitFrequency",
+        "library codex number theory Digit Frequency",
+        "number_theory/DigitFrequency.py",
+        "整数・数論",
+        "桁出現回数",
+        "digit DP"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/number_theory/DigitFrequency.py",
+      "inputFingerprint": "de336b8b142268e5a8cb8628db0314fc5f8b46445e887a81b5e495d2a2db1835",
+      "importCode": "from library_codex.number_theory.DigitFrequency import digit_frequency",
+      "sourceCode": "\"\"\"整数区間を位取り表記したときの各digit出現数を数える。\"\"\"\n\n\ndef _count_below(upper, base):\n    result = [0] * base\n    if upper <= 0:\n        return result\n    result[0] = 1\n    maximum = upper - 1\n    factor = 1\n    while factor <= maximum:\n        higher = maximum // (factor * base)\n        current = maximum // factor % base\n        lower = maximum % factor\n        for digit in range(1, base):\n            result[digit] += higher * factor\n            if current > digit:\n                result[digit] += factor\n            elif current == digit:\n                result[digit] += lower + 1\n        if higher:\n            result[0] += (higher - 1) * factor\n            if current:\n                result[0] += factor\n            else:\n                result[0] += lower + 1\n        factor *= base\n    return result\n\n\ndef digit_frequency(lower, upper, base=10):\n    \"\"\"半開整数区間[lower, upper)の標準表記に現れるdigit数を返す。\"\"\"\n    if not 0 <= lower <= upper:\n        raise ValueError(\"0 <= lower <= upper is required\")\n    if base < 2:\n        raise ValueError(\"base must be at least 2\")\n    high = _count_below(upper, base)\n    low = _count_below(lower, base)\n    return [first - second for first, second in zip(high, low)]\n",
+      "standaloneCode": "\"\"\"整数区間を位取り表記したときの各digit出現数を数える。\"\"\"\n\n\ndef _count_below(upper, base):\n    result = [0] * base\n    if upper <= 0:\n        return result\n    result[0] = 1\n    maximum = upper - 1\n    factor = 1\n    while factor <= maximum:\n        higher = maximum // (factor * base)\n        current = maximum // factor % base\n        lower = maximum % factor\n        for digit in range(1, base):\n            result[digit] += higher * factor\n            if current > digit:\n                result[digit] += factor\n            elif current == digit:\n                result[digit] += lower + 1\n        if higher:\n            result[0] += (higher - 1) * factor\n            if current:\n                result[0] += factor\n            else:\n                result[0] += lower + 1\n        factor *= base\n    return result\n\n\ndef digit_frequency(lower, upper, base=10):\n    \"\"\"半開整数区間[lower, upper)の標準表記に現れるdigit数を返す。\"\"\"\n    if not 0 <= lower <= upper:\n        raise ValueError(\"0 <= lower <= upper is required\")\n    if base < 2:\n        raise ValueError(\"base must be at least 2\")\n    high = _count_below(upper, base)\n    low = _count_below(lower, base)\n    return [first - second for first, second in zip(high, low)]\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "digit_frequency",
+          "kind": "function",
+          "signature": "digit_frequency(lower, upper, base=10)",
+          "summary": "半開整数区間の各整数をleading zeroなしのbase進表記にしたとき、各digitが現れる総回数を数える。整数0の表記はdigit 0を1個含む。",
+          "description": "半開整数区間の各整数をleading zeroなしのbase進表記にしたとき、各digitが現れる総回数を数える。整数0の表記はdigit 0を1個含む。",
+          "searchTerms": [
+            "digit_frequency",
+            "digit frequency",
+            "digit_frequency(lower, upper, base=10)"
+          ],
+          "arguments": "lower: 含める非負整数の下端。 · upper: 含めない上端。lower以上。 · base: 2以上の位取りの基数。",
+          "argumentDetails": [
+            {
+              "name": "lower",
+              "description": "含める非負整数の下端。"
+            },
+            {
+              "name": "upper",
+              "description": "含めない上端。lower以上。"
+            },
+            {
+              "name": "base",
+              "description": "2以上の位取りの基数。"
+            }
+          ],
+          "returns": "list[int] — 長さbaseのcounts。counts[digit]はlower <= value < upperの標準base進表記にdigitが現れる総回数。",
+          "returnFormat": "list[int]",
+          "returnDescription": "長さbaseのcounts。counts[digit]はlower <= value < upperの標準base進表記にdigitが現れる総回数。",
+          "complexity": "O(base * log_base(upper+1)) time、O(base) memory",
+          "sourceLine": 31
         }
       ],
       "classes": []
@@ -38586,6 +38971,73 @@
       "categoryLabel": "整数・数論",
       "domain": "math",
       "domainLabel": "Math",
+      "name": "PythagoreanTriples",
+      "modulePath": "library_codex.number_theory.PythagoreanTriples",
+      "summary": "斜辺上限までのPythagorean tripleを重複なく列挙する。",
+      "capabilities": [
+        "斜辺が上限以下のPythagorean tripleを重複なくgeneratorで列挙できる。",
+        "primitive tripleだけ、またはその正整数倍を含む全tripleを選べる。"
+      ],
+      "searchTerms": [
+        "PythagoreanTriples",
+        "Pythagorean Triples",
+        "library_codex.number_theory.PythagoreanTriples",
+        "library codex number theory Pythagorean Triples",
+        "number_theory/PythagoreanTriples.py",
+        "整数・数論",
+        "ピタゴラス数",
+        "直角三角形",
+        "Berggren tree"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/number_theory/PythagoreanTriples.py",
+      "inputFingerprint": "aef103505ee739ecedfd9a394220a5ddff7250b11fdbe478b459860d7b4167b5",
+      "importCode": "from library_codex.number_theory.PythagoreanTriples import pythagorean_triples",
+      "sourceCode": "\"\"\"斜辺上限までのPythagorean tripleを重複なく列挙する。\"\"\"\n\n\ndef pythagorean_triples(limit, primitive_only=False):\n    \"\"\"a < bかつa^2+b^2=c^2、c<=limitのtupleを生成する。\"\"\"\n    if limit < 0:\n        raise ValueError(\"limit must be nonnegative\")\n    stack = [(3, 4, 5)] if limit >= 5 else []\n    while stack:\n        first, second, hypotenuse = stack.pop()\n        children = (\n            (first - 2 * second + 2 * hypotenuse,\n             2 * first - second + 2 * hypotenuse,\n             2 * first - 2 * second + 3 * hypotenuse),\n            (first + 2 * second + 2 * hypotenuse,\n             2 * first + second + 2 * hypotenuse,\n             2 * first + 2 * second + 3 * hypotenuse),\n            (-first + 2 * second + 2 * hypotenuse,\n             -2 * first + second + 2 * hypotenuse,\n             -2 * first + 2 * second + 3 * hypotenuse),\n        )\n        for child in children:\n            if child[2] <= limit:\n                stack.append(child)\n        first, second = sorted((first, second))\n        if primitive_only:\n            yield first, second, hypotenuse\n        else:\n            multiple = 1\n            while multiple * hypotenuse <= limit:\n                yield multiple * first, multiple * second, multiple * hypotenuse\n                multiple += 1\n",
+      "standaloneCode": "\"\"\"斜辺上限までのPythagorean tripleを重複なく列挙する。\"\"\"\n\n\ndef pythagorean_triples(limit, primitive_only=False):\n    \"\"\"a < bかつa^2+b^2=c^2、c<=limitのtupleを生成する。\"\"\"\n    if limit < 0:\n        raise ValueError(\"limit must be nonnegative\")\n    stack = [(3, 4, 5)] if limit >= 5 else []\n    while stack:\n        first, second, hypotenuse = stack.pop()\n        children = (\n            (first - 2 * second + 2 * hypotenuse,\n             2 * first - second + 2 * hypotenuse,\n             2 * first - 2 * second + 3 * hypotenuse),\n            (first + 2 * second + 2 * hypotenuse,\n             2 * first + second + 2 * hypotenuse,\n             2 * first + 2 * second + 3 * hypotenuse),\n            (-first + 2 * second + 2 * hypotenuse,\n             -2 * first + second + 2 * hypotenuse,\n             -2 * first + 2 * second + 3 * hypotenuse),\n        )\n        for child in children:\n            if child[2] <= limit:\n                stack.append(child)\n        first, second = sorted((first, second))\n        if primitive_only:\n            yield first, second, hypotenuse\n        else:\n            multiple = 1\n            while multiple * hypotenuse <= limit:\n                yield multiple * first, multiple * second, multiple * hypotenuse\n                multiple += 1\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "pythagorean_triples",
+          "kind": "function",
+          "signature": "pythagorean_triples(limit, primitive_only=False)",
+          "summary": "$a<b$、$a^2+b^2=c^2$、$c\\le\\mathrm{limit}$ を満たす正整数tripleをBerggren木から重複なく生成する。",
+          "description": "$a<b$、$a^2+b^2=c^2$、$c\\le\\mathrm{limit}$ を満たす正整数tripleをBerggren木から重複なく生成する。",
+          "searchTerms": [
+            "pythagorean_triples",
+            "pythagorean triples",
+            "pythagorean_triples(limit, primitive_only=False)"
+          ],
+          "arguments": "limit: 斜辺cの非負上限。 · primitive_only: Trueならgcd(a,b)=1のprimitive tripleだけ、Falseならその全正整数倍も生成する。",
+          "argumentDetails": [
+            {
+              "name": "limit",
+              "description": "斜辺cの非負上限。"
+            },
+            {
+              "name": "primitive_only",
+              "description": "Trueならgcd(a,b)=1のprimitive tripleだけ、Falseならその全正整数倍も生成する。"
+            }
+          ],
+          "returns": "Iterator[tuple[int, int, int]] — 条件を満たす(a, b, c)を1件ずつ生成するiterator。順序はcの昇順とは限らないが、同じtripleは重複しない。",
+          "returnFormat": "Iterator[tuple[int, int, int]]",
+          "returnDescription": "条件を満たす(a, b, c)を1件ずつ生成するiterator。順序はcの昇順とは限らないが、同じtripleは重複しない。",
+          "complexity": "primitive_only=Trueでは生成するprimitive triple数に比例、Falseでは出力triple数に比例するtime。O(log limit) DFS stack memory",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "number_theory",
+      "categoryLabel": "整数・数論",
+      "domain": "math",
+      "domainLabel": "Math",
       "name": "QuadraticEquationMod",
       "modulePath": "library_codex.number_theory.QuadraticEquationMod",
       "summary": "法の下で二次方程式の解を列挙する。",
@@ -39578,6 +40030,73 @@
       "categoryLabel": "組合せ",
       "domain": "math",
       "domainLabel": "Math",
+      "name": "DeBruijnSequence",
+      "modulePath": "library_codex.combinatorics.DeBruijnSequence",
+      "summary": "指定文字集合の全長order列を1回ずつ含む巡回列を作る。",
+      "capabilities": [
+        "指定文字集合の長さorderの列を、巡回部分列としてそれぞれ1回ずつ含むde Bruijn列を構築できる。",
+        "再帰を使わないEuler tourとして生成し、binary以外の文字集合も扱える。"
+      ],
+      "searchTerms": [
+        "DeBruijnSequence",
+        "De Bruijn Sequence",
+        "library_codex.combinatorics.DeBruijnSequence",
+        "library codex combinatorics De Bruijn Sequence",
+        "combinatorics/DeBruijnSequence.py",
+        "組合せ",
+        "de Bruijn列",
+        "ド・ブラン列",
+        "universal cycle"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/combinatorics/DeBruijnSequence.py",
+      "inputFingerprint": "52d2f0daa529bd95c18cdf4bf780af389008b1b58f4c6e450a243622b62eecbc",
+      "importCode": "from library_codex.combinatorics.DeBruijnSequence import de_bruijn",
+      "sourceCode": "\"\"\"指定alphabetの全長order列を1回ずつ含む巡回列を作る。\"\"\"\n\n\ndef de_bruijn(order, alphabet=(0, 1)):\n    \"\"\"alphabet上のorder次de Bruijn列を巡回部分だけ返す。\"\"\"\n    if order <= 0:\n        raise ValueError(\"order must be positive\")\n    alphabet = tuple(alphabet)\n    if not alphabet or len(set(alphabet)) != len(alphabet):\n        raise ValueError(\"alphabet must contain distinct symbols\")\n    size = len(alphabet)\n    if order == 1:\n        return list(alphabet)\n    vertices = size ** (order - 1)\n    next_symbol = [0] * vertices\n    vertex_stack = [0]\n    symbol_stack = []\n    circuit = []\n    while vertex_stack:\n        vertex = vertex_stack[-1]\n        symbol = next_symbol[vertex]\n        if symbol < size:\n            next_symbol[vertex] += 1\n            vertex_stack.append((vertex * size + symbol) % vertices)\n            symbol_stack.append(symbol)\n        else:\n            vertex_stack.pop()\n            if symbol_stack:\n                circuit.append(symbol_stack.pop())\n    circuit.reverse()\n    return [alphabet[index] for index in circuit]\n",
+      "standaloneCode": "\"\"\"指定alphabetの全長order列を1回ずつ含む巡回列を作る。\"\"\"\n\n\ndef de_bruijn(order, alphabet=(0, 1)):\n    \"\"\"alphabet上のorder次de Bruijn列を巡回部分だけ返す。\"\"\"\n    if order <= 0:\n        raise ValueError(\"order must be positive\")\n    alphabet = tuple(alphabet)\n    if not alphabet or len(set(alphabet)) != len(alphabet):\n        raise ValueError(\"alphabet must contain distinct symbols\")\n    size = len(alphabet)\n    if order == 1:\n        return list(alphabet)\n    vertices = size ** (order - 1)\n    next_symbol = [0] * vertices\n    vertex_stack = [0]\n    symbol_stack = []\n    circuit = []\n    while vertex_stack:\n        vertex = vertex_stack[-1]\n        symbol = next_symbol[vertex]\n        if symbol < size:\n            next_symbol[vertex] += 1\n            vertex_stack.append((vertex * size + symbol) % vertices)\n            symbol_stack.append(symbol)\n        else:\n            vertex_stack.pop()\n            if symbol_stack:\n                circuit.append(symbol_stack.pop())\n    circuit.reverse()\n    return [alphabet[index] for index in circuit]\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "de_bruijn",
+          "kind": "function",
+          "signature": "de_bruijn(order, alphabet=(0, 1))",
+          "summary": "alphabet上の長さorderの列が巡回部分列としてちょうど1回ずつ現れるde Bruijn列を構築する。",
+          "description": "alphabet上の長さorderの列が巡回部分列としてちょうど1回ずつ現れるde Bruijn列を構築する。",
+          "searchTerms": [
+            "de_bruijn",
+            "de bruijn",
+            "de_bruijn(order, alphabet=(0, 1))"
+          ],
+          "arguments": "order: 含めるwordの正の長さ。 · alphabet: 重複のないhash可能なsymbolの並び。既定値は(0, 1)。",
+          "argumentDetails": [
+            {
+              "name": "order",
+              "description": "含めるwordの正の長さ。"
+            },
+            {
+              "name": "alphabet",
+              "description": "重複のないhash可能なsymbolの並び。既定値は(0, 1)。"
+            }
+          ],
+          "returns": "list[object] — 長さ $|\\mathrm{alphabet}|^{\\mathrm{order}}$ の巡回列。末尾の後を先頭へつないで長さorderのwindowを取ると、alphabet上の全wordが1回ずつ現れる。",
+          "returnFormat": "list[object]",
+          "returnDescription": "長さ $|\\mathrm{alphabet}|^{\\mathrm{order}}$ の巡回列。末尾の後を先頭へつないで長さorderのwindowを取ると、alphabet上の全wordが1回ずつ現れる。",
+          "complexity": "O(K^N) time、O(K^N) memory（Kはalphabet size、Nはorder）",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "combinatorics",
+      "categoryLabel": "組合せ",
+      "domain": "math",
+      "domainLabel": "Math",
       "name": "ErdosGinzburgZiv",
       "modulePath": "library_codex.combinatorics.ErdosGinzburgZiv",
       "summary": "Erdős–Ginzburg–Ziv定理の部分列構成。",
@@ -39632,6 +40151,145 @@
           "returnDescription": "頂点または要素の位置を結果順に並べた列",
           "complexity": "O(order^2) bit operations",
           "sourceLine": 6
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "combinatorics",
+      "categoryLabel": "組合せ",
+      "domain": "math",
+      "domainLabel": "Math",
+      "name": "FactorialNumberSystem",
+      "modulePath": "library_codex.combinatorics.FactorialNumberSystem",
+      "summary": "置換とLehmer code・辞書順順位を相互変換する。",
+      "capabilities": [
+        "置換をLehmer codeへ変換し、Lehmer codeから元の置換を復元できる。",
+        "0始まり辞書順ランクと置換も相互変換できる。"
+      ],
+      "searchTerms": [
+        "FactorialNumberSystem",
+        "Factorial Number System",
+        "library_codex.combinatorics.FactorialNumberSystem",
+        "library codex combinatorics Factorial Number System",
+        "combinatorics/FactorialNumberSystem.py",
+        "組合せ",
+        "Lehmer code",
+        "階乗進法",
+        "置換rank"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/combinatorics/FactorialNumberSystem.py",
+      "inputFingerprint": "8bc89916541dbd79a7171e11bfc00af1dd4b2b5f4e78f2f4cec6e28f1e6bf4bf",
+      "importCode": "from library_codex.combinatorics.FactorialNumberSystem import permutation_to_lehmer, lehmer_to_permutation, permutation_rank, unrank_permutation",
+      "sourceCode": "\"\"\"置換とLehmer code・辞書順順位を相互変換する。\"\"\"\n\n\nclass _Fenwick:\n    __slots__ = (\"n\", \"data\")\n\n    def __init__(self, n, ones=False):\n        self.n = n\n        self.data = [0] * (n + 1)\n        if ones:\n            for index in range(1, n + 1):\n                self.data[index] += 1\n                parent = index + (index & -index)\n                if parent <= n:\n                    self.data[parent] += self.data[index]\n\n    def add(self, index, value):\n        index += 1\n        while index <= self.n:\n            self.data[index] += value\n            index += index & -index\n\n    def prefix(self, right):\n        result = 0\n        while right:\n            result += self.data[right]\n            right &= right - 1\n        return result\n\n    def kth(self, k):\n        index = 0\n        step = 1 << (self.n.bit_length() - 1) if self.n else 0\n        while step:\n            candidate = index + step\n            if candidate <= self.n and self.data[candidate] <= k:\n                index = candidate\n                k -= self.data[candidate]\n            step >>= 1\n        return index\n\n\ndef permutation_to_lehmer(permutation):\n    \"\"\"置換を各位置より右にある小さい値の個数へ変換する。\"\"\"\n    permutation = list(permutation)\n    n = len(permutation)\n    if sorted(permutation) != list(range(n)):\n        raise ValueError(\"permutation must contain 0 through n-1 once\")\n    bit = _Fenwick(n)\n    code = [0] * n\n    for index in range(n - 1, -1, -1):\n        value = permutation[index]\n        code[index] = bit.prefix(value)\n        bit.add(value, 1)\n    return code\n\n\ndef lehmer_to_permutation(code):\n    \"\"\"Lehmer codeを0以上n未満の置換へ戻す。\"\"\"\n    code = list(code)\n    n = len(code)\n    for index, digit in enumerate(code):\n        if not 0 <= digit < n - index:\n            raise ValueError(\"a Lehmer digit is outside its radix\")\n    bit = _Fenwick(n, True)\n    permutation = [0] * n\n    for index, digit in enumerate(code):\n        value = bit.kth(digit)\n        permutation[index] = value\n        bit.add(value, -1)\n    return permutation\n\n\ndef permutation_rank(permutation):\n    \"\"\"置換の0-indexed辞書順順位を返す。\"\"\"\n    code = permutation_to_lehmer(permutation)\n    rank = 0\n    for index, digit in enumerate(code):\n        rank = rank * (len(code) - index) + digit\n    return rank\n\n\ndef unrank_permutation(size, rank):\n    \"\"\"size要素の辞書順rank番目の置換を返す。\"\"\"\n    if size < 0 or rank < 0:\n        raise ValueError(\"size and rank must be nonnegative\")\n    code = [0] * size\n    value = rank\n    for radix in range(1, size + 1):\n        value, code[size - radix] = divmod(value, radix)\n    if value:\n        raise IndexError(\"rank is outside the permutations of this size\")\n    return lehmer_to_permutation(code)\n",
+      "standaloneCode": "\"\"\"置換とLehmer code・辞書順順位を相互変換する。\"\"\"\n\n\nclass _Fenwick:\n    __slots__ = (\"n\", \"data\")\n\n    def __init__(self, n, ones=False):\n        self.n = n\n        self.data = [0] * (n + 1)\n        if ones:\n            for index in range(1, n + 1):\n                self.data[index] += 1\n                parent = index + (index & -index)\n                if parent <= n:\n                    self.data[parent] += self.data[index]\n\n    def add(self, index, value):\n        index += 1\n        while index <= self.n:\n            self.data[index] += value\n            index += index & -index\n\n    def prefix(self, right):\n        result = 0\n        while right:\n            result += self.data[right]\n            right &= right - 1\n        return result\n\n    def kth(self, k):\n        index = 0\n        step = 1 << (self.n.bit_length() - 1) if self.n else 0\n        while step:\n            candidate = index + step\n            if candidate <= self.n and self.data[candidate] <= k:\n                index = candidate\n                k -= self.data[candidate]\n            step >>= 1\n        return index\n\n\ndef permutation_to_lehmer(permutation):\n    \"\"\"置換を各位置より右にある小さい値の個数へ変換する。\"\"\"\n    permutation = list(permutation)\n    n = len(permutation)\n    if sorted(permutation) != list(range(n)):\n        raise ValueError(\"permutation must contain 0 through n-1 once\")\n    bit = _Fenwick(n)\n    code = [0] * n\n    for index in range(n - 1, -1, -1):\n        value = permutation[index]\n        code[index] = bit.prefix(value)\n        bit.add(value, 1)\n    return code\n\n\ndef lehmer_to_permutation(code):\n    \"\"\"Lehmer codeを0以上n未満の置換へ戻す。\"\"\"\n    code = list(code)\n    n = len(code)\n    for index, digit in enumerate(code):\n        if not 0 <= digit < n - index:\n            raise ValueError(\"a Lehmer digit is outside its radix\")\n    bit = _Fenwick(n, True)\n    permutation = [0] * n\n    for index, digit in enumerate(code):\n        value = bit.kth(digit)\n        permutation[index] = value\n        bit.add(value, -1)\n    return permutation\n\n\ndef permutation_rank(permutation):\n    \"\"\"置換の0-indexed辞書順順位を返す。\"\"\"\n    code = permutation_to_lehmer(permutation)\n    rank = 0\n    for index, digit in enumerate(code):\n        rank = rank * (len(code) - index) + digit\n    return rank\n\n\ndef unrank_permutation(size, rank):\n    \"\"\"size要素の辞書順rank番目の置換を返す。\"\"\"\n    if size < 0 or rank < 0:\n        raise ValueError(\"size and rank must be nonnegative\")\n    code = [0] * size\n    value = rank\n    for radix in range(1, size + 1):\n        value, code[size - radix] = divmod(value, radix)\n    if value:\n        raise IndexError(\"rank is outside the permutations of this size\")\n    return lehmer_to_permutation(code)\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 4,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "permutation_to_lehmer",
+          "kind": "function",
+          "signature": "permutation_to_lehmer(permutation)",
+          "summary": "0以上n未満の置換をLehmer codeへ変換する。",
+          "description": "0以上n未満の置換をLehmer codeへ変換する。",
+          "searchTerms": [
+            "permutation_to_lehmer",
+            "permutation to lehmer",
+            "permutation_to_lehmer(permutation)"
+          ],
+          "arguments": "permutation: 0からn-1を1回ずつ含む置換。",
+          "argumentDetails": [
+            {
+              "name": "permutation",
+              "description": "0からn-1を1回ずつ含む置換。"
+            }
+          ],
+          "returns": "list[int] — 置換と同じ長さのcode。code[i]はpermutation[i]より右にある、permutation[i]未満の値の個数で、0 <= code[i] < n-i。",
+          "returnFormat": "list[int]",
+          "returnDescription": "置換と同じ長さのcode。code[i]はpermutation[i]より右にある、permutation[i]未満の値の個数で、0 <= code[i] < n-i。",
+          "complexity": "O(N log N) time、O(N) memory",
+          "sourceLine": 42
+        },
+        {
+          "name": "lehmer_to_permutation",
+          "kind": "function",
+          "signature": "lehmer_to_permutation(code)",
+          "summary": "Lehmer codeを0以上n未満の置換へ復元する。",
+          "description": "Lehmer codeを0以上n未満の置換へ復元する。",
+          "searchTerms": [
+            "lehmer_to_permutation",
+            "lehmer to permutation",
+            "lehmer_to_permutation(code)"
+          ],
+          "arguments": "code: 長さnで、各位置iが0 <= code[i] < n-iを満たす整数列。",
+          "argumentDetails": [
+            {
+              "name": "code",
+              "description": "長さnで、各位置iが0 <= code[i] < n-iを満たす整数列。"
+            }
+          ],
+          "returns": "list[int] — codeが表す0からn-1の置換。permutation_to_lehmerへ渡すと元のcodeへ戻る。",
+          "returnFormat": "list[int]",
+          "returnDescription": "codeが表す0からn-1の置換。permutation_to_lehmerへ渡すと元のcodeへ戻る。",
+          "complexity": "O(N log N) time、O(N) memory",
+          "sourceLine": 57
+        },
+        {
+          "name": "permutation_rank",
+          "kind": "function",
+          "signature": "permutation_rank(permutation)",
+          "summary": "置換が辞書順で何番目かを0-indexedで求める。",
+          "description": "置換が辞書順で何番目かを0-indexedで求める。",
+          "searchTerms": [
+            "permutation_rank",
+            "permutation rank",
+            "permutation_rank(permutation)"
+          ],
+          "arguments": "permutation: 0からn-1を1回ずつ含む置換。",
+          "argumentDetails": [
+            {
+              "name": "permutation",
+              "description": "0からn-1を1回ずつ含む置換。"
+            }
+          ],
+          "returns": "int — 0以上n!未満の辞書順rank。",
+          "returnFormat": "int",
+          "returnDescription": "0以上n!未満の辞書順rank。",
+          "complexity": "O(N log N) time、O(N) memory",
+          "sourceLine": 73
+        },
+        {
+          "name": "unrank_permutation",
+          "kind": "function",
+          "signature": "unrank_permutation(size, rank)",
+          "summary": "指定sizeの置換を辞書順に並べたときのrank番目を復元する。",
+          "description": "指定sizeの置換を辞書順に並べたときのrank番目を復元する。",
+          "searchTerms": [
+            "unrank_permutation",
+            "unrank permutation",
+            "unrank_permutation(size, rank)"
+          ],
+          "arguments": "size: 置換の非負要素数。 · rank: 0以上size!未満の0-indexed辞書順順位。",
+          "argumentDetails": [
+            {
+              "name": "size",
+              "description": "置換の非負要素数。"
+            },
+            {
+              "name": "rank",
+              "description": "0以上size!未満の0-indexed辞書順順位。"
+            }
+          ],
+          "returns": "list[int] — 0からsize-1を1回ずつ含む辞書順rank番目の置換。",
+          "returnFormat": "list[int]",
+          "returnDescription": "0からsize-1を1回ずつ含む辞書順rank番目の置換。",
+          "complexity": "O(N log N) time、O(N) memory",
+          "sourceLine": 82
         }
       ],
       "classes": []
@@ -57659,6 +58317,94 @@
       "categoryLabel": "最適化・DP",
       "domain": "optimization",
       "domainLabel": "Optimization",
+      "name": "AliensTrick",
+      "modulePath": "library_codex.optimization.AliensTrick",
+      "summary": "個数penalty付き最適化から個数固定の最適値を復元する。",
+      "capabilities": [
+        "選択個数に整数penaltyを加えた最適化oracleから、選択個数を固定した最適値を復元できる。",
+        "penalty範囲を指数探索してから二分探索し、最小化と最大化の両方を扱う。",
+        "count=targetの解がLagrangian relaxationで復元できる離散凸・離散凹な問題を対象にする。"
+      ],
+      "searchTerms": [
+        "AliensTrick",
+        "Aliens Trick",
+        "library_codex.optimization.AliensTrick",
+        "library codex optimization Aliens Trick",
+        "optimization/AliensTrick.py",
+        "最適化・DP",
+        "Alien DP",
+        "Lagrangian relaxation",
+        "ラグランジュ緩和"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/optimization/AliensTrick.py",
+      "inputFingerprint": "38f2d4848a6ecc56ed7a8fd2341af64fb11300ecc187823f477f115ba08ca7ad",
+      "importCode": "from library_codex.optimization.AliensTrick import aliens_trick",
+      "sourceCode": "\"\"\"個数penalty付き最適化から個数固定の最適値を復元する。\"\"\"\n\n\ndef _aliens_min(target, solve, max_abs_penalty):\n    value_zero, count_zero = solve(0)\n    if count_zero == target:\n        return value_zero, 0\n    lower = upper = 0\n    value_lower = value_upper = value_zero\n    count_lower = count_upper = count_zero\n    if count_zero < target:\n        lower = -1\n        value_lower, count_lower = solve(lower)\n        while count_lower < target:\n            distance = upper - lower\n            upper, value_upper, count_upper = lower, value_lower, count_lower\n            lower -= distance * 2\n            if lower < -max_abs_penalty:\n                raise ValueError(\"target count was not bracketed by solve\")\n            value_lower, count_lower = solve(lower)\n    else:\n        upper = 1\n        value_upper, count_upper = solve(upper)\n        while count_upper > target:\n            distance = upper - lower\n            lower, value_lower, count_lower = upper, value_upper, count_upper\n            upper += distance * 2\n            if upper > max_abs_penalty:\n                raise ValueError(\"target count was not bracketed by solve\")\n            value_upper, count_upper = solve(upper)\n    if count_lower < target or count_upper > target:\n        raise ValueError(\"solve counts must be nonincreasing in penalty\")\n\n    while lower + 1 < upper:\n        middle = (lower + upper) // 2\n        value, count = solve(middle)\n        if count == target:\n            return value - middle * target, middle\n        if count > target:\n            lower, value_lower, count_lower = middle, value, count\n        else:\n            upper, value_upper, count_upper = middle, value, count\n    first = value_lower - lower * target\n    second = value_upper - upper * target\n    return (first, lower) if first >= second else (second, upper)\n\n\ndef aliens_trick(target, solve, minimize=True, max_abs_penalty=1 << 60):\n    \"\"\"solve(penalty)を使ってcount=targetのbase scoreとpenaltyを返す。\"\"\"\n    if target < 0 or max_abs_penalty < 1:\n        raise ValueError(\"target must be nonnegative and penalty limit positive\")\n    if minimize:\n        return _aliens_min(target, solve, max_abs_penalty)\n\n    def transformed(penalty):\n        value, count = solve(-penalty)\n        return -value, count\n\n    value, penalty = _aliens_min(target, transformed, max_abs_penalty)\n    return -value, -penalty\n",
+      "standaloneCode": "\"\"\"個数penalty付き最適化から個数固定の最適値を復元する。\"\"\"\n\n\ndef _aliens_min(target, solve, max_abs_penalty):\n    value_zero, count_zero = solve(0)\n    if count_zero == target:\n        return value_zero, 0\n    lower = upper = 0\n    value_lower = value_upper = value_zero\n    count_lower = count_upper = count_zero\n    if count_zero < target:\n        lower = -1\n        value_lower, count_lower = solve(lower)\n        while count_lower < target:\n            distance = upper - lower\n            upper, value_upper, count_upper = lower, value_lower, count_lower\n            lower -= distance * 2\n            if lower < -max_abs_penalty:\n                raise ValueError(\"target count was not bracketed by solve\")\n            value_lower, count_lower = solve(lower)\n    else:\n        upper = 1\n        value_upper, count_upper = solve(upper)\n        while count_upper > target:\n            distance = upper - lower\n            lower, value_lower, count_lower = upper, value_upper, count_upper\n            upper += distance * 2\n            if upper > max_abs_penalty:\n                raise ValueError(\"target count was not bracketed by solve\")\n            value_upper, count_upper = solve(upper)\n    if count_lower < target or count_upper > target:\n        raise ValueError(\"solve counts must be nonincreasing in penalty\")\n\n    while lower + 1 < upper:\n        middle = (lower + upper) // 2\n        value, count = solve(middle)\n        if count == target:\n            return value - middle * target, middle\n        if count > target:\n            lower, value_lower, count_lower = middle, value, count\n        else:\n            upper, value_upper, count_upper = middle, value, count\n    first = value_lower - lower * target\n    second = value_upper - upper * target\n    return (first, lower) if first >= second else (second, upper)\n\n\ndef aliens_trick(target, solve, minimize=True, max_abs_penalty=1 << 60):\n    \"\"\"solve(penalty)を使ってcount=targetのbase scoreとpenaltyを返す。\"\"\"\n    if target < 0 or max_abs_penalty < 1:\n        raise ValueError(\"target must be nonnegative and penalty limit positive\")\n    if minimize:\n        return _aliens_min(target, solve, max_abs_penalty)\n\n    def transformed(penalty):\n        value, count = solve(-penalty)\n        return -value, count\n\n    value, penalty = _aliens_min(target, transformed, max_abs_penalty)\n    return -value, -penalty\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "aliens_trick",
+          "kind": "function",
+          "signature": "aliens_trick(target, solve, minimize=True, max_abs_penalty=1 << 60)",
+          "summary": "base_score + penalty * countの最適値を返すoracleを整数penaltyで呼び、countをtargetへ固定したbase_scoreを復元する。",
+          "description": "base_score + penalty * countの最適値を返すoracleを整数penaltyで呼び、countをtargetへ固定したbase_scoreを復元する。",
+          "searchTerms": [
+            "aliens_trick",
+            "aliens trick",
+            "aliens_trick(target, solve, minimize=True, max_abs_penalty=1 << 60)"
+          ],
+          "arguments": "target: 固定したい非負の選択個数。 · solve: solve(penalty)が(penalized_score, count)を返すcallback。同値解では、minimize=Trueならpenalty増加に対してcountが非増加、Falseなら非減少になるよう一貫したtie処理をcallback側で行う。 · minimize: Trueなら最小化、Falseなら最大化oracleとして扱う。 · max_abs_penalty: bracket探索で許すpenalty絶対値の上限。targetを挟めなければValueError。",
+          "argumentDetails": [
+            {
+              "name": "target",
+              "description": "固定したい非負の選択個数。"
+            },
+            {
+              "name": "solve",
+              "description": "solve(penalty)が(penalized_score, count)を返すcallback。同値解では、minimize=Trueならpenalty増加に対してcountが非増加、Falseなら非減少になるよう一貫したtie処理をcallback側で行う。"
+            },
+            {
+              "name": "minimize",
+              "description": "Trueなら最小化、Falseなら最大化oracleとして扱う。"
+            },
+            {
+              "name": "max_abs_penalty",
+              "description": "bracket探索で許すpenalty絶対値の上限。targetを挟めなければValueError。"
+            }
+          ],
+          "returns": "tuple[number, int] — (base_score, penalty)を返す。",
+          "returnFormat": "tuple[number, int]",
+          "returnDescription": "(base_score, penalty)を返す。",
+          "complexity": "O(log P) 回のsolve呼び出し、O(1) extra memory（Pは探索したpenalty幅）",
+          "sourceLine": 48,
+          "returnParts": [
+            {
+              "name": "base_score",
+              "format": "number",
+              "description": "count=targetに固定した元の目的関数の最適値。"
+            },
+            {
+              "name": "penalty",
+              "format": "int",
+              "description": "復元に使った整数penalty。solve(penalty)の値からpenalty * targetを除くとbase_scoreになるか、隣接penaltyのLagrangian boundとしてbase_scoreを作る。"
+            }
+          ]
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "optimization",
+      "categoryLabel": "最適化・DP",
+      "domain": "optimization",
+      "domainLabel": "Optimization",
       "name": "ConvexConcaveConvolution",
       "modulePath": "library_codex.optimization.ConvexConcaveConvolution",
       "summary": "凹列を含むmax-plus畳み込み。",
@@ -60418,6 +61164,243 @@
       "categoryLabel": "幾何",
       "domain": "geometry",
       "domainLabel": "Geometry",
+      "name": "FurthestPair",
+      "modulePath": "library_codex.geometry.FurthestPair",
+      "summary": "2次元点集合で距離が最大の2点を求める。",
+      "capabilities": [
+        "2次元点集合からEuclidean距離が最大の2点を求められる。",
+        "凸包とrotating calipersを使い、全点pairを調べず入力indexと距離の二乗を返す。"
+      ],
+      "searchTerms": [
+        "FurthestPair",
+        "Furthest Pair",
+        "library_codex.geometry.FurthestPair",
+        "library codex geometry Furthest Pair",
+        "geometry/FurthestPair.py",
+        "幾何",
+        "最遠点対",
+        "凸包直径",
+        "rotating calipers"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/geometry/FurthestPair.py",
+      "inputFingerprint": "cc322fcc65103802dabef48edfe412f3a3148dffc319f98b3cffcf135cc6eaec",
+      "importCode": "from library_codex.geometry.FurthestPair import furthest_pair",
+      "sourceCode": "\"\"\"2次元点集合で距離が最大の2点を求める。\"\"\"\n\nfrom library_codex.geometry.ConvexHull import convex_hull\n\n\ndef _cross(first, second):\n    return first[0] * second[1] - first[1] * second[0]\n\n\ndef furthest_pair(points):\n    \"\"\"距離最大の入力添字pairと距離の二乗を返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    first_index = {}\n    for index, point in enumerate(points):\n        first_index.setdefault(point, index)\n    hull = convex_hull(points)\n    if len(hull) == 1:\n        index = first_index[hull[0]]\n        return index, index, 0\n\n    best_pair = None\n    best_distance = -1\n\n    def update(first, second):\n        nonlocal best_pair, best_distance\n        i = first_index[hull[first]]\n        j = first_index[hull[second]]\n        if i > j:\n            i, j = j, i\n        dx = hull[first][0] - hull[second][0]\n        dy = hull[first][1] - hull[second][1]\n        distance = dx * dx + dy * dy\n        if distance > best_distance or distance == best_distance and (i, j) < best_pair:\n            best_distance = distance\n            best_pair = (i, j)\n\n    if len(hull) == 2:\n        update(0, 1)\n        return best_pair[0], best_pair[1], best_distance\n\n    j = 1\n    size = len(hull)\n    for i in range(size):\n        nxt = (i + 1) % size\n        edge = (hull[nxt][0] - hull[i][0], hull[nxt][1] - hull[i][1])\n        while True:\n            next_j = (j + 1) % size\n            current = abs(_cross(edge, (hull[j][0] - hull[i][0], hull[j][1] - hull[i][1])))\n            candidate = abs(_cross(edge, (hull[next_j][0] - hull[i][0], hull[next_j][1] - hull[i][1])))\n            if candidate <= current:\n                break\n            j = next_j\n        update(i, j)\n        update(nxt, j)\n    return best_pair[0], best_pair[1], best_distance\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: geometry/Orientation.py\n\"\"\"2次元点の外積と向きを整数演算で判定する。\"\"\"\n\ndef cross(origin, first, second):\n    \"\"\"ベクトル origin→first と origin→second の外積を返す。O(1)。\"\"\"\n    return (first[0] - origin[0]) * (second[1] - origin[1]) - (first[1] - origin[1]) * (second[0] - origin[0])\n\ndef orientation(first, second, third):\n    \"\"\"3点の向きを反時計回りなら1、時計回りなら-1、一直線なら0で返す。O(1)。\"\"\"\n    value = cross(first, second, third)\n    return (value > 0) - (value < 0)\n\n# 依存: geometry/ConvexHull.py\n\"\"\"2次元点集合の凸包をAndrewの単調鎖法で構築する。\"\"\"\n\ndef convex_hull(points, keep_collinear=False):\n    \"\"\"凸包の頂点を反時計回りに、始点を重ねず返す。O(N log N)。\"\"\"\n    points = sorted(set(points))\n    if len(points) <= 1:\n        return points\n    if keep_collinear and all((cross(points[0], points[-1], point) == 0 for point in points[1:-1])):\n        return points\n    lower = []\n    upper = []\n    for point in points:\n        while len(lower) >= 2:\n            turn = cross(lower[-2], lower[-1], point)\n            if turn > 0 or (keep_collinear and turn == 0):\n                break\n            lower.pop()\n        lower.append(point)\n    for point in reversed(points):\n        while len(upper) >= 2:\n            turn = cross(upper[-2], upper[-1], point)\n            if turn > 0 or (keep_collinear and turn == 0):\n                break\n            upper.pop()\n        upper.append(point)\n    return lower[:-1] + upper[:-1]\n\n# 本体\n\"\"\"2次元点集合で距離が最大の2点を求める。\"\"\"\n\ndef _cross(first, second):\n    return first[0] * second[1] - first[1] * second[0]\n\ndef furthest_pair(points):\n    \"\"\"距離最大の入力添字pairと距離の二乗を返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError('at least one point is required')\n    first_index = {}\n    for (index, point) in enumerate(points):\n        first_index.setdefault(point, index)\n    hull = convex_hull(points)\n    if len(hull) == 1:\n        index = first_index[hull[0]]\n        return (index, index, 0)\n    best_pair = None\n    best_distance = -1\n\n    def update(first, second):\n        nonlocal best_pair, best_distance\n        i = first_index[hull[first]]\n        j = first_index[hull[second]]\n        if i > j:\n            (i, j) = (j, i)\n        dx = hull[first][0] - hull[second][0]\n        dy = hull[first][1] - hull[second][1]\n        distance = dx * dx + dy * dy\n        if distance > best_distance or (distance == best_distance and (i, j) < best_pair):\n            best_distance = distance\n            best_pair = (i, j)\n    if len(hull) == 2:\n        update(0, 1)\n        return (best_pair[0], best_pair[1], best_distance)\n    j = 1\n    size = len(hull)\n    for i in range(size):\n        nxt = (i + 1) % size\n        edge = (hull[nxt][0] - hull[i][0], hull[nxt][1] - hull[i][1])\n        while True:\n            next_j = (j + 1) % size\n            current = abs(_cross(edge, (hull[j][0] - hull[i][0], hull[j][1] - hull[i][1])))\n            candidate = abs(_cross(edge, (hull[next_j][0] - hull[i][0], hull[next_j][1] - hull[i][1])))\n            if candidate <= current:\n                break\n            j = next_j\n        update(i, j)\n        update(nxt, j)\n    return (best_pair[0], best_pair[1], best_distance)\n",
+      "bundledDependencies": [
+        "library_codex.geometry.Orientation",
+        "library_codex.geometry.ConvexHull"
+      ],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "furthest_pair",
+          "kind": "function",
+          "signature": "furthest_pair(points)",
+          "summary": "入力点集合のEuclidean距離が最大となる2点を凸包とrotating calipersで求める。",
+          "description": "入力点集合のEuclidean距離が最大となる2点を凸包とrotating calipersで求める。",
+          "searchTerms": [
+            "furthest_pair",
+            "furthest pair",
+            "furthest_pair(points)"
+          ],
+          "arguments": "points: 1個以上の2次元点(x, y)の列。重複点を許す。",
+          "argumentDetails": [
+            {
+              "name": "points",
+              "description": "1個以上の2次元点(x, y)の列。重複点を許す。"
+            }
+          ],
+          "returns": "tuple[int, int, number] — (first, second, distance_squared)を返す。",
+          "returnFormat": "tuple[int, int, number]",
+          "returnDescription": "(first, second, distance_squared)を返す。",
+          "complexity": "O(N log N) time、O(N) memory",
+          "sourceLine": 10,
+          "returnParts": [
+            {
+              "name": "first",
+              "format": "int",
+              "description": "距離最大pairの小さい方の入力index。"
+            },
+            {
+              "name": "second",
+              "format": "int",
+              "description": "距離最大pairの大きい方の入力index。点が1個ならfirstと同じ。"
+            },
+            {
+              "name": "distance_squared",
+              "format": "number",
+              "description": "2点間Euclidean距離の二乗。平方根を取らないため整数座標では整数。"
+            }
+          ]
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "geometry",
+      "categoryLabel": "幾何",
+      "domain": "geometry",
+      "domainLabel": "Geometry",
+      "name": "MinimumEnclosingCircle",
+      "modulePath": "library_codex.geometry.MinimumEnclosingCircle",
+      "summary": "点集合を覆う半径最小の円を求める。",
+      "capabilities": [
+        "2次元点集合をすべて覆う半径最小の円について、中心と半径を求められる。",
+        "円を決定する入力点のindexも返すため、結果の根拠を復元・検証できる。"
+      ],
+      "searchTerms": [
+        "MinimumEnclosingCircle",
+        "Minimum Enclosing Circle",
+        "library_codex.geometry.MinimumEnclosingCircle",
+        "library codex geometry Minimum Enclosing Circle",
+        "geometry/MinimumEnclosingCircle.py",
+        "幾何",
+        "最小包含円",
+        "minimum covering circle",
+        "smallest enclosing circle"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/geometry/MinimumEnclosingCircle.py",
+      "inputFingerprint": "fdded9f9a7d5b5ca5ffae53f3f271e377559d1c4e6d7dbbeab61ef690304d83e",
+      "importCode": "from library_codex.geometry.MinimumEnclosingCircle import minimum_enclosing_circle",
+      "sourceCode": "\"\"\"点集合を覆う半径最小の円を求める。\"\"\"\n\nfrom math import sqrt\nfrom random import Random\n\n\ndef _diameter(first, second, first_id, second_id):\n    x = (first[0] + second[0]) * 0.5\n    y = (first[1] + second[1]) * 0.5\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, (dx * dx + dy * dy) * 0.25, (first_id, second_id)\n\n\ndef _through_three(first, second, third, ids):\n    ax, ay = first\n    bx, by = second\n    cx, cy = third\n    denominator = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))\n    scale = max(1.0, abs(ax), abs(ay), abs(bx), abs(by), abs(cx), abs(cy))\n    if abs(denominator) <= 1e-15 * scale * scale:\n        pairs = ((first, second, ids[0], ids[1]),\n                 (first, third, ids[0], ids[2]),\n                 (second, third, ids[1], ids[2]))\n        return max(((_diameter(*pair)) for pair in pairs), key=lambda circle: circle[2])\n    aa = ax * ax + ay * ay\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = (aa * (by - cy) + bb * (cy - ay) + cc * (ay - by)) / denominator\n    y = (aa * (cx - bx) + bb * (ax - cx) + cc * (bx - ax)) / denominator\n    dx = x - ax\n    dy = y - ay\n    return x, y, dx * dx + dy * dy, ids\n\n\ndef _contains(circle, point):\n    x, y, radius_squared, _ = circle\n    dx = point[0] - x\n    dy = point[1] - y\n    return dx * dx + dy * dy <= radius_squared + 1e-12 * max(1.0, radius_squared)\n\n\ndef minimum_enclosing_circle(points, seed=0):\n    \"\"\"すべての点を含む最小円を(center, radius, support)で返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _contains(circle, first):\n            continue\n        circle = (float(first[0]), float(first[1]), 0.0, (first_id,))\n        for second_position in range(position):\n            second_id = order[second_position]\n            second = points[second_id]\n            if _contains(circle, second):\n                continue\n            circle = _diameter(first, second, first_id, second_id)\n            for third_position in range(second_position):\n                third_id = order[third_position]\n                third = points[third_id]\n                if not _contains(circle, third):\n                    circle = _through_three(\n                        first, second, third, (first_id, second_id, third_id)\n                    )\n    x, y, radius_squared, support = circle\n    return (x, y), sqrt(max(0.0, radius_squared)), tuple(sorted(support))\n",
+      "standaloneCode": "\"\"\"点集合を覆う半径最小の円を求める。\"\"\"\n\nfrom math import sqrt\nfrom random import Random\n\n\ndef _diameter(first, second, first_id, second_id):\n    x = (first[0] + second[0]) * 0.5\n    y = (first[1] + second[1]) * 0.5\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, (dx * dx + dy * dy) * 0.25, (first_id, second_id)\n\n\ndef _through_three(first, second, third, ids):\n    ax, ay = first\n    bx, by = second\n    cx, cy = third\n    denominator = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))\n    scale = max(1.0, abs(ax), abs(ay), abs(bx), abs(by), abs(cx), abs(cy))\n    if abs(denominator) <= 1e-15 * scale * scale:\n        pairs = ((first, second, ids[0], ids[1]),\n                 (first, third, ids[0], ids[2]),\n                 (second, third, ids[1], ids[2]))\n        return max(((_diameter(*pair)) for pair in pairs), key=lambda circle: circle[2])\n    aa = ax * ax + ay * ay\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = (aa * (by - cy) + bb * (cy - ay) + cc * (ay - by)) / denominator\n    y = (aa * (cx - bx) + bb * (ax - cx) + cc * (bx - ax)) / denominator\n    dx = x - ax\n    dy = y - ay\n    return x, y, dx * dx + dy * dy, ids\n\n\ndef _contains(circle, point):\n    x, y, radius_squared, _ = circle\n    dx = point[0] - x\n    dy = point[1] - y\n    return dx * dx + dy * dy <= radius_squared + 1e-12 * max(1.0, radius_squared)\n\n\ndef minimum_enclosing_circle(points, seed=0):\n    \"\"\"すべての点を含む最小円を(center, radius, support)で返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _contains(circle, first):\n            continue\n        circle = (float(first[0]), float(first[1]), 0.0, (first_id,))\n        for second_position in range(position):\n            second_id = order[second_position]\n            second = points[second_id]\n            if _contains(circle, second):\n                continue\n            circle = _diameter(first, second, first_id, second_id)\n            for third_position in range(second_position):\n                third_id = order[third_position]\n                third = points[third_id]\n                if not _contains(circle, third):\n                    circle = _through_three(\n                        first, second, third, (first_id, second_id, third_id)\n                    )\n    x, y, radius_squared, support = circle\n    return (x, y), sqrt(max(0.0, radius_squared)), tuple(sorted(support))\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "minimum_enclosing_circle",
+          "kind": "function",
+          "signature": "minimum_enclosing_circle(points, seed=0)",
+          "summary": "入力点をすべて内部または境界に含む円のうち、半径が最小のものをrandomized incremental法で求める。",
+          "description": "入力点をすべて内部または境界に含む円のうち、半径が最小のものをrandomized incremental法で求める。",
+          "searchTerms": [
+            "minimum_enclosing_circle",
+            "minimum enclosing circle",
+            "minimum_enclosing_circle(points, seed=0)"
+          ],
+          "arguments": "points: 1個以上の2次元点(x, y)の列。重複点を許す。 · seed: 処理順をshuffleする乱数seed。同じ入力とseedでは同じsupportを返す。",
+          "argumentDetails": [
+            {
+              "name": "points",
+              "description": "1個以上の2次元点(x, y)の列。重複点を許す。"
+            },
+            {
+              "name": "seed",
+              "description": "処理順をshuffleする乱数seed。同じ入力とseedでは同じsupportを返す。"
+            }
+          ],
+          "returns": "tuple[tuple[float, float], float, tuple[int, ...]] — (center, radius, support)を返す。",
+          "returnFormat": "tuple[tuple[float, float], float, tuple[int, ...]]",
+          "returnDescription": "(center, radius, support)を返す。",
+          "complexity": "期待 O(N) time、最悪 O(N^3) time、O(N) memory",
+          "sourceLine": 43,
+          "returnParts": [
+            {
+              "name": "center",
+              "format": "tuple[float, float]",
+              "description": "最小包含円の中心座標(x, y)。"
+            },
+            {
+              "name": "radius",
+              "format": "float",
+              "description": "最小包含円の非負半径。"
+            },
+            {
+              "name": "support",
+              "format": "tuple[int, ...]",
+              "description": "円を決定する1個から3個の入力点indexを昇順に並べたtuple。"
+            }
+          ]
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "geometry",
+      "categoryLabel": "幾何",
+      "domain": "geometry",
+      "domainLabel": "Geometry",
+      "name": "MinkowskiSum",
+      "modulePath": "library_codex.geometry.MinkowskiSum",
+      "summary": "2つの凸多角形のMinkowski和を構築する。",
+      "capabilities": [
+        "2つの凸多角形から、各多角形の点を1つずつ足して得られる集合の凸包を構築できる。",
+        "strictな凸多角形では辺vectorを角度順にmergeし、頂点対を全列挙しない。"
+      ],
+      "searchTerms": [
+        "MinkowskiSum",
+        "Minkowski Sum",
+        "library_codex.geometry.MinkowskiSum",
+        "library codex geometry Minkowski Sum",
+        "geometry/MinkowskiSum.py",
+        "幾何",
+        "Minkowski和",
+        "凸多角形の和",
+        "polygon sum"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/geometry/MinkowskiSum.py",
+      "inputFingerprint": "86721e01b67f9813d6907b034e5451cf36f0be71f6a79092d845d346780df497",
+      "importCode": "from library_codex.geometry.MinkowskiSum import minkowski_sum",
+      "sourceCode": "\"\"\"2つの凸多角形のMinkowski和を構築する。\"\"\"\n\nfrom library_codex.geometry.ConvexHull import convex_hull\n\n\ndef _cross(first, second):\n    return first[0] * second[1] - first[1] * second[0]\n\n\ndef _prepare(points):\n    points = list(points)\n    if len(points) > 1 and points[0] == points[-1]:\n        points.pop()\n    clean = []\n    for point in points:\n        point = tuple(point)\n        if not clean or clean[-1] != point:\n            clean.append(point)\n    if len(clean) > 1 and clean[0] == clean[-1]:\n        clean.pop()\n    if len(clean) <= 2:\n        return sorted(set(clean))\n\n    sign = 0\n    strict = True\n    for index in range(len(clean)):\n        first = clean[index - 1]\n        second = clean[index]\n        third = clean[(index + 1) % len(clean)]\n        value = _cross(\n            (second[0] - first[0], second[1] - first[1]),\n            (third[0] - second[0], third[1] - second[1]),\n        )\n        if value == 0:\n            strict = False\n            break\n        current = 1 if value > 0 else -1\n        if sign and sign != current:\n            strict = False\n            break\n        sign = current\n    if not strict:\n        clean = convex_hull(clean)\n    elif sign < 0:\n        clean.reverse()\n    start = min(range(len(clean)), key=clean.__getitem__)\n    return clean[start:] + clean[:start]\n\n\ndef minkowski_sum(first, second):\n    \"\"\"凸多角形firstとsecondの点和全体の凸包を返す。\"\"\"\n    first = _prepare(first)\n    second = _prepare(second)\n    if not first or not second:\n        return []\n    if len(first) < 3 or len(second) < 3:\n        return convex_hull([\n            (a[0] + b[0], a[1] + b[1]) for a in first for b in second\n        ])\n\n    first_edges = [\n        (first[(i + 1) % len(first)][0] - first[i][0],\n         first[(i + 1) % len(first)][1] - first[i][1])\n        for i in range(len(first))\n    ]\n    second_edges = [\n        (second[(i + 1) % len(second)][0] - second[i][0],\n         second[(i + 1) % len(second)][1] - second[i][1])\n        for i in range(len(second))\n    ]\n    point = (first[0][0] + second[0][0], first[0][1] + second[0][1])\n    result = [point]\n    i = j = 0\n    while i < len(first_edges) or j < len(second_edges):\n        if i == len(first_edges):\n            edge = second_edges[j]\n            j += 1\n        elif j == len(second_edges):\n            edge = first_edges[i]\n            i += 1\n        else:\n            turn = _cross(first_edges[i], second_edges[j])\n            if turn > 0:\n                edge = first_edges[i]\n                i += 1\n            elif turn < 0:\n                edge = second_edges[j]\n                j += 1\n            else:\n                edge = (first_edges[i][0] + second_edges[j][0],\n                        first_edges[i][1] + second_edges[j][1])\n                i += 1\n                j += 1\n        point = (point[0] + edge[0], point[1] + edge[1])\n        result.append(point)\n    result.pop()\n    return result\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: geometry/Orientation.py\n\"\"\"2次元点の外積と向きを整数演算で判定する。\"\"\"\n\ndef cross(origin, first, second):\n    \"\"\"ベクトル origin→first と origin→second の外積を返す。O(1)。\"\"\"\n    return (first[0] - origin[0]) * (second[1] - origin[1]) - (first[1] - origin[1]) * (second[0] - origin[0])\n\ndef orientation(first, second, third):\n    \"\"\"3点の向きを反時計回りなら1、時計回りなら-1、一直線なら0で返す。O(1)。\"\"\"\n    value = cross(first, second, third)\n    return (value > 0) - (value < 0)\n\n# 依存: geometry/ConvexHull.py\n\"\"\"2次元点集合の凸包をAndrewの単調鎖法で構築する。\"\"\"\n\ndef convex_hull(points, keep_collinear=False):\n    \"\"\"凸包の頂点を反時計回りに、始点を重ねず返す。O(N log N)。\"\"\"\n    points = sorted(set(points))\n    if len(points) <= 1:\n        return points\n    if keep_collinear and all((cross(points[0], points[-1], point) == 0 for point in points[1:-1])):\n        return points\n    lower = []\n    upper = []\n    for point in points:\n        while len(lower) >= 2:\n            turn = cross(lower[-2], lower[-1], point)\n            if turn > 0 or (keep_collinear and turn == 0):\n                break\n            lower.pop()\n        lower.append(point)\n    for point in reversed(points):\n        while len(upper) >= 2:\n            turn = cross(upper[-2], upper[-1], point)\n            if turn > 0 or (keep_collinear and turn == 0):\n                break\n            upper.pop()\n        upper.append(point)\n    return lower[:-1] + upper[:-1]\n\n# 本体\n\"\"\"2つの凸多角形のMinkowski和を構築する。\"\"\"\n\ndef _cross(first, second):\n    return first[0] * second[1] - first[1] * second[0]\n\ndef _prepare(points):\n    points = list(points)\n    if len(points) > 1 and points[0] == points[-1]:\n        points.pop()\n    clean = []\n    for point in points:\n        point = tuple(point)\n        if not clean or clean[-1] != point:\n            clean.append(point)\n    if len(clean) > 1 and clean[0] == clean[-1]:\n        clean.pop()\n    if len(clean) <= 2:\n        return sorted(set(clean))\n    sign = 0\n    strict = True\n    for index in range(len(clean)):\n        first = clean[index - 1]\n        second = clean[index]\n        third = clean[(index + 1) % len(clean)]\n        value = _cross((second[0] - first[0], second[1] - first[1]), (third[0] - second[0], third[1] - second[1]))\n        if value == 0:\n            strict = False\n            break\n        current = 1 if value > 0 else -1\n        if sign and sign != current:\n            strict = False\n            break\n        sign = current\n    if not strict:\n        clean = convex_hull(clean)\n    elif sign < 0:\n        clean.reverse()\n    start = min(range(len(clean)), key=clean.__getitem__)\n    return clean[start:] + clean[:start]\n\ndef minkowski_sum(first, second):\n    \"\"\"凸多角形firstとsecondの点和全体の凸包を返す。\"\"\"\n    first = _prepare(first)\n    second = _prepare(second)\n    if not first or not second:\n        return []\n    if len(first) < 3 or len(second) < 3:\n        return convex_hull([(a[0] + b[0], a[1] + b[1]) for a in first for b in second])\n    first_edges = [(first[(i + 1) % len(first)][0] - first[i][0], first[(i + 1) % len(first)][1] - first[i][1]) for i in range(len(first))]\n    second_edges = [(second[(i + 1) % len(second)][0] - second[i][0], second[(i + 1) % len(second)][1] - second[i][1]) for i in range(len(second))]\n    point = (first[0][0] + second[0][0], first[0][1] + second[0][1])\n    result = [point]\n    i = j = 0\n    while i < len(first_edges) or j < len(second_edges):\n        if i == len(first_edges):\n            edge = second_edges[j]\n            j += 1\n        elif j == len(second_edges):\n            edge = first_edges[i]\n            i += 1\n        else:\n            turn = _cross(first_edges[i], second_edges[j])\n            if turn > 0:\n                edge = first_edges[i]\n                i += 1\n            elif turn < 0:\n                edge = second_edges[j]\n                j += 1\n            else:\n                edge = (first_edges[i][0] + second_edges[j][0], first_edges[i][1] + second_edges[j][1])\n                i += 1\n                j += 1\n        point = (point[0] + edge[0], point[1] + edge[1])\n        result.append(point)\n    result.pop()\n    return result\n",
+      "bundledDependencies": [
+        "library_codex.geometry.Orientation",
+        "library_codex.geometry.ConvexHull"
+      ],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "minkowski_sum",
+          "kind": "function",
+          "signature": "minkowski_sum(first, second)",
+          "summary": "2つの凸多角形のMinkowski和を表すstrictな凸包を構築する。",
+          "description": "2つの凸多角形のMinkowski和を表すstrictな凸包を構築する。",
+          "searchTerms": [
+            "minkowski_sum",
+            "minkowski sum",
+            "minkowski_sum(first, second)"
+          ],
+          "arguments": "first: 1個以上の頂点を周上の順に並べた凸多角形。向き、始点、末尾の始点重複、辺上の余分な頂点は正規化する。 · second: firstと同じ形式のもう1つの凸多角形。",
+          "argumentDetails": [
+            {
+              "name": "first",
+              "description": "1個以上の頂点を周上の順に並べた凸多角形。向き、始点、末尾の始点重複、辺上の余分な頂点は正規化する。"
+            },
+            {
+              "name": "second",
+              "description": "firstと同じ形式のもう1つの凸多角形。"
+            }
+          ],
+          "returns": "list[tuple[number, number]] — $\\{a+b\\mid a\\in\\mathrm{first}, b\\in\\mathrm{second}\\}$ の凸包頂点を、辞書順最小点から反時計回りに並べた列。始点を末尾へ重ねず、一直線上の中間点を含まない。どちらかが空なら空list。",
+          "returnFormat": "list[tuple[number, number]]",
+          "returnDescription": "$\\{a+b\\mid a\\in\\mathrm{first}, b\\in\\mathrm{second}\\}$ の凸包頂点を、辞書順最小点から反時計回りに並べた列。始点を末尾へ重ねず、一直線上の中間点を含まない。どちらかが空なら空list。",
+          "complexity": "strictな凸入力ではO(N+M) time、O(N+M) memory。向き不整合・共線点を含む入力の正規化fallbackではO(N log N + M log M) time",
+          "sourceLine": 50
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "geometry",
+      "categoryLabel": "幾何",
+      "domain": "geometry",
+      "domainLabel": "Geometry",
       "name": "Orientation",
       "modulePath": "library_codex.geometry.Orientation",
       "summary": "2次元点の外積と向き判定。",
@@ -60506,6 +61489,72 @@
           "returnDescription": "反時計回りは1、時計回りは-1、一直線は0",
           "complexity": "O(1)",
           "sourceLine": 10
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "geometry",
+      "categoryLabel": "幾何",
+      "domain": "geometry",
+      "domainLabel": "Geometry",
+      "name": "PointInPolygon",
+      "modulePath": "library_codex.geometry.PointInPolygon",
+      "summary": "多角形に対する点の内外と境界を判定する。",
+      "capabilities": [
+        "単純多角形に対する点を、内部・境界上・外部の3状態で判定できる。",
+        "凸性や頂点の向きを仮定せず、凹多角形にもそのまま使える。"
+      ],
+      "searchTerms": [
+        "PointInPolygon",
+        "Point In Polygon",
+        "library_codex.geometry.PointInPolygon",
+        "library codex geometry Point In Polygon",
+        "geometry/PointInPolygon.py",
+        "幾何",
+        "点の内外判定",
+        "境界判定"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/geometry/PointInPolygon.py",
+      "inputFingerprint": "f68051e9051083fa7b58e7569d38cc0200e7f95d80cc87e8cd27e62f2feb9624",
+      "importCode": "from library_codex.geometry.PointInPolygon import point_location",
+      "sourceCode": "\"\"\"多角形に対する点の内外と境界を判定する。\"\"\"\n\n\ndef point_location(polygon, point):\n    \"\"\"点が内部なら1、境界上なら0、外部なら-1を返す。\"\"\"\n    n = len(polygon)\n    if n == 0:\n        return -1\n    x, y = point\n    inside = False\n    for index, first in enumerate(polygon):\n        second = polygon[(index + 1) % n]\n        ax, ay = first\n        bx, by = second\n        cross = (bx - ax) * (y - ay) - (by - ay) * (x - ax)\n        if cross == 0 and min(ax, bx) <= x <= max(ax, bx) and min(ay, by) <= y <= max(ay, by):\n            return 0\n        if (ay > y) != (by > y):\n            if (by > ay and cross > 0) or (by < ay and cross < 0):\n                inside = not inside\n    return 1 if inside else -1\n",
+      "standaloneCode": "\"\"\"多角形に対する点の内外と境界を判定する。\"\"\"\n\n\ndef point_location(polygon, point):\n    \"\"\"点が内部なら1、境界上なら0、外部なら-1を返す。\"\"\"\n    n = len(polygon)\n    if n == 0:\n        return -1\n    x, y = point\n    inside = False\n    for index, first in enumerate(polygon):\n        second = polygon[(index + 1) % n]\n        ax, ay = first\n        bx, by = second\n        cross = (bx - ax) * (y - ay) - (by - ay) * (x - ax)\n        if cross == 0 and min(ax, bx) <= x <= max(ax, bx) and min(ay, by) <= y <= max(ay, by):\n            return 0\n        if (ay > y) != (by > y):\n            if (by > ay and cross > 0) or (by < ay and cross < 0):\n                inside = not inside\n    return 1 if inside else -1\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "point_location",
+          "kind": "function",
+          "signature": "point_location(polygon, point)",
+          "summary": "単純多角形に対する点の位置を、内部・境界・外部の3値で判定する。",
+          "description": "単純多角形に対する点の位置を、内部・境界・外部の3値で判定する。",
+          "searchTerms": [
+            "point_location",
+            "point location",
+            "point_location(polygon, point)"
+          ],
+          "arguments": "polygon: 多角形の頂点を周上の順に並べた(x, y)列。時計回り・反時計回りのどちらでもよく、始点を末尾へ重ねない。 · point: 判定する点(x, y)。",
+          "argumentDetails": [
+            {
+              "name": "polygon",
+              "description": "多角形の頂点を周上の順に並べた(x, y)列。時計回り・反時計回りのどちらでもよく、始点を末尾へ重ねない。"
+            },
+            {
+              "name": "point",
+              "description": "判定する点(x, y)。"
+            }
+          ],
+          "returns": "int — pointがpolygonの内部なら1、辺または頂点上なら0、外部なら-1。空polygonでは-1。",
+          "returnFormat": "int",
+          "returnDescription": "pointがpolygonの内部なら1、辺または頂点上なら0、外部なら-1。空polygonでは-1。",
+          "complexity": "O(N) time、O(1) memory",
+          "sourceLine": 4
         }
       ],
       "classes": []

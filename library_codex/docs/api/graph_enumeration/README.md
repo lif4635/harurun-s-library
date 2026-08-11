@@ -12,4 +12,5 @@ clique・cycle・彩色・部分集合DPのAPI一覧です。
 | [`GraphCounting`](GraphCounting.md) | 彩色多項式・有向/無向全域木数・有向Euler閉路数 | 5 | 0 | 0 |
 | [`GraphProperties`](GraphProperties.md) | Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色 | 1 | 1 | 4 |
 | [`HeldKarp`](HeldKarp.md) | 全頂点を一度ずつ通る最短Hamilton pathまたはcycleをbit DPで求める。 | 2 | 0 | 0 |
+| [`MaximalIndependentSets`](MaximalIndependentSets.md) | 無向グラフの極大独立集合を重複なく列挙する。 | 1 | 0 | 0 |
 | [`MaximumIndependentSet`](MaximumIndependentSet.md) | 小規模グラフの最大独立集合と最大重み独立集合を求める。 | 3 | 0 | 0 |

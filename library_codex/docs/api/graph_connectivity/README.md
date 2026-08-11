@@ -16,6 +16,7 @@
 | [`FunctionalGraph`](FunctionalGraph.md) | Functional graph の周期分解・移動・距離 | 0 | 1 | 7 |
 | [`LowLink`](LowLink.md) | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | 1 | 1 | 3 |
 | [`NamoriDecomposition`](NamoriDecomposition.md) | 重み付き擬森林の周期・付随木分解と距離 | 0 | 1 | 22 |
+| [`OddCycle`](OddCycle.md) | 無向グラフから奇cycleを1つ復元する。 | 1 | 0 | 0 |
 | [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md) | 辺追加削除・連結性・成分和のオフライン処理 | 0 | 1 | 10 |
 | [`OnlineDynamicConnectivity`](OnlineDynamicConnectivity.md) | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | 0 | 1 | 4 |
 | [`Reachability`](Reachability.md) | 有向グラフ上の複数の到達可能性queryをまとめて判定する。 | 1 | 0 | 0 |
