@@ -4,11 +4,14 @@
 
 ## 情報の置き場所
 
+- 利用者が最初に読む「主な機能」「使い方」「仕組み」「注意点」は`docs/articles/<category>/<Module>.md`へ置く。
 - sourceから分かるsignature、公開API、import、依存関係、source code、standalone codeは生成する。
 - sourceだけでは分からない意味は`tools/api_metadata.py`へ置く。
 - class作成後にできることは`CLASS_DETAILS_BY_SYMBOL.constructorCreates`へ書く。
 - 同名methodを区別する説明、引数固有の意味、返り値の構造は`API_DETAILS_BY_SYMBOL`へ書く。
 - Webサイトは`library-catalog.json`を表示する。moduleごとの例外説明や検索語をサイト側へ複製しない。
+
+記事はmodule pageの本文、生成APIはその下のreferenceです。記事にAPI表を複製せず、API表だけから記事らしい文章を自動生成しません。既存moduleは段階的に記事へ移し、新規moduleは最初から記事を用意します。
 
 ## ページを読んだ人が最初に分かること
 
@@ -93,10 +96,11 @@ Webサイトの数式はMathMLと`STIX Two Math`で表示します。本文へ�
 ## 追加・変更時の確認
 
 1. sourceと`api_metadata.py`を更新する。
-2. APIリファレンスと`library-catalog.json`を生成する。
-3. `--audit-descriptions`で曖昧な定型文が増えていないか確認する。
-4. 変更moduleのページで、目的、引数、返り値、計算量、数式、Codeがcatalogだけから表示されることをtestする。
-5. 差分検査を通し、まとまったcheckpointでサイトのJSONと配布ZIPを同期する。
+2. 新規moduleでは`tools/create_module_article.py`で記事を作り、placeholderを具体化する。既存moduleを移行したらlegacy一覧から削除する。
+3. APIリファレンスと`library-catalog.json`を生成する。
+4. `--audit-descriptions`で曖昧な定型文が増えていないか確認する。
+5. 変更moduleのページで、記事、引数、返り値、計算量、数式、Codeがcatalogだけから表示されることをtestする。
+6. 差分検査を通し、まとまったcheckpointでサイトのJSONと配布ZIPを同期する。
 
 ## ページ内容チェックリスト
 

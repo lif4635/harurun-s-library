@@ -14,6 +14,7 @@
 
 ## API・ドキュメント
 
+- 新しい公開moduleには`library_codex/docs/articles/<category>/<Module>.md`を追加し、「主な機能」と実際の「使い方」を人が書く。新規moduleをlegacy一覧へ追加して省略しない。
 - module冒頭に「何ができるか」を具体的に書く。
 - 公開関数・class・methodごとに、用途、引数の意味、返り値の型と中身、計算量を確認できるようにする。
 - `list`は要素の並び、`dict`はkeyとvalueの意味、tupleは各要素の意味まで記す。

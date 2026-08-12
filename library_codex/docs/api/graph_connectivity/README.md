@@ -8,10 +8,11 @@
 | [`AdvancedConnectivity`](AdvancedConnectivity.md) | 三辺連結成分・辺追加offline SCC統合列 | 1 | 1 | 1 |
 | [`BiconnectedComponents`](BiconnectedComponents.md) | 二重頂点連結成分・block-cut forest（自己ループ・平行辺対応） | 0 | 2 | 6 |
 | [`BipartiteColoring`](BipartiteColoring.md) | 無向グラフが二部グラフか判定し、2色の割当を返す。 | 2 | 0 | 0 |
+| [`BridgeForest`](BridgeForest.md) | 無向グラフの橋を縮約した森で、頂点間の橋に関するqueryを処理する。 | 0 | 1 | 4 |
 | [`Cactus`](Cactus.md) | 単純無向グラフがcactusか判定し、辺をcycleへ分解する。 | 2 | 0 | 0 |
 | [`ComplementGraph`](ComplementGraph.md) | 隣接listを明示的に反転せず、補グラフを幅優先探索する。 | 2 | 0 | 0 |
 | [`ConnectedComponents`](ConnectedComponents.md) | 無向グラフの連結成分番号と成分ごとの頂点を求める。 | 1 | 0 | 0 |
-| [`DominatorTree`](DominatorTree.md) | 有向グラフで始点から各頂点への全経路が必ず通る直前の支配頂点を求める。 | 1 | 0 | 0 |
+| [`DominatorTree`](DominatorTree.md) | 有向グラフで始点から各頂点への全経路が必ず通る直前の支配頂点を求める。 | 1 | 1 | 3 |
 | [`DynamicBipartiteGraph`](DynamicBipartiteGraph.md) | 辺追加される無向グラフの二部性を管理する。 | 0 | 1 | 5 |
 | [`FunctionalGraph`](FunctionalGraph.md) | Functional graph の周期分解・移動・距離 | 0 | 1 | 9 |
 | [`LowLink`](LowLink.md) | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | 1 | 1 | 3 |

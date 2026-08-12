@@ -149,6 +149,66 @@ class MaxFlowGraph:
                 result.append((edge_id, first, second, capacity, flow))
         return result
 
+    def flow_value(self, source):
+        """現在のflowのsourceから外へ出る正味流量を返す。"""
+        if not 0 <= source < self.n:
+            raise IndexError("source is outside the graph")
+        value = 0
+        for edge_id in range(len(self.pos)):
+            first, second, _, flow = self.get_edge(edge_id)
+            if first == source:
+                value += flow
+            if second == source:
+                value -= flow
+        return value
+
+    def flow_paths(self, source, sink):
+        """現在の正のflowをsource-sink pathへ分解する。"""
+        if not 0 <= source < self.n or not 0 <= sink < self.n:
+            raise IndexError("source or sink is outside the graph")
+        if source == sink:
+            raise ValueError("source and sink must be distinct")
+        edge_data = self.edges()
+        remaining = [edge[3] for edge in edge_data]
+        outgoing = [[] for _ in range(self.n)]
+        for edge_id, edge in enumerate(edge_data):
+            if remaining[edge_id]:
+                outgoing[edge[0]].append(edge_id)
+        result = []
+        while True:
+            parent_edge = [-1] * self.n
+            parent_edge[source] = -2
+            queue = [source]
+            for vertex in queue:
+                if vertex == sink:
+                    break
+                for edge_id in outgoing[vertex]:
+                    if remaining[edge_id] == 0:
+                        continue
+                    target = edge_data[edge_id][1]
+                    if parent_edge[target] == -1:
+                        parent_edge[target] = edge_id
+                        queue.append(target)
+            if parent_edge[sink] == -1:
+                break
+            edge_ids = []
+            vertex = sink
+            amount = None
+            while vertex != source:
+                edge_id = parent_edge[vertex]
+                edge_ids.append(edge_id)
+                flow = remaining[edge_id]
+                if amount is None or flow < amount:
+                    amount = flow
+                vertex = edge_data[edge_id][0]
+            edge_ids.reverse()
+            vertices = [source]
+            for edge_id in edge_ids:
+                remaining[edge_id] -= amount
+                vertices.append(edge_data[edge_id][1])
+            result.append((amount, vertices, edge_ids))
+        return result
+
 
 MaxFlow = MaxFlowGraph
 

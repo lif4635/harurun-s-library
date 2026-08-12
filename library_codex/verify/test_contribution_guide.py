@@ -43,6 +43,8 @@ def test_contribution_contract_is_installed():
         "library-catalog.json",
         "SEARCH_TERMS_BY_MODULE",
         "build_library_catalog.py --check",
+        "create_module_article.py",
+        "legacy_modules.txt",
         "## 完了チェックリスト",
     ):
         assert phrase in guide_text
@@ -54,6 +56,7 @@ def test_contribution_contract_is_installed():
         "markdown+tex",
         "サイトだけの説明上書きがない",
         "ページ内容チェックリスト",
+        "docs/articles/<category>/<Module>.md",
     ):
         assert phrase in page_guide_text
 

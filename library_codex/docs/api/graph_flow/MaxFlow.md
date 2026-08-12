@@ -5,13 +5,14 @@ ACL互換寄りの反復Dinic・min-cut・辺変更。
 
 - 計算量の目安: Dinicの計算量
 - source: [`graph_flow/MaxFlow.py`](../../../graph_flow/MaxFlow.py)
-- 公開API: function 2、class 1、method/property 9（Python protocol 0を含む）
+- 公開API: function 2、class 1、method/property 11（Python protocol 0を含む）
 
 ## できること
 
 - 容量付き有向グラフの最大流を計算できる。
 - 辺ごとの流量と残余容量を確認し、最小カット側の頂点集合を取得できる。
 - 各有向辺へlower/upper flowを指定した実行可能circulationと、下限制約付き最大s-t flowを求められる。
+- 現在流れているflowの値を頂点ごとに確認し、source--sink pathと各pathの流量へ分解できる。
 
 ## Import
 
@@ -23,8 +24,8 @@ from library_codex.graph_flow.MaxFlow import feasible_circulation, max_flow_with
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`feasible_circulation(n, edges)`](../../../graph_flow/MaxFlow.py#L156) | 各有向辺のlower/upper境界と全頂点のflow保存則を満たすcirculationを構成する。 | `n`: 頂点数。<br>`edges`: (source, target, lower, upper)を並べた有向辺列。0 <= lower <= upper。 | list[number] \| None — 実行可能ならedgesと同じ長さのflow。各flowは対応する境界内で、各頂点の流入量と流出量が等しい。存在しなければNone。 | 1回のmax-flowとO(V+E) |
-| [`max_flow_with_bounds(n, edges, source, sink)`](../../../graph_flow/MaxFlow.py#L185) | 各有向辺のlower/upper境界を守るsourceからsinkへの最大flowを求める。 | `n`: 頂点数。<br>`edges`: (from, to, lower, upper)を並べた有向辺列。<br>`source`: flowの始点。<br>`sink`: flowの終点。sourceと異なる頂点。 | tuple[number, list[number]] \| None — 実行可能なら(value, flows)。valueはsourceからsinkへの最大flow値、flowsは各入力辺を流す量。実行可能flowがなければNone。 | 2回のmax-flowとO(V+E) |
+| [`feasible_circulation(n, edges)`](../../../graph_flow/MaxFlow.py#L216) | 各有向辺のlower/upper境界と全頂点のflow保存則を満たすcirculationを構成する。 | `n`: 頂点数。<br>`edges`: (source, target, lower, upper)を並べた有向辺列。0 <= lower <= upper。 | list[number] \| None — 実行可能ならedgesと同じ長さのflow。各flowは対応する境界内で、各頂点の流入量と流出量が等しい。存在しなければNone。 | 1回のmax-flowとO(V+E) |
+| [`max_flow_with_bounds(n, edges, source, sink)`](../../../graph_flow/MaxFlow.py#L245) | 各有向辺のlower/upper境界を守るsourceからsinkへの最大flowを求める。 | `n`: 頂点数。<br>`edges`: (from, to, lower, upper)を並べた有向辺列。<br>`source`: flowの始点。<br>`sink`: flowの終点。sourceと異なる頂点。 | tuple[number, list[number]] \| None — 実行可能なら(value, flows)。valueはsourceからsinkへの最大flow値、flowsは各入力辺を流す量。実行可能flowがなければNone。 | 2回のmax-flowとO(V+E) |
 
 ## Class `MaxFlowGraph`
 
@@ -46,3 +47,5 @@ ACL互換寄りの反復Dinic・min-cut・辺変更を扱う `MaxFlowGraph`。
 | [`flow(source, sink, flow_limit=None)`](../../../graph_flow/MaxFlow.py#L93) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | 合計値（int） | — |
 | [`min_cut(source)`](../../../graph_flow/MaxFlow.py#L126) | method | 最小・`cut`を求める。 | `source`: 始点 | `visited`（数値または入力要素型） | — |
 | [`min_cut_edges(source)`](../../../graph_flow/MaxFlow.py#L139) | method | 現在の残余グラフで source から到達可能な側から外側へ出る元の辺を列挙する。 | `source`: minimum cut の source 側を決める始点。通常は flow に使った source。 | list[tuple[int, int, int, number, number]] — 各要素は (edge_id, from, to, capacity, flow)。辺番号は add_edge が返した番号と一致する。 | O(V+E) |
+| [`flow_value(source)`](../../../graph_flow/MaxFlow.py#L152) | method | 現在のflowについて、sourceから外へ出る流量からsourceへ入る流量を引いた正味値を求める。 | `source`: 正味流出量を調べる頂点。sinkで呼ぶと通常は負のflow値になる。 | number — 元の有向辺に現在流れているflowのnet outflow。 | O(E) |
+| [`flow_paths(source, sink)`](../../../graph_flow/MaxFlow.py#L165) | method | 現在の正のflowからsource--sink pathを取り出し、各pathに流す量と辺列を復元する。循環flowは返さない。 | `source`: 各pathの始点。<br>`sink`: 各pathの終点。 | list[tuple[number, list[int], list[int]]] — 各要素は(amount, vertices, edge_ids)。verticesはsourceからsinkまで、edge_ids[i]はvertices[i]からvertices[i+1]へ向かう元の辺。amountの総和は保存されたsource--sink flow値。 | O(E(V+E)) worst、返すpath数はO(E) |

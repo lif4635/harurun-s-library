@@ -47,6 +47,15 @@ def test_catalog_metadata_change_selects_catalog_contract_test():
     assert "verify/test_library_catalog.py" in tests
 
 
+def test_article_change_selects_catalog_contract_test():
+    plan = CHECK_CHANGED.plan_for([
+        "library_codex/docs/articles/tree/AuxiliaryTree.md"
+    ])
+    tests = relative_tests(plan)
+    assert plan["catalog_changed"]
+    assert "verify/test_library_catalog.py" in tests
+
+
 def test_policy_change_does_not_select_the_full_suite():
     plan = CHECK_CHANGED.plan_for(["AGENTS.md"])
     tests = relative_tests(plan)

@@ -4,17 +4,18 @@
 有向グラフで始点から各頂点への全経路が必ず通る直前の支配頂点を求める。
 
 - source: [`graph_connectivity/DominatorTree.py`](../../../graph_connectivity/DominatorTree.py)
-- 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 1、class 1、method/property 3（Python protocol 0を含む）
 
 ## できること
 
 - 有向グラフで、rootから頂点vへ至るすべてのpathが最後に共通して通るimmediate dominatorを求められる。
 - rootから到達できない頂点も含む隣接listをそのまま渡せる。
+- 構築した支配木上でdominates・nearest common dominator・rootからのdominator pathを繰り返しqueryできる。
 
 ## Import
 
 ```python
-from library_codex.graph_connectivity.DominatorTree import dominator_tree
+from library_codex.graph_connectivity.DominatorTree import dominator_tree, DominatorTree
 ```
 
 ## Functions
@@ -22,3 +23,19 @@ from library_codex.graph_connectivity.DominatorTree import dominator_tree
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
 | [`dominator_tree(graph, root=0)`](../../../graph_connectivity/DominatorTree.py#L4) | rootからvへの全有向pathに含まれる頂点のうち、vに最も近いstrict dominatorを各vについて求める。 | `graph`: graph[u]にuから出る行き先v、または先頭要素がvのtupleを並べた有向隣接list。<br>`root`: pathの始点とする頂点。省略時: `0` | list[int] — 頂点数と同じ長さのidom。idom[root]=root、到達不能な頂点は-1、それ以外のidom[v]はvのimmediate dominator。 | O((V+E) alpha(V)) time、O(V+E) memory |
+
+## Class `DominatorTree`
+
+有向グラフのimmediate dominator treeを作り、Euler順とbinary liftingで支配関係をqueryする。
+
+- constructor: [`DominatorTree(graph, root=0)`](../../../graph_connectivity/DominatorTree.py#L94)
+- 引数: `graph`: graph[u]にuから出る行き先、または先頭要素が行き先のtupleを並べた有向隣接list。<br>`root`: すべての支配関係の始点。省略時: `0`
+- 返り値: `DominatorTree` instance
+- 計算量: 構築 O((V+E) alpha(V)+V log V)
+- 作成後: rootから到達できる頂点についてdominates・nearest_common_dominator・dominator_pathを使える状態を作る。
+
+| method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
+| --- | --- | --- | --- | --- | --- |
+| [`dominates(dominator, vertex)`](../../../graph_connectivity/DominatorTree.py#L137) | method | rootからvertexへ至るすべての有向pathがdominatorを通るか判定する。 | `dominator`: 支配頂点の候補。<br>`vertex`: 支配されるか調べる頂点。 | bool — 両頂点がrootから到達可能で、dominatorがvertexを支配すればTrue。頂点自身も自身を支配する。 | O(1) |
+| [`nearest_common_dominator(first, second)`](../../../graph_connectivity/DominatorTree.py#L148) | method | firstとsecondをともに支配する頂点のうち、支配木で最も深いものを返す。 | `first`: 一方の頂点。<br>`second`: 他方の頂点。 | int — 支配木上のLCAにあたる頂点番号。どちらかがrootから到達不能なら-1。 | O(log V) |
+| [`dominator_path(vertex)`](../../../graph_connectivity/DominatorTree.py#L171) | method | vertexを支配する全頂点をrootからvertexの順に返す。 | `vertex`: 支配頂点列を求める頂点。 | list[int] — rootとvertexを両方含むimmediate dominator tree上のpath。到達不能なら空list。 | O(K) |

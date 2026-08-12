@@ -36,11 +36,14 @@ def test_library_catalog_is_current():
 
 def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
     data = load_catalog()
-    assert data["schemaVersion"] == 1
+    assert data["schemaVersion"] == 2
     assert data["textFormat"] == "markdown+tex"
     assert data["sourceRevision"]
     assert len(data["sourceFingerprint"]) == 64
     assert data["stats"]["modules"] == len(data["modules"])
+    assert data["stats"]["articles"] == sum(
+        module["article"] is not None for module in data["modules"]
+    )
     assert data["stats"]["functions"] == sum(
         len(module["functions"]) for module in data["modules"]
     )
@@ -57,6 +60,12 @@ def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
         assert module["modulePath"]
         assert module["sourceCode"]
         assert module["standaloneCode"]
+        if module["article"] is not None:
+            assert module["article"]["title"]
+            assert "## 主な機能" in module["article"]["markdown"]
+            assert module["article"]["sourcePath"].startswith(
+                "library_codex/docs/articles/"
+            )
         for symbol in module["functions"]:
             assert symbol["name"]
             assert symbol["signature"].split("(", 1)[0] == symbol["name"]
@@ -68,6 +77,25 @@ def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
             for method in class_item["methods"]:
                 assert method["name"]
                 assert method["signature"].split("(", 1)[0] == method["name"]
+
+
+def test_authored_articles_cover_new_modules_and_reference_examples():
+    CATALOG.load_configuration(ROOT)
+    documents = CATALOG.validate_article_coverage(ROOT)
+    assert ("range_query", "WeightedWaveletMatrix") in documents
+    assert ("range_query", "StaticRangeDistinct") in documents
+    assert ("graph_connectivity", "BridgeForest") in documents
+    assert ("tree", "AuxiliaryTree") in documents
+    assert ("tree", "CentroidDecomposition") in documents
+
+    data = load_catalog()
+    articles = {
+        module["name"]: module["article"]
+        for module in data["modules"] if module["article"] is not None
+    }
+    assert "original_vertices[i]" in articles["AuxiliaryTree"]["markdown"]
+    assert "CentroidDistanceFenwick" in articles["CentroidDecomposition"]["markdown"]
+    assert "range_sum" in articles["WeightedWaveletMatrix"]["markdown"]
 
 
 def test_catalog_has_precise_group_middle_product_and_half_open_range_details():

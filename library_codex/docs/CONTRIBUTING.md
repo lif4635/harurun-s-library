@@ -41,7 +41,22 @@
 
 速さを理由に意味が変わる最適化は入れません。複数の実装方式が必要なら、適用条件をconstructorまたは別classとして明示します。
 
-## 4. API説明を書く
+## 4. 利用者向けの記事を書く
+
+新しい公開moduleには、sourceと同じcategory・module名の記事を追加します。
+
+```text
+library_codex/category/Module.py
+library_codex/docs/articles/category/Module.md
+```
+
+`pypy3 library_codex/tools/create_module_article.py category/Module`で雛形を作れます。先頭のH1はfile名ではなく利用者が探す目的を表し、`## 主な機能`で入力・処理できる問い・代表的な計算量を説明します。`## 使い方`には最小の実行例と返り値の読み方を書きます。
+
+既存moduleは`docs/articles/legacy_modules.txt`にある間だけ従来の自動生成overviewを使えます。記事へ移行したら対応する行を削除します。新しいmoduleをlegacy一覧へ足して記事作成を省略しません。記事・legacy指定の重複、どちらもないmodule、削除済みmoduleへの指定はcatalog生成で失敗します。
+
+記事は「なぜ・いつ・どう使うか」を担当します。signature、全APIの引数表、source code、standalone codeはcatalogが自動生成するため、本文へ転記しません。詳しい形式は[記事directoryのREADME](articles/README.md)を確認してください。
+
+## 5. API説明を書く
 
 module冒頭では、実装方式の名前より先に「何ができるか」を説明します。各公開APIには次を揃えます。
 
@@ -72,7 +87,7 @@ sourceだけで表せない説明は`library_codex/tools/api_metadata.py`へ追�
 pypy3 library_codex/tools/build_api_reference.py
 ```
 
-## 5. データ構造には論理内容の見え方を用意する
+## 6. データ構造には論理内容の見え方を用意する
 
 内容を有限時間・有限サイズで列挙できる構造には、直接取得する`tolist()`または`items()`と表示を用意します。
 
@@ -88,7 +103,7 @@ pypy3 library_codex/tools/build_api_reference.py
 
 Lazy構造では保留中の作用を反映した現在値を返します。表示を呼んだ後もquery結果や更新履歴が壊れないことをtestします。全形式と計算量は[デバッグ出力](DEBUG_OUTPUT.md)へ追記します。
 
-## 6. testを書く
+## 7. testを書く
 
 最低限、次を組み合わせます。
 
@@ -125,7 +140,7 @@ pypy3 library_codex/tools/check_library.py
 pypy3 library_codex/tools/check_library.py --profile full
 ```
 
-## 7. bundleと公開物を確認する
+## 8. bundleと公開物を確認する
 
 bundleは選択moduleのsourceから、実際にimportする`library_codex`内依存だけを再帰的に展開します。生成物はpackage wrapperや動的な`bundle`関数ではなく、貼り付けて実行できる通常のPythonコードにします。
 
@@ -137,11 +152,11 @@ bundleは選択moduleのsourceから、実際にimportする`library_codex`内�
 - サイトが読むAPI JSON。
 - サイトから取得できる配布ZIP。
 
-## 8. 共通catalogを同期する
+## 9. 共通catalogを同期する
 
 `library_codex/library-catalog.json`は、Yura DeskとWebサイトが共通で読むライブラリ索引です。利用側でsourceを再解析したり、独自の検索語辞書を複製したりしません。
 
-catalogのfunction・class・method、signature、説明、引数、返り値、計算量、依存、source、standalone codeは、source ASTと生成済みAPIリファレンスから自動取得します。categoryは`tools/category_config.py`を正本とします。正式名や説明から推測できない通称だけを、`tools/api_metadata.py`の`SEARCH_TERMS_BY_MODULE`または`SEARCH_TERMS_BY_SYMBOL`へ追加してください。
+catalogのfunction・class・method、signature、説明、引数、返り値、計算量、依存、source、standalone codeは、source ASTと生成済みAPIリファレンスから自動取得します。人が書いたmodule記事は`docs/articles`から`article` fieldへ収録します。categoryは`tools/category_config.py`を正本とします。正式名や説明から推測できない通称だけを、`tools/api_metadata.py`の`SEARCH_TERMS_BY_MODULE`または`SEARCH_TERMS_BY_SYMBOL`へ追加してください。
 
 ```sh
 pypy3 library_codex/tools/build_api_reference.py
@@ -156,7 +171,7 @@ pypy3 library_codex/tools/build_library_catalog.py --audit-descriptions
 
 `check_changed.py`と`check_library.py`はcatalog同期検査を含みます。source、API説明、category、検索語辞書を変更したら、catalogを再生成してから完了してください。
 
-## 9. checkpointを一度に準備する
+## 10. checkpointを一度に準備する
 
 API referenceとcatalogの生成、変更範囲の検査、必要ならサイトへの差分同期までを一度に行えます。
 
@@ -174,6 +189,7 @@ pypy3 library_codex/tools/prepare_checkpoint.py --profile full --site ../harurun
 ## 完了チェックリスト
 
 - [ ] module名だけで主目的が分かる。
+- [ ] 新規moduleの記事に、主な機能・使い方・返り値の読み方がある。
 - [ ] よく使うAPI名が短く、冗長なaliasがない。
 - [ ] moduleの目的、引数、返り値の形式、methodごとの計算量が読める。
 - [ ] 非可換演算、境界値、randomized testを必要に応じて追加した。

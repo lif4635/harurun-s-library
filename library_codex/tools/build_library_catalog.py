@@ -23,9 +23,11 @@ SEARCH_TERMS_BY_SYMBOL = {}
 API_DETAILS_BY_SYMBOL = {}
 CLASS_DETAILS_BY_SYMBOL = {}
 COMPLEXITY_BY_MODULE = {}
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "library-catalog.json"
+ARTICLES_ROOT = ROOT / "docs" / "articles"
+LEGACY_ARTICLES = ARTICLES_ROOT / "legacy_modules.txt"
 COMPATIBILITY_MODULES = {
     "algorithm/BasicAlgorithms.py",
     "algorithm/MiscAlgorithms.py",
@@ -1818,6 +1820,87 @@ def section_after(text, heading):
     return re.split(r"\n## ", section, maxsplit=1)[0]
 
 
+def article_path(library_root, category, name):
+    return library_root / "docs" / "articles" / category / f"{name}.md"
+
+
+def parse_article(path):
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n").strip()
+    title_match = re.match(r"# ([^\n]+)\n", text)
+    if title_match is None:
+        raise ValueError(f"article must start with one H1 title: {path}")
+    title = title_match.group(1).strip()
+    markdown = text[title_match.end():].strip()
+    if not title or not markdown:
+        raise ValueError(f"article title/body is empty: {path}")
+    if "## 主な機能" not in markdown:
+        raise ValueError(f"article is missing '## 主な機能': {path}")
+    if re.search(r"\bTODO\b|執筆中|あとで書く", markdown, re.IGNORECASE):
+        raise ValueError(f"article contains an unfinished placeholder: {path}")
+    return {
+        "title": title,
+        "markdown": markdown,
+        "sourcePath": "library_codex/" + path.relative_to(
+            path.parents[3]
+        ).as_posix(),
+    }
+
+
+def article_documents(library_root):
+    root = library_root / "docs" / "articles"
+    return {
+        (category, path.stem): path
+        for category in CATEGORY_LABELS
+        for path in sorted((root / category).glob("*.md"))
+    }
+
+
+def legacy_article_keys(library_root):
+    path = library_root / "docs" / "articles" / "legacy_modules.txt"
+    if not path.is_file():
+        raise ValueError(f"article migration list does not exist: {path}")
+    result = set()
+    for line_number, raw in enumerate(
+        path.read_text(encoding="utf-8").splitlines(), 1
+    ):
+        value = raw.split("#", 1)[0].strip()
+        if not value:
+            continue
+        parts = value.split("/")
+        if len(parts) != 2 or parts[0] not in CATEGORY_LABELS or not parts[1]:
+            raise ValueError(
+                f"invalid legacy article key at {path}:{line_number}: {value}"
+            )
+        key = tuple(parts)
+        if key in result:
+            raise ValueError(f"duplicate legacy article key: {value}")
+        result.add(key)
+    return result
+
+
+def validate_article_coverage(library_root):
+    source_keys = set(source_module_paths(library_root))
+    documents = article_documents(library_root)
+    article_keys = set(documents)
+    legacy_keys = legacy_article_keys(library_root)
+    overlap = article_keys & legacy_keys
+    if overlap:
+        raise ValueError(
+            "authored articles must be removed from legacy_modules.txt: "
+            f"{sorted(overlap)[:3]}"
+        )
+    missing = source_keys - article_keys - legacy_keys
+    stale = (article_keys | legacy_keys) - source_keys
+    if missing or stale:
+        raise ValueError(
+            "article coverage mismatch; "
+            f"missing={sorted(missing)[:3]}, stale={sorted(stale)[:3]}"
+        )
+    for path in documents.values():
+        parse_article(path)
+    return documents
+
+
 def parse_module(path, category, library_root, complexity_overrides):
     text = path.read_text(encoding="utf-8")
     module_match = re.search(r"^# `([^`]+)`", text, re.MULTILINE)
@@ -1951,6 +2034,8 @@ def parse_module(path, category, library_root, complexity_overrides):
         (relative_key, CATEGORY_LABELS[category]),
         SEARCH_TERMS_BY_MODULE.get(relative_key, ()),
     )
+    authored_article = article_path(library_root, category, name)
+    article = parse_article(authored_article) if authored_article.is_file() else None
     return {
         "category": category,
         "categoryLabel": CATEGORY_LABELS[category],
@@ -1960,6 +2045,7 @@ def parse_module(path, category, library_root, complexity_overrides):
         "modulePath": module_path,
         "summary": localized_summary,
         "capabilities": localized_capabilities,
+        "article": article,
         "searchTerms": module_search_terms,
         "complexity": module_complexity,
         "sourcePath": f"library_codex/{category}/{name}.py",
@@ -2002,6 +2088,21 @@ def module_key_from_changed_path(value):
         and parts[3] in CATEGORY_LABELS
         and parts[4].endswith(".md")
         and parts[4] != "README.md"
+    ):
+        return (parts[3], parts[4][:-3])
+    if (
+        len(parts) == 4
+        and parts[:2] == ["docs", "articles"]
+        and parts[2] in CATEGORY_LABELS
+        and parts[3].endswith(".md")
+    ):
+        return (parts[2], parts[3][:-3])
+    if (
+        len(parts) == 5
+        and parts[0] == "library_codex"
+        and parts[1:3] == ["docs", "articles"]
+        and parts[3] in CATEGORY_LABELS
+        and parts[4].endswith(".md")
     ):
         return (parts[3], parts[4][:-3])
     return None
@@ -2094,9 +2195,18 @@ def module_metadata_payload(module_key):
 def module_input_fingerprint(source_path, document_path, library_root):
     module_key = source_path.relative_to(library_root).as_posix()
     digest = hashlib.sha256()
+    paths = [
+        *transitive_internal_dependencies(source_path, library_root),
+        document_path,
+    ]
+    authored_article = article_path(
+        library_root, source_path.parent.name, source_path.stem
+    )
+    if authored_article.is_file():
+        paths.append(authored_article)
     digest.update(
         hash_paths(
-            (*transitive_internal_dependencies(source_path, library_root), document_path),
+            paths,
             library_root.parent,
         ).encode(
             "ascii"
@@ -2146,12 +2256,17 @@ def catalog_input_paths(library_root, documents=None):
         for category in CATEGORY_LABELS
         for path in sorted((library_root / category).glob("*.py"))
     )
+    articles = tuple(article_documents(library_root).values())
     return (
         all_sources
         + tuple(documents.values())
+        + articles
         + generator_input_paths(library_root)
         + metadata_input_paths(library_root)
-        + (library_root / "README.md",)
+        + (
+            library_root / "README.md",
+            library_root / "docs" / "articles" / "legacy_modules.txt",
+        )
     )
 
 
@@ -2452,12 +2567,28 @@ def validate_catalog(data, library_root):
     for module in modules:
         for key in (
             "name", "modulePath", "sourcePath", "category", "categoryLabel",
-            "summary", "capabilities", "searchTerms", "importCode",
+            "summary", "capabilities", "article", "searchTerms", "importCode",
             "bundledDependencies", "sourceCode", "standaloneCode", "functions",
             "classes", "inputFingerprint",
         ):
             if key not in module:
                 raise ValueError(f"catalog module {module.get('name')} is missing {key}")
+        article = module["article"]
+        if article is not None:
+            if not isinstance(article, dict) or set(article) != {
+                "title", "markdown", "sourcePath"
+            }:
+                raise ValueError(
+                    f"catalog module {module['name']} has an invalid article"
+                )
+            for field in ("title", "markdown", "sourcePath"):
+                validate_nonempty_text(
+                    f"{module['modulePath']}:article", field, article[field]
+                )
+            if "## 主な機能" not in article["markdown"]:
+                raise ValueError(
+                    f"catalog article {module['name']} is missing 主な機能"
+                )
         validate_term_sequence(module["modulePath"], module["searchTerms"])
         for symbol in module["functions"]:
             missing = SYMBOL_REQUIRED_FIELDS - set(symbol)
@@ -2640,6 +2771,7 @@ def catalog_fingerprints(library_root, documents):
 
 def build_catalog(library_root=ROOT, output=DEFAULT_OUTPUT, force_full=False):
     complexity_overrides = load_configuration(library_root)
+    validate_article_coverage(library_root)
     documents = api_documents(library_root / "docs" / "api")
     source_paths = source_module_paths(library_root)
     if set(documents) != set(source_paths):
@@ -2731,6 +2863,7 @@ def build_catalog(library_root=ROOT, output=DEFAULT_OUTPUT, force_full=False):
         "textFormat": "markdown+tex",
         "stats": {
             "modules": len(modules),
+            "articles": sum(module["article"] is not None for module in modules),
             "functions": sum(module["counts"]["functions"] for module in modules),
             "classes": sum(module["counts"]["classes"] for module in modules),
             "methods": sum(module["counts"]["methods"] for module in modules),
@@ -2746,6 +2879,7 @@ def build_catalog(library_root=ROOT, output=DEFAULT_OUTPUT, force_full=False):
 
 def check_catalog(library_root=ROOT, output=DEFAULT_OUTPUT):
     load_configuration(library_root)
+    validate_article_coverage(library_root)
     if not output.is_file():
         raise ValueError(f"catalog does not exist: {output}")
     data = json.loads(output.read_text(encoding="utf-8"))

@@ -152,7 +152,8 @@ def plan_for(paths):
         for relative in paths
     )
     catalog_changed = api_changed or any(
-        relative in {
+        relative.startswith("library_codex/docs/articles/")
+        or relative in {
             "library_codex/README.md",
             "library_codex/tools/build_library_catalog.py",
             "library_codex/tools/category_config.py",
@@ -167,6 +168,8 @@ def plan_for(paths):
             "library_codex/docs/CONTRIBUTING.md",
             "library_codex/tools/check_changed.py",
             "library_codex/tools/check_library.py",
+            "library_codex/docs/articles/README.md",
+            "library_codex/tools/create_module_article.py",
         }
         for relative in paths
     )

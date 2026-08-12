@@ -6,6 +6,6 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`AdvancedFlow`](AdvancedFlow.md) | 高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット | 2 | 1 | 7 |
-| [`MaxFlow`](MaxFlow.md) | ACL互換寄りの反復Dinic・min-cut・辺変更 | 2 | 1 | 9 |
+| [`MaxFlow`](MaxFlow.md) | ACL互換寄りの反復Dinic・min-cut・辺変更 | 2 | 1 | 11 |
 | [`MinCostBFlow`](MinCostBFlow.md) | lower/upper・頂点supply・負費用対応minimum-cost b-flow | 0 | 1 | 7 |
 | [`MinCostFlow`](MinCostFlow.md) | 非負費用のポテンシャル付き最小費用流・slope | 0 | 1 | 5 |

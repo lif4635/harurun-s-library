@@ -4697,3 +4697,186 @@ COMPLEXITY_BY_MODULE.update({
     "graph_connectivity/FunctionalGraph.py": {**COMPLEXITY_BY_MODULE.get("graph_connectivity/FunctionalGraph.py", {}), "first_meeting": "O(log N)", "meeting_vertex": "O(log N)"},
     "graph_matching/BipartiteMatching.py": {**COMPLEXITY_BY_MODULE.get("graph_matching/BipartiteMatching.py", {}), "allowed_edges": "matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む", "essential_edges": "matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む"},
 })
+
+
+# 第九弾: distinct・重み付きWavelet Matrix・bridge forestとflow/dominator query。
+SEARCH_TERMS_BY_MODULE.update({
+    "range_query/StaticRangeDistinct.py": (
+        "区間distinct", "range distinct", "異なる値の個数",
+    ),
+    "range_query/WeightedWaveletMatrix.py": (
+        "重み付きWavelet Matrix", "range kth sum", "区間値域和",
+    ),
+    "graph_connectivity/BridgeForest.py": (
+        "橋木", "bridge tree", "橋の本数", "2-edge-connected components",
+    ),
+})
+
+SEARCH_TERMS_BY_SYMBOL.update({
+    ("graph_flow/MaxFlow.py", "flow_paths"): (
+        "flow decomposition", "フロー分解", "パス復元",
+    ),
+    ("graph_connectivity/DominatorTree.py", "dominates"): (
+        "支配判定", "dominance query",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "range_query/StaticRangeDistinct.py": (
+        "変更されない列の任意の半開区間について、異なる値の個数をオンラインで取得できる。",
+        "各prefixで値の最終出現位置だけを1にしたPersistent Segment Treeを共有する。",
+    ),
+    "range_query/WeightedWaveletMatrix.py": (
+        "位置の半開区間と値の半開区間を同時に指定し、該当要素へ付けた重みの総和を求められる。",
+        "区間内で値が小さい方または大きい方からk個を選んだときの重み和を求められる。",
+        "weightsを省略すると値自身を重みとし、range sumやk smallest sumにそのまま使える。",
+    ),
+    "graph_connectivity/BridgeForest.py": (
+        "無向グラフを2-edge-connected componentへ縮約し、元の二頂点間にある橋の本数とedge ID列を求められる。",
+        "指定した橋を削除すると二頂点が分断されるか、path上のk番目の橋はどれかをqueryできる。",
+    ),
+})
+MODULE_CAPABILITIES["graph_flow/MaxFlow.py"] += (
+    "現在流れているflowの値を頂点ごとに確認し、source--sink pathと各pathの流量へ分解できる。",
+)
+MODULE_CAPABILITIES["graph_connectivity/DominatorTree.py"] += (
+    "構築した支配木上でdominates・nearest common dominator・rootからのdominator pathを繰り返しqueryできる。",
+)
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("range_query/StaticRangeDistinct.py", "StaticRangeDistinct"): {
+        "description": "各prefixの最終出現位置集合をPersistent Segment Treeで保持する静的range distinct query。",
+        "constructorCreates": "valuesを変更しない前提で、任意の半開区間に含まれる異なる値の個数をcountで求められる状態を作る。",
+        "argumentDescriptions": {"values": "検索対象の不変な列。要素はhashableである必要がある。"},
+    },
+    ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix"): {
+        "description": "値で安定分割する各levelに重みprefix sumを持つ静的Wavelet Matrix。",
+        "constructorCreates": "位置区間・値域・値の順位を条件にした重み和を対数時間で取得できる状態を作る。",
+        "argumentDescriptions": {
+            "values": "順序比較できる検索keyの列。",
+            "weights": "各keyに対応する加算可能な重み。Noneならvalues自身を重みにする。",
+        },
+    },
+    ("graph_connectivity/BridgeForest.py", "BridgeForest"): {
+        "description": "LowLinkと2-edge-connected component分解からbridge forestとbinary liftingを構築する。",
+        "constructorCreates": "元の頂点番号とedge IDを保ったまま、橋のpath queryを処理できる状態を作る。",
+        "argumentDescriptions": {
+            "n": "0からn-1までの頂点を持つ無向グラフの頂点数。",
+            "edges": "(u, v)を入力順に並べた無向辺列。位置がedge IDになる。多重辺も許す。",
+        },
+    },
+    ("graph_connectivity/DominatorTree.py", "DominatorTree"): {
+        "description": "有向グラフのimmediate dominator treeを作り、Euler順とbinary liftingで支配関係をqueryする。",
+        "constructorCreates": "rootから到達できる頂点についてdominates・nearest_common_dominator・dominator_pathを使える状態を作る。",
+        "argumentDescriptions": {
+            "graph": "graph[u]にuから出る行き先、または先頭要素が行き先のtupleを並べた有向隣接list。",
+            "root": "すべての支配関係の始点。",
+        },
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("range_query/StaticRangeDistinct.py", "StaticRangeDistinct", "count"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に一度以上現れる異なる値の個数を返す。",
+        "argumentDescriptions": {"left": "含める左端index。", "right": "含めない右端index。"},
+        "returnFormat": "int",
+        "returnDescription": "set(values[left:right])の要素数。空区間では0。",
+    },
+    ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix", "total"): {
+        "description": "指定した位置の半開区間にある全要素の重み和を返す。",
+        "argumentDescriptions": {"left": "含める左端index。", "right": "含めない右端index。"},
+        "returnFormat": "number",
+        "returnDescription": "weights[left:right]の総和。weights省略時はvaluesの区間和。",
+    },
+    ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix", "sum_lt"): {
+        "description": r"位置が $[\mathrm{left},\mathrm{right})$ にあり、valueがupper未満である要素の重みを合計する。",
+        "argumentDescriptions": {"left": "含める位置の左端。", "right": "含めない位置の右端。", "upper": "含めない値の上端。"},
+        "returnFormat": "number",
+        "returnDescription": "条件を満たす各indexに対応するweightの総和。",
+    },
+    ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix", "range_sum"): {
+        "description": r"位置が $[\mathrm{left},\mathrm{right})$、valueが $[\mathrm{lower},\mathrm{upper})$ にある要素の重みを合計する。",
+        "argumentDescriptions": {"left": "含める位置の左端。", "right": "含めない位置の右端。", "lower": "含める値の下端。", "upper": "含めない値の上端。"},
+        "returnFormat": "number",
+        "returnDescription": "位置と値域の両条件を満たす各indexに対応するweightの総和。",
+    },
+    ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix", "sum_k_smallest"): {
+        "description": "位置区間の要素をvalue昇順に並べ、先頭k個に対応する重みを合計する。",
+        "argumentDescriptions": {"left": "含める位置の左端。", "right": "含めない位置の右端。", "k": "選ぶ要素数。0から区間長まで。"},
+        "returnFormat": "number",
+        "returnDescription": "k個の重み和。同じvalue同士は元のindex順で選ぶ。k=0なら0。",
+    },
+    ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix", "sum_k_largest"): {
+        "description": "位置区間の要素をvalue降順に見て、先頭k個に対応する重みを合計する。",
+        "argumentDescriptions": {"left": "含める位置の左端。", "right": "含めない位置の右端。", "k": "選ぶ要素数。0から区間長まで。"},
+        "returnFormat": "number",
+        "returnDescription": "valueが大きい側のk個の重み和。境界の同値要素は元のindexが後のものから選ぶ。k=0なら0。",
+    },
+    ("graph_connectivity/BridgeForest.py", "BridgeForest", "bridge_distance"): {
+        "description": "元の二頂点を結ぶpathが必ず通る橋の本数を返す。",
+        "argumentDescriptions": {"first": "一端の元頂点番号。", "second": "他端の元頂点番号。"},
+        "returnFormat": "int",
+        "returnDescription": "同じ連結成分ならpath上の橋の本数。もともと非連結なら-1。",
+    },
+    ("graph_connectivity/BridgeForest.py", "BridgeForest", "bridge_path"): {
+        "description": "firstからsecondへ進むときに通る橋を順番に列挙する。",
+        "argumentDescriptions": {"first": "pathの始点。", "second": "pathの終点。"},
+        "returnFormat": "list[int] | None",
+        "returnDescription": "橋のedge IDをfirst側から順に並べたlist。同じ2-edge-connected componentなら空list、非連結ならNone。",
+    },
+    ("graph_connectivity/BridgeForest.py", "BridgeForest", "kth_bridge"): {
+        "description": "firstからsecondへ進むpathでk番目に通る橋を返す。",
+        "argumentDescriptions": {"first": "pathの始点。", "second": "pathの終点。", "k": "0始まりの橋の順番。"},
+        "returnFormat": "int",
+        "returnDescription": "constructorへ渡したedges内のedge ID。非連結や範囲外のkは例外。",
+    },
+    ("graph_connectivity/BridgeForest.py", "BridgeForest", "is_bridge_separator"): {
+        "description": "指定edgeを一本削除したとき、もともと連結なfirstとsecondが別成分になるか判定する。",
+        "argumentDescriptions": {"edge_id": "constructorへ渡したedges内の位置。", "first": "調べる一方の頂点。", "second": "調べる他方の頂点。"},
+        "returnFormat": "bool",
+        "returnDescription": "edge_idが橋で、その両側にfirstとsecondが分かれる場合だけTrue。もともと非連結ならFalse。",
+    },
+    ("graph_flow/MaxFlow.py", "MaxFlowGraph", "flow_value"): {
+        "description": "現在のflowについて、sourceから外へ出る流量からsourceへ入る流量を引いた正味値を求める。",
+        "argumentDescriptions": {"source": "正味流出量を調べる頂点。sinkで呼ぶと通常は負のflow値になる。"},
+        "returnFormat": "number",
+        "returnDescription": "元の有向辺に現在流れているflowのnet outflow。",
+    },
+    ("graph_flow/MaxFlow.py", "MaxFlowGraph", "flow_paths"): {
+        "description": "現在の正のflowからsource--sink pathを取り出し、各pathに流す量と辺列を復元する。循環flowは返さない。",
+        "argumentDescriptions": {"source": "各pathの始点。", "sink": "各pathの終点。"},
+        "returnFormat": "list[tuple[number, list[int], list[int]]]",
+        "returnDescription": "各要素は(amount, vertices, edge_ids)。verticesはsourceからsinkまで、edge_ids[i]はvertices[i]からvertices[i+1]へ向かう元の辺。amountの総和は保存されたsource--sink flow値。",
+        "returnParts": (
+            {"name": "amount", "format": "number", "description": "このpathへ割り当てた正の流量。"},
+            {"name": "vertices", "format": "list[int]", "description": "sourceとsinkを両方含むpathの頂点列。"},
+            {"name": "edge_ids", "format": "list[int]", "description": "頂点間を結ぶadd_edgeの返り値の列。長さはverticesより1短い。"},
+        ),
+    },
+    ("graph_connectivity/DominatorTree.py", "DominatorTree", "dominates"): {
+        "description": "rootからvertexへ至るすべての有向pathがdominatorを通るか判定する。",
+        "argumentDescriptions": {"dominator": "支配頂点の候補。", "vertex": "支配されるか調べる頂点。"},
+        "returnFormat": "bool",
+        "returnDescription": "両頂点がrootから到達可能で、dominatorがvertexを支配すればTrue。頂点自身も自身を支配する。",
+    },
+    ("graph_connectivity/DominatorTree.py", "DominatorTree", "nearest_common_dominator"): {
+        "description": "firstとsecondをともに支配する頂点のうち、支配木で最も深いものを返す。",
+        "argumentDescriptions": {"first": "一方の頂点。", "second": "他方の頂点。"},
+        "returnFormat": "int",
+        "returnDescription": "支配木上のLCAにあたる頂点番号。どちらかがrootから到達不能なら-1。",
+    },
+    ("graph_connectivity/DominatorTree.py", "DominatorTree", "dominator_path"): {
+        "description": "vertexを支配する全頂点をrootからvertexの順に返す。",
+        "argumentDescriptions": {"vertex": "支配頂点列を求める頂点。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "rootとvertexを両方含むimmediate dominator tree上のpath。到達不能なら空list。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "range_query/StaticRangeDistinct.py": {"StaticRangeDistinct": "構築 O(N log N) time・O(N log N) memory", "count": "O(log N)"},
+    "range_query/WeightedWaveletMatrix.py": {"WeightedWaveletMatrix": "構築 O(N log S) time・O(N log S) memory", "total": "O(1)", "sum_lt": "O(log S)", "range_sum": "O(log S)", "sum_k_smallest": "O(log S)", "sum_k_largest": "O(log S)"},
+    "graph_connectivity/BridgeForest.py": {"BridgeForest": "構築 O((V+E) log V) time・O(V log V+E) memory", "bridge_distance": "O(log V)", "bridge_path": "O(log V+K)", "kth_bridge": "O(log V)", "is_bridge_separator": "O(1)"},
+    "graph_flow/MaxFlow.py": {**COMPLEXITY_BY_MODULE.get("graph_flow/MaxFlow.py", {}), "flow_value": "O(E)", "flow_paths": "O(E(V+E)) worst、返すpath数はO(E)"},
+    "graph_connectivity/DominatorTree.py": {**COMPLEXITY_BY_MODULE.get("graph_connectivity/DominatorTree.py", {}), "DominatorTree": "構築 O((V+E) alpha(V)+V log V)", "dominates": "O(1)", "nearest_common_dominator": "O(log V)", "dominator_path": "O(K)"},
+})
