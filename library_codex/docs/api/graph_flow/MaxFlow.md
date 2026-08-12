@@ -5,7 +5,7 @@ ACL互換寄りの反復Dinic・min-cut・辺変更。
 
 - 計算量の目安: Dinicの計算量
 - source: [`graph_flow/MaxFlow.py`](../../../graph_flow/MaxFlow.py)
-- 公開API: function 2、class 1、method/property 7（Python protocol 0を含む）
+- 公開API: function 2、class 1、method/property 9（Python protocol 0を含む）
 
 ## できること
 
@@ -23,8 +23,8 @@ from library_codex.graph_flow.MaxFlow import feasible_circulation, max_flow_with
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`feasible_circulation(n, edges)`](../../../graph_flow/MaxFlow.py#L134) | 各有向辺のlower/upper境界と全頂点のflow保存則を満たすcirculationを構成する。 | `n`: 頂点数。<br>`edges`: (source, target, lower, upper)を並べた有向辺列。0 <= lower <= upper。 | list[number] \| None — 実行可能ならedgesと同じ長さのflow。各flowは対応する境界内で、各頂点の流入量と流出量が等しい。存在しなければNone。 | 1回のmax-flowとO(V+E) |
-| [`max_flow_with_bounds(n, edges, source, sink)`](../../../graph_flow/MaxFlow.py#L163) | 各有向辺のlower/upper境界を守るsourceからsinkへの最大flowを求める。 | `n`: 頂点数。<br>`edges`: (from, to, lower, upper)を並べた有向辺列。<br>`source`: flowの始点。<br>`sink`: flowの終点。sourceと異なる頂点。 | tuple[number, list[number]] \| None — 実行可能なら(value, flows)。valueはsourceからsinkへの最大flow値、flowsは各入力辺を流す量。実行可能flowがなければNone。 | 2回のmax-flowとO(V+E) |
+| [`feasible_circulation(n, edges)`](../../../graph_flow/MaxFlow.py#L156) | 各有向辺のlower/upper境界と全頂点のflow保存則を満たすcirculationを構成する。 | `n`: 頂点数。<br>`edges`: (source, target, lower, upper)を並べた有向辺列。0 <= lower <= upper。 | list[number] \| None — 実行可能ならedgesと同じ長さのflow。各flowは対応する境界内で、各頂点の流入量と流出量が等しい。存在しなければNone。 | 1回のmax-flowとO(V+E) |
+| [`max_flow_with_bounds(n, edges, source, sink)`](../../../graph_flow/MaxFlow.py#L185) | 各有向辺のlower/upper境界を守るsourceからsinkへの最大flowを求める。 | `n`: 頂点数。<br>`edges`: (from, to, lower, upper)を並べた有向辺列。<br>`source`: flowの始点。<br>`sink`: flowの終点。sourceと異なる頂点。 | tuple[number, list[number]] \| None — 実行可能なら(value, flows)。valueはsourceからsinkへの最大flow値、flowsは各入力辺を流す量。実行可能flowがなければNone。 | 2回のmax-flowとO(V+E) |
 
 ## Class `MaxFlowGraph`
 
@@ -41,6 +41,8 @@ ACL互換寄りの反復Dinic・min-cut・辺変更を扱う `MaxFlowGraph`。
 | [`add_edge(source, target, capacity)`](../../../graph_flow/MaxFlow.py#L15) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`capacity`: 容量 | int — 追加した辺の0-indexed edge ID。 | — |
 | [`get_edge(i)`](../../../graph_flow/MaxFlow.py#L27) | method | edge_idに対応する辺情報を返す。 | `i`: 位置 | tuple(`source`, `edge[0]`, 数値または入力要素型 `edge[2] + reverse[2]`, `reverse[2]`) | — |
 | [`edges()`](../../../graph_flow/MaxFlow.py#L33) | method | 辺を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`change_edge(i, capacity, flow)`](../../../graph_flow/MaxFlow.py#L36) | method | 辺を更新する。 | `i`: 位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` | — |
-| [`flow(source, sink, flow_limit=None)`](../../../graph_flow/MaxFlow.py#L84) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | 合計値（int） | — |
-| [`min_cut(source)`](../../../graph_flow/MaxFlow.py#L117) | method | 最小・`cut`を求める。 | `source`: 始点 | `visited`（数値または入力要素型） | — |
+| [`residual_graph(include_zero=False)`](../../../graph_flow/MaxFlow.py#L36) | method | 現在の flow に対応する残余グラフを、頂点ごとの隣接 list として取り出す。 | `include_zero`: True なら残余容量 0 の向きも含める。省略時: `False` | list[list[tuple[int, number]]] — result[u] の各 (v, capacity) は、残余グラフで u から v へ capacity だけ追加で流せることを表す。 | O(V+E) |
+| [`change_edge(i, capacity, flow)`](../../../graph_flow/MaxFlow.py#L45) | method | 辺を更新する。 | `i`: 位置<br>`capacity`: 容量<br>`flow`: flowとして使う入力 | `None` | — |
+| [`flow(source, sink, flow_limit=None)`](../../../graph_flow/MaxFlow.py#L93) | method | 指定した始点から終点へflowを流す。 | `source`: 始点<br>`sink`: 終点<br>`flow_limit`: 流量上限。Noneなら可能な最大量。省略時: `None` | 合計値（int） | — |
+| [`min_cut(source)`](../../../graph_flow/MaxFlow.py#L126) | method | 最小・`cut`を求める。 | `source`: 始点 | `visited`（数値または入力要素型） | — |
+| [`min_cut_edges(source)`](../../../graph_flow/MaxFlow.py#L139) | method | 現在の残余グラフで source から到達可能な側から外側へ出る元の辺を列挙する。 | `source`: minimum cut の source 側を決める始点。通常は flow に使った source。 | list[tuple[int, int, int, number, number]] — 各要素は (edge_id, from, to, capacity, flow)。辺番号は add_edge が返した番号と一致する。 | O(V+E) |

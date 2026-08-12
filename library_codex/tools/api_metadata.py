@@ -293,7 +293,6 @@ MODULE_CAPABILITIES.update({
 
 
 PURPOSE_BY_NAME = {
-    "add_query": "半開区間の問い合わせを登録し、そのquery IDを返す。",
     "best": "現在の評価が最大の候補番号を返す。",
     "bfs_csr": "重みなしグラフでstartから各頂点までの最短辺数と直前頂点を求める。",
     "comb_small_k": "nが大きくkが小さいときに、階乗表を作らず乗法式で二項係数を求める。分母がmodで可逆な範囲で使う。",
@@ -4234,3 +4233,254 @@ COMPLEXITY_BY_MODULE["graph/TwoSAT.py"].update({
     "add_at_most_one": "O(K) time・追加節・補助変数",
 })
 COMPLEXITY_BY_MODULE["tree/TreeDiameter.py"]["tree_metric_center"] = "O(V) time、O(V) memory"
+
+
+# 第七弾: 既存 API の補強と、独立して使う静的クエリ・木・幾何 API。
+SEARCH_TERMS_BY_MODULE.update({
+    "range_query/StaticRangeFrequency.py": (
+        "区間頻度", "range frequency", "出現回数",
+    ),
+    "tree_query/TreeMo.py": (
+        "木上Mo", "Mo on tree", "オフラインパスクエリ",
+    ),
+    "tree_query/TreeMonoid.py": (
+        "木上モノイド", "HLD セグ木", "パスクエリ",
+    ),
+    "geometry/ConvexLayers.py": (
+        "凸包レイヤー", "onion decomposition", "玉ねぎ分解",
+    ),
+    "graph_enumeration/MinimumCostCycle.py": (
+        "最小重み閉路", "minimum weight cycle", "有向閉路",
+    ),
+})
+
+SEARCH_TERMS_BY_SYMBOL.update({
+    ("string/StringSearch.py", "prefix_function"): (
+        "KMP", "prefix table", "失敗関数",
+    ),
+    ("string/StringSearch.py", "kmp_search"): (
+        "KMP", "文字列検索", "パターンマッチング",
+    ),
+    ("union_find/WeightedUnionFind.py", "RollbackWeightedUnionFind"): (
+        "重み付きUndo Union-Find", "potential rollback DSU",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "range_query/StaticRangeFrequency.py": (
+        "変更されない列について、値 value の半開区間 [left, right) 内の出現数を数えられる。",
+        "指定した値の k 番目の出現位置や、全出現位置も取得できる。",
+    ),
+    "tree_query/TreeMo.py": (
+        "静的な木上の多数のパスクエリを、頂点の追加・削除 callback だけ定義して一括処理できる。",
+        "LCA を内部で補い、各 query では両端を含む単純 path 上の頂点が active になる。",
+    ),
+    "tree_query/TreeMonoid.py": (
+        "頂点値の一点更新、path 積、rooted subtree 積を処理できる。",
+        "非可換な演算でも、path_prod(u, v) は u から v へ並ぶ順番を保つ。",
+    ),
+    "tree/SubtreeDiameter.py": (
+        "根付き木のすべての頂点について、その頂点を根とする部分木の直径を一括計算できる。",
+        "各部分木について直径の長さだけでなく、直径を結ぶ二つの端点も返す。",
+    ),
+    "geometry/ConvexLayers.py": (
+        "点集合から外側の凸包を順に剥がし、各点が何層目にあるか調べられる。",
+        "境界上の共線点を同じ layer でまとめて除くか選べる。",
+    ),
+    "geometry/LineGeometry.py": (
+        "無限直線への射影・直線対称点・点と直線の距離を求められる。",
+        "二本の無限直線に一意な交点がある場合、その座標を求められる。",
+    ),
+    "graph_enumeration/MinimumCostCycle.py": (
+        "非負重み付き有向グラフから、辺重みの総和が最小の有向閉路を復元できる。",
+        "最小費用だけでなく、閉路を通る頂点列と元の入力における辺番号列も返す。",
+    ),
+})
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("range_query/StaticRangeFrequency.py", "StaticRangeFrequency"): {
+        "description": "不変な列を値ごとの出現位置列へ索引化し、半開区間内の同値要素数を二分探索で数える。",
+        "constructorCreates": "values の各値について昇順の出現 index を保持する。構築後に values を変更する API は持たない。",
+        "argumentDescriptions": {"values": "検索対象となる不変な値の列。要素は hashable である必要がある。"},
+    },
+    ("tree_query/TreeMo.py", "TreeMo"): {
+        "description": "Euler tour 上の区間へ木の path を写し、Mo のアルゴリズムで active な頂点集合を差分更新する。",
+        "constructorCreates": "add_query で path を登録し、run で callback を呼びながら登録順の答えを返せる状態を作る。",
+        "argumentDescriptions": {
+            "tree": "連結な無向木の隣接 list。各要素は隣接頂点番号。",
+            "root": "Euler tour と LCA 前処理に使う根。path の内容には影響しない。",
+            "query_count": "予定 query 数。省略時の block 幅の推定に使う。",
+            "block_size": "Mo 順序の block 幅。None なら頂点数と query 数から決める。",
+        },
+    },
+    ("tree_query/TreeMonoid.py", "TreeMonoid"): {
+        "description": "HLD 順に二方向の Segment Tree を持ち、頂点 path の順序を保ってモノイド積を求める。",
+        "constructorCreates": "set・get で頂点値を扱い、path_prod と subtree_prod で積を取得できる状態を作る。",
+        "argumentDescriptions": {
+            "tree": "連結な無向木の隣接 list。",
+            "op": "結合則を満たす二項演算。可換でなくてもよい。",
+            "identity": "op の単位元。",
+            "values": "頂点番号順に並べた初期値。",
+            "root": "部分木を定める根。",
+        },
+    },
+    ("union_find/WeightedUnionFind.py", "RollbackWeightedUnionFind"): {
+        "description": r"差分制約 $w_b-w_a=d$ を併合し、過去の snapshot まで状態を巻き戻せる重み付き Union-Find。",
+        "constructorCreates": "各頂点が独立し、重み差が未確定の状態を作る。snapshot と rollback で探索の分岐を戻せる。",
+        "argumentDescriptions": {"size": "管理する頂点数。頂点番号は 0 以上 size 未満。"},
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("string/StringSearch.py", None, "prefix_function"): {
+        "description": "各 prefix について、それ自身を除く最長の border の長さを KMP 法で求める。",
+        "argumentDescriptions": {"sequence": "比較可能な要素を並べた文字列または列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "長さ len(sequence) の list。result[i] は sequence[:i+1] の最長の真の prefix 兼 suffix の長さ。",
+    },
+    ("string/StringSearch.py", None, "kmp_search"): {
+        "description": "sequence 中で pattern と一致する部分列の開始位置を、重なりも含めてすべて求める。",
+        "argumentDescriptions": {"sequence": "検索対象の列。", "pattern": "検索する pattern。空列も指定できる。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "一致開始 index の昇順 list。pattern が空なら 0 から len(sequence) までの全境界を返す。",
+    },
+    ("graph_flow/MaxFlow.py", "MaxFlowGraph", "residual_graph"): {
+        "description": "現在の flow に対応する残余グラフを、頂点ごとの隣接 list として取り出す。",
+        "argumentDescriptions": {"include_zero": "True なら残余容量 0 の向きも含める。"},
+        "returnFormat": "list[list[tuple[int, number]]]",
+        "returnDescription": "result[u] の各 (v, capacity) は、残余グラフで u から v へ capacity だけ追加で流せることを表す。",
+    },
+    ("graph_flow/MaxFlow.py", "MaxFlowGraph", "min_cut_edges"): {
+        "description": "現在の残余グラフで source から到達可能な側から外側へ出る元の辺を列挙する。",
+        "argumentDescriptions": {"source": "minimum cut の source 側を決める始点。通常は flow に使った source。"},
+        "returnFormat": "list[tuple[int, int, int, number, number]]",
+        "returnDescription": "各要素は (edge_id, from, to, capacity, flow)。辺番号は add_edge が返した番号と一致する。",
+    },
+    ("range_query/StaticRangeFrequency.py", "StaticRangeFrequency", "count"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に value が現れる回数を返す。",
+        "argumentDescriptions": {"value": "数える値。", "left": "含める左端 index。", "right": "含めない右端 index。None なら列末尾。"},
+        "returnFormat": "int",
+        "returnDescription": "指定区間で values[i] == value となる index i の個数。",
+    },
+    ("range_query/StaticRangeFrequency.py", "StaticRangeFrequency", "kth"): {
+        "description": "value が列全体で k 番目に現れる位置を返す。k は 0 始まり。",
+        "argumentDescriptions": {"value": "探す値。", "k": "0 始まりの出現順。"},
+        "returnFormat": "int",
+        "returnDescription": "該当する元の列の index。k 番目の出現がなければ -1。",
+    },
+    ("range_query/StaticRangeFrequency.py", "StaticRangeFrequency", "positions"): {
+        "description": "value が現れる位置を昇順ですべて返す。",
+        "argumentDescriptions": {"value": "探す値。"},
+        "returnFormat": "tuple[int, ...]",
+        "returnDescription": "values[index] == value を満たす全 index の昇順 tuple。内部 list は公開しない。",
+    },
+    ("tree_query/TreeMo.py", "TreeMo", "add_query"): {
+        "description": "両端を含む first--second path を query として登録する。",
+        "argumentDescriptions": {"first": "path の一端。", "second": "path の他端。"},
+        "returnFormat": "int",
+        "returnDescription": "0 始まりの query ID。run の返り値では同じ位置に答えが入る。",
+    },
+    ("tree_query/TreeMo.py", "TreeMo", "run"): {
+        "description": "登録した path を Mo 順に巡回し、active 頂点の差分だけ callback へ渡して答える。",
+        "argumentDescriptions": {
+            "add": "頂点が現在の path に入るたび add(vertex) として呼ばれる。",
+            "remove": "頂点が現在の path から外れるたび remove(vertex) として呼ばれる。",
+            "get": "現在の active 頂点が query path と一致する時に引数なしで呼ばれ、その返り値を答えにする。",
+        },
+        "returnFormat": "list[object]",
+        "returnDescription": "登録 query 数と同じ長さの list。answer[query_id] は、その path が active な時の get() の返り値。",
+    },
+    ("tree_query/TreeMonoid.py", "TreeMonoid", "path_prod"): {
+        "description": "first から second へ進む単純 path 上の値を、その向きの順序で op により畳み込む。",
+        "argumentDescriptions": {"first": "path の始点。", "second": "path の終点。", "edge": "True なら LCA に置かれた値を除き、辺値として扱う。"},
+        "returnFormat": "object",
+        "returnDescription": "first から second へ並ぶ対象値を左から op で結合したモノイド要素。空なら identity。",
+    },
+    ("tree_query/TreeMonoid.py", "TreeMonoid", "subtree_prod"): {
+        "description": "constructor の root で定まる vertex の部分木にある値を HLD 順に畳み込む。",
+        "argumentDescriptions": {"vertex": "部分木の根。", "edge": "True なら vertex 自身の位置の値を除く。"},
+        "returnFormat": "object",
+        "returnDescription": "部分木の Euler/HLD 順区間を op で結合したモノイド要素。対象が空なら identity。",
+    },
+    ("tree/SubtreeDiameter.py", None, "subtree_diameters"): {
+        "description": "すべての頂点について、その頂点を根とする部分木の重み付き直径と端点を一括で求める。",
+        "argumentDescriptions": {"tree": "隣接頂点、または (隣接頂点, 非負重み) を並べた無向木。", "root": "部分木の親子関係を決める根。"},
+        "returnFormat": "list[tuple[number, int, int]]",
+        "returnDescription": "result[v] は (distance, endpoint1, endpoint2)。両端は v の部分木内にあり、その二点間距離が distance。",
+    },
+    ("geometry/ConvexLayers.py", None, "convex_layers"): {
+        "description": "外側の凸包を除く操作を点がなくなるまで繰り返し、層ごとの境界点を返す。",
+        "argumentDescriptions": {"points": "(x, y) の列。同じ座標は一つの幾何点として扱う。", "keep_collinear": "True なら凸包の辺上にある共線点を同じ layer に含める。"},
+        "returnFormat": "list[list[tuple[number, number]]]",
+        "returnDescription": "外側から内側の順に並ぶ layer の list。各 layer は反時計回りの点列で、最初の点は末尾に重複しない。",
+    },
+    ("geometry/ConvexLayers.py", None, "onion_depth"): {
+        "description": "各入力点が外側から何層目の凸包で除かれるかを求める。",
+        "argumentDescriptions": {"points": "(x, y) の入力列。重複点も元の個数を保つ。", "keep_collinear": "共線な境界点を同じ layer に含めるか。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "入力と同じ長さの list。result[i] は points[i] の 0 始まりの layer 番号。同座標は同じ番号。",
+    },
+    ("graph_enumeration/MinimumCostCycle.py", None, "minimum_cost_cycle"): {
+        "description": "非負重み付き有向グラフに存在する有向閉路のうち、辺重み総和が最小のものを復元する。",
+        "argumentDescriptions": {"n": "頂点数。", "edges": "(from, to, nonnegative_weight) を入力順に並べた有向辺列。"},
+        "returnFormat": "tuple[number, list[int], list[int]] | None",
+        "returnDescription": "閉路がなければ None。あれば (cost, vertices, edge_ids) で、vertices[0] == vertices[-1]、edge_ids[i] は vertices[i] から vertices[i+1] への入力辺番号。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "string/StringSearch.py": {**COMPLEXITY_BY_MODULE.get("string/StringSearch.py", {}), "prefix_function": "O(N)", "kmp_search": "O(N+M)"},
+    "graph/EulerianTrail.py": {**COMPLEXITY_BY_MODULE.get("graph/EulerianTrail.py", {}), "eulerian_trail": "O(E log E) with lexicographic=True、otherwise O(V+E)", "eulerian_cycle": "O(E log E) with lexicographic=True、otherwise O(V+E)"},
+    "graph_flow/MaxFlow.py": {**COMPLEXITY_BY_MODULE.get("graph_flow/MaxFlow.py", {}), "residual_graph": "O(V+E)", "min_cut_edges": "O(V+E)"},
+    "union_find/WeightedUnionFind.py": {**COMPLEXITY_BY_MODULE.get("union_find/WeightedUnionFind.py", {}), "RollbackWeightedUnionFind": "構築 O(N)", "find": "O(log N)", "leader": "O(log N)", "weight": "O(log N)", "merge": "O(log N)", "same": "O(log N)", "diff": "O(log N)", "size": "O(log N)", "snapshot": "O(1)", "rollback": "巻き戻す merge 1 回につき O(1)"},
+    "range_query/StaticRangeFrequency.py": {"StaticRangeFrequency": "構築 O(N)", "count": "O(log N)", "kth": "O(1)", "positions": "O(K) to create returned tuple"},
+    "tree_query/TreeMo.py": {"TreeMo": "構築 O(V log V)", "lca": "O(log V)", "add_query": "O(log V)", "order": "O(Q log Q)", "run": "O((V+Q) sqrt(Q) C + Q G) typical"},
+    "tree_query/TreeMonoid.py": {"TreeMonoid": "構築 O(V)", "set": "O(log V)", "get": "O(1)", "path_prod": "O(log^2 V)", "subtree_prod": "O(log V)"},
+    "tree/SubtreeDiameter.py": {"subtree_diameters": "O(V) time、O(V) memory"},
+    "geometry/ConvexLayers.py": {"convex_layers": "worst O(N^2 log N)", "onion_depth": "worst O(N^2 log N)"},
+    "geometry/LineGeometry.py": {"projection": "O(1)", "reflection": "O(1)", "distance_to_line": "O(1)", "line_intersection": "O(1)"},
+    "graph_enumeration/MinimumCostCycle.py": {"minimum_cost_cycle": "O(V E log V) time、O(V+E) memory"},
+})
+
+API_DETAILS_BY_SYMBOL[("tree_query/TreeMonoid.py", "TreeMonoid", "get")] = {
+    "description": "指定した頂点に現在保存されているモノイド要素を返す。",
+    "argumentDescriptions": {"vertex": "値を読む頂点番号。"},
+    "returnFormat": "object",
+    "returnDescription": "直近の set、または constructor の values で vertex に設定された値。path の集約値ではない。",
+}
+
+MODULE_CAPABILITIES["tree/TreeDiameter.py"] = MODULE_CAPABILITIES.get("tree/TreeDiameter.py", ()) + (
+    "木の直径とその path に加え、離心度を最小にする一つまたは二つの center 頂点を求められる。",
+)
+MODULE_CAPABILITIES["tree/CentroidDecomposition.py"] = MODULE_CAPABILITIES.get("tree/CentroidDecomposition.py", ()) + (
+    "木を一点で除いた各連結成分の大きさが半分以下になる centroid 頂点を求められる。",
+)
+API_DETAILS_BY_SYMBOL.update({
+    ("tree/TreeDiameter.py", None, "tree_center"): {
+        "description": "木で各頂点までの最大辺数を最小にする center 頂点を返す。center は一つまたは隣接する二つ。",
+        "argumentDescriptions": {"tree": "無向木の隣接 list。重み付き tuple を渡した場合も重みは使わず辺数で考える。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "center 頂点番号を昇順に並べた長さ 1 または 2 の list。空の木では空 list。",
+    },
+    ("tree/CentroidDecomposition.py", None, "tree_centroid"): {
+        "description": "頂点を除いた後のすべての連結成分が元の頂点数の半分以下になる centroid を求める。",
+        "argumentDescriptions": {"tree": "連結な無向木の隣接 list。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "条件を満たす centroid 頂点の list。木では一つまたは二つ、空の木では空 list。",
+    },
+})
+COMPLEXITY_BY_MODULE["tree/TreeDiameter.py"]["tree_center"] = "O(V) time、O(V) memory"
+COMPLEXITY_BY_MODULE["tree/CentroidDecomposition.py"] = {
+    **COMPLEXITY_BY_MODULE.get("tree/CentroidDecomposition.py", {}),
+    "tree_centroid": "O(V) time、O(V) memory",
+}
+
+API_DETAILS_BY_SYMBOL[("algorithm/RangeQueries.py", "Mo", "add_query")] = {
+    "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ をオフライン query として登録する。",
+    "argumentDescriptions": {
+        "left": "query に含める左端 index。",
+        "right": "query に含めない右端 index。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "0 始まりの query ID。run の返り値では同じ index にこの query の答えが入る。",
+}

@@ -18,7 +18,7 @@
 | [`RunEnumeration`](RunEnumeration.md) | 最小周期付き極大run列挙（反復分割統治） | 1 | 0 | 0 |
 | [`RunLengthEncoding`](RunLengthEncoding.md) | 任意iterableの連長圧縮・復元 | 2 | 0 | 0 |
 | [`StaticString`](StaticString.md) | SA共有substring view・複数view連結 | 3 | 3 | 37 |
-| [`StringSearch`](StringSearch.md) | Suffix Arrayによるsubstring LCP・比較・検索 | 1 | 1 | 5 |
+| [`StringSearch`](StringSearch.md) | Suffix Arrayによるsubstring LCP・比較・検索 | 3 | 1 | 5 |
 | [`Subsequence`](Subsequence.md) | 異なる部分列数・部分列判定 | 2 | 0 | 0 |
 | [`SuffixArray`](SuffixArray.md) | 非再帰SA-IS・LCP・検索・静的部分文字列比較 | 4 | 2 | 23 |
 | [`SuffixAutomaton`](SuffixAutomaton.md) | オンライン構築・出現/辞書順/LCS対応Suffix Automaton | 0 | 1 | 29 |

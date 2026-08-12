@@ -6,14 +6,14 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
 from library_codex.tree.PruferCode import prufer_decode
+from library_codex.tree.CentroidDecomposition import tree_centroid
+from library_codex.tree.TreeDiameter import tree_center
 from library_codex.tree.TreeIsomorphism import (
     AHUInterner,
     RootedTreeHash,
     RootedTreeIsomorphism,
     rooted_tree_isomorphic,
     rooted_tree_hashes,
-    tree_center,
-    tree_centroid,
     tree_hash,
     unrooted_tree_isomorphic,
 )

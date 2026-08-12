@@ -1,3 +1,6 @@
+from library_codex.tree.TreeDiameter import tree_center
+
+
 MASK64 = (1 << 64) - 1
 
 
@@ -118,50 +121,6 @@ class RootedTreeIsomorphism:
 
 RootedTreeHash = RootedTreeIsomorphism
 AHUAlgorithm = RootedTreeIsomorphism
-
-
-def tree_center(tree):
-    n = len(tree)
-    if n == 0:
-        return []
-    _parent_order(tree, 0)
-    if n <= 2:
-        return list(range(n))
-    degree = list(map(len, tree))
-    leaves = [v for v in range(n) if degree[v] == 1]
-    remaining = n
-    while remaining > 2:
-        remaining -= len(leaves)
-        next_leaves = []
-        for leaf in leaves:
-            degree[leaf] = 0
-            for to in tree[leaf]:
-                if degree[to] > 0:
-                    degree[to] -= 1
-                    if degree[to] == 1:
-                        next_leaves.append(to)
-        leaves = next_leaves
-    leaves.sort()
-    return leaves
-
-
-def tree_centroid(tree):
-    n = len(tree)
-    if n == 0:
-        return []
-    parent, order = _parent_order(tree, 0)
-    size = [1] * n
-    for v in reversed(order[1:]):
-        size[parent[v]] += size[v]
-    result = []
-    for v in range(n):
-        largest = n - size[v]
-        for to in tree[v]:
-            if parent[to] == v and size[to] > largest:
-                largest = size[to]
-        if largest * 2 <= n:
-            result.append(v)
-    return result
 
 
 def rooted_tree_hashes(tree, root=0):

@@ -33,6 +33,15 @@ class MaxFlowGraph:
     def edges(self):
         return [self.get_edge(i) for i in range(len(self.pos))]
 
+    def residual_graph(self, include_zero=False):
+        """Return ``(to, residual_capacity)`` rows of the residual graph."""
+        if include_zero:
+            return [[(edge[0], edge[2]) for edge in row] for row in self.graph]
+        return [
+            [(edge[0], edge[2]) for edge in row if edge[2]]
+            for row in self.graph
+        ]
+
     def change_edge(self, i, capacity, flow):
         assert 0 <= flow <= capacity
         source, index = self.pos[i]
@@ -126,6 +135,19 @@ class MaxFlowGraph:
                     visited[edge[0]] = True
                     que.append(edge[0])
         return visited
+
+    def min_cut_edges(self, source):
+        """Return original edges crossing the current source-side minimum cut.
+
+        Each entry is ``(edge_id, source, target, capacity, flow)``.
+        """
+        reachable = self.min_cut(source)
+        result = []
+        for edge_id in range(len(self.pos)):
+            first, second, capacity, flow = self.get_edge(edge_id)
+            if reachable[first] and not reachable[second]:
+                result.append((edge_id, first, second, capacity, flow))
+        return result
 
 
 MaxFlow = MaxFlowGraph

@@ -5,4 +5,6 @@ path・部分木上の静的検索のAPI一覧です。
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`TreeMo`](TreeMo.md) | Offline path queries on a static tree with Mo's algorithm. | 0 | 1 | 4 |
+| [`TreeMonoid`](TreeMonoid.md) | Point updates and monoid products on tree paths and subtrees. | 0 | 1 | 4 |
 | [`TreeWaveletMatrix`](TreeWaveletMatrix.md) | 静的な頂点値について、木のpath・部分木内の順位と値域個数を求める。 | 0 | 1 | 7 |

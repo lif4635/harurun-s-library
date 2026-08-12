@@ -1,4 +1,4 @@
-def eulerian_trail(n, edges, directed=False, start=None):
+def eulerian_trail(n, edges, directed=False, start=None, lexicographic=False):
     edges = list(edges)
     m = len(edges)
     if start is not None:
@@ -60,6 +60,10 @@ def eulerian_trail(n, edges, directed=False, start=None):
         elif not odd and degree[start] == 0:
             return None
 
+    if lexicographic:
+        for row in adj:
+            row.sort()
+
     ptr = [0] * n
     used = [False] * m
     stack_v = [start]
@@ -91,8 +95,10 @@ def eulerian_trail(n, edges, directed=False, start=None):
     return vertices, trail
 
 
-def eulerian_cycle(n, edges, directed=False, start=None):
-    result = eulerian_trail(n, edges, directed, start)
+def eulerian_cycle(
+    n, edges, directed=False, start=None, lexicographic=False
+):
+    result = eulerian_trail(n, edges, directed, start, lexicographic)
     if result is None:
         return None
     if result[0] and result[0][0] != result[0][-1]:

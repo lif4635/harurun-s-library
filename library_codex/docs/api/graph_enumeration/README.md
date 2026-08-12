@@ -14,3 +14,4 @@ clique・cycle・彩色・部分集合DPのAPI一覧です。
 | [`HeldKarp`](HeldKarp.md) | 全頂点を一度ずつ通る最短Hamilton pathまたはcycleをbit DPで求める。 | 2 | 0 | 0 |
 | [`MaximalIndependentSets`](MaximalIndependentSets.md) | 無向グラフの極大独立集合を重複なく列挙する。 | 1 | 0 | 0 |
 | [`MaximumIndependentSet`](MaximumIndependentSet.md) | 小規模グラフの最大独立集合と最大重み独立集合を求める。 | 3 | 0 | 0 |
+| [`MinimumCostCycle`](MinimumCostCycle.md) | Minimum-cost directed cycle with nonnegative edge weights. | 1 | 0 | 0 |

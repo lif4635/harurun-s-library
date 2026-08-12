@@ -8,7 +8,9 @@
 | [`ArgumentSort`](ArgumentSort.md) | 2次元ベクトルの偏角sort | 1 | 0 | 0 |
 | [`ClosestPair`](ClosestPair.md) | 2次元点集合でEuclidean距離が最小の2点を求める。 | 1 | 0 | 0 |
 | [`ConvexHull`](ConvexHull.md) | Andrewの単調鎖法による2次元凸包 | 1 | 0 | 0 |
+| [`ConvexLayers`](ConvexLayers.md) | Onion decomposition of planar points. | 2 | 0 | 0 |
 | [`FurthestPair`](FurthestPair.md) | 2次元点集合で距離が最大の2点を求める。 | 1 | 0 | 0 |
+| [`LineGeometry`](LineGeometry.md) | Projection, reflection, distance, and intersection for infinite lines. | 4 | 0 | 0 |
 | [`MinimumEnclosingCircle`](MinimumEnclosingCircle.md) | 点集合を覆う半径最小の円を求める。 | 1 | 0 | 0 |
 | [`MinkowskiSum`](MinkowskiSum.md) | 2つの凸多角形のMinkowski和を構築する。 | 1 | 0 | 0 |
 | [`Orientation`](Orientation.md) | 2次元点の外積と向き判定 | 2 | 0 | 0 |

@@ -1,6 +1,39 @@
 from library_codex.string.SuffixArray import SuffixArray
 
 
+def prefix_function(sequence):
+    """Return KMP prefix lengths for every prefix of ``sequence``."""
+    n = len(sequence)
+    result = [0] * n
+    for i in range(1, n):
+        j = result[i - 1]
+        while j and sequence[i] != sequence[j]:
+            j = result[j - 1]
+        if sequence[i] == sequence[j]:
+            j += 1
+        result[i] = j
+    return result
+
+
+def kmp_search(sequence, pattern):
+    """Return all start indices where ``pattern`` occurs in ``sequence``."""
+    m = len(pattern)
+    if m == 0:
+        return list(range(len(sequence) + 1))
+    table = prefix_function(pattern)
+    result = []
+    matched = 0
+    for i, value in enumerate(sequence):
+        while matched and value != pattern[matched]:
+            matched = table[matched - 1]
+        if value == pattern[matched]:
+            matched += 1
+            if matched == m:
+                result.append(i - m + 1)
+                matched = table[matched - 1]
+    return result
+
+
 def lcp_naive(first, second):
     limit = min(len(first), len(second))
     index = 0

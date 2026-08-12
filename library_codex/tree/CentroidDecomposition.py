@@ -1,6 +1,38 @@
 from bisect import bisect_left
 
 
+def tree_centroid(tree):
+    """Return vertices whose removal leaves no component larger than half."""
+    n = len(tree)
+    if n == 0:
+        return []
+    parent = [-2] * n
+    parent[0] = -1
+    order = [0]
+    for vertex in order:
+        for other in tree[vertex]:
+            if other == parent[vertex]:
+                continue
+            if parent[other] != -2:
+                raise ValueError("graph must be a tree")
+            parent[other] = vertex
+            order.append(other)
+    if len(order) != n:
+        raise ValueError("graph must be connected")
+    size = [1] * n
+    for vertex in reversed(order[1:]):
+        size[parent[vertex]] += size[vertex]
+    result = []
+    for vertex in range(n):
+        largest = n - size[vertex]
+        for other in tree[vertex]:
+            if parent[other] == vertex and size[other] > largest:
+                largest = size[other]
+        if largest * 2 <= n:
+            result.append(vertex)
+    return result
+
+
 class CentroidDecomposition:
     __slots__ = (
         "n",

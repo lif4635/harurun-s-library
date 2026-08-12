@@ -14,4 +14,4 @@ Union-Findと連結成分管理のAPI一覧です。
 | [`RangeParallelUnionFind`](RangeParallelUnionFind.md) | 2つの同じ長さの区間をまとめて対応位置ごとに併合するUnion-Find。 | 0 | 1 | 4 |
 | [`RollbackUnionFind`](RollbackUnionFind.md) | undo・snapshot・成分和対応Union Find | 0 | 1 | 13 |
 | [`UnionFind`](UnionFind.md) | 通常Union-Findの併合・連結判定・成分size | 0 | 1 | 7 |
-| [`WeightedUnionFind`](WeightedUnionFind.md) | 要素間のpotential差を保ちながら併合する重み付きUnion-Find。 | 0 | 1 | 6 |
+| [`WeightedUnionFind`](WeightedUnionFind.md) | 要素間のpotential差を保ちながら併合する重み付きUnion-Find。 | 0 | 2 | 15 |

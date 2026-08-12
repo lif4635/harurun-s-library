@@ -49,6 +49,48 @@ def diameter(tree):
     return tree_diameter(tree)[0]
 
 
+def tree_center(tree):
+    """Return the one or two vertices minimizing maximum edge distance."""
+    n = len(tree)
+    if n == 0:
+        return []
+    parent = [-2] * n
+    parent[0] = -1
+    order = [0]
+    for vertex in order:
+        for entry in tree[vertex]:
+            other, _ = _edge(entry)
+            if other == parent[vertex]:
+                continue
+            if parent[other] != -2:
+                raise ValueError("graph must be a tree")
+            parent[other] = vertex
+            order.append(other)
+    if len(order) != n:
+        raise ValueError("graph must be connected")
+    degree = list(map(len, tree))
+    if sum(degree) != (n - 1) << 1:
+        raise ValueError("graph must be a tree")
+    if n <= 2:
+        return list(range(n))
+    leaves = [vertex for vertex in range(n) if degree[vertex] == 1]
+    remaining = n
+    while remaining > 2:
+        remaining -= len(leaves)
+        next_leaves = []
+        for leaf in leaves:
+            degree[leaf] = 0
+            for entry in tree[leaf]:
+                other, _ = _edge(entry)
+                if degree[other] > 0:
+                    degree[other] -= 1
+                    if degree[other] == 1:
+                        next_leaves.append(other)
+        leaves = next_leaves
+    leaves.sort()
+    return leaves
+
+
 def tree_metric_center(tree):
     """木を連続なmetric空間とみなした中心位置と半径を返す。"""
     diameter_value, path = tree_diameter(tree)
