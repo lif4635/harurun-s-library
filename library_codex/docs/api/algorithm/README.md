@@ -20,4 +20,4 @@
 | [`Search`](Search.md) | 整数・実数境界二分探索とquickselect | 3 | 0 | 0 |
 | [`SequenceAlgorithms`](SequenceAlgorithms.md) | 転倒数・LIS・座標圧縮・区間併合 | 4 | 0 | 0 |
 | [`SequenceOrdering`](SequenceOrdering.md) | 点更新される列の辞書順比較・版圧縮 | 0 | 1 | 5 |
-| [`Sorting`](Sorting.md) | 非負整数radix sort・置換・bucket sort | 6 | 0 | 0 |
+| [`Sorting`](Sorting.md) | 非負整数radix sort・置換・bucket sort | 10 | 0 | 0 |

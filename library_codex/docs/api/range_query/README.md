@@ -7,9 +7,11 @@
 | --- | --- | ---: | ---: | ---: |
 | [`DisjointSparseTable`](DisjointSparseTable.md) | 静的列の半群区間積 | 0 | 1 | 1 |
 | [`DynamicWaveletMatrix`](DynamicWaveletMatrix.md) | 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版 | 1 | 3 | 37 |
+| [`RangeMajority`](RangeMajority.md) | Strict-majority queries on an immutable sequence. | 0 | 1 | 3 |
 | [`RangeMex`](RangeMex.md) | 静的な列の複数の半開区間についてmexをまとめて求める。 | 1 | 0 | 0 |
 | [`RangeXorBasis`](RangeXorBasis.md) | 静的整数列の複数の半開区間について、XOR線形基底を一括計算する。 | 2 | 0 | 0 |
 | [`StaticRMQ`](StaticRMQ.md) | 静的range minimum・最左argmin | 0 | 1 | 3 |
 | [`StaticRangeFrequency`](StaticRangeFrequency.md) | Frequency queries on an immutable sequence. | 0 | 1 | 3 |
 | [`StaticRangeGroup`](StaticRangeGroup.md) | groupの静的列で半開区間積をO(1)取得する。 | 0 | 1 | 2 |
+| [`StaticRangeMode`](StaticRangeMode.md) | Mode queries on an immutable sequence. | 0 | 1 | 2 |
 | [`WaveletMatrix`](WaveletMatrix.md) | 非負整数列のrank・k-th・range frequency | 0 | 1 | 11 |

@@ -5,7 +5,7 @@ instanceを直接呼んで最近共通祖先を求めるLCA。
 
 - 計算量の目安: 構築 O(N)、query O(1)
 - source: [`tree/LCA.py`](../../../tree/LCA.py)
-- 公開API: function 0、class 1、method/property 2（Python protocol 1を含む）
+- 公開API: function 0、class 1、method/property 4（Python protocol 1を含む）
 
 ## できること
 
@@ -32,3 +32,5 @@ Euler tourとRMQでLCAをO(1)で返す。
 | --- | --- | --- | --- | --- | --- |
 | [`__call__(first, second)`](../../../tree/LCA.py#L20) | method | firstとsecondのLCAを返す。異なる連結成分なら-1。O(1)。 | `first`: 第1の頂点番号<br>`second`: 第2の頂点番号 | int — firstとsecondの最近共通祖先。異なる連結成分なら-1 | O(1) |
 | [`dist(first, second)`](../../../tree/LCA.py#L24) | method | firstとsecondの辺数距離を返す。異なる連結成分なら-1。O(1)。 | `first`: 第1の頂点番号<br>`second`: 第2の頂点番号 | int — firstとsecondの辺数距離。異なる連結成分なら-1 | O(1) |
+| [`on_path(vertex, first, second)`](../../../tree/LCA.py#L28) | method | vertex が first と second を結ぶ閉 path 上にあるか判定する。 | `vertex`: 調べる頂点。<br>`first`: path の一端。<br>`second`: path の他端。 | bool — 三頂点が同じ木にあり、vertex が両端を含む path 上なら True。 | O(1) |
+| [`path_intersection(first, second, third, fourth)`](../../../tree/LCA.py#L36) | method | 二つの閉 path の共通部分を求める。木上なので空でなければ共通部分も一つの path になる。 | `first`: 一つ目の path の一端。<br>`second`: 一つ目の他端。<br>`third`: 二つ目の path の一端。<br>`fourth`: 二つ目の他端。 | tuple[int, int] \| None — 交差しなければ None。交差すれば共通 path の二端点 (u, v)。一点だけ共有する場合は u == v。端点の順序は規定しない。 | O(1) |

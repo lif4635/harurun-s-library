@@ -4484,3 +4484,216 @@ API_DETAILS_BY_SYMBOL[("algorithm/RangeQueries.py", "Mo", "add_query")] = {
     "returnFormat": "int",
     "returnDescription": "0 始まりの query ID。run の返り値では同じ index にこの query の答えが入る。",
 }
+
+
+# 第八弾: 静的 range query、凸図形、matching 辺分類と既存 API の補強。
+SEARCH_TERMS_BY_MODULE.update({
+    "range_query/RangeMajority.py": (
+        "区間過半数", "range majority", "Boyer Moore",
+    ),
+    "range_query/StaticRangeMode.py": (
+        "区間最頻値", "range mode", "最頻出要素",
+    ),
+    "geometry/ConvexPolygon.py": (
+        "凸多角形", "point in convex polygon", "内外判定",
+    ),
+    "geometry/CircleGeometry.py": (
+        "円の交点", "circle intersection", "接点",
+    ),
+})
+
+SEARCH_TERMS_BY_SYMBOL.update({
+    ("graph_matching/BipartiteMatching.py", "allowed_edges"): (
+        "allowed edge", "最大マッチングに使える辺",
+    ),
+    ("graph_matching/BipartiteMatching.py", "essential_edges"): (
+        "essential edge", "必須マッチング辺",
+    ),
+    ("tree/LCA.py", "path_intersection"): (
+        "パス交差", "tree path intersection", "共通区間",
+    ),
+    ("graph_connectivity/FunctionalGraph.py", "first_meeting"): (
+        "同期移動", "functional graph meeting", "初回合流",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "range_query/RangeMajority.py": (
+        "変更されない列の半開区間について、要素数の半分を超えて現れる値があるか判定できる。",
+        "候補を Boyer--Moore のモノイドで絞り、出現位置 list で本当に過半数か検証する。",
+    ),
+    "range_query/StaticRangeMode.py": (
+        "変更されない列の半開区間で、出現回数が最大の値とその回数を求められる。",
+        "最頻値が複数ある場合は、その query 区間で最初に現れる値を一意に返す。",
+    ),
+    "geometry/ConvexPolygon.py": (
+        "静的な凸多角形に対し、点が内部・境界・外部のどこにあるか対数時間で判定できる。",
+        "時計回りの入力は内部で反転し、反時計回りとして保持する。",
+    ),
+    "geometry/CircleGeometry.py": (
+        "円と無限直線、二つの円の交点を求められる。",
+        "円の外の点から引いた接線が円に触れる一つまたは二つの接点を求められる。",
+    ),
+})
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("range_query/RangeMajority.py", "RangeMajority"): {
+        "description": "区間の majority 候補を Segment Tree で求め、値ごとの出現位置を二分探索して厳密に検証する。",
+        "constructorCreates": "不変な values を前処理し、majority・is_majority・count を任意の半開区間へ適用できる状態を作る。",
+        "argumentDescriptions": {"values": "検索対象の不変な列。要素は hashable である必要がある。"},
+    },
+    ("range_query/StaticRangeMode.py", "StaticRangeMode"): {
+        "description": "block 間の最頻値と値ごとの出現位置を前計算し、区間の mode を平方分割で求める。",
+        "constructorCreates": "不変な values に対し、mode・count を任意の半開区間へ適用できる状態を作る。",
+        "argumentDescriptions": {
+            "values": "検索対象の不変な列。要素は hashable である必要がある。",
+            "block_size": "平方分割の block 幅。None ならおよそ平方根にする。",
+        },
+    },
+    ("geometry/ConvexPolygon.py", "ConvexPolygon"): {
+        "description": "凸多角形を反時計回りに正規化し、扇形への二分探索で点の内外を判定する。",
+        "constructorCreates": "location と contains を繰り返し O(log N) で呼べる静的な凸多角形を作る。",
+        "argumentDescriptions": {
+            "polygon": "周上の順番に並べた頂点列。先頭頂点を末尾へ重ねてもよい。",
+            "validate": "True なら凸性と非零面積を構築時に検査する。",
+        },
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("range_query/RangeMajority.py", "RangeMajority", "count"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に value が現れる回数を返す。",
+        "argumentDescriptions": {"value": "数える値。", "left": "含める左端 index。", "right": "含めない右端 index。"},
+        "returnFormat": "int",
+        "returnDescription": "指定区間で values[i] == value を満たす index i の個数。",
+    },
+    ("range_query/RangeMajority.py", "RangeMajority", "majority"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に長さの半分を超えて現れる値を探す。",
+        "argumentDescriptions": {"left": "含める左端 index。", "right": "含めない右端 index。"},
+        "returnFormat": "tuple[object, int] | None",
+        "returnDescription": "厳密な過半数があれば (value, count)。なければ None。空区間も None。",
+        "returnParts": (
+            {"name": "value", "format": "object", "description": "区間内で厳密な過半数を占める唯一の値。"},
+            {"name": "count", "format": "int", "description": "その value が指定区間に現れる正確な回数。"},
+        ),
+    },
+    ("range_query/RangeMajority.py", "RangeMajority", "is_majority"): {
+        "description": "value が指定半開区間の厳密な過半数か判定する。",
+        "argumentDescriptions": {"value": "調べる値。", "left": "含める左端 index。", "right": "含めない右端 index。"},
+        "returnFormat": "bool",
+        "returnDescription": "value の出現数が (right-left)/2 より大きければ True。",
+    },
+    ("range_query/StaticRangeMode.py", "StaticRangeMode", "mode"): {
+        "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ の mode と出現回数を返す。",
+        "argumentDescriptions": {"left": "含める左端 index。", "right": "含めない右端 index。"},
+        "returnFormat": "tuple[object | None, int]",
+        "returnDescription": "非空なら (value, count)。同率時は区間内で最初に現れる value。空区間は (None, 0)。",
+        "returnParts": (
+            {"name": "value", "format": "object | None", "description": "最大頻度の値。空区間だけ None。"},
+            {"name": "count", "format": "int", "description": "value の区間内出現回数。空区間では 0。"},
+        ),
+    },
+    ("geometry/ConvexPolygon.py", "ConvexPolygon", "location"): {
+        "description": "点が凸多角形の内部・境界・外部のどこにあるか判定する。",
+        "argumentDescriptions": {"point": "判定する (x, y)。"},
+        "returnFormat": "int",
+        "returnDescription": "内部なら 1、辺または頂点上なら 0、外部なら -1。",
+    },
+    ("geometry/ConvexPolygon.py", "ConvexPolygon", "contains"): {
+        "description": "点が凸多角形に含まれるか bool で返す。",
+        "argumentDescriptions": {"point": "判定する (x, y)。", "boundary": "True なら辺・頂点上も含むとみなす。"},
+        "returnFormat": "bool",
+        "returnDescription": "指定した boundary の扱いで point が多角形に含まれれば True。",
+    },
+    ("geometry/CircleGeometry.py", None, "circle_line_intersections"): {
+        "description": "円と、二点を通る無限直線の共有点を求める。線分との交差判定ではない。",
+        "argumentDescriptions": {"center": "円の中心 (x, y)。", "radius": "0 以上の半径。", "line_start": "直線上の一点。", "line_end": "直線上の異なる一点。", "eps": "接するかを判定する許容誤差。"},
+        "returnFormat": "list[tuple[float, float]]",
+        "returnDescription": "交点を 0、1、2 個含む list。二交点は line_start から line_end へ進む順。",
+    },
+    ("geometry/CircleGeometry.py", None, "circle_circle_intersections"): {
+        "description": "二つの円の共有点を求める。",
+        "argumentDescriptions": {"first_center": "一つ目の円の中心。", "first_radius": "一つ目の半径。", "second_center": "二つ目の円の中心。", "second_radius": "二つ目の半径。", "eps": "一致・接触判定の許容誤差。"},
+        "returnFormat": "list[tuple[float, float]] | None",
+        "returnDescription": "交点が有限なら 0、1、2 点の list。二円が一致し共有点が無限個なら None。",
+    },
+    ("geometry/CircleGeometry.py", None, "tangent_points"): {
+        "description": "point から円へ引ける接線について、円上の接点を求める。",
+        "argumentDescriptions": {"center": "円の中心。", "radius": "0 以上の半径。", "point": "接線を引く点。", "eps": "円上・内部判定の許容誤差。"},
+        "returnFormat": "list[tuple[float, float]]",
+        "returnDescription": "point が円内なら空 list、円上なら point 一つ、円外なら二つの接点。",
+    },
+    ("tree/LCA.py", "LCA", "on_path"): {
+        "description": "vertex が first と second を結ぶ閉 path 上にあるか判定する。",
+        "argumentDescriptions": {"vertex": "調べる頂点。", "first": "path の一端。", "second": "path の他端。"},
+        "returnFormat": "bool",
+        "returnDescription": "三頂点が同じ木にあり、vertex が両端を含む path 上なら True。",
+    },
+    ("tree/LCA.py", "LCA", "path_intersection"): {
+        "description": "二つの閉 path の共通部分を求める。木上なので空でなければ共通部分も一つの path になる。",
+        "argumentDescriptions": {"first": "一つ目の path の一端。", "second": "一つ目の他端。", "third": "二つ目の path の一端。", "fourth": "二つ目の他端。"},
+        "returnFormat": "tuple[int, int] | None",
+        "returnDescription": "交差しなければ None。交差すれば共通 path の二端点 (u, v)。一点だけ共有する場合は u == v。端点の順序は規定しない。",
+    },
+    ("graph_connectivity/FunctionalGraph.py", "FunctionalGraph", "first_meeting"): {
+        "description": "二頂点から同時に一辺ずつ進む walk が、初めて同じ頂点にいる時刻を求める。",
+        "argumentDescriptions": {"first": "一つ目の開始頂点。", "second": "二つ目の開始頂点。"},
+        "returnFormat": "int",
+        "returnDescription": "最小の非負整数 t で move(first,t) == move(second,t) となるもの。永遠に会わなければ -1。",
+    },
+    ("graph_connectivity/FunctionalGraph.py", "FunctionalGraph", "meeting_vertex"): {
+        "description": "同時 walk の初回合流時刻と、その時にいる頂点をまとめて返す。",
+        "argumentDescriptions": {"first": "一つ目の開始頂点。", "second": "二つ目の開始頂点。"},
+        "returnFormat": "tuple[int, int] | None",
+        "returnDescription": "会うなら (time, vertex)。永遠に会わなければ None。",
+        "returnParts": (
+            {"name": "time", "format": "int", "description": "両方が同じ速度で進んだ最小の辺数。"},
+            {"name": "vertex", "format": "int", "description": "その時刻に両方がいる頂点番号。"},
+        ),
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "allowed_edges"): {
+        "description": "少なくとも一つの maximum matching に含められる辺の組を列挙する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "各要素は (left, right)。同じ端点対を add_edge で重複追加していても一度だけ返す。",
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "essential_edges"): {
+        "description": "すべての maximum matching に必ず含まれる端点対を列挙する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "各要素は (left, right)。現在 solve が選んだ辺のうち、別の maximum matching で外せないもの。",
+    },
+    ("algorithm/Sorting.py", None, "inverse_permutation"): {
+        "description": "置換の逆置換を求める。",
+        "argumentDescriptions": {"permutation": "0 以上 n 未満を一度ずつ含む長さ n の列。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "inverse[permutation[i]] == i を満たす長さ n の置換。",
+    },
+    ("algorithm/Sorting.py", None, "compose_permutations"): {
+        "description": "second を適用してから first を適用する置換合成を求める。",
+        "argumentDescriptions": {"first": "後に適用する置換。", "second": "先に適用する同じ大きさの置換。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "result[i] = first[second[i]] を満たす置換。",
+    },
+    ("algorithm/Sorting.py", None, "permutation_cycles"): {
+        "description": "置換を互いに素な cycle へ分解する。",
+        "argumentDescriptions": {"permutation": "分解する置換。", "include_fixed": "True なら固定点も長さ 1 の cycle として含める。"},
+        "returnFormat": "list[list[int]]",
+        "returnDescription": "各 inner list は permutation[cycle[i]] == cycle[(i+1) mod len(cycle)] を満たす。各 cycle の先頭と cycle 同士は最小頂点順。",
+    },
+    ("algorithm/Sorting.py", None, "permutation_power"): {
+        "description": "置換の整数 exponent 乗を cycle ごとに線形時間で求める。",
+        "argumentDescriptions": {"permutation": "累乗する置換。", "exponent": "負も許す整数指数。"},
+        "returnFormat": "list[int]",
+        "returnDescription": "各頂点へ permutation を exponent 回適用した先を並べた置換。負なら逆向きに適用する。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "range_query/RangeMajority.py": {"RangeMajority": "構築 O(N) time・O(N) memory", "count": "O(log N)", "majority": "O(log N)", "is_majority": "O(log N)"},
+    "range_query/StaticRangeMode.py": {"StaticRangeMode": "構築 O(N sqrt N) time・O(N) memory", "count": "O(log N)", "mode": "O(sqrt N log N)"},
+    "geometry/ConvexPolygon.py": {"ConvexPolygon": "構築 O(N)", "location": "O(log N)", "contains": "O(log N)"},
+    "geometry/CircleGeometry.py": {"circle_line_intersections": "O(1)", "circle_circle_intersections": "O(1)", "tangent_points": "O(1)"},
+    "algorithm/Sorting.py": {**COMPLEXITY_BY_MODULE.get("algorithm/Sorting.py", {}), "inverse_permutation": "O(N)", "compose_permutations": "O(N)", "permutation_cycles": "O(N)", "permutation_power": "O(N)"},
+    "tree/LCA.py": {**COMPLEXITY_BY_MODULE.get("tree/LCA.py", {}), "on_path": "O(1)", "path_intersection": "O(1)"},
+    "graph_connectivity/FunctionalGraph.py": {**COMPLEXITY_BY_MODULE.get("graph_connectivity/FunctionalGraph.py", {}), "first_meeting": "O(log N)", "meeting_vertex": "O(log N)"},
+    "graph_matching/BipartiteMatching.py": {**COMPLEXITY_BY_MODULE.get("graph_matching/BipartiteMatching.py", {}), "allowed_edges": "matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む", "essential_edges": "matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む"},
+})

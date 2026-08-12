@@ -5,7 +5,7 @@ Functional graph の周期分解・移動・距離。
 
 - 計算量の目安: 構築 $O(N\log N)$、移動 $O(\log N)$（周期上は $O(1)$）
 - source: [`graph_connectivity/FunctionalGraph.py`](../../../graph_connectivity/FunctionalGraph.py)
-- 公開API: function 0、class 1、method/property 7（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 9（Python protocol 0を含む）
 
 ## できること
 
@@ -35,3 +35,5 @@ Functional graph の周期分解・移動・距離を扱う `FunctionalGraph`。
 | [`cycle_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L106) | method | 閉路・`size`を求める。 | `v`: 頂点番号 | `len(self.cycles[self.component[v]])` | — |
 | [`reachable_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L109) | method | `reachable`・`size`を求める。 | `v`: 頂点番号 | 数値または入力要素型 `self.depth[v] + len(self.cycles[self.component[v]])` | — |
 | [`get_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L112) | method | 閉路を取得する。 | `v`: 頂点番号 | `self.cycles[self.component[v]]` | — |
+| [`first_meeting(first, second)`](../../../graph_connectivity/FunctionalGraph.py#L115) | method | 二頂点から同時に一辺ずつ進む walk が、初めて同じ頂点にいる時刻を求める。 | `first`: 一つ目の開始頂点。<br>`second`: 二つ目の開始頂点。 | int — 最小の非負整数 t で move(first,t) == move(second,t) となるもの。永遠に会わなければ -1。 | O(log N) |
+| [`meeting_vertex(first, second)`](../../../graph_connectivity/FunctionalGraph.py#L150) | method | 同時 walk の初回合流時刻と、その時にいる頂点をまとめて返す。 | `first`: 一つ目の開始頂点。<br>`second`: 二つ目の開始頂点。 | tuple[int, int] \| None — 会うなら (time, vertex)。永遠に会わなければ None。 | O(log N) |

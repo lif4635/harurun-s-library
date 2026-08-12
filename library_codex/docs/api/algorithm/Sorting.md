@@ -5,7 +5,7 @@
 
 - 計算量の目安: $O(NB/D + 2^D B/D)$ または $O(N+K)$
 - source: [`algorithm/Sorting.py`](../../../algorithm/Sorting.py)
-- 公開API: function 6、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 10、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
@@ -24,6 +24,10 @@ from library_codex.algorithm.Sorting import (
     permute_in_place,
     bucket_sort_permutation,
     bucket_sort,
+    inverse_permutation,
+    compose_permutations,
+    permutation_cycles,
+    permutation_power,
 )
 ```
 
@@ -37,3 +41,7 @@ from library_codex.algorithm.Sorting import (
 | [`permute_in_place(values, permutation)`](../../../algorithm/Sorting.py#L46) | permutationに従ってvalues自体を破壊的に並べ替える。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`permutation`: 置換 `p[i]` の列 | list[object] — permutationの順へ並べ替えた入力valuesと同じobject | O(N) |
 | [`bucket_sort_permutation(keys, maximum=None)`](../../../algorithm/Sorting.py#L61) | 非負整数keyを安定sortしたときの元の添字順を返す。 | `keys`: 整列keyの列またはkey callback<br>`maximum`: 最大として使う入力。省略時: `None` | list[int] — 頂点または要素の位置を結果順に並べた列 / 計算結果（数値または入力要素型） | O(N+maximum) |
 | [`bucket_sort(values, key=lambda value: value, maximum=None)`](../../../algorithm/Sorting.py#L82) | 非負整数keyを使ってvaluesを安定sortした列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`key`: 比較・格納に使うkey。省略時: `lambda value: value`<br>`maximum`: 最大として使う入力。省略時: `None` | `permute(values, bucket_sort_permutation(keys, maximum))` | O(N+maximum) |
+| [`inverse_permutation(permutation)`](../../../algorithm/Sorting.py#L89) | 置換の逆置換を求める。 | `permutation`: 0 以上 n 未満を一度ずつ含む長さ n の列。 | list[int] — inverse[permutation[i]] == i を満たす長さ n の置換。 | O(N) |
+| [`compose_permutations(first, second)`](../../../algorithm/Sorting.py#L99) | second を適用してから first を適用する置換合成を求める。 | `first`: 後に適用する置換。<br>`second`: 先に適用する同じ大きさの置換。 | list[int] — result[i] = first[second[i]] を満たす置換。 | O(N) |
+| [`permutation_cycles(permutation, include_fixed=False)`](../../../algorithm/Sorting.py#L108) | 置換を互いに素な cycle へ分解する。 | `permutation`: 分解する置換。<br>`include_fixed`: True なら固定点も長さ 1 の cycle として含める。省略時: `False` | list[list[int]] — 各 inner list は permutation[cycle[i]] == cycle[(i+1) mod len(cycle)] を満たす。各 cycle の先頭と cycle 同士は最小頂点順。 | O(N) |
+| [`permutation_power(permutation, exponent)`](../../../algorithm/Sorting.py#L128) | 置換の整数 exponent 乗を cycle ごとに線形時間で求める。 | `permutation`: 累乗する置換。<br>`exponent`: 負も許す整数指数。 | list[int] — 各頂点へ permutation を exponent 回適用した先を並べた置換。負なら逆向きに適用する。 | O(N) |

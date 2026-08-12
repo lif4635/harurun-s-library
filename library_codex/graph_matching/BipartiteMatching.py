@@ -252,6 +252,119 @@ class BipartiteMatching:
 
     dm_decomposition = dulmage_mendelsohn
 
+    def _allowed_edge_data(self):
+        self.solve()
+        left_size = self.left_size
+        n = left_size + self.right_size
+        graph = [[] for _ in range(n)]
+        reverse = [[] for _ in range(n)]
+        for left, edges in enumerate(self.graph):
+            matched = self.match_left[left]
+            for right in edges:
+                right_vertex = left_size + right
+                if right == matched:
+                    graph[right_vertex].append(left)
+                    reverse[left].append(right_vertex)
+                else:
+                    graph[left].append(right_vertex)
+                    reverse[right_vertex].append(left)
+
+        from_free_left = bytearray(n)
+        queue = []
+        for left, right in enumerate(self.match_left):
+            if right == -1:
+                from_free_left[left] = 1
+                queue.append(left)
+        for vertex in queue:
+            for other in graph[vertex]:
+                if not from_free_left[other]:
+                    from_free_left[other] = 1
+                    queue.append(other)
+
+        to_free_right = bytearray(n)
+        queue = []
+        for right, left in enumerate(self.match_right):
+            vertex = left_size + right
+            if left == -1:
+                to_free_right[vertex] = 1
+                queue.append(vertex)
+        for vertex in queue:
+            for other in reverse[vertex]:
+                if not to_free_right[other]:
+                    to_free_right[other] = 1
+                    queue.append(other)
+
+        used = bytearray(n)
+        order = []
+        for start in range(n):
+            if used[start]:
+                continue
+            used[start] = 1
+            stack = [(start, 0)]
+            while stack:
+                vertex, index = stack[-1]
+                if index == len(graph[vertex]):
+                    order.append(vertex)
+                    stack.pop()
+                    continue
+                other = graph[vertex][index]
+                stack[-1] = (vertex, index + 1)
+                if not used[other]:
+                    used[other] = 1
+                    stack.append((other, 0))
+        component = [-1] * n
+        for start in reversed(order):
+            if component[start] >= 0:
+                continue
+            component[start] = start
+            stack = [start]
+            while stack:
+                vertex = stack.pop()
+                for other in reverse[vertex]:
+                    if component[other] < 0:
+                        component[other] = start
+                        stack.append(other)
+        return from_free_left, to_free_right, component
+
+    def allowed_edges(self):
+        """Return edges that occur in at least one maximum matching."""
+        from_left, to_right, component = self._allowed_edge_data()
+        offset = self.left_size
+        result = []
+        seen = set()
+        for left, edges in enumerate(self.graph):
+            for right in edges:
+                pair = left, right
+                if pair in seen:
+                    continue
+                seen.add(pair)
+                right_vertex = offset + right
+                if (
+                    self.match_left[left] == right
+                    or from_left[left]
+                    or to_right[right_vertex]
+                    or component[left] == component[right_vertex]
+                ):
+                    result.append(pair)
+        return result
+
+    def essential_edges(self):
+        """Return edges contained in every maximum matching."""
+        from_left, to_right, component = self._allowed_edge_data()
+        offset = self.left_size
+        result = []
+        for left, right in enumerate(self.match_left):
+            if right < 0:
+                continue
+            right_vertex = offset + right
+            if not (
+                from_left[left]
+                or to_right[right_vertex]
+                or component[left] == component[right_vertex]
+            ):
+                result.append((left, right))
+        return result
+
 
 def bipartite_matching(graph, right_size):
     matcher = BipartiteMatching(len(graph), right_size)

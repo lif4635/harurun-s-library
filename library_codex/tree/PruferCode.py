@@ -1,4 +1,21 @@
-from library_codex.tree.TreeIsomorphism import _parent_order
+def _parent_order(tree, root):
+    n = len(tree)
+    if not 0 <= root < n:
+        raise IndexError("root is out of range")
+    parent = [-2] * n
+    parent[root] = -1
+    order = [root]
+    for vertex in order:
+        for other in tree[vertex]:
+            if other == parent[vertex]:
+                continue
+            if not 0 <= other < n or parent[other] != -2:
+                raise ValueError("graph must be a tree")
+            parent[other] = vertex
+            order.append(other)
+    if len(order) != n:
+        raise ValueError("graph must be connected")
+    return parent, order
 
 
 def prufer_decode_edges(code, n=None):

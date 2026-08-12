@@ -1,6 +1,6 @@
 """Recognition and coloring algorithms for undirected graphs."""
 
-from graph_matching.BipartiteMatching import BipartiteMatching
+from library_codex.graph_matching.BipartiteMatching import BipartiteMatching
 
 
 class ChordalGraphRecognizer:

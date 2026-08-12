@@ -30,8 +30,8 @@ from library_codex.tree.PruferCode import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L4) | `prufer`・`decode`・辺を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 辺のlist | — |
-| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L34) | `prufer`・`decode`を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L47) | `prufer`・`encode`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L74) | `prufer`・`encode`・`extended`を求める。 | `tree`: 木の隣接list | list[int] — 通常のPruefer列の末尾へroot n-1を加えた長さn-1の列。 | — |
-| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L81) | `prufer`・`decode`・`extended`を求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` | — |
+| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L21) | `prufer`・`decode`・辺を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 辺のlist | — |
+| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L51) | `prufer`・`decode`を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L64) | `prufer`・`encode`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L91) | `prufer`・`encode`・`extended`を求める。 | `tree`: 木の隣接list | list[int] — 通常のPruefer列の末尾へroot n-1を加えた長さn-1の列。 | — |
+| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L98) | `prufer`・`decode`・`extended`を求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` | — |

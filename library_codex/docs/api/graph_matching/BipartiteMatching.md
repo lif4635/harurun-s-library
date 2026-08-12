@@ -5,7 +5,7 @@
 
 - 計算量の目安: $O(E\sqrt V)$
 - source: [`graph_matching/BipartiteMatching.py`](../../../graph_matching/BipartiteMatching.py)
-- 公開API: function 2、class 1、method/property 7（Python protocol 0を含む）
+- 公開API: function 2、class 1、method/property 9（Python protocol 0を含む）
 
 ## できること
 
@@ -23,8 +23,8 @@ from library_codex.graph_matching.BipartiteMatching import bipartite_matching, m
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bipartite_matching(graph, right_size)`](../../../graph_matching/BipartiteMatching.py#L256) | `bipartite`・matchingを求める。 | `graph`: 隣接listまたはグラフobject<br>`right_size`: 二部グラフ右側の頂点数 | `matcher.match_left` | — |
-| [`maximum_bipartite_matching(left_size, right_size, edges)`](../../../graph_matching/BipartiteMatching.py#L265) | 最大・`bipartite`・matchingを求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | `matcher.maximum_matching()` | — |
+| [`bipartite_matching(graph, right_size)`](../../../graph_matching/BipartiteMatching.py#L369) | `bipartite`・matchingを求める。 | `graph`: 隣接listまたはグラフobject<br>`right_size`: 二部グラフ右側の頂点数 | `matcher.match_left` | — |
+| [`maximum_bipartite_matching(left_size, right_size, edges)`](../../../graph_matching/BipartiteMatching.py#L378) | 最大・`bipartite`・matchingを求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | `matcher.maximum_matching()` | — |
 
 ## Class `BipartiteMatching`
 
@@ -44,3 +44,5 @@ from library_codex.graph_matching.BipartiteMatching import bipartite_matching, m
 | [`maximum_independent_set()`](../../../graph_matching/BipartiteMatching.py#L130) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if seen]`, list `[i for (i, seen) in enumerate(seen_right) if not seen]`) | — |
 | [`minimum_edge_cover()`](../../../graph_matching/BipartiteMatching.py#L137) | method | 最小・辺・`cover`を求める。 | なし | list[object] — 計算結果 / `None` | — |
 | [`dulmage_mendelsohn()`](../../../graph_matching/BipartiteMatching.py#L171) | method | `dulmage`・`mendelsohn`を求める。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` | — |
+| [`allowed_edges()`](../../../graph_matching/BipartiteMatching.py#L329) | method | 少なくとも一つの maximum matching に含められる辺の組を列挙する。 | なし | list[tuple[int, int]] — 各要素は (left, right)。同じ端点対を add_edge で重複追加していても一度だけ返す。 | matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む |
+| [`essential_edges()`](../../../graph_matching/BipartiteMatching.py#L351) | method | すべての maximum matching に必ず含まれる端点対を列挙する。 | なし | list[tuple[int, int]] — 各要素は (left, right)。現在 solve が選んだ辺のうち、別の maximum matching で外せないもの。 | matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む |

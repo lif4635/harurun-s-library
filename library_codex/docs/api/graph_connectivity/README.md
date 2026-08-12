@@ -13,7 +13,7 @@
 | [`ConnectedComponents`](ConnectedComponents.md) | 無向グラフの連結成分番号と成分ごとの頂点を求める。 | 1 | 0 | 0 |
 | [`DominatorTree`](DominatorTree.md) | 有向グラフで始点から各頂点への全経路が必ず通る直前の支配頂点を求める。 | 1 | 0 | 0 |
 | [`DynamicBipartiteGraph`](DynamicBipartiteGraph.md) | 辺追加される無向グラフの二部性を管理する。 | 0 | 1 | 5 |
-| [`FunctionalGraph`](FunctionalGraph.md) | Functional graph の周期分解・移動・距離 | 0 | 1 | 7 |
+| [`FunctionalGraph`](FunctionalGraph.md) | Functional graph の周期分解・移動・距離 | 0 | 1 | 9 |
 | [`LowLink`](LowLink.md) | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | 1 | 1 | 3 |
 | [`NamoriDecomposition`](NamoriDecomposition.md) | 重み付き擬森林の周期・付随木分解と距離 | 0 | 1 | 22 |
 | [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md) | 辺追加削除・連結性・成分和のオフライン処理 | 0 | 1 | 10 |

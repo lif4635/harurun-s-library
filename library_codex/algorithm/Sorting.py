@@ -84,3 +84,55 @@ def bucket_sort(values, key=lambda value: value, maximum=None):
     values = list(values)
     keys = [key(value) for value in values]
     return permute(values, bucket_sort_permutation(keys, maximum))
+
+
+def inverse_permutation(permutation):
+    """Return ``inverse[permutation[i]] == i`` for a permutation."""
+    if not ensure_permutation(permutation):
+        raise ValueError("invalid permutation")
+    inverse = [0] * len(permutation)
+    for index, value in enumerate(permutation):
+        inverse[value] = index
+    return inverse
+
+
+def compose_permutations(first, second):
+    """Return the composition ``first[second[i]]``."""
+    if len(first) != len(second):
+        raise ValueError("permutations have different sizes")
+    if not ensure_permutation(first) or not ensure_permutation(second):
+        raise ValueError("invalid permutation")
+    return [first[second[index]] for index in range(len(first))]
+
+
+def permutation_cycles(permutation, include_fixed=False):
+    """Return disjoint cycles in increasing order of their first vertex."""
+    if not ensure_permutation(permutation):
+        raise ValueError("invalid permutation")
+    used = bytearray(len(permutation))
+    result = []
+    for start in range(len(permutation)):
+        if used[start]:
+            continue
+        cycle = []
+        vertex = start
+        while not used[vertex]:
+            used[vertex] = 1
+            cycle.append(vertex)
+            vertex = permutation[vertex]
+        if include_fixed or len(cycle) > 1:
+            result.append(cycle)
+    return result
+
+
+def permutation_power(permutation, exponent):
+    """Return the signed integer power of a permutation in O(N)."""
+    if not ensure_permutation(permutation):
+        raise ValueError("invalid permutation")
+    result = list(range(len(permutation)))
+    for cycle in permutation_cycles(permutation, include_fixed=True):
+        size = len(cycle)
+        shift = exponent % size
+        for index, vertex in enumerate(cycle):
+            result[vertex] = cycle[(index + shift) % size]
+    return result

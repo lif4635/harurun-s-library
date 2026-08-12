@@ -111,3 +111,43 @@ class FunctionalGraph:
 
     def get_cycle(self, v):
         return self.cycles[self.component[v]]
+
+    def first_meeting(self, first, second):
+        """Return the first time equal-speed walks meet, or ``-1``."""
+        if self.component[first] != self.component[second]:
+            return -1
+        if first == second:
+            return 0
+        first_depth = self.depth[first]
+        second_depth = self.depth[second]
+        if first_depth == second_depth:
+            if self.entry[first] != self.entry[second]:
+                return -1
+            elapsed = 0
+            first_vertex = first
+            second_vertex = second
+            maximum = first_depth
+            bit = len(self.up) // self.n - 1
+            while bit >= 0:
+                step = 1 << bit
+                if elapsed + step <= maximum:
+                    next_first = self.up[bit * self.n + first_vertex]
+                    next_second = self.up[bit * self.n + second_vertex]
+                    if next_first != next_second:
+                        first_vertex = next_first
+                        second_vertex = next_second
+                        elapsed += step
+                bit -= 1
+            return elapsed + 1
+        cycle = self.cycles[self.component[first]]
+        size = len(cycle)
+        first_phase = self.cycle_pos[first] - first_depth
+        second_phase = self.cycle_pos[second] - second_depth
+        if (first_phase - second_phase) % size:
+            return -1
+        return max(first_depth, second_depth)
+
+    def meeting_vertex(self, first, second):
+        """Return ``(time, vertex)`` of the first meeting, or ``None``."""
+        time = self.first_meeting(first, second)
+        return None if time < 0 else (time, self.move(first, time))
