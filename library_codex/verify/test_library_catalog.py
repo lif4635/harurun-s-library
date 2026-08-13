@@ -94,8 +94,21 @@ def test_authored_articles_cover_new_modules_and_reference_examples():
         for module in data["modules"] if module["article"] is not None
     }
     assert "original_vertices[i]" in articles["AuxiliaryTree"]["markdown"]
+    assert "tree = [[1, 2], [0, 3, 4], [0], [1], [1]]" in articles["AuxiliaryTree"]["markdown"]
+    assert "## 返り値\n\n- `original_vertices[i]`" in articles["AuxiliaryTree"]["markdown"]
+    assert "## 注意点\n\n- " in articles["AuxiliaryTree"]["markdown"]
     assert "CentroidDistanceFenwick" in articles["CentroidDecomposition"]["markdown"]
     assert "range_sum" in articles["WeightedWaveletMatrix"]["markdown"]
+
+
+def test_article_returns_and_notes_use_bullets(tmp_path):
+    article = tmp_path / "Example.md"
+    article.write_text(
+        "# Example\n\n## 主な機能\n\n説明。\n\n## 返り値\n\n文章で連結する。\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="must use bullets"):
+        CATALOG.parse_article(article)
 
 
 def test_catalog_has_precise_group_middle_product_and_half_open_range_details():

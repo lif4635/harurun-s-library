@@ -50,7 +50,7 @@ library_codex/category/Module.py
 library_codex/docs/articles/category/Module.md
 ```
 
-`pypy3 library_codex/tools/create_module_article.py category/Module`で雛形を作れます。先頭のH1はfile名ではなく利用者が探す目的を表し、`## 主な機能`で入力・処理できる問い・代表的な計算量を説明します。`## 使い方`には最小の実行例と返り値の読み方を書きます。
+`pypy3 library_codex/tools/create_module_article.py category/Module`で雛形を作れます。先頭のH1はfile名ではなく利用者が探す目的を表し、`## 主な機能`で入力・処理できる問い・代表的な計算量を説明します。`## 使い方`には最小の実行例と返り値の読み方を書きます。複数の返り値と注意点は一項目ずつ箇条書きにし、短い配列例は一行に収めます。
 
 既存moduleは`docs/articles/legacy_modules.txt`にある間だけ従来の自動生成overviewを使えます。記事へ移行したら対応する行を削除します。新しいmoduleをlegacy一覧へ足して記事作成を省略しません。記事・legacy指定の重複、どちらもないmodule、削除済みmoduleへの指定はcatalog生成で失敗します。
 

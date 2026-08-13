@@ -16,8 +16,8 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 615 passed
-- 再帰監査: 3805 functions、direct/mutual recursion なし
+- PyPy 全検証: 616 passed
+- 再帰監査: 3807 functions、direct/mutual recursion なし
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 

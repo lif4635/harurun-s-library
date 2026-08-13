@@ -11,22 +11,20 @@
 ```python
 from library_codex.tree.AuxiliaryTree import AuxiliaryTree
 
-tree = [
-    [1, 2],
-    [0, 3, 4],
-    [0],
-    [1],
-    [1],
-]
+tree = [[1, 2], [0, 3, 4], [0], [1], [1]]
 builder = AuxiliaryTree(tree)
 auxiliary, original_vertices = builder.get([2, 3, 4])
 ```
 
-返り値`original_vertices[i]`は、圧縮木の頂点`i`が元の木のどの頂点かを表します。`auxiliary[i]`には、圧縮木で`i`の子になる頂点番号が入ります。つまり、圧縮木の辺`i -> j`を元の木へ戻すと、`original_vertices[i]`は`original_vertices[j]`の祖先です。
+## 返り値
 
-`with_distance=True`なら、`auxiliary[i]`の各要素は`(j, distance)`になります。`distance`は対応する元の二頂点間で通る辺の本数です。
+- `original_vertices[i]`: 圧縮木の頂点`i`に対応する、元の木の頂点番号。
+- `auxiliary[i]`: 圧縮木で`i`の子になる頂点番号のlist。
+- 圧縮木の辺`i -> j`: 元の木では`original_vertices[i]`が`original_vertices[j]`の祖先になる。
+- `with_distance=True`の場合: `auxiliary[i]`の要素が`(j, distance)`になり、`distance`は元の二頂点間で通る辺の本数を表す。
 
 ## 注意点
 
-返り値の頂点番号は元の木の番号ではありません。元の頂点へ戻すときは必ず`original_vertices`を使います。入力した頂点に重複があっても一つにまとめられ、空入力では`([], [])`を返します。
-
+- `auxiliary`内の頂点番号は、元の木の頂点番号ではありません。元へ戻すときは`original_vertices`を使います。
+- 入力した頂点の重複は一つにまとめられます。
+- 空入力では`([], [])`を返します。

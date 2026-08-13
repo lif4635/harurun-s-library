@@ -34,9 +34,13 @@ from library_codex.{category}.{name} import ...
 
 TODO: 最小の使用例と、返り値をどう読むかを書く。
 
+## 返り値
+
+- `result`: TODO: 返り値の形式と、各要素が何を表すかを書く。
+
 ## 注意点
 
-TODO: 適用条件や似たmoduleとの違いがある場合だけ書く。
+- TODO: 適用条件や似たmoduleとの違いを、一項目ずつ書く。注意点がなければこのsectionを削除する。
 """
 
 
@@ -58,4 +62,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

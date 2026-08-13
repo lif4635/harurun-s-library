@@ -45,6 +45,7 @@ def test_contribution_contract_is_installed():
         "build_library_catalog.py --check",
         "create_module_article.py",
         "legacy_modules.txt",
+        "短い配列例は一行",
         "## 完了チェックリスト",
     ):
         assert phrase in guide_text
@@ -57,6 +58,9 @@ def test_contribution_contract_is_installed():
         "サイトだけの説明上書きがない",
         "ページ内容チェックリスト",
         "docs/articles/<category>/<Module>.md",
+        "一つの長い段落にせず",
+        "一項目一判断",
+        "短い配列・辺list・隣接listは一行",
     ):
         assert phrase in page_guide_text
 

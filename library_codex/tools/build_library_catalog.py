@@ -1824,6 +1824,21 @@ def article_path(library_root, category, name):
     return library_root / "docs" / "articles" / category / f"{name}.md"
 
 
+def validate_article_markdown(markdown, label):
+    for match in re.finditer(
+        r"^## (?P<heading>返り値[^\n]*|注意点)\n(?P<body>.*?)(?=^## |\Z)",
+        markdown,
+        re.MULTILINE | re.DOTALL,
+    ):
+        lines = [line.strip() for line in match.group("body").splitlines()]
+        first = next((line for line in lines if line), "")
+        if not first.startswith(("- ", "* ")):
+            raise ValueError(
+                f"article section '## {match.group('heading')}' must use bullets: "
+                f"{label}"
+            )
+
+
 def parse_article(path):
     text = path.read_text(encoding="utf-8").replace("\r\n", "\n").strip()
     title_match = re.match(r"# ([^\n]+)\n", text)
@@ -1837,6 +1852,7 @@ def parse_article(path):
         raise ValueError(f"article is missing '## 主な機能': {path}")
     if re.search(r"\bTODO\b|執筆中|あとで書く", markdown, re.IGNORECASE):
         raise ValueError(f"article contains an unfinished placeholder: {path}")
+    validate_article_markdown(markdown, path)
     return {
         "title": title,
         "markdown": markdown,
@@ -2589,6 +2605,9 @@ def validate_catalog(data, library_root):
                 raise ValueError(
                     f"catalog article {module['name']} is missing 主な機能"
                 )
+            validate_article_markdown(
+                article["markdown"], f"catalog article {module['name']}"
+            )
         validate_term_sequence(module["modulePath"], module["searchTerms"])
         for symbol in module["functions"]:
             missing = SYMBOL_REQUIRED_FIELDS - set(symbol)

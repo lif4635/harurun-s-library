@@ -29,5 +29,5 @@ edge IDは`edges`へ渡した順番です。平行辺を含む多重グラフも
 
 ## 返り値の境界
 
-二頂点が同じ2-edge-connected componentなら、距離は`0`、橋の列は空listです。もともと非連結なら`bridge_distance`は`-1`、`bridge_path`は`None`を返します。
-
+- 二頂点が同じ2-edge-connected component: `bridge_distance`は`0`、`bridge_path`は空list。
+- 二頂点がもともと非連結: `bridge_distance`は`-1`、`bridge_path`は`None`。
