@@ -1825,6 +1825,11 @@ def article_path(library_root, category, name):
 
 
 def validate_article_markdown(markdown, label):
+    if re.search(r"(?:目的の異なる|このmoduleには)[^\n。]*入口", markdown):
+        raise ValueError(
+            "article must name function, class, or method instead of using "
+            f"an ambiguous API entry phrase: {label}"
+        )
     for match in re.finditer(
         r"^## (?P<heading>返り値[^\n]*|注意点)\n(?P<body>.*?)(?=^## |\Z)",
         markdown,

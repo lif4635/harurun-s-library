@@ -98,6 +98,9 @@ def test_authored_articles_cover_new_modules_and_reference_examples():
     assert "## 返り値\n\n- `original_vertices[i]`" in articles["AuxiliaryTree"]["markdown"]
     assert "## 注意点\n\n- " in articles["AuxiliaryTree"]["markdown"]
     assert "CentroidDistanceFenwick" in articles["CentroidDecomposition"]["markdown"]
+    assert "独立したfunctionが一つ、classが二つ" in articles["CentroidDecomposition"]["markdown"]
+    assert "subclassではありません" in articles["CentroidDecomposition"]["markdown"]
+    assert "目的の異なる三つの入口" not in articles["CentroidDecomposition"]["markdown"]
     assert "range_sum" in articles["WeightedWaveletMatrix"]["markdown"]
 
 
@@ -109,6 +112,27 @@ def test_article_returns_and_notes_use_bullets(tmp_path):
     )
     with pytest.raises(ValueError, match="must use bullets"):
         CATALOG.parse_article(article)
+
+    article.write_text(
+        "# Example\n\n## 主な機能\n\nこのmoduleには目的の異なる三つの入口があります。\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="ambiguous API entry phrase"):
+        CATALOG.parse_article(article)
+
+
+def test_centroid_decomposition_classes_have_distinct_roles():
+    data = load_catalog()
+    module = module_by_path(data, "library_codex.tree.CentroidDecomposition")
+    classes = {item["name"]: item for item in module["classes"]}
+
+    decomposition = classes["CentroidDecomposition"]
+    distance_query = classes["CentroidDistanceFenwick"]
+    assert "頂点値の更新や総和は扱わない" in decomposition["description"]
+    assert "内部隣接list" in next(
+        method for method in decomposition["methods"] if method["name"] == "add_edge"
+    )["returnDescription"]
+    assert "点更新" in distance_query["description"]
 
 
 def test_catalog_has_precise_group_middle_product_and_half_open_range_details():

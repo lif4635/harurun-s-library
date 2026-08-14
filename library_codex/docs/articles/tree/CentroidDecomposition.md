@@ -2,13 +2,34 @@
 
 ## 主な機能
 
-このmoduleには、目的の異なる三つの入口があります。
+このファイルには、独立したfunctionが一つ、classが二つあります。同じclassのmethodが三つに分かれているわけではありません。
 
-- `tree_centroid(tree)`: 一点を除いた各連結成分の大きさが元の木の半分以下になる頂点を求める。
-- `CentroidDecomposition(tree)`: 重心を順に除いて得られる高さ $O(\log N)$ の重心分解木と、各元頂点から重心祖先への距離を構築する。
-- `CentroidDistanceFenwick(tree, values)`: 各頂点の値を一点更新し、指定頂点からの距離が半開区間 $[l,r)$ に入る頂点の値を合計する。
+- function `tree_centroid(tree)`: 木全体の重心だけを求める。返り値は重心の頂点番号を並べたlist。
+- class `CentroidDecomposition(tree)`: 重心を順に除いて得られる高さ$O(\log N)$の重心分解木を構築する。`parent`・`depth`・`children`・`ancestors(v)`から分解結果を読む。
+- class `CentroidDistanceFenwick(tree, values)`: 各頂点の値を一点更新し、指定頂点からの距離が半開区間$[l,r)$に入る頂点の値を合計する。
 
-単に木の重心だけが必要なら`tree_centroid`を使います。距離条件付きの更新・総和queryを処理したい場合は`CentroidDistanceFenwick`まで使います。
+`CentroidDistanceFenwick`は`CentroidDecomposition`のsubclassではありません。内部で`CentroidDecomposition`を一つ構築し、`decomposition`属性に保持します。
+
+## どれを使うか
+
+- 元の木の重心を一度求めるだけ: `tree_centroid`
+- 重心分解木そのものを利用する: `CentroidDecomposition`
+- 頂点値の更新と距離条件付きの総和queryが必要: `CentroidDistanceFenwick`
+
+## 重心分解木の使い方
+
+```python
+from library_codex.tree.CentroidDecomposition import CentroidDecomposition
+
+tree = [[1], [0, 2, 3], [1], [1, 4], [3]]
+decomposition = CentroidDecomposition(tree)
+
+assert decomposition.root == 1
+assert decomposition.parent[4] == 3
+assert decomposition.ancestors(4) == [(1, 2, 2), (3, 1, 0), (4, 0, -1)]
+```
+
+`ancestors(4)`のtupleは順に`(重心祖先, 元の木での距離, 枝番号)`です。先頭が重心分解木のroot側、末尾が頂点自身です。
 
 ## 距離queryの使い方
 

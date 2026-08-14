@@ -4452,9 +4452,31 @@ API_DETAILS_BY_SYMBOL[("tree_query/TreeMonoid.py", "TreeMonoid", "get")] = {
 MODULE_CAPABILITIES["tree/TreeDiameter.py"] = MODULE_CAPABILITIES.get("tree/TreeDiameter.py", ()) + (
     "木の直径とその path に加え、離心度を最小にする一つまたは二つの center 頂点を求められる。",
 )
-MODULE_CAPABILITIES["tree/CentroidDecomposition.py"] = MODULE_CAPABILITIES.get("tree/CentroidDecomposition.py", ()) + (
-    "木を一点で除いた各連結成分の大きさが半分以下になる centroid 頂点を求められる。",
+MODULE_CAPABILITIES["tree/CentroidDecomposition.py"] = (
+    "tree_centroid functionで、木を一点で除いた各連結成分が半分以下になる重心を求められる。",
+    "CentroidDecomposition classで、重心分解木の親子関係と各頂点から重心祖先への距離を構築できる。",
+    "CentroidDistanceFenwick classで、頂点値の一点更新と距離区間を条件にした総和queryを処理できる。",
 )
+CLASS_DETAILS_BY_SYMBOL[("tree/CentroidDecomposition.py", "CentroidDecomposition")] = {
+    "description": (
+        "元の木を重心で再帰的に分割し、重心分解木のparent・depth・childrenと、"
+        "各元頂点から重心祖先までの距離情報を構築するclass。頂点値の更新や総和は扱わない。"
+    ),
+    "constructorCreates": (
+        "重心分解木を構築し、root・parent・depth・children・order・pathsから"
+        "分解結果を読める状態を作る。treeへ整数Nを渡した場合は、add_edge後にbuildを呼ぶ。"
+    ),
+    "argumentDescriptions": {
+        "tree": "無向木の隣接list、または後からadd_edgeする頂点数N。",
+        "build": "隣接listを渡したとき、初期化中に重心分解の構築まで行うか。",
+    },
+}
+CLASS_DETAILS_BY_SYMBOL[("tree/CentroidDecomposition.py", "CentroidDistanceFenwick")].update({
+    "argumentDescriptions": {
+        "tree": "連結な重みなし木の隣接list。",
+        "values": "各頂点の初期値を頂点番号順に並べた長さVのiterable。省略時はすべて0。",
+    },
+})
 API_DETAILS_BY_SYMBOL.update({
     ("tree/TreeDiameter.py", None, "tree_center"): {
         "description": "木で各頂点までの最大辺数を最小にする center 頂点を返す。center は一つまたは隣接する二つ。",
@@ -4468,11 +4490,63 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[int]",
         "returnDescription": "条件を満たす centroid 頂点の list。木では一つまたは二つ、空の木では空 list。",
     },
+    ("tree/CentroidDecomposition.py", "CentroidDecomposition", "add_edge"): {
+        "description": "頂点数Nだけで初期化した未構築の木へ、無向辺first--secondを追加する。",
+        "argumentDescriptions": {
+            "first": "追加する辺の一方の頂点番号。",
+            "second": "追加する辺のもう一方の頂点番号。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "値は返さない。build前の内部隣接listへ無向辺を追加する。",
+    },
+    ("tree/CentroidDecomposition.py", "CentroidDecomposition", "build"): {
+        "description": "登録済みの木から重心分解木と、各頂点から重心祖先への距離情報を構築する。",
+        "returnFormat": "int",
+        "returnDescription": "重心分解木のrootに対応する、元の木の頂点番号。",
+    },
+    ("tree/CentroidDecomposition.py", "CentroidDecomposition", "ancestors"): {
+        "description": "元の頂点vertexに対する重心祖先を、重心分解木のroot側からvertex自身まで返す。",
+        "argumentDescriptions": {"vertex": "元の木の頂点番号。"},
+        "returnFormat": "list[tuple[int, int, int]]",
+        "returnDescription": (
+            "各要素は(centroid, distance, branch)。centroidは重心祖先の元頂点番号、"
+            "distanceは元の木での距離、branchはcentroidを除いたときvertexが属する"
+            "隣接成分番号。vertex自身の要素だけbranch=-1。"
+        ),
+    },
+    ("tree/CentroidDecomposition.py", "CentroidDecomposition", "bfs_layer"): {
+        "description": (
+            "重心分解木でdepthがlayer以上の頂点だけを通り、startと同じ連結成分を"
+            "元の木上で列挙する。"
+        ),
+        "argumentDescriptions": {
+            "start": "列挙を始める元の木の頂点番号。",
+            "layer": "通過を許す重心分解木のdepth下限。",
+        },
+        "returnFormat": "tuple[list[int], list[int]]",
+        "returnDescription": (
+            "(vertices, parents)。verticesはstartから列挙した頂点、parents[i]は"
+            "その探索木でのvertices[i]の親。parents[0]は-1。startのdepthがlayer未満なら両方空list。"
+        ),
+        "returnParts": (
+            {"name": "vertices", "format": "list[int]", "description": "条件を満たす連結成分の頂点をstartから探索した順に並べたlist。"},
+            {"name": "parents", "format": "list[int]", "description": "verticesと同じ長さの探索木の親頂点list。先頭だけ-1。"},
+        ),
+    },
 })
 COMPLEXITY_BY_MODULE["tree/TreeDiameter.py"]["tree_center"] = "O(V) time、O(V) memory"
 COMPLEXITY_BY_MODULE["tree/CentroidDecomposition.py"] = {
     **COMPLEXITY_BY_MODULE.get("tree/CentroidDecomposition.py", {}),
     "tree_centroid": "O(V) time、O(V) memory",
+    "CentroidDecomposition": "O(V log V) time、O(V log V) memory",
+    "add_edge": "O(1)",
+    "build": "O(V log V) time、O(V log V) memory",
+    "ancestors": "O(1)。保持済みlistを返し、その長さはO(log V)",
+    "bfs_layer": "O(K)。Kは列挙する頂点数",
+    "CentroidDistanceFenwick": "O(V log^2 V) time、O(V log V) memory",
+    "add": "O(log^2 V)",
+    "set": "O(log^2 V)",
+    "query": "O(log^2 V)",
 }
 
 API_DETAILS_BY_SYMBOL[("algorithm/RangeQueries.py", "Mo", "add_query")] = {

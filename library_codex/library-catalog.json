@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-13T15:06:12+00:00",
+  "generatedAt": "2026-08-14T02:59:03+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "4d47d31639afef13f12b22e457ad0f90c5bdb8238220b31f24378c7af604426f",
-  "inputStamp": "c678fdff13f981ac5de773381865f8bd73b509715b128d8662fe748798b4e2f0",
-  "generatorFingerprint": "aa6fb2e833fdc7178a7d2eb0835a105db77030fe4d97d15e39ec5da395b79542",
+  "sourceFingerprint": "cc766d515269951a1e78e5e9413b2d9806ba0c328ba1dce4f98581d21c4d0a76",
+  "inputStamp": "b6341a9bca74f8cb37a188f523ed028b157350625c0996902ae05463732624df",
+  "generatorFingerprint": "ecd21f94ccb13ec1a99dde3a9591d021d7842db3569e9690a1dbd44a11d2d067",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 358,
@@ -13,7 +13,7 @@
     "functions": 504,
     "classes": 221,
     "methods": 1369,
-    "tests": 616
+    "tests": 617
   },
   "categories": [
     {
@@ -48259,11 +48259,13 @@
       "modulePath": "library_codex.tree.CentroidDecomposition",
       "summary": "重心分解・点加算/距離範囲和Fenwick。",
       "capabilities": [
-        "木を一点で除いた各連結成分の大きさが半分以下になる centroid 頂点を求められる。"
+        "tree_centroid functionで、木を一点で除いた各連結成分が半分以下になる重心を求められる。",
+        "CentroidDecomposition classで、重心分解木の親子関係と各頂点から重心祖先への距離を構築できる。",
+        "CentroidDistanceFenwick classで、頂点値の一点更新と距離区間を条件にした総和クエリを処理できる。"
       ],
       "article": {
         "title": "木の重心分解と距離query",
-        "markdown": "## 主な機能\n\nこのmoduleには、目的の異なる三つの入口があります。\n\n- `tree_centroid(tree)`: 一点を除いた各連結成分の大きさが元の木の半分以下になる頂点を求める。\n- `CentroidDecomposition(tree)`: 重心を順に除いて得られる高さ $O(\\log N)$ の重心分解木と、各元頂点から重心祖先への距離を構築する。\n- `CentroidDistanceFenwick(tree, values)`: 各頂点の値を一点更新し、指定頂点からの距離が半開区間 $[l,r)$ に入る頂点の値を合計する。\n\n単に木の重心だけが必要なら`tree_centroid`を使います。距離条件付きの更新・総和queryを処理したい場合は`CentroidDistanceFenwick`まで使います。\n\n## 距離queryの使い方\n\n```python\nfrom library_codex.tree.CentroidDecomposition import CentroidDistanceFenwick\n\ntree = [[1], [0, 2, 3], [1], [1, 4], [3]]\nvalues = [10, 20, 30, 40, 50]\nquery = CentroidDistanceFenwick(tree, values)\n\n# 頂点1からの距離が1以上3未満の頂点: 0, 2, 3, 4\nassert query.query(1, 1, 3) == 130\n\nquery.add(4, 5)\nquery.set(0, 0)\nassert query.query(1) == 145\n```\n\n### 操作と返り値\n\n- `query(vertex, l, r)`: `vertex`からの距離が半開区間$[l,r)$に入る頂点の値の合計。\n- `query(vertex)`: 距離に上限を設けず、木全体の値の合計。\n- `add(vertex, delta)`: `vertex`の現在値へ`delta`を加える。\n- `set(vertex, value)`: `vertex`の値を`value`へ置き換える。\n\n## 重心分解木の情報\n\n- `parent[c]`: 重心分解木で重心`c`の親。\n- `depth[c]`: 重心分解木での`c`の深さ。\n- `ancestors(v)`: 元の頂点`v`から見た重心祖先を`(centroid, distance, branch)`の順に並べたlist。\n  - `centroid`: 重心祖先の元の頂点番号。\n  - `distance`: 元の木での`v`と`centroid`の距離。\n  - `branch`: `centroid`を除いたときに`v`が入る隣接成分の番号。`v == centroid`だけ`-1`。\n\n`branch`は、距離queryで同じ枝を二重に数えないために使われます。\n\n## 計算量\n\n重心分解の構築は $O(N\\log N)$、`CentroidDistanceFenwick`の一点更新と距離区間和は $O(\\log^2 N)$ です。",
+        "markdown": "## 主な機能\n\nこのファイルには、独立したfunctionが一つ、classが二つあります。同じclassのmethodが三つに分かれているわけではありません。\n\n- function `tree_centroid(tree)`: 木全体の重心だけを求める。返り値は重心の頂点番号を並べたlist。\n- class `CentroidDecomposition(tree)`: 重心を順に除いて得られる高さ$O(\\log N)$の重心分解木を構築する。`parent`・`depth`・`children`・`ancestors(v)`から分解結果を読む。\n- class `CentroidDistanceFenwick(tree, values)`: 各頂点の値を一点更新し、指定頂点からの距離が半開区間$[l,r)$に入る頂点の値を合計する。\n\n`CentroidDistanceFenwick`は`CentroidDecomposition`のsubclassではありません。内部で`CentroidDecomposition`を一つ構築し、`decomposition`属性に保持します。\n\n## どれを使うか\n\n- 元の木の重心を一度求めるだけ: `tree_centroid`\n- 重心分解木そのものを利用する: `CentroidDecomposition`\n- 頂点値の更新と距離条件付きの総和queryが必要: `CentroidDistanceFenwick`\n\n## 重心分解木の使い方\n\n```python\nfrom library_codex.tree.CentroidDecomposition import CentroidDecomposition\n\ntree = [[1], [0, 2, 3], [1], [1, 4], [3]]\ndecomposition = CentroidDecomposition(tree)\n\nassert decomposition.root == 1\nassert decomposition.parent[4] == 3\nassert decomposition.ancestors(4) == [(1, 2, 2), (3, 1, 0), (4, 0, -1)]\n```\n\n`ancestors(4)`のtupleは順に`(重心祖先, 元の木での距離, 枝番号)`です。先頭が重心分解木のroot側、末尾が頂点自身です。\n\n## 距離queryの使い方\n\n```python\nfrom library_codex.tree.CentroidDecomposition import CentroidDistanceFenwick\n\ntree = [[1], [0, 2, 3], [1], [1, 4], [3]]\nvalues = [10, 20, 30, 40, 50]\nquery = CentroidDistanceFenwick(tree, values)\n\n# 頂点1からの距離が1以上3未満の頂点: 0, 2, 3, 4\nassert query.query(1, 1, 3) == 130\n\nquery.add(4, 5)\nquery.set(0, 0)\nassert query.query(1) == 145\n```\n\n### 操作と返り値\n\n- `query(vertex, l, r)`: `vertex`からの距離が半開区間$[l,r)$に入る頂点の値の合計。\n- `query(vertex)`: 距離に上限を設けず、木全体の値の合計。\n- `add(vertex, delta)`: `vertex`の現在値へ`delta`を加える。\n- `set(vertex, value)`: `vertex`の値を`value`へ置き換える。\n\n## 重心分解木の情報\n\n- `parent[c]`: 重心分解木で重心`c`の親。\n- `depth[c]`: 重心分解木での`c`の深さ。\n- `ancestors(v)`: 元の頂点`v`から見た重心祖先を`(centroid, distance, branch)`の順に並べたlist。\n  - `centroid`: 重心祖先の元の頂点番号。\n  - `distance`: 元の木での`v`と`centroid`の距離。\n  - `branch`: `centroid`を除いたときに`v`が入る隣接成分の番号。`v == centroid`だけ`-1`。\n\n`branch`は、距離queryで同じ枝を二重に数えないために使われます。\n\n## 計算量\n\n重心分解の構築は $O(N\\log N)$、`CentroidDistanceFenwick`の一点更新と距離区間和は $O(\\log^2 N)$ です。",
         "sourcePath": "library_codex/docs/articles/tree/CentroidDecomposition.md"
       },
       "searchTerms": [
@@ -48276,7 +48278,7 @@
       ],
       "complexity": "構築 O(Nlog  N)、更新/取得 O(log ^2N)",
       "sourcePath": "library_codex/tree/CentroidDecomposition.py",
-      "inputFingerprint": "90c3d4025b71adff92bf4262f74e8c2b02e854b86e19e6acf89e54b071b3eb2b",
+      "inputFingerprint": "05bd904cc7088d733fd89fb2e8dc4355d8e01903c5047a8069af53cd052b1ad9",
       "importCode": "from library_codex.tree.CentroidDecomposition import tree_centroid, CentroidDecomposition, CentroidDistanceFenwick",
       "sourceCode": "from bisect import bisect_left\n\n\ndef tree_centroid(tree):\n    \"\"\"Return vertices whose removal leaves no component larger than half.\"\"\"\n    n = len(tree)\n    if n == 0:\n        return []\n    parent = [-2] * n\n    parent[0] = -1\n    order = [0]\n    for vertex in order:\n        for other in tree[vertex]:\n            if other == parent[vertex]:\n                continue\n            if parent[other] != -2:\n                raise ValueError(\"graph must be a tree\")\n            parent[other] = vertex\n            order.append(other)\n    if len(order) != n:\n        raise ValueError(\"graph must be connected\")\n    size = [1] * n\n    for vertex in reversed(order[1:]):\n        size[parent[vertex]] += size[vertex]\n    result = []\n    for vertex in range(n):\n        largest = n - size[vertex]\n        for other in tree[vertex]:\n            if parent[other] == vertex and size[other] > largest:\n                largest = size[other]\n        if largest * 2 <= n:\n            result.append(vertex)\n    return result\n\n\nclass CentroidDecomposition:\n    __slots__ = (\n        \"n\",\n        \"graph\",\n        \"parent\",\n        \"depth\",\n        \"children\",\n        \"root\",\n        \"order\",\n        \"paths\",\n        \"built\",\n    )\n\n    def __init__(self, tree, build=True):\n        if isinstance(tree, int):\n            if tree <= 0:\n                raise ValueError(\"size must be positive\")\n            self.n = tree\n            self.graph = [[] for _ in range(tree)]\n            self.built = False\n        else:\n            self.graph = [list(row) for row in tree]\n            self.n = len(self.graph)\n            if self.n == 0:\n                raise ValueError(\"tree must be nonempty\")\n            self.built = False\n        self.parent = []\n        self.depth = []\n        self.children = []\n        self.root = -1\n        self.order = []\n        self.paths = []\n        if not isinstance(tree, int) and build:\n            self.build()\n\n    def add_edge(self, first, second):\n        if self.built:\n            raise RuntimeError(\"decomposition is already built\")\n        if not (0 <= first < self.n and 0 <= second < self.n):\n            raise IndexError(\"vertex is out of range\")\n        self.graph[first].append(second)\n        self.graph[second].append(first)\n\n    def _component(self, start, removed):\n        parent = {start: -1}\n        order = [start]\n        graph = self.graph\n        for node in order:\n            for other in graph[node]:\n                if removed[other] or other == parent[node]:\n                    continue\n                if other in parent:\n                    raise ValueError(\"graph must be a tree\")\n                parent[other] = node\n                order.append(other)\n        size = {node: 1 for node in order}\n        for node in reversed(order[1:]):\n            size[parent[node]] += size[node]\n        total = len(order)\n        centroid = start\n        for node in order:\n            largest = total - size[node]\n            for other in graph[node]:\n                if parent.get(other) == node and size[other] > largest:\n                    largest = size[other]\n            if largest * 2 <= total:\n                centroid = node\n                break\n        return centroid, order\n\n    def build(self):\n        if self.built:\n            return self.root\n        n = self.n\n        graph = self.graph\n        if sum(map(len, graph)) != (n - 1) << 1:\n            raise ValueError(\"graph must be a tree\")\n        removed = bytearray(n)\n        parent = [-1] * n\n        depth = [0] * n\n        children = [[] for _ in range(n)]\n        paths = [[] for _ in range(n)]\n        order = []\n        tasks = [(0, -1, 0)]\n        while tasks:\n            start, centroid_parent, centroid_depth = tasks.pop()\n            if removed[start]:\n                continue\n            centroid, component = self._component(start, removed)\n            parent[centroid] = centroid_parent\n            depth[centroid] = centroid_depth\n            if centroid_parent >= 0:\n                children[centroid_parent].append(centroid)\n            order.append(centroid)\n            removed[centroid] = 1\n            paths[centroid].append((centroid, 0, -1))\n            branch = 0\n            for neighbor in graph[centroid]:\n                if removed[neighbor]:\n                    continue\n                stack = [(neighbor, centroid, 1)]\n                while stack:\n                    node, par, distance = stack.pop()\n                    paths[node].append((centroid, distance, branch))\n                    for other in graph[node]:\n                        if other != par and not removed[other]:\n                            stack.append((other, node, distance + 1))\n                tasks.append((neighbor, centroid, centroid_depth + 1))\n                branch += 1\n        if len(order) != n:\n            raise ValueError(\"graph must be connected\")\n        self.parent = parent\n        self.depth = depth\n        self.children = children\n        self.root = order[0]\n        self.order = order\n        self.paths = paths\n        self.built = True\n        return self.root\n\n    run = build\n\n    def ancestors(self, vertex):\n        return self.paths[vertex]\n\n    def bfs_layer(self, start, layer):\n        if self.depth[start] < layer:\n            return [], []\n        vertices = [start]\n        parents = [-1]\n        for index, node in enumerate(vertices):\n            par = parents[index]\n            for other in self.graph[node]:\n                if other != par and self.depth[other] >= layer:\n                    vertices.append(other)\n                    parents.append(node)\n        return vertices, parents\n\n\nclass _Fenwick:\n    __slots__ = (\"bit\",)\n\n    def __init__(self, size):\n        self.bit = [0] * (size + 1)\n\n    def add(self, index, value):\n        bit = self.bit\n        index += 1\n        while index < len(bit):\n            bit[index] += value\n            index += index & -index\n\n    def prefix(self, right):\n        bit = self.bit\n        result = 0\n        while right:\n            result += bit[right]\n            right &= right - 1\n        return result\n\n    def range_sum(self, left, right):\n        return self.prefix(right) - self.prefix(left)\n\n\nclass CentroidDistanceFenwick:\n    \"\"\"Point add and distance-range sum on a static unweighted tree.\"\"\"\n\n    __slots__ = (\n        \"decomposition\",\n        \"coordinates\",\n        \"bits\",\n        \"branch_coordinates\",\n        \"branch_bits\",\n        \"values\",\n    )\n\n    def __init__(self, tree, values=None):\n        decomposition = CentroidDecomposition(tree)\n        n = decomposition.n\n        coordinates = [[] for _ in range(n)]\n        branch_coordinates = {}\n        for vertex in range(n):\n            for centroid, distance, branch in decomposition.paths[vertex]:\n                coordinates[centroid].append(distance)\n                if branch >= 0:\n                    branch_coordinates.setdefault(\n                        (centroid, branch), []\n                    ).append(distance)\n        coordinates = [sorted(set(row)) for row in coordinates]\n        branch_coordinates = {\n            key: sorted(set(row))\n            for key, row in branch_coordinates.items()\n        }\n        self.decomposition = decomposition\n        self.coordinates = coordinates\n        self.bits = [_Fenwick(len(row)) for row in coordinates]\n        self.branch_coordinates = branch_coordinates\n        self.branch_bits = {\n            key: _Fenwick(len(row))\n            for key, row in branch_coordinates.items()\n        }\n        self.values = [0] * n\n        if values is not None:\n            values = list(values)\n            if len(values) != n:\n                raise ValueError(\"values has wrong length\")\n            for vertex, value in enumerate(values):\n                if value:\n                    self.add(vertex, value)\n\n    def add(self, vertex, delta):\n        self.values[vertex] += delta\n        for centroid, distance, branch in self.decomposition.paths[vertex]:\n            row = self.coordinates[centroid]\n            self.bits[centroid].add(bisect_left(row, distance), delta)\n            if branch >= 0:\n                key = (centroid, branch)\n                row = self.branch_coordinates[key]\n                self.branch_bits[key].add(\n                    bisect_left(row, distance), delta\n                )\n\n    def set(self, vertex, value):\n        self.add(vertex, value - self.values[vertex])\n\n    @staticmethod\n    def _range(bit, coordinates, left, right):\n        begin = bisect_left(coordinates, left)\n        end = bisect_left(coordinates, right)\n        return bit.range_sum(begin, end)\n\n    def query(self, vertex, lower=0, upper=None):\n        if upper is None:\n            upper = self.decomposition.n + 1\n        if lower >= upper:\n            return 0\n        answer = 0\n        for centroid, distance, branch in self.decomposition.paths[vertex]:\n            left = lower - distance\n            right = upper - distance\n            if right <= 0:\n                continue\n            row = self.coordinates[centroid]\n            answer += self._range(\n                self.bits[centroid], row, max(0, left), right\n            )\n            if branch >= 0:\n                key = (centroid, branch)\n                row = self.branch_coordinates[key]\n                answer -= self._range(\n                    self.branch_bits[key], row, max(0, left), right\n                )\n        return answer\n\n    range_sum = query\n",
       "standaloneCode": "from bisect import bisect_left\n\n\ndef tree_centroid(tree):\n    \"\"\"Return vertices whose removal leaves no component larger than half.\"\"\"\n    n = len(tree)\n    if n == 0:\n        return []\n    parent = [-2] * n\n    parent[0] = -1\n    order = [0]\n    for vertex in order:\n        for other in tree[vertex]:\n            if other == parent[vertex]:\n                continue\n            if parent[other] != -2:\n                raise ValueError(\"graph must be a tree\")\n            parent[other] = vertex\n            order.append(other)\n    if len(order) != n:\n        raise ValueError(\"graph must be connected\")\n    size = [1] * n\n    for vertex in reversed(order[1:]):\n        size[parent[vertex]] += size[vertex]\n    result = []\n    for vertex in range(n):\n        largest = n - size[vertex]\n        for other in tree[vertex]:\n            if parent[other] == vertex and size[other] > largest:\n                largest = size[other]\n        if largest * 2 <= n:\n            result.append(vertex)\n    return result\n\n\nclass CentroidDecomposition:\n    __slots__ = (\n        \"n\",\n        \"graph\",\n        \"parent\",\n        \"depth\",\n        \"children\",\n        \"root\",\n        \"order\",\n        \"paths\",\n        \"built\",\n    )\n\n    def __init__(self, tree, build=True):\n        if isinstance(tree, int):\n            if tree <= 0:\n                raise ValueError(\"size must be positive\")\n            self.n = tree\n            self.graph = [[] for _ in range(tree)]\n            self.built = False\n        else:\n            self.graph = [list(row) for row in tree]\n            self.n = len(self.graph)\n            if self.n == 0:\n                raise ValueError(\"tree must be nonempty\")\n            self.built = False\n        self.parent = []\n        self.depth = []\n        self.children = []\n        self.root = -1\n        self.order = []\n        self.paths = []\n        if not isinstance(tree, int) and build:\n            self.build()\n\n    def add_edge(self, first, second):\n        if self.built:\n            raise RuntimeError(\"decomposition is already built\")\n        if not (0 <= first < self.n and 0 <= second < self.n):\n            raise IndexError(\"vertex is out of range\")\n        self.graph[first].append(second)\n        self.graph[second].append(first)\n\n    def _component(self, start, removed):\n        parent = {start: -1}\n        order = [start]\n        graph = self.graph\n        for node in order:\n            for other in graph[node]:\n                if removed[other] or other == parent[node]:\n                    continue\n                if other in parent:\n                    raise ValueError(\"graph must be a tree\")\n                parent[other] = node\n                order.append(other)\n        size = {node: 1 for node in order}\n        for node in reversed(order[1:]):\n            size[parent[node]] += size[node]\n        total = len(order)\n        centroid = start\n        for node in order:\n            largest = total - size[node]\n            for other in graph[node]:\n                if parent.get(other) == node and size[other] > largest:\n                    largest = size[other]\n            if largest * 2 <= total:\n                centroid = node\n                break\n        return centroid, order\n\n    def build(self):\n        if self.built:\n            return self.root\n        n = self.n\n        graph = self.graph\n        if sum(map(len, graph)) != (n - 1) << 1:\n            raise ValueError(\"graph must be a tree\")\n        removed = bytearray(n)\n        parent = [-1] * n\n        depth = [0] * n\n        children = [[] for _ in range(n)]\n        paths = [[] for _ in range(n)]\n        order = []\n        tasks = [(0, -1, 0)]\n        while tasks:\n            start, centroid_parent, centroid_depth = tasks.pop()\n            if removed[start]:\n                continue\n            centroid, component = self._component(start, removed)\n            parent[centroid] = centroid_parent\n            depth[centroid] = centroid_depth\n            if centroid_parent >= 0:\n                children[centroid_parent].append(centroid)\n            order.append(centroid)\n            removed[centroid] = 1\n            paths[centroid].append((centroid, 0, -1))\n            branch = 0\n            for neighbor in graph[centroid]:\n                if removed[neighbor]:\n                    continue\n                stack = [(neighbor, centroid, 1)]\n                while stack:\n                    node, par, distance = stack.pop()\n                    paths[node].append((centroid, distance, branch))\n                    for other in graph[node]:\n                        if other != par and not removed[other]:\n                            stack.append((other, node, distance + 1))\n                tasks.append((neighbor, centroid, centroid_depth + 1))\n                branch += 1\n        if len(order) != n:\n            raise ValueError(\"graph must be connected\")\n        self.parent = parent\n        self.depth = depth\n        self.children = children\n        self.root = order[0]\n        self.order = order\n        self.paths = paths\n        self.built = True\n        return self.root\n\n    run = build\n\n    def ancestors(self, vertex):\n        return self.paths[vertex]\n\n    def bfs_layer(self, start, layer):\n        if self.depth[start] < layer:\n            return [], []\n        vertices = [start]\n        parents = [-1]\n        for index, node in enumerate(vertices):\n            par = parents[index]\n            for other in self.graph[node]:\n                if other != par and self.depth[other] >= layer:\n                    vertices.append(other)\n                    parents.append(node)\n        return vertices, parents\n\n\nclass _Fenwick:\n    __slots__ = (\"bit\",)\n\n    def __init__(self, size):\n        self.bit = [0] * (size + 1)\n\n    def add(self, index, value):\n        bit = self.bit\n        index += 1\n        while index < len(bit):\n            bit[index] += value\n            index += index & -index\n\n    def prefix(self, right):\n        bit = self.bit\n        result = 0\n        while right:\n            result += bit[right]\n            right &= right - 1\n        return result\n\n    def range_sum(self, left, right):\n        return self.prefix(right) - self.prefix(left)\n\n\nclass CentroidDistanceFenwick:\n    \"\"\"Point add and distance-range sum on a static unweighted tree.\"\"\"\n\n    __slots__ = (\n        \"decomposition\",\n        \"coordinates\",\n        \"bits\",\n        \"branch_coordinates\",\n        \"branch_bits\",\n        \"values\",\n    )\n\n    def __init__(self, tree, values=None):\n        decomposition = CentroidDecomposition(tree)\n        n = decomposition.n\n        coordinates = [[] for _ in range(n)]\n        branch_coordinates = {}\n        for vertex in range(n):\n            for centroid, distance, branch in decomposition.paths[vertex]:\n                coordinates[centroid].append(distance)\n                if branch >= 0:\n                    branch_coordinates.setdefault(\n                        (centroid, branch), []\n                    ).append(distance)\n        coordinates = [sorted(set(row)) for row in coordinates]\n        branch_coordinates = {\n            key: sorted(set(row))\n            for key, row in branch_coordinates.items()\n        }\n        self.decomposition = decomposition\n        self.coordinates = coordinates\n        self.bits = [_Fenwick(len(row)) for row in coordinates]\n        self.branch_coordinates = branch_coordinates\n        self.branch_bits = {\n            key: _Fenwick(len(row))\n            for key, row in branch_coordinates.items()\n        }\n        self.values = [0] * n\n        if values is not None:\n            values = list(values)\n            if len(values) != n:\n                raise ValueError(\"values has wrong length\")\n            for vertex, value in enumerate(values):\n                if value:\n                    self.add(vertex, value)\n\n    def add(self, vertex, delta):\n        self.values[vertex] += delta\n        for centroid, distance, branch in self.decomposition.paths[vertex]:\n            row = self.coordinates[centroid]\n            self.bits[centroid].add(bisect_left(row, distance), delta)\n            if branch >= 0:\n                key = (centroid, branch)\n                row = self.branch_coordinates[key]\n                self.branch_bits[key].add(\n                    bisect_left(row, distance), delta\n                )\n\n    def set(self, vertex, value):\n        self.add(vertex, value - self.values[vertex])\n\n    @staticmethod\n    def _range(bit, coordinates, left, right):\n        begin = bisect_left(coordinates, left)\n        end = bisect_left(coordinates, right)\n        return bit.range_sum(begin, end)\n\n    def query(self, vertex, lower=0, upper=None):\n        if upper is None:\n            upper = self.decomposition.n + 1\n        if lower >= upper:\n            return 0\n        answer = 0\n        for centroid, distance, branch in self.decomposition.paths[vertex]:\n            left = lower - distance\n            right = upper - distance\n            if right <= 0:\n                continue\n            row = self.coordinates[centroid]\n            answer += self._range(\n                self.bits[centroid], row, max(0, left), right\n            )\n            if branch >= 0:\n                key = (centroid, branch)\n                row = self.branch_coordinates[key]\n                answer -= self._range(\n                    self.branch_bits[key], row, max(0, left), right\n                )\n        return answer\n\n    range_sum = query\n",
@@ -48315,29 +48317,29 @@
       "classes": [
         {
           "name": "CentroidDecomposition",
-          "summary": "重心分解・点加算/距離範囲和Fenwickを行うクラス。",
-          "description": "重心分解・点加算/距離範囲和Fenwickを行うクラス。",
+          "summary": "元の木を重心で再帰的に分割し、重心分解木のparent・depth・childrenと、各元頂点から重心祖先までの距離情報を構築するclass。頂点値の更新や総和は扱わない。",
+          "description": "元の木を重心で再帰的に分割し、重心分解木のparent・depth・childrenと、各元頂点から重心祖先までの距離情報を構築するclass。頂点値の更新や総和は扱わない。",
           "searchTerms": [
             "CentroidDecomposition",
             "Centroid Decomposition",
             "CentroidDecomposition(tree, build=True)"
           ],
           "constructor": "CentroidDecomposition(tree, build=True)",
-          "constructorArguments": "tree: 木の隣接list · build: 初期化時に前処理まで実行するか。省略時: True",
+          "constructorArguments": "tree: 無向木の隣接list、または後からadd_edgeする頂点数N。 · build: 隣接listを渡したとき、初期化中に重心分解の構築まで行うか。省略時: True",
           "constructorArgumentDetails": [
             {
               "name": "tree",
-              "description": "木の隣接リスト"
+              "description": "無向木の隣接リスト、または後からadd_edgeする頂点数N"
             },
             {
               "name": "build",
-              "description": "初期化時に前処理まで実行するか。省略時は True"
+              "description": "隣接リストを渡したとき、初期化中に重心分解の構築まで行うか。省略時は True"
             }
           ],
           "constructorReturns": "CentroidDecomposition instance",
           "constructorReturnFormat": "CentroidDecomposition",
-          "constructorReturnDescription": "重心分解・点加算/距離範囲和Fenwickを行うクラス。",
-          "constructorCreates": "重心分解・点加算/距離範囲和Fenwickを行うクラス。",
+          "constructorReturnDescription": "重心分解木を構築し、root・parent・depth・children・order・pathsから分解結果を読める状態を作る。treeへ整数Nを渡した場合は、add_edge後にbuildを呼ぶ。",
+          "constructorCreates": "重心分解木を構築し、root・parent・depth・children・order・pathsから分解結果を読める状態を作る。treeへ整数Nを渡した場合は、add_edge後にbuildを呼ぶ。",
           "constructorComplexity": "O(Nlog N)",
           "constructorSourceLine": 49,
           "methods": [
@@ -48345,98 +48347,110 @@
               "name": "add_edge",
               "kind": "method",
               "signature": "add_edge(first, second)",
-              "summary": "辺を追加する。",
-              "description": "辺を追加する。",
+              "summary": "頂点数Nだけで初期化した未構築の木へ、無向辺first--secondを追加する。",
+              "description": "頂点数Nだけで初期化した未構築の木へ、無向辺first--secondを追加する。",
               "searchTerms": [
                 "add_edge",
                 "add edge",
                 "add_edge(first, second)"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値",
+              "arguments": "first: 追加する辺の一方の頂点番号。 · second: 追加する辺のもう一方の頂点番号。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "追加する辺の一方の頂点番号。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "追加する辺のもう一方の頂点番号。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 値は返さない。build前の内部隣接listへ無向辺を追加する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "更新",
+              "returnDescription": "値は返さない。build前の内部隣接listへ無向辺を追加する。",
+              "complexity": "O(1)",
               "sourceLine": 71
             },
             {
               "name": "build",
               "kind": "method",
               "signature": "build()",
-              "summary": "内部構造を構築する。",
-              "description": "内部構造を構築する。",
+              "summary": "登録済みの木から重心分解木と、各頂点から重心祖先への距離情報を構築する。",
+              "description": "登録済みの木から重心分解木と、各頂点から重心祖先への距離情報を構築する。",
               "searchTerms": [
                 "build",
                 "build()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "計算結果（入力型に依存） — 構築した内部構造。",
-              "returnFormat": "計算結果（入力型に依存）",
-              "returnDescription": "構築した内部構造。",
-              "complexity": "O(Nlog N) / O(log ^2N)",
+              "returns": "int — 重心分解木のrootに対応する、元の木の頂点番号。",
+              "returnFormat": "int",
+              "returnDescription": "重心分解木のrootに対応する、元の木の頂点番号。",
+              "complexity": "O(V log V) time、O(V log V) memory",
               "sourceLine": 106
             },
             {
               "name": "ancestors",
               "kind": "method",
               "signature": "ancestors(vertex)",
-              "summary": "指定頂点から重心分解木の祖先へ向かう経路情報を返す。",
-              "description": "指定頂点から重心分解木の祖先へ向かう経路情報を返す。",
+              "summary": "元の頂点vertexに対する重心祖先を、重心分解木のroot側からvertex自身まで返す。",
+              "description": "元の頂点vertexに対する重心祖先を、重心分解木のroot側からvertex自身まで返す。",
               "searchTerms": [
                 "ancestors",
                 "ancestors(vertex)"
               ],
-              "arguments": "vertex: 頂点番号",
+              "arguments": "vertex: 元の木の頂点番号。",
               "argumentDetails": [
                 {
                   "name": "vertex",
-                  "description": "頂点番号"
+                  "description": "元の木の頂点番号。"
                 }
               ],
-              "returns": "計算結果（入力型に依存） — 指定頂点から重心分解木の祖先へ向かう経路情報。",
-              "returnFormat": "計算結果（入力型に依存）",
-              "returnDescription": "指定頂点から重心分解木の祖先へ向かう経路情報。",
-              "complexity": "O(Nlog N) / O(log ^2N)",
+              "returns": "list[tuple[int, int, int]] — 各要素は(centroid, distance, branch)。centroidは重心祖先の元頂点番号、distanceは元の木での距離、branchはcentroidを除いたときvertexが属する隣接成分番号。vertex自身の要素だけbranch=-1。",
+              "returnFormat": "list[tuple[int, int, int]]",
+              "returnDescription": "各要素は(centroid, distance, branch)。centroidは重心祖先の元頂点番号、distanceは元の木での距離、branchはcentroidを除いたときvertexが属する隣接成分番号。vertex自身の要素だけbranch=-1。",
+              "complexity": "O(1)。保持済みlistを返し、その長さはO(log V)",
               "sourceLine": 158
             },
             {
               "name": "bfs_layer",
               "kind": "method",
               "signature": "bfs_layer(start, layer)",
-              "summary": "bfs・layerを求める。",
-              "description": "bfs・layerを求める。",
+              "summary": "重心分解木でdepthがlayer以上の頂点だけを通り、startと同じ連結成分を元の木上で列挙する。",
+              "description": "重心分解木でdepthがlayer以上の頂点だけを通り、startと同じ連結成分を元の木上で列挙する。",
               "searchTerms": [
                 "bfs_layer",
                 "bfs layer",
                 "bfs_layer(start, layer)"
               ],
-              "arguments": "start: 始点・開始位置 · layer: layerとして使う入力",
+              "arguments": "start: 列挙を始める元の木の頂点番号。 · layer: 通過を許す重心分解木のdepth下限。",
               "argumentDetails": [
                 {
                   "name": "start",
-                  "description": "始点・開始位置"
+                  "description": "列挙を始める元の木の頂点番号。"
                 },
                 {
                   "name": "layer",
-                  "description": "layerとして使う入力"
+                  "description": "通過を許す重心分解木のdepth下限。"
                 }
               ],
-              "returns": "tuple — 求めたbfs・layer。",
-              "returnFormat": "tuple",
-              "returnDescription": "求めたbfs・layer。",
-              "complexity": "O(Nlog N) / O(log ^2N)",
-              "sourceLine": 161
+              "returns": "tuple[list[int], list[int]] — (vertices, parents)。verticesはstartから列挙した頂点、parents[i]はその探索木でのvertices[i]の親。parents[0]は-1。startのdepthがlayer未満なら両方空list。",
+              "returnFormat": "tuple[list[int], list[int]]",
+              "returnDescription": "(vertices, parents)。verticesはstartから列挙した頂点、parents[i]はその探索木でのvertices[i]の親。parents[0]は-1。startのdepthがlayer未満なら両方空list。",
+              "complexity": "O(K)。Kは列挙する頂点数",
+              "sourceLine": 161,
+              "returnParts": [
+                {
+                  "name": "vertices",
+                  "format": "list[int]",
+                  "description": "条件を満たす連結成分の頂点をstartから探索した順に並べたlist。"
+                },
+                {
+                  "name": "parents",
+                  "format": "list[int]",
+                  "description": "verticesと同じ長さの探索木の親頂点list。先頭だけ-1。"
+                }
+              ]
             }
           ]
         },
@@ -48450,15 +48464,15 @@
             "CentroidDistanceFenwick(tree, values=None)"
           ],
           "constructor": "CentroidDistanceFenwick(tree, values=None)",
-          "constructorArguments": "tree: 木の隣接list · values: 初期値のiterable。整数ならsizeを表す場合がある。省略時: None",
+          "constructorArguments": "tree: 連結な重みなし木の隣接list。 · values: 各頂点の初期値を頂点番号順に並べた長さVのiterable。省略時はすべて0。省略時: None",
           "constructorArgumentDetails": [
             {
               "name": "tree",
-              "description": "木の隣接リスト"
+              "description": "連結な重みなし木の隣接リスト"
             },
             {
               "name": "values",
-              "description": "初期値の反復可能オブジェクト。整数ならsizeを表す場合がある。省略時は None"
+              "description": "各頂点の初期値を頂点番号順に並べた長さVの反復可能オブジェクト。省略時はすべて0。省略時は None"
             }
           ],
           "constructorReturns": "CentroidDistanceFenwick instance",
@@ -48492,7 +48506,7 @@
               "returns": "計算結果（入力型に依存） — 値は返さない。以後のqueryへ加算後の値を反映する。",
               "returnFormat": "計算結果（入力型に依存）",
               "returnDescription": "値は返さない。以後のqueryへ加算後の値を反映する。",
-              "complexity": "更新",
+              "complexity": "O(log^2 V)",
               "sourceLine": 246
             },
             {
@@ -48519,7 +48533,7 @@
               "returns": "計算結果（入力型に依存） — 値は返さない。以後のqueryへ新しい値を反映する。",
               "returnFormat": "計算結果（入力型に依存）",
               "returnDescription": "値は返さない。以後のqueryへ新しい値を反映する。",
-              "complexity": "更新",
+              "complexity": "O(log^2 V)",
               "sourceLine": 258
             },
             {
@@ -48550,7 +48564,7 @@
               "returns": "number — $\\mathrm{lower}\\le\\operatorname{dist}(\\mathrm{vertex},u)<\\mathrm{upper}$ を満たすすべての頂点 $u$ に対する $\\sum_u\\mathrm{values}[u]$。query(vertex)は木全体の値の合計を返す。",
               "returnFormat": "number",
               "returnDescription": "$\\mathrm{lower}\\le\\operatorname{dist}(\\mathrm{vertex},u)<\\mathrm{upper}$ を満たすすべての頂点 $u$ に対する $\\sum_u\\mathrm{values}[u]$。query(vertex)は木全体の値の合計を返す。",
-              "complexity": "O(log ^2N)",
+              "complexity": "O(log^2 V)",
               "sourceLine": 267
             }
           ]
