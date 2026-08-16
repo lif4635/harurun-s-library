@@ -62,6 +62,8 @@ def test_contribution_contract_is_installed():
         "一項目一判断",
         "短い配列・辺list・隣接listは一行",
         "独立したfunction、別々のclass、同じclassのmethod",
+        "signatureを同じ位置から始め",
+        "否定形の補足を重ねない",
         "複数の入口",
     ):
         assert phrase in page_guide_text

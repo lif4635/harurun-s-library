@@ -67,6 +67,8 @@
 - `## 注意点`は一項目一判断の箇条書きにする。適用条件、例外、境界値、別moduleとの違いを分ける。
 - 注意点がない場合は、見出しだけを作らない。
 - 同じmoduleに複数のAPIがあるときは、独立したfunction、別々のclass、同じclassのmethod、継承・内部保持の関係を明記する。
+- APIを並べる箇所ではsignatureを同じ位置から始め、function・classなどの種別はsignatureの後ろへ置く。種別とinline codeのpaddingが交互に並ぶ書式は避ける。
+- API名と種別だけで構造が分かる場合、「同じclassのmethodではない」のような否定形の補足を重ねない。
 - 「複数の入口」「三つの機能」のような表現だけで済ませず、利用者がimportと呼出し方を判断できる名前を使う。
 
 ## Markdownと数式

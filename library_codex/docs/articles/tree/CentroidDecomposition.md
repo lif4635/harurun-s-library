@@ -2,19 +2,9 @@
 
 ## 主な機能
 
-このファイルには、独立したfunctionが一つ、classが二つあります。同じclassのmethodが三つに分かれているわけではありません。
-
-- function `tree_centroid(tree)`: 木全体の重心だけを求める。返り値は重心の頂点番号を並べたlist。
-- class `CentroidDecomposition(tree)`: 重心を順に除いて得られる高さ$O(\log N)$の重心分解木を構築する。`parent`・`depth`・`children`・`ancestors(v)`から分解結果を読む。
-- class `CentroidDistanceFenwick(tree, values)`: 各頂点の値を一点更新し、指定頂点からの距離が半開区間$[l,r)$に入る頂点の値を合計する。
-
-`CentroidDistanceFenwick`は`CentroidDecomposition`のsubclassではありません。内部で`CentroidDecomposition`を一つ構築し、`decomposition`属性に保持します。
-
-## どれを使うか
-
-- 元の木の重心を一度求めるだけ: `tree_centroid`
-- 重心分解木そのものを利用する: `CentroidDecomposition`
-- 頂点値の更新と距離条件付きの総和queryが必要: `CentroidDistanceFenwick`
+- `tree_centroid(tree)` — 木全体の重心を求めるfunction。重心の頂点番号を並べたlistを返す。
+- `CentroidDecomposition(tree)` — 高さ$O(\log N)$の重心分解木を構築するclass。`parent`・`depth`・`children`・`ancestors(v)`から分解結果を読む。
+- `CentroidDistanceFenwick(tree, values)` — 点更新と距離区間和を処理するclass。内部に重心分解を持ち、指定頂点からの距離が半開区間$[l,r)$に入る頂点の値を合計する。
 
 ## 重心分解木の使い方
 

@@ -98,8 +98,12 @@ def test_authored_articles_cover_new_modules_and_reference_examples():
     assert "## 返り値\n\n- `original_vertices[i]`" in articles["AuxiliaryTree"]["markdown"]
     assert "## 注意点\n\n- " in articles["AuxiliaryTree"]["markdown"]
     assert "CentroidDistanceFenwick" in articles["CentroidDecomposition"]["markdown"]
-    assert "独立したfunctionが一つ、classが二つ" in articles["CentroidDecomposition"]["markdown"]
-    assert "subclassではありません" in articles["CentroidDecomposition"]["markdown"]
+    centroid_article = articles["CentroidDecomposition"]["markdown"]
+    assert "`tree_centroid(tree)` —" in centroid_article
+    assert "`CentroidDecomposition(tree)` —" in centroid_article
+    assert "`CentroidDistanceFenwick(tree, values)` —" in centroid_article
+    assert "同じclassのmethod" not in centroid_article
+    assert "subclassではありません" not in centroid_article
     assert "目的の異なる三つの入口" not in articles["CentroidDecomposition"]["markdown"]
     assert "range_sum" in articles["WeightedWaveletMatrix"]["markdown"]
 
