@@ -26,6 +26,8 @@ def article_template(category, name):
 
 TODO: どんな入力に対して、何を高速に求められるかを具体的に書く。
 
+- `公開APIのsignature` — 何ができるfunction・class・methodか。代表的な計算量。
+
 ## 使い方
 
 ```python

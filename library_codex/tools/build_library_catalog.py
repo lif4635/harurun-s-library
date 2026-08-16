@@ -1830,6 +1830,25 @@ def validate_article_markdown(markdown, label):
             "article must name function, class, or method instead of using "
             f"an ambiguous API entry phrase: {label}"
         )
+    if re.search(r"^[-*]\s+(?:function|class|method)\s+`", markdown, re.MULTILINE):
+        raise ValueError(
+            "article API lists must start with the signature and put the symbol "
+            f"kind after it: {label}"
+        )
+    if re.search(
+        r"同じclassのmethod(?:では|じゃ)(?:ありません|ない)", markdown
+    ):
+        raise ValueError(
+            "article must not add a negative structural explanation when API "
+            f"names and symbol kinds already identify the structure: {label}"
+        )
+    if re.search(
+        r"(?:API|用途|包含関係)(?:の)?(?:表|欄|説明)?を参照", markdown
+    ):
+        raise ValueError(
+            "article must state the needed behavior locally instead of referring "
+            f"to another API field: {label}"
+        )
     for match in re.finditer(
         r"^## (?P<heading>返り値[^\n]*|注意点)\n(?P<body>.*?)(?=^## |\Z)",
         markdown,

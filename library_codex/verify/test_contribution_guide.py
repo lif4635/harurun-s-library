@@ -19,6 +19,9 @@ def test_contribution_contract_is_installed():
     agent_text = agents.read_text(encoding="utf-8")
     guide_text = guide.read_text(encoding="utf-8")
     page_guide_text = page_guide.read_text(encoding="utf-8")
+    article_readme_text = (
+        ROOT / "docs" / "articles" / "README.md"
+    ).read_text(encoding="utf-8")
     pull_request_text = pull_request.read_text(encoding="utf-8")
     readme_text = (ROOT / "README.md").read_text(encoding="utf-8")
 
@@ -65,8 +68,15 @@ def test_contribution_contract_is_installed():
         "signatureを同じ位置から始め",
         "否定形の補足を重ねない",
         "複数の入口",
+        "現在の標準構成",
+        "signatureを先頭へ揃え",
+        "`vertex: 頂点番号`のような説明は原則省き",
+        "各function・constructor・methodに置きます",
     ):
         assert phrase in page_guide_text
+
+    assert "種別はsignatureの後ろ" in article_readme_text
+    assert "PAGE_CONTENT_GUIDE.md" in article_readme_text
 
     assert "docs/CONTRIBUTING.md" in readme_text
     assert "tools/check_changed.py" in readme_text

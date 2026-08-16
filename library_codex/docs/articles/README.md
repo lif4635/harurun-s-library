@@ -18,10 +18,12 @@ library_codex/docs/articles/range_query/WeightedWaveletMatrix.md
 - `## 使い方`で、競技中に実際に書く最小のcodeと返り値の読み方を示す。
 - 必要に応じて`## 仕組み`、`## 注意点`、`## 参考`を追加する。
 - 複数の返り値や返り値の各要素は、長い段落へ詰め込まず`名前: 意味`の箇条書きにする。
-- 複数の公開APIがある場合は、function・class・methodのどれなのかを名前の直前に明記する。「入口」「機能」のような語だけで実装単位を隠さない。
+- 複数の公開APIがある場合は、signatureを行頭の同じ位置へ揃え、function・class・methodの種別はsignatureの後ろで説明する。「入口」「機能」のような語だけで実装単位を隠さない。
 - `## 注意点`は一項目一判断の箇条書きにする。条件・例外・別moduleとの違いを文章で連結しない。
 - 短い配列や隣接listの例は一行に置く。横に長すぎる場合だけ改行し、縦方向へ一要素ずつ展開しない。
 - MarkdownとTeXを使い、raw HTMLは前提にしない。
 - API一覧を本文へ転記しない。各methodのsignature・引数・返り値・計算量は自動生成されるAPI Referenceに任せる。
 
 雛形は`tools/create_module_article.py category/Module`で作れます。生成されたplaceholderを具体的な説明へ書き換えるまで検査は通りません。
+
+文章、Arguments、Returns、Complexity、数式、見た目の詳しい基準は[`PAGE_CONTENT_GUIDE.md`](../PAGE_CONTENT_GUIDE.md)を正本とします。

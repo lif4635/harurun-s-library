@@ -2,6 +2,29 @@
 
 この文書は、ライブラリの追加やサイト改修で、これまでの会話から決まった読みやすさを維持するための基準です。`library_codex`のsource・API説明・catalogを正本とし、Webサイトだけに説明を足す運用には戻しません。
 
+## 現在の標準構成
+
+新しいページも既存ページの書き直しも、まず次の順序へ揃えます。
+
+1. 冒頭の一文と`主な機能`で、何を入力し、何を求めたり管理したりできるかを示す。
+2. `使い方`に、競技中にそのまま書ける最小のcodeと返り値の読み方を置く。
+3. 必要な場合だけ`仕組み`、構造化した`返り値`、箇条書きの`注意点`を置く。
+4. sourceとmetadataから、各function・class・methodのArguments、Returns、Complexityを生成する。
+5. Importとstandalone Codeを、ページ下部の近い位置から利用できるようにする。
+
+記事内で複数の公開APIを紹介するときは、signatureを先頭へ揃え、種別を説明の中へ置きます。
+
+```markdown
+- `tree_centroid(tree)` — 木全体の重心を求めるfunction。計算量は`O(N)`。
+- `CentroidDecomposition(tree)` — 重心分解木を構築するclass。構築は`O(N log N)`。
+```
+
+`function `や`class `をsignatureの前へ置きません。inline codeのpaddingが行ごとにずれて、API名を縦に追いにくくなるためです。名前と種別だけで構造が分かる場合は、「同じclassのmethodではない」のような否定形の説明も足しません。
+
+Argumentsではsignatureから自明な名前やdefault値を繰り返さず、意味を知らないと呼べない情報だけを書きます。`vertex: 頂点番号`のような説明は原則省き、区間の包含関係、配列要素の形式、callbackの引数順、`None`で変わる動作などは省きません。短い引数はWebサイトで同じbaselineの一行に並べ、内容が長い場合だけ自然に折り返します。
+
+Returnsには型名だけでなく、返る値を次のcodeでどう読めるかを書きます。listなら長さ・順序・`result[i]`、dictならkeyとvalue、tupleなら各要素、instanceなら作成後に使える主要操作を示します。Complexityはmodule全体への参照で済ませず、各function・constructor・methodに置きます。
+
 ## 情報の置き場所
 
 - 利用者が最初に読む「主な機能」「使い方」「仕組み」「注意点」は`docs/articles/<category>/<Module>.md`へ置く。

@@ -124,6 +124,28 @@ def test_article_returns_and_notes_use_bullets(tmp_path):
     with pytest.raises(ValueError, match="ambiguous API entry phrase"):
         CATALOG.parse_article(article)
 
+    article.write_text(
+        "# Example\n\n## 主な機能\n\n- function `solve(values)` — 値を求める。\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="must start with the signature"):
+        CATALOG.parse_article(article)
+
+    article.write_text(
+        "# Example\n\n## 主な機能\n\n"
+        "`solve(values)`は同じclassのmethodではありません。\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="negative structural explanation"):
+        CATALOG.parse_article(article)
+
+    article.write_text(
+        "# Example\n\n## 主な機能\n\n区間の包含関係はAPI表を参照。\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="state the needed behavior locally"):
+        CATALOG.parse_article(article)
+
 
 def test_centroid_decomposition_classes_have_distinct_roles():
     data = load_catalog()
