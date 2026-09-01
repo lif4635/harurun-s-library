@@ -16,7 +16,7 @@
 | [`OfflineSetIntersection`](OfflineSetIntersection.md) | 複数の集合対について、共通要素数をまとめて求める。 | 1 | 0 | 0 |
 | [`ParallelBinarySearch`](ParallelBinarySearch.md) | 同じ更新列に対する複数の単調判定の境界を並列二分探索する。 | 1 | 0 | 0 |
 | [`PermutationGroup`](PermutationGroup.md) | 置換群の安定化列と軌道代表元 | 1 | 0 | 0 |
-| [`PermutationTree`](PermutationTree.md) | 順列の共通区間を表すstrong interval tree | 0 | 2 | 7 |
+| [`PermutationTree`](PermutationTree.md) | 順列の共通区間を表すstrong interval tree | 0 | 2 | 14 |
 | [`RangeQueries`](RangeQueries.md) | Mo's algorithmによるoffline区間query | 0 | 1 | 3 |
 | [`Search`](Search.md) | 整数・実数境界二分探索とquickselect | 3 | 0 | 0 |
 | [`SequenceAlgorithms`](SequenceAlgorithms.md) | 転倒数・LIS・座標圧縮・区間併合 | 4 | 0 | 0 |

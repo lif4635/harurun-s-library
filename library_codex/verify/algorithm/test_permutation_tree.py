@@ -121,6 +121,23 @@ def test_permutation_tree_known_kinds_and_debug_output():
     assert tree.nodes[tree.root].children == [0, 1, 2, 3]
 
 
+def test_permutation_tree_nodes_are_lazy_read_only_views():
+    tree = PermutationTree([1, 3, 0, 2])
+    first = tree.nodes[tree.root]
+    second = tree.nodes[tree.root]
+
+    assert first is not second
+    assert first.kind == second.kind == tree.PRIME
+    assert tree.nodes[-1].right == 4
+    assert [node.left for node in tree.nodes[:2]] == [0, 1]
+
+    children = first.children
+    children.clear()
+    assert second.children == [0, 1, 2, 3]
+    with pytest.raises(AttributeError):
+        first.left = 10
+
+
 def test_permutation_tree_rejects_invalid_input():
     with pytest.raises(ValueError, match="nonempty"):
         PermutationTree([])

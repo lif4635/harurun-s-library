@@ -5,7 +5,7 @@
 
 - 計算量の目安: 構築 O(N log N)、全区間列挙 O(N+K)
 - source: [`algorithm/PermutationTree.py`](../../../algorithm/PermutationTree.py)
-- 公開API: function 0、class 2、method/property 7（Python protocol 3を含む）
+- 公開API: function 0、class 2、method/property 14（Python protocol 3を含む）
 
 ## できること
 
@@ -23,31 +23,38 @@ from library_codex.algorithm.PermutationTree import PermutationTree, Permutation
 
 順列のstrong common intervalを包含関係で結び、linear/primeを区別する共通区間分解木。
 
-- constructor: [`PermutationTree(permutation)`](../../../algorithm/PermutationTree.py#L145)
+- constructor: [`PermutationTree(permutation)`](../../../algorithm/PermutationTree.py#L219)
 - 引数: `permutation`: 0からN-1までを一度ずつ含む空でない順列。
 - 返り値: `PermutationTree` instance
 - 計算量: 構築 O(N log N) time・O(N) memory
-- 作成後: rootとnodesを持ち、共通区間の個数計算・全列挙・node内容の確認ができる状態を作る。
+- 作成後: node情報を平坦な整数配列へ保存し、root、read-onlyなnodes、共通区間の個数計算・全列挙を使える状態を作る。node objectはnodesを参照したときだけ作る。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`count_intervals()`](../../../algorithm/PermutationTree.py#L261) | method | 長さ1と順列全体を含むすべての共通区間の個数を、区間を列挙せず求める。 | なし | int — 位置区間で区別した共通区間の総数。 | O(N) |
-| [`intervals()`](../../../algorithm/PermutationTree.py#L272) | method | 順列のすべての共通区間を半開区間で列挙する。 | なし | list[tuple[int, int]] — 各要素は(left, right)。permutation[left:right]の値集合が連続整数になる。node構築順とjoin内の子区間順で並び、辞書順ではない。 | O(N+K) time・O(K) memory、Kは返す共通区間数 |
-| [`tolist()`](../../../algorithm/PermutationTree.py#L289) | method | 順列木の全nodeを、node index順のdictとして返す。 | なし | list[dict[str, object]] — result[i]はnode iのkind・left・right・minimum・maximum・parent・childrenを持つdict。childrenはcopyなので変更しても木を壊さない。 | O(N) |
-| [`__str__()`](../../../algorithm/PermutationTree.py#L304) | method | tolist()と同じnode列を読みやすい文字列にする。 | なし | str — 全nodeのdictをnode index順に並べた文字列。 | O(N) |
-| [`__repr__()`](../../../algorithm/PermutationTree.py#L307) | method | 型名とtolist()のnode列を含むdebug文字列を返す。 | なし | str — PermutationTree([...])形式の文字列。 | O(C)、Cはchildren数 |
+| [`count_intervals()`](../../../algorithm/PermutationTree.py#L360) | method | 長さ1と順列全体を含むすべての共通区間の個数を、区間を列挙せず求める。 | なし | int — 位置区間で区別した共通区間の総数。 | O(N) |
+| [`intervals()`](../../../algorithm/PermutationTree.py#L373) | method | 順列のすべての共通区間を半開区間で列挙する。 | なし | list[tuple[int, int]] — 各要素は(left, right)。permutation[left:right]の値集合が連続整数になる。node構築順とjoin内の子区間順で並び、辞書順ではない。 | O(N+K) time・O(K) memory、Kは返す共通区間数 |
+| [`tolist()`](../../../algorithm/PermutationTree.py#L395) | method | 順列木の全nodeを、node index順のdictとして返す。 | なし | list[dict[str, object]] — result[i]はnode iのkind・left・right・minimum・maximum・parent・childrenを持つdict。childrenはcopyなので変更しても木を壊さない。 | O(N) |
+| [`__str__()`](../../../algorithm/PermutationTree.py#L413) | method | tolist()と同じnode列を読みやすい文字列にする。 | なし | str — 全nodeのdictをnode index順に並べた文字列。 | O(N) |
+| [`__repr__()`](../../../algorithm/PermutationTree.py#L416) | method | 型名とtolist()のnode列を含むdebug文字列を返す。 | なし | str — PermutationTree([...])形式の文字列。 | O(C)、Cはchildren数 |
 
 ## Class `PermutationTreeNode`
 
-順列木の一つのstrong common intervalと、その親子関係を保持するnode。
+順列木の一つのstrong common intervalを読むためのread-only view。node情報自体はPermutationTree内の整数配列に保存される。
 
-- constructor: [`PermutationTreeNode(kind, left, right, minimum, maximum, parent=-1, children=None)`](../../../algorithm/PermutationTree.py#L103)
-- 引数: `kind`: leaf・linear_asc・linear_desc・primeのいずれか。<br>`left`: nodeが含む位置の左端。<br>`right`: nodeが含む位置の、含めない右端。<br>`minimum`: nodeに含まれる順列値の最小値。<br>`maximum`: nodeに含まれる順列値の最大値。<br>`parent`: 親nodeのindex。rootでは-1。省略時: `-1`<br>`children`: 子nodeのindexを位置の左から右へ並べたlist。省略時: `None`
+- constructor: [`PermutationTreeNode(tree, index)`](../../../algorithm/PermutationTree.py#L104)
+- 引数: `tree`: 参照先のPermutationTree。<br>`index`: 参照するnodeのindex。負なら末尾から数える。
 - 返り値: `PermutationTreeNode` instance
 - 計算量: O(1)
-- 作成後: 位置区間、値の最小・最大、node種別、親node番号、左から右に並ぶ子node番号を持つnodeを作る。通常はPermutationTreeが生成したnodesから取得する。
+- 作成後: treeのnode indexを参照する軽量なviewを作る。通常はtree.nodes[index]から取得する。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`size`](../../../algorithm/PermutationTree.py#L115) | property | nodeが表す位置区間の長さを返す。 | なし | int — right-left。nodeに含まれる順列要素数。 | O(1) |
-| [`__repr__()`](../../../algorithm/PermutationTree.py#L119) | method | node種別・区間・値の最小最大・親子番号を確認できる文字列を返す。 | なし | str — PermutationTreeNode(...)形式のdebug文字列。 | O(C)、Cはchildren数 |
+| [`kind`](../../../algorithm/PermutationTree.py#L116) | property | nodeの分解種別を返す。 | なし | str — leaf・linear_asc・linear_desc・primeのいずれか。 | O(1) |
+| [`left`](../../../algorithm/PermutationTree.py#L120) | property | nodeが表す位置区間の左端を返す。 | なし | int — 半開区間[left, right)のleft。 | O(1) |
+| [`right`](../../../algorithm/PermutationTree.py#L124) | property | nodeが表す位置区間の右端を返す。 | なし | int — 半開区間[left, right)に含めないright。 | O(1) |
+| [`minimum`](../../../algorithm/PermutationTree.py#L128) | property | nodeに含まれる順列値の最小値を返す。 | なし | int — permutation[left:right]の最小値。 | O(1) |
+| [`maximum`](../../../algorithm/PermutationTree.py#L132) | property | nodeに含まれる順列値の最大値を返す。 | なし | int — permutation[left:right]の最大値。 | O(1) |
+| [`parent`](../../../algorithm/PermutationTree.py#L136) | property | 親nodeのindexを返す。 | なし | int — tree.nodes内の親node index。rootでは-1。 | O(1) |
+| [`children`](../../../algorithm/PermutationTree.py#L140) | property | 直接の子nodeを位置の左から右へ並べて返す。 | なし | list[int] — tree.nodes内の子node index。取得時に作るcopyなので、変更しても木を壊さない。 | O(C) time・O(C) memory、Cはchildren数 |
+| [`size`](../../../algorithm/PermutationTree.py#L146) | property | nodeが表す位置区間の長さを返す。 | なし | int — right-left。nodeに含まれる順列要素数。 | O(1) |
+| [`__repr__()`](../../../algorithm/PermutationTree.py#L150) | method | node種別・区間・値の最小最大・親子番号を確認できる文字列を返す。 | なし | str — PermutationTreeNode(...)形式のdebug文字列。 | O(C)、Cはchildren数 |

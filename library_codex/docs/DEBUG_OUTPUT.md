@@ -39,4 +39,4 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 
 ## Permutation Tree
 
-`PermutationTree.tolist()`は、各nodeの`kind`、`left`、`right`、`minimum`、`maximum`、`parent`、`children`をnode index順のdict listで返します。`children`はcopyなので、返り値を変更しても木の親子関係は変わりません。`repr(obj)`は`PermutationTree([...])`の形です。
+`PermutationTree.tolist()`は、内部の平坦な配列から各nodeの`kind`、`left`、`right`、`minimum`、`maximum`、`parent`、`children`を読み出し、node index順のdict listで返します。`children`はcopyなので、返り値を変更しても木の親子関係は変わりません。`repr(obj)`は`PermutationTree([...])`の形です。
