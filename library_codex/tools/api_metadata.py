@@ -4975,17 +4975,9 @@ MODULE_CAPABILITIES.update({
 })
 
 CLASS_DETAILS_BY_SYMBOL.update({
-    ("algorithm/PermutationTree.py", "PermutationTreeNode"): {
-        "description": "順列木の一つのstrong common intervalを読むためのread-only view。node情報自体はPermutationTree内の整数配列に保存される。",
-        "constructorCreates": "treeのnode indexを参照する軽量なviewを作る。通常はtree.nodes[index]から取得する。",
-        "argumentDescriptions": {
-            "tree": "参照先のPermutationTree。",
-            "index": "参照するnodeのindex。負なら末尾から数える。",
-        },
-    },
     ("algorithm/PermutationTree.py", "PermutationTree"): {
         "description": "順列のstrong common intervalを包含関係で結び、linear/primeを区別する共通区間分解木。",
-        "constructorCreates": "node情報を平坦な整数配列へ保存し、root、read-onlyなnodes、共通区間の個数計算・全列挙を使える状態を作る。node objectはnodesを参照したときだけ作る。",
+        "constructorCreates": "各nodeを整数番号で表し、kind・位置区間・値域・親を平坦な配列へ保存する。root、children、共通区間の個数計算・全列挙を使える。",
         "argumentDescriptions": {
             "permutation": "0からN-1までを一度ずつ含む空でない順列。",
         },
@@ -4993,50 +4985,13 @@ CLASS_DETAILS_BY_SYMBOL.update({
 })
 
 API_DETAILS_BY_SYMBOL.update({
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "kind"): {
-        "description": "nodeの分解種別を返す。",
-        "returnFormat": "str",
-        "returnDescription": "leaf・linear_asc・linear_desc・primeのいずれか。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "left"): {
-        "description": "nodeが表す位置区間の左端を返す。",
-        "returnFormat": "int",
-        "returnDescription": "半開区間[left, right)のleft。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "right"): {
-        "description": "nodeが表す位置区間の右端を返す。",
-        "returnFormat": "int",
-        "returnDescription": "半開区間[left, right)に含めないright。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "minimum"): {
-        "description": "nodeに含まれる順列値の最小値を返す。",
-        "returnFormat": "int",
-        "returnDescription": "permutation[left:right]の最小値。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "maximum"): {
-        "description": "nodeに含まれる順列値の最大値を返す。",
-        "returnFormat": "int",
-        "returnDescription": "permutation[left:right]の最大値。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "parent"): {
-        "description": "親nodeのindexを返す。",
-        "returnFormat": "int",
-        "returnDescription": "tree.nodes内の親node index。rootでは-1。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "children"): {
+    ("algorithm/PermutationTree.py", "PermutationTree", "children"): {
         "description": "直接の子nodeを位置の左から右へ並べて返す。",
         "returnFormat": "list[int]",
-        "returnDescription": "tree.nodes内の子node index。取得時に作るcopyなので、変更しても木を壊さない。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "size"): {
-        "description": "nodeが表す位置区間の長さを返す。",
-        "returnFormat": "int",
-        "returnDescription": "right-left。nodeに含まれる順列要素数。",
-    },
-    ("algorithm/PermutationTree.py", "PermutationTreeNode", "__repr__"): {
-        "description": "node種別・区間・値の最小最大・親子番号を確認できる文字列を返す。",
-        "returnFormat": "str",
-        "returnDescription": "PermutationTreeNode(...)形式のdebug文字列。",
+        "returnDescription": "子node番号のlist。取得時に作るcopyなので、変更しても木を壊さない。",
+        "argumentDescriptions": {
+            "node": "子を取得するnode番号。",
+        },
     },
     ("algorithm/PermutationTree.py", "PermutationTree", "count_intervals"): {
         "description": "長さ1と順列全体を含むすべての共通区間の個数を、区間を列挙せず求める。",
@@ -5067,16 +5022,8 @@ API_DETAILS_BY_SYMBOL.update({
 
 COMPLEXITY_BY_MODULE.update({
     "algorithm/PermutationTree.py": {
-        "PermutationTreeNode": "O(1)",
-        "kind": "O(1)",
-        "left": "O(1)",
-        "right": "O(1)",
-        "minimum": "O(1)",
-        "maximum": "O(1)",
-        "parent": "O(1)",
         "children": "O(C) time・O(C) memory、Cはchildren数",
-        "size": "O(1)",
-        "__repr__": "O(C)、Cはchildren数",
+        "__repr__": "O(N)",
         "PermutationTree": "構築 O(N log N) time・O(N) memory",
         "count_intervals": "O(N)",
         "intervals": "O(N+K) time・O(K) memory、Kは返す共通区間数",

@@ -118,7 +118,6 @@ MODULE_OVERRIDES = {
 CLASS_ORDER_OVERRIDES = {
     "algorithm/PermutationTree.py": (
         "PermutationTree",
-        "PermutationTreeNode",
     ),
     "range_query/DynamicWaveletMatrix.py": (
         "DynamicWaveletMatrix",

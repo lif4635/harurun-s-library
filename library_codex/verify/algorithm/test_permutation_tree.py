@@ -35,38 +35,39 @@ def brute_strong_intervals(permutation):
 
 
 def assert_tree_structure(permutation, tree):
-    nodes = tree.nodes
-    root = nodes[tree.root]
-    assert (root.left, root.right) == (0, len(permutation))
-    assert (root.minimum, root.maximum) == (0, len(permutation) - 1)
-    assert root.parent == -1
-    assert len(nodes) <= 2 * len(permutation) - 1
+    root = tree.root
+    assert (tree.left[root], tree.right[root]) == (0, len(permutation))
+    assert (tree.minimum[root], tree.maximum[root]) == (0, len(permutation) - 1)
+    assert tree.parent[root] == -1
+    assert tree.node_count <= 2 * len(permutation) - 1
 
-    for index, node in enumerate(nodes):
-        values = permutation[node.left:node.right]
-        assert min(values) == node.minimum
-        assert max(values) == node.maximum
-        assert node.maximum - node.minimum + 1 == node.size
-        if node.kind == tree.LEAF:
-            assert node.size == 1
-            assert node.children == []
+    for index in range(tree.node_count):
+        left = tree.left[index]
+        right = tree.right[index]
+        values = permutation[left:right]
+        assert min(values) == tree.minimum[index]
+        assert max(values) == tree.maximum[index]
+        assert tree.maximum[index] - tree.minimum[index] + 1 == right - left
+        children = tree.children(index)
+        if tree.kind[index] == tree.LEAF:
+            assert right - left == 1
+            assert children == []
             continue
-        assert len(node.children) >= 2
-        left = node.left
-        for child_index in node.children:
-            child = nodes[child_index]
-            assert child.parent == index
-            assert child.left == left
-            left = child.right
-        assert left == node.right
-        if node.kind == tree.LINEAR_ASC:
-            for first, second in zip(node.children, node.children[1:]):
-                assert nodes[first].maximum + 1 == nodes[second].minimum
-        elif node.kind == tree.LINEAR_DESC:
-            for first, second in zip(node.children, node.children[1:]):
-                assert nodes[second].maximum + 1 == nodes[first].minimum
+        assert len(children) >= 2
+        child_left = left
+        for child in children:
+            assert tree.parent[child] == index
+            assert tree.left[child] == child_left
+            child_left = tree.right[child]
+        assert child_left == right
+        if tree.kind[index] == tree.LINEAR_ASC:
+            for first, second in zip(children, children[1:]):
+                assert tree.maximum[first] + 1 == tree.minimum[second]
+        elif tree.kind[index] == tree.LINEAR_DESC:
+            for first, second in zip(children, children[1:]):
+                assert tree.maximum[second] + 1 == tree.minimum[first]
         else:
-            assert node.kind == tree.PRIME
+            assert tree.kind[index] == tree.PRIME
 
 
 def test_permutation_tree_against_brute_force():
@@ -84,27 +85,25 @@ def test_permutation_tree_against_brute_force():
             assert set(tree.intervals()) == want
             assert len(tree.intervals()) == len(want)
             assert tree.count_intervals() == len(want)
-            assert {
-                (node.left, node.right) for node in tree.nodes
-            } == brute_strong_intervals(permutation)
+            assert set(zip(tree.left, tree.right)) == brute_strong_intervals(permutation)
             assert_tree_structure(permutation, tree)
 
 
 def test_permutation_tree_known_kinds_and_debug_output():
     increasing = PermutationTree([0, 1, 2, 3])
-    assert increasing.nodes[increasing.root].kind == increasing.LINEAR_ASC
+    assert increasing.kind[increasing.root] == increasing.LINEAR_ASC
     assert [
-        increasing.nodes[child].left
-        for child in increasing.nodes[increasing.root].children
+        increasing.left[child]
+        for child in increasing.children(increasing.root)
     ] == [0, 1, 2, 3]
     assert increasing.count_intervals() == 10
 
     decreasing = PermutationTree([3, 2, 1, 0])
-    assert decreasing.nodes[decreasing.root].kind == decreasing.LINEAR_DESC
+    assert decreasing.kind[decreasing.root] == decreasing.LINEAR_DESC
     assert decreasing.count_intervals() == 10
 
     tree = PermutationTree([1, 3, 0, 2])
-    assert tree.nodes[tree.root].kind == tree.PRIME
+    assert tree.kind[tree.root] == tree.PRIME
     rows = tree.tolist()
     assert rows[tree.root] == {
         "kind": "prime",
@@ -118,24 +117,20 @@ def test_permutation_tree_known_kinds_and_debug_output():
     assert str(tree) == str(rows)
     assert repr(tree) == "PermutationTree(%r)" % rows
     rows[tree.root]["children"].clear()
-    assert tree.nodes[tree.root].children == [0, 1, 2, 3]
+    assert tree.children(tree.root) == [0, 1, 2, 3]
 
 
-def test_permutation_tree_nodes_are_lazy_read_only_views():
+def test_permutation_tree_uses_flat_node_arrays():
     tree = PermutationTree([1, 3, 0, 2])
-    first = tree.nodes[tree.root]
-    second = tree.nodes[tree.root]
+    assert not hasattr(tree, "nodes")
+    assert isinstance(tree.kind, bytearray)
+    assert tree.kind[tree.root] == tree.PRIME == 3
+    assert tree.right[-1] == 4
+    assert tree.left[:2] == [0, 1]
 
-    assert first is not second
-    assert first.kind == second.kind == tree.PRIME
-    assert tree.nodes[-1].right == 4
-    assert [node.left for node in tree.nodes[:2]] == [0, 1]
-
-    children = first.children
+    children = tree.children(tree.root)
     children.clear()
-    assert second.children == [0, 1, 2, 3]
-    with pytest.raises(AttributeError):
-        first.left = 10
+    assert tree.children(tree.root) == [0, 1, 2, 3]
 
 
 def test_permutation_tree_rejects_invalid_input():
@@ -150,5 +145,5 @@ def test_permutation_tree_rejects_invalid_input():
 def test_permutation_tree_large_input_is_iterative():
     permutation = list(range(20000))
     tree = PermutationTree(permutation)
-    assert len(tree.nodes) == 20001
+    assert tree.node_count == 20001
     assert tree.count_intervals() == 20000 * 20001 // 2

@@ -35,7 +35,7 @@
 
 - `library_codex`を正本として実装する。元の`library`は着想や便利な挙動を探す資料として使う。
 - PyPyでの実行速度を意識し、hot loopの一時objectやmethod lookupを増やしすぎない。
-- 頂点・辺・nodeなどを入力数に比例して保持する場合、class instanceや空listを要素ごとに作る前に、平坦なlist・`bytearray`・CSR形式で表せないか検討する。読みやすいobject APIが必要なら、通常処理では作らず参照時だけ生成するviewを優先する。
+- 頂点・辺・nodeなどを入力数に比例して保持する場合、class instanceや空listを要素ごとに作る前に、整数IDと平坦なlist・`bytearray`・CSR形式で表せないか検討する。親のclassから整数IDで十分に操作できる場合、要素ごとのclassやviewを追加しない。
 - 原則として再帰を使わない。深い木・グラフでも入力サイズでstack overflowしない形にする。
 - デバッグや説明だけのために、通常操作へ無視できない常駐メモリや更新時間を追加しない。
 - 外部packageへ依存せず、標準libraryと`library_codex`内の明示的なimportで完結させる。

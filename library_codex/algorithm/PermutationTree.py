@@ -4,9 +4,6 @@ For a permutation ``p`` of ``range(n)``, an index interval ``[left, right)``
 is common when its values form one consecutive integer interval.  The tree
 stores all strong common intervals and compactly represents every common
 interval.  Construction is iterative and takes O(N log N) time.
-
-Node data is stored in flat arrays.  ``PermutationTreeNode`` objects are
-lightweight read-only views created only when ``tree.nodes`` is accessed.
 """
 
 
@@ -96,122 +93,25 @@ class _RangeAddRangeMin:
         return result
 
 
-class PermutationTreeNode:
-    """Read-only view of one strong common interval in a permutation tree."""
-
-    __slots__ = ("_tree", "_index")
-
-    def __init__(self, tree, index):
-        if not isinstance(tree, PermutationTree):
-            raise TypeError("tree must be a PermutationTree")
-        count = len(tree._kind)
-        if index < 0:
-            index += count
-        if index < 0 or index >= count:
-            raise IndexError("node index out of range")
-        self._tree = tree
-        self._index = index
-
-    @property
-    def kind(self):
-        return self._tree._KIND_NAMES[self._tree._kind[self._index]]
-
-    @property
-    def left(self):
-        return self._tree._left[self._index]
-
-    @property
-    def right(self):
-        return self._tree._right[self._index]
-
-    @property
-    def minimum(self):
-        return self._tree._minimum[self._index]
-
-    @property
-    def maximum(self):
-        return self._tree._maximum[self._index]
-
-    @property
-    def parent(self):
-        return self._tree._parent[self._index]
-
-    @property
-    def children(self):
-        start = self._tree._child_start[self._index]
-        end = self._tree._child_start[self._index + 1]
-        return self._tree._children[start:end]
-
-    @property
-    def size(self):
-        """Number of permutation entries represented by this node."""
-        return self._tree._right[self._index] - self._tree._left[self._index]
-
-    def __repr__(self):
-        return (
-            "PermutationTreeNode(kind=%r, left=%r, right=%r, minimum=%r, "
-            "maximum=%r, parent=%r, children=%r)"
-            % (
-                self.kind,
-                self.left,
-                self.right,
-                self.minimum,
-                self.maximum,
-                self.parent,
-                self.children,
-            )
-        )
-
-
-class _PermutationTreeNodes:
-    """Sequence that creates node views only when they are requested."""
-
-    __slots__ = ("_tree",)
-
-    def __init__(self, tree):
-        self._tree = tree
-
-    def __len__(self):
-        return len(self._tree._kind)
-
-    def __getitem__(self, index):
-        if isinstance(index, slice):
-            return [
-                PermutationTreeNode(self._tree, i)
-                for i in range(*index.indices(len(self)))
-            ]
-        return PermutationTreeNode(self._tree, index)
-
-    def __iter__(self):
-        tree = self._tree
-        for index in range(len(tree._kind)):
-            yield PermutationTreeNode(tree, index)
-
-
 class PermutationTree:
     """Build the common-interval decomposition tree of a permutation."""
 
-    LEAF = "leaf"
-    LINEAR_ASC = "linear_asc"
-    LINEAR_DESC = "linear_desc"
-    PRIME = "prime"
-
-    _LEAF = 0
-    _LINEAR_ASC = 1
-    _LINEAR_DESC = 2
-    _PRIME = 3
-    _KIND_NAMES = (LEAF, LINEAR_ASC, LINEAR_DESC, PRIME)
+    LEAF = 0
+    LINEAR_ASC = 1
+    LINEAR_DESC = 2
+    PRIME = 3
+    _KIND_NAMES = ("leaf", "linear_asc", "linear_desc", "prime")
 
     __slots__ = (
         "permutation",
-        "nodes",
+        "node_count",
         "root",
-        "_kind",
-        "_left",
-        "_right",
-        "_minimum",
-        "_maximum",
-        "_parent",
+        "kind",
+        "left",
+        "right",
+        "minimum",
+        "maximum",
+        "parent",
         "_child_start",
         "_children",
     )
@@ -287,15 +187,15 @@ class PermutationTree:
             low.append(index)
 
             current = append_node(
-                self._LEAF, index, index + 1, value, value
+                self.LEAF, index, index + 1, value, value
             )
 
             while True:
                 node_kind = -1
                 if stack and maximum[stack[-1]] + 1 == minimum[current]:
-                    node_kind = self._LINEAR_ASC
+                    node_kind = self.LINEAR_ASC
                 if stack and maximum[current] + 1 == minimum[stack[-1]]:
-                    node_kind = self._LINEAR_DESC
+                    node_kind = self.LINEAR_DESC
 
                 if node_kind >= 0:
                     previous = stack.pop()
@@ -318,7 +218,7 @@ class PermutationTree:
                 ) == 0:
                     first = current
                     current = append_node(
-                        self._PRIME,
+                        self.PRIME,
                         left[first],
                         right[first],
                         minimum[first],
@@ -346,24 +246,30 @@ class PermutationTree:
             child_start.append(len(children))
 
         self.permutation = permutation
+        self.node_count = len(kind)
         self.root = stack[0]
-        self._kind = kind
-        self._left = left
-        self._right = right
-        self._minimum = minimum
-        self._maximum = maximum
-        self._parent = parent
+        self.kind = kind
+        self.left = left
+        self.right = right
+        self.minimum = minimum
+        self.maximum = maximum
+        self.parent = parent
         self._child_start = child_start
         self._children = children
-        self.nodes = _PermutationTreeNodes(self)
+
+    def children(self, node):
+        """Return child node indices from left to right."""
+        start = self._child_start[node]
+        end = self._child_start[node + 1]
+        return self._children[start:end]
 
     def count_intervals(self):
         """Return the number of common index intervals represented by the tree."""
-        kind = self._kind
+        kind = self.kind
         child_start = self._child_start
         result = 0
         for index, node_kind in enumerate(kind):
-            if node_kind == self._LINEAR_ASC or node_kind == self._LINEAR_DESC:
+            if node_kind == self.LINEAR_ASC or node_kind == self.LINEAR_DESC:
                 count = child_start[index + 1] - child_start[index]
                 result += count * (count - 1) // 2
             else:
@@ -372,14 +278,14 @@ class PermutationTree:
 
     def intervals(self):
         """Return every common index interval as a half-open pair."""
-        kind = self._kind
-        left = self._left
-        right = self._right
+        kind = self.kind
+        left = self.left
+        right = self.right
         child_start = self._child_start
         children = self._children
         result = list(zip(left, right))
         for index, node_kind in enumerate(kind):
-            if node_kind != self._LINEAR_ASC and node_kind != self._LINEAR_DESC:
+            if node_kind != self.LINEAR_ASC and node_kind != self.LINEAR_DESC:
                 continue
             start = child_start[index]
             end = child_start[index + 1]
@@ -399,15 +305,15 @@ class PermutationTree:
         children = self._children
         return [
             {
-                "kind": names[self._kind[index]],
-                "left": self._left[index],
-                "right": self._right[index],
-                "minimum": self._minimum[index],
-                "maximum": self._maximum[index],
-                "parent": self._parent[index],
+                "kind": names[self.kind[index]],
+                "left": self.left[index],
+                "right": self.right[index],
+                "minimum": self.minimum[index],
+                "maximum": self.maximum[index],
+                "parent": self.parent[index],
                 "children": children[starts[index]:starts[index + 1]],
             }
-            for index in range(len(self._kind))
+            for index in range(self.node_count)
         ]
 
     def __str__(self):
