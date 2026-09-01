@@ -23,6 +23,7 @@ segment         # SegTree([1, 2, 3])
 | Implicit Treap・Dynamic Wavelet Matrix | 現在の列 | `tolist()` |
 | TreapSet | keyの昇順list | `tolist()` |
 | OrderedMap | key順のdict | `items()` |
+| Permutation Tree | node index順のdict list | `tolist()` |
 
 `repr(obj)` は同じ内容へ型名を付けます。たとえば `FastSet([2, 5, 9])` のように表示します。
 
@@ -35,3 +36,7 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 ## Tree Wavelet Matrix
 
 `TreeWaveletMatrix.tolist()`と`str(obj)`は、constructorへ渡した頂点値を頂点番号順のlistで返します。`repr(obj)`は`TreeWaveletMatrix([...])`の形です。内部のHLD順や圧縮後のrankは表示しません。
+
+## Permutation Tree
+
+`PermutationTree.tolist()`は、各nodeの`kind`、`left`、`right`、`minimum`、`maximum`、`parent`、`children`をnode index順のdict listで返します。`children`はcopyなので、返り値を変更しても木の親子関係は変わりません。`repr(obj)`は`PermutationTree([...])`の形です。

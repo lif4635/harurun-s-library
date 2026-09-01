@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-16T05:49:14+00:00",
+  "generatedAt": "2026-09-01T09:29:19+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "79184a1371b42eefc16570cbc9fa536b1b2d5e9ea2eacd510d7520b1370cbbc7",
-  "inputStamp": "129059829848795fef6e3206ac3471150215cd7d802a42163581aec1d12f72dd",
+  "sourceFingerprint": "baf6264e427478fe3e26c1b41bc372c58dbea17954d4fca6e87ce7cac8ac7bad",
+  "inputStamp": "4ee33fffb8ebade19031788c2b5229161b56bf249a916d49bcfa564cc5e4b8d1",
   "generatorFingerprint": "efb9defc7edaeb4adee6db7f8e62121aaab3ed563ffe0ef59c03bffd3c375886",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 358,
-    "articles": 5,
+    "modules": 359,
+    "articles": 6,
     "functions": 504,
-    "classes": 221,
-    "methods": 1369,
+    "classes": 223,
+    "methods": 1376,
     "tests": 617
   },
   "categories": [
@@ -21,10 +21,10 @@
       "label": "アルゴリズム",
       "domain": "algorithm",
       "domainLabel": "Algorithms",
-      "modules": 16,
+      "modules": 17,
       "functions": 36,
-      "classes": 3,
-      "methods": 10
+      "classes": 5,
+      "methods": 17
     },
     {
       "slug": "convolution",
@@ -391,7 +391,7 @@
     {
       "slug": "algorithm",
       "label": "Algorithms",
-      "modules": 16
+      "modules": 17
     },
     {
       "slug": "convolution",
@@ -1496,6 +1496,257 @@
         }
       ],
       "classes": []
+    },
+    {
+      "category": "algorithm",
+      "categoryLabel": "アルゴリズム",
+      "domain": "algorithm",
+      "domainLabel": "Algorithms",
+      "name": "PermutationTree",
+      "modulePath": "library_codex.algorithm.PermutationTree",
+      "summary": "順列の共通区間を表すstrong interval tree。",
+      "capabilities": [
+        "順列の連続部分列で、含まれる値も連続整数になる共通区間を木で表せる。",
+        "すべてのstrong common intervalと、linear ノードで追加される共通区間を区別できる。",
+        "全共通区間の列挙と、区間を列挙しない個数計算を選べる。"
+      ],
+      "article": {
+        "title": "順列の共通区間を木にする",
+        "markdown": "## 主な機能\n\n順列`p`の連続部分列`p[left:right]`について、含まれる値も連続整数になる半開区間`[left, right)`をまとめて表します。木のnode数は`O(N)`で、構築は`O(N log N)`です。\n\n- `PermutationTree(p)` — 共通区間分解木を構築するclass。\n- `tree.nodes[tree.root]` — 順列全体を表すroot node。\n- `tree.intervals()` — すべての共通区間を半開区間のlistとして列挙するmethod。返す区間数を`K`として`O(N + K)`。\n- `tree.count_intervals()` — 共通区間の個数だけを`O(N)`で数えるmethod。\n\n各nodeは位置の半開区間`[left, right)`、値の最小・最大、`parent`、左から右に並ぶ`children`を持ちます。\n\n- `leaf`: 長さ1の区間。\n- `linear_asc`: 子の値域が昇順につながる。連続する任意個の子をまとめても共通区間になる。\n- `linear_desc`: 子の値域が降順につながる。連続する任意個の子をまとめても共通区間になる。\n- `prime`: node全体だけが新しい共通区間になり、途中の連続した子だけをまとめた区間は共通区間にならない。\n\n## 使い方\n\n```python\nfrom library_codex.algorithm.PermutationTree import PermutationTree\n\np = [1, 3, 0, 2]\ntree = PermutationTree(p)\n\nroot = tree.nodes[tree.root]\nprint(root.kind)          # prime\nprint(root.left, root.right)  # 0 4\nprint(tree.count_intervals()) # 5\nprint(tree.intervals())       # (0, 1), (1, 2), ... を含むlist\n```\n\n`intervals()`の各`(left, right)`は、`p[left:right]`の最小値を`minimum`、最大値を`maximum`とすると次を満たします。\n\n$$\n\\mathrm{maximum}-\\mathrm{minimum}=\\mathrm{right}-\\mathrm{left}-1\n$$\n\n## 返り値\n\n- `tree.root`: 順列全体を表すnodeの、`tree.nodes`内でのindex。\n- `tree.nodes`: `PermutationTreeNode`を構築順に格納したlist。子は親より前に置かれる。\n- `tree.intervals()`: 共通区間を`(left, right)`で並べたlist。区間は半開で、辞書順には整列しない。\n- `tree.count_intervals()`: 長さ1と順列全体を含む、共通区間の総数。\n\n## 注意点\n\n- 入力は`0, 1, ..., N-1`を一度ずつ含む空でない順列に限る。\n- `intervals()`の出力数`K`は`O(N^2)`になりうる。区間そのものが不要なら`count_intervals()`を使う。\n- `prime`の子を途中だけまとめた区間が、別の方法で共通区間になることはない。",
+        "sourcePath": "library_codex/docs/articles/algorithm/PermutationTree.md"
+      },
+      "searchTerms": [
+        "PermutationTree",
+        "Permutation Tree",
+        "library_codex.algorithm.PermutationTree",
+        "library codex algorithm Permutation Tree",
+        "algorithm/PermutationTree.py",
+        "アルゴリズム",
+        "順列木",
+        "common interval decomposition tree",
+        "strong interval tree",
+        "共通区間"
+      ],
+      "complexity": "構築 O(N log N)、全区間列挙 O(N+K)",
+      "sourcePath": "library_codex/algorithm/PermutationTree.py",
+      "inputFingerprint": "8204f3f45a7b989023f3c0cf230a3eb8890b010db20b9b4434eb5597730b878e",
+      "importCode": "from library_codex.algorithm.PermutationTree import PermutationTree, PermutationTreeNode",
+      "sourceCode": "\"\"\"Common-interval decomposition tree of a permutation.\n\nFor a permutation ``p`` of ``range(n)``, an index interval ``[left, right)``\nis common when its values form one consecutive integer interval.  The tree\nstores all strong common intervals and compactly represents every common\ninterval.  Construction is iterative and takes O(N log N) time.\n\"\"\"\n\n\nclass _RangeAddRangeMin:\n    __slots__ = (\"size\", \"log\", \"data\", \"lazy\")\n\n    def __init__(self, n):\n        size = 1 << (n - 1).bit_length()\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = [0] * (size << 1)\n        self.lazy = [0] * size\n\n    def _push(self, node):\n        value = self.lazy[node]\n        if value:\n            left = node << 1\n            right = left | 1\n            self.data[left] += value\n            self.data[right] += value\n            if left < self.size:\n                self.lazy[left] += value\n                self.lazy[right] += value\n            self.lazy[node] = 0\n\n    def add(self, left, right, value):\n        if left == right:\n            return\n        size = self.size\n        data = self.data\n        lazy = self.lazy\n        left += size\n        right += size\n        original_left = left\n        original_right = right\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        while left < right:\n            if left & 1:\n                data[left] += value\n                if left < size:\n                    lazy[left] += value\n                left += 1\n            if right & 1:\n                right -= 1\n                data[right] += value\n                if right < size:\n                    lazy[right] += value\n            left >>= 1\n            right >>= 1\n        left = original_left\n        right = original_right\n        for shift in range(1, self.log + 1):\n            if (left >> shift) << shift != left:\n                node = left >> shift\n                data[node] = min(data[node << 1], data[node << 1 | 1])\n            if (right >> shift) << shift != right:\n                node = (right - 1) >> shift\n                data[node] = min(data[node << 1], data[node << 1 | 1])\n\n    def prod(self, left, right):\n        if left == right:\n            return 10 ** 30\n        data = self.data\n        left += self.size\n        right += self.size\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        result = 10 ** 30\n        while left < right:\n            if left & 1:\n                if data[left] < result:\n                    result = data[left]\n                left += 1\n            if right & 1:\n                right -= 1\n                if data[right] < result:\n                    result = data[right]\n            left >>= 1\n            right >>= 1\n        return result\n\n\nclass PermutationTreeNode:\n    \"\"\"One strong common interval stored by ``PermutationTree``.\"\"\"\n\n    __slots__ = (\n        \"kind\", \"left\", \"right\", \"minimum\", \"maximum\", \"parent\", \"children\"\n    )\n\n    def __init__(\n        self, kind, left, right, minimum, maximum, parent=-1, children=None\n    ):\n        self.kind = kind\n        self.left = left\n        self.right = right\n        self.minimum = minimum\n        self.maximum = maximum\n        self.parent = parent\n        self.children = [] if children is None else children\n\n    @property\n    def size(self):\n        \"\"\"Number of permutation entries represented by this node.\"\"\"\n        return self.right - self.left\n\n    def __repr__(self):\n        return (\n            \"PermutationTreeNode(kind=%r, left=%r, right=%r, minimum=%r, \"\n            \"maximum=%r, parent=%r, children=%r)\"\n            % (\n                self.kind,\n                self.left,\n                self.right,\n                self.minimum,\n                self.maximum,\n                self.parent,\n                self.children,\n            )\n        )\n\n\nclass PermutationTree:\n    \"\"\"Build the common-interval decomposition tree of a permutation.\"\"\"\n\n    LEAF = \"leaf\"\n    LINEAR_ASC = \"linear_asc\"\n    LINEAR_DESC = \"linear_desc\"\n    PRIME = \"prime\"\n\n    __slots__ = (\"permutation\", \"nodes\", \"root\")\n\n    def __init__(self, permutation):\n        permutation = list(permutation)\n        n = len(permutation)\n        if n == 0:\n            raise ValueError(\"permutation must be nonempty\")\n        seen = bytearray(n)\n        for value in permutation:\n            if value < 0 or value >= n or seen[value]:\n                raise ValueError(\"permutation must contain range(n) exactly once\")\n            seen[value] = 1\n\n        self.permutation = permutation\n        self.nodes = nodes = []\n        segment = _RangeAddRangeMin(n)\n        high = [-1]\n        low = [-1]\n        stack = []\n\n        for index, value in enumerate(permutation):\n            while high[-1] >= 0 and value > permutation[high[-1]]:\n                top = high[-1]\n                segment.add(\n                    high[-2] + 1, top + 1, value - permutation[top]\n                )\n                high.pop()\n            high.append(index)\n            while low[-1] >= 0 and value < permutation[low[-1]]:\n                top = low[-1]\n                segment.add(\n                    low[-2] + 1, top + 1, permutation[top] - value\n                )\n                low.pop()\n            low.append(index)\n\n            current = len(nodes)\n            nodes.append(\n                PermutationTreeNode(\n                    self.LEAF, index, index + 1, value, value\n                )\n            )\n\n            while True:\n                kind = None\n                if stack and nodes[stack[-1]].maximum + 1 == nodes[current].minimum:\n                    kind = self.LINEAR_ASC\n                if stack and nodes[current].maximum + 1 == nodes[stack[-1]].minimum:\n                    kind = self.LINEAR_DESC\n\n                if kind is not None:\n                    previous = stack.pop()\n                    if nodes[previous].kind == kind:\n                        self._add_child(previous, current)\n                        current = previous\n                    else:\n                        node = nodes[previous]\n                        child = current\n                        current = len(nodes)\n                        nodes.append(\n                            PermutationTreeNode(\n                                kind,\n                                node.left,\n                                node.right,\n                                node.minimum,\n                                node.maximum,\n                                children=[previous],\n                            )\n                        )\n                        self._add_child(current, child)\n                elif segment.prod(\n                    0, index + 1 - (nodes[current].right - nodes[current].left)\n                ) == 0:\n                    first = nodes[current]\n                    parent = len(nodes)\n                    nodes.append(\n                        PermutationTreeNode(\n                            self.PRIME,\n                            first.left,\n                            first.right,\n                            first.minimum,\n                            first.maximum,\n                            children=[current],\n                        )\n                    )\n                    current = parent\n                    while True:\n                        self._add_child(current, stack.pop())\n                        node = nodes[current]\n                        if node.maximum - node.minimum + 1 == node.right - node.left:\n                            break\n                    nodes[current].children.reverse()\n                else:\n                    break\n            stack.append(current)\n            segment.add(0, index + 1, -1)\n\n        if len(stack) != 1:\n            raise RuntimeError(\"failed to construct a permutation tree\")\n        self.root = stack[0]\n        for parent, node in enumerate(nodes):\n            for child in node.children:\n                nodes[child].parent = parent\n\n    def _add_child(self, parent, child):\n        nodes = self.nodes\n        child_node = nodes[child]\n        node = nodes[parent]\n        node.children.append(child)\n        if child_node.left < node.left:\n            node.left = child_node.left\n        if child_node.right > node.right:\n            node.right = child_node.right\n        if child_node.minimum < node.minimum:\n            node.minimum = child_node.minimum\n        if child_node.maximum > node.maximum:\n            node.maximum = child_node.maximum\n\n    def count_intervals(self):\n        \"\"\"Return the number of common index intervals represented by the tree.\"\"\"\n        result = 0\n        for node in self.nodes:\n            if node.kind == self.LINEAR_ASC or node.kind == self.LINEAR_DESC:\n                count = len(node.children)\n                result += count * (count - 1) // 2\n            else:\n                result += 1\n        return result\n\n    def intervals(self):\n        \"\"\"Return every common index interval as a half-open pair.\"\"\"\n        nodes = self.nodes\n        result = [(node.left, node.right) for node in nodes]\n        for node in nodes:\n            if node.kind != self.LINEAR_ASC and node.kind != self.LINEAR_DESC:\n                continue\n            children = node.children\n            last = len(children) - 1\n            for first_index in range(len(children)):\n                left = nodes[children[first_index]].left\n                for last_index in range(first_index + 1, len(children)):\n                    if first_index == 0 and last_index == last:\n                        continue\n                    result.append((left, nodes[children[last_index]].right))\n        return result\n\n    def tolist(self):\n        \"\"\"Return node fields in node-index order for debugging.\"\"\"\n        return [\n            {\n                \"kind\": node.kind,\n                \"left\": node.left,\n                \"right\": node.right,\n                \"minimum\": node.minimum,\n                \"maximum\": node.maximum,\n                \"parent\": node.parent,\n                \"children\": node.children[:],\n            }\n            for node in self.nodes\n        ]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"PermutationTree(%r)\" % self.tolist()\n",
+      "standaloneCode": "\"\"\"Common-interval decomposition tree of a permutation.\n\nFor a permutation ``p`` of ``range(n)``, an index interval ``[left, right)``\nis common when its values form one consecutive integer interval.  The tree\nstores all strong common intervals and compactly represents every common\ninterval.  Construction is iterative and takes O(N log N) time.\n\"\"\"\n\n\nclass _RangeAddRangeMin:\n    __slots__ = (\"size\", \"log\", \"data\", \"lazy\")\n\n    def __init__(self, n):\n        size = 1 << (n - 1).bit_length()\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = [0] * (size << 1)\n        self.lazy = [0] * size\n\n    def _push(self, node):\n        value = self.lazy[node]\n        if value:\n            left = node << 1\n            right = left | 1\n            self.data[left] += value\n            self.data[right] += value\n            if left < self.size:\n                self.lazy[left] += value\n                self.lazy[right] += value\n            self.lazy[node] = 0\n\n    def add(self, left, right, value):\n        if left == right:\n            return\n        size = self.size\n        data = self.data\n        lazy = self.lazy\n        left += size\n        right += size\n        original_left = left\n        original_right = right\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        while left < right:\n            if left & 1:\n                data[left] += value\n                if left < size:\n                    lazy[left] += value\n                left += 1\n            if right & 1:\n                right -= 1\n                data[right] += value\n                if right < size:\n                    lazy[right] += value\n            left >>= 1\n            right >>= 1\n        left = original_left\n        right = original_right\n        for shift in range(1, self.log + 1):\n            if (left >> shift) << shift != left:\n                node = left >> shift\n                data[node] = min(data[node << 1], data[node << 1 | 1])\n            if (right >> shift) << shift != right:\n                node = (right - 1) >> shift\n                data[node] = min(data[node << 1], data[node << 1 | 1])\n\n    def prod(self, left, right):\n        if left == right:\n            return 10 ** 30\n        data = self.data\n        left += self.size\n        right += self.size\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        result = 10 ** 30\n        while left < right:\n            if left & 1:\n                if data[left] < result:\n                    result = data[left]\n                left += 1\n            if right & 1:\n                right -= 1\n                if data[right] < result:\n                    result = data[right]\n            left >>= 1\n            right >>= 1\n        return result\n\n\nclass PermutationTreeNode:\n    \"\"\"One strong common interval stored by ``PermutationTree``.\"\"\"\n\n    __slots__ = (\n        \"kind\", \"left\", \"right\", \"minimum\", \"maximum\", \"parent\", \"children\"\n    )\n\n    def __init__(\n        self, kind, left, right, minimum, maximum, parent=-1, children=None\n    ):\n        self.kind = kind\n        self.left = left\n        self.right = right\n        self.minimum = minimum\n        self.maximum = maximum\n        self.parent = parent\n        self.children = [] if children is None else children\n\n    @property\n    def size(self):\n        \"\"\"Number of permutation entries represented by this node.\"\"\"\n        return self.right - self.left\n\n    def __repr__(self):\n        return (\n            \"PermutationTreeNode(kind=%r, left=%r, right=%r, minimum=%r, \"\n            \"maximum=%r, parent=%r, children=%r)\"\n            % (\n                self.kind,\n                self.left,\n                self.right,\n                self.minimum,\n                self.maximum,\n                self.parent,\n                self.children,\n            )\n        )\n\n\nclass PermutationTree:\n    \"\"\"Build the common-interval decomposition tree of a permutation.\"\"\"\n\n    LEAF = \"leaf\"\n    LINEAR_ASC = \"linear_asc\"\n    LINEAR_DESC = \"linear_desc\"\n    PRIME = \"prime\"\n\n    __slots__ = (\"permutation\", \"nodes\", \"root\")\n\n    def __init__(self, permutation):\n        permutation = list(permutation)\n        n = len(permutation)\n        if n == 0:\n            raise ValueError(\"permutation must be nonempty\")\n        seen = bytearray(n)\n        for value in permutation:\n            if value < 0 or value >= n or seen[value]:\n                raise ValueError(\"permutation must contain range(n) exactly once\")\n            seen[value] = 1\n\n        self.permutation = permutation\n        self.nodes = nodes = []\n        segment = _RangeAddRangeMin(n)\n        high = [-1]\n        low = [-1]\n        stack = []\n\n        for index, value in enumerate(permutation):\n            while high[-1] >= 0 and value > permutation[high[-1]]:\n                top = high[-1]\n                segment.add(\n                    high[-2] + 1, top + 1, value - permutation[top]\n                )\n                high.pop()\n            high.append(index)\n            while low[-1] >= 0 and value < permutation[low[-1]]:\n                top = low[-1]\n                segment.add(\n                    low[-2] + 1, top + 1, permutation[top] - value\n                )\n                low.pop()\n            low.append(index)\n\n            current = len(nodes)\n            nodes.append(\n                PermutationTreeNode(\n                    self.LEAF, index, index + 1, value, value\n                )\n            )\n\n            while True:\n                kind = None\n                if stack and nodes[stack[-1]].maximum + 1 == nodes[current].minimum:\n                    kind = self.LINEAR_ASC\n                if stack and nodes[current].maximum + 1 == nodes[stack[-1]].minimum:\n                    kind = self.LINEAR_DESC\n\n                if kind is not None:\n                    previous = stack.pop()\n                    if nodes[previous].kind == kind:\n                        self._add_child(previous, current)\n                        current = previous\n                    else:\n                        node = nodes[previous]\n                        child = current\n                        current = len(nodes)\n                        nodes.append(\n                            PermutationTreeNode(\n                                kind,\n                                node.left,\n                                node.right,\n                                node.minimum,\n                                node.maximum,\n                                children=[previous],\n                            )\n                        )\n                        self._add_child(current, child)\n                elif segment.prod(\n                    0, index + 1 - (nodes[current].right - nodes[current].left)\n                ) == 0:\n                    first = nodes[current]\n                    parent = len(nodes)\n                    nodes.append(\n                        PermutationTreeNode(\n                            self.PRIME,\n                            first.left,\n                            first.right,\n                            first.minimum,\n                            first.maximum,\n                            children=[current],\n                        )\n                    )\n                    current = parent\n                    while True:\n                        self._add_child(current, stack.pop())\n                        node = nodes[current]\n                        if node.maximum - node.minimum + 1 == node.right - node.left:\n                            break\n                    nodes[current].children.reverse()\n                else:\n                    break\n            stack.append(current)\n            segment.add(0, index + 1, -1)\n\n        if len(stack) != 1:\n            raise RuntimeError(\"failed to construct a permutation tree\")\n        self.root = stack[0]\n        for parent, node in enumerate(nodes):\n            for child in node.children:\n                nodes[child].parent = parent\n\n    def _add_child(self, parent, child):\n        nodes = self.nodes\n        child_node = nodes[child]\n        node = nodes[parent]\n        node.children.append(child)\n        if child_node.left < node.left:\n            node.left = child_node.left\n        if child_node.right > node.right:\n            node.right = child_node.right\n        if child_node.minimum < node.minimum:\n            node.minimum = child_node.minimum\n        if child_node.maximum > node.maximum:\n            node.maximum = child_node.maximum\n\n    def count_intervals(self):\n        \"\"\"Return the number of common index intervals represented by the tree.\"\"\"\n        result = 0\n        for node in self.nodes:\n            if node.kind == self.LINEAR_ASC or node.kind == self.LINEAR_DESC:\n                count = len(node.children)\n                result += count * (count - 1) // 2\n            else:\n                result += 1\n        return result\n\n    def intervals(self):\n        \"\"\"Return every common index interval as a half-open pair.\"\"\"\n        nodes = self.nodes\n        result = [(node.left, node.right) for node in nodes]\n        for node in nodes:\n            if node.kind != self.LINEAR_ASC and node.kind != self.LINEAR_DESC:\n                continue\n            children = node.children\n            last = len(children) - 1\n            for first_index in range(len(children)):\n                left = nodes[children[first_index]].left\n                for last_index in range(first_index + 1, len(children)):\n                    if first_index == 0 and last_index == last:\n                        continue\n                    result.append((left, nodes[children[last_index]].right))\n        return result\n\n    def tolist(self):\n        \"\"\"Return node fields in node-index order for debugging.\"\"\"\n        return [\n            {\n                \"kind\": node.kind,\n                \"left\": node.left,\n                \"right\": node.right,\n                \"minimum\": node.minimum,\n                \"maximum\": node.maximum,\n                \"parent\": node.parent,\n                \"children\": node.children[:],\n            }\n            for node in self.nodes\n        ]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"PermutationTree(%r)\" % self.tolist()\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 2,
+        "methods": 7
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "PermutationTree",
+          "summary": "順列のstrong common intervalを包含関係で結び、linear/primeを区別する共通区間分解木。",
+          "description": "順列のstrong common intervalを包含関係で結び、linear/primeを区別する共通区間分解木。",
+          "searchTerms": [
+            "PermutationTree",
+            "Permutation Tree",
+            "PermutationTree(permutation)"
+          ],
+          "constructor": "PermutationTree(permutation)",
+          "constructorArguments": "permutation: 0からN-1までを一度ずつ含む空でない順列。",
+          "constructorArgumentDetails": [
+            {
+              "name": "permutation",
+              "description": "0からN-1までを一度ずつ含む空でない順列"
+            }
+          ],
+          "constructorReturns": "PermutationTree instance",
+          "constructorReturnFormat": "PermutationTree",
+          "constructorReturnDescription": "rootとnodesを持ち、共通区間の個数計算・全列挙・node内容の確認ができる状態を作る。",
+          "constructorCreates": "rootとnodesを持ち、共通区間の個数計算・全列挙・node内容の確認ができる状態を作る。",
+          "constructorComplexity": "O(N log N)",
+          "constructorSourceLine": 145,
+          "methods": [
+            {
+              "name": "count_intervals",
+              "kind": "method",
+              "signature": "count_intervals()",
+              "summary": "長さ1と順列全体を含むすべての共通区間の個数を、区間を列挙せず求める。",
+              "description": "長さ1と順列全体を含むすべての共通区間の個数を、区間を列挙せず求める。",
+              "searchTerms": [
+                "count_intervals",
+                "count intervals",
+                "count_intervals()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 位置区間で区別した共通区間の総数。",
+              "returnFormat": "int",
+              "returnDescription": "位置区間で区別した共通区間の総数。",
+              "complexity": "O(N)",
+              "sourceLine": 261
+            },
+            {
+              "name": "intervals",
+              "kind": "method",
+              "signature": "intervals()",
+              "summary": "順列のすべての共通区間を半開区間で列挙する。",
+              "description": "順列のすべての共通区間を半開区間で列挙する。",
+              "searchTerms": [
+                "intervals",
+                "intervals()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[tuple[int, int]] — 各要素は(left, right)。permutation[left:right]の値集合が連続整数になる。node構築順とjoin内の子区間順で並び、辞書順ではない。",
+              "returnFormat": "list[tuple[int, int]]",
+              "returnDescription": "各要素は(left, right)。permutation[left:right]の値集合が連続整数になる。node構築順とjoin内の子区間順で並び、辞書順ではない。",
+              "complexity": "O(N+K) time・O(K) memory、Kは返す共通区間数",
+              "sourceLine": 272
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "順列木の全nodeを、node index順のdictとして返す。",
+              "description": "順列木の全nodeを、node index順のdictとして返す。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[dict[str, object]] — result[i]はnode iのkind・left・right・minimum・maximum・parent・childrenを持つdict。childrenはcopyなので変更しても木を壊さない。",
+              "returnFormat": "list[dict[str, object]]",
+              "returnDescription": "result[i]はnode iのkind・left・right・minimum・maximum・parent・childrenを持つdict。childrenはcopyなので変更しても木を壊さない。",
+              "complexity": "O(N)",
+              "sourceLine": 289
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "tolist()と同じnode列を読みやすい文字列にする。",
+              "description": "tolist()と同じnode列を読みやすい文字列にする。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — 全nodeのdictをnode index順に並べた文字列。",
+              "returnFormat": "str",
+              "returnDescription": "全nodeのdictをnode index順に並べた文字列。",
+              "complexity": "O(N)",
+              "sourceLine": 304
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名とtolist()のnode列を含むdebug文字列を返す。",
+              "description": "型名とtolist()のnode列を含むdebug文字列を返す。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — PermutationTree([...])形式の文字列。",
+              "returnFormat": "str",
+              "returnDescription": "PermutationTree([...])形式の文字列。",
+              "complexity": "O(C)、Cはchildren数",
+              "sourceLine": 307
+            }
+          ]
+        },
+        {
+          "name": "PermutationTreeNode",
+          "summary": "順列木の一つのstrong common intervalと、その親子関係を保持するnode。",
+          "description": "順列木の一つのstrong common intervalと、その親子関係を保持するnode。",
+          "searchTerms": [
+            "PermutationTreeNode",
+            "Permutation Tree Node",
+            "PermutationTreeNode(kind, left, right, minimum, maximum, parent=-1, children=None)"
+          ],
+          "constructor": "PermutationTreeNode(kind, left, right, minimum, maximum, parent=-1, children=None)",
+          "constructorArguments": "kind: leaf・linear_asc・linear_desc・primeのいずれか。 · left: nodeが含む位置の左端。 · right: nodeが含む位置の、含めない右端。 · minimum: nodeに含まれる順列値の最小値。 · maximum: nodeに含まれる順列値の最大値。 · parent: 親nodeのindex。rootでは-1。省略時: -1 · children: 子nodeのindexを位置の左から右へ並べたlist。省略時: None",
+          "constructorArgumentDetails": [
+            {
+              "name": "kind",
+              "description": "leaf・linear_asc・linear_desc・primeのいずれか"
+            },
+            {
+              "name": "left",
+              "description": "ノードが含む位置の左端"
+            },
+            {
+              "name": "right",
+              "description": "ノードが含む位置の、含めない右端"
+            },
+            {
+              "name": "minimum",
+              "description": "ノードに含まれる順列値の最小値"
+            },
+            {
+              "name": "maximum",
+              "description": "ノードに含まれる順列値の最大値"
+            },
+            {
+              "name": "parent",
+              "description": "親ノードのindex。rootでは-1。省略時は -1"
+            },
+            {
+              "name": "children",
+              "description": "子ノードのindexを位置の左から右へ並べたlist。省略時は None"
+            }
+          ],
+          "constructorReturns": "PermutationTreeNode instance",
+          "constructorReturnFormat": "PermutationTreeNode",
+          "constructorReturnDescription": "位置区間、値の最小・最大、node種別、親node番号、左から右に並ぶ子node番号を持つnodeを作る。通常はPermutationTreeが生成したnodesから取得する。",
+          "constructorCreates": "位置区間、値の最小・最大、node種別、親node番号、左から右に並ぶ子node番号を持つnodeを作る。通常はPermutationTreeが生成したnodesから取得する。",
+          "constructorComplexity": "O(N log N)",
+          "constructorSourceLine": 103,
+          "methods": [
+            {
+              "name": "size",
+              "kind": "property",
+              "signature": "size",
+              "summary": "nodeが表す位置区間の長さを返す。",
+              "description": "nodeが表す位置区間の長さを返す。",
+              "searchTerms": [
+                "size"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — right-left。nodeに含まれる順列要素数。",
+              "returnFormat": "int",
+              "returnDescription": "right-left。nodeに含まれる順列要素数。",
+              "complexity": "O(1)",
+              "sourceLine": 115
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "node種別・区間・値の最小最大・親子番号を確認できる文字列を返す。",
+              "description": "node種別・区間・値の最小最大・親子番号を確認できる文字列を返す。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — PermutationTreeNode(...)形式のdebug文字列。",
+              "returnFormat": "str",
+              "returnDescription": "PermutationTreeNode(...)形式のdebug文字列。",
+              "complexity": "O(C)、Cはchildren数",
+              "sourceLine": 119
+            }
+          ]
+        }
+      ]
     },
     {
       "category": "algorithm",

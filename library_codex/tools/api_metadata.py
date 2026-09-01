@@ -4954,3 +4954,96 @@ COMPLEXITY_BY_MODULE.update({
     "graph_flow/MaxFlow.py": {**COMPLEXITY_BY_MODULE.get("graph_flow/MaxFlow.py", {}), "flow_value": "O(E)", "flow_paths": "O(E(V+E)) worst、返すpath数はO(E)"},
     "graph_connectivity/DominatorTree.py": {**COMPLEXITY_BY_MODULE.get("graph_connectivity/DominatorTree.py", {}), "DominatorTree": "構築 O((V+E) alpha(V)+V log V)", "dominates": "O(1)", "nearest_common_dominator": "O(log V)", "dominator_path": "O(K)"},
 })
+
+
+# 順列のstrong common intervalを表す順列木。
+SEARCH_TERMS_BY_MODULE.update({
+    "algorithm/PermutationTree.py": (
+        "順列木",
+        "common interval decomposition tree",
+        "strong interval tree",
+        "共通区間",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "algorithm/PermutationTree.py": (
+        "順列の連続部分列で、含まれる値も連続整数になる共通区間を木で表せる。",
+        "すべてのstrong common intervalと、linear nodeで追加される共通区間を区別できる。",
+        "全共通区間の列挙と、区間を列挙しない個数計算を選べる。",
+    ),
+})
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("algorithm/PermutationTree.py", "PermutationTreeNode"): {
+        "description": "順列木の一つのstrong common intervalと、その親子関係を保持するnode。",
+        "constructorCreates": "位置区間、値の最小・最大、node種別、親node番号、左から右に並ぶ子node番号を持つnodeを作る。通常はPermutationTreeが生成したnodesから取得する。",
+        "argumentDescriptions": {
+            "kind": "leaf・linear_asc・linear_desc・primeのいずれか。",
+            "left": "nodeが含む位置の左端。",
+            "right": "nodeが含む位置の、含めない右端。",
+            "minimum": "nodeに含まれる順列値の最小値。",
+            "maximum": "nodeに含まれる順列値の最大値。",
+            "parent": "親nodeのindex。rootでは-1。",
+            "children": "子nodeのindexを位置の左から右へ並べたlist。",
+        },
+    },
+    ("algorithm/PermutationTree.py", "PermutationTree"): {
+        "description": "順列のstrong common intervalを包含関係で結び、linear/primeを区別する共通区間分解木。",
+        "constructorCreates": "rootとnodesを持ち、共通区間の個数計算・全列挙・node内容の確認ができる状態を作る。",
+        "argumentDescriptions": {
+            "permutation": "0からN-1までを一度ずつ含む空でない順列。",
+        },
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("algorithm/PermutationTree.py", "PermutationTreeNode", "size"): {
+        "description": "nodeが表す位置区間の長さを返す。",
+        "returnFormat": "int",
+        "returnDescription": "right-left。nodeに含まれる順列要素数。",
+    },
+    ("algorithm/PermutationTree.py", "PermutationTreeNode", "__repr__"): {
+        "description": "node種別・区間・値の最小最大・親子番号を確認できる文字列を返す。",
+        "returnFormat": "str",
+        "returnDescription": "PermutationTreeNode(...)形式のdebug文字列。",
+    },
+    ("algorithm/PermutationTree.py", "PermutationTree", "count_intervals"): {
+        "description": "長さ1と順列全体を含むすべての共通区間の個数を、区間を列挙せず求める。",
+        "returnFormat": "int",
+        "returnDescription": "位置区間で区別した共通区間の総数。",
+    },
+    ("algorithm/PermutationTree.py", "PermutationTree", "intervals"): {
+        "description": "順列のすべての共通区間を半開区間で列挙する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "各要素は(left, right)。permutation[left:right]の値集合が連続整数になる。node構築順とjoin内の子区間順で並び、辞書順ではない。",
+    },
+    ("algorithm/PermutationTree.py", "PermutationTree", "tolist"): {
+        "description": "順列木の全nodeを、node index順のdictとして返す。",
+        "returnFormat": "list[dict[str, object]]",
+        "returnDescription": "result[i]はnode iのkind・left・right・minimum・maximum・parent・childrenを持つdict。childrenはcopyなので変更しても木を壊さない。",
+    },
+    ("algorithm/PermutationTree.py", "PermutationTree", "__str__"): {
+        "description": "tolist()と同じnode列を読みやすい文字列にする。",
+        "returnFormat": "str",
+        "returnDescription": "全nodeのdictをnode index順に並べた文字列。",
+    },
+    ("algorithm/PermutationTree.py", "PermutationTree", "__repr__"): {
+        "description": "型名とtolist()のnode列を含むdebug文字列を返す。",
+        "returnFormat": "str",
+        "returnDescription": "PermutationTree([...])形式の文字列。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "algorithm/PermutationTree.py": {
+        "PermutationTreeNode": "O(1)",
+        "size": "O(1)",
+        "__repr__": "O(C)、Cはchildren数",
+        "PermutationTree": "構築 O(N log N) time・O(N) memory",
+        "count_intervals": "O(N)",
+        "intervals": "O(N+K) time・O(K) memory、Kは返す共通区間数",
+        "tolist": "O(N)",
+        "__str__": "O(N)",
+    },
+})

@@ -160,6 +160,11 @@ def test_api_reference_has_actionable_semantics():
     assert "list[list[list[int]]]" in permutation_group
     assert "level長が[0, 2, 3]" in permutation_group
 
+    permutation_tree = documents["docs/api/algorithm/PermutationTree.md"]
+    assert "list[tuple[int, int]]" in permutation_tree
+    assert "permutation[left:right]の値集合が連続整数" in permutation_tree
+    assert "構築 O(N log N) time・O(N) memory" in permutation_tree
+
     middle_product = documents["docs/api/convolution/MiddleProduct.md"]
     assert "middle_product(first, second, mod=DEFAULT_MOD)" in middle_product
     assert r"c[i]=\sum_{j=0}^{m-1}" in middle_product

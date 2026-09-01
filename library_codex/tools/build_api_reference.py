@@ -53,6 +53,10 @@ MODULE_OVERRIDES = {
         "置換群の安定化列と軌道代表元",
         "O(N^2 K)を目安（Kは生成元数）",
     ),
+    "algorithm/PermutationTree.py": (
+        "順列の共通区間を表すstrong interval tree",
+        "構築 O(N log N)、全区間列挙 O(N+K)",
+    ),
     "convolution/MiddleProduct.py": (
         "長い列と短い列のずらし内積を求める高速middle product",
         "O(N log N)、短い入力では O(M(N-M+1))",
@@ -112,6 +116,10 @@ MODULE_OVERRIDES = {
 }
 
 CLASS_ORDER_OVERRIDES = {
+    "algorithm/PermutationTree.py": (
+        "PermutationTree",
+        "PermutationTreeNode",
+    ),
     "range_query/DynamicWaveletMatrix.py": (
         "DynamicWaveletMatrix",
         "CompressedDynamicWaveletMatrix",
