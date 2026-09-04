@@ -22,7 +22,7 @@ from library_codex.range_query.DisjointSparseTable import DisjointSparseTable
 静的列の半群区間積を扱う `DisjointSparseTable`。
 
 - constructor: [`DisjointSparseTable(op, lst)`](../../../range_query/DisjointSparseTable.py#L4)
-- 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`lst`: `lst`として使う入力
+- 引数: `op`: 結合的な二項演算 `op(left, right)`<br>`lst`: lstとして使う入力
 - 返り値: `DisjointSparseTable` instance
 - 計算量: —
 

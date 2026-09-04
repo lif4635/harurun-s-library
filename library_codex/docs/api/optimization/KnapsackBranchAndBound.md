@@ -8,7 +8,7 @@
 
 ## できること
 
-- `knapsack_branch_and_bound`: `knapsack`・`branch`・AND・`bound`を求める。
+- `knapsack_branch_and_bound`: knapsack branch and boundを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.optimization.KnapsackBranchAndBound import knapsack_branch_an
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`knapsack_branch_and_bound(values, weights, capacity)`](../../../optimization/KnapsackBranchAndBound.py#L3) | `knapsack`・`branch`・AND・`bound`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`weights`: 重みの列<br>`capacity`: 容量 | `best`（数値または入力要素型） | 最悪 O(2^N)、各nodeの上界評価は O(1) amortized |
+| [`knapsack_branch_and_bound(values, weights, capacity)`](../../../optimization/KnapsackBranchAndBound.py#L3) | knapsack branch and boundを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`weights`: 重みの列<br>`capacity`: 容量 | `best`（数値または入力要素型） | 最悪 O(2^N)、各nodeの上界評価は O(1) amortized |

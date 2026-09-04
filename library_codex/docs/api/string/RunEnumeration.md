@@ -9,7 +9,7 @@
 
 ## できること
 
-- `run_enumerate`: `run`・列挙を求める。
+- `run_enumerate`: run enumerateを求める。
 
 ## Import
 
@@ -21,4 +21,4 @@ from library_codex.string.RunEnumeration import run_enumerate
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`run_enumerate(sequence)`](../../../string/RunEnumeration.py#L4) | `run`・列挙を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`run_enumerate(sequence)`](../../../string/RunEnumeration.py#L4) | run enumerateを求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |

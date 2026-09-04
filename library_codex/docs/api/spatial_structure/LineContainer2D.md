@@ -28,5 +28,5 @@ from library_codex.spatial_structure.LineContainer2D import LineContainer2D
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`add(x, y)`](../../../spatial_structure/LineContainer2D.py#L61) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | `None` | — |
-| [`max_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L93) | method | 最大・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | 数値または入力要素型 `b * (self.ymax if b >= 0 else self.ymin)` / 答え（None） | — |
-| [`min_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L113) | method | 最小・値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `-self.max_value(-a, -b)` | — |
+| [`max_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L93) | method | 最大値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | 数値または入力要素型 `b * (self.ymax if b >= 0 else self.ymin)` / 答え（None） | — |
+| [`min_value(a, b)`](../../../spatial_structure/LineContainer2D.py#L113) | method | 最小値を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `-self.max_value(-a, -b)` | — |

@@ -30,8 +30,8 @@ word-size tree型の固定整数universe ordered setを扱う `FastSet`。
 | --- | --- | --- | --- | --- | --- |
 | [`add(value)`](../../../ordered_set/FastSet.py#L20) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値 | bool | — |
 | [`discard(value)`](../../../ordered_set/FastSet.py#L42) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値 | bool | — |
-| [`next(value)`](../../../ordered_set/FastSet.py#L62) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 数値または入力要素型 `index if index < self.n else -1` | — |
-| [`prev(value)`](../../../ordered_set/FastSet.py#L89) | method | `prev`を求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 0-indexedの位置（int）（数値または入力要素型） | — |
+| [`next(value)`](../../../ordered_set/FastSet.py#L62) | method | nextを求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 数値または入力要素型 `index if index < self.n else -1` | — |
+| [`prev(value)`](../../../ordered_set/FastSet.py#L89) | method | prevを求める。 | `value`: 追加・設定・問い合わせる値 | `-1` / 0-indexedの位置（int）（数値または入力要素型） | — |
 | [`min()`](../../../ordered_set/FastSet.py#L120) | method | 最小を求める。 | なし | 値 | — |
 | [`max()`](../../../ordered_set/FastSet.py#L126) | method | 最大を求める。 | なし | 値 | — |
 | [`__contains__(value)`](../../../ordered_set/FastSet.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool | — |

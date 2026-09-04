@@ -9,10 +9,10 @@
 
 ## できること
 
-- `manacher`: `manacher`を求める。
-- `manacher_even`: `manacher`・`even`を求める。
-- `palindrome_radii`: `palindrome`・`radii`を求める。
-- `enumerate_palindrome_lengths`: `palindrome`・`lengths`を列挙する。
+- `manacher`: manacherを求める。
+- `manacher_even`: manacher evenを求める。
+- `palindrome_radii`: palindrome radiiを求める。
+- `enumerate_palindrome_lengths`: palindrome lengthsを列挙する。
 
 ## Import
 
@@ -32,10 +32,10 @@ from library_codex.string.Manacher import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`manacher(sequence)`](../../../string/Manacher.py#L1) | `manacher`を求める。 | `sequence`: 入力列 | `radius`（数値または入力要素型） | — |
-| [`manacher_even(sequence)`](../../../string/Manacher.py#L30) | `manacher`・`even`を求める。 | `sequence`: 入力列 | `radius`（数値または入力要素型） | — |
-| [`palindrome_radii(sequence)`](../../../string/Manacher.py#L57) | `palindrome`・`radii`を求める。 | `sequence`: 入力列 | tuple(`manacher(sequence)`, `manacher_even(sequence)`) | — |
-| [`enumerate_palindrome_lengths(sequence)`](../../../string/Manacher.py#L61) | `palindrome`・`lengths`を列挙する。 | `sequence`: 入力列 | list[int] — 各中心の最長回文長を、文字中心と隙間中心の順に並べたlist。 | — |
-| [`enumerate_palindromes(sequence, include_empty=True)`](../../../string/Manacher.py#L74) | `palindromes`を列挙する。 | `sequence`: 入力列<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `True` | list[int] — 各中心で得られる回文半径を統合したlist。 | — |
-| [`get_palindromes(sequence)`](../../../string/Manacher.py#L96) | `palindromes`を取得する。 | `sequence`: 入力列 | `enumerate_palindromes(sequence, False)` | — |
-| [`enumerate_leftmost_palindromes(sequence)`](../../../string/Manacher.py#L100) | `leftmost`・`palindromes`を列挙する。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`manacher(sequence)`](../../../string/Manacher.py#L1) | manacherを求める。 | `sequence`: 入力列 | `radius`（数値または入力要素型） | — |
+| [`manacher_even(sequence)`](../../../string/Manacher.py#L30) | manacher evenを求める。 | `sequence`: 入力列 | `radius`（数値または入力要素型） | — |
+| [`palindrome_radii(sequence)`](../../../string/Manacher.py#L57) | palindrome radiiを求める。 | `sequence`: 入力列 | tuple(`manacher(sequence)`, `manacher_even(sequence)`) | — |
+| [`enumerate_palindrome_lengths(sequence)`](../../../string/Manacher.py#L61) | palindrome lengthsを列挙する。 | `sequence`: 入力列 | list[int] — 各中心の最長回文長を、文字中心と隙間中心の順に並べたlist。 | — |
+| [`enumerate_palindromes(sequence, include_empty=True)`](../../../string/Manacher.py#L74) | palindromesを列挙する。 | `sequence`: 入力列<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `True` | list[int] — 各中心で得られる回文半径を統合したlist。 | — |
+| [`get_palindromes(sequence)`](../../../string/Manacher.py#L96) | palindromesを取得する。 | `sequence`: 入力列 | `enumerate_palindromes(sequence, False)` | — |
+| [`enumerate_leftmost_palindromes(sequence)`](../../../string/Manacher.py#L100) | leftmost palindromesを列挙する。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

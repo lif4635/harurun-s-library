@@ -9,9 +9,9 @@ P再帰列の推定・列挙・巨大添字項。
 
 ## できること
 
-- `find_p_recursive`: `p`・`recursive`を探索する。
-- `enumerate_p_recursive`: `p`・`recursive`を列挙する。
-- `kth_term_p_recursive`: k番目・`term`・`p`・`recursive`を求める。
+- `find_p_recursive`: p recursiveを探索する。
+- `enumerate_p_recursive`: p recursiveを列挙する。
+- `kth_term_p_recursive`: kth term p recursiveを求める。
 
 ## Import
 
@@ -23,6 +23,6 @@ from library_codex.combinatorial_series.PRecursive import find_p_recursive, enum
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`find_p_recursive(sequence, coefficient_degree, mod=DEFAULT_MOD)`](../../../combinatorial_series/PRecursive.py#L21) | `p`・`recursive`を探索する。 | `sequence`: 入力列<br>`coefficient_degree`: 係数・次数として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
-| [`enumerate_p_recursive(initial, recurrence, count, mod=DEFAULT_MOD)`](../../../combinatorial_series/PRecursive.py#L64) | `p`・`recursive`を列挙する。 | `initial`: 初期値または初項列<br>`recurrence`: P再帰式・線形漸化式の係数<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
-| [`kth_term_p_recursive(initial, recurrence, index, mod=DEFAULT_MOD)`](../../../combinatorial_series/PRecursive.py#L89) | k番目・`term`・`p`・`recursive`を求める。 | `initial`: 初期値または初項列<br>`recurrence`: P再帰式・線形漸化式の係数<br>`index`: 位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / 数値または入力要素型 `numerator % mod * pow(denominator_product, -1, mod) % mod` | — |
+| [`find_p_recursive(sequence, coefficient_degree, mod=DEFAULT_MOD)`](../../../combinatorial_series/PRecursive.py#L21) | p recursiveを探索する。 | `sequence`: 入力列<br>`coefficient_degree`: 係数次数として使う入力<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`enumerate_p_recursive(initial, recurrence, count, mod=DEFAULT_MOD)`](../../../combinatorial_series/PRecursive.py#L64) | p recursiveを列挙する。 | `initial`: 初期値または初項列<br>`recurrence`: P再帰式・線形漸化式の係数<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`kth_term_p_recursive(initial, recurrence, index, mod=DEFAULT_MOD)`](../../../combinatorial_series/PRecursive.py#L89) | kth term p recursiveを求める。 | `initial`: 初期値または初項列<br>`recurrence`: P再帰式・線形漸化式の係数<br>`index`: 位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / 数値または入力要素型 `numerator % mod * pow(denominator_product, -1, mod) % mod` | — |

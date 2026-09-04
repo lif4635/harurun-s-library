@@ -9,8 +9,8 @@
 
 ## できること
 
-- `dijkstra_radix_heap`: `dijkstra`・`radix`・`heap`を求める。
-- `dijkstra_radix_heap_restore`: `dijkstra`・`radix`・`heap`・`restore`を求める。
+- `dijkstra_radix_heap`: dijkstra radix heapを求める。
+- `dijkstra_radix_heap_restore`: dijkstra radix heap restoreを求める。
 - `restore_path`: pathを復元する。
 
 ## Import
@@ -23,6 +23,6 @@ from library_codex.shortest_path.DijkstraRadixHeap import dijkstra_radix_heap, d
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`dijkstra_radix_heap(edge, start=0, goal=None)`](../../../shortest_path/DijkstraRadixHeap.py#L4) | `dijkstra`・`radix`・`heap`を求める。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | `d` / 数値または入力要素型 `dist if goal is None else -1` | — |
-| [`dijkstra_radix_heap_restore(edge, start=0)`](../../../shortest_path/DijkstraRadixHeap.py#L24) | `dijkstra`・`radix`・`heap`・`restore`を求める。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0` | tuple(`dist`（数値または入力要素型）, 親情報（数値または入力要素型）) | — |
+| [`dijkstra_radix_heap(edge, start=0, goal=None)`](../../../shortest_path/DijkstraRadixHeap.py#L4) | dijkstra radix heapを求める。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | `d` / 数値または入力要素型 `dist if goal is None else -1` | — |
+| [`dijkstra_radix_heap_restore(edge, start=0)`](../../../shortest_path/DijkstraRadixHeap.py#L24) | dijkstra radix heap restoreを求める。 | `edge`: 辺または隣接list<br>`start`: 始点・開始位置。省略時: `0` | tuple(`dist`（数値または入力要素型）, 親情報（数値または入力要素型）) | — |
 | [`restore_path(parent, goal)`](../../../shortest_path/DijkstraRadixHeap.py#L44) | pathを復元する。 | `parent`: 親頂点・親配列<br>`goal`: 終点。Noneなら全体を処理 | list[int] — 経路上の頂点または辺を順に並べた列 | — |

@@ -9,7 +9,7 @@
 ## できること
 
 - `multipoint_evaluation_geometric`: 入力した多項式・式を指定点で評価する。
-- `interpolate_geometric`: 補間・`geometric`を求める。
+- `interpolate_geometric`: interpolate geometricを求める。
 
 ## Import
 
@@ -22,4 +22,4 @@ from library_codex.polynomial.GeometricMultipointEvaluation import multipoint_ev
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
 | [`multipoint_evaluation_geometric(polynomial, initial, ratio, count, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L17) | 入力した多項式・式を指定点で評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — polynomial(initial*ratio^i)をi=0..count-1の順に並べたlist。 | O(M(N+C)) modular operations |
-| [`interpolate_geometric(values, initial, ratio, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L63) | 補間・`geometric`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` | O(M(N) log N) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`interpolate_geometric(values, initial, ratio, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L63) | interpolate geometricを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` | O(M(N) log N) modular operations（M(L)は長さLの多項式乗算cost） |

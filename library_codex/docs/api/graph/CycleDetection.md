@@ -10,7 +10,7 @@
 ## できること
 
 - `find_cycle`: 閉路を探索する。
-- `cycle_detection`: 閉路・`detection`を求める。
+- `cycle_detection`: cycle detectionを求める。
 
 ## Import
 
@@ -23,4 +23,4 @@ from library_codex.graph.CycleDetection import find_cycle, cycle_detection
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
 | [`find_cycle(n, edges, directed=True)`](../../../graph/CycleDetection.py#L1) | 閉路を探索する。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | tuple[list[int], list[int]] — 閉路上の頂点列と、同じ順で閉路を構成するedge ID列。閉路がなければ([], [])。 | — |
-| [`cycle_detection(n, edges, directed=True)`](../../../graph/CycleDetection.py#L52) | 閉路・`detection`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | `find_cycle(n, edges, directed)[1]` | — |
+| [`cycle_detection(n, edges, directed=True)`](../../../graph/CycleDetection.py#L52) | cycle detectionを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `True` | `find_cycle(n, edges, directed)[1]` | — |

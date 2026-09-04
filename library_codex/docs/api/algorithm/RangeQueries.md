@@ -29,5 +29,5 @@ Mo's algorithmによるoffline区間queryを扱う `Mo`。
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`add_query(left, right)`](../../../algorithm/RangeQueries.py#L14) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ をオフライン query として登録する。 | `left`: query に含める左端 index。<br>`right`: query に含めない右端 index。 | int — 0 始まりの query ID。run の返り値では同じ index にこの query の答えが入る。 | O(1) |
-| [`order()`](../../../algorithm/RangeQueries.py#L20) | method | `order`を求める。 | なし | list[tuple[int, int, int]] — Mo順の(left, right, query_id)列 | O(Q log Q) |
+| [`order()`](../../../algorithm/RangeQueries.py#L20) | method | orderを求める。 | なし | list[tuple[int, int, int]] — Mo順の(left, right, query_id)列 | O(Q log Q) |
 | [`run(add_left, add_right, remove_left, remove_right, get)`](../../../algorithm/RangeQueries.py#L30) | method | 登録した区間queryをMo順に処理し、get()の結果をquery ID順に返す。 | `add_left`: 処理中に呼び出す関数または操作<br>`add_right`: 処理中に呼び出す関数または操作<br>`remove_left`: 処理中に呼び出す関数または操作<br>`remove_right`: 処理中に呼び出す関数または操作<br>`get`: 処理中に呼び出す関数または操作 | list[object] — query ID順に並べたget()の返り値 | O((N+Q) sqrt(N)) 回程度のcallback |

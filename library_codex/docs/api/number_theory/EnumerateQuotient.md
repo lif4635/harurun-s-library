@@ -8,7 +8,7 @@ nを整数で割った商が等しい添字区間を列挙する。
 
 ## できること
 
-- `enumerate_quotient`: `quotient`を列挙する。
+- `enumerate_quotient`: quotientを列挙する。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.number_theory.EnumerateQuotient import enumerate_quotient
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`enumerate_quotient(number)`](../../../number_theory/EnumerateQuotient.py#L3) | `quotient`を列挙する。 | `number`: 整数 | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |
+| [`enumerate_quotient(number)`](../../../number_theory/EnumerateQuotient.py#L3) | quotientを列挙する。 | `number`: 整数 | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |

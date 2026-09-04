@@ -9,7 +9,7 @@
 
 ## できること
 
-- `incremental_scc_offline`: `incremental`・`scc`・`offline`を求める。
+- `incremental_scc_offline`: incremental scc offlineを求める。
 - `ThreeEdgeConnectedComponents`: 三辺連結成分・辺追加offline SCC統合列を扱う `ThreeEdgeConnectedComponents`。
 
 ## Import
@@ -22,7 +22,7 @@ from library_codex.graph_connectivity.AdvancedConnectivity import incremental_sc
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`incremental_scc_offline(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L162) | `incremental`・`scc`・`offline`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 計算結果 | O((N+M) |
+| [`incremental_scc_offline(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L162) | incremental scc offlineを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 計算結果 | O((N+M) |
 
 ## Class `ThreeEdgeConnectedComponents`
 

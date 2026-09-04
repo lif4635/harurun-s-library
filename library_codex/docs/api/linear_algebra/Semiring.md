@@ -10,7 +10,7 @@
 
 - `semiring_matrix_multiply`: 2つの入力をこの構造の演算規則で乗算する。
 - `semiring_matrix_power`: 入力した値・多項式を指定指数だけ累乗する。
-- `semiring_linear_recurrence`: `semiring`・線形・`recurrence`を求める。
+- `semiring_linear_recurrence`: semiring linear recurrenceを求める。
 - `Semiring`: 任意の加法・乗法を指定した半環上で行列演算と線形漸化式を計算するを扱う `Semiring`。
 
 ## Import
@@ -24,15 +24,15 @@ from library_codex.linear_algebra.Semiring import semiring_matrix_multiply, semi
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
 | [`semiring_matrix_multiply(first, second, add, multiply, zero)`](../../../linear_algebra/Semiring.py#L26) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値 | list[list[number]] — 各行をlistで持つ行列 | H*D*W回ずつのmultiply/add呼び出し |
-| [`semiring_matrix_power(matrix, exponent, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L40) | 入力した値・多項式を指定指数だけ累乗する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | list[list[number]] — 各行をlistで持つ行列 | O(N^3 log exponent) 回のmultiply/add呼び出し |
-| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L55) | `semiring`・線形・`recurrence`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 位置<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力 | `initial[index]` / 答え | O(K^2 log index) 回のmultiply/add呼び出し |
+| [`semiring_matrix_power(matrix, exponent, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L40) | 入力した値・多項式を指定指数だけ累乗する。 | `matrix`: 行をlistで持つ行列<br>`exponent`: 非負の指数<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: oneとして使う入力 | list[list[number]] — 各行をlistで持つ行列 | O(N^3 log exponent) 回のmultiply/add呼び出し |
+| [`semiring_linear_recurrence(initial, coefficients, index, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L55) | semiring linear recurrenceを求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 位置<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: oneとして使う入力 | `initial[index]` / 答え | O(K^2 log index) 回のmultiply/add呼び出し |
 
 ## Class `Semiring`
 
 任意の加法・乗法を指定した半環上で行列演算と線形漸化式を計算するを扱う `Semiring`。
 
 - constructor: [`Semiring(value, add, multiply, zero, one)`](../../../linear_algebra/Semiring.py#L6)
-- 引数: `value`: 追加・設定・問い合わせる値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: `one`として使う入力
+- 引数: `value`: 追加・設定・問い合わせる値<br>`add`: 処理中に呼び出す関数または操作<br>`multiply`: 積を計算するcallback<br>`zero`: 加法単位元・0相当の値<br>`one`: oneとして使う入力
 - 返り値: `Semiring` instance
 - 計算量: —
 

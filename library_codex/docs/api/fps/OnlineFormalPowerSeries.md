@@ -9,8 +9,8 @@
 
 ## できること
 
-- `differential_equation`: `differential`・`equation`を求める。
-- `newton_method`: `newton`・`method`を求める。
+- `differential_equation`: differential equationを求める。
+- `newton_method`: newton methodを求める。
 - `RelaxedConvolution`: 係数を逐次確定するオンラインFPS演算を扱う `RelaxedConvolution`。
 - `RelaxedInverse`: 係数を逐次確定するオンラインFPS演算を扱う `RelaxedInverse`。
 - `RelaxedExponential`: 係数を逐次確定するオンラインFPS演算を扱う `RelaxedExponential`。
@@ -33,8 +33,8 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`differential_equation(function, derivative, initial, degree, mod=DEFAULT_MOD)`](../../../fps/OnlineFormalPowerSeries.py#L343) | `differential`・`equation`を求める。 | `function`: callback関数<br>`derivative`: 微分係数を計算するcallback<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` | — |
-| [`newton_method(calculate, initial, degree, mod=DEFAULT_MOD)`](../../../fps/OnlineFormalPowerSeries.py#L370) | `newton`・`method`を求める。 | `calculate`: 処理中に呼び出す関数または操作<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` | — |
+| [`differential_equation(function, derivative, initial, degree, mod=DEFAULT_MOD)`](../../../fps/OnlineFormalPowerSeries.py#L343) | differential equationを求める。 | `function`: callback関数<br>`derivative`: 微分係数を計算するcallback<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` | — |
+| [`newton_method(calculate, initial, degree, mod=DEFAULT_MOD)`](../../../fps/OnlineFormalPowerSeries.py#L370) | newton methodを求める。 | `calculate`: 処理中に呼び出す関数または操作<br>`initial`: 初期値または初項列<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `result[:degree]` | — |
 
 ## Class `RelaxedConvolution`
 
@@ -47,7 +47,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`next(first, second)`](../../../fps/OnlineFormalPowerSeries.py#L28) | method | `next`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.result[position]` | — |
+| [`next(first, second)`](../../../fps/OnlineFormalPowerSeries.py#L28) | method | nextを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `self.result[position]` | — |
 
 ## Class `RelaxedInverse`
 
@@ -60,7 +60,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L90) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` | — |
+| [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L90) | method | nextを求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` | — |
 | [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L100) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
 
 ## Class `RelaxedExponential`
@@ -74,7 +74,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L114) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` | — |
+| [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L114) | method | nextを求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` | — |
 | [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L128) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
 
 ## Class `RelaxedLogarithm`
@@ -88,7 +88,7 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L144) | method | `next`を求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` | — |
+| [`next(value)`](../../../fps/OnlineFormalPowerSeries.py#L144) | method | nextを求める。 | `value`: 追加・設定・問い合わせる値 | `self.values[position]` | — |
 | [`__getitem__(index)`](../../../fps/OnlineFormalPowerSeries.py#L159) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
 
 ## Class `OnlineFormalPowerSeries`
@@ -102,8 +102,8 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`set_corner(series)`](../../../fps/OnlineFormalPowerSeries.py#L174) | method | `corner`を設定する。 | `series`: 昇冪の形式的冪級数係数列 | `self` | — |
-| [`set_function(function)`](../../../fps/OnlineFormalPowerSeries.py#L178) | method | `function`を設定する。 | `function`: callback関数 | `self` | — |
+| [`set_corner(series)`](../../../fps/OnlineFormalPowerSeries.py#L174) | method | cornerを設定する。 | `series`: 昇冪の形式的冪級数係数列 | `self` | — |
+| [`set_function(function)`](../../../fps/OnlineFormalPowerSeries.py#L178) | method | functionを設定する。 | `function`: callback関数 | `self` | — |
 | [`set(other)`](../../../fps/OnlineFormalPowerSeries.py#L182) | method | 指定位置・状態を値で置き換える。 | `other`: 同じ型のもう一方のobject・値 | `self` | — |
 | [`get(index)`](../../../fps/OnlineFormalPowerSeries.py#L186) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | — |
 | [`prefix(size)`](../../../fps/OnlineFormalPowerSeries.py#L202) | method | prefixを求める。 | `size`: 要素数・universe size | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `self.values[:size]` | — |
@@ -111,10 +111,10 @@ from library_codex.fps.OnlineFormalPowerSeries import (
 | [`__sub__(other)`](../../../fps/OnlineFormalPowerSeries.py#L224) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | OnlineFormalPowerSeries instance | — |
 | [`__rsub__(other)`](../../../fps/OnlineFormalPowerSeries.py#L230) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self._coerce(other, self.mod) - self` | — |
 | [`__neg__()`](../../../fps/OnlineFormalPowerSeries.py#L233) | method | -obj。 | なし | OnlineFormalPowerSeries instance | — |
-| [`scale(scalar)`](../../../fps/OnlineFormalPowerSeries.py#L238) | method | `scale`を求める。 | `scalar`: scalar倍する値 | OnlineFormalPowerSeries instance | — |
+| [`scale(scalar)`](../../../fps/OnlineFormalPowerSeries.py#L238) | method | scaleを求める。 | `scalar`: scalar倍する値 | OnlineFormalPowerSeries instance | — |
 | [`__mul__(other)`](../../../fps/OnlineFormalPowerSeries.py#L243) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | `self.scale(other)` / OnlineFormalPowerSeries instance | — |
-| [`shift_left(amount)`](../../../fps/OnlineFormalPowerSeries.py#L269) | method | `shift`・左を求める。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance | — |
-| [`shift_right(amount)`](../../../fps/OnlineFormalPowerSeries.py#L275) | method | `shift`・右を求める。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance | — |
+| [`shift_left(amount)`](../../../fps/OnlineFormalPowerSeries.py#L269) | method | shift leftを求める。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance | — |
+| [`shift_right(amount)`](../../../fps/OnlineFormalPowerSeries.py#L275) | method | shift rightを求める。 | `amount`: 加算量・移動量 | OnlineFormalPowerSeries instance | — |
 | [`derivative()`](../../../fps/OnlineFormalPowerSeries.py#L280) | method | 入力した多項式・級数を形式微分する。 | なし | OnlineFormalPowerSeries instance | — |
 | [`integral()`](../../../fps/OnlineFormalPowerSeries.py#L287) | method | 入力した多項式・級数を形式積分する。 | なし | OnlineFormalPowerSeries instance | — |
 | [`inverse()`](../../../fps/OnlineFormalPowerSeries.py#L293) | method | 逆元・逆変換を求める。 | なし | OnlineFormalPowerSeries instance | — |

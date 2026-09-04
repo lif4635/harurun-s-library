@@ -8,8 +8,8 @@
 
 ## できること
 
-- `polynomial_inverse_mod`: 多項式・逆元・`mod`を計算する。
-- `polynomial_pow_mod`: 多項式・`pow`・`mod`を求める。
+- `polynomial_inverse_mod`: polynomial inverse modを計算する。
+- `polynomial_pow_mod`: polynomial pow modを求める。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.polynomial.PolynomialModularPower import polynomial_inverse_m
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L18) | 多項式・逆元・`mod`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `poly_mod(inverse, modulus, mod)` | polynomial_extended_gcd(N) + polynomial division |
-| [`polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L27) | 多項式・`pow`・`mod`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`exponent`: 非負の指数<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | O(M(N) log exponent) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L18) | polynomial inverse modを計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `poly_mod(inverse, modulus, mod)` | polynomial_extended_gcd(N) + polynomial division |
+| [`polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L27) | polynomial pow modを求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`exponent`: 非負の指数<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | O(M(N) log exponent) modular operations（M(L)は長さLの多項式乗算cost） |

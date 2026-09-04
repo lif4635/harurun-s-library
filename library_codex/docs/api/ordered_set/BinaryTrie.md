@@ -31,13 +31,13 @@ multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
 | [`add(value, amount=1)`](../../../ordered_set/BinaryTrie.py#L13) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `None` | — |
 | [`count_value(value)`](../../../ordered_set/BinaryTrie.py#L39) | method | 値の個数を求める。 | `value`: 追加・設定・問い合わせる値 | `0` / `self.count[node]` | — |
 | [`discard(value, amount=1)`](../../../ordered_set/BinaryTrie.py#L50) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `0` / `amount` | — |
-| [`xor_all(value)`](../../../ordered_set/BinaryTrie.py#L65) | method | XOR・全体を求める。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
+| [`xor_all(value)`](../../../ordered_set/BinaryTrie.py#L65) | method | XOR全体を求める。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
 | [`kth(index)`](../../../ordered_set/BinaryTrie.py#L70) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置 | k番目の値 | — |
 | [`min()`](../../../ordered_set/BinaryTrie.py#L88) | method | 最小を求める。 | なし | `self.kth(0)` | — |
 | [`max()`](../../../ordered_set/BinaryTrie.py#L91) | method | 最大を求める。 | なし | `self.kth(self.count[0] - 1)` | — |
 | [`bisect_left(value)`](../../../ordered_set/BinaryTrie.py#L94) | method | 条件を満たす最初の位置を二分探索する。 | `value`: 追加・設定・問い合わせる値 | 境界index（int） | — |
-| [`xor_min(value)`](../../../ordered_set/BinaryTrie.py#L112) | method | XOR・最小を求める。 | `value`: 追加・設定・問い合わせる値 | `stored`（int） | — |
-| [`xor_max(value)`](../../../ordered_set/BinaryTrie.py#L128) | method | XOR・最大を求める。 | `value`: 追加・設定・問い合わせる値 | `self.xor_min(value ^ mask)` | — |
+| [`xor_min(value)`](../../../ordered_set/BinaryTrie.py#L112) | method | XOR最小を求める。 | `value`: 追加・設定・問い合わせる値 | `stored`（int） | — |
+| [`xor_max(value)`](../../../ordered_set/BinaryTrie.py#L128) | method | XOR最大を求める。 | `value`: 追加・設定・問い合わせる値 | `self.xor_min(value ^ mask)` | — |
 | [`__contains__(value)`](../../../ordered_set/BinaryTrie.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool | — |
 | [`__len__()`](../../../ordered_set/BinaryTrie.py#L135) | method | len(obj)。 | なし | 要素数（int） | — |
 | [`tolist()`](../../../ordered_set/BinaryTrie.py#L138) | method | 重複を含む現在の整数を昇順listで返す。O(KB)。 | なし | list[int] — lazy xor反映後の整数を重複込みで昇順に並べた列 | O(KB) |

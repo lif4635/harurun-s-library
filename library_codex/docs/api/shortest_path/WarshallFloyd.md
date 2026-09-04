@@ -8,7 +8,7 @@
 
 ## できること
 
-- `warshall_floyd`: `warshall`・`floyd`を求める。
+- `warshall_floyd`: warshall floydを求める。
 
 ## Import
 
@@ -26,4 +26,4 @@ from library_codex.shortest_path.WarshallFloyd import warshall_floyd
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`warshall_floyd(matrix)`](../../../shortest_path/WarshallFloyd.py#L5) | `warshall`・`floyd`を求める。 | `matrix`: 行をlistで持つ行列 | list[number] — 頂点または位置ごとの距離 | O(V^3) |
+| [`warshall_floyd(matrix)`](../../../shortest_path/WarshallFloyd.py#L5) | warshall floydを求める。 | `matrix`: 行をlistで持つ行列 | list[number] — 頂点または位置ごとの距離 | O(V^3) |

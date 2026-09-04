@@ -8,7 +8,7 @@ Gaussian整数の四則演算と最大公約数を扱う。
 
 ## できること
 
-- `gaussian_gcd`: `gaussian`・GCDを求める。
+- `gaussian_gcd`: gaussian gcdを求める。
 - `GaussianInteger`: Gaussian整数の四則演算と最大公約数を扱うを扱う `GaussianInteger`。
 
 ## Import
@@ -21,23 +21,23 @@ from library_codex.number_theory.GaussianInteger import gaussian_gcd, GaussianIn
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`gaussian_gcd(first, second)`](../../../number_theory/GaussianInteger.py#L84) | `gaussian`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | O(log min(norm(first), norm(second))) 回のGaussian整数除算 |
+| [`gaussian_gcd(first, second)`](../../../number_theory/GaussianInteger.py#L84) | gaussian gcdを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | O(log min(norm(first), norm(second))) 回のGaussian整数除算 |
 
 ## Class `GaussianInteger`
 
 Gaussian整数の四則演算と最大公約数を扱うを扱う `GaussianInteger`。
 
 - constructor: [`GaussianInteger(real=0, imag=0)`](../../../number_theory/GaussianInteger.py#L6)
-- 引数: `real`: `real`として使う入力。省略時: `0`<br>`imag`: `imag`として使う入力。省略時: `0`
+- 引数: `real`: realとして使う入力。省略時: `0`<br>`imag`: imagとして使う入力。省略時: `0`
 - 返り値: `GaussianInteger` instance
 - 計算量: —
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`x`](../../../number_theory/GaussianInteger.py#L11) | property | `x`を求める。 | なし | `self.real` | O(1) |
-| [`y`](../../../number_theory/GaussianInteger.py#L15) | property | `y`を求める。 | なし | `self.imag` | O(1) |
-| [`norm()`](../../../number_theory/GaussianInteger.py#L18) | method | `norm`を求める。 | なし | 数値または入力要素型 `self.real * self.real + self.imag * self.imag` | O(M(B)) bit time（M(L)は長さLの多項式乗算cost） |
-| [`conjugate()`](../../../number_theory/GaussianInteger.py#L21) | method | `conjugate`を求める。 | なし | GaussianInteger instance | O(1) |
+| [`x`](../../../number_theory/GaussianInteger.py#L11) | property | xを求める。 | なし | `self.real` | O(1) |
+| [`y`](../../../number_theory/GaussianInteger.py#L15) | property | yを求める。 | なし | `self.imag` | O(1) |
+| [`norm()`](../../../number_theory/GaussianInteger.py#L18) | method | normを求める。 | なし | 数値または入力要素型 `self.real * self.real + self.imag * self.imag` | O(M(B)) bit time（M(L)は長さLの多項式乗算cost） |
+| [`conjugate()`](../../../number_theory/GaussianInteger.py#L21) | method | conjugateを求める。 | なし | GaussianInteger instance | O(1) |
 | [`__add__(other)`](../../../number_theory/GaussianInteger.py#L26) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | O(B) bit time（Bは整数成分のbit長） |
 | [`__sub__(other)`](../../../number_theory/GaussianInteger.py#L29) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | GaussianInteger instance | O(B) bit time（Bは整数成分のbit長） |
 | [`__neg__()`](../../../number_theory/GaussianInteger.py#L32) | method | -obj。 | なし | GaussianInteger instance | O(B) bit time（Bは整数成分のbit長） |

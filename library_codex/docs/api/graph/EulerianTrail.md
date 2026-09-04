@@ -9,9 +9,9 @@
 
 ## できること
 
-- `eulerian_trail`: `eulerian`・`trail`を求める。
-- `eulerian_cycle`: `eulerian`・閉路を求める。
-- `eulerian_trails`: `eulerian`・`trails`を求める。
+- `eulerian_trail`: eulerian trailを求める。
+- `eulerian_cycle`: eulerian cycleを求める。
+- `eulerian_trails`: eulerian trailsを求める。
 
 ## Import
 
@@ -23,6 +23,6 @@ from library_codex.graph.EulerianTrail import eulerian_trail, eulerian_cycle, eu
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`eulerian_trail(n, edges, directed=False, start=None, lexicographic=False)`](../../../graph/EulerianTrail.py#L1) | `eulerian`・`trail`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None`<br>`lexicographic`: `lexicographic`として使う入力。省略時: `False` | tuple(list `[start]`, list `[]`) / tuple — 用途欄に示した複数の結果を順に格納 / tuple(`vertices`（list）, `trail`（list）) / `None` | O(E log E) with lexicographic=True、otherwise O(V+E) |
-| [`eulerian_cycle(n, edges, directed=False, start=None, lexicographic=False)`](../../../graph/EulerianTrail.py#L98) | `eulerian`・閉路を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None`<br>`lexicographic`: `lexicographic`として使う入力。省略時: `False` | 計算結果 / `None` | O(E log E) with lexicographic=True、otherwise O(V+E) |
-| [`eulerian_trails(n, edges, directed=False)`](../../../graph/EulerianTrail.py#L109) | `eulerian`・`trails`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 / `None` | — |
+| [`eulerian_trail(n, edges, directed=False, start=None, lexicographic=False)`](../../../graph/EulerianTrail.py#L1) | eulerian trailを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None`<br>`lexicographic`: lexicographicとして使う入力。省略時: `False` | tuple(list `[start]`, list `[]`) / tuple — 用途欄に示した複数の結果を順に格納 / tuple(`vertices`（list）, `trail`（list）) / `None` | O(E log E) with lexicographic=True、otherwise O(V+E) |
+| [`eulerian_cycle(n, edges, directed=False, start=None, lexicographic=False)`](../../../graph/EulerianTrail.py#L98) | eulerian cycleを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False`<br>`start`: 始点・開始位置。省略時: `None`<br>`lexicographic`: lexicographicとして使う入力。省略時: `False` | 計算結果 / `None` | O(E log E) with lexicographic=True、otherwise O(V+E) |
+| [`eulerian_trails(n, edges, directed=False)`](../../../graph/EulerianTrail.py#L109) | eulerian trailsを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`directed`: Trueなら有向グラフとして扱う。省略時: `False` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 / `None` | — |

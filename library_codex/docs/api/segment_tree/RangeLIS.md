@@ -9,7 +9,7 @@ Seaweed monoidによる静的区間LIS。
 
 ## できること
 
-- `lis_brute`: `lis`・`brute`を求める。
+- `lis_brute`: lis bruteを求める。
 - `RangeLIS`: Seaweed monoidによる静的区間LISを扱う `RangeLIS`。
 
 ## Import
@@ -22,7 +22,7 @@ from library_codex.segment_tree.RangeLIS import lis_brute, RangeLIS
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`lis_brute(sequence)`](../../../segment_tree/RangeLIS.py#L245) | `lis`・`brute`を求める。 | `sequence`: 入力列 | `len(tails)` | — |
+| [`lis_brute(sequence)`](../../../segment_tree/RangeLIS.py#L245) | lis bruteを求める。 | `sequence`: 入力列 | `len(tails)` | — |
 
 ## Class `RangeLIS`
 

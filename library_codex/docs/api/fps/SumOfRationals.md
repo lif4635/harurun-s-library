@@ -8,7 +8,7 @@
 
 ## できること
 
-- `sum_of_rationals`: 和・`of`・`rationals`を計算する。
+- `sum_of_rationals`: sum of rationalsを計算する。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.fps.SumOfRationals import sum_of_rationals
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`sum_of_rationals(fractions, mod=DEFAULT_MOD)`](../../../fps/SumOfRationals.py#L14) | 和・`of`・`rationals`を計算する。 | `fractions`: `(numerator, denominator)` の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[0]`, list `[1]`) / tuple(`numerator`（list）, `denominator`（list）) | O(M(N) log K) modular operations（Kは分数数、Nは最終次数）（M(L)は長さLの多項式乗算cost） |
+| [`sum_of_rationals(fractions, mod=DEFAULT_MOD)`](../../../fps/SumOfRationals.py#L14) | sum of rationalsを計算する。 | `fractions`: `(numerator, denominator)` の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[0]`, list `[1]`) / tuple(`numerator`（list）, `denominator`（list）) | O(M(N) log K) modular operations（Kは分数数、Nは最終次数）（M(L)は長さLの多項式乗算cost） |

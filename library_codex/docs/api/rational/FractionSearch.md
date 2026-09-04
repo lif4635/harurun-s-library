@@ -9,7 +9,7 @@ Stern--Brocot/Farey型の有理数探索。
 
 ## できること
 
-- `stern_brocot_binary_search`: `stern`・`brocot`・二分・`search`を求める。
+- `stern_brocot_binary_search`: stern brocot binary searchを求める。
 
 ## Import
 
@@ -21,4 +21,4 @@ from library_codex.rational.FractionSearch import stern_brocot_binary_search
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`stern_brocot_binary_search(predicate, limit)`](../../../rational/FractionSearch.py#L4) | `stern`・`brocot`・二分・`search`を求める。 | `predicate`: 判定callback<br>`limit`: 上限。NoneならAPI既定の上限 | tuple(`node.lower_bound()`, `node.upper_bound()`) / tuple(tuple `(0, 1)`, tuple `(0, 1)`) | — |
+| [`stern_brocot_binary_search(predicate, limit)`](../../../rational/FractionSearch.py#L4) | stern brocot binary searchを求める。 | `predicate`: 判定callback<br>`limit`: 上限。NoneならAPI既定の上限 | tuple(`node.lower_bound()`, `node.upper_bound()`) / tuple(tuple `(0, 1)`, tuple `(0, 1)`) | — |

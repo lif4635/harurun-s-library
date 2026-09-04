@@ -29,9 +29,9 @@ Stern-Brocot木上の有理数と経路を扱うを扱う `SternBrocotNode`。
 | --- | --- | --- | --- | --- | --- |
 | [`get()`](../../../rational/SternBrocotNode.py#L39) | method | 現在nodeが表す正の既約分数を返す。 | なし | tuple[int, int] — (numerator, denominator)。値はnumerator/denominatorで、両方とも正、gcdは1。 | O(1) |
 | [`lower_bound()`](../../../rational/SternBrocotNode.py#L42) | method | 指定値以上となる最初の位置を返す。 | なし | 条件を満たす最小index（int。存在しなければsize） | O(1) |
-| [`upper_bound()`](../../../rational/SternBrocotNode.py#L45) | method | `upper`・`bound`を求める。 | なし | tuple(`self.rx`, `self.ry`) | O(1) |
+| [`upper_bound()`](../../../rational/SternBrocotNode.py#L45) | method | upper boundを求める。 | なし | tuple(`self.rx`, `self.ry`) | O(1) |
 | [`depth()`](../../../rational/SternBrocotNode.py#L48) | method | Stern–Brocot木の根1/1から現在の有理数までの辺数を返す。 | なし | `sum((abs(step) for step in self.path))` | O(R)（Rはrun-length path長） |
-| [`go_left(steps=1)`](../../../rational/SternBrocotNode.py#L51) | method | `go`・左を求める。 | `steps`: 移動step数。省略時: `1` | `self` | 償却 O(1) |
-| [`go_right(steps=1)`](../../../rational/SternBrocotNode.py#L64) | method | `go`・右を求める。 | `steps`: 移動step数。省略時: `1` | `self` | 償却 O(1) |
-| [`go_parent(steps=1)`](../../../rational/SternBrocotNode.py#L77) | method | `go`・`parent`を求める。 | `steps`: 移動step数。省略時: `1` | bool | O(number of removed runs) |
+| [`go_left(steps=1)`](../../../rational/SternBrocotNode.py#L51) | method | go leftを求める。 | `steps`: 移動step数。省略時: `1` | `self` | 償却 O(1) |
+| [`go_right(steps=1)`](../../../rational/SternBrocotNode.py#L64) | method | go rightを求める。 | `steps`: 移動step数。省略時: `1` | `self` | 償却 O(1) |
+| [`go_parent(steps=1)`](../../../rational/SternBrocotNode.py#L77) | method | go parentを求める。 | `steps`: 移動step数。省略時: `1` | bool | O(number of removed runs) |
 | [`lca(first, second)`](../../../rational/SternBrocotNode.py#L100) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） | O(min(R1,R2)) |

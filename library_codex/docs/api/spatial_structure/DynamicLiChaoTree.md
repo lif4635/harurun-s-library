@@ -33,6 +33,6 @@ from library_codex.spatial_structure.DynamicLiChaoTree import DynamicLiChaoTree
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_line(a, b)`](../../../spatial_structure/DynamicLiChaoTree.py#L47) | method | `line`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` | O(log W) |
-| [`add_segment(a, b, ql, qr)`](../../../spatial_structure/DynamicLiChaoTree.py#L54) | method | `segment`を追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: `ql`として使う入力<br>`qr`: `qr`として使う入力 | `None` | O(log^2 W) |
+| [`add_line(a, b)`](../../../spatial_structure/DynamicLiChaoTree.py#L47) | method | lineを追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照） | `None` | O(log W) |
+| [`add_segment(a, b, ql, qr)`](../../../spatial_structure/DynamicLiChaoTree.py#L54) | method | segmentを追加する。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`ql`: qlとして使う入力<br>`qr`: qrとして使う入力 | `None` | O(log^2 W) |
 | [`query(x)`](../../../spatial_structure/DynamicLiChaoTree.py#L75) | method | 追加済みの直線・線分をxで評価し、最小値または最大値を返す。 | `x`: 値・座標・問い合わせ対象 | number — minimize=Trueなら $\min_f f(x)$、Falseなら $\max_f f(x)$。 | O(log W)（Wは座標domain幅） |

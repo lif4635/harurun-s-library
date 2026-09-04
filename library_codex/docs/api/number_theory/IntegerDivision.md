@@ -8,10 +8,10 @@
 
 ## できること
 
-- `floor_div`: `floor`・`div`を求める。
-- `ceil_div`: `ceil`・`div`を求める。
-- `strict_floor_div`: `strict`・`floor`・`div`を求める。
-- `strict_ceil_div`: `strict`・`ceil`・`div`を求める。
+- `floor_div`: floor divを求める。
+- `ceil_div`: ceil divを求める。
+- `strict_floor_div`: strict floor divを求める。
+- `strict_ceil_div`: strict ceil divを求める。
 
 ## Import
 
@@ -23,7 +23,7 @@ from library_codex.number_theory.IntegerDivision import floor_div, ceil_div, str
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L3) | `floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `numerator // denominator` | O(1) 回の整数除算 |
-| [`ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L8) | `ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | `-(-numerator // denominator)` | O(1) 回の整数除算 |
-| [`strict_floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L13) | `strict`・`floor`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient - (remainder == 0)` | O(1) 回の整数除算 |
-| [`strict_ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L18) | `strict`・`ceil`・`div`を求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient + (numerator % denominator == 0)` | O(1) 回の整数除算 |
+| [`floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L3) | floor divを求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `numerator // denominator` | O(1) 回の整数除算 |
+| [`ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L8) | ceil divを求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | `-(-numerator // denominator)` | O(1) 回の整数除算 |
+| [`strict_floor_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L13) | strict floor divを求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient - (remainder == 0)` | O(1) 回の整数除算 |
+| [`strict_ceil_div(numerator, denominator)`](../../../number_theory/IntegerDivision.py#L18) | strict ceil divを求める。 | `numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式 | 数値または入力要素型 `quotient + (numerator % denominator == 0)` | O(1) 回の整数除算 |

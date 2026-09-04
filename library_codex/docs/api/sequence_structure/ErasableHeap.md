@@ -21,7 +21,7 @@ from library_codex.sequence_structure.ErasableHeap import ErasableHeap
 heapから任意の既存値を遅延削除できるpriority queueを扱う `ErasableHeap`。
 
 - constructor: [`ErasableHeap(values=(), maximize=False)`](../../../sequence_structure/ErasableHeap.py#L8)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`<br>`maximize`: `maximize`として使う入力。省略時: `False`
+- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`<br>`maximize`: maximizeとして使う入力。省略時: `False`
 - 返り値: `ErasableHeap` instance
 - 計算量: —
 

@@ -8,7 +8,7 @@
 
 ## できること
 
-- `golden_section_search`: `golden`・`section`・`search`を求める。
+- `golden_section_search`: golden section searchを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.optimization.GoldenSectionSearch import golden_section_search
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`golden_section_search(function, left, right, minimize=True)`](../../../optimization/GoldenSectionSearch.py#L3) | `golden`・`section`・`search`を求める。 | `function`: callback関数<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True` | tuple(`point`（数値または入力要素型）, `point_value`) | O(iterations) function evaluations |
+| [`golden_section_search(function, left, right, minimize=True)`](../../../optimization/GoldenSectionSearch.py#L3) | golden section searchを求める。 | `function`: callback関数<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`minimize`: Trueなら最小値、Falseなら最大値を扱う。省略時: `True` | tuple(`point`（数値または入力要素型）, `point_value`) | O(iterations) function evaluations |

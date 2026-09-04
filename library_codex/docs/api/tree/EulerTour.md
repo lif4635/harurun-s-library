@@ -27,10 +27,10 @@ from library_codex.tree.EulerTour import EulerTour
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`idx(node)`](../../../tree/EulerTour.py#L93) | method | `idx`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) | O(1) |
+| [`idx(node)`](../../../tree/EulerTour.py#L93) | method | idxを求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) | O(1) |
 | [`lca(first, second)`](../../../tree/EulerTour.py#L96) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） | O(1) |
 | [`distance(first, second)`](../../../tree/EulerTour.py#L105) | method | 距離を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `-1` / 数値または入力要素型 `self.depth[first] + self.depth[second] - (self.depth[ancestor]...` | O(1) |
-| [`node_intervals(first, second)`](../../../tree/EulerTour.py#L117) | method | `node`・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(1) |
-| [`edge_intervals(first, second)`](../../../tree/EulerTour.py#L128) | method | 辺・`intervals`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(1) |
-| [`subtree_interval(node)`](../../../tree/EulerTour.py#L137) | method | `subtree`・`interval`を求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) | O(1) |
+| [`node_intervals(first, second)`](../../../tree/EulerTour.py#L117) | method | node intervalsを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(1) |
+| [`edge_intervals(first, second)`](../../../tree/EulerTour.py#L128) | method | edge intervalsを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(1) |
+| [`subtree_interval(node)`](../../../tree/EulerTour.py#L137) | method | subtree intervalを求める。 | `node`: 頂点・内部node番号 | tuple(`self.down[node]`, `self.up[node]`) | O(1) |
 | [`__len__()`](../../../tree/EulerTour.py#L142) | method | len(obj)。 | なし | 要素数（int） | — |

@@ -8,7 +8,7 @@
 
 ## できること
 
-- `quadratic_equation_mod`: `quadratic`・`equation`・`mod`を求める。
+- `quadratic_equation_mod`: quadratic equation modを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.number_theory.QuadraticEquationMod import quadratic_equation_
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`quadratic_equation_mod(a, b, c, prime)`](../../../number_theory/QuadraticEquationMod.py#L5) | `quadratic`・`equation`・`mod`を求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`c`: 定数・係数・第3入力<br>`prime`: 素数法 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | 期待 O(log^2 p) modular multiplications（Tonelli--Shanksを含む） |
+| [`quadratic_equation_mod(a, b, c, prime)`](../../../number_theory/QuadraticEquationMod.py#L5) | quadratic equation modを求める。 | `a`: 第1入力（意味は関数の説明を参照）<br>`b`: 第2入力（意味は関数の説明を参照）<br>`c`: 定数・係数・第3入力<br>`prime`: 素数法 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | 期待 O(log^2 p) modular multiplications（Tonelli--Shanksを含む） |

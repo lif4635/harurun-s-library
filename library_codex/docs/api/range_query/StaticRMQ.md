@@ -28,6 +28,6 @@ from library_codex.range_query.StaticRMQ import StaticRMQ
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`argmin(l, r)`](../../../range_query/StaticRMQ.py#L71) | method | `argmin`を求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._small_argmin(l, r)` / `best` | — |
+| [`argmin(l, r)`](../../../range_query/StaticRMQ.py#L71) | method | argminを求める。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | `self._small_argmin(l, r)` / `best` | — |
 | [`query(l, r)`](../../../range_query/StaticRMQ.py#L98) | method | 半開区間 $[l,r)$ の最小値を返す。 | `l`: 半開区間の左端（含む）<br>`r`: 半開区間の右端（含まない） | $\min_{l\le i<r}\mathrm{values}[i]$。 | — |
 | [`__len__()`](../../../range_query/StaticRMQ.py#L103) | method | len(obj)。 | なし | 要素数（int） | — |

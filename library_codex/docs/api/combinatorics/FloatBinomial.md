@@ -27,7 +27,7 @@ from library_codex.combinatorics.FloatBinomial import FloatBinomial
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`logfac(number)`](../../../combinatorics/FloatBinomial.py#L14) | method | `logfac`を求める。 | `number`: 整数 | `self.log_factorial[number]` | O(1) |
-| [`logfinv(number)`](../../../combinatorics/FloatBinomial.py#L17) | method | `logfinv`を求める。 | `number`: 整数 | `-self.log_factorial[number]` | O(1) |
-| [`logC(number, chosen)`](../../../combinatorics/FloatBinomial.py#L20) | method | `log`・`c`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[chosen] - self...` | O(1) |
-| [`logP(number, chosen)`](../../../combinatorics/FloatBinomial.py#L26) | method | `log`・`p`を求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[number - chosen]` | O(1) |
+| [`logfac(number)`](../../../combinatorics/FloatBinomial.py#L14) | method | logfacを求める。 | `number`: 整数 | `self.log_factorial[number]` | O(1) |
+| [`logfinv(number)`](../../../combinatorics/FloatBinomial.py#L17) | method | logfinvを求める。 | `number`: 整数 | `-self.log_factorial[number]` | O(1) |
+| [`logC(number, chosen)`](../../../combinatorics/FloatBinomial.py#L20) | method | log cを求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[chosen] - self...` | O(1) |
+| [`logP(number, chosen)`](../../../combinatorics/FloatBinomial.py#L26) | method | log pを求める。 | `number`: 整数<br>`chosen`: 選ぶ個数 | `self.LOG_ZERO` / 数値または入力要素型 `self.log_factorial[number] - self.log_factorial[number - chosen]` | O(1) |

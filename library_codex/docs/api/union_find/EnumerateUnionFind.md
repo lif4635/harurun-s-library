@@ -29,4 +29,4 @@ from library_codex.union_find.EnumerateUnionFind import EnumerateUnionFind
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`merge(first, second)`](../../../union_find/EnumerateUnionFind.py#L12) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | int — 併合後の連結成分の代表頂点。既に同じ成分なら現在の代表頂点。 | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
-| [`members(node)`](../../../union_find/EnumerateUnionFind.py#L22) | method | `members`を求める。 | `node`: 頂点・内部node番号 | list[object] — 計算結果 | O(component size) |
+| [`members(node)`](../../../union_find/EnumerateUnionFind.py#L22) | method | membersを求める。 | `node`: 頂点・内部node番号 | list[object] — 計算結果 | O(component size) |

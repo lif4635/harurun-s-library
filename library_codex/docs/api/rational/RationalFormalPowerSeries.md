@@ -36,7 +36,7 @@ from library_codex.rational.RationalFormalPowerSeries import RationalFormalPower
 | [`__sub__(other)`](../../../rational/RationalFormalPowerSeries.py#L59) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + (-other if isinstance(other, RationalFormalPowerSeries)...` | — |
 | [`__rsub__(other)`](../../../rational/RationalFormalPowerSeries.py#L63) | method | other - obj。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `-self + other` | — |
 | [`__mul__(other)`](../../../rational/RationalFormalPowerSeries.py#L66) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | RationalFormalPowerSeries instance | — |
-| [`pre(size)`](../../../rational/RationalFormalPowerSeries.py#L73) | method | `pre`を求める。 | `size`: 要素数・universe size | RationalFormalPowerSeries instance | — |
+| [`pre(size)`](../../../rational/RationalFormalPowerSeries.py#L73) | method | preを求める。 | `size`: 要素数・universe size | RationalFormalPowerSeries instance | — |
 | [`shrink()`](../../../rational/RationalFormalPowerSeries.py#L78) | method | 係数列末尾の不要な0を除いて正規化する。 | なし | `self` | — |
 | [`derivative()`](../../../rational/RationalFormalPowerSeries.py#L82) | method | 入力した多項式・級数を形式微分する。 | なし | RationalFormalPowerSeries instance | — |
 | [`integral()`](../../../rational/RationalFormalPowerSeries.py#L90) | method | 入力した多項式・級数を形式積分する。 | なし | RationalFormalPowerSeries instance | — |

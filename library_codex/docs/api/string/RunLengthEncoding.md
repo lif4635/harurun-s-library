@@ -9,8 +9,8 @@
 
 ## できること
 
-- `run_length_encode`: `run`・長さ・`encode`を求める。
-- `run_length_decode`: `run`・長さ・`decode`を求める。
+- `run_length_encode`: run length encodeを求める。
+- `run_length_decode`: run length decodeを求める。
 
 ## Import
 
@@ -22,5 +22,5 @@ from library_codex.string.RunLengthEncoding import run_length_encode, run_length
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`run_length_encode(sequence)`](../../../string/RunLengthEncoding.py#L1) | `run`・長さ・`encode`を求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
-| [`run_length_decode(encoded, container_type=list)`](../../../string/RunLengthEncoding.py#L20) | `run`・長さ・`decode`を求める。 | `encoded`: 符号化済みbytes/string<br>`container_type`: `container`・`type`として使う入力。省略時: `list` | `''.join(result)` / bytes instance / `bytearray(result)` / tuple — 用途欄に示した複数の結果を順に格納 / ほか（source参照） | — |
+| [`run_length_encode(sequence)`](../../../string/RunLengthEncoding.py#L1) | run length encodeを求める。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`run_length_decode(encoded, container_type=list)`](../../../string/RunLengthEncoding.py#L20) | run length decodeを求める。 | `encoded`: 符号化済みbytes/string<br>`container_type`: container typeとして使う入力。省略時: `list` | `''.join(result)` / bytes instance / `bytearray(result)` / tuple — 用途欄に示した複数の結果を順に格納 / ほか（source参照） | — |

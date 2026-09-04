@@ -9,10 +9,10 @@ Prüfer列の線形encode/decode（標準・拡張形式）。
 
 ## できること
 
-- `prufer_decode_edges`: `prufer`・`decode`・辺を求める。
-- `prufer_decode`: `prufer`・`decode`を求める。
-- `prufer_encode`: `prufer`・`encode`を求める。
-- `prufer_encode_extended`: `prufer`・`encode`・`extended`を求める。
+- `prufer_decode_edges`: prufer decode edgesを求める。
+- `prufer_decode`: prufer decodeを求める。
+- `prufer_encode`: prufer encodeを求める。
+- `prufer_encode_extended`: prufer encode extendedを求める。
 
 ## Import
 
@@ -30,8 +30,8 @@ from library_codex.tree.PruferCode import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L21) | `prufer`・`decode`・辺を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 辺のlist | — |
-| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L51) | `prufer`・`decode`を求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L64) | `prufer`・`encode`を求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L91) | `prufer`・`encode`・`extended`を求める。 | `tree`: 木の隣接list | list[int] — 通常のPruefer列の末尾へroot n-1を加えた長さn-1の列。 | — |
-| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L98) | `prufer`・`decode`・`extended`を求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` | — |
+| [`prufer_decode_edges(code, n=None)`](../../../tree/PruferCode.py#L21) | prufer decode edgesを求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 辺のlist | — |
+| [`prufer_decode(code, n=None)`](../../../tree/PruferCode.py#L51) | prufer decodeを求める。 | `code`: 符号列・Prüfer列<br>`n`: 要素数・頂点数・次数。省略時: `None` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`prufer_encode(tree)`](../../../tree/PruferCode.py#L64) | prufer encodeを求める。 | `tree`: 木の隣接list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`prufer_encode_extended(tree)`](../../../tree/PruferCode.py#L91) | prufer encode extendedを求める。 | `tree`: 木の隣接list | list[int] — 通常のPruefer列の末尾へroot n-1を加えた長さn-1の列。 | — |
+| [`prufer_decode_extended(code)`](../../../tree/PruferCode.py#L98) | prufer decode extendedを求める。 | `code`: 符号列・Prüfer列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `prufer_decode(code[:-1], n)` | — |

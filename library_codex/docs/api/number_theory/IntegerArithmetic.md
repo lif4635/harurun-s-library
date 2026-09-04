@@ -10,8 +10,8 @@
 
 - `gcd`: GCDを求める。
 - `lcm`: LCMを求める。
-- `extended_gcd`: `extended`・GCDを求める。
-- `inverse_mod`: 逆元・`mod`を計算する。
+- `extended_gcd`: extended gcdを求める。
+- `inverse_mod`: inverse modを計算する。
 
 ## Import
 
@@ -37,6 +37,6 @@ from library_codex.number_theory.IntegerArithmetic import (
 | --- | --- | --- | --- | --- |
 | [`gcd(first, second)`](../../../number_theory/IntegerArithmetic.py#L5) | GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `first` | O(log min(\|first\|,\|second\|)) 回の整数剰余 |
 | [`lcm(first, second)`](../../../number_theory/IntegerArithmetic.py#L12) | LCMを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | int `0 if not first or not second else abs(first // gcd(first, seco...` | O(log min(\|first\|,\|second\|)) 回の整数剰余 |
-| [`extended_gcd(first, second)`](../../../number_theory/IntegerArithmetic.py#L15) | `extended`・GCDを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`old_r`, `old_x`, `old_y`) | O(log min(\|first\|,\|second\|)) 回の整数剰余 |
-| [`inverse_mod(value, modulus)`](../../../number_theory/IntegerArithmetic.py#L29) | 逆元・`mod`を計算する。 | `value`: 追加・設定・問い合わせる値<br>`modulus`: 法 | 数値または入力要素型 `inverse % modulus` | O(log modulus) 回の整数剰余 |
-| [`inverse_table(size, mod=DEFAULT_MOD)`](../../../number_theory/IntegerArithmetic.py#L35) | 逆元・`table`を計算する。 | `size`: 要素数・universe size<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `inverse`（数値または入力要素型） | O(limit) |
+| [`extended_gcd(first, second)`](../../../number_theory/IntegerArithmetic.py#L15) | extended gcdを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | tuple(`old_r`, `old_x`, `old_y`) | O(log min(\|first\|,\|second\|)) 回の整数剰余 |
+| [`inverse_mod(value, modulus)`](../../../number_theory/IntegerArithmetic.py#L29) | inverse modを計算する。 | `value`: 追加・設定・問い合わせる値<br>`modulus`: 法 | 数値または入力要素型 `inverse % modulus` | O(log modulus) 回の整数剰余 |
+| [`inverse_table(size, mod=DEFAULT_MOD)`](../../../number_theory/IntegerArithmetic.py#L35) | inverse tableを計算する。 | `size`: 要素数・universe size<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `inverse`（数値または入力要素型） | O(limit) |

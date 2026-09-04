@@ -9,7 +9,7 @@
 
 ## できること
 
-- `z_algorithm`: `z`・`algorithm`を求める。
+- `z_algorithm`: z algorithmを求める。
 
 ## Import
 
@@ -21,4 +21,4 @@ from library_codex.string.ZAlgorithm import z_algorithm
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`z_algorithm(sequence)`](../../../string/ZAlgorithm.py#L1) | `z`・`algorithm`を求める。 | `sequence`: 入力列 | list[int] — z[i]がsequenceとsequence[i:]の最長共通接頭辞長となるlist。 | — |
+| [`z_algorithm(sequence)`](../../../string/ZAlgorithm.py#L1) | z algorithmを求める。 | `sequence`: 入力列 | list[int] — z[i]がsequenceとsequence[i:]の最長共通接頭辞長となるlist。 | — |

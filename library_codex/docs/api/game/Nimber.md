@@ -9,10 +9,10 @@ Conway nimber積・逆元・基底変換。
 
 ## できること
 
-- `nim_product16`: `nim`・`product16`を求める。
-- `nim_product32`: `nim`・`product32`を求める。
-- `nim_product64`: `nim`・`product64`を求める。
-- `nim_product`: `nim`・積を計算する。
+- `nim_product16`: nim product16を求める。
+- `nim_product32`: nim product32を求める。
+- `nim_product64`: nim product64を求める。
+- `nim_product`: nim productを計算する。
 - `Nimber`: Conway nimber積・逆元・基底変換を扱う `Nimber`。
 
 ## Import
@@ -32,10 +32,10 @@ from library_codex.game.Nimber import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`nim_product16(first, second)`](../../../game/Nimber.py#L32) | `nim`・`product16`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 8 ^ correction ^ lower` | — |
-| [`nim_product32(first, second)`](../../../game/Nimber.py#L41) | `nim`・`product32`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 16 ^ correction ^ lower` | — |
-| [`nim_product64(first, second)`](../../../game/Nimber.py#L50) | `nim`・`product64`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 32 ^ correction ^ lower` | — |
-| [`nim_product(first, second, bits=64)`](../../../game/Nimber.py#L60) | `nim`・積を計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`bits`: 使用bit数。省略時: `64` | `_PRODUCT8[first][second]` / `nim_product16(first, second)` / `nim_product32(first, second)` / `nim_product64(first, second)` | — |
+| [`nim_product16(first, second)`](../../../game/Nimber.py#L32) | nim product16を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 8 ^ correction ^ lower` | — |
+| [`nim_product32(first, second)`](../../../game/Nimber.py#L41) | nim product32を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 16 ^ correction ^ lower` | — |
+| [`nim_product64(first, second)`](../../../game/Nimber.py#L50) | nim product64を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 32 ^ correction ^ lower` | — |
+| [`nim_product(first, second, bits=64)`](../../../game/Nimber.py#L60) | nim productを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`bits`: 使用bit数。省略時: `64` | `_PRODUCT8[first][second]` / `nim_product16(first, second)` / `nim_product32(first, second)` / `nim_product64(first, second)` | — |
 
 ## Class `Nimber`
 
@@ -61,11 +61,11 @@ Conway nimber積・逆元・基底変換を扱う `Nimber`。
 Conway nimber積・逆元・基底変換を扱う `NimberToField`。
 
 - constructor: [`NimberToField(primitive_root)`](../../../game/Nimber.py#L142)
-- 引数: `primitive_root`: `primitive`・根として使う入力
+- 引数: `primitive_root`: primitive rootとして使う入力
 - 返り値: `NimberToField` instance
 - 計算量: —
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`field2nimber(value)`](../../../game/Nimber.py#L189) | method | `field2nimber`を求める。 | `value`: 追加・設定・問い合わせる値 | Nimber instance | — |
-| [`nimber2field(value)`](../../../game/Nimber.py#L192) | method | `nimber2field`を求める。 | `value`: 追加・設定・問い合わせる値 | `self._apply(self.nimber_to_field, value)` | — |
+| [`field2nimber(value)`](../../../game/Nimber.py#L189) | method | field2nimberを求める。 | `value`: 追加・設定・問い合わせる値 | Nimber instance | — |
+| [`nimber2field(value)`](../../../game/Nimber.py#L192) | method | nimber2fieldを求める。 | `value`: 追加・設定・問い合わせる値 | `self._apply(self.nimber_to_field, value)` | — |

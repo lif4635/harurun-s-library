@@ -9,7 +9,7 @@ partizan gameのSurreal/NumStar値と反復solver。
 
 ## できること
 
-- `solve_partizan_game`: `solve`・`partizan`・`game`を求める。
+- `solve_partizan_game`: solve partizan gameを求める。
 - `Surreal`: partizan gameのSurreal/NumStar値と反復solverを扱う `Surreal`。
 - `NumStar`: partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
 
@@ -23,7 +23,7 @@ from library_codex.game.PartizanGame import solve_partizan_game, Surreal, NumSta
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`solve_partizan_game(states, options)`](../../../game/PartizanGame.py#L133) | `solve`・`partizan`・`game`を求める。 | `states`: 初期局面・局面集合<br>`options`: 局面から遷移先を列挙するcallback | dict[object, object] — keyは識別対象、valueは対応する計算結果 | — |
+| [`solve_partizan_game(states, options)`](../../../game/PartizanGame.py#L133) | solve partizan gameを求める。 | `states`: 初期局面・局面集合<br>`options`: 局面から遷移先を列挙するcallback | dict[object, object] — keyは識別対象、valueは対応する計算結果 | — |
 
 ## Class `Surreal`
 
@@ -51,7 +51,7 @@ partizan gameのSurreal/NumStar値と反復solverを扱う `Surreal`。
 partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
 
 - constructor: [`NumStar(number=0, star=0)`](../../../game/PartizanGame.py#L74)
-- 引数: `number`: 整数。省略時: `0`<br>`star`: `star`として使う入力。省略時: `0`
+- 引数: `number`: 整数。省略時: `0`<br>`star`: starとして使う入力。省略時: `0`
 - 返り値: `NumStar` instance
 - 計算量: —
 
@@ -60,5 +60,5 @@ partizan gameのSurreal/NumStar値と反復solverを扱う `NumStar`。
 | [`__eq__(other)`](../../../game/PartizanGame.py#L81) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
 | [`__add__(other)`](../../../game/PartizanGame.py#L84) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | NumStar instance | — |
 | [`__neg__()`](../../../game/PartizanGame.py#L89) | method | -obj。 | なし | NumStar instance | — |
-| [`calculate(left_options, right_options)`](../../../game/PartizanGame.py#L101) | method | `calculate`を求める。 | `left_options`: 処理対象を順に並べた列<br>`right_options`: 処理対象を順に並べた列 | NumStar instance / `None` | — |
-| [`outcome()`](../../../game/PartizanGame.py#L123) | method | `outcome`を求める。 | なし | tuple(`True`, `False`) / tuple(`False`, `True`) / tuple(`False`, `False`) / tuple(`True`, `True`) | — |
+| [`calculate(left_options, right_options)`](../../../game/PartizanGame.py#L101) | method | calculateを求める。 | `left_options`: 処理対象を順に並べた列<br>`right_options`: 処理対象を順に並べた列 | NumStar instance / `None` | — |
+| [`outcome()`](../../../game/PartizanGame.py#L123) | method | outcomeを求める。 | なし | tuple(`True`, `False`) / tuple(`False`, `True`) / tuple(`False`, `False`) / tuple(`True`, `True`) | — |

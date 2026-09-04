@@ -27,9 +27,9 @@ deque両端の追加・削除をしながら全体のmonoid積を保つSWAGを�
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`appendleft(value)`](../../../sequence_structure/SWAGDeque.py#L12) | method | `appendleft`を求める。 | `value`: 追加・設定・問い合わせる値 | `None` | 償却 O(1) 回のop呼び出し |
+| [`appendleft(value)`](../../../sequence_structure/SWAGDeque.py#L12) | method | appendleftを求める。 | `value`: 追加・設定・問い合わせる値 | `None` | 償却 O(1) 回のop呼び出し |
 | [`append(value)`](../../../sequence_structure/SWAGDeque.py#L16) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | 償却 O(1) 回のop呼び出し |
-| [`popleft()`](../../../sequence_structure/SWAGDeque.py#L47) | method | `popleft`を求める。 | なし | `self.front.pop()[0]` | 償却 O(1) 回のop呼び出し |
+| [`popleft()`](../../../sequence_structure/SWAGDeque.py#L47) | method | popleftを求める。 | なし | `self.front.pop()[0]` | 償却 O(1) 回のop呼び出し |
 | [`pop()`](../../../sequence_structure/SWAGDeque.py#L54) | method | 要素を1つ取り除いて返す。 | なし | object — deque右端から削除した要素。 | 償却 O(1) 回のop呼び出し |
 | [`fold()`](../../../sequence_structure/SWAGDeque.py#L64) | method | deque全体を左端から右端へopで畳み込む。 | なし | object — op(...op(a[0], a[1]), ... , a[-1])。空ならidentity。 | O(1) 回のop呼び出し |
 | [`__len__()`](../../../sequence_structure/SWAGDeque.py#L74) | method | len(obj)。 | なし | 要素数（int） | — |

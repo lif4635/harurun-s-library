@@ -8,7 +8,7 @@
 
 ## できること
 
-- `process_of_merging_tree`: `process`・`of`・`merging`・木を求める。
+- `process_of_merging_tree`: process of merging treeを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.tree.ProcessOfMergingTree import process_of_merging_tree
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`process_of_merging_tree(edges, size=None, sort_edges=False)`](../../../tree/ProcessOfMergingTree.py#L3) | `process`・`of`・`merging`・木を求める。 | `edges`: 辺のiterable/list<br>`size`: 要素数・universe size。省略時: `None`<br>`sort_edges`: `sort`・辺として使う入力。省略時: `False` | tuple(`graph[:auxiliary]`, `weights`（list）, 数値または入力要素型 `auxiliary - 1`) | O(N alpha(N))（alphaは逆Ackermann関数） |
+| [`process_of_merging_tree(edges, size=None, sort_edges=False)`](../../../tree/ProcessOfMergingTree.py#L3) | process of merging treeを求める。 | `edges`: 辺のiterable/list<br>`size`: 要素数・universe size。省略時: `None`<br>`sort_edges`: sort edgesとして使う入力。省略時: `False` | tuple(`graph[:auxiliary]`, `weights`（list）, 数値または入力要素型 `auxiliary - 1`) | O(N alpha(N))（alphaは逆Ackermann関数） |

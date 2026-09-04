@@ -9,10 +9,10 @@
 
 ## できること
 
-- `primitive_root`: `primitive`・根を求める。
-- `modular_kth_root`: 法・k番目・根を求める。
-- `floor_kth_root`: `floor`・k番目・根を求める。
-- `ceil_kth_root`: `ceil`・k番目・根を求める。
+- `primitive_root`: primitive rootを求める。
+- `modular_kth_root`: 法k番目根を求める。
+- `floor_kth_root`: floor kth rootを求める。
+- `ceil_kth_root`: ceil kth rootを求める。
 
 ## Import
 
@@ -24,7 +24,7 @@ from library_codex.number_theory.ModularRoot import primitive_root, modular_kth_
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`primitive_root(prime)`](../../../number_theory/ModularRoot.py#L6) | `primitive`・根を求める。 | `prime`: 素数法 | `1` / `root` / `candidate`（int） | — |
-| [`modular_kth_root(value, exponent, prime)`](../../../number_theory/ModularRoot.py#L114) | 法・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数<br>`prime`: 素数法 | int `1 if value == 1 else -1` / 値 / `-1` | — |
-| [`floor_kth_root(value, exponent)`](../../../number_theory/ModularRoot.py#L156) | `floor`・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 値 / `isqrt(value)` / `1` / `lower`（数値または入力要素型） | — |
-| [`ceil_kth_root(value, exponent)`](../../../number_theory/ModularRoot.py#L178) | `ceil`・k番目・根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 数値または入力要素型 `root if pow(root, exponent) == value else root + 1` | — |
+| [`primitive_root(prime)`](../../../number_theory/ModularRoot.py#L6) | primitive rootを求める。 | `prime`: 素数法 | `1` / `root` / `candidate`（int） | — |
+| [`modular_kth_root(value, exponent, prime)`](../../../number_theory/ModularRoot.py#L114) | 法k番目根を求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数<br>`prime`: 素数法 | int `1 if value == 1 else -1` / 値 / `-1` | — |
+| [`floor_kth_root(value, exponent)`](../../../number_theory/ModularRoot.py#L156) | floor kth rootを求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 値 / `isqrt(value)` / `1` / `lower`（数値または入力要素型） | — |
+| [`ceil_kth_root(value, exponent)`](../../../number_theory/ModularRoot.py#L178) | ceil kth rootを求める。 | `value`: 追加・設定・問い合わせる値<br>`exponent`: 非負の指数 | 数値または入力要素型 `root if pow(root, exponent) == value else root + 1` | — |

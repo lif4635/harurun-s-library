@@ -8,8 +8,8 @@
 
 ## できること
 
-- `hungarian`: `hungarian`を求める。
-- `hungarian_max`: `hungarian`・最大を求める。
+- `hungarian`: hungarianを求める。
+- `hungarian_max`: hungarian maxを求める。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.graph_matching.Hungarian import hungarian, hungarian_max
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`hungarian(cost)`](../../../graph_matching/Hungarian.py#L3) | `hungarian`を求める。 | `cost`: 辺・選択の費用 | tuple(`0`, list `[]`) / tuple(`-v[0]`, 各変数へ割り当てる0/1のlist（数値または入力要素型）) | O(R^2 C) |
-| [`hungarian_max(cost)`](../../../graph_matching/Hungarian.py#L62) | `hungarian`・最大を求める。 | `cost`: 辺・選択の費用 | tuple(`-value`, 各変数へ割り当てる0/1のlist) | O(N^3) |
+| [`hungarian(cost)`](../../../graph_matching/Hungarian.py#L3) | hungarianを求める。 | `cost`: 辺・選択の費用 | tuple(`0`, list `[]`) / tuple(`-v[0]`, 各変数へ割り当てる0/1のlist（数値または入力要素型）) | O(R^2 C) |
+| [`hungarian_max(cost)`](../../../graph_matching/Hungarian.py#L62) | hungarian maxを求める。 | `cost`: 辺・選択の費用 | tuple(`-value`, 各変数へ割り当てる0/1のlist) | O(N^3) |

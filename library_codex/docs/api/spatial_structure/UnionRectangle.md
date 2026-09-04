@@ -8,7 +8,7 @@
 
 ## できること
 
-- `union_rectangle_area`: `union`・`rectangle`・`area`を求める。
+- `union_rectangle_area`: union rectangle areaを求める。
 - `UnionRectangle`: 軸平行矩形の和集合面積をsweep lineで求めるを扱う `UnionRectangle`。
 
 ## Import
@@ -21,7 +21,7 @@ from library_codex.spatial_structure.UnionRectangle import union_rectangle_area,
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`union_rectangle_area(rectangles)`](../../../spatial_structure/UnionRectangle.py#L3) | `union`・`rectangle`・`area`を求める。 | `rectangles`: 矩形 `(left, bottom, right, top)` のiterable | `0` / `area`（int） | O(N log N) |
+| [`union_rectangle_area(rectangles)`](../../../spatial_structure/UnionRectangle.py#L3) | union rectangle areaを求める。 | `rectangles`: 矩形 `(left, bottom, right, top)` のiterable | `0` / `area`（int） | O(N log N) |
 
 ## Class `UnionRectangle`
 

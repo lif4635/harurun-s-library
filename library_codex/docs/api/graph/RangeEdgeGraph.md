@@ -28,8 +28,8 @@ from library_codex.graph.RangeEdgeGraph import RangeEdgeGraph
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`__len__()`](../../../graph/RangeEdgeGraph.py#L81) | method | len(obj)。 | なし | 要素数（int） | — |
-| [`add_point_to_point(source, target, cost)`](../../../graph/RangeEdgeGraph.py#L115) | method | `point`・`to`・`point`を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用 | `None` | O(1) |
-| [`add_point_to_range(source, left, right, cost)`](../../../graph/RangeEdgeGraph.py#L120) | method | `point`・`to`・区間を追加する。 | `source`: 始点<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`cost`: 辺・選択の費用 | `None` | O(log N) |
-| [`add_range_to_point(left, right, target, cost)`](../../../graph/RangeEdgeGraph.py#L126) | method | 区間・`to`・`point`を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用 | `None` | O(log N) |
-| [`add_range_to_range(from_left, from_right, to_left, to_right, cost)`](../../../graph/RangeEdgeGraph.py#L132) | method | 区間・`to`・区間を追加する。 | `from_left`: `from`・左として使う入力<br>`from_right`: `from`・右として使う入力<br>`to_left`: `to`・左として使う入力<br>`to_right`: `to`・右として使う入力<br>`cost`: 辺・選択の費用 | `None` | O(log N) |
+| [`add_point_to_point(source, target, cost)`](../../../graph/RangeEdgeGraph.py#L115) | method | point to pointを追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用 | `None` | O(1) |
+| [`add_point_to_range(source, left, right, cost)`](../../../graph/RangeEdgeGraph.py#L120) | method | point to rangeを追加する。 | `source`: 始点<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`cost`: 辺・選択の費用 | `None` | O(log N) |
+| [`add_range_to_point(left, right, target, cost)`](../../../graph/RangeEdgeGraph.py#L126) | method | range to pointを追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用 | `None` | O(log N) |
+| [`add_range_to_range(from_left, from_right, to_left, to_right, cost)`](../../../graph/RangeEdgeGraph.py#L132) | method | range to rangeを追加する。 | `from_left`: from leftとして使う入力<br>`from_right`: from rightとして使う入力<br>`to_left`: to leftとして使う入力<br>`to_right`: to rightとして使う入力<br>`cost`: 辺・選択の費用 | `None` | O(log N) |
 | [`add_edge(source, target, cost)`](../../../graph/RangeEdgeGraph.py#L146) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用 | `None` | O(1) |

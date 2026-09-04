@@ -8,7 +8,7 @@
 
 ## できること
 
-- `two_square_representations`: `two`・平方・`representations`を求める。
+- `two_square_representations`: two square representationsを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.number_theory.TwoSquareRepresentations import two_square_repr
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`two_square_representations(number)`](../../../number_theory/TwoSquareRepresentations.py#L35) | `two`・平方・`representations`を求める。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `sorted(result)` | 期待 O(N^(1/4) log N + R)（Rは出力数） |
+| [`two_square_representations(number)`](../../../number_theory/TwoSquareRepresentations.py#L35) | two square representationsを求める。 | `number`: 整数 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `sorted(result)` | 期待 O(N^(1/4) log N + R)（Rは出力数） |

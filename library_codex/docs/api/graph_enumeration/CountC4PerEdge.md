@@ -8,7 +8,7 @@
 
 ## できること
 
-- `count_c4_per_edge`: `c4`・`per`・辺の個数を求める。
+- `count_c4_per_edge`: c4 per edgeの個数を求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.graph_enumeration.CountC4PerEdge import count_c4_per_edge
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`count_c4_per_edge(n, edges, weight=None)`](../../../graph_enumeration/CountC4PerEdge.py#L3) | `c4`・`per`・辺の個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`weight`: 重み。省略時: `None` | 答え（数値または入力要素型） | O(n + m sqrt(m) |
+| [`count_c4_per_edge(n, edges, weight=None)`](../../../graph_enumeration/CountC4PerEdge.py#L3) | c4 per edgeの個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`weight`: 重み。省略時: `None` | 答え（数値または入力要素型） | O(n + m sqrt(m) |

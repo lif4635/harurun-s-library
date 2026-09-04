@@ -8,7 +8,7 @@ dyadic有理数としてsurreal numberの比較・四則演算・子を扱う。
 
 ## できること
 
-- `reduce_surreal`: `reduce`・`surreal`を求める。
+- `reduce_surreal`: reduce surrealを求める。
 - `SurrealNumber`: dyadic有理数としてsurreal numberの比較・四則演算・子を扱うを扱う `SurrealNumber`。
 
 ## Import
@@ -21,7 +21,7 @@ from library_codex.game.SurrealNumber import reduce_surreal, SurrealNumber
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`reduce_surreal(left, right)`](../../../game/SurrealNumber.py#L118) | `reduce`・`surreal`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `SurrealNumber.between(left, right)` | O(E) dyadic比較（Eは必要となる2冪分母の指数） |
+| [`reduce_surreal(left, right)`](../../../game/SurrealNumber.py#L118) | reduce surrealを求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `SurrealNumber.between(left, right)` | O(E) dyadic比較（Eは必要となる2冪分母の指数） |
 
 ## Class `SurrealNumber`
 
@@ -34,8 +34,8 @@ dyadic有理数としてsurreal numberの比較・四則演算・子を扱うを
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`p`](../../../game/SurrealNumber.py#L20) | property | `p`を求める。 | なし | `self.numerator` | O(1) |
-| [`q`](../../../game/SurrealNumber.py#L24) | property | `q`を求める。 | なし | `self.exponent` | O(1) |
+| [`p`](../../../game/SurrealNumber.py#L20) | property | pを求める。 | なし | `self.numerator` | O(1) |
+| [`q`](../../../game/SurrealNumber.py#L24) | property | qを求める。 | なし | `self.exponent` | O(1) |
 | [`__add__(other)`](../../../game/SurrealNumber.py#L30) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | SurrealNumber instance | O(B) bit time（Bは整数成分のbit長） |
 | [`__sub__(other)`](../../../game/SurrealNumber.py#L37) | method | obj - other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self + -self._coerce(other)` | O(B) bit time（Bは整数成分のbit長） |
 | [`__neg__()`](../../../game/SurrealNumber.py#L40) | method | -obj。 | なし | SurrealNumber instance | O(B) bit time（Bは整数成分のbit長） |
@@ -46,7 +46,7 @@ dyadic有理数としてsurreal numberの比較・四則演算・子を扱うを
 | [`__eq__(other)`](../../../game/SurrealNumber.py#L58) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | O(B) bit time（Bは整数成分のbit長） |
 | [`__hash__()`](../../../game/SurrealNumber.py#L64) | method | hash(obj)。 | なし | `hash((self.numerator, self.exponent))` | O(B) bit time（Bは整数成分のbit長） |
 | [`__repr__()`](../../../game/SurrealNumber.py#L67) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | `f'SurrealNumber({self.numerator})'` / `f'SurrealNumber({self.numerator}, {self.exponent})'` | O(B)（Bは整数成分のbit長） |
-| [`children()`](../../../game/SurrealNumber.py#L72) | method | `children`を求める。 | なし | tuple(SurrealNumber `SurrealNumber(-1)`, SurrealNumber `SurrealNumber(1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator * 2 - 1, 1)`, SurrealNumber `SurrealNumber(self.numerator + 1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator - 1)`, SurrealNumber `SurrealNumber(self.numerator * 2 + 1, 1)`) / tuple(数値または入力要素型 `self - difference`, 数値または入力要素型 `self + difference`) | O(B) bit time（Bは整数成分のbit長） |
-| [`larger()`](../../../game/SurrealNumber.py#L86) | method | `larger`を求める。 | なし | SurrealNumber instance | O(B) bit time（Bは整数成分のbit長） |
-| [`smaller()`](../../../game/SurrealNumber.py#L91) | method | `smaller`を求める。 | なし | SurrealNumber instance | O(B) bit time（Bは整数成分のbit長） |
+| [`children()`](../../../game/SurrealNumber.py#L72) | method | childrenを求める。 | なし | tuple(SurrealNumber `SurrealNumber(-1)`, SurrealNumber `SurrealNumber(1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator * 2 - 1, 1)`, SurrealNumber `SurrealNumber(self.numerator + 1)`) / tuple(SurrealNumber `SurrealNumber(self.numerator - 1)`, SurrealNumber `SurrealNumber(self.numerator * 2 + 1, 1)`) / tuple(数値または入力要素型 `self - difference`, 数値または入力要素型 `self + difference`) | O(B) bit time（Bは整数成分のbit長） |
+| [`larger()`](../../../game/SurrealNumber.py#L86) | method | largerを求める。 | なし | SurrealNumber instance | O(B) bit time（Bは整数成分のbit長） |
+| [`smaller()`](../../../game/SurrealNumber.py#L91) | method | smallerを求める。 | なし | SurrealNumber instance | O(B) bit time（Bは整数成分のbit長） |
 | [`between(left, right)`](../../../game/SurrealNumber.py#L98) | method | 指定した2つの境界の間にある値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | SurrealNumber instance | O(E) dyadic比較（Bは分子bit長、Eは選ばれる分母指数） |

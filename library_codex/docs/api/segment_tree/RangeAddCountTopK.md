@@ -22,7 +22,7 @@ from library_codex.segment_tree.RangeAddCountTopK import TopKNode, RangeAddCount
 区間一括加算後の値を大きい順に個数付きで上位k件集約する構造を扱う `TopKNode`。
 
 - constructor: [`TopKNode(x: object, f: object)`](../../../segment_tree/RangeAddCountTopK.py#L6)
-- 引数: `x`: 値・座標・問い合わせ対象<br>`f`: `f`として使う入力
+- 引数: `x`: 値・座標・問い合わせ対象<br>`f`: fとして使う入力
 - 返り値: `TopKNode` instance
 - 計算量: —
 
@@ -37,6 +37,6 @@ from library_codex.segment_tree.RangeAddCountTopK import TopKNode, RangeAddCount
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`range_add(left, right, delta)`](../../../segment_tree/RangeAddCountTopK.py#L66) | method | 区間・`add`を処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`delta`: 加算差分 | `None` | O(K log N) |
-| [`range_top_k(left, right)`](../../../segment_tree/RangeAddCountTopK.py#L90) | method | 区間・`top`・`k`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | list[object] — 計算結果 | O(K log N) |
+| [`range_add(left, right, delta)`](../../../segment_tree/RangeAddCountTopK.py#L66) | method | range addを処理する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`delta`: 加算差分 | `None` | O(K log N) |
+| [`range_top_k(left, right)`](../../../segment_tree/RangeAddCountTopK.py#L90) | method | range top kを求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | list[object] — 計算結果 | O(K log N) |
 | [`top_k()`](../../../segment_tree/RangeAddCountTopK.py#L113) | method | 現在の範囲で値が大きい順にk件の集計結果を返す。 | なし | 計算結果 | O(K) |

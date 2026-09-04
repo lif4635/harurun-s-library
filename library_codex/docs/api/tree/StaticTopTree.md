@@ -51,10 +51,10 @@ from library_codex.tree.StaticTopTree import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`from_edges(size, edges, root=0)`](../../../tree/StaticTopTree.py#L111) | classmethod | `from`・辺を求める。 | `size`: 要素数・universe size<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `0` | 計算結果 | — |
+| [`from_edges(size, edges, root=0)`](../../../tree/StaticTopTree.py#L111) | classmethod | from edgesを求める。 | `size`: 要素数・universe size<br>`edges`: 辺のiterable/list<br>`root`: 根の頂点番号・原始根。省略時: `0` | 計算結果 | — |
 | [`add_edge(first, second)`](../../../tree/StaticTopTree.py#L118) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` | — |
 | [`build(root=None)`](../../../tree/StaticTopTree.py#L174) | method | 内部構造を構築する。 | `root`: 根の頂点番号・原始根。省略時: `None` | `self.top_tree_root` | — |
-| [`height()`](../../../tree/StaticTopTree.py#L228) | method | `height`を求める。 | なし | 答え（int） | — |
+| [`height()`](../../../tree/StaticTopTree.py#L228) | method | heightを求める。 | なし | 答え（int） | — |
 
 ## Class `StaticTopTreeEdgeBased`
 
@@ -74,7 +74,7 @@ from library_codex.tree.StaticTopTree import (
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `DynamicTreeDP`。
 
 - constructor: [`DynamicTreeDP(top_tree, vertex, rake, compress)`](../../../tree/StaticTopTree.py#L249)
-- 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号<br>`rake`: `rake`として使う入力<br>`compress`: `compress`として使う入力
+- 引数: `top_tree`: top treeとして使う入力<br>`vertex`: 頂点番号<br>`rake`: rakeとして使う入力<br>`compress`: compressとして使う入力
 - 返り値: `DynamicTreeDP` instance
 - 計算量: —
 
@@ -89,13 +89,13 @@ from library_codex.tree.StaticTopTree import (
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `EdgeTopTreeDP`。
 
 - constructor: [`EdgeTopTreeDP(top_tree, edge, compress, rake)`](../../../tree/StaticTopTree.py#L292)
-- 引数: `top_tree`: `top`・木として使う入力<br>`edge`: 辺または隣接list<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力
+- 引数: `top_tree`: top treeとして使う入力<br>`edge`: 辺または隣接list<br>`compress`: compressとして使う入力<br>`rake`: rakeとして使う入力
 - 返り値: `EdgeTopTreeDP` instance
 - 計算量: —
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`update(edge_leaf)`](../../../tree/StaticTopTree.py#L327) | method | 指定位置・辺・状態を更新する。 | `edge_leaf`: 辺・`leaf`として使う入力 | `None` | — |
+| [`update(edge_leaf)`](../../../tree/StaticTopTree.py#L327) | method | 指定位置・辺・状態を更新する。 | `edge_leaf`: edge leafとして使う入力 | `None` | — |
 | [`get()`](../../../tree/StaticTopTree.py#L333) | method | 全辺clusterをedge・compress・rakeで合成した現在値を返す。 | なし | object — top_tree_root clusterのedge-based DP値。updateした辺leafを反映する。 | — |
 
 ## Class `DynamicRerootingDP`
@@ -103,7 +103,7 @@ from library_codex.tree.StaticTopTree import (
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `DynamicRerootingDP`。
 
 - constructor: [`DynamicRerootingDP(top_tree, vertex, rake_forward, rake_backward, compress, identity)`](../../../tree/StaticTopTree.py#L350)
-- 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号<br>`rake_forward`: `rake`・`forward`として使う入力<br>`rake_backward`: `rake`・`backward`として使う入力<br>`compress`: `compress`として使う入力<br>`identity`: 演算 `op` の単位元
+- 引数: `top_tree`: top treeとして使う入力<br>`vertex`: 頂点番号<br>`rake_forward`: rake forwardとして使う入力<br>`rake_backward`: rake backwardとして使う入力<br>`compress`: compressとして使う入力<br>`identity`: 演算 `op` の単位元
 - 返り値: `DynamicRerootingDP` instance
 - 計算量: —
 
@@ -123,14 +123,14 @@ from library_codex.tree.StaticTopTree import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`height()`](../../../tree/StaticTopTree.py#L554) | method | `height`を求める。 | なし | 答え（int） | — |
+| [`height()`](../../../tree/StaticTopTree.py#L554) | method | heightを求める。 | なし | 答え（int） | — |
 
 ## Class `VertexTopTreeDP`
 
 辺/頂点cluster Static Top Tree・動的tree DP・reroot DPを扱う `VertexTopTreeDP`。
 
 - constructor: [`VertexTopTreeDP(top_tree, vertex, compress, rake, add_edge, add_vertex)`](../../../tree/StaticTopTree.py#L582)
-- 引数: `top_tree`: `top`・木として使う入力<br>`vertex`: 頂点番号<br>`compress`: `compress`として使う入力<br>`rake`: `rake`として使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
+- 引数: `top_tree`: top treeとして使う入力<br>`vertex`: 頂点番号<br>`compress`: compressとして使う入力<br>`rake`: rakeとして使う入力<br>`add_edge`: 処理中に呼び出す関数または操作<br>`add_vertex`: 処理中に呼び出す関数または操作
 - 返り値: `VertexTopTreeDP` instance
 - 計算量: —
 

@@ -3935,6 +3935,34 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[tuple[int, int]]",
         "returnDescription": "各要素は(left, right)。leftとrightはそれぞれの側で0始まりの頂点番号。",
     },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "minimum_vertex_cover"): {
+        "description": "すべての辺について少なくとも一方の端点を含む、頂点数最小の集合を求める。",
+        "returnFormat": "tuple[list[int], list[int]]",
+        "returnDescription": "(left_vertices, right_vertices)。選ばれた頂点番号を左右それぞれ昇順で格納する。合計要素数は最大マッチングの辺数と等しい。",
+        "returnParts": (
+            {"name": "left_vertices", "format": "list[int]", "description": "最小頂点被覆に入る左頂点。"},
+            {"name": "right_vertices", "format": "list[int]", "description": "最小頂点被覆に入る右頂点。"},
+        ),
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "maximum_independent_set"): {
+        "description": "選んだ左頂点と右頂点の間に辺が存在しない、頂点数最大の集合を求める。",
+        "returnFormat": "tuple[list[int], list[int]]",
+        "returnDescription": "(left_vertices, right_vertices)。minimum_vertex_cover()が返す頂点集合の補集合。",
+        "returnParts": (
+            {"name": "left_vertices", "format": "list[int]", "description": "最大独立集合に入る左頂点。"},
+            {"name": "right_vertices", "format": "list[int]", "description": "最大独立集合に入る右頂点。"},
+        ),
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "minimum_edge_cover"): {
+        "description": "すべての左右頂点を少なくとも一本の選択辺へ接続する、辺数最小の集合を求める。",
+        "returnFormat": "list[tuple[int, int]] | None",
+        "returnDescription": "各要素は(left, right)。孤立頂点があって全頂点を覆えなければNone。存在する場合の辺数はleft_size+right_size-matching_size。",
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "dulmage_mendelsohn"): {
+        "description": "最大マッチングに対する交互路からDulmage--Mendelsohn分解を構築する。",
+        "returnFormat": "list[list[int]]",
+        "returnDescription": "左頂点leftをleft、右頂点rightをleft_size+rightで表した頂点group列。先頭は未マッチ右頂点へ交互路で到達できる側、末尾は未マッチ左頂点から到達できる側で、その間は残りの強連結成分をトポロジカル順に並べる。",
+    },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "essential_vertices"): {
         "description": "すべての最大マッチングで必ずマッチされる頂点を左右別に判定する。",
         "returnFormat": "tuple[list[bool], list[bool]]",
@@ -3963,6 +3991,10 @@ COMPLEXITY_BY_MODULE.update({
         "add_edge": "O(1)",
         "solve": "全体で O(E sqrt(V))",
         "pairs": "matching未計算ならsolveを含み、計算済みならO(V)",
+        "minimum_vertex_cover": "matching済みならO(V+E)、未実行ならsolveを含む",
+        "maximum_independent_set": "matching済みならO(V+E)、未実行ならsolveを含む",
+        "minimum_edge_cover": "matching済みならO(V+E)、未実行ならsolveを含む",
+        "dulmage_mendelsohn": "matching済みならO(V+E)、未実行ならsolveを含む",
         "essential_vertices": "matching済みならO(V+E)、未実行ならsolveを含む",
     },
     "graph_matching/GeneralMatching.py": {

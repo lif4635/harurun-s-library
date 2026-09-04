@@ -8,8 +8,8 @@
 
 ## できること
 
-- `rooted_tree`: `rooted`・木を求める。
-- `inverse_tree`: 逆元・木を計算する。
+- `rooted_tree`: rooted treeを求める。
+- `inverse_tree`: 逆元木を計算する。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.tree.RootedTree import rooted_tree, inverse_tree
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`rooted_tree(tree, root=0)`](../../../tree/RootedTree.py#L8) | `rooted`・木を求める。 | `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | O(V+E) |
-| [`inverse_tree(tree)`](../../../tree/RootedTree.py#L30) | 逆元・木を計算する。 | `tree`: 木の隣接list | list[object] — 計算結果 | O(V) |
+| [`rooted_tree(tree, root=0)`](../../../tree/RootedTree.py#L8) | rooted treeを求める。 | `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | O(V+E) |
+| [`inverse_tree(tree)`](../../../tree/RootedTree.py#L30) | 逆元木を計算する。 | `tree`: 木の隣接list | list[object] — 計算結果 | O(V) |

@@ -21,7 +21,7 @@ from library_codex.algebra.FastPower import FastPower
 同じ底や指数で繰り返す累乗計算を前計算で高速化するを扱う `FastPower`。
 
 - constructor: [`FastPower(base, mod, max_exponent=(1 << 63) - 1, block_bits=10)`](../../../algebra/FastPower.py#L8)
-- 引数: `base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算<br>`max_exponent`: 最大・`exponent`の上限。省略時: `(1 << 63) - 1`<br>`block_bits`: `block`・`bits`として使う入力。省略時: `10`
+- 引数: `base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算<br>`max_exponent`: max exponentの上限。省略時: `(1 << 63) - 1`<br>`block_bits`: block bitsとして使う入力。省略時: `10`
 - 返り値: `FastPower` instance
 - 計算量: —
 

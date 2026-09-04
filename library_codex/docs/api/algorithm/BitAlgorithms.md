@@ -12,7 +12,7 @@ set bit・部分mask・上位maskの列挙。
 - `bit_indices`: 整数の2進表現で1になっているbit位置を昇順に列挙する。
 - `submasks`: maskの部分maskを大きい順に列挙する。
 - `supermasks`: 指定bit幅の範囲でmaskを含む上位maskを列挙する。
-- `popcount`: `popcount`を求める。
+- `popcount`: popcountを求める。
 
 ## Import
 
@@ -34,6 +34,6 @@ from library_codex.algorithm.BitAlgorithms import (
 | [`bit_indices(mask)`](../../../algorithm/BitAlgorithms.py#L4) | 整数の2進表現で1になっているbit位置を昇順に列挙する。 | `mask`: bit mask | iterator[object] — 用途欄に示した要素を1つずつyieldする | O(popcount(mask)) |
 | [`submasks(mask, include_zero=True)`](../../../algorithm/BitAlgorithms.py#L12) | maskの部分maskを大きい順に列挙する。 | `mask`: bit mask<br>`include_zero`: 0も列挙結果に含めるか。省略時: `True` | iterator[object] — 用途欄に示した要素を1つずつyieldする | O(2^popcount(mask)) |
 | [`supermasks(mask, bit_count)`](../../../algorithm/BitAlgorithms.py#L22) | 指定bit幅の範囲でmaskを含む上位maskを列挙する。 | `mask`: bit mask<br>`bit_count`: 使用bit数 | iterator[object] — 用途欄に示した要素を1つずつyieldする | O(2^(bit_count-popcount(mask))) |
-| [`popcount(value)`](../../../algorithm/BitAlgorithms.py#L33) | `popcount`を求める。 | `value`: 追加・設定・問い合わせる値 | `value.bit_count()` | O(1) Python int operation |
+| [`popcount(value)`](../../../algorithm/BitAlgorithms.py#L33) | popcountを求める。 | `value`: 追加・設定・問い合わせる値 | `value.bit_count()` | O(1) Python int operation |
 | [`msb_index(value)`](../../../algorithm/BitAlgorithms.py#L39) | 正整数valueの最上位set bitの位置 $\lfloor\log_2(\mathrm{value})\rfloor$ を返す。 | `value`: 追加・設定・問い合わせる値 | int — $2^i\le\mathrm{value}<2^{i+1}$ を満たす0-indexedのbit位置 $i$。 | O(1) Python int operation |
 | [`lsb_index(value)`](../../../algorithm/BitAlgorithms.py#L45) | 正整数valueで最下位に立っているbitの位置を返す。 | `value`: 追加・設定・問い合わせる値 | int — $2^i$ がvalueを割り切る最大の指数 $i$。 | O(1) Python int operation |

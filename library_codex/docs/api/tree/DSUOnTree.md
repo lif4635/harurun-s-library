@@ -29,4 +29,4 @@ Euler区間を用いるDSU on Treeを扱う `DSUOnTree`。
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`index(vertex)`](../../../tree/DSUOnTree.py#L74) | method | vertexに対応するEuler tour順のindexを返す。 | `vertex`: 頂点番号 | `self.down[vertex]` | — |
-| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L79) | method | 各頂点を根とする部分木queryをDSU on treeでまとめて処理する。 | `add`: 処理中に呼び出す関数または操作<br>`query`: 処理中に呼び出す関数または操作<br>`remove`: 処理中に呼び出す関数または操作<br>`reset`: `reset`として使う入力。省略時: `None` | `None` | — |
+| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L79) | method | 各頂点を根とする部分木queryをDSU on treeでまとめて処理する。 | `add`: 処理中に呼び出す関数または操作<br>`query`: 処理中に呼び出す関数または操作<br>`remove`: 処理中に呼び出す関数または操作<br>`reset`: resetとして使う入力。省略時: `None` | `None` | — |

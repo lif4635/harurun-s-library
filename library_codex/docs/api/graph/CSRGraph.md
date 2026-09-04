@@ -46,7 +46,7 @@ from library_codex.graph.CSRGraph import (
 | [`bfs_csr(graph, start=0, goal=None)`](../../../graph/CSRGraph.py#L240) | 重みなしグラフでstartから各頂点までの最短辺数と直前頂点を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple[list[int], list[int]] — 1つ目は各頂点までの辺数（未到達は-1）、2つ目は経路復元用の直前頂点（未設定は-1） | — |
 | [`topological_sort_csr(graph, lexicographical=False)`](../../../graph/CSRGraph.py#L268) | 有向非巡回グラフの頂点をトポロジカル順に並べる。閉路があればNoneを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list<br>`lexicographical`: 頂点番号が小さい順を優先するか。省略時: `False` | list[int] \| None — 頂点のトポロジカル順。閉路があればNone | — |
 | [`connected_components_csr(graph)`](../../../graph/CSRGraph.py#L304) | 無向グラフを連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[list[int], list[list[int]]] — 1つ目は頂点ごとの成分ID、2つ目は各成分に属する頂点の列 | — |
-| [`bipartite_coloring_csr(graph)`](../../../graph/CSRGraph.py#L333) | `bipartite`・彩色・`csr`を求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | list[int] \| None — 各頂点の色0/1。二部グラフでなければNone | — |
+| [`bipartite_coloring_csr(graph)`](../../../graph/CSRGraph.py#L333) | bipartite coloring csrを求める。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | list[int] \| None — 各頂点の色0/1。二部グラフでなければNone | — |
 | [`scc_ids_csr(graph)`](../../../graph/CSRGraph.py#L360) | 強連結成分数と頂点ごとの成分IDをトポロジカル順で返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[int, list[int]] — 強連結成分数と、頂点ごとの成分ID | — |
 | [`scc_csr(graph)`](../../../graph/CSRGraph.py#L450) | CSR有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: CSRGraph、または各頂点の隣接辺を並べた隣接list | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 | O(V+E) |
 

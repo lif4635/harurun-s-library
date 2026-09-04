@@ -8,9 +8,9 @@
 
 ## できること
 
-- `composite_exponential`: `composite`・指数を計算する。
-- `composite_exponential_scaled`: `composite`・指数・`scaled`を計算する。
-- `inverse_composite_exponential`: 逆元・`composite`・指数を計算する。
+- `composite_exponential`: composite exponentialを計算する。
+- `composite_exponential_scaled`: composite exponential scaledを計算する。
+- `inverse_composite_exponential`: inverse composite exponentialを計算する。
 
 ## Import
 
@@ -22,6 +22,6 @@ from library_codex.fps.CompositeExponential import composite_exponential, compos
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`composite_exponential(polynomial, degree, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L19) | `composite`・指数を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 | O(M(N) log P) modular operations（Pは入力係数数）（M(L)は長さLの多項式乗算cost） |
-| [`composite_exponential_scaled(polynomial, scale=1, degree=None, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L42) | `composite`・指数・`scaled`を計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`scale`: scale係数。省略時: `1`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 | O(M(N) log P) modular operations（M(L)は長さLの多項式乗算cost） |
-| [`inverse_composite_exponential(series, scale=1, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L66) | 逆元・`composite`・指数を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`scale`: scale係数。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 入力seriesを逆変換した、入力と同じ長さの係数列。 | O(M(N) log N) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`composite_exponential(polynomial, degree, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L19) | composite exponentialを計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`degree`: 必要な係数数・次数上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 | O(M(N) log P) modular operations（Pは入力係数数）（M(L)は長さLの多項式乗算cost） |
+| [`composite_exponential_scaled(polynomial, scale=1, degree=None, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L42) | composite exponential scaledを計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`scale`: scale係数。省略時: `1`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果 | O(M(N) log P) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`inverse_composite_exponential(series, scale=1, mod=DEFAULT_MOD)`](../../../fps/CompositeExponential.py#L66) | inverse composite exponentialを計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`scale`: scale係数。省略時: `1`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 入力seriesを逆変換した、入力と同じ長さの係数列。 | O(M(N) log N) modular operations（M(L)は長さLの多項式乗算cost） |

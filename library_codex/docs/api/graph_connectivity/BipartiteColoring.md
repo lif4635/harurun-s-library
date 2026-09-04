@@ -21,5 +21,5 @@ from library_codex.graph_connectivity.BipartiteColoring import bipartite_colorin
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bipartite_coloring(graph)`](../../../graph_connectivity/BipartiteColoring.py#L5) | `bipartite`・彩色を求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` | O(V+E) |
+| [`bipartite_coloring(graph)`](../../../graph_connectivity/BipartiteColoring.py#L5) | bipartite coloringを求める。 | `graph`: 隣接listまたはグラフobject | 各頂点の色を格納したlist[int]（数値または入力要素型） / `None` | O(V+E) |
 | [`find_odd_cycle(graph)`](../../../graph_connectivity/BipartiteColoring.py#L25) | 無向グラフを2色BFSし、同色を結ぶ辺が見つかったとき奇cycleを復元する。 | `graph`: 無向グラフの隣接list。各辺を両端のrowへ入れる。要素は行き先intまたは先頭要素が行き先のtuple。self-loopを許す。 | list[int] — 奇cycleの異なる頂点を周上の順に並べた列。末尾から先頭にも辺がある。self-loopでは長さ1。graphが二部グラフなら空list。 | O(V+E) time、O(V) memory |

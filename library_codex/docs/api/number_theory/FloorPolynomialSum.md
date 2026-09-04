@@ -9,7 +9,7 @@ floorを含む多項式和。
 
 ## できること
 
-- `floor_polynomial_sums`: `floor`・多項式・`sums`を求める。
+- `floor_polynomial_sums`: floor polynomial sumsを求める。
 
 ## Import
 
@@ -21,4 +21,4 @@ from library_codex.number_theory.FloorPolynomialSum import floor_polynomial_sums
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`floor_polynomial_sums(n, modulus, multiplier, addend, max_x_power, max_y_power, mod=None)`](../../../number_theory/FloorPolynomialSum.py#L113) | `floor`・多項式・`sums`を求める。 | `n`: 要素数・頂点数・次数<br>`modulus`: 法<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`max_x_power`: 最大・`x`・冪の上限<br>`max_y_power`: 最大・`y`・冪の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list[number] — 昇冪順の係数列 [a0, a1, ...] | — |
+| [`floor_polynomial_sums(n, modulus, multiplier, addend, max_x_power, max_y_power, mod=None)`](../../../number_theory/FloorPolynomialSum.py#L113) | floor polynomial sumsを求める。 | `n`: 要素数・頂点数・次数<br>`modulus`: 法<br>`multiplier`: 乗数または乗算する多項式<br>`addend`: 加える値<br>`max_x_power`: max x powerの上限<br>`max_y_power`: max y powerの上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `None` | list[number] — 昇冪順の係数列 [a0, a1, ...] | — |

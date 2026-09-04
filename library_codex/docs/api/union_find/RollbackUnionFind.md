@@ -28,16 +28,16 @@ undo・snapshot・成分和対応Union Findを扱う `RollbackUnionFind`。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`leader(x)`](../../../union_find/RollbackUnionFind.py#L24) | method | `leader`を求める。 | `x`: 値・座標・問い合わせ対象 | `x` | — |
+| [`leader(x)`](../../../union_find/RollbackUnionFind.py#L24) | method | leaderを求める。 | `x`: 値・座標・問い合わせ対象 | `x` | — |
 | [`same(x, y)`](../../../union_find/RollbackUnionFind.py#L33) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
 | [`size(x)`](../../../union_find/RollbackUnionFind.py#L38) | method | 要素数または連結成分sizeを返す。 | `x`: 値・座標・問い合わせ対象 | size（int） | — |
 | [`merge(x, y)`](../../../union_find/RollbackUnionFind.py#L41) | method | 2要素・2成分・2構造を併合する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | bool | — |
 | [`add_value(x, delta)`](../../../union_find/RollbackUnionFind.py#L63) | method | 値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`delta`: 加算差分 | number — deltaを加えた後の、xが属する連結成分の集約値。 | — |
-| [`component_value(x)`](../../../union_find/RollbackUnionFind.py#L72) | method | 連結成分・値を求める。 | `x`: 値・座標・問い合わせ対象 | `values[self.leader(x)]` | — |
-| [`get_state()`](../../../union_find/RollbackUnionFind.py#L79) | method | `state`を取得する。 | なし | `len(self.history)` | — |
+| [`component_value(x)`](../../../union_find/RollbackUnionFind.py#L72) | method | 連結成分値を求める。 | `x`: 値・座標・問い合わせ対象 | `values[self.leader(x)]` | — |
+| [`get_state()`](../../../union_find/RollbackUnionFind.py#L79) | method | stateを取得する。 | なし | `len(self.history)` | — |
 | [`snapshot()`](../../../union_find/RollbackUnionFind.py#L84) | method | 現在のrollback位置を保存して返す。 | なし | rollback状態番号（int） | — |
-| [`clear_snapshot()`](../../../union_find/RollbackUnionFind.py#L89) | method | `clear`・`snapshot`を求める。 | なし | `None` | — |
-| [`undo()`](../../../union_find/RollbackUnionFind.py#L92) | method | `undo`を求める。 | なし | bool | — |
+| [`clear_snapshot()`](../../../union_find/RollbackUnionFind.py#L89) | method | clear snapshotを求める。 | なし | `None` | — |
+| [`undo()`](../../../union_find/RollbackUnionFind.py#L92) | method | undoを求める。 | なし | bool | — |
 | [`rollback(state=None)`](../../../union_find/RollbackUnionFind.py#L112) | method | 指定snapshotまで状態を巻き戻す。 | `state`: rollback状態番号・状態object。省略時: `None` | `None` | — |
 | [`count()`](../../../union_find/RollbackUnionFind.py#L119) | method | 条件に合う要素数を返す。 | なし | 個数（int） | — |
-| [`groups()`](../../../union_find/RollbackUnionFind.py#L124) | method | `groups`を求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`groups()`](../../../union_find/RollbackUnionFind.py#L124) | method | groupsを求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |

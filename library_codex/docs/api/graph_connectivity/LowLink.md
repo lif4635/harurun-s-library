@@ -9,7 +9,7 @@
 
 ## できること
 
-- `lowlink`: `lowlink`を求める。
+- `lowlink`: lowlinkを求める。
 - `LowLink`: 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰）を扱う `LowLink`。
 
 ## Import
@@ -22,7 +22,7 @@ from library_codex.graph_connectivity.LowLink import lowlink, LowLink
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`lowlink(n, edges)`](../../../graph_connectivity/LowLink.py#L125) | `lowlink`を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | LowLink instance | — |
+| [`lowlink(n, edges)`](../../../graph_connectivity/LowLink.py#L125) | lowlinkを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | LowLink instance | — |
 
 ## Class `LowLink`
 

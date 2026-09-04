@@ -28,6 +28,6 @@ from library_codex.sequence_structure.PersistentQueue import PersistentQueue
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`append(value, version=-1)`](../../../sequence_structure/PersistentQueue.py#L13) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | int — 末尾へ追加したqueueの新しいversion番号。 | O(1) |
-| [`popleft(version=-1)`](../../../sequence_structure/PersistentQueue.py#L35) | method | `popleft`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.tail) - 1` | O(1) |
-| [`front(version=-1)`](../../../sequence_structure/PersistentQueue.py#L45) | method | `front`を求める。 | `version`: 参照するversion番号。省略時: `-1` | `self.value[node]` | O(1) |
+| [`popleft(version=-1)`](../../../sequence_structure/PersistentQueue.py#L35) | method | popleftを求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.tail) - 1` | O(1) |
+| [`front(version=-1)`](../../../sequence_structure/PersistentQueue.py#L45) | method | frontを求める。 | `version`: 参照するversion番号。省略時: `-1` | `self.value[node]` | O(1) |
 | [`__len__()`](../../../sequence_structure/PersistentQueue.py#L60) | method | len(obj)。 | なし | 要素数（int） | — |

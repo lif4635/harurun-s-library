@@ -9,7 +9,7 @@
 
 ## できること
 
-- `rerooting_dp`: `rerooting`・`dp`を求める。
+- `rerooting_dp`: rerooting dpを求める。
 - `Rerooting`: 非可換monoid・辺/頂点変換対応の全方位木DPを扱う `Rerooting`。
 
 ## Import
@@ -22,7 +22,7 @@ from library_codex.tree.Rerooting import rerooting_dp, Rerooting
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`rerooting_dp(tree, merge, identity, put_edge, put_vertex, root=0)`](../../../tree/Rerooting.py#L166) | `rerooting`・`dp`を求める。 | `tree`: 木の隣接list<br>`merge`: 処理中に呼び出す関数または操作<br>`identity`: 演算 `op` の単位元<br>`put_edge`: 処理中に呼び出す関数または操作<br>`put_vertex`: 処理中に呼び出す関数または操作<br>`root`: 根の頂点番号・原始根。省略時: `0` | `Rerooting(tree, merge, identity, put_edge, put_vertex, root).a...` | — |
+| [`rerooting_dp(tree, merge, identity, put_edge, put_vertex, root=0)`](../../../tree/Rerooting.py#L166) | rerooting dpを求める。 | `tree`: 木の隣接list<br>`merge`: 処理中に呼び出す関数または操作<br>`identity`: 演算 `op` の単位元<br>`put_edge`: 処理中に呼び出す関数または操作<br>`put_vertex`: 処理中に呼び出す関数または操作<br>`root`: 根の頂点番号・原始根。省略時: `0` | `Rerooting(tree, merge, identity, put_edge, put_vertex, root).a...` | — |
 
 ## Class `Rerooting`
 
@@ -37,4 +37,4 @@ from library_codex.tree.Rerooting import rerooting_dp, Rerooting
 | --- | --- | --- | --- | --- | --- |
 | [`solve()`](../../../tree/Rerooting.py#L62) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | — |
 | [`__getitem__(vertex)`](../../../tree/Rerooting.py#L159) | method | vertexを根としたときの全方位tree DP結果を返す。 | `vertex`: 頂点番号 | object — answer[vertex]と同じ値。全隣接部分木の寄与をmergeし、put_vertexを適用したDP値。 | — |
-| [`edge_side(endpoint, other)`](../../../tree/Rerooting.py#L162) | method | 辺・`side`を求める。 | `endpoint`: `endpoint`として使う入力<br>`other`: 同じ型のもう一方のobject・値 | `self.directed_side[endpoint, other]` | — |
+| [`edge_side(endpoint, other)`](../../../tree/Rerooting.py#L162) | method | edge sideを求める。 | `endpoint`: endpointとして使う入力<br>`other`: 同じ型のもう一方のobject・値 | `self.directed_side[endpoint, other]` | — |

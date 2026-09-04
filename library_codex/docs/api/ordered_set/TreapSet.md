@@ -32,10 +32,10 @@ from library_codex.ordered_set.TreapSet import TreapSet
 | [`bisect_left(key)`](../../../ordered_set/TreapSet.py#L141) | method | 条件を満たす最初の位置を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） | 期待 O(log N) |
 | [`bisect_right(key)`](../../../ordered_set/TreapSet.py#L156) | method | 条件を満たす境界の直後を二分探索する。 | `key`: 比較・格納に使うkey | 境界index（int） | 期待 O(log N) |
 | [`kth(index)`](../../../ordered_set/TreapSet.py#L171) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置 | k番目の値 | 期待 O(log N) |
-| [`ge(key, default=None)`](../../../ordered_set/TreapSet.py#L186) | method | `ge`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | 期待 O(log N) |
-| [`gt(key, default=None)`](../../../ordered_set/TreapSet.py#L190) | method | `gt`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | 期待 O(log N) |
-| [`le(key, default=None)`](../../../ordered_set/TreapSet.py#L194) | method | `le`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | 期待 O(log N) |
-| [`lt(key, default=None)`](../../../ordered_set/TreapSet.py#L198) | method | `lt`を求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | 期待 O(log N) |
+| [`ge(key, default=None)`](../../../ordered_set/TreapSet.py#L186) | method | geを求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | 期待 O(log N) |
+| [`gt(key, default=None)`](../../../ordered_set/TreapSet.py#L190) | method | gtを求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index < len(self) else default` | 期待 O(log N) |
+| [`le(key, default=None)`](../../../ordered_set/TreapSet.py#L194) | method | leを求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | 期待 O(log N) |
+| [`lt(key, default=None)`](../../../ordered_set/TreapSet.py#L198) | method | ltを求める。 | `key`: 比較・格納に使うkey<br>`default`: 省略時に使う値。省略時: `None` | `self.kth(index) if index >= 0 else default` | 期待 O(log N) |
 | [`min()`](../../../ordered_set/TreapSet.py#L202) | method | 最小を求める。 | なし | `self.kth(0)` | 期待 O(log N) |
 | [`max()`](../../../ordered_set/TreapSet.py#L205) | method | 最大を求める。 | なし | `self.kth(len(self) - 1)` | 期待 O(log N) |
 | [`__contains__(key)`](../../../ordered_set/TreapSet.py#L208) | method | value in obj。 | `key`: 比較・格納に使うkey | bool | 期待 O(log N) |

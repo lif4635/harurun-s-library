@@ -22,18 +22,18 @@ from library_codex.graph_connectivity.FunctionalGraph import FunctionalGraph
 Functional graph の周期分解・移動・距離を扱う `FunctionalGraph`。
 
 - constructor: [`FunctionalGraph(to)`](../../../graph_connectivity/FunctionalGraph.py#L6)
-- 引数: `to`: `to`として使う入力
+- 引数: `to`: toとして使う入力
 - 返り値: `FunctionalGraph` instance
 - 計算量: —
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`move(v, k)`](../../../graph_connectivity/FunctionalGraph.py#L77) | method | `move`を求める。 | `v`: 頂点番号<br>`k`: 選ぶ個数または0-indexedの順位 | `self._jump_tree(v, k)` / `cycle[(self.cycle_pos[v] + k - d) % len(cycle)]` | — |
-| [`dist(u, v)`](../../../graph_connectivity/FunctionalGraph.py#L87) | method | `dist`を求める。 | `u`: 頂点番号<br>`v`: 頂点番号 | `-1` / 数値または入力要素型 `d if self._jump_tree(u, d) == v else -1` / 数値または入力要素型 `du + (self.cycle_pos[v] - self.cycle_pos[u]) % len(cycle)` | — |
-| [`in_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L100) | method | `in`・閉路を求める。 | `v`: 頂点番号 | bool | — |
+| [`move(v, k)`](../../../graph_connectivity/FunctionalGraph.py#L77) | method | moveを求める。 | `v`: 頂点番号<br>`k`: 選ぶ個数または0-indexedの順位 | `self._jump_tree(v, k)` / `cycle[(self.cycle_pos[v] + k - d) % len(cycle)]` | — |
+| [`dist(u, v)`](../../../graph_connectivity/FunctionalGraph.py#L87) | method | distを求める。 | `u`: 頂点番号<br>`v`: 頂点番号 | `-1` / 数値または入力要素型 `d if self._jump_tree(u, d) == v else -1` / 数値または入力要素型 `du + (self.cycle_pos[v] - self.cycle_pos[u]) % len(cycle)` | — |
+| [`in_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L100) | method | in cycleを求める。 | `v`: 頂点番号 | bool | — |
 | [`root(v)`](../../../graph_connectivity/FunctionalGraph.py#L103) | method | 根を求める。 | `v`: 頂点番号 | `self.entry[v]` | — |
-| [`cycle_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L106) | method | 閉路・`size`を求める。 | `v`: 頂点番号 | `len(self.cycles[self.component[v]])` | — |
-| [`reachable_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L109) | method | `reachable`・`size`を求める。 | `v`: 頂点番号 | 数値または入力要素型 `self.depth[v] + len(self.cycles[self.component[v]])` | — |
+| [`cycle_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L106) | method | cycle sizeを求める。 | `v`: 頂点番号 | `len(self.cycles[self.component[v]])` | — |
+| [`reachable_size(v)`](../../../graph_connectivity/FunctionalGraph.py#L109) | method | reachable sizeを求める。 | `v`: 頂点番号 | 数値または入力要素型 `self.depth[v] + len(self.cycles[self.component[v]])` | — |
 | [`get_cycle(v)`](../../../graph_connectivity/FunctionalGraph.py#L112) | method | 閉路を取得する。 | `v`: 頂点番号 | `self.cycles[self.component[v]]` | — |
 | [`first_meeting(first, second)`](../../../graph_connectivity/FunctionalGraph.py#L115) | method | 二頂点から同時に一辺ずつ進む walk が、初めて同じ頂点にいる時刻を求める。 | `first`: 一つ目の開始頂点。<br>`second`: 二つ目の開始頂点。 | int — 最小の非負整数 t で move(first,t) == move(second,t) となるもの。永遠に会わなければ -1。 | O(log N) |
 | [`meeting_vertex(first, second)`](../../../graph_connectivity/FunctionalGraph.py#L150) | method | 同時 walk の初回合流時刻と、その時にいる頂点をまとめて返す。 | `first`: 一つ目の開始頂点。<br>`second`: 二つ目の開始頂点。 | tuple[int, int] \| None — 会うなら (time, vertex)。永遠に会わなければ None。 | O(log N) |

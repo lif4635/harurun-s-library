@@ -29,8 +29,8 @@ from library_codex.graph_spanning.MergeTree import MergeTree
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`unite(first, second)`](../../../graph_spanning/MergeTree.py#L92) | method | 2要素が属する連結成分を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | `None` | — |
-| [`component_node(vertex)`](../../../graph_spanning/MergeTree.py#L102) | method | 連結成分・`node`を求める。 | `vertex`: 頂点番号 | `self.current[self.union_find.find(vertex)]` | — |
-| [`component_range(vertex)`](../../../graph_spanning/MergeTree.py#L107) | method | 連結成分・区間を求める。 | `vertex`: 頂点番号 | tuple(`self.entry[node]`, `self.exit[node]`) | — |
-| [`arrange(values)`](../../../graph_spanning/MergeTree.py#L113) | method | `arrange`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`component_node(vertex)`](../../../graph_spanning/MergeTree.py#L102) | method | component nodeを求める。 | `vertex`: 頂点番号 | `self.current[self.union_find.find(vertex)]` | — |
+| [`component_range(vertex)`](../../../graph_spanning/MergeTree.py#L107) | method | 連結成分区間を求める。 | `vertex`: 頂点番号 | tuple(`self.entry[node]`, `self.exit[node]`) | — |
+| [`arrange(values)`](../../../graph_spanning/MergeTree.py#L113) | method | arrangeを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
 | [`restore(values)`](../../../graph_spanning/MergeTree.py#L120) | method | 計算結果から経路・列・元データを復元する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — arrangeで並べ替えた値を元の頂点番号順へ戻したlist。 | — |
 | [`index(vertex)`](../../../graph_spanning/MergeTree.py#L130) | method | vertexに対応するmerge tree内部のindexを返す。 | `vertex`: 頂点番号 | `self.position[vertex]` | — |

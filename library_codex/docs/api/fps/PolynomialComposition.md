@@ -9,8 +9,8 @@
 
 ## できること
 
-- `fps_compose`: `fps`・合成を求める。
-- `fps_compositional_inverse`: `fps`・`compositional`・逆元を計算する。
+- `fps_compose`: fps composeを求める。
+- `fps_compositional_inverse`: fps compositional inverseを計算する。
 - `composition`: 外側の形式的冪級数 $f=\mathrm{outer}$ へ内側の $g=\mathrm{inner}$ を代入し、$f(g(x))$ を求める。
 
 ## Import
@@ -23,6 +23,6 @@ from library_codex.fps.PolynomialComposition import fps_compose, fps_composition
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`fps_compose(outer, inner, degree=None, mod=DEFAULT_MOD)`](../../../fps/PolynomialComposition.py#L194) | `fps`・合成を求める。 | `outer`: 外側の多項式/FPS `f`<br>`inner`: 内側の多項式/FPS `g`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — outer(inner(x)) mod x^degreeの昇冪係数をdegree個並べたlist。 | — |
-| [`fps_compositional_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/PolynomialComposition.py#L230) | `fps`・`compositional`・逆元を計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — series(g(x))=x mod x^degreeを満たすgの昇冪係数列。 | — |
+| [`fps_compose(outer, inner, degree=None, mod=DEFAULT_MOD)`](../../../fps/PolynomialComposition.py#L194) | fps composeを求める。 | `outer`: 外側の多項式/FPS `f`<br>`inner`: 内側の多項式/FPS `g`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — outer(inner(x)) mod x^degreeの昇冪係数をdegree個並べたlist。 | — |
+| [`fps_compositional_inverse(series, degree=None, mod=DEFAULT_MOD)`](../../../fps/PolynomialComposition.py#L230) | fps compositional inverseを計算する。 | `series`: 昇冪の形式的冪級数係数列<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — series(g(x))=x mod x^degreeを満たすgの昇冪係数列。 | — |
 | [`composition(inner, outer, degree=None, mod=DEFAULT_MOD)`](../../../fps/PolynomialComposition.py#L275) | 外側の形式的冪級数 $f=\mathrm{outer}$ へ内側の $g=\mathrm{inner}$ を代入し、$f(g(x))$ を求める。 | `inner`: 内側の多項式/FPS `g`<br>`outer`: 外側の多項式/FPS `f`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — $f(g(x))\bmod x^{\mathrm{degree}}$ の係数を定数項から並べた列。 | — |

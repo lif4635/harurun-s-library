@@ -8,7 +8,7 @@
 
 ## できること
 
-- `dfs_forest`: `dfs`・forestを求める。
+- `dfs_forest`: dfs forestを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.graph.DFSForest import dfs_forest
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`dfs_forest(graph, root=0, postorder=False)`](../../../graph/DFSForest.py#L3) | `dfs`・forestを求める。 | `graph`: 隣接listまたはグラフobject<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`postorder`: `postorder`として使う入力。省略時: `False` | tuple(list `[]`, list `[]`) / tuple(頂点・要素を処理順に並べたlist[int], 親情報（数値または入力要素型）) | O(V+E) |
+| [`dfs_forest(graph, root=0, postorder=False)`](../../../graph/DFSForest.py#L3) | dfs forestを求める。 | `graph`: 隣接listまたはグラフobject<br>`root`: 根の頂点番号・原始根。省略時: `0`<br>`postorder`: postorderとして使う入力。省略時: `False` | tuple(list `[]`, list `[]`) / tuple(頂点・要素を処理順に並べたlist[int], 親情報（数値または入力要素型）) | O(V+E) |

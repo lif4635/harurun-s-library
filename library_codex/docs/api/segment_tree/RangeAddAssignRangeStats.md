@@ -34,15 +34,15 @@ from library_codex.segment_tree.RangeAddAssignRangeStats import RangeAddAssignRa
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`range_add(left, right, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L140) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N) |
-| [`range_assign(left, right, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L145) | method | 区間・`assign`を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N) |
+| [`range_assign(left, right, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L145) | method | range assignを求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N) |
 | [`range_sum(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L197) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の要素和を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | $\sum_{i=\mathrm{left}}^{\mathrm{right}-1}a_i$。 | O(log N) |
-| [`range_min(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L202) | method | 区間・最小を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 1)` | O(log N) |
-| [`range_max(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L207) | method | 区間・最大を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 2)` | O(log N) |
+| [`range_min(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L202) | method | 区間最小を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 1)` | O(log N) |
+| [`range_max(left, right)`](../../../segment_tree/RangeAddAssignRangeStats.py#L207) | method | 区間最大を求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `self._range_query(left, right, 2)` | O(log N) |
 | [`get(index)`](../../../segment_tree/RangeAddAssignRangeStats.py#L212) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | O(log N) |
 | [`set(index, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L220) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N) |
-| [`all_sum()`](../../../segment_tree/RangeAddAssignRangeStats.py#L225) | method | 全体・和を計算する。 | なし | `self.sum[1]` | O(1) |
-| [`all_min()`](../../../segment_tree/RangeAddAssignRangeStats.py#L228) | method | 全体・最小を求める。 | なし | `self.minimum[1]` | O(1) |
-| [`all_max()`](../../../segment_tree/RangeAddAssignRangeStats.py#L231) | method | 全体・最大を求める。 | なし | `self.maximum[1]` | O(1) |
+| [`all_sum()`](../../../segment_tree/RangeAddAssignRangeStats.py#L225) | method | 全体和を計算する。 | なし | `self.sum[1]` | O(1) |
+| [`all_min()`](../../../segment_tree/RangeAddAssignRangeStats.py#L228) | method | 全体最小を求める。 | なし | `self.minimum[1]` | O(1) |
+| [`all_max()`](../../../segment_tree/RangeAddAssignRangeStats.py#L231) | method | 全体最大を求める。 | なし | `self.maximum[1]` | O(1) |
 | [`__getitem__(index)`](../../../segment_tree/RangeAddAssignRangeStats.py#L234) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | O(log N) |
 | [`__setitem__(index, value)`](../../../segment_tree/RangeAddAssignRangeStats.py#L237) | method | obj[key] = value で更新する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log N) |
 | [`__len__()`](../../../segment_tree/RangeAddAssignRangeStats.py#L240) | method | len(obj)。 | なし | 要素数（int） | — |

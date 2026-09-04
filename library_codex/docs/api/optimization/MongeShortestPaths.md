@@ -8,9 +8,9 @@ Monge重みを持つDAGの最短路を辺数制約付きで計算する。
 
 ## できること
 
-- `monge_shortest_paths`: `monge`・最短・`paths`を求める。
-- `monge_d_edge_shortest_path`: `monge`・`d`・辺・最短・pathを求める。
-- `enumerate_monge_d_edge_shortest_paths`: `monge`・`d`・辺・最短・`paths`を列挙する。
+- `monge_shortest_paths`: monge shortest pathsを求める。
+- `monge_d_edge_shortest_path`: monge d edge shortest pathを求める。
+- `enumerate_monge_d_edge_shortest_paths`: monge d edge shortest pathsを列挙する。
 
 ## Import
 
@@ -22,6 +22,6 @@ from library_codex.optimization.MongeShortestPaths import monge_shortest_paths, 
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`monge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L5) | `monge`・最短・`paths`を求める。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 距離（数値または入力要素型） | O(N log N) cost呼び出し |
-| [`monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L54) | `monge`・`d`・辺・最短・pathを求める。 | `target`: 探索・判定・更新の対象値<br>`edge_count`: 生成する辺の本数<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | `infinity` / `distance[target]` | O(D*(N log N)) cost呼び出し |
-| [`enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L63) | `monge`・`d`・辺・最短・`paths`を列挙する。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 答え（数値または入力要素型） | — |
+| [`monge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L5) | monge shortest pathsを求める。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 距離（数値または入力要素型） | O(N log N) cost呼び出し |
+| [`monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L54) | monge d edge shortest pathを求める。 | `target`: 探索・判定・更新の対象値<br>`edge_count`: 生成する辺の本数<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | `infinity` / `distance[target]` | O(D*(N log N)) cost呼び出し |
+| [`enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100)`](../../../optimization/MongeShortestPaths.py#L63) | monge d edge shortest pathsを列挙する。 | `target`: 探索・判定・更新の対象値<br>`cost`: 辺・選択の費用<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 100` | 答え（数値または入力要素型） | — |

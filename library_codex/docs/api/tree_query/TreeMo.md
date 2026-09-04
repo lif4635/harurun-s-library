@@ -31,5 +31,5 @@ Euler tour 上の区間へ木の path を写し、Mo のアルゴリズムで ac
 | --- | --- | --- | --- | --- | --- |
 | [`lca(first, second)`](../../../tree_query/TreeMo.py#L57) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） | O(log V) |
 | [`add_query(first, second)`](../../../tree_query/TreeMo.py#L75) | method | 両端を含む first--second path を query として登録する。 | `first`: path の一端。<br>`second`: path の他端。 | int — 0 始まりの query ID。run の返り値では同じ位置に答えが入る。 | O(log V) |
-| [`order()`](../../../tree_query/TreeMo.py#L86) | method | `order`を求める。 | なし | `sorted(self.queries, key=lambda query: (query[0] // width, que...` | O(Q log Q) |
+| [`order()`](../../../tree_query/TreeMo.py#L86) | method | orderを求める。 | なし | `sorted(self.queries, key=lambda query: (query[0] // width, que...` | O(Q log Q) |
 | [`run(add, remove, get)`](../../../tree_query/TreeMo.py#L96) | method | 登録した path を Mo 順に巡回し、active 頂点の差分だけ callback へ渡して答える。 | `add`: 頂点が現在の path に入るたび add(vertex) として呼ばれる。<br>`remove`: 頂点が現在の path から外れるたび remove(vertex) として呼ばれる。<br>`get`: 現在の active 頂点が query path と一致する時に引数なしで呼ばれ、その返り値を答えにする。 | list[object] — 登録 query 数と同じ長さの list。answer[query_id] は、その path が active な時の get() の返り値。 | O((V+Q) sqrt(Q) C + Q G) typical |

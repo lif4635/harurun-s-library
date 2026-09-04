@@ -8,7 +8,7 @@
 
 ## できること
 
-- `dijkstra`: `dijkstra`を求める。
+- `dijkstra`: dijkstraを求める。
 
 ## Import
 
@@ -26,4 +26,4 @@ from library_codex.shortest_path.Dijkstra import dijkstra
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`dijkstra(graph, start=0, goal=None)`](../../../shortest_path/Dijkstra.py#L12) | `dijkstra`を求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) | O((V+E) log V) |
+| [`dijkstra(graph, start=0, goal=None)`](../../../shortest_path/Dijkstra.py#L12) | dijkstraを求める。 | `graph`: 隣接listまたはグラフobject<br>`start`: 始点・開始位置。省略時: `0`<br>`goal`: 終点。Noneなら全体を処理。省略時: `None` | tuple(距離（数値または入力要素型）, 経路復元用の直前頂点を格納したlist[int]（数値または入力要素型）) | O((V+E) log V) |

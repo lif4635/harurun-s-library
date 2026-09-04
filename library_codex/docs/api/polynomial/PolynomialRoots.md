@@ -8,7 +8,7 @@
 
 ## できること
 
-- `polynomial_roots`: 多項式・`roots`を求める。
+- `polynomial_roots`: polynomial rootsを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.polynomial.PolynomialRoots import polynomial_roots
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`polynomial_roots(polynomial, mod=DEFAULT_MOD, multiplicity=False)`](../../../polynomial/PolynomialRoots.py#L30) | 多項式・`roots`を求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`multiplicity`: `multiplicity`として使う入力。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] | 期待 O(M(N) log N log mod)、小さいmodでは O(N*mod)（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_roots(polynomial, mod=DEFAULT_MOD, multiplicity=False)`](../../../polynomial/PolynomialRoots.py#L30) | polynomial rootsを求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`multiplicity`: multiplicityとして使う入力。省略時: `False` | list[number] — 昇冪順の係数列 [a0, a1, ...] | 期待 O(M(N) log N log mod)、小さいmodでは O(N*mod)（M(L)は長さLの多項式乗算cost） |

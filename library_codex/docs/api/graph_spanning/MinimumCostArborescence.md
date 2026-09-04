@@ -8,7 +8,7 @@
 
 ## できること
 
-- `minimum_cost_arborescence`: 最小・`cost`・`arborescence`を求める。
+- `minimum_cost_arborescence`: minimum cost arborescenceを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.graph_spanning.MinimumCostArborescence import minimum_cost_ar
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`minimum_cost_arborescence(n, root, edges)`](../../../graph_spanning/MinimumCostArborescence.py#L3) | 最小・`cost`・`arborescence`を求める。 | `n`: 要素数・頂点数・次数<br>`root`: 根の頂点番号・原始根<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(`sum((edges[edge_id][2] for edge_id in original_ids))`, `original_ids`（list）) / `None` | O(VE) |
+| [`minimum_cost_arborescence(n, root, edges)`](../../../graph_spanning/MinimumCostArborescence.py#L3) | minimum cost arborescenceを求める。 | `n`: 要素数・頂点数・次数<br>`root`: 根の頂点番号・原始根<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(`sum((edges[edge_id][2] for edge_id in original_ids))`, `original_ids`（list）) / `None` | O(VE) |

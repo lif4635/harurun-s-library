@@ -9,7 +9,7 @@
 ## できること
 
 - `power_sums`: 入力した値・多項式を指定指数だけ累乗する。
-- `prefix_sum_powers`: prefix・和・`powers`を計算する。
+- `prefix_sum_powers`: prefix sum powersを計算する。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.combinatorial_series.PowerSums import power_sums, prefix_sum_
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`power_sums(values, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L33) | 入力した値・多項式を指定指数だけ累乗する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — result[k]=sum(value^k for value in values) mod modとなるlist。 | O(M(K) log N) modular operations（K=max_exponent+1）（M(L)は長さLの多項式乗算cost） |
-| [`prefix_sum_powers(count, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L47) | prefix・和・`powers`を計算する。 | `count`: 個数<br>`max_exponent`: 最大・`exponent`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(M(K)) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`power_sums(values, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L33) | 入力した値・多項式を指定指数だけ累乗する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`max_exponent`: max exponentの上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — result[k]=sum(value^k for value in values) mod modとなるlist。 | O(M(K) log N) modular operations（K=max_exponent+1）（M(L)は長さLの多項式乗算cost） |
+| [`prefix_sum_powers(count, max_exponent, mod=DEFAULT_MOD)`](../../../combinatorial_series/PowerSums.py#L47) | prefix sum powersを計算する。 | `count`: 個数<br>`max_exponent`: max exponentの上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(M(K)) modular operations（M(L)は長さLの多項式乗算cost） |

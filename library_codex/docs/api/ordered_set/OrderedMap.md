@@ -21,7 +21,7 @@ from library_codex.ordered_set.OrderedMap import OrderedMap
 key順の探索・k番目・lower/upper boundを扱う順序付きmapを扱う `OrderedMap`。
 
 - constructor: [`OrderedMap(items=(), default_factory=lambda : None)`](../../../ordered_set/OrderedMap.py#L10)
-- 引数: `items`: 処理対象を順に並べた列。省略時: `()`<br>`default_factory`: `default`・`factory`として使う入力。省略時: `lambda : None`
+- 引数: `items`: 処理対象を順に並べた列。省略時: `()`<br>`default_factory`: default factoryとして使う入力。省略時: `lambda : None`
 - 返り値: `OrderedMap` instance
 - 計算量: —
 
@@ -33,12 +33,12 @@ key順の探索・k番目・lower/upper boundを扱う順序付きmapを扱う `
 | [`find(key)`](../../../ordered_set/OrderedMap.py#L30) | method | 代表元・位置・対象要素を探す。 | `key`: 比較・格納に使うkey | 代表元・位置・node番号（int） | 期待 O(1) |
 | [`erase(key)`](../../../ordered_set/OrderedMap.py#L33) | method | 指定要素を削除する。 | `key`: 比較・格納に使うkey | bool | 期待 O(log N) |
 | [`lower_bound(key)`](../../../ordered_set/OrderedMap.py#L42) | method | 指定値以上となる最初の位置を返す。 | `key`: 比較・格納に使うkey | 条件を満たす最小index（int。存在しなければsize） | 期待 O(log N) |
-| [`upper_bound(key)`](../../../ordered_set/OrderedMap.py#L45) | method | `upper`・`bound`を求める。 | `key`: 比較・格納に使うkey | `self.keys.bisect_right(key)` | 期待 O(log N) |
+| [`upper_bound(key)`](../../../ordered_set/OrderedMap.py#L45) | method | upper boundを求める。 | `key`: 比較・格納に使うkey | `self.keys.bisect_right(key)` | 期待 O(log N) |
 | [`kth_element(index)`](../../../ordered_set/OrderedMap.py#L48) | method | keyの昇順でindex番目にある(key, value)を返す。 | `index`: 位置 | tuple(`key`, `self.values[key]`) | 期待 O(log N) |
 | [`count(key)`](../../../ordered_set/OrderedMap.py#L52) | method | 条件に合う要素数を返す。 | `key`: 比較・格納に使うkey | 個数（int） | 期待 O(1) |
 | [`__contains__(key)`](../../../ordered_set/OrderedMap.py#L55) | method | value in obj。 | `key`: 比較・格納に使うkey | bool | 期待 O(1) |
 | [`__len__()`](../../../ordered_set/OrderedMap.py#L58) | method | len(obj)。 | なし | 要素数（int） | — |
 | [`__iter__()`](../../../ordered_set/OrderedMap.py#L61) | method | iter(obj)・for 文。 | なし | iterator | — |
-| [`items()`](../../../ordered_set/OrderedMap.py#L64) | method | `items`を求める。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |
+| [`items()`](../../../ordered_set/OrderedMap.py#L64) | method | itemsを求める。 | なし | iterator[object] — 用途欄に示した要素を1つずつyieldする | — |
 | [`__str__()`](../../../ordered_set/OrderedMap.py#L68) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | O(N) |
 | [`__repr__()`](../../../ordered_set/OrderedMap.py#L71) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'OrderedMap(%r)' % dict(self.items())` | O(N) |

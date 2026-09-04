@@ -766,7 +766,7 @@ NOUN = {
     "characteristic": "特性", "coefficient": "係数", "coefficients": "係数列",
     "coloring": "彩色", "component": "連結成分", "components": "連結成分",
     "compose": "合成", "composition": "合成", "convolution": "畳み込み",
-    "count": "個数", "cycle": "閉路", "degree": "次数", "derivative": "微分",
+    "count": "個数", "cover": "被覆", "cycle": "閉路", "degree": "次数", "derivative": "微分",
     "diameter": "直径", "difference": "差", "directed": "有向", "distance": "距離",
     "divisor": "約数", "edge": "辺", "edges": "辺", "enumerate": "列挙",
     "evaluate": "評価", "exponential": "指数", "factor": "因子", "factorial": "階乗",
@@ -780,7 +780,7 @@ NOUN = {
     "path": "path", "polynomial": "多項式", "power": "冪", "prefix": "prefix",
     "prime": "素数", "prod": "積", "product": "積", "range": "区間",
     "remainder": "剰余", "right": "右", "root": "根", "shortest": "最短",
-    "smallest": "最小", "spanning": "全域", "square": "平方", "string": "文字列",
+    "set": "集合", "smallest": "最小", "spanning": "全域", "square": "平方", "string": "文字列",
     "subsequence": "部分列", "subset": "部分集合", "suffix": "suffix", "sum": "和",
     "tree": "木", "undirected": "無向", "value": "値", "values": "値列",
     "vertex": "頂点", "vertices": "頂点", "xor": "XOR", "zeta": "zeta",
@@ -911,8 +911,9 @@ def translated_object(name):
     words = split_words(name)
     if not words:
         return code(name)
-    converted = [NOUN.get(word, code(word)) for word in words]
-    return "・".join(converted)
+    if all(word in NOUN for word in words):
+        return "".join(NOUN[word] for word in words)
+    return " ".join(words)
 
 
 def purpose_for(name, node, owner=None, module_key=None):
@@ -961,7 +962,7 @@ def purpose_for(name, node, owner=None, module_key=None):
     if not words:
         return code(name) + " を実行する。"
     prefix = words[0]
-    obj = "・".join(NOUN.get(word, code(word)) for word in words[1:])
+    obj = translated_object("_".join(words[1:])) if len(words) > 1 else ""
     if prefix in ("is", "has", "can"):
         return (obj or code(name)) + "かどうかを判定する。"
     if prefix in ("get", "query", "access"):

@@ -29,10 +29,10 @@ from library_codex.union_find.WeightedUnionFind import WeightedUnionFind, Rollba
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`find(node)`](../../../union_find/WeightedUnionFind.py#L12) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） | O(log N) |
-| [`weight(node)`](../../../union_find/WeightedUnionFind.py#L32) | method | `weight`を求める。 | `node`: 頂点・内部node番号 | `self.potential[node]` | O(log N) |
+| [`weight(node)`](../../../union_find/WeightedUnionFind.py#L32) | method | weightを求める。 | `node`: 頂点・内部node番号 | `self.potential[node]` | O(log N) |
 | [`merge(first, second, difference)`](../../../union_find/WeightedUnionFind.py#L36) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`difference`: 差として使う入力 | bool | O(log N) |
 | [`same(first, second)`](../../../union_find/WeightedUnionFind.py#L54) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | O(log N) |
-| [`diff(first, second)`](../../../union_find/WeightedUnionFind.py#L57) | method | `diff`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `self.weight(second) - self.weight(first)` / `None` | O(log N) |
+| [`diff(first, second)`](../../../union_find/WeightedUnionFind.py#L57) | method | diffを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `self.weight(second) - self.weight(first)` / `None` | O(log N) |
 | [`size(node)`](../../../union_find/WeightedUnionFind.py#L64) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） | O(log N) |
 
 ## Class `RollbackWeightedUnionFind`
@@ -48,11 +48,11 @@ from library_codex.union_find.WeightedUnionFind import WeightedUnionFind, Rollba
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`find(node)`](../../../union_find/WeightedUnionFind.py#L84) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） | O(log N) |
-| [`leader(node)`](../../../union_find/WeightedUnionFind.py#L92) | method | `leader`を求める。 | `node`: 頂点・内部node番号 | `self.find(node)[0]` | O(log N) |
-| [`weight(node)`](../../../union_find/WeightedUnionFind.py#L95) | method | `weight`を求める。 | `node`: 頂点・内部node番号 | `self.find(node)[1]` | O(log N) |
+| [`leader(node)`](../../../union_find/WeightedUnionFind.py#L92) | method | leaderを求める。 | `node`: 頂点・内部node番号 | `self.find(node)[0]` | O(log N) |
+| [`weight(node)`](../../../union_find/WeightedUnionFind.py#L95) | method | weightを求める。 | `node`: 頂点・内部node番号 | `self.find(node)[1]` | O(log N) |
 | [`merge(first, second, difference)`](../../../union_find/WeightedUnionFind.py#L98) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`difference`: 差として使う入力 | bool | O(log N) |
-| [`same(first, second)`](../../../union_find/WeightedUnionFind.py#L116) | method | `same`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool | O(log N) |
-| [`diff(first, second)`](../../../union_find/WeightedUnionFind.py#L119) | method | `diff`を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `weight_second - weight_first` / `None` | O(log N) |
+| [`same(first, second)`](../../../union_find/WeightedUnionFind.py#L116) | method | sameを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool | O(log N) |
+| [`diff(first, second)`](../../../union_find/WeightedUnionFind.py#L119) | method | diffを求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `weight_second - weight_first` / `None` | O(log N) |
 | [`size(node)`](../../../union_find/WeightedUnionFind.py#L126) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） | O(log N) |
 | [`snapshot()`](../../../union_find/WeightedUnionFind.py#L129) | method | 現在のrollback位置を保存して返す。 | なし | rollback状態番号（int） | O(1) |
 | [`rollback(snapshot=None)`](../../../union_find/WeightedUnionFind.py#L132) | method | 指定snapshotまで状態を巻き戻す。 | `snapshot`: 現在状態を保存し、巻き戻し位置を返す関数。省略時: `None` | `None` | 巻き戻す merge 1 回につき O(1) |

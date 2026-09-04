@@ -36,6 +36,12 @@ left_flags, right_flags = matching.essential_vertices()
 - `right_flags[right]`: 右頂点`right`が、どの最大マッチングでも必ず何らかの辺に使われるか。
 - 必ず使われる辺を調べる`essential_edges()`とは異なり、相手が変わっても頂点が常にマッチされるなら`True`になる。
 
+## allowed_verticesがない理由
+
+「少なくとも一つの最大マッチングでマッチされる頂点」は、孤立頂点でないすべての頂点です。最大マッチングで頂点$v$が未マッチなら、その隣接頂点$u$は必ず別の頂点とマッチされています。その辺を$(u,v)$へ交換すれば、大きさを変えずに$v$をマッチできます。
+
+したがって頂点についてのallowed判定は、左側なら`bool(matching.graph[left])`、右側ならいずれかの左頂点から辺が来ているかを調べるだけです。専用APIにはせず、情報量のある`essential_vertices()`だけを提供します。
+
 ## 計算量
 
 - `solve()`: $O(E\sqrt{L+R})$

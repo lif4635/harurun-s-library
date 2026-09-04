@@ -9,10 +9,10 @@ Berlekamp--Massey・Bostan--Mori・線形漸化式第n項。
 
 ## できること
 
-- `berlekamp_massey`: `berlekamp`・`massey`を求める。
+- `berlekamp_massey`: berlekamp masseyを求める。
 - `berlekamp_massey_poly`: 最短線形漸化式の特性多項式 [1,-c1,...,-cD] を求める。
-- `bostan_mori`: `bostan`・`mori`を求める。
-- `linear_recurrence_nth`: 線形・`recurrence`・`nth`を求める。
+- `bostan_mori`: bostan moriを求める。
+- `linear_recurrence_nth`: linear recurrence nthを求める。
 
 ## Import
 
@@ -31,9 +31,9 @@ from library_codex.combinatorial_series.LinearRecurrence import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`berlekamp_massey(sequence, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L9) | `berlekamp`・`massey`を求める。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`berlekamp_massey(sequence, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L9) | berlekamp masseyを求める。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
 | [`berlekamp_massey_poly(sequence, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L45) | 最短線形漸化式の特性多項式 [1,-c1,...,-cD] を求める。 | `sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `[1] + [-value % mod for value in coefficients]` | O(ND)（Dは最短漸化式の次数） |
-| [`bostan_mori(index, numerator, denominator, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L50) | `bostan`・`mori`を求める。 | `index`: 位置<br>`numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_part`（int） / 数値または入力要素型 `(polynomial_part + numerator[0] * pow(denominator[0], -1, mod)...` | — |
-| [`linear_recurrence_nth(initial, coefficients, index, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L85) | 線形・`recurrence`・`nth`を求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / `0` / `bostan_mori(index, numerator, denominator, mod)` | — |
-| [`nth_term(index, sequence, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L100) | `nth`・`term`を求める。 | `index`: 位置<br>`sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `sequence[index] % mod` / `0` / `linear_recurrence_nth(sequence, coefficients, index, mod)` | — |
-| [`kitamasa(index, characteristic, initial, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L111) | `kitamasa`を求める。 | `index`: 位置<br>`characteristic`: 特性として使う入力<br>`initial`: 初期値または初項列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `linear_recurrence_nth(initial, coefficients, index, mod)` | — |
+| [`bostan_mori(index, numerator, denominator, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L50) | bostan moriを求める。 | `index`: 位置<br>`numerator`: 有理式の分子多項式<br>`denominator`: 有理式の分母多項式<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `polynomial_part`（int） / 数値または入力要素型 `(polynomial_part + numerator[0] * pow(denominator[0], -1, mod)...` | — |
+| [`linear_recurrence_nth(initial, coefficients, index, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L85) | linear recurrence nthを求める。 | `initial`: 初期値または初項列<br>`coefficients`: 係数列<br>`index`: 位置<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `initial[index] % mod` / `0` / `bostan_mori(index, numerator, denominator, mod)` | — |
+| [`nth_term(index, sequence, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L100) | nth termを求める。 | `index`: 位置<br>`sequence`: 入力列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `sequence[index] % mod` / `0` / `linear_recurrence_nth(sequence, coefficients, index, mod)` | — |
+| [`kitamasa(index, characteristic, initial, mod=DEFAULT_MOD)`](../../../combinatorial_series/LinearRecurrence.py#L111) | kitamasaを求める。 | `index`: 位置<br>`characteristic`: 特性として使う入力<br>`initial`: 初期値または初項列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `linear_recurrence_nth(initial, coefficients, index, mod)` | — |

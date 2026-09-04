@@ -8,8 +8,8 @@
 
 ## できること
 
-- `chromatic_number`: `chromatic`・`number`を求める。
-- `chromatic_number_from_edges`: `chromatic`・`number`・`from`・辺を求める。
+- `chromatic_number`: chromatic numberを求める。
+- `chromatic_number_from_edges`: chromatic number from edgesを求める。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.graph_enumeration.ChromaticNumber import chromatic_number, ch
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`chromatic_number(graph, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L16) | `chromatic`・`number`を求める。 | `graph`: 隣接listまたはグラフobject<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `0` / 各頂点の色を格納したlist[int] / `n` | O(n 2^n) / O(2^n) |
-| [`chromatic_number_from_edges(n, edges, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L74) | `chromatic`・`number`・`from`・辺を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `chromatic_number(graph_from_edges(n, edges), exact)` | O(V 2^V) |
+| [`chromatic_number(graph, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L16) | chromatic numberを求める。 | `graph`: 隣接listまたはグラフobject<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `0` / 各頂点の色を格納したlist[int] / `n` | O(n 2^n) / O(2^n) |
+| [`chromatic_number_from_edges(n, edges, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L74) | chromatic number from edgesを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `chromatic_number(graph_from_edges(n, edges), exact)` | O(V 2^V) |

@@ -21,12 +21,12 @@ from library_codex.game.ImpartialGameSolver import ImpartialGameSolver
 有限不偏ゲームのGrundy数と勝敗をmemo化探索で求めるを扱う `ImpartialGameSolver`。
 
 - constructor: [`ImpartialGameSolver(options, splittable=False, with_moves=False)`](../../../game/ImpartialGameSolver.py#L8)
-- 引数: `options`: 局面から遷移先を列挙するcallback<br>`splittable`: `splittable`として使う入力。省略時: `False`<br>`with_moves`: `with`・`moves`を有効にするか。省略時: `False`
+- 引数: `options`: 局面から遷移先を列挙するcallback<br>`splittable`: splittableとして使う入力。省略時: `False`<br>`with_moves`: with movesを有効にするか。省略時: `False`
 - 返り値: `ImpartialGameSolver` instance
 - 計算量: —
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get(board)`](../../../game/ImpartialGameSolver.py#L23) | method | boardから始まる有限不偏ゲームのGrundy数を返す。 | `board`: `board`として使う入力 | int — 遷移先のGrundy数集合に含まれない最小の非負整数。0なら後手必勝、非0なら先手必勝。 | 未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回 |
-| [`get_sum(boards)`](../../../game/ImpartialGameSolver.py#L63) | method | 和を取得する。 | `boards`: `boards`として使う入力 | 計算結果（int） | O(K) + 未計算stateの探索cost |
-| [`get_best_move(game)`](../../../game/ImpartialGameSolver.py#L69) | method | `best`・`move`を取得する。 | `game`: 局面遷移を提供するgame object | tuple(0-indexedの位置（int）, `move`) / `move` / `None` | O(outdegree(game)) options確認 + 未計算stateの探索cost |
+| [`get(board)`](../../../game/ImpartialGameSolver.py#L23) | method | boardから始まる有限不偏ゲームのGrundy数を返す。 | `board`: boardとして使う入力 | int — 遷移先のGrundy数集合に含まれない最小の非負整数。0なら後手必勝、非0なら先手必勝。 | 未計算の到達stateをS、遷移をEとして O(S+E)。optionsは各stateに1回 |
+| [`get_sum(boards)`](../../../game/ImpartialGameSolver.py#L63) | method | 和を取得する。 | `boards`: boardsとして使う入力 | 計算結果（int） | O(K) + 未計算stateの探索cost |
+| [`get_best_move(game)`](../../../game/ImpartialGameSolver.py#L69) | method | best moveを取得する。 | `game`: 局面遷移を提供するgame object | tuple(0-indexedの位置（int）, `move`) / `move` / `None` | O(outdegree(game)) options確認 + 未計算stateの探索cost |

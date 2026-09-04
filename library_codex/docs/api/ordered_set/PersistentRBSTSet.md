@@ -27,15 +27,15 @@ from library_codex.ordered_set.PersistentRBSTSet import PersistentRBSTSet
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`contains_root(root, key)`](../../../ordered_set/PersistentRBSTSet.py#L85) | method | `contains`・根を求める。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | bool | 期待 O(log N) |
+| [`contains_root(root, key)`](../../../ordered_set/PersistentRBSTSet.py#L85) | method | contains rootを求める。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | bool | 期待 O(log N) |
 | [`insert_root(root, key)`](../../../ordered_set/PersistentRBSTSet.py#L92) | method | 根を追加する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | int — keyを含む新しい永続木のroot node番号。既存rootは変更しない。 | 期待 O(log N) |
 | [`erase_root(root, key)`](../../../ordered_set/PersistentRBSTSet.py#L98) | method | 根を削除する。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | `root` / 計算結果 | 期待 O(log N) |
 | [`insert(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L114) | method | 指定位置へ要素を挿入する。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | int — 挿入後に追加されたversion番号。 | 期待 O(log N) |
 | [`erase(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L119) | method | 指定要素を削除する。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | int — 削除後に追加されたversion番号。 | 期待 O(log N) |
 | [`contains(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L124) | method | 指定値を保持しているか判定する。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | bool | 期待 O(log N) |
-| [`lower_bound_root(root, key)`](../../../ordered_set/PersistentRBSTSet.py#L127) | method | `lower`・`bound`・根を求める。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | 計算結果（int） | 期待 O(log N) |
+| [`lower_bound_root(root, key)`](../../../ordered_set/PersistentRBSTSet.py#L127) | method | lower bound rootを求める。 | `root`: 根の頂点番号・原始根<br>`key`: 比較・格納に使うkey | 計算結果（int） | 期待 O(log N) |
 | [`lower_bound(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L137) | method | 指定値以上となる最初の位置を返す。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 条件を満たす最小index（int。存在しなければsize） | 期待 O(log N) |
-| [`upper_bound(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L140) | method | `upper`・`bound`を求める。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 計算結果（int） | 期待 O(log N) |
-| [`kth_root(root, index)`](../../../ordered_set/PersistentRBSTSet.py#L151) | method | k番目・根を求める。 | `root`: 根の頂点番号・原始根<br>`index`: 位置 | `self.key[root]` | 期待 O(log N) |
+| [`upper_bound(key, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L140) | method | upper boundを求める。 | `key`: 比較・格納に使うkey<br>`version`: 参照するversion番号。省略時: `-1` | 計算結果（int） | 期待 O(log N) |
+| [`kth_root(root, index)`](../../../ordered_set/PersistentRBSTSet.py#L151) | method | k番目根を求める。 | `root`: 根の頂点番号・原始根<br>`index`: 位置 | `self.key[root]` | 期待 O(log N) |
 | [`kth(index, version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L164) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1` | k番目の値 | 期待 O(log N) |
-| [`to_list(version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L167) | method | `to`・`list`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 計算結果 | — |
+| [`to_list(version=-1)`](../../../ordered_set/PersistentRBSTSet.py#L167) | method | to listを求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 計算結果 | — |

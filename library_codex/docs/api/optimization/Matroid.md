@@ -45,14 +45,14 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 グループごとの選択数上限を独立条件とする分割マトロイド。
 
 - constructor: [`PartitionMatroid(groups, limits)`](../../../optimization/Matroid.py#L48)
-- 引数: `groups`: 処理対象を順に並べた列<br>`limits`: `limits`として使う入力
+- 引数: `groups`: 処理対象を順に並べた列<br>`limits`: limitsとして使う入力
 - 返り値: `PartitionMatroid` instance
 - 計算量: —
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`set(selected)`](../../../optimization/Matroid.py#L53) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` | — |
-| [`circuit(element)`](../../../optimization/Matroid.py#L61) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[int] — elementを追加すると依存になるときの基本回路の要素番号。独立なら空list。 | — |
+| [`circuit(element)`](../../../optimization/Matroid.py#L61) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: elementとして使う入力 | list[int] — elementを追加すると依存になるときの基本回路の要素番号。独立なら空list。 | — |
 
 ## Class `TransversalMatroid`
 
@@ -66,4 +66,4 @@ from library_codex.optimization.Matroid import minimum_matroid_intersection, Gra
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
 | [`set(selected)`](../../../optimization/Matroid.py#L115) | method | 指定位置・状態を値で置き換える。 | `selected`: 現在選択中の要素集合・bool列 | `None` | — |
-| [`circuit(element)`](../../../optimization/Matroid.py#L125) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: `element`として使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`circuit(element)`](../../../optimization/Matroid.py#L125) | method | 要素を加えたときに生じるmatroidの基本回路を返す。 | `element`: elementとして使う入力 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |

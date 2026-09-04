@@ -80,6 +80,7 @@ sourceだけで表せない説明は`library_codex/tools/api_metadata.py`へ追�
 
 - classが保持する状態と作成後にできることは`CLASS_DETAILS_BY_SYMBOL`へ書く。
 - 同名の`get`・`query`などを区別する説明は`API_DETAILS_BY_SYMBOL`へ、module path・class名・method名をkeyとして書く。
+- `minimum_vertex_cover`を「最小・頂点・cover」のように単語ごとに直訳して連結しない。標準的な英語名をそのまま使うか、入力と得られる結果を説明する自然な日本語を書く。
 - 引数ごとの包含関係や固有の意味は`argumentDescriptions`へ書く。全体規約で自明な0-indexed注記は繰り返さず、例外だけを明記する。
 - tupleの各要素は`returnParts`で名前・型・意味を分ける。listはindex、dictはkey/value、iteratorはyieldする要素が分かる説明にする。
 - 説明文はMarkdownとTeXを使える。codeはbacktick、行内数式は`$...$`、独立した数式は`$$...$$`で書く。

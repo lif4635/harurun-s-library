@@ -146,6 +146,8 @@ def test_api_reference_has_actionable_semantics():
     assert "docs/api/random/Random.md" in documents
     assert all("| alias |" not in text for text in documents.values())
     assert all("## Module aliases" not in text for text in documents.values())
+    assert all("・`" not in text for text in documents.values())
+    assert all("`・" not in text for text in documents.values())
     assert all(
         "各操作の計算量はAPI表を参照" not in text
         for text in documents.values()

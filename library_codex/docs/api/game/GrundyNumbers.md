@@ -8,8 +8,8 @@
 
 ## できること
 
-- `grundy_numbers`: `grundy`・`numbers`を求める。
-- `mex`: `mex`を求める。
+- `grundy_numbers`: grundy numbersを求める。
+- `mex`: mexを求める。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.game.GrundyNumbers import grundy_numbers, mex
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`grundy_numbers(graph)`](../../../game/GrundyNumbers.py#L3) | `grundy`・`numbers`を求める。 | `graph`: 隣接listまたはグラフobject | `grundy`（数値または入力要素型） / `None` | O(V+E) |
-| [`mex(values)`](../../../game/GrundyNumbers.py#L31) | `mex`を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 計算結果（int） | O(N) |
+| [`grundy_numbers(graph)`](../../../game/GrundyNumbers.py#L3) | grundy numbersを求める。 | `graph`: 隣接listまたはグラフobject | `grundy`（数値または入力要素型） / `None` | O(V+E) |
+| [`mex(values)`](../../../game/GrundyNumbers.py#L31) | mexを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | 計算結果（int） | O(N) |

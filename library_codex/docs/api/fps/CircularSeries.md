@@ -8,7 +8,7 @@
 
 ## できること
 
-- `circular_series`: `circular`・`series`を求める。
+- `circular_series`: circular seriesを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.fps.CircularSeries import circular_series
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`circular_series(real_angle, imaginary_angle=None, degree=None, mod=DEFAULT_MOD)`](../../../fps/CircularSeries.py#L16) | `circular`・`series`を求める。 | `real_angle`: `real`・`angle`として使う入力<br>`imaginary_angle`: `imaginary`・`angle`として使う入力。省略時: `None`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`) / tuple(`real`（数値または入力要素型）, `imaginary`（数値または入力要素型）) | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`circular_series(real_angle, imaginary_angle=None, degree=None, mod=DEFAULT_MOD)`](../../../fps/CircularSeries.py#L16) | circular seriesを求める。 | `real_angle`: real angleとして使う入力<br>`imaginary_angle`: imaginary angleとして使う入力。省略時: `None`<br>`degree`: 必要な係数数・次数上限。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | tuple(list `[]`, list `[]`) / tuple(`real`（数値または入力要素型）, `imaginary`（数値または入力要素型）) | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |

@@ -27,5 +27,5 @@ from library_codex.optimization.MonotoneConvexHullTrick import MonotoneConvexHul
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_line(slope, intercept)`](../../../optimization/MonotoneConvexHullTrick.py#L18) | method | `line`を追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | 償却 O(1) |
+| [`add_line(slope, intercept)`](../../../optimization/MonotoneConvexHullTrick.py#L18) | method | lineを追加する。 | `slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | 償却 O(1) |
 | [`query(point)`](../../../optimization/MonotoneConvexHullTrick.py#L37) | method | 追加済みの全直線をpointで評価した最小値または最大値を返す。 | `point`: 評価点・座標 | number — minimize=Trueならmin(a*point+b)、Falseならmax(a*point+b)。空ならValueError。 | 償却 O(1)（xが単調な場合） |

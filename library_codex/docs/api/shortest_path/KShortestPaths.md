@@ -9,8 +9,8 @@
 
 ## できること
 
-- `k_shortest_paths_directed`: `k`・最短・`paths`・有向を求める。
-- `k_shortest_paths_undirected`: `k`・最短・`paths`・無向を求める。
+- `k_shortest_paths_directed`: k shortest paths directedを求める。
+- `k_shortest_paths_undirected`: k shortest paths undirectedを求める。
 - `KShortestPathDirected`: 有向/無向k-shortest loopless path（辺ID・平行辺対応）を扱う `KShortestPathDirected`。
 - `KShortestPathUndirected`: 有向/無向k-shortest loopless path（辺ID・平行辺対応）を扱う `KShortestPathUndirected`。
 
@@ -24,8 +24,8 @@ from library_codex.shortest_path.KShortestPaths import k_shortest_paths_directed
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`k_shortest_paths_directed(n, edges, source, target, k)`](../../../shortest_path/KShortestPaths.py#L95) | `k`・最短・`paths`・有向を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 選ぶ個数または0-indexedの順位 | `_yen(graph, weight, source, target, k)` | — |
-| [`k_shortest_paths_undirected(n, edges, source, target, k)`](../../../shortest_path/KShortestPaths.py#L111) | `k`・最短・`paths`・無向を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 選ぶ個数または0-indexedの順位 | `_yen(graph, weight, source, target, k)` | — |
+| [`k_shortest_paths_directed(n, edges, source, target, k)`](../../../shortest_path/KShortestPaths.py#L95) | k shortest paths directedを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 選ぶ個数または0-indexedの順位 | `_yen(graph, weight, source, target, k)` | — |
+| [`k_shortest_paths_undirected(n, edges, source, target, k)`](../../../shortest_path/KShortestPaths.py#L111) | k shortest paths undirectedを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`k`: 選ぶ個数または0-indexedの順位 | `_yen(graph, weight, source, target, k)` | — |
 
 ## Class `KShortestPathDirected`
 
@@ -40,7 +40,7 @@ from library_codex.shortest_path.KShortestPaths import k_shortest_paths_directed
 | --- | --- | --- | --- | --- | --- |
 | [`add_edge(source, target, weight)`](../../../shortest_path/KShortestPaths.py#L135) | method | 辺を追加する。 | `source`: 始点<br>`target`: 探索・判定・更新の対象値<br>`weight`: 重み | int — 追加した辺の0-indexed edge ID。 | — |
 | [`solve(k)`](../../../shortest_path/KShortestPaths.py#L140) | method | 設定済みの問題を解き、答えを返す。 | `k`: 選ぶ個数または0-indexedの順位 | 登録順の答えのlist | — |
-| [`get_next_smallest()`](../../../shortest_path/KShortestPaths.py#L145) | method | `next`・最小を取得する。 | なし | 計算結果 / `None` | — |
+| [`get_next_smallest()`](../../../shortest_path/KShortestPaths.py#L145) | method | next smallestを取得する。 | なし | 計算結果 / `None` | — |
 
 ## Class `KShortestPathUndirected`
 

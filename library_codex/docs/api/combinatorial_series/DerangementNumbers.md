@@ -8,7 +8,7 @@
 
 ## できること
 
-- `derangement_numbers`: `derangement`・`numbers`を求める。
+- `derangement_numbers`: derangement numbersを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.combinatorial_series.DerangementNumbers import derangement_nu
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`derangement_numbers(max_index, mod=DEFAULT_MOD)`](../../../combinatorial_series/DerangementNumbers.py#L14) | `derangement`・`numbers`を求める。 | `max_index`: 最大・`index`の上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 0からmax_indexまでの完全順列数を添字順に並べたlist。 | O(N) |
+| [`derangement_numbers(max_index, mod=DEFAULT_MOD)`](../../../combinatorial_series/DerangementNumbers.py#L14) | derangement numbersを求める。 | `max_index`: max indexの上限<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — 0からmax_indexまでの完全順列数を添字順に並べたlist。 | O(N) |

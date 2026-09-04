@@ -9,8 +9,8 @@
 
 ## できること
 
-- `optimal_tree_topological_order`: `optimal`・木・`topological`・`order`を求める。
-- `bipolar_orientation`: `bipolar`・`orientation`を求める。
+- `optimal_tree_topological_order`: optimal tree topological orderを求める。
+- `bipolar_orientation`: bipolar orientationを求める。
 - `replacement_paths`: 各辺を1本ずつ除いた場合のsource-target最短距離をまとめて求める。
 
 ## Import
@@ -23,6 +23,6 @@ from library_codex.graph_spanning.GraphOrdering import optimal_tree_topological_
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`optimal_tree_topological_order(parent, weight0, weight1, root=0)`](../../../graph_spanning/GraphOrdering.py#L25) | `optimal`・木・`topological`・`order`を求める。 | `parent`: 親頂点・親配列<br>`weight0`: `weight0`として使う入力<br>`weight1`: `weight1`として使う入力<br>`root`: 根の頂点番号・原始根。省略時: `0` | tuple(`0`, list `[]`) / tuple(`value[component]`, 頂点・要素を処理順に並べたlist[int]) | O(N log N) |
-| [`bipolar_orientation(graph, source, target)`](../../../graph_spanning/GraphOrdering.py#L101) | `bipolar`・`orientation`を求める。 | `graph`: 隣接listまたはグラフobject<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値 | `position`（数値または入力要素型） / `None` | — |
+| [`optimal_tree_topological_order(parent, weight0, weight1, root=0)`](../../../graph_spanning/GraphOrdering.py#L25) | optimal tree topological orderを求める。 | `parent`: 親頂点・親配列<br>`weight0`: weight0として使う入力<br>`weight1`: weight1として使う入力<br>`root`: 根の頂点番号・原始根。省略時: `0` | tuple(`0`, list `[]`) / tuple(`value[component]`, 頂点・要素を処理順に並べたlist[int]) | O(N log N) |
+| [`bipolar_orientation(graph, source, target)`](../../../graph_spanning/GraphOrdering.py#L101) | bipolar orientationを求める。 | `graph`: 隣接listまたはグラフobject<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値 | `position`（数値または入力要素型） / `None` | — |
 | [`replacement_paths(n, edges, source, target)`](../../../graph_spanning/GraphOrdering.py#L220) | 各辺を1本ずつ除いた場合のsource-target最短距離をまとめて求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`source`: 始点<br>`target`: 探索・判定・更新の対象値 | list[number] — index iはedges[i]を除いたsource-target最短距離。到達不能ならinf | O((V+E) log V) |

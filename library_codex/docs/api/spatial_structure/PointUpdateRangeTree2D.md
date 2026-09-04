@@ -27,7 +27,7 @@ from library_codex.spatial_structure.PointUpdateRangeTree2D import PointUpdateRa
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_point(x, y)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L22) | method | `point`を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | `None` | O(1)（build前の登録） |
+| [`add_point(x, y)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L22) | method | pointを追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | `None` | O(1)（build前の登録） |
 | [`build()`](../../../spatial_structure/PointUpdateRangeTree2D.py#L27) | method | 内部構造を構築する。 | なし | `self` | O(N log N) |
 | [`add(x, y, value)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L65) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log^2 N) |
 | [`set(x, y, value)`](../../../spatial_structure/PointUpdateRangeTree2D.py#L74) | method | 指定位置・状態を値で置き換える。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log^2 N) |

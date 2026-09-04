@@ -22,7 +22,7 @@ from library_codex.sequence_structure.PersistentArray import PersistentArray
 分岐可能な永続配列（非再帰・フラットプール）を扱う `PersistentArray`。
 
 - constructor: [`PersistentArray(a_or_n, default=0, shift=2)`](../../../sequence_structure/PersistentArray.py#L6)
-- 引数: `a_or_n`: `a`・`or`・`n`として使う入力<br>`default`: 省略時に使う値。省略時: `0`<br>`shift`: 平行移動量・bit shift量。省略時: `2`
+- 引数: `a_or_n`: a or nとして使う入力<br>`default`: 省略時に使う値。省略時: `0`<br>`shift`: 平行移動量・bit shift量。省略時: `2`
 - 返り値: `PersistentArray` instance
 - 計算量: —
 
@@ -32,8 +32,8 @@ from library_codex.sequence_structure.PersistentArray import PersistentArray
 | [`get(index, version=-1)`](../../../sequence_structure/PersistentArray.py#L58) | method | index番目に格納されている値を返す。 | `index`: 位置<br>`version`: 参照するversion番号。省略時: `-1` | 指定対象に格納された値・edge object | — |
 | [`update_root(root, index, value)`](../../../sequence_structure/PersistentArray.py#L61) | method | 根を更新する。 | `root`: 根の頂点番号・原始根<br>`index`: 位置<br>`value`: 追加・設定・問い合わせる値 | int — 更新後の永続配列を表すroot node番号。 | — |
 | [`set(index, value, version=-1)`](../../../sequence_structure/PersistentArray.py#L93) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値<br>`version`: 参照するversion番号。省略時: `-1` | int — 更新後に追加されたversion番号。 | — |
-| [`fork(version=-1)`](../../../sequence_structure/PersistentArray.py#L100) | method | `fork`を求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` | — |
-| [`tolist(version=-1)`](../../../sequence_structure/PersistentArray.py#L104) | method | `tolist`を求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`node_count()`](../../../sequence_structure/PersistentArray.py#L108) | method | `node`・個数を求める。 | なし | 数値または入力要素型 `len(self.pool) // self.branch - 1` | — |
+| [`fork(version=-1)`](../../../sequence_structure/PersistentArray.py#L100) | method | forkを求める。 | `version`: 参照するversion番号。省略時: `-1` | 数値または入力要素型 `len(self.roots) - 1` | — |
+| [`tolist(version=-1)`](../../../sequence_structure/PersistentArray.py#L104) | method | tolistを求める。 | `version`: 参照するversion番号。省略時: `-1` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`node_count()`](../../../sequence_structure/PersistentArray.py#L108) | method | node countを求める。 | なし | 数値または入力要素型 `len(self.pool) // self.branch - 1` | — |
 | [`__str__()`](../../../sequence_structure/PersistentArray.py#L111) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
 | [`__repr__()`](../../../sequence_structure/PersistentArray.py#L114) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'PersistentArray(%r)' % self.tolist()` | — |

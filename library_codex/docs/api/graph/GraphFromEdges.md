@@ -8,7 +8,7 @@
 
 ## できること
 
-- `graph_from_edges`: グラフ・`from`・辺を求める。
+- `graph_from_edges`: graph from edgesを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.graph.GraphFromEdges import graph_from_edges
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`graph_from_edges(n, edges)`](../../../graph/GraphFromEdges.py#L3) | グラフ・`from`・辺を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(V+E) |
+| [`graph_from_edges(n, edges)`](../../../graph/GraphFromEdges.py#L3) | graph from edgesを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(V+E) |

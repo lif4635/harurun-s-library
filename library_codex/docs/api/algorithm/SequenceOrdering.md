@@ -28,8 +28,8 @@ from library_codex.algorithm.SequenceOrdering import PointUpdateLexSort
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`mutate(position, value)`](../../../algorithm/SequenceOrdering.py#L48) | method | `mutate`を求める。 | `position`: 位置<br>`value`: 追加・設定・問い合わせる値 | `_VersionIterator(self, len(self.positions))` | — |
+| [`mutate(position, value)`](../../../algorithm/SequenceOrdering.py#L48) | method | mutateを求める。 | `position`: 位置<br>`value`: 追加・設定・問い合わせる値 | `_VersionIterator(self, len(self.positions))` | — |
 | [`count()`](../../../algorithm/SequenceOrdering.py#L56) | method | 条件に合う要素数を返す。 | なし | 個数（int） | — |
-| [`last()`](../../../algorithm/SequenceOrdering.py#L59) | method | `last`を求める。 | なし | `_VersionIterator(self, len(self.positions))` | — |
-| [`max_sorted_pos()`](../../../algorithm/SequenceOrdering.py#L62) | method | 最大・`sorted`・`pos`を求める。 | なし | `self.maximum_rank` | — |
-| [`proc()`](../../../algorithm/SequenceOrdering.py#L69) | method | `proc`を求める。 | なし | `positions`（数値または入力要素型） | — |
+| [`last()`](../../../algorithm/SequenceOrdering.py#L59) | method | lastを求める。 | なし | `_VersionIterator(self, len(self.positions))` | — |
+| [`max_sorted_pos()`](../../../algorithm/SequenceOrdering.py#L62) | method | max sorted posを求める。 | なし | `self.maximum_rank` | — |
+| [`proc()`](../../../algorithm/SequenceOrdering.py#L69) | method | procを求める。 | なし | `positions`（数値または入力要素型） | — |

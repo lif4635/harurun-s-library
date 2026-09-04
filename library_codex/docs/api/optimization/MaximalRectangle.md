@@ -8,8 +8,8 @@ histogramまたは0/1行列に含まれる最大長方形を求める。
 
 ## できること
 
-- `maximal_rectangle`: `maximal`・`rectangle`を求める。
-- `maximal_rectangle_binary`: `maximal`・`rectangle`・二分を求める。
+- `maximal_rectangle`: maximal rectangleを求める。
+- `maximal_rectangle_binary`: maximal rectangle binaryを求める。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.optimization.MaximalRectangle import maximal_rectangle, maxim
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`maximal_rectangle(heights)`](../../../optimization/MaximalRectangle.py#L3) | `maximal`・`rectangle`を求める。 | `heights`: 各列の高さ | `best`（int） | O(HW) |
-| [`maximal_rectangle_binary(matrix, truthy=True)`](../../../optimization/MaximalRectangle.py#L15) | `maximal`・`rectangle`・二分を求める。 | `matrix`: 行をlistで持つ行列<br>`truthy`: 通行可能/1と扱う値または判定callback。省略時: `True` | `0` / 計算結果（int） | O(HW) |
+| [`maximal_rectangle(heights)`](../../../optimization/MaximalRectangle.py#L3) | maximal rectangleを求める。 | `heights`: 各列の高さ | `best`（int） | O(HW) |
+| [`maximal_rectangle_binary(matrix, truthy=True)`](../../../optimization/MaximalRectangle.py#L15) | maximal rectangle binaryを求める。 | `matrix`: 行をlistで持つ行列<br>`truthy`: 通行可能/1と扱う値または判定callback。省略時: `True` | `0` / 計算結果（int） | O(HW) |

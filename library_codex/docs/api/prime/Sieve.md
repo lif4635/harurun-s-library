@@ -9,10 +9,10 @@
 
 ## できること
 
-- `prime_sieve`: 素数・`sieve`を求める。
-- `prime_count`: 素数・個数を求める。
-- `count_square_free`: 平方・`free`の個数を求める。
-- `sum_totient`: 和・`totient`を計算する。
+- `prime_sieve`: prime sieveを求める。
+- `prime_count`: 素数個数を求める。
+- `count_square_free`: square freeの個数を求める。
+- `sum_totient`: sum totientを計算する。
 - `LinearSieve`: 線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数を扱う `LinearSieve`。
 
 ## Import
@@ -31,10 +31,10 @@ from library_codex.prime.Sieve import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`prime_sieve(limit)`](../../../prime/Sieve.py#L58) | 素数・`sieve`を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).primes` | — |
-| [`prime_count(number)`](../../../prime/Sieve.py#L62) | 素数・個数を求める。 | `number`: 整数 | `0` / `count[0]` | O(n^(3/4) |
-| [`count_square_free(number)`](../../../prime/Sieve.py#L91) | 平方・`free`の個数を求める。 | `number`: 整数 | `0` / `sum((mobius[value] * (number // (value * value)) for value in ...` | O(sqrt(number) |
-| [`sum_totient(limit)`](../../../prime/Sieve.py#L101) | 和・`totient`を計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `0` / `sum(LinearSieve(limit).phi[1:])` | — |
+| [`prime_sieve(limit)`](../../../prime/Sieve.py#L58) | prime sieveを求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).primes` | — |
+| [`prime_count(number)`](../../../prime/Sieve.py#L62) | 素数個数を求める。 | `number`: 整数 | `0` / `count[0]` | O(n^(3/4) |
+| [`count_square_free(number)`](../../../prime/Sieve.py#L91) | square freeの個数を求める。 | `number`: 整数 | `0` / `sum((mobius[value] * (number // (value * value)) for value in ...` | O(sqrt(number) |
+| [`sum_totient(limit)`](../../../prime/Sieve.py#L101) | sum totientを計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `0` / `sum(LinearSieve(limit).phi[1:])` | — |
 
 ## Class `LinearSieve`
 

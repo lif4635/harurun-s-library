@@ -8,7 +8,7 @@
 
 ## できること
 
-- `enumerate_triangles`: `triangles`を列挙する。
+- `enumerate_triangles`: trianglesを列挙する。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.graph_enumeration.EnumerateTriangles import enumerate_triangl
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`enumerate_triangles(n, edges, callback=None)`](../../../graph_enumeration/EnumerateTriangles.py#L3) | `triangles`を列挙する。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | list/None/int `result if callback is None else count` | O(n + m sqrt(m) |
+| [`enumerate_triangles(n, edges, callback=None)`](../../../graph_enumeration/EnumerateTriangles.py#L3) | trianglesを列挙する。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | list/None/int `result if callback is None else count` | O(n + m sqrt(m) |

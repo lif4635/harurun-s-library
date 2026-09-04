@@ -8,7 +8,7 @@
 
 ## できること
 
-- `reverse_graph`: `reverse`・グラフを求める。
+- `reverse_graph`: reverse graphを求める。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.graph.ReverseGraph import reverse_graph
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`reverse_graph(graph)`](../../../graph/ReverseGraph.py#L3) | `reverse`・グラフを求める。 | `graph`: 隣接listまたはグラフobject | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(V+E) |
+| [`reverse_graph(graph)`](../../../graph/ReverseGraph.py#L3) | reverse graphを求める。 | `graph`: 隣接listまたはグラフobject | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(V+E) |

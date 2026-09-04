@@ -8,7 +8,7 @@
 
 ## できること
 
-- `enumerate_cliques`: `cliques`を列挙する。
+- `enumerate_cliques`: cliquesを列挙する。
 
 ## Import
 
@@ -20,4 +20,4 @@ from library_codex.graph_enumeration.EnumerateCliques import enumerate_cliques
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph_enumeration/EnumerateCliques.py#L22) | `cliques`を列挙する。 | `graph`: 隣接listまたはグラフobject<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list/None/int `result if callback is None else count` | — |
+| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph_enumeration/EnumerateCliques.py#L22) | cliquesを列挙する。 | `graph`: 隣接listまたはグラフobject<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list/None/int `result if callback is None else count` | — |

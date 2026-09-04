@@ -20,4 +20,4 @@ from library_codex.graph.RestorePath import restore_path
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`restore_path(previous, goal, start=None)`](../../../graph/RestorePath.py#L3) | pathを復元する。 | `previous`: `previous`として使う入力<br>`goal`: 終点。Noneなら全体を処理<br>`start`: 始点・開始位置。省略時: `None` | list[int] — 経路上の頂点または辺を順に並べた列 | O(path length) |
+| [`restore_path(previous, goal, start=None)`](../../../graph/RestorePath.py#L3) | pathを復元する。 | `previous`: previousとして使う入力<br>`goal`: 終点。Noneなら全体を処理<br>`start`: 始点・開始位置。省略時: `None` | list[int] — 経路上の頂点または辺を順に並べた列 | O(path length) |
