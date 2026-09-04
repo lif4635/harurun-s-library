@@ -3648,7 +3648,7 @@ COMPLEXITY_BY_MODULE.update({
         "dag_minimum_path_cover": "O(E sqrt(V) + V+E)",
     },
     "graph_matching/GeneralMatching.py": {
-        "maximum_general_matching": "O(V^3)", "pairs": "O(V)",
+        "GeneralMatching": "O(VE)", "pairs": "O(V)",
     },
     "graph_matching/Hungarian.py": {"hungarian_max": "O(N^3)"},
     "graph_spanning/MinimumSteinerTree.py": {
@@ -3868,6 +3868,107 @@ COMPLEXITY_BY_MODULE.update({
         "find": "償却 O(alpha(N))", "color": "償却 O(alpha(N))",
         "can_add_edge": "償却 O(alpha(N))", "add_edge": "償却 O(alpha(N))",
         "is_bipartite": "O(1)",
+    },
+})
+
+SEARCH_TERMS_BY_MODULE.update({
+    "graph_matching/BipartiteMatching.py": (
+        "二部マッチング", "Hopcroft Karp", "最大二部マッチング",
+    ),
+    "graph_matching/GeneralMatching.py": (
+        "一般グラフ最大マッチング", "Edmonds blossom", "花縮約",
+    ),
+})
+
+SEARCH_TERMS_BY_SYMBOL.update({
+    ("graph_matching/BipartiteMatching.py", "essential_vertices"): (
+        "必須頂点", "全最大マッチング",
+    ),
+    ("graph_matching/GeneralMatching.py", "essential_vertices"): (
+        "必須頂点", "need", "全最大マッチング",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "graph_matching/BipartiteMatching.py": (
+        "左右に分けた無向二部グラフの最大マッチングをHopcroft--Karp法で求められる。",
+        "マッチした辺、最小頂点被覆、最大独立集合、最小辺被覆、DM分解を取得できる。",
+        "最大マッチングに入れられる辺、必ず入る辺、必ずマッチされる頂点を判定できる。",
+    ),
+    "graph_matching/GeneralMatching.py": (
+        "奇数cycleを含む一般無向グラフの最大cardinality matchingをblossom縮約で求められる。",
+        "各頂点のmateとマッチした辺の列を取得できる。",
+        "すべての最大マッチングで必ずマッチされる頂点を判定できる。",
+    ),
+})
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching"): {
+        "description": "左右の頂点集合が分かれた二部グラフの最大マッチングを計算し、頂点被覆・独立集合・必須な辺と頂点も求める。",
+        "constructorCreates": "add_edgeで辺を追加し、solveや各queryを呼べる空の二部グラフを作る。",
+        "argumentDescriptions": {
+            "left_size": "左側の頂点数。左頂点は0以上left_size未満。",
+            "right_size": "右側の頂点数。右頂点は0以上right_size未満。",
+        },
+    },
+    ("graph_matching/GeneralMatching.py", "GeneralMatching"): {
+        "description": "奇数cycleを含む一般無向グラフの最大cardinality matchingをblossom縮約で求める。",
+        "constructorCreates": "graphを直ちに解き、matching_size・mate・pairsを取得できる状態を作る。",
+        "argumentDescriptions": {"graph": "0始まりの頂点番号を持つ無向グラフの隣接list。各辺は両端に入れる。"},
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "add_edge"): {
+        "description": "左頂点と右頂点を結ぶ辺を追加する。solve後にも追加でき、次のqueryで増分を反映する。",
+        "argumentDescriptions": {"left": "左側の頂点番号。", "right": "右側の頂点番号。"},
+        "returnFormat": "None",
+        "returnDescription": "辺を内部の隣接listへ追加する。",
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "solve"): {
+        "description": "現在までに追加した辺に対する最大マッチングを求める。",
+        "returnFormat": "int",
+        "returnDescription": "最大マッチングに含まれる辺数。mateはmatch_leftとmatch_rightへ保存される。",
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "pairs"): {
+        "description": "現在の最大マッチングに含まれる辺を列挙する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "各要素は(left, right)。leftとrightはそれぞれの側で0始まりの頂点番号。",
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "essential_vertices"): {
+        "description": "すべての最大マッチングで必ずマッチされる頂点を左右別に判定する。",
+        "returnFormat": "tuple[list[bool], list[bool]]",
+        "returnDescription": "(left_flags, right_flags)。各位置は、その側の頂点がどの最大マッチングでも必ず何らかの辺とマッチされる場合だけTrue。",
+        "returnParts": (
+            {"name": "left_flags", "format": "list[bool]", "description": "左頂点番号順の必須判定。"},
+            {"name": "right_flags", "format": "list[bool]", "description": "右頂点番号順の必須判定。"},
+        ),
+    },
+    ("graph_matching/GeneralMatching.py", "GeneralMatching", "pairs"): {
+        "description": "構築時に得た最大マッチングの辺を重複なく列挙する。",
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "各要素はマッチした無向辺(first, second)。常にfirst < second。",
+    },
+    ("graph_matching/GeneralMatching.py", "GeneralMatching", "essential_vertices"): {
+        "description": "すべての最大マッチングで必ずマッチされる頂点を判定する。",
+        "returnFormat": "list[bool]",
+        "returnDescription": "頂点番号順の真偽値列。結果[v]は、頂点vがどの最大マッチングでも必ず何らかの辺とマッチされる場合だけTrue。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "graph_matching/BipartiteMatching.py": {
+        **COMPLEXITY_BY_MODULE.get("graph_matching/BipartiteMatching.py", {}),
+        "BipartiteMatching": "構築 O(V)",
+        "add_edge": "O(1)",
+        "solve": "全体で O(E sqrt(V))",
+        "pairs": "matching未計算ならsolveを含み、計算済みならO(V)",
+        "essential_vertices": "matching済みならO(V+E)、未実行ならsolveを含む",
+    },
+    "graph_matching/GeneralMatching.py": {
+        "GeneralMatching": "O(VE)",
+        "pairs": "O(V)",
+        "essential_vertices": "O(VE)",
     },
 })
 

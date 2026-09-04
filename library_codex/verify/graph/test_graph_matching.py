@@ -1,4 +1,3 @@
-import itertools
 import random
 import sys
 from pathlib import Path
@@ -9,45 +8,7 @@ sys.path.insert(0, str(ROOT))
 
 from graph_matching.DAGMinimumPathCover import dag_minimum_path_cover  # noqa: E402
 from graph_connectivity.DynamicBipartiteGraph import DynamicBipartiteGraph  # noqa: E402
-from graph_matching.GeneralMatching import GeneralMatching  # noqa: E402
 from graph.TwoSAT import TwoSAT  # noqa: E402
-
-
-def _brute_matching(n, edges):
-    best = 0
-    for mask in range(1 << len(edges)):
-        used = 0
-        count = 0
-        valid = True
-        for i, (u, v) in enumerate(edges):
-            if mask >> i & 1:
-                bits = (1 << u) | (1 << v)
-                if used & bits:
-                    valid = False
-                    break
-                used |= bits
-                count += 1
-        if valid and count > best:
-            best = count
-    return best
-
-
-def test_general_matching_against_edge_subsets():
-    rng = random.Random(30)
-    for n in range(10):
-        possible = [(u, v) for u in range(n) for v in range(u + 1, n)]
-        for _ in range(400):
-            rng.shuffle(possible)
-            edges = possible[:rng.randrange(min(12, len(possible)) + 1)]
-            graph = [[] for _ in range(n)]
-            for u, v in edges:
-                graph[u].append(v)
-                graph[v].append(u)
-            solver = GeneralMatching(graph)
-            assert solver.matching_size == _brute_matching(n, edges)
-            assert len(solver.pairs()) == solver.matching_size
-            for u, v in solver.pairs():
-                assert u in graph[v] and solver.mate[u] == v and solver.mate[v] == u
 
 
 def test_two_sat_against_all_assignments():

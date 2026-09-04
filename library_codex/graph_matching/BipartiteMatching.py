@@ -91,13 +91,9 @@ class BipartiteMatching:
             self.matching_size += augmented
         return self.matching_size
 
-    flow = solve
-
     def pairs(self):
         self.solve()
         return [(left, right) for left, right in enumerate(self.match_left) if right != -1]
-
-    maximum_matching = pairs
 
     def _alternating_reachable(self):
         self.solve()
@@ -250,9 +246,7 @@ class BipartiteMatching:
             groups.append(group)
         return [vzero] + groups + [vinf]
 
-    dm_decomposition = dulmage_mendelsohn
-
-    def _allowed_edge_data(self):
+    def _allowed_edge_data(self, components=True):
         self.solve()
         left_size = self.left_size
         n = left_size + self.right_size
@@ -294,6 +288,9 @@ class BipartiteMatching:
                     to_free_right[other] = 1
                     queue.append(other)
 
+        if not components:
+            return from_free_left, to_free_right, None
+
         used = bytearray(n)
         order = []
         for start in range(n):
@@ -325,6 +322,16 @@ class BipartiteMatching:
                         component[other] = start
                         stack.append(other)
         return from_free_left, to_free_right, component
+
+    def essential_vertices(self):
+        from_left, to_right, _ = self._allowed_edge_data(False)
+        offset = self.left_size
+        return (
+            [right != -1 and not from_left[left]
+             for left, right in enumerate(self.match_left)],
+            [left != -1 and not to_right[offset + right]
+             for right, left in enumerate(self.match_right)],
+        )
 
     def allowed_edges(self):
         """Return edges that occur in at least one maximum matching."""
@@ -364,19 +371,3 @@ class BipartiteMatching:
             ):
                 result.append((left, right))
         return result
-
-
-def bipartite_matching(graph, right_size):
-    matcher = BipartiteMatching(len(graph), right_size)
-    for left, edges in enumerate(graph):
-        for right in edges:
-            matcher.add_edge(left, right)
-    matcher.solve()
-    return matcher.match_left
-
-
-def maximum_bipartite_matching(left_size, right_size, edges):
-    matcher = BipartiteMatching(left_size, right_size)
-    for left, right in edges:
-        matcher.add_edge(left, right)
-    return matcher.maximum_matching()

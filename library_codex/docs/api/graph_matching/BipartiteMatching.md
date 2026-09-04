@@ -5,44 +5,39 @@
 
 - 計算量の目安: $O(E\sqrt V)$
 - source: [`graph_matching/BipartiteMatching.py`](../../../graph_matching/BipartiteMatching.py)
-- 公開API: function 2、class 1、method/property 9（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 10（Python protocol 0を含む）
 
 ## できること
 
-- `bipartite_matching`: `bipartite`・matchingを求める。
-- `maximum_bipartite_matching`: 最大・`bipartite`・matchingを求める。
-- `BipartiteMatching`: 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解を扱う `BipartiteMatching`。
+- 左右に分けた無向二部グラフの最大マッチングをHopcroft--Karp法で求められる。
+- マッチした辺、最小頂点被覆、最大独立集合、最小辺被覆、DM分解を取得できる。
+- 最大マッチングに入れられる辺、必ず入る辺、必ずマッチされる頂点を判定できる。
 
 ## Import
 
 ```python
-from library_codex.graph_matching.BipartiteMatching import bipartite_matching, maximum_bipartite_matching, BipartiteMatching
+from library_codex.graph_matching.BipartiteMatching import BipartiteMatching
 ```
-
-## Functions
-
-| signature | 用途 | 引数 | 返り値 | 計算量 |
-| --- | --- | --- | --- | --- |
-| [`bipartite_matching(graph, right_size)`](../../../graph_matching/BipartiteMatching.py#L369) | `bipartite`・matchingを求める。 | `graph`: 隣接listまたはグラフobject<br>`right_size`: 二部グラフ右側の頂点数 | `matcher.match_left` | — |
-| [`maximum_bipartite_matching(left_size, right_size, edges)`](../../../graph_matching/BipartiteMatching.py#L378) | 最大・`bipartite`・matchingを求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | `matcher.maximum_matching()` | — |
 
 ## Class `BipartiteMatching`
 
-反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解を扱う `BipartiteMatching`。
+左右の頂点集合が分かれた二部グラフの最大マッチングを計算し、頂点被覆・独立集合・必須な辺と頂点も求める。
 
 - constructor: [`BipartiteMatching(left_size, right_size)`](../../../graph_matching/BipartiteMatching.py#L7)
-- 引数: `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数
+- 引数: `left_size`: 左側の頂点数。左頂点は0以上left_size未満。<br>`right_size`: 右側の頂点数。右頂点は0以上right_size未満。
 - 返り値: `BipartiteMatching` instance
-- 計算量: —
+- 計算量: 構築 O(V)
+- 作成後: add_edgeで辺を追加し、solveや各queryを呼べる空の二部グラフを作る。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_edge(left, right)`](../../../graph_matching/BipartiteMatching.py#L16) | method | 辺を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` | — |
-| [`solve()`](../../../graph_matching/BipartiteMatching.py#L56) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | — |
-| [`pairs()`](../../../graph_matching/BipartiteMatching.py#L96) | method | matchingに含まれる頂点pairを列挙する。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`minimum_vertex_cover()`](../../../graph_matching/BipartiteMatching.py#L123) | method | 最小・頂点・`cover`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if not seen]`, list `[i for (i, seen) in enumerate(seen_right) if seen]`) | — |
-| [`maximum_independent_set()`](../../../graph_matching/BipartiteMatching.py#L130) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if seen]`, list `[i for (i, seen) in enumerate(seen_right) if not seen]`) | — |
-| [`minimum_edge_cover()`](../../../graph_matching/BipartiteMatching.py#L137) | method | 最小・辺・`cover`を求める。 | なし | list[object] — 計算結果 / `None` | — |
-| [`dulmage_mendelsohn()`](../../../graph_matching/BipartiteMatching.py#L171) | method | `dulmage`・`mendelsohn`を求める。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` | — |
-| [`allowed_edges()`](../../../graph_matching/BipartiteMatching.py#L329) | method | 少なくとも一つの maximum matching に含められる辺の組を列挙する。 | なし | list[tuple[int, int]] — 各要素は (left, right)。同じ端点対を add_edge で重複追加していても一度だけ返す。 | matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む |
-| [`essential_edges()`](../../../graph_matching/BipartiteMatching.py#L351) | method | すべての maximum matching に必ず含まれる端点対を列挙する。 | なし | list[tuple[int, int]] — 各要素は (left, right)。現在 solve が選んだ辺のうち、別の maximum matching で外せないもの。 | matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む |
+| [`add_edge(left, right)`](../../../graph_matching/BipartiteMatching.py#L16) | method | 左頂点と右頂点を結ぶ辺を追加する。solve後にも追加でき、次のqueryで増分を反映する。 | `left`: 左側の頂点番号。<br>`right`: 右側の頂点番号。 | None — 辺を内部の隣接listへ追加する。 | O(1) |
+| [`solve()`](../../../graph_matching/BipartiteMatching.py#L56) | method | 現在までに追加した辺に対する最大マッチングを求める。 | なし | int — 最大マッチングに含まれる辺数。mateはmatch_leftとmatch_rightへ保存される。 | 全体で O(E sqrt(V)) |
+| [`pairs()`](../../../graph_matching/BipartiteMatching.py#L94) | method | 現在の最大マッチングに含まれる辺を列挙する。 | なし | list[tuple[int, int]] — 各要素は(left, right)。leftとrightはそれぞれの側で0始まりの頂点番号。 | matching未計算ならsolveを含み、計算済みならO(V) |
+| [`minimum_vertex_cover()`](../../../graph_matching/BipartiteMatching.py#L119) | method | 最小・頂点・`cover`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if not seen]`, list `[i for (i, seen) in enumerate(seen_right) if seen]`) | — |
+| [`maximum_independent_set()`](../../../graph_matching/BipartiteMatching.py#L126) | method | 最大・独立・`set`を求める。 | なし | tuple(list `[i for (i, seen) in enumerate(seen_left) if seen]`, list `[i for (i, seen) in enumerate(seen_right) if not seen]`) | — |
+| [`minimum_edge_cover()`](../../../graph_matching/BipartiteMatching.py#L133) | method | 最小・辺・`cover`を求める。 | なし | list[object] — 計算結果 / `None` | — |
+| [`dulmage_mendelsohn()`](../../../graph_matching/BipartiteMatching.py#L167) | method | `dulmage`・`mendelsohn`を求める。 | なし | 数値または入力要素型 `[vzero] + groups + [vinf]` | — |
+| [`essential_vertices()`](../../../graph_matching/BipartiteMatching.py#L326) | method | すべての最大マッチングで必ずマッチされる頂点を左右別に判定する。 | なし | tuple[list[bool], list[bool]] — (left_flags, right_flags)。各位置は、その側の頂点がどの最大マッチングでも必ず何らかの辺とマッチされる場合だけTrue。 | matching済みならO(V+E)、未実行ならsolveを含む |
+| [`allowed_edges()`](../../../graph_matching/BipartiteMatching.py#L336) | method | 少なくとも一つの maximum matching に含められる辺の組を列挙する。 | なし | list[tuple[int, int]] — 各要素は (left, right)。同じ端点対を add_edge で重複追加していても一度だけ返す。 | matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む |
+| [`essential_edges()`](../../../graph_matching/BipartiteMatching.py#L358) | method | すべての maximum matching に必ず含まれる端点対を列挙する。 | なし | list[tuple[int, int]] — 各要素は (left, right)。現在 solve が選んだ辺のうち、別の maximum matching で外せないもの。 | matching 済みなら O(V+E)、未実行なら Hopcroft--Karp を含む |

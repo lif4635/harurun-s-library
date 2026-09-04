@@ -321,9 +321,10 @@ PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版�
 ### Bipartite Matching
 
 - `BipartiteMatching(left_size, right_size)` に `add_edge(left, right)` して `solve()`
-- `pairs()` / `maximum_matching()` はマッチした `(left, right)` の列
+- `pairs()` はマッチした `(left, right)` の列
 - `minimum_vertex_cover()` / `maximum_independent_set()` は左右の頂点番号を分けて返す
 - `minimum_edge_cover()` は孤立点があれば `None`、なければ最小辺被覆
+- `essential_vertices()` は全最大マッチングで必ず使われる頂点を左右別の真偽値列で返す
 - `dulmage_mendelsohn()` は右頂点を `left_size` だけずらした全体頂点番号で返す
 - BFS・増加路探索・DM分解はすべて非再帰
 
@@ -355,7 +356,7 @@ PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版�
 
 ### Graph matching / expansion
 
-- `GeneralMatching` は一般無向グラフの最大cardinality matchingを blossom 縮約で求める
+- `GeneralMatching` は一般無向グラフの最大cardinality matchingをblossom縮約で求め、`essential_vertices()`で全最大マッチングに必須の頂点を判定する
 - `TwoSAT` は clause/implication/equality/xor、`DynamicBipartiteGraph` は追加辺制約と各成分の大きい側の合計を処理する
 - `dag_minimum_path_cover` は頂点をちょうど1回覆う最小本数の有向pathを復元する
 - `RangeEdgeGraph` は point/range の4通りの有向辺を表現し、元頂点IDを保つ

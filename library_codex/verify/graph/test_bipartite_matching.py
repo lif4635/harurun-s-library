@@ -4,11 +4,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
-from library_codex.graph_matching.BipartiteMatching import (
-    BipartiteMatching,
-    bipartite_matching,
-    maximum_bipartite_matching,
-)
+from library_codex.graph_matching.BipartiteMatching import BipartiteMatching
 from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
@@ -22,6 +18,39 @@ def brute(left_size, right_size, graph):
                     nxt.add(mask | 1 << right)
         dp = nxt
     return max(mask.bit_count() for mask in dp)
+
+
+def brute_essential(left_size, right_size, graph):
+    best = -1
+    common_left = 0
+    common_right = 0
+
+    def search(left, used_left, used_right, count):
+        nonlocal best, common_left, common_right
+        if left == left_size:
+            if count > best:
+                best = count
+                common_left = used_left
+                common_right = used_right
+            elif count == best:
+                common_left &= used_left
+                common_right &= used_right
+            return
+        search(left + 1, used_left, used_right, count)
+        for right in graph[left]:
+            if not used_right >> right & 1:
+                search(
+                    left + 1,
+                    used_left | 1 << left,
+                    used_right | 1 << right,
+                    count + 1,
+                )
+
+    search(0, 0, 0, 0)
+    return (
+        [bool(common_left >> left & 1) for left in range(left_size)],
+        [bool(common_right >> right & 1) for right in range(right_size)],
+    )
 
 
 def validate(matcher, expected):
@@ -75,11 +104,23 @@ def test_small_against_brute():
                 expected = brute(left_size, right_size, graph)
                 assert matcher.solve() == expected
                 validate(matcher, expected)
-                assert bipartite_matching(graph, right_size) == matcher.match_left
-                assert len(maximum_bipartite_matching(
-                    left_size, right_size,
-                    [(l, r) for l, es in enumerate(graph) for r in es],
-                )) == expected
+
+
+def test_essential_vertices_against_all_matchings():
+    rng = random.Random(121)
+    for left_size in range(7):
+        for right_size in range(7):
+            for _ in range(300):
+                graph = [[] for _ in range(left_size)]
+                matcher = BipartiteMatching(left_size, right_size)
+                for left in range(left_size):
+                    for right in range(right_size):
+                        if rng.randrange(3) == 0:
+                            graph[left].append(right)
+                            matcher.add_edge(left, right)
+                assert matcher.essential_vertices() == brute_essential(
+                    left_size, right_size, graph
+                )
 
 
 def test_edge_cover_and_dynamic_add():

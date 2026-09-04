@@ -143,9 +143,7 @@ graph_flow/MaxFlow
 graph_flow/MinCostBFlow
 graph_flow/MinCostFlow
 graph_matching/BipartiteEdgeColoring
-graph_matching/BipartiteMatching
 graph_matching/DAGMinimumPathCover
-graph_matching/GeneralMatching
 graph_matching/GeneralWeightedMatching
 graph_matching/Hungarian
 graph_matching/StableMatching
