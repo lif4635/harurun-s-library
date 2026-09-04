@@ -16,7 +16,7 @@
 | [`MongeShortestPaths`](MongeShortestPaths.md) | Monge重みを持つDAGの最短路を辺数制約付きで計算する。 | 3 | 0 | 0 |
 | [`MonotoneConvexHullTrick`](MonotoneConvexHullTrick.md) | 傾きとquery位置が単調な直線集合の最適値を求める。 | 0 | 1 | 2 |
 | [`MonotoneMinima`](MonotoneMinima.md) | Monge性を持つ行列の各行最小位置を高速に求める。 | 1 | 0 | 0 |
-| [`ProjectSelection`](ProjectSelection.md) | binary/K値Project Selection・高次all-0/all-1 profit | 0 | 2 | 22 |
+| [`ProjectSelection`](ProjectSelection.md) | 正負コストと禁止条件を蓄積できる0/1・Monge多値Project Selection | 0 | 2 | 23 |
 | [`RollbackMo`](RollbackMo.md) | rollback可能な状態更新を使ってoffline区間queryを処理する。 | 0 | 1 | 2 |
 | [`SMAWK`](SMAWK.md) | Totally monotone な行列の各行の最小列を線形回数の比較で求める。 | 1 | 0 | 0 |
 | [`SlopeTrick`](SlopeTrick.md) | 重み付きSlope Trick・shift/slide/chmin/merge/eval | 0 | 1 | 14 |

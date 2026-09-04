@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-01T11:52:50+00:00",
+  "generatedAt": "2026-09-04T08:59:14+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "5e5d0d1f95112a074cc8bf99a96cbb3fd0c3105481ad0fefaaff00067d259598",
-  "inputStamp": "8fb015634adec3925b18b9c689ce86df13e80b1a0f0c4817d3835072d25083e5",
+  "sourceFingerprint": "ab63e1825ccfb514a0f013b8c978c00d157daf89d5bc8f192f31aa0fbcb5b678",
+  "inputStamp": "372654ce53a6b827e75c8fd2d33730819b78ba8e9d6640d555bb1072f9e191c2",
   "generatorFingerprint": "efb9defc7edaeb4adee6db7f8e62121aaab3ed563ffe0ef59c03bffd3c375886",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 359,
-    "articles": 6,
+    "articles": 7,
     "functions": 504,
     "classes": 222,
-    "methods": 1375,
+    "methods": 1376,
     "tests": 617
   },
   "categories": [
@@ -344,7 +344,7 @@
       "modules": 17,
       "functions": 16,
       "classes": 10,
-      "methods": 50
+      "methods": 51
     },
     {
       "slug": "geometry",
@@ -63620,538 +63620,582 @@
       "domainLabel": "Optimization",
       "name": "ProjectSelection",
       "modulePath": "library_codex.optimization.ProjectSelection",
-      "summary": "binary/K値Project Selection・高次all-0/all-1 利益。",
+      "summary": "正負コストと禁止条件を蓄積できる0/1・Monge多値Project Selection。",
       "capabilities": [
-        "ProjectSelection: binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
-        "KProjectSelection: binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。"
+        "0/1変数の一変数コストと二変数コストを合計し、最小コストの割当を求められる。",
+        "有限の正負コストをそのまま追加し、同じ変数対の項をbuild時に合算して最小カットへ変換できる。",
+        "math.infを禁止する割当へ指定し、非負の有限容量だけを持つMaxFlowGraphを構築できる。",
+        "各変数が3状態以上を取るMongeコストにはKProjectSelectionを使える。"
       ],
-      "article": null,
+      "article": {
+        "title": "0/1コストを最小カットで解く Project Selection",
+        "markdown": "## 主な機能\n\n$N$ 個の変数 $x_i\\in\\{0,1\\}$ に対し、一変数のコスト、二変数の組合せごとのコスト、複数変数がすべて0またはすべて1のときの利益を足し、合計コストが最小になる割当を求めます。利益は負のコストとして登録できます。\n\n項は追加時には辺へ変換せず、`build()`で同じ変数対の項を合算してから`MaxFlowGraph`へ変換します。各コストには負数を使え、`math.inf`を指定した割当は禁止条件として扱えます。\n\n## 使い方\n\n```python\nfrom math import inf\n\nfrom library_codex.optimization.ProjectSelection import ProjectSelection\n\nsolver = ProjectSelection(3)\nsolver.add_unary_cost(0, 5, -2)\nsolver.add_cost_01(0, 1, 8)\nsolver.add_pair_cost(1, 2, [[0, 0], [inf, -3]])\n\ncost, assignment = solver.min_cost()\n```\n\n- `cost`: 登録した全項の合計の最小値。\n- `assignment[i]`: 変数 $x_i$ に割り当てた0または1。\n- この例の`math.inf`: $(x_1,x_2)=(1,0)$ を禁止する。\n\n## build\n\n最小カットの辺を追加したり、`MaxFlowGraph`を直接調べたい場合は`min_cost()`の代わりに`build()`を使います。\n\n```python\ngraph, offset = solver.build()\nvalue = offset + graph.flow(solver.source, solver.sink)\nreachable = graph.min_cut(solver.source)\nassignment = [0 if reachable[i] else 1 for i in range(3)]\n```\n\n- `graph`: 非負の有限容量だけを持つ`MaxFlowGraph`。\n- `offset`: 最小カット値へ足す定数。\n- source側の変数は0、sink側の変数は1になる。\n- `build()`または`min_cost()`の後には項を追加できない。\n\n## 二変数コストの条件\n\n`add_pair_cost(i, j, costs)`では`costs[a][b]`が$(x_i,x_j)=(a,b)$のときのコストです。同じ変数対へ追加した表をすべて合算した結果が、次を満たす必要があります。\n\n$$\nC_{00}+C_{11}\\le C_{01}+C_{10}\n$$\n\n各項が単独でこの条件を満たす必要はありません。負の`add_cost_01`を追加しても、後から同じ変数対へ足した項との合計が条件を満たせば`build()`できます。\n\n## 注意点\n\n- `math.inf`は一変数または二変数コストで、その状態を禁止するときに使う。\n- `-math.inf`と`NaN`は使えない。\n- 禁止条件が矛盾して実行可能な割当がない場合、`min_cost()`は`ValueError`を送出する。\n- `add_profit_all_zero`と`add_profit_all_one`の利益は有限の非負値に限る。\n- `MaxFlowGraph`へ負容量や無限容量が渡ることはない。",
+        "sourcePath": "library_codex/docs/articles/optimization/ProjectSelection.md"
+      },
       "searchTerms": [
         "ProjectSelection",
         "Project Selection",
         "library_codex.optimization.ProjectSelection",
         "library codex optimization Project Selection",
         "optimization/ProjectSelection.py",
-        "最適化・DP"
+        "最適化・DP",
+        "燃やす埋める",
+        "project selection problem",
+        "最小カットモデリング",
+        "最大閉包"
       ],
-      "complexity": "1回の最小カットへ帰着",
+      "complexity": "項の追加 O(1)、build O(N+P+H)と1回の最小カット",
       "sourcePath": "library_codex/optimization/ProjectSelection.py",
-      "inputFingerprint": "147cd2a91be8549e8067ae6cec6e10c1daf0dd4f238c3bd450de5ef1e126d8a8",
+      "inputFingerprint": "042fd05dac7eed019c59508f41015acf0ed3ef3242cbe6e38b334a8c205b7e35",
       "importCode": "from library_codex.optimization.ProjectSelection import ProjectSelection, KProjectSelection",
-      "sourceCode": "from library_codex.graph_flow.MaxFlow import MaxFlowGraph\n\n\nclass ProjectSelection:\n    __slots__ = (\n        \"original\",\n        \"source\",\n        \"sink\",\n        \"node_count\",\n        \"offset\",\n        \"base\",\n        \"edges\",\n        \"solved\",\n    )\n\n    def __init__(self, variable_count):\n        if variable_count < 0:\n            raise ValueError(\"variable_count must be nonnegative\")\n        self.original = variable_count\n        self.source = variable_count\n        self.sink = variable_count + 1\n        self.node_count = variable_count + 2\n        self.offset = 0\n        self.base = [[0, 0] for _ in range(variable_count)]\n        self.edges = []\n        self.solved = False\n\n    def _check(self):\n        if self.solved:\n            raise RuntimeError(\"cannot add terms after solve\")\n\n    def add_constant_cost(self, cost):\n        self._check()\n        self.offset += cost\n\n    def add_constant_profit(self, profit):\n        self.add_constant_cost(-profit)\n\n    def add_unary_cost(self, variable, cost_zero, cost_one):\n        self._check()\n        self.base[variable][0] += cost_zero\n        self.base[variable][1] += cost_one\n\n    def add_unary_profit(self, variable, profit_zero, profit_one):\n        self.add_unary_cost(variable, -profit_zero, -profit_one)\n\n    def add_cost_0(self, variable, cost):\n        self.add_unary_cost(variable, cost, 0)\n\n    def add_cost_1(self, variable, cost):\n        self.add_unary_cost(variable, 0, cost)\n\n    def add_profit_0(self, variable, profit):\n        self.add_unary_cost(variable, -profit, 0)\n\n    def add_profit_1(self, variable, profit):\n        self.add_unary_cost(variable, 0, -profit)\n\n    def add_cost_01(self, first, second, cost):\n        self._check()\n        if cost < 0:\n            raise ValueError(\"cost must be nonnegative\")\n        if cost:\n            self.edges.append((first, second, cost))\n\n    def add_cost_10(self, first, second, cost):\n        self.add_cost_01(second, first, cost)\n\n    def add_pair_cost(self, first, second, costs):\n        zero_zero, zero_one = costs[0]\n        one_zero, one_one = costs[1]\n        penalty = zero_one + one_zero - zero_zero - one_one\n        if penalty < 0:\n            raise ValueError(\"pair cost must be submodular\")\n        self.add_constant_cost(zero_zero)\n        self.add_unary_cost(first, 0, one_zero - zero_zero)\n        self.add_unary_cost(second, 0, one_one - one_zero)\n        self.add_cost_01(first, second, penalty)\n\n    def add_pair_profit(self, first, second, profits):\n        self.add_pair_cost(\n            first,\n            second,\n            [[-value for value in row] for row in profits],\n        )\n\n    def add_profit_00(self, first, second, profit):\n        self.add_pair_cost(first, second, [[-profit, 0], [0, 0]])\n\n    def add_profit_11(self, first, second, profit):\n        self.add_pair_cost(first, second, [[0, 0], [0, -profit]])\n\n    def add_profit_all_zero(self, variables, profit):\n        self._check()\n        if profit < 0:\n            raise ValueError(\"profit must be nonnegative\")\n        if profit == 0:\n            return\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((self.source, auxiliary, profit))\n        for variable in variables:\n            self.edges.append((auxiliary, variable, profit))\n\n    def add_profit_all_one(self, variables, profit):\n        self._check()\n        if profit < 0:\n            raise ValueError(\"profit must be nonnegative\")\n        if profit == 0:\n            return\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((auxiliary, self.sink, profit))\n        for variable in variables:\n            self.edges.append((variable, auxiliary, profit))\n\n    def min_cost(self):\n        self._check()\n        self.solved = True\n        graph = MaxFlowGraph(self.node_count)\n        offset = self.offset\n        for variable, (cost_zero, cost_one) in enumerate(self.base):\n            if cost_zero <= cost_one:\n                offset += cost_zero\n                if cost_zero < cost_one:\n                    graph.add_edge(\n                        self.source, variable, cost_one - cost_zero\n                    )\n            else:\n                offset += cost_one\n                graph.add_edge(variable, self.sink, cost_zero - cost_one)\n        for source, target, capacity in self.edges:\n            graph.add_edge(source, target, capacity)\n        value = offset + graph.flow(self.source, self.sink)\n        reachable = graph.min_cut(self.source)\n        assignment = [\n            0 if reachable[variable] else 1\n            for variable in range(self.original)\n        ]\n        return value, assignment\n\n    minCost = min_cost\n\n\nclass KProjectSelection:\n    __slots__ = (\"sizes\", \"positions\", \"project\")\n\n    def __init__(self, sizes):\n        if any(size < 1 for size in sizes):\n            raise ValueError(\"every variable must have at least one state\")\n        self.sizes = list(sizes)\n        positions = []\n        count = 0\n        for size in sizes:\n            current = [-1] * size\n            for state in range(1, size):\n                current[state] = count\n                count += 1\n            positions.append(current)\n        self.positions = positions\n        project = ProjectSelection(count)\n        infinity = 10 ** 100\n        for variable, size in enumerate(sizes):\n            for state in range(1, size - 1):\n                project.add_cost_10(\n                    positions[variable][state],\n                    positions[variable][state + 1],\n                    infinity,\n                )\n        self.project = project\n\n    def add_constant_cost(self, cost):\n        self.project.add_constant_cost(cost)\n\n    def add_constant_profit(self, profit):\n        self.project.add_constant_profit(profit)\n\n    def add_unary_cost(self, variable, costs):\n        size = self.sizes[variable]\n        if len(costs) != size:\n            raise ValueError(\"invalid unary cost length\")\n        self.project.add_constant_cost(costs[-1])\n        for state in range(1, size):\n            self.project.add_unary_cost(\n                self.positions[variable][state],\n                0,\n                costs[state - 1] - costs[state],\n            )\n\n    def add_pair_cost(self, first, second, costs):\n        first_size = self.sizes[first]\n        second_size = self.sizes[second]\n        if len(costs) != first_size or any(\n            len(row) != second_size for row in costs\n        ):\n            raise ValueError(\"invalid pair cost shape\")\n        first_base = [costs[state][0] for state in range(first_size)]\n        second_base = [\n            costs[0][state] - costs[0][0]\n            for state in range(second_size)\n        ]\n        self.add_unary_cost(first, first_base)\n        self.add_unary_cost(second, second_base)\n        for x in range(1, first_size):\n            for y in range(1, second_size):\n                difference = (\n                    costs[x][y]\n                    - costs[x][y - 1]\n                    - costs[x - 1][y]\n                    + costs[x - 1][y - 1]\n                )\n                if difference > 0:\n                    raise ValueError(\"pair cost must be Monge\")\n                self.project.add_profit_00(\n                    self.positions[first][x],\n                    self.positions[second][y],\n                    -difference,\n                )\n\n    def min_cost(self):\n        value, bits = self.project.min_cost()\n        assignment = [0] * len(self.sizes)\n        for variable, size in enumerate(self.sizes):\n            for state in range(1, size):\n                if bits[self.positions[variable][state]]:\n                    break\n                assignment[variable] = state\n        return value, assignment\n\n    minCost = min_cost\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: graph_flow/MaxFlow.py\nclass MaxFlowGraph:\n    __slots__ = ('n', 'graph', 'pos')\n\n    def __init__(self, n):\n        assert n >= 0\n        self.n = n\n        self.graph = [[] for _ in range(n)]\n        self.pos = []\n\n    def add_vertex(self):\n        self.graph.append([])\n        self.n += 1\n        return self.n - 1\n\n    def add_edge(self, source, target, capacity):\n        assert 0 <= source < self.n and 0 <= target < self.n and (capacity >= 0)\n        graph = self.graph\n        source_id = len(graph[source])\n        target_id = len(graph[target])\n        if source == target:\n            target_id += 1\n        self.pos.append((source, source_id))\n        graph[source].append([target, target_id, capacity])\n        graph[target].append([source, source_id, 0])\n        return len(self.pos) - 1\n\n    def get_edge(self, i):\n        (source, index) = self.pos[i]\n        edge = self.graph[source][index]\n        reverse = self.graph[edge[0]][edge[1]]\n        return (source, edge[0], edge[2] + reverse[2], reverse[2])\n\n    def edges(self):\n        return [self.get_edge(i) for i in range(len(self.pos))]\n\n    def residual_graph(self, include_zero=False):\n        \"\"\"Return ``(to, residual_capacity)`` rows of the residual graph.\"\"\"\n        if include_zero:\n            return [[(edge[0], edge[2]) for edge in row] for row in self.graph]\n        return [[(edge[0], edge[2]) for edge in row if edge[2]] for row in self.graph]\n\n    def change_edge(self, i, capacity, flow):\n        assert 0 <= flow <= capacity\n        (source, index) = self.pos[i]\n        edge = self.graph[source][index]\n        reverse = self.graph[edge[0]][edge[1]]\n        edge[2] = capacity - flow\n        reverse[2] = flow\n\n    def _send_one(self, source, sink, limit, level, current):\n        graph = self.graph\n        stack_v = [source]\n        stack_e = []\n        stack_cap = [limit]\n        n = self.n\n        while stack_v:\n            v = stack_v[-1]\n            if v == sink:\n                flow = stack_cap[-1]\n                for (u, i) in stack_e:\n                    edge = graph[u][i]\n                    edge[2] -= flow\n                    graph[edge[0]][edge[1]][2] += flow\n                return flow\n            edges = graph[v]\n            i = current[v]\n            next_level = level[v] + 1\n            while i < len(edges):\n                edge = edges[i]\n                if edge[2] and level[edge[0]] == next_level:\n                    break\n                i += 1\n            current[v] = i\n            if i == len(edges):\n                level[v] = n\n                stack_v.pop()\n                stack_cap.pop()\n                if stack_e:\n                    (parent, edge_id) = stack_e.pop()\n                    current[parent] = edge_id + 1\n                continue\n            edge = edges[i]\n            stack_e.append((v, i))\n            stack_v.append(edge[0])\n            stack_cap.append(min(stack_cap[-1], edge[2]))\n        return 0\n\n    def flow(self, source, sink, flow_limit=None):\n        assert 0 <= source < self.n and 0 <= sink < self.n and (source != sink)\n        graph = self.graph\n        if flow_limit is None:\n            flow_limit = sum((edge[2] for edge in graph[source]))\n        assert flow_limit >= 0\n        total = 0\n        n = self.n\n        while total < flow_limit:\n            level = [-1] * n\n            level[source] = 0\n            que = [source]\n            for v in que:\n                next_level = level[v] + 1\n                for edge in graph[v]:\n                    if edge[2] and level[edge[0]] < 0:\n                        level[edge[0]] = next_level\n                        que.append(edge[0])\n            if level[sink] < 0:\n                break\n            current = [0] * n\n            while total < flow_limit:\n                pushed = self._send_one(source, sink, flow_limit - total, level, current)\n                if pushed == 0:\n                    break\n                total += pushed\n        return total\n    max_flow = flow\n    run = flow\n\n    def min_cut(self, source):\n        assert 0 <= source < self.n\n        visited = [False] * self.n\n        visited[source] = True\n        que = [source]\n        graph = self.graph\n        for v in que:\n            for edge in graph[v]:\n                if edge[2] and (not visited[edge[0]]):\n                    visited[edge[0]] = True\n                    que.append(edge[0])\n        return visited\n\n    def min_cut_edges(self, source):\n        \"\"\"Return original edges crossing the current source-side minimum cut.\n\n        Each entry is ``(edge_id, source, target, capacity, flow)``.\n        \"\"\"\n        reachable = self.min_cut(source)\n        result = []\n        for edge_id in range(len(self.pos)):\n            (first, second, capacity, flow) = self.get_edge(edge_id)\n            if reachable[first] and (not reachable[second]):\n                result.append((edge_id, first, second, capacity, flow))\n        return result\n\n    def flow_value(self, source):\n        \"\"\"現在のflowのsourceから外へ出る正味流量を返す。\"\"\"\n        if not 0 <= source < self.n:\n            raise IndexError('source is outside the graph')\n        value = 0\n        for edge_id in range(len(self.pos)):\n            (first, second, _, flow) = self.get_edge(edge_id)\n            if first == source:\n                value += flow\n            if second == source:\n                value -= flow\n        return value\n\n    def flow_paths(self, source, sink):\n        \"\"\"現在の正のflowをsource-sink pathへ分解する。\"\"\"\n        if not 0 <= source < self.n or not 0 <= sink < self.n:\n            raise IndexError('source or sink is outside the graph')\n        if source == sink:\n            raise ValueError('source and sink must be distinct')\n        edge_data = self.edges()\n        remaining = [edge[3] for edge in edge_data]\n        outgoing = [[] for _ in range(self.n)]\n        for (edge_id, edge) in enumerate(edge_data):\n            if remaining[edge_id]:\n                outgoing[edge[0]].append(edge_id)\n        result = []\n        while True:\n            parent_edge = [-1] * self.n\n            parent_edge[source] = -2\n            queue = [source]\n            for vertex in queue:\n                if vertex == sink:\n                    break\n                for edge_id in outgoing[vertex]:\n                    if remaining[edge_id] == 0:\n                        continue\n                    target = edge_data[edge_id][1]\n                    if parent_edge[target] == -1:\n                        parent_edge[target] = edge_id\n                        queue.append(target)\n            if parent_edge[sink] == -1:\n                break\n            edge_ids = []\n            vertex = sink\n            amount = None\n            while vertex != source:\n                edge_id = parent_edge[vertex]\n                edge_ids.append(edge_id)\n                flow = remaining[edge_id]\n                if amount is None or flow < amount:\n                    amount = flow\n                vertex = edge_data[edge_id][0]\n            edge_ids.reverse()\n            vertices = [source]\n            for edge_id in edge_ids:\n                remaining[edge_id] -= amount\n                vertices.append(edge_data[edge_id][1])\n            result.append((amount, vertices, edge_ids))\n        return result\nMaxFlow = MaxFlowGraph\n\ndef feasible_circulation(n, edges):\n    \"\"\"各辺のlower以上upper以下を満たすcirculationを1つ返す。\"\"\"\n    edges = list(edges)\n    source = n\n    sink = n + 1\n    graph = MaxFlowGraph(n + 2)\n    balance = [0] * n\n    original = []\n    for (first, second, lower, upper) in edges:\n        if not 0 <= first < n or not 0 <= second < n:\n            raise IndexError('edge endpoint is out of range')\n        if not 0 <= lower <= upper:\n            raise ValueError('edge bounds must satisfy 0 <= lower <= upper')\n        original.append((graph.add_edge(first, second, upper - lower), lower))\n        balance[first] -= lower\n        balance[second] += lower\n    demand = 0\n    for (vertex, value) in enumerate(balance):\n        if value > 0:\n            graph.add_edge(source, vertex, value)\n            demand += value\n        elif value < 0:\n            graph.add_edge(vertex, sink, -value)\n    if graph.flow(source, sink) != demand:\n        return None\n    return [lower + graph.get_edge(edge_id)[3] for (edge_id, lower) in original]\n\ndef max_flow_with_bounds(n, edges, source, sink):\n    \"\"\"各辺のlower/upperを満たすsource-sink flowの最大値と辺flowを返す。\"\"\"\n    if source == sink or not 0 <= source < n or (not 0 <= sink < n):\n        raise ValueError('source and sink must be distinct valid vertices')\n    edges = list(edges)\n    super_source = n\n    super_sink = n + 1\n    graph = MaxFlowGraph(n + 2)\n    balance = [0] * n\n    original = []\n    upper_sum = 0\n    for (first, second, lower, upper) in edges:\n        if not 0 <= first < n or not 0 <= second < n:\n            raise IndexError('edge endpoint is out of range')\n        if not 0 <= lower <= upper:\n            raise ValueError('edge bounds must satisfy 0 <= lower <= upper')\n        original.append((graph.add_edge(first, second, upper - lower), lower))\n        balance[first] -= lower\n        balance[second] += lower\n        upper_sum += upper\n    bridge = graph.add_edge(sink, source, upper_sum + 1)\n    auxiliary = []\n    demand = 0\n    for (vertex, value) in enumerate(balance):\n        if value > 0:\n            auxiliary.append(graph.add_edge(super_source, vertex, value))\n            demand += value\n        elif value < 0:\n            auxiliary.append(graph.add_edge(vertex, super_sink, -value))\n    if graph.flow(super_source, super_sink) != demand:\n        return None\n    base_flow = graph.get_edge(bridge)[3]\n    graph.change_edge(bridge, 0, 0)\n    for edge_id in auxiliary:\n        graph.change_edge(edge_id, 0, 0)\n    value = base_flow + graph.flow(source, sink)\n    flows = [lower + graph.get_edge(edge_id)[3] for (edge_id, lower) in original]\n    return (value, flows)\n\n# 本体\nclass ProjectSelection:\n    __slots__ = ('original', 'source', 'sink', 'node_count', 'offset', 'base', 'edges', 'solved')\n\n    def __init__(self, variable_count):\n        if variable_count < 0:\n            raise ValueError('variable_count must be nonnegative')\n        self.original = variable_count\n        self.source = variable_count\n        self.sink = variable_count + 1\n        self.node_count = variable_count + 2\n        self.offset = 0\n        self.base = [[0, 0] for _ in range(variable_count)]\n        self.edges = []\n        self.solved = False\n\n    def _check(self):\n        if self.solved:\n            raise RuntimeError('cannot add terms after solve')\n\n    def add_constant_cost(self, cost):\n        self._check()\n        self.offset += cost\n\n    def add_constant_profit(self, profit):\n        self.add_constant_cost(-profit)\n\n    def add_unary_cost(self, variable, cost_zero, cost_one):\n        self._check()\n        self.base[variable][0] += cost_zero\n        self.base[variable][1] += cost_one\n\n    def add_unary_profit(self, variable, profit_zero, profit_one):\n        self.add_unary_cost(variable, -profit_zero, -profit_one)\n\n    def add_cost_0(self, variable, cost):\n        self.add_unary_cost(variable, cost, 0)\n\n    def add_cost_1(self, variable, cost):\n        self.add_unary_cost(variable, 0, cost)\n\n    def add_profit_0(self, variable, profit):\n        self.add_unary_cost(variable, -profit, 0)\n\n    def add_profit_1(self, variable, profit):\n        self.add_unary_cost(variable, 0, -profit)\n\n    def add_cost_01(self, first, second, cost):\n        self._check()\n        if cost < 0:\n            raise ValueError('cost must be nonnegative')\n        if cost:\n            self.edges.append((first, second, cost))\n\n    def add_cost_10(self, first, second, cost):\n        self.add_cost_01(second, first, cost)\n\n    def add_pair_cost(self, first, second, costs):\n        (zero_zero, zero_one) = costs[0]\n        (one_zero, one_one) = costs[1]\n        penalty = zero_one + one_zero - zero_zero - one_one\n        if penalty < 0:\n            raise ValueError('pair cost must be submodular')\n        self.add_constant_cost(zero_zero)\n        self.add_unary_cost(first, 0, one_zero - zero_zero)\n        self.add_unary_cost(second, 0, one_one - one_zero)\n        self.add_cost_01(first, second, penalty)\n\n    def add_pair_profit(self, first, second, profits):\n        self.add_pair_cost(first, second, [[-value for value in row] for row in profits])\n\n    def add_profit_00(self, first, second, profit):\n        self.add_pair_cost(first, second, [[-profit, 0], [0, 0]])\n\n    def add_profit_11(self, first, second, profit):\n        self.add_pair_cost(first, second, [[0, 0], [0, -profit]])\n\n    def add_profit_all_zero(self, variables, profit):\n        self._check()\n        if profit < 0:\n            raise ValueError('profit must be nonnegative')\n        if profit == 0:\n            return\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((self.source, auxiliary, profit))\n        for variable in variables:\n            self.edges.append((auxiliary, variable, profit))\n\n    def add_profit_all_one(self, variables, profit):\n        self._check()\n        if profit < 0:\n            raise ValueError('profit must be nonnegative')\n        if profit == 0:\n            return\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((auxiliary, self.sink, profit))\n        for variable in variables:\n            self.edges.append((variable, auxiliary, profit))\n\n    def min_cost(self):\n        self._check()\n        self.solved = True\n        graph = MaxFlowGraph(self.node_count)\n        offset = self.offset\n        for (variable, (cost_zero, cost_one)) in enumerate(self.base):\n            if cost_zero <= cost_one:\n                offset += cost_zero\n                if cost_zero < cost_one:\n                    graph.add_edge(self.source, variable, cost_one - cost_zero)\n            else:\n                offset += cost_one\n                graph.add_edge(variable, self.sink, cost_zero - cost_one)\n        for (source, target, capacity) in self.edges:\n            graph.add_edge(source, target, capacity)\n        value = offset + graph.flow(self.source, self.sink)\n        reachable = graph.min_cut(self.source)\n        assignment = [0 if reachable[variable] else 1 for variable in range(self.original)]\n        return (value, assignment)\n    minCost = min_cost\n\nclass KProjectSelection:\n    __slots__ = ('sizes', 'positions', 'project')\n\n    def __init__(self, sizes):\n        if any((size < 1 for size in sizes)):\n            raise ValueError('every variable must have at least one state')\n        self.sizes = list(sizes)\n        positions = []\n        count = 0\n        for size in sizes:\n            current = [-1] * size\n            for state in range(1, size):\n                current[state] = count\n                count += 1\n            positions.append(current)\n        self.positions = positions\n        project = ProjectSelection(count)\n        infinity = 10 ** 100\n        for (variable, size) in enumerate(sizes):\n            for state in range(1, size - 1):\n                project.add_cost_10(positions[variable][state], positions[variable][state + 1], infinity)\n        self.project = project\n\n    def add_constant_cost(self, cost):\n        self.project.add_constant_cost(cost)\n\n    def add_constant_profit(self, profit):\n        self.project.add_constant_profit(profit)\n\n    def add_unary_cost(self, variable, costs):\n        size = self.sizes[variable]\n        if len(costs) != size:\n            raise ValueError('invalid unary cost length')\n        self.project.add_constant_cost(costs[-1])\n        for state in range(1, size):\n            self.project.add_unary_cost(self.positions[variable][state], 0, costs[state - 1] - costs[state])\n\n    def add_pair_cost(self, first, second, costs):\n        first_size = self.sizes[first]\n        second_size = self.sizes[second]\n        if len(costs) != first_size or any((len(row) != second_size for row in costs)):\n            raise ValueError('invalid pair cost shape')\n        first_base = [costs[state][0] for state in range(first_size)]\n        second_base = [costs[0][state] - costs[0][0] for state in range(second_size)]\n        self.add_unary_cost(first, first_base)\n        self.add_unary_cost(second, second_base)\n        for x in range(1, first_size):\n            for y in range(1, second_size):\n                difference = costs[x][y] - costs[x][y - 1] - costs[x - 1][y] + costs[x - 1][y - 1]\n                if difference > 0:\n                    raise ValueError('pair cost must be Monge')\n                self.project.add_profit_00(self.positions[first][x], self.positions[second][y], -difference)\n\n    def min_cost(self):\n        (value, bits) = self.project.min_cost()\n        assignment = [0] * len(self.sizes)\n        for (variable, size) in enumerate(self.sizes):\n            for state in range(1, size):\n                if bits[self.positions[variable][state]]:\n                    break\n                assignment[variable] = state\n        return (value, assignment)\n    minCost = min_cost\n",
+      "sourceCode": "from library_codex.graph_flow.MaxFlow import MaxFlowGraph\n\n\n_INF = float(\"inf\")\n_NEG_INF = float(\"-inf\")\n\n\nclass ProjectSelection:\n    __slots__ = (\n        \"original\",\n        \"source\",\n        \"sink\",\n        \"node_count\",\n        \"offset\",\n        \"cost_zero\",\n        \"cost_one\",\n        \"pairs\",\n        \"edges\",\n        \"solved\",\n    )\n\n    def __init__(self, variable_count):\n        if variable_count < 0:\n            raise ValueError(\"variable_count must be nonnegative\")\n        self.original = variable_count\n        self.source = variable_count\n        self.sink = variable_count + 1\n        self.node_count = variable_count + 2\n        self.offset = 0\n        self.cost_zero = [0] * variable_count\n        self.cost_one = [0] * variable_count\n        self.pairs = {}\n        self.edges = []\n        self.solved = False\n\n    def _check(self):\n        if self.solved:\n            raise RuntimeError(\"cannot add terms after solve\")\n\n    def _variable(self, variable):\n        if not 0 <= variable < self.original:\n            raise IndexError(\"variable out of range\")\n\n    def _add_pair(self, first, second, zero_zero, zero_one, one_zero, one_one):\n        self._variable(first)\n        self._variable(second)\n        if first == second:\n            self.cost_zero[first] += zero_zero\n            self.cost_one[first] += one_one\n            return\n        if first > second:\n            first, second = second, first\n            zero_one, one_zero = one_zero, zero_one\n        key = first * self.original + second\n        costs = self.pairs.get(key)\n        if costs is None:\n            self.pairs[key] = [zero_zero, zero_one, one_zero, one_one]\n        else:\n            costs[0] += zero_zero\n            costs[1] += zero_one\n            costs[2] += one_zero\n            costs[3] += one_one\n\n    def _hard_capacity(self):\n        if self.offset != self.offset or self.offset == _NEG_INF:\n            raise ValueError(\"costs must not contain NaN or negative infinity\")\n        if self.offset == _INF:\n            raise ValueError(\"constraints forbid every possible assignment\")\n        capacity = 1\n        for value in self.cost_zero:\n            if value != value or value == _NEG_INF:\n                raise ValueError(\"costs must not contain NaN or negative infinity\")\n            if value != _INF:\n                capacity += abs(value)\n        for value in self.cost_one:\n            if value != value or value == _NEG_INF:\n                raise ValueError(\"costs must not contain NaN or negative infinity\")\n            if value != _INF:\n                capacity += abs(value)\n        for costs in self.pairs.values():\n            for value in costs:\n                if value != value or value == _NEG_INF:\n                    raise ValueError(\"costs must not contain NaN or negative infinity\")\n                if value != _INF:\n                    capacity += abs(value)\n        for _, _, value in self.edges:\n            capacity += abs(value)\n        return capacity\n\n    @staticmethod\n    def _replace_infinity(costs, hard_capacity):\n        finite = [cost for cost in costs if cost != _INF]\n        if not finite:\n            raise ValueError(\"constraints forbid every possible assignment\")\n        replacement = min(finite) + hard_capacity\n        return [replacement if cost == _INF else cost for cost in costs]\n\n    @classmethod\n    def _replace_pair_infinity(cls, costs, hard_capacity):\n        result = cls._replace_infinity(costs, hard_capacity)\n        difference = result[0] + result[3] - result[1] - result[2]\n        if difference > 0:\n            if costs[1] == _INF:\n                result[1] += difference\n            elif costs[2] == _INF:\n                result[2] += difference\n        return result\n\n    def add_constant_cost(self, cost):\n        self._check()\n        self.offset += cost\n\n    def add_constant_profit(self, profit):\n        self.add_constant_cost(-profit)\n\n    def add_unary_cost(self, variable, cost_zero, cost_one):\n        self._check()\n        self._variable(variable)\n        self.cost_zero[variable] += cost_zero\n        self.cost_one[variable] += cost_one\n\n    def add_unary_profit(self, variable, profit_zero, profit_one):\n        self.add_unary_cost(variable, -profit_zero, -profit_one)\n\n    def add_cost_0(self, variable, cost):\n        self.add_unary_cost(variable, cost, 0)\n\n    def add_cost_1(self, variable, cost):\n        self.add_unary_cost(variable, 0, cost)\n\n    def add_profit_0(self, variable, profit):\n        self.add_unary_cost(variable, -profit, 0)\n\n    def add_profit_1(self, variable, profit):\n        self.add_unary_cost(variable, 0, -profit)\n\n    def add_cost_01(self, first, second, cost):\n        self._check()\n        self._add_pair(first, second, 0, cost, 0, 0)\n\n    def add_cost_10(self, first, second, cost):\n        self.add_cost_01(second, first, cost)\n\n    def add_pair_cost(self, first, second, costs):\n        self._check()\n        if len(costs) != 2 or any(len(row) != 2 for row in costs):\n            raise ValueError(\"pair cost must be a 2 by 2 table\")\n        zero_zero, zero_one = costs[0]\n        one_zero, one_one = costs[1]\n        self._add_pair(\n            first,\n            second,\n            zero_zero,\n            zero_one,\n            one_zero,\n            one_one,\n        )\n\n    def add_pair_profit(self, first, second, profits):\n        self.add_pair_cost(\n            first,\n            second,\n            [[-value for value in row] for row in profits],\n        )\n\n    def add_profit_00(self, first, second, profit):\n        self.add_pair_cost(first, second, [[-profit, 0], [0, 0]])\n\n    def add_profit_11(self, first, second, profit):\n        self.add_pair_cost(first, second, [[0, 0], [0, -profit]])\n\n    def add_profit_all_zero(self, variables, profit):\n        self._check()\n        if profit < 0 or profit != profit or profit == _INF:\n            raise ValueError(\"profit must be finite and nonnegative\")\n        if profit == 0:\n            return\n        variables = list(variables)\n        for variable in variables:\n            self._variable(variable)\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((self.source, auxiliary, profit))\n        for variable in variables:\n            self.edges.append((auxiliary, variable, profit))\n\n    def add_profit_all_one(self, variables, profit):\n        self._check()\n        if profit < 0 or profit != profit or profit == _INF:\n            raise ValueError(\"profit must be finite and nonnegative\")\n        if profit == 0:\n            return\n        variables = list(variables)\n        for variable in variables:\n            self._variable(variable)\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((auxiliary, self.sink, profit))\n        for variable in variables:\n            self.edges.append((variable, auxiliary, profit))\n\n    def build(self):\n        self._check()\n        hard_capacity = self._hard_capacity()\n        cost_zero = [0] * self.original\n        cost_one = [0] * self.original\n        for variable in range(self.original):\n            zero, one = self._replace_infinity(\n                [self.cost_zero[variable], self.cost_one[variable]],\n                hard_capacity,\n            )\n            cost_zero[variable] = zero\n            cost_one[variable] = one\n        offset = self.offset\n        pair_edges = []\n        for key, costs in self.pairs.items():\n            first, second = divmod(key, self.original)\n            zero_zero, zero_one, one_zero, one_one = self._replace_pair_infinity(\n                costs,\n                hard_capacity,\n            )\n            capacity = zero_one + one_zero - zero_zero - one_one\n            if capacity < 0:\n                raise ValueError(\n                    f\"combined pair cost for variables {first} and {second} \"\n                    \"is not submodular\"\n                )\n            offset += zero_zero\n            cost_one[first] += one_zero - zero_zero\n            cost_one[second] += one_one - one_zero\n            if capacity:\n                pair_edges.append((first, second, capacity))\n        graph = MaxFlowGraph(self.node_count)\n        for variable in range(self.original):\n            zero = cost_zero[variable]\n            one = cost_one[variable]\n            if zero <= one:\n                offset += zero\n                if zero < one:\n                    graph.add_edge(\n                        self.source, variable, one - zero\n                    )\n            else:\n                offset += one\n                graph.add_edge(variable, self.sink, zero - one)\n        for source, target, capacity in pair_edges:\n            graph.add_edge(source, target, capacity)\n        for source, target, capacity in self.edges:\n            graph.add_edge(source, target, capacity)\n        self.solved = True\n        return graph, offset\n\n    def min_cost(self):\n        graph, offset = self.build()\n        value = offset + graph.flow(self.source, self.sink)\n        reachable = graph.min_cut(self.source)\n        assignment = [\n            0 if reachable[variable] else 1\n            for variable in range(self.original)\n        ]\n        for variable, state in enumerate(assignment):\n            costs = self.cost_zero if state == 0 else self.cost_one\n            if costs[variable] == _INF:\n                raise ValueError(\"constraints have no feasible assignment\")\n        for key, costs in self.pairs.items():\n            first, second = divmod(key, self.original)\n            index = assignment[first] * 2 + assignment[second]\n            if costs[index] == _INF:\n                raise ValueError(\"constraints have no feasible assignment\")\n        return value, assignment\n\n\nclass KProjectSelection:\n    __slots__ = (\"sizes\", \"positions\", \"project\")\n\n    def __init__(self, sizes):\n        if any(size < 1 for size in sizes):\n            raise ValueError(\"every variable must have at least one state\")\n        self.sizes = list(sizes)\n        positions = []\n        count = 0\n        for size in sizes:\n            current = [-1] * size\n            for state in range(1, size):\n                current[state] = count\n                count += 1\n            positions.append(current)\n        self.positions = positions\n        project = ProjectSelection(count)\n        for variable, size in enumerate(sizes):\n            for state in range(1, size - 1):\n                project.add_cost_10(\n                    positions[variable][state],\n                    positions[variable][state + 1],\n                    _INF,\n                )\n        self.project = project\n\n    def add_constant_cost(self, cost):\n        self.project.add_constant_cost(cost)\n\n    def add_constant_profit(self, profit):\n        self.project.add_constant_profit(profit)\n\n    def add_unary_cost(self, variable, costs):\n        size = self.sizes[variable]\n        if len(costs) != size:\n            raise ValueError(\"invalid unary cost length\")\n        self.project.add_constant_cost(costs[-1])\n        for state in range(1, size):\n            self.project.add_unary_cost(\n                self.positions[variable][state],\n                0,\n                costs[state - 1] - costs[state],\n            )\n\n    def add_pair_cost(self, first, second, costs):\n        first_size = self.sizes[first]\n        second_size = self.sizes[second]\n        if len(costs) != first_size or any(\n            len(row) != second_size for row in costs\n        ):\n            raise ValueError(\"invalid pair cost shape\")\n        first_base = [costs[state][0] for state in range(first_size)]\n        second_base = [\n            costs[0][state] - costs[0][0]\n            for state in range(second_size)\n        ]\n        self.add_unary_cost(first, first_base)\n        self.add_unary_cost(second, second_base)\n        for x in range(1, first_size):\n            for y in range(1, second_size):\n                difference = (\n                    costs[x][y]\n                    - costs[x][y - 1]\n                    - costs[x - 1][y]\n                    + costs[x - 1][y - 1]\n                )\n                if difference > 0:\n                    raise ValueError(\"pair cost must be Monge\")\n                self.project.add_profit_00(\n                    self.positions[first][x],\n                    self.positions[second][y],\n                    -difference,\n                )\n\n    def min_cost(self):\n        value, bits = self.project.min_cost()\n        assignment = [0] * len(self.sizes)\n        for variable, size in enumerate(self.sizes):\n            for state in range(1, size):\n                if bits[self.positions[variable][state]]:\n                    break\n                assignment[variable] = state\n        return value, assignment\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: graph_flow/MaxFlow.py\nclass MaxFlowGraph:\n    __slots__ = ('n', 'graph', 'pos')\n\n    def __init__(self, n):\n        assert n >= 0\n        self.n = n\n        self.graph = [[] for _ in range(n)]\n        self.pos = []\n\n    def add_vertex(self):\n        self.graph.append([])\n        self.n += 1\n        return self.n - 1\n\n    def add_edge(self, source, target, capacity):\n        assert 0 <= source < self.n and 0 <= target < self.n and (capacity >= 0)\n        graph = self.graph\n        source_id = len(graph[source])\n        target_id = len(graph[target])\n        if source == target:\n            target_id += 1\n        self.pos.append((source, source_id))\n        graph[source].append([target, target_id, capacity])\n        graph[target].append([source, source_id, 0])\n        return len(self.pos) - 1\n\n    def get_edge(self, i):\n        (source, index) = self.pos[i]\n        edge = self.graph[source][index]\n        reverse = self.graph[edge[0]][edge[1]]\n        return (source, edge[0], edge[2] + reverse[2], reverse[2])\n\n    def edges(self):\n        return [self.get_edge(i) for i in range(len(self.pos))]\n\n    def residual_graph(self, include_zero=False):\n        \"\"\"Return ``(to, residual_capacity)`` rows of the residual graph.\"\"\"\n        if include_zero:\n            return [[(edge[0], edge[2]) for edge in row] for row in self.graph]\n        return [[(edge[0], edge[2]) for edge in row if edge[2]] for row in self.graph]\n\n    def change_edge(self, i, capacity, flow):\n        assert 0 <= flow <= capacity\n        (source, index) = self.pos[i]\n        edge = self.graph[source][index]\n        reverse = self.graph[edge[0]][edge[1]]\n        edge[2] = capacity - flow\n        reverse[2] = flow\n\n    def _send_one(self, source, sink, limit, level, current):\n        graph = self.graph\n        stack_v = [source]\n        stack_e = []\n        stack_cap = [limit]\n        n = self.n\n        while stack_v:\n            v = stack_v[-1]\n            if v == sink:\n                flow = stack_cap[-1]\n                for (u, i) in stack_e:\n                    edge = graph[u][i]\n                    edge[2] -= flow\n                    graph[edge[0]][edge[1]][2] += flow\n                return flow\n            edges = graph[v]\n            i = current[v]\n            next_level = level[v] + 1\n            while i < len(edges):\n                edge = edges[i]\n                if edge[2] and level[edge[0]] == next_level:\n                    break\n                i += 1\n            current[v] = i\n            if i == len(edges):\n                level[v] = n\n                stack_v.pop()\n                stack_cap.pop()\n                if stack_e:\n                    (parent, edge_id) = stack_e.pop()\n                    current[parent] = edge_id + 1\n                continue\n            edge = edges[i]\n            stack_e.append((v, i))\n            stack_v.append(edge[0])\n            stack_cap.append(min(stack_cap[-1], edge[2]))\n        return 0\n\n    def flow(self, source, sink, flow_limit=None):\n        assert 0 <= source < self.n and 0 <= sink < self.n and (source != sink)\n        graph = self.graph\n        if flow_limit is None:\n            flow_limit = sum((edge[2] for edge in graph[source]))\n        assert flow_limit >= 0\n        total = 0\n        n = self.n\n        while total < flow_limit:\n            level = [-1] * n\n            level[source] = 0\n            que = [source]\n            for v in que:\n                next_level = level[v] + 1\n                for edge in graph[v]:\n                    if edge[2] and level[edge[0]] < 0:\n                        level[edge[0]] = next_level\n                        que.append(edge[0])\n            if level[sink] < 0:\n                break\n            current = [0] * n\n            while total < flow_limit:\n                pushed = self._send_one(source, sink, flow_limit - total, level, current)\n                if pushed == 0:\n                    break\n                total += pushed\n        return total\n    max_flow = flow\n    run = flow\n\n    def min_cut(self, source):\n        assert 0 <= source < self.n\n        visited = [False] * self.n\n        visited[source] = True\n        que = [source]\n        graph = self.graph\n        for v in que:\n            for edge in graph[v]:\n                if edge[2] and (not visited[edge[0]]):\n                    visited[edge[0]] = True\n                    que.append(edge[0])\n        return visited\n\n    def min_cut_edges(self, source):\n        \"\"\"Return original edges crossing the current source-side minimum cut.\n\n        Each entry is ``(edge_id, source, target, capacity, flow)``.\n        \"\"\"\n        reachable = self.min_cut(source)\n        result = []\n        for edge_id in range(len(self.pos)):\n            (first, second, capacity, flow) = self.get_edge(edge_id)\n            if reachable[first] and (not reachable[second]):\n                result.append((edge_id, first, second, capacity, flow))\n        return result\n\n    def flow_value(self, source):\n        \"\"\"現在のflowのsourceから外へ出る正味流量を返す。\"\"\"\n        if not 0 <= source < self.n:\n            raise IndexError('source is outside the graph')\n        value = 0\n        for edge_id in range(len(self.pos)):\n            (first, second, _, flow) = self.get_edge(edge_id)\n            if first == source:\n                value += flow\n            if second == source:\n                value -= flow\n        return value\n\n    def flow_paths(self, source, sink):\n        \"\"\"現在の正のflowをsource-sink pathへ分解する。\"\"\"\n        if not 0 <= source < self.n or not 0 <= sink < self.n:\n            raise IndexError('source or sink is outside the graph')\n        if source == sink:\n            raise ValueError('source and sink must be distinct')\n        edge_data = self.edges()\n        remaining = [edge[3] for edge in edge_data]\n        outgoing = [[] for _ in range(self.n)]\n        for (edge_id, edge) in enumerate(edge_data):\n            if remaining[edge_id]:\n                outgoing[edge[0]].append(edge_id)\n        result = []\n        while True:\n            parent_edge = [-1] * self.n\n            parent_edge[source] = -2\n            queue = [source]\n            for vertex in queue:\n                if vertex == sink:\n                    break\n                for edge_id in outgoing[vertex]:\n                    if remaining[edge_id] == 0:\n                        continue\n                    target = edge_data[edge_id][1]\n                    if parent_edge[target] == -1:\n                        parent_edge[target] = edge_id\n                        queue.append(target)\n            if parent_edge[sink] == -1:\n                break\n            edge_ids = []\n            vertex = sink\n            amount = None\n            while vertex != source:\n                edge_id = parent_edge[vertex]\n                edge_ids.append(edge_id)\n                flow = remaining[edge_id]\n                if amount is None or flow < amount:\n                    amount = flow\n                vertex = edge_data[edge_id][0]\n            edge_ids.reverse()\n            vertices = [source]\n            for edge_id in edge_ids:\n                remaining[edge_id] -= amount\n                vertices.append(edge_data[edge_id][1])\n            result.append((amount, vertices, edge_ids))\n        return result\nMaxFlow = MaxFlowGraph\n\ndef feasible_circulation(n, edges):\n    \"\"\"各辺のlower以上upper以下を満たすcirculationを1つ返す。\"\"\"\n    edges = list(edges)\n    source = n\n    sink = n + 1\n    graph = MaxFlowGraph(n + 2)\n    balance = [0] * n\n    original = []\n    for (first, second, lower, upper) in edges:\n        if not 0 <= first < n or not 0 <= second < n:\n            raise IndexError('edge endpoint is out of range')\n        if not 0 <= lower <= upper:\n            raise ValueError('edge bounds must satisfy 0 <= lower <= upper')\n        original.append((graph.add_edge(first, second, upper - lower), lower))\n        balance[first] -= lower\n        balance[second] += lower\n    demand = 0\n    for (vertex, value) in enumerate(balance):\n        if value > 0:\n            graph.add_edge(source, vertex, value)\n            demand += value\n        elif value < 0:\n            graph.add_edge(vertex, sink, -value)\n    if graph.flow(source, sink) != demand:\n        return None\n    return [lower + graph.get_edge(edge_id)[3] for (edge_id, lower) in original]\n\ndef max_flow_with_bounds(n, edges, source, sink):\n    \"\"\"各辺のlower/upperを満たすsource-sink flowの最大値と辺flowを返す。\"\"\"\n    if source == sink or not 0 <= source < n or (not 0 <= sink < n):\n        raise ValueError('source and sink must be distinct valid vertices')\n    edges = list(edges)\n    super_source = n\n    super_sink = n + 1\n    graph = MaxFlowGraph(n + 2)\n    balance = [0] * n\n    original = []\n    upper_sum = 0\n    for (first, second, lower, upper) in edges:\n        if not 0 <= first < n or not 0 <= second < n:\n            raise IndexError('edge endpoint is out of range')\n        if not 0 <= lower <= upper:\n            raise ValueError('edge bounds must satisfy 0 <= lower <= upper')\n        original.append((graph.add_edge(first, second, upper - lower), lower))\n        balance[first] -= lower\n        balance[second] += lower\n        upper_sum += upper\n    bridge = graph.add_edge(sink, source, upper_sum + 1)\n    auxiliary = []\n    demand = 0\n    for (vertex, value) in enumerate(balance):\n        if value > 0:\n            auxiliary.append(graph.add_edge(super_source, vertex, value))\n            demand += value\n        elif value < 0:\n            auxiliary.append(graph.add_edge(vertex, super_sink, -value))\n    if graph.flow(super_source, super_sink) != demand:\n        return None\n    base_flow = graph.get_edge(bridge)[3]\n    graph.change_edge(bridge, 0, 0)\n    for edge_id in auxiliary:\n        graph.change_edge(edge_id, 0, 0)\n    value = base_flow + graph.flow(source, sink)\n    flows = [lower + graph.get_edge(edge_id)[3] for (edge_id, lower) in original]\n    return (value, flows)\n\n# 本体\n_INF = float('inf')\n_NEG_INF = float('-inf')\n\nclass ProjectSelection:\n    __slots__ = ('original', 'source', 'sink', 'node_count', 'offset', 'cost_zero', 'cost_one', 'pairs', 'edges', 'solved')\n\n    def __init__(self, variable_count):\n        if variable_count < 0:\n            raise ValueError('variable_count must be nonnegative')\n        self.original = variable_count\n        self.source = variable_count\n        self.sink = variable_count + 1\n        self.node_count = variable_count + 2\n        self.offset = 0\n        self.cost_zero = [0] * variable_count\n        self.cost_one = [0] * variable_count\n        self.pairs = {}\n        self.edges = []\n        self.solved = False\n\n    def _check(self):\n        if self.solved:\n            raise RuntimeError('cannot add terms after solve')\n\n    def _variable(self, variable):\n        if not 0 <= variable < self.original:\n            raise IndexError('variable out of range')\n\n    def _add_pair(self, first, second, zero_zero, zero_one, one_zero, one_one):\n        self._variable(first)\n        self._variable(second)\n        if first == second:\n            self.cost_zero[first] += zero_zero\n            self.cost_one[first] += one_one\n            return\n        if first > second:\n            (first, second) = (second, first)\n            (zero_one, one_zero) = (one_zero, zero_one)\n        key = first * self.original + second\n        costs = self.pairs.get(key)\n        if costs is None:\n            self.pairs[key] = [zero_zero, zero_one, one_zero, one_one]\n        else:\n            costs[0] += zero_zero\n            costs[1] += zero_one\n            costs[2] += one_zero\n            costs[3] += one_one\n\n    def _hard_capacity(self):\n        if self.offset != self.offset or self.offset == _NEG_INF:\n            raise ValueError('costs must not contain NaN or negative infinity')\n        if self.offset == _INF:\n            raise ValueError('constraints forbid every possible assignment')\n        capacity = 1\n        for value in self.cost_zero:\n            if value != value or value == _NEG_INF:\n                raise ValueError('costs must not contain NaN or negative infinity')\n            if value != _INF:\n                capacity += abs(value)\n        for value in self.cost_one:\n            if value != value or value == _NEG_INF:\n                raise ValueError('costs must not contain NaN or negative infinity')\n            if value != _INF:\n                capacity += abs(value)\n        for costs in self.pairs.values():\n            for value in costs:\n                if value != value or value == _NEG_INF:\n                    raise ValueError('costs must not contain NaN or negative infinity')\n                if value != _INF:\n                    capacity += abs(value)\n        for (_, _, value) in self.edges:\n            capacity += abs(value)\n        return capacity\n\n    @staticmethod\n    def _replace_infinity(costs, hard_capacity):\n        finite = [cost for cost in costs if cost != _INF]\n        if not finite:\n            raise ValueError('constraints forbid every possible assignment')\n        replacement = min(finite) + hard_capacity\n        return [replacement if cost == _INF else cost for cost in costs]\n\n    @classmethod\n    def _replace_pair_infinity(cls, costs, hard_capacity):\n        result = cls._replace_infinity(costs, hard_capacity)\n        difference = result[0] + result[3] - result[1] - result[2]\n        if difference > 0:\n            if costs[1] == _INF:\n                result[1] += difference\n            elif costs[2] == _INF:\n                result[2] += difference\n        return result\n\n    def add_constant_cost(self, cost):\n        self._check()\n        self.offset += cost\n\n    def add_constant_profit(self, profit):\n        self.add_constant_cost(-profit)\n\n    def add_unary_cost(self, variable, cost_zero, cost_one):\n        self._check()\n        self._variable(variable)\n        self.cost_zero[variable] += cost_zero\n        self.cost_one[variable] += cost_one\n\n    def add_unary_profit(self, variable, profit_zero, profit_one):\n        self.add_unary_cost(variable, -profit_zero, -profit_one)\n\n    def add_cost_0(self, variable, cost):\n        self.add_unary_cost(variable, cost, 0)\n\n    def add_cost_1(self, variable, cost):\n        self.add_unary_cost(variable, 0, cost)\n\n    def add_profit_0(self, variable, profit):\n        self.add_unary_cost(variable, -profit, 0)\n\n    def add_profit_1(self, variable, profit):\n        self.add_unary_cost(variable, 0, -profit)\n\n    def add_cost_01(self, first, second, cost):\n        self._check()\n        self._add_pair(first, second, 0, cost, 0, 0)\n\n    def add_cost_10(self, first, second, cost):\n        self.add_cost_01(second, first, cost)\n\n    def add_pair_cost(self, first, second, costs):\n        self._check()\n        if len(costs) != 2 or any((len(row) != 2 for row in costs)):\n            raise ValueError('pair cost must be a 2 by 2 table')\n        (zero_zero, zero_one) = costs[0]\n        (one_zero, one_one) = costs[1]\n        self._add_pair(first, second, zero_zero, zero_one, one_zero, one_one)\n\n    def add_pair_profit(self, first, second, profits):\n        self.add_pair_cost(first, second, [[-value for value in row] for row in profits])\n\n    def add_profit_00(self, first, second, profit):\n        self.add_pair_cost(first, second, [[-profit, 0], [0, 0]])\n\n    def add_profit_11(self, first, second, profit):\n        self.add_pair_cost(first, second, [[0, 0], [0, -profit]])\n\n    def add_profit_all_zero(self, variables, profit):\n        self._check()\n        if profit < 0 or profit != profit or profit == _INF:\n            raise ValueError('profit must be finite and nonnegative')\n        if profit == 0:\n            return\n        variables = list(variables)\n        for variable in variables:\n            self._variable(variable)\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((self.source, auxiliary, profit))\n        for variable in variables:\n            self.edges.append((auxiliary, variable, profit))\n\n    def add_profit_all_one(self, variables, profit):\n        self._check()\n        if profit < 0 or profit != profit or profit == _INF:\n            raise ValueError('profit must be finite and nonnegative')\n        if profit == 0:\n            return\n        variables = list(variables)\n        for variable in variables:\n            self._variable(variable)\n        self.offset -= profit\n        auxiliary = self.node_count\n        self.node_count += 1\n        self.edges.append((auxiliary, self.sink, profit))\n        for variable in variables:\n            self.edges.append((variable, auxiliary, profit))\n\n    def build(self):\n        self._check()\n        hard_capacity = self._hard_capacity()\n        cost_zero = [0] * self.original\n        cost_one = [0] * self.original\n        for variable in range(self.original):\n            (zero, one) = self._replace_infinity([self.cost_zero[variable], self.cost_one[variable]], hard_capacity)\n            cost_zero[variable] = zero\n            cost_one[variable] = one\n        offset = self.offset\n        pair_edges = []\n        for (key, costs) in self.pairs.items():\n            (first, second) = divmod(key, self.original)\n            (zero_zero, zero_one, one_zero, one_one) = self._replace_pair_infinity(costs, hard_capacity)\n            capacity = zero_one + one_zero - zero_zero - one_one\n            if capacity < 0:\n                raise ValueError(f'combined pair cost for variables {first} and {second} is not submodular')\n            offset += zero_zero\n            cost_one[first] += one_zero - zero_zero\n            cost_one[second] += one_one - one_zero\n            if capacity:\n                pair_edges.append((first, second, capacity))\n        graph = MaxFlowGraph(self.node_count)\n        for variable in range(self.original):\n            zero = cost_zero[variable]\n            one = cost_one[variable]\n            if zero <= one:\n                offset += zero\n                if zero < one:\n                    graph.add_edge(self.source, variable, one - zero)\n            else:\n                offset += one\n                graph.add_edge(variable, self.sink, zero - one)\n        for (source, target, capacity) in pair_edges:\n            graph.add_edge(source, target, capacity)\n        for (source, target, capacity) in self.edges:\n            graph.add_edge(source, target, capacity)\n        self.solved = True\n        return (graph, offset)\n\n    def min_cost(self):\n        (graph, offset) = self.build()\n        value = offset + graph.flow(self.source, self.sink)\n        reachable = graph.min_cut(self.source)\n        assignment = [0 if reachable[variable] else 1 for variable in range(self.original)]\n        for (variable, state) in enumerate(assignment):\n            costs = self.cost_zero if state == 0 else self.cost_one\n            if costs[variable] == _INF:\n                raise ValueError('constraints have no feasible assignment')\n        for (key, costs) in self.pairs.items():\n            (first, second) = divmod(key, self.original)\n            index = assignment[first] * 2 + assignment[second]\n            if costs[index] == _INF:\n                raise ValueError('constraints have no feasible assignment')\n        return (value, assignment)\n\nclass KProjectSelection:\n    __slots__ = ('sizes', 'positions', 'project')\n\n    def __init__(self, sizes):\n        if any((size < 1 for size in sizes)):\n            raise ValueError('every variable must have at least one state')\n        self.sizes = list(sizes)\n        positions = []\n        count = 0\n        for size in sizes:\n            current = [-1] * size\n            for state in range(1, size):\n                current[state] = count\n                count += 1\n            positions.append(current)\n        self.positions = positions\n        project = ProjectSelection(count)\n        for (variable, size) in enumerate(sizes):\n            for state in range(1, size - 1):\n                project.add_cost_10(positions[variable][state], positions[variable][state + 1], _INF)\n        self.project = project\n\n    def add_constant_cost(self, cost):\n        self.project.add_constant_cost(cost)\n\n    def add_constant_profit(self, profit):\n        self.project.add_constant_profit(profit)\n\n    def add_unary_cost(self, variable, costs):\n        size = self.sizes[variable]\n        if len(costs) != size:\n            raise ValueError('invalid unary cost length')\n        self.project.add_constant_cost(costs[-1])\n        for state in range(1, size):\n            self.project.add_unary_cost(self.positions[variable][state], 0, costs[state - 1] - costs[state])\n\n    def add_pair_cost(self, first, second, costs):\n        first_size = self.sizes[first]\n        second_size = self.sizes[second]\n        if len(costs) != first_size or any((len(row) != second_size for row in costs)):\n            raise ValueError('invalid pair cost shape')\n        first_base = [costs[state][0] for state in range(first_size)]\n        second_base = [costs[0][state] - costs[0][0] for state in range(second_size)]\n        self.add_unary_cost(first, first_base)\n        self.add_unary_cost(second, second_base)\n        for x in range(1, first_size):\n            for y in range(1, second_size):\n                difference = costs[x][y] - costs[x][y - 1] - costs[x - 1][y] + costs[x - 1][y - 1]\n                if difference > 0:\n                    raise ValueError('pair cost must be Monge')\n                self.project.add_profit_00(self.positions[first][x], self.positions[second][y], -difference)\n\n    def min_cost(self):\n        (value, bits) = self.project.min_cost()\n        assignment = [0] * len(self.sizes)\n        for (variable, size) in enumerate(self.sizes):\n            for state in range(1, size):\n                if bits[self.positions[variable][state]]:\n                    break\n                assignment[variable] = state\n        return (value, assignment)\n",
       "bundledDependencies": [
         "library_codex.graph_flow.MaxFlow"
       ],
       "counts": {
         "functions": 0,
         "classes": 2,
-        "methods": 22
+        "methods": 23
       },
       "functions": [],
       "classes": [
         {
           "name": "ProjectSelection",
-          "summary": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
-          "description": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
+          "summary": "0/1変数へコストと利益を追加し、合計コスト最小の割当をs-t最小カットで求める。",
+          "description": "0/1変数へコストと利益を追加し、合計コスト最小の割当をs-t最小カットで求める。",
           "searchTerms": [
             "ProjectSelection",
             "Project Selection",
             "ProjectSelection(variable_count)"
           ],
           "constructor": "ProjectSelection(variable_count)",
-          "constructorArguments": "variable_count: 処理対象の個数",
+          "constructorArguments": "variable_count: 0/1変数の個数。",
           "constructorArgumentDetails": [
             {
               "name": "variable_count",
-              "description": "処理対象の個数"
+              "description": "0/1変数の個数"
             }
           ],
           "constructorReturns": "ProjectSelection instance",
           "constructorReturnFormat": "ProjectSelection",
-          "constructorReturnDescription": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
-          "constructorCreates": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
-          "constructorComplexity": "1回の最小カットへ帰着",
-          "constructorSourceLine": 16,
+          "constructorReturnDescription": "variable_count個の0/1変数を持つ空の問題を作る。各add methodで項を追加し、min_costで最適値と割当を求めるか、buildでMaxFlowGraphへ変換できる。",
+          "constructorCreates": "variable_count個の0/1変数を持つ空の問題を作る。各add methodで項を追加し、min_costで最適値と割当を求めるか、buildでMaxFlowGraphへ変換できる。",
+          "constructorComplexity": "O(1) / O(N+P+H)",
+          "constructorSourceLine": 22,
           "methods": [
             {
               "name": "add_constant_cost",
               "kind": "method",
               "signature": "add_constant_cost(cost)",
-              "summary": "constant・コストを追加する。",
-              "description": "constant・コストを追加する。",
+              "summary": "どの割当にも同じ値だけ加わる定数コストを追加する。",
+              "description": "どの割当にも同じ値だけ加わる定数コストを追加する。",
               "searchTerms": [
                 "add_constant_cost",
                 "add constant cost",
                 "add_constant_cost(cost)"
               ],
-              "arguments": "cost: 辺・選択の費用",
+              "arguments": "cost: 追加する有限の正負コスト。",
               "argumentDetails": [
                 {
                   "name": "cost",
-                  "description": "辺・選択の費用"
+                  "description": "追加する有限の正負コスト。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 問題の定数項へcostを加える。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 32
+              "returnDescription": "問題の定数項へcostを加える。",
+              "complexity": "O(1)",
+              "sourceLine": 109
             },
             {
               "name": "add_constant_profit",
               "kind": "method",
               "signature": "add_constant_profit(profit)",
-              "summary": "constant・利益を追加する。",
-              "description": "constant・利益を追加する。",
+              "summary": "どの割当でも得られる利益を追加し、合計コストから差し引く。",
+              "description": "どの割当でも得られる利益を追加し、合計コストから差し引く。",
               "searchTerms": [
                 "add_constant_profit",
                 "add constant profit",
                 "add_constant_profit(profit)"
               ],
-              "arguments": "profit: 利益（負なら費用）",
+              "arguments": "profit: 追加する有限の正負利益。",
               "argumentDetails": [
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "追加する有限の正負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 問題の定数項からprofitを引く。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 36
+              "returnDescription": "問題の定数項からprofitを引く。",
+              "complexity": "O(1)",
+              "sourceLine": 113
             },
             {
               "name": "add_unary_cost",
               "kind": "method",
               "signature": "add_unary_cost(variable, cost_zero, cost_one)",
-              "summary": "unary・コストを追加する。",
-              "description": "unary・コストを追加する。",
+              "summary": "一つの0/1変数が取る状態ごとのコストを追加する。",
+              "description": "一つの0/1変数が取る状態ごとのコストを追加する。",
               "searchTerms": [
                 "add_unary_cost",
                 "add unary cost",
                 "add_unary_cost(variable, cost_zero, cost_one)"
               ],
-              "arguments": "variable: Boolean変数番号 · cost_zero: cost・zeroとして使う入力 · cost_one: cost・oneとして使う入力",
+              "arguments": "variable: 対象の変数。 · cost_zero: 変数が0のとき加えるコスト。正負の有限値またはmath.inf。 · cost_one: 変数が1のとき加えるコスト。正負の有限値またはmath.inf。",
               "argumentDetails": [
                 {
                   "name": "variable",
-                  "description": "Boolean変数番号"
+                  "description": "対象の変数。"
                 },
                 {
                   "name": "cost_zero",
-                  "description": "コスト・zeroとして使う入力"
+                  "description": "変数が0のとき加えるコスト。正負の有限値またはmath.inf。"
                 },
                 {
                   "name": "cost_one",
-                  "description": "コスト・oneとして使う入力"
+                  "description": "変数が1のとき加えるコスト。正負の有限値またはmath.inf。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 指定変数の二つの状態へコストを加算する。math.infの状態は禁止される。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 39
+              "returnDescription": "指定変数の二つの状態へコストを加算する。math.infの状態は禁止される。",
+              "complexity": "O(1)",
+              "sourceLine": 116
             },
             {
               "name": "add_unary_profit",
               "kind": "method",
               "signature": "add_unary_profit(variable, profit_zero, profit_one)",
-              "summary": "unary・利益を追加する。",
-              "description": "unary・利益を追加する。",
+              "summary": "一つの0/1変数が取る状態ごとの利益を追加する。",
+              "description": "一つの0/1変数が取る状態ごとの利益を追加する。",
               "searchTerms": [
                 "add_unary_profit",
                 "add unary profit",
                 "add_unary_profit(variable, profit_zero, profit_one)"
               ],
-              "arguments": "variable: Boolean変数番号 · profit_zero: profit・zeroとして使う入力 · profit_one: profit・oneとして使う入力",
+              "arguments": "variable: 対象の変数。 · profit_zero: 変数が0のとき得る有限の正負利益。 · profit_one: 変数が1のとき得る有限の正負利益。",
               "argumentDetails": [
                 {
                   "name": "variable",
-                  "description": "Boolean変数番号"
+                  "description": "対象の変数。"
                 },
                 {
                   "name": "profit_zero",
-                  "description": "利益・zeroとして使う入力"
+                  "description": "変数が0のとき得る有限の正負利益。"
                 },
                 {
                   "name": "profit_one",
-                  "description": "利益・oneとして使う入力"
+                  "description": "変数が1のとき得る有限の正負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 指定した利益を対応する状態のコストから差し引く。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 44
+              "returnDescription": "指定した利益を対応する状態のコストから差し引く。",
+              "complexity": "O(1)",
+              "sourceLine": 122
             },
             {
               "name": "add_cost_0",
               "kind": "method",
               "signature": "add_cost_0(variable, cost)",
-              "summary": "コスト・0を追加する。",
-              "description": "コスト・0を追加する。",
+              "summary": "指定変数が0のときだけ加わるコストを追加する。",
+              "description": "指定変数が0のときだけ加わるコストを追加する。",
               "searchTerms": [
                 "add_cost_0",
                 "add cost 0",
                 "add_cost_0(variable, cost)"
               ],
-              "arguments": "variable: Boolean変数番号 · cost: 辺・選択の費用",
+              "arguments": "variable: 対象の変数。 · cost: 0のとき加える正負の有限値またはmath.inf。",
               "argumentDetails": [
                 {
                   "name": "variable",
-                  "description": "Boolean変数番号"
+                  "description": "対象の変数。"
                 },
                 {
                   "name": "cost",
-                  "description": "辺・選択の費用"
+                  "description": "0のとき加える正負の有限値またはmath.inf。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — variable=0のコストへcostを加える。math.infなら0を禁止する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 47
+              "returnDescription": "variable=0のコストへcostを加える。math.infなら0を禁止する。",
+              "complexity": "O(1)",
+              "sourceLine": 125
             },
             {
               "name": "add_cost_1",
               "kind": "method",
               "signature": "add_cost_1(variable, cost)",
-              "summary": "コスト・1を追加する。",
-              "description": "コスト・1を追加する。",
+              "summary": "指定変数が1のときだけ加わるコストを追加する。",
+              "description": "指定変数が1のときだけ加わるコストを追加する。",
               "searchTerms": [
                 "add_cost_1",
                 "add cost 1",
                 "add_cost_1(variable, cost)"
               ],
-              "arguments": "variable: Boolean変数番号 · cost: 辺・選択の費用",
+              "arguments": "variable: 対象の変数。 · cost: 1のとき加える正負の有限値またはmath.inf。",
               "argumentDetails": [
                 {
                   "name": "variable",
-                  "description": "Boolean変数番号"
+                  "description": "対象の変数。"
                 },
                 {
                   "name": "cost",
-                  "description": "辺・選択の費用"
+                  "description": "1のとき加える正負の有限値またはmath.inf。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — variable=1のコストへcostを加える。math.infなら1を禁止する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 50
+              "returnDescription": "variable=1のコストへcostを加える。math.infなら1を禁止する。",
+              "complexity": "O(1)",
+              "sourceLine": 128
             },
             {
               "name": "add_profit_0",
               "kind": "method",
               "signature": "add_profit_0(variable, profit)",
-              "summary": "利益・0を追加する。",
-              "description": "利益・0を追加する。",
+              "summary": "指定変数が0のときだけ得られる利益を追加する。",
+              "description": "指定変数が0のときだけ得られる利益を追加する。",
               "searchTerms": [
                 "add_profit_0",
                 "add profit 0",
                 "add_profit_0(variable, profit)"
               ],
-              "arguments": "variable: Boolean変数番号 · profit: 利益（負なら費用）",
+              "arguments": "variable: 対象の変数。 · profit: 0のとき得る有限の正負利益。",
               "argumentDetails": [
                 {
                   "name": "variable",
-                  "description": "Boolean変数番号"
+                  "description": "対象の変数。"
                 },
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "0のとき得る有限の正負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — variable=0のコストからprofitを引く。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 53
+              "returnDescription": "variable=0のコストからprofitを引く。",
+              "complexity": "O(1)",
+              "sourceLine": 131
             },
             {
               "name": "add_profit_1",
               "kind": "method",
               "signature": "add_profit_1(variable, profit)",
-              "summary": "利益・1を追加する。",
-              "description": "利益・1を追加する。",
+              "summary": "指定変数が1のときだけ得られる利益を追加する。",
+              "description": "指定変数が1のときだけ得られる利益を追加する。",
               "searchTerms": [
                 "add_profit_1",
                 "add profit 1",
                 "add_profit_1(variable, profit)"
               ],
-              "arguments": "variable: Boolean変数番号 · profit: 利益（負なら費用）",
+              "arguments": "variable: 対象の変数。 · profit: 1のとき得る有限の正負利益。",
               "argumentDetails": [
                 {
                   "name": "variable",
-                  "description": "Boolean変数番号"
+                  "description": "対象の変数。"
                 },
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "1のとき得る有限の正負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — variable=1のコストからprofitを引く。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 56
+              "returnDescription": "variable=1のコストからprofitを引く。",
+              "complexity": "O(1)",
+              "sourceLine": 134
             },
             {
               "name": "add_cost_01",
               "kind": "method",
               "signature": "add_cost_01(first, second, cost)",
-              "summary": "コスト・01を追加する。",
-              "description": "コスト・01を追加する。",
+              "summary": "firstが0、secondが1の組合せだけにコストを追加する。",
+              "description": "firstが0、secondが1の組合せだけにコストを追加する。",
               "searchTerms": [
                 "add_cost_01",
                 "add cost 01",
-                "add_cost_01(first, second, cost)"
+                "add_cost_01(first, second, cost)",
+                "含意制約",
+                "01禁止"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · cost: 辺・選択の費用",
+              "arguments": "first: 組合せの第1変数。 · second: 組合せの第2変数。 · cost: (0, 1)へ加える正負の有限値またはmath.inf。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "組合せの第1変数。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "組合せの第2変数。"
                 },
                 {
                   "name": "cost",
-                  "description": "辺・選択の費用"
+                  "description": "(0, 1)へ加える正負の有限値またはmath.inf。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 同じ変数対の2x2コスト表へ加算する。math.infなら(0, 1)を禁止する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 59
+              "returnDescription": "同じ変数対の2x2コスト表へ加算する。math.infなら(0, 1)を禁止する。",
+              "complexity": "期待 O(1)",
+              "sourceLine": 137
             },
             {
               "name": "add_cost_10",
               "kind": "method",
               "signature": "add_cost_10(first, second, cost)",
-              "summary": "コスト・10を追加する。",
-              "description": "コスト・10を追加する。",
+              "summary": "firstが1、secondが0の組合せだけにコストを追加する。",
+              "description": "firstが1、secondが0の組合せだけにコストを追加する。",
               "searchTerms": [
                 "add_cost_10",
                 "add cost 10",
-                "add_cost_10(first, second, cost)"
+                "add_cost_10(first, second, cost)",
+                "含意制約",
+                "10禁止"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · cost: 辺・選択の費用",
+              "arguments": "first: 組合せの第1変数。 · second: 組合せの第2変数。 · cost: (1, 0)へ加える正負の有限値またはmath.inf。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "組合せの第1変数。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "組合せの第2変数。"
                 },
                 {
                   "name": "cost",
-                  "description": "辺・選択の費用"
+                  "description": "(1, 0)へ加える正負の有限値またはmath.inf。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 同じ変数対の2x2コスト表へ加算する。math.infなら(1, 0)を禁止する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 66
+              "returnDescription": "同じ変数対の2x2コスト表へ加算する。math.infなら(1, 0)を禁止する。",
+              "complexity": "期待 O(1)",
+              "sourceLine": 141
             },
             {
               "name": "add_pair_cost",
               "kind": "method",
               "signature": "add_pair_cost(first, second, costs)",
-              "summary": "pair・コストを追加する。",
-              "description": "pair・コストを追加する。",
+              "summary": "二つの0/1変数の組合せ4通りに対応するコスト表を追加する。",
+              "description": "二つの0/1変数の組合せ4通りに対応するコスト表を追加する。",
               "searchTerms": [
                 "add_pair_cost",
                 "add pair cost",
                 "add_pair_cost(first, second, costs)"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · costs: 費用の列",
+              "arguments": "first: costsの行を選ぶ第1変数。 · second: costsの列を選ぶ第2変数。 · costs: 2x2の表。costs[a][b]を(first, second)=(a, b)のとき加える。math.infはその組合せを禁止する。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "costsの行を選ぶ第1変数。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "costsの列を選ぶ第2変数。"
                 },
                 {
                   "name": "costs",
-                  "description": "費用の列"
+                  "description": "2x2の表。costs[a][b]を(first, second)=(a, b)のとき加える。math.infはその組合せを禁止する。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 同じ変数対の既存表へ4要素を加算する。合算後のsubmodularityはbuild時に検査する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 69
+              "returnDescription": "同じ変数対の既存表へ4要素を加算する。合算後のsubmodularityはbuild時に検査する。",
+              "complexity": "期待 O(1)",
+              "sourceLine": 144
             },
             {
               "name": "add_pair_profit",
               "kind": "method",
               "signature": "add_pair_profit(first, second, profits)",
-              "summary": "pair・利益を追加する。",
-              "description": "pair・利益を追加する。",
+              "summary": "二つの0/1変数の組合せ4通りに対応する利益表を追加する。",
+              "description": "二つの0/1変数の組合せ4通りに対応する利益表を追加する。",
               "searchTerms": [
                 "add_pair_profit",
                 "add pair profit",
                 "add_pair_profit(first, second, profits)"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · profits: profitsとして使う入力",
+              "arguments": "first: profitsの行を選ぶ第1変数。 · second: profitsの列を選ぶ第2変数。 · profits: 2x2の有限値表。profits[a][b]を(first, second)=(a, b)のとき得る。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "profitsの行を選ぶ第1変数。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "profitsの列を選ぶ第2変数。"
                 },
                 {
                   "name": "profits",
-                  "description": "profitsとして使う入力"
+                  "description": "2x2の有限値表。profits[a][b]を(first, second)=(a, b)のとき得る。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 各利益の符号を反転し、同じ変数対のコスト表へ加算する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 80
+              "returnDescription": "各利益の符号を反転し、同じ変数対のコスト表へ加算する。",
+              "complexity": "期待 O(1)",
+              "sourceLine": 159
             },
             {
               "name": "add_profit_00",
               "kind": "method",
               "signature": "add_profit_00(first, second, profit)",
-              "summary": "利益・00を追加する。",
-              "description": "利益・00を追加する。",
+              "summary": "二変数がともに0のときだけ得られる利益を追加する。",
+              "description": "二変数がともに0のときだけ得られる利益を追加する。",
               "searchTerms": [
                 "add_profit_00",
                 "add profit 00",
                 "add_profit_00(first, second, profit)"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · profit: 利益（負なら費用）",
+              "arguments": "first: 第1変数。 · second: 第2変数。 · profit: (0, 0)で得る有限の正負利益。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "第1変数。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "第2変数。"
                 },
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "(0, 0)で得る有限の正負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — (first, second)=(0, 0)のコストからprofitを引く。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 87
+              "returnDescription": "(first, second)=(0, 0)のコストからprofitを引く。",
+              "complexity": "期待 O(1)",
+              "sourceLine": 166
             },
             {
               "name": "add_profit_11",
               "kind": "method",
               "signature": "add_profit_11(first, second, profit)",
-              "summary": "利益・11を追加する。",
-              "description": "利益・11を追加する。",
+              "summary": "二変数がともに1のときだけ得られる利益を追加する。",
+              "description": "二変数がともに1のときだけ得られる利益を追加する。",
               "searchTerms": [
                 "add_profit_11",
                 "add profit 11",
                 "add_profit_11(first, second, profit)"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · profit: 利益（負なら費用）",
+              "arguments": "first: 第1変数。 · second: 第2変数。 · profit: (1, 1)で得る有限の正負利益。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "第1変数。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "第2変数。"
                 },
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "(1, 1)で得る有限の正負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — (first, second)=(1, 1)のコストからprofitを引く。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 90
+              "returnDescription": "(first, second)=(1, 1)のコストからprofitを引く。",
+              "complexity": "期待 O(1)",
+              "sourceLine": 169
             },
             {
               "name": "add_profit_all_zero",
               "kind": "method",
               "signature": "add_profit_all_zero(variables, profit)",
-              "summary": "利益・全体・zeroを追加する。",
-              "description": "利益・全体・zeroを追加する。",
+              "summary": "指定した全変数が0のときだけ得られる利益を追加する。",
+              "description": "指定した全変数が0のときだけ得られる利益を追加する。",
               "searchTerms": [
                 "add_profit_all_zero",
                 "add profit all zero",
                 "add_profit_all_zero(variables, profit)"
               ],
-              "arguments": "variables: 変数数 · profit: 利益（負なら費用）",
+              "arguments": "variables: 同時に0であることを要求する変数のiterable。 · profit: 条件成立時に得る有限の非負利益。",
               "argumentDetails": [
                 {
                   "name": "variables",
-                  "description": "変数数"
+                  "description": "同時に0であることを要求する変数のiterable。"
                 },
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "条件成立時に得る有限の非負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 一つの補助頂点を使う高次項を問題へ追加する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 93
+              "returnDescription": "一つの補助頂点を使う高次項を問題へ追加する。",
+              "complexity": "O(K) time・O(K) memory、Kはvariablesの長さ",
+              "sourceLine": 172
             },
             {
               "name": "add_profit_all_one",
               "kind": "method",
               "signature": "add_profit_all_one(variables, profit)",
-              "summary": "利益・全体・oneを追加する。",
-              "description": "利益・全体・oneを追加する。",
+              "summary": "指定した全変数が1のときだけ得られる利益を追加する。",
+              "description": "指定した全変数が1のときだけ得られる利益を追加する。",
               "searchTerms": [
                 "add_profit_all_one",
                 "add profit all one",
                 "add_profit_all_one(variables, profit)"
               ],
-              "arguments": "variables: 変数数 · profit: 利益（負なら費用）",
+              "arguments": "variables: 同時に1であることを要求する変数のiterable。 · profit: 条件成立時に得る有限の非負利益。",
               "argumentDetails": [
                 {
                   "name": "variables",
-                  "description": "変数数"
+                  "description": "同時に1であることを要求する変数のiterable。"
                 },
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "条件成立時に得る有限の非負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 一つの補助頂点を使う高次項を問題へ追加する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 106
+              "returnDescription": "一つの補助頂点を使う高次項を問題へ追加する。",
+              "complexity": "O(K) time・O(K) memory、Kはvariablesの長さ",
+              "sourceLine": 188
+            },
+            {
+              "name": "build",
+              "kind": "method",
+              "signature": "build()",
+              "summary": "登録した全項を合算・検査し、非負の有限容量だけを持つ最小カット問題へ変換する。",
+              "description": "登録した全項を合算・検査し、非負の有限容量だけを持つ最小カット問題へ変換する。",
+              "searchTerms": [
+                "build",
+                "build()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "tuple[MaxFlowGraph, number] — (graph, offset)。最小コストはoffset + graph.flow(source, sink)。sourceとsinkはProjectSelectionの同名属性を使う。",
+              "returnFormat": "tuple[MaxFlowGraph, number]",
+              "returnDescription": "(graph, offset)。最小コストはoffset + graph.flow(source, sink)。sourceとsinkはProjectSelectionの同名属性を使う。",
+              "complexity": "O(N+P+H) time・O(N+P+H) memory、Pは異なる変数対数、Hは高次項の変数出現数",
+              "sourceLine": 204,
+              "returnParts": [
+                {
+                  "name": "graph",
+                  "format": "MaxFlowGraph",
+                  "description": "登録した目的関数を表す非負有限容量のflow graph。"
+                },
+                {
+                  "name": "offset",
+                  "format": "number",
+                  "description": "graphの最小cut値へ足す定数。"
+                }
+              ]
             },
             {
               "name": "min_cost",
               "kind": "method",
               "signature": "min_cost()",
-              "summary": "最小・コストを求める。",
-              "description": "最小・コストを求める。",
+              "summary": "登録した全コストの合計を最小にする0/1割当を求める。",
+              "description": "登録した全コストの合計を最小にする0/1割当を求める。",
               "searchTerms": [
                 "min_cost",
                 "min cost",
@@ -64159,152 +64203,164 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "list / tuple / 入力要素と同じ型 — 求めた最小・コスト。",
-              "returnFormat": "list / tuple / 入力要素と同じ型",
-              "returnDescription": "求めた最小・コスト。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 119
+              "returns": "tuple[number, list[int]] — (value, assignment)。valueは最小合計コスト、assignment[i]は変数iへ割り当てた0または1。禁止条件が矛盾すればValueError。",
+              "returnFormat": "tuple[number, list[int]]",
+              "returnDescription": "(value, assignment)。valueは最小合計コスト、assignment[i]は変数iへ割り当てた0または1。禁止条件が矛盾すればValueError。",
+              "complexity": "buildに加えてDinicのworst O(V^2 E)",
+              "sourceLine": 255,
+              "returnParts": [
+                {
+                  "name": "value",
+                  "format": "number",
+                  "description": "登録した利益を負値として含む最小合計コスト。"
+                },
+                {
+                  "name": "assignment",
+                  "format": "list[int]",
+                  "description": "変数番号順の0/1割当。"
+                }
+              ]
             }
           ]
         },
         {
           "name": "KProjectSelection",
-          "summary": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
-          "description": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
+          "summary": "変数ごとに異なる個数の順序付き状態を持つ問題で、一変数コストとMongeな二変数コストの合計を最小化する。",
+          "description": "変数ごとに異なる個数の順序付き状態を持つ問題で、一変数コストとMongeな二変数コストの合計を最小化する。",
           "searchTerms": [
             "KProjectSelection",
             "KProject Selection",
             "KProjectSelection(sizes)"
           ],
           "constructor": "KProjectSelection(sizes)",
-          "constructorArguments": "sizes: sizesとして使う入力",
+          "constructorArguments": "sizes: sizes[i]が変数iの状態数を表す、各要素が1以上の列。",
           "constructorArgumentDetails": [
             {
               "name": "sizes",
-              "description": "sizesとして使う入力"
+              "description": "sizes[i]が変数iの状態数を表す、各要素が1以上の列"
             }
           ],
           "constructorReturns": "KProjectSelection instance",
           "constructorReturnFormat": "KProjectSelection",
-          "constructorReturnDescription": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
-          "constructorCreates": "binary/K値Project Selection・高次all-0/all-1 利益を行うクラス。",
-          "constructorComplexity": "1回の最小カットへ帰着",
-          "constructorSourceLine": 150,
+          "constructorReturnDescription": "sizes[i]個の状態を取る変数iを作る。add_unary_costとadd_pair_costでコストを追加し、min_costで最適値と各変数の状態番号を求められる。",
+          "constructorCreates": "sizes[i]個の状態を取る変数iを作る。add_unary_costとadd_pair_costでコストを追加し、min_costで最適値と各変数の状態番号を求められる。",
+          "constructorComplexity": "O(1) / O(N+P+H)",
+          "constructorSourceLine": 278,
           "methods": [
             {
               "name": "add_constant_cost",
               "kind": "method",
               "signature": "add_constant_cost(cost)",
-              "summary": "constant・コストを追加する。",
-              "description": "constant・コストを追加する。",
+              "summary": "どの状態割当にも同じ値だけ加わる定数コストを追加する。",
+              "description": "どの状態割当にも同じ値だけ加わる定数コストを追加する。",
               "searchTerms": [
                 "add_constant_cost",
                 "add constant cost",
                 "add_constant_cost(cost)"
               ],
-              "arguments": "cost: 辺・選択の費用",
+              "arguments": "cost: 追加する有限の正負コスト。",
               "argumentDetails": [
                 {
                   "name": "cost",
-                  "description": "辺・選択の費用"
+                  "description": "追加する有限の正負コスト。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 問題の定数項へcostを加える。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 174
+              "returnDescription": "問題の定数項へcostを加える。",
+              "complexity": "O(1)",
+              "sourceLine": 301
             },
             {
               "name": "add_constant_profit",
               "kind": "method",
               "signature": "add_constant_profit(profit)",
-              "summary": "constant・利益を追加する。",
-              "description": "constant・利益を追加する。",
+              "summary": "どの状態割当でも得られる利益を追加する。",
+              "description": "どの状態割当でも得られる利益を追加する。",
               "searchTerms": [
                 "add_constant_profit",
                 "add constant profit",
                 "add_constant_profit(profit)"
               ],
-              "arguments": "profit: 利益（負なら費用）",
+              "arguments": "profit: 追加する有限の正負利益。",
               "argumentDetails": [
                 {
                   "name": "profit",
-                  "description": "利益（負なら費用）"
+                  "description": "追加する有限の正負利益。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 問題の定数項からprofitを引く。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 177
+              "returnDescription": "問題の定数項からprofitを引く。",
+              "complexity": "O(1)",
+              "sourceLine": 304
             },
             {
               "name": "add_unary_cost",
               "kind": "method",
               "signature": "add_unary_cost(variable, costs)",
-              "summary": "unary・コストを追加する。",
-              "description": "unary・コストを追加する。",
+              "summary": "一つの多値変数について、状態ごとのコストを追加する。",
+              "description": "一つの多値変数について、状態ごとのコストを追加する。",
               "searchTerms": [
                 "add_unary_cost",
                 "add unary cost",
                 "add_unary_cost(variable, costs)"
               ],
-              "arguments": "variable: Boolean変数番号 · costs: 費用の列",
+              "arguments": "variable: 対象の変数。 · costs: 長さsizes[variable]の列。costs[state]がその状態で加わるコスト。",
               "argumentDetails": [
                 {
                   "name": "variable",
-                  "description": "Boolean変数番号"
+                  "description": "対象の変数。"
                 },
                 {
                   "name": "costs",
-                  "description": "費用の列"
+                  "description": "長さsizes[variable]の列。costs[state]がその状態で加わるコスト。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 指定変数の各状態へ対応するコストを加算する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 180
+              "returnDescription": "指定変数の各状態へ対応するコストを加算する。",
+              "complexity": "O(sizes[variable])",
+              "sourceLine": 307
             },
             {
               "name": "add_pair_cost",
               "kind": "method",
               "signature": "add_pair_cost(first, second, costs)",
-              "summary": "pair・コストを追加する。",
-              "description": "pair・コストを追加する。",
+              "summary": "二つの順序付き多値変数の状態の組合せごとのMongeコストを追加する。",
+              "description": "二つの順序付き多値変数の状態の組合せごとのMongeコストを追加する。",
               "searchTerms": [
                 "add_pair_cost",
                 "add pair cost",
                 "add_pair_cost(first, second, costs)"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · costs: 費用の列",
+              "arguments": "first: 表の行を選ぶ変数。 · second: 表の列を選ぶ変数。 · costs: sizes[first]行sizes[second]列のMonge表。costs[x][y]が状態(x, y)のコスト。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "表の行を選ぶ変数。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "表の列を選ぶ変数。"
                 },
                 {
                   "name": "costs",
-                  "description": "費用の列"
+                  "description": "sizes[first]行sizes[second]列のMonge表。costs[x][y]が状態(x, y)のコスト。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 二変数コストを内部の0/1変数と最小カット辺へ追加する。MongeでなければValueError。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 192
+              "returnDescription": "二変数コストを内部の0/1変数と最小カット辺へ追加する。MongeでなければValueError。",
+              "complexity": "O(sizes[first] sizes[second])",
+              "sourceLine": 319
             },
             {
               "name": "min_cost",
               "kind": "method",
               "signature": "min_cost()",
-              "summary": "最小・コストを求める。",
-              "description": "最小・コストを求める。",
+              "summary": "登録した全コストの合計を最小にする各変数の状態を求める。",
+              "description": "登録した全コストの合計を最小にする各変数の状態を求める。",
               "searchTerms": [
                 "min_cost",
                 "min cost",
@@ -64312,11 +64368,23 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "list / tuple / 入力要素と同じ型 — 求めた最小・コスト。",
-              "returnFormat": "list / tuple / 入力要素と同じ型",
-              "returnDescription": "求めた最小・コスト。",
-              "complexity": "1回の最小カットへ帰着",
-              "sourceLine": 222
+              "returns": "tuple[number, list[int]] — (value, assignment)。valueは最小合計コスト、assignment[i]は0以上sizes[i]未満の状態番号。",
+              "returnFormat": "tuple[number, list[int]]",
+              "returnDescription": "(value, assignment)。valueは最小合計コスト、assignment[i]は0以上sizes[i]未満の状態番号。",
+              "complexity": "内部ProjectSelectionのmin_costに加えてO(S)",
+              "sourceLine": 349,
+              "returnParts": [
+                {
+                  "name": "value",
+                  "format": "number",
+                  "description": "最小合計コスト。"
+                },
+                {
+                  "name": "assignment",
+                  "format": "list[int]",
+                  "description": "変数番号順の状態番号。"
+                }
+              ]
             }
           ]
         }

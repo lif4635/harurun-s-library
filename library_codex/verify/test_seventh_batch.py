@@ -9,7 +9,6 @@ from library_codex.geometry.LineGeometry import (
 )
 from library_codex.graph.EulerianTrail import eulerian_trail
 from library_codex.graph_enumeration.MinimumCostCycle import minimum_cost_cycle
-from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 from library_codex.range_query.StaticRangeFrequency import StaticRangeFrequency
 from library_codex.string.StringSearch import kmp_search, prefix_function
 from library_codex.tree.SubtreeDiameter import subtree_diameters
@@ -47,20 +46,10 @@ def test_kmp_random():
     assert prefix_function("ababa") == [0, 0, 1, 2, 3]
 
 
-def test_existing_api_extensions():
+def test_eulerian_trail_lexicographic():
     edges = [(0, 2), (0, 1), (1, 0), (2, 0)]
     vertices, _ = eulerian_trail(3, edges, True, 0, lexicographic=True)
     assert vertices == [0, 1, 0, 2, 0]
-
-    flow = MaxFlowGraph(4)
-    flow.add_edge(0, 1, 2)
-    flow.add_edge(0, 2, 1)
-    flow.add_edge(1, 3, 2)
-    flow.add_edge(2, 3, 1)
-    assert flow.flow(0, 3) == 3
-    assert flow.residual_graph()[0] == []
-    cut = flow.min_cut_edges(0)
-    assert [(u, v, cap) for _, u, v, cap, _ in cut] == [(0, 1, 2), (0, 2, 1)]
 
 
 def test_rollback_weighted_union_find():

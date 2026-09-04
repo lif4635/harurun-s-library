@@ -106,6 +106,14 @@ Lazy構造では保留中の作用を反映した現在値を返します。表�
 
 ## 7. testを書く
 
+test fileはsourceのcategoryとmoduleに対応させます。たとえば`graph_flow/MaxFlow.py`は`verify/graph_flow/test_max_flow.py`、`optimization/ProjectSelection.py`は`verify/optimization/test_project_selection.py`で検査します。追加した時期だけを表す`test_ninth_batch.py`のようなfileへ新しいtestを足しません。
+
+- 原則として1 implementation moduleにつき1 test fileを使う。
+- 単純解との比較器と入力生成器は専用test fileへ残し、API追加時に再利用する。
+- 別実装をoracleとして比較する場合も、主に検査するmoduleのtest fileへ置く。
+- 複数moduleにまたがる統合testは、単体testでは検出できない契約を確認するときだけ作る。
+- 既存のカテゴリ一括・追加batch testは、含まれるmoduleを変更するときに専用fileへ分離する。
+
 最低限、次を組み合わせます。
 
 - 小さい入力を単純解と比較するrandomized test。

@@ -195,7 +195,6 @@ optimization/MaximalRectangle
 optimization/MongeShortestPaths
 optimization/MonotoneConvexHullTrick
 optimization/MonotoneMinima
-optimization/ProjectSelection
 optimization/RollbackMo
 optimization/SlopeTrick
 optimization/SMAWK

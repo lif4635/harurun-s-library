@@ -1,6 +1,10 @@
 from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
+_INF = float("inf")
+_NEG_INF = float("-inf")
+
+
 class ProjectSelection:
     __slots__ = (
         "original",
@@ -8,7 +12,9 @@ class ProjectSelection:
         "sink",
         "node_count",
         "offset",
-        "base",
+        "cost_zero",
+        "cost_one",
+        "pairs",
         "edges",
         "solved",
     )
@@ -21,13 +27,84 @@ class ProjectSelection:
         self.sink = variable_count + 1
         self.node_count = variable_count + 2
         self.offset = 0
-        self.base = [[0, 0] for _ in range(variable_count)]
+        self.cost_zero = [0] * variable_count
+        self.cost_one = [0] * variable_count
+        self.pairs = {}
         self.edges = []
         self.solved = False
 
     def _check(self):
         if self.solved:
             raise RuntimeError("cannot add terms after solve")
+
+    def _variable(self, variable):
+        if not 0 <= variable < self.original:
+            raise IndexError("variable out of range")
+
+    def _add_pair(self, first, second, zero_zero, zero_one, one_zero, one_one):
+        self._variable(first)
+        self._variable(second)
+        if first == second:
+            self.cost_zero[first] += zero_zero
+            self.cost_one[first] += one_one
+            return
+        if first > second:
+            first, second = second, first
+            zero_one, one_zero = one_zero, zero_one
+        key = first * self.original + second
+        costs = self.pairs.get(key)
+        if costs is None:
+            self.pairs[key] = [zero_zero, zero_one, one_zero, one_one]
+        else:
+            costs[0] += zero_zero
+            costs[1] += zero_one
+            costs[2] += one_zero
+            costs[3] += one_one
+
+    def _hard_capacity(self):
+        if self.offset != self.offset or self.offset == _NEG_INF:
+            raise ValueError("costs must not contain NaN or negative infinity")
+        if self.offset == _INF:
+            raise ValueError("constraints forbid every possible assignment")
+        capacity = 1
+        for value in self.cost_zero:
+            if value != value or value == _NEG_INF:
+                raise ValueError("costs must not contain NaN or negative infinity")
+            if value != _INF:
+                capacity += abs(value)
+        for value in self.cost_one:
+            if value != value or value == _NEG_INF:
+                raise ValueError("costs must not contain NaN or negative infinity")
+            if value != _INF:
+                capacity += abs(value)
+        for costs in self.pairs.values():
+            for value in costs:
+                if value != value or value == _NEG_INF:
+                    raise ValueError("costs must not contain NaN or negative infinity")
+                if value != _INF:
+                    capacity += abs(value)
+        for _, _, value in self.edges:
+            capacity += abs(value)
+        return capacity
+
+    @staticmethod
+    def _replace_infinity(costs, hard_capacity):
+        finite = [cost for cost in costs if cost != _INF]
+        if not finite:
+            raise ValueError("constraints forbid every possible assignment")
+        replacement = min(finite) + hard_capacity
+        return [replacement if cost == _INF else cost for cost in costs]
+
+    @classmethod
+    def _replace_pair_infinity(cls, costs, hard_capacity):
+        result = cls._replace_infinity(costs, hard_capacity)
+        difference = result[0] + result[3] - result[1] - result[2]
+        if difference > 0:
+            if costs[1] == _INF:
+                result[1] += difference
+            elif costs[2] == _INF:
+                result[2] += difference
+        return result
 
     def add_constant_cost(self, cost):
         self._check()
@@ -38,8 +115,9 @@ class ProjectSelection:
 
     def add_unary_cost(self, variable, cost_zero, cost_one):
         self._check()
-        self.base[variable][0] += cost_zero
-        self.base[variable][1] += cost_one
+        self._variable(variable)
+        self.cost_zero[variable] += cost_zero
+        self.cost_one[variable] += cost_one
 
     def add_unary_profit(self, variable, profit_zero, profit_one):
         self.add_unary_cost(variable, -profit_zero, -profit_one)
@@ -58,24 +136,25 @@ class ProjectSelection:
 
     def add_cost_01(self, first, second, cost):
         self._check()
-        if cost < 0:
-            raise ValueError("cost must be nonnegative")
-        if cost:
-            self.edges.append((first, second, cost))
+        self._add_pair(first, second, 0, cost, 0, 0)
 
     def add_cost_10(self, first, second, cost):
         self.add_cost_01(second, first, cost)
 
     def add_pair_cost(self, first, second, costs):
+        self._check()
+        if len(costs) != 2 or any(len(row) != 2 for row in costs):
+            raise ValueError("pair cost must be a 2 by 2 table")
         zero_zero, zero_one = costs[0]
         one_zero, one_one = costs[1]
-        penalty = zero_one + one_zero - zero_zero - one_one
-        if penalty < 0:
-            raise ValueError("pair cost must be submodular")
-        self.add_constant_cost(zero_zero)
-        self.add_unary_cost(first, 0, one_zero - zero_zero)
-        self.add_unary_cost(second, 0, one_one - one_zero)
-        self.add_cost_01(first, second, penalty)
+        self._add_pair(
+            first,
+            second,
+            zero_zero,
+            zero_one,
+            one_zero,
+            one_one,
+        )
 
     def add_pair_profit(self, first, second, profits):
         self.add_pair_cost(
@@ -92,10 +171,13 @@ class ProjectSelection:
 
     def add_profit_all_zero(self, variables, profit):
         self._check()
-        if profit < 0:
-            raise ValueError("profit must be nonnegative")
+        if profit < 0 or profit != profit or profit == _INF:
+            raise ValueError("profit must be finite and nonnegative")
         if profit == 0:
             return
+        variables = list(variables)
+        for variable in variables:
+            self._variable(variable)
         self.offset -= profit
         auxiliary = self.node_count
         self.node_count += 1
@@ -105,10 +187,13 @@ class ProjectSelection:
 
     def add_profit_all_one(self, variables, profit):
         self._check()
-        if profit < 0:
-            raise ValueError("profit must be nonnegative")
+        if profit < 0 or profit != profit or profit == _INF:
+            raise ValueError("profit must be finite and nonnegative")
         if profit == 0:
             return
+        variables = list(variables)
+        for variable in variables:
+            self._variable(variable)
         self.offset -= profit
         auxiliary = self.node_count
         self.node_count += 1
@@ -116,32 +201,75 @@ class ProjectSelection:
         for variable in variables:
             self.edges.append((variable, auxiliary, profit))
 
-    def min_cost(self):
+    def build(self):
         self._check()
-        self.solved = True
-        graph = MaxFlowGraph(self.node_count)
+        hard_capacity = self._hard_capacity()
+        cost_zero = [0] * self.original
+        cost_one = [0] * self.original
+        for variable in range(self.original):
+            zero, one = self._replace_infinity(
+                [self.cost_zero[variable], self.cost_one[variable]],
+                hard_capacity,
+            )
+            cost_zero[variable] = zero
+            cost_one[variable] = one
         offset = self.offset
-        for variable, (cost_zero, cost_one) in enumerate(self.base):
-            if cost_zero <= cost_one:
-                offset += cost_zero
-                if cost_zero < cost_one:
+        pair_edges = []
+        for key, costs in self.pairs.items():
+            first, second = divmod(key, self.original)
+            zero_zero, zero_one, one_zero, one_one = self._replace_pair_infinity(
+                costs,
+                hard_capacity,
+            )
+            capacity = zero_one + one_zero - zero_zero - one_one
+            if capacity < 0:
+                raise ValueError(
+                    f"combined pair cost for variables {first} and {second} "
+                    "is not submodular"
+                )
+            offset += zero_zero
+            cost_one[first] += one_zero - zero_zero
+            cost_one[second] += one_one - one_zero
+            if capacity:
+                pair_edges.append((first, second, capacity))
+        graph = MaxFlowGraph(self.node_count)
+        for variable in range(self.original):
+            zero = cost_zero[variable]
+            one = cost_one[variable]
+            if zero <= one:
+                offset += zero
+                if zero < one:
                     graph.add_edge(
-                        self.source, variable, cost_one - cost_zero
+                        self.source, variable, one - zero
                     )
             else:
-                offset += cost_one
-                graph.add_edge(variable, self.sink, cost_zero - cost_one)
+                offset += one
+                graph.add_edge(variable, self.sink, zero - one)
+        for source, target, capacity in pair_edges:
+            graph.add_edge(source, target, capacity)
         for source, target, capacity in self.edges:
             graph.add_edge(source, target, capacity)
+        self.solved = True
+        return graph, offset
+
+    def min_cost(self):
+        graph, offset = self.build()
         value = offset + graph.flow(self.source, self.sink)
         reachable = graph.min_cut(self.source)
         assignment = [
             0 if reachable[variable] else 1
             for variable in range(self.original)
         ]
+        for variable, state in enumerate(assignment):
+            costs = self.cost_zero if state == 0 else self.cost_one
+            if costs[variable] == _INF:
+                raise ValueError("constraints have no feasible assignment")
+        for key, costs in self.pairs.items():
+            first, second = divmod(key, self.original)
+            index = assignment[first] * 2 + assignment[second]
+            if costs[index] == _INF:
+                raise ValueError("constraints have no feasible assignment")
         return value, assignment
-
-    minCost = min_cost
 
 
 class KProjectSelection:
@@ -161,13 +289,12 @@ class KProjectSelection:
             positions.append(current)
         self.positions = positions
         project = ProjectSelection(count)
-        infinity = 10 ** 100
         for variable, size in enumerate(sizes):
             for state in range(1, size - 1):
                 project.add_cost_10(
                     positions[variable][state],
                     positions[variable][state + 1],
-                    infinity,
+                    _INF,
                 )
         self.project = project
 
@@ -228,5 +355,3 @@ class KProjectSelection:
                     break
                 assignment[variable] = state
         return value, assignment
-
-    minCost = min_cost

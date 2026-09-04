@@ -127,7 +127,7 @@
 | `algebra/SATSolver.py` | watched literal型の反復SAT solver | 問題依存 |
 | `prime/Factorization.py` | 64bit整数の素数判定・素因数分解・約数列挙 | 素数判定 O(log N)、素因数分解は期待 O(N^(1/4) log N) |
 | `prime/Sieve.py` | 線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数 | $O(N)$ / sublinear counting |
-| `optimization/ProjectSelection.py` | binary/K値Project Selection・高次all-0/all-1 profit | 1回のmin-cutへ帰着 |
+| `optimization/ProjectSelection.py` | 正負コストと禁止条件を蓄積できる0/1・Monge多値Project Selection | 項の追加 O(1)、build O(N+P+H)と1回のmin-cut |
 | `optimization/SlopeTrick.py` | 重み付きSlope Trick・shift/slide/chmin/merge/eval | 更新はheap償却 $O(\log N)$ |
 | `optimization/Matroid.py` | グラフィック・分割・横断マトロイドの共通独立集合を求める | oracle依存の多項式時間 |
 | `random/Random.py` | 再現可能なxoshiro256**乱数・配列・bit列・行列・文字列生成 | 各出力サイズに線形 |

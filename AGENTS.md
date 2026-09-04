@@ -39,6 +39,8 @@
 
 ## 検証と完了条件
 
+- testは原則としてsource categoryを反映したdirectoryへ、1 implementation moduleにつき1 fileで置く。`test_seventh_batch.py`のような追加時期による寄せ集めを新設しない。
+- 複数moduleを比較するtestは、主に検査するmoduleの専用fileへ置き、他moduleはoracleまたは依存としてimportする。既存のカテゴリ一括testは、そのmoduleを変更するときに専用fileへ分離する。
 - 正解を単純解と比較するrandomized test、空・要素1・重複・境界値のtestを追加する。
 - データ構造ではデバッグ表示の内容と、表示後も状態が壊れないことをtestする。
 - 反復中は`pypy3 library_codex/tools/check_changed.py`を使い、変更module・依存先・対応testだけを検査する。

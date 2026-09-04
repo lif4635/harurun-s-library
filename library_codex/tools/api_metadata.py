@@ -5031,3 +5031,267 @@ COMPLEXITY_BY_MODULE.update({
         "__str__": "O(N)",
     },
 })
+
+SEARCH_TERMS_BY_MODULE.update({
+    "optimization/ProjectSelection.py": (
+        "燃やす埋める",
+        "project selection problem",
+        "最小カットモデリング",
+        "最大閉包",
+    ),
+})
+
+SEARCH_TERMS_BY_SYMBOL.update({
+    ("optimization/ProjectSelection.py", "add_cost_01"): (
+        "含意制約",
+        "01禁止",
+    ),
+    ("optimization/ProjectSelection.py", "add_cost_10"): (
+        "含意制約",
+        "10禁止",
+    ),
+})
+
+MODULE_CAPABILITIES.update({
+    "optimization/ProjectSelection.py": (
+        "0/1変数の一変数コストと二変数コストを合計し、最小コストの割当を求められる。",
+        "有限の正負コストをそのまま追加し、同じ変数対の項をbuild時に合算して最小カットへ変換できる。",
+        "math.infを禁止する割当へ指定し、非負の有限容量だけを持つMaxFlowGraphを構築できる。",
+        "各変数が3状態以上を取るMongeコストにはKProjectSelectionを使える。",
+    ),
+})
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("optimization/ProjectSelection.py", "ProjectSelection"): {
+        "description": (
+            "0/1変数へコストと利益を追加し、合計コスト最小の割当を"
+            "s-t最小カットで求める。"
+        ),
+        "constructorCreates": (
+            "variable_count個の0/1変数を持つ空の問題を作る。各add methodで項を追加し、"
+            "min_costで最適値と割当を求めるか、buildでMaxFlowGraphへ変換できる。"
+        ),
+        "argumentDescriptions": {
+            "variable_count": "0/1変数の個数。",
+        },
+    },
+    ("optimization/ProjectSelection.py", "KProjectSelection"): {
+        "description": (
+            "変数ごとに異なる個数の順序付き状態を持つ問題で、一変数コストと"
+            "Mongeな二変数コストの合計を最小化する。"
+        ),
+        "constructorCreates": (
+            "sizes[i]個の状態を取る変数iを作る。add_unary_costとadd_pair_costで"
+            "コストを追加し、min_costで最適値と各変数の状態番号を求められる。"
+        ),
+        "argumentDescriptions": {
+            "sizes": "sizes[i]が変数iの状態数を表す、各要素が1以上の列。",
+        },
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_constant_cost"): {
+        "description": "どの割当にも同じ値だけ加わる定数コストを追加する。",
+        "argumentDescriptions": {"cost": "追加する有限の正負コスト。"},
+        "returnFormat": "None",
+        "returnDescription": "問題の定数項へcostを加える。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_constant_profit"): {
+        "description": "どの割当でも得られる利益を追加し、合計コストから差し引く。",
+        "argumentDescriptions": {"profit": "追加する有限の正負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "問題の定数項からprofitを引く。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_unary_cost"): {
+        "description": "一つの0/1変数が取る状態ごとのコストを追加する。",
+        "argumentDescriptions": {
+            "variable": "対象の変数。",
+            "cost_zero": "変数が0のとき加えるコスト。正負の有限値またはmath.inf。",
+            "cost_one": "変数が1のとき加えるコスト。正負の有限値またはmath.inf。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "指定変数の二つの状態へコストを加算する。math.infの状態は禁止される。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_unary_profit"): {
+        "description": "一つの0/1変数が取る状態ごとの利益を追加する。",
+        "argumentDescriptions": {
+            "variable": "対象の変数。",
+            "profit_zero": "変数が0のとき得る有限の正負利益。",
+            "profit_one": "変数が1のとき得る有限の正負利益。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "指定した利益を対応する状態のコストから差し引く。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_cost_0"): {
+        "description": "指定変数が0のときだけ加わるコストを追加する。",
+        "argumentDescriptions": {"variable": "対象の変数。", "cost": "0のとき加える正負の有限値またはmath.inf。"},
+        "returnFormat": "None",
+        "returnDescription": "variable=0のコストへcostを加える。math.infなら0を禁止する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_cost_1"): {
+        "description": "指定変数が1のときだけ加わるコストを追加する。",
+        "argumentDescriptions": {"variable": "対象の変数。", "cost": "1のとき加える正負の有限値またはmath.inf。"},
+        "returnFormat": "None",
+        "returnDescription": "variable=1のコストへcostを加える。math.infなら1を禁止する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_profit_0"): {
+        "description": "指定変数が0のときだけ得られる利益を追加する。",
+        "argumentDescriptions": {"variable": "対象の変数。", "profit": "0のとき得る有限の正負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "variable=0のコストからprofitを引く。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_profit_1"): {
+        "description": "指定変数が1のときだけ得られる利益を追加する。",
+        "argumentDescriptions": {"variable": "対象の変数。", "profit": "1のとき得る有限の正負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "variable=1のコストからprofitを引く。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_cost_01"): {
+        "description": "firstが0、secondが1の組合せだけにコストを追加する。",
+        "argumentDescriptions": {
+            "first": "組合せの第1変数。",
+            "second": "組合せの第2変数。",
+            "cost": "(0, 1)へ加える正負の有限値またはmath.inf。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "同じ変数対の2x2コスト表へ加算する。math.infなら(0, 1)を禁止する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_cost_10"): {
+        "description": "firstが1、secondが0の組合せだけにコストを追加する。",
+        "argumentDescriptions": {
+            "first": "組合せの第1変数。",
+            "second": "組合せの第2変数。",
+            "cost": "(1, 0)へ加える正負の有限値またはmath.inf。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "同じ変数対の2x2コスト表へ加算する。math.infなら(1, 0)を禁止する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_pair_cost"): {
+        "description": "二つの0/1変数の組合せ4通りに対応するコスト表を追加する。",
+        "argumentDescriptions": {
+            "first": "costsの行を選ぶ第1変数。",
+            "second": "costsの列を選ぶ第2変数。",
+            "costs": "2x2の表。costs[a][b]を(first, second)=(a, b)のとき加える。math.infはその組合せを禁止する。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "同じ変数対の既存表へ4要素を加算する。合算後のsubmodularityはbuild時に検査する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_pair_profit"): {
+        "description": "二つの0/1変数の組合せ4通りに対応する利益表を追加する。",
+        "argumentDescriptions": {
+            "first": "profitsの行を選ぶ第1変数。",
+            "second": "profitsの列を選ぶ第2変数。",
+            "profits": "2x2の有限値表。profits[a][b]を(first, second)=(a, b)のとき得る。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "各利益の符号を反転し、同じ変数対のコスト表へ加算する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_profit_00"): {
+        "description": "二変数がともに0のときだけ得られる利益を追加する。",
+        "argumentDescriptions": {"first": "第1変数。", "second": "第2変数。", "profit": "(0, 0)で得る有限の正負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "(first, second)=(0, 0)のコストからprofitを引く。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_profit_11"): {
+        "description": "二変数がともに1のときだけ得られる利益を追加する。",
+        "argumentDescriptions": {"first": "第1変数。", "second": "第2変数。", "profit": "(1, 1)で得る有限の正負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "(first, second)=(1, 1)のコストからprofitを引く。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_profit_all_zero"): {
+        "description": "指定した全変数が0のときだけ得られる利益を追加する。",
+        "argumentDescriptions": {"variables": "同時に0であることを要求する変数のiterable。", "profit": "条件成立時に得る有限の非負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "一つの補助頂点を使う高次項を問題へ追加する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "add_profit_all_one"): {
+        "description": "指定した全変数が1のときだけ得られる利益を追加する。",
+        "argumentDescriptions": {"variables": "同時に1であることを要求する変数のiterable。", "profit": "条件成立時に得る有限の非負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "一つの補助頂点を使う高次項を問題へ追加する。",
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "build"): {
+        "description": "登録した全項を合算・検査し、非負の有限容量だけを持つ最小カット問題へ変換する。",
+        "returnFormat": "tuple[MaxFlowGraph, number]",
+        "returnDescription": "(graph, offset)。最小コストはoffset + graph.flow(source, sink)。sourceとsinkはProjectSelectionの同名属性を使う。",
+        "returnParts": (
+            {"name": "graph", "format": "MaxFlowGraph", "description": "登録した目的関数を表す非負有限容量のflow graph。"},
+            {"name": "offset", "format": "number", "description": "graphの最小cut値へ足す定数。"},
+        ),
+    },
+    ("optimization/ProjectSelection.py", "ProjectSelection", "min_cost"): {
+        "description": "登録した全コストの合計を最小にする0/1割当を求める。",
+        "returnFormat": "tuple[number, list[int]]",
+        "returnDescription": "(value, assignment)。valueは最小合計コスト、assignment[i]は変数iへ割り当てた0または1。禁止条件が矛盾すればValueError。",
+        "returnParts": (
+            {"name": "value", "format": "number", "description": "登録した利益を負値として含む最小合計コスト。"},
+            {"name": "assignment", "format": "list[int]", "description": "変数番号順の0/1割当。"},
+        ),
+    },
+    ("optimization/ProjectSelection.py", "KProjectSelection", "add_constant_cost"): {
+        "description": "どの状態割当にも同じ値だけ加わる定数コストを追加する。",
+        "argumentDescriptions": {"cost": "追加する有限の正負コスト。"},
+        "returnFormat": "None",
+        "returnDescription": "問題の定数項へcostを加える。",
+    },
+    ("optimization/ProjectSelection.py", "KProjectSelection", "add_constant_profit"): {
+        "description": "どの状態割当でも得られる利益を追加する。",
+        "argumentDescriptions": {"profit": "追加する有限の正負利益。"},
+        "returnFormat": "None",
+        "returnDescription": "問題の定数項からprofitを引く。",
+    },
+    ("optimization/ProjectSelection.py", "KProjectSelection", "add_unary_cost"): {
+        "description": "一つの多値変数について、状態ごとのコストを追加する。",
+        "argumentDescriptions": {"variable": "対象の変数。", "costs": "長さsizes[variable]の列。costs[state]がその状態で加わるコスト。"},
+        "returnFormat": "None",
+        "returnDescription": "指定変数の各状態へ対応するコストを加算する。",
+    },
+    ("optimization/ProjectSelection.py", "KProjectSelection", "add_pair_cost"): {
+        "description": "二つの順序付き多値変数の状態の組合せごとのMongeコストを追加する。",
+        "argumentDescriptions": {
+            "first": "表の行を選ぶ変数。",
+            "second": "表の列を選ぶ変数。",
+            "costs": "sizes[first]行sizes[second]列のMonge表。costs[x][y]が状態(x, y)のコスト。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "二変数コストを内部の0/1変数と最小カット辺へ追加する。MongeでなければValueError。",
+    },
+    ("optimization/ProjectSelection.py", "KProjectSelection", "min_cost"): {
+        "description": "登録した全コストの合計を最小にする各変数の状態を求める。",
+        "returnFormat": "tuple[number, list[int]]",
+        "returnDescription": "(value, assignment)。valueは最小合計コスト、assignment[i]は0以上sizes[i]未満の状態番号。",
+        "returnParts": (
+            {"name": "value", "format": "number", "description": "最小合計コスト。"},
+            {"name": "assignment", "format": "list[int]", "description": "変数番号順の状態番号。"},
+        ),
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "optimization/ProjectSelection.py": {
+        "ProjectSelection": "構築 O(N) time・O(N) memory",
+        "add_constant_cost": "O(1)",
+        "add_constant_profit": "O(1)",
+        "add_unary_cost": "O(1)",
+        "add_unary_profit": "O(1)",
+        "add_cost_0": "O(1)",
+        "add_cost_1": "O(1)",
+        "add_profit_0": "O(1)",
+        "add_profit_1": "O(1)",
+        "add_cost_01": "期待 O(1)",
+        "add_cost_10": "期待 O(1)",
+        "add_pair_cost": "期待 O(1)",
+        "add_pair_profit": "期待 O(1)",
+        "add_profit_00": "期待 O(1)",
+        "add_profit_11": "期待 O(1)",
+        "add_profit_all_zero": "O(K) time・O(K) memory、Kはvariablesの長さ",
+        "add_profit_all_one": "O(K) time・O(K) memory、Kはvariablesの長さ",
+        "build": "O(N+P+H) time・O(N+P+H) memory、Pは異なる変数対数、Hは高次項の変数出現数",
+        "min_cost": "buildに加えてDinicのworst O(V^2 E)",
+        "KProjectSelection": "構築 O(S) time・O(S) memory、S=sum(sizes)",
+        "KProjectSelection.add_unary_cost": "O(sizes[variable])",
+        "KProjectSelection.add_pair_cost": "O(sizes[first] sizes[second])",
+        "KProjectSelection.min_cost": "内部ProjectSelectionのmin_costに加えてO(S)",
+    },
+})

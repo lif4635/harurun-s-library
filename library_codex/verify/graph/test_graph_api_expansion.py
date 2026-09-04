@@ -3,10 +3,6 @@ import random
 
 from library_codex.graph.TournamentPath import tournament_hamiltonian_path
 from library_codex.graph.TwoSAT import TwoSAT
-from library_codex.graph_flow.MaxFlow import (
-    feasible_circulation,
-    max_flow_with_bounds,
-)
 from library_codex.graph_spanning.MinimumSpanningTree import second_spanning_tree
 from library_codex.tree.TreeDiameter import tree_metric_center
 
@@ -85,32 +81,6 @@ def test_tournament_hamiltonian_path_random():
         path = tournament_hamiltonian_path(graph)
         assert sorted(path) == list(range(n))
         assert all(path[i + 1] in graph[path[i]] for i in range(n - 1))
-
-
-def test_flow_with_bounds_and_circulation():
-    circulation = [(0, 1, 1, 3), (1, 2, 1, 2), (2, 0, 1, 4)]
-    flows = feasible_circulation(3, circulation)
-    assert flows is not None
-    balance = [0, 0, 0]
-    for flow, (first, second, lower, upper) in zip(flows, circulation):
-        assert lower <= flow <= upper
-        balance[first] -= flow
-        balance[second] += flow
-    assert balance == [0, 0, 0]
-
-    edges = [(0, 1, 1, 4), (0, 2, 0, 3), (1, 2, 0, 2),
-             (1, 3, 1, 3), (2, 3, 1, 5)]
-    value, flows = max_flow_with_bounds(4, edges, 0, 3)
-    brute = []
-    for candidate in itertools.product(*[range(low, high + 1)
-                                         for _, _, low, high in edges]):
-        balance = [0] * 4
-        for flow, (first, second, _, _) in zip(candidate, edges):
-            balance[first] -= flow
-            balance[second] += flow
-        if balance[1] == balance[2] == 0 and balance[0] == -balance[3]:
-            brute.append(balance[3])
-    assert value == max(brute)
 
 
 def test_weighted_tree_metric_center_vertex_and_edge():

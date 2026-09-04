@@ -68,10 +68,10 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [tree_query](api/tree_query/README.md) | path・部分木上の静的検索 | 3 | 0 | 3 | 15 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 29 | 21 | 232 |
 | [string_sequence](api/string_sequence/README.md) | 編集距離・巡回shift・Lyndon分解・共通substring | 4 | 5 | 0 | 0 |
-| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 17 | 16 | 10 | 50 |
+| [optimization](api/optimization/README.md) | 最適化・DP高速化 | 17 | 16 | 10 | 51 |
 | [geometry](api/geometry/README.md) | 幾何・2次元点 | 14 | 22 | 1 | 2 |
 | [game](api/game/README.md) | 組合せゲーム | 6 | 8 | 7 | 43 |
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **359 modules / 504 functions / 222 classes / 1375 methods・properties**。
+合計: **359 modules / 504 functions / 222 classes / 1376 methods・properties**。

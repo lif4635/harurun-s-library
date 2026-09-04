@@ -2,7 +2,6 @@ import random
 
 from library_codex.graph_connectivity.BridgeForest import BridgeForest
 from library_codex.graph_connectivity.DominatorTree import DominatorTree
-from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
 def _components_without_edge(n, edges, removed):
@@ -64,45 +63,6 @@ def test_bridge_forest_random_against_edge_removal():
                         assert bridge.is_bridge_separator(
                             edge_id, first, second
                         ) == (edge_id in separators)
-
-
-def test_max_flow_value_and_path_decomposition():
-    graph = MaxFlowGraph(6)
-    edges = [
-        (0, 1, 5), (0, 2, 4), (1, 2, 2), (1, 3, 3),
-        (2, 4, 5), (3, 5, 4), (4, 3, 2), (4, 5, 4),
-    ]
-    for edge in edges:
-        graph.add_edge(*edge)
-    value = graph.flow(0, 5)
-    paths = graph.flow_paths(0, 5)
-    assert graph.flow_value(0) == value
-    assert graph.flow_value(5) == -value
-    assert sum(amount for amount, _, _ in paths) == value
-    used = [0] * len(edges)
-    for amount, vertices, edge_ids in paths:
-        assert amount > 0
-        assert vertices[0] == 0 and vertices[-1] == 5
-        assert len(vertices) == len(edge_ids) + 1
-        for index, edge_id in enumerate(edge_ids):
-            assert edges[edge_id][:2] == (vertices[index], vertices[index + 1])
-            used[edge_id] += amount
-    for edge_id, flow in enumerate(used):
-        assert flow <= graph.get_edge(edge_id)[3]
-
-
-def test_max_flow_decomposition_ignores_circulation():
-    graph = MaxFlowGraph(4)
-    first = graph.add_edge(0, 1, 5)
-    second = graph.add_edge(1, 3, 5)
-    cycle_a = graph.add_edge(1, 2, 3)
-    cycle_b = graph.add_edge(2, 1, 3)
-    graph.change_edge(first, 5, 4)
-    graph.change_edge(second, 5, 4)
-    graph.change_edge(cycle_a, 3, 2)
-    graph.change_edge(cycle_b, 3, 2)
-    assert graph.flow_value(0) == 4
-    assert graph.flow_paths(0, 3) == [(4, [0, 1, 3], [first, second])]
 
 
 def _reachable_without(graph, root, removed=-1):
