@@ -5,26 +5,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 from library_codex.graph_flow.AdvancedFlow import (
-    PushRelabelMaxFlow,
     gomory_hu_tree,
     stoer_wagner_min_cut,
 )
 from library_codex.graph_flow.MaxFlow import MaxFlowGraph
 
 
-def brute_directed_min_cut(n, edges, source, sink):
-    best = None
-    for mask in range(1 << n):
-        if not (mask >> source & 1) or mask >> sink & 1:
-            continue
-        value = sum(
-            capacity
-            for left, right, capacity in edges
-            if mask >> left & 1 and not (mask >> right & 1)
-        )
-        if best is None or value < best:
-            best = value
-    return best
 
 
 def brute_undirected_min_cut(n, edges, source=None, sink=None):
@@ -62,107 +48,6 @@ def tree_pair_minimum(n, tree, source, sink):
     raise AssertionError("cut tree is disconnected")
 
 
-def test_push_relabel_random_against_bruteforce_and_dinic():
-    rng = random.Random(801)
-    for n in range(2, 9):
-        for _ in range(500):
-            source, sink = rng.sample(range(n), 2)
-            edges = [
-                (rng.randrange(n), rng.randrange(n), rng.randrange(12))
-                for _ in range(rng.randrange(20))
-            ]
-            fast = PushRelabelMaxFlow(n)
-            dinic = MaxFlowGraph(n)
-            for edge in edges:
-                fast.add_edge(*edge)
-                dinic.add_edge(*edge)
-            want = brute_directed_min_cut(n, edges, source, sink)
-            assert fast.flow(source, sink) == want
-            assert dinic.flow(source, sink) == want
-            side = fast.min_cut(source)
-            assert side[source] and not side[sink]
-            assert sum(
-                capacity
-                for left, right, capacity, _ in fast.edges()
-                if side[left] and not side[right]
-            ) == want
-
-
-def test_push_relabel_api_repeat_change_and_long_path():
-    graph = PushRelabelMaxFlow(4)
-    ids = [
-        graph.add_edge(0, 1, 5),
-        graph.add_edge(0, 2, 7),
-        graph.add_edge(1, 3, 6),
-        graph.add_edge(2, 3, 4),
-        graph.add_edge(1, 2, 3),
-    ]
-    assert graph.flow(0, 3) == 9
-    assert graph.flow(0, 3) == 0
-    assert graph.get_edge(ids[0])[:3] == (0, 1, 5)
-
-    graph = PushRelabelMaxFlow(2)
-    edge = graph.add_edge(0, 1, 10)
-    graph.change_edge(edge, 7, 3)
-    assert graph.get_edge(edge) == (0, 1, 7, 3)
-    assert graph.flow(0, 1) == 4
-
-    n = 100000
-    graph = PushRelabelMaxFlow(n)
-    for vertex in range(n - 1):
-        graph.add_edge(vertex, vertex + 1, 1)
-    assert graph.flow(0, n - 1) == 1
-
-
-def test_push_relabel_flow_limit_matches_dinic():
-    edges = [
-        (0, 0, 100),
-        (0, 1, 5),
-        (0, 2, 7),
-        (1, 3, 6),
-        (2, 3, 4),
-        (1, 2, 3),
-    ]
-    fast = PushRelabelMaxFlow(4)
-    dinic = MaxFlowGraph(4)
-    for edge in edges:
-        fast.add_edge(*edge)
-        dinic.add_edge(*edge)
-    for limit in (0, 3, 4, 100):
-        assert fast.flow(0, 3, limit) == dinic.flow(0, 3, limit)
-        assert fast.n == 4 and len(fast.graph) == 4 and len(fast.position) == len(edges)
-    assert fast.flow(0, 3) == dinic.flow(0, 3) == 0
-
-    try:
-        fast.flow(0, 3, -1)
-    except ValueError:
-        pass
-    else:
-        raise AssertionError("negative flow limit must fail")
-
-    rng = random.Random(804)
-    for n in range(2, 9):
-        for _ in range(200):
-            source, sink = rng.sample(range(n), 2)
-            edges = [
-                (rng.randrange(n), rng.randrange(n), rng.randrange(10))
-                for _ in range(rng.randrange(20))
-            ]
-            fast = PushRelabelMaxFlow(n)
-            dinic = MaxFlowGraph(n)
-            for edge in edges:
-                fast.add_edge(*edge)
-                dinic.add_edge(*edge)
-            applied_limits = []
-            for _ in range(4):
-                limit = rng.randrange(8)
-                applied_limits.append(limit)
-                fast_value = fast.flow(source, sink, limit)
-                dinic_value = dinic.flow(source, sink, limit)
-                assert fast_value == dinic_value, repr(
-                    (n, source, sink, edges, applied_limits, fast_value, dinic_value)
-                )
-            assert fast.flow(source, sink) == dinic.flow(source, sink)
 
 
 def test_gomory_hu_random_pair_cuts():

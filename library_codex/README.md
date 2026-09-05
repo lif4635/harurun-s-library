@@ -94,7 +94,8 @@
 | `graph_connectivity/FunctionalGraph.py` | Functional graph の周期分解・移動・距離 | 構築 $O(N\log N)$、移動 $O(\log N)$（周期上は $O(1)$） |
 | `graph_connectivity/LowLink.py` | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | $O(V+E)$ |
 | `graph_flow/MaxFlow.py` | ACL互換寄りの反復Dinic・min-cut・辺変更 | Dinicの計算量 |
-| `graph_flow/AdvancedFlow.py` | global relabel付きpush-relabel・Gomory--Hu木・Stoer--Wagner最小カット | 最大流依存 / $O(V^3)$ |
+| `graph_flow/PushRelabel.py` | 最高ラベル方式の最大流・最小カット | $O(V^2\sqrt E)$ |
+| `graph_flow/AdvancedFlow.py` | 全頂点対の最小カット木・無向グラフの大域最小カット | $V-1$回の最大流 / $O(V^3)$ |
 | `graph/CSRGraph.py` | flat CSR表現・最短路・探索・DAG・連結性・SCC・LowLinkの高速backend | 構築 $O(V+E)$、各標準計算量 |
 | `shortest_path/GridBFS.py` | 障害物付きgridの距離表・2点間最短距離 | $O(HW)$ |
 | `graph_flow/MinCostBFlow.py` | lower/upper・頂点supply・負費用対応minimum-cost b-flow | cost scaling法 |

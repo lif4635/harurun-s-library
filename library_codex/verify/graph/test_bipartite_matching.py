@@ -24,11 +24,10 @@ def brute(left_size, right_size, graph):
 
 def brute_essential(left_size, right_size, graph):
     best = -1
-    common_left = 0
-    common_right = 0
-
-    def search(left, used_left, used_right, count):
-        nonlocal best, common_left, common_right
+    common_left = common_right = 0
+    stack = [(0, 0, 0, 0)]
+    while stack:
+        left, used_left, used_right, count = stack.pop()
         if left == left_size:
             if count > best:
                 best = count
@@ -37,18 +36,12 @@ def brute_essential(left_size, right_size, graph):
             elif count == best:
                 common_left &= used_left
                 common_right &= used_right
-            return
-        search(left + 1, used_left, used_right, count)
+            continue
+        stack.append((left + 1, used_left, used_right, count))
         for right in graph[left]:
             if not used_right >> right & 1:
-                search(
-                    left + 1,
-                    used_left | 1 << left,
-                    used_right | 1 << right,
-                    count + 1,
-                )
-
-    search(0, 0, 0, 0)
+                stack.append((left + 1, used_left | 1 << left,
+                              used_right | 1 << right, count + 1))
     return (
         [bool(common_left >> left & 1) for left in range(left_size)],
         [bool(common_right >> right & 1) for right in range(right_size)],
@@ -195,23 +188,21 @@ def test_deep_augmenting_path_without_recursion():
 def all_maximum_matchings(graph):
     best = []
     size = -1
-
-    def search(remaining, edges):
-        nonlocal best, size
+    stack = [(set(range(len(graph))), [])]
+    while stack:
+        remaining, edges = stack.pop()
         if not remaining:
             if len(edges) > size:
                 size = len(edges)
                 best = [set(edges)]
             elif len(edges) == size:
                 best.append(set(edges))
-            return
+            continue
         u = min(remaining)
         rest = remaining - {u}
-        search(rest, edges)
+        stack.append((rest, edges))
         for v in set(graph[u]) & rest:
-            search(rest - {v}, edges + [(min(u, v), max(u, v))])
-
-    search(set(range(len(graph))), [])
+            stack.append((rest - {v}, edges + [(min(u, v), max(u, v))]))
     return best
 
 

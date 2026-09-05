@@ -3234,15 +3234,6 @@ API_DETAILS_BY_SYMBOL.update({
     ("graph_connectivity/TwoEdgeConnectedComponents.py", "TwoEdgeConnectedComponents", "add_edge"): {
         "returnFormat": "None", "returnDescription": "値は返さない。build前のgraphへ無向辺を追加する。",
     },
-    ("graph_flow/AdvancedFlow.py", "PushRelabelMaxFlow", "add_vertex"): {
-        "returnFormat": "int", "returnDescription": "追加した頂点の0-indexed番号。",
-    },
-    ("graph_flow/AdvancedFlow.py", "PushRelabelMaxFlow", "add_edge"): {
-        "returnFormat": "int", "returnDescription": "追加した辺の0-indexed edge ID。",
-    },
-    ("graph_flow/AdvancedFlow.py", "PushRelabelMaxFlow", "flow"): {
-        "returnFormat": "number", "returnDescription": "今回残余graphへ追加して流せたflow量。",
-    },
     ("graph_flow/MaxFlow.py", "MaxFlowGraph", "add_vertex"): {
         "returnFormat": "int", "returnDescription": "追加した頂点の0-indexed番号。",
     },
@@ -5420,5 +5411,104 @@ COMPLEXITY_BY_MODULE.update({
         "KProjectSelection.add_unary_cost": "O(sizes[variable])",
         "KProjectSelection.add_pair_cost": "O(sizes[first] sizes[second])",
         "KProjectSelection.min_cost": "内部ProjectSelectionのmin_costに加えてO(S)",
+    },
+})
+
+SEARCH_TERMS_BY_MODULE["graph_flow/PushRelabel.py"] = (
+    "プッシュリラベル", "最高ラベル", "Goldberg-Tarjan", "HLPP",
+)
+
+MODULE_CAPABILITIES.update({
+    "graph_flow/PushRelabel.py": (
+        "容量付き有向グラフの最大流を、最高ラベル方式のPush–Relabel法で求める。",
+        "流量に上限を付け、同じ始点・終点で続きを流せる。辺の追加後にも再実行できる。",
+        "計算後の各辺の流量と、最小カットの始点側を取得できる。",
+    ),
+    "graph_flow/AdvancedFlow.py": (
+        "無向グラフの任意の二頂点間の最小カット値を、Gomory–Hu木のパス上の最小辺重みとして表せる。",
+        "始点・終点を指定せず、無向グラフ全体の最小カット値と分割の片側を求められる。",
+    ),
+})
+
+CLASS_DETAILS_BY_SYMBOL[("graph_flow/PushRelabel.py", "PushRelabel")] = {
+    "description": "非負整数容量の有向グラフで最大流と最小カットを求める。高さ最大の頂点を先に処理し、global relabelとgap relabelで探索を省く。",
+    "constructorCreates": "n頂点・辺なしのグラフを作る。add_edgeで辺を追加してflowで流し、get_edgeで各辺の流量、min_cutで最小カットの始点側を取得できる。",
+    "argumentDescriptions": {"n": "頂点数。非負整数。"},
+}
+
+API_DETAILS_BY_SYMBOL.update({
+    ("graph_flow/PushRelabel.py", "PushRelabel", "add_vertex"): {
+        "description": "辺を持たない頂点を一つ追加する。",
+        "returnFormat": "int",
+        "returnDescription": "追加した頂点の番号。追加前の頂点数と等しい。",
+    },
+    ("graph_flow/PushRelabel.py", "PushRelabel", "add_edge"): {
+        "description": "sourceからtargetへ、指定した容量の有向辺を一本追加する。初期流量は0。平行辺は別々の辺として保持する。",
+        "argumentDescriptions": {"source": "辺の始点。", "target": "辺の終点。", "capacity": "非負整数の容量。固定上限はない。floatのinfは不可。"},
+        "returnFormat": "int",
+        "returnDescription": "追加した辺のID。追加順に0, 1, 2, …で、get_edgeとchange_edgeへ渡せる。逆辺の内部IDは返さない。",
+    },
+    ("graph_flow/PushRelabel.py", "PushRelabel", "get_edge"): {
+        "description": "指定した辺の両端・容量・現在の流量を取得する。",
+        "argumentDescriptions": {"index": "add_edgeが返した辺ID。"},
+        "returnFormat": "tuple[int, int, int, int]",
+        "returnDescription": "(source, target, capacity, flow)。追加した有向辺の向きで表し、0 <= flow <= capacity。",
+        "returnParts": (
+            {"name": "source", "format": "int", "description": "辺の始点。"},
+            {"name": "target", "format": "int", "description": "辺の終点。"},
+            {"name": "capacity", "format": "int", "description": "辺の容量。残余容量ではない。"},
+            {"name": "flow", "format": "int", "description": "現在この辺をsourceからtargetへ流れている量。"},
+        ),
+    },
+    ("graph_flow/PushRelabel.py", "PushRelabel", "edges"): {
+        "description": "追加したすべての辺の情報をまとめて取得する。",
+        "returnFormat": "list[tuple[int, int, int, int]]",
+        "returnDescription": "辺ID順のリスト。結果[i]は辺iの(source, target, capacity, flow)で、get_edge(i)と同じ。残余逆辺は含めない。",
+    },
+    ("graph_flow/PushRelabel.py", "PushRelabel", "change_edge"): {
+        "description": "指定した辺の容量と流量を置き換える。変更後も途中の頂点の流量保存が成り立つよう、呼び出し側で整合性を保つ必要がある。",
+        "argumentDescriptions": {"index": "add_edgeが返した辺ID。", "capacity": "変更後の非負整数容量。", "flow": "変更後の整数流量。0以上capacity以下。"},
+        "returnFormat": "None",
+        "returnDescription": "辺と逆辺の残余容量を更新する。最大流は再計算しない。",
+    },
+    ("graph_flow/PushRelabel.py", "PushRelabel", "flow"): {
+        "description": "現在の残余グラフに追加のフローを流す。終了時には余剰流を始点へ戻し、途中の頂点の流入量と流出量を一致させる。",
+        "argumentDescriptions": {"source": "流れを送る始点。", "sink": "受け取る終点。sourceとは異なる頂点。", "flow_limit": "今回追加して流す量の上限。非負整数。Noneなら最大限流す。同じ始点・終点で繰り返すと続きを流せる。"},
+        "returnFormat": "int",
+        "returnDescription": "この呼び出しで追加して流せた量。累計流量ではない。上限0、終点へ到達できない場合、すでに最大まで流した場合は0。辺の流量はget_edgeやedgesで取得できる。",
+    },
+    ("graph_flow/PushRelabel.py", "PushRelabel", "min_cut"): {
+        "description": "正の残余容量の辺をたどってsourceから到達できる頂点を求める。最大流を最後まで流した後は、最小カットの始点側に一致する。",
+        "returnFormat": "list[bool]",
+        "returnDescription": "長さnのリスト。結果[v]がTrueなら頂点vは始点側。Falseなら反対側。flowを上限付きで途中停止しただけでは最小カットとは限らない。",
+    },
+    ("graph_flow/AdvancedFlow.py", None, "gomory_hu_tree"): {
+        "description": "任意の二頂点間の最小カット値を表すGomory–Hu木を作る。二頂点を結ぶ木のパス上で最小の辺重みが、その二頂点間の最小カット値になる。",
+        "argumentDescriptions": {"n": "無向グラフの頂点数。", "edges": "(u, v, capacity)の列。非負整数容量の無向辺を一度ずつ渡す。平行辺を許す。", "flow_class": "nを渡して構築し、add_edge・flow・min_cutを使える最大流クラス。既定はPushRelabel。"},
+        "returnFormat": "list[tuple[int, int, int]]",
+        "returnDescription": "木の辺(u, parent, cut_value)をu=1, …, n-1の順で並べたリスト。nが0または1なら空。非連結グラフでは重み0の辺も含む。",
+    },
+    ("graph_flow/AdvancedFlow.py", None, "stoer_wagner_min_cut"): {
+        "description": "無向グラフを空でない二組に分け、組をまたぐ辺の重みの合計を最小にする分割を求める。",
+        "argumentDescriptions": {"n": "頂点数。", "edges": "(u, v, weight)の列。非負重みの無向辺を一度ずつ渡す。平行辺は重みを合算し、自己ループは無視する。"},
+        "returnFormat": "tuple[number, list[int]]",
+        "returnDescription": "(cut_value, one_side)。cut_valueは最小カットの重みで、整数重みならint、小数重みならその加算結果の型。one_sideは分割の片側の頂点番号リスト。非連結なら重み0。n=0では(0, [])、n=1では(0, [0])。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "graph_flow/PushRelabel.py": {
+        "PushRelabel": "O(V) time・memory。辺追加後の保持領域 O(V+E)",
+        "add_vertex": "償却 O(1)",
+        "add_edge": "償却 O(1)",
+        "get_edge": "O(1)",
+        "edges": "O(E) time・memory",
+        "change_edge": "O(1)",
+        "flow": "O(V^2 sqrt(E))、追加領域 O(V)。辺なしの場合 O(V)",
+        "min_cut": "O(V+E) time・O(V) memory",
+    },
+    "graph_flow/AdvancedFlow.py": {
+        "gomory_hu_tree": "V-1回の最大流と O(V(V+E))。最大流1回をTとすると O(VT+V(V+E))",
+        "stoer_wagner_min_cut": "O(V^3+E) time・O(V^2) memory",
     },
 })

@@ -20,7 +20,8 @@ QUICK_TESTS = (
     ROOT / "verify" / "data_structure" / "test_debug_output.py",
     ROOT / "verify" / "data_structure" / "test_dynamic_wavelet_matrix.py",
     ROOT / "verify" / "data_structure" / "test_int_range_tree.py",
-    ROOT / "verify" / "graph" / "test_advanced_flow.py",
+    ROOT / "verify" / "graph_flow" / "test_advanced_flow.py",
+    ROOT / "verify" / "graph_flow" / "test_push_relabel.py",
     ROOT / "verify" / "graph" / "test_csr_graph.py",
 )
 

@@ -30,9 +30,9 @@
 
 ## Advanced Flow
 
-`graph_flow/AdvancedFlow.py`
+`graph_flow/PushRelabel.py`、`graph_flow/AdvancedFlow.py`
 
-- global relabel付きFIFO push-relabel最大流
+- 最高ラベル方式・global relabel・gap relabel付きPush–Relabel最大流
 - `flow(source, sink, flow_limit)` による部分流・反復実行
 - Gomory--Hu cut tree
 - Stoer--Wagner global minimum cut
@@ -40,6 +40,8 @@
 
 ベンチマークは `tools/benchmark_advanced_flow.py` で実行できる。
 Push-relabelはグラフ族によって既存Dinicとの優劣が入れ替わるため、一律置換はしない。
+
+現在の実装と6種類の入力での比較は[PushRelabelの実測](docs/benchmarks/PushRelabel.md)を参照。旧`AdvancedFlow.PushRelabelMaxFlow`は`PushRelabel.PushRelabel`へ移し、FIFO版を最高ラベル方式へ置き換えた。以下は旧FIFO版の初期測定。
 
 | 頂点数 | 辺数 | 既存Dinic | Push-relabel | Dinic / Push-relabel |
 | ---: | ---: | ---: | ---: | ---: |

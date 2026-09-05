@@ -93,7 +93,6 @@ MODULE_OVERRIDES = {
     "geometry/ConvexHull.py": ("Andrewの単調鎖法による2次元凸包", "O(N log N)"),
     "geometry/Orientation.py": ("2次元点の外積と向き判定", "O(1)"),
     "geometry/SegmentIntersection.py": ("2次元線分の交差判定", "O(1)"),
-    "graph_flow/AdvancedFlow.py": ("高速最大流backend・Gomory--Hu木・Stoer--Wagner最小カット", "最大流依存 / O(V^3)"),
     "graph/CSRGraph.py": ("CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend", "構築 O(V+E)、各algorithmの標準計算量"),
     "shortest_path/GridBFS.py": ("障害物付きgridのBFS最短距離", "O(HW)"),
     "graph_matching/GeneralWeightedMatching.py": ("一般グラフの最大重みmatching", "O(V^3)"),
