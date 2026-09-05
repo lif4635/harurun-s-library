@@ -3891,7 +3891,7 @@ SEARCH_TERMS_BY_SYMBOL.update({
 
 MODULE_CAPABILITIES.update({
     "graph_matching/BipartiteMatching.py": (
-        "左右に分けた無向二部グラフの最大マッチングをHopcroft--Karp法で求められる。",
+        "無向グラフの隣接リストから自動で二部彩色し、元の頂点番号で最大マッチングを取得できる。左右の頂点数を指定して構築することもできる。",
         "マッチした辺、最小頂点被覆、最大独立集合、最小辺被覆、DM分解を取得できる。",
         "最大マッチングに入れられる辺、必ず入る辺、必ずマッチされる頂点を判定できる。",
     ),
@@ -3904,11 +3904,11 @@ MODULE_CAPABILITIES.update({
 
 CLASS_DETAILS_BY_SYMBOL.update({
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching"): {
-        "description": "左右の頂点集合が分かれた二部グラフの最大マッチングを計算し、頂点被覆・独立集合・必須な辺と頂点も求める。",
-        "constructorCreates": "add_edgeで辺を追加し、solveや各queryを呼べる空の二部グラフを作る。",
+        "description": "二部グラフの最大マッチングと、頂点被覆・独立集合・必須な辺と頂点を求める。隣接リストを渡せば左右への分割は自動で行う。",
+        "constructorCreates": "`BipartiteMatching(graph)`は無向隣接リストを二部彩色して保持し、各結果を元の頂点番号で返せる状態を作る。奇閉路・自己ループがあればValueError。`BipartiteMatching(L, R)`は左右の頂点数を指定した空のグラフを作る。どちらもadd_edgeで辺を追加し、solveで最大マッチングを求められる。",
         "argumentDescriptions": {
-            "left_size": "左側の頂点数。左頂点は0以上left_size未満。",
-            "right_size": "右側の頂点数。右頂点は0以上right_size未満。",
+            "left_size": "right_sizeを省略する場合は無向隣接リストgraph。graph[v]にvの隣接頂点を並べ、各辺は両端へ入れる。それ以外は左側の頂点数L。",
+            "right_size": "左右を自分で指定する場合の右側の頂点数R。省略すると隣接リストから二部彩色する。",
         },
     },
     ("graph_matching/GeneralMatching.py", "GeneralMatching"): {
@@ -3920,57 +3920,50 @@ CLASS_DETAILS_BY_SYMBOL.update({
 
 API_DETAILS_BY_SYMBOL.update({
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "add_edge"): {
-        "description": "左頂点と右頂点を結ぶ辺を追加する。solve後にも追加でき、次のqueryで増分を反映する。",
-        "argumentDescriptions": {"left": "左側の頂点番号。", "right": "右側の頂点番号。"},
+        "description": "辺を一本追加する。隣接リストから構築した場合は元の頂点番号で指定し、両端の順序は問わない。必要なら連結成分を彩色し直す。奇閉路・自己ループができる追加はValueErrorとなり、追加前の状態を保つ。solve後にも追加できる。",
+        "argumentDescriptions": {"left": "隣接リストから構築した場合は一方の端点。それ以外は左側の頂点番号。", "right": "隣接リストから構築した場合はもう一方の端点。それ以外は右側の頂点番号。"},
         "returnFormat": "None",
         "returnDescription": "辺を内部の隣接listへ追加する。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "solve"): {
         "description": "現在までに追加した辺に対する最大マッチングを求める。",
         "returnFormat": "int",
-        "returnDescription": "最大マッチングに含まれる辺数。mateはmatch_leftとmatch_rightへ保存される。",
+        "returnDescription": "最大マッチングに含まれる辺数。各頂点の相手はmates()で取得できる。",
+    },
+    ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "mates"): {
+        "description": "各頂点が現在の最大マッチングで誰と組んでいるかを取得する。未計算なら最大マッチングも求める。",
+        "returnFormat": "list[int]",
+        "returnDescription": "隣接リストから構築した場合は長さVで、結果[v]は元の頂点vの相手。未マッチは-1。左右の頂点数を指定した場合は長さL+Rで、左頂点iをi、右頂点jをL+jとして添字と相手を表す。取得ごとに新しいリストを返す。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "pairs"): {
         "description": "現在の最大マッチングに含まれる辺を列挙する。",
         "returnFormat": "list[tuple[int, int]]",
-        "returnDescription": "各要素は(left, right)。leftとrightはそれぞれの側で0始まりの頂点番号。",
+        "returnDescription": "隣接リストから構築した場合は元の頂点番号のペア(u, v)。両端の大小順は保証しない。左右の頂点数を指定した場合は(left, right)で、各側の頂点番号を使う。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "minimum_vertex_cover"): {
         "description": "すべての辺について少なくとも一方の端点を含む、頂点数最小の集合を求める。",
-        "returnFormat": "tuple[list[int], list[int]]",
-        "returnDescription": "(left_vertices, right_vertices)。選ばれた頂点番号を左右それぞれ昇順で格納する。合計要素数は最大マッチングの辺数と等しい。",
-        "returnParts": (
-            {"name": "left_vertices", "format": "list[int]", "description": "最小頂点被覆に入る左頂点。"},
-            {"name": "right_vertices", "format": "list[int]", "description": "最小頂点被覆に入る右頂点。"},
-        ),
+        "returnFormat": "list[int] | tuple[list[int], list[int]]",
+        "returnDescription": "隣接リストから構築した場合は、選ばれた元の頂点番号の昇順リスト。左右の頂点数を指定した場合は(left_vertices, right_vertices)で、各側の選ばれた頂点番号を昇順で格納する。選ばれる頂点数は最大マッチングの辺数と等しい。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "maximum_independent_set"): {
-        "description": "選んだ左頂点と右頂点の間に辺が存在しない、頂点数最大の集合を求める。",
-        "returnFormat": "tuple[list[int], list[int]]",
-        "returnDescription": "(left_vertices, right_vertices)。minimum_vertex_cover()が返す頂点集合の補集合。",
-        "returnParts": (
-            {"name": "left_vertices", "format": "list[int]", "description": "最大独立集合に入る左頂点。"},
-            {"name": "right_vertices", "format": "list[int]", "description": "最大独立集合に入る右頂点。"},
-        ),
+        "description": "どの二頂点の間にも辺が存在しない、頂点数最大の集合を求める。",
+        "returnFormat": "list[int] | tuple[list[int], list[int]]",
+        "returnDescription": "隣接リストから構築した場合は、選ばれた元の頂点番号の昇順リスト。左右の頂点数を指定した場合は(left_vertices, right_vertices)で、各側の選ばれた頂点番号を昇順で格納する。minimum_vertex_cover()の補集合。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "minimum_edge_cover"): {
         "description": "すべての左右頂点を少なくとも一本の選択辺へ接続する、辺数最小の集合を求める。",
         "returnFormat": "list[tuple[int, int]] | None",
-        "returnDescription": "各要素は(left, right)。孤立頂点があって全頂点を覆えなければNone。存在する場合の辺数はleft_size+right_size-matching_size。",
+        "returnDescription": "隣接リストから構築した場合は元の頂点番号のペア(u, v)の列。それ以外は各側の番号による(left, right)の列。孤立頂点があって全頂点を覆えなければNone。存在する場合の辺数はV-matching_size。空グラフでは空リスト。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "dulmage_mendelsohn"): {
         "description": "最大マッチングに対する交互路からDulmage--Mendelsohn分解を構築する。",
         "returnFormat": "list[list[int]]",
-        "returnDescription": "左頂点leftをleft、右頂点rightをleft_size+rightで表した頂点group列。先頭は未マッチ右頂点へ交互路で到達できる側、末尾は未マッチ左頂点から到達できる側で、その間は残りの強連結成分をトポロジカル順に並べる。",
+        "returnDescription": "頂点のグループ列。隣接リストから構築した場合は元の頂点番号、それ以外は左頂点leftをleft、右頂点rightをleft_size+rightで表す。先頭は未マッチ右頂点へ交互路で到達できる側、末尾は未マッチ左頂点から到達できる側で、その間は残りの強連結成分をトポロジカル順に並べる。自動彩色では各連結成分の最小番号の頂点を左側にする。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "essential_vertices"): {
-        "description": "すべての最大マッチングで必ずマッチされる頂点を左右別に判定する。",
-        "returnFormat": "tuple[list[bool], list[bool]]",
-        "returnDescription": "(left_flags, right_flags)。各位置は、その側の頂点がどの最大マッチングでも必ず何らかの辺とマッチされる場合だけTrue。",
-        "returnParts": (
-            {"name": "left_flags", "format": "list[bool]", "description": "左頂点番号順の必須判定。"},
-            {"name": "right_flags", "format": "list[bool]", "description": "右頂点番号順の必須判定。"},
-        ),
+        "description": "すべての最大マッチングで必ずマッチされる頂点を判定する。",
+        "returnFormat": "list[bool] | tuple[list[bool], list[bool]]",
+        "returnDescription": "隣接リストから構築した場合は長さVのリストで、結果[v]は元の頂点vがどの最大マッチングでもマッチされる場合だけTrue。それ以外は(left_flags, right_flags)で、各側の頂点番号順に同じ判定を格納する。",
     },
     ("graph_matching/GeneralMatching.py", "GeneralMatching", "pairs"): {
         "description": "構築時に得た最大マッチングの辺を重複なく列挙する。",
@@ -3987,10 +3980,11 @@ API_DETAILS_BY_SYMBOL.update({
 COMPLEXITY_BY_MODULE.update({
     "graph_matching/BipartiteMatching.py": {
         **COMPLEXITY_BY_MODULE.get("graph_matching/BipartiteMatching.py", {}),
-        "BipartiteMatching": "構築 O(V)",
-        "add_edge": "O(1)",
-        "solve": "全体で O(E sqrt(V))",
-        "pairs": "matching未計算ならsolveを含み、計算済みならO(V)",
+        "BipartiteMatching": "隣接リストから構築 O(V+E)、左右の頂点数から構築 O(V)",
+        "add_edge": "O(1)。自動彩色で同色の二頂点を結ぶ場合は再構築 O(V+E)",
+        "solve": "O((V+E) sqrt(V))。Vは全頂点数、Eは辺数",
+        "pairs": "最大マッチング取得済みなら O(V+E)、それ以外は O((V+E) sqrt(V))",
+        "mates": "最大マッチング取得済みなら O(V+E)、それ以外は O((V+E) sqrt(V))。返す配列の追加領域 O(V)",
         "minimum_vertex_cover": "matching済みならO(V+E)、未実行ならsolveを含む",
         "maximum_independent_set": "matching済みならO(V+E)、未実行ならsolveを含む",
         "minimum_edge_cover": "matching済みならO(V+E)、未実行ならsolveを含む",
@@ -4859,14 +4853,14 @@ API_DETAILS_BY_SYMBOL.update({
         ),
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "allowed_edges"): {
-        "description": "少なくとも一つの maximum matching に含められる辺の組を列挙する。",
+        "description": "少なくとも一つの最大マッチングに含められる辺を列挙する。",
         "returnFormat": "list[tuple[int, int]]",
-        "returnDescription": "各要素は (left, right)。同じ端点対を add_edge で重複追加していても一度だけ返す。",
+        "returnDescription": "隣接リストから構築した場合は元の頂点番号のペア(u, v)、それ以外は各側の番号による(left, right)の列。同じ端点対を重複追加していても一度だけ返す。",
     },
     ("graph_matching/BipartiteMatching.py", "BipartiteMatching", "essential_edges"): {
-        "description": "すべての maximum matching に必ず含まれる端点対を列挙する。",
+        "description": "すべての最大マッチングに必ず含まれる辺を列挙する。",
         "returnFormat": "list[tuple[int, int]]",
-        "returnDescription": "各要素は (left, right)。現在 solve が選んだ辺のうち、別の maximum matching で外せないもの。",
+        "returnDescription": "隣接リストから構築した場合は元の頂点番号のペア(u, v)、それ以外は各側の番号による(left, right)の列。現在solveが選んだ辺のうち、どの最大マッチングにも必要なもの。",
     },
     ("algorithm/Sorting.py", None, "inverse_permutation"): {
         "description": "置換の逆置換を求める。",

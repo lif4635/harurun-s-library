@@ -6,7 +6,7 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`BipartiteEdgeColoring`](BipartiteEdgeColoring.md) | bipartite multigraphの辺を最小色数で彩色する。 | 1 | 0 | 0 |
-| [`BipartiteMatching`](BipartiteMatching.md) | 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解 | 0 | 1 | 10 |
+| [`BipartiteMatching`](BipartiteMatching.md) | 自動二部彩色・最大マッチング・頂点被覆・独立集合 | 0 | 1 | 11 |
 | [`DAGMinimumPathCover`](DAGMinimumPathCover.md) | DAGを覆う頂点素なpathの最小本数を求める。 | 1 | 0 | 0 |
 | [`GeneralMatching`](GeneralMatching.md) | 一般無向グラフの最大マッチングを求める。 | 0 | 1 | 2 |
 | [`GeneralWeightedMatching`](GeneralWeightedMatching.md) | 一般グラフの最大重みmatching | 0 | 1 | 2 |

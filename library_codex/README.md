@@ -87,7 +87,7 @@
 | `ordered_set/BinaryTrie.py` | multiset・全体xor・k-th・xor min/max | $O(B)$ |
 | `ordered_set/FastSet.py` | word-size tree型の固定整数universe ordered set | $O(\log_{64}N)$ |
 | `sequence_structure/ImplicitTreap.py` | 動的列の挿入削除・反転・非可換積・range lazy作用 | 期待 $O(\log N)$ |
-| `graph_matching/BipartiteMatching.py` | 反復Hopcroft--Karp・頂点/独立/辺被覆・DM分解 | $O(E\sqrt V)$ |
+| `graph_matching/BipartiteMatching.py` | 自動二部彩色・最大マッチング・頂点被覆・独立集合 | $O((V+E)\sqrt V)$ |
 | `shortest_path/DijkstraRadixHeap.py` | 非負整数重み用Radix Heap Dijkstra・経路復元 | $O((V+E)\log C)$ |
 | `graph/CycleDetection.py` | 有向・無向閉路検出（辺ID、多重辺対応、非再帰） | $O(V+E)$ |
 | `graph/EulerianTrail.py` | 有向・無向Euler路・閉路・成分別分解（非再帰） | $O(V+E)$ |
@@ -320,7 +320,7 @@ PyPy実測（`N=Q=200000`、値域 $10^9$、更新＋目的query）はonline版�
 
 ### Bipartite Matching
 
-- `BipartiteMatching(left_size, right_size)` に `add_edge(left, right)` して `solve()`
+- `BipartiteMatching(graph)` に無向隣接リストを渡して `solve()`。左右を指定する場合は `BipartiteMatching(left_size, right_size)` に `add_edge(left, right)`
 - `pairs()` はマッチした `(left, right)` の列
 - `minimum_vertex_cover()` / `maximum_independent_set()` は左右の頂点番号を分けて返す
 - `minimum_edge_cover()` は孤立点があれば `None`、なければ最小辺被覆

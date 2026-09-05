@@ -2,6 +2,8 @@ import random
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
 from library_codex.graph_matching.BipartiteMatching import BipartiteMatching
@@ -188,6 +190,121 @@ def test_deep_augmenting_path_without_recursion():
     assert matcher.solve() == n
     assert matcher.match_left[0] == n - 1
     assert matcher.match_left[n - 1] == n - 2
+
+
+def all_maximum_matchings(graph):
+    best = []
+    size = -1
+
+    def search(remaining, edges):
+        nonlocal best, size
+        if not remaining:
+            if len(edges) > size:
+                size = len(edges)
+                best = [set(edges)]
+            elif len(edges) == size:
+                best.append(set(edges))
+            return
+        u = min(remaining)
+        rest = remaining - {u}
+        search(rest, edges)
+        for v in set(graph[u]) & rest:
+            search(rest - {v}, edges + [(min(u, v), max(u, v))])
+
+    search(set(range(len(graph))), [])
+    return best
+
+
+def validate_graph_input(matcher, graph):
+    n = len(graph)
+    best = all_maximum_matchings(graph)
+    size = len(best[0])
+    normalize = lambda edges: {tuple(sorted(edge)) for edge in edges}
+    assert matcher.solve() == size
+    assert normalize(matcher.pairs()) in best
+    mate = matcher.mates()
+    assert len(mate) == n
+    assert sum(v != -1 for v in mate) == 2 * size
+    for u, v in enumerate(mate):
+        if v != -1:
+            assert v in graph[u] and mate[v] == u
+    expected_vertices = set.intersection(*[{v for edge in m for v in edge} for m in best])
+    assert matcher.essential_vertices() == [v in expected_vertices for v in range(n)]
+    assert normalize(matcher.allowed_edges()) == set.union(*best)
+    assert normalize(matcher.essential_edges()) == set.intersection(*best)
+    cover = matcher.minimum_vertex_cover()
+    independent = matcher.maximum_independent_set()
+    assert cover == sorted(set(cover)) and len(cover) == size
+    assert independent == sorted(set(independent))
+    assert set(independent) == set(range(n)) - set(cover)
+    assert all(u in cover or v in cover for u in range(n) for v in graph[u])
+    edge_cover = matcher.minimum_edge_cover()
+    if any(not edges for edges in graph):
+        assert edge_cover is None
+    else:
+        assert len(edge_cover) == n - size
+        assert {v for edge in edge_cover for v in edge} == set(range(n))
+        assert all(v in graph[u] for u, v in edge_cover)
+    assert sorted(v for group in matcher.dulmage_mendelsohn() for v in group) == list(range(n))
+
+
+def test_graph_input_shuffled_disconnected_and_duplicate_edges():
+    rng = random.Random(9105)
+    for n in range(11):
+        for _ in range(60):
+            color = [rng.randrange(2) for _ in range(n)]
+            graph = [[] for _ in range(n)]
+            for u in range(n):
+                for v in range(u):
+                    if color[u] != color[v] and rng.randrange(3) == 0:
+                        for _ in range(1 + (rng.randrange(4) == 0)):
+                            graph[u].append(v)
+                            graph[v].append(u)
+            before = [row[:] for row in graph]
+            validate_graph_input(BipartiteMatching(graph), graph)
+            assert graph == before
+
+
+def test_graph_input_dynamic_edges_and_failed_update():
+    rng = random.Random(9106)
+    for n in range(1, 10):
+        color = [rng.randrange(2) for _ in range(n)]
+        edges = [(u, v) for u in range(n) for v in range(u) if color[u] != color[v]]
+        rng.shuffle(edges)
+        graph = [[] for _ in range(n)]
+        matcher = BipartiteMatching(graph)
+        validate_graph_input(matcher, graph)
+        for u, v in edges:
+            matcher.add_edge(u, v)
+            graph[u].append(v)
+            graph[v].append(u)
+            validate_graph_input(matcher, graph)
+    graph = [[1], [0, 2], [1]]
+    matcher = BipartiteMatching(graph)
+    for edge in [(0, 2), (1, 1), (-1, 0), (0, 3)]:
+        with pytest.raises(ValueError):
+            matcher.add_edge(*edge)
+        validate_graph_input(matcher, graph)
+
+
+def test_graph_input_invalid_and_deep():
+    for graph in [[[0]], [[1, 2], [0, 2], [0, 1]], [[-1]], [[1]]]:
+        with pytest.raises(ValueError):
+            BipartiteMatching(graph)
+    n = 100000
+    graph = [[] for _ in range(n)]
+    for v in range(1, n):
+        graph[v - 1].append(v)
+        graph[v].append(v - 1)
+    matcher = BipartiteMatching(graph)
+    assert matcher.solve() == n // 2
+    assert all(matcher.essential_vertices())
+
+
+def test_explicit_sides_mates_use_combined_numbering():
+    matcher = BipartiteMatching(2, 3)
+    matcher.add_edge(1, 2)
+    assert matcher.mates() == [-1, 4, -1, -1, 1]
 
 
 if __name__ == "__main__":

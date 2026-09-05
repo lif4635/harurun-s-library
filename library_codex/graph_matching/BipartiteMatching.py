@@ -1,21 +1,109 @@
 class BipartiteMatching:
     __slots__ = (
         "left_size", "right_size", "graph", "match_left", "match_right",
-        "matching_size"
+        "matching_size", "_vertices", "_index"
     )
 
-    def __init__(self, left_size, right_size):
+    def __init__(self, left_size, right_size=None):
+        self._vertices = self._index = None
+        if right_size is None:
+            graph = left_size
+            n = len(graph)
+            color = [-1] * n
+            for start in range(n):
+                if color[start] != -1:
+                    continue
+                color[start] = 0
+                queue = [start]
+                for vertex in queue:
+                    for other in graph[vertex]:
+                        if not 0 <= other < n:
+                            raise ValueError("vertex out of range")
+                        if color[other] == -1:
+                            color[other] = color[vertex] ^ 1
+                            queue.append(other)
+                        elif color[other] == color[vertex]:
+                            raise ValueError("graph is not bipartite")
+            vertices = [v for v in range(n) if color[v] == 0]
+            left_size = len(vertices)
+            vertices.extend(v for v in range(n) if color[v] == 1)
+            right_size = n - left_size
+            index = [0] * n
+            for i, vertex in enumerate(vertices):
+                index[vertex] = i
+            self._vertices = vertices
+            self._index = index
+            self.graph = [
+                [index[v] - left_size for v in graph[u]]
+                for u in vertices[:left_size]
+            ]
+        else:
+            self.graph = [[] for _ in range(left_size)]
         assert left_size >= 0 and right_size >= 0
         self.left_size = left_size
         self.right_size = right_size
-        self.graph = [[] for _ in range(left_size)]
         self.match_left = [-1] * left_size
         self.match_right = [-1] * right_size
         self.matching_size = 0
 
     def add_edge(self, left, right):
+        if self._vertices is not None:
+            n = len(self._vertices)
+            if not (0 <= left < n and 0 <= right < n):
+                raise ValueError("vertex out of range")
+            u, v = self._index[left], self._index[right]
+            offset = self.left_size
+            if (u < offset) == (v < offset):
+                graph = [[] for _ in range(n)]
+                vertices = self._vertices
+                for i, edges in enumerate(self.graph):
+                    a = vertices[i]
+                    for j in edges:
+                        b = vertices[offset + j]
+                        graph[a].append(b)
+                        graph[b].append(a)
+                graph[left].append(right)
+                graph[right].append(left)
+                rebuilt = type(self)(graph)
+                for name in self.__slots__:
+                    setattr(self, name, getattr(rebuilt, name))
+                return
+            if u >= offset:
+                u, v = v, u
+            left, right = u, v - offset
         assert 0 <= left < self.left_size and 0 <= right < self.right_size
         self.graph[left].append(right)
+
+    def mates(self):
+        self.solve()
+        offset = self.left_size
+        vertices = self._vertices
+        if vertices is None:
+            return [r + offset if r != -1 else -1 for r in self.match_left] + self.match_right
+        result = [-1] * len(vertices)
+        for left, right in enumerate(self.match_left):
+            if right != -1:
+                u, v = vertices[left], vertices[offset + right]
+                result[u] = v
+                result[v] = u
+        return result
+
+    def _vertex_result(self, left, right):
+        if self._vertices is None:
+            return left, right
+        selected = bytearray(len(self._vertices))
+        for i in left:
+            selected[self._vertices[i]] = 1
+        for i in right:
+            selected[self._vertices[self.left_size + i]] = 1
+        return [v for v, yes in enumerate(selected) if yes]
+
+    def _edge_result(self, edges):
+        if self._vertices is None:
+            return edges
+        vertices = self._vertices
+        offset = self.left_size
+        return [(vertices[u], vertices[offset + v]) for u, v in edges]
 
     def _augment(self, start, dist, target_depth, current):
         graph = self.graph
@@ -93,7 +181,7 @@ class BipartiteMatching:
 
     def pairs(self):
         self.solve()
-        return [(left, right) for left, right in enumerate(self.match_left) if right != -1]
+        return self._edge_result([(left, right) for left, right in enumerate(self.match_left) if right != -1])
 
     def _alternating_reachable(self):
         self.solve()
@@ -118,14 +206,14 @@ class BipartiteMatching:
 
     def minimum_vertex_cover(self):
         seen_left, seen_right = self._alternating_reachable()
-        return (
+        return self._vertex_result(
             [i for i, seen in enumerate(seen_left) if not seen],
             [i for i, seen in enumerate(seen_right) if seen],
         )
 
     def maximum_independent_set(self):
         seen_left, seen_right = self._alternating_reachable()
-        return (
+        return self._vertex_result(
             [i for i, seen in enumerate(seen_left) if seen],
             [i for i, seen in enumerate(seen_right) if not seen],
         )
@@ -162,7 +250,7 @@ class BipartiteMatching:
                 result.append((left, right))
                 covered_left[left] = True
                 covered_right[right] = True
-        return result
+        return self._edge_result(result)
 
     def dulmage_mendelsohn(self):
         self.solve()
@@ -244,7 +332,10 @@ class BipartiteMatching:
                         component[to] = cid
                         stack.append(to)
             groups.append(group)
-        return [vzero] + groups + [vinf]
+        groups = [vzero] + groups + [vinf]
+        if self._vertices is not None:
+            groups = [[self._vertices[v] for v in group] for group in groups]
+        return groups
 
     def _allowed_edge_data(self, components=True):
         self.solve()
@@ -326,12 +417,18 @@ class BipartiteMatching:
     def essential_vertices(self):
         from_left, to_right, _ = self._allowed_edge_data(False)
         offset = self.left_size
-        return (
+        result = (
             [right != -1 and not from_left[left]
              for left, right in enumerate(self.match_left)],
             [left != -1 and not to_right[offset + right]
              for right, left in enumerate(self.match_right)],
         )
+        if self._vertices is None:
+            return result
+        flags = [False] * len(self._vertices)
+        for i, value in enumerate(result[0] + result[1]):
+            flags[self._vertices[i]] = value
+        return flags
 
     def allowed_edges(self):
         """Return edges that occur in at least one maximum matching."""
@@ -353,7 +450,7 @@ class BipartiteMatching:
                     or component[left] == component[right_vertex]
                 ):
                     result.append(pair)
-        return result
+        return self._edge_result(result)
 
     def essential_edges(self):
         """Return edges contained in every maximum matching."""
@@ -370,4 +467,4 @@ class BipartiteMatching:
                 or component[left] == component[right_vertex]
             ):
                 result.append((left, right))
-        return result
+        return self._edge_result(result)
