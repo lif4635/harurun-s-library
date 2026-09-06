@@ -1054,11 +1054,12 @@ API_DETAILS_BY_SYMBOL = {
         ),
     },
     ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "path"): {
-        "description": "uからvへの木のpathを、頂点列上の少数の半開区間へ分解する。",
+        "description": "uとvを結ぶパスをHLD順の区間に分解する。和・最小値・一括加算など、たどる向きによらない操作に使う。",
+        "argumentDescriptions": {"edge": "Falseなら両端を含む頂点、Trueならパス上の辺を対象にする。辺の値は子側の頂点のindexに置く。"},
         "returnFormat": "list[tuple[int, int]]",
         "returnDescription": (
-            r"HLD順の半開区間 $[\mathrm{left},\mathrm{right})$ の列。edge=Falseなら頂点path、"
-            "edge=TrueならLCAを除いた辺pathを覆う。区間の列自体はpath順とは限らない。"
+            "各要素のl, rが半開区間 `[l, r)` を表す。区間は重複せず対象全体を覆うが、uからvへの順序・方向は保証しない。"
+            "順序が必要ならpath_orderedを使う。u=vかつedge=Trueなら空リスト。"
         ),
     },
     ("graph_connectivity/NamoriDecomposition.py", "NamoriDecomposition", "path"): {
@@ -1169,7 +1170,9 @@ API_DETAILS_BY_SYMBOL.update({
         "description": "vertexに対応するEuler tour順のindexを返す。",
     },
     ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "index"): {
-        "description": "頂点vに対応するHLD順のindexを返す。",
+        "description": "頂点vの値をsegtreeなどの配列のどこに置くかを求める。",
+        "returnFormat": "int",
+        "returnDescription": "HLD順の位置tin[v]。元の頂点番号ではない。辺の値は、その辺の子側の頂点の位置に置く。",
     },
     ("algorithm/Search.py", None, "kth_element"): {
         "description": "valuesを部分的に並べ替え、index番目に小さい値を返す。",
@@ -5512,3 +5515,83 @@ COMPLEXITY_BY_MODULE.update({
         "stoer_wagner_min_cut": "O(V^3+E) time・O(V^2) memory",
     },
 })
+
+MODULE_CAPABILITIES["tree/HeavyLightDecomposition.py"] = (
+    "木のパスを少数の区間に分け、segtreeなどでパス全体の集計・更新を行える。",
+    "部分木を一つの半開区間として取得できる。頂点・辺の両方を扱える。",
+    "パスをたどる順序と各区間の向きを取得し、行列積や関数合成にも使える。",
+)
+
+CLASS_DETAILS_BY_SYMBOL[("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition")] = {
+    "description": "木の頂点を並べ替え、パスと部分木を配列上の区間で扱えるようにする。",
+    "constructorCreates": "rootを根とするHLDを構築する。indexで値の配置先、subtreeで部分木区間、pathやpath_orderedでパスの区間を取得できる。値の保持・加算・集計は別のデータ構造で行う。",
+    "argumentDescriptions": {
+        "edge": "空でない木の隣接リスト。edge[v]に隣接頂点の番号を並べ、無向辺を両端へ登録する。重み付きtupleや一般グラフは渡さない。",
+        "root": "根にする頂点。部分木と辺の親子関係はこの根を基準に決まる。",
+    },
+}
+
+API_DETAILS_BY_SYMBOL.update({
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "lca"): {
+        "description": "uとvの共通祖先のうち、最も深い頂点を求める。",
+        "returnFormat": "int", "returnDescription": "最小共通祖先の頂点番号。u=vならu。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "dist"): {
+        "description": "uからvまでのパスに含まれる辺の本数を求める。",
+        "returnFormat": "int", "returnDescription": "重みを考慮しない距離。u=vなら0。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "kth_ancestor"): {
+        "description": "vから親方向へk本の辺をたどった頂点を求める。",
+        "argumentDescriptions": {"k": "上へ移動する辺数。0ならv自身。"},
+        "returnFormat": "int", "returnDescription": "移動先の頂点番号。根を越える場合、またはkが負なら-1。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "jump"): {
+        "description": "uからvに向かってパス上をk本の辺だけ進む。",
+        "argumentDescriptions": {"k": "uから進む辺数。0ならu、dist(u, v)ならv。"},
+        "returnFormat": "int", "returnDescription": "移動先の頂点番号。kが負、またはパスの長さを超える場合は-1。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "next_on_path"): {
+        "description": "uからvへ向かう最初の一辺の行き先を求める。",
+        "returnFormat": "int", "returnDescription": "パス上でuの次にある頂点番号。u=vなら-1。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "vertices_on_path"): {
+        "description": "uからvへたどる順に、パス上の全頂点を列挙する。",
+        "returnFormat": "list[int]", "returnDescription": "両端を含む頂点番号のリスト。長さはdist(u, v)+1で、先頭はu、末尾はv。u=vなら[u]。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "subtree"): {
+        "description": "vを根とする部分木を覆う、一つの半開区間を取得する。部分木加算・部分木和などの対象区間に使う。",
+        "argumentDescriptions": {"edge": "Falseならv自身を含む頂点。Trueなら部分木内部の辺だけで、vと親を結ぶ辺は含めない。辺の値は子側の頂点のindexに置く。"},
+        "returnFormat": "tuple[int, int]",
+        "returnDescription": "l, rを受け取り、HLD順の半開区間 `[l, r)` を使う。edge=Falseなら `[tin[v], tout[v])`、Trueなら `[tin[v]+1, tout[v])`。葉の辺区間は空。",
+        "returnParts": (
+            {"name": "l", "format": "int", "description": "区間の左端。含む。"},
+            {"name": "r", "format": "int", "description": "区間の右端。含まない。"},
+        ),
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "path_ordered"): {
+        "description": "uからvへたどる順にパスを区間へ分け、各区間を読む方向も返す。行列積・関数合成など、順序で結果が変わる操作に使う。",
+        "argumentDescriptions": {"edge": "Falseなら両端を含む頂点、Trueならパス上の辺。辺の値は子側の頂点のindexに置く。Trueのときreverse=Trueは子から親、Falseは親から子へ進む向き。"},
+        "returnFormat": "list[tuple[int, int, bool]]",
+        "returnDescription": "uからvへの順に並んだ(l, r, reverse)のリスト。各区間は `[l, r)`。reverse=Falseならlからr-1、Trueならr-1からlへ読む。辺の方向別の値は自動変換しないため、必要なら順方向・逆方向の集計値を用意する。u=vかつedge=Trueなら空リスト。",
+    },
+    ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "vertex"): {
+        "description": "HLD順の位置を、元の頂点番号へ戻す。",
+        "argumentDescriptions": {"i": "HLD順の配列位置。0以上n未満。"},
+        "returnFormat": "int", "returnDescription": "その位置にある頂点rev[i]。vertex(index(v))はvになる。",
+    },
+})
+
+COMPLEXITY_BY_MODULE["tree/HeavyLightDecomposition.py"] = {
+    "HeavyLightDecomposition": "O(N) 時間・領域。Nは頂点数",
+    "lca": "O(log N)",
+    "dist": "O(log N)",
+    "kth_ancestor": "O(log N)",
+    "jump": "O(log N)",
+    "next_on_path": "O(log N)",
+    "vertices_on_path": "O(K log N)。Kは返す頂点数",
+    "subtree": "O(1)",
+    "path": "O(log N)",
+    "path_ordered": "O(log N)",
+    "index": "O(1)",
+    "vertex": "O(1)",
+}

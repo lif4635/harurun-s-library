@@ -11,7 +11,7 @@
 | [`DynamicDiameter`](DynamicDiameter.md) | Static Top Treeによる固定木の動的重み付き直径 | 0 | 1 | 2 |
 | [`DynamicRerooting`](DynamicRerooting.md) | rake-compress top treeによる動的rerooting | 0 | 2 | 19 |
 | [`EulerTour`](EulerTour.md) | 木のEuler tour順と部分木区間を構築する。 | 0 | 1 | 7 |
-| [`HeavyLightDecomposition`](HeavyLightDecomposition.md) | Heavy-Light Decomposition（非再帰） | 0 | 1 | 11 |
+| [`HeavyLightDecomposition`](HeavyLightDecomposition.md) | 木のパスと部分木を配列上の区間に変換する | 0 | 1 | 11 |
 | [`InclusionTree`](InclusionTree.md) | 包含関係から親子木を構築する。 | 1 | 0 | 0 |
 | [`IncrementalForest`](IncrementalForest.md) | 辺追加だけのforest・LCA・path集約 | 0 | 1 | 15 |
 | [`LCA`](LCA.md) | instanceを直接呼んで最近共通祖先を求めるLCA | 0 | 1 | 4 |

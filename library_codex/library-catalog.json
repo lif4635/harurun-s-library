@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-05T07:34:57+00:00",
+  "generatedAt": "2026-09-06T20:51:48+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "3a5ce9b15bb40802069cf929b5a620363f12119adb783e9b72017291f17a1821",
-  "inputStamp": "6ab2587b4f9c5f17c69e92db7c6e5c9ebee1d3f26639d1fc3950d904e50411a0",
+  "sourceFingerprint": "5f0abfd2907f837937909f73fe4d78d043df10a6928346f8db28128aa9acfe48",
+  "inputStamp": "08b38e180d4234b4d5d08e6c13d4aa6119f855ace84a5211036f5c47a0e48a34",
   "generatorFingerprint": "efb9defc7edaeb4adee6db7f8e62121aaab3ed563ffe0ef59c03bffd3c375886",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 360,
-    "articles": 10,
+    "articles": 11,
     "functions": 501,
     "classes": 222,
     "methods": 1379,
@@ -49911,13 +49911,17 @@
       "domainLabel": "Tree",
       "name": "HeavyLightDecomposition",
       "modulePath": "library_codex.tree.HeavyLightDecomposition",
-      "summary": "Heavy-Light Decomposition（非再帰）。",
+      "summary": "木のパスと部分木を配列上の区間に変換する。",
       "capabilities": [
-        "木をheavy 経路へ分解し、頂点経路・辺経路を少数の半開区間へ変換できる。",
-        "LCA、頂点間距離、k個先の頂点、部分木区間を取得できる。",
-        "セグメント木などと組み合わせて経路 クエリ・subtree クエリを処理できる。"
+        "木のパスを少数の区間に分け、segtreeなどでパス全体の集計・更新を行える。",
+        "部分木を一つの半開区間として取得できる。頂点・辺の両方を扱える。",
+        "パスをたどる順序と各区間の向きを取得し、行列積や関数合成にも使える。"
       ],
-      "article": null,
+      "article": {
+        "title": "木のパス・部分木を区間で扱う",
+        "markdown": "## 主な機能\n\n木の頂点をHLD順に並べ替え、segtreeなどで木の上の集計・更新を行うための区間を取得します。値の保持や加算自体はHLDの役割ではありません。\n\n- 部分木は一つの半開区間として取得できます。\n- パスは $O(\\log N)$ 個の区間に分かれます。順序が必要な場合は、区間の並びと読む向きも取得できます。\n- 頂点の値と辺の値を切り替えて扱えます。\n\n## 使い方\n\n```python\nfrom library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition\n\ntree = [[1, 2], [0, 3, 4], [0], [1], [1]]\nhld = HeavyLightDecomposition(tree)\nvalues = [10, 20, 30, 40, 50]\nordered = [values[v] for v in hld.rev]\nl, r = hld.subtree(1)\n```\n\n- `ordered`: HLD順に並べた値。この例では `[10, 20, 40, 50, 30]`。この配列でsegtreeを構築します。\n- `l, r`: 部分木の半開区間 `[l, r)`。この例では `[1, 4)` で、頂点1・3・4を含みます。\n- `hld.index(v)`: 頂点vの値を置く位置。元の頂点番号とは別です。\n\n区間加算に設定した `LazySegTree` を `seg` とすると、部分木への加算は次のように書けます。\n\n```python\nl, r = hld.subtree(v)\nseg.apply(l, r, delta)\n```\n\n区間を取る操作は $O(1)$、加算はLazySegTree側の $O(\\log N)$ です。\n\n## パスをたどる向き\n\n- `path(u, v)`: 区間 `[l, r)` のリスト。区間の並びや向きを保証しないため、和・最小値・一括加算などに使います。\n- `path_ordered(u, v)`: uからvへの順に並んだ `(l, r, reverse)` のリスト。`reverse=False` はlからr-1、`True`はr-1からlへ読む指定です。\n\nこの例の `path_ordered(3, 2)` は `[(0, 3, True), (4, 5, False)]`。頂点列に戻すと `[3, 1, 0, 2]` になります。非可換な集計では各区間の順方向・逆方向の集計を用意し、指定された向きの結果をリスト順に結合します。\n\n## 辺を扱うとき\n\n親pと子vを結ぶ辺の値は、`hld.index(v)` に置きます。根の位置には辺がないため、集計の単位元を置きます。\n\n- `subtree(v, edge=True)`: 部分木内部の辺。区間は `[tin[v]+1, tout[v])` で、vと親を結ぶ辺は除きます。\n- `path(u, v, edge=True)`: パス上の辺。LCAの位置を除くことで、パス外へつながる親辺を含めません。\n- `path_ordered(u, v, edge=True)`: 辺をたどる順序も保ちます。`reverse=True` は子から親、`False`は親から子です。\n\n向きによって異なる辺の値はHLDが自動変換するわけではありません。例えば方向別の行列を持つ場合は、それぞれの集計値を用意して使い分けます。\n\n## 注意点\n\n- 部分木・親子関係は構築時のrootを基準にします。\n- 頂点パスは両端を含みます。u=vの辺パスと、葉の部分木の辺区間は空です。\n- 区間の取得と、その区間に対する集計・更新は別の処理です。パスをsegtreeで集計すると、通常は合計 $O(\\log^2 N)$ になります。",
+        "sourcePath": "library_codex/docs/articles/tree/HeavyLightDecomposition.md"
+      },
       "searchTerms": [
         "HeavyLightDecomposition",
         "Heavy Light Decomposition",
@@ -49926,9 +49930,9 @@
         "tree/HeavyLightDecomposition.py",
         "木"
       ],
-      "complexity": "構築 O(N)、LCA・パス分解 O(log  N)",
+      "complexity": "構築 O(N)、パス分解 O(log  N)、部分木区間 O(1)",
       "sourcePath": "library_codex/tree/HeavyLightDecomposition.py",
-      "inputFingerprint": "aa5d7068e1fae014e1c0aba8cef69ba2ba8d6e0f68e384d0e2b71a079f2160d3",
+      "inputFingerprint": "5d42499cdbb9c4687bbb22adcd96d9a028ccfc33798e61cfca4910f817ea951f",
       "importCode": "from library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition",
       "sourceCode": "class HeavyLightDecomposition:\n    __slots__ = (\"n\", \"parent\", \"depth\", \"size\", \"head\", \"tin\", \"tout\", \"rev\")\n\n    def __init__(self, edge, root=0):\n        n = len(edge)\n        assert 0 <= root < n\n\n        parent = [-1] * n\n        depth = [0] * n\n        order = [root]\n        for u in order:\n            for v in edge[u]:\n                if v != parent[u]:\n                    parent[v] = u\n                    depth[v] = depth[u] + 1\n                    order.append(v)\n\n        size = [1] * n\n        heavy = [-1] * n\n        for u in reversed(order):\n            best = 0\n            for v in edge[u]:\n                if parent[v] == u:\n                    sv = size[v]\n                    size[u] += sv\n                    if sv > best:\n                        best = sv\n                        heavy[u] = v\n\n        head = [0] * n\n        tin = [0] * n\n        rev = [0] * n\n        stack = [(root, root)]\n        timer = 0\n        while stack:\n            u, h = stack.pop()\n            while u != -1:\n                head[u] = h\n                tin[u] = timer\n                rev[timer] = u\n                timer += 1\n                hu = heavy[u]\n                for v in edge[u]:\n                    if parent[v] == u and v != hu:\n                        stack.append((v, v))\n                u = hu\n\n        self.n = n\n        self.parent = parent\n        self.depth = depth\n        self.size = size\n        self.head = head\n        self.tin = tin\n        self.tout = [tin[v] + size[v] for v in range(n)]\n        self.rev = rev\n\n    def lca(self, u, v):\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                u = parent[head[u]]\n            else:\n                v = parent[head[v]]\n        return u if depth[u] < depth[v] else v\n\n    def dist(self, u, v):\n        w = self.lca(u, v)\n        return self.depth[u] + self.depth[v] - (self.depth[w] << 1)\n\n    def kth_ancestor(self, v, k):\n        if k < 0 or self.depth[v] < k:\n            return -1\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while depth[v] - depth[head[v]] < k:\n            k -= depth[v] - depth[head[v]] + 1\n            v = parent[head[v]]\n        return self.rev[tin[v] - k]\n\n    def jump(self, u, v, k):\n        w = self.lca(u, v)\n        up = self.depth[u] - self.depth[w]\n        distance = up + self.depth[v] - self.depth[w]\n        if k < 0 or distance < k:\n            return -1\n        if k <= up:\n            return self.kth_ancestor(u, k)\n        return self.kth_ancestor(v, distance - k)\n\n    def next_on_path(self, u, v):\n        if u == v:\n            return -1\n        return self.jump(u, v, 1)\n\n    nxt = next_on_path\n\n    def vertices_on_path(self, u, v):\n        distance = self.dist(u, v)\n        return [self.jump(u, v, k) for k in range(distance + 1)]\n\n    def subtree(self, v, edge=False):\n        return self.tin[v] + edge, self.tout[v]\n\n    def path(self, u, v, edge=False):\n        res = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                res.append((tin[head[u]], tin[u] + 1))\n                u = parent[head[u]]\n            else:\n                res.append((tin[head[v]], tin[v] + 1))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            l, r = tin[v] + edge, tin[u] + 1\n        else:\n            l, r = tin[u] + edge, tin[v] + 1\n        if l < r:\n            res.append((l, r))\n        return res\n\n    def path_ordered(self, u, v, edge=False):\n        up = []\n        down = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                up.append((tin[head[u]], tin[u] + 1, True))\n                u = parent[head[u]]\n            else:\n                down.append((tin[head[v]], tin[v] + 1, False))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            l, r = tin[v] + edge, tin[u] + 1\n            if l < r:\n                up.append((l, r, True))\n        else:\n            l, r = tin[u] + edge, tin[v] + 1\n            if l < r:\n                down.append((l, r, False))\n        up.extend(reversed(down))\n        return up\n\n    def index(self, v):\n        return self.tin[v]\n\n    def vertex(self, i):\n        return self.rev[i]\n\n\nHLD = HeavyLightDecomposition\n",
       "standaloneCode": "class HeavyLightDecomposition:\n    __slots__ = (\"n\", \"parent\", \"depth\", \"size\", \"head\", \"tin\", \"tout\", \"rev\")\n\n    def __init__(self, edge, root=0):\n        n = len(edge)\n        assert 0 <= root < n\n\n        parent = [-1] * n\n        depth = [0] * n\n        order = [root]\n        for u in order:\n            for v in edge[u]:\n                if v != parent[u]:\n                    parent[v] = u\n                    depth[v] = depth[u] + 1\n                    order.append(v)\n\n        size = [1] * n\n        heavy = [-1] * n\n        for u in reversed(order):\n            best = 0\n            for v in edge[u]:\n                if parent[v] == u:\n                    sv = size[v]\n                    size[u] += sv\n                    if sv > best:\n                        best = sv\n                        heavy[u] = v\n\n        head = [0] * n\n        tin = [0] * n\n        rev = [0] * n\n        stack = [(root, root)]\n        timer = 0\n        while stack:\n            u, h = stack.pop()\n            while u != -1:\n                head[u] = h\n                tin[u] = timer\n                rev[timer] = u\n                timer += 1\n                hu = heavy[u]\n                for v in edge[u]:\n                    if parent[v] == u and v != hu:\n                        stack.append((v, v))\n                u = hu\n\n        self.n = n\n        self.parent = parent\n        self.depth = depth\n        self.size = size\n        self.head = head\n        self.tin = tin\n        self.tout = [tin[v] + size[v] for v in range(n)]\n        self.rev = rev\n\n    def lca(self, u, v):\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                u = parent[head[u]]\n            else:\n                v = parent[head[v]]\n        return u if depth[u] < depth[v] else v\n\n    def dist(self, u, v):\n        w = self.lca(u, v)\n        return self.depth[u] + self.depth[v] - (self.depth[w] << 1)\n\n    def kth_ancestor(self, v, k):\n        if k < 0 or self.depth[v] < k:\n            return -1\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while depth[v] - depth[head[v]] < k:\n            k -= depth[v] - depth[head[v]] + 1\n            v = parent[head[v]]\n        return self.rev[tin[v] - k]\n\n    def jump(self, u, v, k):\n        w = self.lca(u, v)\n        up = self.depth[u] - self.depth[w]\n        distance = up + self.depth[v] - self.depth[w]\n        if k < 0 or distance < k:\n            return -1\n        if k <= up:\n            return self.kth_ancestor(u, k)\n        return self.kth_ancestor(v, distance - k)\n\n    def next_on_path(self, u, v):\n        if u == v:\n            return -1\n        return self.jump(u, v, 1)\n\n    nxt = next_on_path\n\n    def vertices_on_path(self, u, v):\n        distance = self.dist(u, v)\n        return [self.jump(u, v, k) for k in range(distance + 1)]\n\n    def subtree(self, v, edge=False):\n        return self.tin[v] + edge, self.tout[v]\n\n    def path(self, u, v, edge=False):\n        res = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                res.append((tin[head[u]], tin[u] + 1))\n                u = parent[head[u]]\n            else:\n                res.append((tin[head[v]], tin[v] + 1))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            l, r = tin[v] + edge, tin[u] + 1\n        else:\n            l, r = tin[u] + edge, tin[v] + 1\n        if l < r:\n            res.append((l, r))\n        return res\n\n    def path_ordered(self, u, v, edge=False):\n        up = []\n        down = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                up.append((tin[head[u]], tin[u] + 1, True))\n                u = parent[head[u]]\n            else:\n                down.append((tin[head[v]], tin[v] + 1, False))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            l, r = tin[v] + edge, tin[u] + 1\n            if l < r:\n                up.append((l, r, True))\n        else:\n            l, r = tin[u] + edge, tin[v] + 1\n            if l < r:\n                down.append((l, r, False))\n        up.extend(reversed(down))\n        return up\n\n    def index(self, v):\n        return self.tin[v]\n\n    def vertex(self, i):\n        return self.rev[i]\n\n\nHLD = HeavyLightDecomposition\n",
@@ -49942,29 +49946,29 @@
       "classes": [
         {
           "name": "HeavyLightDecomposition",
-          "summary": "Heavy-Light Decomposition（非再帰）を行うクラス。",
-          "description": "Heavy-Light Decomposition（非再帰）を行うクラス。",
+          "summary": "木の頂点を並べ替え、パスと部分木を配列上の区間で扱えるようにする。",
+          "description": "木の頂点を並べ替え、パスと部分木を配列上の区間で扱えるようにする。",
           "searchTerms": [
             "HeavyLightDecomposition",
             "Heavy Light Decomposition",
             "HeavyLightDecomposition(edge, root=0)"
           ],
           "constructor": "HeavyLightDecomposition(edge, root=0)",
-          "constructorArguments": "edge: 辺または隣接list · root: 根の頂点番号・原始根。省略時: 0",
+          "constructorArguments": "edge: 空でない木の隣接リスト。edge[v]に隣接頂点の番号を並べ、無向辺を両端へ登録する。重み付きtupleや一般グラフは渡さない。 · root: 根にする頂点。部分木と辺の親子関係はこの根を基準に決まる。省略時: 0",
           "constructorArgumentDetails": [
             {
               "name": "edge",
-              "description": "辺または隣接リスト"
+              "description": "空でない木の隣接リスト。辺[v]に隣接頂点の番号を並べ、無向辺を両端へ登録する。重み付きtupleや一般グラフは渡さない"
             },
             {
               "name": "root",
-              "description": "根の頂点番号・原始根。省略時は 0"
+              "description": "根にする頂点。部分木と辺の親子関係はこの根を基準に決まる。省略時は 0"
             }
           ],
           "constructorReturns": "HeavyLightDecomposition instance",
           "constructorReturnFormat": "HeavyLightDecomposition",
-          "constructorReturnDescription": "Heavy-Light Decomposition（非再帰）を行うクラス。",
-          "constructorCreates": "Heavy-Light Decomposition（非再帰）を行うクラス。",
+          "constructorReturnDescription": "rootを根とするHLDを構築する。indexで値の配置先、subtreeで部分木区間、pathやpath_orderedでパスの区間を取得できる。値の保持・加算・集計は別のデータ構造で行う。",
+          "constructorCreates": "rootを根とするHLDを構築する。indexで値の配置先、subtreeで部分木区間、pathやpath_orderedでパスの区間を取得できる。値の保持・加算・集計は別のデータ構造で行う。",
           "constructorComplexity": "O(N)",
           "constructorSourceLine": 4,
           "methods": [
@@ -49972,8 +49976,8 @@
               "name": "lca",
               "kind": "method",
               "signature": "lca(u, v)",
-              "summary": "2頂点の最小共通祖先を求める。",
-              "description": "2頂点の最小共通祖先を求める。",
+              "summary": "uとvの共通祖先のうち、最も深い頂点を求める。",
+              "description": "uとvの共通祖先のうち、最も深い頂点を求める。",
               "searchTerms": [
                 "lca",
                 "lca(u, v)"
@@ -49989,18 +49993,18 @@
                   "description": "頂点番号"
                 }
               ],
-              "returns": "int — 最小共通祖先の頂点番号（int）",
+              "returns": "int — 最小共通祖先の頂点番号。u=vならu。",
               "returnFormat": "int",
-              "returnDescription": "最小共通祖先の頂点番号（int）",
-              "complexity": "O(N) / O(log N)",
+              "returnDescription": "最小共通祖先の頂点番号。u=vならu。",
+              "complexity": "O(log N)",
               "sourceLine": 57
             },
             {
               "name": "dist",
               "kind": "method",
               "signature": "dist(u, v)",
-              "summary": "distを求める。",
-              "description": "distを求める。",
+              "summary": "uからvまでのパスに含まれる辺の本数を求める。",
+              "description": "uからvまでのパスに含まれる辺の本数を求める。",
               "searchTerms": [
                 "dist",
                 "dist(u, v)"
@@ -50016,24 +50020,24 @@
                   "description": "頂点番号"
                 }
               ],
-              "returns": "入力要素と同じ型 — 求めたdist。",
-              "returnFormat": "入力要素と同じ型",
-              "returnDescription": "求めたdist。",
-              "complexity": "O(N) / O(log N)",
+              "returns": "int — 重みを考慮しない距離。u=vなら0。",
+              "returnFormat": "int",
+              "returnDescription": "重みを考慮しない距離。u=vなら0。",
+              "complexity": "O(log N)",
               "sourceLine": 68
             },
             {
               "name": "kth_ancestor",
               "kind": "method",
               "signature": "kth_ancestor(v, k)",
-              "summary": "kth ancestorを求める。",
-              "description": "kth ancestorを求める。",
+              "summary": "vから親方向へk本の辺をたどった頂点を求める。",
+              "description": "vから親方向へk本の辺をたどった頂点を求める。",
               "searchTerms": [
                 "kth_ancestor",
                 "kth ancestor",
                 "kth_ancestor(v, k)"
               ],
-              "arguments": "v: 頂点番号 · k: 選ぶ個数または0-indexedの順位",
+              "arguments": "v: 頂点番号 · k: 上へ移動する辺数。0ならv自身。",
               "argumentDetails": [
                 {
                   "name": "v",
@@ -50041,26 +50045,26 @@
                 },
                 {
                   "name": "k",
-                  "description": "選ぶ個数または0始まりの順位"
+                  "description": "上へ移動する辺数。0ならv自身。"
                 }
               ],
-              "returns": "int / float — 求めたkth ancestor。",
-              "returnFormat": "int / float",
-              "returnDescription": "求めたkth ancestor。",
-              "complexity": "O(N) / O(log N)",
+              "returns": "int — 移動先の頂点番号。根を越える場合、またはkが負なら-1。",
+              "returnFormat": "int",
+              "returnDescription": "移動先の頂点番号。根を越える場合、またはkが負なら-1。",
+              "complexity": "O(log N)",
               "sourceLine": 72
             },
             {
               "name": "jump",
               "kind": "method",
               "signature": "jump(u, v, k)",
-              "summary": "jumpを求める。",
-              "description": "jumpを求める。",
+              "summary": "uからvに向かってパス上をk本の辺だけ進む。",
+              "description": "uからvに向かってパス上をk本の辺だけ進む。",
               "searchTerms": [
                 "jump",
                 "jump(u, v, k)"
               ],
-              "arguments": "u: 頂点番号 · v: 頂点番号 · k: 選ぶ個数または0-indexedの順位",
+              "arguments": "u: 頂点番号 · v: 頂点番号 · k: uから進む辺数。0ならu、dist(u, v)ならv。",
               "argumentDetails": [
                 {
                   "name": "u",
@@ -50072,21 +50076,21 @@
                 },
                 {
                   "name": "k",
-                  "description": "選ぶ個数または0始まりの順位"
+                  "description": "uから進む辺数。0ならu、dist(u, v)ならv。"
                 }
               ],
-              "returns": "int / float — 求めたjump。",
-              "returnFormat": "int / float",
-              "returnDescription": "求めたjump。",
-              "complexity": "O(N) / O(log N)",
+              "returns": "int — 移動先の頂点番号。kが負、またはパスの長さを超える場合は-1。",
+              "returnFormat": "int",
+              "returnDescription": "移動先の頂点番号。kが負、またはパスの長さを超える場合は-1。",
+              "complexity": "O(log N)",
               "sourceLine": 84
             },
             {
               "name": "next_on_path",
               "kind": "method",
               "signature": "next_on_path(u, v)",
-              "summary": "next on 経路を求める。",
-              "description": "next on 経路を求める。",
+              "summary": "uからvへ向かう最初の一辺の行き先を求める。",
+              "description": "uからvへ向かう最初の一辺の行き先を求める。",
               "searchTerms": [
                 "next_on_path",
                 "next on path",
@@ -50103,18 +50107,18 @@
                   "description": "頂点番号"
                 }
               ],
-              "returns": "int / float — 求めたnext on 経路。",
-              "returnFormat": "int / float",
-              "returnDescription": "求めたnext on 経路。",
-              "complexity": "O(N) / O(log N)",
+              "returns": "int — パス上でuの次にある頂点番号。u=vなら-1。",
+              "returnFormat": "int",
+              "returnDescription": "パス上でuの次にある頂点番号。u=vなら-1。",
+              "complexity": "O(log N)",
               "sourceLine": 94
             },
             {
               "name": "vertices_on_path",
               "kind": "method",
               "signature": "vertices_on_path(u, v)",
-              "summary": "vertices on 経路を求める。",
-              "description": "vertices on 経路を求める。",
+              "summary": "uからvへたどる順に、パス上の全頂点を列挙する。",
+              "description": "uからvへたどる順に、パス上の全頂点を列挙する。",
               "searchTerms": [
                 "vertices_on_path",
                 "vertices on path",
@@ -50131,23 +50135,23 @@
                   "description": "頂点番号"
                 }
               ],
-              "returns": "list[int] — 経路上の頂点または辺を順に並べた列",
+              "returns": "list[int] — 両端を含む頂点番号のリスト。長さはdist(u, v)+1で、先頭はu、末尾はv。u=vなら[u]。",
               "returnFormat": "list[int]",
-              "returnDescription": "経路上の頂点または辺を順に並べた列",
-              "complexity": "O(N) / O(log N)",
+              "returnDescription": "両端を含む頂点番号のリスト。長さはdist(u, v)+1で、先頭はu、末尾はv。u=vなら[u]。",
+              "complexity": "O(K log N)。Kは返す頂点数",
               "sourceLine": 101
             },
             {
               "name": "subtree",
               "kind": "method",
               "signature": "subtree(v, edge=False)",
-              "summary": "subtreeを求める。",
-              "description": "subtreeを求める。",
+              "summary": "vを根とする部分木を覆う、一つの半開区間を取得する。部分木加算・部分木和などの対象区間に使う。",
+              "description": "vを根とする部分木を覆う、一つの半開区間を取得する。部分木加算・部分木和などの対象区間に使う。",
               "searchTerms": [
                 "subtree",
                 "subtree(v, edge=False)"
               ],
-              "arguments": "v: 頂点番号 · edge: 辺または隣接list。省略時: False",
+              "arguments": "v: 頂点番号 · edge: Falseならv自身を含む頂点。Trueなら部分木内部の辺だけで、vと親を結ぶ辺は含めない。辺の値は子側の頂点のindexに置く。",
               "argumentDetails": [
                 {
                   "name": "v",
@@ -50155,26 +50159,38 @@
                 },
                 {
                   "name": "edge",
-                  "description": "辺または隣接リスト。省略時は False"
+                  "description": "Falseならv自身を含む頂点。Trueなら部分木内部の辺だけで、vと親を結ぶ辺は含めない。辺の値は子側の頂点のindexに置く。"
                 }
               ],
-              "returns": "tuple / 入力要素と同じ型 — 求めたsubtree。",
-              "returnFormat": "tuple / 入力要素と同じ型",
-              "returnDescription": "求めたsubtree。",
-              "complexity": "O(N) / O(log N)",
-              "sourceLine": 105
+              "returns": "tuple[int, int] — l, rを受け取り、HLD順の半開区間 [l, r) を使う。edge=Falseなら [tin[v], tout[v])、Trueなら [tin[v]+1, tout[v])。葉の辺区間は空。",
+              "returnFormat": "tuple[int, int]",
+              "returnDescription": "l, rを受け取り、HLD順の半開区間 [l, r) を使う。edge=Falseなら [tin[v], tout[v])、Trueなら [tin[v]+1, tout[v])。葉の辺区間は空。",
+              "complexity": "O(1)",
+              "sourceLine": 105,
+              "returnParts": [
+                {
+                  "name": "l",
+                  "format": "int",
+                  "description": "区間の左端。含む。"
+                },
+                {
+                  "name": "r",
+                  "format": "int",
+                  "description": "区間の右端。含まない。"
+                }
+              ]
             },
             {
               "name": "path",
               "kind": "method",
               "signature": "path(u, v, edge=False)",
-              "summary": "uからvへの木のpathを、頂点列上の少数の半開区間へ分解する。",
-              "description": "uからvへの木のpathを、頂点列上の少数の半開区間へ分解する。",
+              "summary": "uとvを結ぶパスをHLD順の区間に分解する。和・最小値・一括加算など、たどる向きによらない操作に使う。",
+              "description": "uとvを結ぶパスをHLD順の区間に分解する。和・最小値・一括加算など、たどる向きによらない操作に使う。",
               "searchTerms": [
                 "path",
                 "path(u, v, edge=False)"
               ],
-              "arguments": "u: 頂点番号 · v: 頂点番号 · edge: 辺または隣接list。省略時: False",
+              "arguments": "u: 頂点番号 · v: 頂点番号 · edge: Falseなら両端を含む頂点、Trueならパス上の辺を対象にする。辺の値は子側の頂点のindexに置く。",
               "argumentDetails": [
                 {
                   "name": "u",
@@ -50186,27 +50202,27 @@
                 },
                 {
                   "name": "edge",
-                  "description": "辺または隣接リスト。省略時は False"
+                  "description": "Falseなら両端を含む頂点、Trueならパス上の辺を対象にする。辺の値は子側の頂点のindexに置く。"
                 }
               ],
-              "returns": "list[tuple[int, int]] — HLD順の半開区間 $[\\mathrm{left},\\mathrm{right})$ の列。edge=Falseなら頂点path、edge=TrueならLCAを除いた辺pathを覆う。区間の列自体はpath順とは限らない。",
+              "returns": "list[tuple[int, int]] — 各要素のl, rが半開区間 [l, r) を表す。区間は重複せず対象全体を覆うが、uからvへの順序・方向は保証しない。順序が必要ならpath_orderedを使う。u=vかつedge=Trueなら空リスト。",
               "returnFormat": "list[tuple[int, int]]",
-              "returnDescription": "HLD順の半開区間 $[\\mathrm{left},\\mathrm{right})$ の列。edge=Falseなら頂点path、edge=TrueならLCAを除いた辺pathを覆う。区間の列自体はpath順とは限らない。",
-              "complexity": "O(N) / O(log N)",
+              "returnDescription": "各要素のl, rが半開区間 [l, r) を表す。区間は重複せず対象全体を覆うが、uからvへの順序・方向は保証しない。順序が必要ならpath_orderedを使う。u=vかつedge=Trueなら空リスト。",
+              "complexity": "O(log N)",
               "sourceLine": 108
             },
             {
               "name": "path_ordered",
               "kind": "method",
               "signature": "path_ordered(u, v, edge=False)",
-              "summary": "経路 orderedを求める。",
-              "description": "経路 orderedを求める。",
+              "summary": "uからvへたどる順にパスを区間へ分け、各区間を読む方向も返す。行列積・関数合成など、順序で結果が変わる操作に使う。",
+              "description": "uからvへたどる順にパスを区間へ分け、各区間を読む方向も返す。行列積・関数合成など、順序で結果が変わる操作に使う。",
               "searchTerms": [
                 "path_ordered",
                 "path ordered",
                 "path_ordered(u, v, edge=False)"
               ],
-              "arguments": "u: 頂点番号 · v: 頂点番号 · edge: 辺または隣接list。省略時: False",
+              "arguments": "u: 頂点番号 · v: 頂点番号 · edge: Falseなら両端を含む頂点、Trueならパス上の辺。辺の値は子側の頂点のindexに置く。Trueのときreverse=Trueは子から親、Falseは親から子へ進む向き。",
               "argumentDetails": [
                 {
                   "name": "u",
@@ -50218,21 +50234,21 @@
                 },
                 {
                   "name": "edge",
-                  "description": "辺または隣接リスト。省略時は False"
+                  "description": "Falseなら両端を含む頂点、Trueならパス上の辺。辺の値は子側の頂点のindexに置く。Trueのときreverse=Trueは子から親、Falseは親から子へ進む向き。"
                 }
               ],
-              "returns": "list[int] — 経路上の頂点または辺を順に並べた列",
-              "returnFormat": "list[int]",
-              "returnDescription": "経路上の頂点または辺を順に並べた列",
-              "complexity": "O(N) / O(log N)",
+              "returns": "list[tuple[int, int, bool]] — uからvへの順に並んだ(l, r, reverse)のリスト。各区間は [l, r)。reverse=Falseならlからr-1、Trueならr-1からlへ読む。辺の方向別の値は自動変換しないため、必要なら順方向・逆方向の集計値を用意する。u=vかつedge=Trueなら空リスト。",
+              "returnFormat": "list[tuple[int, int, bool]]",
+              "returnDescription": "uからvへの順に並んだ(l, r, reverse)のリスト。各区間は [l, r)。reverse=Falseならlからr-1、Trueならr-1からlへ読む。辺の方向別の値は自動変換しないため、必要なら順方向・逆方向の集計値を用意する。u=vかつedge=Trueなら空リスト。",
+              "complexity": "O(log N)",
               "sourceLine": 129
             },
             {
               "name": "index",
               "kind": "method",
               "signature": "index(v)",
-              "summary": "頂点vに対応するHLD順のindexを返す。",
-              "description": "頂点vに対応するHLD順のindexを返す。",
+              "summary": "頂点vの値をsegtreeなどの配列のどこに置くかを求める。",
+              "description": "頂点vの値をsegtreeなどの配列のどこに置くかを求める。",
               "searchTerms": [
                 "index",
                 "index(v)"
@@ -50244,33 +50260,33 @@
                   "description": "頂点番号"
                 }
               ],
-              "returns": "int — 頂点vに対応するHLD順のindex。",
+              "returns": "int — HLD順の位置tin[v]。元の頂点番号ではない。辺の値は、その辺の子側の頂点の位置に置く。",
               "returnFormat": "int",
-              "returnDescription": "頂点vに対応するHLD順のindex。",
-              "complexity": "O(N) / O(log N)",
+              "returnDescription": "HLD順の位置tin[v]。元の頂点番号ではない。辺の値は、その辺の子側の頂点の位置に置く。",
+              "complexity": "O(1)",
               "sourceLine": 154
             },
             {
               "name": "vertex",
               "kind": "method",
               "signature": "vertex(i)",
-              "summary": "頂点を求める。",
-              "description": "頂点を求める。",
+              "summary": "HLD順の位置を、元の頂点番号へ戻す。",
+              "description": "HLD順の位置を、元の頂点番号へ戻す。",
               "searchTerms": [
                 "vertex",
                 "vertex(i)"
               ],
-              "arguments": "i: 位置",
+              "arguments": "i: HLD順の配列位置。0以上n未満。",
               "argumentDetails": [
                 {
                   "name": "i",
-                  "description": "位置"
+                  "description": "HLD順の配列位置。0以上n未満。"
                 }
               ],
-              "returns": "計算結果（入力型に依存） — 求めた頂点。",
-              "returnFormat": "計算結果（入力型に依存）",
-              "returnDescription": "求めた頂点。",
-              "complexity": "O(N) / O(log N)",
+              "returns": "int — その位置にある頂点rev[i]。vertex(index(v))はvになる。",
+              "returnFormat": "int",
+              "returnDescription": "その位置にある頂点rev[i]。vertex(index(v))はvになる。",
+              "complexity": "O(1)",
               "sourceLine": 157
             }
           ]

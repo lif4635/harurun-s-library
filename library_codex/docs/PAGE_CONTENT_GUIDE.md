@@ -25,6 +25,8 @@ Argumentsではsignatureから自明な名前やdefault値を繰り返さず、�
 
 Returnsには型名だけでなく、返る値を次のcodeでどう読めるかを書きます。listなら長さ・順序・`result[i]`、dictならkeyとvalue、tupleなら各要素、instanceなら作成後に使える主要操作を示します。Complexityはmodule全体への参照で済ませず、各function・constructor・methodに置きます。
 
+構築・前計算の計算量はconstructorへまとめ、各methodにはその呼び出し自体の計算量だけを書きます。module全体の「構築 O(N)、query O(log N)」をmethodへ転記しません。ただし、method内で遅延して行う前計算や再構築は省かず、初回・償却・最悪などの条件を明記します。
+
 ## 情報の置き場所
 
 - 利用者が最初に読む「主な機能」「使い方」「仕組み」「注意点」は`docs/articles/<category>/<Module>.md`へ置く。

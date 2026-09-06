@@ -530,6 +530,27 @@ def test_math_descriptions_cover_common_library_families():
     )
 
 
+def test_hld_documents_direction_subtree_and_per_call_complexity():
+    module = module_by_path(load_catalog(), "library_codex.tree.HeavyLightDecomposition")
+    cls = next(item for item in module["classes"] if item["name"] == "HeavyLightDecomposition")
+    methods = {item["name"]: item for item in cls["methods"]}
+    expected = {
+        "lca": "O(log N)", "dist": "O(log N)",
+        "kth_ancestor": "O(log N)", "jump": "O(log N)",
+        "next_on_path": "O(log N)",
+        "vertices_on_path": "O(K log N)。Kは返す頂点数",
+        "subtree": "O(1)", "path": "O(log N)",
+        "path_ordered": "O(log N)", "index": "O(1)", "vertex": "O(1)",
+    }
+    assert cls["constructorComplexity"].startswith("O(N)")
+    assert {name: item["complexity"] for name, item in methods.items()} == expected
+    assert methods["path_ordered"]["returnFormat"] == "list[tuple[int, int, bool]]"
+    assert "r-1からl" in methods["path_ordered"]["returnDescription"]
+    assert methods["subtree"]["returnFormat"] == "tuple[int, int]"
+    assert "[tin[v]+1, tout[v])" in methods["subtree"]["returnDescription"]
+    assert "seg.apply(l, r, delta)" in module["article"]["markdown"]
+
+
 def test_same_named_apis_keep_module_specific_meanings():
     data = load_catalog()
 

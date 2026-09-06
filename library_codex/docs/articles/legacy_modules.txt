@@ -322,7 +322,6 @@ tree/DSUOnTree
 tree/DynamicDiameter
 tree/DynamicRerooting
 tree/EulerTour
-tree/HeavyLightDecomposition
 tree/InclusionTree
 tree/IncrementalForest
 tree/LCA

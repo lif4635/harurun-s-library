@@ -104,6 +104,37 @@ def test_long_path_without_recursion():
     assert hld.subtree(n // 2) == (n // 2, n)
 
 
+def test_documented_subtree_and_direction_examples():
+    from library_codex.segment_tree.LazySegTree import LazySegTree
+
+    hld = HLD([[1, 2], [0, 3, 4], [0], [1], [1]])
+    values = [10, 20, 30, 40, 50]
+    ordered = [values[v] for v in hld.rev]
+    assert ordered == [10, 20, 40, 50, 30]
+    assert hld.subtree(1) == (1, 4)
+    assert hld.subtree(1, edge=True) == (2, 4)
+    assert hld.path_ordered(3, 2) == [(0, 3, True), (4, 5, False)]
+    assert restore(hld, hld.path_ordered(3, 2)) == [3, 1, 0, 2]
+    seg = LazySegTree(
+        lambda a, b: a + b, 0,
+        lambda delta, value, length: value + delta * length,
+        lambda new, old: new + old, 0, ordered,
+    )
+    l, r = hld.subtree(1)
+    seg.apply(l, r, 5)
+    assert [seg.get(hld.index(v)) for v in range(5)] == [10, 25, 30, 45, 55]
+    for l, r, reverse in hld.path_ordered(3, 2, edge=True):
+        vertices = hld.rev[l:r]
+        if reverse:
+            vertices.reverse()
+        for v in vertices:
+            start, end = (v, hld.parent[v]) if reverse else (hld.parent[v], v)
+            assert (start, end) in [(3, 1), (1, 0), (0, 2)]
+    assert hld.path_ordered(1, 1, edge=True) == []
+    l, r = hld.subtree(3, edge=True)
+    assert l == r
+
+
 if __name__ == "__main__":
     random.seed(0)
     test_random()

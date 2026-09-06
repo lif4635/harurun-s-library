@@ -153,7 +153,7 @@
 | `string/Trie.py` | dict/固定alphabet対応Trie（重複・prefix件数・ID保持） | 追加・検索 $O(L)$ |
 | `string/WildcardPatternMatching.py` | 両側wildcard対応の決定的pattern matching | $O(KN\log N)$、$1\le K\le3$ |
 | `string/ZAlgorithm.py` | 空列・任意sequence対応Z Algorithm | $O(N)$ |
-| `tree/HeavyLightDecomposition.py` | Heavy-Light Decomposition（非再帰） | 構築 $O(N)$、LCA・パス分解 $O(\log N)$ |
+| `tree/HeavyLightDecomposition.py` | 木のパスと部分木を配列上の区間に変換する | 構築 $O(N)$、パス分解 $O(\log N)$、部分木区間 $O(1)$ |
 | `tree/LinkCutTree.py` | Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和） | 各操作 amortized $O(\log N)$ |
 | `tree/PruferCode.py` | Prüfer列の線形encode/decode（標準・拡張形式） | $O(N)$ |
 | `tree/StaticTopTree.py` | 辺/頂点cluster Static Top Tree・動的tree DP・reroot DP | 構築 $O(N\log N)$、更新 $O(\log N)$ |
