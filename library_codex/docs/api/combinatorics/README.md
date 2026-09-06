@@ -14,7 +14,9 @@
 | [`FloatBinomial`](FloatBinomial.md) | 浮動小数点数で二項係数を逐次計算する。 | 0 | 1 | 4 |
 | [`GrayCode`](GrayCode.md) | 整数とGray codeを相互変換する。 | 3 | 0 | 0 |
 | [`IntegerPartitions`](IntegerPartitions.md) | 加法的整数分割の列挙 | 2 | 0 | 0 |
+| [`Langford`](Langford.md) | 通常・穴ありLangford列の構築 | 1 | 0 | 0 |
 | [`PisanoPeriod`](PisanoPeriod.md) | Fibonacci数列を法としたときの周期を求める。 | 2 | 0 | 0 |
 | [`QBinomial`](QBinomial.md) | q二項係数を計算する。 | 0 | 1 | 1 |
 | [`RationalBinomial`](RationalBinomial.md) | 有理数として二項係数を正確に計算する。 | 0 | 1 | 7 |
 | [`SetPartitions`](SetPartitions.md) | 有限列の集合分割を重複なく列挙する。 | 1 | 0 | 0 |
+| [`Skolem`](Skolem.md) | 通常・穴ありSkolem列の構築 | 1 | 0 | 0 |

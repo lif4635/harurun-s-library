@@ -5595,3 +5595,45 @@ COMPLEXITY_BY_MODULE["tree/HeavyLightDecomposition.py"] = {
     "index": "O(1)",
     "vertex": "O(1)",
 }
+
+MODULE_CAPABILITIES.update({
+    "combinatorics/Langford.py": (
+        "1からnを2回ずつ並べ、二つのkの間にk位置を挟む列をO(n)で構築する。",
+        "通常版が存在しないnでも、末尾から2番目を穴にするhooked版を構築できる。",
+    ),
+    "combinatorics/Skolem.py": (
+        "1からnを2回ずつ並べ、二つのkの出現位置の差がkとなる列をO(n)で構築する。",
+        "通常版に加え、末尾から2番目に一つだけ穴を置くhooked版を扱う。",
+    ),
+})
+
+SEARCH_TERMS_BY_MODULE.update({
+    "combinatorics/Langford.py": ("ラングフォード", "穴あき", "hooked Langford"),
+    "combinatorics/Skolem.py": ("スコーレム", "穴あき", "hooked Skolem"),
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("combinatorics/Langford.py", None, "langford"): {
+        "description": "1からnを2回ずつ配置し、二つのkの出現位置i < jが$j-i=k+1$となる列を一つ作る。",
+        "argumentDescriptions": {
+            "n": "使う最大の数。非負整数。",
+            "hooked": "Trueなら末尾から2番目に穴を置く。Falseなら穴なし。自動切替ではない。",
+        },
+        "returnFormat": "list[int] | None",
+        "returnDescription": "1からnを各2回含むリスト。通常版は長さ2nで、n mod 4が0または3のとき存在する。穴あり版は長さ2n+1で、n mod 4が1または2のとき存在し、result[2*n-1]だけが0になる。穴も距離に数える。指定した種類が存在しなければNone。n=0は通常版なら[]、穴あり版ならNone。",
+    },
+    ("combinatorics/Skolem.py", None, "skolem"): {
+        "description": "1からnを2回ずつ配置し、二つのkの出現位置i < jが$j-i=k$となる列を一つ作る。",
+        "argumentDescriptions": {
+            "n": "使う最大の数。非負整数。",
+            "hooked": "Trueなら末尾から2番目に穴を置く。Falseなら穴なし。自動切替ではない。",
+        },
+        "returnFormat": "list[int] | None",
+        "returnDescription": "1からnを各2回含むリスト。通常版は長さ2nで、n mod 4が0または1のとき存在する。穴あり版は長さ2n+1で、n mod 4が2または3のとき存在し、result[2*n-1]だけが0になる。穴も距離に数える。指定した種類が存在しなければNone。n=0は通常版なら[]、穴あり版ならNone。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "combinatorics/Langford.py": {"langford": "O(n) 時間・領域。存在しない場合はO(1)"},
+    "combinatorics/Skolem.py": {"skolem": "O(n) 時間・領域。存在しない場合はO(1)"},
+})

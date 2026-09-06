@@ -60,6 +60,8 @@
 | `combinatorics/IntegerPartitions.py` | 加法的整数分割の列挙 | 出力サイズに線形 |
 | `algorithm/IntegerUtilities.py` | 非負整数の整数n乗根 | degree固定で $O(\log B)$ 回の多倍長整数演算（$B$ はbit長） |
 | `combinatorics/ErdosGinzburgZiv.py` | Erdős–Ginzburg–Ziv定理の部分列構成 | $O(N^2)$ bit演算 |
+| `combinatorics/Langford.py` | 通常・穴ありLangford列の構築 | $O(N)$ |
+| `combinatorics/Skolem.py` | 通常・穴ありSkolem列の構築 | $O(N)$ |
 | `algorithm/ModularProgression.py` | mod付き等差数列の通常等差run分割 | $O(\sqrt N + R)$ |
 | `arithmetic_convolution/ArithmeticConvolution.py` | 約数/倍数zeta--Möbius・GCD/LCM畳み込み | $O(N\log\log N)$ |
 | `fps/FormalPowerSeries.py` | FPS四則演算・inv/log/exp/pow・Taylor shift・一括積 | 主要演算 $O(N\log N)$ |

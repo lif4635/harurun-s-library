@@ -23,6 +23,46 @@ def module_by_path(data, module_path):
     return next(module for module in data["modules"] if module["modulePath"] == module_path)
 
 
+@pytest.mark.parametrize("module_name, function_name, offset", [
+    ("Langford", "langford", 1),
+    ("Skolem", "skolem", 0),
+])
+def test_pairing_catalog_and_standalone(module_name, function_name, offset, tmp_path):
+    module = module_by_path(load_catalog(), "library_codex.combinatorics." + module_name)
+    assert [item["name"] for item in module["functions"]] == [function_name]
+    symbol = module["functions"][0]
+    assert symbol["signature"] == function_name + "(n, hooked=False)"
+    assert symbol["returnFormat"] == "list[int] | None"
+    assert "穴も距離に数える" in symbol["returnDescription"]
+    assert symbol["complexity"].startswith("O(n)")
+    assert "## 構築方法" in module["article"]["markdown"]
+    assert module["bundledDependencies"] == (
+        ["library_codex.combinatorics.Langford"] if offset == 0 else []
+    )
+    code = module["standaloneCode"] + f"""
+for n in range(1, 100):
+    for hooked in (False, True):
+        result = {function_name}(n, hooked)
+        expected = n % 4 in ((1, 2) if hooked else (0, 3)) if {offset} else n % 4 in ((2, 3) if hooked else (0, 1))
+        assert (result is not None) == expected
+        if result is None:
+            continue
+        assert len(result) == 2*n + hooked
+        positions = [[] for _ in range(n+1)]
+        for i, value in enumerate(result):
+            positions[value].append(i)
+        assert positions[0] == ([2*n-1] if hooked else [])
+        for k in range(1, n+1):
+            assert len(positions[k]) == 2
+            assert positions[k][1] - positions[k][0] == k + {offset}
+"""
+    result = subprocess.run(
+        [sys.executable, "-I", "-c", code], cwd=tmp_path,
+        text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+    )
+    assert result.returncode == 0, result.stdout
+
+
 def test_library_catalog_is_current():
     result = subprocess.run(
         [sys.executable, str(SCRIPT), "--check"],

@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-06T20:51:48+00:00",
+  "generatedAt": "2026-09-06T21:13:49+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "5f0abfd2907f837937909f73fe4d78d043df10a6928346f8db28128aa9acfe48",
-  "inputStamp": "08b38e180d4234b4d5d08e6c13d4aa6119f855ace84a5211036f5c47a0e48a34",
+  "sourceFingerprint": "58f9e00c86cc23919d15035137ff3354ae9183147296a3097a021ae8d21a6e03",
+  "inputStamp": "da1d85aacb7febed245d15d18343c10444ebaaa3bb79c4ec24dd1aad0e577881",
   "generatorFingerprint": "efb9defc7edaeb4adee6db7f8e62121aaab3ed563ffe0ef59c03bffd3c375886",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 360,
-    "articles": 11,
-    "functions": 501,
+    "modules": 362,
+    "articles": 13,
+    "functions": 503,
     "classes": 222,
     "methods": 1379,
     "tests": 617
@@ -251,8 +251,8 @@
       "label": "組合せ",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 13,
-      "functions": 16,
+      "modules": 15,
+      "functions": 18,
       "classes": 9,
       "methods": 29
     },
@@ -411,7 +411,7 @@
     {
       "slug": "math",
       "label": "Math",
-      "modules": 50
+      "modules": 52
     },
     {
       "slug": "tree",
@@ -43729,6 +43729,76 @@
       "categoryLabel": "組合せ",
       "domain": "math",
       "domainLabel": "Math",
+      "name": "Langford",
+      "modulePath": "library_codex.combinatorics.Langford",
+      "summary": "通常・穴ありLangford列の構築。",
+      "capabilities": [
+        "1からnを2回ずつ並べ、二つのkの間にk位置を挟む列をO(n)で構築する。",
+        "通常版が存在しないnでも、末尾から2番目を穴にするhooked版を構築できる。"
+      ],
+      "article": {
+        "title": "同じ数の間に指定個数を挟む列を作る",
+        "markdown": "## 主な機能\n\n1から$n$までを2回ずつ並べ、二つの$k$の間にちょうど$k$個の位置を挟む列を作る。二つの出現位置を$i<j$とすると、$j-i=k+1$になる。\n\n- `langford(n, hooked=False)` — 条件を満たす列を一つ、O(n)時間・領域で構築する。探索や再帰は使わない。\n\n| 指定 | 構築できる$n \\bmod 4$ | 長さ | 穴 |\n| --- | --- | --- | --- |\n| `hooked=False` | 0, 3 | $2n$ | なし |\n| `hooked=True` | 1, 2 | $2n+1$ | 末尾から2番目 |\n\n通常版が作れない$n$では、`hooked=True`で穴を一つ設ければ構築できる。\n\n## 使い方\n\n```python\nfrom library_codex.combinatorics.Langford import langford\n\na = langford(3)\nb = langford(2, hooked=True)\n```\n\n- `a`は`[2, 3, 1, 2, 1, 3]`。二つの1の間には1個、2の間には2個、3の間には3個の要素がある。\n- `b`は`[1, 2, 1, 0, 2]`。0が穴を表す。二つの2の間には、1と穴の計2位置がある。\n\n## 返り値\n\n- 成功時は`list[int]`。1から$n$がそれぞれ2回現れる。\n- 穴ありでは`result[2*n-1]`だけが0。穴も距離に数えるため、0を取り除いてはいけない。\n- 指定した種類の列が存在しない場合は`None`。たとえば`langford(2)`や`langford(3, hooked=True)`。\n\n## 注意点\n\n- `hooked`は穴あり版を選ぶ指定で、通常版との自動切替ではない。穴の位置は固定。\n- `n=0`は通常版なら`[]`、穴あり版なら`None`。負の`n`は`ValueError`。\n- 返すのは決定的な一例。辞書順最小・一様ランダム・全列挙・個数の計算は行わない。\n- 出現位置の差を$k$にしたい場合は`Skolem.py`の`skolem`を使う。\n\n## 構築方法と参考文献\n\n通常版は[Counting Skolem Sequences](https://dialectrix.com/langford/Assarpour-Liu/skolem.notes.pdf)のTable 2にあるDaviesの構築を使い、等差数列のブロックを連結する。\n\n穴あり版は[Cyclic, Simple and Indecomposable Three-fold Triple Systems](https://arxiv.org/abs/1404.0528)のLemma 3.3、Table 3・4の位置公式を使う。先頭が二つの1となる位数$n+1$のhooked Skolem列から、先頭2要素を除いて正の値を1ずつ減らすと、必要なLangford列になる。実装では変換後の位置へ直接書き込む。小さい$n=1,2,5,6$は具体例を使う。",
+        "sourcePath": "library_codex/docs/articles/combinatorics/Langford.md"
+      },
+      "searchTerms": [
+        "Langford",
+        "library_codex.combinatorics.Langford",
+        "library codex combinatorics Langford",
+        "combinatorics/Langford.py",
+        "組合せ",
+        "ラングフォード",
+        "穴あき",
+        "hooked Langford"
+      ],
+      "complexity": "O(N)",
+      "sourcePath": "library_codex/combinatorics/Langford.py",
+      "inputFingerprint": "19ffcdc849c9114614565232b5e8b4f5c3ad6f006306997bc2adef15fc277b77",
+      "importCode": "from library_codex.combinatorics.Langford import langford",
+      "sourceCode": "def langford(n, hooked=False):\n    if not isinstance(n, int):\n        raise TypeError(\"n must be an integer\")\n    if n < 0:\n        raise ValueError(\"n must be nonnegative\")\n    if not isinstance(hooked, bool):\n        raise TypeError(\"hooked must be a bool\")\n    if hooked:\n        if n % 4 not in (1, 2):\n            return None\n        if n == 1:\n            return [1, 0, 1]\n        if n == 2:\n            return [1, 2, 1, 0, 2]\n        if n == 5:\n            return [2, 3, 4, 2, 5, 3, 1, 4, 1, 0, 5]\n        if n == 6:\n            return [5, 6, 2, 3, 4, 2, 5, 3, 6, 4, 1, 0, 1]\n        r = (n - 1) // 4\n        if n % 4 == 1:\n            blocks = (\n                (2*r, 2*r+4, r-2),\n                (r+2, 3*r+3, r),\n                (6*r+1, 6*r+4, r-1),\n                (5*r+2, 7*r+4, r-1),\n                (2*r+3, 4*r+3, 1),\n                (3*r+2, 7*r+3, 1),\n                (2*r+1, 6*r+3, 1),\n                (2*r+2, 6*r+2, 1),\n            )\n        else:\n            blocks = (\n                (2*r+2, 2*r+6, r-1),\n                (r+2, 3*r+5, r-1),\n                (3, 4*r+4, 1),\n                (2*r+4, 4*r+5, 1),\n                (r+3, 5*r+5, 1),\n                (2*r+5, 6*r+5, 1),\n                (2*r+3, 6*r+6, 1),\n                (6*r+4, 6*r+7, r-1),\n                (5*r+4, 7*r+6, r-1),\n            )\n        result = [0] * (2*n+1)\n        for a, b, count in blocks:\n            for j in range(count):\n                result[a-j-3] = result[b+j-3] = b-a+2*j-1\n        result[-3] = result[-1] = 1\n        return result\n    if n % 4 not in (0, 3):\n        return None\n    if n == 0:\n        return []\n    if n == 3:\n        return [2, 3, 1, 2, 1, 3]\n    if n == 4:\n        return [2, 3, 4, 2, 1, 3, 1, 4]\n    k = (n + 1) // 4\n    result = list(range(4*k-4, 2*k-1, -2))\n    result.append(4*k-2)\n    result.extend(range(2*k-3, 0, -2))\n    result.append(4*k-1)\n    result.extend(range(1, 2*k-2, 2))\n    result.extend(range(2*k, 4*k-3, 2))\n    result.append(4*k if n % 4 == 0 else 2*k-1)\n    result.extend(range(4*k-3, 2*k, -2))\n    result.append(4*k-2)\n    result.extend(range(2*k-2, 1, -2))\n    result.extend((2*k-1, 4*k-1))\n    result.extend(range(2, 2*k-1, 2))\n    result.extend(range(2*k+1, 4*k-2, 2))\n    if n % 4 == 0:\n        result.extend((2*k-1, 4*k))\n    return result\n",
+      "standaloneCode": "def langford(n, hooked=False):\n    if not isinstance(n, int):\n        raise TypeError(\"n must be an integer\")\n    if n < 0:\n        raise ValueError(\"n must be nonnegative\")\n    if not isinstance(hooked, bool):\n        raise TypeError(\"hooked must be a bool\")\n    if hooked:\n        if n % 4 not in (1, 2):\n            return None\n        if n == 1:\n            return [1, 0, 1]\n        if n == 2:\n            return [1, 2, 1, 0, 2]\n        if n == 5:\n            return [2, 3, 4, 2, 5, 3, 1, 4, 1, 0, 5]\n        if n == 6:\n            return [5, 6, 2, 3, 4, 2, 5, 3, 6, 4, 1, 0, 1]\n        r = (n - 1) // 4\n        if n % 4 == 1:\n            blocks = (\n                (2*r, 2*r+4, r-2),\n                (r+2, 3*r+3, r),\n                (6*r+1, 6*r+4, r-1),\n                (5*r+2, 7*r+4, r-1),\n                (2*r+3, 4*r+3, 1),\n                (3*r+2, 7*r+3, 1),\n                (2*r+1, 6*r+3, 1),\n                (2*r+2, 6*r+2, 1),\n            )\n        else:\n            blocks = (\n                (2*r+2, 2*r+6, r-1),\n                (r+2, 3*r+5, r-1),\n                (3, 4*r+4, 1),\n                (2*r+4, 4*r+5, 1),\n                (r+3, 5*r+5, 1),\n                (2*r+5, 6*r+5, 1),\n                (2*r+3, 6*r+6, 1),\n                (6*r+4, 6*r+7, r-1),\n                (5*r+4, 7*r+6, r-1),\n            )\n        result = [0] * (2*n+1)\n        for a, b, count in blocks:\n            for j in range(count):\n                result[a-j-3] = result[b+j-3] = b-a+2*j-1\n        result[-3] = result[-1] = 1\n        return result\n    if n % 4 not in (0, 3):\n        return None\n    if n == 0:\n        return []\n    if n == 3:\n        return [2, 3, 1, 2, 1, 3]\n    if n == 4:\n        return [2, 3, 4, 2, 1, 3, 1, 4]\n    k = (n + 1) // 4\n    result = list(range(4*k-4, 2*k-1, -2))\n    result.append(4*k-2)\n    result.extend(range(2*k-3, 0, -2))\n    result.append(4*k-1)\n    result.extend(range(1, 2*k-2, 2))\n    result.extend(range(2*k, 4*k-3, 2))\n    result.append(4*k if n % 4 == 0 else 2*k-1)\n    result.extend(range(4*k-3, 2*k, -2))\n    result.append(4*k-2)\n    result.extend(range(2*k-2, 1, -2))\n    result.extend((2*k-1, 4*k-1))\n    result.extend(range(2, 2*k-1, 2))\n    result.extend(range(2*k+1, 4*k-2, 2))\n    if n % 4 == 0:\n        result.extend((2*k-1, 4*k))\n    return result\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "langford",
+          "kind": "function",
+          "signature": "langford(n, hooked=False)",
+          "summary": "1からnを2回ずつ配置し、二つのkの出現位置i < jが$j-i=k+1$となる列を一つ作る。",
+          "description": "1からnを2回ずつ配置し、二つのkの出現位置i < jが$j-i=k+1$となる列を一つ作る。",
+          "searchTerms": [
+            "langford",
+            "langford(n, hooked=False)"
+          ],
+          "arguments": "n: 使う最大の数。非負整数。 · hooked: Trueなら末尾から2番目に穴を置く。Falseなら穴なし。自動切替ではない。",
+          "argumentDetails": [
+            {
+              "name": "n",
+              "description": "使う最大の数。非負整数。"
+            },
+            {
+              "name": "hooked",
+              "description": "Trueなら末尾から2番目に穴を置く。Falseなら穴なし。自動切替ではない。"
+            }
+          ],
+          "returns": "list[int] | None — 1からnを各2回含むリスト。通常版は長さ2nで、n mod 4が0または3のとき存在する。穴あり版は長さ2n+1で、n mod 4が1または2のとき存在し、result[2*n-1]だけが0になる。穴も距離に数える。指定した種類が存在しなければNone。n=0は通常版なら[]、穴あり版ならNone。",
+          "returnFormat": "list[int] | None",
+          "returnDescription": "1からnを各2回含むリスト。通常版は長さ2nで、n mod 4が0または3のとき存在する。穴あり版は長さ2n+1で、n mod 4が1または2のとき存在し、result[2*n-1]だけが0になる。穴も距離に数える。指定した種類が存在しなければNone。n=0は通常版なら[]、穴あり版ならNone。",
+          "complexity": "O(n) 時間・領域。存在しない場合はO(1)",
+          "sourceLine": 1
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "combinatorics",
+      "categoryLabel": "組合せ",
+      "domain": "math",
+      "domainLabel": "Math",
       "name": "PisanoPeriod",
       "modulePath": "library_codex.combinatorics.PisanoPeriod",
       "summary": "Fibonacci数列を法としたときの周期を求める。",
@@ -44199,6 +44269,78 @@
           "returnFormat": "Iterator[list[list[object]]]",
           "returnDescription": "集合分割を1件ずつ生成するiterator。各結果はblockのlistで、各blockは元のvalues内の順序を保つ。blockの並びは最初に現れる要素の位置順に正規化される。",
           "complexity": "全分割ではO(B_N * N) time、O(N) working memory（B_NはBell数、出力を除く）",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "combinatorics",
+      "categoryLabel": "組合せ",
+      "domain": "math",
+      "domainLabel": "Math",
+      "name": "Skolem",
+      "modulePath": "library_codex.combinatorics.Skolem",
+      "summary": "通常・穴ありSkolem列の構築。",
+      "capabilities": [
+        "1からnを2回ずつ並べ、二つのkの出現位置の差がkとなる列をO(n)で構築する。",
+        "通常版に加え、末尾から2番目に一つだけ穴を置くhooked版を扱う。"
+      ],
+      "article": {
+        "title": "二つのkを距離kで配置する",
+        "markdown": "## 主な機能\n\n1から$n$までを2回ずつ並べ、二つの$k$の出現位置$i<j$が$j-i=k$を満たす列を作る。たとえば二つの1は隣り合い、二つの2は1位置を挟む。\n\n- `skolem(n, hooked=False)` — Skolem列を一つ、O(n)時間・領域で構築する。\n\n| 指定 | 構築できる$n \\bmod 4$ | 長さ | 穴 |\n| --- | --- | --- | --- |\n| `hooked=False` | 0, 1 | $2n$ | なし |\n| `hooked=True` | 2, 3 | $2n+1$ | 末尾から2番目 |\n\n## 使い方\n\n```python\nfrom library_codex.combinatorics.Skolem import skolem\n\na = skolem(4)\nb = skolem(2, hooked=True)\n```\n\n- `a`は`[1, 1, 3, 4, 2, 3, 2, 4]`。3は位置2と5にあり、その差が3になる。\n- `b`は`[1, 1, 2, 0, 2]`。0は穴。二つの2の位置の差は、穴を含めて2になる。\n\n## 返り値\n\n- 成功時は`list[int]`。1から$n$がそれぞれ2回現れる。\n- 穴ありでは`result[2*n-1]`だけが0。0を取り除くと距離条件が崩れる。\n- 指定した種類の列が存在しない場合は`None`。\n\n## 注意点\n\n- `hooked`による自動切替はしない。穴の位置は固定。\n- `n=0`は通常版なら`[]`、穴あり版なら`None`。負の`n`は`ValueError`。\n- 返すのは決定的な一例。辞書順最小や一様ランダムな列ではない。\n- 間に挟む位置数を$k$にしたい場合は、出現位置の差が$k+1$となる`langford`を使う。\n\n## 構築方法\n\n位数$n-1$のLangford列の正の値を1ずつ増やし、先頭に`[1, 1]`を置く。元の値$k$の位置の差$k+1$が、新しい値に一致する。穴は0のまま残す。同じ変換を通常版・穴あり版に使う。\n\n構築の出典は[Langfordの記事](https://haruruns-library.star-mido-322.chatgpt.site/library/combinatorics/Langford)にまとめている。提出用コードには、依存する`langford`も含まれる。",
+        "sourcePath": "library_codex/docs/articles/combinatorics/Skolem.md"
+      },
+      "searchTerms": [
+        "Skolem",
+        "library_codex.combinatorics.Skolem",
+        "library codex combinatorics Skolem",
+        "combinatorics/Skolem.py",
+        "組合せ",
+        "スコーレム",
+        "穴あき",
+        "hooked Skolem"
+      ],
+      "complexity": "O(N)",
+      "sourcePath": "library_codex/combinatorics/Skolem.py",
+      "inputFingerprint": "0f1fcd1da0c8dd235fbcc301d6c1e88ff77158b90a189b2386871b29bad78cad",
+      "importCode": "from library_codex.combinatorics.Skolem import skolem",
+      "sourceCode": "from library_codex.combinatorics.Langford import langford\n\n\ndef skolem(n, hooked=False):\n    if not isinstance(n, int):\n        raise TypeError(\"n must be an integer\")\n    if n < 0:\n        raise ValueError(\"n must be nonnegative\")\n    if not isinstance(hooked, bool):\n        raise TypeError(\"hooked must be a bool\")\n    if n == 0:\n        return None if hooked else []\n    result = langford(n - 1, hooked)\n    if result is None:\n        return None\n    return [1, 1] + [value + 1 if value else 0 for value in result]\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: combinatorics/Langford.py\ndef langford(n, hooked=False):\n    if not isinstance(n, int):\n        raise TypeError('n must be an integer')\n    if n < 0:\n        raise ValueError('n must be nonnegative')\n    if not isinstance(hooked, bool):\n        raise TypeError('hooked must be a bool')\n    if hooked:\n        if n % 4 not in (1, 2):\n            return None\n        if n == 1:\n            return [1, 0, 1]\n        if n == 2:\n            return [1, 2, 1, 0, 2]\n        if n == 5:\n            return [2, 3, 4, 2, 5, 3, 1, 4, 1, 0, 5]\n        if n == 6:\n            return [5, 6, 2, 3, 4, 2, 5, 3, 6, 4, 1, 0, 1]\n        r = (n - 1) // 4\n        if n % 4 == 1:\n            blocks = ((2 * r, 2 * r + 4, r - 2), (r + 2, 3 * r + 3, r), (6 * r + 1, 6 * r + 4, r - 1), (5 * r + 2, 7 * r + 4, r - 1), (2 * r + 3, 4 * r + 3, 1), (3 * r + 2, 7 * r + 3, 1), (2 * r + 1, 6 * r + 3, 1), (2 * r + 2, 6 * r + 2, 1))\n        else:\n            blocks = ((2 * r + 2, 2 * r + 6, r - 1), (r + 2, 3 * r + 5, r - 1), (3, 4 * r + 4, 1), (2 * r + 4, 4 * r + 5, 1), (r + 3, 5 * r + 5, 1), (2 * r + 5, 6 * r + 5, 1), (2 * r + 3, 6 * r + 6, 1), (6 * r + 4, 6 * r + 7, r - 1), (5 * r + 4, 7 * r + 6, r - 1))\n        result = [0] * (2 * n + 1)\n        for (a, b, count) in blocks:\n            for j in range(count):\n                result[a - j - 3] = result[b + j - 3] = b - a + 2 * j - 1\n        result[-3] = result[-1] = 1\n        return result\n    if n % 4 not in (0, 3):\n        return None\n    if n == 0:\n        return []\n    if n == 3:\n        return [2, 3, 1, 2, 1, 3]\n    if n == 4:\n        return [2, 3, 4, 2, 1, 3, 1, 4]\n    k = (n + 1) // 4\n    result = list(range(4 * k - 4, 2 * k - 1, -2))\n    result.append(4 * k - 2)\n    result.extend(range(2 * k - 3, 0, -2))\n    result.append(4 * k - 1)\n    result.extend(range(1, 2 * k - 2, 2))\n    result.extend(range(2 * k, 4 * k - 3, 2))\n    result.append(4 * k if n % 4 == 0 else 2 * k - 1)\n    result.extend(range(4 * k - 3, 2 * k, -2))\n    result.append(4 * k - 2)\n    result.extend(range(2 * k - 2, 1, -2))\n    result.extend((2 * k - 1, 4 * k - 1))\n    result.extend(range(2, 2 * k - 1, 2))\n    result.extend(range(2 * k + 1, 4 * k - 2, 2))\n    if n % 4 == 0:\n        result.extend((2 * k - 1, 4 * k))\n    return result\n\n# 本体\ndef skolem(n, hooked=False):\n    if not isinstance(n, int):\n        raise TypeError('n must be an integer')\n    if n < 0:\n        raise ValueError('n must be nonnegative')\n    if not isinstance(hooked, bool):\n        raise TypeError('hooked must be a bool')\n    if n == 0:\n        return None if hooked else []\n    result = langford(n - 1, hooked)\n    if result is None:\n        return None\n    return [1, 1] + [value + 1 if value else 0 for value in result]\n",
+      "bundledDependencies": [
+        "library_codex.combinatorics.Langford"
+      ],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "skolem",
+          "kind": "function",
+          "signature": "skolem(n, hooked=False)",
+          "summary": "1からnを2回ずつ配置し、二つのkの出現位置i < jが$j-i=k$となる列を一つ作る。",
+          "description": "1からnを2回ずつ配置し、二つのkの出現位置i < jが$j-i=k$となる列を一つ作る。",
+          "searchTerms": [
+            "skolem",
+            "skolem(n, hooked=False)"
+          ],
+          "arguments": "n: 使う最大の数。非負整数。 · hooked: Trueなら末尾から2番目に穴を置く。Falseなら穴なし。自動切替ではない。",
+          "argumentDetails": [
+            {
+              "name": "n",
+              "description": "使う最大の数。非負整数。"
+            },
+            {
+              "name": "hooked",
+              "description": "Trueなら末尾から2番目に穴を置く。Falseなら穴なし。自動切替ではない。"
+            }
+          ],
+          "returns": "list[int] | None — 1からnを各2回含むリスト。通常版は長さ2nで、n mod 4が0または1のとき存在する。穴あり版は長さ2n+1で、n mod 4が2または3のとき存在し、result[2*n-1]だけが0になる。穴も距離に数える。指定した種類が存在しなければNone。n=0は通常版なら[]、穴あり版ならNone。",
+          "returnFormat": "list[int] | None",
+          "returnDescription": "1からnを各2回含むリスト。通常版は長さ2nで、n mod 4が0または1のとき存在する。穴あり版は長さ2n+1で、n mod 4が2または3のとき存在し、result[2*n-1]だけが0になる。穴も距離に数える。指定した種類が存在しなければNone。n=0は通常版なら[]、穴あり版ならNone。",
+          "complexity": "O(n) 時間・領域。存在しない場合はO(1)",
           "sourceLine": 4
         }
       ],
