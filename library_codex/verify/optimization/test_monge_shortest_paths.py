@@ -129,3 +129,33 @@ def test_catalog_and_standalone(tmp_path):
     script = tmp_path / "standalone.py"
     script.write_text(module["standaloneCode"] + "\nassert monge_d_edge_shortest_path(1000, 500, lambda i, j: (j-i)**2) == 2000\n")
     subprocess.run([sys.executable, "-I", str(script)], cwd=tmp_path, check=True, timeout=20)
+
+
+def test_golden_search_candidate_against_exhaustive():
+    from library_codex.benchmarks.monge_penalty_search import golden_maximum
+
+    for lower in range(-9, 6):
+        for upper in range(lower, 11):
+            for peak in range(lower - 1, upper + 2):
+                for width in (0, 1, 4):
+                    def value(x):
+                        assert lower <= x <= upper
+                        return -max(0, abs(x - peak) - width)
+
+                    assert golden_maximum(value, lower, upper) == max(value(x) for x in range(lower, upper + 1))
+
+
+def test_penalty_search_candidates_against_exact_edge_dp():
+    from library_codex.benchmarks.monge_penalty_search import binary_bounded, golden_bounded, golden_auto
+
+    rng = random.Random(914)
+    for n in range(1, 24):
+        for _ in range(5):
+            matrix = monge_matrix(n, rng)
+            cost = lambda i, j: matrix[i][j]
+            expected = exact_distances(n, cost)
+            bound = 2 * n * max(abs(matrix[i][j]) for i in range(n) for j in range(i + 1, n + 1)) + 1
+            for k in range(1, n + 1):
+                assert binary_bounded(n, k, cost, bound) == expected[k]
+                assert golden_bounded(n, k, cost, bound) == expected[k]
+                assert golden_auto(n, k, cost) == expected[k]
