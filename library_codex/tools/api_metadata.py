@@ -3588,7 +3588,8 @@ COMPLEXITY_BY_MODULE.update({
     },
     "optimization/MongeShortestPaths.py": {
         "monge_shortest_paths": "O(N log N) cost呼び出し",
-        "monge_d_edge_shortest_path": "O(D*(N log N)) cost呼び出し",
+        "monge_d_edge_shortest_path": "整数重み: O(N log N min(k, log(2+NW)))、integer=False: O(k N log N) 回のcost呼び出し。領域O(N)。N=target、k=edge_count、Wは辺重みの絶対値の最大値。k=1はO(1)、k=2またはNはO(N)",
+        "enumerate_monge_d_edge_shortest_paths": "O(N^2 log N) 回のcost呼び出し、O(N) 領域。N=target",
     },
     "optimization/MonotoneConvexHullTrick.py": {
         "add_line": "償却 O(1)", "query": "償却 O(1)（xが単調な場合）",
@@ -5636,4 +5637,49 @@ API_DETAILS_BY_SYMBOL.update({
 COMPLEXITY_BY_MODULE.update({
     "combinatorics/Langford.py": {"langford": "O(n) 時間・領域。存在しない場合はO(1)"},
     "combinatorics/Skolem.py": {"skolem": "O(n) 時間・領域。存在しない場合はO(1)"},
+})
+
+SEARCH_TERMS_BY_MODULE["optimization/MongeShortestPaths.py"] = (
+    "k辺最短路", "k-辺最短路", "d辺最短路", "辺数制約", "Alien trick", "Aliens trick", "WQS二分探索",
+)
+
+MODULE_CAPABILITIES["optimization/MongeShortestPaths.py"] = (
+    "Monge性を満たす重みのDAGで、辺数をちょうどk本に固定した最短距離を求める。",
+    "整数重みではペナルティ探索でk回のDPを避ける。負の重みも扱える。",
+    "辺数制約なしの各頂点への距離と、すべての辺数に対する距離も求められる。",
+)
+
+API_DETAILS_BY_SYMBOL.update({
+    ("optimization/MongeShortestPaths.py", None, "monge_shortest_paths"): {
+        "description": "頂点0から各頂点までの最短距離を、辺数を制限せずに求める。",
+        "argumentDescriptions": {
+            "target": "最後の頂点N。頂点は0からNまで。非負整数。",
+            "cost": "cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。",
+            "infinity": "既定の未到達表現。全てのi < jに有限の辺があるため、返り値の全頂点に到達できる。",
+        },
+        "returnFormat": "list[number]",
+        "returnDescription": "長さN+1のリスト。result[v]は0からvへの最短距離。result[0]=0。経路の頂点列は含まない。",
+    },
+    ("optimization/MongeShortestPaths.py", None, "monge_d_edge_shortest_path"): {
+        "description": "頂点0からtargetへ、辺をちょうどedge_count本使って到達する最小コストを求める。整数重みでは辺に共通のペナルティを加えて最適な辺数を調整する。",
+        "argumentDescriptions": {
+            "target": "最後の頂点N。頂点は0からNまで。非負整数。",
+            "edge_count": "使う辺数k。『k本以下』ではなく『ちょうどk本』。",
+            "cost": "cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。負数も可。",
+            "infinity": "指定した辺数で到達できない場合に返す値。到達可能なコストの上限ではない。",
+            "integer": "Trueでは全辺の重みがintであることが必要。FalseならfloatやFractionなどにも対応する辺数別DPを使う。",
+        },
+        "returnFormat": "number | infinity",
+        "returnDescription": "条件を満たす経路の最小コスト一つ。経路そのものは返さない。N>0では1<=k<=Nの場合に到達でき、それ以外はinfinity。N=k=0では0。",
+    },
+    ("optimization/MongeShortestPaths.py", None, "enumerate_monge_d_edge_shortest_paths"): {
+        "description": "0からtargetへの最短距離を、使用する辺数ごとにすべて求める。",
+        "argumentDescriptions": {
+            "target": "最後の頂点N。非負整数。",
+            "cost": "cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。",
+            "infinity": "0辺では到達できない場合のresult[0]。",
+        },
+        "returnFormat": "list[number]",
+        "returnDescription": "長さN+1のリスト。result[k]はちょうどk辺を使う最短距離。N>0ではresult[0]=infinity、N=0では[0]。",
+    },
 })

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-06T21:13:49+00:00",
+  "generatedAt": "2026-09-07T02:08:14+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "58f9e00c86cc23919d15035137ff3354ae9183147296a3097a021ae8d21a6e03",
-  "inputStamp": "da1d85aacb7febed245d15d18343c10444ebaaa3bb79c4ec24dd1aad0e577881",
+  "sourceFingerprint": "69ec7b2af1049f721d41a409f0b9c08b6e7bc916ff0dd853ee1b432e08d65361",
+  "inputStamp": "c964359c24e4104ad62abc5430d8a217953c55f378b87346e9f89e464addc970",
   "generatorFingerprint": "efb9defc7edaeb4adee6db7f8e62121aaab3ed563ffe0ef59c03bffd3c375886",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 362,
-    "articles": 13,
+    "articles": 14,
     "functions": 503,
     "classes": 222,
     "methods": 1379,
@@ -63509,25 +63509,36 @@
       "modulePath": "library_codex.optimization.MongeShortestPaths",
       "summary": "Monge重みを持つDAGの最短路を辺数制約付きで計算する。",
       "capabilities": [
-        "monge_shortest_paths: monge shortest pathsを求める。",
-        "monge_d_edge_shortest_path: monge d 辺 shortest 経路を求める。",
-        "enumerate_monge_d_edge_shortest_paths: monge d 辺 shortest pathsを列挙する。"
+        "Monge性を満たす重みのDAGで、辺数をちょうどk本に固定した最短距離を求める。",
+        "整数重みではペナルティ探索でk回のDPを避ける。負の重みも扱える。",
+        "辺数制約なしの各頂点への距離と、すべての辺数に対する距離も求められる。"
       ],
-      "article": null,
+      "article": {
+        "title": "辺数を固定したMonge DAGの最短路",
+        "markdown": "## 主な機能\n\n頂点 $0,1,\\ldots,N$ と、すべての $i<j$ に辺 $i\\to j$ があるDAGを扱う。辺重みは配列に展開せず、`cost(i, j)`で計算する。\n\n- `monge_d_edge_shortest_path(N, k, cost)` — 0からNまで、ちょうどk辺を使う最短距離を返す。整数重みでは `O(N log N min(k, log(2+NW)))` 回の重み計算。Wは辺重みの絶対値の最大値で、上限を渡す必要はない。\n- `monge_shortest_paths(N, cost)` — 辺数を制限せず、0から各頂点への最短距離を返す。`O(N log N)` 回の重み計算。\n- `enumerate_monge_d_edge_shortest_paths(N, cost)` — すべてのkについて最短距離を返す。`O(N^2 log N)` 回の重み計算。特定のkだけが必要なら単一問合せを使う。\n\nいずれも追加領域は `O(N)`。重み計算にTかかるなら、時間計算量にはその分を掛ける。\n\n## 使い方\n\n```python\nfrom library_codex.optimization.MongeShortestPaths import monge_d_edge_shortest_path\n\ndef cost(i, j):\n    return (j - i) ** 2\n\nanswer = monge_d_edge_shortest_path(10, 3, cost)\n```\n\n`answer`は34。たとえば $0\\to3\\to6\\to10$ と進むと $3^2+3^2+4^2=34$ になる。返るのはコスト一つで、経路の頂点列ではない。\n\n## 注意点\n\n- 重みはMonge性を満たす必要がある。すべての $a<b<c<d$ に対し、$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$ が条件。\n- 辺重みはすべて有限値。辺の削除を無限大で表した任意のDAGには、そのまま使えない。\n- 既定の `integer=True` は全辺の重みが `int` である場合の高速版。負の整数や大整数も使える。\n- 非整数の重みは `integer=False` を指定する。従来の辺数別DPで同じ問いを解き、重み計算は `O(k N log N)` 回。floatは浮動小数点演算の誤差を伴う。\n- 頂点Nまで到達できる辺数は1からN。N=k=0の場合だけ、0辺のコストが0となる。\n\n## 仕組み\n\n各辺に整数ペナルティpを加え、辺数を制限しない最短路を解く。pを増やすほど選ばれる辺数が減るため、二分探索でk辺に対応する境界を探す。同点では少ない辺数を選び、kが飛び越された場合もMonge性による辺数別最適値の凸性からコストを復元する。\n\nペナルティの範囲は倍々に広げて求める。重みが非常に大きい場合などは探索をk回で打ち切り、辺数別DPへ切り替える。すべて非再帰で処理する。\n\n## 参考\n\n- [maspypy: Monge DAGのd辺最短路](https://maspypy.github.io/library/convex/monge/monge_shortest_path_d_edge.hpp.html)",
+        "sourcePath": "library_codex/docs/articles/optimization/MongeShortestPaths.md"
+      },
       "searchTerms": [
         "MongeShortestPaths",
         "Monge Shortest Paths",
         "library_codex.optimization.MongeShortestPaths",
         "library codex optimization Monge Shortest Paths",
         "optimization/MongeShortestPaths.py",
-        "最適化・DP"
+        "最適化・DP",
+        "k辺最短路",
+        "k-辺最短路",
+        "d辺最短路",
+        "辺数制約",
+        "Alien trick",
+        "Aliens trick",
+        "WQS二分探索"
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/optimization/MongeShortestPaths.py",
-      "inputFingerprint": "2b6db686200be9a2b98ed82581e86f4c7f34d387b7f988f691c081487d2f999a",
+      "inputFingerprint": "96f35e73810cdcb3500c92b18511328827e588622d29d182444e803339a07a21",
       "importCode": "from library_codex.optimization.MongeShortestPaths import monge_shortest_paths, monge_d_edge_shortest_path, enumerate_monge_d_edge_shortest_paths",
-      "sourceCode": "\"\"\"Monge重みを持つDAGの最短路を辺数制約付きで計算する。\"\"\"\n\nfrom library_codex.optimization.MonotoneMinima import monotone_minima\n\ndef monge_shortest_paths(target, cost, infinity=10 ** 100):\n    \"\"\"Distances from 0 to every vertex 0..target in a complete Monge DAG.\"\"\"\n    if target < 0:\n        raise ValueError(\"target must be nonnegative\")\n    distance = [infinity] * (target + 1)\n    predecessor = [0] * (target + 1)\n    distance[0] = 0\n\n    def check(first, second):\n        if first >= second:\n            return\n        candidate = distance[first] + cost(first, second)\n        if candidate < distance[second]:\n            distance[second] = candidate\n            predecessor[second] = first\n\n    if target:\n        check(0, target)\n    stack = [(0, target, 0)]\n    while stack:\n        left, right, phase = stack.pop()\n        if left + 1 >= right:\n            continue\n        middle = (left + right) >> 1\n        if phase == 0:\n            for source in range(predecessor[left], predecessor[right] + 1):\n                check(source, middle)\n            stack.append((left, right, 1))\n            stack.append((left, middle, 0))\n        else:\n            for source in range(left + 1, middle + 1):\n                check(source, right)\n            stack.append((middle, right, 0))\n    return distance\n\ndef _monge_layer(previous, target, cost, infinity):\n    def value(destination, source):\n        if source >= destination or previous[source] == infinity:\n            return infinity\n        return previous[source] + cost(source, destination)\n\n    indices = monotone_minima(target + 1, target + 1, value=value)\n    result = [infinity] * (target + 1)\n    for destination in range(1, target + 1):\n        source = indices[destination]\n        if source < destination and previous[source] != infinity:\n            result[destination] = previous[source] + cost(source, destination)\n    return result\n\ndef monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100):\n    if not 0 <= edge_count <= target:\n        return infinity\n    distance = [infinity] * (target + 1)\n    distance[0] = 0\n    for _ in range(edge_count):\n        distance = _monge_layer(distance, target, cost, infinity)\n    return distance[target]\n\ndef enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100):\n    answer = [infinity] * (target + 1)\n    if target == 0:\n        answer[0] = 0\n        return answer\n    distance = [infinity] * (target + 1)\n    distance[0] = 0\n    for edges in range(1, target + 1):\n        distance = _monge_layer(distance, target, cost, infinity)\n        answer[edges] = distance[target]\n    return answer\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: optimization/MonotoneMinima.py\n\"\"\"Monge性を持つ行列の各行最小位置を高速に求める。\"\"\"\n\ndef monotone_minima(rows, columns, value=None, compare=None):\n    if rows < 0 or columns <= 0:\n        raise ValueError('rows must be nonnegative and columns positive')\n    if compare is None:\n        if value is None:\n            raise ValueError('value or compare must be supplied')\n\n        def compare(row, first, second):\n            return value(row, first) <= value(row, second)\n    result = [0] * rows\n    stack = [(0, rows, 0, columns)]\n    while stack:\n        (row_begin, row_end, column_begin, column_end) = stack.pop()\n        if row_begin == row_end:\n            continue\n        row = row_begin + row_end >> 1\n        best = column_begin\n        for column in range(column_begin + 1, column_end):\n            if not compare(row, best, column):\n                best = column\n        result[row] = best\n        stack.append((row + 1, row_end, best, column_end))\n        stack.append((row_begin, row, column_begin, best + 1))\n    return result\n\n# 本体\n\"\"\"Monge重みを持つDAGの最短路を辺数制約付きで計算する。\"\"\"\n\ndef monge_shortest_paths(target, cost, infinity=10 ** 100):\n    \"\"\"Distances from 0 to every vertex 0..target in a complete Monge DAG.\"\"\"\n    if target < 0:\n        raise ValueError('target must be nonnegative')\n    distance = [infinity] * (target + 1)\n    predecessor = [0] * (target + 1)\n    distance[0] = 0\n\n    def check(first, second):\n        if first >= second:\n            return\n        candidate = distance[first] + cost(first, second)\n        if candidate < distance[second]:\n            distance[second] = candidate\n            predecessor[second] = first\n    if target:\n        check(0, target)\n    stack = [(0, target, 0)]\n    while stack:\n        (left, right, phase) = stack.pop()\n        if left + 1 >= right:\n            continue\n        middle = left + right >> 1\n        if phase == 0:\n            for source in range(predecessor[left], predecessor[right] + 1):\n                check(source, middle)\n            stack.append((left, right, 1))\n            stack.append((left, middle, 0))\n        else:\n            for source in range(left + 1, middle + 1):\n                check(source, right)\n            stack.append((middle, right, 0))\n    return distance\n\ndef _monge_layer(previous, target, cost, infinity):\n\n    def value(destination, source):\n        if source >= destination or previous[source] == infinity:\n            return infinity\n        return previous[source] + cost(source, destination)\n    indices = monotone_minima(target + 1, target + 1, value=value)\n    result = [infinity] * (target + 1)\n    for destination in range(1, target + 1):\n        source = indices[destination]\n        if source < destination and previous[source] != infinity:\n            result[destination] = previous[source] + cost(source, destination)\n    return result\n\ndef monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100):\n    if not 0 <= edge_count <= target:\n        return infinity\n    distance = [infinity] * (target + 1)\n    distance[0] = 0\n    for _ in range(edge_count):\n        distance = _monge_layer(distance, target, cost, infinity)\n    return distance[target]\n\ndef enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100):\n    answer = [infinity] * (target + 1)\n    if target == 0:\n        answer[0] = 0\n        return answer\n    distance = [infinity] * (target + 1)\n    distance[0] = 0\n    for edges in range(1, target + 1):\n        distance = _monge_layer(distance, target, cost, infinity)\n        answer[edges] = distance[target]\n    return answer\n",
+      "sourceCode": "\"\"\"Monge重みを持つDAGの最短路を辺数制約付きで計算する。\"\"\"\n\nfrom library_codex.optimization.MonotoneMinima import monotone_minima\n\ndef monge_shortest_paths(target, cost, infinity=10 ** 100):\n    \"\"\"Distances from 0 to every vertex 0..target in a complete Monge DAG.\"\"\"\n    if target < 0:\n        raise ValueError(\"target must be nonnegative\")\n    distance = [float(\"inf\")] * (target + 1)\n    predecessor = [0] * (target + 1)\n    distance[0] = 0\n\n    def check(first, second):\n        if first >= second:\n            return\n        candidate = distance[first] + cost(first, second)\n        if candidate < distance[second]:\n            distance[second] = candidate\n            predecessor[second] = first\n\n    if target:\n        check(0, target)\n    stack = [(0, target, 0)]\n    while stack:\n        left, right, phase = stack.pop()\n        if left + 1 >= right:\n            continue\n        middle = (left + right) >> 1\n        if phase == 0:\n            for source in range(predecessor[left], predecessor[right] + 1):\n                check(source, middle)\n            stack.append((left, right, 1))\n            stack.append((left, middle, 0))\n        else:\n            for source in range(left + 1, middle + 1):\n                check(source, right)\n            stack.append((middle, right, 0))\n    return distance\n\ndef _monge_layer(previous, target, cost, infinity):\n    def value(destination, source):\n        if source >= destination or previous[source] == infinity:\n            return infinity\n        return previous[source] + cost(source, destination)\n\n    indices = monotone_minima(target + 1, target + 1, value=value)\n    result = [infinity] * (target + 1)\n    for destination in range(1, target + 1):\n        source = indices[destination]\n        if source < destination and previous[source] != infinity:\n            result[destination] = previous[source] + cost(source, destination)\n    return result\n\ndef _monge_fixed_layers(target, edge_count, cost, infinity):\n    infinity = float(\"inf\")\n    distance = [infinity] * (target + 1)\n    distance[0] = 0\n    for _ in range(edge_count):\n        distance = _monge_layer(distance, target, cost, infinity)\n    return distance[target]\n\ndef _monge_penalty(target, cost, penalty):\n    scale = target + 1\n    extra = penalty * scale + 1\n    def encoded(first, second):\n        value = cost(first, second)\n        if not isinstance(value, int):\n            raise TypeError(\"integer=True requires integer costs; use integer=False\")\n        return value * scale + extra\n\n    value = monge_shortest_paths(target, encoded, float(\"inf\"))[target]\n    return divmod(value, scale)\n\ndef monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100, *, integer=True):\n    if target < 0:\n        raise ValueError(\"target must be nonnegative\")\n    if not 0 <= edge_count <= target:\n        return infinity\n    if edge_count == 0:\n        return 0 if target == 0 else infinity\n    if edge_count == 1:\n        return cost(0, target)\n    if edge_count == target:\n        return sum(cost(vertex, vertex + 1) for vertex in range(target))\n    if edge_count == 2:\n        return min(cost(0, vertex) + cost(vertex, target)\n                   for vertex in range(1, target))\n    if not integer:\n        return _monge_fixed_layers(target, edge_count, cost, infinity)\n    attempts = 0\n\n    def solve(penalty):\n        nonlocal attempts\n        if attempts >= edge_count:\n            return None\n        attempts += 1\n        return _monge_penalty(target, cost, penalty)\n\n    penalty = 0\n    result = solve(penalty)\n    if result is None:\n        return _monge_fixed_layers(target, edge_count, cost, infinity)\n    value, count = result\n    if count == edge_count:\n        return value\n    if count > edge_count:\n        lower, upper = 0, 1\n        direction = 1\n    else:\n        lower, upper = -1, 0\n        direction = -1\n    while True:\n        penalty = upper if direction == 1 else lower\n        result = solve(penalty)\n        if result is None:\n            return _monge_fixed_layers(target, edge_count, cost, infinity)\n        value, count = result\n        if count == edge_count:\n            return value - penalty * edge_count\n        if (count < edge_count) == (direction == 1):\n            break\n        if direction == 1:\n            lower, upper = upper, upper * 2\n        else:\n            lower, upper = lower * 2, lower\n    while upper - lower > 1:\n        penalty = (lower + upper) // 2\n        result = solve(penalty)\n        if result is None:\n            return _monge_fixed_layers(target, edge_count, cost, infinity)\n        value, count = result\n        if count == edge_count:\n            return value - penalty * edge_count\n        if count > edge_count:\n            lower = penalty\n        else:\n            upper = penalty\n    result = solve(upper)\n    if result is None:\n        return _monge_fixed_layers(target, edge_count, cost, infinity)\n    return result[0] - upper * edge_count\n\ndef enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100):\n    if target < 0:\n        raise ValueError(\"target must be nonnegative\")\n    answer = [infinity] * (target + 1)\n    if target == 0:\n        answer[0] = 0\n        return answer\n    distance = [float(\"inf\")] * (target + 1)\n    distance[0] = 0\n    for edges in range(1, target + 1):\n        distance = _monge_layer(distance, target, cost, float(\"inf\"))\n        answer[edges] = distance[target]\n    return answer\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: optimization/MonotoneMinima.py\n\"\"\"Monge性を持つ行列の各行最小位置を高速に求める。\"\"\"\n\ndef monotone_minima(rows, columns, value=None, compare=None):\n    if rows < 0 or columns <= 0:\n        raise ValueError('rows must be nonnegative and columns positive')\n    if compare is None:\n        if value is None:\n            raise ValueError('value or compare must be supplied')\n\n        def compare(row, first, second):\n            return value(row, first) <= value(row, second)\n    result = [0] * rows\n    stack = [(0, rows, 0, columns)]\n    while stack:\n        (row_begin, row_end, column_begin, column_end) = stack.pop()\n        if row_begin == row_end:\n            continue\n        row = row_begin + row_end >> 1\n        best = column_begin\n        for column in range(column_begin + 1, column_end):\n            if not compare(row, best, column):\n                best = column\n        result[row] = best\n        stack.append((row + 1, row_end, best, column_end))\n        stack.append((row_begin, row, column_begin, best + 1))\n    return result\n\n# 本体\n\"\"\"Monge重みを持つDAGの最短路を辺数制約付きで計算する。\"\"\"\n\ndef monge_shortest_paths(target, cost, infinity=10 ** 100):\n    \"\"\"Distances from 0 to every vertex 0..target in a complete Monge DAG.\"\"\"\n    if target < 0:\n        raise ValueError('target must be nonnegative')\n    distance = [float('inf')] * (target + 1)\n    predecessor = [0] * (target + 1)\n    distance[0] = 0\n\n    def check(first, second):\n        if first >= second:\n            return\n        candidate = distance[first] + cost(first, second)\n        if candidate < distance[second]:\n            distance[second] = candidate\n            predecessor[second] = first\n    if target:\n        check(0, target)\n    stack = [(0, target, 0)]\n    while stack:\n        (left, right, phase) = stack.pop()\n        if left + 1 >= right:\n            continue\n        middle = left + right >> 1\n        if phase == 0:\n            for source in range(predecessor[left], predecessor[right] + 1):\n                check(source, middle)\n            stack.append((left, right, 1))\n            stack.append((left, middle, 0))\n        else:\n            for source in range(left + 1, middle + 1):\n                check(source, right)\n            stack.append((middle, right, 0))\n    return distance\n\ndef _monge_layer(previous, target, cost, infinity):\n\n    def value(destination, source):\n        if source >= destination or previous[source] == infinity:\n            return infinity\n        return previous[source] + cost(source, destination)\n    indices = monotone_minima(target + 1, target + 1, value=value)\n    result = [infinity] * (target + 1)\n    for destination in range(1, target + 1):\n        source = indices[destination]\n        if source < destination and previous[source] != infinity:\n            result[destination] = previous[source] + cost(source, destination)\n    return result\n\ndef _monge_fixed_layers(target, edge_count, cost, infinity):\n    infinity = float('inf')\n    distance = [infinity] * (target + 1)\n    distance[0] = 0\n    for _ in range(edge_count):\n        distance = _monge_layer(distance, target, cost, infinity)\n    return distance[target]\n\ndef _monge_penalty(target, cost, penalty):\n    scale = target + 1\n    extra = penalty * scale + 1\n\n    def encoded(first, second):\n        value = cost(first, second)\n        if not isinstance(value, int):\n            raise TypeError('integer=True requires integer costs; use integer=False')\n        return value * scale + extra\n    value = monge_shortest_paths(target, encoded, float('inf'))[target]\n    return divmod(value, scale)\n\ndef monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100, *, integer=True):\n    if target < 0:\n        raise ValueError('target must be nonnegative')\n    if not 0 <= edge_count <= target:\n        return infinity\n    if edge_count == 0:\n        return 0 if target == 0 else infinity\n    if edge_count == 1:\n        return cost(0, target)\n    if edge_count == target:\n        return sum((cost(vertex, vertex + 1) for vertex in range(target)))\n    if edge_count == 2:\n        return min((cost(0, vertex) + cost(vertex, target) for vertex in range(1, target)))\n    if not integer:\n        return _monge_fixed_layers(target, edge_count, cost, infinity)\n    attempts = 0\n\n    def solve(penalty):\n        nonlocal attempts\n        if attempts >= edge_count:\n            return None\n        attempts += 1\n        return _monge_penalty(target, cost, penalty)\n    penalty = 0\n    result = solve(penalty)\n    if result is None:\n        return _monge_fixed_layers(target, edge_count, cost, infinity)\n    (value, count) = result\n    if count == edge_count:\n        return value\n    if count > edge_count:\n        (lower, upper) = (0, 1)\n        direction = 1\n    else:\n        (lower, upper) = (-1, 0)\n        direction = -1\n    while True:\n        penalty = upper if direction == 1 else lower\n        result = solve(penalty)\n        if result is None:\n            return _monge_fixed_layers(target, edge_count, cost, infinity)\n        (value, count) = result\n        if count == edge_count:\n            return value - penalty * edge_count\n        if (count < edge_count) == (direction == 1):\n            break\n        if direction == 1:\n            (lower, upper) = (upper, upper * 2)\n        else:\n            (lower, upper) = (lower * 2, lower)\n    while upper - lower > 1:\n        penalty = (lower + upper) // 2\n        result = solve(penalty)\n        if result is None:\n            return _monge_fixed_layers(target, edge_count, cost, infinity)\n        (value, count) = result\n        if count == edge_count:\n            return value - penalty * edge_count\n        if count > edge_count:\n            lower = penalty\n        else:\n            upper = penalty\n    result = solve(upper)\n    if result is None:\n        return _monge_fixed_layers(target, edge_count, cost, infinity)\n    return result[0] - upper * edge_count\n\ndef enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100):\n    if target < 0:\n        raise ValueError('target must be nonnegative')\n    answer = [infinity] * (target + 1)\n    if target == 0:\n        answer[0] = 0\n        return answer\n    distance = [float('inf')] * (target + 1)\n    distance[0] = 0\n    for edges in range(1, target + 1):\n        distance = _monge_layer(distance, target, cost, float('inf'))\n        answer[edges] = distance[target]\n    return answer\n",
       "bundledDependencies": [
         "library_codex.optimization.MonotoneMinima"
       ],
@@ -63541,101 +63552,105 @@
           "name": "monge_shortest_paths",
           "kind": "function",
           "signature": "monge_shortest_paths(target, cost, infinity=10 ** 100)",
-          "summary": "monge shortest pathsを求める。",
-          "description": "monge shortest pathsを求める。",
+          "summary": "頂点0から各頂点までの最短距離を、辺数を制限せずに求める。",
+          "description": "頂点0から各頂点までの最短距離を、辺数を制限せずに求める。",
           "searchTerms": [
             "monge_shortest_paths",
             "monge shortest paths",
             "monge_shortest_paths(target, cost, infinity=10 ** 100)"
           ],
-          "arguments": "target: 探索・判定・更新の対象値 · cost: 辺・選択の費用 · infinity: 到達不能・無限大を表す値。省略時: 10 ** 100",
+          "arguments": "target: 最後の頂点N。頂点は0からNまで。非負整数。 · cost: cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。 · infinity: 既定の未到達表現。全てのi < jに有限の辺があるため、返り値の全頂点に到達できる。",
           "argumentDetails": [
             {
               "name": "target",
-              "description": "探索・判定・更新の対象値"
+              "description": "最後の頂点N。頂点は0からNまで。非負整数。"
             },
             {
               "name": "cost",
-              "description": "辺・選択の費用"
+              "description": "cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。"
             },
             {
               "name": "infinity",
-              "description": "到達不能・無限大を表す値。省略時は 10 ** 100"
+              "description": "既定の未到達表現。全てのi < jに有限の辺があるため、返り値の全頂点に到達できる。"
             }
           ],
-          "returns": "入力要素と同じ型 — 求めたmonge shortest paths。",
-          "returnFormat": "入力要素と同じ型",
-          "returnDescription": "求めたmonge shortest paths。",
+          "returns": "list[number] — 長さN+1のリスト。result[v]は0からvへの最短距離。result[0]=0。経路の頂点列は含まない。",
+          "returnFormat": "list[number]",
+          "returnDescription": "長さN+1のリスト。result[v]は0からvへの最短距離。result[0]=0。経路の頂点列は含まない。",
           "complexity": "O(N log N) cost呼び出し",
           "sourceLine": 5
         },
         {
           "name": "monge_d_edge_shortest_path",
           "kind": "function",
-          "signature": "monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)",
-          "summary": "monge d 辺 shortest 経路を求める。",
-          "description": "monge d 辺 shortest 経路を求める。",
+          "signature": "monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100, *, integer=True)",
+          "summary": "頂点0からtargetへ、辺をちょうどedge_count本使って到達する最小コストを求める。整数重みでは辺に共通のペナルティを加えて最適な辺数を調整する。",
+          "description": "頂点0からtargetへ、辺をちょうどedge_count本使って到達する最小コストを求める。整数重みでは辺に共通のペナルティを加えて最適な辺数を調整する。",
           "searchTerms": [
             "monge_d_edge_shortest_path",
             "monge d edge shortest path",
-            "monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100)"
+            "monge_d_edge_shortest_path(target, edge_count, cost, infinity=10 ** 100, *, integer=True)"
           ],
-          "arguments": "target: 探索・判定・更新の対象値 · edge_count: 生成する辺の本数 · cost: 辺・選択の費用 · infinity: 到達不能・無限大を表す値。省略時: 10 ** 100",
+          "arguments": "target: 最後の頂点N。頂点は0からNまで。非負整数。 · edge_count: 使う辺数k。『k本以下』ではなく『ちょうどk本』。 · cost: cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。負数も可。 · infinity: 指定した辺数で到達できない場合に返す値。到達可能なコストの上限ではない。 · integer: Trueでは全辺の重みがintであることが必要。FalseならfloatやFractionなどにも対応する辺数別DPを使う。",
           "argumentDetails": [
             {
               "name": "target",
-              "description": "探索・判定・更新の対象値"
+              "description": "最後の頂点N。頂点は0からNまで。非負整数。"
             },
             {
               "name": "edge_count",
-              "description": "生成する辺の本数"
+              "description": "使う辺数k。『k本以下』ではなく『ちょうどk本』。"
             },
             {
               "name": "cost",
-              "description": "辺・選択の費用"
+              "description": "cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。負数も可。"
             },
             {
               "name": "infinity",
-              "description": "到達不能・無限大を表す値。省略時は 10 ** 100"
+              "description": "指定した辺数で到達できない場合に返す値。到達可能なコストの上限ではない。"
+            },
+            {
+              "name": "integer",
+              "description": "Trueでは全辺の重みがintであることが必要。FalseならfloatやFractionなどにも対応する辺数別DPを使う。"
             }
           ],
-          "returns": "計算結果（入力型に依存） — 求めたmonge d 辺 shortest 経路。",
-          "returnFormat": "計算結果（入力型に依存）",
-          "returnDescription": "求めたmonge d 辺 shortest 経路。",
-          "complexity": "O(D*(N log N)) cost呼び出し",
-          "sourceLine": 54
+          "returns": "number | infinity — 条件を満たす経路の最小コスト一つ。経路そのものは返さない。N>0では1<=k<=Nの場合に到達でき、それ以外はinfinity。N=k=0では0。",
+          "returnFormat": "number | infinity",
+          "returnDescription": "条件を満たす経路の最小コスト一つ。経路そのものは返さない。N>0では1<=k<=Nの場合に到達でき、それ以外はinfinity。N=k=0では0。",
+          "complexity": "整数重み: O(N log N min(k, log(2+NW)))、integer=False: O(k N log N) 回のcost呼び出し。領域O(N)。N=target、k=edge_count、Wは辺重みの絶対値の最大値。k=1はO(1)、k=2またはNはO(N)",
+          "sourceLine": 74
         },
         {
           "name": "enumerate_monge_d_edge_shortest_paths",
           "kind": "function",
           "signature": "enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100)",
-          "summary": "monge d 辺 shortest pathsを列挙する。",
-          "description": "monge d 辺 shortest pathsを列挙する。",
+          "summary": "0からtargetへの最短距離を、使用する辺数ごとにすべて求める。",
+          "description": "0からtargetへの最短距離を、使用する辺数ごとにすべて求める。",
           "searchTerms": [
             "enumerate_monge_d_edge_shortest_paths",
             "enumerate monge d edge shortest paths",
             "enumerate_monge_d_edge_shortest_paths(target, cost, infinity=10 ** 100)"
           ],
-          "arguments": "target: 探索・判定・更新の対象値 · cost: 辺・選択の費用 · infinity: 到達不能・無限大を表す値。省略時: 10 ** 100",
+          "arguments": "target: 最後の頂点N。非負整数。 · cost: cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。 · infinity: 0辺では到達できない場合のresult[0]。",
           "argumentDetails": [
             {
               "name": "target",
-              "description": "探索・判定・更新の対象値"
+              "description": "最後の頂点N。非負整数。"
             },
             {
               "name": "cost",
-              "description": "辺・選択の費用"
+              "description": "cost(i, j)はi < jの辺重み。すべて有限値で、$a<b<c<d$に対し$w(a,c)+w(b,d)\\le w(a,d)+w(b,c)$を満たすこと。"
             },
             {
               "name": "infinity",
-              "description": "到達不能・無限大を表す値。省略時は 10 ** 100"
+              "description": "0辺では到達できない場合のresult[0]。"
             }
           ],
-          "returns": "入力要素と同じ型 — 列挙したmonge d 辺 shortest paths。",
-          "returnFormat": "入力要素と同じ型",
-          "returnDescription": "列挙したmonge d 辺 shortest paths。",
-          "complexity": "O(N) または出力サイズに線形",
-          "sourceLine": 63
+          "returns": "list[number] — 長さN+1のリスト。result[k]はちょうどk辺を使う最短距離。N>0ではresult[0]=infinity、N=0では[0]。",
+          "returnFormat": "list[number]",
+          "returnDescription": "長さN+1のリスト。result[k]はちょうどk辺を使う最短距離。N>0ではresult[0]=infinity、N=0では[0]。",
+          "complexity": "O(N^2 log N) 回のcost呼び出し、O(N) 領域。N=target",
+          "sourceLine": 143
         }
       ],
       "classes": []

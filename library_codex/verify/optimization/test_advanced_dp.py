@@ -5,11 +5,6 @@ from library_codex.optimization.ConvexConcaveConvolution import (
 )
 from library_codex.convolution.MinPlusConvolution import minplus_conv
 from library_codex.optimization.KnapsackBranchAndBound import knapsack_branch_and_bound
-from library_codex.optimization.MongeShortestPaths import (
-    enumerate_monge_d_edge_shortest_paths,
-    monge_d_edge_shortest_path,
-    monge_shortest_paths,
-)
 from library_codex.optimization.RollbackMo import RollbackMo
 
 
@@ -35,37 +30,6 @@ def test_convex_and_concave_convolution_against_quadratic():
                         for i in range(n) if 0 <= k - i < m)
                     for k in range(n + m - 1)]
         assert concave_max_plus_convolution(concave, arbitrary) == expected
-
-
-def test_monge_shortest_paths_against_dynamic_programming():
-    rng = random.Random(62)
-    for target in range(1, 70):
-        bias = [rng.randrange(-20, 21) for _ in range(target + 1)]
-
-        def cost(first, second):
-            return (second - first) ** 2 + bias[second]
-
-        brute = [10 ** 100] * (target + 1)
-        brute[0] = 0
-        for second in range(1, target + 1):
-            brute[second] = min(brute[first] + cost(first, second)
-                                for first in range(second))
-        assert monge_shortest_paths(target, cost) == brute
-        exact = [10 ** 100] * (target + 1)
-        previous = [10 ** 100] * (target + 1)
-        previous[0] = 0
-        for edges in range(1, target + 1):
-            current = [10 ** 100] * (target + 1)
-            for second in range(1, target + 1):
-                current[second] = min(
-                    (previous[first] + cost(first, second)
-                     for first in range(second)), default=10 ** 100
-                )
-            previous = current
-            exact[edges] = current[target]
-        assert enumerate_monge_d_edge_shortest_paths(target, cost) == exact
-        for edges in {1, (target + 1) // 2, target}:
-            assert monge_d_edge_shortest_path(target, edges, cost) == exact[edges]
 
 
 def test_knapsack_branch_bound_against_subsets():

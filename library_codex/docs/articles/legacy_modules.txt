@@ -190,7 +190,6 @@ optimization/LARSCH
 optimization/LineContainer
 optimization/Matroid
 optimization/MaximalRectangle
-optimization/MongeShortestPaths
 optimization/MonotoneConvexHullTrick
 optimization/MonotoneMinima
 optimization/RollbackMo
