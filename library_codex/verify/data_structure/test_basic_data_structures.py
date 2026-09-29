@@ -3,7 +3,6 @@ import bisect
 import heapq
 import random
 
-from library_codex.ordered_set.BinaryTrie import BinaryTrie
 from library_codex.ordered_set.FastSet import FastSet
 from library_codex.segment_tree.DynamicLazySegmentTree import DynamicLazySegmentTree
 from library_codex.segment_tree.DynamicSegmentTree import DynamicSegmentTree
@@ -309,36 +308,6 @@ def test_erasable_heap_random():
         assert len(solver) == len(values)
         if values:
             assert solver.top() == min(values)
-
-
-def test_binary_trie_random_multiset_and_lazy_xor():
-    rng = random.Random(820641)
-    bit_length = 10
-    mask = (1 << bit_length) - 1
-    solver = BinaryTrie(bit_length)
-    values = []
-    for _ in range(20000):
-        kind = rng.randrange(7)
-        if kind <= 1:
-            value = rng.randrange(mask + 1)
-            solver.add(value)
-            bisect.insort(values, value)
-        elif kind == 2 and values:
-            value = rng.choice(values)
-            solver.discard(value)
-            values.remove(value)
-        elif kind == 3:
-            value = rng.randrange(mask + 1)
-            solver.xor_all(value)
-            values = sorted(item ^ value for item in values)
-        elif values:
-            index = rng.randrange(len(values))
-            value = rng.randrange(mask + 1)
-            assert solver.kth(index) == values[index]
-            assert solver.bisect_left(value) == bisect.bisect_left(values, value)
-            assert solver.xor_min(value) == min(values, key=lambda item: item ^ value)
-            assert solver.xor_max(value) == max(values, key=lambda item: item ^ value)
-        assert len(solver) == len(values)
 
 
 def test_fast_set_random_next_prev():

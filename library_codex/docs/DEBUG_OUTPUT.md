@@ -29,7 +29,9 @@ segment         # SegTree([1, 2, 3])
 
 ## 計算量について
 
-これらはデバッグ用です。通常は保持要素数に対して線形時間が必要で、Heap・BinaryTrieなどはsortや1要素ずつの復元も行います。提出コードの反復処理内では呼ばず、状態確認に使ってください。
+これらはデバッグ用です。通常は保持要素数に対して線形時間が必要で、Heapなどはsortも行います。提出コードの反復処理内では呼ばず、状態確認に使ってください。
+
+圧縮BinaryTrieの`tolist()`は重複を含む昇順listをO(N)で返します。BinaryTrieMonoidの`items()`はキーの昇順の`(key, value)`のlistをO(D)で返し、strは同じ順序のdict、reprは`BinaryTrieMonoid({...})`です。どちらも全体XORを反映し、表示によって状態は変わりません。
 
 Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅延更新をleafへ反映してから値を返します。集約結果は変わりません。
 

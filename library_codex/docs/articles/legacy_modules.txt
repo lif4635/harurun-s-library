@@ -197,7 +197,6 @@ optimization/SlopeTrick
 optimization/SMAWK
 optimization/SortedListsSelection
 optimization/SortedMatrixSelection
-ordered_set/BinaryTrie
 ordered_set/BitSet
 ordered_set/DecrementalSet
 ordered_set/FastSet
@@ -242,7 +241,6 @@ rational/FractionSearch
 rational/InverseSum
 rational/RationalFormalPowerSeries
 rational/RationalNumberSearch
-rational/SternBrocotNode
 segment_tree/DualSegTree
 segment_tree/DynamicLazySegmentTree
 segment_tree/DynamicSegmentTree

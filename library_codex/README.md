@@ -16,10 +16,12 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 617 passed
-- 再帰監査: 3808 functions、direct/mutual recursion なし
+- PyPy 全検証: 617 passed（前回の全検証）。以降の局所変更は変更範囲とquick検査で確認する。
+- 再帰監査: 3947 functions、direct/mutual recursion なし（2026-09-29）
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
+
+BinaryTrieの圧縮化・モノイド集約版・Stern–Brocot木の修正と計測結果は[BinaryTrieの軽量化と計測](docs/BINARY_TRIE_PERFORMANCE.md)に記載しています。
 
 ## 保守と検証
 

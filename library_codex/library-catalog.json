@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-07T02:08:14+00:00",
+  "generatedAt": "2026-09-29T14:08:03+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "69ec7b2af1049f721d41a409f0b9c08b6e7bc916ff0dd853ee1b432e08d65361",
-  "inputStamp": "c964359c24e4104ad62abc5430d8a217953c55f378b87346e9f89e464addc970",
+  "sourceFingerprint": "780ece5244c11b6ab72d5aa650ac45850f4c831e8df39373dba1e46aa492b71b",
+  "inputStamp": "2c48bbc64982abc61b8e91157971aa6f2a25e595ad1433f5362b55a1c570de36",
   "generatorFingerprint": "efb9defc7edaeb4adee6db7f8e62121aaab3ed563ffe0ef59c03bffd3c375886",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 362,
-    "articles": 14,
+    "modules": 363,
+    "articles": 17,
     "functions": 503,
-    "classes": 222,
-    "methods": 1379,
+    "classes": 223,
+    "methods": 1389,
     "tests": 617
   },
   "categories": [
@@ -131,10 +131,10 @@
       "label": "順序集合・rank",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 11,
+      "modules": 12,
       "functions": 0,
-      "classes": 11,
-      "methods": 113
+      "classes": 12,
+      "methods": 123
     },
     {
       "slug": "sequence_structure",
@@ -401,7 +401,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 75
+      "modules": 76
     },
     {
       "slug": "graph",
@@ -18558,23 +18558,33 @@
       "modulePath": "library_codex.ordered_set.BinaryTrie",
       "summary": "multiset・全体xor・k-th・xor min/max。",
       "capabilities": [
-        "BinaryTrie: multiset・全体xor・k-th・xor min/maxを行うクラス。"
+        "整数multisetの追加・削除、k番目、小さい値の個数を扱う。",
+        "XORが最小・最大になる登録値を探し、全体へのXORも行える。",
+        "分岐しない経路を省略し、削除した領域を再利用する。"
       ],
-      "article": null,
+      "article": {
+        "title": "整数multisetとXOR最小値",
+        "markdown": "## 主な機能\n\n重複を含む非負整数を管理する。追加・削除・順位・XORの相手の検索は、ビット幅Bに対してO(B)。全要素へのXORはO(1)。\n\n分岐しない一本道を省略する。異なる値がD個あるとき、生きているノードは空なら0個、それ以外は2D−1個。ノードごとのclassは作らず、整数IDと配列だけを使う。削除した領域を再利用するため、確保領域は過去に同時保持した異なる値の最大数に比例する。\n\n## 使い方\n\n```python\ntree = BinaryTrie(30)\ntree.add(3, 2)\ntree.add(10)\nassert tree.tolist() == [3, 3, 10]\nassert tree.kth(1) == 3\nassert tree.bisect_left(10) == 2\nassert tree.xor_min(9) == 10\nassert tree.xor_min(9) ^ 9 == 3\nassert tree.discard(3) == 1\ntree.xor_all(1)\nassert tree.tolist() == [2, 11]\n```\n\n## 注意点\n\n- 登録値と全体XORのマスクは、0以上2**B未満。\n- `xor_min(x)`・`xor_max(x)`はXORした結果ではなく、相手となる登録値を返す。\n- `kth`は重複を含む順位。空の最小値・最大値取得と範囲外の順位はIndexError。\n- 値に重みを持たせて区間集約したい場合は`BinaryTrieMonoid`を使う。通常版にはモノイド用の値や演算を持たせていない。\n- 密な連続整数を構築するだけの場合は、非圧縮版より遅いことがある。圧縮版は疎なキーや削除・再挿入を含む操作を重視している。",
+        "sourcePath": "library_codex/docs/articles/ordered_set/BinaryTrie.md"
+      },
       "searchTerms": [
         "BinaryTrie",
         "Binary Trie",
         "library_codex.ordered_set.BinaryTrie",
         "library codex ordered set Binary Trie",
         "ordered_set/BinaryTrie.py",
-        "順序集合・rank"
+        "順序集合・rank",
+        "圧縮二分トライ",
+        "Patricia trie",
+        "XOR最小",
+        "整数多重集合"
       ],
       "complexity": "O(B)",
       "sourcePath": "library_codex/ordered_set/BinaryTrie.py",
-      "inputFingerprint": "2d9c68580a4e8572122a3c08fd4ceb5a8db6738363115306fa04311bddc5e0e9",
+      "inputFingerprint": "7b0064fe551ffb472cd1ac274785a2448c382c8aeed02f7fc1c8cc1f541d1232",
       "importCode": "from library_codex.ordered_set.BinaryTrie import BinaryTrie",
-      "sourceCode": "class BinaryTrie:\n    __slots__ = (\"bit_length\", \"left\", \"right\", \"count\", \"lazy\")\n\n    def __init__(self, bit_length=30):\n        if bit_length <= 0:\n            raise ValueError(\"bit_length must be positive\")\n        self.bit_length = bit_length\n        self.left = [-1]\n        self.right = [-1]\n        self.count = [0]\n        self.lazy = 0\n\n    def add(self, value, amount=1):\n        if amount <= 0:\n            return\n        value ^= self.lazy\n        node = 0\n        self.count[node] += amount\n        left = self.left\n        right = self.right\n        count = self.count\n        for bit in range(self.bit_length - 1, -1, -1):\n            direction = value >> bit & 1\n            child = right[node] if direction else left[node]\n            if child < 0:\n                child = len(count)\n                left.append(-1)\n                right.append(-1)\n                count.append(0)\n                if direction:\n                    right[node] = child\n                else:\n                    left[node] = child\n            node = child\n            count[node] += amount\n\n    insert = add\n\n    def count_value(self, value):\n        value ^= self.lazy\n        node = 0\n        for bit in range(self.bit_length - 1, -1, -1):\n            node = self.right[node] if value >> bit & 1 else self.left[node]\n            if node < 0:\n                return 0\n        return self.count[node]\n\n    count_of = count_value\n\n    def discard(self, value, amount=1):\n        current = self.count_value(value)\n        amount = min(amount, current)\n        if amount <= 0:\n            return 0\n        physical = value ^ self.lazy\n        node = 0\n        self.count[node] -= amount\n        for bit in range(self.bit_length - 1, -1, -1):\n            node = self.right[node] if physical >> bit & 1 else self.left[node]\n            self.count[node] -= amount\n        return amount\n\n    erase = discard\n\n    def xor_all(self, value):\n        self.lazy ^= value\n\n    apply_xor = xor_all\n\n    def kth(self, index):\n        if index < 0 or index >= self.count[0]:\n            raise IndexError(\"kth index out of range\")\n        node = 0\n        value = 0\n        lazy = self.lazy\n        for bit in range(self.bit_length - 1, -1, -1):\n            lazy_bit = lazy >> bit & 1\n            zero = self.right[node] if lazy_bit else self.left[node]\n            zero_count = self.count[zero] if zero >= 0 else 0\n            if index < zero_count:\n                node = zero\n            else:\n                index -= zero_count\n                node = self.left[node] if lazy_bit else self.right[node]\n                value |= 1 << bit\n        return value\n\n    def min(self):\n        return self.kth(0)\n\n    def max(self):\n        return self.kth(self.count[0] - 1)\n\n    def bisect_left(self, value):\n        node = 0\n        result = 0\n        lazy = self.lazy\n        for bit in range(self.bit_length - 1, -1, -1):\n            if node < 0:\n                break\n            lazy_bit = lazy >> bit & 1\n            zero = self.right[node] if lazy_bit else self.left[node]\n            one = self.left[node] if lazy_bit else self.right[node]\n            if value >> bit & 1:\n                if zero >= 0:\n                    result += self.count[zero]\n                node = one\n            else:\n                node = zero\n        return result\n\n    def xor_min(self, value):\n        if not self.count[0]:\n            raise IndexError(\"xor_min from empty BinaryTrie\")\n        node = 0\n        stored = 0\n        lazy = self.lazy\n        for bit in range(self.bit_length - 1, -1, -1):\n            desired = (lazy ^ value) >> bit & 1\n            child = self.right[node] if desired else self.left[node]\n            if child < 0 or self.count[child] == 0:\n                desired ^= 1\n                child = self.right[node] if desired else self.left[node]\n            node = child\n            stored |= (desired ^ (lazy >> bit & 1)) << bit\n        return stored\n\n    def xor_max(self, value):\n        mask = (1 << self.bit_length) - 1\n        return self.xor_min(value ^ mask)\n\n    def __contains__(self, value):\n        return self.count_value(value) > 0\n\n    def __len__(self):\n        return self.count[0]\n\n    def tolist(self):\n        \"\"\"重複を含む現在の整数を昇順listで返す。O(KB)。\"\"\"\n        return [self.kth(index) for index in range(len(self))]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"BinaryTrie(%r)\" % self.tolist()\n",
-      "standaloneCode": "class BinaryTrie:\n    __slots__ = (\"bit_length\", \"left\", \"right\", \"count\", \"lazy\")\n\n    def __init__(self, bit_length=30):\n        if bit_length <= 0:\n            raise ValueError(\"bit_length must be positive\")\n        self.bit_length = bit_length\n        self.left = [-1]\n        self.right = [-1]\n        self.count = [0]\n        self.lazy = 0\n\n    def add(self, value, amount=1):\n        if amount <= 0:\n            return\n        value ^= self.lazy\n        node = 0\n        self.count[node] += amount\n        left = self.left\n        right = self.right\n        count = self.count\n        for bit in range(self.bit_length - 1, -1, -1):\n            direction = value >> bit & 1\n            child = right[node] if direction else left[node]\n            if child < 0:\n                child = len(count)\n                left.append(-1)\n                right.append(-1)\n                count.append(0)\n                if direction:\n                    right[node] = child\n                else:\n                    left[node] = child\n            node = child\n            count[node] += amount\n\n    insert = add\n\n    def count_value(self, value):\n        value ^= self.lazy\n        node = 0\n        for bit in range(self.bit_length - 1, -1, -1):\n            node = self.right[node] if value >> bit & 1 else self.left[node]\n            if node < 0:\n                return 0\n        return self.count[node]\n\n    count_of = count_value\n\n    def discard(self, value, amount=1):\n        current = self.count_value(value)\n        amount = min(amount, current)\n        if amount <= 0:\n            return 0\n        physical = value ^ self.lazy\n        node = 0\n        self.count[node] -= amount\n        for bit in range(self.bit_length - 1, -1, -1):\n            node = self.right[node] if physical >> bit & 1 else self.left[node]\n            self.count[node] -= amount\n        return amount\n\n    erase = discard\n\n    def xor_all(self, value):\n        self.lazy ^= value\n\n    apply_xor = xor_all\n\n    def kth(self, index):\n        if index < 0 or index >= self.count[0]:\n            raise IndexError(\"kth index out of range\")\n        node = 0\n        value = 0\n        lazy = self.lazy\n        for bit in range(self.bit_length - 1, -1, -1):\n            lazy_bit = lazy >> bit & 1\n            zero = self.right[node] if lazy_bit else self.left[node]\n            zero_count = self.count[zero] if zero >= 0 else 0\n            if index < zero_count:\n                node = zero\n            else:\n                index -= zero_count\n                node = self.left[node] if lazy_bit else self.right[node]\n                value |= 1 << bit\n        return value\n\n    def min(self):\n        return self.kth(0)\n\n    def max(self):\n        return self.kth(self.count[0] - 1)\n\n    def bisect_left(self, value):\n        node = 0\n        result = 0\n        lazy = self.lazy\n        for bit in range(self.bit_length - 1, -1, -1):\n            if node < 0:\n                break\n            lazy_bit = lazy >> bit & 1\n            zero = self.right[node] if lazy_bit else self.left[node]\n            one = self.left[node] if lazy_bit else self.right[node]\n            if value >> bit & 1:\n                if zero >= 0:\n                    result += self.count[zero]\n                node = one\n            else:\n                node = zero\n        return result\n\n    def xor_min(self, value):\n        if not self.count[0]:\n            raise IndexError(\"xor_min from empty BinaryTrie\")\n        node = 0\n        stored = 0\n        lazy = self.lazy\n        for bit in range(self.bit_length - 1, -1, -1):\n            desired = (lazy ^ value) >> bit & 1\n            child = self.right[node] if desired else self.left[node]\n            if child < 0 or self.count[child] == 0:\n                desired ^= 1\n                child = self.right[node] if desired else self.left[node]\n            node = child\n            stored |= (desired ^ (lazy >> bit & 1)) << bit\n        return stored\n\n    def xor_max(self, value):\n        mask = (1 << self.bit_length) - 1\n        return self.xor_min(value ^ mask)\n\n    def __contains__(self, value):\n        return self.count_value(value) > 0\n\n    def __len__(self):\n        return self.count[0]\n\n    def tolist(self):\n        \"\"\"重複を含む現在の整数を昇順listで返す。O(KB)。\"\"\"\n        return [self.kth(index) for index in range(len(self))]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"BinaryTrie(%r)\" % self.tolist()\n",
+      "sourceCode": "\"\"\"整数multisetの追加・削除、順位、XOR最小値を圧縮binary trieで扱う。\"\"\"\n\n\nclass BinaryTrie:\n    __slots__ = (\"bit_length\", \"left\", \"right\", \"bit\", \"key\", \"count\", \"root\", \"lazy\", \"free\")\n\n    def __init__(self, bit_length=30):\n        if bit_length <= 0:\n            raise ValueError(\"bit_length must be positive\")\n        self.bit_length = bit_length\n        self.left = []\n        self.right = []\n        self.bit = []\n        self.key = []\n        self.count = []\n        self.root = -1\n        self.lazy = 0\n        self.free = []\n\n    def _new(self, key, bit, left, right, count):\n        if self.free:\n            node = self.free.pop()\n            self.key[node] = key\n            self.bit[node] = bit\n            self.left[node] = left\n            self.right[node] = right\n            self.count[node] = count\n            return node\n        node = len(self.count)\n        self.key.append(key)\n        self.bit.append(bit)\n        self.left.append(left)\n        self.right.append(right)\n        self.count.append(count)\n        return node\n\n    def add(self, value, amount=1):\n        if not 0 <= value < 1 << self.bit_length:\n            raise ValueError(\"value is outside the bit range\")\n        if amount <= 0:\n            return\n        value ^= self.lazy\n        node = self.root\n        if node < 0:\n            self.root = self._new(value, -1, -1, -1, amount)\n            return\n        left, right, bit, key, count = self.left, self.right, self.bit, self.key, self.count\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if value >> bit[node] & 1 else left[node]\n        diff = (value ^ key[node]).bit_length() - 1\n        if diff < 0:\n            count[node] += amount\n            for parent in path:\n                count[parent] += amount\n            return\n        parent = -1\n        node = self.root\n        for ancestor in path:\n            if bit[ancestor] <= diff:\n                break\n            count[ancestor] += amount\n            parent = ancestor\n            node = right[ancestor] if value >> bit[ancestor] & 1 else left[ancestor]\n        leaf = self._new(value, -1, -1, -1, amount)\n        if value >> diff & 1:\n            branch = self._new(value, diff, node, leaf, count[node] + amount)\n        else:\n            branch = self._new(value, diff, leaf, node, count[node] + amount)\n        if parent < 0:\n            self.root = branch\n        elif value >> bit[parent] & 1:\n            right[parent] = branch\n        else:\n            left[parent] = branch\n\n    def count_value(self, value):\n        if not 0 <= value < 1 << self.bit_length:\n            return 0\n        value ^= self.lazy\n        node = self.root\n        left, right, bit = self.left, self.right, self.bit\n        if node < 0:\n            return 0\n        while bit[node] >= 0:\n            node = right[node] if value >> bit[node] & 1 else left[node]\n        return self.count[node] if self.key[node] == value else 0\n\n    def discard(self, value, amount=1):\n        if amount <= 0 or not 0 <= value < 1 << self.bit_length or self.root < 0:\n            return 0\n        value ^= self.lazy\n        node = self.root\n        left, right, bit, count = self.left, self.right, self.bit, self.count\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if value >> bit[node] & 1 else left[node]\n        if self.key[node] != value:\n            return 0\n        amount = min(amount, count[node])\n        count[node] -= amount\n        for parent in path:\n            count[parent] -= amount\n        if count[node] == 0:\n            self.free.append(node)\n            if not path:\n                self.root = -1\n            else:\n                parent = path.pop()\n                sibling = left[parent] if right[parent] == node else right[parent]\n                self.free.append(parent)\n                if not path:\n                    self.root = sibling\n                elif left[path[-1]] == parent:\n                    left[path[-1]] = sibling\n                else:\n                    right[path[-1]] = sibling\n        return amount\n\n    def xor_all(self, value):\n        if not 0 <= value < 1 << self.bit_length:\n            raise ValueError(\"xor mask is outside the bit range\")\n        self.lazy ^= value\n\n    def kth(self, index):\n        node = self.root\n        if node < 0 or not 0 <= index < self.count[node]:\n            raise IndexError(\"kth index out of range\")\n        left, right, bit, count, lazy = self.left, self.right, self.bit, self.count, self.lazy\n        while bit[node] >= 0:\n            if lazy >> bit[node] & 1:\n                zero, one = right[node], left[node]\n            else:\n                zero, one = left[node], right[node]\n            if index < count[zero]:\n                node = zero\n            else:\n                index -= count[zero]\n                node = one\n        return self.key[node] ^ lazy\n\n    def min(self):\n        return self.kth(0)\n\n    def max(self):\n        return self.kth(len(self) - 1)\n\n    def bisect_left(self, value):\n        node = self.root\n        result = 0\n        left, right, bit, key, count, lazy = self.left, self.right, self.bit, self.key, self.count, self.lazy\n        while node >= 0:\n            shift = bit[node] + 1\n            prefix = (key[node] ^ lazy) >> shift\n            target = value >> shift\n            if prefix < target:\n                return result + count[node]\n            if prefix > target or shift == 0:\n                return result\n            if lazy >> bit[node] & 1:\n                zero, one = right[node], left[node]\n            else:\n                zero, one = left[node], right[node]\n            if value >> bit[node] & 1:\n                result += count[zero]\n                node = one\n            else:\n                node = zero\n        return result\n\n    def xor_min(self, value):\n        node = self.root\n        if node < 0:\n            raise IndexError(\"xor_min from empty BinaryTrie\")\n        if value < 0:\n            raise ValueError(\"xor query must be nonnegative\")\n        physical = value ^ self.lazy\n        left, right, bit = self.left, self.right, self.bit\n        while bit[node] >= 0:\n            node = right[node] if physical >> bit[node] & 1 else left[node]\n        return self.key[node] ^ self.lazy\n\n    def xor_max(self, value):\n        if value < 0:\n            raise ValueError(\"xor query must be nonnegative\")\n        return self.xor_min(value ^ ((1 << self.bit_length) - 1))\n\n    def __contains__(self, value):\n        return self.count_value(value) > 0\n\n    def __len__(self):\n        return self.count[self.root] if self.root >= 0 else 0\n\n    def tolist(self):\n        result = []\n        if self.root < 0:\n            return result\n        left, right, bit, lazy = self.left, self.right, self.bit, self.lazy\n        stack = [self.root]\n        while stack:\n            node = stack.pop()\n            if bit[node] < 0:\n                result.extend([self.key[node] ^ lazy] * self.count[node])\n            elif lazy >> bit[node] & 1:\n                stack.append(left[node])\n                stack.append(right[node])\n            else:\n                stack.append(right[node])\n                stack.append(left[node])\n        return result\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"BinaryTrie(%r)\" % self.tolist()\n",
+      "standaloneCode": "\"\"\"整数multisetの追加・削除、順位、XOR最小値を圧縮binary trieで扱う。\"\"\"\n\n\nclass BinaryTrie:\n    __slots__ = (\"bit_length\", \"left\", \"right\", \"bit\", \"key\", \"count\", \"root\", \"lazy\", \"free\")\n\n    def __init__(self, bit_length=30):\n        if bit_length <= 0:\n            raise ValueError(\"bit_length must be positive\")\n        self.bit_length = bit_length\n        self.left = []\n        self.right = []\n        self.bit = []\n        self.key = []\n        self.count = []\n        self.root = -1\n        self.lazy = 0\n        self.free = []\n\n    def _new(self, key, bit, left, right, count):\n        if self.free:\n            node = self.free.pop()\n            self.key[node] = key\n            self.bit[node] = bit\n            self.left[node] = left\n            self.right[node] = right\n            self.count[node] = count\n            return node\n        node = len(self.count)\n        self.key.append(key)\n        self.bit.append(bit)\n        self.left.append(left)\n        self.right.append(right)\n        self.count.append(count)\n        return node\n\n    def add(self, value, amount=1):\n        if not 0 <= value < 1 << self.bit_length:\n            raise ValueError(\"value is outside the bit range\")\n        if amount <= 0:\n            return\n        value ^= self.lazy\n        node = self.root\n        if node < 0:\n            self.root = self._new(value, -1, -1, -1, amount)\n            return\n        left, right, bit, key, count = self.left, self.right, self.bit, self.key, self.count\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if value >> bit[node] & 1 else left[node]\n        diff = (value ^ key[node]).bit_length() - 1\n        if diff < 0:\n            count[node] += amount\n            for parent in path:\n                count[parent] += amount\n            return\n        parent = -1\n        node = self.root\n        for ancestor in path:\n            if bit[ancestor] <= diff:\n                break\n            count[ancestor] += amount\n            parent = ancestor\n            node = right[ancestor] if value >> bit[ancestor] & 1 else left[ancestor]\n        leaf = self._new(value, -1, -1, -1, amount)\n        if value >> diff & 1:\n            branch = self._new(value, diff, node, leaf, count[node] + amount)\n        else:\n            branch = self._new(value, diff, leaf, node, count[node] + amount)\n        if parent < 0:\n            self.root = branch\n        elif value >> bit[parent] & 1:\n            right[parent] = branch\n        else:\n            left[parent] = branch\n\n    def count_value(self, value):\n        if not 0 <= value < 1 << self.bit_length:\n            return 0\n        value ^= self.lazy\n        node = self.root\n        left, right, bit = self.left, self.right, self.bit\n        if node < 0:\n            return 0\n        while bit[node] >= 0:\n            node = right[node] if value >> bit[node] & 1 else left[node]\n        return self.count[node] if self.key[node] == value else 0\n\n    def discard(self, value, amount=1):\n        if amount <= 0 or not 0 <= value < 1 << self.bit_length or self.root < 0:\n            return 0\n        value ^= self.lazy\n        node = self.root\n        left, right, bit, count = self.left, self.right, self.bit, self.count\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if value >> bit[node] & 1 else left[node]\n        if self.key[node] != value:\n            return 0\n        amount = min(amount, count[node])\n        count[node] -= amount\n        for parent in path:\n            count[parent] -= amount\n        if count[node] == 0:\n            self.free.append(node)\n            if not path:\n                self.root = -1\n            else:\n                parent = path.pop()\n                sibling = left[parent] if right[parent] == node else right[parent]\n                self.free.append(parent)\n                if not path:\n                    self.root = sibling\n                elif left[path[-1]] == parent:\n                    left[path[-1]] = sibling\n                else:\n                    right[path[-1]] = sibling\n        return amount\n\n    def xor_all(self, value):\n        if not 0 <= value < 1 << self.bit_length:\n            raise ValueError(\"xor mask is outside the bit range\")\n        self.lazy ^= value\n\n    def kth(self, index):\n        node = self.root\n        if node < 0 or not 0 <= index < self.count[node]:\n            raise IndexError(\"kth index out of range\")\n        left, right, bit, count, lazy = self.left, self.right, self.bit, self.count, self.lazy\n        while bit[node] >= 0:\n            if lazy >> bit[node] & 1:\n                zero, one = right[node], left[node]\n            else:\n                zero, one = left[node], right[node]\n            if index < count[zero]:\n                node = zero\n            else:\n                index -= count[zero]\n                node = one\n        return self.key[node] ^ lazy\n\n    def min(self):\n        return self.kth(0)\n\n    def max(self):\n        return self.kth(len(self) - 1)\n\n    def bisect_left(self, value):\n        node = self.root\n        result = 0\n        left, right, bit, key, count, lazy = self.left, self.right, self.bit, self.key, self.count, self.lazy\n        while node >= 0:\n            shift = bit[node] + 1\n            prefix = (key[node] ^ lazy) >> shift\n            target = value >> shift\n            if prefix < target:\n                return result + count[node]\n            if prefix > target or shift == 0:\n                return result\n            if lazy >> bit[node] & 1:\n                zero, one = right[node], left[node]\n            else:\n                zero, one = left[node], right[node]\n            if value >> bit[node] & 1:\n                result += count[zero]\n                node = one\n            else:\n                node = zero\n        return result\n\n    def xor_min(self, value):\n        node = self.root\n        if node < 0:\n            raise IndexError(\"xor_min from empty BinaryTrie\")\n        if value < 0:\n            raise ValueError(\"xor query must be nonnegative\")\n        physical = value ^ self.lazy\n        left, right, bit = self.left, self.right, self.bit\n        while bit[node] >= 0:\n            node = right[node] if physical >> bit[node] & 1 else left[node]\n        return self.key[node] ^ self.lazy\n\n    def xor_max(self, value):\n        if value < 0:\n            raise ValueError(\"xor query must be nonnegative\")\n        return self.xor_min(value ^ ((1 << self.bit_length) - 1))\n\n    def __contains__(self, value):\n        return self.count_value(value) > 0\n\n    def __len__(self):\n        return self.count[self.root] if self.root >= 0 else 0\n\n    def tolist(self):\n        result = []\n        if self.root < 0:\n            return result\n        left, right, bit, lazy = self.left, self.right, self.bit, self.lazy\n        stack = [self.root]\n        while stack:\n            node = stack.pop()\n            if bit[node] < 0:\n                result.extend([self.key[node] ^ lazy] * self.count[node])\n            elif lazy >> bit[node] & 1:\n                stack.append(left[node])\n                stack.append(right[node])\n            else:\n                stack.append(right[node])\n                stack.append(left[node])\n        return result\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"BinaryTrie(%r)\" % self.tolist()\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
@@ -18585,61 +18595,61 @@
       "classes": [
         {
           "name": "BinaryTrie",
-          "summary": "multiset・全体xor・k-th・xor min/maxを行うクラス。",
-          "description": "multiset・全体xor・k-th・xor min/maxを行うクラス。",
+          "summary": "重複を含む非負整数を管理し、順位とXOR最小・最大の要素を求める。",
+          "description": "重複を含む非負整数を管理し、順位とXOR最小・最大の要素を求める。",
           "searchTerms": [
             "BinaryTrie",
             "Binary Trie",
             "BinaryTrie(bit_length=30)"
           ],
           "constructor": "BinaryTrie(bit_length=30)",
-          "constructorArguments": "bit_length: 処理対象の個数。省略時: 30",
+          "constructorArguments": "bit_length: 扱う整数のビット数B。正整数。登録値と全体XORのマスクは0以上2**B未満。省略時: 30",
           "constructorArgumentDetails": [
             {
               "name": "bit_length",
-              "description": "処理対象の個数。省略時は 30"
+              "description": "扱う整数のビット数B。正整数。登録値と全体XORのマスクは0以上2**B未満。省略時は 30"
             }
           ],
           "constructorReturns": "BinaryTrie instance",
           "constructorReturnFormat": "BinaryTrie",
-          "constructorReturnDescription": "multiset・全体xor・k-th・xor min/maxを行うクラス。",
-          "constructorCreates": "multiset・全体xor・k-th・xor min/maxを行うクラス。",
-          "constructorComplexity": "O(B)",
-          "constructorSourceLine": 4,
+          "constructorReturnDescription": "空の整数multiset。add・discardで個数を変え、kth・bisect_leftで順位、xor_min・xor_maxでXORの相手を探せる。xor_allで全要素を一括変換できる。",
+          "constructorCreates": "空の整数multiset。add・discardで個数を変え、kth・bisect_leftで順位、xor_min・xor_maxでXORの相手を探せる。xor_allで全要素を一括変換できる。",
+          "constructorComplexity": "O(1)",
+          "constructorSourceLine": 7,
           "methods": [
             {
               "name": "add",
               "kind": "method",
               "signature": "add(value, amount=1)",
-              "summary": "引数で指定した要素・辺・区間へ値を追加する。",
-              "description": "引数で指定した要素・辺・区間へ値を追加する。",
+              "summary": "valueの個数をamount個増やす。",
+              "description": "valueの個数をamount個増やす。",
               "searchTerms": [
                 "add",
                 "add(value, amount=1)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値 · amount: 加算量・移動量。省略時: 1",
+              "arguments": "value: 0以上2**bit_length未満の整数。範囲外はValueError。 · amount: 増やす個数。正でない場合は変更しない。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "0以上2**bit_length未満の整数。範囲外はValueError。"
                 },
                 {
                   "name": "amount",
-                  "description": "加算量・移動量。省略時は 1"
+                  "description": "増やす個数。正でない場合は変更しない。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 値は返さず、multisetを更新する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "O(B)",
-              "sourceLine": 13
+              "returnDescription": "値は返さず、multisetを更新する。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 37
             },
             {
               "name": "count_value",
               "kind": "method",
               "signature": "count_value(value)",
-              "summary": "値の個数を求める。",
-              "description": "値の個数を求める。",
+              "summary": "valueが現在何個あるかを返す。",
+              "description": "valueが現在何個あるかを返す。",
               "searchTerms": [
                 "count_value",
                 "count value",
@@ -18652,23 +18662,23 @@
                   "description": "追加・設定・問い合わせる値"
                 }
               ],
-              "returns": "int — 求めた値の個数。",
+              "returns": "int — valueの個数。未登録またはビット範囲外なら0。",
               "returnFormat": "int",
-              "returnDescription": "求めた値の個数。",
-              "complexity": "O(B)",
-              "sourceLine": 39
+              "returnDescription": "valueの個数。未登録またはビット範囲外なら0。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 78
             },
             {
               "name": "discard",
               "kind": "method",
               "signature": "discard(value, amount=1)",
-              "summary": "要素があれば削除する。",
-              "description": "要素があれば削除する。",
+              "summary": "valueを最大amount個削除する。足りない場合は存在する個数だけ削除する。",
+              "description": "valueを最大amount個削除する。足りない場合は存在する個数だけ削除する。",
               "searchTerms": [
                 "discard",
                 "discard(value, amount=1)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値 · amount: 加算量・移動量。省略時: 1",
+              "arguments": "value: 追加・設定・問い合わせる値 · amount: 削除する個数の上限。正でない場合は変更しない。",
               "argumentDetails": [
                 {
                   "name": "value",
@@ -18676,169 +18686,169 @@
                 },
                 {
                   "name": "amount",
-                  "description": "加算量・移動量。省略時は 1"
+                  "description": "削除する個数の上限。正でない場合は変更しない。"
                 }
               ],
-              "returns": "int — 0 / amount",
+              "returns": "int — 実際に削除した個数。未登録なら0。",
               "returnFormat": "int",
-              "returnDescription": "0 / amount",
-              "complexity": "O(B)",
-              "sourceLine": 50
+              "returnDescription": "実際に削除した個数。未登録なら0。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 90
             },
             {
               "name": "xor_all",
               "kind": "method",
               "signature": "xor_all(value)",
-              "summary": "XOR全体を求める。",
-              "description": "XOR全体を求める。",
+              "summary": "全ての登録値をvalueとのXORに置き換える。個数は変わらない。",
+              "description": "全ての登録値をvalueとのXORに置き換える。個数は変わらない。",
               "searchTerms": [
                 "xor_all",
                 "xor all",
                 "xor_all(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 0以上2**bit_length未満の整数マスク。範囲外はValueError。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "0以上2**bit_length未満の整数マスク。範囲外はValueError。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 値は返さず、以降の検索・更新が見る整数値を変える。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "O(B)",
-              "sourceLine": 65
+              "returnDescription": "値は返さず、以降の検索・更新が見る整数値を変える。",
+              "complexity": "O(1)",
+              "sourceLine": 122
             },
             {
               "name": "kth",
               "kind": "method",
               "signature": "kth(index)",
-              "summary": "0始まりでk番目の要素を取得する。",
-              "description": "0始まりでk番目の要素を取得する。",
+              "summary": "重複を含めて昇順に並べたindex番目の整数を返す。",
+              "description": "重複を含めて昇順に並べたindex番目の整数を返す。",
               "searchTerms": [
                 "kth",
                 "kth(index)"
               ],
-              "arguments": "index: 位置",
+              "arguments": "index: 0以上len(tree)未満。範囲外はIndexError。",
               "argumentDetails": [
                 {
                   "name": "index",
-                  "description": "位置"
+                  "description": "0以上len(tree)未満。範囲外はIndexError。"
                 }
               ],
-              "returns": "int — k番目の値",
+              "returns": "int — 現在の登録値。全体XORを反映した順序で選ぶ。",
               "returnFormat": "int",
-              "returnDescription": "k番目の値",
-              "complexity": "O(B)",
-              "sourceLine": 70
+              "returnDescription": "現在の登録値。全体XORを反映した順序で選ぶ。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 127
             },
             {
               "name": "min",
               "kind": "method",
               "signature": "min()",
-              "summary": "最小を求める。",
-              "description": "最小を求める。",
+              "summary": "現在の最小の登録値を返す。",
+              "description": "現在の最小の登録値を返す。",
               "searchTerms": [
                 "min",
                 "min()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "格納値と同じ型 — 求めた最小。",
-              "returnFormat": "格納値と同じ型",
-              "returnDescription": "求めた最小。",
-              "complexity": "O(B)",
-              "sourceLine": 88
+              "returns": "int — 最小の整数。空ならIndexError。",
+              "returnFormat": "int",
+              "returnDescription": "最小の整数。空ならIndexError。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 144
             },
             {
               "name": "max",
               "kind": "method",
               "signature": "max()",
-              "summary": "最大を求める。",
-              "description": "最大を求める。",
+              "summary": "現在の最大の登録値を返す。",
+              "description": "現在の最大の登録値を返す。",
               "searchTerms": [
                 "max",
                 "max()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "格納値と同じ型 — 求めた最大。",
-              "returnFormat": "格納値と同じ型",
-              "returnDescription": "求めた最大。",
-              "complexity": "O(B)",
-              "sourceLine": 91
+              "returns": "int — 最大の整数。空ならIndexError。",
+              "returnFormat": "int",
+              "returnDescription": "最大の整数。空ならIndexError。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 147
             },
             {
               "name": "bisect_left",
               "kind": "method",
               "signature": "bisect_left(value)",
-              "summary": "条件を満たす最初の位置を二分探索する。",
-              "description": "条件を満たす最初の位置を二分探索する。",
+              "summary": "value未満の登録値の個数を、重複込みで返す。",
+              "description": "value未満の登録値の個数を、重複込みで返す。",
               "searchTerms": [
                 "bisect_left",
                 "bisect left",
                 "bisect_left(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 比較する整数。登録可能範囲の外でもよい。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "比較する整数。登録可能範囲の外でもよい。"
                 }
               ],
-              "returns": "int — 条件を満たす最初の位置。見つからない場合はデータ構造の末尾（要素数）。",
+              "returns": "int — 0以上len(tree)以下の個数。value自身の個数は含めない。",
               "returnFormat": "int",
-              "returnDescription": "条件を満たす最初の位置。見つからない場合はデータ構造の末尾（要素数）。",
-              "complexity": "O(B)",
-              "sourceLine": 94
+              "returnDescription": "0以上len(tree)以下の個数。value自身の個数は含めない。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 150
             },
             {
               "name": "xor_min",
               "kind": "method",
               "signature": "xor_min(value)",
-              "summary": "XOR最小を求める。",
-              "description": "XOR最小を求める。",
+              "summary": "valueとのXORが最小になる登録値を返す。",
+              "description": "valueとのXORが最小になる登録値を返す。",
               "searchTerms": [
                 "xor_min",
                 "xor min",
                 "xor_min(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 比較相手の非負整数。bit_lengthを超えてもよい。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "比較相手の非負整数。bit_lengthを超えてもよい。"
                 }
               ],
-              "returns": "int — stored（int）",
+              "returns": "int — XORした結果ではなく、相手となる登録値x。最小XOR値はx ^ value。空ならIndexError。",
               "returnFormat": "int",
-              "returnDescription": "stored（int）",
-              "complexity": "O(B)",
-              "sourceLine": 112
+              "returnDescription": "XORした結果ではなく、相手となる登録値x。最小XOR値はx ^ value。空ならIndexError。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 173
             },
             {
               "name": "xor_max",
               "kind": "method",
               "signature": "xor_max(value)",
-              "summary": "XOR最大を求める。",
-              "description": "XOR最大を求める。",
+              "summary": "valueとのXORが最大になる登録値を返す。",
+              "description": "valueとのXORが最大になる登録値を返す。",
               "searchTerms": [
                 "xor_max",
                 "xor max",
                 "xor_max(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 比較相手の非負整数。bit_lengthを超えてもよい。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "比較相手の非負整数。bit_lengthを超えてもよい。"
                 }
               ],
-              "returns": "集計値（要素型と演算に依存） — 求めたXOR最大。",
-              "returnFormat": "集計値（要素型と演算に依存）",
-              "returnDescription": "求めたXOR最大。",
-              "complexity": "O(B)",
-              "sourceLine": 128
+              "returns": "int — XORした結果ではなく、相手となる登録値x。最大XOR値はx ^ value。空ならIndexError。",
+              "returnFormat": "int",
+              "returnDescription": "XORした結果ではなく、相手となる登録値x。最大XOR値はx ^ value。空ならIndexError。",
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 185
             },
             {
               "name": "__contains__",
@@ -18861,15 +18871,15 @@
               "returns": "bool — bool",
               "returnFormat": "bool",
               "returnDescription": "bool",
-              "complexity": "O(B)",
-              "sourceLine": 132
+              "complexity": "O(B)（Bはbit_length。整数演算をO(1)とする）",
+              "sourceLine": 190
             },
             {
               "name": "__len__",
               "kind": "method",
               "signature": "__len__()",
-              "summary": "要素数を返す。",
-              "description": "要素数を返す。",
+              "summary": "保持している個数を返す。",
+              "description": "保持している個数を返す。",
               "searchTerms": [
                 "__len__",
                 "len",
@@ -18877,36 +18887,36 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "int — 要素数。",
+              "returns": "int — 重複込みの整数の個数。",
               "returnFormat": "int",
-              "returnDescription": "要素数。",
+              "returnDescription": "重複込みの整数の個数。",
               "complexity": "O(1)",
-              "sourceLine": 135
+              "sourceLine": 193
             },
             {
               "name": "tolist",
               "kind": "method",
               "signature": "tolist()",
-              "summary": "重複を含む現在の整数を昇順listで返す。O(KB)。",
-              "description": "重複を含む現在の整数を昇順listで返す。O(KB)。",
+              "summary": "現在の登録値を重複を含む昇順リストとして取り出す。",
+              "description": "現在の登録値を重複を含む昇順リストとして取り出す。",
               "searchTerms": [
                 "tolist",
                 "tolist()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "list[int] — 遅延 xor反映後の整数を重複込みで昇順に並べた列",
+              "returns": "list[int] — 長さlen(tree)の新しいリスト。全体XORも反映する。変更してもtreeは変わらない。",
               "returnFormat": "list[int]",
-              "returnDescription": "遅延 xor反映後の整数を重複込みで昇順に並べた列",
-              "complexity": "O(KB)",
-              "sourceLine": 138
+              "returnDescription": "長さlen(tree)の新しいリスト。全体XORも反映する。変更してもtreeは変わらない。",
+              "complexity": "O(N)（Nは重複込みの要素数）",
+              "sourceLine": 196
             },
             {
               "name": "__str__",
               "kind": "method",
               "signature": "__str__()",
-              "summary": "文字列表現を返す。",
-              "description": "文字列表現を返す。",
+              "summary": "現在の論理内容を文字列として表示する。",
+              "description": "現在の論理内容を文字列として表示する。",
               "searchTerms": [
                 "__str__",
                 "str",
@@ -18914,18 +18924,18 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "str — str のインスタンス。",
+              "returns": "str — 昇順の整数リストの文字列表現。",
               "returnFormat": "str",
-              "returnDescription": "str のインスタンス。",
-              "complexity": "O(B)",
-              "sourceLine": 142
+              "returnDescription": "昇順の整数リストの文字列表現。",
+              "complexity": "O(N + 出力文字数)",
+              "sourceLine": 214
             },
             {
               "name": "__repr__",
               "kind": "method",
               "signature": "__repr__()",
-              "summary": "デバッグ表示用の文字列を返す。",
-              "description": "デバッグ表示用の文字列を返す。",
+              "summary": "現在の論理内容を文字列として表示する。",
+              "description": "現在の論理内容を文字列として表示する。",
               "searchTerms": [
                 "__repr__",
                 "repr",
@@ -18933,11 +18943,313 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "list / 入力要素と同じ型 — デバッグ表示用の文字列。",
-              "returnFormat": "list / 入力要素と同じ型",
-              "returnDescription": "デバッグ表示用の文字列。",
-              "complexity": "O(B)",
-              "sourceLine": 145
+              "returns": "str — 昇順の整数リストの文字列表現。先頭に型名を付ける。",
+              "returnFormat": "str",
+              "returnDescription": "昇順の整数リストの文字列表現。先頭に型名を付ける。",
+              "complexity": "O(N + 出力文字数)",
+              "sourceLine": 217
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "ordered_set",
+      "categoryLabel": "順序集合・rank",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
+      "name": "BinaryTrieMonoid",
+      "modulePath": "library_codex.ordered_set.BinaryTrieMonoid",
+      "summary": "整数キーに値を持ち、点更新とキーの半開区間のモノイド積を求める。",
+      "capabilities": [
+        "整数キーへ値を設定し、半開区間のキーに属する値を昇順に集約する。",
+        "和・最小値・行列積など、任意のモノイドを使える。",
+        "可換モノイドでは全キーのXORを一括で変更できる。"
+      ],
+      "article": {
+        "title": "整数キーの点更新と区間積",
+        "markdown": "## 主な機能\n\n整数キーへ値を一つずつ設定し、指定した半開区間のキーに属する値を集約する。和・最小値だけでなく、文字列連結や行列積などの非可換モノイドも、キーの昇順で計算できる。\n\n点更新・削除・区間積はビット幅Bに対してO(B)回の演算。全体の積はO(1)。分岐しない経路を省略し、削除した領域を再利用する。確保領域は過去に同時保持したキー数の最大値に比例し、通常版BinaryTrieへの依存はない。\n\n## 使い方\n\n```python\nfrom operator import add\n\ntree = BinaryTrieMonoid(add, 0, 30, commutative=True)\ntree.set(3, 10)\ntree.set(8, 20)\nassert tree.prod(3, 8) == 10\nassert tree.all_prod() == 30\ntree.xor_all(1)\nassert tree.items() == [(2, 10), (9, 20)]\nassert tree.get(2) == 10\nassert tree.discard(9)\nassert tree.all_prod() == 10\n```\n\n非可換の場合も特別なラッパーは不要。\n\n```python\ntree = BinaryTrieMonoid(lambda a, b: a + b, \"\", 30)\ntree.set(8, \"B\")\ntree.set(3, \"A\")\nassert tree.prod(0, 10) == \"AB\"\n```\n\n## 注意点\n\n- 同じキーへの`set`は上書き。重複を数えるmultisetではない。\n- `prod(left, right)`は半開区間[left, right)。対象なしなら単位元。\n- `identity`を設定してもキーは登録されたまま。`discard`で削除する。\n- `op`は結合則と単位元の条件を満たし、引数のobjectを直接変更しないこと。\n- 全体XORはキーだけを変更し、紐づく値は変更しない。`commutative=True`と宣言した可換モノイドに限る。非可換で非ゼロのXORを指定するとValueError。\n- 任意範囲の整数座標を使う既存の`DynamicSegmentTree`と用途は近い。この構造は非負整数の圧縮経路とキーの全体XORを扱う。",
+        "sourcePath": "library_codex/docs/articles/ordered_set/BinaryTrieMonoid.md"
+      },
+      "searchTerms": [
+        "BinaryTrieMonoid",
+        "Binary Trie Monoid",
+        "library_codex.ordered_set.BinaryTrieMonoid",
+        "library codex ordered set Binary Trie Monoid",
+        "ordered_set/BinaryTrieMonoid.py",
+        "順序集合・rank",
+        "圧縮二分トライ",
+        "Patricia trie",
+        "モノイド",
+        "疎な区間積"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/ordered_set/BinaryTrieMonoid.py",
+      "inputFingerprint": "92bb2a354943abe5158739062e25458089249d2a6ead9dfb363e088ac10693e7",
+      "importCode": "from library_codex.ordered_set.BinaryTrieMonoid import BinaryTrieMonoid",
+      "sourceCode": "\"\"\"整数キーに値を持ち、点更新とキーの半開区間のモノイド積を求める。\"\"\"\n\n\nclass BinaryTrieMonoid:\n    __slots__ = (\"bit_length\", \"op\", \"identity\", \"commutative\", \"left\", \"right\",\n                 \"bit\", \"key\", \"data\", \"root\", \"lazy\", \"free\", \"size\")\n\n    def __init__(self, op, identity, bit_length=30, *, commutative=False):\n        if bit_length <= 0:\n            raise ValueError(\"bit_length must be positive\")\n        self.bit_length = bit_length\n        self.op = op\n        self.identity = identity\n        self.commutative = commutative\n        self.left = []\n        self.right = []\n        self.bit = []\n        self.key = []\n        self.data = []\n        self.root = -1\n        self.lazy = 0\n        self.free = []\n        self.size = 0\n\n    def _new(self, key, bit, left, right, data):\n        if self.free:\n            node = self.free.pop()\n            self.key[node] = key\n            self.bit[node] = bit\n            self.left[node] = left\n            self.right[node] = right\n            self.data[node] = data\n            return node\n        node = len(self.data)\n        self.key.append(key)\n        self.bit.append(bit)\n        self.left.append(left)\n        self.right.append(right)\n        self.data.append(data)\n        return node\n\n    def set(self, key, value):\n        if not 0 <= key < 1 << self.bit_length:\n            raise ValueError(\"key is outside the bit range\")\n        key ^= self.lazy\n        node = self.root\n        if node < 0:\n            self.root = self._new(key, -1, -1, -1, value)\n            self.size = 1\n            return\n        left, right, bit, keys, data, op = self.left, self.right, self.bit, self.key, self.data, self.op\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if key >> bit[node] & 1 else left[node]\n        diff = (key ^ keys[node]).bit_length() - 1\n        if diff < 0:\n            data[node] = value\n        else:\n            length = 0\n            node = self.root\n            while length < len(path) and bit[path[length]] > diff:\n                ancestor = path[length]\n                node = right[ancestor] if key >> bit[ancestor] & 1 else left[ancestor]\n                length += 1\n            del path[length:]\n            leaf = self._new(key, -1, -1, -1, value)\n            if key >> diff & 1:\n                branch = self._new(key, diff, node, leaf, op(data[node], value))\n            else:\n                branch = self._new(key, diff, leaf, node, op(value, data[node]))\n            if not path:\n                self.root = branch\n            elif key >> bit[path[-1]] & 1:\n                right[path[-1]] = branch\n            else:\n                left[path[-1]] = branch\n            self.size += 1\n        for parent in reversed(path):\n            data[parent] = op(data[left[parent]], data[right[parent]])\n\n    def get(self, key):\n        if not 0 <= key < 1 << self.bit_length:\n            return self.identity\n        key ^= self.lazy\n        node = self.root\n        if node < 0:\n            return self.identity\n        left, right, bit = self.left, self.right, self.bit\n        while bit[node] >= 0:\n            node = right[node] if key >> bit[node] & 1 else left[node]\n        return self.data[node] if self.key[node] == key else self.identity\n\n    def discard(self, key):\n        if self.root < 0 or not 0 <= key < 1 << self.bit_length:\n            return False\n        key ^= self.lazy\n        node = self.root\n        left, right, bit, data, op = self.left, self.right, self.bit, self.data, self.op\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if key >> bit[node] & 1 else left[node]\n        if self.key[node] != key:\n            return False\n        self.size -= 1\n        data[node] = self.identity\n        self.free.append(node)\n        if not path:\n            self.root = -1\n            return True\n        parent = path.pop()\n        sibling = left[parent] if right[parent] == node else right[parent]\n        data[parent] = self.identity\n        self.free.append(parent)\n        if not path:\n            self.root = sibling\n        elif left[path[-1]] == parent:\n            left[path[-1]] = sibling\n        else:\n            right[path[-1]] = sibling\n        for parent in reversed(path):\n            data[parent] = op(data[left[parent]], data[right[parent]])\n        return True\n\n    def prod(self, left, right):\n        result = self.identity\n        if left >= right or self.root < 0:\n            return result\n        low, high, bit, keys, data, op, lazy = self.left, self.right, self.bit, self.key, self.data, self.op, self.lazy\n        stack = [self.root]\n        while stack:\n            node = stack.pop()\n            shift = bit[node] + 1\n            start = (keys[node] ^ lazy) >> shift << shift\n            end = start + (1 << shift)\n            if right <= start or end <= left:\n                continue\n            if left <= start and end <= right:\n                result = op(result, data[node])\n            elif lazy >> bit[node] & 1:\n                stack.append(low[node])\n                stack.append(high[node])\n            else:\n                stack.append(high[node])\n                stack.append(low[node])\n        return result\n\n    def all_prod(self):\n        return self.data[self.root] if self.root >= 0 else self.identity\n\n    def xor_all(self, mask):\n        if not 0 <= mask < 1 << self.bit_length:\n            raise ValueError(\"xor mask is outside the bit range\")\n        if mask and not self.commutative:\n            raise ValueError(\"xor_all requires commutative=True\")\n        self.lazy ^= mask\n\n    def items(self):\n        result = []\n        if self.root < 0:\n            return result\n        left, right, bit, lazy = self.left, self.right, self.bit, self.lazy\n        stack = [self.root]\n        while stack:\n            node = stack.pop()\n            if bit[node] < 0:\n                result.append((self.key[node] ^ lazy, self.data[node]))\n            elif lazy >> bit[node] & 1:\n                stack.append(left[node])\n                stack.append(right[node])\n            else:\n                stack.append(right[node])\n                stack.append(left[node])\n        return result\n\n    def __len__(self):\n        return self.size\n\n    def __str__(self):\n        return str(dict(self.items()))\n\n    def __repr__(self):\n        return \"BinaryTrieMonoid(%r)\" % dict(self.items())\n",
+      "standaloneCode": "\"\"\"整数キーに値を持ち、点更新とキーの半開区間のモノイド積を求める。\"\"\"\n\n\nclass BinaryTrieMonoid:\n    __slots__ = (\"bit_length\", \"op\", \"identity\", \"commutative\", \"left\", \"right\",\n                 \"bit\", \"key\", \"data\", \"root\", \"lazy\", \"free\", \"size\")\n\n    def __init__(self, op, identity, bit_length=30, *, commutative=False):\n        if bit_length <= 0:\n            raise ValueError(\"bit_length must be positive\")\n        self.bit_length = bit_length\n        self.op = op\n        self.identity = identity\n        self.commutative = commutative\n        self.left = []\n        self.right = []\n        self.bit = []\n        self.key = []\n        self.data = []\n        self.root = -1\n        self.lazy = 0\n        self.free = []\n        self.size = 0\n\n    def _new(self, key, bit, left, right, data):\n        if self.free:\n            node = self.free.pop()\n            self.key[node] = key\n            self.bit[node] = bit\n            self.left[node] = left\n            self.right[node] = right\n            self.data[node] = data\n            return node\n        node = len(self.data)\n        self.key.append(key)\n        self.bit.append(bit)\n        self.left.append(left)\n        self.right.append(right)\n        self.data.append(data)\n        return node\n\n    def set(self, key, value):\n        if not 0 <= key < 1 << self.bit_length:\n            raise ValueError(\"key is outside the bit range\")\n        key ^= self.lazy\n        node = self.root\n        if node < 0:\n            self.root = self._new(key, -1, -1, -1, value)\n            self.size = 1\n            return\n        left, right, bit, keys, data, op = self.left, self.right, self.bit, self.key, self.data, self.op\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if key >> bit[node] & 1 else left[node]\n        diff = (key ^ keys[node]).bit_length() - 1\n        if diff < 0:\n            data[node] = value\n        else:\n            length = 0\n            node = self.root\n            while length < len(path) and bit[path[length]] > diff:\n                ancestor = path[length]\n                node = right[ancestor] if key >> bit[ancestor] & 1 else left[ancestor]\n                length += 1\n            del path[length:]\n            leaf = self._new(key, -1, -1, -1, value)\n            if key >> diff & 1:\n                branch = self._new(key, diff, node, leaf, op(data[node], value))\n            else:\n                branch = self._new(key, diff, leaf, node, op(value, data[node]))\n            if not path:\n                self.root = branch\n            elif key >> bit[path[-1]] & 1:\n                right[path[-1]] = branch\n            else:\n                left[path[-1]] = branch\n            self.size += 1\n        for parent in reversed(path):\n            data[parent] = op(data[left[parent]], data[right[parent]])\n\n    def get(self, key):\n        if not 0 <= key < 1 << self.bit_length:\n            return self.identity\n        key ^= self.lazy\n        node = self.root\n        if node < 0:\n            return self.identity\n        left, right, bit = self.left, self.right, self.bit\n        while bit[node] >= 0:\n            node = right[node] if key >> bit[node] & 1 else left[node]\n        return self.data[node] if self.key[node] == key else self.identity\n\n    def discard(self, key):\n        if self.root < 0 or not 0 <= key < 1 << self.bit_length:\n            return False\n        key ^= self.lazy\n        node = self.root\n        left, right, bit, data, op = self.left, self.right, self.bit, self.data, self.op\n        path = []\n        while bit[node] >= 0:\n            path.append(node)\n            node = right[node] if key >> bit[node] & 1 else left[node]\n        if self.key[node] != key:\n            return False\n        self.size -= 1\n        data[node] = self.identity\n        self.free.append(node)\n        if not path:\n            self.root = -1\n            return True\n        parent = path.pop()\n        sibling = left[parent] if right[parent] == node else right[parent]\n        data[parent] = self.identity\n        self.free.append(parent)\n        if not path:\n            self.root = sibling\n        elif left[path[-1]] == parent:\n            left[path[-1]] = sibling\n        else:\n            right[path[-1]] = sibling\n        for parent in reversed(path):\n            data[parent] = op(data[left[parent]], data[right[parent]])\n        return True\n\n    def prod(self, left, right):\n        result = self.identity\n        if left >= right or self.root < 0:\n            return result\n        low, high, bit, keys, data, op, lazy = self.left, self.right, self.bit, self.key, self.data, self.op, self.lazy\n        stack = [self.root]\n        while stack:\n            node = stack.pop()\n            shift = bit[node] + 1\n            start = (keys[node] ^ lazy) >> shift << shift\n            end = start + (1 << shift)\n            if right <= start or end <= left:\n                continue\n            if left <= start and end <= right:\n                result = op(result, data[node])\n            elif lazy >> bit[node] & 1:\n                stack.append(low[node])\n                stack.append(high[node])\n            else:\n                stack.append(high[node])\n                stack.append(low[node])\n        return result\n\n    def all_prod(self):\n        return self.data[self.root] if self.root >= 0 else self.identity\n\n    def xor_all(self, mask):\n        if not 0 <= mask < 1 << self.bit_length:\n            raise ValueError(\"xor mask is outside the bit range\")\n        if mask and not self.commutative:\n            raise ValueError(\"xor_all requires commutative=True\")\n        self.lazy ^= mask\n\n    def items(self):\n        result = []\n        if self.root < 0:\n            return result\n        left, right, bit, lazy = self.left, self.right, self.bit, self.lazy\n        stack = [self.root]\n        while stack:\n            node = stack.pop()\n            if bit[node] < 0:\n                result.append((self.key[node] ^ lazy, self.data[node]))\n            elif lazy >> bit[node] & 1:\n                stack.append(left[node])\n                stack.append(right[node])\n            else:\n                stack.append(right[node])\n                stack.append(left[node])\n        return result\n\n    def __len__(self):\n        return self.size\n\n    def __str__(self):\n        return str(dict(self.items()))\n\n    def __repr__(self):\n        return \"BinaryTrieMonoid(%r)\" % dict(self.items())\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 10
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "BinaryTrieMonoid",
+          "summary": "整数キーごとに値を一つ保持し、キーの半開区間にある値をモノイドで集約する。",
+          "description": "整数キーごとに値を一つ保持し、キーの半開区間にある値をモノイドで集約する。",
+          "searchTerms": [
+            "BinaryTrieMonoid",
+            "Binary Trie Monoid",
+            "BinaryTrieMonoid(op, identity, bit_length=30, *, commutative=False)"
+          ],
+          "constructor": "BinaryTrieMonoid(op, identity, bit_length=30, *, commutative=False)",
+          "constructorArguments": "op: 結合則を満たすop(a, b)。引数を変更しないこと。非可換でもよい。 · identity: opの左右の単位元。未登録キーと空区間の値。 · bit_length: キーのビット数B。正整数。登録キーは0以上2**B未満。省略時: 30 · commutative: Trueはopが可換であるという利用者の宣言。この場合だけ非ゼロのxor_allを許す。可換性は自動検査しない。省略時: False",
+          "constructorArgumentDetails": [
+            {
+              "name": "op",
+              "description": "結合則を満たすop(a, b)。引数を変更しないこと。非可換でもよい"
+            },
+            {
+              "name": "identity",
+              "description": "opの左右の単位元。未登録キーと空区間の値"
+            },
+            {
+              "name": "bit_length",
+              "description": "キーのビット数B。正整数。登録キーは0以上2**B未満。省略時は 30"
+            },
+            {
+              "name": "commutative",
+              "description": "Trueはopが可換であるという利用者の宣言。この場合だけ非ゼロのxor_allを許す。可換性は自動検査しない。省略時は False"
+            }
+          ],
+          "constructorReturns": "BinaryTrieMonoid instance",
+          "constructorReturnFormat": "BinaryTrieMonoid",
+          "constructorReturnDescription": "空の整数キーmap。setで値を設定し、prodでキーの昇順の積、all_prodで全体の積を求める。同じキーへのsetは上書き。値がidentityでも登録キーとして残る。",
+          "constructorCreates": "空の整数キーmap。setで値を設定し、prodでキーの昇順の積、all_prodで全体の積を求める。同じキーへのsetは上書き。値がidentityでも登録キーとして残る。",
+          "constructorComplexity": "O(1)",
+          "constructorSourceLine": 8,
+          "methods": [
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(key, value)",
+              "summary": "keyの値をvalueへ置き換える。未登録なら新しく登録する。",
+              "description": "keyの値をvalueへ置き換える。未登録なら新しく登録する。",
+              "searchTerms": [
+                "set",
+                "set(key, value)"
+              ],
+              "arguments": "key: 0以上2**bit_length未満の整数。範囲外はValueError。 · value: モノイドの要素。identityも登録できる。",
+              "argumentDetails": [
+                {
+                  "name": "key",
+                  "description": "0以上2**bit_length未満の整数。範囲外はValueError。"
+                },
+                {
+                  "name": "value",
+                  "description": "モノイドの要素。identityも登録できる。"
+                }
+              ],
+              "returns": "None — 値は返さず、keyの値と祖先の集約値を更新する。",
+              "returnFormat": "None",
+              "returnDescription": "値は返さず、keyの値と祖先の集約値を更新する。",
+              "complexity": "O(B) 回の整数操作とop（Bはbit_length）",
+              "sourceLine": 42
+            },
+            {
+              "name": "get",
+              "kind": "method",
+              "signature": "get(key)",
+              "summary": "keyに設定されている値を返す。",
+              "description": "keyに設定されている値を返す。",
+              "searchTerms": [
+                "get",
+                "get(key)"
+              ],
+              "arguments": "key: 比較・格納に使うkey",
+              "argumentDetails": [
+                {
+                  "name": "key",
+                  "description": "比較・格納に使うkey"
+                }
+              ],
+              "returns": "object — keyの現在値。未登録またはビット範囲外ならidentity。",
+              "returnFormat": "object",
+              "returnDescription": "keyの現在値。未登録またはビット範囲外ならidentity。",
+              "complexity": "O(B)（Bはbit_length）",
+              "sourceLine": 82
+            },
+            {
+              "name": "discard",
+              "kind": "method",
+              "signature": "discard(key)",
+              "summary": "keyとその値を削除する。",
+              "description": "keyとその値を削除する。",
+              "searchTerms": [
+                "discard",
+                "discard(key)"
+              ],
+              "arguments": "key: 比較・格納に使うkey",
+              "argumentDetails": [
+                {
+                  "name": "key",
+                  "description": "比較・格納に使うkey"
+                }
+              ],
+              "returns": "bool — 登録済みで削除したならTrue。未登録またはビット範囲外ならFalse。",
+              "returnFormat": "bool",
+              "returnDescription": "登録済みで削除したならTrue。未登録またはビット範囲外ならFalse。",
+              "complexity": "O(B) 回の整数操作とop（Bはbit_length）",
+              "sourceLine": 94
+            },
+            {
+              "name": "prod",
+              "kind": "method",
+              "signature": "prod(left, right)",
+              "summary": "半開区間[left, right)にあるキーの値を、現在のキーの昇順でopにより畳み込む。",
+              "description": "半開区間[left, right)にあるキーの値を、現在のキーの昇順でopにより畳み込む。",
+              "searchTerms": [
+                "prod",
+                "prod(left, right)"
+              ],
+              "arguments": "left: 含む側の整数下限。登録可能範囲外でもよい。 · right: 含まない側の整数上限。登録可能範囲外でもよい。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "含む側の整数下限。登録可能範囲外でもよい。"
+                },
+                {
+                  "name": "right",
+                  "description": "含まない側の整数上限。登録可能範囲外でもよい。"
+                }
+              ],
+              "returns": "object — 対象の値を左から順に合成したモノイドの要素。対象なし、またはleft >= rightならidentity。",
+              "returnFormat": "object",
+              "returnDescription": "対象の値を左から順に合成したモノイドの要素。対象なし、またはleft >= rightならidentity。",
+              "complexity": "O(B) 回の整数操作とop（Bはbit_length）",
+              "sourceLine": 126
+            },
+            {
+              "name": "all_prod",
+              "kind": "method",
+              "signature": "all_prod()",
+              "summary": "全ての登録キーの値をキーの昇順でopにより畳み込んだ積を返す。",
+              "description": "全ての登録キーの値をキーの昇順でopにより畳み込んだ積を返す。",
+              "searchTerms": [
+                "all_prod",
+                "all prod",
+                "all_prod()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — 全体の集約値。空ならidentity。",
+              "returnFormat": "object",
+              "returnDescription": "全体の集約値。空ならidentity。",
+              "complexity": "O(1)",
+              "sourceLine": 149
+            },
+            {
+              "name": "xor_all",
+              "kind": "method",
+              "signature": "xor_all(mask)",
+              "summary": "全キーをmaskとのXORに置き換える。各キーに紐づく値は変えない。",
+              "description": "全キーをmaskとのXORに置き換える。各キーに紐づく値は変えない。",
+              "searchTerms": [
+                "xor_all",
+                "xor all",
+                "xor_all(mask)"
+              ],
+              "arguments": "mask: 0以上2**bit_length未満。非ゼロならcommutative=Trueが必要。条件違反はValueError。",
+              "argumentDetails": [
+                {
+                  "name": "mask",
+                  "description": "0以上2**bit_length未満。非ゼロならcommutative=Trueが必要。条件違反はValueError。"
+                }
+              ],
+              "returns": "None — 値は返さず、以降のget・set・prodなどが見るキーを変更する。",
+              "returnFormat": "None",
+              "returnDescription": "値は返さず、以降のget・set・prodなどが見るキーを変更する。",
+              "complexity": "O(1)",
+              "sourceLine": 152
+            },
+            {
+              "name": "items",
+              "kind": "method",
+              "signature": "items()",
+              "summary": "全体XORを反映した現在のキーと値を昇順に列挙する。",
+              "description": "全体XORを反映した現在のキーと値を昇順に列挙する。",
+              "searchTerms": [
+                "items",
+                "items()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[tuple[int, object]] — 各要素が(key, value)の新しいリスト。identityを設定したキーも含む。値のobject自体はコピーしない。",
+              "returnFormat": "list[tuple[int, object]]",
+              "returnDescription": "各要素が(key, value)の新しいリスト。identityを設定したキーも含む。値のobject自体はコピーしない。",
+              "complexity": "O(D)（Dは登録キー数）",
+              "sourceLine": 159
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "保持している個数を返す。",
+              "description": "保持している個数を返す。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 登録されている異なるキーの個数。identityを設定したキーも数える。",
+              "returnFormat": "int",
+              "returnDescription": "登録されている異なるキーの個数。identityを設定したキーも数える。",
+              "complexity": "O(1)",
+              "sourceLine": 177
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の論理内容を文字列として表示する。",
+              "description": "現在の論理内容を文字列として表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — キーの昇順のdictの文字列表現。",
+              "returnFormat": "str",
+              "returnDescription": "キーの昇順のdictの文字列表現。",
+              "complexity": "O(D + 出力文字数)",
+              "sourceLine": 180
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "現在の論理内容を文字列として表示する。",
+              "description": "現在の論理内容を文字列として表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — キーの昇順のdictの文字列表現。先頭に型名を付ける。",
+              "returnFormat": "str",
+              "returnDescription": "キーの昇順のdictの文字列表現。先頭に型名を付ける。",
+              "complexity": "O(D + 出力文字数)",
+              "sourceLine": 183
             }
           ]
         }
@@ -46701,10 +47013,10 @@
       ],
       "complexity": "探索深さ依存",
       "sourcePath": "library_codex/rational/FractionSearch.py",
-      "inputFingerprint": "6da94e5ed1a9abcec03d043270beb08b914ec8a5ff7879d6de836564a1211003",
+      "inputFingerprint": "3113805c5b2a804614791dff0f511b08163a0b5890e4cd54641c75a55b187dd6",
       "importCode": "from library_codex.rational.FractionSearch import stern_brocot_binary_search",
       "sourceCode": "from library_codex.rational.SternBrocotNode import SternBrocotNode\n\n\ndef stern_brocot_binary_search(predicate, limit):\n    \"\"\"Bracket a monotone predicate among reduced nonnegative fractions.\"\"\"\n    if limit < 0:\n        raise ValueError(\"limit must be nonnegative\")\n    node = SternBrocotNode()\n    if limit == 0:\n        return node.lower_bound(), node.upper_bound()\n    if predicate((0, 1)):\n        return (0, 1), (0, 1)\n\n    def over(return_value):\n        return (max(node.x, node.y) > limit\n                or bool(predicate(node.get())) == return_value)\n\n    go_left = over(True)\n    while True:\n        if go_left:\n            amount = 1\n            while True:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_left(1)\n            if max(node.x, node.y) > limit:\n                return node.lower_bound(), node.upper_bound()\n        else:\n            amount = 1\n            while True:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_right(1)\n            if max(node.x, node.y) > limit:\n                return node.lower_bound(), node.upper_bound()\n        go_left = not go_left\n\n\nbinary_search_on_stern_brocot_tree = stern_brocot_binary_search\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: rational/SternBrocotNode.py\n\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n    __slots__ = ('lx', 'ly', 'x', 'y', 'rx', 'ry', 'path')\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        (self.lx, self.ly) = (0, 1)\n        (self.x, self.y) = (1, 1)\n        (self.rx, self.ry) = (1, 0)\n        self.path = []\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError('path runs must be nonzero')\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError('fraction must be positive')\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return (self.x, self.y)\n\n    def lower_bound(self):\n        return (self.lx, self.ly)\n\n    def upper_bound(self):\n        return (self.rx, self.ry)\n\n    def depth(self):\n        return sum((abs(step) for step in self.path))\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self.depth():\n            return False\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for (left, right) in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n\n# 本体\ndef stern_brocot_binary_search(predicate, limit):\n    \"\"\"Bracket a monotone predicate among reduced nonnegative fractions.\"\"\"\n    if limit < 0:\n        raise ValueError('limit must be nonnegative')\n    node = SternBrocotNode()\n    if limit == 0:\n        return (node.lower_bound(), node.upper_bound())\n    if predicate((0, 1)):\n        return ((0, 1), (0, 1))\n\n    def over(return_value):\n        return max(node.x, node.y) > limit or bool(predicate(node.get())) == return_value\n    go_left = over(True)\n    while True:\n        if go_left:\n            amount = 1\n            while True:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_left(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        else:\n            amount = 1\n            while True:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_right(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        go_left = not go_left\nbinary_search_on_stern_brocot_tree = stern_brocot_binary_search\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: rational/SternBrocotNode.py\n\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n    __slots__ = ('lx', 'ly', 'x', 'y', 'rx', 'ry', 'path', '_depth')\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        (self.lx, self.ly) = (0, 1)\n        (self.x, self.y) = (1, 1)\n        (self.rx, self.ry) = (1, 0)\n        self.path = []\n        self._depth = 0\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError('path runs must be nonzero')\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError('fraction must be positive')\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return (self.x, self.y)\n\n    def lower_bound(self):\n        return (self.lx, self.ly)\n\n    def upper_bound(self):\n        return (self.rx, self.ry)\n\n    def depth(self):\n        return self._depth\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self._depth:\n            return False\n        self._depth -= steps\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for (left, right) in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n\n# 本体\ndef stern_brocot_binary_search(predicate, limit):\n    \"\"\"Bracket a monotone predicate among reduced nonnegative fractions.\"\"\"\n    if limit < 0:\n        raise ValueError('limit must be nonnegative')\n    node = SternBrocotNode()\n    if limit == 0:\n        return (node.lower_bound(), node.upper_bound())\n    if predicate((0, 1)):\n        return ((0, 1), (0, 1))\n\n    def over(return_value):\n        return max(node.x, node.y) > limit or bool(predicate(node.get())) == return_value\n    go_left = over(True)\n    while True:\n        if go_left:\n            amount = 1\n            while True:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_left(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        else:\n            amount = 1\n            while True:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_right(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        go_left = not go_left\nbinary_search_on_stern_brocot_tree = stern_brocot_binary_search\n",
       "bundledDependencies": [
         "library_codex.rational.SternBrocotNode"
       ],
@@ -47378,23 +47690,32 @@
       "modulePath": "library_codex.rational.SternBrocotNode",
       "summary": "Stern-Brocot木上の有理数と経路を扱う。",
       "capabilities": [
-        "SternBrocotNode: Stern-Brocot木上の有理数と経路を行うクラス。"
+        "正の有理数をStern–Brocot木上の位置と圧縮経路へ変換する。",
+        "左右へまとめて進む、祖先へ戻る、二つの位置のLCAを求める。",
+        "現在の分数と、その位置を囲む左右の境界分数を取得する。"
       ],
-      "article": null,
+      "article": {
+        "title": "有理数の木上の移動とLCA",
+        "markdown": "## 主な機能\n\n正の有理数を一度ずつ含むStern–Brocot木で、現在位置一つを管理する。根は1/1。左右の境界の分子どうし・分母どうしを足した分数が現在位置になり、左へ進むと小さい分数、右へ進むと大きい分数になる。\n\n左右へ何段もまとめて進む、祖先へ戻る、二つの位置のLCAを求める操作ができる。木全体や全祖先のobjectは作らず、同方向への連続した移動を一つにまとめて保持する。\n\n- 分数からの構築：分子・分母の最大値Aに対してO(log A)回の整数演算。\n- 左右へのまとめた移動：償却O(1)回の整数演算。\n- 深さ・現在値・境界の取得：O(1)。\n- 祖先への移動：取り除く圧縮経路の要素数Kに対してO(1 + K)回の整数演算。\n- LCA：二つの圧縮経路の短い方の長さに比例する整数演算。\n\n## 使い方\n\n```python\nnode = SternBrocotNode(6, 4)\nassert node.get() == (3, 2)\nassert node.path == [1, -1]\nassert node.depth() == 2\nassert node.lower_bound() == (1, 1)\nassert node.upper_bound() == (2, 1)\n\nother = SternBrocotNode(5, 3)\ncommon = SternBrocotNode.lca(node, other)\nassert common.get() == (3, 2)\nassert node.go_parent(2)\nassert node.get() == (1, 1)\n```\n\n## 返り値\n\n- `get()`：現在の既約分数を表す、分子と分母の組。\n- `lower_bound()`：現在位置の左境界の分子と分母。根では0/1。\n- `upper_bound()`：右境界の分子と分母。根では1/0で、正の無限大の表現。\n- `lca(a, b)`：共通祖先の位置を保持する新しいSternBrocotNode。`get()`で分数を取り出す。\n- `go_parent(steps)`：移動に成功したかどうか。失敗なら状態は変わらない。\n\n## 注意点\n\n- 境界は登録集合のlower_bound・upper_boundではなく、現在位置を囲む二つの分数。\n- 1/0は境界専用の表現。そのままPythonで除算しない。\n- 分子・分母は正整数。自動で約分する。\n- `path`の正数は右、負数は左への移動回数。読み取り用とし、listを直接変更しない。\n- 多倍長整数が大きくなると整数演算自体の時間も増える。\n- 条件を満たす有理数を探す用途には、別モジュール`FractionSearch`の探索関数がある。",
+        "sourcePath": "library_codex/docs/articles/rational/SternBrocotNode.md"
+      },
       "searchTerms": [
         "SternBrocotNode",
         "Stern Brocot Node",
         "library_codex.rational.SternBrocotNode",
         "library codex rational Stern Brocot Node",
         "rational/SternBrocotNode.py",
-        "有理数・数値"
+        "有理数・数値",
+        "スターンブロコ木",
+        "スターン・ブロコ木",
+        "有理数の木"
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/rational/SternBrocotNode.py",
-      "inputFingerprint": "e2281d1153e46b1986fd371a0e58e2be5849f7177ac2fc6182d93c17d8eb4f61",
+      "inputFingerprint": "cafc74fb32bc7f706b105f5d71349e867cae040fe305c7597015a439269c3a8c",
       "importCode": "from library_codex.rational.SternBrocotNode import SternBrocotNode",
-      "sourceCode": "\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\n\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n\n    __slots__ = (\"lx\", \"ly\", \"x\", \"y\", \"rx\", \"ry\", \"path\")\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        self.lx, self.ly = 0, 1\n        self.x, self.y = 1, 1\n        self.rx, self.ry = 1, 0\n        self.path = []\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError(\"path runs must be nonzero\")\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError(\"fraction must be positive\")\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return self.x, self.y\n\n    def lower_bound(self):\n        return self.lx, self.ly\n\n    def upper_bound(self):\n        return self.rx, self.ry\n\n    def depth(self):\n        return sum(abs(step) for step in self.path)\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self.depth():\n            return False\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for left, right in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n",
-      "standaloneCode": "\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\n\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n\n    __slots__ = (\"lx\", \"ly\", \"x\", \"y\", \"rx\", \"ry\", \"path\")\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        self.lx, self.ly = 0, 1\n        self.x, self.y = 1, 1\n        self.rx, self.ry = 1, 0\n        self.path = []\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError(\"path runs must be nonzero\")\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError(\"fraction must be positive\")\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return self.x, self.y\n\n    def lower_bound(self):\n        return self.lx, self.ly\n\n    def upper_bound(self):\n        return self.rx, self.ry\n\n    def depth(self):\n        return sum(abs(step) for step in self.path)\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self.depth():\n            return False\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for left, right in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n",
+      "sourceCode": "\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\n\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n\n    __slots__ = (\"lx\", \"ly\", \"x\", \"y\", \"rx\", \"ry\", \"path\", \"_depth\")\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        self.lx, self.ly = 0, 1\n        self.x, self.y = 1, 1\n        self.rx, self.ry = 1, 0\n        self.path = []\n        self._depth = 0\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError(\"path runs must be nonzero\")\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError(\"fraction must be positive\")\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return self.x, self.y\n\n    def lower_bound(self):\n        return self.lx, self.ly\n\n    def upper_bound(self):\n        return self.rx, self.ry\n\n    def depth(self):\n        return self._depth\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self._depth:\n            return False\n        self._depth -= steps\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for left, right in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n",
+      "standaloneCode": "\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\n\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n\n    __slots__ = (\"lx\", \"ly\", \"x\", \"y\", \"rx\", \"ry\", \"path\", \"_depth\")\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        self.lx, self.ly = 0, 1\n        self.x, self.y = 1, 1\n        self.rx, self.ry = 1, 0\n        self.path = []\n        self._depth = 0\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError(\"path runs must be nonzero\")\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError(\"fraction must be positive\")\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return self.x, self.y\n\n    def lower_bound(self):\n        return self.lx, self.ly\n\n    def upper_bound(self):\n        return self.rx, self.ry\n\n    def depth(self):\n        return self._depth\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self._depth:\n            return False\n        self._depth -= steps\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for left, right in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
@@ -47405,34 +47726,34 @@
       "classes": [
         {
           "name": "SternBrocotNode",
-          "summary": "Stern-Brocot木上の有理数と経路を行うクラス。",
-          "description": "Stern-Brocot木上の有理数と経路を行うクラス。",
+          "summary": "正の有理数一つのStern–Brocot木上の位置を保持し、子孫・祖先への移動と境界・LCAの取得を行う。",
+          "description": "正の有理数一つのStern–Brocot木上の位置を保持し、子孫・祖先への移動と境界・LCAの取得を行う。",
           "searchTerms": [
             "SternBrocotNode",
             "Stern Brocot Node",
             "SternBrocotNode(numerator=1, denominator=1, path=None)"
           ],
           "constructor": "SternBrocotNode(numerator=1, denominator=1, path=None)",
-          "constructorArguments": "numerator: 有理式の分子多項式。省略時: 1 · denominator: 有理式の分母多項式。省略時: 1 · path: pathとして使う入力。省略時: None",
+          "constructorArguments": "numerator: 正整数の分子。pathを渡した場合は使わない。省略時: 1 · denominator: 正整数の分母。pathを渡した場合は使わない。省略時: 1 · path: 根1/1からの移動回数の列。正数は右、負数は左、0は不可。例[1, -1]は右へ1回・左へ1回で3/2。同方向の連続要素は統合する。省略時: None",
           "constructorArgumentDetails": [
             {
               "name": "numerator",
-              "description": "有理式の分子多項式。省略時は 1"
+              "description": "正整数の分子。経路を渡した場合は使わない。省略時は 1"
             },
             {
               "name": "denominator",
-              "description": "有理式の分母多項式。省略時は 1"
+              "description": "正整数の分母。経路を渡した場合は使わない。省略時は 1"
             },
             {
               "name": "path",
-              "description": "経路として使う入力。省略時は None"
+              "description": "根1/1からの移動回数の列。正数は右、負数は左、0は不可。例[1, -1]は右へ1回・左へ1回で3/2。同方向の連続要素は統合する。省略時は None"
             }
           ],
           "constructorReturns": "SternBrocotNode instance",
           "constructorReturnFormat": "SternBrocotNode",
-          "constructorReturnDescription": "Stern-Brocot木上の有理数と経路を行うクラス。",
-          "constructorCreates": "Stern-Brocot木上の有理数と経路を行うクラス。",
-          "constructorComplexity": "実装依存",
+          "constructorReturnDescription": "numerator/denominatorを既約分数にした位置。getで分子・分母を取得でき、左右の子孫や祖先へ移動できる。木全体は構築せず、同方向の移動をまとめた経路だけを保持する。",
+          "constructorCreates": "numerator/denominatorを既約分数にした位置。getで分子・分母を取得でき、左右の子孫や祖先へ移動できる。木全体は構築せず、同方向の移動をまとめた経路だけを保持する。",
+          "constructorComplexity": "O(log(max(numerator, denominator))) 回の整数演算。path指定時はO(len(path))",
           "constructorSourceLine": 10,
           "methods": [
             {
@@ -47451,14 +47772,14 @@
               "returnFormat": "tuple[int, int]",
               "returnDescription": "(numerator, denominator)。値はnumerator/denominatorで、両方とも正、gcdは1。",
               "complexity": "O(1)",
-              "sourceLine": 39
+              "sourceLine": 40
             },
             {
               "name": "lower_bound",
               "kind": "method",
               "signature": "lower_bound()",
-              "summary": "指定値以上となる最初の位置を返す。",
-              "description": "指定値以上となる最初の位置を返す。",
+              "summary": "現在位置の左境界の分数を返す。登録集合の二分探索ではない。",
+              "description": "現在位置の左境界の分数を返す。登録集合の二分探索ではない。",
               "searchTerms": [
                 "lower_bound",
                 "lower bound",
@@ -47466,18 +47787,18 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "int — 条件を満たす最初の位置。見つからない場合はデータ構造の末尾（要素数）。",
-              "returnFormat": "int",
-              "returnDescription": "条件を満たす最初の位置。見つからない場合はデータ構造の末尾（要素数）。",
+              "returns": "tuple[int, int] — (分子, 分母)の組。現在の分数より小さい境界。根1/1では(0, 1)。",
+              "returnFormat": "tuple[int, int]",
+              "returnDescription": "(分子, 分母)の組。現在の分数より小さい境界。根1/1では(0, 1)。",
               "complexity": "O(1)",
-              "sourceLine": 42
+              "sourceLine": 43
             },
             {
               "name": "upper_bound",
               "kind": "method",
               "signature": "upper_bound()",
-              "summary": "upper boundを求める。",
-              "description": "upper boundを求める。",
+              "summary": "現在位置の右境界の分数を返す。",
+              "description": "現在位置の右境界の分数を返す。",
               "searchTerms": [
                 "upper_bound",
                 "upper bound",
@@ -47485,128 +47806,128 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "int — 条件を満たす最初の位置。見つからない場合はデータ構造の末尾（要素数）。",
-              "returnFormat": "int",
-              "returnDescription": "条件を満たす最初の位置。見つからない場合はデータ構造の末尾（要素数）。",
+              "returns": "tuple[int, int] — (分子, 分母)の組。現在の分数より大きい境界。(1, 0)は正の無限大を表すので、そのまま除算しない。",
+              "returnFormat": "tuple[int, int]",
+              "returnDescription": "(分子, 分母)の組。現在の分数より大きい境界。(1, 0)は正の無限大を表すので、そのまま除算しない。",
               "complexity": "O(1)",
-              "sourceLine": 45
+              "sourceLine": 46
             },
             {
               "name": "depth",
               "kind": "method",
               "signature": "depth()",
-              "summary": "Stern–Brocot木の根1/1から現在の有理数までの辺数を返す。",
-              "description": "Stern–Brocot木の根1/1から現在の有理数までの辺数を返す。",
+              "summary": "根1/1から現在位置までの辺数を返す。",
+              "description": "根1/1から現在位置までの辺数を返す。",
               "searchTerms": [
                 "depth",
                 "depth()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "int / float — Stern–Brocot木の根1/1から現在の有理数までの辺数。",
-              "returnFormat": "int / float",
-              "returnDescription": "Stern–Brocot木の根1/1から現在の有理数までの辺数。",
-              "complexity": "O(R)（Rはrun-length path長）",
-              "sourceLine": 48
+              "returns": "int — 移動回数の合計。圧縮経路の要素数ではない。根なら0。",
+              "returnFormat": "int",
+              "returnDescription": "移動回数の合計。圧縮経路の要素数ではない。根なら0。",
+              "complexity": "O(1)",
+              "sourceLine": 49
             },
             {
               "name": "go_left",
               "kind": "method",
               "signature": "go_left(steps=1)",
-              "summary": "go leftを求める。",
-              "description": "go leftを求める。",
+              "summary": "左の子方向へsteps本の辺をまとめて進み、現在位置を更新する。",
+              "description": "左の子方向へsteps本の辺をまとめて進み、現在位置を更新する。",
               "searchTerms": [
                 "go_left",
                 "go left",
                 "go_left(steps=1)"
               ],
-              "arguments": "steps: 移動step数。省略時: 1",
+              "arguments": "steps: 進む辺数。正でなければ変更しない。",
               "argumentDetails": [
                 {
                   "name": "steps",
-                  "description": "移動step数。省略時は 1"
+                  "description": "進む辺数。正でなければ変更しない。"
                 }
               ],
-              "returns": "SternBrocotNode — self",
+              "returns": "SternBrocotNode — 更新後のself。新しいオブジェクトは作らない。",
               "returnFormat": "SternBrocotNode",
-              "returnDescription": "self",
-              "complexity": "償却 O(1)",
-              "sourceLine": 51
+              "returnDescription": "更新後のself。新しいオブジェクトは作らない。",
+              "complexity": "償却 O(1) 回の整数演算",
+              "sourceLine": 52
             },
             {
               "name": "go_right",
               "kind": "method",
               "signature": "go_right(steps=1)",
-              "summary": "go rightを求める。",
-              "description": "go rightを求める。",
+              "summary": "右の子方向へsteps本の辺をまとめて進み、現在位置を更新する。",
+              "description": "右の子方向へsteps本の辺をまとめて進み、現在位置を更新する。",
               "searchTerms": [
                 "go_right",
                 "go right",
                 "go_right(steps=1)"
               ],
-              "arguments": "steps: 移動step数。省略時: 1",
+              "arguments": "steps: 進む辺数。正でなければ変更しない。",
               "argumentDetails": [
                 {
                   "name": "steps",
-                  "description": "移動step数。省略時は 1"
+                  "description": "進む辺数。正でなければ変更しない。"
                 }
               ],
-              "returns": "SternBrocotNode — self",
+              "returns": "SternBrocotNode — 更新後のself。新しいオブジェクトは作らない。",
               "returnFormat": "SternBrocotNode",
-              "returnDescription": "self",
-              "complexity": "償却 O(1)",
-              "sourceLine": 64
+              "returnDescription": "更新後のself。新しいオブジェクトは作らない。",
+              "complexity": "償却 O(1) 回の整数演算",
+              "sourceLine": 66
             },
             {
               "name": "go_parent",
               "kind": "method",
               "signature": "go_parent(steps=1)",
-              "summary": "go parentを求める。",
-              "description": "go parentを求める。",
+              "summary": "祖先方向へsteps本の辺を戻り、現在位置を更新する。",
+              "description": "祖先方向へsteps本の辺を戻り、現在位置を更新する。",
               "searchTerms": [
                 "go_parent",
                 "go parent",
                 "go_parent(steps=1)"
               ],
-              "arguments": "steps: 移動step数。省略時: 1",
+              "arguments": "steps: 戻る辺数。0は移動せず成功。負数または現在のdepthより大きければ失敗。",
               "argumentDetails": [
                 {
                   "name": "steps",
-                  "description": "移動step数。省略時は 1"
+                  "description": "戻る辺数。0は移動せず成功。負数または現在のdepthより大きければ失敗。"
                 }
               ],
-              "returns": "bool — bool",
+              "returns": "bool — 移動できればTrue。失敗ならFalseで、位置・経路・深さを変更しない。",
               "returnFormat": "bool",
-              "returnDescription": "bool",
-              "complexity": "O(number of removed runs)",
-              "sourceLine": 77
+              "returnDescription": "移動できればTrue。失敗ならFalseで、位置・経路・深さを変更しない。",
+              "complexity": "O(1 + K) 回の整数演算（Kは取り除く圧縮経路の要素数）",
+              "sourceLine": 80
             },
             {
               "name": "lca",
               "kind": "method",
               "signature": "lca(first, second)",
-              "summary": "2頂点の最小共通祖先を求める。",
-              "description": "2頂点の最小共通祖先を求める。",
+              "summary": "二つの位置の共通祖先のうち、最も深い位置を求める。",
+              "description": "二つの位置の共通祖先のうち、最も深い位置を求める。",
               "searchTerms": [
                 "lca",
                 "lca(first, second)"
               ],
-              "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値",
+              "arguments": "first: 第1のSternBrocotNode。 · second: 第2のSternBrocotNode。",
               "argumentDetails": [
                 {
                   "name": "first",
-                  "description": "第1入力・左側の値"
+                  "description": "第1のSternBrocotNode。"
                 },
                 {
                   "name": "second",
-                  "description": "第2入力・右側の値"
+                  "description": "第2のSternBrocotNode。"
                 }
               ],
-              "returns": "SternBrocotNode — 最小共通祖先の頂点番号（int）",
+              "returns": "SternBrocotNode — LCAの位置を保持する新しいSternBrocotNode。get()で分子・分母を取得できる。入力の二つは変更しない。",
               "returnFormat": "SternBrocotNode",
-              "returnDescription": "最小共通祖先の頂点番号（int）",
-              "complexity": "O(min(R1,R2))",
-              "sourceLine": 100
+              "returnDescription": "LCAの位置を保持する新しいSternBrocotNode。get()で分子・分母を取得できる。入力の二つは変更しない。",
+              "complexity": "O(1 + min(R1, R2)) 回の整数演算（R1・R2は入力の圧縮経路の要素数）",
+              "sourceLine": 104
             }
           ]
         }

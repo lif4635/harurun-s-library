@@ -8,7 +8,9 @@ Stern-Brocot木上の有理数と経路を扱う。
 
 ## できること
 
-- `SternBrocotNode`: Stern-Brocot木上の有理数と経路を扱うを扱う `SternBrocotNode`。
+- 正の有理数をStern–Brocot木上の位置と圧縮経路へ変換する。
+- 左右へまとめて進む、祖先へ戻る、二つの位置のLCAを求める。
+- 現在の分数と、その位置を囲む左右の境界分数を取得する。
 
 ## Import
 
@@ -18,20 +20,21 @@ from library_codex.rational.SternBrocotNode import SternBrocotNode
 
 ## Class `SternBrocotNode`
 
-Stern-Brocot木上の有理数と経路を扱うを扱う `SternBrocotNode`。
+正の有理数一つのStern–Brocot木上の位置を保持し、子孫・祖先への移動と境界・LCAの取得を行う。
 
 - constructor: [`SternBrocotNode(numerator=1, denominator=1, path=None)`](../../../rational/SternBrocotNode.py#L10)
-- 引数: `numerator`: 有理式の分子多項式。省略時: `1`<br>`denominator`: 有理式の分母多項式。省略時: `1`<br>`path`: pathとして使う入力。省略時: `None`
+- 引数: `numerator`: 正整数の分子。pathを渡した場合は使わない。省略時: `1`<br>`denominator`: 正整数の分母。pathを渡した場合は使わない。省略時: `1`<br>`path`: 根1/1からの移動回数の列。正数は右、負数は左、0は不可。例[1, -1]は右へ1回・左へ1回で3/2。同方向の連続要素は統合する。省略時: `None`
 - 返り値: `SternBrocotNode` instance
-- 計算量: —
+- 計算量: O(log(max(numerator, denominator))) 回の整数演算。path指定時はO(len(path))
+- 作成後: numerator/denominatorを既約分数にした位置。getで分子・分母を取得でき、左右の子孫や祖先へ移動できる。木全体は構築せず、同方向の移動をまとめた経路だけを保持する。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get()`](../../../rational/SternBrocotNode.py#L39) | method | 現在nodeが表す正の既約分数を返す。 | なし | tuple[int, int] — (numerator, denominator)。値はnumerator/denominatorで、両方とも正、gcdは1。 | O(1) |
-| [`lower_bound()`](../../../rational/SternBrocotNode.py#L42) | method | 指定値以上となる最初の位置を返す。 | なし | 条件を満たす最小index（int。存在しなければsize） | O(1) |
-| [`upper_bound()`](../../../rational/SternBrocotNode.py#L45) | method | upper boundを求める。 | なし | tuple(`self.rx`, `self.ry`) | O(1) |
-| [`depth()`](../../../rational/SternBrocotNode.py#L48) | method | Stern–Brocot木の根1/1から現在の有理数までの辺数を返す。 | なし | `sum((abs(step) for step in self.path))` | O(R)（Rはrun-length path長） |
-| [`go_left(steps=1)`](../../../rational/SternBrocotNode.py#L51) | method | go leftを求める。 | `steps`: 移動step数。省略時: `1` | `self` | 償却 O(1) |
-| [`go_right(steps=1)`](../../../rational/SternBrocotNode.py#L64) | method | go rightを求める。 | `steps`: 移動step数。省略時: `1` | `self` | 償却 O(1) |
-| [`go_parent(steps=1)`](../../../rational/SternBrocotNode.py#L77) | method | go parentを求める。 | `steps`: 移動step数。省略時: `1` | bool | O(number of removed runs) |
-| [`lca(first, second)`](../../../rational/SternBrocotNode.py#L100) | method | 2頂点の最小共通祖先を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 最小共通祖先の頂点番号（int） | O(min(R1,R2)) |
+| [`get()`](../../../rational/SternBrocotNode.py#L40) | method | 現在nodeが表す正の既約分数を返す。 | なし | tuple[int, int] — (numerator, denominator)。値はnumerator/denominatorで、両方とも正、gcdは1。 | O(1) |
+| [`lower_bound()`](../../../rational/SternBrocotNode.py#L43) | method | 現在位置の左境界の分数を返す。登録集合の二分探索ではない。 | なし | tuple[int, int] — (分子, 分母)の組。現在の分数より小さい境界。根1/1では(0, 1)。 | O(1) |
+| [`upper_bound()`](../../../rational/SternBrocotNode.py#L46) | method | 現在位置の右境界の分数を返す。 | なし | tuple[int, int] — (分子, 分母)の組。現在の分数より大きい境界。(1, 0)は正の無限大を表すので、そのまま除算しない。 | O(1) |
+| [`depth()`](../../../rational/SternBrocotNode.py#L49) | method | 根1/1から現在位置までの辺数を返す。 | なし | int — 移動回数の合計。圧縮経路の要素数ではない。根なら0。 | O(1) |
+| [`go_left(steps=1)`](../../../rational/SternBrocotNode.py#L52) | method | 左の子方向へsteps本の辺をまとめて進み、現在位置を更新する。 | `steps`: 進む辺数。正でなければ変更しない。省略時: `1` | SternBrocotNode — 更新後のself。新しいオブジェクトは作らない。 | 償却 O(1) 回の整数演算 |
+| [`go_right(steps=1)`](../../../rational/SternBrocotNode.py#L66) | method | 右の子方向へsteps本の辺をまとめて進み、現在位置を更新する。 | `steps`: 進む辺数。正でなければ変更しない。省略時: `1` | SternBrocotNode — 更新後のself。新しいオブジェクトは作らない。 | 償却 O(1) 回の整数演算 |
+| [`go_parent(steps=1)`](../../../rational/SternBrocotNode.py#L80) | method | 祖先方向へsteps本の辺を戻り、現在位置を更新する。 | `steps`: 戻る辺数。0は移動せず成功。負数または現在のdepthより大きければ失敗。省略時: `1` | bool — 移動できればTrue。失敗ならFalseで、位置・経路・深さを変更しない。 | O(1 + K) 回の整数演算（Kは取り除く圧縮経路の要素数） |
+| [`lca(first, second)`](../../../rational/SternBrocotNode.py#L104) | method | 二つの位置の共通祖先のうち、最も深い位置を求める。 | `first`: 第1のSternBrocotNode。<br>`second`: 第2のSternBrocotNode。 | SternBrocotNode — LCAの位置を保持する新しいSternBrocotNode。get()で分子・分母を取得できる。入力の二つは変更しない。 | O(1 + min(R1, R2)) 回の整数演算（R1・R2は入力の圧縮経路の要素数） |

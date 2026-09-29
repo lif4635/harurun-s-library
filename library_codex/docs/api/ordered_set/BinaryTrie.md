@@ -9,7 +9,9 @@ multiset・全体xor・k-th・xor min/max。
 
 ## できること
 
-- `BinaryTrie`: multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
+- 整数multisetの追加・削除、k番目、小さい値の個数を扱う。
+- XORが最小・最大になる登録値を探し、全体へのXORも行える。
+- 分岐しない経路を省略し、削除した領域を再利用する。
 
 ## Import
 
@@ -19,27 +21,28 @@ from library_codex.ordered_set.BinaryTrie import BinaryTrie
 
 ## Class `BinaryTrie`
 
-multiset・全体xor・k-th・xor min/maxを扱う `BinaryTrie`。
+重複を含む非負整数を管理し、順位とXOR最小・最大の要素を求める。
 
-- constructor: [`BinaryTrie(bit_length=30)`](../../../ordered_set/BinaryTrie.py#L4)
-- 引数: `bit_length`: 処理対象の個数。省略時: `30`
+- constructor: [`BinaryTrie(bit_length=30)`](../../../ordered_set/BinaryTrie.py#L7)
+- 引数: `bit_length`: 扱う整数のビット数B。正整数。登録値と全体XORのマスクは0以上2**B未満。省略時: `30`
 - 返り値: `BinaryTrie` instance
-- 計算量: —
+- 計算量: O(1)
+- 作成後: 空の整数multiset。add・discardで個数を変え、kth・bisect_leftで順位、xor_min・xor_maxでXORの相手を探せる。xor_allで全要素を一括変換できる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(value, amount=1)`](../../../ordered_set/BinaryTrie.py#L13) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `None` | — |
-| [`count_value(value)`](../../../ordered_set/BinaryTrie.py#L39) | method | 値の個数を求める。 | `value`: 追加・設定・問い合わせる値 | `0` / `self.count[node]` | — |
-| [`discard(value, amount=1)`](../../../ordered_set/BinaryTrie.py#L50) | method | 要素があれば削除する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 加算量・移動量。省略時: `1` | `0` / `amount` | — |
-| [`xor_all(value)`](../../../ordered_set/BinaryTrie.py#L65) | method | XOR全体を求める。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`kth(index)`](../../../ordered_set/BinaryTrie.py#L70) | method | 0-indexedでk番目の要素を取得する。 | `index`: 位置 | k番目の値 | — |
-| [`min()`](../../../ordered_set/BinaryTrie.py#L88) | method | 最小を求める。 | なし | `self.kth(0)` | — |
-| [`max()`](../../../ordered_set/BinaryTrie.py#L91) | method | 最大を求める。 | なし | `self.kth(self.count[0] - 1)` | — |
-| [`bisect_left(value)`](../../../ordered_set/BinaryTrie.py#L94) | method | 条件を満たす最初の位置を二分探索する。 | `value`: 追加・設定・問い合わせる値 | 境界index（int） | — |
-| [`xor_min(value)`](../../../ordered_set/BinaryTrie.py#L112) | method | XOR最小を求める。 | `value`: 追加・設定・問い合わせる値 | `stored`（int） | — |
-| [`xor_max(value)`](../../../ordered_set/BinaryTrie.py#L128) | method | XOR最大を求める。 | `value`: 追加・設定・問い合わせる値 | `self.xor_min(value ^ mask)` | — |
-| [`__contains__(value)`](../../../ordered_set/BinaryTrie.py#L132) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool | — |
-| [`__len__()`](../../../ordered_set/BinaryTrie.py#L135) | method | len(obj)。 | なし | 要素数（int） | — |
-| [`tolist()`](../../../ordered_set/BinaryTrie.py#L138) | method | 重複を含む現在の整数を昇順listで返す。O(KB)。 | なし | list[int] — lazy xor反映後の整数を重複込みで昇順に並べた列 | O(KB) |
-| [`__str__()`](../../../ordered_set/BinaryTrie.py#L142) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
-| [`__repr__()`](../../../ordered_set/BinaryTrie.py#L145) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'BinaryTrie(%r)' % self.tolist()` | — |
+| [`add(value, amount=1)`](../../../ordered_set/BinaryTrie.py#L37) | method | valueの個数をamount個増やす。 | `value`: 0以上2**bit_length未満の整数。範囲外はValueError。<br>`amount`: 増やす個数。正でない場合は変更しない。省略時: `1` | None — 値は返さず、multisetを更新する。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`count_value(value)`](../../../ordered_set/BinaryTrie.py#L78) | method | valueが現在何個あるかを返す。 | `value`: 追加・設定・問い合わせる値 | int — valueの個数。未登録またはビット範囲外なら0。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`discard(value, amount=1)`](../../../ordered_set/BinaryTrie.py#L90) | method | valueを最大amount個削除する。足りない場合は存在する個数だけ削除する。 | `value`: 追加・設定・問い合わせる値<br>`amount`: 削除する個数の上限。正でない場合は変更しない。省略時: `1` | int — 実際に削除した個数。未登録なら0。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`xor_all(value)`](../../../ordered_set/BinaryTrie.py#L122) | method | 全ての登録値をvalueとのXORに置き換える。個数は変わらない。 | `value`: 0以上2**bit_length未満の整数マスク。範囲外はValueError。 | None — 値は返さず、以降の検索・更新が見る整数値を変える。 | O(1) |
+| [`kth(index)`](../../../ordered_set/BinaryTrie.py#L127) | method | 重複を含めて昇順に並べたindex番目の整数を返す。 | `index`: 0以上len(tree)未満。範囲外はIndexError。 | int — 現在の登録値。全体XORを反映した順序で選ぶ。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`min()`](../../../ordered_set/BinaryTrie.py#L144) | method | 現在の最小の登録値を返す。 | なし | int — 最小の整数。空ならIndexError。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`max()`](../../../ordered_set/BinaryTrie.py#L147) | method | 現在の最大の登録値を返す。 | なし | int — 最大の整数。空ならIndexError。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`bisect_left(value)`](../../../ordered_set/BinaryTrie.py#L150) | method | value未満の登録値の個数を、重複込みで返す。 | `value`: 比較する整数。登録可能範囲の外でもよい。 | int — 0以上len(tree)以下の個数。value自身の個数は含めない。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`xor_min(value)`](../../../ordered_set/BinaryTrie.py#L173) | method | valueとのXORが最小になる登録値を返す。 | `value`: 比較相手の非負整数。bit_lengthを超えてもよい。 | int — XORした結果ではなく、相手となる登録値x。最小XOR値はx ^ value。空ならIndexError。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`xor_max(value)`](../../../ordered_set/BinaryTrie.py#L185) | method | valueとのXORが最大になる登録値を返す。 | `value`: 比較相手の非負整数。bit_lengthを超えてもよい。 | int — XORした結果ではなく、相手となる登録値x。最大XOR値はx ^ value。空ならIndexError。 | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`__contains__(value)`](../../../ordered_set/BinaryTrie.py#L190) | method | value in obj。 | `value`: 追加・設定・問い合わせる値 | bool | O(B)（Bはbit_length。整数演算をO(1)とする） |
+| [`__len__()`](../../../ordered_set/BinaryTrie.py#L193) | method | 保持している個数を返す。 | なし | int — 重複込みの整数の個数。 | O(1) |
+| [`tolist()`](../../../ordered_set/BinaryTrie.py#L196) | method | 現在の登録値を重複を含む昇順リストとして取り出す。 | なし | list[int] — 長さlen(tree)の新しいリスト。全体XORも反映する。変更してもtreeは変わらない。 | O(N)（Nは重複込みの要素数） |
+| [`__str__()`](../../../ordered_set/BinaryTrie.py#L214) | method | 現在の論理内容を文字列として表示する。 | なし | str — 昇順の整数リストの文字列表現。 | O(N + 出力文字数) |
+| [`__repr__()`](../../../ordered_set/BinaryTrie.py#L217) | method | 現在の論理内容を文字列として表示する。 | なし | str — 昇順の整数リストの文字列表現。先頭に型名を付ける。 | O(N + 出力文字数) |

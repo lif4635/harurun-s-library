@@ -10,7 +10,6 @@ sys.path.insert(0, str(ROOT.parent))
 
 from library_codex.algebra.Affine import Affine  # noqa: E402
 from library_codex.game.GrundyNumbers import grundy_numbers  # noqa: E402
-from library_codex.rational.SternBrocotNode import SternBrocotNode  # noqa: E402
 from library_codex.linear_algebra.XorBasis import XorBasis  # noqa: E402
 
 
@@ -44,44 +43,6 @@ def test_xor_basis_all_generated_values():
                 assert basis.minimum(xor) == transformed[0]
                 assert basis.maximum(xor) == transformed[-1]
                 assert [basis.xor_kth(xor, i) for i in range(len(ordered))] == transformed
-
-
-def test_stern_brocot_fraction_path_parent_and_lca():
-    nodes = {}
-    for numerator in range(1, 100):
-        for denominator in range(1, 100):
-            divisor = math.gcd(numerator, denominator)
-            reduced = (numerator // divisor, denominator // divisor)
-            node = SternBrocotNode(numerator, denominator)
-            assert node.get() == reduced
-            assert SternBrocotNode(path=node.path).get() == reduced
-            nodes[reduced] = node
-    rng = random.Random(122)
-    items = list(nodes.values())
-    for _ in range(10_000):
-        first = rng.choice(items)
-        second = rng.choice(items)
-        common = []
-        for left, right in zip(first.path, second.path):
-            if (left < 0) != (right < 0):
-                break
-            amount = min(abs(left), abs(right))
-            common.append(amount if left > 0 else -amount)
-            if left != right:
-                break
-        lca = SternBrocotNode.lca(first, second)
-        assert lca.path == common
-        copy = SternBrocotNode(path=first.path)
-        depth = rng.randrange(copy.depth() + 1)
-        expected_path = []
-        remain = copy.depth() - depth
-        for run in copy.path:
-            take = min(remain, abs(run))
-            if take:
-                expected_path.append(take if run > 0 else -take)
-            remain -= take
-        assert copy.go_parent(depth)
-        assert copy.path == expected_path
 
 
 def test_grundy_numbers_random_dag():

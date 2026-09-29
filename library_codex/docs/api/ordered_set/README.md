@@ -6,6 +6,7 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`BinaryTrie`](BinaryTrie.md) | multiset・全体xor・k-th・xor min/max | 0 | 1 | 15 |
+| [`BinaryTrieMonoid`](BinaryTrieMonoid.md) | 整数キーに値を持ち、点更新とキーの半開区間のモノイド積を求める。 | 0 | 1 | 10 |
 | [`BitSet`](BitSet.md) | 固定長bit列の更新・個数・前後のset bit探索を行う集合。 | 0 | 1 | 18 |
 | [`DecrementalSet`](DecrementalSet.md) | 削除と前後の生存要素検索に特化した整数集合。 | 0 | 1 | 8 |
 | [`FastSet`](FastSet.md) | word-size tree型の固定整数universe ordered set | 0 | 1 | 11 |

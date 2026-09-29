@@ -5683,3 +5683,220 @@ API_DETAILS_BY_SYMBOL.update({
         "returnDescription": "長さN+1のリスト。result[k]はちょうどk辺を使う最短距離。N>0ではresult[0]=infinity、N=0では[0]。",
     },
 })
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("ordered_set/BinaryTrie.py", "BinaryTrie"): {
+        "description": "重複を含む非負整数を管理し、順位とXOR最小・最大の要素を求める。",
+        "constructorCreates": "空の整数multiset。add・discardで個数を変え、kth・bisect_leftで順位、xor_min・xor_maxでXORの相手を探せる。xor_allで全要素を一括変換できる。",
+        "argumentDescriptions": {"bit_length": "扱う整数のビット数B。正整数。登録値と全体XORのマスクは0以上2**B未満。"},
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid"): {
+        "description": "整数キーごとに値を一つ保持し、キーの半開区間にある値をモノイドで集約する。",
+        "constructorCreates": "空の整数キーmap。setで値を設定し、prodでキーの昇順の積、all_prodで全体の積を求める。同じキーへのsetは上書き。値がidentityでも登録キーとして残る。",
+        "argumentDescriptions": {
+            "op": "結合則を満たすop(a, b)。引数を変更しないこと。非可換でもよい。",
+            "identity": "opの左右の単位元。未登録キーと空区間の値。",
+            "bit_length": "キーのビット数B。正整数。登録キーは0以上2**B未満。",
+            "commutative": "Trueはopが可換であるという利用者の宣言。この場合だけ非ゼロのxor_allを許す。可換性は自動検査しない。",
+        },
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode"): {
+        "description": "正の有理数一つのStern–Brocot木上の位置を保持し、子孫・祖先への移動と境界・LCAの取得を行う。",
+        "constructorCreates": "numerator/denominatorを既約分数にした位置。getで分子・分母を取得でき、左右の子孫や祖先へ移動できる。木全体は構築せず、同方向の移動をまとめた経路だけを保持する。",
+        "argumentDescriptions": {
+            "numerator": "正整数の分子。pathを渡した場合は使わない。",
+            "denominator": "正整数の分母。pathを渡した場合は使わない。",
+            "path": "根1/1からの移動回数の列。正数は右、負数は左、0は不可。例[1, -1]は右へ1回・左へ1回で3/2。同方向の連続要素は統合する。",
+        },
+    },
+})
+
+MODULE_CAPABILITIES.update({
+    "ordered_set/BinaryTrie.py": (
+        "整数multisetの追加・削除、k番目、小さい値の個数を扱う。",
+        "XORが最小・最大になる登録値を探し、全体へのXORも行える。",
+        "分岐しない経路を省略し、削除した領域を再利用する。",
+    ),
+    "ordered_set/BinaryTrieMonoid.py": (
+        "整数キーへ値を設定し、半開区間のキーに属する値を昇順に集約する。",
+        "和・最小値・行列積など、任意のモノイドを使える。",
+        "可換モノイドでは全キーのXORを一括で変更できる。",
+    ),
+    "rational/SternBrocotNode.py": (
+        "正の有理数をStern–Brocot木上の位置と圧縮経路へ変換する。",
+        "左右へまとめて進む、祖先へ戻る、二つの位置のLCAを求める。",
+        "現在の分数と、その位置を囲む左右の境界分数を取得する。",
+    ),
+})
+
+SEARCH_TERMS_BY_MODULE.update({
+    "ordered_set/BinaryTrie.py": ("圧縮二分トライ", "Patricia trie", "XOR最小", "整数多重集合"),
+    "ordered_set/BinaryTrieMonoid.py": ("圧縮二分トライ", "Patricia trie", "モノイド", "疎な区間積"),
+    "rational/SternBrocotNode.py": ("スターンブロコ木", "スターン・ブロコ木", "有理数の木"),
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "add"): {
+        "description": "valueの個数をamount個増やす。",
+        "argumentDescriptions": {"value": "0以上2**bit_length未満の整数。範囲外はValueError。", "amount": "増やす個数。正でない場合は変更しない。"},
+        "returnFormat": "None", "returnDescription": "値は返さず、multisetを更新する。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "count_value"): {
+        "description": "valueが現在何個あるかを返す。",
+        "returnFormat": "int", "returnDescription": "valueの個数。未登録またはビット範囲外なら0。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "discard"): {
+        "description": "valueを最大amount個削除する。足りない場合は存在する個数だけ削除する。",
+        "argumentDescriptions": {"amount": "削除する個数の上限。正でない場合は変更しない。"},
+        "returnFormat": "int", "returnDescription": "実際に削除した個数。未登録なら0。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "xor_all"): {
+        "description": "全ての登録値をvalueとのXORに置き換える。個数は変わらない。",
+        "argumentDescriptions": {"value": "0以上2**bit_length未満の整数マスク。範囲外はValueError。"},
+        "returnFormat": "None", "returnDescription": "値は返さず、以降の検索・更新が見る整数値を変える。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "kth"): {
+        "description": "重複を含めて昇順に並べたindex番目の整数を返す。",
+        "argumentDescriptions": {"index": "0以上len(tree)未満。範囲外はIndexError。"},
+        "returnFormat": "int", "returnDescription": "現在の登録値。全体XORを反映した順序で選ぶ。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "min"): {
+        "description": "現在の最小の登録値を返す。",
+        "returnFormat": "int", "returnDescription": "最小の整数。空ならIndexError。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "max"): {
+        "description": "現在の最大の登録値を返す。",
+        "returnFormat": "int", "returnDescription": "最大の整数。空ならIndexError。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "bisect_left"): {
+        "description": "value未満の登録値の個数を、重複込みで返す。",
+        "argumentDescriptions": {"value": "比較する整数。登録可能範囲の外でもよい。"},
+        "returnFormat": "int", "returnDescription": "0以上len(tree)以下の個数。value自身の個数は含めない。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "xor_min"): {
+        "description": "valueとのXORが最小になる登録値を返す。",
+        "argumentDescriptions": {"value": "比較相手の非負整数。bit_lengthを超えてもよい。"},
+        "returnFormat": "int", "returnDescription": "XORした結果ではなく、相手となる登録値x。最小XOR値はx ^ value。空ならIndexError。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "xor_max"): {
+        "description": "valueとのXORが最大になる登録値を返す。",
+        "argumentDescriptions": {"value": "比較相手の非負整数。bit_lengthを超えてもよい。"},
+        "returnFormat": "int", "returnDescription": "XORした結果ではなく、相手となる登録値x。最大XOR値はx ^ value。空ならIndexError。",
+    },
+    ("ordered_set/BinaryTrie.py", "BinaryTrie", "tolist"): {
+        "description": "現在の登録値を重複を含む昇順リストとして取り出す。",
+        "returnFormat": "list[int]", "returnDescription": "長さlen(tree)の新しいリスト。全体XORも反映する。変更してもtreeは変わらない。",
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid", "set"): {
+        "description": "keyの値をvalueへ置き換える。未登録なら新しく登録する。",
+        "argumentDescriptions": {"key": "0以上2**bit_length未満の整数。範囲外はValueError。", "value": "モノイドの要素。identityも登録できる。"},
+        "returnFormat": "None", "returnDescription": "値は返さず、keyの値と祖先の集約値を更新する。",
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid", "get"): {
+        "description": "keyに設定されている値を返す。",
+        "returnFormat": "object", "returnDescription": "keyの現在値。未登録またはビット範囲外ならidentity。",
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid", "discard"): {
+        "description": "keyとその値を削除する。",
+        "returnFormat": "bool", "returnDescription": "登録済みで削除したならTrue。未登録またはビット範囲外ならFalse。",
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid", "prod"): {
+        "description": "半開区間[left, right)にあるキーの値を、現在のキーの昇順でopにより畳み込む。",
+        "argumentDescriptions": {"left": "含む側の整数下限。登録可能範囲外でもよい。", "right": "含まない側の整数上限。登録可能範囲外でもよい。"},
+        "returnFormat": "object", "returnDescription": "対象の値を左から順に合成したモノイドの要素。対象なし、またはleft >= rightならidentity。",
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid", "all_prod"): {
+        "description": "全ての登録キーの値をキーの昇順でopにより畳み込んだ積を返す。",
+        "returnFormat": "object", "returnDescription": "全体の集約値。空ならidentity。",
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid", "xor_all"): {
+        "description": "全キーをmaskとのXORに置き換える。各キーに紐づく値は変えない。",
+        "argumentDescriptions": {"mask": "0以上2**bit_length未満。非ゼロならcommutative=Trueが必要。条件違反はValueError。"},
+        "returnFormat": "None", "returnDescription": "値は返さず、以降のget・set・prodなどが見るキーを変更する。",
+    },
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid", "items"): {
+        "description": "全体XORを反映した現在のキーと値を昇順に列挙する。",
+        "returnFormat": "list[tuple[int, object]]", "returnDescription": "各要素が(key, value)の新しいリスト。identityを設定したキーも含む。値のobject自体はコピーしない。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "lower_bound"): {
+        "description": "現在位置の左境界の分数を返す。登録集合の二分探索ではない。",
+        "returnFormat": "tuple[int, int]", "returnDescription": "(分子, 分母)の組。現在の分数より小さい境界。根1/1では(0, 1)。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "upper_bound"): {
+        "description": "現在位置の右境界の分数を返す。",
+        "returnFormat": "tuple[int, int]", "returnDescription": "(分子, 分母)の組。現在の分数より大きい境界。(1, 0)は正の無限大を表すので、そのまま除算しない。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "depth"): {
+        "description": "根1/1から現在位置までの辺数を返す。",
+        "returnFormat": "int", "returnDescription": "移動回数の合計。圧縮経路の要素数ではない。根なら0。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "go_left"): {
+        "description": "左の子方向へsteps本の辺をまとめて進み、現在位置を更新する。",
+        "argumentDescriptions": {"steps": "進む辺数。正でなければ変更しない。"},
+        "returnFormat": "SternBrocotNode", "returnDescription": "更新後のself。新しいオブジェクトは作らない。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "go_right"): {
+        "description": "右の子方向へsteps本の辺をまとめて進み、現在位置を更新する。",
+        "argumentDescriptions": {"steps": "進む辺数。正でなければ変更しない。"},
+        "returnFormat": "SternBrocotNode", "returnDescription": "更新後のself。新しいオブジェクトは作らない。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "go_parent"): {
+        "description": "祖先方向へsteps本の辺を戻り、現在位置を更新する。",
+        "argumentDescriptions": {"steps": "戻る辺数。0は移動せず成功。負数または現在のdepthより大きければ失敗。"},
+        "returnFormat": "bool", "returnDescription": "移動できればTrue。失敗ならFalseで、位置・経路・深さを変更しない。",
+    },
+    ("rational/SternBrocotNode.py", "SternBrocotNode", "lca"): {
+        "description": "二つの位置の共通祖先のうち、最も深い位置を求める。",
+        "argumentDescriptions": {"first": "第1のSternBrocotNode。", "second": "第2のSternBrocotNode。"},
+        "returnFormat": "SternBrocotNode", "returnDescription": "LCAの位置を保持する新しいSternBrocotNode。get()で分子・分母を取得できる。入力の二つは変更しない。",
+    },
+})
+
+COMPLEXITY_BY_MODULE.update({
+    "ordered_set/BinaryTrie.py": {
+        "BinaryTrie": "O(1)", "__init__": "O(1)",
+        **{name: "O(B)（Bはbit_length。整数演算をO(1)とする）" for name in
+           ("add", "discard", "count_value", "kth", "min", "max", "bisect_left", "xor_min", "xor_max", "__contains__")},
+        "xor_all": "O(1)", "__len__": "O(1)",
+        "tolist": "O(N)（Nは重複込みの要素数）",
+        "__str__": "O(N + 出力文字数)", "__repr__": "O(N + 出力文字数)",
+    },
+    "ordered_set/BinaryTrieMonoid.py": {
+        "BinaryTrieMonoid": "O(1)", "__init__": "O(1)",
+        "set": "O(B) 回の整数操作とop（Bはbit_length）",
+        "discard": "O(B) 回の整数操作とop（Bはbit_length）",
+        "get": "O(B)（Bはbit_length）",
+        "prod": "O(B) 回の整数操作とop（Bはbit_length）",
+        "all_prod": "O(1)", "xor_all": "O(1)", "__len__": "O(1)",
+        "items": "O(D)（Dは登録キー数）",
+        "__str__": "O(D + 出力文字数)", "__repr__": "O(D + 出力文字数)",
+    },
+    "rational/SternBrocotNode.py": {
+        "SternBrocotNode": "O(log(max(numerator, denominator))) 回の整数演算。path指定時はO(len(path))",
+        "__init__": "O(log(max(numerator, denominator))) 回の整数演算。path指定時はO(len(path))",
+        "get": "O(1)", "lower_bound": "O(1)", "upper_bound": "O(1)", "depth": "O(1)",
+        "go_left": "償却 O(1) 回の整数演算", "go_right": "償却 O(1) 回の整数演算",
+        "go_parent": "O(1 + K) 回の整数演算（Kは取り除く圧縮経路の要素数）",
+        "lca": "O(min(R1, R2)) 回の整数演算（R1・R2は入力の圧縮経路の要素数）",
+    },
+})
+
+for _trie_module, _trie_class in (
+    ("ordered_set/BinaryTrie.py", "BinaryTrie"),
+    ("ordered_set/BinaryTrieMonoid.py", "BinaryTrieMonoid"),
+):
+    API_DETAILS_BY_SYMBOL[(_trie_module, _trie_class, "__len__")] = {
+        "description": "保持している個数を返す。",
+        "returnFormat": "int",
+        "returnDescription": "重複込みの整数の個数。" if _trie_class == "BinaryTrie" else "登録されている異なるキーの個数。identityを設定したキーも数える。",
+    }
+    for _method in ("__str__", "__repr__"):
+        API_DETAILS_BY_SYMBOL[(_trie_module, _trie_class, _method)] = {
+            "description": "現在の論理内容を文字列として表示する。",
+            "returnFormat": "str",
+            "returnDescription": "昇順の整数リストの文字列表現。" if _trie_class == "BinaryTrie" else "キーの昇順のdictの文字列表現。",
+        }
+        if _method == "__repr__":
+            API_DETAILS_BY_SYMBOL[(_trie_module, _trie_class, _method)]["returnDescription"] += "先頭に型名を付ける。"
+
+COMPLEXITY_BY_MODULE["rational/SternBrocotNode.py"]["lca"] = "O(1 + min(R1, R2)) 回の整数演算（R1・R2は入力の圧縮経路の要素数）"

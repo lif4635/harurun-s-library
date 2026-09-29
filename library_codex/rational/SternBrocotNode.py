@@ -5,13 +5,14 @@ from math import gcd
 class SternBrocotNode:
     """A positive reduced rational and its run-length Stern--Brocot path."""
 
-    __slots__ = ("lx", "ly", "x", "y", "rx", "ry", "path")
+    __slots__ = ("lx", "ly", "x", "y", "rx", "ry", "path", "_depth")
 
     def __init__(self, numerator=1, denominator=1, path=None):
         self.lx, self.ly = 0, 1
         self.x, self.y = 1, 1
         self.rx, self.ry = 1, 0
         self.path = []
+        self._depth = 0
         if path is not None:
             for step in path:
                 if step > 0:
@@ -46,11 +47,12 @@ class SternBrocotNode:
         return self.rx, self.ry
 
     def depth(self):
-        return sum(abs(step) for step in self.path)
+        return self._depth
 
     def go_left(self, steps=1):
         if steps <= 0:
             return self
+        self._depth += steps
         if not self.path or self.path[-1] > 0:
             self.path.append(-steps)
         else:
@@ -64,6 +66,7 @@ class SternBrocotNode:
     def go_right(self, steps=1):
         if steps <= 0:
             return self
+        self._depth += steps
         if not self.path or self.path[-1] < 0:
             self.path.append(steps)
         else:
@@ -75,8 +78,9 @@ class SternBrocotNode:
         return self
 
     def go_parent(self, steps=1):
-        if steps < 0 or steps > self.depth():
+        if steps < 0 or steps > self._depth:
             return False
+        self._depth -= steps
         while steps:
             amount = min(steps, abs(self.path[-1]))
             if self.path[-1] > 0:
@@ -107,4 +111,3 @@ class SternBrocotNode:
             if left != right:
                 break
         return SternBrocotNode(path=path)
-
