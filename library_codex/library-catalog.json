@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-29T14:08:03+00:00",
+  "generatedAt": "2026-09-29T17:49:31+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "agent/library-codex-expansion",
-  "sourceFingerprint": "780ece5244c11b6ab72d5aa650ac45850f4c831e8df39373dba1e46aa492b71b",
-  "inputStamp": "2c48bbc64982abc61b8e91157971aa6f2a25e595ad1433f5362b55a1c570de36",
+  "sourceFingerprint": "5677c8f7c87edd40ed397205b7753d123de939c45c97460d9399bf9021df5160",
+  "inputStamp": "96f2f5649fceab707a8565ca4a22abcd5cec63ca784a0a58e707c90b5d67f776",
   "generatorFingerprint": "efb9defc7edaeb4adee6db7f8e62121aaab3ed563ffe0ef59c03bffd3c375886",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 363,
-    "articles": 17,
+    "articles": 18,
     "functions": 503,
     "classes": 223,
     "methods": 1389,
@@ -49289,9 +49289,14 @@
       "modulePath": "library_codex.tree.DSUOnTree",
       "summary": "Euler区間を用いるDSU on Tree。",
       "capabilities": [
-        "DSUOnTree: Euler区間を用いるDSU on Treeを行うクラス。"
+        "頂点の追加・削除で更新できる集計を、全頂点の部分木について求める。色の種類数や頻度などに使う。",
+        "集計対象が各部分木と一致した状態でクエリを呼ぶ。答えの保存は呼出し側で行う。"
       ],
-      "article": null,
+      "article": {
+        "title": "全頂点の部分木を追加・削除で集計する",
+        "markdown": "## 主な機能\n\n頂点を1つ追加・削除する処理を用意すると、すべての頂点について部分木の集計を求められる。たとえば「部分木に含まれる色の種類数」「部分木で最も多い色の出現回数」に使う。\n\n`DSUOnTree(tree, root)`は、木の隣接リストから頂点の処理順をO(N)時間・領域で準備する。集計値そのものは保持しない。`run`へ渡す関数で集計を更新する。\n\n- `add(v)`: 頂点vの情報を集計へ加える。\n- `remove(v)`: 頂点vの情報を集計から取り除く。\n- `query(v)`: 集計対象がvの部分木と一致した状態で、vの答えを保存する。\n\n`query`は各頂点で1回、`add`・`remove`は合計O(N log N)回呼ばれる。各関数がO(1)なら全体O(N log N)。各関数が重い場合は、その呼出し回数に処理時間を掛ける。単純な部分木和なら、Euler順とBITの組合せも選べる。\n\n## 使い方\n\n各部分木にある色の種類数を求める。\n\n```python\ntree = [[1, 2], [0, 3, 4], [0], [1], [1]]\ncolor = [0, 1, 0, 1, 2]\nsolver = DSUOnTree(tree)\ncount = [0] * 3\ndistinct = [0]\nanswer = [0] * len(tree)\n\ndef add(v):\n    c = color[v]\n    if count[c] == 0:\n        distinct[0] += 1\n    count[c] += 1\n\ndef remove(v):\n    c = color[v]\n    count[c] -= 1\n    if count[c] == 0:\n        distinct[0] -= 1\n\ndef query(v):\n    answer[v] = distinct[0]\n\nsolver.run(add, query, remove)\n```\n\n- `answer`: 頂点番号順の答え。この例では`[3, 2, 1, 1, 1]`。\n- `run`の返り値: `None`。答えは`query`内で保存する。\n- `euler`: 重い子を先にたどった頂点の配列。vの部分木は半開区間`[down[v], up[v])`を占める。\n\n## 仕組み\n\n子のうち、頂点数が最大の部分木の集計を残す。他の子の部分木は、必要なときだけ加え直す。頂点が加え直されるたびに対象の部分木は少なくとも約2倍になるため、1頂点あたりO(log N)回の追加・削除で済む。\n\n重い子を先に並べた`euler`を逆から読むことで、再帰や`run`用の状態スタックなしで処理する。`run`自体の追加領域はO(1)。集計用の配列・データ構造の領域は別に必要になる。\n\n## 注意点\n\n- 木は空でない無向木。各辺を隣接リストの両端へ登録し、重み付きtupleは渡さない。\n- 開始時の集計は空にする。終了時は根の部分木、つまり全頂点が集計に残る。同じsolverでもう一度`run`するなら、自分の集計を空に戻す。\n- 頂点番号順・兄弟の順など、callbackを呼ぶ順序は保証しない。`query(v)`時にvの部分木だけが集計対象になっていることを利用する。\n- `reset()`は軽い子の部分木をすべて削除したあとに呼ぶ。`remove`の代わりではなく、空になった集計の補助情報を掃除したい場合に使う。省略できる。\n- `add`・`remove`・`query`・`reset`の返り値は使わない。",
+        "sourcePath": "library_codex/docs/articles/tree/DSUOnTree.md"
+      },
       "searchTerms": [
         "DSUOnTree",
         "DSUOn Tree",
@@ -49302,10 +49307,10 @@
       ],
       "complexity": "O(Nlog  N) 回のadd/remove",
       "sourcePath": "library_codex/tree/DSUOnTree.py",
-      "inputFingerprint": "3490b555b86b0db785c1c52016c8471afd54a8b19fb947fdca9548e1008026f7",
+      "inputFingerprint": "143ceea9a8514f2a314a1b4b9b4e983714024b17f6f73de8825a4e2622c58cac",
       "importCode": "from library_codex.tree.DSUOnTree import DSUOnTree",
-      "sourceCode": "class DSUOnTree:\n    __slots__ = (\n        \"tree\",\n        \"n\",\n        \"root\",\n        \"parent\",\n        \"size\",\n        \"heavy\",\n        \"down\",\n        \"up\",\n        \"euler\",\n    )\n\n    def __init__(self, tree, root=0):\n        n = len(tree)\n        if not 0 <= root < n:\n            raise IndexError(\"root is out of range\")\n        parent = [-2] * n\n        parent[root] = -1\n        order = [root]\n        for node in order:\n            for other in tree[node]:\n                if other == parent[node]:\n                    continue\n                if parent[other] != -2:\n                    raise ValueError(\"graph must be a tree\")\n                parent[other] = node\n                order.append(other)\n        if len(order) != n:\n            raise ValueError(\"graph must be connected\")\n        size = [1] * n\n        heavy = [-1] * n\n        for node in reversed(order):\n            best = 0\n            for other in tree[node]:\n                if parent[other] == node:\n                    size[node] += size[other]\n                    if size[other] > best:\n                        best = size[other]\n                        heavy[node] = other\n        down = [0] * n\n        up = [0] * n\n        euler = [0] * n\n        timer = 0\n        stack = [(root, 0)]\n        while stack:\n            node, state = stack.pop()\n            if state == 0:\n                down[node] = timer\n                euler[timer] = node\n                timer += 1\n                stack.append((node, 1))\n                children = [\n                    other for other in tree[node] if parent[other] == node\n                ]\n                best = heavy[node]\n                for other in reversed(children):\n                    if other != best:\n                        stack.append((other, 0))\n                if best >= 0:\n                    stack.append((best, 0))\n            else:\n                up[node] = timer\n        self.tree = tree\n        self.n = n\n        self.root = root\n        self.parent = parent\n        self.size = size\n        self.heavy = heavy\n        self.down = down\n        self.up = up\n        self.euler = euler\n\n    def index(self, vertex):\n        return self.down[vertex]\n\n    idx = index\n\n    def run(self, add, query, remove, reset=None):\n        tree = self.tree\n        parent = self.parent\n        heavy = self.heavy\n        down = self.down\n        up = self.up\n        euler = self.euler\n        stack = [(0, self.root, True)]\n        while stack:\n            state, node, keep = stack.pop()\n            if state == 0:\n                stack.append((1, node, keep))\n                best = heavy[node]\n                if best >= 0:\n                    stack.append((0, best, True))\n                children = [\n                    other\n                    for other in tree[node]\n                    if parent[other] == node and other != best\n                ]\n                for other in reversed(children):\n                    stack.append((0, other, False))\n            else:\n                best = heavy[node]\n                for other in tree[node]:\n                    if parent[other] == node and other != best:\n                        for index in range(down[other], up[other]):\n                            add(euler[index])\n                add(node)\n                query(node)\n                if not keep:\n                    for index in range(down[node], up[node]):\n                        remove(euler[index])\n                    if reset is not None:\n                        reset()\n",
-      "standaloneCode": "class DSUOnTree:\n    __slots__ = (\n        \"tree\",\n        \"n\",\n        \"root\",\n        \"parent\",\n        \"size\",\n        \"heavy\",\n        \"down\",\n        \"up\",\n        \"euler\",\n    )\n\n    def __init__(self, tree, root=0):\n        n = len(tree)\n        if not 0 <= root < n:\n            raise IndexError(\"root is out of range\")\n        parent = [-2] * n\n        parent[root] = -1\n        order = [root]\n        for node in order:\n            for other in tree[node]:\n                if other == parent[node]:\n                    continue\n                if parent[other] != -2:\n                    raise ValueError(\"graph must be a tree\")\n                parent[other] = node\n                order.append(other)\n        if len(order) != n:\n            raise ValueError(\"graph must be connected\")\n        size = [1] * n\n        heavy = [-1] * n\n        for node in reversed(order):\n            best = 0\n            for other in tree[node]:\n                if parent[other] == node:\n                    size[node] += size[other]\n                    if size[other] > best:\n                        best = size[other]\n                        heavy[node] = other\n        down = [0] * n\n        up = [0] * n\n        euler = [0] * n\n        timer = 0\n        stack = [(root, 0)]\n        while stack:\n            node, state = stack.pop()\n            if state == 0:\n                down[node] = timer\n                euler[timer] = node\n                timer += 1\n                stack.append((node, 1))\n                children = [\n                    other for other in tree[node] if parent[other] == node\n                ]\n                best = heavy[node]\n                for other in reversed(children):\n                    if other != best:\n                        stack.append((other, 0))\n                if best >= 0:\n                    stack.append((best, 0))\n            else:\n                up[node] = timer\n        self.tree = tree\n        self.n = n\n        self.root = root\n        self.parent = parent\n        self.size = size\n        self.heavy = heavy\n        self.down = down\n        self.up = up\n        self.euler = euler\n\n    def index(self, vertex):\n        return self.down[vertex]\n\n    idx = index\n\n    def run(self, add, query, remove, reset=None):\n        tree = self.tree\n        parent = self.parent\n        heavy = self.heavy\n        down = self.down\n        up = self.up\n        euler = self.euler\n        stack = [(0, self.root, True)]\n        while stack:\n            state, node, keep = stack.pop()\n            if state == 0:\n                stack.append((1, node, keep))\n                best = heavy[node]\n                if best >= 0:\n                    stack.append((0, best, True))\n                children = [\n                    other\n                    for other in tree[node]\n                    if parent[other] == node and other != best\n                ]\n                for other in reversed(children):\n                    stack.append((0, other, False))\n            else:\n                best = heavy[node]\n                for other in tree[node]:\n                    if parent[other] == node and other != best:\n                        for index in range(down[other], up[other]):\n                            add(euler[index])\n                add(node)\n                query(node)\n                if not keep:\n                    for index in range(down[node], up[node]):\n                        remove(euler[index])\n                    if reset is not None:\n                        reset()\n",
+      "sourceCode": "\"\"\"頂点の追加・削除で更新できる集計を、全頂点の部分木について求める。\"\"\"\n\n\nclass DSUOnTree:\n    __slots__ = (\n        \"tree\",\n        \"n\",\n        \"root\",\n        \"parent\",\n        \"size\",\n        \"heavy\",\n        \"down\",\n        \"up\",\n        \"euler\",\n    )\n\n    def __init__(self, tree, root=0):\n        n = len(tree)\n        if not 0 <= root < n:\n            raise IndexError(\"root is out of range\")\n        parent = [-2] * n\n        parent[root] = -1\n        order = [root]\n        for node in order:\n            for other in tree[node]:\n                if other == parent[node]:\n                    continue\n                if parent[other] != -2:\n                    raise ValueError(\"graph must be a tree\")\n                parent[other] = node\n                order.append(other)\n        if len(order) != n:\n            raise ValueError(\"graph must be connected\")\n        size = [1] * n\n        heavy = [-1] * n\n        for node in reversed(order):\n            best = 0\n            for other in tree[node]:\n                if parent[other] == node:\n                    size[node] += size[other]\n                    if size[other] > best:\n                        best = size[other]\n                        heavy[node] = other\n        down = [0] * n\n        up = [0] * n\n        euler = [0] * n\n        timer = 0\n        stack = [(root, 0)]\n        while stack:\n            node, state = stack.pop()\n            if state == 0:\n                down[node] = timer\n                euler[timer] = node\n                timer += 1\n                stack.append((node, 1))\n                children = [\n                    other for other in tree[node] if parent[other] == node\n                ]\n                best = heavy[node]\n                for other in reversed(children):\n                    if other != best:\n                        stack.append((other, 0))\n                if best >= 0:\n                    stack.append((best, 0))\n            else:\n                up[node] = timer\n        self.tree = tree\n        self.n = n\n        self.root = root\n        self.parent = parent\n        self.size = size\n        self.heavy = heavy\n        self.down = down\n        self.up = up\n        self.euler = euler\n\n    def index(self, vertex):\n        return self.down[vertex]\n\n    idx = index\n\n    def run(self, add, query, remove, reset=None):\n        parent, heavy = self.parent, self.heavy\n        down, up, euler = self.down, self.up, self.euler\n        for node in reversed(euler):\n            best = heavy[node]\n            start = down[node] + 1 if best < 0 else up[best]\n            for i in range(start, up[node]):\n                add(euler[i])\n            add(node)\n            query(node)\n            p = parent[node]\n            if p >= 0 and heavy[p] != node:\n                for i in range(down[node], up[node]):\n                    remove(euler[i])\n                if reset is not None:\n                    reset()\n",
+      "standaloneCode": "\"\"\"頂点の追加・削除で更新できる集計を、全頂点の部分木について求める。\"\"\"\n\n\nclass DSUOnTree:\n    __slots__ = (\n        \"tree\",\n        \"n\",\n        \"root\",\n        \"parent\",\n        \"size\",\n        \"heavy\",\n        \"down\",\n        \"up\",\n        \"euler\",\n    )\n\n    def __init__(self, tree, root=0):\n        n = len(tree)\n        if not 0 <= root < n:\n            raise IndexError(\"root is out of range\")\n        parent = [-2] * n\n        parent[root] = -1\n        order = [root]\n        for node in order:\n            for other in tree[node]:\n                if other == parent[node]:\n                    continue\n                if parent[other] != -2:\n                    raise ValueError(\"graph must be a tree\")\n                parent[other] = node\n                order.append(other)\n        if len(order) != n:\n            raise ValueError(\"graph must be connected\")\n        size = [1] * n\n        heavy = [-1] * n\n        for node in reversed(order):\n            best = 0\n            for other in tree[node]:\n                if parent[other] == node:\n                    size[node] += size[other]\n                    if size[other] > best:\n                        best = size[other]\n                        heavy[node] = other\n        down = [0] * n\n        up = [0] * n\n        euler = [0] * n\n        timer = 0\n        stack = [(root, 0)]\n        while stack:\n            node, state = stack.pop()\n            if state == 0:\n                down[node] = timer\n                euler[timer] = node\n                timer += 1\n                stack.append((node, 1))\n                children = [\n                    other for other in tree[node] if parent[other] == node\n                ]\n                best = heavy[node]\n                for other in reversed(children):\n                    if other != best:\n                        stack.append((other, 0))\n                if best >= 0:\n                    stack.append((best, 0))\n            else:\n                up[node] = timer\n        self.tree = tree\n        self.n = n\n        self.root = root\n        self.parent = parent\n        self.size = size\n        self.heavy = heavy\n        self.down = down\n        self.up = up\n        self.euler = euler\n\n    def index(self, vertex):\n        return self.down[vertex]\n\n    idx = index\n\n    def run(self, add, query, remove, reset=None):\n        parent, heavy = self.parent, self.heavy\n        down, up, euler = self.down, self.up, self.euler\n        for node in reversed(euler):\n            best = heavy[node]\n            start = down[node] + 1 if best < 0 else up[best]\n            for i in range(start, up[node]):\n                add(euler[i])\n            add(node)\n            query(node)\n            p = parent[node]\n            if p >= 0 and heavy[p] != node:\n                for i in range(down[node], up[node]):\n                    remove(euler[i])\n                if reset is not None:\n                    reset()\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
@@ -49316,38 +49321,38 @@
       "classes": [
         {
           "name": "DSUOnTree",
-          "summary": "Euler区間を用いるDSU on Treeを行うクラス。",
-          "description": "Euler区間を用いるDSU on Treeを行うクラス。",
+          "summary": "部分木の集計に必要な、頂点の追加・削除の順序を準備する。",
+          "description": "部分木の集計に必要な、頂点の追加・削除の順序を準備する。",
           "searchTerms": [
             "DSUOnTree",
             "DSUOn Tree",
             "DSUOnTree(tree, root=0)"
           ],
           "constructor": "DSUOnTree(tree, root=0)",
-          "constructorArguments": "tree: 木の隣接list · root: 根の頂点番号・原始根。省略時: 0",
+          "constructorArguments": "tree: 空でない無向木の隣接リスト。tree[v]に隣接頂点番号を並べ、各辺を両端へ登録する。 · root: 根にする頂点。部分木の範囲はこの根を基準に決まる。省略時: 0",
           "constructorArgumentDetails": [
             {
               "name": "tree",
-              "description": "木の隣接リスト"
+              "description": "空でない無向木の隣接リスト。tree[v]に隣接頂点番号を並べ、各辺を両端へ登録する"
             },
             {
               "name": "root",
-              "description": "根の頂点番号・原始根。省略時は 0"
+              "description": "根にする頂点。部分木の範囲はこの根を基準に決まる。省略時は 0"
             }
           ],
           "constructorReturns": "DSUOnTree instance",
           "constructorReturnFormat": "DSUOnTree",
-          "constructorReturnDescription": "Euler区間を用いるDSU on Treeを行うクラス。",
-          "constructorCreates": "Euler区間を用いるDSU on Treeを行うクラス。",
+          "constructorReturnDescription": "rootを根とする親子関係・部分木サイズ・Euler順を保持する。runへ集計の更新関数を渡すと全頂点の部分木を処理できる。集計値自体は保持しない。",
+          "constructorCreates": "rootを根とする親子関係・部分木サイズ・Euler順を保持する。runへ集計の更新関数を渡すと全頂点の部分木を処理できる。集計値自体は保持しない。",
           "constructorComplexity": "O(Nlog N)",
-          "constructorSourceLine": 14,
+          "constructorSourceLine": 17,
           "methods": [
             {
               "name": "index",
               "kind": "method",
               "signature": "index(vertex)",
-              "summary": "vertexに対応するEuler tour順のindexを返す。",
-              "description": "vertexに対応するEuler tour順のindexを返す。",
+              "summary": "頂点がEuler順の配列のどこにあるかを求める。",
+              "description": "頂点がEuler順の配列のどこにあるかを求める。",
               "searchTerms": [
                 "index",
                 "index(vertex)"
@@ -49359,46 +49364,46 @@
                   "description": "頂点番号"
                 }
               ],
-              "returns": "int — vertexに対応するEuler tour順のindex。",
+              "returns": "int — euler内の位置down[vertex]。部分木は半開区間 [down[vertex], up[vertex]) を占める。",
               "returnFormat": "int",
-              "returnDescription": "vertexに対応するEuler tour順のindex。",
-              "complexity": "O(Nlog N)",
-              "sourceLine": 74
+              "returnDescription": "euler内の位置down[vertex]。部分木は半開区間 [down[vertex], up[vertex]) を占める。",
+              "complexity": "O(1)",
+              "sourceLine": 77
             },
             {
               "name": "run",
               "kind": "method",
               "signature": "run(add, query, remove, reset=None)",
-              "summary": "各頂点を根とする部分木queryをDSU on treeでまとめて処理する。",
-              "description": "各頂点を根とする部分木queryをDSU on treeでまとめて処理する。",
+              "summary": "集計対象の頂点を追加・削除し、各頂点vの部分木だけが集計に入った状態でquery(v)を1回ずつ呼ぶ。",
+              "description": "集計対象の頂点を追加・削除し、各頂点vの部分木だけが集計に入った状態でquery(v)を1回ずつ呼ぶ。",
               "searchTerms": [
                 "run",
                 "run(add, query, remove, reset=None)"
               ],
-              "arguments": "add: 処理中に呼び出す関数または操作 · query: 処理中に呼び出す関数または操作 · remove: 処理中に呼び出す関数または操作 · reset: resetとして使う入力。省略時: None",
+              "arguments": "add: add(v)で頂点vを集計に追加する。実行開始時の集計は空にしておく。 · query: query(v)で現在の集計からvの答えを保存する。呼出し順は保証しない。 · remove: remove(v)で頂点vを集計から除く。addの効果を取り消せる処理を渡す。 · reset: 軽い子の部分木をすべてremoveした直後、空の集計に対してreset()を呼ぶ。省略可。removeの代わりではない。",
               "argumentDetails": [
                 {
                   "name": "add",
-                  "description": "処理中に呼び出す関数または操作"
+                  "description": "add(v)で頂点vを集計に追加する。実行開始時の集計は空にしておく。"
                 },
                 {
                   "name": "query",
-                  "description": "処理中に呼び出す関数または操作"
+                  "description": "query(v)で現在の集計からvの答えを保存する。呼出し順は保証しない。"
                 },
                 {
                   "name": "remove",
-                  "description": "処理中に呼び出す関数または操作"
+                  "description": "remove(v)で頂点vを集計から除く。addの効果を取り消せる処理を渡す。"
                 },
                 {
                   "name": "reset",
-                  "description": "resetとして使う入力。省略時は None"
+                  "description": "軽い子の部分木をすべてremoveした直後、空の集計に対してreset()を呼ぶ。省略可。removeの代わりではない。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 答えは返さない。query内で配列などへ保存する。callbackの返り値は使わない。終了時は全頂点が集計に残る。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "O(Nlog N)",
-              "sourceLine": 79
+              "returnDescription": "答えは返さない。query内で配列などへ保存する。callbackの返り値は使わない。終了時は全頂点が集計に残る。",
+              "complexity": "O(N log N × (1 + Ta + Tr) + N × (Tq + Ts))。Ta・Tr・Tq・Tsはadd・remove・query・resetの1回の時間。queryはN回、resetは高々N−1回。callback以外の追加領域O(1)",
+              "sourceLine": 82
             }
           ]
         }

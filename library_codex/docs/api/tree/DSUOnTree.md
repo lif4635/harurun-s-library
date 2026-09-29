@@ -9,7 +9,8 @@ Euler区間を用いるDSU on Tree。
 
 ## できること
 
-- `DSUOnTree`: Euler区間を用いるDSU on Treeを扱う `DSUOnTree`。
+- 頂点の追加・削除で更新できる集計を、全頂点の部分木について求める。色の種類数や頻度などに使う。
+- 集計対象が各部分木と一致した状態でqueryを呼ぶ。答えの保存は呼出し側で行う。
 
 ## Import
 
@@ -19,14 +20,15 @@ from library_codex.tree.DSUOnTree import DSUOnTree
 
 ## Class `DSUOnTree`
 
-Euler区間を用いるDSU on Treeを扱う `DSUOnTree`。
+部分木の集計に必要な、頂点の追加・削除の順序を準備する。
 
-- constructor: [`DSUOnTree(tree, root=0)`](../../../tree/DSUOnTree.py#L14)
-- 引数: `tree`: 木の隣接list<br>`root`: 根の頂点番号・原始根。省略時: `0`
+- constructor: [`DSUOnTree(tree, root=0)`](../../../tree/DSUOnTree.py#L17)
+- 引数: `tree`: 空でない無向木の隣接リスト。tree[v]に隣接頂点番号を並べ、各辺を両端へ登録する。<br>`root`: 根にする頂点。部分木の範囲はこの根を基準に決まる。省略時: `0`
 - 返り値: `DSUOnTree` instance
-- 計算量: —
+- 計算量: O(N) 時間・領域。Nは頂点数
+- 作成後: rootを根とする親子関係・部分木サイズ・Euler順を保持する。runへ集計の更新関数を渡すと全頂点の部分木を処理できる。集計値自体は保持しない。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`index(vertex)`](../../../tree/DSUOnTree.py#L74) | method | vertexに対応するEuler tour順のindexを返す。 | `vertex`: 頂点番号 | `self.down[vertex]` | — |
-| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L79) | method | 各頂点を根とする部分木queryをDSU on treeでまとめて処理する。 | `add`: 処理中に呼び出す関数または操作<br>`query`: 処理中に呼び出す関数または操作<br>`remove`: 処理中に呼び出す関数または操作<br>`reset`: resetとして使う入力。省略時: `None` | `None` | — |
+| [`index(vertex)`](../../../tree/DSUOnTree.py#L77) | method | 頂点がEuler順の配列のどこにあるかを求める。 | `vertex`: 頂点番号 | int — euler内の位置down[vertex]。部分木は半開区間 [down[vertex], up[vertex]) を占める。 | O(1) |
+| [`run(add, query, remove, reset=None)`](../../../tree/DSUOnTree.py#L82) | method | 集計対象の頂点を追加・削除し、各頂点vの部分木だけが集計に入った状態でquery(v)を1回ずつ呼ぶ。 | `add`: add(v)で頂点vを集計に追加する。実行開始時の集計は空にしておく。<br>`query`: query(v)で現在の集計からvの答えを保存する。呼出し順は保証しない。<br>`remove`: remove(v)で頂点vを集計から除く。addの効果を取り消せる処理を渡す。<br>`reset`: 軽い子の部分木をすべてremoveした直後、空の集計に対してreset()を呼ぶ。省略可。removeの代わりではない。省略時: `None` | None — 答えは返さない。query内で配列などへ保存する。callbackの返り値は使わない。終了時は全頂点が集計に残る。 | O(N log N × (1 + Ta + Tr) + N × (Tq + Ts))。Ta・Tr・Tq・Tsはadd・remove・query・resetの1回の時間。queryはN回、resetは高々N−1回。callback以外の追加領域O(1) |

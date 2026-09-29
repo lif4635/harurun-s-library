@@ -315,7 +315,6 @@ string_sequence/EditDistance
 string_sequence/LongestCommonSubstring
 string_sequence/LyndonFactorization
 string_sequence/MinimumCyclicShift
-tree/DSUOnTree
 tree/DynamicDiameter
 tree/DynamicRerooting
 tree/EulerTour

@@ -153,6 +153,8 @@ pypy3 library_codex/tools/check_library.py --profile full
 
 ## 8. bundleと公開物を確認する
 
+Library Checkerの上位提出と速度を比べる場合は、[比較手順と測定記録](LIBRARY_CHECKER_COMPARISON.md)を使います。外部sourceは取得後に確認してから実行し、同じ入力・実行環境で答え、時間、メモリを比較します。ランキングの確認だけで「最速実装との比較済み」とはしません。
+
 bundleは選択moduleのsourceから、実際にimportする`library_codex`内依存だけを再帰的に展開します。生成物はpackage wrapperや動的な`bundle`関数ではなく、貼り付けて実行できる通常のPythonコードにします。
 
 公開するときは次を同期します。細かい試行ごとに公開せず、確認しやすい変更のまとまりをcheckpointとして一度だけ公開して構いません。サイトのAPI dataは、既存JSONの`sourceRevision`から変更moduleとbundle依存先だけを差分更新します。

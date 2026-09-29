@@ -1,6 +1,3 @@
-"""頂点の追加・削除で更新できる集計を、全頂点の部分木について求める。"""
-
-
 class DSUOnTree:
     __slots__ = (
         "tree",
@@ -80,18 +77,37 @@ class DSUOnTree:
     idx = index
 
     def run(self, add, query, remove, reset=None):
-        parent, heavy = self.parent, self.heavy
-        down, up, euler = self.down, self.up, self.euler
-        for node in reversed(euler):
-            best = heavy[node]
-            start = down[node] + 1 if best < 0 else up[best]
-            for i in range(start, up[node]):
-                add(euler[i])
-            add(node)
-            query(node)
-            p = parent[node]
-            if p >= 0 and heavy[p] != node:
-                for i in range(down[node], up[node]):
-                    remove(euler[i])
-                if reset is not None:
-                    reset()
+        tree = self.tree
+        parent = self.parent
+        heavy = self.heavy
+        down = self.down
+        up = self.up
+        euler = self.euler
+        stack = [(0, self.root, True)]
+        while stack:
+            state, node, keep = stack.pop()
+            if state == 0:
+                stack.append((1, node, keep))
+                best = heavy[node]
+                if best >= 0:
+                    stack.append((0, best, True))
+                children = [
+                    other
+                    for other in tree[node]
+                    if parent[other] == node and other != best
+                ]
+                for other in reversed(children):
+                    stack.append((0, other, False))
+            else:
+                best = heavy[node]
+                for other in tree[node]:
+                    if parent[other] == node and other != best:
+                        for index in range(down[other], up[other]):
+                            add(euler[index])
+                add(node)
+                query(node)
+                if not keep:
+                    for index in range(down[node], up[node]):
+                        remove(euler[index])
+                    if reset is not None:
+                        reset()

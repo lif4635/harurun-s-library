@@ -1,0 +1,380 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T17:32:49.016108+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "vertex_add_subtree_sum",
+    "problemInfo": {
+      "overall_version": "90a5ad538a9e59eb2b2c4c14d704263f0eb82845af57e9549bbbae6c4664d226",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/tree/vertex_add_subtree_sum",
+      "testcases_version": "84b034cdcdeebe4092ff04eca568328f82be5a8a48720ed382a21c961ceed31c",
+      "time_limit": 5,
+      "title": "Vertex Add Subtree Sum",
+      "version": "3de7fc1b47f1efa125a49f09eba2ee2ea0ca8ad577d322a8bacf3c9aa25e0e85"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 400751,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 173481984,
+        "problem_name": "vertex_add_subtree_sum",
+        "problem_title": "Vertex Add Subtree Sum",
+        "status": "AC",
+        "submission_time": "2026-09-08T09:05:26.593989Z",
+        "time": 0.425,
+        "user_name": "tyuyu62",
+        "sourceFile": "400751.py",
+        "sourceSha256": "a8f3f22f6529e433a4308787df1291be5c76f2f3f18f0d06c6e284616a3e2982",
+        "url": "https://judge.yosupo.jp/submission/400751"
+      },
+      {
+        "id": 388446,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 130605056,
+        "problem_name": "vertex_add_subtree_sum",
+        "problem_title": "Vertex Add Subtree Sum",
+        "status": "AC",
+        "submission_time": "2026-07-26T17:24:23.794914Z",
+        "time": 0.496,
+        "user_name": "tyuyu62",
+        "sourceFile": "388446.py",
+        "sourceSha256": "fdf0e015990d311f62d81b779740ffe9159c8b76f8654bf9bb7bdbaa1cca1c15",
+        "url": "https://judge.yosupo.jp/submission/388446"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "400751": "a8f3f22f6529e433a4308787df1291be5c76f2f3f18f0d06c6e284616a3e2982",
+    "388446": "fdf0e015990d311f62d81b779740ffe9159c8b76f8654bf9bb7bdbaa1cca1c15",
+    "library": "00e9bdfd46313028adbf5fb7b68bd45abf05bdb380e7d3e71d635a6805c72583",
+    "library_dsu": "f5c8318077ef991eddef3b35732364ba0d482d990181abcedcfd31e13b04bb3a"
+  },
+  "repeat": 5,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "random",
+      "size": 100000,
+      "inputSha256": "c803a57bfce1bc9d1046012a21d6440fbdfa1215e9a37be98ce624c15e96c1db",
+      "outputSha256": "3d7f3e6c21a977d4e10c831daa844203fd24a32c50c95b522e5665d1707463c5",
+      "outputTokens": 49975,
+      "bruteChecked": false,
+      "implementations": {
+        "400751": {
+          "seconds": [
+            0.14394707500105142,
+            0.16552012899956026,
+            0.1694366829997307,
+            0.15376674000071944,
+            0.158960921000471
+          ],
+          "medianSeconds": 0.158960921000471,
+          "peakRssKiB": 91716
+        },
+        "388446": {
+          "seconds": [
+            0.16765962499994203,
+            0.17360202500094601,
+            0.17547215999911714,
+            0.17767739400005667,
+            0.17417031900004076
+          ],
+          "medianSeconds": 0.17417031900004076,
+          "peakRssKiB": 86720
+        },
+        "library": {
+          "seconds": [
+            0.25404935400001705,
+            0.29045989899896085,
+            0.30528032800066285,
+            0.2838775300006091,
+            0.2775192999997671
+          ],
+          "medianSeconds": 0.2838775300006091,
+          "peakRssKiB": 95128
+        },
+        "library_dsu": {
+          "seconds": [
+            0.9013944810012617,
+            0.9281988170005206,
+            0.9899645810000948,
+            0.9174425569999585,
+            0.9861828029988828
+          ],
+          "medianSeconds": 0.9281988170005206,
+          "peakRssKiB": 108156
+        }
+      }
+    },
+    {
+      "family": "chain",
+      "size": 100000,
+      "inputSha256": "997df2e3b0e128362de30ab23bc2d0d7ce25580deb56ca7625b0a4492b2335bb",
+      "outputSha256": "19e34f2a6667952850a6dc6195fac85152c0294312ff18ed7e1cd72cff418c7c",
+      "outputTokens": 49842,
+      "bruteChecked": false,
+      "implementations": {
+        "400751": {
+          "seconds": [
+            0.1634752940008184,
+            0.1374056720014778,
+            0.1406351440000435,
+            0.14959730100054003,
+            0.14291025000056834
+          ],
+          "medianSeconds": 0.14291025000056834,
+          "peakRssKiB": 91776
+        },
+        "388446": {
+          "seconds": [
+            0.175541702999908,
+            0.15834340800029167,
+            0.15472352300093917,
+            0.17470148100073857,
+            0.15848677299982228
+          ],
+          "medianSeconds": 0.15848677299982228,
+          "peakRssKiB": 86792
+        },
+        "library": {
+          "seconds": [
+            0.1986548999993829,
+            0.18190821800089907,
+            0.18560733000049368,
+            0.19956147400080226,
+            0.17639597000015783
+          ],
+          "medianSeconds": 0.18560733000049368,
+          "peakRssKiB": 94628
+        },
+        "library_dsu": {
+          "seconds": [
+            0.5159566229995107,
+            0.4528791890006687,
+            0.4201675399999658,
+            0.41855603200019686,
+            0.38445013199998357
+          ],
+          "medianSeconds": 0.4201675399999658,
+          "peakRssKiB": 125616
+        }
+      }
+    },
+    {
+      "family": "star",
+      "size": 100000,
+      "inputSha256": "43053c1e08736c9e681995a53fb2063d972c5b78359fe704cce634b2b83b6ec4",
+      "outputSha256": "0faf16bf63c21defbff932835959c590f63fd1a1061c3bf0eed44452714fa68a",
+      "outputTokens": 49842,
+      "bruteChecked": false,
+      "implementations": {
+        "400751": {
+          "seconds": [
+            0.1460444739986997,
+            0.1403137079996668,
+            0.1693673370009492,
+            0.14313864999894577,
+            0.16437163300179236
+          ],
+          "medianSeconds": 0.1460444739986997,
+          "peakRssKiB": 90832
+        },
+        "388446": {
+          "seconds": [
+            0.1651762540004711,
+            0.14546561899987864,
+            0.17102923699894745,
+            0.15971743100089952,
+            0.17018565800026408
+          ],
+          "medianSeconds": 0.1651762540004711,
+          "peakRssKiB": 85284
+        },
+        "library": {
+          "seconds": [
+            0.18017618599878915,
+            0.1834398989994952,
+            0.1802020850009285,
+            0.20866937800019514,
+            0.18920786200033035
+          ],
+          "medianSeconds": 0.1834398989994952,
+          "peakRssKiB": 101212
+        },
+        "library_dsu": {
+          "seconds": [
+            0.47604955799943127,
+            0.46741619299973536,
+            0.46129884800029686,
+            0.4727847569993173,
+            0.46786722999968333
+          ],
+          "medianSeconds": 0.46786722999968333,
+          "peakRssKiB": 124572
+        }
+      }
+    },
+    {
+      "family": "balanced",
+      "size": 100000,
+      "inputSha256": "5edd93fdb280d455cf6d8b9afb2458a9322b1a4a9e707ce6673866b3a991a009",
+      "outputSha256": "6ac1736f081ac8034b573b7b66775aae9821d14ae7792fc0e40af11ef4cfb5b8",
+      "outputTokens": 49842,
+      "bruteChecked": false,
+      "implementations": {
+        "400751": {
+          "seconds": [
+            0.1674863340012962,
+            0.14168431400139525,
+            0.15650810800070758,
+            0.14538729900050384,
+            0.14347391100091045
+          ],
+          "medianSeconds": 0.14538729900050384,
+          "peakRssKiB": 91744
+        },
+        "388446": {
+          "seconds": [
+            0.17180077900047763,
+            0.16162994600017555,
+            0.15747502900012478,
+            0.15790679599922441,
+            0.17081658600000083
+          ],
+          "medianSeconds": 0.16162994600017555,
+          "peakRssKiB": 86724
+        },
+        "library": {
+          "seconds": [
+            0.19904924599904916,
+            0.17700249299923598,
+            0.19296100600149657,
+            0.17677876000016113,
+            0.17300431300100172
+          ],
+          "medianSeconds": 0.17700249299923598,
+          "peakRssKiB": 94144
+        },
+        "library_dsu": {
+          "seconds": [
+            0.7454257919998781,
+            0.7201371199989808,
+            0.6662000010001066,
+            0.6653980320006667,
+            0.6868715029995656
+          ],
+          "medianSeconds": 0.6868715029995656,
+          "peakRssKiB": 107940
+        }
+      }
+    }
+  ]
+}

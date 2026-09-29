@@ -1,0 +1,335 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T17:32:46.861615+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "set_xor_min",
+    "problemInfo": {
+      "overall_version": "b5a096983fc6bbc5fab4829ccd79bc6626d21727057c737fb992d95aabb0007b",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/data_structure/set_xor_min",
+      "testcases_version": "5b349b52daacd7322d6f6451b6854c24288ab9afdb732bda72ce8649e831078c",
+      "time_limit": 5,
+      "title": "Set Xor-Min",
+      "version": "efed7ceaa720f01ed237aa68d653c184529936c2d1404da528de73960457cab4"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 387904,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 82587648,
+        "problem_name": "set_xor_min",
+        "problem_title": "Set Xor-Min",
+        "status": "AC",
+        "submission_time": "2026-07-24T17:06:06.207305Z",
+        "time": 0.57,
+        "user_name": "tyuyu62",
+        "sourceFile": "387904.py",
+        "sourceSha256": "1541f39b7552b2f65ae3356c35ae030b64e2a2615a0fa994d969bcfaba43b830",
+        "url": "https://judge.yosupo.jp/submission/387904"
+      },
+      {
+        "id": 287605,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 202461184,
+        "problem_name": "set_xor_min",
+        "problem_title": "Set Xor-Min",
+        "status": "AC",
+        "submission_time": "2025-05-20T18:38:10.305482Z",
+        "time": 0.729,
+        "user_name": "hide",
+        "sourceFile": "287605.py",
+        "sourceSha256": "1f721caf0ae45984ffbdf19ce51a549a15f4da19bb3e798a5e1fa307fda6e1fa",
+        "url": "https://judge.yosupo.jp/submission/287605"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "387904": "1541f39b7552b2f65ae3356c35ae030b64e2a2615a0fa994d969bcfaba43b830",
+    "287605": "1f721caf0ae45984ffbdf19ce51a549a15f4da19bb3e798a5e1fa307fda6e1fa",
+    "library": "c4973645340303321b70e9e7ef63f16be726743cfad33f026644cae576dee61a"
+  },
+  "repeat": 5,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "random",
+      "size": 500000,
+      "inputSha256": "6d5f5e44cbd77874e6373af11a35b561bd0abeb8ea099ea04e2337fef6cf37dd",
+      "outputSha256": "5e7f2f22cb6fd9237d840bccd8b0cbee3e6aa5dc7991b8b0b482966f29bf9e45",
+      "outputTokens": 150065,
+      "bruteChecked": false,
+      "implementations": {
+        "387904": {
+          "seconds": [
+            0.694492098000012,
+            0.628146049999998,
+            0.6560130730000111,
+            0.7842180180000042,
+            0.6674078879999996
+          ],
+          "medianSeconds": 0.6674078879999996,
+          "peakRssKiB": 105304
+        },
+        "287605": {
+          "seconds": [
+            0.9183928700000052,
+            0.9587448209999963,
+            0.9496555010000094,
+            1.025335842000004,
+            0.9695311929999946
+          ],
+          "medianSeconds": 0.9587448209999963,
+          "peakRssKiB": 236052
+        },
+        "library": {
+          "seconds": [
+            0.8849909089999954,
+            0.9738526870000044,
+            0.9060760069999958,
+            0.9877831100000094,
+            1.0328679810000096
+          ],
+          "medianSeconds": 0.9738526870000044,
+          "peakRssKiB": 117436
+        }
+      }
+    },
+    {
+      "family": "dense",
+      "size": 500000,
+      "inputSha256": "ef5ab6a365d543c92525431ade414c4b20f011c3b7722d74987d256c1b23b631",
+      "outputSha256": "47fe8311bee3fcdb24eddb62077bd450759edcd20d27586ff2279f285c63f838",
+      "outputTokens": 149965,
+      "bruteChecked": false,
+      "implementations": {
+        "387904": {
+          "seconds": [
+            0.6868459960000024,
+            0.5779288800000018,
+            0.713329489000003,
+            0.6437885130000041,
+            0.683112073000018
+          ],
+          "medianSeconds": 0.683112073000018,
+          "peakRssKiB": 103944
+        },
+        "287605": {
+          "seconds": [
+            0.7136935120000061,
+            0.752397638000005,
+            0.7455999949999921,
+            0.7382271880000246,
+            0.793319112000006
+          ],
+          "medianSeconds": 0.7455999949999921,
+          "peakRssKiB": 231984
+        },
+        "library": {
+          "seconds": [
+            0.8506973970000047,
+            0.7694972239999913,
+            0.9354048269999993,
+            0.8727064450000057,
+            0.8491278589999922
+          ],
+          "medianSeconds": 0.8506973970000047,
+          "peakRssKiB": 104888
+        }
+      }
+    },
+    {
+      "family": "duplicates",
+      "size": 500000,
+      "inputSha256": "4a4f5da0a9f23435094270f97ffa74ddebb0d5e7fe942ea4aa7dc55233308dff",
+      "outputSha256": "06e3ef5688f403c981061c9a4e8ede0ce278f971569ff68867278cadb4254139",
+      "outputTokens": 150267,
+      "bruteChecked": false,
+      "implementations": {
+        "387904": {
+          "seconds": [
+            0.27977928100000327,
+            0.274953953999983,
+            0.31922310899997797,
+            0.3607053940000071,
+            0.2807284769999967
+          ],
+          "medianSeconds": 0.2807284769999967,
+          "peakRssKiB": 102936
+        },
+        "287605": {
+          "seconds": [
+            0.323236871000006,
+            0.2906909240000175,
+            0.32230367799999726,
+            0.3245836870000005,
+            0.32020234199998754
+          ],
+          "medianSeconds": 0.32230367799999726,
+          "peakRssKiB": 194512
+        },
+        "library": {
+          "seconds": [
+            0.24959217899998976,
+            0.24151547899998604,
+            0.27960368999998764,
+            0.26349908899999264,
+            0.25203958199998056
+          ],
+          "medianSeconds": 0.25203958199998056,
+          "peakRssKiB": 75888
+        }
+      }
+    },
+    {
+      "family": "prefix",
+      "size": 500000,
+      "inputSha256": "22249c9011a02b48cad17326cba326fc0ef32f564500ce4a3c8246d2ea85aecf",
+      "outputSha256": "f85dc394db31c6b464f56ae18d28930528975c1231b62d2319c5f67e0b874d45",
+      "outputTokens": 150239,
+      "bruteChecked": false,
+      "implementations": {
+        "387904": {
+          "seconds": [
+            0.469160751000004,
+            0.5131358130000194,
+            0.453366673000005,
+            0.4570371099999875,
+            0.468317705000004
+          ],
+          "medianSeconds": 0.468317705000004,
+          "peakRssKiB": 106012
+        },
+        "287605": {
+          "seconds": [
+            0.46663486799999987,
+            0.45805852899999877,
+            0.4629820539999798,
+            0.47684524699999997,
+            0.44029919100000825
+          ],
+          "medianSeconds": 0.4629820539999798,
+          "peakRssKiB": 206096
+        },
+        "library": {
+          "seconds": [
+            0.48887173099998904,
+            0.4888553500000228,
+            0.529610851000001,
+            0.5092937990000053,
+            0.4926941289999718
+          ],
+          "medianSeconds": 0.4926941289999718,
+          "peakRssKiB": 93092
+        }
+      }
+    }
+  ]
+}

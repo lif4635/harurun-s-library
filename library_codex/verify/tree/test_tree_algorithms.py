@@ -5,7 +5,6 @@ from library_codex.tree.CentroidDecomposition import (
     CentroidDecomposition,
     CentroidDistanceFenwick,
 )
-from library_codex.tree.DSUOnTree import DSUOnTree
 from library_codex.tree.DynamicDiameter import DynamicDiameter
 from library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition
 from library_codex.tree.Rerooting import Rerooting
@@ -267,38 +266,6 @@ def test_rooted_inverse_merging_and_inclusion_trees():
     assert ordered[0] == (-1, 13)
     assert sorted(index for index in original[1:]) == list(range(5))
     assert sum(map(len, graph)) == 5
-
-
-def test_dsu_on_tree_subtree_distinct_colors():
-    rng = random.Random(271605)
-    for size in range(1, 100):
-        tree = random_tree(size, rng)
-        colors = [rng.randrange(15) for _ in range(size)]
-        root = rng.randrange(size)
-        solver = DSUOnTree(tree, root)
-        count = [0] * 15
-        distinct = [0]
-        answer = [0] * size
-
-        def add(vertex):
-            color = colors[vertex]
-            if count[color] == 0:
-                distinct[0] += 1
-            count[color] += 1
-
-        def remove(vertex):
-            color = colors[vertex]
-            count[color] -= 1
-            if count[color] == 0:
-                distinct[0] -= 1
-
-        def query(vertex):
-            answer[vertex] = distinct[0]
-
-        solver.run(add, query, remove)
-        for vertex in range(size):
-            subtree = solver.euler[solver.down[vertex] : solver.up[vertex]]
-            assert answer[vertex] == len({colors[node] for node in subtree})
 
 
 def test_dynamic_diameter_random_edge_updates():

@@ -1167,7 +1167,9 @@ API_DETAILS_BY_SYMBOL.update({
         "description": "valueに対応するprefix tableのindexを返す。",
     },
     ("tree/DSUOnTree.py", "DSUOnTree", "index"): {
-        "description": "vertexに対応するEuler tour順のindexを返す。",
+        "description": "頂点がEuler順の配列のどこにあるかを求める。",
+        "returnFormat": "int",
+        "returnDescription": "euler内の位置down[vertex]。部分木は半開区間 [down[vertex], up[vertex]) を占める。",
     },
     ("tree/HeavyLightDecomposition.py", "HeavyLightDecomposition", "index"): {
         "description": "頂点vの値をsegtreeなどの配列のどこに置くかを求める。",
@@ -1211,7 +1213,15 @@ API_DETAILS_BY_SYMBOL.update({
         "description": "登録した各substringとprefixのLCS長をquery ID順にまとめて求める。",
     },
     ("tree/DSUOnTree.py", "DSUOnTree", "run"): {
-        "description": "各頂点を根とする部分木queryをDSU on treeでまとめて処理する。",
+        "description": "集計対象の頂点を追加・削除し、各頂点vの部分木だけが集計に入った状態でquery(v)を1回ずつ呼ぶ。",
+        "argumentDescriptions": {
+            "add": "add(v)で頂点vを集計に追加する。実行開始時の集計は空にしておく。",
+            "query": "query(v)で現在の集計からvの答えを保存する。呼出し順は保証しない。",
+            "remove": "remove(v)で頂点vを集計から除く。addの効果を取り消せる処理を渡す。",
+            "reset": "軽い子の部分木をすべてremoveした直後、空の集計に対してreset()を呼ぶ。省略可。removeの代わりではない。",
+        },
+        "returnFormat": "None",
+        "returnDescription": "答えは返さない。query内で配列などへ保存する。callbackの返り値は使わない。終了時は全頂点が集計に残る。",
     },
 })
 
@@ -5900,3 +5910,21 @@ for _trie_module, _trie_class in (
             API_DETAILS_BY_SYMBOL[(_trie_module, _trie_class, _method)]["returnDescription"] += "先頭に型名を付ける。"
 
 COMPLEXITY_BY_MODULE["rational/SternBrocotNode.py"]["lca"] = "O(1 + min(R1, R2)) 回の整数演算（R1・R2は入力の圧縮経路の要素数）"
+
+MODULE_CAPABILITIES["tree/DSUOnTree.py"] = (
+    "頂点の追加・削除で更新できる集計を、全頂点の部分木について求める。色の種類数や頻度などに使う。",
+    "集計対象が各部分木と一致した状態でqueryを呼ぶ。答えの保存は呼出し側で行う。",
+)
+CLASS_DETAILS_BY_SYMBOL[("tree/DSUOnTree.py", "DSUOnTree")] = {
+    "description": "部分木の集計に必要な、頂点の追加・削除の順序を準備する。",
+    "constructorCreates": "rootを根とする親子関係・部分木サイズ・Euler順を保持する。runへ集計の更新関数を渡すと全頂点の部分木を処理できる。集計値自体は保持しない。",
+    "argumentDescriptions": {
+        "tree": "空でない無向木の隣接リスト。tree[v]に隣接頂点番号を並べ、各辺を両端へ登録する。",
+        "root": "根にする頂点。部分木の範囲はこの根を基準に決まる。",
+    },
+}
+COMPLEXITY_BY_MODULE["tree/DSUOnTree.py"] = {
+    "DSUOnTree": "O(N) 時間・領域。Nは頂点数",
+    "index": "O(1)",
+    "run": "O(N log N × (1 + Ta + Tr) + N × (Tq + Ts))。Ta・Tr・Tq・Tsはadd・remove・query・resetの1回の時間。queryはN回、resetは高々N−1回。callback以外の追加領域O(1)",
+}
