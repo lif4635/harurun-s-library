@@ -1,0 +1,361 @@
+[
+  {
+    "trial": "normalization",
+    "measuredAt": "2026-09-30T10:31:46.869772+09:00",
+    "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "timing": "fresh process, regular-file stdin, I/O and startup included",
+    "sourceHashes": {
+      "367593": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+      "library": "c2409fd69fe1035dff8c9c24396d9f7c8722dde0efe0b802b3d7c6fc4d85580a",
+      "before": "e5680661607ae2b4cd7d71f73343cb51b32d468410ff60f95c3e68cb85acfd33"
+    },
+    "repeat": 3,
+    "seed": 92471,
+    "reference": [
+      {
+        "id": 367593,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 433950720,
+        "problem_name": "composition_of_formal_power_series_large",
+        "problem_title": "Composition of Formal Power Series (Large)",
+        "status": "AC",
+        "submission_time": "2026-04-20T16:02:48.084742Z",
+        "time": 2.555,
+        "user_name": "harurun4635",
+        "sourceFile": "367593.py",
+        "sourceSha256": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+        "url": "https://judge.yosupo.jp/submission/367593"
+      }
+    ],
+    "results": [
+      {
+        "family": "dense",
+        "size": 131072,
+        "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+        "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94",
+        "outputTokens": 131072,
+        "bruteChecked": false,
+        "implementations": {
+          "367593": {
+            "seconds": [
+              2.8566337889969873,
+              2.6225140529968485,
+              2.594563996997749
+            ],
+            "medianSeconds": 2.6225140529968485,
+            "peakRssKiB": 433404
+          },
+          "library": {
+            "seconds": [
+              2.5867801560016233,
+              2.5414500889964984,
+              2.4758312919984746
+            ],
+            "medianSeconds": 2.5414500889964984,
+            "peakRssKiB": 140124
+          },
+          "before": {
+            "seconds": [
+              2.7746337069984293,
+              2.4771038369981397,
+              2.542905542999506
+            ],
+            "medianSeconds": 2.542905542999506,
+            "peakRssKiB": 140488
+          }
+        }
+      },
+      {
+        "family": "sparse_inner",
+        "size": 131072,
+        "inputSha256": "2150c8ffa510b218db15d0b9e4359942b60d99369747fc31822d4a6a1f7b8450",
+        "outputSha256": "370f01cdda12753fef6eb77188a36804cc42dcbb3df0bf8ef178f1c24636b3fd",
+        "outputTokens": 131072,
+        "bruteChecked": false,
+        "implementations": {
+          "367593": {
+            "seconds": [
+              2.5385835050001333,
+              2.7845438559998,
+              2.522766373000195
+            ],
+            "medianSeconds": 2.5385835050001333,
+            "peakRssKiB": 439708
+          },
+          "library": {
+            "seconds": [
+              2.453719731001911,
+              2.16530832799981,
+              2.2228176110002096
+            ],
+            "medianSeconds": 2.2228176110002096,
+            "peakRssKiB": 133428
+          },
+          "before": {
+            "seconds": [
+              2.183529494999675,
+              2.158864930999698,
+              2.1553995319991373
+            ],
+            "medianSeconds": 2.158864930999698,
+            "peakRssKiB": 133888
+          }
+        }
+      }
+    ]
+  },
+  {
+    "trial": "tables",
+    "measuredAt": "2026-09-30T10:35:23.745021+09:00",
+    "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "timing": "fresh process, regular-file stdin, I/O and startup included",
+    "sourceHashes": {
+      "367593": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+      "library": "c2409fd69fe1035dff8c9c24396d9f7c8722dde0efe0b802b3d7c6fc4d85580a",
+      "before": "e5680661607ae2b4cd7d71f73343cb51b32d468410ff60f95c3e68cb85acfd33",
+      "candidate": "f250dc30d4f5d0c35af7a95da59af9d898694bd87ac7f661e9aeacecf655448d"
+    },
+    "repeat": 3,
+    "seed": 92471,
+    "reference": [
+      {
+        "id": 367593,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 433950720,
+        "problem_name": "composition_of_formal_power_series_large",
+        "problem_title": "Composition of Formal Power Series (Large)",
+        "status": "AC",
+        "submission_time": "2026-04-20T16:02:48.084742Z",
+        "time": 2.555,
+        "user_name": "harurun4635",
+        "sourceFile": "367593.py",
+        "sourceSha256": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+        "url": "https://judge.yosupo.jp/submission/367593"
+      }
+    ],
+    "results": [
+      {
+        "family": "dense",
+        "size": 131072,
+        "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+        "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94",
+        "outputTokens": 131072,
+        "bruteChecked": false,
+        "implementations": {
+          "367593": {
+            "seconds": [
+              3.265522965000855,
+              2.6745964959991397,
+              2.763731753999309
+            ],
+            "medianSeconds": 2.763731753999309,
+            "peakRssKiB": 434644
+          },
+          "library": {
+            "seconds": [
+              2.5785363920003874,
+              2.492838173999189,
+              2.491380225001194
+            ],
+            "medianSeconds": 2.492838173999189,
+            "peakRssKiB": 140124
+          },
+          "before": {
+            "seconds": [
+              2.675200637000671,
+              2.5426598909980385,
+              2.540291139001056
+            ],
+            "medianSeconds": 2.5426598909980385,
+            "peakRssKiB": 140564
+          },
+          "candidate": {
+            "seconds": [
+              2.3203735159986536,
+              2.303507033997448,
+              2.3933483959990554
+            ],
+            "medianSeconds": 2.3203735159986536,
+            "peakRssKiB": 143436
+          }
+        }
+      },
+      {
+        "family": "sparse_inner",
+        "size": 131072,
+        "inputSha256": "2150c8ffa510b218db15d0b9e4359942b60d99369747fc31822d4a6a1f7b8450",
+        "outputSha256": "370f01cdda12753fef6eb77188a36804cc42dcbb3df0bf8ef178f1c24636b3fd",
+        "outputTokens": 131072,
+        "bruteChecked": false,
+        "implementations": {
+          "367593": {
+            "seconds": [
+              2.5641572259992245,
+              2.5854408409977623,
+              2.697565028000099
+            ],
+            "medianSeconds": 2.5854408409977623,
+            "peakRssKiB": 439844
+          },
+          "library": {
+            "seconds": [
+              2.158266801998252,
+              2.238717820997408,
+              2.292837936998694
+            ],
+            "medianSeconds": 2.238717820997408,
+            "peakRssKiB": 134400
+          },
+          "before": {
+            "seconds": [
+              2.2404868839985284,
+              2.185640363000857,
+              2.2200392429986096
+            ],
+            "medianSeconds": 2.2200392429986096,
+            "peakRssKiB": 134824
+          },
+          "candidate": {
+            "seconds": [
+              2.005118021999806,
+              2.0231013190023077,
+              2.0427422289976676
+            ],
+            "medianSeconds": 2.0231013190023077,
+            "peakRssKiB": 144880
+          }
+        }
+      }
+    ]
+  },
+  {
+    "trial": "pruned",
+    "measuredAt": "2026-09-30T10:37:12.819989+09:00",
+    "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+    "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "timing": "fresh process, regular-file stdin, I/O and startup included",
+    "sourceHashes": {
+      "367593": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+      "library": "c2409fd69fe1035dff8c9c24396d9f7c8722dde0efe0b802b3d7c6fc4d85580a",
+      "before": "f250dc30d4f5d0c35af7a95da59af9d898694bd87ac7f661e9aeacecf655448d",
+      "candidate": "123591ea372afbc861d5f85b75de26408e715322f374453aeaa415af65e9f273"
+    },
+    "repeat": 3,
+    "seed": 92471,
+    "reference": [
+      {
+        "id": 367593,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 433950720,
+        "problem_name": "composition_of_formal_power_series_large",
+        "problem_title": "Composition of Formal Power Series (Large)",
+        "status": "AC",
+        "submission_time": "2026-04-20T16:02:48.084742Z",
+        "time": 2.555,
+        "user_name": "harurun4635",
+        "sourceFile": "367593.py",
+        "sourceSha256": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+        "url": "https://judge.yosupo.jp/submission/367593"
+      }
+    ],
+    "results": [
+      {
+        "family": "dense",
+        "size": 131072,
+        "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+        "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94",
+        "outputTokens": 131072,
+        "bruteChecked": false,
+        "implementations": {
+          "367593": {
+            "seconds": [
+              2.582934933998331,
+              2.5628673209976114,
+              2.6127025120003964
+            ],
+            "medianSeconds": 2.582934933998331,
+            "peakRssKiB": 433300
+          },
+          "library": {
+            "seconds": [
+              2.4219783840017044,
+              2.4339480880007613,
+              2.4518496009986848
+            ],
+            "medianSeconds": 2.4339480880007613,
+            "peakRssKiB": 140112
+          },
+          "before": {
+            "seconds": [
+              2.2768739620005363,
+              2.2868951889977325,
+              2.242552486000932
+            ],
+            "medianSeconds": 2.2768739620005363,
+            "peakRssKiB": 143440
+          },
+          "candidate": {
+            "seconds": [
+              2.146791977000248,
+              2.221743048998178,
+              2.201439238000603
+            ],
+            "medianSeconds": 2.201439238000603,
+            "peakRssKiB": 143832
+          }
+        }
+      },
+      {
+        "family": "sparse_inner",
+        "size": 131072,
+        "inputSha256": "2150c8ffa510b218db15d0b9e4359942b60d99369747fc31822d4a6a1f7b8450",
+        "outputSha256": "370f01cdda12753fef6eb77188a36804cc42dcbb3df0bf8ef178f1c24636b3fd",
+        "outputTokens": 131072,
+        "bruteChecked": false,
+        "implementations": {
+          "367593": {
+            "seconds": [
+              2.486427146999631,
+              2.5451908469985938,
+              2.555721884000377
+            ],
+            "medianSeconds": 2.5451908469985938,
+            "peakRssKiB": 436884
+          },
+          "library": {
+            "seconds": [
+              2.106806373998552,
+              2.0801269769981445,
+              2.204228211001464
+            ],
+            "medianSeconds": 2.106806373998552,
+            "peakRssKiB": 133360
+          },
+          "before": {
+            "seconds": [
+              1.9708346660008829,
+              1.9208933029985928,
+              2.109387226999388
+            ],
+            "medianSeconds": 1.9708346660008829,
+            "peakRssKiB": 142692
+          },
+          "candidate": {
+            "seconds": [
+              1.9052374129969394,
+              1.85895984599847,
+              1.863930816998618
+            ],
+            "medianSeconds": 1.863930816998618,
+            "peakRssKiB": 145336
+          }
+        }
+      }
+    ]
+  }
+]

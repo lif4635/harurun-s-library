@@ -1,0 +1,328 @@
+{
+  "measuredAt": "2026-09-29T18:43:03.500810+00:00",
+  "size": 131072,
+  "seed": 92471,
+  "repeat": 3,
+  "runtime": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "sourceSha256": "5033be1f1b41fbe4c2f2b21ec021969d71b0686eae1aa37eda3e4900cc3d48be",
+  "timing": "fresh process; function only; coarse wrappers, not cProfile; inclusive times overlap",
+  "medians": {
+    "plain": 2.929905467000026,
+    "instrumented": 2.9937390270001742
+  },
+  "representative": {
+    "mode": "instrumented",
+    "seconds": 2.9937390270001742,
+    "functions": {
+      "_compose_ntt": {
+        "calls": 1,
+        "inclusiveSeconds": 2.9936839430001783,
+        "exclusiveSeconds": 0.00769490899892844,
+        "lengths": {}
+      },
+      "_descend_q": {
+        "calls": 17,
+        "inclusiveSeconds": 1.318131906000417,
+        "exclusiveSeconds": 0.05179827199981446,
+        "lengths": {}
+      },
+      "_build_frequency_q": {
+        "calls": 17,
+        "inclusiveSeconds": 0.8496252949998961,
+        "exclusiveSeconds": 0.07289391099902787,
+        "lengths": {}
+      },
+      "_butterfly": {
+        "calls": 34,
+        "inclusiveSeconds": 1.4403047720011273,
+        "exclusiveSeconds": 1.4403047720011273,
+        "lengths": {
+          "524288": 34
+        }
+      },
+      "_intt": {
+        "calls": 34,
+        "inclusiveSeconds": 1.198754707999342,
+        "exclusiveSeconds": 1.198754707999342,
+        "lengths": {
+          "262144": 17,
+          "524288": 17
+        }
+      },
+      "array": {
+        "calls": 17,
+        "inclusiveSeconds": 0.02939588700019158,
+        "exclusiveSeconds": 0.02939588700019158,
+        "lengths": {}
+      },
+      "fps_inv": {
+        "calls": 1,
+        "inclusiveSeconds": 0.002245252999728109,
+        "exclusiveSeconds": 0.002245252999728109,
+        "lengths": {}
+      },
+      "multiply": {
+        "calls": 1,
+        "inclusiveSeconds": 0.06780788400010351,
+        "exclusiveSeconds": 0.06780788400010351,
+        "lengths": {}
+      },
+      "_ascend_p": {
+        "calls": 17,
+        "inclusiveSeconds": 1.5978039910010011,
+        "exclusiveSeconds": 0.11022236300050281,
+        "lengths": {}
+      },
+      "_reverse_frequency_blocks": {
+        "calls": 17,
+        "inclusiveSeconds": 0.01256598400141229,
+        "exclusiveSeconds": 0.01256598400141229,
+        "lengths": {}
+      }
+    },
+    "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+    "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+  },
+  "samples": [
+    {
+      "mode": "plain",
+      "seconds": 2.9775412149997464,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 3.037375291999979,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 3.037317990000247,
+          "exclusiveSeconds": 0.010323056999823166,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.363646625999536,
+          "exclusiveSeconds": 0.05275604100052078,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.8823102500014102,
+          "exclusiveSeconds": 0.0789711540001008,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.4714316670010703,
+          "exclusiveSeconds": 1.4714316670010703,
+          "lengths": {
+            "524288": 34
+          }
+        },
+        "_intt": {
+          "calls": 34,
+          "inclusiveSeconds": 1.2036407069990673,
+          "exclusiveSeconds": 1.2036407069990673,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.03267078699900594,
+          "exclusiveSeconds": 0.03267078699900594,
+          "lengths": {}
+        },
+        "fps_inv": {
+          "calls": 1,
+          "inclusiveSeconds": 0.0021359190000111994,
+          "exclusiveSeconds": 0.0021359190000111994,
+          "lengths": {}
+        },
+        "multiply": {
+          "calls": 1,
+          "inclusiveSeconds": 0.06540085699998599,
+          "exclusiveSeconds": 0.06540085699998599,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.5958115310008907,
+          "exclusiveSeconds": 0.10741513499988287,
+          "lengths": {}
+        },
+        "_reverse_frequency_blocks": {
+          "calls": 17,
+          "inclusiveSeconds": 0.012572666000778554,
+          "exclusiveSeconds": 0.012572666000778554,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.9937390270001742,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.9936839430001783,
+          "exclusiveSeconds": 0.00769490899892844,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.318131906000417,
+          "exclusiveSeconds": 0.05179827199981446,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.8496252949998961,
+          "exclusiveSeconds": 0.07289391099902787,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.4403047720011273,
+          "exclusiveSeconds": 1.4403047720011273,
+          "lengths": {
+            "524288": 34
+          }
+        },
+        "_intt": {
+          "calls": 34,
+          "inclusiveSeconds": 1.198754707999342,
+          "exclusiveSeconds": 1.198754707999342,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.02939588700019158,
+          "exclusiveSeconds": 0.02939588700019158,
+          "lengths": {}
+        },
+        "fps_inv": {
+          "calls": 1,
+          "inclusiveSeconds": 0.002245252999728109,
+          "exclusiveSeconds": 0.002245252999728109,
+          "lengths": {}
+        },
+        "multiply": {
+          "calls": 1,
+          "inclusiveSeconds": 0.06780788400010351,
+          "exclusiveSeconds": 0.06780788400010351,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.5978039910010011,
+          "exclusiveSeconds": 0.11022236300050281,
+          "lengths": {}
+        },
+        "_reverse_frequency_blocks": {
+          "calls": 17,
+          "inclusiveSeconds": 0.01256598400141229,
+          "exclusiveSeconds": 0.01256598400141229,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "plain",
+      "seconds": 2.929905467000026,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "plain",
+      "seconds": 2.877908134000336,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.8989742990002014,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.8989108420000775,
+          "exclusiveSeconds": 0.006970054000248638,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.3068676619991493,
+          "exclusiveSeconds": 0.05224361499858787,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.8382800520003002,
+          "exclusiveSeconds": 0.0653846560007878,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.4196898609993696,
+          "exclusiveSeconds": 1.4196898609993696,
+          "lengths": {
+            "524288": 34
+          }
+        },
+        "_intt": {
+          "calls": 34,
+          "inclusiveSeconds": 1.154319502999897,
+          "exclusiveSeconds": 1.154319502999897,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.0255158160002793,
+          "exclusiveSeconds": 0.0255158160002793,
+          "lengths": {}
+        },
+        "fps_inv": {
+          "calls": 1,
+          "inclusiveSeconds": 0.0023608729998159106,
+          "exclusiveSeconds": 0.0023608729998159106,
+          "lengths": {}
+        },
+        "multiply": {
+          "calls": 1,
+          "inclusiveSeconds": 0.0631004430001667,
+          "exclusiveSeconds": 0.0631004430001667,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.519611810000697,
+          "exclusiveSeconds": 0.0973902350001481,
+          "lengths": {}
+        },
+        "_reverse_frequency_blocks": {
+          "calls": 17,
+          "inclusiveSeconds": 0.011935786000776716,
+          "exclusiveSeconds": 0.011935786000776716,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    }
+  ]
+}

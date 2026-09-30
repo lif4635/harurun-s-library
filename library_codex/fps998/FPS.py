@@ -112,21 +112,20 @@ def _fps_div_sparse(numerator, degree, first_inverse, terms):
 
 def _fps_log_sparse(series, degree, terms):
     inverse = _inverses(degree)
-    result = [0] * degree
-    for index in range(1, degree):
-        total = index * (series[index] % MOD) if index < len(series) else 0
+    derivative = [0] * max(0, degree - 1)
+    for index in range(degree - 1):
+        total = (index + 1) * series[index + 1] % MOD if index + 1 < len(series) else 0
         for offset, coefficient in terms:
-            if offset >= index:
+            if offset > index:
                 break
-            total -= (
-                (index - offset) * coefficient * result[index - offset]
-            )
-        result[index] = total * inverse[index] % MOD
-    return result
+            total -= coefficient * derivative[index - offset]
+        derivative[index] = total % MOD
+    return [0] + [value * inverse[index] % MOD for index, value in enumerate(derivative, 1)]
 
 
 def _fps_exp_sparse(degree, terms):
     inverse = _inverses(degree)
+    terms = [(offset, offset * coefficient % MOD) for offset, coefficient in terms]
     result = [0] * degree
     result[0] = 1
     for index in range(1, degree):
@@ -134,8 +133,8 @@ def _fps_exp_sparse(degree, terms):
         for offset, coefficient in terms:
             if offset > index:
                 break
-            total += offset * coefficient * result[index - offset]
-        result[index] = total * inverse[index] % MOD
+            total += coefficient * result[index - offset]
+        result[index] = total % MOD * inverse[index] % MOD
     return result
 
 
@@ -143,15 +142,15 @@ def _fps_power_unit_sparse(degree, exponent, terms):
     inverse = _inverses(degree)
     result = [0] * degree
     result[0] = 1
-    exponent %= MOD
+    factor = (exponent + 1) % MOD
+    terms = [(offset, coefficient, factor * offset * coefficient % MOD) for offset, coefficient in terms]
     for index in range(1, degree):
         total = 0
-        for offset, coefficient in terms:
+        for offset, coefficient, weighted in terms:
             if offset > index:
                 break
-            factor = (exponent * offset - index + offset) % MOD
-            total += factor * coefficient * result[index - offset]
-        result[index] = total * inverse[index] % MOD
+            total += (weighted - index * coefficient) % MOD * result[index - offset]
+        result[index] = total % MOD * inverse[index] % MOD
     return result
 
 

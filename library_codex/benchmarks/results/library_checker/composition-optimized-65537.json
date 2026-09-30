@@ -1,0 +1,260 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:26:43.113546+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "composition_of_formal_power_series_large",
+    "problemInfo": {
+      "overall_version": "b947f99692d02b09a05a828c0780ec79c84e4b771da32aa9279517eb2b67ebd5",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/polynomial/composition_of_formal_power_series_large",
+      "testcases_version": "a91d3aa779b95b4e0c67c6470081c71fdfa963775da901b06fab5867f0a94e57",
+      "time_limit": 10,
+      "title": "Composition of Formal Power Series (Large)",
+      "version": "24f47c42fee57e9a9f2f13baa4174d5938f6a2a30056351295d7ef36821cf676"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 367593,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 433950720,
+        "problem_name": "composition_of_formal_power_series_large",
+        "problem_title": "Composition of Formal Power Series (Large)",
+        "status": "AC",
+        "submission_time": "2026-04-20T16:02:48.084742Z",
+        "time": 2.555,
+        "user_name": "harurun4635",
+        "sourceFile": "367593.py",
+        "sourceSha256": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+        "url": "https://judge.yosupo.jp/submission/367593"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-30T01:13:26.673121+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "367593": "0e3761eca04f08687c385a1df36af3befbf09c315881bf0036707ef881e0da55",
+    "library": "e5680661607ae2b4cd7d71f73343cb51b32d468410ff60f95c3e68cb85acfd33",
+    "before": "5033be1f1b41fbe4c2f2b21ec021969d71b0686eae1aa37eda3e4900cc3d48be"
+  },
+  "repeat": 3,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "dense",
+      "size": 65537,
+      "inputSha256": "26e1f6c714ceb14d81c46b24c579c40371b78700aef30a190cec49f19f9bb9ca",
+      "outputSha256": "acf03ade2d115c94a0a5cfab3a90db75b963da57983729e484cf5f7b27a053df",
+      "outputTokens": 65537,
+      "bruteChecked": false,
+      "implementations": {
+        "367593": {
+          "seconds": [
+            2.5833135540015064,
+            2.463554614001623,
+            2.505471452001075
+          ],
+          "medianSeconds": 2.505471452001075,
+          "peakRssKiB": 442340
+        },
+        "library": {
+          "seconds": [
+            2.515565292997053,
+            2.4478454170020996,
+            2.4277483519981615
+          ],
+          "medianSeconds": 2.4478454170020996,
+          "peakRssKiB": 140992
+        },
+        "before": {
+          "seconds": [
+            2.635429188998387,
+            2.6599132670016843,
+            2.7076777610018326
+          ],
+          "medianSeconds": 2.6599132670016843,
+          "peakRssKiB": 142224
+        }
+      }
+    },
+    {
+      "family": "sparse_inner",
+      "size": 65537,
+      "inputSha256": "5b090118d634c8811b8b38e4be449bf742ba3ebce661e9db2e8cbe70e725c148",
+      "outputSha256": "551351ff36c361e376c8d904f4808dfa3951b8759ccf5a0dc98fedadfacce36b",
+      "outputTokens": 65537,
+      "bruteChecked": false,
+      "implementations": {
+        "367593": {
+          "seconds": [
+            2.512783598001988,
+            2.649359489001654,
+            2.699424325997825
+          ],
+          "medianSeconds": 2.649359489001654,
+          "peakRssKiB": 432264
+        },
+        "library": {
+          "seconds": [
+            2.2213057210028637,
+            2.211910342997726,
+            2.1737460760014073
+          ],
+          "medianSeconds": 2.211910342997726,
+          "peakRssKiB": 141432
+        },
+        "before": {
+          "seconds": [
+            2.433609660998627,
+            2.471448139000131,
+            2.5520712040015496
+          ],
+          "medianSeconds": 2.471448139000131,
+          "peakRssKiB": 143684
+        }
+      }
+    },
+    {
+      "family": "identity",
+      "size": 65537,
+      "inputSha256": "71a962fe2e7ddd34eecc25b73c755a8f433c21ecfb1b2627dd75a7739d2d7aab",
+      "outputSha256": "e37c7aa7a87b9d7d81f8015faeffb03996c54989bd87d4905157b7cd6c859348",
+      "outputTokens": 65537,
+      "bruteChecked": true,
+      "implementations": {
+        "367593": {
+          "seconds": [
+            2.920163983002567,
+            2.5952334059984423,
+            2.7540830799989635
+          ],
+          "medianSeconds": 2.7540830799989635,
+          "peakRssKiB": 432912
+        },
+        "library": {
+          "seconds": [
+            0.11042814699976589,
+            0.09838494300129241,
+            0.08994839399747434
+          ],
+          "medianSeconds": 0.09838494300129241,
+          "peakRssKiB": 80488
+        },
+        "before": {
+          "seconds": [
+            2.7556864570033213,
+            2.5424163499992574,
+            2.757419812001899
+          ],
+          "medianSeconds": 2.7556864570033213,
+          "peakRssKiB": 143264
+        }
+      }
+    }
+  ]
+}

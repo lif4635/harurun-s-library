@@ -16,6 +16,8 @@ from urllib.request import urlopen
 
 
 API = "https://v3.api.judge.yosupo.jp"
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from library_codex.benchmarks.lc_problems import PROBLEMS, problem_module, standalone
 
 
 def atomic_write(path, data):
@@ -111,7 +113,7 @@ def run_once(command, input_path, timeout, directory):
 
 
 def compare(args):
-    from library_checker_cases import make_case, standalone_source
+    from library_codex.benchmarks.library_checker_cases import make_case, standalone_source
 
     snapshot = json.loads(args.snapshot.read_text())
     if snapshot["language"] not in {"pypy3", "python3"}:
@@ -123,10 +125,18 @@ def compare(args):
     sources = {str(row["id"]): verify_source(args.snapshot.parent, row).read_bytes()
                for row in selected}
     sources["library"] = standalone_source(snapshot["problem"])
+    if getattr(args, "baseline", None) is not None:
+        sources["before"] = args.baseline.read_bytes()
+    if getattr(args, "candidate", None) is not None:
+        sources["candidate"] = args.candidate.read_bytes()
+    if snapshot["problem"] in PROBLEMS and not getattr(args, "no_variants", False):
+        for variant in getattr(problem_module(snapshot["problem"]), "VARIANTS", {}):
+            sources["library_" + variant] = standalone(snapshot["problem"], variant)
     if snapshot["problem"] == "vertex_add_subtree_sum":
         sources["library_dsu"] = standalone_source("subtree_dsu")
     report = dict(snapshot=snapshot, runtime=subprocess.check_output(
         [args.python, "--version"], text=True).strip(), host=platform.platform(),
+        measuredAt=datetime.now(timezone.utc).isoformat(),
         timing="fresh process, regular-file stdin, I/O and startup included",
         sourceHashes={name: hashlib.sha256(code).hexdigest() for name, code in sources.items()},
         repeat=args.repeat, seed=args.seed, results=[])
@@ -137,7 +147,11 @@ def compare(args):
             script = directory / (name + ".py")
             script.write_bytes(code)
             commands[name] = [args.python, str(script)]
-        for family in args.families:
+        families = args.families or (problem_module(snapshot["problem"]).FAMILIES
+            if snapshot["problem"] in PROBLEMS else
+            ("random", "chain", "star", "balanced") if snapshot["problem"] == "vertex_add_subtree_sum"
+            else ("random", "dense", "duplicates", "prefix"))
+        for family in families:
             data, expected = make_case(snapshot["problem"], args.size, family, args.seed)
             path = directory / "input.txt"
             path.write_bytes(data)
@@ -170,7 +184,7 @@ def main():
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
     fetcher = commands.add_parser("fetch")
-    fetcher.add_argument("--problem", choices=["set_xor_min", "vertex_add_subtree_sum"], required=True)
+    fetcher.add_argument("--problem", choices=["set_xor_min", "vertex_add_subtree_sum", *PROBLEMS], required=True)
     fetcher.add_argument("--language", choices=["pypy3", "python3", "cpp", "cpp17"], default="pypy3")
     fetcher.add_argument("--top", type=int, default=2)
     fetcher.add_argument("--cache", type=Path, required=True)
@@ -179,11 +193,14 @@ def main():
     runner.add_argument("--reviewed", type=int, nargs="+", required=True)
     runner.add_argument("--python", default=sys.executable)
     runner.add_argument("--size", type=int, default=100000)
-    runner.add_argument("--families", nargs="+", default=["random", "dense", "duplicates"])
+    runner.add_argument("--families", nargs="+")
     runner.add_argument("--seed", type=int, default=92471)
     runner.add_argument("--repeat", type=int, default=5)
     runner.add_argument("--timeout", type=float, default=60)
     runner.add_argument("--output", type=Path, required=True)
+    runner.add_argument("--baseline", type=Path)
+    runner.add_argument("--candidate", type=Path)
+    runner.add_argument("--no-variants", action="store_true")
     args = parser.parse_args()
     if args.command == "fetch":
         if not 1 <= args.top <= 10:

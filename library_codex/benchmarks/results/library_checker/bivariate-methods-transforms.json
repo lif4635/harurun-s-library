@@ -1,0 +1,2585 @@
+{
+  "cases": [
+    {
+      "shape": [
+        256,
+        256
+      ],
+      "operation": "inverse",
+      "mode": "current",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 2
+        }
+      ],
+      "calls": 60,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        }
+      ],
+      "boundaryCoefficientProducts": 40576,
+      "lengthLog2Length": 53310720
+    },
+    {
+      "shape": [
+        256,
+        256
+      ],
+      "operation": "inverse",
+      "mode": "colored",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 6
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 4
+        }
+      ],
+      "calls": 160,
+      "boundaryCorrections": [],
+      "boundaryCoefficientProducts": 0,
+      "lengthLog2Length": 19660820
+    },
+    {
+      "shape": [
+        256,
+        256
+      ],
+      "operation": "inverse",
+      "mode": "row",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 1539
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 767
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 766
+        }
+      ],
+      "calls": 22053,
+      "boundaryCorrections": [],
+      "boundaryCoefficientProducts": 0,
+      "lengthLog2Length": 16262154
+    },
+    {
+      "shape": [
+        256,
+        256
+      ],
+      "operation": "exponential",
+      "mode": "current",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 42
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 38
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 2
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 34
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 2
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 32
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 28
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 24
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 20
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 16
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 12
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 6
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 21
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 19
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 1
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 17
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 1
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 16
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 14
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 12
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 10
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 8
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 6
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 3
+        }
+      ],
+      "calls": 384,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            64,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 3968
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16128
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        }
+      ],
+      "boundaryCoefficientProducts": 413632,
+      "lengthLog2Length": 138353280
+    },
+    {
+      "shape": [
+        256,
+        256
+      ],
+      "operation": "exponential",
+      "mode": "colored",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 96
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 90
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 84
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 78
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 72
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 66
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 64
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 58
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 48
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 46
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 36
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 34
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 28
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 22
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 16
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 10
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 64
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 60
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 56
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 52
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 48
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 44
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 42
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 38
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 32
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 30
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 24
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 22
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 18
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 14
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 10
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 6
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 2
+        }
+      ],
+      "calls": 1420,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        }
+      ],
+      "boundaryCoefficientProducts": 40576,
+      "lengthLog2Length": 90011280
+    },
+    {
+      "shape": [
+        256,
+        256
+      ],
+      "operation": "exponential",
+      "mode": "row",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 12312
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 10778
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 9242
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 7706
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 6170
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 4634
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 3102
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 1566
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 1524
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 8208
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 7185
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 6161
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 5137
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 4113
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 3089
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 2067
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 1043
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 1515
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 2
+        }
+      ],
+      "calls": 95600,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            128,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        },
+        {
+          "lengths": [
+            256,
+            128
+          ],
+          "excess": 127,
+          "coefficientProducts": 16256
+        }
+      ],
+      "boundaryCoefficientProducts": 40576,
+      "lengthLog2Length": 83258704
+    },
+    {
+      "shape": [
+        127,
+        521
+      ],
+      "operation": "inverse",
+      "mode": "current",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 8
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 4
+        }
+      ],
+      "calls": 66,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        }
+      ],
+      "boundaryCoefficientProducts": 24543904,
+      "lengthLog2Length": 81752064
+    },
+    {
+      "shape": [
+        127,
+        521
+      ],
+      "operation": "inverse",
+      "mode": "colored",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 6
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 6
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 4
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 4
+        }
+      ],
+      "calls": 170,
+      "boundaryCorrections": [],
+      "boundaryCoefficientProducts": 0,
+      "lengthLog2Length": 41943060
+    },
+    {
+      "shape": [
+        127,
+        521
+      ],
+      "operation": "inverse",
+      "mode": "row",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 2833
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 768
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 768
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 2576
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 512
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 512
+        }
+      ],
+      "calls": 16929,
+      "boundaryCorrections": [],
+      "boundaryCoefficientProducts": 0,
+      "lengthLog2Length": 32051712
+    },
+    {
+      "shape": [
+        127,
+        521
+      ],
+      "operation": "exponential",
+      "mode": "current",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 46
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 2
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 44
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 40
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 36
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 32
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 28
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 24
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 20
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 16
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 18
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 23
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 1
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 22
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 20
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 18
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 16
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 14
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 12
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 10
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 8
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 9
+        }
+      ],
+      "calls": 459,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            64,
+            64
+          ],
+          "excess": 63,
+          "coefficientProducts": 4032
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 0
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 0
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        }
+      ],
+      "boundaryCoefficientProducts": 36821040,
+      "lengthLog2Length": 249613824
+    },
+    {
+      "shape": [
+        127,
+        521
+      ],
+      "operation": "exponential",
+      "mode": "colored",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 102
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 96
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 90
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 84
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 78
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 72
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 66
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 64
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 54
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 52
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 46
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 40
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 34
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 28
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 22
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 16
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 10
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 8
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 68
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 64
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 60
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 56
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 52
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 48
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 44
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 42
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 36
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 34
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 30
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 26
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 22
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 18
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 14
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 10
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 6
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 4
+        }
+      ],
+      "calls": 1596,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 0
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        }
+      ],
+      "boundaryCoefficientProducts": 24543840,
+      "lengthLog2Length": 160395684
+    },
+    {
+      "shape": [
+        127,
+        521
+      ],
+      "operation": "exponential",
+      "mode": "row",
+      "transforms": [
+        {
+          "direction": "forward",
+          "length": 2,
+          "count": 8448
+        },
+        {
+          "direction": "forward",
+          "length": 4,
+          "count": 7682
+        },
+        {
+          "direction": "forward",
+          "length": 8,
+          "count": 6914
+        },
+        {
+          "direction": "forward",
+          "length": 16,
+          "count": 6146
+        },
+        {
+          "direction": "forward",
+          "length": 32,
+          "count": 5378
+        },
+        {
+          "direction": "forward",
+          "length": 64,
+          "count": 4610
+        },
+        {
+          "direction": "forward",
+          "length": 128,
+          "count": 3842
+        },
+        {
+          "direction": "forward",
+          "length": 256,
+          "count": 9257
+        },
+        {
+          "direction": "forward",
+          "length": 512,
+          "count": 2304
+        },
+        {
+          "direction": "forward",
+          "length": 1024,
+          "count": 1540
+        },
+        {
+          "direction": "forward",
+          "length": 2048,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 4096,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 8192,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 16384,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 32768,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 65536,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 131072,
+          "count": 4
+        },
+        {
+          "direction": "forward",
+          "length": 262144,
+          "count": 8
+        },
+        {
+          "direction": "inverse",
+          "length": 2,
+          "count": 5632
+        },
+        {
+          "direction": "inverse",
+          "length": 4,
+          "count": 5121
+        },
+        {
+          "direction": "inverse",
+          "length": 8,
+          "count": 4609
+        },
+        {
+          "direction": "inverse",
+          "length": 16,
+          "count": 4097
+        },
+        {
+          "direction": "inverse",
+          "length": 32,
+          "count": 3585
+        },
+        {
+          "direction": "inverse",
+          "length": 64,
+          "count": 3073
+        },
+        {
+          "direction": "inverse",
+          "length": 128,
+          "count": 2561
+        },
+        {
+          "direction": "inverse",
+          "length": 256,
+          "count": 8220
+        },
+        {
+          "direction": "inverse",
+          "length": 512,
+          "count": 1536
+        },
+        {
+          "direction": "inverse",
+          "length": 1024,
+          "count": 1026
+        },
+        {
+          "direction": "inverse",
+          "length": 2048,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 4096,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 8192,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 16384,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 32768,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 65536,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 131072,
+          "count": 2
+        },
+        {
+          "direction": "inverse",
+          "length": 262144,
+          "count": 4
+        }
+      ],
+      "calls": 95635,
+      "boundaryCorrections": [
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 0
+        },
+        {
+          "lengths": [
+            254,
+            64
+          ],
+          "excess": 61,
+          "coefficientProducts": 64
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        },
+        {
+          "lengths": [
+            131687,
+            130552
+          ],
+          "excess": 94,
+          "coefficientProducts": 12271888
+        }
+      ],
+      "boundaryCoefficientProducts": 24543840,
+      "lengthLog2Length": 172625920
+    }
+  ],
+  "note": "transform counts only; instrumented runs are not timings"
+}

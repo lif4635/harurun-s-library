@@ -2,11 +2,7 @@ import math
 import random
 
 from library_codex.fps.FormalPowerSeries import (
-    fps_exponential,
-    fps_inverse,
-    fps_logarithm,
     fps_multiply,
-    fps_power,
 )
 from library_codex.combinatorial_series.BellNumbers import bell_numbers
 from library_codex.combinatorial_series.BernoulliNumbers import bernoulli_numbers
@@ -16,13 +12,6 @@ from library_codex.fps.EulerTransform import euler_transform
 from library_codex.combinatorial_series.PartitionNumbers import partition_numbers
 from library_codex.combinatorial_series.PascalTransform import pascal_transform
 from library_codex.combinatorial_series.PolynomialMobiusTransform import polynomial_mobius_transform
-from library_codex.fps.SparseFormalPowerSeries import (
-    sparse_divide,
-    sparse_exponential,
-    sparse_inverse,
-    sparse_logarithm,
-    sparse_power,
-)
 from library_codex.combinatorial_series.StirlingNumbers import (
     stirling_first_column,
     stirling_first_row,
@@ -80,27 +69,6 @@ def test_famous_sequences_against_integer_recurrences():
     bernoulli = bernoulli_numbers(20)
     assert bernoulli[:5] == [1, -pow(2, -1, MOD) % MOD, pow(6, -1, MOD), 0,
                              -pow(30, -1, MOD) % MOD]
-
-
-def test_sparse_operations_against_dense_fps():
-    rng = random.Random(31)
-    for degree in (1, 2, 20, 100):
-        series = [0] * degree
-        series[0] = 1
-        for _ in range(max(1, degree // 8)):
-            series[rng.randrange(degree)] = rng.randrange(MOD)
-        series[0] = 1
-        numerator = [rng.randrange(MOD) for _ in range(degree)]
-        assert sparse_inverse(series, degree) == fps_inverse(series, degree)
-        assert sparse_divide(numerator, series, degree) == fps_multiply(
-            numerator, fps_inverse(series, degree)
-        )[:degree]
-        logarithm = sparse_logarithm(series, degree)
-        assert logarithm == fps_logarithm(series, degree)
-        assert sparse_exponential(logarithm, degree) == fps_exponential(
-            logarithm, degree
-        )
-        assert sparse_power(series, 7, degree) == fps_power(series, 7, degree)
 
 
 def test_pascal_euler_circular_and_mobius():

@@ -1,0 +1,58 @@
+{
+  "bits": 18,
+  "operation": "exponential",
+  "seed": 92471,
+  "python": "3.10.14",
+  "implementation": "PyPy",
+  "timing": "function only, fresh sequential process, no warm-up",
+  "samples": {
+    "baseline": [
+      {
+        "seconds": 1.073633815998619,
+        "rssKiB": 129824,
+        "inputSha256": "0205d390c02ac88682979af8b84c5a25a20a0786bd7221ff7c9958898405715d",
+        "outputSha256": "185394f000c9ed926d2ec72a47a419430a06d02d9dc7f867826c9716473fce9a"
+      },
+      {
+        "seconds": 1.1177601870003855,
+        "rssKiB": 129612,
+        "inputSha256": "0205d390c02ac88682979af8b84c5a25a20a0786bd7221ff7c9958898405715d",
+        "outputSha256": "185394f000c9ed926d2ec72a47a419430a06d02d9dc7f867826c9716473fce9a"
+      },
+      {
+        "seconds": 1.07162936199893,
+        "rssKiB": 130016,
+        "inputSha256": "0205d390c02ac88682979af8b84c5a25a20a0786bd7221ff7c9958898405715d",
+        "outputSha256": "185394f000c9ed926d2ec72a47a419430a06d02d9dc7f867826c9716473fce9a"
+      }
+    ],
+    "current": [
+      {
+        "seconds": 0.7175550410029246,
+        "rssKiB": 130236,
+        "inputSha256": "0205d390c02ac88682979af8b84c5a25a20a0786bd7221ff7c9958898405715d",
+        "outputSha256": "185394f000c9ed926d2ec72a47a419430a06d02d9dc7f867826c9716473fce9a"
+      },
+      {
+        "seconds": 0.8559440049975819,
+        "rssKiB": 130364,
+        "inputSha256": "0205d390c02ac88682979af8b84c5a25a20a0786bd7221ff7c9958898405715d",
+        "outputSha256": "185394f000c9ed926d2ec72a47a419430a06d02d9dc7f867826c9716473fce9a"
+      },
+      {
+        "seconds": 0.7752077299992379,
+        "rssKiB": 130216,
+        "inputSha256": "0205d390c02ac88682979af8b84c5a25a20a0786bd7221ff7c9958898405715d",
+        "outputSha256": "185394f000c9ed926d2ec72a47a419430a06d02d9dc7f867826c9716473fce9a"
+      }
+    ]
+  },
+  "sourceSha256": {
+    "baseline": "132a7f8e6a944a17c63d0a9e9ba0203465e89cc8feaffb5eac5e5d73160bc7c9",
+    "current": "4f45a34663fddde695211fd65f51864c6ce67cd6ed29f27e96429c111309a81a"
+  },
+  "medianSeconds": {
+    "baseline": 1.073633815998619,
+    "current": 0.7752077299992379
+  }
+}

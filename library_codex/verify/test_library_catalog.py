@@ -427,6 +427,35 @@ def test_api_detail_metadata_rejects_removed_symbol(monkeypatch):
         CATALOG.validate_api_details_metadata(ROOT)
 
 
+def test_protocol_metadata_matches_api_reference(monkeypatch):
+    import runpy
+
+    metadata = runpy.run_path(str(ROOT / "tools/api_metadata.py"))
+    CATALOG.load_configuration(ROOT)
+    source = ROOT / "fps/MultivariateFPS.py"
+    _, classes = CATALOG.public_api_structure(source)
+    names = CATALOG.public_symbol_names(source)
+    for name in ("__add__", "__mul__", "__truediv__", "__neg__"):
+        assert name in metadata["PROTOCOL_METHODS"]
+        assert name in classes["MultivariateFormalPowerSeries"]
+        assert name in names
+    assert "_series" not in classes["MultivariateFormalPowerSeries"]
+    monkeypatch.setattr(CATALOG, "API_DETAILS_BY_SYMBOL", {
+        ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "__mul__"): {
+            "description": "各変数で打ち切った積を求める。",
+            "argumentDescriptions": {"other": "冪級数または整数。"},
+        },
+    })
+    CATALOG.validate_api_details_metadata(ROOT)
+    monkeypatch.setattr(CATALOG, "API_DETAILS_BY_SYMBOL", {
+        ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "__removed__"): {
+            "description": "存在しない演算子。",
+        },
+    })
+    with pytest.raises(ValueError, match="unknown symbol"):
+        CATALOG.validate_api_details_metadata(ROOT)
+
+
 def test_api_detail_metadata_rejects_removed_argument(monkeypatch):
     CATALOG.load_configuration(ROOT)
     monkeypatch.setattr(

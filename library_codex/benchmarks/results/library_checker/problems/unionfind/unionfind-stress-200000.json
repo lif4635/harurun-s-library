@@ -1,0 +1,204 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:28.231793+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "unionfind",
+    "problemInfo": {
+      "overall_version": "86698281ff16a0483ceb48f7e0d3e67499223f243df6dbcd1d4731c02819084a",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/data_structure/unionfind",
+      "testcases_version": "1b2cec18bf4ea15bd08d0782917b61306e3ae6dbc1451d6ba87b599c1aaf0a48",
+      "time_limit": 5,
+      "title": "Unionfind",
+      "version": "e49911f534b79022d63b8e91b4a105ca547acef837a22c61df0019a673d80f66"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 242332,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 38006784,
+        "problem_name": "unionfind",
+        "problem_title": "Unionfind",
+        "status": "AC",
+        "submission_time": "2024-10-15T07:49:40.764486Z",
+        "time": 0.128,
+        "user_name": "miztom",
+        "sourceFile": "242332.py",
+        "sourceSha256": "267fb9ecb752517f778c9bc6ef12b3e39513a3d3f8d1e03e8b357797b64d488c",
+        "url": "https://judge.yosupo.jp/submission/242332"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:18:15.664037+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "242332": "267fb9ecb752517f778c9bc6ef12b3e39513a3d3f8d1e03e8b357797b64d488c",
+    "library": "9de83b22bc0934e009e1f3eeb74d28d7f0c5727adb51d36b458ddfd2dcf24733"
+  },
+  "repeat": 3,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "random",
+      "size": 200000,
+      "inputSha256": "a4a96316704fec9669003da8e19e5de47601201b62e4963084ca1efb61183281",
+      "outputSha256": "0b1e61cbd0c875c34f79a250743b76ca8231df9977a83caa2613942c7525e613",
+      "outputTokens": 100000,
+      "bruteChecked": false,
+      "implementations": {
+        "242332": {
+          "seconds": [
+            0.14068054100005156,
+            0.13825510199990276,
+            0.1533179130000235
+          ],
+          "medianSeconds": 0.14068054100005156,
+          "peakRssKiB": 71328
+        },
+        "library": {
+          "seconds": [
+            0.1474517089999381,
+            0.1611920329999066,
+            0.14481656500004192
+          ],
+          "medianSeconds": 0.1474517089999381,
+          "peakRssKiB": 70268
+        }
+      }
+    },
+    {
+      "family": "chain",
+      "size": 200000,
+      "inputSha256": "b085fd69bb15985d0c5b719fc2746fa84ceecf4150a02a782257310d2ff9bdda",
+      "outputSha256": "4e6dfc73e107f4f954c4313d5c99d145831f08bed28f8a9af0f5a998c01dab50",
+      "outputTokens": 100000,
+      "bruteChecked": false,
+      "implementations": {
+        "242332": {
+          "seconds": [
+            0.1142069550000997,
+            0.09957652699995378,
+            0.10563601199999084
+          ],
+          "medianSeconds": 0.10563601199999084,
+          "peakRssKiB": 71048
+        },
+        "library": {
+          "seconds": [
+            0.1212776820000272,
+            0.11775410000007014,
+            0.13524977399993077
+          ],
+          "medianSeconds": 0.1212776820000272,
+          "peakRssKiB": 69872
+        }
+      }
+    }
+  ]
+}

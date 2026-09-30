@@ -6,7 +6,54 @@ and the website share one reviewable source of truth.
 """
 
 
-# 正式名・source・説明からは拾いにくい通称だけを置く。
+PROTOCOL_METHODS = {
+    "__bool__": "bool(obj) と真偽値文脈",
+    "__call__": "obj(...) として呼び出す",
+    "__contains__": "value in obj",
+    "__enter__": "with 文へ入る",
+    "__exit__": "with 文から出る",
+    "__getitem__": "obj[key] で取得する",
+    "__iter__": "iter(obj)・for 文",
+    "__len__": "len(obj)",
+    "__next__": "next(obj)",
+    "__setitem__": "obj[key] = value で更新する",
+    "__str__": "str(obj)・print(obj)で論理内容を表示する",
+    "__repr__": "対話環境・debugger向けに型名付きで表示する",
+    "__delitem__": "del obj[key] で削除する",
+    "__reversed__": "reversed(obj)",
+    "__add__": "obj + other",
+    "__radd__": "other + obj",
+    "__iadd__": "obj += other",
+    "__sub__": "obj - other",
+    "__rsub__": "other - obj",
+    "__isub__": "obj -= other",
+    "__mul__": "obj * other",
+    "__rmul__": "other * obj",
+    "__imul__": "obj *= other",
+    "__truediv__": "obj / other",
+    "__floordiv__": "obj // other",
+    "__mod__": "obj % other",
+    "__pow__": "obj ** exponent",
+    "__neg__": "-obj",
+    "__pos__": "+obj",
+    "__invert__": "~obj",
+    "__and__": "obj & other",
+    "__or__": "obj | other",
+    "__xor__": "obj ^ other",
+    "__lshift__": "obj << amount",
+    "__rshift__": "obj >> amount",
+    "__eq__": "obj == other",
+    "__ne__": "obj != other",
+    "__lt__": "obj < other",
+    "__le__": "obj <= other",
+    "__gt__": "obj > other",
+    "__ge__": "obj >= other",
+    "__int__": "int(obj)",
+    "__index__": "整数indexとして使う",
+    "__hash__": "hash(obj)",
+}
+
+
 SEARCH_TERMS_BY_MODULE = {
     "fps998/MultipointEvaluation.py": (
         "高速多点評価",
@@ -1153,6 +1200,9 @@ API_DETAILS_BY_SYMBOL.update({
     },
     ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "index"): {
         "description": "多変数の指数tupleを、係数配列の1次元indexへ変換する。",
+        "argumentDescriptions": {"indices": "各変数の指数を順に指定する。2変数ではindex(xの指数, yの指数)。"},
+        "returnFormat": "int",
+        "returnDescription": "coefficients内の位置。base=(W,H)ならi+W*j。各指数がbaseの範囲外ならIndexError。",
     },
     ("graph_connectivity/NamoriDecomposition.py", "NamoriDecomposition", "index"): {
         "description": "vertexに対応するHLD順のindexを返す。",
@@ -1248,13 +1298,38 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[int]", "returnDescription": "series(g(x))=x mod x^degreeを満たすgの昇冪係数列。",
     },
     ("fps/SparseFormalPowerSeries.py", None, "sparse_inverse"): {
+        "description": "入力の非零項だけを使い、形式的冪級数の逆数を求める。定数項は法に対して逆元を持つ必要がある。",
+        "argumentDescriptions": {
+            "degree": "返す係数の個数。省略時はlen(series)。",
+            "mod": "係数を計算する法。整数を指定する。",
+        },
         "returnFormat": "list[int]", "returnDescription": "1/series mod x^degreeの昇冪係数をdegree個並べたlist。",
     },
+    ("fps/SparseFormalPowerSeries.py", None, "sparse_divide"): {
+        "description": "分母の非零項だけを使い、形式的冪級数として除算する。分子は密でもよい。",
+        "argumentDescriptions": {
+            "denominator": "昇冪順の分母の係数列。定数項は法に対して逆元を持つ必要がある。",
+            "degree": "返す係数の個数。省略時はlen(numerator)。",
+            "mod": "係数を計算する法。整数を指定する。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "numerator/denominator mod x^degreeの昇冪係数をdegree個並べたlist。多項式除算の商・余りではない。",
+    },
     ("fps/SparseFormalPowerSeries.py", None, "sparse_exponential"): {
+        "description": "非零項の少ない入力から形式的冪級数の指数関数expを求める。入力の定数項は0とする。",
         "returnFormat": "list[int]", "returnDescription": "exp(series) mod x^degreeの昇冪係数をdegree個並べたlist。",
+        "argumentDescriptions": {
+            "degree": "返す係数の個数。省略時はlen(series)。",
+            "mod": "法。1からdegree-1までがすべて逆元を持つことが必要。",
+        },
     },
     ("fps/SparseFormalPowerSeries.py", None, "sparse_logarithm"): {
+        "description": "非零項の少ない入力から形式的冪級数の対数logを求める。入力の定数項は1とする。",
         "returnFormat": "list[int]", "returnDescription": "log(series) mod x^degreeの昇冪係数をdegree個並べたlist。",
+        "argumentDescriptions": {
+            "degree": "返す係数の個数。省略時はlen(series)。",
+            "mod": "法。1からdegree-1までがすべて逆元を持つことが必要。",
+        },
     },
     ("polynomial/GeometricMultipointEvaluation.py", None, "multipoint_evaluation_geometric"): {
         "returnFormat": "list[int]", "returnDescription": "polynomial(initial*ratio^i)をi=0..count-1の順に並べたlist。",
@@ -1335,16 +1410,23 @@ API_DETAILS_BY_SYMBOL.update({
     },
     ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "get"): {
         "description": r"指定した指数tupleに対応する係数 $[x_0^{i_0}\cdots x_{d-1}^{i_{d-1}}]f$ を返す。",
+        "argumentDescriptions": {"indices": "各変数の指数を順に指定する。2変数ではget(xの指数, yの指数)。"},
         "returnFormat": "int",
         "returnDescription": r"$\mathrm{mod}$ で正規化された指定monomialの係数。",
     },
     ("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "power"): {
         "description": r"多変数形式的冪級数の整数冪 $f^{\mathrm{exponent}}$ を、保持している各変数の次数範囲で求める。",
+        "argumentDescriptions": {"exponent": "整数の指数。負なら定数項が可逆であることが必要。0乗は定数1。正の指数なら定数項0も使える。"},
         "returnFormat": "MultivariateFormalPowerSeries",
         "returnDescription": r"$f^{\mathrm{exponent}}$ の打ち切られた係数を持つ新しいMultivariateFormalPowerSeries。",
     },
     ("fps/SparseFormalPowerSeries.py", None, "sparse_power"): {
         "description": r"疎な係数列で表した $f(x)^{\mathrm{exponent}}\bmod x^{\mathrm{degree}}$ を求める。",
+        "argumentDescriptions": {
+            "exponent": "整数の指数。負の場合は定数項が逆元を持つことが必要。",
+            "degree": "返す係数の個数。省略時はlen(series)。0を指定すると指数によらず空listを返す。",
+            "mod": "法。先頭の非零係数と、計算に使う次数1, 2, ...が逆元を持つことが必要。",
+        },
         "returnFormat": "list[int]",
         "returnDescription": (
             r"長さdegreeの係数列result。$\mathrm{result}[i]=[x^i]f(x)^{\mathrm{exponent}}\bmod\mathrm{mod}$。"
@@ -1760,7 +1842,7 @@ API_DETAILS_BY_SYMBOL.update({
         "returnDescription": "全入力多項式の積。入力が0本なら[1]、空多項式を含めば空list。",
     },
     ("fps998/Composition.py", None, "fps_compose"): {
-        "argumentDescriptions": {"outer": r"外側のFPS $f$ の係数列。", "inner": r"内側のFPS $g$ の係数列。", "degree": _FPS998_DEGREE_ARGUMENT},
+        "argumentDescriptions": {"outer": r"外側の多項式 $f$ の係数列。先頭degree個を使う。", "inner": r"内側の多項式 $g$ の係数列。定数項が非0でも使える。", "degree": "返す係数数。省略時はmax(len(outer), len(inner))。"},
         "returnFormat": "list[int]",
         "returnDescription": r"長さdegreeの $f(g(x))\bmod x^{\mathrm{degree}}$ の係数列。",
     },
@@ -3469,7 +3551,7 @@ COMPLEXITY_BY_MODULE.update({
         "multivariate_circular_convolution": "3回のmultidimensional_dft + O(S)",
     },
     "convolution/MultivariateMultiplication.py": {
-        "multivariate_multiplication": "O(D*S log S + D^2*S) modular operations（D=len(base), S=product(base)）",
+        "multivariate_multiplication": "2変数はO(N log(N+1))時間・O(N)領域。一般にはO(D*N log(N+1)+D²*N)時間・O(D*N)領域。N=product(base)、Dはbase[i]>1の変数数",
     },
     "fps/CircularSeries.py": {"circular_series": "O(M(N)) modular operations"},
     "fps/CompositeExponential.py": {
@@ -3492,9 +3574,11 @@ COMPLEXITY_BY_MODULE.update({
         "inverse": "O(N)", "shrink": "O(N)",
     },
     "fps/SparseFormalPowerSeries.py": {
-        "sparse_inverse": "O(NK)", "sparse_divide": "O(NK)",
-        "sparse_exponential": "O(NK)", "sparse_logarithm": "O(NK)",
-        "sparse_power": "O(NK)（Nは出力次数、Kは非零項数）",
+        "sparse_inverse": "O(L + N(K+1) + log mod)（Lは入力長、Nは出力長、Kは非零項数）",
+        "sparse_divide": "O(L + N(K+1) + log mod)（Lは分母の長さ、Nは出力長、Kは分母の非零項数）",
+        "sparse_exponential": "O(L + N(K+1) + log mod)（Lは入力長、Nは出力長、Kは非零項数）",
+        "sparse_logarithm": "O(L + N(K+1) + log mod)（Lは入力長、Nは出力長、Kは非零項数）",
+        "sparse_power": "O(L + N(K+1) + log mod + log(|exponent|+1))（Lは入力長、Nは出力長、Kは入力の非零項数）",
     },
     "fps/SumOfRationals.py": {
         "sum_of_rationals": "O(M(N) log K) modular operations（Kは分数数、Nは最終次数）",
@@ -5927,4 +6011,65 @@ COMPLEXITY_BY_MODULE["tree/DSUOnTree.py"] = {
     "DSUOnTree": "O(N) 時間・領域。Nは頂点数",
     "index": "O(1)",
     "run": "O(N log N × (1 + Ta + Tr) + N × (Tq + Ts))。Ta・Tr・Tq・Tsはadd・remove・query・resetの1回の時間。queryはN回、resetは高々N−1回。callback以外の追加領域O(1)",
+}
+
+SEARCH_TERMS_BY_MODULE["fps/MultivariateFPS.py"] = ("二変数FPS", "2変数FPS", "多変数冪級数", "bivariate", "疎な二変数")
+API_DETAILS_BY_SYMBOL[("convolution/MultivariateMultiplication.py", None, "multivariate_multiplication")] = {
+    "description": "2つの多変数多項式を掛け、各変数の次数がbaseで指定した上限未満の項だけを返す。",
+    "argumentDescriptions": {
+        "first": "長さproduct(base)の係数列。2変数でbase=(W,H)ならfirst[i+W*j]がx^i*y^jの係数。",
+        "second": "firstと同じ長さ・並び順の係数列。入力の両listは変更しない。",
+        "base": "各変数で保持する係数数。全て正整数。空tupleなら定数1個。",
+        "mod": "係数の法。既定値998244353。Noneは不可。長さ1の軸を除いて3変数以上では必要な長さのNTTが使える法が必要。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "長さproduct(base)で入力と同じ並び順の積の係数列。2変数なら位置i+W*jが積のx^i*y^jの係数。各係数はmodで正規化される。次数上限を超えた項を循環させずに捨てる。",
+}
+MODULE_CAPABILITIES["fps/MultivariateFPS.py"] = (
+    "各変数の次数を打ち切った係数列の積・逆数・log・exp・整数冪を求める。2変数のbase=(W,H)ではcoefficients[i+W*j]がx^i*y^jの係数。",
+    "998244353では、入力の項数とサイズに応じて逆数・log・exp・定数項非0の冪を疎な漸化式へ自動で切り替える。出力が密でも使える。",
+)
+CLASS_DETAILS_BY_SYMBOL[("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries")] = {
+    "description": "変数ごとの次数上限を持つ多項式・冪級数。係数列を保持し、演算結果を同じ形の別オブジェクトとして返す。",
+    "constructorCreates": "coefficientsへ正規化した係数のコピーを保持する。base=(W,H)ならxの次数W未満、yの次数H未満の係数を扱える。",
+    "argumentDescriptions": {
+        "coefficients": "長さproduct(base)の平坦な係数列。base=(W,H)では位置i+W*jがx^i*y^jの係数。省略時は全て0。",
+        "base": "各変数で保持する係数数。各要素は正整数。2変数は(W,H)、空tupleなら定数1個。",
+        "mod": "係数の法。既定値998244353を推奨。Noneは不可。3変数以上の乗算には必要な長さのNTTが使える法が必要。",
+    },
+}
+for _method, _description, _returned in (
+    ("derivative", "係数位置kの値をk倍する重み付き微分。通常の偏微分ではない。", "base=(W,H)ではxの偏微分にxを掛けた項と、yの偏微分にW*yを掛けた項の和。定数項は0。"),
+    ("integral", "係数位置k>0の値をkで割り、定数項はそのまま残す。通常の不定積分ではない。", "derivativeの重みを除いた係数列。1からN−1までが法に対して可逆である必要がある。Nは係数数。"),
+    ("inverse", "積が定数1になる逆数を求める。定数項は法に対して可逆であることが必要。", "入力と掛けると、各変数の次数を打ち切った範囲で定数1となる冪級数。"),
+    ("logarithm", "定数項1の冪級数の形式的な対数を求める。1からN−1までが可逆であることが必要。", "定数項0のlog(f)。Nは係数数。"),
+    ("exponential", "定数項0の冪級数の形式的な指数関数を求める。1からN−1までが可逆であることが必要。", "定数項1のexp(f)。Nは係数数。"),
+    ("__add__", "係数ごとに足す。整数を渡す場合は定数項だけに足す。", "self+otherの係数列。"),
+    ("__neg__", "全ての係数の符号を反転する。", "-selfの係数列。"),
+    ("__sub__", "係数ごとに引く。整数を渡す場合は定数項だけから引く。", "self-otherの係数列。"),
+    ("__rsub__", "整数または冪級数からselfを引く。", "other-selfの係数列。"),
+    ("__mul__", "積を求め、baseで指定した次数を超える項を捨てる。整数の場合は全係数をその整数倍する。", "self*otherの係数列。"),
+    ("__truediv__", "分母の逆数を掛ける。多項式除算の商ではない。分母の定数項は可逆であることが必要。", "otherを掛けるとselfに戻る冪級数。整数の場合は全係数をその整数で割った結果。"),
+):
+    API_DETAILS_BY_SYMBOL[("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", _method)] = {
+        "description": _description,
+        "returnFormat": "MultivariateFormalPowerSeries",
+        "returnDescription": _returned + "入力と同じbase・modを持つ新しいオブジェクトで、coefficientsに平坦な係数listを保持する。入力は変更しない。",
+        "argumentDescriptions": {"other": "同じbase・modの冪級数、または整数。"} if _method.startswith("__") and _method != "__neg__" else {},
+    }
+API_DETAILS_BY_SYMBOL[("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries", "set")] = {
+    "description": "指定した単項式の係数を置き換える。",
+    "argumentDescriptions": {"indices_and_value": "各変数の指数を並べ、最後に係数を指定する。2変数ならset(i,j,value)でx^i*y^jの係数を設定する。"},
+    "returnFormat": "None",
+    "returnDescription": "値は返さない。自分のcoefficients内の1要素をmodで正規化した値へ変更する。",
+}
+COMPLEXITY_BY_MODULE["fps/MultivariateFPS.py"] = {
+    "MultivariateFormalPowerSeries": "O(N+D)時間・O(N+D)領域。N=product(base)、D=len(base)",
+    "index": "O(D)。D=len(base)", "get": "O(D)。D=len(base)", "set": "O(D)。D=len(base)",
+    **{name: "O(N)。Nは係数数" for name in ("__add__", "__neg__", "__sub__", "__rsub__", "derivative")},
+    "integral": "O(N)回の剰余演算と逆元1回。Nは係数数",
+    "__mul__": "2変数の積はO(N log(N+1))。一般にはO(D*N log(N+1)+D²*N)。整数倍はO(N)。Nは係数数、D=len(base)",
+    "__truediv__": "分母のinverse 1回と積1回。2変数ならO(N log(N+1))。整数で割る場合はO(N)と逆元1回。Nは係数数",
+    **{name: "2変数はO(N log(N+1))、一般にはO(D*N log(N+1)+D²*N)。998244353・2変数で疎な経路を使う場合はO(N*(K+1))。Kは非定数の非零項数、Nは係数数、D=len(base)" for name in ("inverse", "logarithm", "exponential")},
+    "power": "998244353・定数項非0・2変数ならO(N log(N+1)+log(abs(e)+1))。疎な経路ではO(N*(K+1)+log(abs(e)+1))。それ以外はO(1+log(abs(e)+1))回の乗算、負ならinverseも1回。Kは非定数の非零項数、e=exponent、Nは係数数",
 }

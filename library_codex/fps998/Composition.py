@@ -10,10 +10,11 @@ from array import array
 from library_codex.convolution.NTT998 import (
     MOD,
     _butterfly,
+    _butterfly_inv,
     _check_length,
-    _intt,
+    _ntt_plan,
 )
-from library_codex.fps998.FPS import fps_exp, fps_inv, fps_log
+from library_codex.fps998.FPS import fps_exp, fps_log, taylor_shift
 from library_codex.fps998.PowerProjection import power_coefficient
 from library_codex.convolution.NTT998 import multiply
 
@@ -35,123 +36,98 @@ def _compose_naive(outer, inner, degree):
     return result
 
 
-def _build_frequency_q(series, n, height, blocks):
+def _build_frequency_q(series, height, blocks, tables):
     total = 4 * height * blocks
     frequency = [0] * total
     for block in range(blocks):
         source = block * height
         target = block * height * 2
-        frequency[target:target + n + 1] = series[source:source + n + 1]
+        frequency[target:target + height] = series[source:source + height]
     frequency[blocks * height * 2] = (
         frequency[blocks * height * 2] + 1
     ) % MOD
-    _butterfly(frequency)
-    for index in range(0, total, 2):
-        frequency[index], frequency[index + 1] = (
-            frequency[index + 1], frequency[index]
-        )
+    _butterfly(frequency, tables)
     return frequency
 
 
-def _descend_q(series, n, height, blocks):
-    frequency = _build_frequency_q(series, n, height, blocks)
+def _descend_q(series, height, blocks, tables, inverse_tables):
+    frequency = _build_frequency_q(series, height, blocks, tables)
     half_total = 2 * height * blocks
     reduced = [0] * half_total
     for index in range(half_total):
         reduced[index] = (
             frequency[index << 1] * frequency[index << 1 | 1] % MOD
         )
-    _intt(reduced)
-    reduced[0] = (reduced[0] - 1) % MOD
+    _butterfly_inv(reduced, inverse_tables, height >> 1)
+    scale = pow(half_total, MOD - 2, MOD)
     child_height = height >> 1
     child = [0] * (height * blocks)
-    child_degree = n >> 1
     for block in range(blocks << 1):
         source = block * height
         target = block * child_height
-        child[target:target + child_degree + 1] = reduced[
-            source:source + child_degree + 1
-        ]
+        for index in range(child_height):
+            child[target + index] = reduced[source + index] * scale % MOD
+    child[0] = (child[0] - 1) % MOD
     return child, array("I", frequency)
 
 
-def _reverse_frequency_blocks(values):
-    start = 1
-    while start < len(values):
-        left = start
-        right = (start << 1) - 1
-        while left < right:
-            values[left], values[right] = values[right], values[left]
-            left += 1
-            right -= 1
-        start <<= 1
-
-
-def _ascend_p(child, frequency_q, n, height, blocks):
+def _ascend_p(child, frequency_q, height, blocks, tables, inverse_tables):
     total = len(frequency_q)
-    frequency_p = [0] * total
+    half = total >> 1
+    reduced = [0] * half
     child_height = height >> 1
-    child_degree = n >> 1
-    parity = n & 1
     for block in range(blocks << 1):
         source = block * child_height
-        target = block * height * 2 + parity
-        for index in range(child_degree + 1):
-            frequency_p[target + (index << 1)] = child[source + index]
-    _butterfly(frequency_p)
-    _reverse_frequency_blocks(frequency_q)
-    for index in range(total):
-        frequency_p[index] = frequency_p[index] * frequency_q[index] % MOD
-    _intt(frequency_p)
+        target = block * height
+        reduced[target:target + child_height] = child[source:source + child_height]
+    _butterfly(reduced, tables)
+    frequency_p = [0] * total
+    for index in range(half):
+        value = reduced[index]
+        frequency_p[index << 1] = value * frequency_q[index << 1 | 1] % MOD
+        frequency_p[index << 1 | 1] = value * frequency_q[index << 1] % MOD
+    _butterfly_inv(frequency_p, inverse_tables, height)
+    scale = pow(total, MOD - 2, MOD)
     result = [0] * (height * blocks)
     for block in range(blocks):
-        source = block * height * 2
+        source = half + block * height * 2
         target = block * height
-        result[target:target + n + 1] = frequency_p[source:source + n + 1]
+        for index in range(height):
+            result[target + index] = frequency_p[source + index] * scale % MOD
     return result
 
 
 def _compose_ntt(outer, inner, degree):
-    original_degree = degree - 1
     height = 1 << (degree - 1).bit_length()
     _check_length(height << 2)
-    fixed_size = height
     outer_values = [value % MOD for value in outer[:degree]]
-    outer_values.extend([0] * (degree - len(outer_values)))
-    current = [0] * fixed_size
+    if inner[0] % MOD:
+        outer_values = taylor_shift(outer_values, inner[0] % MOD)
+    outer_values.extend([0] * (height - len(outer_values)))
+    current = [0] * height
     for index, value in enumerate(inner[:degree]):
         current[index] = -value % MOD
+    current[0] = 0
+    tables = _ntt_plan(height << 2)
+    inverse_tables = _ntt_plan(height << 2, True)
     frames = []
-    n = original_degree
     block_height = height
     blocks = 1
-    while n:
+    while block_height > 1:
         current, frequency_q = _descend_q(
-            current, n, block_height, blocks
+            current, block_height, blocks, tables, inverse_tables
         )
-        frames.append((frequency_q, n, block_height, blocks))
-        n >>= 1
+        frames.append((frequency_q, block_height, blocks))
         block_height >>= 1
         blocks <<= 1
 
-    denominator = current[:blocks]
-    denominator.append(1)
-    denominator.reverse()
-    inverse = fps_inv(denominator, len(denominator))
-    inverse.reverse()
-    product = multiply(outer_values, inverse)
-    result = [0] * fixed_size
-    for index in range(degree):
-        result[blocks - 1 - index] = product[index + blocks]
-
+    result = outer_values
     while frames:
-        frequency_q, n, block_height, blocks = frames.pop()
+        frequency_q, block_height, blocks = frames.pop()
         result = _ascend_p(
-            result, frequency_q, n, block_height, blocks
+            result, frequency_q, block_height, blocks, tables, inverse_tables
         )
-    result = result[:degree]
-    result.reverse()
-    return result
+    return result[:degree]
 
 
 def fps_compose(outer, inner, degree=None):
@@ -163,6 +139,14 @@ def fps_compose(outer, inner, degree=None):
         raise ValueError("degree must be nonnegative")
     if degree == 0:
         return []
+    outer_end = min(len(outer), degree)
+    inner_end = min(len(inner), degree)
+    while outer_end and outer[outer_end - 1] % MOD == 0:
+        outer_end -= 1
+    while inner_end and inner[inner_end - 1] % MOD == 0:
+        inner_end -= 1
+    outer = outer[:outer_end]
+    inner = inner[:inner_end]
     if not outer:
         return [0] * degree
     if len(outer) == 1:
@@ -173,10 +157,22 @@ def fps_compose(outer, inner, degree=None):
         for coefficient in reversed(outer[:degree]):
             value = (value * point + coefficient) % MOD
         return [value] + [0] * (degree - 1)
-    if inner[0] % MOD == 0 and inner[1] % MOD == 1 and len(inner) == 2:
-        result = [value % MOD for value in outer[:degree]]
-        result.extend([0] * (degree - len(result)))
-        return result
+    if inner[0] % MOD == 0:
+        first = 1
+        while first < len(inner) and inner[first] % MOD == 0:
+            first += 1
+        if first == len(inner) - 1:
+            value = inner[first] % MOD
+            if first == 1 and value == 1:
+                result = [coefficient % MOD for coefficient in outer]
+                result.extend([0] * (degree - len(result)))
+                return result
+            result = [0] * degree
+            power = 1
+            for index in range(min(len(outer), (degree - 1) // first + 1)):
+                result[index * first] = outer[index] * power % MOD
+                power = power * value % MOD
+            return result
     if degree <= 64:
         return _compose_naive(outer, inner, degree)
     return _compose_ntt(outer, inner, degree)

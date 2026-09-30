@@ -1,0 +1,297 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:22.183844+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "lca",
+    "problemInfo": {
+      "overall_version": "8111be84449959fb856211de84930db0dd28d570424ce61b8da68b9c1b826990",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/tree/lca",
+      "testcases_version": "7a9cbb3bd8af0fd57c70bf11bd6c03cee0ae1a98373d431b06c0d92326b216ba",
+      "time_limit": 5,
+      "title": "Lowest Common Ancestor",
+      "version": "915905f4ff7f4180aaff07241ddf3b80dadd44ae2fc93768f26594ab060d9f3f"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 400748,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 115113984,
+        "problem_name": "lca",
+        "problem_title": "Lowest Common Ancestor",
+        "status": "AC",
+        "submission_time": "2026-09-08T08:52:09.989061Z",
+        "time": 0.358,
+        "user_name": "tyuyu62",
+        "sourceFile": "400748.py",
+        "sourceSha256": "6ad58a28db1a3f2e1139cb71093808bd1c3bf356d627ca70664424f45e8d57f3",
+        "url": "https://judge.yosupo.jp/submission/400748"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:13:52.074637+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "400748": "6ad58a28db1a3f2e1139cb71093808bd1c3bf356d627ca70664424f45e8d57f3",
+    "library": "a637a66fecb3a37741eeb32e61f55e04d84e0471dfd8d5f9c0ce489b1a66fd4c",
+    "library_hld": "0c1510453ded5067d5672640a4ce5a8d659c5930cb882dfb23b1b2e80bda8ad5"
+  },
+  "repeat": 3,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "random",
+      "size": 500000,
+      "inputSha256": "dea9aa11f8ca00ad237440dc1b974a35022abeb4b6f8fed48c26d1c4be65d0b0",
+      "outputSha256": "6c7a79b96ec72fea60583c2b298b083ca3fe47e314d605c373e46ad28d30970e",
+      "outputTokens": 500000,
+      "bruteChecked": false,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.45666964299994106,
+            0.5276287560000128,
+            0.5947282930000029
+          ],
+          "medianSeconds": 0.5276287560000128,
+          "peakRssKiB": 150048
+        },
+        "library": {
+          "seconds": [
+            1.6320639919999849,
+            1.6276849449999418,
+            1.615389448999963
+          ],
+          "medianSeconds": 1.6276849449999418,
+          "peakRssKiB": 273080
+        },
+        "library_hld": {
+          "seconds": [
+            1.408516254999995,
+            1.4190878920001069,
+            1.4526539159999174
+          ],
+          "medianSeconds": 1.4190878920001069,
+          "peakRssKiB": 198816
+        }
+      }
+    },
+    {
+      "family": "chain",
+      "size": 500000,
+      "inputSha256": "582828f070d73e6bf1d5add0f0700ea6835d52551d64d5fb202e9f511c25ed81",
+      "outputSha256": "01f4d1826f3fcc6ee544ab32d067eff59f1d159525d10567574dc553ca65bdad",
+      "outputTokens": 500000,
+      "bruteChecked": false,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.3199332689999892,
+            0.4139497090000077,
+            0.35451954900008786
+          ],
+          "medianSeconds": 0.35451954900008786,
+          "peakRssKiB": 154244
+        },
+        "library": {
+          "seconds": [
+            1.2350152190000472,
+            1.1772751959999823,
+            1.3077637799999593
+          ],
+          "medianSeconds": 1.2350152190000472,
+          "peakRssKiB": 343512
+        },
+        "library_hld": {
+          "seconds": [
+            0.4933531960000437,
+            0.5299803490000841,
+            0.6083651410000357
+          ],
+          "medianSeconds": 0.5299803490000841,
+          "peakRssKiB": 201404
+        }
+      }
+    },
+    {
+      "family": "star",
+      "size": 500000,
+      "inputSha256": "a25079e7437c18720c0cba2515aa2fedaf9314efd6a5377aaa2824326e4e4bf2",
+      "outputSha256": "1cc2592a6f01466f114e704444b6c5ad03d79ea60a229e0169e4e9608b594e74",
+      "outputTokens": 500000,
+      "bruteChecked": false,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.3837195529999917,
+            0.3600861720000239,
+            0.31391022099990096
+          ],
+          "medianSeconds": 0.3600861720000239,
+          "peakRssKiB": 140924
+        },
+        "library": {
+          "seconds": [
+            1.1794245950000004,
+            1.1966026380000585,
+            1.038094959000091
+          ],
+          "medianSeconds": 1.1794245950000004,
+          "peakRssKiB": 278868
+        },
+        "library_hld": {
+          "seconds": [
+            0.7423080830000117,
+            0.7311618129999715,
+            0.6891137250000838
+          ],
+          "medianSeconds": 0.7311618129999715,
+          "peakRssKiB": 206908
+        }
+      }
+    },
+    {
+      "family": "balanced",
+      "size": 500000,
+      "inputSha256": "350bf34d51fd6ea1ca1143302b81aad3c538885072978ef7c768b3454069957e",
+      "outputSha256": "0fe5765ebe44848eb12a10439eb35cd9a190af95c6555f086e80e8ff6e4a7c04",
+      "outputTokens": 500000,
+      "bruteChecked": false,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.4681915099999969,
+            0.4797856679999768,
+            0.45818722599995
+          ],
+          "medianSeconds": 0.4681915099999969,
+          "peakRssKiB": 153672
+        },
+        "library": {
+          "seconds": [
+            1.0953683200000341,
+            1.1450615300000209,
+            1.200916369999959
+          ],
+          "medianSeconds": 1.1450615300000209,
+          "peakRssKiB": 269220
+        },
+        "library_hld": {
+          "seconds": [
+            0.8145802399999411,
+            0.8434908689999929,
+            0.8219048370000337
+          ],
+          "medianSeconds": 0.8219048370000337,
+          "peakRssKiB": 196372
+        }
+      }
+    }
+  ]
+}

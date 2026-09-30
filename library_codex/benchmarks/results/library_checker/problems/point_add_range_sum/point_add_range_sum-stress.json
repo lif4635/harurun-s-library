@@ -1,0 +1,204 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:23.655436+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "point_add_range_sum",
+    "problemInfo": {
+      "overall_version": "9279f78c5595ef5274a54f1c39e631d885d19108f641995d3f99c439310663e3",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/data_structure/point_add_range_sum",
+      "testcases_version": "64f917e0982b07e4f600b8e9bb43be075a3715b44742b9747cd541dfbab9f583",
+      "time_limit": 5,
+      "title": "Point Add Range Sum",
+      "version": "1e81eb6bb1215a565d07f2b98e6aaf164319bec8ce71b4d2dbf697189d62ce45"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 339750,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 104513536,
+        "problem_name": "point_add_range_sum",
+        "problem_title": "Point Add Range Sum",
+        "status": "AC",
+        "submission_time": "2025-12-23T13:27:55.150995Z",
+        "time": 0.274,
+        "user_name": "tyuyu62",
+        "sourceFile": "339750.py",
+        "sourceSha256": "625c80842378c943505b4ff0df488903aa0c77141f3b79f81984d56e358f2964",
+        "url": "https://judge.yosupo.jp/submission/339750"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:12:20.940663+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "339750": "625c80842378c943505b4ff0df488903aa0c77141f3b79f81984d56e358f2964",
+    "library": "b5383350f1d28e4104a0b0da96fa7ba0ff7ceb3395ddfd099d41f4a4af7aee8b"
+  },
+  "repeat": 3,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "random",
+      "size": 500000,
+      "inputSha256": "d1c29cadea01d9278b8160472a77eeafd12a0dba7e743d7991461b5e06fe3860",
+      "outputSha256": "6f9bf7139a6046bc68180f65743789fdd4ea02e8e2acd347eb98e3c525d2344b",
+      "outputTokens": 250000,
+      "bruteChecked": false,
+      "implementations": {
+        "339750": {
+          "seconds": [
+            0.36529645499996377,
+            0.3626419059999648,
+            0.3269405919999713
+          ],
+          "medianSeconds": 0.3626419059999648,
+          "peakRssKiB": 137808
+        },
+        "library": {
+          "seconds": [
+            0.36995338399998445,
+            0.4138666630000216,
+            0.40435040800002753
+          ],
+          "medianSeconds": 0.40435040800002753,
+          "peakRssKiB": 132804
+        }
+      }
+    },
+    {
+      "family": "boundary",
+      "size": 500000,
+      "inputSha256": "e0060472c28303bcbfce3d1d9af612f5170260c463b53cb8e40b4e8c3481bdbf",
+      "outputSha256": "77706473b0c21c313bf365da71f6597078e8ea90245321050c3133ebce71ba17",
+      "outputTokens": 250000,
+      "bruteChecked": false,
+      "implementations": {
+        "339750": {
+          "seconds": [
+            0.31425442299996575,
+            0.2887382119999984,
+            0.27577885499999866
+          ],
+          "medianSeconds": 0.2887382119999984,
+          "peakRssKiB": 133096
+        },
+        "library": {
+          "seconds": [
+            0.31335513199996967,
+            0.28343699900000274,
+            0.305712662000019
+          ],
+          "medianSeconds": 0.305712662000019,
+          "peakRssKiB": 133108
+        }
+      }
+    }
+  ]
+}

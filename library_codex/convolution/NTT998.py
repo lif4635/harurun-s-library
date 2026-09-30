@@ -5,6 +5,8 @@
 CRTを通らず、固定したradix-4の変換表だけを使う。
 """
 
+from array import array
+
 MOD = 998244353
 PRIMITIVE_ROOT = 3
 MAX_LOG = 23
@@ -48,7 +50,30 @@ def _check_length(size):
         raise ValueError("NTT length exceeds 2^23")
 
 
-def _butterfly(values):
+def _ntt_plan(size, inverse=False):
+    _check_length(size)
+    rate2 = _IRATE2 if inverse else _RATE2
+    rate3 = _IRATE3 if inverse else _RATE3
+    count = max(1, size >> 2)
+    first = array("I", [1]) * count
+    second = array("I", [1]) * count
+    third = array("I", [1]) * count
+    rotation = 1
+    for block in range(count):
+        first[block] = rotation
+        second[block] = rotation * rotation % MOD
+        third[block] = second[block] * rotation % MOD
+        rotation = rotation * rate3[(~block & -~block).bit_length()] % MOD
+    count = max(1, size >> 1)
+    binary = array("I", [1]) * count
+    rotation = 1
+    for block in range(count):
+        binary[block] = rotation
+        rotation = rotation * rate2[(~block & -~block).bit_length()] % MOD
+    return binary, first, second, third
+
+
+def _butterfly(values, tables=None):
     """In-place forward radix-4 NTT without coefficient normalization."""
 
     size = len(values)
@@ -56,6 +81,8 @@ def _butterfly(values):
     if size == 1:
         values[0] %= MOD
         return values
+    if tables is not None:
+        binary, first, second, third = tables
     height = (size - 1).bit_length()
     level = 0
     mod = MOD
@@ -67,22 +94,30 @@ def _butterfly(values):
             width = 1 << (height - level - 1)
             rotation = 1
             for block in range(1 << level):
+                if tables is not None:
+                    rotation = binary[block]
                 offset = block << (height - level)
                 for index in range(width):
                     left = values[offset + index]
                     right = values[offset + index + width] * rotation
                     values[offset + index] = (left + right) % mod
                     values[offset + index + width] = (left - right) % mod
-                rotation = (
-                    rotation * rate2[(~block & -~block).bit_length()] % mod
-                )
+                if tables is None:
+                    rotation = (
+                        rotation * rate2[(~block & -~block).bit_length()] % mod
+                    )
             level += 1
         else:
             width = 1 << (height - level - 2)
             rotation = 1
             for block in range(1 << level):
-                rotation2 = rotation * rotation % mod
-                rotation3 = rotation2 * rotation % mod
+                if tables is None:
+                    rotation2 = rotation * rotation % mod
+                    rotation3 = rotation2 * rotation % mod
+                else:
+                    rotation = first[block]
+                    rotation2 = second[block]
+                    rotation3 = third[block]
                 offset = block << (height - level)
                 for index in range(width):
                     value0 = values[offset + index]
@@ -102,14 +137,15 @@ def _butterfly(values):
                     values[offset + index + 3 * width] = (
                         value0 - value2 - difference
                     ) % mod
-                rotation = (
-                    rotation * rate3[(~block & -~block).bit_length()] % mod
-                )
+                if tables is None:
+                    rotation = (
+                        rotation * rate3[(~block & -~block).bit_length()] % mod
+                    )
             level += 2
     return values
 
 
-def _butterfly_inv(values):
+def _butterfly_inv(values, tables=None, keep_bit=0):
     """In-place inverse radix-4 transform without division by the length."""
 
     size = len(values)
@@ -117,6 +153,8 @@ def _butterfly_inv(values):
     if size == 1:
         values[0] %= MOD
         return values
+    if tables is not None:
+        binary, first, second, third = tables
     height = (size - 1).bit_length()
     level = height
     mod = MOD
@@ -126,28 +164,44 @@ def _butterfly_inv(values):
     while level:
         if level == 1:
             width = 1 << (height - level)
+            limited = keep_bit and width > keep_bit
+            mask = -keep_bit if limited else 0
+            count = width >> bool(limited)
             rotation = 1
             for block in range(1 << (level - 1)):
+                if tables is not None:
+                    rotation = binary[block]
                 offset = block << (height - level + 1)
-                for index in range(width):
+                for position in range(count):
+                    index = position + (position & mask)
                     left = values[offset + index]
                     right = values[offset + index + width]
                     values[offset + index] = (left + right) % mod
                     values[offset + index + width] = (
                         (left - right) * rotation % mod
                     )
-                rotation = (
-                    rotation * irate2[(~block & -~block).bit_length()] % mod
-                )
+                if tables is None:
+                    rotation = (
+                        rotation * irate2[(~block & -~block).bit_length()] % mod
+                    )
             level -= 1
         else:
             width = 1 << (height - level)
+            limited = keep_bit and width > keep_bit
+            mask = -keep_bit if limited else 0
+            count = width >> bool(limited)
             rotation = 1
             for block in range(1 << (level - 2)):
-                rotation2 = rotation * rotation % mod
-                rotation3 = rotation2 * rotation % mod
+                if tables is None:
+                    rotation2 = rotation * rotation % mod
+                    rotation3 = rotation2 * rotation % mod
+                else:
+                    rotation = first[block]
+                    rotation2 = second[block]
+                    rotation3 = third[block]
                 offset = block << (height - level + 2)
-                for index in range(width):
+                for position in range(count):
+                    index = position + (position & mask)
                     value0 = values[offset + index]
                     value1 = values[offset + index + width]
                     value2 = values[offset + index + 2 * width]
@@ -165,9 +219,10 @@ def _butterfly_inv(values):
                     values[offset + index + 3 * width] = (
                         (value0 - value1 - difference) * rotation3 % mod
                     )
-                rotation = (
-                    rotation * irate3[(~block & -~block).bit_length()] % mod
-                )
+                if tables is None:
+                    rotation = (
+                        rotation * irate3[(~block & -~block).bit_length()] % mod
+                    )
             level -= 2
     return values
 
@@ -265,7 +320,9 @@ def multiply(first, second):
     output_size = first_size + second_size - 1
     lower_power = 1 << (output_size.bit_length() - 1)
     boundary_excess = output_size - lower_power
-    if 0 < boundary_excess <= 128:
+    if 0 < boundary_excess <= 128 and (
+        boundary_excess * second_size <= 2 * lower_power or lower_power == 1 << 23
+    ):
         prefix = _multiply_without_boundary(
             first[:-boundary_excess], second
         )

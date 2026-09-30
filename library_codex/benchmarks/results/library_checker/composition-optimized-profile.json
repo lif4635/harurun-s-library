@@ -1,0 +1,260 @@
+{
+  "measuredAt": "2026-09-30T01:14:49.796723+00:00",
+  "size": 131072,
+  "seed": 92471,
+  "repeat": 3,
+  "runtime": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "sourceSha256": "e5680661607ae2b4cd7d71f73343cb51b32d468410ff60f95c3e68cb85acfd33",
+  "timing": "fresh process; function only; coarse wrappers, not cProfile; inclusive times overlap",
+  "medians": {
+    "plain": 2.589131318996806,
+    "instrumented": 2.5623848639988864
+  },
+  "representative": {
+    "mode": "instrumented",
+    "seconds": 2.5623848639988864,
+    "functions": {
+      "_compose_ntt": {
+        "calls": 1,
+        "inclusiveSeconds": 2.561390006001602,
+        "exclusiveSeconds": 0.005639915998472134,
+        "lengths": {}
+      },
+      "_descend_q": {
+        "calls": 17,
+        "inclusiveSeconds": 1.3345210520019464,
+        "exclusiveSeconds": 0.03467419499429525,
+        "lengths": {}
+      },
+      "_build_frequency_q": {
+        "calls": 17,
+        "inclusiveSeconds": 0.8660974230006104,
+        "exclusiveSeconds": 0.07670278600198799,
+        "lengths": {}
+      },
+      "_butterfly": {
+        "calls": 34,
+        "inclusiveSeconds": 1.1478309410049405,
+        "exclusiveSeconds": 1.1478309410049405,
+        "lengths": {
+          "524288": 17,
+          "262144": 17
+        }
+      },
+      "_intt": {
+        "calls": 34,
+        "inclusiveSeconds": 1.1830094839860976,
+        "exclusiveSeconds": 1.1830094839860976,
+        "lengths": {
+          "262144": 17,
+          "524288": 17
+        }
+      },
+      "array": {
+        "calls": 17,
+        "inclusiveSeconds": 0.028821500010963064,
+        "exclusiveSeconds": 0.028821500010963064,
+        "lengths": {}
+      },
+      "_ascend_p": {
+        "calls": 17,
+        "inclusiveSeconds": 1.2212290380011837,
+        "exclusiveSeconds": 0.08471118400484556,
+        "lengths": {}
+      }
+    },
+    "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+    "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+  },
+  "samples": [
+    {
+      "mode": "plain",
+      "seconds": 2.4469992900012585,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.5623848639988864,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.561390006001602,
+          "exclusiveSeconds": 0.005639915998472134,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.3345210520019464,
+          "exclusiveSeconds": 0.03467419499429525,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.8660974230006104,
+          "exclusiveSeconds": 0.07670278600198799,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.1478309410049405,
+          "exclusiveSeconds": 1.1478309410049405,
+          "lengths": {
+            "524288": 17,
+            "262144": 17
+          }
+        },
+        "_intt": {
+          "calls": 34,
+          "inclusiveSeconds": 1.1830094839860976,
+          "exclusiveSeconds": 1.1830094839860976,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.028821500010963064,
+          "exclusiveSeconds": 0.028821500010963064,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.2212290380011837,
+          "exclusiveSeconds": 0.08471118400484556,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.5325922390002233,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.5316864249980426,
+          "exclusiveSeconds": 0.006607409002754139,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.3026755410064652,
+          "exclusiveSeconds": 0.03140468700803467,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.8514444779939367,
+          "exclusiveSeconds": 0.06839004898210987,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.1391026080054871,
+          "exclusiveSeconds": 1.1391026080054871,
+          "lengths": {
+            "524288": 17,
+            "262144": 17
+          }
+        },
+        "_intt": {
+          "calls": 34,
+          "inclusiveSeconds": 1.1756248500096262,
+          "exclusiveSeconds": 1.1756248500096262,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.026269236997904954,
+          "exclusiveSeconds": 0.026269236997904954,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.2224034749888233,
+          "exclusiveSeconds": 0.08428758499212563,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "plain",
+      "seconds": 2.6208680239979003,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "plain",
+      "seconds": 2.589131318996806,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.596526953002467,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.5954462219997367,
+          "exclusiveSeconds": 0.006022032001055777,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.3108140679978533,
+          "exclusiveSeconds": 0.03304475901313708,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.8548751619891846,
+          "exclusiveSeconds": 0.07737554398772772,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.1418993240040436,
+          "exclusiveSeconds": 1.1418993240040436,
+          "lengths": {
+            "524288": 17,
+            "262144": 17
+          }
+        },
+        "_intt": {
+          "calls": 34,
+          "inclusiveSeconds": 1.217976000989438,
+          "exclusiveSeconds": 1.217976000989438,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.02692221999677713,
+          "exclusiveSeconds": 0.02692221999677713,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.2786101220008277,
+          "exclusiveSeconds": 0.0922063420075574,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    }
+  ]
+}

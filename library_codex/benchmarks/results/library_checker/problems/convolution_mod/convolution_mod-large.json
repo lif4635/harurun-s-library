@@ -1,0 +1,232 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:17.719788+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "convolution_mod",
+    "problemInfo": {
+      "overall_version": "eb7d0144296fefc4c8135853d10d6d42c2f64867467e8ebaf40d412496937a94",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/convolution/convolution_mod",
+      "testcases_version": "5f1221f5d4fcead4743bed85f928b47a8a742146bddd4ae3f9c1fdee790ce175",
+      "time_limit": 5,
+      "title": "Convolution",
+      "version": "7196187223fc7342abac652b160428eb04643b2a644aa8098aa634eb1abfefe3"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 264889,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 142020608,
+        "problem_name": "convolution_mod",
+        "problem_title": "Convolution",
+        "status": "AC",
+        "submission_time": "2025-02-01T09:01:54.566852Z",
+        "time": 0.381,
+        "user_name": "harurun4635",
+        "sourceFile": "264889.py",
+        "sourceSha256": "f997daa38e0a4cfbe1056aec4e2c2d3f0467622e47d4bf8a996a6540237b36ed",
+        "url": "https://judge.yosupo.jp/submission/264889"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:10:41.394847+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "264889": "f997daa38e0a4cfbe1056aec4e2c2d3f0467622e47d4bf8a996a6540237b36ed",
+    "library": "47f99f1f399e6fbc6d43d53e758d1a19a8e79834c0ff94e0452a88fff9b0250e"
+  },
+  "repeat": 3,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "dense",
+      "size": 65536,
+      "inputSha256": "c5d992f1f21f4c9b8979b3c141b5d07cc4ddb30fcbd59abbb22851931a91e6fc",
+      "outputSha256": "1b551902cd694c16400f376af3a941861d0d672260b49020fe43675e194b0760",
+      "outputTokens": 131071,
+      "bruteChecked": false,
+      "implementations": {
+        "264889": {
+          "seconds": [
+            0.12802356899999268,
+            0.1602181800000153,
+            0.1318748360000086
+          ],
+          "medianSeconds": 0.1318748360000086,
+          "peakRssKiB": 80232
+        },
+        "library": {
+          "seconds": [
+            0.18226061700005403,
+            0.16521559799997476,
+            0.16901044499996942
+          ],
+          "medianSeconds": 0.16901044499996942,
+          "peakRssKiB": 77404
+        }
+      }
+    },
+    {
+      "family": "sparse",
+      "size": 65536,
+      "inputSha256": "1f6cdaa7ed2155a1442273187214d32654f6d3f3c105ded509d9f918751a716f",
+      "outputSha256": "126ca525b1cfdbd2ba95315c1b327f157539f3992a8662a16ca39a0c99b3a490",
+      "outputTokens": 131071,
+      "bruteChecked": false,
+      "implementations": {
+        "264889": {
+          "seconds": [
+            0.11015174700003172,
+            0.12089792699998725,
+            0.12710434500002066
+          ],
+          "medianSeconds": 0.12089792699998725,
+          "peakRssKiB": 75212
+        },
+        "library": {
+          "seconds": [
+            0.13890495699996563,
+            0.14133009200003244,
+            0.13483252399998946
+          ],
+          "medianSeconds": 0.13890495699996563,
+          "peakRssKiB": 76312
+        }
+      }
+    },
+    {
+      "family": "unbalanced",
+      "size": 65536,
+      "inputSha256": "868fe1c25629ac8bdb746da8b653ca9d4c5e714f0fba8d183ce67534d51abb66",
+      "outputSha256": "54867236bf1fdf305247b383dc4ea70aa60d72bfa9414ea4d91958e62ab34fd7",
+      "outputTokens": 65542,
+      "bruteChecked": false,
+      "implementations": {
+        "264889": {
+          "seconds": [
+            0.09702466099997764,
+            0.09681106899995484,
+            0.0855770649999954
+          ],
+          "medianSeconds": 0.09681106899995484,
+          "peakRssKiB": 69500
+        },
+        "library": {
+          "seconds": [
+            0.09795433099998263,
+            0.10692726600001379,
+            0.09311499999995476
+          ],
+          "medianSeconds": 0.09795433099998263,
+          "peakRssKiB": 72232
+        }
+      }
+    }
+  ]
+}

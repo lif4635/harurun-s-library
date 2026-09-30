@@ -1,0 +1,244 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:22.183844+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "lca",
+    "problemInfo": {
+      "overall_version": "8111be84449959fb856211de84930db0dd28d570424ce61b8da68b9c1b826990",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/tree/lca",
+      "testcases_version": "7a9cbb3bd8af0fd57c70bf11bd6c03cee0ae1a98373d431b06c0d92326b216ba",
+      "time_limit": 5,
+      "title": "Lowest Common Ancestor",
+      "version": "915905f4ff7f4180aaff07241ddf3b80dadd44ae2fc93768f26594ab060d9f3f"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 400748,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 115113984,
+        "problem_name": "lca",
+        "problem_title": "Lowest Common Ancestor",
+        "status": "AC",
+        "submission_time": "2026-09-08T08:52:09.989061Z",
+        "time": 0.358,
+        "user_name": "tyuyu62",
+        "sourceFile": "400748.py",
+        "sourceSha256": "6ad58a28db1a3f2e1139cb71093808bd1c3bf356d627ca70664424f45e8d57f3",
+        "url": "https://judge.yosupo.jp/submission/400748"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:10:38.140059+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "400748": "6ad58a28db1a3f2e1139cb71093808bd1c3bf356d627ca70664424f45e8d57f3",
+    "library": "a637a66fecb3a37741eeb32e61f55e04d84e0471dfd8d5f9c0ce489b1a66fd4c"
+  },
+  "repeat": 1,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "random",
+      "size": 80,
+      "inputSha256": "55fdcebee83fc5b1aef18b30c94cf98bb11b3eb3a8c1416496e52bf075a48bb0",
+      "outputSha256": "28cafbfc44ca5ea9c871c2e0fa2c6abd97cada50f2b9af7c62b3edd3c0aa905c",
+      "outputTokens": 80,
+      "bruteChecked": true,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.06586618800002952
+          ],
+          "medianSeconds": 0.06586618800002952,
+          "peakRssKiB": 59836
+        },
+        "library": {
+          "seconds": [
+            0.07851387399995247
+          ],
+          "medianSeconds": 0.07851387399995247,
+          "peakRssKiB": 59848
+        }
+      }
+    },
+    {
+      "family": "chain",
+      "size": 80,
+      "inputSha256": "cb8b89eb1f54a75bf5736bf829483b3803dcadcb0816afd9ad220b87db508a60",
+      "outputSha256": "c54dba1820babb191e35b4b839fd5a7b47b6073aa740e156c693a9c08f4c2604",
+      "outputTokens": 80,
+      "bruteChecked": true,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.07376378899999736
+          ],
+          "medianSeconds": 0.07376378899999736,
+          "peakRssKiB": 59964
+        },
+        "library": {
+          "seconds": [
+            0.0722378899999967
+          ],
+          "medianSeconds": 0.0722378899999967,
+          "peakRssKiB": 59724
+        }
+      }
+    },
+    {
+      "family": "star",
+      "size": 80,
+      "inputSha256": "126a85f9b95e5ec721b62f30e387a5db4fd9a86251c53a35be72339ff031dc30",
+      "outputSha256": "d1c9f8527ddf64f1444c813be6bee6fd2ccac1346ff1cb24f7c93e8368808007",
+      "outputTokens": 80,
+      "bruteChecked": true,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.07177437299998246
+          ],
+          "medianSeconds": 0.07177437299998246,
+          "peakRssKiB": 59804
+        },
+        "library": {
+          "seconds": [
+            0.0716072729999837
+          ],
+          "medianSeconds": 0.0716072729999837,
+          "peakRssKiB": 59764
+        }
+      }
+    },
+    {
+      "family": "balanced",
+      "size": 80,
+      "inputSha256": "07d1538b32d5fcb29d1f86f238a2ff1f0d312264d936bb3a2a2136d5f2aed9f2",
+      "outputSha256": "d58d0901fc07ada7f3c2b6cea02b7434570abb9c7aa2f66b7985070107cf6b6d",
+      "outputTokens": 80,
+      "bruteChecked": true,
+      "implementations": {
+        "400748": {
+          "seconds": [
+            0.06359319099999539
+          ],
+          "medianSeconds": 0.06359319099999539,
+          "peakRssKiB": 59980
+        },
+        "library": {
+          "seconds": [
+            0.06576661600001898
+          ],
+          "medianSeconds": 0.06576661600001898,
+          "peakRssKiB": 59828
+        }
+      }
+    }
+  ]
+}

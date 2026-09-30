@@ -1,0 +1,203 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:20.679024+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "inv_of_formal_power_series",
+    "problemInfo": {
+      "overall_version": "d159dda92e2ae3a27e061ccb9fccd47b832d3b9b6c6c6df21dbdff5a923fff72",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/polynomial/inv_of_formal_power_series",
+      "testcases_version": "9d0354efaf97908b2ae5ae3b29aa7c9369947031dd3d12329d94ce4a88dcc347",
+      "time_limit": 10,
+      "title": "Inv of Formal Power Series",
+      "version": "48e2cf6e56312fc5d135e6bf2b3273351311f1d5b9e82872fffcd2f615180b49"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 140558,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 57798656,
+        "problem_name": "inv_of_formal_power_series",
+        "problem_title": "Inv of Formal Power Series",
+        "status": "AC",
+        "time": 0.345,
+        "user_name": "abUma",
+        "sourceFile": "140558.py",
+        "sourceSha256": "cd844443aa31f450e3e23394194a0a05dc9e7259dadda67ca4ebb508aa976daa",
+        "url": "https://judge.yosupo.jp/submission/140558"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:15:02.715083+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "140558": "cd844443aa31f450e3e23394194a0a05dc9e7259dadda67ca4ebb508aa976daa",
+    "library": "86ea970ed0b6fad207865a2862bcb6f7649486d2785c49bf2616f882951459d1"
+  },
+  "repeat": 3,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "dense",
+      "size": 262144,
+      "inputSha256": "918b5380c829a252763ea51542ba14b994e3ea1e857133bc433a309e1d41d6b1",
+      "outputSha256": "fc6a970b7e1e3405ff316f4676a7c92d659ecc62fb67752a6bdf6edc266ad069",
+      "outputTokens": 262144,
+      "bruteChecked": false,
+      "implementations": {
+        "140558": {
+          "seconds": [
+            0.2570681350000541,
+            0.23354840300009982,
+            0.2544112059999861
+          ],
+          "medianSeconds": 0.2544112059999861,
+          "peakRssKiB": 84512
+        },
+        "library": {
+          "seconds": [
+            0.4021147610000071,
+            0.39006888599999456,
+            0.41028957399998944
+          ],
+          "medianSeconds": 0.4021147610000071,
+          "peakRssKiB": 92496
+        }
+      }
+    },
+    {
+      "family": "sparse",
+      "size": 262144,
+      "inputSha256": "b9cf85bcfff56e9d7754b90bea400a327cbc656f06907a0b239be0af595a9173",
+      "outputSha256": "0afe60f87e30d56921362dbe8c8a3d4da8a0a02bb4811606ed2b93fe08813cac",
+      "outputTokens": 262144,
+      "bruteChecked": false,
+      "implementations": {
+        "140558": {
+          "seconds": [
+            0.23938578900003904,
+            0.23001792000002297,
+            0.2722925690000011
+          ],
+          "medianSeconds": 0.23938578900003904,
+          "peakRssKiB": 82404
+        },
+        "library": {
+          "seconds": [
+            0.141857793999975,
+            0.17756653599997207,
+            0.14253560600002402
+          ],
+          "medianSeconds": 0.14253560600002402,
+          "peakRssKiB": 91856
+        }
+      }
+    }
+  ]
+}

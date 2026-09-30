@@ -1,0 +1,204 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:26.719584+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "range_affine_range_sum",
+    "problemInfo": {
+      "overall_version": "c70bd004e16557d6156b6a5b2eb5c9f56b8b898c91dbcea23d7870d28da25032",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/data_structure/range_affine_range_sum",
+      "testcases_version": "3d8b82ff1d85ad76c987b20b338f0929a5a5e87f58cf84903418a83f05da90ac",
+      "time_limit": 5,
+      "title": "Range Affine Range Sum",
+      "version": "b9ead3987b0b7f1313a483bc748cc8a351de0cf933bf91bd1d01dc5648d34253"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 335682,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 125472768,
+        "problem_name": "range_affine_range_sum",
+        "problem_title": "Range Affine Range Sum",
+        "status": "AC",
+        "submission_time": "2025-12-09T23:50:16.404812Z",
+        "time": 1.021,
+        "user_name": "tyuyu62",
+        "sourceFile": "335682.py",
+        "sourceSha256": "7327f5c7b6c7a40881f95b99fed662e553556b6ddb7ee1f971677e82378088de",
+        "url": "https://judge.yosupo.jp/submission/335682"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:10:58.592267+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "335682": "7327f5c7b6c7a40881f95b99fed662e553556b6ddb7ee1f971677e82378088de",
+    "library": "34b5e91dcc88d285f0c8acbce112a1a3b06505bf974328ff593a704e2d6f2a32"
+  },
+  "repeat": 3,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "random",
+      "size": 100000,
+      "inputSha256": "4664f328710d1e22483ca8f2e12d1011c30e68f654f6465af27c1cea0d9e4f8a",
+      "outputSha256": "6d9cffc23636c220afd4b00fc9a1f9d6f29f87327f57f1badca8f99ab51bd90c",
+      "outputTokens": 50000,
+      "bruteChecked": false,
+      "implementations": {
+        "335682": {
+          "seconds": [
+            0.3642205049999916,
+            0.41087925100003986,
+            0.3864573349999887
+          ],
+          "medianSeconds": 0.3864573349999887,
+          "peakRssKiB": 84468
+        },
+        "library": {
+          "seconds": [
+            1.0117689319999954,
+            1.0580146100000434,
+            0.8444887880000351
+          ],
+          "medianSeconds": 1.0117689319999954,
+          "peakRssKiB": 96856
+        }
+      }
+    },
+    {
+      "family": "boundary",
+      "size": 100000,
+      "inputSha256": "b44063f50bf19cc691779a3303139702847d9e96407e2b3f31e0f8aad0478104",
+      "outputSha256": "a87afa90322adccfafb9ac25ffcdb09641c9c7519ff5bc987a9b8fe67e4d8063",
+      "outputTokens": 50000,
+      "bruteChecked": false,
+      "implementations": {
+        "335682": {
+          "seconds": [
+            0.19616469499999312,
+            0.21522038299997348,
+            0.20215854400004218
+          ],
+          "medianSeconds": 0.20215854400004218,
+          "peakRssKiB": 83644
+        },
+        "library": {
+          "seconds": [
+            0.2182038089999878,
+            0.21575695100000303,
+            0.2017136389999905
+          ],
+          "medianSeconds": 0.21575695100000303,
+          "peakRssKiB": 79776
+        }
+      }
+    }
+  ]
+}

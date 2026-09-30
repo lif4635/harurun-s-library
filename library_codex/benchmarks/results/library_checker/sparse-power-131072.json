@@ -1,0 +1,43 @@
+{
+  "size": 131072,
+  "terms": 8,
+  "operation": "power",
+  "seed": 92471,
+  "python": "3.10.14",
+  "implementation": "PyPy",
+  "timing": "function only, fresh sequential process, no warm-up",
+  "timeoutSeconds": 10.0,
+  "timedOut": [
+    "baseline"
+  ],
+  "samples": {
+    "baseline": [],
+    "current": [
+      {
+        "seconds": 0.025227468999219127,
+        "rssKiB": 82612,
+        "inputSha256": "99e8130ce66a13909e9d8840c1782a25788f2130bef3558a2467b7063006aa73",
+        "outputSha256": "e97a76070d5b9c9e0a99d5b6b56895b514e1204eba8f31dc67ea56b38da43699"
+      },
+      {
+        "seconds": 0.028473960999690462,
+        "rssKiB": 82940,
+        "inputSha256": "99e8130ce66a13909e9d8840c1782a25788f2130bef3558a2467b7063006aa73",
+        "outputSha256": "e97a76070d5b9c9e0a99d5b6b56895b514e1204eba8f31dc67ea56b38da43699"
+      },
+      {
+        "seconds": 0.020877787999779684,
+        "rssKiB": 82720,
+        "inputSha256": "99e8130ce66a13909e9d8840c1782a25788f2130bef3558a2467b7063006aa73",
+        "outputSha256": "e97a76070d5b9c9e0a99d5b6b56895b514e1204eba8f31dc67ea56b38da43699"
+      }
+    ]
+  },
+  "sourceSha256": {
+    "baseline": "587dbb60e674a9ffb89ce682b4b2075d8d409ab4b9cf209f0aa15b7db314f454",
+    "current": "1624ece2bf8b79e2667ea10e9e2d73d8549f254de13f4a7be0c986d763f74cb0"
+  },
+  "medianSeconds": {
+    "current": 0.025227468999219127
+  }
+}

@@ -1,15 +1,17 @@
 """非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。"""
 
-from library_codex.fps.FormalPowerSeries import (
-    DEFAULT_MOD,
-    fps_exponential,
-    fps_inverse,
-    fps_logarithm,
-    fps_multiply,
-    fps_power,
-    fps_shrink,
-    fps_taylor_shift,
-)
+DEFAULT_MOD = 998244353
+
+
+def _inverses(degree, mod):
+    values = [1] * degree
+    for index in range(2, degree):
+        values[index] = values[index - 1] * index % mod
+    inverse = pow(values[-1], -1, mod)
+    for index in range(degree - 1, 0, -1):
+        values[index], inverse = inverse * values[index - 1] % mod, inverse * index % mod
+    values[0] = 0
+    return values
 
 def sparse_inverse(series, degree=None, mod=DEFAULT_MOD):
     if degree is None:
@@ -58,12 +60,15 @@ def sparse_divide(numerator, denominator, degree=None, mod=DEFAULT_MOD):
 def sparse_exponential(series, degree=None, mod=DEFAULT_MOD):
     if degree is None:
         degree = len(series)
+    if degree < 0:
+        raise ValueError("degree must be nonnegative")
     if degree == 0:
         return []
     if series and series[0] % mod:
         raise ValueError("constant coefficient must be zero")
-    terms = [(index, value % mod) for index, value in enumerate(series[1:], 1)
+    terms = [(index, index * value % mod) for index, value in enumerate(series[1:degree], 1)
              if value % mod]
+    inverses = _inverses(degree, mod)
     result = [0] * degree
     result[0] = 1
     for index in range(1, degree):
@@ -71,32 +76,38 @@ def sparse_exponential(series, degree=None, mod=DEFAULT_MOD):
         for offset, coefficient in terms:
             if offset > index:
                 break
-            value += offset * coefficient * result[index - offset]
-        result[index] = value % mod * pow(index, -1, mod) % mod
+            value += coefficient * result[index - offset]
+        result[index] = value % mod * inverses[index] % mod
     return result
 
 def sparse_logarithm(series, degree=None, mod=DEFAULT_MOD):
     if degree is None:
         degree = len(series)
+    if degree < 0:
+        raise ValueError("degree must be nonnegative")
     if degree == 0:
         return []
     if not series or series[0] % mod != 1:
         raise ValueError("constant coefficient must be one")
-    derivative = [index * value % mod for index, value in enumerate(series)][1:]
+    derivative = [index * value % mod for index, value in enumerate(series[:degree])][1:]
     quotient = sparse_divide(derivative, series, max(0, degree - 1), mod)
+    inverses = _inverses(degree, mod)
     result = [0] * degree
     for index, value in enumerate(quotient, 1):
-        result[index] = value * pow(index, -1, mod) % mod
+        result[index] = value * inverses[index] % mod
     return result
 
 def sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD):
     if degree is None:
         degree = len(series)
-    if exponent < 0:
-        series = sparse_inverse(series, degree, mod)
-        exponent = -exponent
+    if degree < 0:
+        raise ValueError("degree must be nonnegative")
+    if degree == 0:
+        return []
     if exponent == 0:
-        return [1] + [0] * max(0, degree - 1)
+        return [1] + [0] * (degree - 1)
+    if exponent < 0 and (not series or series[0] % mod == 0):
+        raise ZeroDivisionError("constant coefficient must be invertible")
     leading = 0
     while leading < len(series) and series[leading] % mod == 0:
         leading += 1
@@ -105,11 +116,21 @@ def sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD):
         return [0] * degree
     constant = series[leading] % mod
     inverse_constant = pow(constant, -1, mod)
-    normalized = [value * inverse_constant % mod for value in series[leading:]]
-    logarithm = sparse_logarithm(normalized, degree - shift, mod)
-    factor = exponent % mod
-    logarithm = [value * factor % mod for value in logarithm]
-    result = sparse_exponential(logarithm, degree - shift, mod)
-    scale = pow(constant, exponent, mod)
-    return [0] * shift + [value * scale % mod for value in result]
-
+    needed = degree - shift
+    terms = []
+    factor = (exponent + 1) % mod
+    for offset in range(1, min(len(series) - leading, needed)):
+        coefficient = series[leading + offset] * inverse_constant % mod
+        if coefficient:
+            terms.append((offset, coefficient, factor * offset * coefficient % mod))
+    inverses = _inverses(needed, mod)
+    result = [0] * needed
+    result[0] = pow(constant, exponent, mod)
+    for index in range(1, needed):
+        value = 0
+        for offset, coefficient, weighted in terms:
+            if offset > index:
+                break
+            value += (weighted - index * coefficient) % mod * result[index - offset]
+        result[index] = value % mod * inverses[index] % mod
+    return [0] * shift + result

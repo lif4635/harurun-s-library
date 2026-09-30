@@ -23,6 +23,7 @@ SEARCH_TERMS_BY_SYMBOL = {}
 API_DETAILS_BY_SYMBOL = {}
 CLASS_DETAILS_BY_SYMBOL = {}
 COMPLEXITY_BY_MODULE = {}
+PROTOCOL_METHODS = {}
 SCHEMA_VERSION = 2
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "library-catalog.json"
@@ -2320,10 +2321,7 @@ def public_symbol_names(source_path):
         if isinstance(node, ast.ClassDef) and not node.name.startswith("_"):
             for child in node.body:
                 if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                    if not child.name.startswith("_") or child.name in {
-                        "__call__", "__contains__", "__getitem__", "__iter__",
-                        "__len__", "__repr__", "__setitem__", "__str__",
-                    }:
+                    if not child.name.startswith("_") or child.name in PROTOCOL_METHODS:
                         result.add(child.name)
     return result
 
@@ -2382,10 +2380,7 @@ def public_api_structure(source_path):
             methods = set()
             for child in node.body:
                 if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
-                    if not child.name.startswith("_") or child.name in {
-                        "__call__", "__contains__", "__getitem__", "__iter__",
-                        "__len__", "__repr__", "__setitem__", "__str__",
-                    }:
+                    if not child.name.startswith("_") or child.name in PROTOCOL_METHODS:
                         methods.add(child.name)
             classes[node.name] = methods
     return functions, classes
@@ -2786,7 +2781,7 @@ def load_configuration(library_root):
     global CATEGORY_LABELS, CATEGORY_DOMAINS, DOMAIN_LABELS
     global SEARCH_TERMS_BY_MODULE, SEARCH_TERMS_BY_SYMBOL
     global API_DETAILS_BY_SYMBOL, CLASS_DETAILS_BY_SYMBOL
-    global COMPLEXITY_BY_MODULE
+    global COMPLEXITY_BY_MODULE, PROTOCOL_METHODS
     category_config = runpy.run_path(
         str(library_root / "tools" / "category_config.py")
     )
@@ -2794,6 +2789,7 @@ def load_configuration(library_root):
     CATEGORY_DOMAINS = category_config["CATEGORY_DOMAINS"]
     DOMAIN_LABELS = category_config["DOMAIN_LABELS"]
     metadata = runpy.run_path(str(library_root / "tools" / "api_metadata.py"))
+    PROTOCOL_METHODS = metadata["PROTOCOL_METHODS"]
     SEARCH_TERMS_BY_MODULE = metadata.get("SEARCH_TERMS_BY_MODULE", {})
     SEARCH_TERMS_BY_SYMBOL = metadata.get("SEARCH_TERMS_BY_SYMBOL", {})
     API_DETAILS_BY_SYMBOL = metadata.get("API_DETAILS_BY_SYMBOL", {})

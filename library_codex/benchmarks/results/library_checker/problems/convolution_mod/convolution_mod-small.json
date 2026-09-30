@@ -1,0 +1,220 @@
+{
+  "snapshot": {
+    "retrievedAt": "2026-09-29T18:09:17.719788+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "convolution_mod",
+    "problemInfo": {
+      "overall_version": "eb7d0144296fefc4c8135853d10d6d42c2f64867467e8ebaf40d412496937a94",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/convolution/convolution_mod",
+      "testcases_version": "5f1221f5d4fcead4743bed85f928b47a8a742146bddd4ae3f9c1fdee790ce175",
+      "time_limit": 5,
+      "title": "Convolution",
+      "version": "7196187223fc7342abac652b160428eb04643b2a644aa8098aa634eb1abfefe3"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 264889,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 142020608,
+        "problem_name": "convolution_mod",
+        "problem_title": "Convolution",
+        "status": "AC",
+        "submission_time": "2025-02-01T09:01:54.566852Z",
+        "time": 0.381,
+        "user_name": "harurun4635",
+        "sourceFile": "264889.py",
+        "sourceSha256": "f997daa38e0a4cfbe1056aec4e2c2d3f0467622e47d4bf8a996a6540237b36ed",
+        "url": "https://judge.yosupo.jp/submission/264889"
+      }
+    ]
+  },
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "measuredAt": "2026-09-29T18:10:35.865463+00:00",
+  "timing": "fresh process, regular-file stdin, I/O and startup included",
+  "sourceHashes": {
+    "264889": "f997daa38e0a4cfbe1056aec4e2c2d3f0467622e47d4bf8a996a6540237b36ed",
+    "library": "47f99f1f399e6fbc6d43d53e758d1a19a8e79834c0ff94e0452a88fff9b0250e"
+  },
+  "repeat": 1,
+  "seed": 92471,
+  "results": [
+    {
+      "family": "dense",
+      "size": 80,
+      "inputSha256": "f31e062947c76cf82d1f1cdbc2501971ec54abc5c105fc0d1c5dc3a356abd24e",
+      "outputSha256": "4b83e9904f2098b350fe48bf9ac3c0b9926196aac56a79a5345a33d55853fc20",
+      "outputTokens": 159,
+      "bruteChecked": true,
+      "implementations": {
+        "264889": {
+          "seconds": [
+            0.07036905499995783
+          ],
+          "medianSeconds": 0.07036905499995783,
+          "peakRssKiB": 60032
+        },
+        "library": {
+          "seconds": [
+            0.06775389599999926
+          ],
+          "medianSeconds": 0.06775389599999926,
+          "peakRssKiB": 60604
+        }
+      }
+    },
+    {
+      "family": "sparse",
+      "size": 80,
+      "inputSha256": "cd4086f59c60b816914136aabeca4aff1f6ad1039a766954bd37ddc489a86518",
+      "outputSha256": "cd85d6f4d71190868f85381804557aafa0ea6f4292a37fc6ee0651f4c6d98e23",
+      "outputTokens": 159,
+      "bruteChecked": true,
+      "implementations": {
+        "264889": {
+          "seconds": [
+            0.06116446900000483
+          ],
+          "medianSeconds": 0.06116446900000483,
+          "peakRssKiB": 60032
+        },
+        "library": {
+          "seconds": [
+            0.0682831629999896
+          ],
+          "medianSeconds": 0.0682831629999896,
+          "peakRssKiB": 59896
+        }
+      }
+    },
+    {
+      "family": "unbalanced",
+      "size": 80,
+      "inputSha256": "a546f287d512c8eda1c7c0ba59525a5fc6a51a9c6adc8caee628223f5bed08f7",
+      "outputSha256": "9b2ff1aea0a06275d1f5ff30a5225f55a4dbbd23e68fa5eed8fbd07f908d6af5",
+      "outputTokens": 86,
+      "bruteChecked": true,
+      "implementations": {
+        "264889": {
+          "seconds": [
+            0.059625424999978804
+          ],
+          "medianSeconds": 0.059625424999978804,
+          "peakRssKiB": 60024
+        },
+        "library": {
+          "seconds": [
+            0.05768748900004539
+          ],
+          "medianSeconds": 0.05768748900004539,
+          "peakRssKiB": 59912
+        }
+      }
+    }
+  ]
+}

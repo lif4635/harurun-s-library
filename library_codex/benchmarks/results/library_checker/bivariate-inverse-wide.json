@@ -1,0 +1,66 @@
+{
+  "shape": [
+    4096,
+    16
+  ],
+  "family": "dense",
+  "operation": "inverse",
+  "seed": 92471,
+  "timing": "function only, fresh sequential process, no warm-up",
+  "implementation": "PyPy",
+  "python": "3.10.14",
+  "timeoutSeconds": 60,
+  "timedOut": [],
+  "samples": {
+    "baseline": [
+      {
+        "seconds": 2.135093418999986,
+        "rssKiB": 108180,
+        "inputSha256": "c5b0cfcb04555d6d2a5d1aabf299dfa270f658bddd367e33bbd0f892e6a90d5b",
+        "outputSha256": "12969132ff738c9636758a6beecfacd75cd7dc2862f46c33bd55a3327c360ed7"
+      },
+      {
+        "seconds": 2.1967154499999424,
+        "rssKiB": 108124,
+        "inputSha256": "c5b0cfcb04555d6d2a5d1aabf299dfa270f658bddd367e33bbd0f892e6a90d5b",
+        "outputSha256": "12969132ff738c9636758a6beecfacd75cd7dc2862f46c33bd55a3327c360ed7"
+      },
+      {
+        "seconds": 2.1415873079999983,
+        "rssKiB": 108036,
+        "inputSha256": "c5b0cfcb04555d6d2a5d1aabf299dfa270f658bddd367e33bbd0f892e6a90d5b",
+        "outputSha256": "12969132ff738c9636758a6beecfacd75cd7dc2862f46c33bd55a3327c360ed7"
+      }
+    ],
+    "current": [
+      {
+        "seconds": 0.31474150400003964,
+        "rssKiB": 101536,
+        "inputSha256": "c5b0cfcb04555d6d2a5d1aabf299dfa270f658bddd367e33bbd0f892e6a90d5b",
+        "outputSha256": "12969132ff738c9636758a6beecfacd75cd7dc2862f46c33bd55a3327c360ed7"
+      },
+      {
+        "seconds": 0.3156877919999488,
+        "rssKiB": 101604,
+        "inputSha256": "c5b0cfcb04555d6d2a5d1aabf299dfa270f658bddd367e33bbd0f892e6a90d5b",
+        "outputSha256": "12969132ff738c9636758a6beecfacd75cd7dc2862f46c33bd55a3327c360ed7"
+      },
+      {
+        "seconds": 0.3141072340000619,
+        "rssKiB": 101604,
+        "inputSha256": "c5b0cfcb04555d6d2a5d1aabf299dfa270f658bddd367e33bbd0f892e6a90d5b",
+        "outputSha256": "12969132ff738c9636758a6beecfacd75cd7dc2862f46c33bd55a3327c360ed7"
+      }
+    ]
+  },
+  "sourceSha256": {
+    "baseline": "5f0755fd9dc02dd946bd2878bd76511018dedeea31b142df7c0c12b8e340e36a",
+    "baselineMultiply": "cb6d844f3fa72c606fc43e809dc52139b6f58a6b892418035b49fc4e30fcd235",
+    "current": "5f95ffbe3a9b2e405bb09dc22e36813c3e9e2cf82f994627387aa32b699c3314",
+    "currentMultiply": "c75408c96a805323dc0d9dec13b4e29a91a6dd1bc6bfd0a46e4d70e47e13566f"
+  },
+  "medianSeconds": {
+    "baseline": 2.1415873079999983,
+    "current": 0.31474150400003964
+  }
+}

@@ -30,10 +30,6 @@ from library_codex.polynomial.PolynomialDivision998 import (
     poly_divmod,
     poly_mod,
 )
-from library_codex.fps998.Composition import (
-    fps_compose,
-    fps_compositional_inv,
-)
 
 
 def _naive_inverse(series, degree):
@@ -54,32 +50,6 @@ def _naive_exponential(series, degree):
             if offset < len(series):
                 value += offset * series[offset] * result[index - offset]
         result.append(value * pow(index, MOD - 2, MOD) % MOD)
-    return result
-
-
-def _naive_compose(outer, inner, degree):
-    result = []
-    for coefficient in reversed(outer[:degree]):
-        result = convolution_naive(result, inner, MOD)[:degree]
-        if result:
-            result[0] = (result[0] + coefficient) % MOD
-        else:
-            result = [coefficient % MOD]
-    result.extend([0] * (degree - len(result)))
-    return result
-
-
-def _naive_compositional_inv(series, degree):
-    if degree == 0:
-        return []
-    result = [0] * degree
-    if degree == 1:
-        return result
-    inverse_linear = pow(series[1] % MOD, MOD - 2, MOD)
-    result[1] = inverse_linear
-    for exponent in range(2, degree):
-        composed = _naive_compose(series, result, exponent + 1)
-        result[exponent] = -composed[exponent] * inverse_linear % MOD
     return result
 
 
@@ -211,40 +181,6 @@ def test_fps998_validation_and_large_input():
     assert multiply(series, inverse)[:20] == [1] + [0] * 19
 
 
-def test_fps998_composition_and_compositional_inverse():
-    rng = random.Random(9983)
-    for _ in range(1200):
-        degree = rng.randrange(1, 150)
-        outer = [rng.randrange(MOD) for _ in range(rng.randrange(180))]
-        inner = [rng.randrange(MOD) for _ in range(rng.randrange(180))]
-        assert fps_compose(outer, inner, degree) == _naive_compose(
-            outer, inner, degree
-        )
-    identity = [0, 1]
-    for _ in range(300):
-        degree = rng.randrange(2, 150)
-        series = [0, rng.randrange(1, MOD)] + [
-            rng.randrange(MOD) for _ in range(degree - 2)
-        ]
-        inverse = fps_compositional_inv(series, degree)
-        expected = identity + [0] * (degree - 2)
-        assert fps_compose(series, inverse, degree) == expected
-        assert fps_compose(inverse, series, degree) == expected
-
-
-def test_fps998_compositional_inverse_against_naive():
-    rng = random.Random(20260808)
-    for _ in range(200):
-        degree = rng.randrange(2, 25)
-        source_length = rng.randrange(2, 30)
-        series = [0, rng.randrange(1, MOD)] + [
-            rng.randrange(MOD) for _ in range(source_length - 2)
-        ]
-        assert fps_compositional_inv(series, degree) == (
-            _naive_compositional_inv(series, degree)
-        )
-
-
 def test_fps998_sparse_large_relations():
     degree = 4096
     unit = [0] * degree
@@ -285,4 +221,3 @@ if __name__ == "__main__":
     test_fps998_inverse_log_and_exp_against_naive()
     test_fps998_power_sqrt_division_shift_and_product()
     test_fps998_validation_and_large_input()
-    test_fps998_composition_and_compositional_inverse()

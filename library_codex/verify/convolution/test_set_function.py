@@ -128,6 +128,20 @@ def test_set_series_exp_log_are_inverse():
         set_series_logarithm([0, 2])
 
 
+def test_rank_pruning_with_sparse_and_high_rank_support():
+    rng = random.Random(917)
+    for mod in (2, 12, 998244353):
+        engine = SubsetConvolution(mod)
+        for bits in range(8):
+            size = 1 << bits
+            for rank in range(bits + 1):
+                first = [rng.randrange(-mod, 2 * mod) if mask.bit_count() == rank else 0 for mask in range(size)]
+                second = [rng.randrange(-mod, 2 * mod) for _ in range(size)]
+                before = first[:], second[:]
+                assert engine.multiply(first, second) == brute_subset(first, second, mod)
+                assert (first, second) == before
+
+
 def test_validation_and_large_without_recursion():
     with pytest.raises(ValueError):
         subset_zeta_transform([])

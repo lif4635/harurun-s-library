@@ -1,0 +1,70 @@
+{
+  "shape": [
+    127,
+    521
+  ],
+  "family": "dense",
+  "terms": 8,
+  "operation": "exponential",
+  "memoryMetric": "/proc/self/status VmHWM after calculation",
+  "seed": 92471,
+  "timing": "function only, fresh sequential process, no warm-up",
+  "implementation": "PyPy",
+  "python": "3.10.14",
+  "timeoutSeconds": 60,
+  "timedOut": [],
+  "samples": {
+    "baseline": [
+      {
+        "seconds": 3.183271223999327,
+        "rssKiB": 208296,
+        "inputSha256": "6290b89f16ce664e4cd89abf6f268fb00c7754309af9acb8e95f5ef56a61bc33",
+        "outputSha256": "757e0abcbb3b03653f9b0b7a3550e5c26a79b8787365393fac267dcb1ffea0f6"
+      },
+      {
+        "seconds": 3.2610748450006213,
+        "rssKiB": 209168,
+        "inputSha256": "6290b89f16ce664e4cd89abf6f268fb00c7754309af9acb8e95f5ef56a61bc33",
+        "outputSha256": "757e0abcbb3b03653f9b0b7a3550e5c26a79b8787365393fac267dcb1ffea0f6"
+      },
+      {
+        "seconds": 3.1841083879990038,
+        "rssKiB": 209052,
+        "inputSha256": "6290b89f16ce664e4cd89abf6f268fb00c7754309af9acb8e95f5ef56a61bc33",
+        "outputSha256": "757e0abcbb3b03653f9b0b7a3550e5c26a79b8787365393fac267dcb1ffea0f6"
+      }
+    ],
+    "current": [
+      {
+        "seconds": 1.1693778239987296,
+        "rssKiB": 124616,
+        "inputSha256": "6290b89f16ce664e4cd89abf6f268fb00c7754309af9acb8e95f5ef56a61bc33",
+        "outputSha256": "757e0abcbb3b03653f9b0b7a3550e5c26a79b8787365393fac267dcb1ffea0f6"
+      },
+      {
+        "seconds": 1.1657134180004505,
+        "rssKiB": 128272,
+        "inputSha256": "6290b89f16ce664e4cd89abf6f268fb00c7754309af9acb8e95f5ef56a61bc33",
+        "outputSha256": "757e0abcbb3b03653f9b0b7a3550e5c26a79b8787365393fac267dcb1ffea0f6"
+      },
+      {
+        "seconds": 1.1652536720011994,
+        "rssKiB": 128612,
+        "inputSha256": "6290b89f16ce664e4cd89abf6f268fb00c7754309af9acb8e95f5ef56a61bc33",
+        "outputSha256": "757e0abcbb3b03653f9b0b7a3550e5c26a79b8787365393fac267dcb1ffea0f6"
+      }
+    ]
+  },
+  "sourceSha256": {
+    "baseline": "5f95ffbe3a9b2e405bb09dc22e36813c3e9e2cf82f994627387aa32b699c3314",
+    "baselineMultiply": "c75408c96a805323dc0d9dec13b4e29a91a6dd1bc6bfd0a46e4d70e47e13566f",
+    "current": "a89622aa3f4542e992b58ee2af5894a6b47e8dbbbf801b00638d28000b3ecb14",
+    "currentMultiply": "c75408c96a805323dc0d9dec13b4e29a91a6dd1bc6bfd0a46e4d70e47e13566f",
+    "currentNtt": "b48726633a89ab415630b72b31e49aa4be4612392e59aa64b8cdb7342129f0dd",
+    "baselineNtt": "8132e83ca3ca55ecae44e053a579efa5cd416353f59e958e8854540e0226379a"
+  },
+  "medianSeconds": {
+    "baseline": 3.1841083879990038,
+    "current": 1.1657134180004505
+  }
+}

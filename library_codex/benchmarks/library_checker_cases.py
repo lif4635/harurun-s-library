@@ -5,6 +5,15 @@ import sys
 
 
 def make_case(problem, size, family, seed):
+    from library_codex.benchmarks.lc_problems import PROBLEMS, problem_module
+
+    if problem in PROBLEMS:
+        module = problem_module(problem)
+        if not getattr(module, "MIN_SIZE", 1) <= size <= getattr(module, "MAX_SIZE", 500000):
+            raise ValueError("size is outside the problem constraints")
+        if family not in module.FAMILIES:
+            raise ValueError("unknown family: " + family)
+        return module.make_case(size, family, seed)
     rng = random.Random(seed)
     answers = [] if size <= 256 else None
     if problem == "set_xor_min":
@@ -132,6 +141,10 @@ def solve(problem):
 
 
 def standalone_source(problem):
+    from library_codex.benchmarks.lc_problems import PROBLEMS, standalone
+
+    if problem in PROBLEMS:
+        return standalone(problem)
     root = Path(__file__).resolve().parents[1]
     modules = ["ordered_set/BinaryTrie.py"] if problem == "set_xor_min" else [
         "fenwick_tree/BIT.py", "tree/DSUOnTree.py" if problem == "subtree_dsu"

@@ -1,0 +1,284 @@
+{
+  "measuredAt": "2026-09-30T01:43:22.624256+00:00",
+  "size": 131072,
+  "seed": 92471,
+  "repeat": 3,
+  "runtime": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "sourceSha256": "314e2bfe646a93b38a6c8126518fcebbc119247e6770fc7c0d943a7fed58031f",
+  "timing": "fresh process; function only; coarse wrappers, not cProfile; inclusive times overlap",
+  "medians": {
+    "plain": 2.1504379289981443,
+    "instrumented": 2.1349409430004016
+  },
+  "representative": {
+    "mode": "instrumented",
+    "seconds": 2.1349409430004016,
+    "functions": {
+      "_compose_ntt": {
+        "calls": 1,
+        "inclusiveSeconds": 2.133733588998439,
+        "exclusiveSeconds": 0.006077823996747611,
+        "lengths": {}
+      },
+      "_ntt_plan": {
+        "calls": 2,
+        "inclusiveSeconds": 0.0077236780016392,
+        "exclusiveSeconds": 0.0077236780016392,
+        "lengths": {}
+      },
+      "_descend_q": {
+        "calls": 17,
+        "inclusiveSeconds": 1.0921255979956186,
+        "exclusiveSeconds": 0.0402013170059945,
+        "lengths": {}
+      },
+      "_build_frequency_q": {
+        "calls": 17,
+        "inclusiveSeconds": 0.7462463549927634,
+        "exclusiveSeconds": 0.06164011899090838,
+        "lengths": {}
+      },
+      "_butterfly": {
+        "calls": 34,
+        "inclusiveSeconds": 1.0110209280064737,
+        "exclusiveSeconds": 1.0110209280064737,
+        "lengths": {
+          "524288": 17,
+          "262144": 17
+        }
+      },
+      "_butterfly_inv": {
+        "calls": 34,
+        "inclusiveSeconds": 0.8672133259824477,
+        "exclusiveSeconds": 0.8672133259824477,
+        "lengths": {
+          "262144": 17,
+          "524288": 17
+        }
+      },
+      "array": {
+        "calls": 17,
+        "inclusiveSeconds": 0.025820127008046256,
+        "exclusiveSeconds": 0.025820127008046256,
+        "lengths": {}
+      },
+      "_ascend_p": {
+        "calls": 17,
+        "inclusiveSeconds": 1.0278064890044334,
+        "exclusiveSeconds": 0.11403627000618144,
+        "lengths": {}
+      }
+    },
+    "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+    "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+  },
+  "samples": [
+    {
+      "mode": "plain",
+      "seconds": 2.1504379289981443,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.1349409430004016,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.133733588998439,
+          "exclusiveSeconds": 0.006077823996747611,
+          "lengths": {}
+        },
+        "_ntt_plan": {
+          "calls": 2,
+          "inclusiveSeconds": 0.0077236780016392,
+          "exclusiveSeconds": 0.0077236780016392,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.0921255979956186,
+          "exclusiveSeconds": 0.0402013170059945,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.7462463549927634,
+          "exclusiveSeconds": 0.06164011899090838,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.0110209280064737,
+          "exclusiveSeconds": 1.0110209280064737,
+          "lengths": {
+            "524288": 17,
+            "262144": 17
+          }
+        },
+        "_butterfly_inv": {
+          "calls": 34,
+          "inclusiveSeconds": 0.8672133259824477,
+          "exclusiveSeconds": 0.8672133259824477,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.025820127008046256,
+          "exclusiveSeconds": 0.025820127008046256,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.0278064890044334,
+          "exclusiveSeconds": 0.11403627000618144,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.1323982730027637,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.1313006970012793,
+          "exclusiveSeconds": 0.00600161599504645,
+          "lengths": {}
+        },
+        "_ntt_plan": {
+          "calls": 2,
+          "inclusiveSeconds": 0.00726935000056983,
+          "exclusiveSeconds": 0.00726935000056983,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.0935696459964674,
+          "exclusiveSeconds": 0.040694518018426606,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.7423714389951783,
+          "exclusiveSeconds": 0.06367443999988609,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 1.0090577969931473,
+          "exclusiveSeconds": 1.0090577969931473,
+          "lengths": {
+            "524288": 17,
+            "262144": 17
+          }
+        },
+        "_butterfly_inv": {
+          "calls": 34,
+          "inclusiveSeconds": 0.8722114550000697,
+          "exclusiveSeconds": 0.8722114550000697,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.02774188898547436,
+          "exclusiveSeconds": 0.02774188898547436,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.0244600850091956,
+          "exclusiveSeconds": 0.10464963200865895,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "plain",
+      "seconds": 2.172238044997357,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "plain",
+      "seconds": 2.1334780600009253,
+      "functions": {},
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    },
+    {
+      "mode": "instrumented",
+      "seconds": 2.1371761369991873,
+      "functions": {
+        "_compose_ntt": {
+          "calls": 1,
+          "inclusiveSeconds": 2.136194250000699,
+          "exclusiveSeconds": 0.00611404300070717,
+          "lengths": {}
+        },
+        "_ntt_plan": {
+          "calls": 2,
+          "inclusiveSeconds": 0.008680489001562819,
+          "exclusiveSeconds": 0.008680489001562819,
+          "lengths": {}
+        },
+        "_descend_q": {
+          "calls": 17,
+          "inclusiveSeconds": 1.0832799899944803,
+          "exclusiveSeconds": 0.0386130389997561,
+          "lengths": {}
+        },
+        "_build_frequency_q": {
+          "calls": 17,
+          "inclusiveSeconds": 0.7357566659920849,
+          "exclusiveSeconds": 0.06345957399753388,
+          "lengths": {}
+        },
+        "_butterfly": {
+          "calls": 34,
+          "inclusiveSeconds": 0.9991859300025681,
+          "exclusiveSeconds": 0.9991859300025681,
+          "lengths": {
+            "524288": 17,
+            "262144": 17
+          }
+        },
+        "_butterfly_inv": {
+          "calls": 34,
+          "inclusiveSeconds": 0.8782423329976154,
+          "exclusiveSeconds": 0.8782423329976154,
+          "lengths": {
+            "262144": 17,
+            "524288": 17
+          }
+        },
+        "array": {
+          "calls": 17,
+          "inclusiveSeconds": 0.027598300999670755,
+          "exclusiveSeconds": 0.027598300999670755,
+          "lengths": {}
+        },
+        "_ascend_p": {
+          "calls": 17,
+          "inclusiveSeconds": 1.0381197280039487,
+          "exclusiveSeconds": 0.11430054100128473,
+          "lengths": {}
+        }
+      },
+      "inputSha256": "7fb363926f1b5fe9ec60ce0ea7b310f872f897ebba4ea9fd044c4ceb5e460cf5",
+      "outputSha256": "323d770210e45150dfb37661ce13f7439aeaa7aacf950c4cc486ef48ce4d6e94"
+    }
+  ]
+}

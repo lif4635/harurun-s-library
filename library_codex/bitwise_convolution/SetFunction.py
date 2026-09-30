@@ -288,7 +288,7 @@ class SubsetConvolution:
         scratch = [0] * width
         for mask, degree in enumerate(popcount):
             position = mask * width
-            for total_degree in range(bits + 1):
+            for total_degree in range(degree, min(2 * degree, bits) + 1):
                 lower = max(0, total_degree - degree)
                 upper = min(total_degree, degree)
                 value = 0
@@ -298,7 +298,7 @@ class SubsetConvolution:
                         * right[position + total_degree - rank]
                     )
                 scratch[total_degree] = value % mod
-            for rank in range(width):
+            for rank in range(degree, min(2 * degree, bits) + 1):
                 left[position + rank] = scratch[rank]
         return self._mobius_and_unlift(
             left, popcount, bits, width

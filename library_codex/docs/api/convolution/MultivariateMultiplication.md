@@ -8,7 +8,7 @@
 
 ## できること
 
-- `multivariate_multiplication`: 2つの入力をこの構造の演算規則で乗算する。
+- `multivariate_multiplication`: 2つの多変数多項式を掛け、各変数の次数がbaseで指定した上限未満の項だけを返す。
 
 ## Import
 
@@ -20,10 +20,10 @@ from library_codex.convolution.MultivariateMultiplication import multivariate_mu
 
 | 定数 | 値 | source |
 | --- | --- | --- |
-| `DEFAULT_MOD` | `998244353` | [L5](../../../convolution/MultivariateMultiplication.py#L5) |
+| `DEFAULT_MOD` | `998244353` | [L6](../../../convolution/MultivariateMultiplication.py#L6) |
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultivariateMultiplication.py#L7) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(D*S log S + D^2*S) modular operations（D=len(base), S=product(base)） |
+| [`multivariate_multiplication(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultivariateMultiplication.py#L8) | 2つの多変数多項式を掛け、各変数の次数がbaseで指定した上限未満の項だけを返す。 | `first`: 長さproduct(base)の係数列。2変数でbase=(W,H)ならfirst[i+W*j]がx^i*y^jの係数。<br>`second`: firstと同じ長さ・並び順の係数列。入力の両listは変更しない。<br>`base`: 各変数で保持する係数数。全て正整数。空tupleなら定数1個。<br>`mod`: 係数の法。既定値998244353。Noneは不可。長さ1の軸を除いて3変数以上では必要な長さのNTTが使える法が必要。省略時: `DEFAULT_MOD` | list[int] — 長さproduct(base)で入力と同じ並び順の積の係数列。2変数なら位置i+W*jが積のx^i*y^jの係数。各係数はmodで正規化される。次数上限を超えた項を循環させずに捨てる。 | 2変数はO(N log(N+1))時間・O(N)領域。一般にはO(D*N log(N+1)+D²*N)時間・O(D*N)領域。N=product(base)、Dはbase[i]>1の変数数 |

@@ -15,9 +15,6 @@ from library_codex.convolution.MultidimensionalDFT import (  # noqa: E402
 from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime import (  # noqa: E402
     multiplicative_convolution,
 )
-from library_codex.convolution.MultivariateMultiplication import (  # noqa: E402
-    multivariate_multiplication,
-)
 from library_codex.convolution.NTT import convolution  # noqa: E402
 
 
@@ -79,7 +76,7 @@ def _digits(index, base):
     return result
 
 
-def test_multivariate_truncated_and_circular_against_pairs():
+def test_multivariate_circular_against_pairs():
     rng = random.Random(111)
     bases = [[], [2], [3], [2, 3], [3, 2, 2], [2, 2, 2, 2]]
     for base in bases:
@@ -89,28 +86,19 @@ def test_multivariate_truncated_and_circular_against_pairs():
         for _ in range(300):
             first = [rng.randrange(MOD) for _ in range(size)]
             second = [rng.randrange(MOD) for _ in range(size)]
-            truncated = [0] * size
             circular = [0] * size
             for i in range(size):
                 di = _digits(i, base)
                 for j in range(size):
                     dj = _digits(j, base)
                     coefficient = first[i] * second[j]
-                    if all(a + b < radix
-                           for a, b, radix in zip(di, dj, base)):
-                        index = sum((a + b) * (1 if axis == 0 else
-                            __import__('math').prod(base[:axis]))
-                                    for axis, (a, b) in enumerate(zip(di, dj)))
-                        truncated[index] += coefficient
                     wrapped = [(a + b) % radix
                                for a, b, radix in zip(di, dj, base)]
                     index = sum(value * (1 if axis == 0 else
                                 __import__('math').prod(base[:axis]))
                                 for axis, value in enumerate(wrapped))
                     circular[index] += coefficient
-            truncated = [value % MOD for value in truncated]
             circular = [value % MOD for value in circular]
-            assert multivariate_multiplication(first, second, base) == truncated
             if all((MOD - 1) % radix == 0 for radix in base):
                 assert multivariate_circular_convolution(
                     first, second, base

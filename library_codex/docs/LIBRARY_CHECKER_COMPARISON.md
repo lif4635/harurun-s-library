@@ -1,5 +1,7 @@
 # Library Checkerとの速度比較
 
+追加の8問題と問題別の解答比較は[問題別検査](LIBRARY_CHECKER_PROBLEMS.md)にまとめています。
+
 測定日: 2026-09-30 JST。変更前のlibrary revision: `2e29669e13ed3dc5485c866866a597b4594bce37`。
 
 ## 今回の範囲

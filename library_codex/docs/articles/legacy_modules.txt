@@ -51,7 +51,6 @@ convolution/ChirpZ
 convolution/MiddleProduct
 convolution/MinPlusConvolution
 convolution/MultidimensionalDFT
-convolution/MultivariateMultiplication
 convolution/NTT
 convolution/NTT998
 fenwick_tree/BIT
@@ -64,7 +63,6 @@ fps/EulerTransform
 fps/FormalPowerSeries
 fps/FPSFraction
 fps/IncreasingSequences
-fps/MultivariateFPS
 fps/OnlineFormalPowerSeries
 fps/PolynomialComposition
 fps/SparseFormalPowerSeries
