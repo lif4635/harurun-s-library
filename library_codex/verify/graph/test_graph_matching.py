@@ -8,32 +8,6 @@ sys.path.insert(0, str(ROOT))
 
 from graph_matching.DAGMinimumPathCover import dag_minimum_path_cover  # noqa: E402
 from graph_connectivity.DynamicBipartiteGraph import DynamicBipartiteGraph  # noqa: E402
-from graph.TwoSAT import TwoSAT  # noqa: E402
-
-
-def test_two_sat_against_all_assignments():
-    rng = random.Random(31)
-    for n in range(9):
-        for _ in range(500):
-            clauses = [
-                (rng.randrange(n), bool(rng.randrange(2)),
-                 rng.randrange(n), bool(rng.randrange(2)))
-                for _ in range(rng.randrange(20))
-            ] if n else []
-            expected = []
-            for mask in range(1 << n):
-                values = [bool(mask >> v & 1) for v in range(n)]
-                if all(values[a] == av or values[b] == bv
-                       for a, av, b, bv in clauses):
-                    expected.append(values)
-            solver = TwoSAT(n)
-            for clause in clauses:
-                solver.add_clause(*clause)
-            answer = solver.solve()
-            assert (answer is not None) == bool(expected)
-            if answer is not None:
-                assert all(answer[a] == av or answer[b] == bv
-                           for a, av, b, bv in clauses)
 
 
 def _bipartite_components(n, edges):

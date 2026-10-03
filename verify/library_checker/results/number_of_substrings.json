@@ -1,0 +1,165 @@
+{
+  "problem": "number_of_substrings",
+  "status": "local_passed",
+  "verificationKey": "bc317fafc42711312582d618c18611478ed8bb7a5f48008fee05bd235bc57076",
+  "sourceSha256": "c65dca0f7ce4dab45e8dcbb41e2b26dc503b4a443dd3c0514d58624d3f60a350",
+  "modules": [
+    "library_codex.range_query.StaticRMQ",
+    "library_codex.string.SuffixArray"
+  ],
+  "problemVersion": "3c037ffc5eac52a36ac7e61b0528a0e3787ad06f53a7715c8ce521c58353c269",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 24,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.07924510601151269,
+      "diagnostic": "ok \"21\"\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.06513695500325412,
+      "diagnostic": "ok \"53\"\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.06413510401034728,
+      "diagnostic": "ok \"33\"\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.05947192200983409,
+      "diagnostic": "ok \"5\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.2856486450036755,
+      "diagnostic": "ok \"75975996981\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.3257789689960191,
+      "diagnostic": "ok \"107204478177\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.12405501700413879,
+      "diagnostic": "ok \"1422245414\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.3554582740034675,
+      "diagnostic": "ok \"92126138311\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.23354434200155083,
+      "diagnostic": "ok \"38367077212\"\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.42449232601211406,
+      "diagnostic": "ok \"120697242881\"\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.3513933549984358,
+      "diagnostic": "ok \"122161364358\"\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.3960470339952735,
+      "diagnostic": "ok \"122106998593\"\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.3871665590122575,
+      "diagnostic": "ok \"121653270136\"\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.385503947007237,
+      "diagnostic": "ok \"120446800706\"\n"
+    },
+    {
+      "name": "all_same_00",
+      "status": "AC",
+      "seconds": 0.11785549200430978,
+      "diagnostic": "ok \"491322\"\n"
+    },
+    {
+      "name": "all_same_01",
+      "status": "AC",
+      "seconds": 0.11445223299961071,
+      "diagnostic": "ok \"494293\"\n"
+    },
+    {
+      "name": "all_same_02",
+      "status": "AC",
+      "seconds": 0.11104200199770276,
+      "diagnostic": "ok \"494183\"\n"
+    },
+    {
+      "name": "all_same_03",
+      "status": "AC",
+      "seconds": 0.1095123010018142,
+      "diagnostic": "ok \"493264\"\n"
+    },
+    {
+      "name": "all_same_04",
+      "status": "AC",
+      "seconds": 0.10625780100235716,
+      "diagnostic": "ok \"490812\"\n"
+    },
+    {
+      "name": "fib_str_00",
+      "status": "AC",
+      "seconds": 0.29694249799649697,
+      "diagnostic": "ok \"58199709019\"\n"
+    },
+    {
+      "name": "fib_str_01",
+      "status": "AC",
+      "seconds": 0.2073260070028482,
+      "diagnostic": "ok \"31310183235\"\n"
+    },
+    {
+      "name": "fib_str_02",
+      "status": "AC",
+      "seconds": 0.21192495099967346,
+      "diagnostic": "ok \"28338474241\"\n"
+    },
+    {
+      "name": "fib_str_03",
+      "status": "AC",
+      "seconds": 0.18047097999078687,
+      "diagnostic": "ok \"23844359522\"\n"
+    },
+    {
+      "name": "fib_str_04",
+      "status": "AC",
+      "seconds": 0.3366404020052869,
+      "diagnostic": "ok \"55662177025\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:36:05.841828+00:00",
+  "onlineSubmission": null
+}

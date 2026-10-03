@@ -8,6 +8,7 @@
 | [`ArgumentSort`](ArgumentSort.md) | 2次元ベクトルの偏角sort | 1 | 0 | 0 |
 | [`CircleGeometry`](CircleGeometry.md) | Intersections and tangent points involving circles. | 3 | 0 | 0 |
 | [`ClosestPair`](ClosestPair.md) | 2次元点集合でEuclidean距離が最小の2点を求める。 | 1 | 0 | 0 |
+| [`ConvexFurthest`](ConvexFurthest.md) | 凸多角形の各頂点から最遠の頂点 | 1 | 0 | 0 |
 | [`ConvexHull`](ConvexHull.md) | Andrewの単調鎖法による2次元凸包 | 1 | 0 | 0 |
 | [`ConvexLayers`](ConvexLayers.md) | Onion decomposition of planar points. | 2 | 0 | 0 |
 | [`ConvexPolygon`](ConvexPolygon.md) | Logarithmic point containment for a static convex polygon. | 0 | 1 | 2 |

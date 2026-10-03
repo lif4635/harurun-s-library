@@ -153,6 +153,8 @@ pypy3 library_codex/tools/check_library.py --profile full
 
 ## 8. bundleと公開物を確認する
 
+Library Checker の公式全ケースは[問題別解答と検査手順](../../verify/library_checker/README.md)で管理します。未対応問題は高速解法を調べ、汎用部分をライブラリへ追加してから問題用driverを書きます。`check_library_checker.py build` で依存込みの提出コードを更新し、`test` で公式生成器・checkerを実行します。通常検査では提出コードの同期だけを確認し、公式全件検査とオンラインACは区別します。
+
 Library Checkerの上位提出と速度を比べる場合は、[比較手順と測定記録](LIBRARY_CHECKER_COMPARISON.md)を使います。外部sourceは取得後に確認してから実行し、同じ入力・実行環境で答え、時間、メモリを比較します。ランキングの確認だけで「最速実装との比較済み」とはしません。
 
 bundleは選択moduleのsourceから、実際にimportする`library_codex`内依存だけを再帰的に展開します。生成物はpackage wrapperや動的な`bundle`関数ではなく、貼り付けて実行できる通常のPythonコードにします。

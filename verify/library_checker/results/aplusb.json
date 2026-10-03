@@ -1,0 +1,90 @@
+{
+  "problem": "aplusb",
+  "status": "local_passed",
+  "verificationKey": "4b0b9143e08b998316edd0bac12a6fddc62af69e4000d8de2551a9ea4cbf5e36",
+  "sourceSha256": "bad33c5040033016ca0c4117fb92b93485d6056061c546ba845a11805767d684",
+  "modules": [],
+  "problemVersion": "feabfe46faaea83f97417116c69dc82b800490c66decc6b97a75a06c97072e9e",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 2.0,
+  "expectedCases": 12,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.07825716398656368,
+      "diagnostic": "ok \"6912\"\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.08822147900355048,
+      "diagnostic": "ok \"2000000000\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.0828362189931795,
+      "diagnostic": "ok \"348927966\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.07770373599487357,
+      "diagnostic": "ok \"385703343\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.06097569600387942,
+      "diagnostic": "ok \"1133946337\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.0585531910037389,
+      "diagnostic": "ok \"1132392878\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.06256050399679225,
+      "diagnostic": "ok \"1144896831\"\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 0.05827670299913734,
+      "diagnostic": "ok \"393933893\"\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 0.06315846199868247,
+      "diagnostic": "ok \"899846272\"\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 0.05700993300706614,
+      "diagnostic": "ok \"507618092\"\n"
+    },
+    {
+      "name": "random_08",
+      "status": "AC",
+      "seconds": 0.06463844099198468,
+      "diagnostic": "ok \"340723397\"\n"
+    },
+    {
+      "name": "random_09",
+      "status": "AC",
+      "seconds": 0.07182869600364938,
+      "diagnostic": "ok \"1198300249\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:36:09.898543+00:00",
+  "onlineSubmission": null
+}

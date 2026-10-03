@@ -12,6 +12,7 @@ REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
+    ROOT / "verify" / "test_official_library_checker.py",
     ROOT / "verify" / "test_codon.py",
     ROOT / "verify" / "combinatorics" / "test_langford.py",
     ROOT / "verify" / "combinatorics" / "test_skolem.py",
@@ -47,6 +48,10 @@ def commands(profile, skip_tests, skip_benchmarks):
         (
             "byte-compile",
             [executable, "-m", "compileall", "-q", str(ROOT)],
+        ),
+        (
+            "Library Checker standalone synchronization",
+            [executable, str(TOOLS / "check_library_checker.py"), "check"],
         ),
         (
             "API reference synchronization",

@@ -1,0 +1,176 @@
+{
+  "problem": "exp_of_formal_power_series",
+  "status": "local_passed",
+  "verificationKey": "84a23f77b5d9e9d349e180b669f8179a54c58fe953fb7d2310202e7f24470aed",
+  "sourceSha256": "c65d13969a5d199a8cb2519c2898516d578de49cdc3835e81d8e1208c40f7f99",
+  "modules": [
+    "fps998/FPS.py"
+  ],
+  "problemVersion": "e2d8380e77ad1a756451b57d813e79df0066f4d88b4864595f138e41de3e0ddd",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 26,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.14226350499666296,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.356658532997244,
+      "diagnostic": "ok 389813 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.3175759309960995,
+      "diagnostic": "ok 463046 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.2543962039926555,
+      "diagnostic": "ok 53336 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 1.395649609999964,
+      "diagnostic": "ok 429249 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 1.4555865430011181,
+      "diagnostic": "ok 277012 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.2956978519941913,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.2723318799980916,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 1.3961893600062467,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 1.3291881369950715,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 1.3260855400003493,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_all_zero_00",
+      "status": "AC",
+      "seconds": 0.2975348330073757,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_ans_zero_00",
+      "status": "AC",
+      "seconds": 1.3682227920071455,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "near_262144_00",
+      "status": "AC",
+      "seconds": 0.6750868740055012,
+      "diagnostic": "ok 262143 tokens\n"
+    },
+    {
+      "name": "near_262144_01",
+      "status": "AC",
+      "seconds": 0.694399093001266,
+      "diagnostic": "ok 262144 tokens\n"
+    },
+    {
+      "name": "near_262144_02",
+      "status": "AC",
+      "seconds": 1.2065945689973887,
+      "diagnostic": "ok 262145 tokens\n"
+    },
+    {
+      "name": "small_degree_00",
+      "status": "AC",
+      "seconds": 0.08210063799924683,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_degree_01",
+      "status": "AC",
+      "seconds": 0.09081184900423978,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "small_degree_02",
+      "status": "AC",
+      "seconds": 0.08920541699626483,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "small_degree_03",
+      "status": "AC",
+      "seconds": 0.08497633899969514,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "small_degree_04",
+      "status": "AC",
+      "seconds": 0.08540323199122213,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "small_degree_05",
+      "status": "AC",
+      "seconds": 0.09328212999389507,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "small_degree_06",
+      "status": "AC",
+      "seconds": 0.08076930500101298,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "small_degree_07",
+      "status": "AC",
+      "seconds": 0.08637925999937579,
+      "diagnostic": "ok 8 tokens\n"
+    },
+    {
+      "name": "small_degree_08",
+      "status": "AC",
+      "seconds": 0.0939043859980302,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "small_degree_09",
+      "status": "AC",
+      "seconds": 0.08817134700075258,
+      "diagnostic": "ok 10 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:32:42.424336+00:00",
+  "onlineSubmission": null
+}

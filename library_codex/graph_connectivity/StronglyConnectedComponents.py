@@ -1,3 +1,50 @@
+def scc_ids(graph):
+    """成分数と各頂点の成分番号を返す。番号は縮約DAGのトポロジカル順。"""
+    n = len(graph)
+    order = [-1] * n
+    low = [0] * n
+    position = [0] * n
+    component = [-1] * n
+    active = []
+    timer = count = 0
+    for root in range(n):
+        if order[root] >= 0:
+            continue
+        order[root] = low[root] = timer
+        timer += 1
+        active.append(root)
+        stack = [root]
+        while stack:
+            vertex = stack[-1]
+            index = position[vertex]
+            row = graph[vertex]
+            if index < len(row):
+                position[vertex] = index + 1
+                entry = row[index]
+                other = entry if isinstance(entry, int) else entry[0]
+                if order[other] < 0:
+                    order[other] = low[other] = timer
+                    timer += 1
+                    active.append(other)
+                    stack.append(other)
+                elif component[other] < 0 and order[other] < low[vertex]:
+                    low[vertex] = order[other]
+            else:
+                stack.pop()
+                if low[vertex] == order[vertex]:
+                    while True:
+                        other = active.pop()
+                        component[other] = count
+                        if other == vertex:
+                            break
+                    count += 1
+                if stack and low[vertex] < low[stack[-1]]:
+                    low[stack[-1]] = low[vertex]
+    for vertex in range(n):
+        component[vertex] = count - 1 - component[vertex]
+    return count, component
+
+
 class SCC:
     __slots__ = ("n", "graph", "component", "groups", "dag", "count")
 

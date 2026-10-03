@@ -1,0 +1,111 @@
+{
+  "problem": "all_furthest_neighbors",
+  "status": "local_passed",
+  "verificationKey": "d030a44545a17d89515aa8bb031646250727e83e30504c0ef4c395b003c385a9",
+  "sourceSha256": "08e33e0050de79f231a7e93a3f6885821ee2bb9c6a30db177f61981dfa21687e",
+  "modules": [
+    "library_codex.optimization.SMAWK",
+    "library_codex.geometry.ConvexFurthest"
+  ],
+  "problemVersion": "920ab9b0c169c7ca4a6b8fca7d75b3c3926dd5f13f23b4b3ebbd6bd415aa99dc",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 15,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06622952599718701,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.6308939599985024,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.9776821020059288,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 2.083805735994247,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 2.071795566997025,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 1.9696049049962312,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 1.9133027249918086,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_small_00",
+      "status": "AC",
+      "seconds": 0.4379774359986186,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_small_01",
+      "status": "AC",
+      "seconds": 0.43507852900074795,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "symmetric_00",
+      "status": "AC",
+      "seconds": 0.8188194230024237,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "symmetric_01",
+      "status": "AC",
+      "seconds": 1.9281297309935326,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "non_unimodal_00",
+      "status": "AC",
+      "seconds": 0.4848694909887854,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "overflow_00",
+      "status": "AC",
+      "seconds": 0.07624352398852352,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_convex_00",
+      "status": "AC",
+      "seconds": 2.22163460199954,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_convex_01",
+      "status": "AC",
+      "seconds": 1.980706835995079,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:30:34.547340+00:00",
+  "onlineSubmission": null
+}

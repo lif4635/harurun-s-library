@@ -5,35 +5,37 @@
 
 - 計算量の目安: $O(V+E)$
 - source: [`graph_connectivity/StronglyConnectedComponents.py`](../../../graph_connectivity/StronglyConnectedComponents.py)
-- 公開API: function 1、class 1、method/property 2（Python protocol 1を含む）
+- 公開API: function 2、class 1、method/property 2（Python protocol 1を含む）
 
 ## できること
 
+- `scc_ids`: 有向グラフを強連結成分へ分け、成分数と各頂点の成分番号だけを求める。逆向きグラフ・成分ごとの頂点list・縮約DAGは作らない。
 - `scc`: 有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。
 - `SCC`: 反復Kosaraju・縮約DAGを扱う `SCC`。
 
 ## Import
 
 ```python
-from library_codex.graph_connectivity.StronglyConnectedComponents import scc, SCC
+from library_codex.graph_connectivity.StronglyConnectedComponents import scc_ids, scc, SCC
 ```
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`scc(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L69) | 有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: 隣接listまたはグラフobject | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 | O(V+E) |
+| [`scc_ids(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L1) | 有向グラフを強連結成分へ分け、成分数と各頂点の成分番号だけを求める。逆向きグラフ・成分ごとの頂点list・縮約DAGは作らない。 | `graph`: 有向隣接リスト。graph[v]の各要素は行き先の整数、または先頭要素が行き先のtuple。重みは無視する。入力は変更しない。 | tuple[int, list[int]] — (count, ids)。countは成分数、長さNのidsは各頂点の成分番号。同じ成分の頂点は同じ番号を持つ。異なる成分を結ぶ辺u→vではids[u]<ids[v]。 | O(N+M)時間・O(N)追加領域。Nは頂点数、Mは辺数 |
+| [`scc(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L116) | 有向グラフを強連結成分へ分け、各頂点の成分IDと頂点groupを返す。 | `graph`: 隣接listまたはグラフobject | tuple[list[int], list[list[int]]] — 頂点ごとの成分IDと、各成分に属する頂点の列 | O(V+E) |
 
 ## Class `SCC`
 
 反復Kosaraju・縮約DAGを扱う `SCC`。
 
-- constructor: [`SCC(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L4)
+- constructor: [`SCC(graph)`](../../../graph_connectivity/StronglyConnectedComponents.py#L51)
 - 引数: `graph`: 隣接listまたはグラフobject
 - 返り値: `SCC` instance
 - 計算量: O(V+E)
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`same(first, second)`](../../../graph_connectivity/StronglyConnectedComponents.py#L62) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
-| [`__getitem__(vertex)`](../../../graph_connectivity/StronglyConnectedComponents.py#L65) | method | vertexが属する強連結成分のIDを返す。 | `vertex`: 頂点番号 | int — component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。 | — |
+| [`same(first, second)`](../../../graph_connectivity/StronglyConnectedComponents.py#L109) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | — |
+| [`__getitem__(vertex)`](../../../graph_connectivity/StronglyConnectedComponents.py#L112) | method | vertexが属する強連結成分のIDを返す。 | `vertex`: 頂点番号 | int — component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。 | — |

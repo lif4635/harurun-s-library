@@ -53,7 +53,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 16 | 24 | 6 | 32 |
 | [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 11 | 15 | 2 | 4 |
-| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 17 | 13 | 13 | 75 |
+| [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 17 | 14 | 13 | 75 |
 | [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 5 | 4 | 4 | 30 |
 | [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 8 | 6 | 3 | 15 |
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 5 | 11 | 1 | 6 |
@@ -69,9 +69,9 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [string](api/string/README.md) | 文字列アルゴリズム | 20 | 29 | 21 | 232 |
 | [string_sequence](api/string_sequence/README.md) | 編集距離・巡回shift・Lyndon分解・共通substring | 4 | 5 | 0 | 0 |
 | [optimization](api/optimization/README.md) | 最適化・DP高速化 | 17 | 16 | 10 | 51 |
-| [geometry](api/geometry/README.md) | 幾何・2次元点 | 14 | 22 | 1 | 2 |
+| [geometry](api/geometry/README.md) | 幾何・2次元点 | 15 | 23 | 1 | 2 |
 | [game](api/game/README.md) | 組合せゲーム | 6 | 8 | 7 | 43 |
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **363 modules / 503 functions / 223 classes / 1389 methods・properties**。
+合計: **364 modules / 505 functions / 223 classes / 1389 methods・properties**。

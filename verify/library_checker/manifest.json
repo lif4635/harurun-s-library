@@ -1,0 +1,2606 @@
+{
+  "schemaVersion": 1,
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "counts": {
+    "local_passed": 30,
+    "unimplemented": 223
+  },
+  "problems": [
+    {
+      "name": "addition_of_big_integers",
+      "title": "Addition of Big Integers",
+      "category": "big_integer",
+      "url": "https://judge.yosupo.jp/problem/addition_of_big_integers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "addition_of_hex_big_integers",
+      "title": "Addition of Hex Big Integers",
+      "category": "big_integer",
+      "url": "https://judge.yosupo.jp/problem/addition_of_hex_big_integers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "adjugate_matrix",
+      "title": "Adjugate Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/adjugate_matrix",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "aho_corasick",
+      "title": "Aho Corasick",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/aho_corasick",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "all_furthest_neighbors",
+      "title": "All Furthest Neighbors of a Convex Polygon",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/all_furthest_neighbors",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.optimization.SMAWK",
+        "library_codex.geometry.ConvexFurthest"
+      ],
+      "solution": "solutions/all_furthest_neighbors.py",
+      "result": "results/all_furthest_neighbors.json"
+    },
+    {
+      "name": "aplusb",
+      "title": "A + B",
+      "category": "sample",
+      "url": "https://judge.yosupo.jp/problem/aplusb",
+      "status": "local_passed",
+      "modules": [],
+      "solution": "solutions/aplusb.py",
+      "result": "results/aplusb.json"
+    },
+    {
+      "name": "area_of_union_of_rectangles",
+      "title": "Area of Union of Rectangles",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/area_of_union_of_rectangles",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "assignment",
+      "title": "Assignment Problem",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/assignment",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "associative_array",
+      "title": "Associative Array",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/associative_array",
+      "status": "local_passed",
+      "modules": [],
+      "solution": "solutions/associative_array.py",
+      "result": "results/associative_array.json"
+    },
+    {
+      "name": "bell_number",
+      "title": "Bell Number",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/bell_number",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "bernoulli_number",
+      "title": "Bernoulli Number",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/bernoulli_number",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "biconnected_components",
+      "title": "Biconnected Components",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/biconnected_components",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "binomial_coefficient",
+      "title": "Binomial Coefficient",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/binomial_coefficient",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "binomial_coefficient_prime_mod",
+      "title": "Binomial Coefficient (Prime Mod)",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "bipartite_edge_coloring",
+      "title": "Edge Coloring of Bipartite Graph",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/bipartite_edge_coloring",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "bipartitematching",
+      "title": "Matching on Bipartite Graph",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/bipartitematching",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "bitwise_and_convolution",
+      "title": "Bitwise And Convolution",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/bitwise_and_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "bitwise_xor_convolution",
+      "title": "Bitwise Xor Convolution",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/bitwise_xor_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "cartesian_tree",
+      "title": "Cartesian Tree",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/cartesian_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "characteristic_polynomial",
+      "title": "Characteristic Polynomial",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/characteristic_polynomial",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "chordal_graph_recognition",
+      "title": "Chordal Graph Recognition",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/chordal_graph_recognition",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "chromatic_number",
+      "title": "Chromatic Number",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/chromatic_number",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "chromatic_polynomial",
+      "title": "Chromatic Polynomial",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/chromatic_polynomial",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "closest_pair",
+      "title": "Closest Pair of Points",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/closest_pair",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "common_interval_decomposition_tree",
+      "title": "Common Interval Decomposition Tree",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/common_interval_decomposition_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "composition_of_formal_power_series",
+      "title": "Composition of Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/composition_of_formal_power_series",
+      "status": "local_passed",
+      "modules": [
+        "fps998/Composition.py"
+      ],
+      "solution": "solutions/composition_of_formal_power_series.py",
+      "result": "results/composition_of_formal_power_series.json"
+    },
+    {
+      "name": "composition_of_formal_power_series_large",
+      "title": "Composition of Formal Power Series (Large)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/composition_of_formal_power_series_large",
+      "status": "local_passed",
+      "modules": [
+        "fps998/Composition.py"
+      ],
+      "solution": "solutions/composition_of_formal_power_series_large.py",
+      "result": "results/composition_of_formal_power_series_large.json"
+    },
+    {
+      "name": "compositional_inverse_of_formal_power_series",
+      "title": "Compositional Inverse of Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "compositional_inverse_of_formal_power_series_large",
+      "title": "Compositional Inverse of Formal Power Series (Large)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series_large",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "connected_components_of_complement_graph",
+      "title": "Connected Components of Complement Graph",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/connected_components_of_complement_graph",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "consecutive_terms_of_linear_recurrent_sequence",
+      "title": "Consecutive Terms of Linear Recurrent Sequence",
+      "category": "other",
+      "url": "https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "conversion_from_monomial_basis_to_newton_basis",
+      "title": "Conversion from Monomial Basis to Newton Basis",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/conversion_from_monomial_basis_to_newton_basis",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "convex_layers",
+      "title": "Convex Layers",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/convex_layers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "convolution_F_2_64",
+      "title": "Convolution ($\\mathbb{F}_{2^{64}}$)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/convolution_F_2_64",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "convolution_mod",
+      "title": "Convolution",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/convolution_mod",
+      "status": "local_passed",
+      "modules": [
+        "convolution/NTT998.py"
+      ],
+      "solution": "solutions/convolution_mod.py",
+      "result": "results/convolution_mod.json"
+    },
+    {
+      "name": "convolution_mod_1000000007",
+      "title": "Convolution (Mod 1,000,000,007)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/convolution_mod_1000000007",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "convolution_mod_2_64",
+      "title": "Convolution (Mod 2^64)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/convolution_mod_2_64",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "convolution_mod_large",
+      "title": "Convolution (Large)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/convolution_mod_large",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "count_points_in_triangle",
+      "title": "Count Points in Triangles",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/count_points_in_triangle",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "counting_c4",
+      "title": "Counting $C _ 4$'s",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/counting_c4",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "counting_eulerian_circuits",
+      "title": "Counting Eulerian Circuits",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/counting_eulerian_circuits",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "counting_primes",
+      "title": "Counting Primes",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/counting_primes",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "counting_spanning_tree_directed",
+      "title": "Counting Spanning Trees (Directed)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/counting_spanning_tree_directed",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "counting_spanning_tree_undirected",
+      "title": "Counting Spanning Trees (Undirected)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/counting_spanning_tree_undirected",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "counting_squarefrees",
+      "title": "Counting Square-free Integers",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/counting_squarefrees",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "cycle_detection",
+      "title": "Cycle Detection (Directed)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/cycle_detection",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "cycle_detection_undirected",
+      "title": "Cycle Detection (Undirected)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/cycle_detection_undirected",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "deque",
+      "title": "Deque",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/deque",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "deque_operate_all_composite",
+      "title": "Deque Operate All Composite",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/deque_operate_all_composite",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "directedmst",
+      "title": "Directed MST",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/directedmst",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dirichlet_convolution_and_prefix_sums",
+      "title": "Dirichlet Convolution and Prefix Sums",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/dirichlet_convolution_and_prefix_sums",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dirichlet_inverse_and_prefix_sums",
+      "title": "Dirichlet Inverse and Prefix Sums",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/dirichlet_inverse_and_prefix_sums",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "discrete_logarithm_fixed_mod",
+      "title": "Discrete Logarithm (Fixed Mod)",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/discrete_logarithm_fixed_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "discrete_logarithm_mod",
+      "title": "Discrete Logarithm",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/discrete_logarithm_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "division_of_big_integers",
+      "title": "Division of Big Integers",
+      "category": "big_integer",
+      "url": "https://judge.yosupo.jp/problem/division_of_big_integers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "division_of_hex_big_integers",
+      "title": "Division of Hex Big Integers",
+      "category": "big_integer",
+      "url": "https://judge.yosupo.jp/problem/division_of_hex_big_integers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "division_of_polynomials",
+      "title": "Division of Polynomials",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/division_of_polynomials",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.polynomial.PolynomialDivision998"
+      ],
+      "solution": "solutions/division_of_polynomials.py",
+      "result": "results/division_of_polynomials.json"
+    },
+    {
+      "name": "dominatortree",
+      "title": "Dominator Tree",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/dominatortree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "double_ended_priority_queue",
+      "title": "Double-Ended Priority Queue",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/double_ended_priority_queue",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dynamic_graph_vertex_add_component_sum",
+      "title": "Dynamic Graph Vertex Add Component Sum",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dynamic_point_set_rectangle_affine_rectangle_sum",
+      "title": "Dynamic Point Rectangle Affine Rectangle Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/dynamic_point_set_rectangle_affine_rectangle_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dynamic_sequence_range_affine_range_sum",
+      "title": "Dynamic Sequence Range Affine Range Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dynamic_tree_subtree_add_subtree_sum",
+      "title": "Dynamic Tree Subtree Add Subtree Sum",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/dynamic_tree_subtree_add_subtree_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dynamic_tree_vertex_add_path_sum",
+      "title": "Dynamic Tree Vertex Add Path Sum",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dynamic_tree_vertex_add_subtree_sum",
+      "title": "Dynamic Tree Vertex Add Subtree Sum",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_subtree_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "dynamic_tree_vertex_set_path_composite",
+      "title": "Dynamic Tree Vertex Set Path Composite",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "eertree",
+      "title": "Eertree",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/eertree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "enumerate_cliques",
+      "title": "Enumerate Cliques",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/enumerate_cliques",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "enumerate_palindromes",
+      "title": "Enumerate Palindromes",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/enumerate_palindromes",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.Manacher"
+      ],
+      "solution": "solutions/enumerate_palindromes.py",
+      "result": "results/enumerate_palindromes.json"
+    },
+    {
+      "name": "enumerate_primes",
+      "title": "Enumerate Primes",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/enumerate_primes",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "enumerate_quotients",
+      "title": "Enumerate Quotients",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/enumerate_quotients",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "enumerate_triangles",
+      "title": "Enumerate Triangles",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/enumerate_triangles",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "euclidean_mst",
+      "title": "Euclidean MST",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/euclidean_mst",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "eulerian_trail_directed",
+      "title": "Eulerian Trail (Directed)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/eulerian_trail_directed",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "eulerian_trail_undirected",
+      "title": "Eulerian Trail (Undirected)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/eulerian_trail_undirected",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "exp_of_formal_power_series",
+      "title": "Exp of Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/exp_of_formal_power_series",
+      "status": "local_passed",
+      "modules": [
+        "fps998/FPS.py"
+      ],
+      "solution": "solutions/exp_of_formal_power_series.py",
+      "result": "results/exp_of_formal_power_series.json"
+    },
+    {
+      "name": "exp_of_formal_power_series_sparse",
+      "title": "Exp of Formal Power Series (Sparse)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "exp_of_set_power_series",
+      "title": "Exp of Set Power Series",
+      "category": "set_power_series",
+      "url": "https://judge.yosupo.jp/problem/exp_of_set_power_series",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "factorial",
+      "title": "Factorial",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/factorial",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "factorization_of_polynomials",
+      "title": "Factorization of Polynomial (Mod)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/factorization_of_polynomials",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "factorize",
+      "title": "Factorize",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/factorize",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "find_linear_recurrence",
+      "title": "Find Linear Recurrence",
+      "category": "other",
+      "url": "https://judge.yosupo.jp/problem/find_linear_recurrence",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "frequency_table_of_tree_distance",
+      "title": "Frequency Table of Tree Distance",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "furthest_pair",
+      "title": "Furthest Pair of Points",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/furthest_pair",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "gcd_convolution",
+      "title": "Gcd Convolution",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/gcd_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "gcd_of_gaussian_integers",
+      "title": "Gcd of Gaussian Integers",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/gcd_of_gaussian_integers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "general_matching",
+      "title": "Matching on General Graph",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/general_matching",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "general_weighted_matching",
+      "title": "General Weighted Matching",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/general_weighted_matching",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "global_minimum_cut_of_dynamic_star_augmented_graph",
+      "title": "Global Minimum Cut of Dynamic Star Augmented Graph",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/global_minimum_cut_of_dynamic_star_augmented_graph",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "hafnian_of_matrix",
+      "title": "Hafnian of Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/hafnian_of_matrix",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "incremental_minimum_spanning_forest",
+      "title": "Incremental Minimum Spanning Forest",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/incremental_minimum_spanning_forest",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "incremental_scc",
+      "title": "Strongly Connected Components (Incremental)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/incremental_scc",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "intersection_of_f2_vector_spaces",
+      "title": "Intersection of $\\mathbb{F}_{2}$ vector spaces",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/intersection_of_f2_vector_spaces",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "inv_of_formal_power_series",
+      "title": "Inv of Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/inv_of_formal_power_series",
+      "status": "local_passed",
+      "modules": [
+        "fps998/FPS.py"
+      ],
+      "solution": "solutions/inv_of_formal_power_series.py",
+      "result": "results/inv_of_formal_power_series.json"
+    },
+    {
+      "name": "inv_of_formal_power_series_2d",
+      "title": "Inv of Bivariate Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/inv_of_formal_power_series_2d",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "inv_of_formal_power_series_sparse",
+      "title": "Inv of Formal Power Series (Sparse)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/inv_of_formal_power_series_sparse",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "inv_of_polynomials",
+      "title": "Inv of Polynomials",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/inv_of_polynomials",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "inverse_matrix",
+      "title": "Inverse Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/inverse_matrix",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "inverse_matrix_mod_2",
+      "title": "Inverse Matrix (Mod 2)",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/inverse_matrix_mod_2",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "jump_on_tree",
+      "title": "Jump on Tree",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/jump_on_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "k_shortest_walk",
+      "title": "K-Shortest Walk",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/k_shortest_walk",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "kth_root_integer",
+      "title": "Kth Root (Integer)",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/kth_root_integer",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "kth_root_mod",
+      "title": "Kth Root (Mod)",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/kth_root_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "kth_term_of_linearly_recurrent_sequence",
+      "title": "Kth term of Linearly Recurrent Sequence",
+      "category": "other",
+      "url": "https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "lca",
+      "title": "Lowest Common Ancestor",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/lca",
+      "status": "local_passed",
+      "modules": [
+        "tree/LCA.py"
+      ],
+      "solution": "solutions/lca.py",
+      "result": "results/lca.json"
+    },
+    {
+      "name": "lcm_convolution",
+      "title": "Lcm Convolution",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/lcm_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "line_add_get_min",
+      "title": "Line Add Get Min",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/line_add_get_min",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "log_of_formal_power_series",
+      "title": "Log of Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/log_of_formal_power_series",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS"
+      ],
+      "solution": "solutions/log_of_formal_power_series.py",
+      "result": "results/log_of_formal_power_series.json"
+    },
+    {
+      "name": "log_of_formal_power_series_sparse",
+      "title": "Log of Formal Power Series (Sparse)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/log_of_formal_power_series_sparse",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "log_of_set_power_series",
+      "title": "Log of Set Power Series",
+      "category": "set_power_series",
+      "url": "https://judge.yosupo.jp/problem/log_of_set_power_series",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "longest_common_substring",
+      "title": "Longest Common Substring",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/longest_common_substring",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string_sequence.LongestCommonSubstring"
+      ],
+      "solution": "solutions/longest_common_substring.py",
+      "result": "results/longest_common_substring.json"
+    },
+    {
+      "name": "longest_increasing_subsequence",
+      "title": "Longest Increasing Subsequence",
+      "category": "other",
+      "url": "https://judge.yosupo.jp/problem/longest_increasing_subsequence",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "lyndon_factorization",
+      "title": "Lyndon Factorization",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/lyndon_factorization",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "majority_voting",
+      "title": "Majority Voting",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/majority_voting",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "manhattanmst",
+      "title": "Manhattan MST",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/manhattanmst",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "many_aplusb",
+      "title": "Many A + B",
+      "category": "sample",
+      "url": "https://judge.yosupo.jp/problem/many_aplusb",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "many_aplusb_128bit",
+      "title": "Many A + B (128 bit)",
+      "category": "sample",
+      "url": "https://judge.yosupo.jp/problem/many_aplusb_128bit",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "many_factorials",
+      "title": "Many Factorials",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/many_factorials",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "matrix_det",
+      "title": "Determinant of Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/matrix_det",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "matrix_det_arbitrary_mod",
+      "title": "Determinant of Matrix (Arbitrary Mod)",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/matrix_det_arbitrary_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "matrix_det_mod_2",
+      "title": "Determinant of Matrix (Mod 2)",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/matrix_det_mod_2",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "matrix_product",
+      "title": "Matrix Product",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/matrix_product",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "matrix_product_mod_2",
+      "title": "Matrix Product (Mod 2)",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/matrix_product_mod_2",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "matrix_rank",
+      "title": "Rank of Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/matrix_rank",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "matrix_rank_mod_2",
+      "title": "Rank of Matrix (Mod 2)",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/matrix_rank_mod_2",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "maximum_independent_set",
+      "title": "Maximum Independent Set",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/maximum_independent_set",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "min_cost_b_flow",
+      "title": "Minimum Cost b-flow",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/min_cost_b_flow",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "min_of_mod_of_linear",
+      "title": "Min of Mod of Linear",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/min_of_mod_of_linear",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "min_plus_convolution_concave_arbitrary",
+      "title": "Min Plus Convolution (Concave and Arbitrary)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/min_plus_convolution_concave_arbitrary",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "min_plus_convolution_convex_arbitrary",
+      "title": "Min Plus Convolution (Convex and Arbitrary)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/min_plus_convolution_convex_arbitrary",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "min_plus_convolution_convex_convex",
+      "title": "Min Plus Convolution (Convex and Convex)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "minimum_diameter_spanning_tree",
+      "title": "Minimum Diameter Spanning Tree",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/minimum_diameter_spanning_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "minimum_enclosing_circle",
+      "title": "Minimum Enclosing Circle",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/minimum_enclosing_circle",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "minimum_spanning_tree",
+      "title": "Minimum Spanning Tree",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/minimum_spanning_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "minimum_steiner_tree",
+      "title": "Minimum Steiner Tree",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/minimum_steiner_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "montmort_number_mod",
+      "title": "Montmort Number",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/montmort_number_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "mul_mod2n_convolution",
+      "title": "Convolution on the Multiplicative Monoid of $\\mathbb{Z} / 2^N\\mathbb{Z}$",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/mul_mod2n_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "mul_modp_convolution",
+      "title": "Convolution on the Multiplicative Monoid of $\\mathbb{Z} / P\\mathbb{Z}$",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/mul_modp_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "multiplication_of_big_integers",
+      "title": "Multiplication of Big Integers",
+      "category": "big_integer",
+      "url": "https://judge.yosupo.jp/problem/multiplication_of_big_integers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "multiplication_of_hex_big_integers",
+      "title": "Multiplication of Hex Big Integers",
+      "category": "big_integer",
+      "url": "https://judge.yosupo.jp/problem/multiplication_of_hex_big_integers",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "multipoint_evaluation",
+      "title": "Multipoint Evaluation",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/multipoint_evaluation",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "multipoint_evaluation_on_geometric_sequence",
+      "title": "Multipoint Evaluation (Geometric Sequence)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/multipoint_evaluation_on_geometric_sequence",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "multivariate_convolution",
+      "title": "Multidimensional Convolution (Truncated)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/multivariate_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "multivariate_convolution_cyclic",
+      "title": "Multidimensional Convolution (Circular)",
+      "category": "convolution",
+      "url": "https://judge.yosupo.jp/problem/multivariate_convolution_cyclic",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "nim_product_64",
+      "title": "Nim Product ($\\mathbb{F}_{2^{64}}$)",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/nim_product_64",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "number_of_increasing_sequences_between_two_sequences",
+      "title": "Number of Increasing Sequences Between Two Sequences",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/number_of_increasing_sequences_between_two_sequences",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "number_of_subsequences",
+      "title": "Number of Subsequences ",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/number_of_subsequences",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.Subsequence"
+      ],
+      "solution": "solutions/number_of_subsequences.py",
+      "result": "results/number_of_subsequences.json"
+    },
+    {
+      "name": "number_of_substrings",
+      "title": "Number of Substrings",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/number_of_substrings",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.StaticRMQ",
+        "library_codex.string.SuffixArray"
+      ],
+      "solution": "solutions/number_of_substrings.py",
+      "result": "results/number_of_substrings.json"
+    },
+    {
+      "name": "ordered_set",
+      "title": "Ordered Set",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/ordered_set",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "palindromes_in_deque",
+      "title": "Palindromes in Deque",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/palindromes_in_deque",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "partition_function",
+      "title": "Partition Function",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/partition_function",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "persistent_queue",
+      "title": "Persistent Queue",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/persistent_queue",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "persistent_range_affine_range_sum",
+      "title": "Persistent Range Affine Range Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/persistent_range_affine_range_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "persistent_unionfind",
+      "title": "Persistent Unionfind",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/persistent_unionfind",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "pfaffian_of_matrix",
+      "title": "Pfaffian of Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/pfaffian_of_matrix",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "point_add_range_sum",
+      "title": "Point Add Range Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/point_add_range_sum",
+      "status": "local_passed",
+      "modules": [
+        "fenwick_tree/BIT.py"
+      ],
+      "solution": "solutions/point_add_range_sum.py",
+      "result": "results/point_add_range_sum.json"
+    },
+    {
+      "name": "point_add_rectangle_sum",
+      "title": "Point Add Rectangle Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/point_add_rectangle_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "point_set_range_composite",
+      "title": "Point Set Range Composite",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/point_set_range_composite",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "point_set_range_composite_large_array",
+      "title": "Point Set Range Composite (Large Array)",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/point_set_range_composite_large_array",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "point_set_range_frequency",
+      "title": "Point Set Range Frequency",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/point_set_range_frequency",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "point_set_range_sort_range_composite",
+      "title": "Point Set Range Sort Range Composite",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/point_set_range_sort_range_composite",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "point_set_tree_path_composite_sum",
+      "title": "Point Set Tree Path Composite Sum",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "point_set_tree_path_composite_sum_fixed_root",
+      "title": "Point Set Tree Path Composite Sum (Fixed Root)",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "polynomial_composite_set_power_series",
+      "title": "Polynomial Composite Set Power Series",
+      "category": "set_power_series",
+      "url": "https://judge.yosupo.jp/problem/polynomial_composite_set_power_series",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "polynomial_interpolation",
+      "title": "Polynomial Interpolation",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/polynomial_interpolation",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "polynomial_interpolation_on_geometric_sequence",
+      "title": "Polynomial Interpolation (Geometric Sequence)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/polynomial_interpolation_on_geometric_sequence",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "polynomial_root_finding",
+      "title": "Polynomial Root Finding (Mod 998244353)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/polynomial_root_finding",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "polynomial_taylor_shift",
+      "title": "Polynomial Taylor Shift",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/polynomial_taylor_shift",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS"
+      ],
+      "solution": "solutions/polynomial_taylor_shift.py",
+      "result": "results/polynomial_taylor_shift.json"
+    },
+    {
+      "name": "pow_of_formal_power_series",
+      "title": "Pow of Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/pow_of_formal_power_series",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS"
+      ],
+      "solution": "solutions/pow_of_formal_power_series.py",
+      "result": "results/pow_of_formal_power_series.json"
+    },
+    {
+      "name": "pow_of_formal_power_series_sparse",
+      "title": "Pow of Formal Power Series (Sparse)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "pow_of_matrix",
+      "title": "Pow of Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/pow_of_matrix",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "power_projection_of_set_power_series",
+      "title": "Power Projection of Set Power Series",
+      "category": "set_power_series",
+      "url": "https://judge.yosupo.jp/problem/power_projection_of_set_power_series",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "predecessor_problem",
+      "title": "Predecessor Problem",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/predecessor_problem",
+      "status": "local_passed",
+      "modules": [
+        "ordered_set/FastSet.py"
+      ],
+      "solution": "solutions/predecessor_problem.py",
+      "result": "results/predecessor_problem.json"
+    },
+    {
+      "name": "prefix_substring_lcs",
+      "title": "Prefix-Substring LCS",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/prefix_substring_lcs",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "prefix_sum_of_polynomial",
+      "title": "Prefix Sum of Polynomial",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/prefix_sum_of_polynomial",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "primality_test",
+      "title": "Primality Test",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/primality_test",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "primitive_root",
+      "title": "Primitive Root",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/primitive_root",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "product_of_polynomial_sequence",
+      "title": "Product of Polynomial Sequence",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/product_of_polynomial_sequence",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS"
+      ],
+      "solution": "solutions/product_of_polynomial_sequence.py",
+      "result": "results/product_of_polynomial_sequence.json"
+    },
+    {
+      "name": "q_binomial_coefficient_prime_mod",
+      "title": "$q$-Binomial Coefficient (Prime Mod)",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/q_binomial_coefficient_prime_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "queue_operate_all_composite",
+      "title": "Queue Operate All Composite",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/queue_operate_all_composite",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_add_range_min",
+      "title": "Range Add Range Min",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_add_range_min",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_affine_point_get",
+      "title": "Range Affine Point Get",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_affine_point_get",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_affine_range_sum",
+      "title": "Range Affine Range Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_affine_range_sum",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.RangeAffineRangeSum"
+      ],
+      "solution": "solutions/range_affine_range_sum.py",
+      "result": "results/range_affine_range_sum.json"
+    },
+    {
+      "name": "range_affine_range_sum_large_array",
+      "title": "Range Affine Range Sum (Large Array)",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_affine_range_sum_large_array",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_chmin_chmax_add_range_sum",
+      "title": "Range Chmin Chmax Add Range Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_kth_smallest",
+      "title": "Range Kth Smallest",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_kth_smallest",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_linear_add_range_min",
+      "title": "Range Linear Add Range Min",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_linear_add_range_min",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_parallel_unionfind",
+      "title": "Range Parallel Unionfind",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_parallel_unionfind",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_reverse_range_sum",
+      "title": "Range Reverse Range Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_reverse_range_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "range_set_range_composite",
+      "title": "Range Set Range Composite",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/range_set_range_composite",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "rational_approximation",
+      "title": "Rational Approximation",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/rational_approximation",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "rectangle_add_point_get",
+      "title": "Rectangle Add Point Get",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/rectangle_add_point_get",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "rectangle_sum",
+      "title": "Rectangle Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/rectangle_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "rooted_tree_isomorphism_classification",
+      "title": "Rooted Tree Isomorphism Classification",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "rooted_tree_topological_order_with_minimum_inversions",
+      "title": "Rooted Tree Topological Order with Minimum Inversions",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/rooted_tree_topological_order_with_minimum_inversions",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "runenumerate",
+      "title": "Run Enumerate",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/runenumerate",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "scc",
+      "title": "Strongly Connected Components",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/scc",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.StronglyConnectedComponents"
+      ],
+      "solution": "solutions/scc.py",
+      "result": "results/scc.json"
+    },
+    {
+      "name": "segment_add_get_min",
+      "title": "Segment Add Get Min",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/segment_add_get_min",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "set_xor_min",
+      "title": "Set Xor-Min",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/set_xor_min",
+      "status": "local_passed",
+      "modules": [
+        "ordered_set/BinaryTrie.py"
+      ],
+      "solution": "solutions/set_xor_min.py",
+      "result": "results/set_xor_min.json"
+    },
+    {
+      "name": "sharp_p_subset_sum",
+      "title": "$\\#_p$ Subset Sum",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/sharp_p_subset_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "shift_of_sampling_points_of_polynomial",
+      "title": "Shift of Sampling Points of Polynomial",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "shortest_path",
+      "title": "Shortest Path",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/shortest_path",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sort_points_by_argument",
+      "title": "Sort Points by Argument",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/sort_points_by_argument",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sparse_matrix_det",
+      "title": "Determinant of Sparse Matrix",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/sparse_matrix_det",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sqrt_mod",
+      "title": "Sqrt Mod",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/sqrt_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sqrt_of_formal_power_series",
+      "title": "Sqrt of Formal Power Series",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/sqrt_of_formal_power_series",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS"
+      ],
+      "solution": "solutions/sqrt_of_formal_power_series.py",
+      "result": "results/sqrt_of_formal_power_series.json"
+    },
+    {
+      "name": "sqrt_of_formal_power_series_sparse",
+      "title": "Sqrt of Formal Power Series (Sparse)",
+      "category": "polynomial",
+      "url": "https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "st_numbering",
+      "title": "st-Numbering",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/st_numbering",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_convex_hull",
+      "title": "Static Convex Hull",
+      "category": "geo",
+      "url": "https://judge.yosupo.jp/problem/static_convex_hull",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_range_count_distinct",
+      "title": "Static Range Count Distinct",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_range_count_distinct",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_range_frequency",
+      "title": "Static Range Frequency",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_range_frequency",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_range_inversions_query",
+      "title": "Static Range Inversions Query",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_range_inversions_query",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_range_lis_query",
+      "title": "Static Range LIS Query",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_range_lis_query",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_range_mode_query",
+      "title": "Static Range Mode Query",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_range_mode_query",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_range_sum",
+      "title": "Static Range Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_range_sum",
+      "status": "local_passed",
+      "modules": [],
+      "solution": "solutions/static_range_sum.py",
+      "result": "results/static_range_sum.json"
+    },
+    {
+      "name": "static_range_sum_with_upper_bound",
+      "title": "Static Range Sum with Upper Bound",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_range_sum_with_upper_bound",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "static_rectangle_add_rectangle_sum",
+      "title": "Static Rectangle Add Rectangle Sum",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/static_rectangle_add_rectangle_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "staticrmq",
+      "title": "Static RMQ",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/staticrmq",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "stern_brocot_tree",
+      "title": "Stern–Brocot Tree",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/stern_brocot_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "stirling_number_of_the_first_kind",
+      "title": "Stirling Number of the First Kind",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "stirling_number_of_the_first_kind_fixed_k",
+      "title": "Stirling Number of the First Kind (Fixed K)",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind_fixed_k",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "stirling_number_of_the_first_kind_small_p_large_n",
+      "title": "Stirling Number of the First Kind (Small p, Large n)",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind_small_p_large_n",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "stirling_number_of_the_second_kind",
+      "title": "Stirling Number of the Second Kind",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "stirling_number_of_the_second_kind_fixed_k",
+      "title": "Stirling Number of the Second Kind (Fixed K)",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind_fixed_k",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "stirling_number_of_the_second_kind_small_p_large_n",
+      "title": "Stirling Number of the Second Kind (Small p, Large n)",
+      "category": "enumerative_combinatorics",
+      "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind_small_p_large_n",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "subset_convolution",
+      "title": "Subset Convolution",
+      "category": "set_power_series",
+      "url": "https://judge.yosupo.jp/problem/subset_convolution",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "suffixarray",
+      "title": "Suffix Array",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/suffixarray",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.StaticRMQ",
+        "library_codex.string.SuffixArray"
+      ],
+      "solution": "solutions/suffixarray.py",
+      "result": "results/suffixarray.json"
+    },
+    {
+      "name": "sum_of_exponential_times_polynomial",
+      "title": "$\\sum_{i=0}^{n-1} r^i i^d$",
+      "category": "other",
+      "url": "https://judge.yosupo.jp/problem/sum_of_exponential_times_polynomial",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sum_of_exponential_times_polynomial_limit",
+      "title": "$\\sum_{i=0}^{\\infty} r^i i^d$",
+      "category": "other",
+      "url": "https://judge.yosupo.jp/problem/sum_of_exponential_times_polynomial_limit",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sum_of_floor_of_linear",
+      "title": "Sum of Floor of Linear",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/sum_of_floor_of_linear",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sum_of_multiplicative_function",
+      "title": "Sum of Multiplicative Function",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/sum_of_multiplicative_function",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sum_of_multiplicative_function_large",
+      "title": "Sum of Multiplicative Function(Large)",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/sum_of_multiplicative_function_large",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "sum_of_totient_function",
+      "title": "Sum of Totient Function",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/sum_of_totient_function",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "system_of_linear_equations",
+      "title": "System of Linear Equations",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/system_of_linear_equations",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "system_of_linear_equations_mod_2",
+      "title": "System of Linear Equations (Mod 2)",
+      "category": "linear_algebra",
+      "url": "https://judge.yosupo.jp/problem/system_of_linear_equations_mod_2",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "tetration_mod",
+      "title": "Tetration Mod",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/tetration_mod",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "three_edge_connected_components",
+      "title": "Three-Edge-Connected Components",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/three_edge_connected_components",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "tree_decomposition_width_2",
+      "title": "Tree Decomposition (Width 2)",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/tree_decomposition_width_2",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "tree_diameter",
+      "title": "Tree Diameter",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/tree_diameter",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "tree_path_composite_sum",
+      "title": "Tree Path Composite Sum",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/tree_path_composite_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "two_edge_connected_components",
+      "title": "Two-Edge-Connected Components",
+      "category": "graph",
+      "url": "https://judge.yosupo.jp/problem/two_edge_connected_components",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "two_sat",
+      "title": "2 Sat",
+      "category": "other",
+      "url": "https://judge.yosupo.jp/problem/two_sat",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.StronglyConnectedComponents",
+        "library_codex.graph.TwoSAT"
+      ],
+      "solution": "solutions/two_sat.py",
+      "result": "results/two_sat.json"
+    },
+    {
+      "name": "two_square_sum",
+      "title": "Represent A Number As Two Square Sum",
+      "category": "number_theory",
+      "url": "https://judge.yosupo.jp/problem/two_square_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "unionfind",
+      "title": "Unionfind",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/unionfind",
+      "status": "local_passed",
+      "modules": [
+        "union_find/UnionFind.py"
+      ],
+      "solution": "solutions/unionfind.py",
+      "result": "results/unionfind.json"
+    },
+    {
+      "name": "unionfind_with_potential",
+      "title": "Unionfind with Potential",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/unionfind_with_potential",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "unionfind_with_potential_non_commutative_group",
+      "title": "Unionfind with Potential (Non-Commutative Group)",
+      "category": "data_structure",
+      "url": "https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "vertex_add_path_sum",
+      "title": "Vertex Add Path Sum",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/vertex_add_path_sum",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "vertex_add_range_contour_sum_on_tree",
+      "title": "Vertex Add Range Contour Sum on Tree",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "vertex_add_subtree_sum",
+      "title": "Vertex Add Subtree Sum",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/vertex_add_subtree_sum",
+      "status": "local_passed",
+      "modules": [
+        "fenwick_tree/BIT.py",
+        "tree/HeavyLightDecomposition.py"
+      ],
+      "solution": "solutions/vertex_add_subtree_sum.py",
+      "result": "results/vertex_add_subtree_sum.json"
+    },
+    {
+      "name": "vertex_get_range_contour_add_on_tree",
+      "title": "Vertex Get Range Contour Add on Tree",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/vertex_get_range_contour_add_on_tree",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "vertex_set_path_composite",
+      "title": "Vertex Set Path Composite",
+      "category": "tree",
+      "url": "https://judge.yosupo.jp/problem/vertex_set_path_composite",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "wildcard_pattern_matching",
+      "title": "Wildcard Pattern Matching",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/wildcard_pattern_matching",
+      "status": "unimplemented",
+      "modules": [],
+      "solution": null,
+      "result": null
+    },
+    {
+      "name": "zalgorithm",
+      "title": "Z Algorithm",
+      "category": "string",
+      "url": "https://judge.yosupo.jp/problem/zalgorithm",
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.ZAlgorithm"
+      ],
+      "solution": "solutions/zalgorithm.py",
+      "result": "results/zalgorithm.json"
+    }
+  ]
+}

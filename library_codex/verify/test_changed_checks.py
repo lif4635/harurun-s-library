@@ -31,6 +31,11 @@ def test_codon_changes_select_native_regression():
         assert "verify/test_codon.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
 
 
+def test_library_checker_changes_select_runner_tests():
+    for path in ("verify/library_checker/drivers/aplusb.py", "library_codex/tools/check_library_checker.py"):
+        assert "verify/test_official_library_checker.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
+
+
 def test_segment_tree_change_selects_dependents_and_relevant_tests():
     plan = CHECK_CHANGED.plan_for(
         ["library_codex/segment_tree/SegTree.py"]

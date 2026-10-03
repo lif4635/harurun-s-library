@@ -6063,6 +6063,34 @@ API_DETAILS_BY_SYMBOL[("fps/MultivariateFPS.py", "MultivariateFormalPowerSeries"
     "returnFormat": "None",
     "returnDescription": "値は返さない。自分のcoefficients内の1要素をmodで正規化した値へ変更する。",
 }
+API_DETAILS_BY_SYMBOL[("graph_connectivity/StronglyConnectedComponents.py", None, "scc_ids")] = {
+    "description": "有向グラフを強連結成分へ分け、成分数と各頂点の成分番号だけを求める。逆向きグラフ・成分ごとの頂点list・縮約DAGは作らない。",
+    "argumentDescriptions": {"graph": "有向隣接リスト。graph[v]の各要素は行き先の整数、または先頭要素が行き先のtuple。重みは無視する。入力は変更しない。"},
+    "returnFormat": "tuple[int, list[int]]",
+    "returnDescription": "(count, ids)。countは成分数、長さNのidsは各頂点の成分番号。同じ成分の頂点は同じ番号を持つ。異なる成分を結ぶ辺u→vではids[u]<ids[v]。",
+    "returnParts": (
+        {"name": "count", "format": "int", "description": "強連結成分の個数。空グラフでは0。"},
+        {"name": "ids", "format": "list[int]", "description": "ids[v]は頂点vの成分番号。番号は0以上count未満で、縮約DAGのトポロジカル順。"},
+    ),
+}
+COMPLEXITY_BY_MODULE["graph_connectivity/StronglyConnectedComponents.py"]["scc_ids"] = "O(N+M)時間・O(N)追加領域。Nは頂点数、Mは辺数"
+
+MODULE_CAPABILITIES["geometry/ConvexFurthest.py"] = (
+    "凸多角形の全頂点について最遠の頂点をO(N)で求める。",
+)
+SEARCH_TERMS_BY_MODULE["geometry/ConvexFurthest.py"] = ("各頂点の最遠点", "全最遠点", "all farthest neighbors")
+API_DETAILS_BY_SYMBOL[("geometry/ConvexFurthest.py", None, "furthest_neighbors")] = {
+    "description": "凸多角形の各頂点から最も遠い頂点を、SMAWKでまとめて求める。距離は二乗で比較する。",
+    "argumentDescriptions": {
+        "points": "座標(x,y)の列。3点以上なら相異なる狭義凸多角形の頂点を時計回りまたは反時計回りに並べる。凸性は検査しない。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "入力と同じ長さのlist。result[i]はpoints[i]から最も遠い頂点の入力添字。最遠点が複数なら一つを返す。空入力は[]、1点なら[0]。入力は変更しない。",
+}
+COMPLEXITY_BY_MODULE["geometry/ConvexFurthest.py"] = {
+    "furthest_neighbors": "O(N)時間・O(N)追加領域。Nは頂点数。座標の整数演算をO(1)とする",
+}
+
 COMPLEXITY_BY_MODULE["fps/MultivariateFPS.py"] = {
     "MultivariateFormalPowerSeries": "O(N+D)時間・O(N+D)領域。N=product(base)、D=len(base)",
     "index": "O(D)。D=len(base)", "get": "O(D)。D=len(base)", "set": "O(D)。D=len(base)",

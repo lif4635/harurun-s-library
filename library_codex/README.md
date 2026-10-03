@@ -126,6 +126,7 @@ BinaryTrieの圧縮化・モノイド集約版・Stern–Brocot木の修正と�
 | `geometry/Orientation.py` | 外積と3点の向き判定 | $O(1)$ |
 | `geometry/SegmentIntersection.py` | 端点接触を選べる線分交差判定 | $O(1)$ |
 | `geometry/ConvexHull.py` | Andrew法による凸包 | $O(N\log N)$ |
+| `geometry/ConvexFurthest.py` | 凸多角形の各頂点から最遠の頂点 | O(N) |
 | `geometry/ArgumentSort.py` | 浮動小数点数を使わない偏角sort | $O(N\log N)$ |
 | `number_theory/ModularArithmetic.py` | Tonelli--Shanks平方根・拡張BSGS離散対数 | $O(\log^2 P)$ / $O(\sqrt M)$ |
 | `number_theory/ModularRoot.py` | 素数法k乗根・原始根・整数floor/ceil k乗根 | 法k乗根 $O(\min(P,K)^{1/4})$、整数根 $O(\log A)$ |

@@ -1,0 +1,231 @@
+{
+  "problem": "sqrt_of_formal_power_series",
+  "status": "local_passed",
+  "verificationKey": "fffd8e0c0bd5cb8739c4b1a1515102a1d83d4eb64e383c5e0ef803040da96f51",
+  "sourceSha256": "9eff679d7f9d6b9cfb9987c377d8ff0e2458f2d64dd36072ed1526ccfb1ecb2d",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS"
+  ],
+  "problemVersion": "51e7f525789a78b9f88233b7a1810ec379ff0fddc4a6f17956feb0dd8a8d8b26",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 35,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.07553118899522815,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.06974350201198831,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.1724903069989523,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.850680197996553,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.8166273910028394,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.1763180569978431,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.8134601640049368,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.8462237780040596,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_00",
+      "status": "AC",
+      "seconds": 0.8043515480094356,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_01",
+      "status": "AC",
+      "seconds": 0.8137532270047814,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_02",
+      "status": "AC",
+      "seconds": 0.16308946399658453,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_03",
+      "status": "AC",
+      "seconds": 0.16081001100246795,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_04",
+      "status": "AC",
+      "seconds": 0.1469075359927956,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_05",
+      "status": "AC",
+      "seconds": 0.19557394200819544,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_06",
+      "status": "AC",
+      "seconds": 0.16013678500894457,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "lower_deg_zero_07",
+      "status": "AC",
+      "seconds": 0.1467587080114754,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_zero_00",
+      "status": "AC",
+      "seconds": 0.18249355800799094,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_zero_01",
+      "status": "AC",
+      "seconds": 0.17844554600014817,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "monomial_00",
+      "status": "AC",
+      "seconds": 0.2006524819880724,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "monomial_01",
+      "status": "AC",
+      "seconds": 0.1388677689974429,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "monomial_02",
+      "status": "AC",
+      "seconds": 0.2013537599996198,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "monomial_03",
+      "status": "AC",
+      "seconds": 0.14921896799933165,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_262144_00",
+      "status": "AC",
+      "seconds": 0.12241271199309267,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_262144_01",
+      "status": "AC",
+      "seconds": 0.45949144299083855,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_262144_02",
+      "status": "AC",
+      "seconds": 0.7371132809930714,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_00",
+      "status": "AC",
+      "seconds": 0.07103123700653668,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_01",
+      "status": "AC",
+      "seconds": 0.07391780300531536,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_02",
+      "status": "AC",
+      "seconds": 0.07240956400346477,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_03",
+      "status": "AC",
+      "seconds": 0.07347748000756837,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_04",
+      "status": "AC",
+      "seconds": 0.07487787399441004,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_05",
+      "status": "AC",
+      "seconds": 0.06887387500319164,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_06",
+      "status": "AC",
+      "seconds": 0.07360036400496028,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_07",
+      "status": "AC",
+      "seconds": 0.07135629199910909,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_08",
+      "status": "AC",
+      "seconds": 0.08200917999783996,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_degree_09",
+      "status": "AC",
+      "seconds": 0.0764794209972024,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:35:56.048812+00:00",
+  "onlineSubmission": null
+}

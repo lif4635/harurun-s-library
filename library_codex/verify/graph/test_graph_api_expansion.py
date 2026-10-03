@@ -2,24 +2,8 @@ import itertools
 import random
 
 from library_codex.graph.TournamentPath import tournament_hamiltonian_path
-from library_codex.graph.TwoSAT import TwoSAT
 from library_codex.graph_spanning.MinimumSpanningTree import second_spanning_tree
 from library_codex.tree.TreeDiameter import tree_metric_center
-
-
-def test_two_sat_at_most_one():
-    solver = TwoSAT(5)
-    literals = [solver.literal(i) for i in range(5)]
-    solver.add_at_most_one(literals)
-    solver.set_value(3)
-    answer = solver.solve()
-    assert answer is not None and answer[3]
-    assert sum(answer) == 1
-    solver = TwoSAT(2)
-    solver.add_at_most_one([solver.literal(0), solver.literal(1)])
-    solver.set_value(0)
-    solver.set_value(1)
-    assert solver.solve() is None
 
 
 def _all_spanning_tree_costs(n, edges):

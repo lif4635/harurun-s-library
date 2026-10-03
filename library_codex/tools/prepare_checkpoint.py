@@ -70,6 +70,10 @@ def main():
     args = parser.parse_args()
 
     run_step(
+        "Library Checker standalone generation",
+        [sys.executable, str(TOOLS / "check_library_checker.py"), "build"],
+    )
+    run_step(
         "API reference generation",
         [sys.executable, str(TOOLS / "build_api_reference.py")],
     )

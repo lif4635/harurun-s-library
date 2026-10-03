@@ -144,6 +144,13 @@ def plan_for(paths):
                 tests.add(path)
 
     source_changed = bool(direct)
+    if source_changed or any(
+        relative.startswith("verify/library_checker/")
+        or relative.startswith("library_codex/benchmarks/lc_problems/")
+        or relative in {"library_codex/tools/check_library_checker.py", "library_codex/benchmarks/library_checker_cases.py"}
+        for relative in paths
+    ):
+        tests.add(ROOT / "verify" / "test_official_library_checker.py")
     api_changed = source_changed or any(
         relative.startswith("library_codex/docs/api/")
         or relative in {
@@ -285,6 +292,10 @@ def main():
             "API reference synchronization",
             [sys.executable, str(TOOLS / "build_api_reference.py"), "--check"],
         )
+    run_step(
+        "Library Checker standalone synchronization",
+        [sys.executable, str(TOOLS / "check_library_checker.py"), "check"],
+    )
     run_step(
         "library catalog synchronization",
         [sys.executable, str(TOOLS / "build_library_catalog.py"), "--check"],
