@@ -2183,7 +2183,7 @@ def hash_paths(paths, base):
         relative = path.resolve().relative_to(base.resolve()).as_posix()
         digest.update(relative.encode("utf-8"))
         digest.update(b"\0")
-        digest.update(path.read_bytes())
+        digest.update(path.read_text(encoding="utf-8").encode("utf-8"))
         digest.update(b"\0")
     return digest.hexdigest()
 

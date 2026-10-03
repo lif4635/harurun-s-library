@@ -1,0 +1,162 @@
+[
+  {
+    "module": "union_find/UnionFind",
+    "size": 32768,
+    "versions": {
+      "codon": "0.19.3",
+      "pypy": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]"
+    },
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "compileSeconds": 2.7052948960044887,
+    "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
+    "samplesSeconds": {
+      "pypy": [
+        0.06658472800336313,
+        0.0674387580002076,
+        0.07534669800224947
+      ],
+      "codon": [
+        0.03772738100087736,
+        0.055954948998987675,
+        0.04410759099846473
+      ]
+    },
+    "medianSeconds": {
+      "pypy": 0.0674387580002076,
+      "codon": 0.04410759099846473
+    },
+    "sourceSha256": {
+      "pypy": "f98bd3cfa6df5910a6b04fd47d5b9703555ca2e22abc9331791bdd973336bb34",
+      "codon": "39093d29b8f2aff120435ff16c0b37b7a64d3da5f50a0722248fff06f1e17ce1"
+    },
+    "outputSha256": "814d090ecdb98b4213cd6baa4d260f3118785b50c96d92ff6321535d1463372e"
+  },
+  {
+    "module": "fenwick_tree/BIT",
+    "size": 32768,
+    "versions": {
+      "codon": "0.19.3",
+      "pypy": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]"
+    },
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "compileSeconds": 2.7187790399984806,
+    "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
+    "samplesSeconds": {
+      "pypy": [
+        0.0662425059999805,
+        0.06379976100288332,
+        0.06429347800440155
+      ],
+      "codon": [
+        0.02943727000092622,
+        0.031932831996527966,
+        0.03252561599947512
+      ]
+    },
+    "medianSeconds": {
+      "pypy": 0.06429347800440155,
+      "codon": 0.031932831996527966
+    },
+    "sourceSha256": {
+      "pypy": "32dfd1959ea97a764f1c207cac03a1065d92d3392f903237c4d58b1a6b8b4463",
+      "codon": "5b680fc9e4bc618206fb7f242de54fa79351e8d19205f862e2a301974922550a"
+    },
+    "outputSha256": "b229f068a530171c8068ae226d86eaea130f20f0c6f58a2b6a4b00543da441e0"
+  },
+  {
+    "module": "segment_tree/SegTree",
+    "size": 32768,
+    "versions": {
+      "codon": "0.19.3",
+      "pypy": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]"
+    },
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "compileSeconds": 3.4429231469985098,
+    "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
+    "samplesSeconds": {
+      "pypy": [
+        0.0723634449968813,
+        0.07408253799803788,
+        0.0755467420021887
+      ],
+      "codon": [
+        0.03163104300620034,
+        0.035753613999986555,
+        0.036217077999026515
+      ]
+    },
+    "medianSeconds": {
+      "pypy": 0.07408253799803788,
+      "codon": 0.035753613999986555
+    },
+    "sourceSha256": {
+      "pypy": "5d9ba32132afaa0d917ce11983b7c47d62902ee18ad4f2cd226e374a399a5042",
+      "codon": "51934d23f41aeb87a1e52dfd7398bf63081a903393dde7b452b67110a0180be3"
+    },
+    "outputSha256": "381162fcb10656fbd0b2cb6c9dc24fd9beadffdd18bceab4b84237024175786e"
+  },
+  {
+    "module": "convolution/NTT998",
+    "size": 32768,
+    "versions": {
+      "codon": "0.19.3",
+      "pypy": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]"
+    },
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "compileSeconds": 3.5803754509979626,
+    "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
+    "samplesSeconds": {
+      "pypy": [
+        0.11988325099810027,
+        0.11604357099713525,
+        0.1245405449953978
+      ],
+      "codon": [
+        0.09432524699514033,
+        0.09491125999920769,
+        0.10472100900369696
+      ]
+    },
+    "medianSeconds": {
+      "pypy": 0.11988325099810027,
+      "codon": 0.09491125999920769
+    },
+    "sourceSha256": {
+      "pypy": "be246e6c1899a2c0fc720e3738491ce28f3312aacae0923cf8c69606f7860363",
+      "codon": "d2a93137e75f0243df59514d7d18dbe9603ad22aa2b2eb468d54aa709fb2841a"
+    },
+    "outputSha256": "a27192fc1a0235557296b466ec70788906c44cc07f471504864a15f4977d141c"
+  },
+  {
+    "module": "fps998/FPS",
+    "size": 32768,
+    "versions": {
+      "codon": "0.19.3",
+      "pypy": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]"
+    },
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "compileSeconds": 5.751015939000354,
+    "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
+    "samplesSeconds": {
+      "pypy": [
+        0.5625731710024411,
+        0.5730581340030767,
+        0.5655274359960458
+      ],
+      "codon": [
+        0.5259327680032584,
+        0.5319100940032513,
+        0.5343975590003538
+      ]
+    },
+    "medianSeconds": {
+      "pypy": 0.5655274359960458,
+      "codon": 0.5319100940032513
+    },
+    "sourceSha256": {
+      "pypy": "c81455ed658de117b8a8989db2a79da7d42ec3a11ca46f6fafb0df8bb54f5702",
+      "codon": "6079b1066cc44dc4b6faea76d3cd67b5436bca7dce00076f7409753d861b353d"
+    },
+    "outputSha256": "7f2ba51bc7b80e7a9c6ca62828b490e2d1d79c89d9d11c49133d20a6aabbc3cc"
+  }
+]

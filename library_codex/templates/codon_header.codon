@@ -1,0 +1,88 @@
+import sys
+
+@extend
+class File:
+    def readline(self):
+        for line in self:
+            return line
+        return ""
+
+@extend
+class int:
+    @overload
+    def __mod__(self, other: int):
+        return _codon_mod(Int[128](self), Int[128](other))
+
+    @overload
+    def __floordiv__(self, other: int):
+        a, b = Int[128](self), Int[128](other)
+        if b == Int[128](0):
+            raise ZeroDivisionError("integer division by zero")
+        q = a // b
+        if a % b and (a < Int[128](0)) != (b < Int[128](0)):
+            q -= Int[128](1)
+        return int(q)
+
+    @pure
+    @llvm
+    def bit_length(self) -> int:
+        declare i64 @llvm.ctlz.i64(i64, i1)
+        %negative = icmp slt i64 %self, 0
+        %negated = sub i64 0, %self
+        %magnitude = select i1 %negative, i64 %negated, i64 %self
+        %zeros = call i64 @llvm.ctlz.i64(i64 %magnitude, i1 false)
+        %result = sub i64 64, %zeros
+        ret i64 %result
+
+    def bit_count(self):
+        value = UInt[64](self)
+        if self < 0:
+            value = UInt[64](0) - value
+        return value.popcnt()
+
+    @overload
+    def __rshift__(self, other: bool):
+        return self >> int(other)
+
+def _codon_mod(value: Int[128], mod: Int[128]):
+    if mod == Int[128](0):
+        raise ZeroDivisionError("integer modulo by zero")
+    result = value % mod
+    if result and (result < Int[128](0)) != (mod < Int[128](0)):
+        result += mod
+    return int(result)
+
+def _codon_pow(base: int, exponent: int, modulus: int):
+    if modulus == 0:
+        raise ValueError("pow() modulus must be nonzero")
+    mod = Int[128](modulus)
+    negative = mod < Int[128](0)
+    if negative:
+        mod = -mod
+    value = Int[128](_codon_mod(Int[128](base), mod))
+    power = Int[128](exponent)
+    if power < Int[128](0):
+        a, b = value, mod
+        x, y = Int[128](1), Int[128](0)
+        while b:
+            q = a // b
+            a, b = b, a - q * b
+            x, y = y, x - q * y
+        if a != Int[128](1):
+            raise ValueError("base is not invertible for the given modulus")
+        value = Int[128](_codon_mod(x, mod))
+        power = -power
+    result = Int[128](1) % mod
+    while power:
+        if power & Int[128](1):
+            result = result * value % mod
+        value = value * value % mod
+        power >>= Int[128](1)
+    if negative and result:
+        result -= mod
+    return int(result)
+
+def _codon_array(code, values):
+    if code != "I":
+        raise ValueError("only unsigned coefficient arrays are supported")
+    return list(values)

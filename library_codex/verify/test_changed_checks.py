@@ -26,6 +26,11 @@ def test_source_module_key_accepts_only_public_modules():
     assert CHECK_CHANGED.source_module_key("README.md") is None
 
 
+def test_codon_changes_select_native_regression():
+    for path in ("library_codex/templates/codon_header.codon", "library_codex/convolution/NTT998.py"):
+        assert "verify/test_codon.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
+
+
 def test_segment_tree_change_selects_dependents_and_relevant_tests():
     plan = CHECK_CHANGED.plan_for(
         ["library_codex/segment_tree/SegTree.py"]

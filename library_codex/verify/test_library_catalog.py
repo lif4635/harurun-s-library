@@ -19,6 +19,16 @@ def load_catalog():
     return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
 
 
+def test_input_hash_ignores_platform_line_endings(tmp_path):
+    path = tmp_path / "source.py"
+    path.write_bytes(b"value = 1\nother = 2\n")
+    expected = CATALOG.hash_paths([path], tmp_path)
+    path.write_bytes(b"value = 1\r\nother = 2\r\n")
+    assert CATALOG.hash_paths([path], tmp_path) == expected
+    path.write_bytes(b"value = 3\r\nother = 2\r\n")
+    assert CATALOG.hash_paths([path], tmp_path) != expected
+
+
 def module_by_path(data, module_path):
     return next(module for module in data["modules"] if module["modulePath"] == module_path)
 

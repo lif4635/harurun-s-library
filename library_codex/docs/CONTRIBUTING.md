@@ -201,6 +201,8 @@ pypy3 library_codex/tools/prepare_checkpoint.py --profile full --site ../harurun
 
 ## 完了チェックリスト
 
+Codon用の生成処理を変更するときは、[Codonの対象範囲と検証手順](CODON.md)に従います。元のPyPy実装を正本とし、Codonの都合でAPIや通常実装を変更しません。未対応moduleを検証なしに対応扱いにしないでください。
+
 - [ ] module名だけで主目的が分かる。
 - [ ] 新規moduleの記事に、主な機能・使い方・返り値の読み方がある。
 - [ ] よく使うAPI名が短く、冗長なaliasがない。

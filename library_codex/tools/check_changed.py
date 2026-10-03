@@ -15,6 +15,7 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 from category_config import DATA_STRUCTURE_CATEGORIES, SOURCE_CATEGORIES
+from build_codon import SUPPORTED as CODON_MODULES
 
 
 def normalize_path(value):
@@ -182,6 +183,16 @@ def plan_for(paths):
         tests.add(ROOT / "verify" / "test_changed_checks.py")
     if source_changed:
         tests.add(ROOT / "verify" / "test_module_boundaries.py")
+    if affected.intersection(CODON_MODULES) or any(
+        relative in {
+            "library_codex/tools/build_codon.py",
+            "library_codex/templates/codon_header.codon",
+            "library_codex/benchmarks/codon_cases.py",
+            "library_codex/benchmarks/compare_codon.py",
+        }
+        for relative in paths
+    ):
+        tests.add(ROOT / "verify" / "test_codon.py")
     if any(key.split("/", 1)[0] in DATA_STRUCTURE_CATEGORIES for key in direct):
         tests.add(ROOT / "verify" / "data_structure" / "test_debug_output.py")
 
