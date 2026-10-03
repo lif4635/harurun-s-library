@@ -1,0 +1,153 @@
+{
+  "problem": "kth_root_mod",
+  "status": "local_passed",
+  "verificationKey": "61db61f699d91a589418c585364451b5d79b824a52423bc6ad3fab839b375b85",
+  "sourceSha256": "664653882a1073759b30706420d99b111c44dfad7122b81ea9a71f5ca0ade896",
+  "modules": [
+    "library_codex.prime.Factorization",
+    "library_codex.number_theory.ModularRoot"
+  ],
+  "problemVersion": "017dbd7dbf5a7cf0ca4db3ef99db1eb8726ae49db1feb5471f2b793616302c7c",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 22,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05802406999282539,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.08159976000024471,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.08951604898902588,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.09018967900192365,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.09854789800010622,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.07109022600343451,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.06542594799248036,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.13144397900032345,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.13200396999309305,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.1397862140001962,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.14083697099704295,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.12784955500683282,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "safe_prime_00",
+      "status": "AC",
+      "seconds": 0.0976508029998513,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "safe_prime_01",
+      "status": "AC",
+      "seconds": 0.09485669698915444,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "safe_prime_02",
+      "status": "AC",
+      "seconds": 0.09161380799196195,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "safe_prime_03",
+      "status": "AC",
+      "seconds": 0.08534559499821626,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "safe_prime_04",
+      "status": "AC",
+      "seconds": 0.092714687998523,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "Tonelli-Shanks_worstcase_00",
+      "status": "AC",
+      "seconds": 0.15191667899489403,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "Tonelli-Shanks_worstcase_01",
+      "status": "AC",
+      "seconds": 0.14675133499258664,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "Tonelli-Shanks_worstcase_02",
+      "status": "AC",
+      "seconds": 0.1506889919983223,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "Tonelli-Shanks_worstcase_03",
+      "status": "AC",
+      "seconds": 0.15902300899324473,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "Tonelli-Shanks_worstcase_04",
+      "status": "AC",
+      "seconds": 0.14654308700119145,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:00:42.632912+00:00",
+  "onlineSubmission": null
+}

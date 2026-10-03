@@ -1,0 +1,88 @@
+{
+  "problem": "multipoint_evaluation",
+  "status": "local_passed",
+  "verificationKey": "fe84d8656180f8c0d9ae49471632608a7f62d03445ce768af50d2a392a9a2046",
+  "sourceSha256": "a8b63f88bed24432df8cf2508f709727c7eb347af930fb4c8e40debdc5a710df",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS",
+    "library_codex.fps998.MultipointEvaluation"
+  ],
+  "problemVersion": "a853187ad78a8409d18edcdde09c9bc325a6ca0af3269e9dd144ca3d3e4b1454",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 11,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0610662919934839,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.058498515994870104,
+      "diagnostic": "ok \"10000000\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.5383632150042104,
+      "diagnostic": "ok 17707 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.5233430889929878,
+      "diagnostic": "ok 19691 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.120049122007913,
+      "diagnostic": "ok 120203 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.2146560530090937,
+      "diagnostic": "ok 131072 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.2241631359938765,
+      "diagnostic": "ok 131072 tokens\n"
+    },
+    {
+      "name": "zero_00",
+      "status": "AC",
+      "seconds": 0.06363760499516502,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "issue_1287_00",
+      "status": "AC",
+      "seconds": 0.0595664059947012,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "issue_1287_cpp_00",
+      "status": "AC",
+      "seconds": 1.24398383400694,
+      "diagnostic": "ok 131072 tokens\n"
+    },
+    {
+      "name": "issue_1287_cpp_01",
+      "status": "AC",
+      "seconds": 1.2106723510078155,
+      "diagnostic": "ok 131072 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:11:56.787012+00:00",
+  "onlineSubmission": null
+}

@@ -1,0 +1,182 @@
+{
+  "problem": "eulerian_trail_undirected",
+  "status": "local_passed",
+  "verificationKey": "266b5734a127be64555b0886f20ae2a615bd023b0e0ae1c1b6cf85d52a716845",
+  "sourceSha256": "8d5f90b387a541c98e61b3b40d82b56b8c0735f2af67d955170bd06a94fdbb33",
+  "modules": [
+    "library_codex.graph.EulerianTrail"
+  ],
+  "problemVersion": "25ec493468cf3a81cc5958df9014977f71752055ba6badf1c36df9c4a8334fc5",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 27,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.055630536007811315,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.06153741499292664,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.24638102200697176,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.24365344799298327,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.23403896199306473,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_00",
+      "status": "AC",
+      "seconds": 0.17761436000000685,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_01",
+      "status": "AC",
+      "seconds": 0.17097822000505403,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_02",
+      "status": "AC",
+      "seconds": 0.1878980840119766,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.17567196000891272,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.18958876900433097,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.49693969399959315,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_walk_00",
+      "status": "AC",
+      "seconds": 0.2962809879973065,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_walk_01",
+      "status": "AC",
+      "seconds": 0.2726385760033736,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_walk_02",
+      "status": "AC",
+      "seconds": 0.25896623900916893,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_walk_00",
+      "status": "AC",
+      "seconds": 0.2997660149994772,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_walk_01",
+      "status": "AC",
+      "seconds": 0.27663920499617234,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_walk_02",
+      "status": "AC",
+      "seconds": 0.2637772300076904,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_walk_00",
+      "status": "AC",
+      "seconds": 0.32399050099775195,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_walk_01",
+      "status": "AC",
+      "seconds": 0.31193320600141305,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_walk_02",
+      "status": "AC",
+      "seconds": 0.8445557029917836,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "euler_tour_00",
+      "status": "AC",
+      "seconds": 0.5869398170034401,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "euler_tour_01",
+      "status": "AC",
+      "seconds": 0.5710375469934661,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "euler_tour_02",
+      "status": "AC",
+      "seconds": 0.5969439299951773,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "euler_tour_03",
+      "status": "AC",
+      "seconds": 0.5468873380013974,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_same_vertex_00",
+      "status": "AC",
+      "seconds": 0.538277077008388,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_same_vertex_01",
+      "status": "AC",
+      "seconds": 0.5950918470043689,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_same_vertex_02",
+      "status": "AC",
+      "seconds": 0.543181551998714,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:59:16.025108+00:00",
+  "onlineSubmission": null
+}

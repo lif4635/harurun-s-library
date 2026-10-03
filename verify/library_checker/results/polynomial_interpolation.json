@@ -1,0 +1,76 @@
+{
+  "problem": "polynomial_interpolation",
+  "status": "local_passed",
+  "verificationKey": "14ebe5486be75243cfa34a7f377e77ae0848eff7f4c442f0e9b99adf352df8fc",
+  "sourceSha256": "519c190fb61b1ce02f2be3f00e803e6624e2cd6c394ba6afb811aed4f17b090e",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS",
+    "library_codex.fps998.MultipointEvaluation"
+  ],
+  "problemVersion": "83dbcd48c3f5db4495175e1cfd7ce3da124a812754893a5da75879cb21b21bb0",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 9,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06757351700798608,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0628406550094951,
+      "diagnostic": "ok \"10000000\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 2.479120490999776,
+      "diagnostic": "ok 127669 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.7530547880014637,
+      "diagnostic": "ok 69830 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.1025680549937533,
+      "diagnostic": "ok 53336 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 2.378632698993897,
+      "diagnostic": "ok 131072 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 2.394362008999451,
+      "diagnostic": "ok 131072 tokens\n"
+    },
+    {
+      "name": "1169_00",
+      "status": "AC",
+      "seconds": 0.06149740000546444,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "x_zero_00",
+      "status": "AC",
+      "seconds": 2.371520338987466,
+      "diagnostic": "ok 131072 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:12:19.043205+00:00",
+  "onlineSubmission": null
+}

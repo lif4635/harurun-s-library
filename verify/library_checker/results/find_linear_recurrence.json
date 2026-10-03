@@ -1,0 +1,131 @@
+{
+  "problem": "find_linear_recurrence",
+  "status": "local_passed",
+  "verificationKey": "7857b5878ad28590b148c8d0777f201f320dbaaa2a8f1c28c8dac0956a4dbf7d",
+  "sourceSha256": "8c9d751cd8b90d90c27cdd1e3b74cd742ff598ab4b1f8798d0a426c815ff6de0",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS",
+    "library_codex.polynomial.PolynomialDivision998",
+    "library_codex.fps998.LinearRecurrence"
+  ],
+  "problemVersion": "fcfe9e933841580a48388cf799aa6500e1cd93a3b0ec8fd5a36ba2b3e5a8fa60",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 18,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06384472800709773,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0647933090076549,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.0678215759980958,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.06275606701092329,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.1849471729947254,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.1923218150041066,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.1006695830001263,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.14307703399390448,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "long_00",
+      "status": "AC",
+      "seconds": 0.07698178899590857,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "long_01",
+      "status": "AC",
+      "seconds": 0.12560760400083382,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "long_02",
+      "status": "AC",
+      "seconds": 0.1232418029976543,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "zero_00",
+      "status": "AC",
+      "seconds": 0.06682392398943193,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "zero_01",
+      "status": "AC",
+      "seconds": 0.07025008200434968,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "suffix_zero_00",
+      "status": "AC",
+      "seconds": 0.19227035601215903,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "suffix_zero_01",
+      "status": "AC",
+      "seconds": 0.18019526499847416,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "suffix_zero_02",
+      "status": "AC",
+      "seconds": 0.11229023800115101,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "suffix_zero_03",
+      "status": "AC",
+      "seconds": 0.12384962300711777,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue_1253_00",
+      "status": "AC",
+      "seconds": 0.06537022300472017,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:10:54.384165+00:00",
+  "onlineSubmission": null
+}

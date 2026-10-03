@@ -1,0 +1,206 @@
+{
+  "problem": "factorize",
+  "status": "local_passed",
+  "verificationKey": "84147b1eff629bcf4cddd1b9c500dcf0f4128e84930e589636c7c9694585f7a8",
+  "sourceSha256": "bdd85fa2e6e357cf5cc74a7c1bd7544e4aaf19cf87466c67c7aab52b567abedf",
+  "modules": [
+    "library_codex.prime.Factorization"
+  ],
+  "problemVersion": "bd75001ef18ff1d2f35ccd60d76289ec28f1be85b5d093b233d30580e1a172c9",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 31,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05795364099321887,
+      "diagnostic": "ok 25 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.05896364701038692,
+      "diagnostic": "ok 339 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.05943213000136893,
+      "diagnostic": "ok 373 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.058553413007757626,
+      "diagnostic": "ok 384 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.07212294000783004,
+      "diagnostic": "ok 286 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.09583556500729173,
+      "diagnostic": "ok 399 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.08627828099997714,
+      "diagnostic": "ok 507 tokens\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.09990112601371948,
+      "diagnostic": "ok 606 tokens\n"
+    },
+    {
+      "name": "big2_00",
+      "status": "AC",
+      "seconds": 0.3407525060029002,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "big2_01",
+      "status": "AC",
+      "seconds": 0.346263434010325,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "big2_02",
+      "status": "AC",
+      "seconds": 0.35603867199097294,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "big2_worse_00",
+      "status": "AC",
+      "seconds": 0.6144197630055714,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "big_semiprime_gen_00",
+      "status": "AC",
+      "seconds": 0.35522124099952634,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "big_semiprime_gen_01",
+      "status": "AC",
+      "seconds": 0.3406968369963579,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "big_semiprime_random_00",
+      "status": "AC",
+      "seconds": 0.2845168580097379,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "big_semiprime_random_01",
+      "status": "AC",
+      "seconds": 0.28528559699770994,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "pow2_00",
+      "status": "AC",
+      "seconds": 0.10236852600064594,
+      "diagnostic": "ok 479 tokens\n"
+    },
+    {
+      "name": "pow2_01",
+      "status": "AC",
+      "seconds": 0.11322899399965536,
+      "diagnostic": "ok 660 tokens\n"
+    },
+    {
+      "name": "pow2_02",
+      "status": "AC",
+      "seconds": 0.12758989000576548,
+      "diagnostic": "ok 754 tokens\n"
+    },
+    {
+      "name": "999381247093216751_00",
+      "status": "AC",
+      "seconds": 1.1006451760040363,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "prime_test_special_00",
+      "status": "AC",
+      "seconds": 0.0741308169963304,
+      "diagnostic": "ok 510 tokens\n"
+    },
+    {
+      "name": "prime_test_special_01",
+      "status": "AC",
+      "seconds": 0.08418535300006624,
+      "diagnostic": "ok 570 tokens\n"
+    },
+    {
+      "name": "prime_test_special_02",
+      "status": "AC",
+      "seconds": 0.09231316500518005,
+      "diagnostic": "ok 563 tokens\n"
+    },
+    {
+      "name": "prime_test_special_03",
+      "status": "AC",
+      "seconds": 0.07079216600686777,
+      "diagnostic": "ok 496 tokens\n"
+    },
+    {
+      "name": "prime_test_special_bug_00",
+      "status": "AC",
+      "seconds": 0.07482258400705177,
+      "diagnostic": "ok 400 tokens\n"
+    },
+    {
+      "name": "prime_test_special_bug_01",
+      "status": "AC",
+      "seconds": 0.06501097299042158,
+      "diagnostic": "ok 600 tokens\n"
+    },
+    {
+      "name": "prime_test_special_bug_02",
+      "status": "AC",
+      "seconds": 0.06750432300032116,
+      "diagnostic": "ok 200 tokens\n"
+    },
+    {
+      "name": "hack00_00",
+      "status": "AC",
+      "seconds": 0.0662822690064786,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "carmichael_00",
+      "status": "AC",
+      "seconds": 0.10715263600286562,
+      "diagnostic": "ok 400 tokens\n"
+    },
+    {
+      "name": "4295098369_00",
+      "status": "AC",
+      "seconds": 0.09701158099051099,
+      "diagnostic": "ok 300 tokens\n"
+    },
+    {
+      "name": "fixed_RNG_buster_00",
+      "status": "AC",
+      "seconds": 0.07584938300715294,
+      "diagnostic": "ok 3 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:01:28.851534+00:00",
+  "onlineSubmission": null
+}

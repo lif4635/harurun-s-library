@@ -1,0 +1,86 @@
+{
+  "problem": "static_range_count_distinct",
+  "status": "local_passed",
+  "verificationKey": "4c6277074f2c2dc4ff65cd184f9250300dc687543304477b1b34eb40c9a7b06f",
+  "sourceSha256": "01db7dde6050411cf890b33ea1985eee45fabd0336c036bdcf1d4e10fe4a6a84",
+  "modules": [
+    "library_codex.range_query.StaticRangeDistinct"
+  ],
+  "problemVersion": "3aaddfc1bfefb5591531366cd63a5c585fb2750f97818d12eaf5e1ec87671f29",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 11,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05226470100751612,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "small_n_00",
+      "status": "AC",
+      "seconds": 0.1334432250005193,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "small_n_01",
+      "status": "AC",
+      "seconds": 0.157547760012676,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "small_n_02",
+      "status": "AC",
+      "seconds": 0.18627715899492614,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "small_q_00",
+      "status": "AC",
+      "seconds": 3.653660054987995,
+      "diagnostic": "ok 0 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 3.089203212002758,
+      "diagnostic": "ok 411022 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 3.872121252992656,
+      "diagnostic": "ok 413006 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.1622141159896273,
+      "diagnostic": "ok 382446 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 4.127453811001033,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 4.32047584799875,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 4.587973387999227,
+      "diagnostic": "ok 500000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:04:12.935239+00:00",
+  "onlineSubmission": null
+}

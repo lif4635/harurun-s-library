@@ -58,3 +58,7 @@ pypy3 library_codex/tools/check_library_checker.py check
 時間制限は公式の値を使うが、手元のCPU・PyPy version・OS負荷はオンラインjudgeと異なる。メモリ制限は再現していない。したがってオンラインACや本番環境での同じ実行時間を保証しない。
 
 `stale` は解答または公式問題が変更された状態。`incomplete` は途中までの実行、`failed` は少なくとも一件が不通過、`error` は生成・実行基盤の失敗。結果JSONは一時ファイルから置き換え、途中で壊れたJSONを残さない。
+
+## 性能上の注意
+
+`bipartitematching` は初期マッチングを次数の小さい頂点から作り、残りをHopcroft–Karpで処理する。変更前の`1a87ef7`では公式44ケース中9ケースが5秒制限を超えた。変更後は全件通過したが、保存した結果の`augmented_cycle_02`は約4.8秒で、オンライン環境での余裕は未確認。再計測は`test bipartitematching --force --official ...`で行える。

@@ -1,0 +1,143 @@
+{
+  "problem": "kth_term_of_linearly_recurrent_sequence",
+  "status": "local_passed",
+  "verificationKey": "33df3e2fec30871c5d1581b336da0c601b26bc3e4c0b68b86c404fb5321bfe17",
+  "sourceSha256": "9be40bf8b3e70432b7198780767c46a69643b6ad44589e3bb64515f08b9c1f5b",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS",
+    "library_codex.polynomial.PolynomialDivision998",
+    "library_codex.fps998.LinearRecurrence"
+  ],
+  "problemVersion": "6653100c61537c32bdb5336f7035276bbe70c4b20ce2667628f57c6bd2519a7b",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 20,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06804877499234863,
+      "diagnostic": "ok \"8\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.06479824500274844,
+      "diagnostic": "ok \"568069676\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.08382515599078033,
+      "diagnostic": "ok \"482434210\"\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.09110663199680857,
+      "diagnostic": "ok \"308322818\"\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.08734538499265909,
+      "diagnostic": "ok \"463396893\"\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.09446077400934882,
+      "diagnostic": "ok \"769647395\"\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.07116344399400987,
+      "diagnostic": "ok \"189305010\"\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.07268561399541795,
+      "diagnostic": "ok \"883814856\"\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.06685493899567518,
+      "diagnostic": "ok \"243927035\"\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.06838530299137346,
+      "diagnostic": "ok \"268196662\"\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.07747126200411003,
+      "diagnostic": "ok \"370620504\"\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 5.107229650995578,
+      "diagnostic": "ok \"141762552\"\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 5.150139243007288,
+      "diagnostic": "ok \"411558777\"\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 5.045570210000733,
+      "diagnostic": "ok \"618609025\"\n"
+    },
+    {
+      "name": "near_65536_00",
+      "status": "AC",
+      "seconds": 2.5003980659967056,
+      "diagnostic": "ok \"318602179\"\n"
+    },
+    {
+      "name": "near_65536_01",
+      "status": "AC",
+      "seconds": 4.947401780009386,
+      "diagnostic": "ok \"657265796\"\n"
+    },
+    {
+      "name": "near_65536_02",
+      "status": "AC",
+      "seconds": 4.973965626995778,
+      "diagnostic": "ok \"159109122\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.1941749670077115,
+      "diagnostic": "ok \"689320653\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 4.854408964994946,
+      "diagnostic": "ok \"295517233\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 2.4518329679995077,
+      "diagnostic": "ok \"105739272\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:11:06.907126+00:00",
+  "onlineSubmission": null
+}

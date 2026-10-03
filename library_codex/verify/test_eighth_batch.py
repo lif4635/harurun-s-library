@@ -17,7 +17,6 @@ from library_codex.geometry.ConvexHull import convex_hull
 from library_codex.geometry.ConvexPolygon import ConvexPolygon
 from library_codex.geometry.PointInPolygon import point_location
 from library_codex.graph_connectivity.FunctionalGraph import FunctionalGraph
-from library_codex.graph_matching.BipartiteMatching import BipartiteMatching
 from library_codex.range_query.RangeMajority import RangeMajority
 from library_codex.range_query.StaticRangeMode import StaticRangeMode
 from library_codex.tree.LCA import LCA
@@ -169,38 +168,3 @@ def test_functional_graph_first_meeting_random():
                     assert result is None
                 else:
                     assert result == (expected, solver.move(first, expected))
-
-
-def all_maximum_matchings(left_size, right_size, edges):
-    edges = sorted(set(edges))
-    result = []
-    best = -1
-    for mask in range(1 << len(edges)):
-        selected = [edges[index] for index in range(len(edges)) if mask >> index & 1]
-        if len({left for left, _ in selected}) != len(selected):
-            continue
-        if len({right for _, right in selected}) != len(selected):
-            continue
-        if len(selected) > best:
-            best = len(selected)
-            result = [set(selected)]
-        elif len(selected) == best:
-            result.append(set(selected))
-    return result
-
-
-def test_bipartite_allowed_and_essential_edges_exhaustive():
-    rng = random.Random(621508)
-    for left_size in range(1, 5):
-        for right_size in range(1, 5):
-            universe = [(left, right) for left in range(left_size) for right in range(right_size)]
-            for _ in range(1000):
-                edges = [edge for edge in universe if rng.randrange(3) == 0]
-                matcher = BipartiteMatching(left_size, right_size)
-                for edge in edges:
-                    matcher.add_edge(*edge)
-                maximum = all_maximum_matchings(left_size, right_size, edges)
-                allowed = set().union(*maximum)
-                essential = set.intersection(*maximum)
-                assert set(matcher.allowed_edges()) == allowed
-                assert set(matcher.essential_edges()) == essential

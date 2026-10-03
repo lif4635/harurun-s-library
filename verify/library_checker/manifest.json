@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 30,
-    "unimplemented": 223
+    "local_passed": 66,
+    "unimplemented": 187
   },
   "problems": [
     {
@@ -164,40 +164,54 @@
       "title": "Matching on Bipartite Graph",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/bipartitematching",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_matching.BipartiteMatching"
+      ],
+      "solution": "solutions/bipartitematching.py",
+      "result": "results/bipartitematching.json"
     },
     {
       "name": "bitwise_and_convolution",
       "title": "Bitwise And Convolution",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/bitwise_and_convolution",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.bitwise_convolution.SetFunction"
+      ],
+      "solution": "solutions/bitwise_and_convolution.py",
+      "result": "results/bitwise_and_convolution.json"
     },
     {
       "name": "bitwise_xor_convolution",
       "title": "Bitwise Xor Convolution",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/bitwise_xor_convolution",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.bitwise_convolution.SetFunction"
+      ],
+      "solution": "solutions/bitwise_xor_convolution.py",
+      "result": "results/bitwise_xor_convolution.json"
     },
     {
       "name": "cartesian_tree",
       "title": "Cartesian Tree",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/cartesian_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.CartesianTree"
+      ],
+      "solution": "solutions/cartesian_tree.py",
+      "result": "results/cartesian_tree.json"
     },
     {
       "name": "characteristic_polynomial",
@@ -308,10 +322,12 @@
       "title": "Connected Components of Complement Graph",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/connected_components_of_complement_graph",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.ComplementGraph"
+      ],
+      "solution": "solutions/connected_components_of_complement_graph.py",
+      "result": "results/connected_components_of_complement_graph.json"
     },
     {
       "name": "consecutive_terms_of_linear_recurrent_sequence",
@@ -470,20 +486,24 @@
       "title": "Cycle Detection (Directed)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/cycle_detection",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph.CycleDetection"
+      ],
+      "solution": "solutions/cycle_detection.py",
+      "result": "results/cycle_detection.json"
     },
     {
       "name": "cycle_detection_undirected",
       "title": "Cycle Detection (Undirected)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/cycle_detection_undirected",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph.CycleDetection"
+      ],
+      "solution": "solutions/cycle_detection_undirected.py",
+      "result": "results/cycle_detection_undirected.json"
     },
     {
       "name": "deque",
@@ -550,10 +570,12 @@
       "title": "Discrete Logarithm",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/discrete_logarithm_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.DiscreteLog"
+      ],
+      "solution": "solutions/discrete_logarithm_mod.py",
+      "result": "results/discrete_logarithm_mod.json"
     },
     {
       "name": "division_of_big_integers",
@@ -594,10 +616,12 @@
       "title": "Dominator Tree",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/dominatortree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.DominatorTree"
+      ],
+      "solution": "solutions/dominatortree.py",
+      "result": "results/dominatortree.json"
     },
     {
       "name": "double_ended_priority_queue",
@@ -756,20 +780,24 @@
       "title": "Eulerian Trail (Directed)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/eulerian_trail_directed",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph.EulerianTrail"
+      ],
+      "solution": "solutions/eulerian_trail_directed.py",
+      "result": "results/eulerian_trail_directed.json"
     },
     {
       "name": "eulerian_trail_undirected",
       "title": "Eulerian Trail (Undirected)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/eulerian_trail_undirected",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph.EulerianTrail"
+      ],
+      "solution": "solutions/eulerian_trail_undirected.py",
+      "result": "results/eulerian_trail_undirected.json"
     },
     {
       "name": "exp_of_formal_power_series",
@@ -828,20 +856,27 @@
       "title": "Factorize",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/factorize",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Factorization"
+      ],
+      "solution": "solutions/factorize.py",
+      "result": "results/factorize.json"
     },
     {
       "name": "find_linear_recurrence",
       "title": "Find Linear Recurrence",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/find_linear_recurrence",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.polynomial.PolynomialDivision998",
+        "library_codex.fps998.LinearRecurrence"
+      ],
+      "solution": "solutions/find_linear_recurrence.py",
+      "result": "results/find_linear_recurrence.json"
     },
     {
       "name": "frequency_table_of_tree_distance",
@@ -888,10 +923,12 @@
       "title": "Matching on General Graph",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/general_matching",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_matching.GeneralMatching"
+      ],
+      "solution": "solutions/general_matching.py",
+      "result": "results/general_matching.json"
     },
     {
       "name": "general_weighted_matching",
@@ -1040,30 +1077,41 @@
       "title": "Kth Root (Integer)",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/kth_root_integer",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Factorization",
+        "library_codex.number_theory.ModularRoot"
+      ],
+      "solution": "solutions/kth_root_integer.py",
+      "result": "results/kth_root_integer.json"
     },
     {
       "name": "kth_root_mod",
       "title": "Kth Root (Mod)",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/kth_root_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Factorization",
+        "library_codex.number_theory.ModularRoot"
+      ],
+      "solution": "solutions/kth_root_mod.py",
+      "result": "results/kth_root_mod.json"
     },
     {
       "name": "kth_term_of_linearly_recurrent_sequence",
       "title": "Kth term of Linearly Recurrent Sequence",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.polynomial.PolynomialDivision998",
+        "library_codex.fps998.LinearRecurrence"
+      ],
+      "solution": "solutions/kth_term_of_linearly_recurrent_sequence.py",
+      "result": "results/kth_term_of_linearly_recurrent_sequence.json"
     },
     {
       "name": "lca",
@@ -1327,20 +1375,26 @@
       "title": "Min Plus Convolution (Convex and Arbitrary)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/min_plus_convolution_convex_arbitrary",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.optimization.MonotoneMinima",
+        "library_codex.convolution.MinPlusConvolution"
+      ],
+      "solution": "solutions/min_plus_convolution_convex_arbitrary.py",
+      "result": "results/min_plus_convolution_convex_arbitrary.json"
     },
     {
       "name": "min_plus_convolution_convex_convex",
       "title": "Min Plus Convolution (Convex and Convex)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.optimization.MonotoneMinima",
+        "library_codex.convolution.MinPlusConvolution"
+      ],
+      "solution": "solutions/min_plus_convolution_convex_convex.py",
+      "result": "results/min_plus_convolution_convex_convex.json"
     },
     {
       "name": "minimum_diameter_spanning_tree",
@@ -1367,10 +1421,13 @@
       "title": "Minimum Spanning Tree",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/minimum_spanning_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.ordered_set.TreapSet",
+        "library_codex.graph_spanning.MinimumSpanningTree"
+      ],
+      "solution": "solutions/minimum_spanning_tree.py",
+      "result": "results/minimum_spanning_tree.json"
     },
     {
       "name": "minimum_steiner_tree",
@@ -1437,10 +1494,14 @@
       "title": "Multipoint Evaluation",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/multipoint_evaluation",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.fps998.MultipointEvaluation"
+      ],
+      "solution": "solutions/multipoint_evaluation.py",
+      "result": "results/multipoint_evaluation.json"
     },
     {
       "name": "multipoint_evaluation_on_geometric_sequence",
@@ -1552,10 +1613,12 @@
       "title": "Persistent Queue",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/persistent_queue",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.PersistentQueue"
+      ],
+      "solution": "solutions/persistent_queue.py",
+      "result": "results/persistent_queue.json"
     },
     {
       "name": "persistent_range_affine_range_sum",
@@ -1684,10 +1747,14 @@
       "title": "Polynomial Interpolation",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/polynomial_interpolation",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.fps998.MultipointEvaluation"
+      ],
+      "solution": "solutions/polynomial_interpolation.py",
+      "result": "results/polynomial_interpolation.json"
     },
     {
       "name": "polynomial_interpolation_on_geometric_sequence",
@@ -1802,20 +1869,25 @@
       "title": "Primality Test",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/primality_test",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Factorization"
+      ],
+      "solution": "solutions/primality_test.py",
+      "result": "results/primality_test.json"
     },
     {
       "name": "primitive_root",
       "title": "Primitive Root",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/primitive_root",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Factorization",
+        "library_codex.number_theory.ModularRoot"
+      ],
+      "solution": "solutions/primitive_root.py",
+      "result": "results/primitive_root.json"
     },
     {
       "name": "product_of_polynomial_sequence",
@@ -1845,10 +1917,12 @@
       "title": "Queue Operate All Composite",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/queue_operate_all_composite",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.SWAGQueue"
+      ],
+      "solution": "solutions/queue_operate_all_composite.py",
+      "result": "results/queue_operate_all_composite.json"
     },
     {
       "name": "range_add_range_min",
@@ -1907,10 +1981,12 @@
       "title": "Range Kth Smallest",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_kth_smallest",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.WaveletMatrix"
+      ],
+      "solution": "solutions/range_kth_smallest.py",
+      "result": "results/range_kth_smallest.json"
     },
     {
       "name": "range_linear_add_range_min",
@@ -2071,10 +2147,12 @@
       "title": "Shortest Path",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/shortest_path",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.shortest_path.Dijkstra"
+      ],
+      "solution": "solutions/shortest_path.py",
+      "result": "results/shortest_path.json"
     },
     {
       "name": "sort_points_by_argument",
@@ -2101,10 +2179,12 @@
       "title": "Sqrt Mod",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/sqrt_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.ModularArithmetic"
+      ],
+      "solution": "solutions/sqrt_mod.py",
+      "result": "results/sqrt_mod.json"
     },
     {
       "name": "sqrt_of_formal_power_series",
@@ -2154,20 +2234,24 @@
       "title": "Static Range Count Distinct",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/static_range_count_distinct",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.StaticRangeDistinct"
+      ],
+      "solution": "solutions/static_range_count_distinct.py",
+      "result": "results/static_range_count_distinct.json"
     },
     {
       "name": "static_range_frequency",
       "title": "Static Range Frequency",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/static_range_frequency",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.StaticRangeFrequency"
+      ],
+      "solution": "solutions/static_range_frequency.py",
+      "result": "results/static_range_frequency.json"
     },
     {
       "name": "static_range_inversions_query",
@@ -2234,10 +2318,12 @@
       "title": "Static RMQ",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/staticrmq",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.StaticRMQ"
+      ],
+      "solution": "solutions/staticrmq.py",
+      "result": "results/staticrmq.json"
     },
     {
       "name": "stern_brocot_tree",
@@ -2357,10 +2443,12 @@
       "title": "Sum of Floor of Linear",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/sum_of_floor_of_linear",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.FloorSum"
+      ],
+      "solution": "solutions/sum_of_floor_of_linear.py",
+      "result": "results/sum_of_floor_of_linear.json"
     },
     {
       "name": "sum_of_multiplicative_function",
@@ -2417,10 +2505,13 @@
       "title": "Tetration Mod",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/tetration_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Factorization",
+        "library_codex.number_theory.TetrationMod"
+      ],
+      "solution": "solutions/tetration_mod.py",
+      "result": "results/tetration_mod.json"
     },
     {
       "name": "three_edge_connected_components",
@@ -2447,10 +2538,12 @@
       "title": "Tree Diameter",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/tree_diameter",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.TreeDiameter"
+      ],
+      "solution": "solutions/tree_diameter.py",
+      "result": "results/tree_diameter.json"
     },
     {
       "name": "tree_path_composite_sum",
@@ -2467,10 +2560,13 @@
       "title": "Two-Edge-Connected Components",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/two_edge_connected_components",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.LowLink",
+        "library_codex.graph_connectivity.TwoEdgeConnectedComponents"
+      ],
+      "solution": "solutions/two_edge_connected_components.py",
+      "result": "results/two_edge_connected_components.json"
     },
     {
       "name": "two_sat",

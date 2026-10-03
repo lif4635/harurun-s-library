@@ -1,0 +1,98 @@
+{
+  "problem": "primality_test",
+  "status": "local_passed",
+  "verificationKey": "a1c2eed2b6642d685180c7e75ec00bc1cdfb3c2b306bb988813f1b9df83ff47c",
+  "sourceSha256": "2e018939daac7f55e9f7d5425f9fbcca25bc42ff0614ea6b1626356c6a03673e",
+  "modules": [
+    "library_codex.prime.Factorization"
+  ],
+  "problemVersion": "25188a6d67b892c223b7f545f0804c77d9d7b388d22910cd495b614ee9b88967",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 13,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.056044109995127656,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.10399555800540838,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "less_1000000000_00",
+      "status": "AC",
+      "seconds": 0.10281442099949345,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "carmichael_00",
+      "status": "AC",
+      "seconds": 0.0719809440051904,
+      "diagnostic": "ok 1000 tokens\n"
+    },
+    {
+      "name": "all_prime_00",
+      "status": "AC",
+      "seconds": 0.7578113810013747,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "prod_two_prime_00",
+      "status": "AC",
+      "seconds": 0.17799274899880402,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.15146015399659518,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.14149281699792482,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.1287799029960297,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "hack_issue996_00",
+      "status": "AC",
+      "seconds": 0.06036796199623495,
+      "diagnostic": "ok 40 tokens\n"
+    },
+    {
+      "name": "hack_issue1325_00",
+      "status": "AC",
+      "seconds": 0.05965034800465219,
+      "diagnostic": "ok 10 tokens\n"
+    },
+    {
+      "name": "pseudoprimes_00",
+      "status": "AC",
+      "seconds": 0.058150771001237445,
+      "diagnostic": "ok 73 tokens\n"
+    },
+    {
+      "name": "many_liars_00",
+      "status": "AC",
+      "seconds": 0.21269240899709985,
+      "diagnostic": "ok 100000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:02:10.666357+00:00",
+  "onlineSubmission": null
+}

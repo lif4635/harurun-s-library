@@ -1,0 +1,182 @@
+{
+  "problem": "cycle_detection_undirected",
+  "status": "local_passed",
+  "verificationKey": "746e0c8acfd1c3f7e9a19d9459590fd34c42afae55148b8d82f39f7103809170",
+  "sourceSha256": "25954c1f131c0d729d23f7677a16f737fb2ebfa44680db73e744db89074d908b",
+  "modules": [
+    "library_codex.graph.CycleDetection"
+  ],
+  "problemVersion": "bd063bb258b88e90e32e523e2f666d2b16dc66cc821eb8580cff9cceded89adc",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 27,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05568056298943702,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.054539571996429004,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.0588709919975372,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.05935330200009048,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_04",
+      "status": "AC",
+      "seconds": 0.06070544999965932,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.8475267330068164,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.9282659250020515,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.5881652990065049,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.18041584599995986,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.34246795599756297,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 0.7766031609935453,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 0.4957010220095981,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 0.10483259899774566,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_08",
+      "status": "AC",
+      "seconds": 0.6689406039949972,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_09",
+      "status": "AC",
+      "seconds": 0.31560751199140213,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_dense_00",
+      "status": "AC",
+      "seconds": 0.3893114139937097,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_dense_01",
+      "status": "AC",
+      "seconds": 0.3321694420010317,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_dense_02",
+      "status": "AC",
+      "seconds": 0.3788082080136519,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "tree_00",
+      "status": "AC",
+      "seconds": 1.111451828997815,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "tree_01",
+      "status": "AC",
+      "seconds": 1.3556808979919879,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "tree_02",
+      "status": "AC",
+      "seconds": 0.17320528799609747,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unicyclic_00",
+      "status": "AC",
+      "seconds": 1.0246384580095764,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unicyclic_01",
+      "status": "AC",
+      "seconds": 1.3110515470034443,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unicyclic_02",
+      "status": "AC",
+      "seconds": 0.13651916600065306,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "long_cycle_00",
+      "status": "AC",
+      "seconds": 1.4425742919993354,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "long_cycle_01",
+      "status": "AC",
+      "seconds": 1.7017244750022655,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "long_cycle_02",
+      "status": "AC",
+      "seconds": 0.17137877299683169,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:58:15.960638+00:00",
+  "onlineSubmission": null
+}

@@ -1,0 +1,170 @@
+{
+  "problem": "connected_components_of_complement_graph",
+  "status": "local_passed",
+  "verificationKey": "3abaca80aaf2b4b97272008f4e08b31c1bd2ab8bab696fe36eb13cac8a49b40d",
+  "sourceSha256": "60b64761c0da224b3a6e9a796b4c796e904018609a52a6a61a11685116734def",
+  "modules": [
+    "library_codex.graph_connectivity.ComplementGraph"
+  ],
+  "problemVersion": "028c5bb0671dc8aadacd6147e560534ae2887398a2867b7cecb05bcd6eea6692",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 25,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.051801818000967614,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05160930000420194,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05427167999732774,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.068988087004982,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.073939206005889,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 1.123492302998784,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 1.029197865005699,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 1.0481262749963207,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "no_edge_00",
+      "status": "AC",
+      "seconds": 0.18667589299730025,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complete_00",
+      "status": "AC",
+      "seconds": 0.15542550801183097,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "star_00",
+      "status": "AC",
+      "seconds": 0.3532210249977652,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "star_remove_one_edge_00",
+      "status": "AC",
+      "seconds": 0.35349676400073804,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_sparse_00",
+      "status": "AC",
+      "seconds": 0.17331515900150407,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_sparse_01",
+      "status": "AC",
+      "seconds": 0.17513469299592543,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_sparse_02",
+      "status": "AC",
+      "seconds": 0.15975440699548926,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_sparse_03",
+      "status": "AC",
+      "seconds": 0.16168250500049908,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_sparse_04",
+      "status": "AC",
+      "seconds": 0.15824545398936607,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_many_paths_00",
+      "status": "AC",
+      "seconds": 0.15977974999987055,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_many_paths_01",
+      "status": "AC",
+      "seconds": 0.1747729890048504,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_many_paths_02",
+      "status": "AC",
+      "seconds": 0.16577954099921044,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_many_paths_03",
+      "status": "AC",
+      "seconds": 0.1535230279987445,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complement_of_many_paths_04",
+      "status": "AC",
+      "seconds": 0.17589832299563568,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "minimum_00",
+      "status": "AC",
+      "seconds": 0.057394333998672664,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "minimum_01",
+      "status": "AC",
+      "seconds": 0.05490483800531365,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "minimum_02",
+      "status": "AC",
+      "seconds": 0.05404169899702538,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:05:53.610810+00:00",
+  "onlineSubmission": null
+}

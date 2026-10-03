@@ -298,6 +298,58 @@ def test_explicit_sides_mates_use_combined_numbering():
     assert matcher.mates() == [-1, 4, -1, -1, 1]
 
 
+def test_allowed_and_essential_edges_exhaustive():
+    rng = random.Random(621508)
+    for left_size in range(1, 5):
+        for right_size in range(1, 5):
+            universe = [(u, v) for u in range(left_size) for v in range(right_size)]
+            for _ in range(1000):
+                edges = [edge for edge in universe if rng.randrange(3) == 0]
+                matcher = BipartiteMatching(left_size, right_size)
+                graph = [[] for _ in range(left_size + right_size)]
+                for u, v in edges:
+                    matcher.add_edge(u, v)
+                    graph[u].append(left_size + v)
+                    graph[left_size + v].append(u)
+                maximum = all_maximum_matchings(graph)
+                allowed = {(u, v - left_size) for u, v in set.union(*maximum)}
+                essential = {(u, v - left_size) for u, v in set.intersection(*maximum)}
+                assert set(matcher.allowed_edges()) == allowed
+                assert set(matcher.essential_edges()) == essential
+
+
+def test_sparse_cycle_initial_matching_without_augmenting_search():
+    class InitialMatching(BipartiteMatching):
+        def _augment(self, *args):
+            raise AssertionError("a cycle should be exhausted by degree reduction")
+
+    rng = random.Random(9107)
+    n = 20000
+    left = list(range(n))
+    right = list(range(n))
+    rng.shuffle(left)
+    rng.shuffle(right)
+    edges = [(left[u], right[v]) for u in range(n) for v in (u, (u + 1) % n)]
+    rng.shuffle(edges)
+    matcher = InitialMatching(n + 100, n + 200)
+    for edge in edges:
+        matcher.add_edge(*edge)
+    assert matcher.solve() == n
+    assert matcher.solve() == n
+    assert all(matcher.match_right[v] == u for u, v in matcher.pairs())
+
+
+def test_parallel_edges_can_exceed_vertex_count():
+    matcher = BipartiteMatching(2, 2)
+    for _ in range(100):
+        matcher.add_edge(0, 0)
+        matcher.add_edge(1, 0)
+    assert matcher.solve() == 1
+    matcher.add_edge(0, 1)
+    assert matcher.solve() == 2
+    validate(matcher, 2)
+
+
 if __name__ == "__main__":
     random.seed(0)
     test_small_against_brute()

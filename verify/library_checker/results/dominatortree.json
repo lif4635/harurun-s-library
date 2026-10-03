@@ -1,0 +1,98 @@
+{
+  "problem": "dominatortree",
+  "status": "local_passed",
+  "verificationKey": "5e430d86d7534a0477fd6df8f23fb20faf1205624063053a7dd764f6b43d90e6",
+  "sourceSha256": "f498ae2c97a5ee0708cf482600028e7817faf8ae42736cf8e74f4b07f9e233c8",
+  "modules": [
+    "library_codex.graph_connectivity.DominatorTree"
+  ],
+  "problemVersion": "e3d9eacf79e7367fdeb9cc349a197c589c6c71d0f7239940bed67d0c55fcaf6a",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 13,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.052374362014234066,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05396237199602183,
+      "diagnostic": "ok 8 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.12129521799215581,
+      "diagnostic": "ok 127669 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.41154689399991184,
+      "diagnostic": "ok 150763 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.10241114000382368,
+      "diagnostic": "ok 53336 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.16184877500927541,
+      "diagnostic": "ok 167105 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.06886309701076243,
+      "diagnostic": "ok 14868 tokens\n"
+    },
+    {
+      "name": "gen_tree_00",
+      "status": "AC",
+      "seconds": 0.43106744399119634,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "gen_tree_01",
+      "status": "AC",
+      "seconds": 0.4339151750027668,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "gen_tree_02",
+      "status": "AC",
+      "seconds": 0.45778866999899037,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "gen_tree_2_00",
+      "status": "AC",
+      "seconds": 0.4930800279980758,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "gen_tree_2_01",
+      "status": "AC",
+      "seconds": 0.5270383540046168,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "gen_tree_2_02",
+      "status": "AC",
+      "seconds": 0.5199656689947005,
+      "diagnostic": "ok 100000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:02:58.744480+00:00",
+  "onlineSubmission": null
+}

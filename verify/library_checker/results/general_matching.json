@@ -1,0 +1,92 @@
+{
+  "problem": "general_matching",
+  "status": "local_passed",
+  "verificationKey": "9168f1b015569b0d1668ed79d6a4c7686fb2d893aced5f4444f5521c484f0aa4",
+  "sourceSha256": "36796270577990a5ea118b9a1343c1ce93c2b46387130a6d13abc428bb2a5d97",
+  "modules": [
+    "library_codex.graph_matching.GeneralMatching"
+  ],
+  "problemVersion": "12cc6dcd3cb0c1ee4e0cbf30c4c0aa99bc890cb9801f6b181bff108d5fad725d",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 12,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06804960200679488,
+      "diagnostic": "ok OK: 3 matchings\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.06999405300302897,
+      "diagnostic": "ok OK: 1 matchings\n"
+    },
+    {
+      "name": "issue610_00",
+      "status": "AC",
+      "seconds": 0.0637753270129906,
+      "diagnostic": "ok OK: 7 matchings\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.07583196499035694,
+      "diagnostic": "ok OK: 90 matchings\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.06792106600187253,
+      "diagnostic": "ok OK: 99 matchings\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.08208161000220571,
+      "diagnostic": "ok OK: 250 matchings\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.0863909110048553,
+      "diagnostic": "ok OK: 250 matchings\n"
+    },
+    {
+      "name": "sparse_00",
+      "status": "AC",
+      "seconds": 0.07838382599584293,
+      "diagnostic": "ok OK: 228 matchings\n"
+    },
+    {
+      "name": "sparse_01",
+      "status": "AC",
+      "seconds": 0.06461307599965949,
+      "diagnostic": "ok OK: 113 matchings\n"
+    },
+    {
+      "name": "sparse_02",
+      "status": "AC",
+      "seconds": 0.06385677099751774,
+      "diagnostic": "ok OK: 61 matchings\n"
+    },
+    {
+      "name": "sparse_03",
+      "status": "AC",
+      "seconds": 0.07767900500039104,
+      "diagnostic": "ok OK: 245 matchings\n"
+    },
+    {
+      "name": "sparse_04",
+      "status": "AC",
+      "seconds": 0.06616760599717963,
+      "diagnostic": "ok OK: 204 matchings\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T17:59:46.611508+00:00",
+  "onlineSubmission": null
+}

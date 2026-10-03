@@ -1,0 +1,284 @@
+{
+  "problem": "bipartitematching",
+  "status": "local_passed",
+  "verificationKey": "f320e2f1fb2f800275f8a6d45b242218313cfb0396fd4d99f6a64baef80a1ba0",
+  "sourceSha256": "bc01e51964188ee6b9b6f4700c02e1c468db9d61f6e43fc2a230739d6ac9348e",
+  "modules": [
+    "library_codex.graph_matching.BipartiteMatching"
+  ],
+  "problemVersion": "76d4223c991dc4937f0376c46d2d9663a27de36a4c6fcd6d54c51d1d35cdb64e",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 44,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0547096230002353,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.12717526100459509,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.18463846799568273,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.19936652400065213,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.20475144799274858,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.14329914300469682,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 0.14255064500321168,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 0.24757842998951674,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 0.1499074840103276,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_08",
+      "status": "AC",
+      "seconds": 0.15571046699187718,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_09",
+      "status": "AC",
+      "seconds": 0.19091798800218385,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.3488429730059579,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.33481591999589,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.3242407260113396,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "line_00",
+      "status": "AC",
+      "seconds": 0.28081846800341737,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "line_01",
+      "status": "AC",
+      "seconds": 0.29591419200005475,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "kuhn_killer_00",
+      "status": "AC",
+      "seconds": 0.21769275300903246,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_smalls_00",
+      "status": "AC",
+      "seconds": 0.30003420599678066,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_smalls_01",
+      "status": "AC",
+      "seconds": 0.2655329199915286,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "cycle_00",
+      "status": "AC",
+      "seconds": 0.4137963179964572,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "cycle_01",
+      "status": "AC",
+      "seconds": 0.4081748089956818,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "line_random_00",
+      "status": "AC",
+      "seconds": 0.43801491099293344,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "line_random_01",
+      "status": "AC",
+      "seconds": 0.4414864580030553,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_paths_00",
+      "status": "AC",
+      "seconds": 0.6627674869960174,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_paths_01",
+      "status": "AC",
+      "seconds": 0.40662316299858503,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "many_paths_02",
+      "status": "AC",
+      "seconds": 0.3832627149968175,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1124_00",
+      "status": "AC",
+      "seconds": 0.43123388099775184,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1124_01",
+      "status": "AC",
+      "seconds": 0.19519630399008747,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1124_02",
+      "status": "AC",
+      "seconds": 0.1971227439935319,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1068_00",
+      "status": "AC",
+      "seconds": 0.05756363998807501,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1068_large_00",
+      "status": "AC",
+      "seconds": 0.17868529199040495,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1068_large_01",
+      "status": "AC",
+      "seconds": 0.17199857799278107,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1068_large_02",
+      "status": "AC",
+      "seconds": 0.2609123530128272,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1068_large_03",
+      "status": "AC",
+      "seconds": 0.172338887990918,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1068_large_04",
+      "status": "AC",
+      "seconds": 0.18035944800067227,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "issue1068_large_05",
+      "status": "AC",
+      "seconds": 0.23888826399343088,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unique_matching_00",
+      "status": "AC",
+      "seconds": 0.33660714600409847,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unique_matching_01",
+      "status": "AC",
+      "seconds": 0.35953031200915575,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unique_matching_02",
+      "status": "AC",
+      "seconds": 0.35484282800462097,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unique_matching_03",
+      "status": "AC",
+      "seconds": 0.30693571698793676,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "unique_matching_04",
+      "status": "AC",
+      "seconds": 0.2568522890069289,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "augmented_cycle_00",
+      "status": "AC",
+      "seconds": 2.0090625759912655,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "augmented_cycle_01",
+      "status": "AC",
+      "seconds": 3.9595743590034544,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "augmented_cycle_02",
+      "status": "AC",
+      "seconds": 4.796538609996787,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:11:03.259796+00:00",
+  "onlineSubmission": null
+}

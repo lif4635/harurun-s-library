@@ -1,0 +1,101 @@
+{
+  "problem": "bitwise_and_convolution",
+  "status": "local_passed",
+  "verificationKey": "d227183d4dd2bb9773b69929005fb7f541e9fef0351045be4eaf157d9f53799e",
+  "sourceSha256": "bbadfc2201ac173f355294ec943a6300824cc4234d0be93c575b438fd8343e1f",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.number_theory.ModularArithmetic",
+    "library_codex.fps.FormalPowerSeries",
+    "library_codex.bitwise_convolution.SetFunction"
+  ],
+  "problemVersion": "796d24049692a27cb2372c7da6d2c657acdd4529e06e32a0b4c9fe06218e28d7",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 13,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06450114199833479,
+      "diagnostic": "ok 8 tokens\n"
+    },
+    {
+      "name": "tiny_00",
+      "status": "AC",
+      "seconds": 0.06317244199453853,
+      "diagnostic": "ok \"309325104\"\n"
+    },
+    {
+      "name": "tiny_01",
+      "status": "AC",
+      "seconds": 0.06487170601030812,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "tiny_02",
+      "status": "AC",
+      "seconds": 0.06320868899638299,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.06495756399817765,
+      "diagnostic": "ok 32 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.0640589280083077,
+      "diagnostic": "ok 64 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.06562906599720009,
+      "diagnostic": "ok 256 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.09179068100638688,
+      "diagnostic": "ok 32768 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.10862860399356578,
+      "diagnostic": "ok 65536 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.2232823219965212,
+      "diagnostic": "ok 262144 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.7467115780018503,
+      "diagnostic": "ok 1048576 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.6841462230077013,
+      "diagnostic": "ok 1048576 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.7313859290006803,
+      "diagnostic": "ok 1048576 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-03T18:13:46.421997+00:00",
+  "onlineSubmission": null
+}
