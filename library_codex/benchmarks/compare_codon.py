@@ -19,7 +19,7 @@ from build_library_catalog import build_standalone_code
 from library_codex.benchmarks.codon_cases import CASES
 
 
-def compare(module, size, repeat, pypy, codon):
+def compare(module, size, repeat, pypy, codon, baseline_dir=None):
     if size < 2 or repeat < 1:
         raise ValueError("size >= 2 and repeat >= 1 required")
     original, _ = build_standalone_code(ROOT / (module + ".py"), ROOT)
@@ -32,20 +32,28 @@ def compare(module, size, repeat, pypy, codon):
     if versions["codon"] != "0.19.3":
         raise ValueError("AtCoder validation requires Codon 0.19.3")
     source = {"pypy": "import sys\n" + original + "\n" + solver, "codon": native + "\n" + solver}
-    samples = {"pypy": [], "codon": []}
+    if baseline_dir is not None:
+        baseline = Path(baseline_dir) / (module.rsplit("/", 1)[-1] + ".py")
+        source["baseline"] = baseline.read_text(encoding="utf-8") + "\n" + solver
+    samples = {name: [] for name in source}
+    compilation = {}
     expected = None
     with tempfile.TemporaryDirectory(prefix="library-codon-") as temporary:
         folder = Path(temporary)
         for name, code in source.items():
             (folder / (name + ".py")).write_text(code, encoding="utf-8")
-        executable = folder / "a.out"
-        command = [codon, "build", "--release", "-o", str(executable), str(folder / "codon.py")]
-        start = perf_counter()
-        build = subprocess.run(command, capture_output=True, text=True, timeout=120)
-        compile_seconds = perf_counter() - start
-        if build.returncode:
-            raise RuntimeError(build.stdout + build.stderr)
-        commands = {"pypy": [pypy, str(folder / "pypy.py")], "codon": [str(executable)]}
+        commands = {"pypy": [pypy, str(folder / "pypy.py")]}
+        for name in source:
+            if name == "pypy":
+                continue
+            executable = folder / (name + ".out")
+            command = [codon, "build", "--release", "-o", str(executable), str(folder / (name + ".py"))]
+            start = perf_counter()
+            build = subprocess.run(command, capture_output=True, text=True, timeout=120)
+            compilation[name] = perf_counter() - start
+            if build.returncode:
+                raise RuntimeError(build.stdout + build.stderr)
+            commands[name] = [str(executable)]
         for iteration in range(repeat + 1):
             for name in (commands if iteration % 2 == 0 else reversed(commands)):
                 start = perf_counter()
@@ -61,7 +69,8 @@ def compare(module, size, repeat, pypy, codon):
                     samples[name].append(elapsed)
     return {
         "module": module, "size": size, "versions": versions,
-        "platform": platform.platform(), "compileSeconds": compile_seconds,
+        "platform": platform.platform(), "compileSeconds": compilation["codon"],
+        "compilationSecondsByVariant": compilation,
         "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
         "samplesSeconds": samples,
         "medianSeconds": {name: statistics.median(values) for name, values in samples.items()},
@@ -78,6 +87,8 @@ def main():
     parser.add_argument("--pypy", default="pypy3")
     parser.add_argument("--codon", default="codon")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--baseline-dir", type=Path)
+    parser.add_argument("--baseline-label")
     args = parser.parse_args()
     if any(module not in SUPPORTED for module in args.modules):
         parser.error("unknown module")
@@ -86,7 +97,9 @@ def main():
             parser.error("executable not found: " + executable)
     rows = []
     for module in args.modules or SUPPORTED:
-        result = compare(module, args.size, args.repeat, args.pypy, args.codon)
+        result = compare(module, args.size, args.repeat, args.pypy, args.codon, args.baseline_dir)
+        if args.baseline_label:
+            result["baselineLabel"] = args.baseline_label
         rows.append(result)
         print(json.dumps(result, ensure_ascii=False), flush=True)
     if args.output:

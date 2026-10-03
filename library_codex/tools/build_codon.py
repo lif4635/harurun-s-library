@@ -29,28 +29,49 @@ def assigns(node, name):
     )
 
 
-def wide(expression):
-    root = ast.Expression(copy.deepcopy(expression))
-    stack = [(root, "body")]
-    while stack:
-        parent, field = stack.pop()
-        node = getattr(parent, field)
-        if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Sub, ast.Mult)):
-            stack.extend(((node, "left"), (node, "right")))
-        elif isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
-            stack.append((node, "operand"))
-        else:
-            cast = ast.Subscript(ast.Name("Int", ast.Load()), ast.Constant(128), ast.Load())
-            setattr(parent, field, ast.Call(cast, [node], []))
-    return root.body
+REDUCTIONS = {
+    "_multiply_naive": {"left * right": "left * (right % MOD)"},
+    "multiply": {"left * right": "left * (right % MOD)"},
+    "square": {"2 * left * series[offset]": "2 * left * (series[offset] % MOD)"},
+    "fps_add": {"first[index] + second[index]": "first[index] % mod + second[index] % mod"},
+    "fps_sub": {
+        "first[index] - second[index]": "first[index] % mod - second[index] % mod",
+        "-second[index]": "-(second[index] % mod)",
+    },
+    "fps_neg": {"-value": "-(value % MOD)"},
+    "fps_diff": {"index * series[index]": "index * (series[index] % mod)"},
+    "fps_integral": {"value * inverse[index]": "(value % mod) * inverse[index]"},
+    "fps_eval": {"result * value + coefficient": "result * value + coefficient % mod"},
+    "_fps_log_sparse": {"(index + 1) * series[index + 1]": "(index + 1) * (series[index + 1] % MOD)"},
+    "_fps_power_unit_sparse": {
+        "exponent + 1": "exponent % MOD + 1",
+        "factor * offset * coefficient": "(factor * offset % MOD) * coefficient",
+    },
+    "_fps_exp_ntt": {"x[index] + series[index]": "x[index] + series[index] % mod"},
+    "fps_pow": {
+        "value * inverse_coefficient": "(value % MOD) * inverse_coefficient",
+        "logarithm[index] * exponent": "logarithm[index] * (exponent % MOD)",
+    },
+    "fps_sqrt": {
+        "(source_frequency[index] - value * value) * inverse_frequency[index]":
+            "((source_frequency[index] - value * value) % MOD) * inverse_frequency[index]",
+    },
+    "taylor_shift": {"series[index] * factorial[index]": "(series[index] % MOD) * factorial[index]"},
+}
 
 
 class CodonTransformer(ast.NodeTransformer):
     def __init__(self, modular):
         self.modular = modular
         self.array_names = set()
+        self.reductions = {}
+        self.reduced = {}
 
     def visit_FunctionDef(self, node):
+        previous = self.reductions, self.reduced
+        name = node.name.removeprefix("_convolution_ntt998")
+        self.reductions = REDUCTIONS.get(name, {}) if self.modular else {}
+        self.reduced = {key: 0 for key in self.reductions}
         if self.modular:
             if node.name == "fps_sqrt":
                 node.returns = ast.parse("Optional[list[int]]", mode="eval").body
@@ -63,7 +84,11 @@ class CodonTransformer(ast.NodeTransformer):
                     argument.annotation = ast.Subscript(ast.Name("list", ast.Load()), ast.Name("int", ast.Load()), ast.Load())
                 if argument.arg == "polynomials":
                     argument.annotation = ast.parse("list[list[int]]", mode="eval").body
-        return self.generic_visit(node)
+        node = self.generic_visit(node)
+        if any(count != 1 for count in self.reduced.values()):
+            raise ValueError(node.name + " arithmetic changed; review Codon conversion")
+        self.reductions, self.reduced = previous
+        return node
 
     def visit_ImportFrom(self, node):
         if node.module == "array":
@@ -131,15 +156,24 @@ class CodonTransformer(ast.NodeTransformer):
         return node
 
     def visit_BinOp(self, node):
+        key = ast.unparse(node)
+        if key in self.reductions:
+            self.reduced[key] += 1
+            return ast.parse(self.reductions[key], mode="eval").body
         node = self.generic_visit(node)
         if isinstance(node.op, ast.Mod) and isinstance(node.left, ast.Constant) and isinstance(node.left.value, str):
             text = node.left.value
             if text.count("%") == 1 and "%r" in text:
                 first, last = text.split("%r")
                 return ast.JoinedStr([ast.Constant(first), ast.FormattedValue(node.right, 114, None), ast.Constant(last)])
-        if self.modular and isinstance(node.op, ast.Mod):
-            return ast.Call(ast.Name("_codon_mod", ast.Load()), [wide(node.left), wide(node.right)], [])
         return node
+
+    def visit_UnaryOp(self, node):
+        key = ast.unparse(node)
+        if key in self.reductions:
+            self.reduced[key] += 1
+            return ast.parse(self.reductions[key], mode="eval").body
+        return self.generic_visit(node)
 
     def visit_AugAssign(self, node):
         node = self.generic_visit(node)
@@ -147,8 +181,8 @@ class CodonTransformer(ast.NodeTransformer):
         if self.modular and accumulation and isinstance(node.op, (ast.Add, ast.Sub)):
             target = copy.deepcopy(node.target)
             target.ctx = ast.Load()
-            value = ast.BinOp(wide(target), node.op, wide(node.value))
-            reduced = ast.Call(ast.Name("_codon_mod", ast.Load()), [value, wide(ast.Name("MOD", ast.Load()))], [])
+            value = ast.BinOp(target, node.op, node.value)
+            reduced = ast.BinOp(value, ast.Mod(), ast.Name("MOD", ast.Load()))
             return ast.Assign([node.target], reduced)
         return node
 

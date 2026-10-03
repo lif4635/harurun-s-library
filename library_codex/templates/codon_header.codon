@@ -1,5 +1,17 @@
 import sys
 
+@pure
+@llvm
+def _codon_srem(value: int, mod: int) -> int:
+    %result = srem i64 %value, %mod
+    ret i64 %result
+
+@pure
+@llvm
+def _codon_sdiv(value: int, divisor: int) -> int:
+    %result = sdiv i64 %value, %divisor
+    ret i64 %result
+
 @extend
 class File:
     def readline(self):
@@ -11,17 +23,18 @@ class File:
 class int:
     @overload
     def __mod__(self, other: int):
-        return _codon_mod(Int[128](self), Int[128](other))
+        return _codon_mod(self, other)
 
     @overload
     def __floordiv__(self, other: int):
-        a, b = Int[128](self), Int[128](other)
-        if b == Int[128](0):
+        if other == 0:
             raise ZeroDivisionError("integer division by zero")
-        q = a // b
-        if a % b and (a < Int[128](0)) != (b < Int[128](0)):
-            q -= Int[128](1)
-        return int(q)
+        if self == -9223372036854775807 - 1 and other == -1:
+            raise OverflowError("integer division exceeds signed 64bit")
+        q = _codon_sdiv(self, other)
+        if _codon_srem(self, other) and (self < 0) != (other < 0):
+            q -= 1
+        return q
 
     @pure
     @llvm
@@ -44,7 +57,17 @@ class int:
     def __rshift__(self, other: bool):
         return self >> int(other)
 
-def _codon_mod(value: Int[128], mod: Int[128]):
+def _codon_mod(value: int, mod: int):
+    if mod == 0:
+        raise ZeroDivisionError("integer modulo by zero")
+    if mod == -1:
+        return 0
+    result = _codon_srem(value, mod)
+    if result and (result < 0) != (mod < 0):
+        result += mod
+    return result
+
+def _codon_mod_wide(value: Int[128], mod: Int[128]):
     if mod == Int[128](0):
         raise ZeroDivisionError("integer modulo by zero")
     result = value % mod
@@ -53,13 +76,37 @@ def _codon_mod(value: Int[128], mod: Int[128]):
     return int(result)
 
 def _codon_pow(base: int, exponent: int, modulus: int):
+    if modulus == 998244353 or modulus == -998244353:
+        value = base % 998244353
+        power = UInt[64](exponent)
+        if exponent < 0:
+            if value == 0:
+                raise ValueError("base is not invertible for the given modulus")
+            value = _codon_pow_positive(value, UInt[64](998244351))
+            power = UInt[64](0) - power
+        result = _codon_pow_positive(value, power)
+        if modulus < 0 and result:
+            result -= 998244353
+        return result
+    return _codon_pow_wide(base, exponent, modulus)
+
+def _codon_pow_positive(value: int, power: UInt[64]):
+    result = 1
+    while power:
+        if power & UInt[64](1):
+            result = result * value % 998244353
+        value = value * value % 998244353
+        power >>= UInt[64](1)
+    return result
+
+def _codon_pow_wide(base: int, exponent: int, modulus: int):
     if modulus == 0:
         raise ValueError("pow() modulus must be nonzero")
     mod = Int[128](modulus)
     negative = mod < Int[128](0)
     if negative:
         mod = -mod
-    value = Int[128](_codon_mod(Int[128](base), mod))
+    value = Int[128](_codon_mod_wide(Int[128](base), mod))
     power = Int[128](exponent)
     if power < Int[128](0):
         a, b = value, mod
@@ -70,7 +117,7 @@ def _codon_pow(base: int, exponent: int, modulus: int):
             x, y = y, x - q * y
         if a != Int[128](1):
             raise ValueError("base is not invertible for the given modulus")
-        value = Int[128](_codon_mod(x, mod))
+        value = Int[128](_codon_mod_wide(x, mod))
         power = -power
     result = Int[128](1) % mod
     while power:

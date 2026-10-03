@@ -32,11 +32,22 @@ def test_unknown_module_is_rejected():
         build_codon.generate("tree/HeavyLightDecomposition")
 
 
-def test_widening_happens_before_multiplication():
-    original = ast.parse("-(a * b) + c", mode="eval").body
-    transformed = build_codon.wide(original)
-    assert ast.unparse(transformed) == "-(Int[128](a) * Int[128](b)) + Int[128](c)"
-    assert ast.unparse(original) == "-(a * b) + c"
+def test_modular_body_stays_64bit():
+    code = build_codon.generate("fps998/FPS")
+    body = code[len(build_codon.HEADER.read_text(encoding="utf-8").rstrip()):]
+    assert "Int[128]" not in body
+    assert "(source_frequency[index] - value * value) % MOD" in body
+    assert "factor * offset % MOD" in body
+    assert "right % MOD" in body
+    tree = ast.parse(body)
+    naive = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name.endswith("multiply_naive"))
+    assert "right % MOD" in ast.unparse(naive)
+
+
+def test_arithmetic_change_fails_closed():
+    for name in build_codon.REDUCTIONS:
+        with pytest.raises(ValueError, match="arithmetic changed"):
+            build_codon.CodonTransformer(True).visit(ast.parse("def " + name + "():\n return 0"))
 
 
 def test_transform_only_rewrites_known_cache_get():
@@ -113,10 +124,13 @@ def test_header_integer_boundaries_and_input(codon, tmp_path):
     solver = '''
 for value in [0, 1, -1, 2, -7, 9223372036854775807, -9223372036854775807-1]:
     print(value.bit_length(), value.bit_count())
-    for divisor in [-998244353, -3, 3, 998244353]:
-        print(value // divisor, value % divisor)
+    for divisor in [-9223372036854775807-1, -998244353, -3, -1, 1, 3, 998244353, 9223372036854775807]:
+        if value != -9223372036854775807-1 or divisor != -1:
+            print(value // divisor, value % divisor)
+        else:
+            print(value % divisor)
 for base in [-9223372036854775807-1, -17, 0, 1, 17, 9223372036854775807]:
-    for exponent in [-2, -1, 0, 1, 100]:
+    for exponent in [-9223372036854775807-1, -2, -1, 0, 1, 100, 9223372036854775807]:
         for modulus in [-9223372036854775807-1, -998244353, -1, 1, 998244353, 9223372036854775783]:
             try:
                 print(pow(base, exponent, modulus))
@@ -124,10 +138,26 @@ for base in [-9223372036854775807-1, -17, 0, 1, 17, 9223372036854775807]:
                 print("ValueError")
 for i in range(5):
     print(repr(sys.stdin.readline()))
+for divisor in [0]:
+    try:
+        print(1 // divisor)
+    except ZeroDivisionError:
+        print("ZeroDivisionError")
+    try:
+        print(1 % divisor)
+    except ZeroDivisionError:
+        print("ZeroDivisionError")
 '''
     reference = tmp_path / "reference.py"
     reference.write_text("import sys\n" + solver, encoding="utf-8")
     stdin = "one\n\nthree\n"
     expected = subprocess.check_output([sys.executable, str(reference)], input=stdin, text=True, timeout=30)
     native = build_codon.HEADER.read_text(encoding="utf-8") + solver.replace("pow(base,", "_codon_pow(base,")
-    assert compile_run(codon, tmp_path / "header.py", native, stdin) == expected
+    native += '''
+for value in [-9223372036854775807-1]:
+    try:
+        print(value // -1)
+    except OverflowError:
+        print("OverflowError")
+'''
+    assert compile_run(codon, tmp_path / "header.py", native, stdin) == expected + "OverflowError\n"

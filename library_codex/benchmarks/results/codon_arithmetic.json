@@ -1,0 +1,90 @@
+[
+  {
+    "module": "convolution/NTT998",
+    "size": 131072,
+    "versions": {
+      "codon": "0.19.3",
+      "pypy": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]"
+    },
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "compileSeconds": 5.331597124997643,
+    "compilationSecondsByVariant": {
+      "codon": 5.331597124997643,
+      "baseline": 5.56680857000174
+    },
+    "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
+    "samplesSeconds": {
+      "pypy": [
+        0.38539601500087883,
+        0.33608042600099,
+        0.35236515100405086
+      ],
+      "codon": [
+        0.19916798701160587,
+        0.19973648799350485,
+        0.17635347599571105
+      ],
+      "baseline": [
+        0.34278634400106966,
+        0.2939573490002658,
+        0.298861757008126
+      ]
+    },
+    "medianSeconds": {
+      "pypy": 0.35236515100405086,
+      "codon": 0.19916798701160587,
+      "baseline": 0.298861757008126
+    },
+    "sourceSha256": {
+      "pypy": "be246e6c1899a2c0fc720e3738491ce28f3312aacae0923cf8c69606f7860363",
+      "codon": "cd86a9ec8ffb8add4a4cfba99053eb57bcf20d4649e9ec7ade37cf238c637e4e",
+      "baseline": "60632774d49dbdce5a9c36e5f1a2d09ef33994a3b85d958cdf9196d433a57654"
+    },
+    "outputSha256": "ec42635fc2648be883563955f156aca55528cb59b3c745138da8ef43da6cd0a2",
+    "baselineLabel": "1277a19075afbbae17fea563bfa524736e1d1cb4"
+  },
+  {
+    "module": "fps998/FPS",
+    "size": 131072,
+    "versions": {
+      "codon": "0.19.3",
+      "pypy": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]"
+    },
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "compileSeconds": 7.797585882013664,
+    "compilationSecondsByVariant": {
+      "codon": 7.797585882013664,
+      "baseline": 8.799821584994788
+    },
+    "timing": "fresh sequential processes; one discarded process per runtime; compilation excluded; startup and IO included",
+    "samplesSeconds": {
+      "pypy": [
+        2.640795874001924,
+        2.5641922320064623,
+        2.469410333011183
+      ],
+      "codon": [
+        1.0188889679993736,
+        1.0136990640021395,
+        1.281750608002767
+      ],
+      "baseline": [
+        2.423015998007031,
+        2.354847113994765,
+        2.4700354000087827
+      ]
+    },
+    "medianSeconds": {
+      "pypy": 2.5641922320064623,
+      "codon": 1.0188889679993736,
+      "baseline": 2.423015998007031
+    },
+    "sourceSha256": {
+      "pypy": "c81455ed658de117b8a8989db2a79da7d42ec3a11ca46f6fafb0df8bb54f5702",
+      "codon": "6fabf86d18f64bec16bb5a2d5657e63e7e7f82dc373c7898eaa5b5ba187c304a",
+      "baseline": "0e943d201e55688baa520a82252f216bd46515ee15a210cef5ce9d29b1fd24c6"
+    },
+    "outputSha256": "2fc2009a1787d1ed528aa881247fc723e9fc549a9d56a2ab17cd276e35813a46",
+    "baselineLabel": "1277a19075afbbae17fea563bfa524736e1d1cb4"
+  }
+]

@@ -147,6 +147,13 @@ for size in range(1, 82):
     assert result == expected
     print(result)
 print(multiply([9223372036854775807], [-9223372036854775807]), square([-9223372036854775807]))
+limits = [-9223372036854775807-1, 9223372036854775807, MOD-1]
+for first_size, second_size in [(60, 61), (63, 66), (8221, 100)]:
+    first = [limits[i % 3] for i in range(first_size)]
+    second = [limits[(i+1) % 3] for i in range(second_size)]
+    print(multiply(first, second))
+for size in [59, 60, 61]:
+    print(square([limits[i % 3] for i in range(size)]))
 ''',
     "fps998/FPS": '''
 for size in range(1, 40):
@@ -154,5 +161,14 @@ for size in range(1, 40):
     print(fps_inv(a), fps_log(a), fps_pow(a, -2), fps_div([1], a, size))
     print(fps_exp([0] + a[1:]), taylor_shift(a, -37))
     print(fps_sqrt(multiply(a, a), size), fps_product([a, [1,2,3]]))
+limits = [-9223372036854775807-1, 9223372036854775807, MOD-1]
+for size in [32, 33, 160, 161, 200, 201, 320, 321]:
+    a = [1] + [limits[i % 3] for i in range(size)]
+    b = [0] + a[1:]
+    print(fps_inv(a, 400), fps_div(b, a, 400), fps_log(a, 400), fps_exp(b, 400))
+    print(fps_add(a, a), fps_sub(a, list(reversed(a))), fps_neg(a))
+    print(fps_diff(a), fps_integral(a), taylor_shift(a, limits[0]), fps_eval(a, limits[1]))
+    print(fps_pow(a, limits[0], 64), fps_pow(a, limits[1], 64))
+    print(fps_sqrt(multiply(a, a), 400))
 ''',
 }
