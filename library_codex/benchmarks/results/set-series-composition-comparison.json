@@ -1,0 +1,355 @@
+{
+  "measuredAt": "2026-10-04T17:45:30.536570+00:00",
+  "problem": "polynomial_composite_set_power_series",
+  "snapshot": {
+    "retrievedAt": "2026-10-04T10:31:23.514245+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "polynomial_composite_set_power_series",
+    "problemInfo": {
+      "overall_version": "aaac6f9d7dce6df1d385abd26ad55e3dfcb282a9f4a9bd86e515deba3e6a28c5",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/set_power_series/polynomial_composite_set_power_series",
+      "testcases_version": "4c00d46fa2561ee2df5fd05bb3dfb69372a6739563a2b74ad1f54e7cccac2927",
+      "time_limit": 10,
+      "title": "Polynomial Composite Set Power Series",
+      "version": "e2f6a15065ddd999b8919fc0f2c02b56b0c6671b8fba63393c499ddacf104595"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 302939,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 435752960,
+        "problem_name": "polynomial_composite_set_power_series",
+        "problem_title": "Polynomial Composite Set Power Series",
+        "status": "AC",
+        "submission_time": "2025-07-25T20:00:20.660202Z",
+        "time": 2.127,
+        "user_name": "kobejean",
+        "sourceFile": "302939.py",
+        "sourceSha256": "086c3e417f8ac5f0a491cb97f4a20f0d6cae99cb2c9e66bc758fc5a74683bb68",
+        "url": "https://judge.yosupo.jp/submission/302939"
+      }
+    ]
+  },
+  "officialHashSha256": "c8b70b2dcd13153febf3b4404260e6ab59a417592a5de770154f895eb062654c",
+  "checkerSha256": "9141417f9200aa8cd1ddcb4cf20607f975d65fc9001a99099af0ac03f969f70b",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 5,
+  "seed": 92471,
+  "sourceSha256": {
+    "302939": "086c3e417f8ac5f0a491cb97f4a20f0d6cae99cb2c9e66bc758fc5a74683bb68",
+    "library": "63cb091c21fe90160a7d6946cd50774191652048b69aedebba58ca3e329056d6"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "f7942ac321f6b9ca2ed5288b9d75d9d63c3d0bf51ca8b123c06d148956dfaa18",
+      "implementations": {
+        "302939": {
+          "samples": [
+            {
+              "seconds": 3.5381749770021997,
+              "peakRssKiB": 446760,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 3.536832971003605,
+              "peakRssKiB": 446644,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 4.6134754460072145,
+              "peakRssKiB": 446916,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 3.422826519003138,
+              "peakRssKiB": 446844,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 4.066161301016109,
+              "peakRssKiB": 446808,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            }
+          ],
+          "medianSeconds": 3.5381749770021997,
+          "peakRssKiB": 446916
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 5.940204716986045,
+              "peakRssKiB": 368160,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 5.8824190070154145,
+              "peakRssKiB": 358092,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 5.983402072015451,
+              "peakRssKiB": 368144,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 5.450017980008852,
+              "peakRssKiB": 358032,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            },
+            {
+              "seconds": 5.9128546259889845,
+              "peakRssKiB": 358112,
+              "outputSha256": "d15f1f12e14dd9ef487c833192cfe3e33a450275c9acf953692458e033591354"
+            }
+          ],
+          "medianSeconds": 5.9128546259889845,
+          "peakRssKiB": 368160
+        }
+      }
+    },
+    {
+      "case": "max_random_01",
+      "inputSha256": "bb670fceeacfbdd977c3745872c30ce0f020169f04b142d4120e1fc592f0f993",
+      "implementations": {
+        "302939": {
+          "samples": [
+            {
+              "seconds": 4.128290125983767,
+              "peakRssKiB": 446884,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 3.691698731010547,
+              "peakRssKiB": 446880,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 3.7260200629825704,
+              "peakRssKiB": 446920,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 4.320098752010381,
+              "peakRssKiB": 446940,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 3.5953377510013524,
+              "peakRssKiB": 446880,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            }
+          ],
+          "medianSeconds": 3.7260200629825704,
+          "peakRssKiB": 446940
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 6.403838528989581,
+              "peakRssKiB": 368200,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 5.893201597005827,
+              "peakRssKiB": 368192,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 6.640086189989233,
+              "peakRssKiB": 368208,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 5.691132480016677,
+              "peakRssKiB": 368232,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            },
+            {
+              "seconds": 5.740398191992426,
+              "peakRssKiB": 368220,
+              "outputSha256": "39766009fb9b6e5c1d633414427dd839c412676a61fcdfa706d75572feca0e02"
+            }
+          ],
+          "medianSeconds": 5.893201597005827,
+          "peakRssKiB": 368232
+        }
+      }
+    },
+    {
+      "case": "max_random_02",
+      "inputSha256": "04b18a2e8f223f6a9706d7d0ec4228ba3beabf5ad6f48d0f0600cb50c75abefd",
+      "implementations": {
+        "302939": {
+          "samples": [
+            {
+              "seconds": 3.859555528004421,
+              "peakRssKiB": 446880,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 3.9681309669977054,
+              "peakRssKiB": 446944,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 3.7500069410016295,
+              "peakRssKiB": 446812,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 3.5434534329979215,
+              "peakRssKiB": 446772,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 3.5495178019918967,
+              "peakRssKiB": 446840,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            }
+          ],
+          "medianSeconds": 3.7500069410016295,
+          "peakRssKiB": 446944
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 5.880094888998428,
+              "peakRssKiB": 368208,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 5.940192559995921,
+              "peakRssKiB": 368152,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 5.539479538012529,
+              "peakRssKiB": 368220,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 5.168971989012789,
+              "peakRssKiB": 368152,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            },
+            {
+              "seconds": 5.2360467439866625,
+              "peakRssKiB": 357980,
+              "outputSha256": "fc8e5ffdb7788883e0d8cbfe21835aaf30822d583e03d15eb0a4749576bb6c44"
+            }
+          ],
+          "medianSeconds": 5.539479538012529,
+          "peakRssKiB": 368220
+        }
+      }
+    }
+  ]
+}

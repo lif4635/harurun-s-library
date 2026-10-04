@@ -694,6 +694,7 @@ API_DETAILS_BY_SYMBOL = {
             "signed": (
                 r"Falseなら符号なし $c(n,k)$、Trueなら符号付き $s(n,k)$ を返す。"
             ),
+            "mod": "法。orderより大きい素数を指定する。",
         },
         "returnFormat": "list[int]",
         "returnDescription": (
@@ -708,6 +709,7 @@ API_DETAILS_BY_SYMBOL = {
         ),
         "argumentDescriptions": {
             "order": r"固定する第1引数 $n$。",
+            "mod": "法。orderより大きい素数を指定する。",
         },
         "returnFormat": "list[int]",
         "returnDescription": (
@@ -723,12 +725,13 @@ API_DETAILS_BY_SYMBOL = {
         "argumentDescriptions": {
             "column": r"固定する第2引数 $k$。",
             "upper": r"求める最大の第1引数 $n$。この値を含む。",
+            "mod": "法。upperより大きい素数を指定する。",
         },
         "returnFormat": "list[int]",
         "returnDescription": (
             r"長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。"
             r"$\mathrm{result}[n]=c(n,\mathrm{column})$ で、"
-            r"$n<\mathrm{column}$ の要素は0。"
+            r"$n<\mathrm{column}$ の要素は0。upper < columnなら空list。"
         ),
     },
     ("combinatorial_series/StirlingNumbers.py", None, "stirling_second_column"): {
@@ -739,12 +742,13 @@ API_DETAILS_BY_SYMBOL = {
         "argumentDescriptions": {
             "column": r"固定する第2引数 $k$。",
             "upper": r"求める最大の第1引数 $n$。この値を含む。",
+            "mod": "法。upperより大きい素数を指定する。",
         },
         "returnFormat": "list[int]",
         "returnDescription": (
             r"長さ $\mathrm{upper}+1$ の列 $\mathrm{result}$。"
             r"$\mathrm{result}[n]=S(n,\mathrm{column})$ で、"
-            r"$n<\mathrm{column}$ の要素は0。"
+            r"$n<\mathrm{column}$ の要素は0。upper < columnなら空list。"
         ),
     },
     ("tree/AuxiliaryTree.py", "AuxiliaryTree", "get"): {
@@ -3649,10 +3653,10 @@ COMPLEXITY_BY_MODULE.update({
         "prefix_sum_powers": "O(M(K)) modular operations",
     },
     "combinatorial_series/StirlingNumbers.py": {
-        "stirling_first_row": "O(M(N) log N) modular operations",
-        "stirling_second_row": "O(M(N)) modular operations",
-        "stirling_first_column": "O(M(N) log column) modular operations",
-        "stirling_second_column": "O(M(N) log column) modular operations",
+        "stirling_first_row": "O(M(n))（n=order+1。M(l)は長さlの畳み込みの計算量）",
+        "stirling_second_row": "O(M(n) + n log n)（n=order+1。M(l)は長さlの畳み込みの計算量）",
+        "stirling_first_column": "O(n + M(n-k+1))（n=upper、k=column。M(l)は長さlの畳み込みの計算量。k≤2はO(n)）",
+        "stirling_second_column": "O(n + M(n-k+1))（n=upper、k=column。M(l)は長さlの畳み込みの計算量。k≤2はO(n)）",
     },
 })
 

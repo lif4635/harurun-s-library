@@ -33,7 +33,6 @@ combinatorial_series/PolynomialMobiusTransform
 combinatorial_series/PowerSums
 combinatorial_series/PRecursive
 combinatorial_series/StirlingMatrix
-combinatorial_series/StirlingNumbers
 combinatorics/ArbitraryBinomial
 combinatorics/BinomialQueries
 combinatorics/Combination

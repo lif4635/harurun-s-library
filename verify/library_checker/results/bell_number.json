@@ -1,0 +1,89 @@
+{
+  "problem": "bell_number",
+  "status": "local_passed",
+  "verificationKey": "4206e41d03f03a527501f340373b25418928bd5ef15c8e0675839e3690d69e54",
+  "sourceSha256": "929d745b3ca8607a2c005b6056990f291f65bd5b9d3f2f788bb0f5ddbfd42ac4",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.number_theory.ModularArithmetic",
+    "library_codex.fps.FormalPowerSeries",
+    "library_codex.combinatorial_series.BellNumbers"
+  ],
+  "problemVersion": "9f5e95bb2fb9eb577810f999efc30bf980a5043d0d34f6934ed2f19ab32a85cf",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 11,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06434759401599877,
+      "diagnostic": "ok 11 tokens\n"
+    },
+    {
+      "name": "0_00",
+      "status": "AC",
+      "seconds": 0.06113958798232488,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "1_00",
+      "status": "AC",
+      "seconds": 0.06496670100023039,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "100_00",
+      "status": "AC",
+      "seconds": 0.07796526400488801,
+      "diagnostic": "ok 101 tokens\n"
+    },
+    {
+      "name": "1000_00",
+      "status": "AC",
+      "seconds": 0.09433153801364824,
+      "diagnostic": "ok 1001 tokens\n"
+    },
+    {
+      "name": "10000_00",
+      "status": "AC",
+      "seconds": 0.12737699801800773,
+      "diagnostic": "ok 10001 tokens\n"
+    },
+    {
+      "name": "100000_00",
+      "status": "AC",
+      "seconds": 0.3787446510104928,
+      "diagnostic": "ok 100001 tokens\n"
+    },
+    {
+      "name": "200000_00",
+      "status": "AC",
+      "seconds": 0.5928285469999537,
+      "diagnostic": "ok 200001 tokens\n"
+    },
+    {
+      "name": "300000_00",
+      "status": "AC",
+      "seconds": 1.0500947590044234,
+      "diagnostic": "ok 300001 tokens\n"
+    },
+    {
+      "name": "400000_00",
+      "status": "AC",
+      "seconds": 0.9950605370104313,
+      "diagnostic": "ok 400001 tokens\n"
+    },
+    {
+      "name": "500000_00",
+      "status": "AC",
+      "seconds": 1.0176529659947846,
+      "diagnostic": "ok 500001 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T10:22:16.223591+00:00",
+  "onlineSubmission": null
+}

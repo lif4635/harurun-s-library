@@ -2,12 +2,8 @@
 
 from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
-    fps_exponential,
-    fps_inverse,
-    fps_logarithm,
     fps_multiply,
     fps_power,
-    fps_shrink,
     fps_taylor_shift,
 )
 
@@ -68,7 +64,20 @@ def stirling_first_column(column, upper, mod=DEFAULT_MOD):
     if upper < column:
         return []
     factorial, inverse_factorial = _factorials(upper, mod)
-    logarithm = [0] + [pow(index, -1, mod) for index in range(1, upper + 1)]
+    if column == 0:
+        return [1] + [0] * upper
+    if column == 1:
+        return [0] + factorial[:upper]
+    if column == 2:
+        result = [0] * (upper + 1)
+        harmonic = 0
+        for index in range(2, upper + 1):
+            harmonic = (harmonic + factorial[index - 2] * inverse_factorial[index - 1]) % mod
+            result[index] = factorial[index - 1] * harmonic % mod
+        return result
+    needed = upper - column + 1
+    logarithm = [0] + [factorial[index - 1] * inverse_factorial[index] % mod
+                       for index in range(1, needed + 1)]
     values = fps_power(logarithm, column, upper + 1, mod)
     scale = inverse_factorial[column]
     result = [0] * (upper + 1)
@@ -83,7 +92,18 @@ def stirling_second_column(column, upper, mod=DEFAULT_MOD):
     if upper < column:
         return []
     factorial, inverse_factorial = _factorials(upper, mod)
-    exponential_minus_one = [0] + inverse_factorial[1:]
+    if column == 0:
+        return [1] + [0] * upper
+    if column == 1:
+        return [0] + [1] * upper
+    if column == 2:
+        result = [0] * (upper + 1)
+        value = 0
+        for index in range(2, upper + 1):
+            value = (2 * value + 1) % mod
+            result[index] = value
+        return result
+    exponential_minus_one = [0] + inverse_factorial[1:upper - column + 2]
     values = fps_power(exponential_minus_one, column, upper + 1, mod)
     scale = inverse_factorial[column]
     result = [0] * (upper + 1)

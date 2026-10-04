@@ -286,3 +286,32 @@ pypy3 library_codex/benchmarks/library_checker.py fetch --problem subset_convolu
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/subset_convolution-pypy3.json --reviewed 389773 --problem /home/harurun/.cache/harurun-library-checker/problems/set_power_series/subset_convolution --cases max_random_00 random_00 hack01_00 --variant library=library_codex/benchmarks/baselines/subset_convolution.py --repeat 5 --output library_codex/benchmarks/results/subset-convolution-comparison.json
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/subset_convolution-pypy3.json --reviewed 389773 --problem /home/harurun/.cache/harurun-library-checker/problems/set_power_series/subset_convolution --cases max_random_00 random_00 hack01_00 --variant baseline=library_codex/benchmarks/baselines/subset_convolution.py --variant candidate=library_codex/benchmarks/experiments/subset_convolution_normalized.py --repeat 5 --output library_codex/benchmarks/results/subset-convolution-normalized-comparison.json
 ```
+
+## 数え上げ・集合冪級数の追加検査（2026-10-05）
+
+Bell数・Bernoulli数・分割数、第一種・第二種Stirling数の行と列、集合冪級数の合成・power projectionの9問を追加した。公式revision `1814c4e`の129ケースをすべてPyPyで通過し、累計109問・2439ケースになった。オンライン提出は行っていない。
+
+9問それぞれで公式検査の遅かった3ケースを各5回、計135回再測定した。[問題別の生データと一覧](../../verify/library_checker/benchmarks/README.md)へ保存した。反復測定を保存済みの問題は累計33問で、109問すべてを反復したわけではない。
+
+採用版は専用・関連テスト5件、通常のquickテスト124件、quick性能検査を通過した。全ライブラリのfull検査は今回再実行していない。
+
+Stirling数の列は、Kが0・1・2の専用計算、逆数の重複計算削減、必要な次数までの切り詰めを採用した。K=1・2では約1.7〜2.1秒から0.09〜0.13秒へ短縮したが、一般のKは上位PyPy提出に約2.2〜2.3倍の時間がかかる。[比較条件・全ケースの表・未採用案](STIRLING_BENCHMARK.md)へ記録した。
+
+### 集合冪級数の合成
+
+取得時点の「最新問題版・AC・PyPy3・時間昇順」の先頭は[302939 / kobejean](https://judge.yosupo.jp/submission/302939)。sourceを確認し、同一の公式最大ケースを各5回比較した。WSL・AMD Ryzen 7 3700X・PyPy 3.10.14 / 7.3.16、新規process、起動・JIT・入出力込みの中央値。実行順を入れ替え、全出力を公式checkerで検査した。
+
+| 公式ケース | ライブラリ | 上位PyPy提出 |
+| --- | ---: | ---: |
+| max_random_00 | 5.913秒 | 3.538秒 |
+| max_random_01 | 5.893秒 | 3.726秒 |
+| max_random_02 | 5.539秒 | 3.750秒 |
+
+比較範囲では約1.48〜1.67倍の時間がかかる。最大RSSはライブラリ368232 KiB、参照446944 KiBで、ライブラリの方が少ない。sourceと入力のhash、各回の時間・RSSは[結果JSON](../benchmarks/results/set-series-composition-comparison.json)に保存した。
+
+参照実装はrank別の配列と、入力blockのranked zeta変換の再利用を使う。合成の途中結果も変換後の表現で保持している。これは次の改善候補であり、今回の本体には移植していない。時間差の内訳をprofileで特定したわけでもない。
+
+```sh
+pypy3 library_codex/benchmarks/library_checker.py fetch --problem polynomial_composite_set_power_series --language pypy3 --top 1 --cache ../lc-matching-reference
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/polynomial_composite_set_power_series-pypy3.json --reviewed 302939 --problem /home/harurun/.cache/harurun-library-checker/problems/set_power_series/polynomial_composite_set_power_series --cases max_random_00 max_random_01 max_random_02 --variant library=verify/library_checker/solutions/polynomial_composite_set_power_series.py --repeat 5 --output library_codex/benchmarks/results/set-series-composition-comparison.json
+```

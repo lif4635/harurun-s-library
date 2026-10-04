@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 100,
-    "unimplemented": 153
+    "local_passed": 109,
+    "unimplemented": 144
   },
   "problems": [
     {
@@ -104,20 +104,30 @@
       "title": "Bell Number",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/bell_number",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.BellNumbers"
+      ],
+      "solution": "solutions/bell_number.py",
+      "result": "results/bell_number.json"
     },
     {
       "name": "bernoulli_number",
       "title": "Bernoulli Number",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/bernoulli_number",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.BernoulliNumbers"
+      ],
+      "solution": "solutions/bernoulli_number.py",
+      "result": "results/bernoulli_number.json"
     },
     {
       "name": "biconnected_components",
@@ -1664,10 +1674,15 @@
       "title": "Partition Function",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/partition_function",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.PartitionNumbers"
+      ],
+      "solution": "solutions/partition_function.py",
+      "result": "results/partition_function.json"
     },
     {
       "name": "persistent_queue",
@@ -1800,10 +1815,15 @@
       "title": "Polynomial Composite Set Power Series",
       "category": "set_power_series",
       "url": "https://judge.yosupo.jp/problem/polynomial_composite_set_power_series",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.bitwise_convolution.SetFunction"
+      ],
+      "solution": "solutions/polynomial_composite_set_power_series.py",
+      "result": "results/polynomial_composite_set_power_series.json"
     },
     {
       "name": "polynomial_interpolation",
@@ -1893,10 +1913,15 @@
       "title": "Power Projection of Set Power Series",
       "category": "set_power_series",
       "url": "https://judge.yosupo.jp/problem/power_projection_of_set_power_series",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.bitwise_convolution.SetFunction"
+      ],
+      "solution": "solutions/power_projection_of_set_power_series.py",
+      "result": "results/power_projection_of_set_power_series.json"
     },
     {
       "name": "predecessor_problem",
@@ -2418,20 +2443,30 @@
       "title": "Stirling Number of the First Kind",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.StirlingNumbers"
+      ],
+      "solution": "solutions/stirling_number_of_the_first_kind.py",
+      "result": "results/stirling_number_of_the_first_kind.json"
     },
     {
       "name": "stirling_number_of_the_first_kind_fixed_k",
       "title": "Stirling Number of the First Kind (Fixed K)",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind_fixed_k",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.StirlingNumbers"
+      ],
+      "solution": "solutions/stirling_number_of_the_first_kind_fixed_k.py",
+      "result": "results/stirling_number_of_the_first_kind_fixed_k.json"
     },
     {
       "name": "stirling_number_of_the_first_kind_small_p_large_n",
@@ -2448,20 +2483,30 @@
       "title": "Stirling Number of the Second Kind",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.StirlingNumbers"
+      ],
+      "solution": "solutions/stirling_number_of_the_second_kind.py",
+      "result": "results/stirling_number_of_the_second_kind.json"
     },
     {
       "name": "stirling_number_of_the_second_kind_fixed_k",
       "title": "Stirling Number of the Second Kind (Fixed K)",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind_fixed_k",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.StirlingNumbers"
+      ],
+      "solution": "solutions/stirling_number_of_the_second_kind_fixed_k.py",
+      "result": "results/stirling_number_of_the_second_kind_fixed_k.json"
     },
     {
       "name": "stirling_number_of_the_second_kind_small_p_large_n",

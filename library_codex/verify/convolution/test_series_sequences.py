@@ -12,27 +12,14 @@ from library_codex.fps.EulerTransform import euler_transform
 from library_codex.combinatorial_series.PartitionNumbers import partition_numbers
 from library_codex.combinatorial_series.PascalTransform import pascal_transform
 from library_codex.combinatorial_series.PolynomialMobiusTransform import polynomial_mobius_transform
-from library_codex.combinatorial_series.StirlingNumbers import (
-    stirling_first_column,
-    stirling_first_row,
-    stirling_second_column,
-    stirling_second_row,
-)
 
 
 MOD = 998244353
 
 
 def test_famous_sequences_against_integer_recurrences():
-    first = [[1]]
     second = [[1]]
     for n in range(1, 30):
-        previous = first[-1]
-        current = [0] * (n + 1)
-        for k, value in enumerate(previous):
-            current[k] += value * (n - 1)
-            current[k + 1] += value
-        first.append(current)
         previous = second[-1]
         current = [0] * (n + 1)
         for k in range(1, n + 1):
@@ -40,15 +27,6 @@ def test_famous_sequences_against_integer_recurrences():
                 previous[k] * k if k < len(previous) else 0
             )
         second.append(current)
-        assert stirling_first_row(n) == [value % MOD for value in first[n]]
-        assert stirling_second_row(n) == [value % MOD for value in second[n]]
-    for column in range(8):
-        assert stirling_first_column(column, 29) == [
-            (first[n][column] if column <= n else 0) % MOD for n in range(30)
-        ]
-        assert stirling_second_column(column, 29) == [
-            (second[n][column] if column <= n else 0) % MOD for n in range(30)
-        ]
 
     partitions = [0] * 101
     partitions[0] = 1

@@ -122,6 +122,10 @@ def test_api_reference_has_actionable_semantics():
     stirling = documents["docs/api/combinatorial_series/StirlingNumbers.md"]
     assert "$\\mathrm{result}[n]=c(n,\\mathrm{column})$" in stirling
     assert "求める最大の第1引数 $n$。この値を含む" in stirling
+    assert stirling.count("より大きい素数を指定する") == 4
+    assert "Noneの場合は整数上の演算" not in stirling
+    assert stirling.count("畳み込みの計算量") == 4
+    assert "多項式乗算cost" not in stirling
 
     combination = documents["docs/api/combinatorics/Combination.md"]
     assert r"$\binom{n}{k}" in combination
