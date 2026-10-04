@@ -21,18 +21,19 @@ from library_codex.segment_tree.DualSegTree import DualSegTree
 
 ## Class `DualSegTree`
 
-区間作用と一点取得に絞ったDualSegTreeを扱う `DualSegTree`。
+区間への作用を入力順に適用し、各位置の値を取得する。
 
 - constructor: [`DualSegTree(mapping, composition, id, values)`](../../../segment_tree/DualSegTree.py#L14)
-- 引数: `mapping`: 作用を値へ適用するcallback<br>`composition`: 新旧の作用を合成するcallback<br>`id`: 遅延作用を何もしない単位元<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある
+- 引数: `mapping`: mapping(action, value)で作用後の値を返す。<br>`composition`: composition(new, old)でoldの後にnewを適用する合成作用を返す。<br>`id`: 何も変更しない作用。<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある
 - 返り値: `DualSegTree` instance
-- 計算量: —
+- 計算量: O(N)時間・領域
+- 作成後: valuesを初期値として保持する。applyで半開区間を更新し、getで現在値を取得する。整数を渡した場合は、その個数のNoneで初期化する。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`apply(left, right, action)`](../../../segment_tree/DualSegTree.py#L55) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | `None` | — |
-| [`get(index)`](../../../segment_tree/DualSegTree.py#L78) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | — |
-| [`set(index, value)`](../../../segment_tree/DualSegTree.py#L84) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`tolist()`](../../../segment_tree/DualSegTree.py#L88) | method | 遅延作用を反映した現在の要素列をlistで返す。O(N)。 | なし | list[object] — 全ての遅延作用を反映したindex順の要素列 | O(N) |
-| [`__str__()`](../../../segment_tree/DualSegTree.py#L94) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
-| [`__repr__()`](../../../segment_tree/DualSegTree.py#L97) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'DualSegTree(%r)' % self.tolist()` | — |
+| [`apply(left, right, action)`](../../../segment_tree/DualSegTree.py#L55) | method | 半開区間[left, right)の各値へactionを適用する。以前の更新の後に適用される。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | None — 対象区間の値を更新する。空区間では何もしない。 | O(log N)回のmapping・composition呼び出し |
+| [`get(index)`](../../../segment_tree/DualSegTree.py#L85) | method | indexの値に保留中の作用をすべて反映して返す。 | `index`: 位置 | 入力要素型 — これまでの更新を入力順に適用したindex番目の現在値。 | O(log N)回のmapping・composition呼び出し |
+| [`set(index, value)`](../../../segment_tree/DualSegTree.py#L91) | method | 過去の作用を反映した後、indexの値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | None — indexの現在値だけを置き換える。以後の作用はvalueに対して適用される。 | O(log N)回のmapping・composition呼び出し |
+| [`tolist()`](../../../segment_tree/DualSegTree.py#L95) | method | 遅延作用を反映した現在の要素列をlistで返す。O(N)。 | なし | list[object] — 全ての遅延作用を反映したindex順の要素列 | O(N)回のmapping・composition呼び出しと要素の列挙 |
+| [`__str__()`](../../../segment_tree/DualSegTree.py#L101) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | tolistの計算量と各要素の文字列化 |
+| [`__repr__()`](../../../segment_tree/DualSegTree.py#L104) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'DualSegTree(%r)' % self.tolist()` | tolistの計算量と各要素の文字列化 |

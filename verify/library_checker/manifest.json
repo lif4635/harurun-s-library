@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 66,
-    "unimplemented": 187
+    "local_passed": 76,
+    "unimplemented": 177
   },
   "problems": [
     {
@@ -520,10 +520,12 @@
       "title": "Deque Operate All Composite",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/deque_operate_all_composite",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.SWAGDeque"
+      ],
+      "solution": "solutions/deque_operate_all_composite.py",
+      "result": "results/deque_operate_all_composite.json"
     },
     {
       "name": "directedmst",
@@ -1057,10 +1059,12 @@
       "title": "Jump on Tree",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/jump_on_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.HeavyLightDecomposition"
+      ],
+      "solution": "solutions/jump_on_tree.py",
+      "result": "results/jump_on_tree.json"
     },
     {
       "name": "k_shortest_walk",
@@ -1140,10 +1144,12 @@
       "title": "Line Add Get Min",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/line_add_get_min",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.spatial_structure.LiChaoTree"
+      ],
+      "solution": "solutions/line_add_get_min.py",
+      "result": "results/line_add_get_min.json"
     },
     {
       "name": "log_of_formal_power_series",
@@ -1677,10 +1683,12 @@
       "title": "Point Set Range Composite",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/point_set_range_composite",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.SegTree"
+      ],
+      "solution": "solutions/point_set_range_composite.py",
+      "result": "results/point_set_range_composite.json"
     },
     {
       "name": "point_set_range_composite_large_array",
@@ -1939,10 +1947,12 @@
       "title": "Range Affine Point Get",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_affine_point_get",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.DualSegTree"
+      ],
+      "solution": "solutions/range_affine_point_get.py",
+      "result": "results/range_affine_point_get.json"
     },
     {
       "name": "range_affine_range_sum",
@@ -2003,10 +2013,12 @@
       "title": "Range Parallel Unionfind",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_parallel_unionfind",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.union_find.RangeParallelUnionFind"
+      ],
+      "solution": "solutions/range_parallel_unionfind.py",
+      "result": "results/range_parallel_unionfind.json"
     },
     {
       "name": "range_reverse_range_sum",
@@ -2063,10 +2075,13 @@
       "title": "Rooted Tree Isomorphism Classification",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.TreeDiameter",
+        "library_codex.tree.TreeIsomorphism"
+      ],
+      "solution": "solutions/rooted_tree_isomorphism_classification.py",
+      "result": "results/rooted_tree_isomorphism_classification.json"
     },
     {
       "name": "rooted_tree_topological_order_with_minimum_inversions",
@@ -2105,10 +2120,12 @@
       "title": "Segment Add Get Min",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/segment_add_get_min",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.spatial_structure.LiChaoTree"
+      ],
+      "solution": "solutions/segment_add_get_min.py",
+      "result": "results/segment_add_get_min.json"
     },
     {
       "name": "set_xor_min",
@@ -2628,10 +2645,13 @@
       "title": "Vertex Add Path Sum",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/vertex_add_path_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.HeavyLightDecomposition",
+        "library_codex.fenwick_tree.BIT"
+      ],
+      "solution": "solutions/vertex_add_path_sum.py",
+      "result": "results/vertex_add_path_sum.json"
     },
     {
       "name": "vertex_add_range_contour_sum_on_tree",
@@ -2671,10 +2691,13 @@
       "title": "Vertex Set Path Composite",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/vertex_set_path_composite",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.HeavyLightDecomposition",
+        "library_codex.segment_tree.SegTree"
+      ],
+      "solution": "solutions/vertex_set_path_composite.py",
+      "result": "results/vertex_set_path_composite.json"
     },
     {
       "name": "wildcard_pattern_matching",

@@ -198,11 +198,69 @@ class BipartiteMatching:
                         minimum = min(minimum, degree)
         self.matching_size = count
 
+    def _push_matching(self):
+        graph = self.graph
+        match_left = self.match_left
+        match_right = self.match_right
+        n = self.left_size
+        unmatched = [u for u in range(n) if match_left[u] == -1 and graph[u]]
+        if not unmatched:
+            return True
+        reverse = [[] for _ in match_right]
+        for (left, edges) in enumerate(graph):
+            for right in edges:
+                reverse[right].append(left)
+        pending = [v for (v, edges) in enumerate(reverse) if edges and match_right[v] == -1]
+        edge_count = sum(map(len, graph))
+        for _ in range(16):
+            if not pending:
+                return True
+            dist = [n] * n
+            unmatched = [u for u in unmatched if match_left[u] == -1]
+            queue = unmatched[:]
+            for left in queue:
+                dist[left] = 0
+            for left in queue:
+                depth = dist[left] + 1
+                for right in graph[left]:
+                    mate = match_right[right]
+                    if mate != -1 and dist[mate] == n:
+                        dist[mate] = depth
+                        queue.append(mate)
+            head = 0
+            work = 0
+            while head < len(pending) and work < edge_count:
+                right = pending[head]
+                head += 1
+                edges = reverse[right]
+                work += len(edges)
+                best = n
+                chosen = -1
+                for left in edges:
+                    if dist[left] < best:
+                        best = dist[left]
+                        chosen = left
+                if chosen == -1:
+                    continue
+                old = match_left[chosen]
+                match_left[chosen] = right
+                match_right[right] = chosen
+                dist[chosen] = best + 1
+                if old == -1:
+                    self.matching_size += 1
+                else:
+                    match_right[old] = -1
+                    pending.append(old)
+            pending = pending[head:]
+        return not pending
+
     def solve(self):
         if self.matching_size == min(self.left_size, self.right_size):
             return self.matching_size
         if self.matching_size == 0:
             self._greedy()
+        if self._push_matching():
+            return self.matching_size
         left_size = self.left_size
         graph = self.graph
         match_left = self.match_left

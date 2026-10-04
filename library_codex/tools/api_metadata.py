@@ -2393,7 +2393,8 @@ COMPLEXITY_BY_MODULE.update({
         "size_ge": "O(log T log N)",
     },
     "union_find/RangeParallelUnionFind.py": {
-        "merge": "償却 O(alpha(N))",
+        "RangeParallelUnionFind": "構築 O(N log N) 時間・領域",
+        "merge": "単発の最悪 O(length log N)、Q回合計 O((N log N + Q) alpha(N))。別途callbackを単発で最大length回、全体で最大N-1回呼ぶ",
         "find": "償却 O(alpha(N))",
         "same": "償却 O(alpha(N))",
         "size": "償却 O(alpha(N))",
@@ -6100,4 +6101,61 @@ COMPLEXITY_BY_MODULE["fps/MultivariateFPS.py"] = {
     "__truediv__": "分母のinverse 1回と積1回。2変数ならO(N log(N+1))。整数で割る場合はO(N)と逆元1回。Nは係数数",
     **{name: "2変数はO(N log(N+1))、一般にはO(D*N log(N+1)+D²*N)。998244353・2変数で疎な経路を使う場合はO(N*(K+1))。Kは非定数の非零項数、Nは係数数、D=len(base)" for name in ("inverse", "logarithm", "exponential")},
     "power": "998244353・定数項非0・2変数ならO(N log(N+1)+log(abs(e)+1))。疎な経路ではO(N*(K+1)+log(abs(e)+1))。それ以外はO(1+log(abs(e)+1))回の乗算、負ならinverseも1回。Kは非定数の非零項数、e=exponent、Nは係数数",
+}
+
+CLASS_DETAILS_BY_SYMBOL.update({
+    ("union_find/RangeParallelUnionFind.py", "RangeParallelUnionFind"): {
+        "description": "2区間の対応する位置をまとめて同じ成分へ併合する。",
+        "constructorCreates": "size個の独立した成分を作る。mergeで区間同士を併合し、find・same・sizeで各要素の所属を調べられる。",
+    },
+    ("segment_tree/DualSegTree.py", "DualSegTree"): {
+        "description": "区間への作用を入力順に適用し、各位置の値を取得する。",
+        "constructorCreates": "valuesを初期値として保持する。applyで半開区間を更新し、getで現在値を取得する。整数を渡した場合は、その個数のNoneで初期化する。",
+        "argumentDescriptions": {
+            "mapping": "mapping(action, value)で作用後の値を返す。",
+            "composition": "composition(new, old)でoldの後にnewを適用する合成作用を返す。",
+            "id": "何も変更しない作用。",
+        },
+    },
+})
+
+API_DETAILS_BY_SYMBOL.update({
+    ("union_find/RangeParallelUnionFind.py", "RangeParallelUnionFind", "merge"): {
+        "description": "[first, first+length)と[second, second+length)の対応位置を同じ成分へ併合する。",
+        "argumentDescriptions": {
+            "length": "対応づける要素数。0以下なら何もしない。",
+            "callback": "実際の要素成分が併合されるたびにcallback(root, old)を呼ぶ。rootは併合後の代表、oldは代表でなくなった成分の旧代表。返り値は使わない。",
+        },
+        "returnFormat": "None", "returnDescription": "連結状態を更新する。すでに同じ成分の組ではcallbackを呼ばない。",
+    },
+    ("union_find/RangeParallelUnionFind.py", "RangeParallelUnionFind", "find"): {
+        "description": "nodeを含む成分の代表番号を返す。",
+        "returnFormat": "int", "returnDescription": "nodeと同じ成分の要素番号。併合後に変わることがある。",
+    },
+    ("union_find/RangeParallelUnionFind.py", "RangeParallelUnionFind", "size"): {
+        "description": "nodeを含む成分の要素数を返す。",
+        "returnFormat": "int", "returnDescription": "nodeと連結している要素数。node自身も含む。",
+    },
+    ("segment_tree/DualSegTree.py", "DualSegTree", "apply"): {
+        "description": "半開区間[left, right)の各値へactionを適用する。以前の更新の後に適用される。",
+        "returnFormat": "None", "returnDescription": "対象区間の値を更新する。空区間では何もしない。",
+    },
+    ("segment_tree/DualSegTree.py", "DualSegTree", "get"): {
+        "description": "indexの値に保留中の作用をすべて反映して返す。",
+        "returnFormat": "入力要素型", "returnDescription": "これまでの更新を入力順に適用したindex番目の現在値。",
+    },
+    ("segment_tree/DualSegTree.py", "DualSegTree", "set"): {
+        "description": "過去の作用を反映した後、indexの値をvalueへ置き換える。",
+        "returnFormat": "None", "returnDescription": "indexの現在値だけを置き換える。以後の作用はvalueに対して適用される。",
+    },
+})
+
+COMPLEXITY_BY_MODULE["segment_tree/DualSegTree.py"] = {
+    "DualSegTree": "O(N)時間・領域",
+    "apply": "O(log N)回のmapping・composition呼び出し",
+    "get": "O(log N)回のmapping・composition呼び出し",
+    "set": "O(log N)回のmapping・composition呼び出し",
+    "tolist": "O(N)回のmapping・composition呼び出しと要素の列挙",
+    "__str__": "tolistの計算量と各要素の文字列化",
+    "__repr__": "tolistの計算量と各要素の文字列化",
 }

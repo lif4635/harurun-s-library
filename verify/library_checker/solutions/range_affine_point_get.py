@@ -4,12 +4,8 @@ Use this lighter structure when updates cover intervals but only individual
 positions are queried.  It intentionally stores no range aggregate.
 """
 
-
 class DualSegTree:
-    __slots__ = (
-        "n", "size", "log", "value", "lazy", "pending",
-        "mapping", "composition", "id",
-    )
+    __slots__ = ('n', 'size', 'log', 'value', 'lazy', 'pending', 'mapping', 'composition', 'id')
 
     def __init__(self, mapping, composition, id, values):
         if isinstance(values, int):
@@ -58,10 +54,10 @@ class DualSegTree:
         left += self.size
         right += self.size
         for shift in range(self.log, 0, -1):
-            if left & ((1 << shift) - 1):
+            if left & (1 << shift) - 1:
                 self._push(left >> shift)
-            if right & ((1 << shift) - 1):
-                self._push((right - 1) >> shift)
+            if right & (1 << shift) - 1:
+                self._push(right - 1 >> shift)
         while left < right:
             if left & 1:
                 if left >= self.size:
@@ -79,7 +75,6 @@ class DualSegTree:
                     self._apply_node(right, action)
             left >>= 1
             right >>= 1
-
     range_apply = apply
 
     def get(self, index):
@@ -102,4 +97,29 @@ class DualSegTree:
         return str(self.tolist())
 
     def __repr__(self):
-        return "DualSegTree(%r)" % self.tolist()
+        return 'DualSegTree(%r)' % self.tolist()
+import sys
+
+def mapping(action, value):
+    (a, b) = action
+    return (a * value + b) % 998244353
+
+def composition(new, old):
+    (a, b) = new
+    (c, d) = old
+    return (a * c % 998244353, (a * d + b) % 998244353)
+
+def solve():
+    data = iter(map(int, sys.stdin.buffer.read().split()))
+    (n, q) = (next(data), next(data))
+    tree = DualSegTree(mapping, composition, (1, 0), [next(data) for _ in range(n)])
+    answer = []
+    for _ in range(q):
+        if next(data) == 0:
+            (l, r, a, b) = (next(data), next(data), next(data), next(data))
+            tree.apply(l, r, (a, b))
+        else:
+            answer.append(str(tree.get(next(data))))
+    print('\n'.join(answer))
+if __name__ == '__main__':
+    solve()

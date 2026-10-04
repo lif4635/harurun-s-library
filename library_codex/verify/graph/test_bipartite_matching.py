@@ -350,6 +350,53 @@ def test_parallel_edges_can_exceed_vertex_count():
     validate(matcher, 2)
 
 
+def test_push_matching_without_greedy_exhaustive():
+    for mask in range(1 << 12):
+        matcher = BipartiteMatching(3, 4)
+        for i in range(12):
+            if mask >> i & 1:
+                matcher.add_edge(i // 4, i % 4)
+        complete = matcher._push_matching()
+        expected = brute(3, 4, matcher.graph)
+        if complete:
+            assert matcher.matching_size == expected
+        assert matcher.solve() == expected
+        assert all(matcher.match_right[v] == u for u, v in matcher.pairs())
+
+
+def test_push_preserves_existing_matching_on_long_path():
+    n = 4000
+    matcher = BipartiteMatching(n, n)
+    for u in range(n):
+        matcher.add_edge(u, u)
+        if u:
+            matcher.add_edge(u, u - 1)
+    for u in range(1, n):
+        matcher.match_left[u] = u - 1
+        matcher.match_right[u - 1] = u
+    matcher.matching_size = n - 1
+    assert matcher.solve() == n
+    assert matcher.match_left == list(range(n))
+
+
+def test_hopcroft_karp_after_partial_push():
+    class PartialPush(BipartiteMatching):
+        def _greedy(self):
+            pass
+
+        def _push_matching(self):
+            self.match_left[0] = 0
+            self.match_right[0] = 0
+            self.matching_size = 1
+            return False
+
+    matcher = PartialPush(3, 3)
+    for edge in ((0, 0), (0, 1), (1, 0), (2, 1), (2, 2)):
+        matcher.add_edge(*edge)
+    assert matcher.solve() == 3
+    assert matcher.match_left == [1, 0, 2]
+
+
 if __name__ == "__main__":
     random.seed(0)
     test_small_against_brute()

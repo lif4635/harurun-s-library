@@ -4,6 +4,8 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
+2026-10-04時点の公式revision `1814c4e`では、76問題・1692ケースがローカル全件通過、177問題が未対応。今回追加した10問題は、木上のjump・頂点加算パス和・頂点代入パス合成、根付き木の同型分類、点代入区間合成、区間affine一点取得、直線追加最小値、線分追加最小値、区間並列Union-Find、deque全体合成。
+
 - `drivers/`: 問題固有の入出力。アルゴリズムは `library_codex` から import する。
 - `solutions/`: 依存を展開した提出コード。そのまま単独で実行できる生成物。
 - `results/`: 公式全ケースの判定、時間、source hash、公式問題version、実行環境。
@@ -61,4 +63,8 @@ pypy3 library_codex/tools/check_library_checker.py check
 
 ## 性能上の注意
 
-`bipartitematching` は初期マッチングを次数の小さい頂点から作り、残りをHopcroft–Karpで処理する。変更前の`1a87ef7`では公式44ケース中9ケースが5秒制限を超えた。変更後は全件通過したが、保存した結果の`augmented_cycle_02`は約4.8秒で、オンライン環境での余裕は未確認。再計測は`test bipartitematching --force --official ...`で行える。
+`bipartitematching` は次数優先の初期マッチングと、距離ラベルによる再割当を行い、走査上限に達したらHopcroft–Karpへ戻る。`a1076d2`との同条件5回比較では、`augmented_cycle_02`の中央値が2.976秒から0.558秒になった。PyPy最速提出は同じ入力で0.396秒だった。公式44ケースは全件通過し、その実行の最大は0.678秒。詳細は[上位提出との比較](../../library_codex/docs/LIBRARY_CHECKER_COMPARISON.md)へ保存している。オンライン環境の速度は未確認。
+
+`range_affine_point_get` の追加時に、`DualSegTree`で包含する区間と部分区間の更新順序が逆転する不具合を修正した。区間更新前に境界まで保留中の作用を下ろし、非可換なaffine変換も入力順に適用する。専用の小入力比較と公式全件検査で検証する。
+
+`range_parallel_unionfind` も最速PyPy提出を参照した。代表探索の重複を除き、階層を固定幅の整数配列へまとめ、driverの入力は1行ずつ処理する。同じ大規模3ケースの比較で約1.9〜2.2倍高速化し、最大RSSを約44%削減した。時間・メモリ・最速提出との差は同じ[比較記録](../../library_codex/docs/LIBRARY_CHECKER_COMPARISON.md)へ保存している。

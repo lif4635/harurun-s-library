@@ -14,14 +14,12 @@ from library_codex.spatial_structure.FenwickTree2D import FenwickTree2D
 from library_codex.fenwick_tree.RangeAddRangeSum import RangeAddRangeSum
 from library_codex.sequence_structure.SWAGDeque import SWAGDeque
 from library_codex.sequence_structure.SWAGQueue import SWAGQueue
-from library_codex.segment_tree.DualSegTree import DualSegTree
 from library_codex.segment_tree.LazySegTree import LazySegTree
 from library_codex.segment_tree.SegTree import SegTree
 from library_codex.union_find.DynamicUnionFind import DynamicUnionFind
 from library_codex.union_find.EnumerateUnionFind import EnumerateUnionFind
 from library_codex.union_find.MonoidUnionFind import MonoidUnionFind
 from library_codex.union_find.PartialPersistentUnionFind import PartialPersistentUnionFind
-from library_codex.union_find.RangeParallelUnionFind import RangeParallelUnionFind
 from library_codex.union_find.UnionFind import UnionFind
 from library_codex.union_find.WeightedUnionFind import WeightedUnionFind
 
@@ -137,7 +135,7 @@ def test_segment_tree_noncommutative_and_search():
         assert solver.min_left(right, lambda value: value <= limit) == left
 
 
-def test_lazy_and_dual_segment_tree_random():
+def test_lazy_segment_tree_random():
     rng = random.Random(490213)
     size = 100
     values = [rng.randrange(-50, 51) for _ in range(size)]
@@ -149,12 +147,6 @@ def test_lazy_and_dual_segment_tree_random():
         0,
         values,
     )
-    dual = DualSegTree(
-        lambda action, value: value + action,
-        lambda new, old: new + old,
-        0,
-        values,
-    )
     for _ in range(10000):
         kind = rng.randrange(5)
         if kind <= 1:
@@ -162,7 +154,6 @@ def test_lazy_and_dual_segment_tree_random():
             right = rng.randrange(left, size + 1)
             delta = rng.randrange(-30, 31)
             solver.apply(left, right, delta)
-            dual.apply(left, right, delta)
             for index in range(left, right):
                 values[index] += delta
         elif kind == 2:
@@ -170,14 +161,13 @@ def test_lazy_and_dual_segment_tree_random():
             value = rng.randrange(-50, 51)
             values[index] = value
             solver.set(index, value)
-            dual.set(index, value)
         elif kind == 3:
             left = rng.randrange(size + 1)
             right = rng.randrange(left, size + 1)
             assert solver.prod(left, right) == sum(values[left:right])
         else:
             index = rng.randrange(size)
-            assert solver.get(index) == dual.get(index) == values[index]
+            assert solver.get(index) == values[index]
     assert solver.all_prod() == sum(values)
 
     noncommutative = LazySegTree(
@@ -458,22 +448,3 @@ def test_monoid_and_partial_persistent_union_find():
                 -1,
             )
             assert persistent.when_unite(first, second) == expected
-
-
-def test_range_parallel_union_find_random():
-    rng = random.Random(815024)
-    size = 200
-    solver = RangeParallelUnionFind(size)
-    naive = UnionFind(size)
-    for _ in range(3000):
-        length = rng.randrange(size + 1)
-        first = rng.randrange(size - length + 1)
-        second = rng.randrange(size - length + 1)
-        solver.merge(first, second, length)
-        for offset in range(length):
-            naive.merge(first + offset, second + offset)
-        for _ in range(10):
-            left = rng.randrange(size)
-            right = rng.randrange(size)
-            assert solver.same(left, right) == naive.same(left, right)
-            assert solver.size(left) == naive.size(left)

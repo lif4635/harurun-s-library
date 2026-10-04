@@ -1,0 +1,147 @@
+{
+  "retrievedAt": "2026-10-04T04:11:28.183150+00:00",
+  "api": "https://v3.api.judge.yosupo.jp",
+  "problem": "bipartitematching",
+  "problemInfo": {
+    "overall_version": "86b890595775f9e1efe628447e03d89d607e1b2eba63d57e8238bbe11068c26c",
+    "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/graph/bipartitematching",
+    "testcases_version": "59a7306e36e6bd396e80bc1a403f135ca7c0eb7d68bb9cf14255a33dffb9b034",
+    "time_limit": 5,
+    "title": "Matching on Bipartite Graph",
+    "version": "496a6078a883d7f0856bfd61baba9e2e0a6375b8c4db5e66688fc213998b5c5d"
+  },
+  "language": "cpp",
+  "languages": [
+    {
+      "id": "cpp",
+      "name": "C++23",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp20",
+      "name": "C++20",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp17",
+      "name": "C++17",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp-func",
+      "name": "C++23(Function)",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "version": "rustc(1.94.1 edition 2024)"
+    },
+    {
+      "id": "d",
+      "name": "LDC2",
+      "version": "ldc2 1.36.0"
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "version": "openjdk 17"
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "version": "Deno 2.7.14"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "version": "Deno 2.7.14"
+    },
+    {
+      "id": "python3",
+      "name": "Python3",
+      "version": "python3.10 + numpy + scipy"
+    },
+    {
+      "id": "pypy3",
+      "name": "PyPy3",
+      "version": "pypy3.9-7.3.9"
+    },
+    {
+      "id": "haskell",
+      "name": "GHC",
+      "version": "ghc 9.6.7"
+    },
+    {
+      "id": "haskell-llvm",
+      "name": "GHC (LLVM)",
+      "version": "ghc 9.6.7 + LLVM 11"
+    },
+    {
+      "id": "nim",
+      "name": "Nim",
+      "version": "Nim 2.2.4"
+    },
+    {
+      "id": "csharp",
+      "name": "C#",
+      "version": "dotnet 10.0"
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "version": "go 1.18.2"
+    },
+    {
+      "id": "lisp",
+      "name": "Common Lisp",
+      "version": "sbcl 2.1.5"
+    },
+    {
+      "id": "crystal",
+      "name": "Crystal",
+      "version": "crystal 1.9.1"
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "version": "ruby 2.7.1"
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "version": "swift 6.1.2"
+    }
+  ],
+  "selection": "AC, is_latest, ascending judge time; ties may vary",
+  "submissions": [
+    {
+      "id": 396318,
+      "is_latest": true,
+      "lang": "cpp",
+      "memory": 9801728,
+      "problem_name": "bipartitematching",
+      "problem_title": "Matching on Bipartite Graph",
+      "status": "AC",
+      "submission_time": "2026-08-23T10:55:05.245029Z",
+      "time": 0.07,
+      "sourceFile": "396318.cpp",
+      "sourceSha256": "c9b9555d1bbe5fb705507646fb6a4833fc030004ef871565af5b7973964f87f7",
+      "url": "https://judge.yosupo.jp/submission/396318"
+    },
+    {
+      "id": 396316,
+      "is_latest": true,
+      "lang": "cpp",
+      "memory": 8110080,
+      "problem_name": "bipartitematching",
+      "problem_title": "Matching on Bipartite Graph",
+      "status": "AC",
+      "submission_time": "2026-08-23T10:43:51.116475Z",
+      "time": 0.071,
+      "sourceFile": "396316.cpp",
+      "sourceSha256": "cdf7c993b0a47ba8a960a69348198277afbe0b350318d490feec1b7acd35d15a",
+      "url": "https://judge.yosupo.jp/submission/396316"
+    }
+  ]
+}

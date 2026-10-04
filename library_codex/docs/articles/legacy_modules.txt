@@ -339,7 +339,6 @@ union_find/EnumerateUnionFind
 union_find/MonoidUnionFind
 union_find/PartialPersistentUnionFind
 union_find/PersistentUnionFind
-union_find/RangeParallelUnionFind
 union_find/RollbackUnionFind
 union_find/UnionFind
 union_find/WeightedUnionFind

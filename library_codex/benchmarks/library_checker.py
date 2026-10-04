@@ -184,7 +184,7 @@ def main():
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
     fetcher = commands.add_parser("fetch")
-    fetcher.add_argument("--problem", choices=["set_xor_min", "vertex_add_subtree_sum", *PROBLEMS], required=True)
+    fetcher.add_argument("--problem", required=True)
     fetcher.add_argument("--language", choices=["pypy3", "python3", "cpp", "cpp17"], default="pypy3")
     fetcher.add_argument("--top", type=int, default=2)
     fetcher.add_argument("--cache", type=Path, required=True)

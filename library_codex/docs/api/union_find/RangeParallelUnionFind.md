@@ -8,7 +8,7 @@
 
 ## できること
 
-- `RangeParallelUnionFind`: 2つの同じ長さの区間をまとめて対応位置ごとに併合するUnion-Findを扱う `RangeParallelUnionFind`。
+- `RangeParallelUnionFind`: 2区間の対応する位置をまとめて同じ成分へ併合する。
 
 ## Import
 
@@ -18,16 +18,17 @@ from library_codex.union_find.RangeParallelUnionFind import RangeParallelUnionFi
 
 ## Class `RangeParallelUnionFind`
 
-2つの同じ長さの区間をまとめて対応位置ごとに併合するUnion-Findを扱う `RangeParallelUnionFind`。
+2区間の対応する位置をまとめて同じ成分へ併合する。
 
-- constructor: [`RangeParallelUnionFind(size)`](../../../union_find/RangeParallelUnionFind.py#L8)
+- constructor: [`RangeParallelUnionFind(size)`](../../../union_find/RangeParallelUnionFind.py#L9)
 - 引数: `size`: 要素数・universe size
 - 返り値: `RangeParallelUnionFind` instance
-- 計算量: —
+- 計算量: 構築 O(N log N) 時間・領域
+- 作成後: size個の独立した成分を作る。mergeで区間同士を併合し、find・same・sizeで各要素の所属を調べられる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`merge(first, second, length=1, callback=None)`](../../../union_find/RangeParallelUnionFind.py#L12) | method | 2要素・2成分・2構造を併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`length`: 長さ。省略時: `1`<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None` | `None` | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
-| [`find(node)`](../../../union_find/RangeParallelUnionFind.py#L45) | method | 代表元・位置・対象要素を探す。 | `node`: 頂点・内部node番号 | 代表元・位置・node番号（int） | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
-| [`same(first, second)`](../../../union_find/RangeParallelUnionFind.py#L48) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
-| [`size(node)`](../../../union_find/RangeParallelUnionFind.py#L51) | method | 要素数または連結成分sizeを返す。 | `node`: 頂点・内部node番号 | size（int） | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
+| [`merge(first, second, length=1, callback=None)`](../../../union_find/RangeParallelUnionFind.py#L15) | method | [first, first+length)と[second, second+length)の対応位置を同じ成分へ併合する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`length`: 対応づける要素数。0以下なら何もしない。省略時: `1`<br>`callback`: 実際の要素成分が併合されるたびにcallback(root, old)を呼ぶ。rootは併合後の代表、oldは代表でなくなった成分の旧代表。返り値は使わない。省略時: `None` | None — 連結状態を更新する。すでに同じ成分の組ではcallbackを呼ばない。 | 単発の最悪 O(length log N)、Q回合計 O((N log N + Q) alpha(N))。別途callbackを単発で最大length回、全体で最大N-1回呼ぶ（alphaは逆Ackermann関数） |
+| [`find(node)`](../../../union_find/RangeParallelUnionFind.py#L61) | method | nodeを含む成分の代表番号を返す。 | `node`: 頂点・内部node番号 | int — nodeと同じ成分の要素番号。併合後に変わることがある。 | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
+| [`same(first, second)`](../../../union_find/RangeParallelUnionFind.py#L71) | method | 2要素が指定時点で同じ連結成分に属するか判定する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | bool — 同じ連結成分ならTrue、異なればFalse。 | 償却 O(alpha(N))（alphaは逆Ackermann関数） |
+| [`size(node)`](../../../union_find/RangeParallelUnionFind.py#L74) | method | nodeを含む成分の要素数を返す。 | `node`: 頂点・内部node番号 | int — nodeと連結している要素数。node自身も含む。 | 償却 O(alpha(N))（alphaは逆Ackermann関数） |

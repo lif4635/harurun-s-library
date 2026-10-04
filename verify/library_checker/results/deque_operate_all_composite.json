@@ -1,0 +1,116 @@
+{
+  "problem": "deque_operate_all_composite",
+  "status": "local_passed",
+  "verificationKey": "52dd3e067a5d437b98ee127ef31d737939a5a5cbacbf670601872b0a6e21610f",
+  "sourceSha256": "7e4713b238bed9017d6eb8e06a817f02dfc7ff7319c517e3197d67b949b7cb36",
+  "modules": [
+    "library_codex.sequence_structure.SWAGDeque"
+  ],
+  "problemVersion": "ddbe6f17402b4391d2bb1af899edd4f91acb10cf2cd0f25af349eaffb65fce08",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 16,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05614852299913764,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05202116901637055,
+      "diagnostic": "ok \"1333\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.049506192008266225,
+      "diagnostic": "ok 42 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.0491554640175309,
+      "diagnostic": "ok 15 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.19996265301597305,
+      "diagnostic": "ok 97481 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.23796819598646834,
+      "diagnostic": "ok 115487 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.08490429300582036,
+      "diagnostic": "ok 13396 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.31775213399669155,
+      "diagnostic": "ok 124535 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.34819615600281395,
+      "diagnostic": "ok 124749 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.26734359000693075,
+      "diagnostic": "ok 125287 tokens\n"
+    },
+    {
+      "name": "large_max_00",
+      "status": "AC",
+      "seconds": 0.2465558829717338,
+      "diagnostic": "ok 82901 tokens\n"
+    },
+    {
+      "name": "large_max_01",
+      "status": "AC",
+      "seconds": 0.26702961299452,
+      "diagnostic": "ok 83070 tokens\n"
+    },
+    {
+      "name": "large_min_00",
+      "status": "AC",
+      "seconds": 0.28228839399525896,
+      "diagnostic": "ok 163881 tokens\n"
+    },
+    {
+      "name": "large_min_01",
+      "status": "AC",
+      "seconds": 0.28597265199641697,
+      "diagnostic": "ok 163476 tokens\n"
+    },
+    {
+      "name": "large_triangle_00",
+      "status": "AC",
+      "seconds": 0.23462597897741944,
+      "diagnostic": "ok 166509 tokens\n"
+    },
+    {
+      "name": "large_triangle_01",
+      "status": "AC",
+      "seconds": 0.251884544006316,
+      "diagnostic": "ok 166192 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T04:27:52.239383+00:00",
+  "onlineSubmission": null
+}

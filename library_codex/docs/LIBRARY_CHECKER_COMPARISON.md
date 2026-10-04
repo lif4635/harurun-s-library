@@ -115,3 +115,54 @@ pypy3 -m pytest -q library_codex/verify/test_library_checker_benchmark.py librar
 ```
 
 別の問題を追加する場合は、`library_checker_cases.py`へ入力生成・単純解・standalone adapterを追加し、小入力照合をtestへ登録する。データ構造のcore時間と、起動・入力・問題専用処理を含む提出時間を分けて記録する。
+
+## 二部マッチングの上位提出比較（2026-10-04）
+
+最新問題版のACを時間順に取得し、PyPy3の先頭[399951](https://judge.yosupo.jp/submission/399951)（judge上0.476秒）と、C++23の先頭[396318](https://judge.yosupo.jp/submission/396318)（0.070秒）のアルゴリズムを確認した。C++17など別言語IDを含む全C++提出の順位は調べていない。
+
+PyPy版は孤立頂点除去、CSR、多点始点探索、次数1・2の処理と縮約を併用する。C++23版は交互路の距離ラベルを使って未マッチの右頂点を再割当し、一定回数ごとに全体の距離を更新する。後者の方式を独立に実装し、辺走査と全体更新の回数に上限を設けて、残りを既存のHopcroft–Karpで解く形を採用した。外部提出のsourceは配布物へ追加していない。
+
+PyPy最速提出だけを実行比較した。C++版はアルゴリズムの参照のみで、ローカル実行時間は未計測。比較はWSLの同じPyPy 3.10 / 7.3.16、新規process、実行順を入れ替えた5回の中央値。起動・JIT・入出力を含み、各出力は公式checkerで検証した。外部PyPy版は乱数を使うので、同じ正解でも出力ペアが変わる。
+
+| 公式ケース | 変更前 a1076d2 | 採用版 | PyPy最速提出 |
+|---|---:|---:|---:|
+| augmented_cycle_02 | 2.976秒 | 0.558秒 | 0.396秒 |
+| augmented_cycle_01 | 2.409秒 | 0.654秒 | 0.379秒 |
+| many_paths_00 | 0.433秒 | 0.366秒 | 0.442秒 |
+| cycle_00 | 0.331秒 | 0.337秒 | 0.188秒 |
+
+この4ケース中の最大RSSは、変更前108612 KiB、採用版109084 KiB、外部PyPy版117796 KiB。難しかったaugmented cycleは約3.7〜5.3倍速くなったが、最速提出との差は残る。閉路は改善していない。4ケースの比較を全入力での優劣とはしない。
+
+採用版は公式44ケースを5秒制限内で通過し、最も遅かったケースは0.678秒。これは別の全件実行での単発値であり、上表の中央値とは区別する。オンライン提出はしていない。
+
+生データは[時間・RSS・各sourceと入出力のhash](../benchmarks/results/bipartitematching-comparison.json)、参照したC++23の順位とhashは[取得記録](../benchmarks/results/bipartitematching-cpp-reference.json)。変更前sourceはGitの`a1076d2:verify/library_checker/solutions/bipartitematching.py`から再現できる。
+
+別解を許す問題向けに`official_comparison.py`を追加した。公式入力と期待出力のhashを照合し、文字列一致ではなく公式checkerで各回答を判定する。取得したsourceを確認してから実行する。
+
+```sh
+pypy3 library_codex/benchmarks/library_checker.py fetch --problem bipartitematching --language pypy3 --top 2 --cache ../lc-matching-reference
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/bipartitematching-pypy3.json --reviewed 399951 --problem /home/harurun/.cache/harurun-library-checker/problems/graph/bipartitematching --cases augmented_cycle_02 augmented_cycle_01 many_paths_00 cycle_00 --variant baseline=../lc-matching-reference/baseline.py --variant candidate=verify/library_checker/solutions/bipartitematching.py --repeat 5 --output library_codex/benchmarks/results/bipartitematching-comparison.json
+```
+
+## 区間並列Union-Findの上位提出比較（2026-10-04）
+
+最新問題版のPyPy3最速は[368362 / harurun4635](https://judge.yosupo.jp/submission/368362)、judge上1.805秒だった。全階層を固定幅配列へまとめ、代表探索と併合をhot loop内で処理する実装を確認した。
+
+採用版では、親と成分サイズを負数方式の単一配列へまとめ、重複した代表探索を除いた。配列は通常32ビット、全階層の番号が収まらない場合は64ビットを使う。提出driverは入力全体の保持をやめ、クエリを1行ずつ読む。この比較はライブラリ本体だけでなく、その入出力改善も含む。通常listの平坦化だけの案は最大RSSが増えたため採用しなかった。
+
+旧版は`a1076d2`のライブラリへ今回のdriver（入力一括読込版）を接続したもの。同じ公式入力、PyPy 3.10 / 7.3.16、新規process、順序を変えた5回の中央値で比較し、すべて公式checkerを通した。計測用timeoutは30秒なので、旧版の5秒超えも打ち切らず測っている。
+
+| 公式ケース | 変更前 | 採用版 | PyPy最速提出 |
+|---|---:|---:|---:|
+| decr_period_03 | 5.458秒 | 2.816秒 | 2.593秒 |
+| periodic_03 | 4.993秒 | 2.283秒 | 2.338秒 |
+| random_01 | 4.547秒 | 2.215秒 | 3.031秒 |
+
+この3ケース中の最大RSSは、変更前310236 KiB、採用版173036 KiB、最速提出236616 KiB。採用版はこの範囲では約1.9〜2.2倍速く、最大RSSを約44%削減した。最速提出より遅いケースも残るため、全入力で最速とは主張しない。
+
+取得時の順位、sourceと入力のhash、各回の時間・RSSは[生データ](../benchmarks/results/range-parallel-unionfind-comparison.json)に保存した。外部提出sourceはリポジトリ外のcacheへ置く。
+
+```sh
+pypy3 library_codex/benchmarks/library_checker.py fetch --problem range_parallel_unionfind --language pypy3 --top 1 --cache ../lc-matching-reference
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/range_parallel_unionfind-pypy3.json --reviewed 368362 --problem /home/harurun/.cache/harurun-library-checker/problems/data_structure/range_parallel_unionfind --cases decr_period_03 periodic_03 random_01 --variant baseline=../lc-matching-reference/range-parallel-baseline.py --variant candidate=verify/library_checker/solutions/range_parallel_unionfind.py --repeat 5 --output library_codex/benchmarks/results/range-parallel-unionfind-comparison.json
+```
