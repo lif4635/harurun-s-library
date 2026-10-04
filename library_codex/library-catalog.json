@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T19:08:14+00:00",
+  "generatedAt": "2026-10-04T19:48:03+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "b8b6793b6e069625f3d10baabd32d6d205f18aade9de7017c906e93e902c7290",
-  "inputStamp": "7fd39da403959e6f2d7f4192c23a4bb23c8ede37f36a10e6c10c54d7bf217f93",
-  "generatorFingerprint": "b1e7ecebe462964151509d4ba5a950fd04058b92cde122191a312016247f7223",
+  "sourceFingerprint": "c2a1f85c55ef03010e9e3402eb9932255e40e637165d21b62656726cba94af30",
+  "inputStamp": "8e718c7835d1be063b3b78a21804a095979bd67da9c15a9f37b1de6649a66388",
+  "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 364,
@@ -859,7 +859,7 @@
           "constructorReturnFormat": "Doubling",
           "constructorReturnDescription": "関数グラフのダブリングと加算集約を行うクラス。",
           "constructorCreates": "関数グラフのダブリングと加算集約を行うクラス。",
-          "constructorComplexity": "O(Nlog K)",
+          "constructorComplexity": "O(N log K)",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -1562,7 +1562,7 @@
           "constructorReturnFormat": "PermutationTree",
           "constructorReturnDescription": "各nodeを整数番号で表し、kind・位置区間・値域・親を平坦な配列へ保存する。root、children、共通区間の個数計算・全列挙を使える。",
           "constructorCreates": "各nodeを整数番号で表し、kind・位置区間・値域・親を平坦な配列へ保存する。root、children、共通区間の個数計算・全列挙を使える。",
-          "constructorComplexity": "O(N log N)",
+          "constructorComplexity": "構築 O(N log N) time・O(N) memory",
           "constructorSourceLine": 119,
           "methods": [
             {
@@ -1747,7 +1747,7 @@
           "constructorReturnFormat": "Mo",
           "constructorReturnDescription": "Mo's algorithmによるオフライン区間クエリを行うクラス。",
           "constructorCreates": "Mo's algorithmによるオフライン区間クエリを行うクラス。",
-          "constructorComplexity": "O((N+Q)sqrt N)",
+          "constructorComplexity": "構築 O(1)",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -7217,7 +7217,7 @@
           "constructorReturnFormat": "MultivariateFormalPowerSeries",
           "constructorReturnDescription": "coefficientsへ正規化した係数のコピーを保持する。base=(W,H)ならxの次数W未満、yの次数H未満の係数を扱える。",
           "constructorCreates": "coefficientsへ正規化した係数のコピーを保持する。base=(W,H)ならxの次数W未満、yの次数H未満の係数を扱える。",
-          "constructorComplexity": "O(N log(N+1))",
+          "constructorComplexity": "O(N+D)時間・O(N+D)領域。N=product(base)、D=len(base)",
           "constructorSourceLine": 146,
           "methods": [
             {
@@ -11862,7 +11862,7 @@
           "constructorReturnFormat": "DualSegTree",
           "constructorReturnDescription": "valuesを初期値として保持する。applyで半開区間を更新し、getで現在値を取得する。整数を渡した場合は、その個数のNoneで初期化する。",
           "constructorCreates": "valuesを初期値として保持する。applyで半開区間を更新し、getで現在値を取得する。整数を渡した場合は、その個数のNoneで初期化する。",
-          "constructorComplexity": "O(N)",
+          "constructorComplexity": "O(N)時間・領域",
           "constructorSourceLine": 14,
           "methods": [
             {
@@ -15704,7 +15704,7 @@
           "constructorReturnFormat": "BIT",
           "constructorReturnDescription": "1D Fenwick Treeの一点加算・接頭/区間和を扱う ビット。",
           "constructorCreates": "1D Fenwick Treeの一点加算・接頭/区間和を扱う ビット。",
-          "constructorComplexity": "O(log N)",
+          "constructorComplexity": "O(N)（列から構築）、O(N) memory。size指定なら O(N) 初期化",
           "constructorSourceLine": 6,
           "methods": [
             {
@@ -17417,7 +17417,7 @@
           "constructorReturnFormat": "RangeParallelUnionFind",
           "constructorReturnDescription": "size個の独立した成分を作る。mergeで区間同士を併合し、find・same・sizeで各要素の所属を調べられる。",
           "constructorCreates": "size個の独立した成分を作る。mergeで区間同士を併合し、find・same・sizeで各要素の所属を調べられる。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N log N) 時間・領域",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -18340,7 +18340,7 @@
           "constructorReturnFormat": "RollbackWeightedUnionFind",
           "constructorReturnDescription": "各頂点が独立し、重み差が未確定の状態を作る。snapshot と rollback で探索の分岐を戻せる。",
           "constructorCreates": "各頂点が独立し、重み差が未確定の状態を作る。snapshot と rollback で探索の分岐を戻せる。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N)",
           "constructorSourceLine": 77,
           "methods": [
             {
@@ -19795,7 +19795,7 @@
           "constructorReturnFormat": "DecrementalSet",
           "constructorReturnDescription": "全整数が生存する削除専用集合。discard後もnext・prevで指定値以上・以下の最も近い生存値を探せる。",
           "constructorCreates": "全整数が生存する削除専用集合。discard後もnext・prevで指定値以上・以下の最も近い生存値を探せる。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N) time・memory",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -21302,7 +21302,7 @@
       ],
       "article": {
         "title": "要素を変更できる区間頻度",
-        "markdown": "## 主な機能\n\n列の1要素を置き換えながら、半開区間内に指定した値が何個あるか数える。値ごとに出現位置の集合を持ち、更新・検索はいずれも期待 O(log(N+1))、初期構築は期待 O(N log(N+1))。\n\n## 使い方\n\n```python\nfrom library_codex.ordered_set.PointSetRangeFrequency import PointSetRangeFrequency\n\nfreq = PointSetRangeFrequency([2, 1, 2, 3])\nbefore = freq.query(0, 3, 2)\nfreq.set(1, 2)\nafter = freq.query(1, 4, 2)\n```\n\n- `before`: `[2, 1, 2]` に含まれる2の個数で、2。\n- `after`: 更新後の区間 `[2, 2, 3]` に含まれる2の個数で、2。\n- `set` は値を返さず、以降の検索に変更を反映する。\n\n## 注意点\n\n- 要素は整数に限らず、辞書のキーにできる値を使える。\n- 初期値はコピーする。元の列を後から変更しても反映されない。\n- 列の長さは固定。挿入・削除は扱わない。\n- 出現しなくなった値の木は解放する。ただし、残っている木では削除済みノードの領域が再利用されないため、メモリは更新回数に応じて増える場合がある。",
+        "markdown": "## 主な機能\n\n列の1要素を置き換えながら、半開区間内に指定した値が何個あるか数える。初期構築は O(N)、更新・検索は O(sqrt(N+1))、使用領域は O(N)。辞書の操作を O(1) としている。\n\n## 使い方\n\n```python\nfrom library_codex.ordered_set.PointSetRangeFrequency import PointSetRangeFrequency\n\nfreq = PointSetRangeFrequency([2, 1, 2, 3])\nbefore = freq.query(0, 3, 2)\nfreq.set(1, 2)\nafter = freq.query(1, 4, 2)\n```\n\n- `before`: `[2, 1, 2]` に含まれる2の個数で、2。\n- `after`: 更新後の区間 `[2, 2, 3]` に含まれる2の個数で、2。\n- `set` は値を返さず、以降の検索に変更を反映する。\n\n## 注意点\n\n- 要素は整数に限らず、辞書のキーにできる値を使える。\n- 初期値はコピーする。元の列を後から変更しても反映されない。\n- 列の長さは固定。挿入・削除は扱わない。\n- 値ごとに出現位置を昇順の小さな配列へ分けて持つ。大きくなった配列は分割し、小さくなった隣接配列は結合する。出現しなくなった値は辞書から除く。",
         "sourcePath": "library_codex/docs/articles/ordered_set/PointSetRangeFrequency.md"
       },
       "searchTerms": [
@@ -21315,13 +21315,11 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/ordered_set/PointSetRangeFrequency.py",
-      "inputFingerprint": "bdfc0671d7803d02b7f81ac96bcee6970a24112db756e70a643bab50c32f1e3d",
+      "inputFingerprint": "82a67b0b027ebed222b22ec2e409351176f9589283f74cc2d6929d98403a176f",
       "importCode": "from library_codex.ordered_set.PointSetRangeFrequency import PointSetRangeFrequency",
-      "sourceCode": "\"\"\"一点変更される列で、区間内の指定値の出現回数を数える構造。\"\"\"\n\nfrom library_codex.ordered_set.TreapSet import TreapSet\n\nclass PointSetRangeFrequency:\n    __slots__ = (\"values\", \"positions\")\n\n    def __init__(self, values):\n        if isinstance(values, int):\n            values = [0] * values\n        else:\n            values = list(values)\n        positions = {}\n        for index, value in enumerate(values):\n            tree = positions.get(value)\n            if tree is None:\n                tree = positions[value] = TreapSet()\n            tree.add(index)\n        self.values = values\n        self.positions = positions\n\n    def set(self, index, value):\n        old = self.values[index]\n        if old == value:\n            return\n        positions = self.positions\n        tree = positions[old]\n        tree.discard(index)\n        if not tree:\n            del positions[old]\n        tree = positions.get(value)\n        if tree is None:\n            tree = positions[value] = TreapSet()\n        tree.add(index)\n        self.values[index] = value\n\n    def query(self, left, right, value):\n        positions = self.positions.get(value)\n        if positions is None:\n            return 0\n        return positions.bisect_left(right) - positions.bisect_left(left)\n\n    def tolist(self):\n        return self.values.copy()\n\n    def __str__(self):\n        return str(self.values)\n\n    def __repr__(self):\n        return \"PointSetRangeFrequency(%r)\" % self.values\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: ordered_set/TreapSet.py\n\"\"\"順序・k番目・前後要素を対数時間で扱う乱択平衡二分探索木。\"\"\"\nfrom operator import add\n\nclass TreapSet:\n    __slots__ = ('root', 'key', 'priority', 'left', 'right', 'parent', 'size', 'state')\n\n    def __init__(self, values=()):\n        self.root = -1\n        self.key = []\n        self.priority = []\n        self.left = []\n        self.right = []\n        self.parent = []\n        self.size = []\n        self.state = 11400714819323198485\n        for value in values:\n            self.add(value)\n\n    def _random(self):\n        value = self.state\n        value ^= value << 7 & (1 << 64) - 1\n        value ^= value >> 9\n        self.state = value\n        return value\n\n    def _new(self, key):\n        node = len(self.key)\n        self.key.append(key)\n        self.priority.append(self._random())\n        self.left.append(-1)\n        self.right.append(-1)\n        self.parent.append(-1)\n        self.size.append(1)\n        return node\n\n    def _update(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        self.size[node] = 1 + (self.size[left] if left >= 0 else 0) + (self.size[right] if right >= 0 else 0)\n\n    def _update_up(self, node):\n        while node >= 0:\n            self._update(node)\n            node = self.parent[node]\n\n    def _rotate(self, node):\n        parent = self.parent[node]\n        grandparent = self.parent[parent]\n        if self.left[parent] == node:\n            middle = self.right[node]\n            self.right[node] = parent\n            self.left[parent] = middle\n        else:\n            middle = self.left[node]\n            self.left[node] = parent\n            self.right[parent] = middle\n        if middle >= 0:\n            self.parent[middle] = parent\n        self.parent[parent] = node\n        self.parent[node] = grandparent\n        if grandparent < 0:\n            self.root = node\n        elif self.left[grandparent] == parent:\n            self.left[grandparent] = node\n        else:\n            self.right[grandparent] = node\n        self._update(parent)\n        self._update(node)\n\n    def _find(self, key):\n        node = self.root\n        while node >= 0:\n            current = self.key[node]\n            if key == current:\n                return node\n            node = self.left[node] if key < current else self.right[node]\n        return -1\n\n    def add(self, key):\n        if self.root < 0:\n            self.root = self._new(key)\n            return True\n        node = self.root\n        while True:\n            current = self.key[node]\n            if key == current:\n                return False\n            if key < current:\n                child = self.left[node]\n                if child < 0:\n                    child = self._new(key)\n                    self.left[node] = child\n                    self.parent[child] = node\n                    break\n            else:\n                child = self.right[node]\n                if child < 0:\n                    child = self._new(key)\n                    self.right[node] = child\n                    self.parent[child] = node\n                    break\n            node = child\n        self._update_up(node)\n        while self.parent[child] >= 0 and self.priority[child] < self.priority[self.parent[child]]:\n            self._rotate(child)\n        self._update_up(self.parent[child])\n        return True\n    insert = add\n\n    def discard(self, key):\n        node = self._find(key)\n        if node < 0:\n            return False\n        while self.left[node] >= 0 or self.right[node] >= 0:\n            left = self.left[node]\n            right = self.right[node]\n            if right < 0 or (left >= 0 and self.priority[left] < self.priority[right]):\n                self._rotate(left)\n            else:\n                self._rotate(right)\n        parent = self.parent[node]\n        if parent < 0:\n            self.root = -1\n        elif self.left[parent] == node:\n            self.left[parent] = -1\n        else:\n            self.right[parent] = -1\n        self._update_up(parent)\n        return True\n    erase = discard\n\n    def bisect_left(self, key):\n        node = self.root\n        result = 0\n        while node >= 0:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if self.key[node] < key:\n                result += left_size + 1\n                node = self.right[node]\n            else:\n                node = left\n        return result\n    lower_bound = bisect_left\n\n    def bisect_right(self, key):\n        node = self.root\n        result = 0\n        while node >= 0:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if self.key[node] <= key:\n                result += left_size + 1\n                node = self.right[node]\n            else:\n                node = left\n        return result\n    upper_bound = bisect_right\n\n    def kth(self, index):\n        if index < 0 or index >= len(self):\n            raise IndexError('kth index out of range')\n        node = self.root\n        while True:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                return self.key[node]\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n\n    def ge(self, key, default=None):\n        index = self.bisect_left(key)\n        return self.kth(index) if index < len(self) else default\n\n    def gt(self, key, default=None):\n        index = self.bisect_right(key)\n        return self.kth(index) if index < len(self) else default\n\n    def le(self, key, default=None):\n        index = self.bisect_right(key) - 1\n        return self.kth(index) if index >= 0 else default\n\n    def lt(self, key, default=None):\n        index = self.bisect_left(key) - 1\n        return self.kth(index) if index >= 0 else default\n\n    def min(self):\n        return self.kth(0)\n\n    def max(self):\n        return self.kth(len(self) - 1)\n\n    def __contains__(self, key):\n        return self._find(key) >= 0\n\n    def __len__(self):\n        root = self.root\n        return self.size[root] if root >= 0 else 0\n\n    def __iter__(self):\n        stack = []\n        node = self.root\n        while stack or node >= 0:\n            while node >= 0:\n                stack.append(node)\n                node = self.left[node]\n            node = stack.pop()\n            yield self.key[node]\n            node = self.right[node]\n\n    def tolist(self):\n        \"\"\"保持するkeyを昇順listで返す。O(N)。\"\"\"\n        return list(self)\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'TreapSet(%r)' % self.tolist()\n\n# 本体\n\"\"\"一点変更される列で、区間内の指定値の出現回数を数える構造。\"\"\"\n\nclass PointSetRangeFrequency:\n    __slots__ = ('values', 'positions')\n\n    def __init__(self, values):\n        if isinstance(values, int):\n            values = [0] * values\n        else:\n            values = list(values)\n        positions = {}\n        for index, value in enumerate(values):\n            tree = positions.get(value)\n            if tree is None:\n                tree = positions[value] = TreapSet()\n            tree.add(index)\n        self.values = values\n        self.positions = positions\n\n    def set(self, index, value):\n        old = self.values[index]\n        if old == value:\n            return\n        positions = self.positions\n        tree = positions[old]\n        tree.discard(index)\n        if not tree:\n            del positions[old]\n        tree = positions.get(value)\n        if tree is None:\n            tree = positions[value] = TreapSet()\n        tree.add(index)\n        self.values[index] = value\n\n    def query(self, left, right, value):\n        positions = self.positions.get(value)\n        if positions is None:\n            return 0\n        return positions.bisect_left(right) - positions.bisect_left(left)\n\n    def tolist(self):\n        return self.values.copy()\n\n    def __str__(self):\n        return str(self.values)\n\n    def __repr__(self):\n        return 'PointSetRangeFrequency(%r)' % self.values\n",
-      "bundledDependencies": [
-        "library_codex.ordered_set.TreapSet"
-      ],
+      "sourceCode": "\"\"\"一点変更される列で、区間内の指定値の出現回数を数える構造。\"\"\"\n\nfrom bisect import bisect_left\nfrom math import isqrt\n\nclass PointSetRangeFrequency:\n    __slots__ = (\"values\", \"positions\", \"block_size\")\n\n    def __init__(self, values):\n        if isinstance(values, int):\n            values = [0] * values\n        else:\n            values = list(values)\n        groups = {}\n        for index, value in enumerate(values):\n            if value not in groups:\n                groups[value] = []\n            groups[value].append(index)\n        self.block_size = width = max(32, isqrt(len(values)))\n        positions = {}\n        for value, indices in groups.items():\n            blocks = [indices[i:i + width] for i in range(0, len(indices), width)]\n            positions[value] = (blocks, [block[-1] for block in blocks])\n        self.values = values\n        self.positions = positions\n\n    def set(self, index, value):\n        if index < 0:\n            index += len(self.values)\n        if not 0 <= index < len(self.values):\n            raise IndexError(\"index out of range\")\n        old = self.values[index]\n        if old == value:\n            return\n        positions = self.positions\n        blocks, ends = positions[old]\n        bi = bisect_left(ends, index)\n        block = blocks[bi]\n        block.pop(bisect_left(block, index))\n        if not block:\n            del blocks[bi]\n            del ends[bi]\n        else:\n            ends[bi] = block[-1]\n        if not blocks:\n            del positions[old]\n        elif len(blocks) > 1:\n            bi = min(bi, len(blocks) - 1)\n            if bi and len(blocks[bi - 1]) + len(blocks[bi]) <= self.block_size:\n                blocks[bi - 1].extend(blocks.pop(bi))\n                ends.pop(bi - 1)\n                bi -= 1\n            if bi + 1 < len(blocks) and len(blocks[bi]) + len(blocks[bi + 1]) <= self.block_size:\n                blocks[bi].extend(blocks.pop(bi + 1))\n                ends.pop(bi)\n        target = positions.get(value)\n        if target is None:\n            positions[value] = ([[index]], [index])\n        else:\n            blocks, ends = target\n            bi = min(bisect_left(ends, index), len(blocks) - 1)\n            block = blocks[bi]\n            block.insert(bisect_left(block, index), index)\n            ends[bi] = block[-1]\n            if len(block) > 2 * self.block_size:\n                middle = len(block) // 2\n                blocks[bi:bi + 1] = [block[:middle], block[middle:]]\n                ends[bi:bi + 1] = [block[middle - 1], block[-1]]\n        self.values[index] = value\n\n    def query(self, left, right, value):\n        positions = self.positions.get(value)\n        if positions is None:\n            return 0\n        if left >= right:\n            return 0\n        blocks, ends = positions\n        first = bisect_left(ends, left)\n        if first == len(blocks):\n            return 0\n        last = bisect_left(ends, right)\n        if first == last:\n            block = blocks[first]\n            return bisect_left(block, right) - bisect_left(block, left)\n        count = len(blocks[first]) - bisect_left(blocks[first], left)\n        for bi in range(first + 1, last):\n            count += len(blocks[bi])\n        if last < len(blocks):\n            count += bisect_left(blocks[last], right)\n        return count\n\n    def tolist(self):\n        return self.values.copy()\n\n    def __str__(self):\n        return str(self.values)\n\n    def __repr__(self):\n        return \"PointSetRangeFrequency(%r)\" % self.values\n",
+      "standaloneCode": "\"\"\"一点変更される列で、区間内の指定値の出現回数を数える構造。\"\"\"\n\nfrom bisect import bisect_left\nfrom math import isqrt\n\nclass PointSetRangeFrequency:\n    __slots__ = (\"values\", \"positions\", \"block_size\")\n\n    def __init__(self, values):\n        if isinstance(values, int):\n            values = [0] * values\n        else:\n            values = list(values)\n        groups = {}\n        for index, value in enumerate(values):\n            if value not in groups:\n                groups[value] = []\n            groups[value].append(index)\n        self.block_size = width = max(32, isqrt(len(values)))\n        positions = {}\n        for value, indices in groups.items():\n            blocks = [indices[i:i + width] for i in range(0, len(indices), width)]\n            positions[value] = (blocks, [block[-1] for block in blocks])\n        self.values = values\n        self.positions = positions\n\n    def set(self, index, value):\n        if index < 0:\n            index += len(self.values)\n        if not 0 <= index < len(self.values):\n            raise IndexError(\"index out of range\")\n        old = self.values[index]\n        if old == value:\n            return\n        positions = self.positions\n        blocks, ends = positions[old]\n        bi = bisect_left(ends, index)\n        block = blocks[bi]\n        block.pop(bisect_left(block, index))\n        if not block:\n            del blocks[bi]\n            del ends[bi]\n        else:\n            ends[bi] = block[-1]\n        if not blocks:\n            del positions[old]\n        elif len(blocks) > 1:\n            bi = min(bi, len(blocks) - 1)\n            if bi and len(blocks[bi - 1]) + len(blocks[bi]) <= self.block_size:\n                blocks[bi - 1].extend(blocks.pop(bi))\n                ends.pop(bi - 1)\n                bi -= 1\n            if bi + 1 < len(blocks) and len(blocks[bi]) + len(blocks[bi + 1]) <= self.block_size:\n                blocks[bi].extend(blocks.pop(bi + 1))\n                ends.pop(bi)\n        target = positions.get(value)\n        if target is None:\n            positions[value] = ([[index]], [index])\n        else:\n            blocks, ends = target\n            bi = min(bisect_left(ends, index), len(blocks) - 1)\n            block = blocks[bi]\n            block.insert(bisect_left(block, index), index)\n            ends[bi] = block[-1]\n            if len(block) > 2 * self.block_size:\n                middle = len(block) // 2\n                blocks[bi:bi + 1] = [block[:middle], block[middle:]]\n                ends[bi:bi + 1] = [block[middle - 1], block[-1]]\n        self.values[index] = value\n\n    def query(self, left, right, value):\n        positions = self.positions.get(value)\n        if positions is None:\n            return 0\n        if left >= right:\n            return 0\n        blocks, ends = positions\n        first = bisect_left(ends, left)\n        if first == len(blocks):\n            return 0\n        last = bisect_left(ends, right)\n        if first == last:\n            block = blocks[first]\n            return bisect_left(block, right) - bisect_left(block, left)\n        count = len(blocks[first]) - bisect_left(blocks[first], left)\n        for bi in range(first + 1, last):\n            count += len(blocks[bi])\n        if last < len(blocks):\n            count += bisect_left(blocks[last], right)\n        return count\n\n    def tolist(self):\n        return self.values.copy()\n\n    def __str__(self):\n        return str(self.values)\n\n    def __repr__(self):\n        return \"PointSetRangeFrequency(%r)\" % self.values\n",
+      "bundledDependencies": [],
       "counts": {
         "functions": 0,
         "classes": 1,
@@ -21350,8 +21348,8 @@
           "constructorReturnFormat": "PointSetRangeFrequency",
           "constructorReturnDescription": "初期値をコピーする。setで1要素を置き換え、queryで更新後の列の出現回数を調べられる。",
           "constructorCreates": "初期値をコピーする。setで1要素を置き換え、queryで更新後の列の出現回数を調べられる。",
-          "constructorComplexity": "実装依存",
-          "constructorSourceLine": 8,
+          "constructorComplexity": "O(N)",
+          "constructorSourceLine": 9,
           "methods": [
             {
               "name": "set",
@@ -21377,8 +21375,8 @@
               "returns": "None — 以降のqueryに更新後の出現回数を反映する。",
               "returnFormat": "None",
               "returnDescription": "以降のqueryに更新後の出現回数を反映する。",
-              "complexity": "期待 O(log(N+1))",
-              "sourceLine": 22
+              "complexity": "O(sqrt(N+1))",
+              "sourceLine": 27
             },
             {
               "name": "query",
@@ -21408,8 +21406,8 @@
               "returns": "int — values[left:right]のうちvalueと等しい要素の個数。",
               "returnFormat": "int",
               "returnDescription": "values[left:right]のうちvalueと等しい要素の個数。",
-              "complexity": "期待 O(log(N+1))",
-              "sourceLine": 37
+              "complexity": "O(sqrt(N+1))",
+              "sourceLine": 71
             },
             {
               "name": "tolist",
@@ -21427,7 +21425,7 @@
               "returnFormat": "list[object]",
               "returnDescription": "要素iが現在のi番目の値。返されたlistを変更しても本体は変わらない。",
               "complexity": "O(N)",
-              "sourceLine": 43
+              "sourceLine": 92
             },
             {
               "name": "__str__",
@@ -21446,7 +21444,7 @@
               "returnFormat": "str",
               "returnDescription": "更新後の列をlistの形式で表した文字列。",
               "complexity": "O(N)",
-              "sourceLine": 46
+              "sourceLine": 95
             },
             {
               "name": "__repr__",
@@ -21465,7 +21463,7 @@
               "returnFormat": "str",
               "returnDescription": "PointSetRangeFrequency([...])の形で現在の列を表した文字列。",
               "complexity": "O(N)",
-              "sourceLine": 49
+              "sourceLine": 98
             }
           ]
         }
@@ -21524,7 +21522,7 @@
           "constructorReturnFormat": "RangeSet",
           "constructorReturnDescription": "空の整数集合を作る。add・discardは半開区間を一括更新し、contains・mex・intervalsで現在の集合を調べられる。",
           "constructorCreates": "空の整数集合を作る。add・discardは半開区間を一括更新し、contains・mex・intervalsで現在の集合を調べられる。",
-          "constructorComplexity": "O(log I) / O((K+1) log I)",
+          "constructorComplexity": "O(1)",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -22574,7 +22572,7 @@
       ],
       "article": {
         "title": "挿入・削除・反転できる列",
-        "markdown": "## 主な機能\n\n列の途中への挿入・削除、区間反転、区間の集約を期待 O(log(N+1)) 回程度の演算で扱う。区間更新用の `mapping` と `composition` を与えると、一括加算やアフィン変換などもできる。Nは現在の要素数で、初期構築は O(N) 回程度の演算。\n\n`prod` は現在の左から右の順に集約する。文字列連結や行列積のように順序で答えが変わる演算も使える。和や最小値など順序によらない演算なら、`commutative=True` で逆順の集約計算を省ける。\n\n## 使い方\n\n```python\nfrom library_codex.sequence_structure.ImplicitTreap import ImplicitTreap\n\nseq = ImplicitTreap([1, 2, 3, 4], commutative=True)\nseq.insert(2, 10)\nseq.reverse_range(1, 4)\ntotal = seq.prod(1, 4)\nremoved = seq.pop(2)\nvalues = seq.tolist()\n```\n\n- 反転後の列: `[1, 3, 10, 2, 4]`。\n- `total`: 半開区間 `[1, 4)` の和で15。\n- `removed`: 削除した値10。\n- `values`: 削除後の列 `[1, 3, 2, 4]` のコピー。\n\n区間加算・区間和の場合は次のように作る。\n\n```python\nseq = ImplicitTreap(\n    [1, 2, 3],\n    op=lambda a, b: a + b,\n    identity=0,\n    mapping=lambda delta, total, size: total + delta * size,\n    composition=lambda new, old: new + old,\n    commutative=True,\n)\nseq.apply(0, 2, 5)\ntotal = seq.prod()\n```\n\n`total` は `[6, 7, 3]` の和で16。作用の合成は `old` の後に `new` を適用する順序。\n\n## 注意点\n\n- 区間はすべて半開区間。挿入位置は先頭から末尾の直後まで指定できる。\n- `mapping` は集約値と区間長から作用後の集約値を求められる必要がある。要素の位置ごとに異なる作用は扱わない。\n- `commutative=True` は演算の可換性を検査しない。順序に依存する演算では使わない。\n- 削除したノードの領域は再利用しないため、メモリは初期要素数と累計挿入数に比例する。\n- 計算量はcallbackの実行時間を除く。文字列連結など、要素の大きさで演算時間が変わる場合はその分もかかる。",
+        "markdown": "## 主な機能\n\n列の途中への挿入・削除、区間反転、区間の集約を期待 O(log(N+1)) 回程度の演算で扱う。区間更新用の `mapping` と `composition` を与えると、一括加算やアフィン変換などもできる。Nは現在の要素数で、初期構築は O(N) 回程度の演算。\n\n`prod` は現在の左から右の順に集約する。文字列連結や行列積のように順序で答えが変わる演算も使える。和や最小値など順序によらない演算なら、`commutative=True` で逆順の集約計算と専用の保存領域を省ける。\n\n## 使い方\n\n```python\nfrom library_codex.sequence_structure.ImplicitTreap import ImplicitTreap\n\nseq = ImplicitTreap([1, 2, 3, 4], commutative=True)\nseq.insert(2, 10)\nseq.reverse_range(1, 4)\ntotal = seq.prod(1, 4)\nremoved = seq.pop(2)\nvalues = seq.tolist()\n```\n\n- 反転後の列: `[1, 3, 10, 2, 4]`。\n- `total`: 半開区間 `[1, 4)` の和で15。\n- `removed`: 削除した値10。\n- `values`: 削除後の列 `[1, 3, 2, 4]` のコピー。\n\n区間加算・区間和の場合は次のように作る。\n\n```python\nseq = ImplicitTreap(\n    [1, 2, 3],\n    op=lambda a, b: a + b,\n    identity=0,\n    mapping=lambda delta, total, size: total + delta * size,\n    composition=lambda new, old: new + old,\n    commutative=True,\n)\nseq.apply(0, 2, 5)\ntotal = seq.prod()\n```\n\n`total` は `[6, 7, 3]` の和で16。作用の合成は `old` の後に `new` を適用する順序。\n\n## 注意点\n\n- 区間はすべて半開区間。挿入位置は先頭から末尾の直後まで指定できる。\n- `mapping` は集約値と区間長から作用後の集約値を求められる必要がある。要素の位置ごとに異なる作用は扱わない。\n- `commutative=True` は演算の可換性を検査しない。順序に依存する演算では使わない。\n- 削除したノードの領域は再利用しないため、メモリは初期要素数と累計挿入数に比例する。\n- 計算量はcallbackの実行時間を除く。文字列連結など、要素の大きさで演算時間が変わる場合はその分もかかる。",
         "sourcePath": "library_codex/docs/articles/sequence_structure/ImplicitTreap.md"
       },
       "searchTerms": [
@@ -22587,10 +22585,10 @@
       ],
       "complexity": "期待 O(log  N)",
       "sourcePath": "library_codex/sequence_structure/ImplicitTreap.py",
-      "inputFingerprint": "3651066abbbe08bef52a1a522030006a3eb2a727698963c1b6dbd0bc99288ac1",
+      "inputFingerprint": "96a3c795fd84ff8035ee8f7d6bb722121fc2d8a022b0b3799cd5aaeb9d411387",
       "importCode": "from library_codex.sequence_structure.ImplicitTreap import ImplicitTreap",
-      "sourceCode": "from operator import add\n\n\nclass ImplicitTreap:\n    __slots__ = (\n        \"root\", \"left\", \"right\", \"priority\", \"size\", \"reversed\", \"value\",\n        \"forward\", \"backward\", \"lazy\", \"pending\", \"op\", \"identity\",\n        \"mapping\", \"composition\", \"state\", \"commutative\"\n    )\n\n    def __init__(\n        self,\n        values=(),\n        op=add,\n        identity=0,\n        mapping=None,\n        composition=None,\n        commutative=False,\n    ):\n        self.root = -1\n        self.left = []\n        self.right = []\n        self.priority = []\n        self.size = []\n        self.reversed = bytearray()\n        self.value = []\n        self.forward = []\n        self.backward = []\n        self.lazy = []\n        self.pending = bytearray()\n        self.op = op\n        self.identity = identity\n        self.mapping = mapping\n        self.composition = composition\n        self.commutative = commutative\n        self.state = 0xD192ED03\n        values = list(values)\n        if values:\n            stack = []\n            for value in values:\n                node = self._new(value)\n                last = -1\n                while stack and self.priority[node] < self.priority[stack[-1]]:\n                    last = stack.pop()\n                self.left[node] = last\n                if stack:\n                    self.right[stack[-1]] = node\n                stack.append(node)\n            self.root = stack[0]\n            order = []\n            stack = [self.root]\n            while stack:\n                node = stack.pop()\n                order.append(node)\n                if self.left[node] >= 0:\n                    stack.append(self.left[node])\n                if self.right[node] >= 0:\n                    stack.append(self.right[node])\n            for node in reversed(order):\n                self._update(node)\n\n    def _random(self):\n        value = self.state\n        value ^= value << 13 & 0xFFFFFFFF\n        value ^= value >> 17\n        value ^= value << 5 & 0xFFFFFFFF\n        self.state = value\n        return value\n\n    def _new(self, value):\n        node = len(self.value)\n        self.left.append(-1)\n        self.right.append(-1)\n        self.priority.append(self._random())\n        self.size.append(1)\n        self.reversed.append(0)\n        self.value.append(value)\n        self.forward.append(value)\n        self.backward.append(value)\n        self.lazy.append(0)\n        self.pending.append(0)\n        return node\n\n    def _update(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        value = self.value[node]\n        forward = value\n        backward = value\n        size = 1\n        op = self.op\n        if left >= 0:\n            forward = op(self.forward[left], forward)\n            if not self.commutative:\n                backward = op(backward, self.backward[left])\n            size += self.size[left]\n        if right >= 0:\n            forward = op(forward, self.forward[right])\n            if not self.commutative:\n                backward = op(self.backward[right], backward)\n            size += self.size[right]\n        self.forward[node] = forward\n        self.backward[node] = forward if self.commutative else backward\n        self.size[node] = size\n\n    def _toggle(self, node):\n        if node < 0:\n            return\n        self.left[node], self.right[node] = self.right[node], self.left[node]\n        self.forward[node], self.backward[node] = self.backward[node], self.forward[node]\n        self.reversed[node] ^= 1\n\n    def _all_apply(self, node, action):\n        mapping = self.mapping\n        size = self.size[node]\n        self.forward[node] = mapping(action, self.forward[node], size)\n        self.backward[node] = self.forward[node] if self.commutative else mapping(action, self.backward[node], size)\n        if self.pending[node]:\n            self.lazy[node] = self.composition(action, self.lazy[node])\n        else:\n            self.lazy[node] = action\n            self.pending[node] = 1\n\n    def _push(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        if self.reversed[node]:\n            self._toggle(left)\n            self._toggle(right)\n            self.reversed[node] = 0\n        if self.pending[node]:\n            action = self.lazy[node]\n            self.value[node] = self.mapping(action, self.value[node], 1)\n            if left >= 0:\n                self._all_apply(left, action)\n            if right >= 0:\n                self._all_apply(right, action)\n            self.lazy[node] = 0\n            self.pending[node] = 0\n\n    def _split(self, root, count, update=True):\n        left = self.left\n        right = self.right\n        first = second = -1\n        node = root\n        while node >= 0:\n            self._push(node)\n            child = left[node]\n            left_size = self.size[child] if child >= 0 else 0\n            if count <= left_size:\n                left[node] = second\n                second, node = node, child\n            else:\n                count -= left_size + 1\n                child = right[node]\n                right[node] = first\n                first, node = node, child\n        root = -1\n        while first >= 0:\n            parent = right[first]\n            right[first] = root\n            if update:\n                self._update(first)\n            root, first = first, parent\n        first = root\n        root = -1\n        while second >= 0:\n            parent = left[second]\n            left[second] = root\n            if update:\n                self._update(second)\n            root, second = second, parent\n        return first, root\n\n    def _merge(self, first, second, push_first=False, push_second=False):\n        left = self.left\n        right = self.right\n        priority = self.priority\n        root = -1\n        while first >= 0:\n            if push_first:\n                self._push(first)\n            child = right[first]\n            right[first] = root\n            root, first = first, child\n        first = root\n        root = -1\n        while second >= 0:\n            if push_second:\n                self._push(second)\n            child = left[second]\n            left[second] = root\n            root, second = second, child\n        second = root\n        root = -1\n        while first >= 0 or second >= 0:\n            if second < 0 or first >= 0 and priority[first] > priority[second]:\n                parent = right[first]\n                right[first] = root\n                self._update(first)\n                root, first = first, parent\n            else:\n                parent = left[second]\n                left[second] = root\n                self._update(second)\n                root, second = second, parent\n        return root\n\n    def insert(self, index, value):\n        first, second = self._split(self.root, index, False)\n        self.root = self._merge(self._merge(first, self._new(value)), second)\n\n    def append(self, value):\n        self.insert(len(self), value)\n\n    def appendleft(self, value):\n        self.insert(0, value)\n\n    def pop(self, index=-1):\n        length = len(self)\n        if index < 0:\n            index += length\n        if not 0 <= index < length:\n            raise IndexError(\"pop index out of range\")\n        rest, second = self._split(self.root, index + 1, False)\n        first, middle = self._split(rest, index, False)\n        self._push(middle)\n        value = self.value[middle]\n        self.root = self._merge(first, second)\n        return value\n\n    def get(self, index):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        while node >= 0:\n            self._push(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                return self.value[node]\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def set(self, index, value):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        path = []\n        while node >= 0:\n            self._push(node)\n            path.append(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                self.value[node] = value\n                for current in reversed(path):\n                    self._update(current)\n                return\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def reverse_range(self, left, right):\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        self._toggle(middle)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    reverse = reverse_range\n\n    def prod(self, left=0, right=None):\n        if right is None:\n            right = len(self)\n        if left >= right:\n            return self.identity\n        node = self.root\n        op = self.op\n        while node >= 0:\n            if left == 0 and right == self.size[node]:\n                return self.forward[node]\n            self._push(node)\n            first = self.left[node]\n            second = self.right[node]\n            count = self.size[first] if first >= 0 else 0\n            if right <= count:\n                node = first\n            elif left > count:\n                left -= count + 1\n                right -= count + 1\n                node = second\n            else:\n                break\n        if node < 0:\n            return self.identity\n        center = self.value[node]\n        prefix = self.identity\n        right -= count + 1\n        node = second\n        while node >= 0 and right:\n            if right == self.size[node]:\n                prefix = op(prefix, self.forward[node])\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if right <= count:\n                node = child\n            else:\n                if child >= 0:\n                    prefix = op(prefix, self.forward[child])\n                prefix = op(prefix, self.value[node])\n                right -= count + 1\n                node = self.right[node]\n        suffix = self.identity\n        node = first\n        while node >= 0 and left < self.size[node]:\n            if left == 0:\n                suffix = op(self.forward[node], suffix)\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if left > count:\n                left -= count + 1\n                node = self.right[node]\n            else:\n                second = self.right[node]\n                if second >= 0:\n                    suffix = op(self.forward[second], suffix)\n                suffix = op(self.value[node], suffix)\n                node = child\n        return op(op(suffix, center), prefix)\n\n    query = prod\n\n    def apply(self, left, right, action):\n        if self.mapping is None or self.composition is None:\n            raise TypeError(\"mapping and composition are required\")\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        if middle >= 0:\n            self._all_apply(middle, action)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    range_apply = apply\n\n    def to_list(self):\n        result = []\n        stack = []\n        node = self.root\n        while stack or node >= 0:\n            while node >= 0:\n                self._push(node)\n                stack.append(node)\n                node = self.left[node]\n            node = stack.pop()\n            result.append(self.value[node])\n            node = self.right[node]\n        return result\n\n    def tolist(self):\n        \"\"\"遅延作用と反転を反映した現在の要素列を返す。O(N)。\"\"\"\n        return self.to_list()\n\n    def __str__(self):\n        return str(self.to_list())\n\n    def __repr__(self):\n        return \"ImplicitTreap(%r)\" % self.to_list()\n\n    def __getitem__(self, index):\n        return self.get(index)\n\n    def __setitem__(self, index, value):\n        self.set(index, value)\n\n    def __len__(self):\n        return self.size[self.root] if self.root >= 0 else 0\n\n    def __iter__(self):\n        return iter(self.to_list())\n",
-      "standaloneCode": "from operator import add\n\n\nclass ImplicitTreap:\n    __slots__ = (\n        \"root\", \"left\", \"right\", \"priority\", \"size\", \"reversed\", \"value\",\n        \"forward\", \"backward\", \"lazy\", \"pending\", \"op\", \"identity\",\n        \"mapping\", \"composition\", \"state\", \"commutative\"\n    )\n\n    def __init__(\n        self,\n        values=(),\n        op=add,\n        identity=0,\n        mapping=None,\n        composition=None,\n        commutative=False,\n    ):\n        self.root = -1\n        self.left = []\n        self.right = []\n        self.priority = []\n        self.size = []\n        self.reversed = bytearray()\n        self.value = []\n        self.forward = []\n        self.backward = []\n        self.lazy = []\n        self.pending = bytearray()\n        self.op = op\n        self.identity = identity\n        self.mapping = mapping\n        self.composition = composition\n        self.commutative = commutative\n        self.state = 0xD192ED03\n        values = list(values)\n        if values:\n            stack = []\n            for value in values:\n                node = self._new(value)\n                last = -1\n                while stack and self.priority[node] < self.priority[stack[-1]]:\n                    last = stack.pop()\n                self.left[node] = last\n                if stack:\n                    self.right[stack[-1]] = node\n                stack.append(node)\n            self.root = stack[0]\n            order = []\n            stack = [self.root]\n            while stack:\n                node = stack.pop()\n                order.append(node)\n                if self.left[node] >= 0:\n                    stack.append(self.left[node])\n                if self.right[node] >= 0:\n                    stack.append(self.right[node])\n            for node in reversed(order):\n                self._update(node)\n\n    def _random(self):\n        value = self.state\n        value ^= value << 13 & 0xFFFFFFFF\n        value ^= value >> 17\n        value ^= value << 5 & 0xFFFFFFFF\n        self.state = value\n        return value\n\n    def _new(self, value):\n        node = len(self.value)\n        self.left.append(-1)\n        self.right.append(-1)\n        self.priority.append(self._random())\n        self.size.append(1)\n        self.reversed.append(0)\n        self.value.append(value)\n        self.forward.append(value)\n        self.backward.append(value)\n        self.lazy.append(0)\n        self.pending.append(0)\n        return node\n\n    def _update(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        value = self.value[node]\n        forward = value\n        backward = value\n        size = 1\n        op = self.op\n        if left >= 0:\n            forward = op(self.forward[left], forward)\n            if not self.commutative:\n                backward = op(backward, self.backward[left])\n            size += self.size[left]\n        if right >= 0:\n            forward = op(forward, self.forward[right])\n            if not self.commutative:\n                backward = op(self.backward[right], backward)\n            size += self.size[right]\n        self.forward[node] = forward\n        self.backward[node] = forward if self.commutative else backward\n        self.size[node] = size\n\n    def _toggle(self, node):\n        if node < 0:\n            return\n        self.left[node], self.right[node] = self.right[node], self.left[node]\n        self.forward[node], self.backward[node] = self.backward[node], self.forward[node]\n        self.reversed[node] ^= 1\n\n    def _all_apply(self, node, action):\n        mapping = self.mapping\n        size = self.size[node]\n        self.forward[node] = mapping(action, self.forward[node], size)\n        self.backward[node] = self.forward[node] if self.commutative else mapping(action, self.backward[node], size)\n        if self.pending[node]:\n            self.lazy[node] = self.composition(action, self.lazy[node])\n        else:\n            self.lazy[node] = action\n            self.pending[node] = 1\n\n    def _push(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        if self.reversed[node]:\n            self._toggle(left)\n            self._toggle(right)\n            self.reversed[node] = 0\n        if self.pending[node]:\n            action = self.lazy[node]\n            self.value[node] = self.mapping(action, self.value[node], 1)\n            if left >= 0:\n                self._all_apply(left, action)\n            if right >= 0:\n                self._all_apply(right, action)\n            self.lazy[node] = 0\n            self.pending[node] = 0\n\n    def _split(self, root, count, update=True):\n        left = self.left\n        right = self.right\n        first = second = -1\n        node = root\n        while node >= 0:\n            self._push(node)\n            child = left[node]\n            left_size = self.size[child] if child >= 0 else 0\n            if count <= left_size:\n                left[node] = second\n                second, node = node, child\n            else:\n                count -= left_size + 1\n                child = right[node]\n                right[node] = first\n                first, node = node, child\n        root = -1\n        while first >= 0:\n            parent = right[first]\n            right[first] = root\n            if update:\n                self._update(first)\n            root, first = first, parent\n        first = root\n        root = -1\n        while second >= 0:\n            parent = left[second]\n            left[second] = root\n            if update:\n                self._update(second)\n            root, second = second, parent\n        return first, root\n\n    def _merge(self, first, second, push_first=False, push_second=False):\n        left = self.left\n        right = self.right\n        priority = self.priority\n        root = -1\n        while first >= 0:\n            if push_first:\n                self._push(first)\n            child = right[first]\n            right[first] = root\n            root, first = first, child\n        first = root\n        root = -1\n        while second >= 0:\n            if push_second:\n                self._push(second)\n            child = left[second]\n            left[second] = root\n            root, second = second, child\n        second = root\n        root = -1\n        while first >= 0 or second >= 0:\n            if second < 0 or first >= 0 and priority[first] > priority[second]:\n                parent = right[first]\n                right[first] = root\n                self._update(first)\n                root, first = first, parent\n            else:\n                parent = left[second]\n                left[second] = root\n                self._update(second)\n                root, second = second, parent\n        return root\n\n    def insert(self, index, value):\n        first, second = self._split(self.root, index, False)\n        self.root = self._merge(self._merge(first, self._new(value)), second)\n\n    def append(self, value):\n        self.insert(len(self), value)\n\n    def appendleft(self, value):\n        self.insert(0, value)\n\n    def pop(self, index=-1):\n        length = len(self)\n        if index < 0:\n            index += length\n        if not 0 <= index < length:\n            raise IndexError(\"pop index out of range\")\n        rest, second = self._split(self.root, index + 1, False)\n        first, middle = self._split(rest, index, False)\n        self._push(middle)\n        value = self.value[middle]\n        self.root = self._merge(first, second)\n        return value\n\n    def get(self, index):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        while node >= 0:\n            self._push(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                return self.value[node]\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def set(self, index, value):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        path = []\n        while node >= 0:\n            self._push(node)\n            path.append(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                self.value[node] = value\n                for current in reversed(path):\n                    self._update(current)\n                return\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def reverse_range(self, left, right):\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        self._toggle(middle)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    reverse = reverse_range\n\n    def prod(self, left=0, right=None):\n        if right is None:\n            right = len(self)\n        if left >= right:\n            return self.identity\n        node = self.root\n        op = self.op\n        while node >= 0:\n            if left == 0 and right == self.size[node]:\n                return self.forward[node]\n            self._push(node)\n            first = self.left[node]\n            second = self.right[node]\n            count = self.size[first] if first >= 0 else 0\n            if right <= count:\n                node = first\n            elif left > count:\n                left -= count + 1\n                right -= count + 1\n                node = second\n            else:\n                break\n        if node < 0:\n            return self.identity\n        center = self.value[node]\n        prefix = self.identity\n        right -= count + 1\n        node = second\n        while node >= 0 and right:\n            if right == self.size[node]:\n                prefix = op(prefix, self.forward[node])\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if right <= count:\n                node = child\n            else:\n                if child >= 0:\n                    prefix = op(prefix, self.forward[child])\n                prefix = op(prefix, self.value[node])\n                right -= count + 1\n                node = self.right[node]\n        suffix = self.identity\n        node = first\n        while node >= 0 and left < self.size[node]:\n            if left == 0:\n                suffix = op(self.forward[node], suffix)\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if left > count:\n                left -= count + 1\n                node = self.right[node]\n            else:\n                second = self.right[node]\n                if second >= 0:\n                    suffix = op(self.forward[second], suffix)\n                suffix = op(self.value[node], suffix)\n                node = child\n        return op(op(suffix, center), prefix)\n\n    query = prod\n\n    def apply(self, left, right, action):\n        if self.mapping is None or self.composition is None:\n            raise TypeError(\"mapping and composition are required\")\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        if middle >= 0:\n            self._all_apply(middle, action)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    range_apply = apply\n\n    def to_list(self):\n        result = []\n        stack = []\n        node = self.root\n        while stack or node >= 0:\n            while node >= 0:\n                self._push(node)\n                stack.append(node)\n                node = self.left[node]\n            node = stack.pop()\n            result.append(self.value[node])\n            node = self.right[node]\n        return result\n\n    def tolist(self):\n        \"\"\"遅延作用と反転を反映した現在の要素列を返す。O(N)。\"\"\"\n        return self.to_list()\n\n    def __str__(self):\n        return str(self.to_list())\n\n    def __repr__(self):\n        return \"ImplicitTreap(%r)\" % self.to_list()\n\n    def __getitem__(self, index):\n        return self.get(index)\n\n    def __setitem__(self, index, value):\n        self.set(index, value)\n\n    def __len__(self):\n        return self.size[self.root] if self.root >= 0 else 0\n\n    def __iter__(self):\n        return iter(self.to_list())\n",
+      "sourceCode": "from operator import add\n\n\nclass ImplicitTreap:\n    __slots__ = (\n        \"root\", \"left\", \"right\", \"priority\", \"size\", \"reversed\", \"value\",\n        \"forward\", \"backward\", \"lazy\", \"pending\", \"op\", \"identity\",\n        \"mapping\", \"composition\", \"state\", \"commutative\"\n    )\n\n    def __init__(\n        self,\n        values=(),\n        op=add,\n        identity=0,\n        mapping=None,\n        composition=None,\n        commutative=False,\n    ):\n        self.root = -1\n        self.left = []\n        self.right = []\n        self.priority = []\n        self.size = []\n        self.reversed = bytearray()\n        self.value = []\n        self.forward = []\n        self.backward = self.forward if commutative else []\n        self.lazy = []\n        self.pending = bytearray()\n        self.op = op\n        self.identity = identity\n        self.mapping = mapping\n        self.composition = composition\n        self.commutative = commutative\n        self.state = 0xD192ED03\n        values = list(values)\n        if values:\n            stack = []\n            for value in values:\n                node = self._new(value)\n                last = -1\n                while stack and self.priority[node] < self.priority[stack[-1]]:\n                    last = stack.pop()\n                self.left[node] = last\n                if stack:\n                    self.right[stack[-1]] = node\n                stack.append(node)\n            self.root = stack[0]\n            order = []\n            stack = [self.root]\n            while stack:\n                node = stack.pop()\n                order.append(node)\n                if self.left[node] >= 0:\n                    stack.append(self.left[node])\n                if self.right[node] >= 0:\n                    stack.append(self.right[node])\n            for node in reversed(order):\n                self._update(node)\n\n    def _random(self):\n        value = self.state\n        value ^= value << 13 & 0xFFFFFFFF\n        value ^= value >> 17\n        value ^= value << 5 & 0xFFFFFFFF\n        self.state = value\n        return value\n\n    def _new(self, value):\n        node = len(self.value)\n        self.left.append(-1)\n        self.right.append(-1)\n        self.priority.append(self._random())\n        self.size.append(1)\n        self.reversed.append(0)\n        self.value.append(value)\n        self.forward.append(value)\n        if not self.commutative:\n            self.backward.append(value)\n        self.lazy.append(0)\n        self.pending.append(0)\n        return node\n\n    def _update(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        value = self.value[node]\n        forward = value\n        backward = value\n        size = 1\n        op = self.op\n        if left >= 0:\n            forward = op(self.forward[left], forward)\n            if not self.commutative:\n                backward = op(backward, self.backward[left])\n            size += self.size[left]\n        if right >= 0:\n            forward = op(forward, self.forward[right])\n            if not self.commutative:\n                backward = op(self.backward[right], backward)\n            size += self.size[right]\n        self.forward[node] = forward\n        if not self.commutative:\n            self.backward[node] = backward\n        self.size[node] = size\n\n    def _toggle(self, node):\n        if node < 0:\n            return\n        self.left[node], self.right[node] = self.right[node], self.left[node]\n        if not self.commutative:\n            self.forward[node], self.backward[node] = self.backward[node], self.forward[node]\n        self.reversed[node] ^= 1\n\n    def _all_apply(self, node, action):\n        mapping = self.mapping\n        size = self.size[node]\n        self.forward[node] = mapping(action, self.forward[node], size)\n        if not self.commutative:\n            self.backward[node] = mapping(action, self.backward[node], size)\n        if self.pending[node]:\n            self.lazy[node] = self.composition(action, self.lazy[node])\n        else:\n            self.lazy[node] = action\n            self.pending[node] = 1\n\n    def _push(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        if self.reversed[node]:\n            self._toggle(left)\n            self._toggle(right)\n            self.reversed[node] = 0\n        if self.pending[node]:\n            action = self.lazy[node]\n            self.value[node] = self.mapping(action, self.value[node], 1)\n            if left >= 0:\n                self._all_apply(left, action)\n            if right >= 0:\n                self._all_apply(right, action)\n            self.lazy[node] = 0\n            self.pending[node] = 0\n\n    def _split(self, root, count, update=True):\n        left = self.left\n        right = self.right\n        first = second = -1\n        node = root\n        while node >= 0:\n            self._push(node)\n            child = left[node]\n            left_size = self.size[child] if child >= 0 else 0\n            if count <= left_size:\n                left[node] = second\n                second, node = node, child\n            else:\n                count -= left_size + 1\n                child = right[node]\n                right[node] = first\n                first, node = node, child\n        root = -1\n        while first >= 0:\n            parent = right[first]\n            right[first] = root\n            if update:\n                self._update(first)\n            root, first = first, parent\n        first = root\n        root = -1\n        while second >= 0:\n            parent = left[second]\n            left[second] = root\n            if update:\n                self._update(second)\n            root, second = second, parent\n        return first, root\n\n    def _merge(self, first, second, push_first=False, push_second=False):\n        left = self.left\n        right = self.right\n        priority = self.priority\n        root = -1\n        while first >= 0:\n            if push_first:\n                self._push(first)\n            child = right[first]\n            right[first] = root\n            root, first = first, child\n        first = root\n        root = -1\n        while second >= 0:\n            if push_second:\n                self._push(second)\n            child = left[second]\n            left[second] = root\n            root, second = second, child\n        second = root\n        root = -1\n        while first >= 0 or second >= 0:\n            if second < 0 or first >= 0 and priority[first] > priority[second]:\n                parent = right[first]\n                right[first] = root\n                self._update(first)\n                root, first = first, parent\n            else:\n                parent = left[second]\n                left[second] = root\n                self._update(second)\n                root, second = second, parent\n        return root\n\n    def insert(self, index, value):\n        first, second = self._split(self.root, index, False)\n        self.root = self._merge(self._merge(first, self._new(value)), second)\n\n    def append(self, value):\n        self.insert(len(self), value)\n\n    def appendleft(self, value):\n        self.insert(0, value)\n\n    def pop(self, index=-1):\n        length = len(self)\n        if index < 0:\n            index += length\n        if not 0 <= index < length:\n            raise IndexError(\"pop index out of range\")\n        rest, second = self._split(self.root, index + 1, False)\n        first, middle = self._split(rest, index, False)\n        self._push(middle)\n        value = self.value[middle]\n        self.root = self._merge(first, second)\n        return value\n\n    def get(self, index):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        while node >= 0:\n            self._push(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                return self.value[node]\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def set(self, index, value):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        path = []\n        while node >= 0:\n            self._push(node)\n            path.append(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                self.value[node] = value\n                for current in reversed(path):\n                    self._update(current)\n                return\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def reverse_range(self, left, right):\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        self._toggle(middle)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    reverse = reverse_range\n\n    def prod(self, left=0, right=None):\n        if right is None:\n            right = len(self)\n        if left >= right:\n            return self.identity\n        node = self.root\n        op = self.op\n        while node >= 0:\n            if left == 0 and right == self.size[node]:\n                return self.forward[node]\n            self._push(node)\n            first = self.left[node]\n            second = self.right[node]\n            count = self.size[first] if first >= 0 else 0\n            if right <= count:\n                node = first\n            elif left > count:\n                left -= count + 1\n                right -= count + 1\n                node = second\n            else:\n                break\n        if node < 0:\n            return self.identity\n        center = self.value[node]\n        prefix = self.identity\n        right -= count + 1\n        node = second\n        while node >= 0 and right:\n            if right == self.size[node]:\n                prefix = op(prefix, self.forward[node])\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if right <= count:\n                node = child\n            else:\n                if child >= 0:\n                    prefix = op(prefix, self.forward[child])\n                prefix = op(prefix, self.value[node])\n                right -= count + 1\n                node = self.right[node]\n        suffix = self.identity\n        node = first\n        while node >= 0 and left < self.size[node]:\n            if left == 0:\n                suffix = op(self.forward[node], suffix)\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if left > count:\n                left -= count + 1\n                node = self.right[node]\n            else:\n                second = self.right[node]\n                if second >= 0:\n                    suffix = op(self.forward[second], suffix)\n                suffix = op(self.value[node], suffix)\n                node = child\n        return op(op(suffix, center), prefix)\n\n    query = prod\n\n    def apply(self, left, right, action):\n        if self.mapping is None or self.composition is None:\n            raise TypeError(\"mapping and composition are required\")\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        if middle >= 0:\n            self._all_apply(middle, action)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    range_apply = apply\n\n    def to_list(self):\n        result = []\n        stack = []\n        node = self.root\n        while stack or node >= 0:\n            while node >= 0:\n                self._push(node)\n                stack.append(node)\n                node = self.left[node]\n            node = stack.pop()\n            result.append(self.value[node])\n            node = self.right[node]\n        return result\n\n    def tolist(self):\n        \"\"\"遅延作用と反転を反映した現在の要素列を返す。O(N)。\"\"\"\n        return self.to_list()\n\n    def __str__(self):\n        return str(self.to_list())\n\n    def __repr__(self):\n        return \"ImplicitTreap(%r)\" % self.to_list()\n\n    def __getitem__(self, index):\n        return self.get(index)\n\n    def __setitem__(self, index, value):\n        self.set(index, value)\n\n    def __len__(self):\n        return self.size[self.root] if self.root >= 0 else 0\n\n    def __iter__(self):\n        return iter(self.to_list())\n",
+      "standaloneCode": "from operator import add\n\n\nclass ImplicitTreap:\n    __slots__ = (\n        \"root\", \"left\", \"right\", \"priority\", \"size\", \"reversed\", \"value\",\n        \"forward\", \"backward\", \"lazy\", \"pending\", \"op\", \"identity\",\n        \"mapping\", \"composition\", \"state\", \"commutative\"\n    )\n\n    def __init__(\n        self,\n        values=(),\n        op=add,\n        identity=0,\n        mapping=None,\n        composition=None,\n        commutative=False,\n    ):\n        self.root = -1\n        self.left = []\n        self.right = []\n        self.priority = []\n        self.size = []\n        self.reversed = bytearray()\n        self.value = []\n        self.forward = []\n        self.backward = self.forward if commutative else []\n        self.lazy = []\n        self.pending = bytearray()\n        self.op = op\n        self.identity = identity\n        self.mapping = mapping\n        self.composition = composition\n        self.commutative = commutative\n        self.state = 0xD192ED03\n        values = list(values)\n        if values:\n            stack = []\n            for value in values:\n                node = self._new(value)\n                last = -1\n                while stack and self.priority[node] < self.priority[stack[-1]]:\n                    last = stack.pop()\n                self.left[node] = last\n                if stack:\n                    self.right[stack[-1]] = node\n                stack.append(node)\n            self.root = stack[0]\n            order = []\n            stack = [self.root]\n            while stack:\n                node = stack.pop()\n                order.append(node)\n                if self.left[node] >= 0:\n                    stack.append(self.left[node])\n                if self.right[node] >= 0:\n                    stack.append(self.right[node])\n            for node in reversed(order):\n                self._update(node)\n\n    def _random(self):\n        value = self.state\n        value ^= value << 13 & 0xFFFFFFFF\n        value ^= value >> 17\n        value ^= value << 5 & 0xFFFFFFFF\n        self.state = value\n        return value\n\n    def _new(self, value):\n        node = len(self.value)\n        self.left.append(-1)\n        self.right.append(-1)\n        self.priority.append(self._random())\n        self.size.append(1)\n        self.reversed.append(0)\n        self.value.append(value)\n        self.forward.append(value)\n        if not self.commutative:\n            self.backward.append(value)\n        self.lazy.append(0)\n        self.pending.append(0)\n        return node\n\n    def _update(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        value = self.value[node]\n        forward = value\n        backward = value\n        size = 1\n        op = self.op\n        if left >= 0:\n            forward = op(self.forward[left], forward)\n            if not self.commutative:\n                backward = op(backward, self.backward[left])\n            size += self.size[left]\n        if right >= 0:\n            forward = op(forward, self.forward[right])\n            if not self.commutative:\n                backward = op(self.backward[right], backward)\n            size += self.size[right]\n        self.forward[node] = forward\n        if not self.commutative:\n            self.backward[node] = backward\n        self.size[node] = size\n\n    def _toggle(self, node):\n        if node < 0:\n            return\n        self.left[node], self.right[node] = self.right[node], self.left[node]\n        if not self.commutative:\n            self.forward[node], self.backward[node] = self.backward[node], self.forward[node]\n        self.reversed[node] ^= 1\n\n    def _all_apply(self, node, action):\n        mapping = self.mapping\n        size = self.size[node]\n        self.forward[node] = mapping(action, self.forward[node], size)\n        if not self.commutative:\n            self.backward[node] = mapping(action, self.backward[node], size)\n        if self.pending[node]:\n            self.lazy[node] = self.composition(action, self.lazy[node])\n        else:\n            self.lazy[node] = action\n            self.pending[node] = 1\n\n    def _push(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        if self.reversed[node]:\n            self._toggle(left)\n            self._toggle(right)\n            self.reversed[node] = 0\n        if self.pending[node]:\n            action = self.lazy[node]\n            self.value[node] = self.mapping(action, self.value[node], 1)\n            if left >= 0:\n                self._all_apply(left, action)\n            if right >= 0:\n                self._all_apply(right, action)\n            self.lazy[node] = 0\n            self.pending[node] = 0\n\n    def _split(self, root, count, update=True):\n        left = self.left\n        right = self.right\n        first = second = -1\n        node = root\n        while node >= 0:\n            self._push(node)\n            child = left[node]\n            left_size = self.size[child] if child >= 0 else 0\n            if count <= left_size:\n                left[node] = second\n                second, node = node, child\n            else:\n                count -= left_size + 1\n                child = right[node]\n                right[node] = first\n                first, node = node, child\n        root = -1\n        while first >= 0:\n            parent = right[first]\n            right[first] = root\n            if update:\n                self._update(first)\n            root, first = first, parent\n        first = root\n        root = -1\n        while second >= 0:\n            parent = left[second]\n            left[second] = root\n            if update:\n                self._update(second)\n            root, second = second, parent\n        return first, root\n\n    def _merge(self, first, second, push_first=False, push_second=False):\n        left = self.left\n        right = self.right\n        priority = self.priority\n        root = -1\n        while first >= 0:\n            if push_first:\n                self._push(first)\n            child = right[first]\n            right[first] = root\n            root, first = first, child\n        first = root\n        root = -1\n        while second >= 0:\n            if push_second:\n                self._push(second)\n            child = left[second]\n            left[second] = root\n            root, second = second, child\n        second = root\n        root = -1\n        while first >= 0 or second >= 0:\n            if second < 0 or first >= 0 and priority[first] > priority[second]:\n                parent = right[first]\n                right[first] = root\n                self._update(first)\n                root, first = first, parent\n            else:\n                parent = left[second]\n                left[second] = root\n                self._update(second)\n                root, second = second, parent\n        return root\n\n    def insert(self, index, value):\n        first, second = self._split(self.root, index, False)\n        self.root = self._merge(self._merge(first, self._new(value)), second)\n\n    def append(self, value):\n        self.insert(len(self), value)\n\n    def appendleft(self, value):\n        self.insert(0, value)\n\n    def pop(self, index=-1):\n        length = len(self)\n        if index < 0:\n            index += length\n        if not 0 <= index < length:\n            raise IndexError(\"pop index out of range\")\n        rest, second = self._split(self.root, index + 1, False)\n        first, middle = self._split(rest, index, False)\n        self._push(middle)\n        value = self.value[middle]\n        self.root = self._merge(first, second)\n        return value\n\n    def get(self, index):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        while node >= 0:\n            self._push(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                return self.value[node]\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def set(self, index, value):\n        if index < 0:\n            index += len(self)\n        node = self.root\n        path = []\n        while node >= 0:\n            self._push(node)\n            path.append(node)\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                self.value[node] = value\n                for current in reversed(path):\n                    self._update(current)\n                return\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n        raise IndexError(\"index out of range\")\n\n    def reverse_range(self, left, right):\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        self._toggle(middle)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    reverse = reverse_range\n\n    def prod(self, left=0, right=None):\n        if right is None:\n            right = len(self)\n        if left >= right:\n            return self.identity\n        node = self.root\n        op = self.op\n        while node >= 0:\n            if left == 0 and right == self.size[node]:\n                return self.forward[node]\n            self._push(node)\n            first = self.left[node]\n            second = self.right[node]\n            count = self.size[first] if first >= 0 else 0\n            if right <= count:\n                node = first\n            elif left > count:\n                left -= count + 1\n                right -= count + 1\n                node = second\n            else:\n                break\n        if node < 0:\n            return self.identity\n        center = self.value[node]\n        prefix = self.identity\n        right -= count + 1\n        node = second\n        while node >= 0 and right:\n            if right == self.size[node]:\n                prefix = op(prefix, self.forward[node])\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if right <= count:\n                node = child\n            else:\n                if child >= 0:\n                    prefix = op(prefix, self.forward[child])\n                prefix = op(prefix, self.value[node])\n                right -= count + 1\n                node = self.right[node]\n        suffix = self.identity\n        node = first\n        while node >= 0 and left < self.size[node]:\n            if left == 0:\n                suffix = op(self.forward[node], suffix)\n                break\n            self._push(node)\n            child = self.left[node]\n            count = self.size[child] if child >= 0 else 0\n            if left > count:\n                left -= count + 1\n                node = self.right[node]\n            else:\n                second = self.right[node]\n                if second >= 0:\n                    suffix = op(self.forward[second], suffix)\n                suffix = op(self.value[node], suffix)\n                node = child\n        return op(op(suffix, center), prefix)\n\n    query = prod\n\n    def apply(self, left, right, action):\n        if self.mapping is None or self.composition is None:\n            raise TypeError(\"mapping and composition are required\")\n        rest, second = self._split(self.root, right, False)\n        first, middle = self._split(rest, left, False)\n        if middle >= 0:\n            self._all_apply(middle, action)\n        self.root = self._merge(self._merge(first, middle, False, True), second, True, False)\n\n    range_apply = apply\n\n    def to_list(self):\n        result = []\n        stack = []\n        node = self.root\n        while stack or node >= 0:\n            while node >= 0:\n                self._push(node)\n                stack.append(node)\n                node = self.left[node]\n            node = stack.pop()\n            result.append(self.value[node])\n            node = self.right[node]\n        return result\n\n    def tolist(self):\n        \"\"\"遅延作用と反転を反映した現在の要素列を返す。O(N)。\"\"\"\n        return self.to_list()\n\n    def __str__(self):\n        return str(self.to_list())\n\n    def __repr__(self):\n        return \"ImplicitTreap(%r)\" % self.to_list()\n\n    def __getitem__(self, index):\n        return self.get(index)\n\n    def __setitem__(self, index, value):\n        self.set(index, value)\n\n    def __len__(self):\n        return self.size[self.root] if self.root >= 0 else 0\n\n    def __iter__(self):\n        return iter(self.to_list())\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
@@ -22640,7 +22638,7 @@
           "constructorReturnFormat": "ImplicitTreap",
           "constructorReturnDescription": "valuesをコピーし、insert・pop・reverse_rangeで並びを変え、prodで区間積を求められる列を作る。mappingとcompositionを与えるとapplyも使える。",
           "constructorCreates": "valuesをコピーし、insert・pop・reverse_rangeで並びを変え、prodで区間積を求められる列を作る。mappingとcompositionを与えるとapplyも使える。",
-          "constructorComplexity": "O(log N)",
+          "constructorComplexity": "O(N) と O(N) 回のop呼び出し",
           "constructorSourceLine": 11,
           "methods": [
             {
@@ -22668,7 +22666,7 @@
               "returnFormat": "None",
               "returnDescription": "要素数が1増え、挿入位置以降の添字が1ずつ増える。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 209
+              "sourceLine": 213
             },
             {
               "name": "append",
@@ -22691,7 +22689,7 @@
               "returnFormat": "None",
               "returnDescription": "末尾に要素が1つ増える。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 213
+              "sourceLine": 217
             },
             {
               "name": "appendleft",
@@ -22714,7 +22712,7 @@
               "returnFormat": "None",
               "returnDescription": "要素数が1増え、既存要素の添字が1ずつ増える。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 216
+              "sourceLine": 220
             },
             {
               "name": "pop",
@@ -22737,7 +22735,7 @@
               "returnFormat": "object",
               "returnDescription": "削除したindex位置の要素。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 219
+              "sourceLine": 223
             },
             {
               "name": "get",
@@ -22760,7 +22758,7 @@
               "returnFormat": "object",
               "returnDescription": "現在の列のindex番目の値。負のindexは末尾から数える。範囲外ならIndexError。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 232
+              "sourceLine": 236
             },
             {
               "name": "set",
@@ -22787,7 +22785,7 @@
               "returnFormat": "None",
               "returnDescription": "値は返さない。対象を直接更新する。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 249
+              "sourceLine": 253
             },
             {
               "name": "reverse_range",
@@ -22815,7 +22813,7 @@
               "returnFormat": "None",
               "returnDescription": "区間の要素を反転し、以降の添字と区間積に反映する。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 271
+              "sourceLine": 275
             },
             {
               "name": "prod",
@@ -22842,7 +22840,7 @@
               "returnFormat": "object",
               "returnDescription": "区間内の順序を保った集約値。空区間はidentity。rightを省略すると列の末尾まで。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 279
+              "sourceLine": 283
             },
             {
               "name": "apply",
@@ -22873,7 +22871,7 @@
               "returnFormat": "None",
               "returnDescription": "列を更新する。以降のget・prod・表示に作用後の値を反映する。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 344
+              "sourceLine": 348
             },
             {
               "name": "to_list",
@@ -22892,7 +22890,7 @@
               "returnFormat": "list[object]",
               "returnDescription": "遅延更新と反転を反映した列のコピー。返されたlistを変更しても本体は変わらない。",
               "complexity": "O(N) と O(N) 回のmapping・composition呼び出し",
-              "sourceLine": 355
+              "sourceLine": 359
             },
             {
               "name": "tolist",
@@ -22910,7 +22908,7 @@
               "returnFormat": "list[object]",
               "returnDescription": "遅延作用と反転を反映した現在の要素列",
               "complexity": "O(N) と O(N) 回のmapping・composition呼び出し",
-              "sourceLine": 369
+              "sourceLine": 373
             },
             {
               "name": "__str__",
@@ -22929,7 +22927,7 @@
               "returnFormat": "str",
               "returnDescription": "更新・反転後の列をlistの形式で表した文字列。",
               "complexity": "O(N) と O(N) 回のmapping・composition呼び出し",
-              "sourceLine": 373
+              "sourceLine": 377
             },
             {
               "name": "__repr__",
@@ -22948,7 +22946,7 @@
               "returnFormat": "str",
               "returnDescription": "ImplicitTreap([...])の形で現在の列を表した文字列。",
               "complexity": "O(N) と O(N) 回のmapping・composition呼び出し",
-              "sourceLine": 376
+              "sourceLine": 380
             },
             {
               "name": "__getitem__",
@@ -22972,7 +22970,7 @@
               "returnFormat": "object",
               "returnDescription": "get(index)と同じ値。整数添字のみを受け付け、sliceは扱わない。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 379
+              "sourceLine": 383
             },
             {
               "name": "__setitem__",
@@ -23000,7 +22998,7 @@
               "returnFormat": "None",
               "returnDescription": "値は返さない。対象を直接更新する。",
               "complexity": "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数",
-              "sourceLine": 382
+              "sourceLine": 386
             },
             {
               "name": "__len__",
@@ -23019,7 +23017,7 @@
               "returnFormat": "int",
               "returnDescription": "要素数。",
               "complexity": "O(1)",
-              "sourceLine": 385
+              "sourceLine": 389
             },
             {
               "name": "__iter__",
@@ -23038,7 +23036,7 @@
               "returnFormat": "iterator[object]",
               "returnDescription": "作成時にコピーした列を、先頭から順に1要素ずつ返すiterator。",
               "complexity": "O(N) と O(N) 回のmapping・composition呼び出し",
-              "sourceLine": 388
+              "sourceLine": 392
             }
           ]
         }
@@ -23719,7 +23717,7 @@
           "constructorReturnFormat": "RollbackArray",
           "constructorReturnDescription": "valuesを現在値としてcopyする。setで更新し、snapshotで履歴位置を取得し、rollbackまたはundoで更新を取り消せる。",
           "constructorCreates": "valuesを現在値としてcopyする。setで更新し、snapshotで履歴位置を取得し、rollbackまたはundoで更新を取り消せる。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N) time・memory",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -25900,7 +25898,7 @@
           "constructorReturnFormat": "RangeMajority",
           "constructorReturnDescription": "不変な values を前処理し、majority・is_majority・count を任意の半開区間へ適用できる状態を作る。",
           "constructorCreates": "不変な values を前処理し、majority・is_majority・count を任意の半開区間へ適用できる状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N) time・O(N) memory",
           "constructorSourceLine": 11,
           "methods": [
             {
@@ -26372,7 +26370,7 @@
           "constructorReturnFormat": "StaticRangeDistinct",
           "constructorReturnDescription": "valuesを変更しない前提で、任意の半開区間に含まれる異なる値の個数をcountで求められる状態を作る。",
           "constructorCreates": "valuesを変更しない前提で、任意の半開区間に含まれる異なる値の個数をcountで求められる状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N log N) time・O(N log N) memory",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -26465,7 +26463,7 @@
           "constructorReturnFormat": "StaticRangeFrequency",
           "constructorReturnDescription": "values の各値について昇順の出現 index を保持する。構築後に values を変更する API は持たない。",
           "constructorCreates": "values の各値について昇順の出現 index を保持する。構築後に values を変更する API は持たない。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N)",
           "constructorSourceLine": 11,
           "methods": [
             {
@@ -26624,7 +26622,7 @@
           "constructorReturnFormat": "StaticRangeGroup",
           "constructorReturnDescription": "valuesのprefix積を1回構築する。prod(left, right)で任意の半開区間積、prefix(right)で先頭からの積を取得できる。",
           "constructorCreates": "valuesのprefix積を1回構築する。prod(left, right)で任意の半開区間積、prefix(right)で先頭からの積を取得できる。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N) time、O(N) memory",
           "constructorSourceLine": 9,
           "methods": [
             {
@@ -26744,7 +26742,7 @@
           "constructorReturnFormat": "StaticRangeMode",
           "constructorReturnDescription": "不変な values に対し、mode・count を任意の半開区間へ適用できる状態を作る。",
           "constructorCreates": "不変な values に対し、mode・count を任意の半開区間へ適用できる状態を作る。",
-          "constructorComplexity": "O(sqrt(N) log N)",
+          "constructorComplexity": "構築 O(N sqrt N) time・O(N) memory",
           "constructorSourceLine": 12,
           "methods": [
             {
@@ -27315,7 +27313,7 @@
           "constructorReturnFormat": "WeightedWaveletMatrix",
           "constructorReturnDescription": "位置区間・値域・値の順位を条件にした重み和を対数時間で取得できる状態を作る。",
           "constructorCreates": "位置区間・値域・値の順位を条件にした重み和を対数時間で取得できる状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(N log S) time・O(N log S) memory",
           "constructorSourceLine": 17,
           "methods": [
             {
@@ -33495,7 +33493,7 @@
           "constructorReturnFormat": "BridgeForest",
           "constructorReturnDescription": "元の頂点番号とedge IDを保ったまま、橋のpath queryを処理できる状態を作る。",
           "constructorCreates": "元の頂点番号とedge IDを保ったまま、橋のpath queryを処理できる状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O((V+E) log V) time・O(V log V+E) memory",
           "constructorSourceLine": 16,
           "methods": [
             {
@@ -33984,7 +33982,7 @@
           "constructorReturnFormat": "DominatorTree",
           "constructorReturnDescription": "rootから到達できる頂点についてdominates・nearest_common_dominator・dominator_pathを使える状態を作る。",
           "constructorCreates": "rootから到達できる頂点についてdominates・nearest_common_dominator・dominator_pathを使える状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O((V+E) alpha(V)+V log V)",
           "constructorSourceLine": 94,
           "methods": [
             {
@@ -37402,7 +37400,7 @@
           "constructorReturnFormat": "PushRelabel",
           "constructorReturnDescription": "n頂点・辺なしのグラフを作る。add_edgeで辺を追加してflowで流し、get_edgeで各辺の流量、min_cutで最小カットの始点側を取得できる。",
           "constructorCreates": "n頂点・辺なしのグラフを作る。add_edgeで辺を追加してflowで流し、get_edgeで各辺の流量、min_cutで最小カットの始点側を取得できる。",
-          "constructorComplexity": "O(V^2sqrt E)",
+          "constructorComplexity": "O(V) time・memory。辺追加後の保持領域 O(V+E)",
           "constructorSourceLine": 5,
           "methods": [
             {
@@ -37750,7 +37748,7 @@
           "constructorReturnFormat": "BipartiteMatching",
           "constructorReturnDescription": "BipartiteMatching(graph)は無向隣接リストを二部彩色して保持し、各結果を元の頂点番号で返せる状態を作る。奇閉路・自己ループがあればValueError。BipartiteMatching(L, R)は左右の頂点数を指定した空のグラフを作る。どちらもadd_edgeで辺を追加し、solveで最大マッチングを求められる。",
           "constructorCreates": "BipartiteMatching(graph)は無向隣接リストを二部彩色して保持し、各結果を元の頂点番号で返せる状態を作る。奇閉路・自己ループがあればValueError。BipartiteMatching(L, R)は左右の頂点数を指定した空のグラフを作る。どちらもadd_edgeで辺を追加し、solveで最大マッチングを求められる。",
-          "constructorComplexity": "O((V+E)sqrt V)",
+          "constructorComplexity": "隣接リストから構築 O(V+E)、左右の頂点数から構築 O(V)",
           "constructorSourceLine": 7,
           "methods": [
             {
@@ -38104,7 +38102,7 @@
           "constructorReturnFormat": "GeneralMatching",
           "constructorReturnDescription": "graphを直ちに解き、matching_size・mate・pairsを取得できる状態を作る。",
           "constructorCreates": "graphを直ちに解き、matching_size・mate・pairsを取得できる状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "O(VE)",
           "constructorSourceLine": 10,
           "methods": [
             {
@@ -43277,7 +43275,7 @@
           "constructorReturnFormat": "Comb",
           "constructorReturnDescription": "素数mod上の階乗表を必要なところまで自動で拡張する。",
           "constructorCreates": "素数mod上の階乗表を必要なところまで自動で拡張する。",
-          "constructorComplexity": "O(size)",
+          "constructorComplexity": "構築 O(size)",
           "constructorSourceLine": 10,
           "methods": [
             {
@@ -44375,7 +44373,7 @@
           "constructorReturnFormat": "QBinomial",
           "constructorReturnDescription": "q二項係数を計算するためのクラス。",
           "constructorCreates": "q二項係数を計算するためのクラス。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "O(maximum) modular multiplications + 1 modular inverse",
           "constructorSourceLine": 8,
           "methods": [
             {
@@ -45391,7 +45389,7 @@
           "constructorReturnFormat": "F2Matrix",
           "constructorReturnDescription": "height行width列の行列。rows[i]の第jビットが(i,j)成分になる。rows省略時は零行列で、width省略時は正方行列。",
           "constructorCreates": "height行width列の行列。rows[i]の第jビットが(i,j)成分になる。rows省略時は零行列で、width省略時は正方行列。",
-          "constructorComplexity": "O(HW)",
+          "constructorComplexity": "O(H*(1+ceil(W/w)))。Hは行数、Wは列数、wは整数の1桁のビット数。rows省略時はO(H+ceil(W/w))",
           "constructorSourceLine": 4,
           "methods": [
             {
@@ -49175,7 +49173,7 @@
           "constructorReturnFormat": "CentroidDecomposition",
           "constructorReturnDescription": "重心分解木を構築し、root・parent・depth・children・order・pathsから分解結果を読める状態を作る。treeへ整数Nを渡した場合は、add_edge後にbuildを呼ぶ。",
           "constructorCreates": "重心分解木を構築し、root・parent・depth・children・order・pathsから分解結果を読める状態を作る。treeへ整数Nを渡した場合は、add_edge後にbuildを呼ぶ。",
-          "constructorComplexity": "O(Nlog N)",
+          "constructorComplexity": "O(V log V) time、O(V log V) memory",
           "constructorSourceLine": 49,
           "methods": [
             {
@@ -49314,7 +49312,7 @@
           "constructorReturnFormat": "CentroidDistanceFenwick",
           "constructorReturnDescription": "各頂点の値をadd・setで更新し、queryで距離区間ごとの合計を求められる状態を作る。valuesを省略した場合、すべての頂点の初期値は0。",
           "constructorCreates": "各頂点の値をadd・setで更新し、queryで距離区間ごとの合計を求められる状態を作る。valuesを省略した場合、すべての頂点の初期値は0。",
-          "constructorComplexity": "O(Nlog N)",
+          "constructorComplexity": "O(V log^2 V) time、O(V log V) memory",
           "constructorSourceLine": 212,
           "methods": [
             {
@@ -49470,7 +49468,7 @@
           "constructorReturnFormat": "DSUOnTree",
           "constructorReturnDescription": "rootを根とする親子関係・部分木サイズ・Euler順を保持する。runへ集計の更新関数を渡すと全頂点の部分木を処理できる。集計値自体は保持しない。",
           "constructorCreates": "rootを根とする親子関係・部分木サイズ・Euler順を保持する。runへ集計の更新関数を渡すと全頂点の部分木を処理できる。集計値自体は保持しない。",
-          "constructorComplexity": "O(Nlog N)",
+          "constructorComplexity": "O(N) 時間・領域。Nは頂点数",
           "constructorSourceLine": 17,
           "methods": [
             {
@@ -50563,7 +50561,7 @@
           "constructorReturnFormat": "HeavyLightDecomposition",
           "constructorReturnDescription": "rootを根とするHLDを構築する。indexで値の配置先、subtreeで部分木区間、pathやpath_orderedでパスの区間を取得できる。値の保持・加算・集計は別のデータ構造で行う。",
           "constructorCreates": "rootを根とするHLDを構築する。indexで値の配置先、subtreeで部分木区間、pathやpath_orderedでパスの区間を取得できる。値の保持・加算・集計は別のデータ構造で行う。",
-          "constructorComplexity": "O(N)",
+          "constructorComplexity": "O(N) 時間・領域。Nは頂点数",
           "constructorSourceLine": 4,
           "methods": [
             {
@@ -51454,7 +51452,7 @@
           "constructorReturnFormat": "LCA",
           "constructorReturnDescription": "Euler tourとRMQでLCAをO(1)で返す。",
           "constructorCreates": "Euler tourとRMQでLCAをO(1)で返す。",
-          "constructorComplexity": "O(N)",
+          "constructorComplexity": "構築 O(N)",
           "constructorSourceLine": 11,
           "methods": [
             {
@@ -54587,7 +54585,7 @@
           "constructorReturnFormat": "TreeMo",
           "constructorReturnDescription": "add_query で path を登録し、run で callback を呼びながら登録順の答えを返せる状態を作る。",
           "constructorCreates": "add_query で path を登録し、run で callback を呼びながら登録順の答えを返せる状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(V log V)",
           "constructorSourceLine": 12,
           "methods": [
             {
@@ -54776,7 +54774,7 @@
           "constructorReturnFormat": "TreeMonoid",
           "constructorReturnDescription": "set・get で頂点値を扱い、path_prod と subtree_prod で積を取得できる状態を作る。",
           "constructorCreates": "set・get で頂点値を扱い、path_prod と subtree_prod で積を取得できる状態を作る。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(V)",
           "constructorSourceLine": 16,
           "methods": [
             {
@@ -54963,7 +54961,7 @@
           "constructorReturnFormat": "TreeWaveletMatrix",
           "constructorReturnDescription": "treeの各頂点値を保持する。kth_path・count_pathで2頂点間pathを、kth_subtree・count_subtreeでrooted subtreeを検索できる。",
           "constructorCreates": "treeの各頂点値を保持する。kth_path・count_pathで2頂点間pathを、kth_subtree・count_subtreeでrooted subtreeを検索できる。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "O(V log S) time、O(V log S) memory（Sは異なる頂点値の個数）",
           "constructorSourceLine": 12,
           "methods": [
             {
@@ -63393,7 +63391,7 @@
           "constructorReturnFormat": "LARSCH",
           "constructorReturnDescription": "size行の下三角行列を表すvalue(row, column)を保持する。get_argminを呼ぶたびに次のrowについて、0以上row以下で最小値を取る最小columnを返せる。",
           "constructorCreates": "size行の下三角行列を表すvalue(row, column)を保持する。get_argminを呼ぶたびに次のrowについて、0以上row以下で最小値を取る最小columnを返せる。",
-          "constructorComplexity": "実装依存",
+          "constructorComplexity": "構築 O(log N) time、O(log N) memory",
           "constructorSourceLine": 145,
           "methods": [
             {
@@ -64364,7 +64362,7 @@
           "constructorReturnFormat": "ProjectSelection",
           "constructorReturnDescription": "variable_count個の0/1変数を持つ空の問題を作る。各add methodで項を追加し、min_costで最適値と割当を求めるか、buildでMaxFlowGraphへ変換できる。",
           "constructorCreates": "variable_count個の0/1変数を持つ空の問題を作る。各add methodで項を追加し、min_costで最適値と割当を求めるか、buildでMaxFlowGraphへ変換できる。",
-          "constructorComplexity": "O(1) / O(N+P+H)",
+          "constructorComplexity": "構築 O(N) time・O(N) memory",
           "constructorSourceLine": 22,
           "methods": [
             {
@@ -64927,7 +64925,7 @@
           "constructorReturnFormat": "KProjectSelection",
           "constructorReturnDescription": "sizes[i]個の状態を取る変数iを作る。add_unary_costとadd_pair_costでコストを追加し、min_costで最適値と各変数の状態番号を求められる。",
           "constructorCreates": "sizes[i]個の状態を取る変数iを作る。add_unary_costとadd_pair_costでコストを追加し、min_costで最適値と各変数の状態番号を求められる。",
-          "constructorComplexity": "O(1) / O(N+P+H)",
+          "constructorComplexity": "構築 O(S) time・O(S) memory、S=sum(sizes)",
           "constructorSourceLine": 278,
           "methods": [
             {
@@ -66432,7 +66430,7 @@
           "constructorReturnFormat": "ConvexPolygon",
           "constructorReturnDescription": "location と contains を繰り返し O(log N) で呼べる静的な凸多角形を作る。",
           "constructorCreates": "location と contains を繰り返し O(log N) で呼べる静的な凸多角形を作る。",
-          "constructorComplexity": "O(log N)",
+          "constructorComplexity": "構築 O(N)",
           "constructorSourceLine": 19,
           "methods": [
             {
@@ -69455,7 +69453,7 @@
           "constructorReturnFormat": "Random",
           "constructorReturnDescription": "再現可能なxoshiro256**乱数・配列・ビット列・行列・文字列生成を行うクラス。",
           "constructorCreates": "再現可能なxoshiro256**乱数・配列・ビット列・行列・文字列生成を行うクラス。",
-          "constructorComplexity": "各出力サイズに線形",
+          "constructorComplexity": "O(1)",
           "constructorSourceLine": 12,
           "methods": [
             {
@@ -70038,7 +70036,7 @@
           "constructorReturnFormat": "Edge",
           "constructorReturnDescription": "辺-list container・木・森・二部・連結・単純グラフ生成を扱う 辺。",
           "constructorCreates": "辺-list container・木・森・二部・連結・単純グラフ生成を扱う 辺。",
-          "constructorComplexity": "O(N+M) / O(N^2)",
+          "constructorComplexity": "O(1)",
           "constructorSourceLine": 9,
           "methods": []
         },
@@ -70066,7 +70064,7 @@
           "constructorReturnFormat": "Graph",
           "constructorReturnDescription": "辺-list container・木・森・二部・連結・単純グラフ生成を扱う グラフ。",
           "constructorCreates": "辺-list container・木・森・二部・連結・単純グラフ生成を扱う グラフ。",
-          "constructorComplexity": "O(N+M) / O(N^2)",
+          "constructorComplexity": "O(1)",
           "constructorSourceLine": 23,
           "methods": [
             {
@@ -70274,7 +70272,7 @@
           "constructorReturnFormat": "UndirectedGraphGenerator",
           "constructorReturnDescription": "辺-list container・木・森・二部・連結・単純グラフ生成を行うクラス。",
           "constructorCreates": "辺-list container・木・森・二部・連結・単純グラフ生成を行うクラス。",
-          "constructorComplexity": "O(N+M) / O(N^2)",
+          "constructorComplexity": "O(1)",
           "constructorSourceLine": 84,
           "methods": [
             {

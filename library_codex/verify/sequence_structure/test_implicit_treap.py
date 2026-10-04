@@ -160,3 +160,17 @@ def test_none_is_a_valid_lazy_action():
     solver.apply(2, 3, None)
     assert solver.tolist() == [0, 7, 0]
     assert solver.prod() == 7
+
+
+def test_commutative_aggregation_shares_storage():
+    solver = ImplicitTreap([1, 2, 3], commutative=True)
+    assert solver.backward is solver.forward
+    solver.append(4)
+    solver.reverse_range(0, 4)
+    assert len(solver.forward) == 4
+    assert solver.tolist() == [4, 3, 2, 1]
+    assert solver.prod() == 10
+    ordered = ImplicitTreap(["a", "b"], lambda a, b: a + b, "")
+    assert ordered.backward is not ordered.forward
+    ordered.reverse_range(0, 2)
+    assert ordered.prod() == "ba"

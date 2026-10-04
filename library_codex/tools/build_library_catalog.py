@@ -1562,6 +1562,8 @@ def infer_complexity(
         # method-name entry useful there while allowing Class.method to
         # override it when multiple classes reuse the same name differently.
         exact_override = module_overrides.get(name)
+    if not exact_override and name == "__init__":
+        exact_override = module_overrides.get(owner)
     if exact_override:
         return exact_override
     exact = documented.get((owner, name))

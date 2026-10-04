@@ -4,9 +4,9 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-05時点の公式revision `1814c4e`では、114問題・2553ケースがローカル全件通過、138問題が未実装、1問題が時間制限で未達。今回、区間頻度・両端優先度付きキュー・永続Union-Find・区間反転と和・順序付き集合の5問題114ケースを追加した。
+2026-10-05時点の公式revision `1814c4e`では、115問題・2586ケースがローカル全件通過、138問題が未実装。
 
-`dynamic_sequence_range_affine_range_sum`も実装・高速化したが、公式33ケース中32件通過、1件TLEのため`failed`として残す。反復測定で制限時間未満になっても、全件検査の失敗を通過扱いにしない。[比較と未解決点](../../library_codex/docs/DATA_STRUCTURE_BENCHMARK.md)を参照。
+`dynamic_sequence_range_affine_range_sum`は可換な集約の重複保存を省き、前回のTLEを解消した。変更後の公式33ケースはすべて10秒以内に通過し、最大8.929秒。区間頻度もバケット方式へ変更し、公式25ケースを再検査した。[比較結果](../../library_codex/docs/DATA_STRUCTURE_BENCHMARK.md)を参照。
 
 - `drivers/`: 問題固有の入出力。アルゴリズムは `library_codex` から import する。
 - `solutions/`: 依存を展開した提出コード。そのまま単独で実行できる生成物。

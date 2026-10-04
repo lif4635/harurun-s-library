@@ -20,16 +20,16 @@ from library_codex.ordered_set.PointSetRangeFrequency import PointSetRangeFreque
 
 列の1要素を変更しながら、指定した値が半開区間内にいくつあるか数える。
 
-- constructor: [`PointSetRangeFrequency(values)`](../../../ordered_set/PointSetRangeFrequency.py#L8)
+- constructor: [`PointSetRangeFrequency(values)`](../../../ordered_set/PointSetRangeFrequency.py#L9)
 - 引数: `values`: hashableな要素の列。整数Nなら長さNの全要素0の列。
 - 返り値: `PointSetRangeFrequency` instance
-- 計算量: 期待 O(N log(N+1))
+- 計算量: O(N)
 - 作成後: 初期値をコピーする。setで1要素を置き換え、queryで更新後の列の出現回数を調べられる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`set(index, value)`](../../../ordered_set/PointSetRangeFrequency.py#L22) | method | index番目の要素をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | None — 以降のqueryに更新後の出現回数を反映する。 | 期待 O(log(N+1)) |
-| [`query(left, right, value)`](../../../ordered_set/PointSetRangeFrequency.py#L37) | method | 半開区間[left, right)にvalueが現れる回数を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | int — values[left:right]のうちvalueと等しい要素の個数。 | 期待 O(log(N+1)) |
-| [`tolist()`](../../../ordered_set/PointSetRangeFrequency.py#L43) | method | 現在の列を添字順にコピーして返す。 | なし | list[object] — 要素iが現在のi番目の値。返されたlistを変更しても本体は変わらない。 | O(N) |
-| [`__str__()`](../../../ordered_set/PointSetRangeFrequency.py#L46) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str — 更新後の列をlistの形式で表した文字列。 | O(N) |
-| [`__repr__()`](../../../ordered_set/PointSetRangeFrequency.py#L49) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | str — PointSetRangeFrequency([...])の形で現在の列を表した文字列。 | O(N) |
+| [`set(index, value)`](../../../ordered_set/PointSetRangeFrequency.py#L27) | method | index番目の要素をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | None — 以降のqueryに更新後の出現回数を反映する。 | O(sqrt(N+1)) |
+| [`query(left, right, value)`](../../../ordered_set/PointSetRangeFrequency.py#L71) | method | 半開区間[left, right)にvalueが現れる回数を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`value`: 追加・設定・問い合わせる値 | int — values[left:right]のうちvalueと等しい要素の個数。 | O(sqrt(N+1)) |
+| [`tolist()`](../../../ordered_set/PointSetRangeFrequency.py#L92) | method | 現在の列を添字順にコピーして返す。 | なし | list[object] — 要素iが現在のi番目の値。返されたlistを変更しても本体は変わらない。 | O(N) |
+| [`__str__()`](../../../ordered_set/PointSetRangeFrequency.py#L95) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str — 更新後の列をlistの形式で表した文字列。 | O(N) |
+| [`__repr__()`](../../../ordered_set/PointSetRangeFrequency.py#L98) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | str — PointSetRangeFrequency([...])の形で現在の列を表した文字列。 | O(N) |

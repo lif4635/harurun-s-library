@@ -1,8 +1,8 @@
 {
   "problem": "dynamic_sequence_range_affine_range_sum",
-  "status": "failed",
-  "verificationKey": "95003beeee6a6c34247680a90f2d7aee3ee18022971986e416b8f929d1b13fc4",
-  "sourceSha256": "3942829a26799a38955d4841f59cdea91ec718ee048c8c35338fe8a5a0e2ebbe",
+  "status": "local_passed",
+  "verificationKey": "b1ae32269cc2dd41678bcc7310aee805ec07c19f0a4431cfe7e86fbe69344b7b",
+  "sourceSha256": "48b45b9198439f72c94d3516b14e61e89af9816738136aac9b2c92ca66fb2b02",
   "modules": [
     "library_codex.sequence_structure.ImplicitTreap"
   ],
@@ -17,201 +17,202 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.06790174497291446,
+      "seconds": 0.055639286001678556,
       "diagnostic": "ok 3 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 8.089092977985274,
+      "seconds": 5.8496313499927055,
       "diagnostic": "ok 82266 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 8.315391039010137,
+      "seconds": 6.603619456989691,
       "diagnostic": "ok 82500 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 4.816168071993161,
+      "seconds": 4.107409035990713,
       "diagnostic": "ok 76648 tokens\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 1.4092253719863947,
+      "seconds": 1.213013115018839,
       "diagnostic": "ok 5101 tokens\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 2.4009551600029226,
+      "seconds": 2.055830663011875,
       "diagnostic": "ok 19751 tokens\n"
     },
     {
       "name": "max_random_00",
-      "status": "TLE",
-      "seconds": 10.037826195999514
+      "status": "AC",
+      "seconds": 7.831676621979568,
+      "diagnostic": "ok 99956 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 10.00046142100473,
+      "seconds": 8.929359421978006,
       "diagnostic": "ok 99786 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 9.356369951012312,
+      "seconds": 7.48626943101408,
       "diagnostic": "ok 99736 tokens\n"
     },
     {
       "name": "max_00",
       "status": "AC",
-      "seconds": 4.742601067002397,
+      "seconds": 4.04382687798352,
       "diagnostic": "ok 0 tokens\n"
     },
     {
       "name": "max_01",
       "status": "AC",
-      "seconds": 2.9535070190031547,
+      "seconds": 2.630814452015329,
       "diagnostic": "ok 0 tokens\n"
     },
     {
       "name": "max_02",
       "status": "AC",
-      "seconds": 9.238948568003252,
+      "seconds": 7.059791837004013,
       "diagnostic": "ok 0 tokens\n"
     },
     {
       "name": "max_03",
       "status": "AC",
-      "seconds": 8.088283779012272,
+      "seconds": 7.092238536977675,
       "diagnostic": "ok 0 tokens\n"
     },
     {
       "name": "max_04",
       "status": "AC",
-      "seconds": 2.5877997369971126,
+      "seconds": 2.2312292249989696,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "extreme_insertion_00",
       "status": "AC",
-      "seconds": 0.6614113350224216,
+      "seconds": 0.5508353410114069,
       "diagnostic": "ok \"774550889\"\n"
     },
     {
       "name": "extreme_insertion_01",
       "status": "AC",
-      "seconds": 0.7043546570057515,
+      "seconds": 0.6203325809910893,
       "diagnostic": "ok \"264704197\"\n"
     },
     {
       "name": "extreme_insertion_02",
       "status": "AC",
-      "seconds": 0.7683102099981625,
+      "seconds": 0.6483609160059132,
       "diagnostic": "ok \"2462549\"\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.14139515699935146,
+      "seconds": 0.12576533100218512,
       "diagnostic": "ok 65 tokens\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.09214646101463586,
+      "seconds": 0.09189874498406425,
       "diagnostic": "ok 41 tokens\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.11890281600062735,
+      "seconds": 0.10319908999372274,
       "diagnostic": "ok 82 tokens\n"
     },
     {
       "name": "small_03",
       "status": "AC",
-      "seconds": 0.10847676597768441,
+      "seconds": 0.09495286602759734,
       "diagnostic": "ok 45 tokens\n"
     },
     {
       "name": "small_04",
       "status": "AC",
-      "seconds": 0.18162082397611812,
+      "seconds": 0.1707034210267011,
       "diagnostic": "ok 172 tokens\n"
     },
     {
       "name": "small_05",
       "status": "AC",
-      "seconds": 0.11744473400176503,
+      "seconds": 0.11084791101166047,
       "diagnostic": "ok 44 tokens\n"
     },
     {
       "name": "small_06",
       "status": "AC",
-      "seconds": 0.11671363798086531,
+      "seconds": 0.1124420769920107,
       "diagnostic": "ok 47 tokens\n"
     },
     {
       "name": "small_07",
       "status": "AC",
-      "seconds": 0.11504023897578008,
+      "seconds": 0.10085081699071452,
       "diagnostic": "ok 40 tokens\n"
     },
     {
       "name": "small_08",
       "status": "AC",
-      "seconds": 0.14810349201434292,
+      "seconds": 0.11692341600428335,
       "diagnostic": "ok 63 tokens\n"
     },
     {
       "name": "small_09",
       "status": "AC",
-      "seconds": 0.12819920101901516,
+      "seconds": 0.12954580900259316,
       "diagnostic": "ok 157 tokens\n"
     },
     {
       "name": "wrong_avl_killer_00",
       "status": "AC",
-      "seconds": 0.8207551010127645,
+      "seconds": 0.7797147689852864,
       "diagnostic": "ok \"124578309\"\n"
     },
     {
       "name": "wrong_avl_killer_01",
       "status": "AC",
-      "seconds": 0.8479339149780571,
+      "seconds": 0.7912252669921145,
       "diagnostic": "ok \"219822842\"\n"
     },
     {
       "name": "wrong_splay_killer_00",
       "status": "AC",
-      "seconds": 0.6710282519925386,
+      "seconds": 0.5921089229814243,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "wrong_splay_killer_01",
       "status": "AC",
-      "seconds": 0.6233329930109903,
+      "seconds": 0.5608152880158741,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "wrong_splay_killer_02",
       "status": "AC",
-      "seconds": 0.7173159590165596,
+      "seconds": 0.6340181400009897,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "wrong_splay_killer_03",
       "status": "AC",
-      "seconds": 0.8461281509953551,
+      "seconds": 0.7943397760100197,
       "diagnostic": "ok 250000 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-04T18:35:35.739882+00:00",
+  "verifiedAt": "2026-10-04T19:26:22.798389+00:00",
   "onlineSubmission": null
 }

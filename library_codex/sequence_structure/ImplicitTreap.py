@@ -25,7 +25,7 @@ class ImplicitTreap:
         self.reversed = bytearray()
         self.value = []
         self.forward = []
-        self.backward = []
+        self.backward = self.forward if commutative else []
         self.lazy = []
         self.pending = bytearray()
         self.op = op
@@ -76,7 +76,8 @@ class ImplicitTreap:
         self.reversed.append(0)
         self.value.append(value)
         self.forward.append(value)
-        self.backward.append(value)
+        if not self.commutative:
+            self.backward.append(value)
         self.lazy.append(0)
         self.pending.append(0)
         return node
@@ -100,21 +101,24 @@ class ImplicitTreap:
                 backward = op(self.backward[right], backward)
             size += self.size[right]
         self.forward[node] = forward
-        self.backward[node] = forward if self.commutative else backward
+        if not self.commutative:
+            self.backward[node] = backward
         self.size[node] = size
 
     def _toggle(self, node):
         if node < 0:
             return
         self.left[node], self.right[node] = self.right[node], self.left[node]
-        self.forward[node], self.backward[node] = self.backward[node], self.forward[node]
+        if not self.commutative:
+            self.forward[node], self.backward[node] = self.backward[node], self.forward[node]
         self.reversed[node] ^= 1
 
     def _all_apply(self, node, action):
         mapping = self.mapping
         size = self.size[node]
         self.forward[node] = mapping(action, self.forward[node], size)
-        self.backward[node] = self.forward[node] if self.commutative else mapping(action, self.backward[node], size)
+        if not self.commutative:
+            self.backward[node] = mapping(action, self.backward[node], size)
         if self.pending[node]:
             self.lazy[node] = self.composition(action, self.lazy[node])
         else:

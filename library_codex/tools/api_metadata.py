@@ -2462,8 +2462,8 @@ COMPLEXITY_BY_MODULE.update({
         "kth": "期待 O(log N)",
     },
     "ordered_set/PointSetRangeFrequency.py": {
-        "PointSetRangeFrequency": "期待 O(N log(N+1))",
-        "set": "期待 O(log(N+1))", "query": "期待 O(log(N+1))",
+        "PointSetRangeFrequency": "O(N)",
+        "set": "O(sqrt(N+1))", "query": "O(sqrt(N+1))",
         "tolist": "O(N)", "__str__": "O(N)", "__repr__": "O(N)",
     },
     "ordered_set/TopKSum.py": {

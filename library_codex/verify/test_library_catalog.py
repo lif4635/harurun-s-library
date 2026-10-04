@@ -33,6 +33,17 @@ def module_by_path(data, module_path):
     return next(module for module in data["modules"] if module["modulePath"] == module_path)
 
 
+def test_constructor_uses_class_complexity_metadata():
+    key = "sample/Tree.py"
+    overrides = {key: {"Tree": "O(N)", "Other": "O(N log N)"}}
+    infer = CATALOG.infer_complexity
+    assert infer("__init__", "Tree", "", {}, {}, key, overrides) == "O(N)"
+    assert infer("__init__", "Other", "", {}, {}, key, overrides) == "O(N log N)"
+    assert infer("query", "Tree", "O(log N)", {}, {}, key, overrides) == "O(log N)"
+    overrides[key]["Tree.__init__"] = "O(N + M)"
+    assert infer("__init__", "Tree", "", {}, {}, key, overrides) == "O(N + M)"
+
+
 @pytest.mark.parametrize("module_name, function_name, offset", [
     ("Langford", "langford", 1),
     ("Skolem", "skolem", 0),
@@ -794,9 +805,9 @@ def test_point_frequency_article_and_standalone():
     module = module_by_path(load_catalog(), "library_codex.ordered_set.PointSetRangeFrequency")
     assert "半開区間" in module["article"]["markdown"]
     item = module["classes"][0]
-    assert item["constructorComplexity"] != "—"
+    assert item["constructorComplexity"] == "O(N)"
     methods = {method["name"]: method for method in item["methods"]}
-    assert "log^2" not in methods["query"]["complexity"]
+    assert methods["query"]["complexity"] == "O(sqrt(N+1))"
     assert methods["set"]["returnFormat"] == "None"
     assert methods["tolist"]["returnFormat"] == "list[object]"
     assert methods["__repr__"]["returnFormat"] == "str"

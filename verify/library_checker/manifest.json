@@ -2,8 +2,7 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "failed": 1,
-    "local_passed": 114,
+    "local_passed": 115,
     "unimplemented": 138
   },
   "problems": [
@@ -673,7 +672,7 @@
       "title": "Dynamic Sequence Range Affine Range Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum",
-      "status": "failed",
+      "status": "local_passed",
       "modules": [
         "library_codex.sequence_structure.ImplicitTreap"
       ],
@@ -1787,7 +1786,6 @@
       "url": "https://judge.yosupo.jp/problem/point_set_range_frequency",
       "status": "local_passed",
       "modules": [
-        "library_codex.ordered_set.TreapSet",
         "library_codex.ordered_set.PointSetRangeFrequency"
       ],
       "solution": "solutions/point_set_range_frequency.py",

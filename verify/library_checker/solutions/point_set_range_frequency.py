@@ -1,265 +1,92 @@
-"""順序・k番目・前後要素を対数時間で扱う乱択平衡二分探索木。"""
-from operator import add
-
-class TreapSet:
-    __slots__ = ('root', 'key', 'priority', 'left', 'right', 'parent', 'size', 'state')
-
-    def __init__(self, values=()):
-        self.root = -1
-        self.key = []
-        self.priority = []
-        self.left = []
-        self.right = []
-        self.parent = []
-        self.size = []
-        self.state = 11400714819323198485
-        for value in values:
-            self.add(value)
-
-    def _random(self):
-        value = self.state
-        value ^= value << 7 & (1 << 64) - 1
-        value ^= value >> 9
-        self.state = value
-        return value
-
-    def _new(self, key):
-        node = len(self.key)
-        self.key.append(key)
-        self.priority.append(self._random())
-        self.left.append(-1)
-        self.right.append(-1)
-        self.parent.append(-1)
-        self.size.append(1)
-        return node
-
-    def _update(self, node):
-        left = self.left[node]
-        right = self.right[node]
-        self.size[node] = 1 + (self.size[left] if left >= 0 else 0) + (self.size[right] if right >= 0 else 0)
-
-    def _update_up(self, node):
-        while node >= 0:
-            self._update(node)
-            node = self.parent[node]
-
-    def _rotate(self, node):
-        parent = self.parent[node]
-        grandparent = self.parent[parent]
-        if self.left[parent] == node:
-            middle = self.right[node]
-            self.right[node] = parent
-            self.left[parent] = middle
-        else:
-            middle = self.left[node]
-            self.left[node] = parent
-            self.right[parent] = middle
-        if middle >= 0:
-            self.parent[middle] = parent
-        self.parent[parent] = node
-        self.parent[node] = grandparent
-        if grandparent < 0:
-            self.root = node
-        elif self.left[grandparent] == parent:
-            self.left[grandparent] = node
-        else:
-            self.right[grandparent] = node
-        self._update(parent)
-        self._update(node)
-
-    def _find(self, key):
-        node = self.root
-        while node >= 0:
-            current = self.key[node]
-            if key == current:
-                return node
-            node = self.left[node] if key < current else self.right[node]
-        return -1
-
-    def add(self, key):
-        if self.root < 0:
-            self.root = self._new(key)
-            return True
-        node = self.root
-        while True:
-            current = self.key[node]
-            if key == current:
-                return False
-            if key < current:
-                child = self.left[node]
-                if child < 0:
-                    child = self._new(key)
-                    self.left[node] = child
-                    self.parent[child] = node
-                    break
-            else:
-                child = self.right[node]
-                if child < 0:
-                    child = self._new(key)
-                    self.right[node] = child
-                    self.parent[child] = node
-                    break
-            node = child
-        self._update_up(node)
-        while self.parent[child] >= 0 and self.priority[child] < self.priority[self.parent[child]]:
-            self._rotate(child)
-        self._update_up(self.parent[child])
-        return True
-    insert = add
-
-    def discard(self, key):
-        node = self._find(key)
-        if node < 0:
-            return False
-        while self.left[node] >= 0 or self.right[node] >= 0:
-            left = self.left[node]
-            right = self.right[node]
-            if right < 0 or (left >= 0 and self.priority[left] < self.priority[right]):
-                self._rotate(left)
-            else:
-                self._rotate(right)
-        parent = self.parent[node]
-        if parent < 0:
-            self.root = -1
-        elif self.left[parent] == node:
-            self.left[parent] = -1
-        else:
-            self.right[parent] = -1
-        self._update_up(parent)
-        return True
-    erase = discard
-
-    def bisect_left(self, key):
-        node = self.root
-        result = 0
-        while node >= 0:
-            left = self.left[node]
-            left_size = self.size[left] if left >= 0 else 0
-            if self.key[node] < key:
-                result += left_size + 1
-                node = self.right[node]
-            else:
-                node = left
-        return result
-    lower_bound = bisect_left
-
-    def bisect_right(self, key):
-        node = self.root
-        result = 0
-        while node >= 0:
-            left = self.left[node]
-            left_size = self.size[left] if left >= 0 else 0
-            if self.key[node] <= key:
-                result += left_size + 1
-                node = self.right[node]
-            else:
-                node = left
-        return result
-    upper_bound = bisect_right
-
-    def kth(self, index):
-        if index < 0 or index >= len(self):
-            raise IndexError('kth index out of range')
-        node = self.root
-        while True:
-            left = self.left[node]
-            left_size = self.size[left] if left >= 0 else 0
-            if index < left_size:
-                node = left
-            elif index == left_size:
-                return self.key[node]
-            else:
-                index -= left_size + 1
-                node = self.right[node]
-
-    def ge(self, key, default=None):
-        index = self.bisect_left(key)
-        return self.kth(index) if index < len(self) else default
-
-    def gt(self, key, default=None):
-        index = self.bisect_right(key)
-        return self.kth(index) if index < len(self) else default
-
-    def le(self, key, default=None):
-        index = self.bisect_right(key) - 1
-        return self.kth(index) if index >= 0 else default
-
-    def lt(self, key, default=None):
-        index = self.bisect_left(key) - 1
-        return self.kth(index) if index >= 0 else default
-
-    def min(self):
-        return self.kth(0)
-
-    def max(self):
-        return self.kth(len(self) - 1)
-
-    def __contains__(self, key):
-        return self._find(key) >= 0
-
-    def __len__(self):
-        root = self.root
-        return self.size[root] if root >= 0 else 0
-
-    def __iter__(self):
-        stack = []
-        node = self.root
-        while stack or node >= 0:
-            while node >= 0:
-                stack.append(node)
-                node = self.left[node]
-            node = stack.pop()
-            yield self.key[node]
-            node = self.right[node]
-
-    def tolist(self):
-        """保持するkeyを昇順listで返す。O(N)。"""
-        return list(self)
-
-    def __str__(self):
-        return str(self.tolist())
-
-    def __repr__(self):
-        return 'TreapSet(%r)' % self.tolist()
-'一点変更される列で、区間内の指定値の出現回数を数える構造。'
+"""一点変更される列で、区間内の指定値の出現回数を数える構造。"""
+from bisect import bisect_left
+from math import isqrt
 
 class PointSetRangeFrequency:
-    __slots__ = ('values', 'positions')
+    __slots__ = ('values', 'positions', 'block_size')
 
     def __init__(self, values):
         if isinstance(values, int):
             values = [0] * values
         else:
             values = list(values)
-        positions = {}
+        groups = {}
         for (index, value) in enumerate(values):
-            tree = positions.get(value)
-            if tree is None:
-                tree = positions[value] = TreapSet()
-            tree.add(index)
+            if value not in groups:
+                groups[value] = []
+            groups[value].append(index)
+        self.block_size = width = max(32, isqrt(len(values)))
+        positions = {}
+        for (value, indices) in groups.items():
+            blocks = [indices[i:i + width] for i in range(0, len(indices), width)]
+            positions[value] = (blocks, [block[-1] for block in blocks])
         self.values = values
         self.positions = positions
 
     def set(self, index, value):
+        if index < 0:
+            index += len(self.values)
+        if not 0 <= index < len(self.values):
+            raise IndexError('index out of range')
         old = self.values[index]
         if old == value:
             return
         positions = self.positions
-        tree = positions[old]
-        tree.discard(index)
-        if not tree:
+        (blocks, ends) = positions[old]
+        bi = bisect_left(ends, index)
+        block = blocks[bi]
+        block.pop(bisect_left(block, index))
+        if not block:
+            del blocks[bi]
+            del ends[bi]
+        else:
+            ends[bi] = block[-1]
+        if not blocks:
             del positions[old]
-        tree = positions.get(value)
-        if tree is None:
-            tree = positions[value] = TreapSet()
-        tree.add(index)
+        elif len(blocks) > 1:
+            bi = min(bi, len(blocks) - 1)
+            if bi and len(blocks[bi - 1]) + len(blocks[bi]) <= self.block_size:
+                blocks[bi - 1].extend(blocks.pop(bi))
+                ends.pop(bi - 1)
+                bi -= 1
+            if bi + 1 < len(blocks) and len(blocks[bi]) + len(blocks[bi + 1]) <= self.block_size:
+                blocks[bi].extend(blocks.pop(bi + 1))
+                ends.pop(bi)
+        target = positions.get(value)
+        if target is None:
+            positions[value] = ([[index]], [index])
+        else:
+            (blocks, ends) = target
+            bi = min(bisect_left(ends, index), len(blocks) - 1)
+            block = blocks[bi]
+            block.insert(bisect_left(block, index), index)
+            ends[bi] = block[-1]
+            if len(block) > 2 * self.block_size:
+                middle = len(block) // 2
+                blocks[bi:bi + 1] = [block[:middle], block[middle:]]
+                ends[bi:bi + 1] = [block[middle - 1], block[-1]]
         self.values[index] = value
 
     def query(self, left, right, value):
         positions = self.positions.get(value)
         if positions is None:
             return 0
-        return positions.bisect_left(right) - positions.bisect_left(left)
+        if left >= right:
+            return 0
+        (blocks, ends) = positions
+        first = bisect_left(ends, left)
+        if first == len(blocks):
+            return 0
+        last = bisect_left(ends, right)
+        if first == last:
+            block = blocks[first]
+            return bisect_left(block, right) - bisect_left(block, left)
+        count = len(blocks[first]) - bisect_left(blocks[first], left)
+        for bi in range(first + 1, last):
+            count += len(blocks[bi])
+        if last < len(blocks):
+            count += bisect_left(blocks[last], right)
+        return count
 
     def tolist(self):
         return self.values.copy()
