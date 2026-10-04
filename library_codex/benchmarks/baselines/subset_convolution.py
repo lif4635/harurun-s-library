@@ -1167,9 +1167,6 @@ class SubsetConvolution:
         _bitwise_convolution_set_function_check_pair(first, second)
         (left, right, popcount, bits, width) = self._lift_and_zeta(first, second)
         mod = self.mod
-        for index in range(len(left)):
-            left[index] %= mod
-            right[index] %= mod
         scratch = [0] * width
         for (mask, degree) in enumerate(popcount):
             position = mask * width
@@ -1178,7 +1175,7 @@ class SubsetConvolution:
                 upper = min(total_degree, degree)
                 value = 0
                 for rank in range(lower, upper + 1):
-                    value += left[position + rank] * right[position + total_degree - rank] % mod
+                    value += left[position + rank] * right[position + total_degree - rank]
                 scratch[total_degree] = value % mod
             for rank in range(degree, min(2 * degree, bits) + 1):
                 left[position + rank] = scratch[rank]
@@ -1347,8 +1344,13 @@ walsh_hadamard_tranform = walsh_hadamard_transform
 polynomial_composite_set_power_series = set_series_composition
 power_projection_of_set_power_series = set_series_power_projection
 import sys
-read = sys.stdin.buffer.readline
-n = int(read())
-first = list(map(int, read().split()))
-second = list(map(int, read().split()))
-print(*bitwise_xor_convolution(first, second))
+
+def main():
+    read = sys.stdin.buffer.readline
+    n = int(read())
+    a = list(map(int, read().split()))
+    b = list(map(int, read().split()))
+    result = subset_convolution(a, b)
+    sys.stdout.write(' '.join(map(str, result)) + '\n')
+if __name__ == '__main__':
+    main()

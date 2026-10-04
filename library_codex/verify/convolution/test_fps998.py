@@ -216,6 +216,35 @@ def test_fps998_sparse_division_threshold_boundary():
         assert multiply(quotient, denominator)[:degree] == numerator
 
 
+def test_sparse_power_and_sqrt_nonunit_constant_and_shift():
+    rng = random.Random(925723)
+    degree = 96
+    for count in (0, 1, 8, 32, 33):
+        for shift in (0, 1, 4):
+            series = [0] * degree
+            series[shift] = 9 + MOD
+            for offset in range(1, count + 1):
+                series[shift + offset] = rng.randrange(-MOD, 2 * MOD)
+            original = series[:]
+            for exponent in (-2, 0, 1, 2, 7):
+                if exponent < 0 and shift:
+                    continue
+                base = _naive_inverse(series, degree) if exponent < 0 else series
+                expected = [1] + [0] * (degree - 1)
+                for _ in range(abs(exponent)):
+                    expected = convolution_naive(expected, base, MOD)[:degree]
+                assert fps_pow(tuple(series), exponent, degree) == expected
+            root = fps_sqrt(tuple(series), degree)
+            if shift & 1:
+                assert root is None
+            else:
+                assert len(root) == degree
+                assert convolution_naive(root, root, MOD)[:degree] == [x % MOD for x in series]
+            assert series == original
+    assert fps_sqrt([0, 0, 9], 12)[:4] == [0, 3, 0, 0]
+    assert fps_pow([0, 3], 10**18, 5) == [0] * 5
+
+
 if __name__ == "__main__":
     test_fps998_basic_operations_against_naive()
     test_fps998_inverse_log_and_exp_against_naive()

@@ -1,0 +1,291 @@
+{
+  "problem": "sqrt_of_formal_power_series_sparse",
+  "status": "local_passed",
+  "verificationKey": "435fbe60f9bc3ca2609fdd91cb0820815ec9e1e998c2ff4ff5dabff612e44ab5",
+  "sourceSha256": "becd347121479edc422e2bcae24b11f0383d930beac22277402ae9e859138650",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS"
+  ],
+  "problemVersion": "f00c6875b6a9916e7ef0d0e65bb265e7f332576415fd2a67a539cb2c9679c347",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 45,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06792408300680108,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0680472010280937,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.0684575280174613,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.07508682299521752,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.08378163899760693,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.08827919000759721,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.11815304300398566,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.0916985770163592,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 0.15869307101820596,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 0.07074198999907821,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 0.1763493590115104,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_08",
+      "status": "AC",
+      "seconds": 0.22788875200785697,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_09",
+      "status": "AC",
+      "seconds": 0.09169554300024174,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.09262220899108797,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.0971549809910357,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.1029768259904813,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.3664757839869708,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.06875412902445532,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_05",
+      "status": "AC",
+      "seconds": 0.20139918898348697,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_06",
+      "status": "AC",
+      "seconds": 0.06944996901438572,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_07",
+      "status": "AC",
+      "seconds": 0.07734110200544819,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_08",
+      "status": "AC",
+      "seconds": 0.08114141100668348,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_09",
+      "status": "AC",
+      "seconds": 0.06627420501899906,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_00",
+      "status": "AC",
+      "seconds": 0.2639598539972212,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_01",
+      "status": "AC",
+      "seconds": 0.07944227202096954,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_02",
+      "status": "AC",
+      "seconds": 0.07940821099327877,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_03",
+      "status": "AC",
+      "seconds": 0.10732788097811863,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_04",
+      "status": "AC",
+      "seconds": 0.08392787101911381,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_05",
+      "status": "AC",
+      "seconds": 0.27522970500285737,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_06",
+      "status": "AC",
+      "seconds": 0.23210014699725434,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_07",
+      "status": "AC",
+      "seconds": 0.08947821101173759,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_08",
+      "status": "AC",
+      "seconds": 0.25396125300903805,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_dense_09",
+      "status": "AC",
+      "seconds": 0.10183351501473226,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_00",
+      "status": "AC",
+      "seconds": 0.08212057000491768,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_01",
+      "status": "AC",
+      "seconds": 0.07762644600006752,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_02",
+      "status": "AC",
+      "seconds": 0.07649980697897263,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_03",
+      "status": "AC",
+      "seconds": 0.07110046298475936,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_04",
+      "status": "AC",
+      "seconds": 0.08537237701239064,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_05",
+      "status": "AC",
+      "seconds": 0.07195622599101625,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_06",
+      "status": "AC",
+      "seconds": 0.07809443899895996,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_07",
+      "status": "AC",
+      "seconds": 0.06305417898693122,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_08",
+      "status": "AC",
+      "seconds": 0.07104084198363125,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_N_09",
+      "status": "AC",
+      "seconds": 0.06810239801416174,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "min_K_00",
+      "status": "AC",
+      "seconds": 0.08238505301414989,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "min_K_01",
+      "status": "AC",
+      "seconds": 0.09058236799319275,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T09:39:17.655138+00:00",
+  "onlineSubmission": null
+}

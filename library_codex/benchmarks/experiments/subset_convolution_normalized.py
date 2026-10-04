@@ -1347,8 +1347,13 @@ walsh_hadamard_tranform = walsh_hadamard_transform
 polynomial_composite_set_power_series = set_series_composition
 power_projection_of_set_power_series = set_series_power_projection
 import sys
-read = sys.stdin.buffer.readline
-n = int(read())
-first = list(map(int, read().split()))
-second = list(map(int, read().split()))
-print(*bitwise_xor_convolution(first, second))
+
+def main():
+    read = sys.stdin.buffer.readline
+    n = int(read())
+    a = list(map(int, read().split()))
+    b = list(map(int, read().split()))
+    result = subset_convolution(a, b)
+    sys.stdout.write(' '.join(map(str, result)) + '\n')
+if __name__ == '__main__':
+    main()

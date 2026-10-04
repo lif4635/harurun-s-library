@@ -158,6 +158,22 @@ def test_validation_and_large_without_recursion():
     assert result[-1] == brute_subset(first, second)[-1]
 
 
+def test_subset_convolution_large_intermediate_integers():
+    rng = random.Random(736245)
+    for mod in (12, 998244353, (1 << 61) - 1):
+        engine = SubsetConvolution(mod)
+        for bits in range(9):
+            size = 1 << bits
+            for first, second in (
+                ([mod - 1] * size, [mod - 1] * size),
+                ([rng.randrange(-2 * mod, 3 * mod) for _ in range(size)],
+                 [rng.randrange(-2 * mod, 3 * mod) for _ in range(size)]),
+            ):
+                before = first[:], second[:]
+                assert engine.multiply(first, second) == brute_subset(first, second, mod)
+                assert (first, second) == before
+
+
 if __name__ == "__main__":
     test_zeta_mobius_transforms_against_definitions()
     test_bitwise_convolutions_against_brute()

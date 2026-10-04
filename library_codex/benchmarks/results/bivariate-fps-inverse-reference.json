@@ -1,0 +1,45 @@
+{
+  "problem": "inv_of_formal_power_series_2d",
+  "selection": "AC, is_latest, ascending judge time; ties may vary",
+  "pypy": {
+    "retrievedAt": "2026-10-04T09:38:34.001012+00:00",
+    "problemInfo": {
+      "overall_version": "c651534b74aff4e7b35c91818d0437d3143bf33ae10447c6bc014ee69c0acfb5",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/polynomial/inv_of_formal_power_series_2d",
+      "testcases_version": "156bcb437308599653fb4380cef02ae96dd269980675753f6209341163377927",
+      "time_limit": 10,
+      "title": "Inv of Bivariate Formal Power Series",
+      "version": "4570a6b38fa7d2b3ffe3f7e3dce307427375c9a0816dadf7f0d569f5ec5d7532"
+    },
+    "submissions": []
+  },
+  "cpp": {
+    "retrievedAt": "2026-10-04T09:39:22.033490+00:00",
+    "problemInfo": {
+      "overall_version": "c651534b74aff4e7b35c91818d0437d3143bf33ae10447c6bc014ee69c0acfb5",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/polynomial/inv_of_formal_power_series_2d",
+      "testcases_version": "156bcb437308599653fb4380cef02ae96dd269980675753f6209341163377927",
+      "time_limit": 10,
+      "title": "Inv of Bivariate Formal Power Series",
+      "version": "4570a6b38fa7d2b3ffe3f7e3dce307427375c9a0816dadf7f0d569f5ec5d7532"
+    },
+    "submissions": [
+      {
+        "id": 400948,
+        "is_latest": true,
+        "lang": "cpp",
+        "memory": 40169472,
+        "problem_name": "inv_of_formal_power_series_2d",
+        "problem_title": "Inv of Bivariate Formal Power Series",
+        "status": "AC",
+        "submission_time": "2026-09-09T08:42:49.072761Z",
+        "time": 0.297,
+        "user_name": "Rohan_Kapri",
+        "sourceFile": "400948.cpp",
+        "sourceSha256": "c89a54f02a41977a66a070f47c0f7b50d7133317bed5f27a313a519634920108",
+        "url": "https://judge.yosupo.jp/submission/400948"
+      }
+    ]
+  },
+  "reviewedScope": "fps2d::inv, truncated products, NTT_SIMD. C++ was inspected but not executed; no Python timing comparison available from this latest-AC query."
+}

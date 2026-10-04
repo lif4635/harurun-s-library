@@ -219,3 +219,70 @@ pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-
 ```sh
 pypy3 library_codex/tools/run_benchmarks.py --profile quick --output library_codex/benchmarks/results/quick-regression.json
 ```
+
+## 疎なFPS・二変数FPS・集合冪級数（2026-10-04）
+
+疎なFPSの逆数・exp・log・冪・平方根、二変数FPSの逆数、集合冪級数のexp・log・subset convolutionの9問を追加した。公式revision `1814c4e`の217ケースをすべてPyPyで通過した。オンライン提出はしていない。
+
+測定環境はWSL・AMD Ryzen 7 3700X・PyPy 3.10.14 / 7.3.16。9問それぞれで遅かった公式3ケースを各5回測定し、時間と最大RSSを保存する。全件検証は公式の時間制限を使うが、メモリ制限は強制していない。
+
+本体変更後は依存する5問62ケースを再検証し、全件通過した。専用テスト18件、通常のquickテスト124件、quick性能検査、API・catalog・提出コード同期検査も成功した。全ライブラリのfullテストは今回は再実行していない。
+
+### 疎なFPSの冪
+
+最新問題版のAC・時間昇順で取得したPyPy先頭は[389207 / tyuyu62](https://judge.yosupo.jp/submission/389207)。非零項だけのpair列を受け取って漸化式を計算する。ライブラリ側は既存の`fps_pow`を使い、driverで密な係数listへ変換する。以下はこの入力表現の差・起動・JIT・入出力を含む提出コード全体の比較であり、演算部分だけの比較ではない。
+
+同一の公式入力、WSL・PyPy 3.10.14 / 7.3.16、新規process、順序を入れ替えた5回の中央値。全出力を公式checkerで検査した。
+
+| 公式ケース | 既存版 | 試作版 | 上位PyPy提出 |
+| --- | ---: | ---: | ---: |
+| max_random_00 | 0.227秒 | 0.231秒 | 0.154秒 |
+| small_dense_00 | 0.234秒 | 0.214秒 | 0.167秒 |
+| low_deg_zero2_00 | 0.213秒 | 0.235秒 | 0.142秒 |
+
+試作版は疎な冪・平方根の正規化用中間配列を省き、定数倍を漸化式の初期値へ組み込んだ。さらに各積を途中でmodに戻して、大きな中間整数を避けた。3ケース中の最大RSSは既存版141524 KiB、試作版125568 KiB、参照90600 KiB。メモリは減ったが、速度改善が揃わないため本体には採用していない。
+
+[既存版の単独コード](../benchmarks/baselines/sparse_fps_power.py)、[未採用の試作コード](../benchmarks/experiments/sparse_fps_power.py)、[全測定値](../benchmarks/results/sparse-fps-power-comparison.json)を保存した。途中の[配列削減のみの測定](../benchmarks/results/sparse-fps-power-allocation-only.json)も残す。この途中版は試作コードの冪漸化式だけを既存版と同じ式に戻すことで再現できる。
+
+```sh
+pypy3 library_codex/benchmarks/library_checker.py fetch --problem pow_of_formal_power_series_sparse --language pypy3 --top 1 --cache ../lc-matching-reference
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/pow_of_formal_power_series_sparse-pypy3.json --reviewed 389207 --problem /home/harurun/.cache/harurun-library-checker/problems/polynomial/pow_of_formal_power_series_sparse --cases max_random_00 small_dense_00 low_deg_zero2_00 --variant baseline=library_codex/benchmarks/baselines/sparse_fps_power.py --variant candidate=library_codex/benchmarks/experiments/sparse_fps_power.py --repeat 5 --output library_codex/benchmarks/results/sparse-fps-power-comparison.json
+```
+
+### 二変数FPSの逆数
+
+公式28ケースを通過した。50万係数までの入力、片方の次数上限が1の入力、縦横に偏った入力を含む。
+
+取得時点の「最新問題版・AC・PyPy3」検索では比較対象を取得できなかった。これは過去の問題版も含めてPyPyのACが存在しないという意味ではない。上位C++23の[400948](https://judge.yosupo.jp/submission/400948)では、切り詰めた二変数積を用いるNewton反復とSIMD NTTを確認した。C++は実行比較していない。[取得条件・revision・source hash](../benchmarks/results/bivariate-fps-inverse-reference.json)を保存した。
+
+### 集合畳み込み
+
+同じ条件のPyPy先頭[389773 / tyuyu62](https://judge.yosupo.jp/submission/389773)を読み、同じ公式入力で5回比較した。参照実装はrankごとの連続配列、ライブラリはmaskごとの連続配列を使う。参照実装はzeta変換後にmodへ戻し、積の各項もmodへ戻している。
+
+| 公式ケース | ライブラリ | 上位PyPy提出 |
+| --- | ---: | ---: |
+| max_random_00 | 4.717秒 | 2.365秒 |
+| random_00 | 4.535秒 | 2.276秒 |
+| hack01_00 | 2.374秒 | 2.031秒 |
+
+[各回の時間・RSS・hash](../benchmarks/results/subset-convolution-comparison.json)を保存した。比較範囲では上位実装との差が残る。
+
+続いて、ranked zeta変換後の係数と積の各項をmodへ戻す変更を比較した。PyPyで大きな中間整数へ昇格する計算を減らす。maskごとの配列構成と公開APIは変えていない。
+
+| 公式ケース | 変更前 | 採用版 | 上位PyPy提出 |
+| --- | ---: | ---: | ---: |
+| max_random_00 | 4.529秒 | 2.748秒 | 2.147秒 |
+| random_00 | 4.312秒 | 2.913秒 | 2.119秒 |
+| hack01_00 | 2.356秒 | 2.656秒 | 2.148秒 |
+
+大規模ランダム入力2件は約1.48〜1.65倍速くなり、`hack01_00`は約13%遅くなった。重いケースの改善を優先して採用したが、全入力での高速化ではない。3ケース中の最大RSSは変更前588848 KiB、採用版588884 KiB、参照575608 KiBで、メモリ削減はない。上位実装との時間差も残る。
+
+[変更前コード](../benchmarks/baselines/subset_convolution.py)、[測定時の改善案コード](../benchmarks/experiments/subset_convolution_normalized.py)、[各回の測定値](../benchmarks/results/subset-convolution-normalized-comparison.json)を保存した。改善案コードの`multiply`と同じ処理を本体へ反映している。負数・未正規化係数・合成数mod・61 bit modの小入力を単純解と比較する回帰testも追加した。
+
+採用前の反復測定も残している: [subset convolution](../benchmarks/results/subset_convolution-before-normalization.json)、[set exp](../benchmarks/results/exp_of_set_power_series-before-normalization.json)、[set log](../benchmarks/results/log_of_set_power_series-before-normalization.json)。最新の本体に対する記録は[公式ケースのベンチマーク一覧](../../verify/library_checker/benchmarks/README.md)を参照する。
+
+```sh
+pypy3 library_codex/benchmarks/library_checker.py fetch --problem subset_convolution --language pypy3 --top 1 --cache ../lc-matching-reference
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/subset_convolution-pypy3.json --reviewed 389773 --problem /home/harurun/.cache/harurun-library-checker/problems/set_power_series/subset_convolution --cases max_random_00 random_00 hack01_00 --variant library=library_codex/benchmarks/baselines/subset_convolution.py --repeat 5 --output library_codex/benchmarks/results/subset-convolution-comparison.json
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/subset_convolution-pypy3.json --reviewed 389773 --problem /home/harurun/.cache/harurun-library-checker/problems/set_power_series/subset_convolution --cases max_random_00 random_00 hack01_00 --variant baseline=library_codex/benchmarks/baselines/subset_convolution.py --variant candidate=library_codex/benchmarks/experiments/subset_convolution_normalized.py --repeat 5 --output library_codex/benchmarks/results/subset-convolution-normalized-comparison.json
+```

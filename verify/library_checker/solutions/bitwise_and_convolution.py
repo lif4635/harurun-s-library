@@ -1167,6 +1167,9 @@ class SubsetConvolution:
         _bitwise_convolution_set_function_check_pair(first, second)
         (left, right, popcount, bits, width) = self._lift_and_zeta(first, second)
         mod = self.mod
+        for index in range(len(left)):
+            left[index] %= mod
+            right[index] %= mod
         scratch = [0] * width
         for (mask, degree) in enumerate(popcount):
             position = mask * width
@@ -1175,7 +1178,7 @@ class SubsetConvolution:
                 upper = min(total_degree, degree)
                 value = 0
                 for rank in range(lower, upper + 1):
-                    value += left[position + rank] * right[position + total_degree - rank]
+                    value += left[position + rank] * right[position + total_degree - rank] % mod
                 scratch[total_degree] = value % mod
             for rank in range(degree, min(2 * degree, bits) + 1):
                 left[position + rank] = scratch[rank]

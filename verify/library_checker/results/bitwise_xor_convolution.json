@@ -1,8 +1,8 @@
 {
   "problem": "bitwise_xor_convolution",
   "status": "local_passed",
-  "verificationKey": "35ed49aebcbc97804111345ab8875fae3d8e6a87c31d9758aa241b911bf920a8",
-  "sourceSha256": "243dcd6255fae861131b86ca787a71892b184c689a13406b2a5fd451e7e7a91b",
+  "verificationKey": "75a8cf117b512d6c78c7f741ec6b666cb07d8d8a8e7221d32459a1a4e6e854a9",
+  "sourceSha256": "9561d620fd5254b1a500238564ca79d19a3ac8b3b97b25ecc14bd0cdae2a28d2",
   "modules": [
     "library_codex.convolution.NTT",
     "library_codex.number_theory.ModularArithmetic",
@@ -20,82 +20,82 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.062494186000549234,
+      "seconds": 0.07473837898578495,
       "diagnostic": "ok 8 tokens\n"
     },
     {
       "name": "tiny_00",
       "status": "AC",
-      "seconds": 0.06697913700190838,
+      "seconds": 0.06308987599913962,
       "diagnostic": "ok \"309325104\"\n"
     },
     {
       "name": "tiny_01",
       "status": "AC",
-      "seconds": 0.06492044999322388,
+      "seconds": 0.0712120899988804,
       "diagnostic": "ok 2 tokens\n"
     },
     {
       "name": "tiny_02",
       "status": "AC",
-      "seconds": 0.06318194199411664,
+      "seconds": 0.07360602298285812,
       "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.06385495499125682,
+      "seconds": 0.06332761698286049,
       "diagnostic": "ok 32 tokens\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.0627472560008755,
+      "seconds": 0.06275863200426102,
       "diagnostic": "ok 64 tokens\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.06962532400211785,
+      "seconds": 0.0697351899871137,
       "diagnostic": "ok 256 tokens\n"
     },
     {
       "name": "large_00",
       "status": "AC",
-      "seconds": 0.09393150100368075,
+      "seconds": 0.09538849501404911,
       "diagnostic": "ok 32768 tokens\n"
     },
     {
       "name": "large_01",
       "status": "AC",
-      "seconds": 0.11512526399747003,
+      "seconds": 0.12160076800500974,
       "diagnostic": "ok 65536 tokens\n"
     },
     {
       "name": "large_02",
       "status": "AC",
-      "seconds": 0.26167033599631395,
+      "seconds": 0.2455907060066238,
       "diagnostic": "ok 262144 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 0.8019598539976869,
+      "seconds": 0.8527589090226684,
       "diagnostic": "ok 1048576 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 0.7761570650036447,
+      "seconds": 0.7681375899992418,
       "diagnostic": "ok 1048576 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 0.8430868129944429,
+      "seconds": 0.8287501510058064,
       "diagnostic": "ok 1048576 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-03T18:13:59.295459+00:00",
+  "verifiedAt": "2026-10-04T09:59:35.047507+00:00",
   "onlineSubmission": null
 }

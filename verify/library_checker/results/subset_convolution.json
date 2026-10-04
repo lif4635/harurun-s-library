@@ -1,101 +1,89 @@
 {
-  "problem": "bitwise_and_convolution",
+  "problem": "subset_convolution",
   "status": "local_passed",
-  "verificationKey": "80f2f314dee97bb48e3e14b4d2830b696c68694de7485c7aa279c1a8e75f4fef",
-  "sourceSha256": "f98913ebb6be474e15fb50fcf950f4b0ccfdca1e6a191181fc0218816f1e9b2f",
+  "verificationKey": "5b51ee9e30858c9a6300e21dd1d6d87fd7981f8ce7e6edb6a1a3ec482ba83c20",
+  "sourceSha256": "74fb8244d26aac713f2667004ead560e7834d5efca7549042958d2ab5df74ebb",
   "modules": [
     "library_codex.convolution.NTT",
     "library_codex.number_theory.ModularArithmetic",
     "library_codex.fps.FormalPowerSeries",
     "library_codex.bitwise_convolution.SetFunction"
   ],
-  "problemVersion": "796d24049692a27cb2372c7da6d2c657acdd4529e06e32a0b4c9fe06218e28d7",
+  "problemVersion": "e95a0a60d20f75e76e80ea6c4417fdfb50ac54d7f8747f60ed1e42cc8f464579",
   "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
   "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
   "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
-  "timeLimitSeconds": 5.0,
-  "expectedCases": 13,
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 11,
   "cases": [
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.060256856988416985,
+      "seconds": 0.08521437898161821,
       "diagnostic": "ok 8 tokens\n"
-    },
-    {
-      "name": "tiny_00",
-      "status": "AC",
-      "seconds": 0.06467170600080863,
-      "diagnostic": "ok \"309325104\"\n"
-    },
-    {
-      "name": "tiny_01",
-      "status": "AC",
-      "seconds": 0.0686369739996735,
-      "diagnostic": "ok 2 tokens\n"
-    },
-    {
-      "name": "tiny_02",
-      "status": "AC",
-      "seconds": 0.06466390599962324,
-      "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.06849591000354849,
-      "diagnostic": "ok 32 tokens\n"
+      "seconds": 0.07502420799573883,
+      "diagnostic": "ok \"309325104\"\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.06784274100209586,
-      "diagnostic": "ok 64 tokens\n"
+      "seconds": 0.07387194500188343,
+      "diagnostic": "ok 2 tokens\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.06948289799038321,
-      "diagnostic": "ok 256 tokens\n"
+      "seconds": 0.06441083498066291,
+      "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.09775826300028712,
-      "diagnostic": "ok 32768 tokens\n"
+      "seconds": 2.8883310869859997,
+      "diagnostic": "ok 1048576 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.10715514598996378,
-      "diagnostic": "ok 65536 tokens\n"
+      "seconds": 0.07258959300816059,
+      "diagnostic": "ok 32 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.23455663901404478,
-      "diagnostic": "ok 262144 tokens\n"
+      "seconds": 0.09695950101013295,
+      "diagnostic": "ok 1024 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 0.7551268209936097,
+      "seconds": 3.0623221050191205,
       "diagnostic": "ok 1048576 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 0.6987114060029853,
+      "seconds": 3.0745629179873504,
       "diagnostic": "ok 1048576 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 0.7947683849779423,
+      "seconds": 2.837335135001922,
+      "diagnostic": "ok 1048576 tokens\n"
+    },
+    {
+      "name": "hack01_00",
+      "status": "AC",
+      "seconds": 2.634157428983599,
       "diagnostic": "ok 1048576 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-04T09:59:29.801821+00:00",
+  "verifiedAt": "2026-10-04T10:00:16.061531+00:00",
   "onlineSubmission": null
 }

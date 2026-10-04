@@ -17,9 +17,9 @@
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
 - 前回のPyPy全検証: 794 passed（2026-10-04、`a748080`）。検査中に分離したRangeParallelUnionFind専用2件も別途成功。
-- 今回はPyPy quick 124件とF2Matrix専用5件が成功。全検査は再実行していない。
+- 今回checkpointのPyPy quickは124件、FPS998・SetFunctionの関連テストは18件成功。quick性能検査も成功。全検査は再実行していない。
 - 再帰監査: direct/mutual recursion なし（2026-10-04）
-- Library Checker公式ケース: 91問題・2093ケース通過、未対応162問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- Library Checker公式ケース: 100問題・2310ケース通過、未対応153問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 
