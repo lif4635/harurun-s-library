@@ -12,7 +12,10 @@ class PointSetRangeFrequency:
             values = list(values)
         positions = {}
         for index, value in enumerate(values):
-            positions.setdefault(value, TreapSet()).add(index)
+            tree = positions.get(value)
+            if tree is None:
+                tree = positions[value] = TreapSet()
+            tree.add(index)
         self.values = values
         self.positions = positions
 
@@ -20,8 +23,15 @@ class PointSetRangeFrequency:
         old = self.values[index]
         if old == value:
             return
-        self.positions[old].discard(index)
-        self.positions.setdefault(value, TreapSet()).add(index)
+        positions = self.positions
+        tree = positions[old]
+        tree.discard(index)
+        if not tree:
+            del positions[old]
+        tree = positions.get(value)
+        if tree is None:
+            tree = positions[value] = TreapSet()
+        tree.add(index)
         self.values[index] = value
 
     def query(self, left, right, value):
@@ -29,3 +39,12 @@ class PointSetRangeFrequency:
         if positions is None:
             return 0
         return positions.bisect_left(right) - positions.bisect_left(left)
+
+    def tolist(self):
+        return self.values.copy()
+
+    def __str__(self):
+        return str(self.values)
+
+    def __repr__(self):
+        return "PointSetRangeFrequency(%r)" % self.values

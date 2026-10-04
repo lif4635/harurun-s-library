@@ -2,8 +2,9 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 109,
-    "unimplemented": 144
+    "failed": 1,
+    "local_passed": 114,
+    "unimplemented": 138
   },
   "problems": [
     {
@@ -640,10 +641,12 @@
       "title": "Double-Ended Priority Queue",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/double_ended_priority_queue",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.ErasableHeap"
+      ],
+      "solution": "solutions/double_ended_priority_queue.py",
+      "result": "results/double_ended_priority_queue.json"
     },
     {
       "name": "dynamic_graph_vertex_add_component_sum",
@@ -670,10 +673,12 @@
       "title": "Dynamic Sequence Range Affine Range Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "failed",
+      "modules": [
+        "library_codex.sequence_structure.ImplicitTreap"
+      ],
+      "solution": "solutions/dynamic_sequence_range_affine_range_sum.py",
+      "result": "results/dynamic_sequence_range_affine_range_sum.json"
     },
     {
       "name": "dynamic_tree_subtree_add_subtree_sum",
@@ -1654,10 +1659,12 @@
       "title": "Ordered Set",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/ordered_set",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.ordered_set.TreapSet"
+      ],
+      "solution": "solutions/ordered_set.py",
+      "result": "results/ordered_set.json"
     },
     {
       "name": "palindromes_in_deque",
@@ -1711,10 +1718,13 @@
       "title": "Persistent Unionfind",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/persistent_unionfind",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.PersistentArray",
+        "library_codex.union_find.PersistentUnionFind"
+      ],
+      "solution": "solutions/persistent_unionfind.py",
+      "result": "results/persistent_unionfind.json"
     },
     {
       "name": "pfaffian_of_matrix",
@@ -1775,10 +1785,13 @@
       "title": "Point Set Range Frequency",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/point_set_range_frequency",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.ordered_set.TreapSet",
+        "library_codex.ordered_set.PointSetRangeFrequency"
+      ],
+      "solution": "solutions/point_set_range_frequency.py",
+      "result": "results/point_set_range_frequency.json"
     },
     {
       "name": "point_set_range_sort_range_composite",
@@ -2108,10 +2121,12 @@
       "title": "Range Reverse Range Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_reverse_range_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.ImplicitTreap"
+      ],
+      "solution": "solutions/range_reverse_range_sum.py",
+      "result": "results/range_reverse_range_sum.json"
     },
     {
       "name": "range_set_range_composite",

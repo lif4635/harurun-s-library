@@ -199,7 +199,6 @@ ordered_set/FastSet
 ordered_set/OrderedMap
 ordered_set/PersistentBinaryTrie
 ordered_set/PersistentRBSTSet
-ordered_set/PointSetRangeFrequency
 ordered_set/RangeSet
 ordered_set/TopKSum
 ordered_set/TreapSet
@@ -254,7 +253,6 @@ segment_tree/SegTree
 segment_tree/SortableSegmentTree
 sequence_structure/CartesianTree
 sequence_structure/ErasableHeap
-sequence_structure/ImplicitTreap
 sequence_structure/PersistentArray
 sequence_structure/PersistentQueue
 sequence_structure/RadixHeap

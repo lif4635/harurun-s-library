@@ -5,7 +5,6 @@ import random
 from library_codex.ordered_set.BitSet import BitSet
 from library_codex.ordered_set.PersistentBinaryTrie import PersistentBinaryTrie
 from library_codex.sequence_structure.PersistentQueue import PersistentQueue
-from library_codex.ordered_set.PointSetRangeFrequency import PointSetRangeFrequency
 from library_codex.ordered_set.RangeSet import RangeSet
 from library_codex.sequence_structure.SlidingWindowMinimum import sliding_window_minimum
 from library_codex.ordered_set.TopKSum import TopKSum
@@ -77,24 +76,6 @@ def test_treap_set_random_order_statistics():
             index = rng.randrange(len(values))
             assert solver.kth(index) == values[index]
         assert list(solver) == values
-
-
-def test_point_set_range_frequency_random():
-    rng = random.Random(592016)
-    size = 200
-    values = [rng.randrange(20) for _ in range(size)]
-    solver = PointSetRangeFrequency(values)
-    for _ in range(20000):
-        if rng.randrange(2):
-            index = rng.randrange(size)
-            value = rng.randrange(20)
-            values[index] = value
-            solver.set(index, value)
-        else:
-            left = rng.randrange(size + 1)
-            right = rng.randrange(left, size + 1)
-            value = rng.randrange(20)
-            assert solver.query(left, right, value) == values[left:right].count(value)
 
 
 def test_range_set_random_boolean_universe():

@@ -13,7 +13,7 @@
 | [`OrderedMap`](OrderedMap.md) | key順の探索・k番目・lower/upper boundを扱う順序付きmap。 | 0 | 1 | 15 |
 | [`PersistentBinaryTrie`](PersistentBinaryTrie.md) | 過去versionの整数multisetでk番目・xor最小を扱う永続binary trie。 | 0 | 1 | 6 |
 | [`PersistentRBSTSet`](PersistentRBSTSet.md) | 更新ごとに過去のrootを残す永続randomized BST集合。 | 0 | 1 | 12 |
-| [`PointSetRangeFrequency`](PointSetRangeFrequency.md) | 一点変更される列で、区間内の指定値の出現回数を数える構造。 | 0 | 1 | 2 |
+| [`PointSetRangeFrequency`](PointSetRangeFrequency.md) | 一点変更される列で、区間内の指定値の出現回数を数える構造。 | 0 | 1 | 5 |
 | [`RangeSet`](RangeSet.md) | 整数集合を互いに交わらない半開区間で保持するRangeSet | 0 | 1 | 6 |
 | [`TopKSum`](TopKSum.md) | 要素の追加・削除をしながら大きい方または小さい方k個の和を保つ構造。 | 0 | 1 | 3 |
 | [`TreapSet`](TreapSet.md) | 順序・k番目・前後要素を対数時間で扱う乱択平衡二分探索木。 | 0 | 1 | 17 |

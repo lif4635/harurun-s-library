@@ -9,7 +9,7 @@
 
 ## できること
 
-- `ImplicitTreap`: 動的列の挿入削除・反転・非可換積・range lazy作用を扱う `ImplicitTreap`。
+- `ImplicitTreap`: 途中への挿入・削除と区間反転ができる列。現在の並び順での区間積と、区間全体への更新も扱う。
 
 ## Import
 
@@ -19,29 +19,30 @@ from library_codex.sequence_structure.ImplicitTreap import ImplicitTreap
 
 ## Class `ImplicitTreap`
 
-動的列の挿入削除・反転・非可換積・range lazy作用を扱う `ImplicitTreap`。
+途中への挿入・削除と区間反転ができる列。現在の並び順での区間積と、区間全体への更新も扱う。
 
-- constructor: [`ImplicitTreap(values=(), op=add, identity=0, mapping=None, composition=None)`](../../../sequence_structure/ImplicitTreap.py#L11)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`<br>`op`: 結合的な二項演算 `op(left, right)`。省略時: `add`<br>`identity`: 演算 `op` の単位元。省略時: `0`<br>`mapping`: 作用を値へ適用するcallback。省略時: `None`<br>`composition`: 新旧の作用を合成するcallback。省略時: `None`
+- constructor: [`ImplicitTreap(values=(), op=add, identity=0, mapping=None, composition=None, commutative=False)`](../../../sequence_structure/ImplicitTreap.py#L11)
+- 引数: `values`: 初期要素のiterable。空なら空の列。省略時: `()`<br>`op`: 結合的な演算op(left, right)。列の左から右の順に集約する。省略時: `add`<br>`identity`: opの単位元。空区間のprodもこの値を返す。省略時: `0`<br>`mapping`: mapping(action, aggregate, size)。size個の要素への作用後の集約値を返す。opと整合する一様な作用に限る。省略時: `None`<br>`composition`: composition(new, old)。oldの後にnewを適用する合成作用を返す。省略時: `None`<br>`commutative`: opが可換な場合だけTrueにできる。逆順の集約計算を省く。文字列連結や行列積ではFalseのまま使う。省略時: `False`
 - 返り値: `ImplicitTreap` instance
-- 計算量: —
+- 計算量: O(N) と O(N) 回のop呼び出し
+- 作成後: valuesをコピーし、insert・pop・reverse_rangeで並びを変え、prodで区間積を求められる列を作る。mappingとcompositionを与えるとapplyも使える。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`insert(index, value)`](../../../sequence_structure/ImplicitTreap.py#L188) | method | 指定位置へ要素を挿入する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`append(value)`](../../../sequence_structure/ImplicitTreap.py#L192) | method | 要素を追加する。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`appendleft(value)`](../../../sequence_structure/ImplicitTreap.py#L195) | method | appendleftを求める。 | `value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`pop(index=-1)`](../../../sequence_structure/ImplicitTreap.py#L198) | method | 要素を1つ取り除いて返す。 | `index`: 位置。省略時: `-1` | object — 削除したindex位置の要素。 | — |
-| [`get(index)`](../../../sequence_structure/ImplicitTreap.py#L211) | method | index番目に格納されている値を返す。 | `index`: 位置 | 指定対象に格納された値・edge object | — |
-| [`set(index, value)`](../../../sequence_structure/ImplicitTreap.py#L228) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`reverse_range(left, right)`](../../../sequence_structure/ImplicitTreap.py#L250) | method | reverse rangeを求める。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | `None` | — |
-| [`prod(left=0, right=None)`](../../../sequence_structure/ImplicitTreap.py#L258) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | 区間・pathの集約値（入力要素型） | — |
-| [`apply(left, right, action)`](../../../sequence_structure/ImplicitTreap.py#L269) | method | 指定した作用を適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | `None` | — |
-| [`to_list()`](../../../sequence_structure/ImplicitTreap.py#L280) | method | to listを求める。 | なし | list[object] — 遅延作用と反転を反映した現在の要素列 | — |
-| [`tolist()`](../../../sequence_structure/ImplicitTreap.py#L294) | method | 遅延作用と反転を反映した現在の要素列を返す。O(N)。 | なし | list[object] — 遅延作用と反転を反映した現在の要素列 | O(N) |
-| [`__str__()`](../../../sequence_structure/ImplicitTreap.py#L298) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str instance | — |
-| [`__repr__()`](../../../sequence_structure/ImplicitTreap.py#L301) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | 数値または入力要素型 `'ImplicitTreap(%r)' % self.to_list()` | — |
-| [`__getitem__(index)`](../../../sequence_structure/ImplicitTreap.py#L304) | method | obj[key] で取得する。 | `index`: 位置 | 格納値、sliceなら同種の部分構造 | — |
-| [`__setitem__(index, value)`](../../../sequence_structure/ImplicitTreap.py#L307) | method | obj[key] = value で更新する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | — |
-| [`__len__()`](../../../sequence_structure/ImplicitTreap.py#L310) | method | len(obj)。 | なし | 要素数（int） | — |
-| [`__iter__()`](../../../sequence_structure/ImplicitTreap.py#L313) | method | iter(obj)・for 文。 | なし | iterator | — |
+| [`insert(index, value)`](../../../sequence_structure/ImplicitTreap.py#L209) | method | index番目の要素の直前へvalueを挿入する。indexが列長なら末尾へ追加する。 | `index`: 0以上、現在の列長以下の挿入位置。<br>`value`: 追加・設定・問い合わせる値 | None — 要素数が1増え、挿入位置以降の添字が1ずつ増える。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`append(value)`](../../../sequence_structure/ImplicitTreap.py#L213) | method | 列の末尾へvalueを追加する。 | `value`: 追加・設定・問い合わせる値 | None — 末尾に要素が1つ増える。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`appendleft(value)`](../../../sequence_structure/ImplicitTreap.py#L216) | method | 列の先頭へvalueを挿入する。 | `value`: 追加・設定・問い合わせる値 | None — 要素数が1増え、既存要素の添字が1ずつ増える。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`pop(index=-1)`](../../../sequence_structure/ImplicitTreap.py#L219) | method | 要素を1つ取り除いて返す。 | `index`: 位置。省略時: `-1` | object — 削除したindex位置の要素。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`get(index)`](../../../sequence_structure/ImplicitTreap.py#L232) | method | 更新と反転を反映したindex番目の要素を返す。 | `index`: 位置 | object — 現在の列のindex番目の値。負のindexは末尾から数える。範囲外ならIndexError。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`set(index, value)`](../../../sequence_structure/ImplicitTreap.py#L249) | method | index番目の値をvalueへ置き換える。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`reverse_range(left, right)`](../../../sequence_structure/ImplicitTreap.py#L271) | method | 半開区間[left, right)の並び順を逆にする。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | None — 区間の要素を反転し、以降の添字と区間積に反映する。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`prod(left=0, right=None)`](../../../sequence_structure/ImplicitTreap.py#L279) | method | 半開区間[left, right)の要素を現在の左から右の順にopで集約する。 | `left`: 半開区間の左端（含む）。省略時: `0`<br>`right`: 半開区間の右端（含まない）。省略時: `None` | object — 区間内の順序を保った集約値。空区間はidentity。rightを省略すると列の末尾まで。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`apply(left, right, action)`](../../../sequence_structure/ImplicitTreap.py#L344) | method | 半開区間[left, right)の各要素へactionを適用する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`action`: 遅延作用・更新作用 | None — 列を更新する。以降のget・prod・表示に作用後の値を反映する。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`to_list()`](../../../sequence_structure/ImplicitTreap.py#L355) | method | 現在の列を並び順にコピーして返す。 | なし | list[object] — 遅延更新と反転を反映した列のコピー。返されたlistを変更しても本体は変わらない。 | O(N) と O(N) 回のmapping・composition呼び出し |
+| [`tolist()`](../../../sequence_structure/ImplicitTreap.py#L369) | method | 遅延作用と反転を反映した現在の要素列を返す。O(N)。 | なし | list[object] — 遅延作用と反転を反映した現在の要素列 | O(N) と O(N) 回のmapping・composition呼び出し |
+| [`__str__()`](../../../sequence_structure/ImplicitTreap.py#L373) | method | str(obj)・print(obj)で論理内容を表示する。 | なし | str — 更新・反転後の列をlistの形式で表した文字列。 | O(N) と O(N) 回のmapping・composition呼び出し |
+| [`__repr__()`](../../../sequence_structure/ImplicitTreap.py#L376) | method | 対話環境・debugger向けに型名付きで表示する。 | なし | str — ImplicitTreap([...])の形で現在の列を表した文字列。 | O(N) と O(N) 回のmapping・composition呼び出し |
+| [`__getitem__(index)`](../../../sequence_structure/ImplicitTreap.py#L379) | method | 現在のindex番目の要素を返す。 | `index`: 位置 | object — get(index)と同じ値。整数添字のみを受け付け、sliceは扱わない。 | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`__setitem__(index, value)`](../../../sequence_structure/ImplicitTreap.py#L382) | method | obj[key] = value で更新する。 | `index`: 位置<br>`value`: 追加・設定・問い合わせる値 | `None` | 期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数 |
+| [`__len__()`](../../../sequence_structure/ImplicitTreap.py#L385) | method | len(obj)。 | なし | 要素数（int） | O(1) |
+| [`__iter__()`](../../../sequence_structure/ImplicitTreap.py#L388) | method | 現在の列を先頭から列挙する。 | なし | iterator[object] — 作成時にコピーした列を、先頭から順に1要素ずつ返すiterator。 | O(N) と O(N) 回のmapping・composition呼び出し |

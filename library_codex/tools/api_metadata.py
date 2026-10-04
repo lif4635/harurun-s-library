@@ -2026,6 +2026,18 @@ API_DETAILS_BY_SYMBOL.update({
 
 
 CLASS_DETAILS_BY_SYMBOL = {
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap"): {
+        "description": "途中への挿入・削除と区間反転ができる列。現在の並び順での区間積と、区間全体への更新も扱う。",
+        "constructorCreates": "valuesをコピーし、insert・pop・reverse_rangeで並びを変え、prodで区間積を求められる列を作る。mappingとcompositionを与えるとapplyも使える。",
+        "argumentDescriptions": {
+            "values": "初期要素のiterable。空なら空の列。",
+            "op": "結合的な演算op(left, right)。列の左から右の順に集約する。",
+            "identity": "opの単位元。空区間のprodもこの値を返す。",
+            "mapping": "mapping(action, aggregate, size)。size個の要素への作用後の集約値を返す。opと整合する一様な作用に限る。",
+            "composition": "composition(new, old)。oldの後にnewを適用する合成作用を返す。",
+            "commutative": "opが可換な場合だけTrueにできる。逆順の集約計算を省く。文字列連結や行列積ではFalseのまま使う。",
+        },
+    },
     ("segment_tree/SortableSegmentTree.py", "SortableSegmentTree"): {
         "description": (
             "列の部分区間をkeyの昇順・降順へ並べ替えながら、現在の並び順に沿った"
@@ -2082,6 +2094,14 @@ CLASS_DETAILS_BY_SYMBOL = {
 # Big-O is kept separate from descriptive algorithm names.  These entries are
 # used when the source alone cannot provide a useful per-API estimate.
 COMPLEXITY_BY_MODULE = {
+    "sequence_structure/ImplicitTreap.py": {
+        "ImplicitTreap": "O(N) と O(N) 回のop呼び出し",
+        **{name: "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数"
+           for name in ("insert", "append", "appendleft", "pop", "get", "set", "reverse_range", "prod", "apply", "__getitem__", "__setitem__")},
+        **{name: "O(N) と O(N) 回のmapping・composition呼び出し"
+           for name in ("to_list", "tolist", "__str__", "__repr__", "__iter__")},
+        "__len__": "O(1)",
+    },
     "fps998/MultipointEvaluation.py": {
         "multipoint_evaluation": "O((N+M) log^2(N+M))",
         "polynomial_interpolation": "O(N log^2 N)",
@@ -2442,7 +2462,9 @@ COMPLEXITY_BY_MODULE.update({
         "kth": "期待 O(log N)",
     },
     "ordered_set/PointSetRangeFrequency.py": {
-        "set": "O(log^2 N)", "query": "O(log^2 N)",
+        "PointSetRangeFrequency": "期待 O(N log(N+1))",
+        "set": "期待 O(log(N+1))", "query": "期待 O(log(N+1))",
+        "tolist": "O(N)", "__str__": "O(N)", "__repr__": "O(N)",
     },
     "ordered_set/TopKSum.py": {
         "add": "期待 O(log N)", "discard": "期待 O(log N)", "sum": "O(1)",
@@ -3306,6 +3328,53 @@ API_DETAILS_BY_SYMBOL.update({
     ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "pop"): {
         "returnFormat": "object", "returnDescription": "削除したindex位置の要素。",
     },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "prod"): {
+        "description": "半開区間[left, right)の要素を現在の左から右の順にopで集約する。",
+        "returnFormat": "object", "returnDescription": "区間内の順序を保った集約値。空区間はidentity。rightを省略すると列の末尾まで。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "apply"): {
+        "description": "半開区間[left, right)の各要素へactionを適用する。",
+        "returnFormat": "None", "returnDescription": "列を更新する。以降のget・prod・表示に作用後の値を反映する。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "reverse_range"): {
+        "description": "半開区間[left, right)の並び順を逆にする。",
+        "returnFormat": "None", "returnDescription": "区間の要素を反転し、以降の添字と区間積に反映する。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "appendleft"): {
+        "description": "列の先頭へvalueを挿入する。",
+        "returnFormat": "None", "returnDescription": "要素数が1増え、既存要素の添字が1ずつ増える。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "get"): {
+        "description": "更新と反転を反映したindex番目の要素を返す。",
+        "returnFormat": "object", "returnDescription": "現在の列のindex番目の値。負のindexは末尾から数える。範囲外ならIndexError。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "insert"): {
+        "description": "index番目の要素の直前へvalueを挿入する。indexが列長なら末尾へ追加する。",
+        "argumentDescriptions": {"index": "0以上、現在の列長以下の挿入位置。"},
+        "returnFormat": "None", "returnDescription": "要素数が1増え、挿入位置以降の添字が1ずつ増える。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "append"): {
+        "description": "列の末尾へvalueを追加する。",
+        "returnFormat": "None", "returnDescription": "末尾に要素が1つ増える。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "to_list"): {
+        "description": "現在の列を並び順にコピーして返す。",
+        "returnFormat": "list[object]", "returnDescription": "遅延更新と反転を反映した列のコピー。返されたlistを変更しても本体は変わらない。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "__getitem__"): {
+        "description": "現在のindex番目の要素を返す。",
+        "returnFormat": "object", "returnDescription": "get(index)と同じ値。整数添字のみを受け付け、sliceは扱わない。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "__iter__"): {
+        "description": "現在の列を先頭から列挙する。",
+        "returnFormat": "iterator[object]", "returnDescription": "作成時にコピーした列を、先頭から順に1要素ずつ返すiterator。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "__str__"): {
+        "returnFormat": "str", "returnDescription": "更新・反転後の列をlistの形式で表した文字列。",
+    },
+    ("sequence_structure/ImplicitTreap.py", "ImplicitTreap", "__repr__"): {
+        "returnFormat": "str", "returnDescription": "ImplicitTreap([...])の形で現在の列を表した文字列。",
+    },
     ("sequence_structure/PersistentArray.py", "PersistentArray", "update_root"): {
         "returnFormat": "int", "returnDescription": "更新後の永続配列を表すroot node番号。",
     },
@@ -3414,6 +3483,20 @@ API_DETAILS_BY_SYMBOL.update({
         "description": "半開区間[left, right)にvalueが現れる回数を返す。",
         "returnFormat": "int",
         "returnDescription": "values[left:right]のうちvalueと等しい要素の個数。",
+    },
+    ("ordered_set/PointSetRangeFrequency.py", "PointSetRangeFrequency", "set"): {
+        "description": "index番目の要素をvalueへ置き換える。",
+        "returnFormat": "None", "returnDescription": "以降のqueryに更新後の出現回数を反映する。",
+    },
+    ("ordered_set/PointSetRangeFrequency.py", "PointSetRangeFrequency", "tolist"): {
+        "description": "現在の列を添字順にコピーして返す。",
+        "returnFormat": "list[object]", "returnDescription": "要素iが現在のi番目の値。返されたlistを変更しても本体は変わらない。",
+    },
+    ("ordered_set/PointSetRangeFrequency.py", "PointSetRangeFrequency", "__str__"): {
+        "returnFormat": "str", "returnDescription": "更新後の列をlistの形式で表した文字列。",
+    },
+    ("ordered_set/PointSetRangeFrequency.py", "PointSetRangeFrequency", "__repr__"): {
+        "returnFormat": "str", "returnDescription": "PointSetRangeFrequency([...])の形で現在の列を表した文字列。",
     },
     ("ordered_set/TopKSum.py", "TopKSum", "sum"): {
         "description": "現在のmultisetから選ばれる上位または下位k個の合計を返す。",
@@ -4523,6 +4606,11 @@ CLASS_DETAILS_BY_SYMBOL.update({
         "description": "不変な列を値ごとの出現位置列へ索引化し、半開区間内の同値要素数を二分探索で数える。",
         "constructorCreates": "values の各値について昇順の出現 index を保持する。構築後に values を変更する API は持たない。",
         "argumentDescriptions": {"values": "検索対象となる不変な値の列。要素は hashable である必要がある。"},
+    },
+    ("ordered_set/PointSetRangeFrequency.py", "PointSetRangeFrequency"): {
+        "description": "列の1要素を変更しながら、指定した値が半開区間内にいくつあるか数える。",
+        "constructorCreates": "初期値をコピーする。setで1要素を置き換え、queryで更新後の列の出現回数を調べられる。",
+        "argumentDescriptions": {"values": "hashableな要素の列。整数Nなら長さNの全要素0の列。"},
     },
     ("tree_query/TreeMo.py", "TreeMo"): {
         "description": "Euler tour 上の区間へ木の path を写し、Mo のアルゴリズムで active な頂点集合を差分更新する。",

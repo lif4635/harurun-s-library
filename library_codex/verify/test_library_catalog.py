@@ -768,6 +768,47 @@ def test_module_scoped_metadata_changes_only_its_fingerprint(monkeypatch):
     ) == before_combination
 
 
+def test_dynamic_sequence_article_and_standalone():
+    module = module_by_path(load_catalog(), "library_codex.sequence_structure.ImplicitTreap")
+    assert "## 主な機能" in module["article"]["markdown"]
+    item = module["classes"][0]
+    assert "commutative=False" in item["constructor"]
+    assert "可換" in item["constructorArguments"]
+    assert item["constructorComplexity"] != "—"
+    methods = {method["name"]: method for method in item["methods"]}
+    assert "空区間" in methods["prod"]["returnDescription"]
+    assert methods["__repr__"]["returnFormat"] == "str"
+    assert "sliceは扱わない" in methods["__getitem__"]["returnDescription"]
+    assert all(method["complexity"] != "—" for method in item["methods"])
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    tree = namespace["ImplicitTreap"]([1, 2, 3, 4], commutative=True)
+    tree.insert(2, 10)
+    tree.reverse_range(1, 4)
+    assert tree.prod(1, 4) == 15
+    assert tree.pop(2) == 10
+    assert tree.tolist() == [1, 3, 2, 4]
+
+
+def test_point_frequency_article_and_standalone():
+    module = module_by_path(load_catalog(), "library_codex.ordered_set.PointSetRangeFrequency")
+    assert "半開区間" in module["article"]["markdown"]
+    item = module["classes"][0]
+    assert item["constructorComplexity"] != "—"
+    methods = {method["name"]: method for method in item["methods"]}
+    assert "log^2" not in methods["query"]["complexity"]
+    assert methods["set"]["returnFormat"] == "None"
+    assert methods["tolist"]["returnFormat"] == "list[object]"
+    assert methods["__repr__"]["returnFormat"] == "str"
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    tree = namespace["PointSetRangeFrequency"]([2, 1, 2, 3])
+    assert tree.query(0, 3, 2) == 2
+    tree.set(1, 2)
+    assert tree.query(1, 4, 2) == 2
+    assert tree.tolist() == [2, 2, 2, 3]
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")

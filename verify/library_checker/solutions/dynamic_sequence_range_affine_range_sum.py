@@ -1,22 +1,9 @@
 from operator import add
 
-
 class ImplicitTreap:
-    __slots__ = (
-        "root", "left", "right", "priority", "size", "reversed", "value",
-        "forward", "backward", "lazy", "pending", "op", "identity",
-        "mapping", "composition", "state", "commutative"
-    )
+    __slots__ = ('root', 'left', 'right', 'priority', 'size', 'reversed', 'value', 'forward', 'backward', 'lazy', 'pending', 'op', 'identity', 'mapping', 'composition', 'state', 'commutative')
 
-    def __init__(
-        self,
-        values=(),
-        op=add,
-        identity=0,
-        mapping=None,
-        composition=None,
-        commutative=False,
-    ):
+    def __init__(self, values=(), op=add, identity=0, mapping=None, composition=None, commutative=False):
         self.root = -1
         self.left = []
         self.right = []
@@ -33,7 +20,7 @@ class ImplicitTreap:
         self.mapping = mapping
         self.composition = composition
         self.commutative = commutative
-        self.state = 0xD192ED03
+        self.state = 3516067075
         values = list(values)
         if values:
             stack = []
@@ -61,9 +48,9 @@ class ImplicitTreap:
 
     def _random(self):
         value = self.state
-        value ^= value << 13 & 0xFFFFFFFF
+        value ^= value << 13 & 4294967295
         value ^= value >> 17
-        value ^= value << 5 & 0xFFFFFFFF
+        value ^= value << 5 & 4294967295
         self.state = value
         return value
 
@@ -106,8 +93,8 @@ class ImplicitTreap:
     def _toggle(self, node):
         if node < 0:
             return
-        self.left[node], self.right[node] = self.right[node], self.left[node]
-        self.forward[node], self.backward[node] = self.backward[node], self.forward[node]
+        (self.left[node], self.right[node]) = (self.right[node], self.left[node])
+        (self.forward[node], self.backward[node]) = (self.backward[node], self.forward[node])
         self.reversed[node] ^= 1
 
     def _all_apply(self, node, action):
@@ -149,19 +136,19 @@ class ImplicitTreap:
             left_size = self.size[child] if child >= 0 else 0
             if count <= left_size:
                 left[node] = second
-                second, node = node, child
+                (second, node) = (node, child)
             else:
                 count -= left_size + 1
                 child = right[node]
                 right[node] = first
-                first, node = node, child
+                (first, node) = (node, child)
         root = -1
         while first >= 0:
             parent = right[first]
             right[first] = root
             if update:
                 self._update(first)
-            root, first = first, parent
+            (root, first) = (first, parent)
         first = root
         root = -1
         while second >= 0:
@@ -169,8 +156,8 @@ class ImplicitTreap:
             left[second] = root
             if update:
                 self._update(second)
-            root, second = second, parent
-        return first, root
+            (root, second) = (second, parent)
+        return (first, root)
 
     def _merge(self, first, second, push_first=False, push_second=False):
         left = self.left
@@ -182,7 +169,7 @@ class ImplicitTreap:
                 self._push(first)
             child = right[first]
             right[first] = root
-            root, first = first, child
+            (root, first) = (first, child)
         first = root
         root = -1
         while second >= 0:
@@ -190,24 +177,24 @@ class ImplicitTreap:
                 self._push(second)
             child = left[second]
             left[second] = root
-            root, second = second, child
+            (root, second) = (second, child)
         second = root
         root = -1
         while first >= 0 or second >= 0:
-            if second < 0 or first >= 0 and priority[first] > priority[second]:
+            if second < 0 or (first >= 0 and priority[first] > priority[second]):
                 parent = right[first]
                 right[first] = root
                 self._update(first)
-                root, first = first, parent
+                (root, first) = (first, parent)
             else:
                 parent = left[second]
                 left[second] = root
                 self._update(second)
-                root, second = second, parent
+                (root, second) = (second, parent)
         return root
 
     def insert(self, index, value):
-        first, second = self._split(self.root, index, False)
+        (first, second) = self._split(self.root, index, False)
         self.root = self._merge(self._merge(first, self._new(value)), second)
 
     def append(self, value):
@@ -221,9 +208,9 @@ class ImplicitTreap:
         if index < 0:
             index += length
         if not 0 <= index < length:
-            raise IndexError("pop index out of range")
-        rest, second = self._split(self.root, index + 1, False)
-        first, middle = self._split(rest, index, False)
+            raise IndexError('pop index out of range')
+        (rest, second) = self._split(self.root, index + 1, False)
+        (first, middle) = self._split(rest, index, False)
         self._push(middle)
         value = self.value[middle]
         self.root = self._merge(first, second)
@@ -244,7 +231,7 @@ class ImplicitTreap:
             else:
                 index -= left_size + 1
                 node = self.right[node]
-        raise IndexError("index out of range")
+        raise IndexError('index out of range')
 
     def set(self, index, value):
         if index < 0:
@@ -266,14 +253,13 @@ class ImplicitTreap:
             else:
                 index -= left_size + 1
                 node = self.right[node]
-        raise IndexError("index out of range")
+        raise IndexError('index out of range')
 
     def reverse_range(self, left, right):
-        rest, second = self._split(self.root, right, False)
-        first, middle = self._split(rest, left, False)
+        (rest, second) = self._split(self.root, right, False)
+        (first, middle) = self._split(rest, left, False)
         self._toggle(middle)
         self.root = self._merge(self._merge(first, middle, False, True), second, True, False)
-
     reverse = reverse_range
 
     def prod(self, left=0, right=None):
@@ -338,18 +324,16 @@ class ImplicitTreap:
                 suffix = op(self.value[node], suffix)
                 node = child
         return op(op(suffix, center), prefix)
-
     query = prod
 
     def apply(self, left, right, action):
         if self.mapping is None or self.composition is None:
-            raise TypeError("mapping and composition are required")
-        rest, second = self._split(self.root, right, False)
-        first, middle = self._split(rest, left, False)
+            raise TypeError('mapping and composition are required')
+        (rest, second) = self._split(self.root, right, False)
+        (first, middle) = self._split(rest, left, False)
         if middle >= 0:
             self._all_apply(middle, action)
         self.root = self._merge(self._merge(first, middle, False, True), second, True, False)
-
     range_apply = apply
 
     def to_list(self):
@@ -374,7 +358,7 @@ class ImplicitTreap:
         return str(self.to_list())
 
     def __repr__(self):
-        return "ImplicitTreap(%r)" % self.to_list()
+        return 'ImplicitTreap(%r)' % self.to_list()
 
     def __getitem__(self, index):
         return self.get(index)
@@ -387,3 +371,36 @@ class ImplicitTreap:
 
     def __iter__(self):
         return iter(self.to_list())
+import sys
+
+def op(a, b):
+    return (a + b) % 998244353
+
+def mapping(f, value, size):
+    return ((f >> 32) * value + (f & 4294967295) * size) % 998244353
+
+def composition(f, g):
+    a = f >> 32
+    return a * (g >> 32) % 998244353 << 32 | (a * (g & 4294967295) + (f & 4294967295)) % 998244353
+
+def main():
+    read = sys.stdin.buffer.readline
+    (n, q) = map(int, read().split())
+    tree = ImplicitTreap(map(int, read().split()), op, 0, mapping, composition, commutative=True)
+    answer = []
+    for _ in range(q):
+        query = list(map(int, read().split()))
+        kind = query[0]
+        if kind == 0:
+            tree.insert(query[1], query[2])
+        elif kind == 1:
+            tree.pop(query[1])
+        elif kind == 2:
+            tree.reverse_range(query[1], query[2])
+        elif kind == 3:
+            tree.apply(query[1], query[2], query[3] << 32 | query[4])
+        else:
+            answer.append(str(tree.prod(query[1], query[2])))
+    sys.stdout.write('\n'.join(answer))
+if __name__ == '__main__':
+    main()

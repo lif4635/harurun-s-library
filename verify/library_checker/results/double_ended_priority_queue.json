@@ -1,0 +1,128 @@
+{
+  "problem": "double_ended_priority_queue",
+  "status": "local_passed",
+  "verificationKey": "dad01384db37b149d357f498b91b890e47ec43382c25d67d992a6b6d1869685d",
+  "sourceSha256": "1d22af4bb0077da4c49447e7dd6138d22e96e02880b87cb5c08d656b98a882d7",
+  "modules": [
+    "library_codex.sequence_structure.ErasableHeap"
+  ],
+  "problemVersion": "a6b7280c02f358884639085fed805db1fbf820b2f972ac1e0332b10e2845dd8a",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 18,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.058537109987810254,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_only_type01_00",
+      "status": "AC",
+      "seconds": 0.5146249000099488,
+      "diagnostic": "ok 250646 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_only_type01_01",
+      "status": "AC",
+      "seconds": 0.502574657992227,
+      "diagnostic": "ok 250218 tokens\n"
+    },
+    {
+      "name": "random_small_only_type01_00",
+      "status": "AC",
+      "seconds": 0.0828283000155352,
+      "diagnostic": "ok 141 tokens\n"
+    },
+    {
+      "name": "random_small_only_type01_01",
+      "status": "AC",
+      "seconds": 0.07088244901387952,
+      "diagnostic": "ok 133 tokens\n"
+    },
+    {
+      "name": "random_small_only_type01_02",
+      "status": "AC",
+      "seconds": 0.06330037000589073,
+      "diagnostic": "ok 202 tokens\n"
+    },
+    {
+      "name": "random_small_only_type01_03",
+      "status": "AC",
+      "seconds": 0.05915162598830648,
+      "diagnostic": "ok 121 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_00",
+      "status": "AC",
+      "seconds": 0.5338053529849276,
+      "diagnostic": "ok 250646 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_01",
+      "status": "AC",
+      "seconds": 0.5751341620052699,
+      "diagnostic": "ok 250218 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_many_pop_00",
+      "status": "AC",
+      "seconds": 0.620133681979496,
+      "diagnostic": "ok 400119 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_many_pop_01",
+      "status": "AC",
+      "seconds": 0.6592805199907161,
+      "diagnostic": "ok 400122 tokens\n"
+    },
+    {
+      "name": "random_n_zero_q_max_00",
+      "status": "AC",
+      "seconds": 0.499885473982431,
+      "diagnostic": "ok 250000 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_small_value_00",
+      "status": "AC",
+      "seconds": 0.575849000015296,
+      "diagnostic": "ok 350248 tokens\n"
+    },
+    {
+      "name": "random_n_max_q_max_small_value_01",
+      "status": "AC",
+      "seconds": 0.5741066299960949,
+      "diagnostic": "ok 350307 tokens\n"
+    },
+    {
+      "name": "random_small_00",
+      "status": "AC",
+      "seconds": 0.06528881398844533,
+      "diagnostic": "ok 141 tokens\n"
+    },
+    {
+      "name": "random_small_01",
+      "status": "AC",
+      "seconds": 0.06157584299216978,
+      "diagnostic": "ok 133 tokens\n"
+    },
+    {
+      "name": "random_small_02",
+      "status": "AC",
+      "seconds": 0.06853911001235247,
+      "diagnostic": "ok 202 tokens\n"
+    },
+    {
+      "name": "random_small_03",
+      "status": "AC",
+      "seconds": 0.055185856006573886,
+      "diagnostic": "ok 121 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T18:12:45.025346+00:00",
+  "onlineSubmission": null
+}

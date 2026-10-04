@@ -22,6 +22,7 @@ segment         # SegTree([1, 2, 3])
 | Union-Find | 連結成分ごとの2次元list | `groups()` |
 | Implicit Treap・Dynamic Wavelet Matrix | 現在の列 | `tolist()` |
 | TreapSet | keyの昇順list | `tolist()` |
+| PointSetRangeFrequency | 更新後の列を添字順に並べたlist | `tolist()` |
 | OrderedMap | key順のdict | `items()` |
 | Permutation Tree | node index順のdict list | `tolist()` |
 

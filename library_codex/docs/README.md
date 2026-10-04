@@ -47,7 +47,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 15 | 3 | 16 | 105 |
 | [fenwick_tree](api/fenwick_tree/README.md) | Fenwick木と加算・接頭和 | 3 | 0 | 3 | 17 |
 | [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 10 | 0 | 11 | 67 |
-| [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 12 | 0 | 12 | 123 |
+| [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 12 | 0 | 12 | 126 |
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 11 | 3 | 9 | 76 |
 | [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 12 | 4 | 12 | 68 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
@@ -74,4 +74,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **364 modules / 505 functions / 223 classes / 1389 methods・properties**。
+合計: **364 modules / 505 functions / 223 classes / 1392 methods・properties**。

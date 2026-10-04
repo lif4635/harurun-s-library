@@ -1,0 +1,171 @@
+{
+  "problem": "point_set_range_frequency",
+  "status": "local_passed",
+  "verificationKey": "b67e834c905c6f9835b8bafb931cffa8eaf7582b13c6c9e1cff549626db8a690",
+  "sourceSha256": "8f203cf33e748e702f7b3d50642874aed7d3a51e0e3f30bdd99297a43988d041",
+  "modules": [
+    "library_codex.ordered_set.TreapSet",
+    "library_codex.ordered_set.PointSetRangeFrequency"
+  ],
+  "problemVersion": "960e203b65de745d3b5620364dc8dfbd74279c0ec6deea80a7ef46032588e874",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 25,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.056632833991898224,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "small_n_00",
+      "status": "AC",
+      "seconds": 0.10664704497321509,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "small_n_01",
+      "status": "AC",
+      "seconds": 0.16436566997435875,
+      "diagnostic": "ok 99906 tokens\n"
+    },
+    {
+      "name": "small_n_02",
+      "status": "AC",
+      "seconds": 0.24207681100233458,
+      "diagnostic": "ok 99762 tokens\n"
+    },
+    {
+      "name": "medium_00",
+      "status": "AC",
+      "seconds": 0.17806686300900765,
+      "diagnostic": "ok 99937 tokens\n"
+    },
+    {
+      "name": "medium_01",
+      "status": "AC",
+      "seconds": 0.9384133339917753,
+      "diagnostic": "ok 100049 tokens\n"
+    },
+    {
+      "name": "medium_02",
+      "status": "AC",
+      "seconds": 1.2570639959885739,
+      "diagnostic": "ok 100183 tokens\n"
+    },
+    {
+      "name": "medium_03",
+      "status": "AC",
+      "seconds": 1.7417534470150713,
+      "diagnostic": "ok 100385 tokens\n"
+    },
+    {
+      "name": "medium_04",
+      "status": "AC",
+      "seconds": 0.8921645999944303,
+      "diagnostic": "ok 100146 tokens\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.5489705950021744,
+      "diagnostic": "ok 100148 tokens\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 1.5928935650154017,
+      "diagnostic": "ok 100002 tokens\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 2.4979025080101565,
+      "diagnostic": "ok 100344 tokens\n"
+    },
+    {
+      "name": "max_03",
+      "status": "AC",
+      "seconds": 3.0074584299873095,
+      "diagnostic": "ok 100133 tokens\n"
+    },
+    {
+      "name": "max_04",
+      "status": "AC",
+      "seconds": 3.075310718995752,
+      "diagnostic": "ok 99951 tokens\n"
+    },
+    {
+      "name": "max_05",
+      "status": "AC",
+      "seconds": 3.011774178012274,
+      "diagnostic": "ok 99956 tokens\n"
+    },
+    {
+      "name": "max_06",
+      "status": "AC",
+      "seconds": 2.2862154399917927,
+      "diagnostic": "ok 99778 tokens\n"
+    },
+    {
+      "name": "max_07",
+      "status": "AC",
+      "seconds": 1.2992162840091623,
+      "diagnostic": "ok 99674 tokens\n"
+    },
+    {
+      "name": "many_query_0_00",
+      "status": "AC",
+      "seconds": 1.8330023330054246,
+      "diagnostic": "ok 2005 tokens\n"
+    },
+    {
+      "name": "many_query_0_01",
+      "status": "AC",
+      "seconds": 3.293903446989134,
+      "diagnostic": "ok 1948 tokens\n"
+    },
+    {
+      "name": "many_query_0_02",
+      "status": "AC",
+      "seconds": 3.1551330109941773,
+      "diagnostic": "ok 2057 tokens\n"
+    },
+    {
+      "name": "many_query_0_03",
+      "status": "AC",
+      "seconds": 2.6445107879990246,
+      "diagnostic": "ok 1961 tokens\n"
+    },
+    {
+      "name": "many_query_1_00",
+      "status": "AC",
+      "seconds": 0.827719426015392,
+      "diagnostic": "ok 198003 tokens\n"
+    },
+    {
+      "name": "many_query_1_01",
+      "status": "AC",
+      "seconds": 0.9387042190064676,
+      "diagnostic": "ok 198031 tokens\n"
+    },
+    {
+      "name": "many_query_1_02",
+      "status": "AC",
+      "seconds": 1.0132000840094406,
+      "diagnostic": "ok 197962 tokens\n"
+    },
+    {
+      "name": "many_query_1_03",
+      "status": "AC",
+      "seconds": 0.8789244809886441,
+      "diagnostic": "ok 198059 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T18:39:22.803719+00:00",
+  "onlineSubmission": null
+}

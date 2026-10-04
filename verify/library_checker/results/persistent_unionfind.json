@@ -1,0 +1,105 @@
+{
+  "problem": "persistent_unionfind",
+  "status": "local_passed",
+  "verificationKey": "6dfba9faf487b71a14424757a7af7ebb50057514318cf7021c021f9a67e92967",
+  "sourceSha256": "521c58cfc67f5ad1c5618c24bd655e56c60614060d9b4acf66e2cf58b20715a8",
+  "modules": [
+    "library_codex.sequence_structure.PersistentArray",
+    "library_codex.union_find.PersistentUnionFind"
+  ],
+  "problemVersion": "01a4fee0be52a13c69d83ba788338b602e8ec78e147fcae599687eb431bb7949",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 14,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06906526300008409,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "hand_00",
+      "status": "AC",
+      "seconds": 0.06773882999550551,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.8120705090113916,
+      "diagnostic": "ok 74666 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.7333457009808626,
+      "diagnostic": "ok 74225 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.549462147988379,
+      "diagnostic": "ok 60080 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.24163257700274698,
+      "diagnostic": "ok 12851 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.3282058190088719,
+      "diagnostic": "ok 49589 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.9131891980068758,
+      "diagnostic": "ok 100371 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.8536453669948969,
+      "diagnostic": "ok 100057 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.9358150570187718,
+      "diagnostic": "ok 99787 tokens\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.8718900140083861,
+      "diagnostic": "ok 99820 tokens\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.8851282820105553,
+      "diagnostic": "ok 100264 tokens\n"
+    },
+    {
+      "name": "conchon_filliatre_tle_00",
+      "status": "AC",
+      "seconds": 0.6987198120041285,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "conchon_filliatre_tle_01",
+      "status": "AC",
+      "seconds": 0.7324239529843908,
+      "diagnostic": "ok 100000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T18:13:05.602538+00:00",
+  "onlineSubmission": null
+}
