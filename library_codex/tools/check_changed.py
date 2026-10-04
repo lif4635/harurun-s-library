@@ -31,28 +31,31 @@ def normalize_path(value):
         return path.as_posix().lstrip("./")
 
 
-def git_lines(*arguments):
+def git_output(*arguments):
     completed = subprocess.run(
         ["git", "-C", str(REPOSITORY), *arguments],
         text=True,
+        encoding="utf-8",
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
     if completed.returncode:
         raise SystemExit(completed.stderr.strip() or "git diff failed")
-    return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
+    return completed.stdout
+
+
+def git_diff_paths(*arguments):
+    output = git_output("diff", "--ignore-space-at-eol", "--numstat", "-z", "--no-renames", *arguments, "--")
+    return [record.split("\t", 2)[2] for record in output.split("\0") if record]
 
 
 def changed_paths(base=None, explicit=()):
     if explicit:
         return sorted({normalize_path(path) for path in explicit})
-    if base:
-        paths = set(git_lines("diff", "--ignore-space-at-eol", "--name-only", base, "--"))
-        paths.update(git_lines("ls-files", "--others", "--exclude-standard"))
-        return sorted(paths)
-    paths = set(git_lines("diff", "--ignore-space-at-eol", "--name-only", "HEAD", "--"))
-    paths.update(git_lines("diff", "--ignore-space-at-eol", "--name-only", "--cached", "--"))
-    paths.update(git_lines("ls-files", "--others", "--exclude-standard"))
+    paths = set(git_diff_paths(base or "HEAD"))
+    if not base:
+        paths.update(git_diff_paths("--cached"))
+    paths.update(filter(None, git_output("ls-files", "-z", "--others", "--exclude-standard").split("\0")))
     return sorted(paths)
 
 
@@ -144,6 +147,14 @@ def plan_for(paths):
                 tests.add(path)
 
     source_changed = bool(direct)
+    if any(relative in {
+        "library_codex/benchmarks/official_benchmark.py",
+        "library_codex/benchmarks/official_comparison.py",
+        "library_codex/benchmarks/library_checker.py",
+        "library_codex/tools/check_library_checker.py",
+    } for relative in paths):
+        tests.add(ROOT / "verify" / "test_official_benchmark.py")
+        tests.add(ROOT / "verify" / "test_official_comparison.py")
     if source_changed or any(
         relative.startswith("verify/library_checker/")
         or relative.startswith("library_codex/benchmarks/lc_problems/")

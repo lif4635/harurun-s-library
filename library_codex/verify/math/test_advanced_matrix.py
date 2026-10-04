@@ -8,7 +8,6 @@ from library_codex.linear_algebra.AdvancedMatrix import (
     pfaffian,
     spanning_tree_count,
 )
-from library_codex.linear_algebra.F2Matrix import F2Matrix
 from library_codex.linear_algebra.Matrix import matrix_determinant
 
 
@@ -61,33 +60,6 @@ def test_arbitrary_mod_determinant_against_permutations():
                 assert determinant_arbitrary_mod(matrix, mod) == brute_determinant(
                     matrix, mod
                 )
-
-
-def test_f2_matrix_product_power_inverse_and_semiring():
-    rng = random.Random(918374)
-    for size in range(25):
-        for _ in range(100):
-            first = F2Matrix(size, size, [rng.getrandbits(size) for _ in range(size)])
-            second = F2Matrix(size, size, [rng.getrandbits(size) for _ in range(size)])
-            product = first * second
-            or_product = first.and_or_product(second)
-            for row in range(size):
-                for column in range(size):
-                    expected = 0
-                    expected_or = 0
-                    for pivot in range(size):
-                        value = first.get(row, pivot) & second.get(pivot, column)
-                        expected ^= value
-                        expected_or |= value
-                    assert product.get(row, column) == expected
-                    assert or_product.get(row, column) == expected_or
-            inverse = first.inverse()
-            if first.determinant():
-                assert first * inverse == F2Matrix.identity(size)
-            else:
-                assert inverse is None
-        identity = F2Matrix.identity(size)
-        assert identity.power(10**18) == identity
 
 
 def test_hafnian_and_pfaffian_random_small():

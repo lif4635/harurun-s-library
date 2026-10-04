@@ -1,0 +1,236 @@
+{
+  "problem": "matrix_det_mod_2",
+  "status": "local_passed",
+  "verificationKey": "fb1d5ce5e29680f38676c53fbc654a128ebc6e0dd63f423010fec1e31f72c8f3",
+  "sourceSha256": "0e75f0865667083190e74a7ae67231262d832352ba97bf8d4c25106f3e400707",
+  "modules": [
+    "library_codex.linear_algebra.F2Matrix"
+  ],
+  "problemVersion": "f7a2038ef548028d20a6d86c9512113a85d704119b6774f8aa580fd7896ee13e",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 36,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05821829798514955,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05322671198518947,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.053541953006060794,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.05168419302208349,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.057356579025508836,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.051814512989949435,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.05515849799849093,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.054268784006126225,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "middle_00",
+      "status": "AC",
+      "seconds": 0.06148617502185516,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "middle_01",
+      "status": "AC",
+      "seconds": 0.05789663799805567,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "middle_02",
+      "status": "AC",
+      "seconds": 0.055496852000942454,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "middle_03",
+      "status": "AC",
+      "seconds": 0.05693878000602126,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "middle_04",
+      "status": "AC",
+      "seconds": 0.060013273992808536,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "middle_05",
+      "status": "AC",
+      "seconds": 0.06759891798719764,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.05988463500398211,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.06924718999653123,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.05791819197474979,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.2916539050056599,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.1956366510130465,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 0.40483047399902716,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.4551855829777196,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.43631206901045516,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.4523868170217611,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.43910755301476456,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.4479631360154599,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "max_random_05",
+      "status": "AC",
+      "seconds": 0.47942707801121287,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "lowrank_max_random_00",
+      "status": "AC",
+      "seconds": 0.32763131300453097,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "lowrank_max_random_01",
+      "status": "AC",
+      "seconds": 0.38410591799765825,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "lowrank_max_random_02",
+      "status": "AC",
+      "seconds": 0.3435075119778048,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "lowrank_max_random_03",
+      "status": "AC",
+      "seconds": 0.3471602720092051,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "lowrank_max_random_04",
+      "status": "AC",
+      "seconds": 0.3985881669796072,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "perm_max_random_00",
+      "status": "AC",
+      "seconds": 0.16050437800004147,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "perm_max_random_01",
+      "status": "AC",
+      "seconds": 0.17577561701182276,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "perm_max_random_02",
+      "status": "AC",
+      "seconds": 0.15972807200159878,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "perm_max_random_03",
+      "status": "AC",
+      "seconds": 0.18031453699222766,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "perm_max_random_04",
+      "status": "AC",
+      "seconds": 0.1754853269958403,
+      "diagnostic": "ok \"0\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T09:00:56.472351+00:00",
+  "onlineSubmission": null
+}

@@ -9,7 +9,8 @@ Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列。
 
 ## できること
 
-- `F2Matrix`: Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列を扱う `F2Matrix`。
+- 0・1成分の行列積、階数、行列式、逆行列をビット演算で求める。
+- 密な行列積は8列ずつまとめ、疎な行列積は1の立つ位置だけを処理する。
 
 ## Import
 
@@ -19,29 +20,30 @@ from library_codex.linear_algebra.F2Matrix import F2Matrix
 
 ## Class `F2Matrix`
 
-Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列を扱う `F2Matrix`。
+0・1成分の行列を、1行につき1個の整数で保持する。積・階数・行列式・逆行列を求められる。
 
 - constructor: [`F2Matrix(height, width=None, rows=None)`](../../../linear_algebra/F2Matrix.py#L4)
-- 引数: `height`: 高さ・行数<br>`width`: 幅・列数。省略時: `None`<br>`rows`: 行数。省略時: `None`
+- 引数: `height`: 高さ・行数<br>`width`: 幅・列数。省略時: `None`<br>`rows`: 各行をビット列として格納した長さheightの整数列。width以上のビットは捨てる。入力は変更しない。省略時: `None`
 - 返り値: `F2Matrix` instance
-- 計算量: —
+- 計算量: O(H*(1+ceil(W/w)))。Hは行数、Wは列数、wは整数の1桁のビット数。rows省略時はO(H+ceil(W/w))
+- 作成後: height行width列の行列。rows[i]の第jビットが(i,j)成分になる。rows省略時は零行列で、width省略時は正方行列。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`from_lists(matrix)`](../../../linear_algebra/F2Matrix.py#L20) | classmethod | from listsを求める。 | `matrix`: 行をlistで持つ行列 | `cls(height, width, rows)` | — |
-| [`identity(size)`](../../../linear_algebra/F2Matrix.py#L34) | classmethod | identityを求める。 | `size`: 要素数・universe size | `cls(size, size, [1 << index for index in range(size)])` | — |
-| [`copy()`](../../../linear_algebra/F2Matrix.py#L37) | method | copyを求める。 | なし | F2Matrix instance | — |
-| [`to_lists()`](../../../linear_algebra/F2Matrix.py#L40) | method | to listsを求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`get(row, column)`](../../../linear_algebra/F2Matrix.py#L46) | method | $\mathbb F_2$ 行列の(row, column)成分を返す。 | `row`: 行番号<br>`column`: 列番号 | bool — 成分が1ならTrue、0ならFalse。 | — |
-| [`set(row, column, value=True)`](../../../linear_algebra/F2Matrix.py#L49) | method | 指定位置・状態を値で置き換える。 | `row`: 行番号<br>`column`: 列番号<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | `None` | — |
-| [`multiply(other)`](../../../linear_algebra/F2Matrix.py#L56) | method | 2つの入力をこの構造の演算規則で乗算する。 | `other`: 同じ型のもう一方のobject・値 | F2Matrix instance | — |
-| [`and_or_product(other)`](../../../linear_algebra/F2Matrix.py#L70) | method | and or productを計算する。 | `other`: 同じ型のもう一方のobject・値 | F2Matrix instance | — |
-| [`power(exponent)`](../../../linear_algebra/F2Matrix.py#L84) | method | $\mathbb F_2$ 上の正方行列の整数冪 $A^{\mathrm{exponent}}$ を求める。 | `exponent`: 非負の指数 | F2Matrix — $A^{\mathrm{exponent}}$ を表す新しいF2Matrix。指数0なら単位行列。 | — |
-| [`sweep(pivot_end=None)`](../../../linear_algebra/F2Matrix.py#L99) | method | sweepを求める。 | `pivot_end`: pivot endとして使う入力。省略時: `None` | tuple(`rank`（int）, `pivots`（list）) | — |
-| [`rank()`](../../../linear_algebra/F2Matrix.py#L124) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | なし | rank・出現数（int） | — |
-| [`determinant()`](../../../linear_algebra/F2Matrix.py#L128) | method | determinantを計算する。 | なし | int instance | — |
-| [`inverse()`](../../../linear_algebra/F2Matrix.py#L133) | method | 逆元・逆変換を求める。 | なし | F2Matrix instance / `None` | — |
-| [`matvec(vector)`](../../../linear_algebra/F2Matrix.py#L150) | method | matvecを求める。 | `vector`: vector・1次元配列 | 計算結果（int） / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
-| [`__mul__(other)`](../../../linear_algebra/F2Matrix.py#L168) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | `self.multiply(other)` | — |
-| [`__pow__(exponent)`](../../../linear_algebra/F2Matrix.py#L171) | method | obj ** exponent。 | `exponent`: 非負の指数 | `self.power(exponent)` | — |
-| [`__eq__(other)`](../../../linear_algebra/F2Matrix.py#L174) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
+| [`from_lists(matrix)`](../../../linear_algebra/F2Matrix.py#L20) | classmethod | 0・1成分の2次元listから行列を作る。各値の下位1ビットを使う。 | `matrix`: 行をlistで持つ行列 | F2Matrix — 入力と同じ行・列順の新しい行列。入力は変更しない。 | O(H*W*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数 |
+| [`identity(size)`](../../../linear_algebra/F2Matrix.py#L34) | classmethod | 対角成分だけが1の正方行列を作る。 | `size`: 要素数・universe size | F2Matrix — size行size列の単位行列。 | O(N*(1+ceil(N/w)))。N=size、wは整数の1桁のビット数 |
+| [`copy()`](../../../linear_algebra/F2Matrix.py#L37) | method | 同じ成分を持つ独立した行列を作る。 | なし | F2Matrix — 変更しても元の行列へ影響しないコピー。 | O(H*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数 |
+| [`to_lists()`](../../../linear_algebra/F2Matrix.py#L40) | method | 全成分を行ごとのlistへ展開する。 | なし | list[list[int]] — height個の行を持ち、各行はwidth個の0または1。result[i][j]が(i,j)成分。 | O(H*W*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数 |
+| [`get(row, column)`](../../../linear_algebra/F2Matrix.py#L46) | method | $\mathbb F_2$ 行列の(row, column)成分を返す。 | `row`: 行番号<br>`column`: 列番号 | int — 指定成分の0または1。 | O(1+ceil(W/w))。Wは列数、wは整数の1桁のビット数 |
+| [`set(row, column, value=True)`](../../../linear_algebra/F2Matrix.py#L49) | method | 指定成分をvalueの真偽で設定する。 | `row`: 行番号<br>`column`: 列番号<br>`value`: 追加・設定・問い合わせる値。省略時: `True` | None — valueが真なら1、偽なら0へ置き換える。 | O(1+ceil(W/w))。Wは列数、wは整数の1桁のビット数 |
+| [`multiply(other)`](../../../linear_algebra/F2Matrix.py#L56) | method | 行列積をmod 2で求める。積はAND、和はXORで計算する。 | `other`: other.heightがself.widthと等しいF2Matrix。 | F2Matrix — self.height行other.width列の新しい積。入力は変更しない。 | H×MとM×Kの積。最悪O(H*M*(1+ceil(M/w)+ceil(K/w)))。密なら8ビット単位の表引き、疎なら左行列の非零要素のみ走査。wは整数の1桁のビット数 |
+| [`and_or_product(other)`](../../../linear_algebra/F2Matrix.py#L80) | method | 行列積の和をOR、積をANDとして計算する。 | `other`: other.heightがself.widthと等しいF2Matrix。 | F2Matrix — あるkでself[i,k]とother[k,j]がともに1なら(i,j)成分が1の行列。通常のmod 2の積とは異なる。 | O(H*M*(1+ceil(M/w)+ceil(K/w)))。H×MとM×Kの積、wは整数の1桁のビット数 |
+| [`power(exponent)`](../../../linear_algebra/F2Matrix.py#L94) | method | $\mathbb F_2$ 上の正方行列の整数冪 $A^{\mathrm{exponent}}$ を求める。 | `exponent`: 非負の指数 | F2Matrix — $A^{\mathrm{exponent}}$ を表す新しいF2Matrix。指数0なら単位行列。 | O(log(exponent+1))回の行列積。指数0は単位行列の生成のみ |
+| [`sweep(pivot_end=None)`](../../../linear_algebra/F2Matrix.py#L109) | method | 先頭pivot_end列を使って簡約行階段形へ変形する。自分のrowsを書き換える。 | `pivot_end`: ピボットに使う列の終端。半開区間[0,pivot_end)だけから選ぶ。省略時は全列。残りの列にも同じ行操作を適用する。省略時: `None` | tuple[int, list[int]] — (rank, pivots)。rankは使ったピボット数、pivots[i]は変形後の第i行のピボット列。列番号は昇順。 | O(H*P*(1+ceil(W/w)))。H行W列、P=pivot_end、wは整数の1桁のビット数 |
+| [`rank()`](../../../linear_algebra/F2Matrix.py#L135) | method | mod 2で線形独立な行の最大本数を求める。 | なし | int — 0以上min(height,width)以下の階数。入力は変更しない。 | O(H*(min(H,W)+1)*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数 |
+| [`determinant()`](../../../linear_algebra/F2Matrix.py#L163) | method | 正方行列の行列式をmod 2で求める。 | なし | int — 可逆なら1、非可逆なら0。0行0列では1。 | O(N²*(1+ceil(N/w)))。N行N列、wは整数の1桁のビット数 |
+| [`inverse()`](../../../linear_algebra/F2Matrix.py#L168) | method | 正方行列の逆行列をmod 2で求める。 | なし | F2Matrix \| None — 元の行列と掛けると単位行列になる新しい行列。非可逆ならNone。入力は変更しない。 | O(N²*(1+ceil(N/w)))。N行N列、wは整数の1桁のビット数 |
+| [`matvec(vector)`](../../../linear_algebra/F2Matrix.py#L219) | method | 行列と列ベクトルの積をmod 2で求める。 | `vector`: 長さwidthの0・1のlist、または第jビットが第j成分を表す整数。 | int \| list[int] — 整数入力なら出力の第iビットが第i成分。list入力なら長さheightの0・1のlist。 | O(H*(1+ceil((H+W)/w)))。list入力ではO(W*(1+ceil(W/w)))も必要。H行W列、wは整数の1桁のビット数 |
+| [`__mul__(other)`](../../../linear_algebra/F2Matrix.py#L237) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | `self.multiply(other)` | multiplyと同じ |
+| [`__pow__(exponent)`](../../../linear_algebra/F2Matrix.py#L240) | method | obj ** exponent。 | `exponent`: 非負の指数 | `self.power(exponent)` | powerと同じ |
+| [`__eq__(other)`](../../../linear_algebra/F2Matrix.py#L243) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | O(H*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数 |

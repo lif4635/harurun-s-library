@@ -4,11 +4,12 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-04時点の公式revision `1814c4e`では、76問題・1692ケースがローカル全件通過、177問題が未対応。今回追加した10問題は、木上のjump・頂点加算パス和・頂点代入パス合成、根付き木の同型分類、点代入区間合成、区間affine一点取得、直線追加最小値、線分追加最小値、区間並列Union-Find、deque全体合成。
+2026-10-04時点の公式revision `1814c4e`では、91問題・2093ケースがローカル全件通過、162問題が未対応。今回追加した15問題は、行列式・階数・逆行列・連立一次方程式、mod 2の行列積・行列式・階数・逆行列、Lyndon分解、商列挙、LIS復元、三角形列挙、完全順列数、GCD畳み込み、LCM畳み込み。追加分は401ケース。
 
 - `drivers/`: 問題固有の入出力。アルゴリズムは `library_codex` から import する。
 - `solutions/`: 依存を展開した提出コード。そのまま単独で実行できる生成物。
 - `results/`: 公式全ケースの判定、時間、source hash、公式問題version、実行環境。
+- [`benchmarks/`](benchmarks/README.md): PyPyで反復測定した時間・最大RSS・各回の生データ。
 - `manifest.json`: 問題一覧と解答・結果の対応。
 
 以前からある問題別 benchmark の解答も生成に利用する。`drivers/` に同名ファイルを置いた場合はそちらを使う。生成済み `solutions/` は直接編集しない。
@@ -43,6 +44,7 @@ pypy3 library_codex/tools/check_library_checker.py test convolution_mod scc --of
 2. 専用の単純解比較test、API説明、記事を追加する。
 3. `drivers/<problem>.py` に入出力を書き、提出コードを生成する。
 4. 公式全ケースを実行する。TLE・WA・REは結果を残し、成功として扱わない。
+5. PyPyで時間のかかった公式ケースを反復測定し、`benchmarks/`へ記録する。オンライン提出は行わない。
 
 ```sh
 pypy3 library_codex/tools/check_library_checker.py build
@@ -60,6 +62,24 @@ pypy3 library_codex/tools/check_library_checker.py check
 時間制限は公式の値を使うが、手元のCPU・PyPy version・OS負荷はオンラインjudgeと異なる。メモリ制限は再現していない。したがってオンラインACや本番環境での同じ実行時間を保証しない。
 
 `stale` は解答または公式問題が変更された状態。`incomplete` は途中までの実行、`failed` は少なくとも一件が不通過、`error` は生成・実行基盤の失敗。結果JSONは一時ファイルから置き換え、途中で壊れたJSONを残さない。
+
+## PyPyベンチマーク
+
+公式全件検証を終えた問題に対して、次で測定する。
+
+```sh
+pypy3 library_codex/benchmarks/official_benchmark.py matrix_product_mod_2 inverse_matrix_mod_2 --official /home/harurun/.cache/harurun-library-checker/problems --repeat 5 --slowest 3
+```
+
+- 既定では直前の全件検証で遅かった3ケースを各5回実行する。`--slowest 0`なら全公式ケースを反復する。
+- 各回は新しいPyPy processで、起動・JIT・入出力を含む。ケース順を入れ替え、逐次実行する。ほかの重いテストと同時に測らない。
+- 全出力を公式checkerで検査する。入力・期待出力は公式hashと照合する。
+- CPU、OS、PyPy version、公式revision、source・入力・checkerのhash、各回の時間とRSS、中央値・最小値・最大値をJSONへ保存する。
+- 現在のsourceで公式全件検証が済んでいなければ測定しない。失敗した測定で以前の正常なベンチマークJSONを上書きしない。
+- `benchmarks/README.md`へ一覧を生成する。既存結果が現在のsourceと異なる場合は「要再測定」と表示する。
+- 測定用timeoutは最低30秒。公式の制限時間内に通るかどうかは`results/`の全件検証で判断する。RSSは記録するがメモリ制限は強制しない。
+
+これは全入力の最悪時間やオンラインjudgeでの速度を保証するものではない。上位提出との同一入力比較は[比較記録](../../library_codex/docs/LIBRARY_CHECKER_COMPARISON.md)へ分けて残す。
 
 ## 性能上の注意
 

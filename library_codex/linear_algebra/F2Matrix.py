@@ -58,6 +58,16 @@ class F2Matrix:
             raise ValueError("incompatible matrix shapes")
         result = [0] * self.height
         source_rows = other.rows
+        blocks = (self.width + 7) >> 3
+        if sum(row.bit_count() for row in self.rows) > blocks * (self.height + 255):
+            for start in range(0, self.width, 8):
+                table = [0]
+                for source in source_rows[start:start + 8]:
+                    table += [value ^ source for value in table]
+                mask = len(table) - 1
+                for row, bits in enumerate(self.rows):
+                    result[row] ^= table[(bits >> start) & mask]
+            return F2Matrix(self.height, other.width, result)
         for row, bits in enumerate(self.rows):
             value = 0
             while bits:
@@ -105,15 +115,16 @@ class F2Matrix:
         pivots = []
         rows = self.rows
         for column in range(pivot_end):
+            bit = 1 << column
             pivot = rank
-            while pivot < self.height and not (rows[pivot] >> column & 1):
+            while pivot < self.height and not rows[pivot] & bit:
                 pivot += 1
             if pivot == self.height:
                 continue
             rows[rank], rows[pivot] = rows[pivot], rows[rank]
             pivot_row = rows[rank]
             for row in range(self.height):
-                if row != rank and rows[row] >> column & 1:
+                if row != rank and rows[row] & bit:
                     rows[row] ^= pivot_row
             pivots.append(column)
             rank += 1
@@ -122,8 +133,32 @@ class F2Matrix:
         return rank, pivots
 
     def rank(self):
-        result = self.copy()
-        return result.sweep()[0]
+        rank = 0
+        if self.width <= 2 * self.height:
+            basis = [0] * self.width
+            for value in self.rows:
+                while value:
+                    column = value.bit_length() - 1
+                    pivot = basis[column]
+                    if pivot:
+                        value ^= pivot
+                    else:
+                        basis[column] = value
+                        rank += 1
+                        break
+        else:
+            basis = {}
+            for value in self.rows:
+                while value:
+                    column = value.bit_length() - 1
+                    pivot = basis.get(column)
+                    if pivot:
+                        value ^= pivot
+                    else:
+                        basis[column] = value
+                        rank += 1
+                        break
+        return rank
 
     def determinant(self):
         if self.height != self.width:
@@ -139,6 +174,40 @@ class F2Matrix:
             size * 2,
             [self.rows[row] | 1 << (size + row) for row in range(size)],
         )
+        if size >= 128:
+            rows = combined.rows
+            for start in range(0, size, 8):
+                end = min(start + 8, size)
+                for column in range(start, end):
+                    bit = 1 << column
+                    pivot = column
+                    while pivot < size:
+                        value = rows[pivot]
+                        for earlier in range(start, column):
+                            if value >> earlier & 1:
+                                value ^= rows[earlier]
+                        rows[pivot] = value
+                        if value & bit:
+                            break
+                        pivot += 1
+                    if pivot == size:
+                        return None
+                    rows[column], rows[pivot] = rows[pivot], rows[column]
+                for column in range(end - 1, start - 1, -1):
+                    bit = 1 << column
+                    value = rows[column]
+                    for earlier in range(start, column):
+                        if rows[earlier] & bit:
+                            rows[earlier] ^= value
+                table = [0]
+                for value in rows[start:end]:
+                    table += [previous ^ value for previous in table]
+                mask = len(table) - 1
+                for row in range(start):
+                    rows[row] ^= table[rows[row] >> start & mask]
+                for row in range(end, size):
+                    rows[row] ^= table[rows[row] >> start & mask]
+            return F2Matrix(size, size, [row >> size for row in rows])
         rank, _ = combined.sweep(size)
         if rank != size:
             return None

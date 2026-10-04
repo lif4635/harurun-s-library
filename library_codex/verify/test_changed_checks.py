@@ -1,4 +1,5 @@
 import importlib.util
+import subprocess
 from pathlib import Path
 
 
@@ -29,6 +30,13 @@ def test_source_module_key_accepts_only_public_modules():
 def test_codon_changes_select_native_regression():
     for path in ("library_codex/templates/codon_header.codon", "library_codex/convolution/NTT998.py"):
         assert "verify/test_codon.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
+
+
+def test_official_benchmark_changes_select_own_tests():
+    for name in ("official_benchmark", "official_comparison", "library_checker"):
+        selected = relative_tests(CHECK_CHANGED.plan_for(["library_codex/benchmarks/" + name + ".py"]))
+        assert "verify/test_official_benchmark.py" in selected
+        assert "verify/test_official_comparison.py" in selected
 
 
 def test_library_checker_changes_select_runner_tests():
@@ -77,15 +85,26 @@ def test_policy_change_does_not_select_the_full_suite():
     assert not plan["api_changed"]
 
 
-def test_changed_paths_ignores_line_ending_only_differences(monkeypatch):
-    calls = []
+def test_changed_paths_ignores_line_ending_only_differences(monkeypatch, tmp_path):
+    def git(*arguments):
+        subprocess.run(["git", "-C", str(tmp_path), *arguments], check=True, capture_output=True)
 
-    def fake_git_lines(*arguments):
-        calls.append(arguments)
-        return []
-
-    monkeypatch.setattr(CHECK_CHANGED, "git_lines", fake_git_lines)
-    assert CHECK_CHANGED.changed_paths() == []
-    diff_calls = [call for call in calls if call[0] == "diff"]
-    assert diff_calls
-    assert all("--ignore-space-at-eol" in call for call in diff_calls)
+    git("init")
+    git("config", "core.autocrlf", "false")
+    git("config", "core.safecrlf", "false")
+    for name in ("same.py", "staged.py", "変更 file.py", "deleted.py"):
+        (tmp_path / name).write_bytes(b"value = 1\n")
+    git("add", ".")
+    git("-c", "user.name=test", "-c", "user.email=test@example.com", "commit", "-m", "initial")
+    (tmp_path / "same.py").write_bytes(b"value = 1\r\n")
+    (tmp_path / "staged.py").write_bytes(b"value = 1\r\n")
+    git("add", "staged.py")
+    (tmp_path / "変更 file.py").write_bytes(b"value = 2\r\n")
+    (tmp_path / "new file.py").write_bytes(b"")
+    (tmp_path / "empty.py").write_bytes(b"")
+    git("add", "empty.py")
+    (tmp_path / "deleted.py").unlink()
+    monkeypatch.setattr(CHECK_CHANGED, "REPOSITORY", tmp_path)
+    expected = sorted(["変更 file.py", "new file.py", "empty.py", "deleted.py"])
+    assert CHECK_CHANGED.changed_paths() == expected
+    assert CHECK_CHANGED.changed_paths(base="HEAD") == expected

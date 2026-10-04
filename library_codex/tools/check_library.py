@@ -13,6 +13,8 @@ TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
     ROOT / "verify" / "test_official_library_checker.py",
+    ROOT / "verify" / "test_official_benchmark.py",
+    ROOT / "verify" / "test_official_comparison.py",
     ROOT / "verify" / "test_codon.py",
     ROOT / "verify" / "combinatorics" / "test_langford.py",
     ROOT / "verify" / "combinatorics" / "test_skolem.py",

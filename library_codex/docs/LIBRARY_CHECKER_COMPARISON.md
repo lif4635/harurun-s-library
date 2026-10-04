@@ -166,3 +166,56 @@ pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-
 pypy3 library_codex/benchmarks/library_checker.py fetch --problem range_parallel_unionfind --language pypy3 --top 1 --cache ../lc-matching-reference
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/range_parallel_unionfind-pypy3.json --reviewed 368362 --problem /home/harurun/.cache/harurun-library-checker/problems/data_structure/range_parallel_unionfind --cases decr_period_03 periodic_03 random_01 --variant baseline=../lc-matching-reference/range-parallel-baseline.py --variant candidate=verify/library_checker/solutions/range_parallel_unionfind.py --repeat 5 --output library_codex/benchmarks/results/range-parallel-unionfind-comparison.json
 ```
+
+## mod 2行列の上位提出比較（2026-10-04）
+
+取得時点の最新問題版・AC・PyPy3・時間昇順で、行列積の先頭[389256](https://judge.yosupo.jp/submission/389256)と逆行列の先頭[389266](https://judge.yosupo.jp/submission/389266)を確認した。judge上の時間はそれぞれ1.406秒・1.436秒。外部提出のsourceはリポジトリ外に置き、取得記録とSHA-256を比較JSONへ残している。
+
+採用した変更は次のとおり。
+
+- 行列積: 密な入力は8列ずつのXOR組合せ表を作り、1ビットずつの走査を減らす。疎な入力は従来の非零ビット列挙を使う。
+- 階数・行列式: 全行を簡約形へ変形せず、最高位ビットごとの基底に追加する。非常に横長の行列では辞書を使い、列数分の配列を作らない。
+- 逆行列: 128行以上では8列ずつピボットを選び、その組合せ表で他の行をまとめて消去する。ピボットが見つからなければ、その時点で非可逆と判定する。
+
+同じ公式入力を同じPyPy 3.10 / 7.3.16で5回実行した中央値。各回は新しいprocessで起動・JIT・入出力を含み、実行順を入れ替え、すべて公式checkerを通している。オンライン提出は行っていない。
+
+| 問題 / 公式ケース | 変更前 | 採用版 | 最速PyPy提出 |
+| --- | ---: | ---: | ---: |
+| 行列積 / max_random_00 | 3.374秒 | 1.711秒 | 1.899秒 |
+| 行列積 / many_1_00 | 6.997秒 | 1.719秒 | 2.188秒 |
+| 行列積 / middle_00 | 0.078秒 | 0.071秒 | 0.080秒 |
+| 逆行列 / max_fullrank_00 | 7.930秒 | 2.410秒 | 2.433秒 |
+| 逆行列 / lowrank_max_random_05 | 7.082秒 | 0.233秒 | 0.322秒 |
+| 逆行列 / perm_max_random_00 | 1.625秒 | 0.175秒 | 0.283秒 |
+
+行列積の変更前は`a748080`の実装、逆行列の変更前は本作業中にビット判定をANDへ変更した後・ブロック消去を導入する前の版。それぞれ[行列積baseline](../benchmarks/baselines/matrix_product_mod_2.py)、[逆行列baseline](../benchmarks/baselines/inverse_matrix_mod_2.py)へ単独実行コードを固定した。baselineは再利用するライブラリ本体ではなく比較専用。
+
+この3ケース中の最大RSSは、行列積が変更前139020 KiB・採用版150808 KiB・参照153472 KiB、逆行列が変更前151360 KiB・採用版157172 KiB・参照147684 KiB。速度改善と引き換えに、密なケースではメモリが増えている。
+
+時間のばらつきもある。行列積`many_1_00`の変更前は5.82〜11.88秒、採用版は1.45〜2.08秒だった。数%の差を安定した優劣とせず、この6ケースだけで全入力に対して最速とも主張しない。
+
+ブロック化前の逆行列は、公式全件検査の`lowrank_max_random_05`で10秒制限を超えた。[その失敗記録](../benchmarks/results/inverse-matrix-mod2-before-block.json)も保存した。最終版は逆行列37ケース、行列積26ケース、階数35ケース、行列式36ケースをすべて通過した。
+
+生データ: [行列積](../benchmarks/results/matrix-product-mod2-comparison.json)、[逆行列](../benchmarks/results/inverse-matrix-mod2-comparison.json)。追加した他の問題も含む反復測定は[PyPyベンチマーク一覧](../../verify/library_checker/benchmarks/README.md)で確認できる。
+
+```sh
+pypy3 library_codex/benchmarks/library_checker.py fetch --problem matrix_product_mod_2 --language pypy3 --top 1 --cache ../lc-matching-reference
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/matrix_product_mod_2-pypy3.json --reviewed 389256 --problem /home/harurun/.cache/harurun-library-checker/problems/linear_algebra/matrix_product_mod_2 --cases max_random_00 many_1_00 middle_00 --variant baseline=library_codex/benchmarks/baselines/matrix_product_mod_2.py --variant candidate=verify/library_checker/solutions/matrix_product_mod_2.py --repeat 5 --output library_codex/benchmarks/results/matrix-product-mod2-comparison.json
+pypy3 library_codex/benchmarks/library_checker.py fetch --problem inverse_matrix_mod_2 --language pypy3 --top 1 --cache ../lc-matching-reference
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot ../lc-matching-reference/inverse_matrix_mod_2-pypy3.json --reviewed 389266 --problem /home/harurun/.cache/harurun-library-checker/problems/linear_algebra/inverse_matrix_mod_2 --cases max_fullrank_00 lowrank_max_random_05 perm_max_random_00 --variant baseline=library_codex/benchmarks/baselines/inverse_matrix_mod_2.py --variant candidate=verify/library_checker/solutions/inverse_matrix_mod_2.py --repeat 5 --output library_codex/benchmarks/results/inverse-matrix-mod2-comparison.json
+```
+
+### 通常検査の性能変動
+
+同日のPyPy quickテストは124件成功。性能検査の初回は、未変更のCSR Dijkstraだけが速度比0.926倍で基準1.05倍を下回った。コード・基準・入力を変えずに性能検査全体をもう一度実行すると1.233倍で、全項目が基準を通過した。初回の未達は解消を保証できるコード上の不具合と特定しておらず、計測変動として残す。
+
+| CSR Dijkstra測定 | list版の3回（秒） | CSR版の3回（秒） |
+| --- | --- | --- |
+| 初回 | 0.078569, 0.084105, 0.077810 | 0.091515, 0.076486, 0.084839 |
+| 再測定 | 0.086969, 0.075392, 0.084107 | 0.071457, 0.068239, 0.065159 |
+
+これは既存のquick検査が測る構築＋解法の時間であり、上の公式ケース測定とは計測区間が異なる。環境はWSL・Ryzen 7 3700X・PyPy 3.10.14 / 7.3.16。[再測定の全項目の生データ](../benchmarks/results/quick-regression.json)も保存した。
+
+```sh
+pypy3 library_codex/tools/run_benchmarks.py --profile quick --output library_codex/benchmarks/results/quick-regression.json
+```

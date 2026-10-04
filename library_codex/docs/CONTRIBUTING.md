@@ -127,6 +127,7 @@ test fileはsourceのcategoryとmoduleに対応させます。たとえば`graph
 - bundleを単独processで実行し、package未installでも使えること。
 
 反復中は差分検査を使います。Gitの未commit差分から、変更module、それをimportするmodule、対応test、API同期、変更fileだけの再帰監査を自動選択します。
+Windows / WSL 間の改行形式だけの差分は検査対象に含めません。
 
 ```sh
 pypy3 library_codex/tools/check_changed.py
@@ -156,6 +157,8 @@ pypy3 library_codex/tools/check_library.py --profile full
 Library Checker の公式全ケースは[問題別解答と検査手順](../../verify/library_checker/README.md)で管理します。未対応問題は高速解法を調べ、汎用部分をライブラリへ追加してから問題用driverを書きます。`check_library_checker.py build` で依存込みの提出コードを更新し、`test` で公式生成器・checkerを実行します。通常検査では提出コードの同期だけを確認し、公式全件検査とオンラインACは区別します。
 
 Library Checkerの上位提出と速度を比べる場合は、[比較手順と測定記録](LIBRARY_CHECKER_COMPARISON.md)を使います。外部sourceは取得後に確認してから実行し、同じ入力・実行環境で答え、時間、メモリを比較します。ランキングの確認だけで「最速実装との比較済み」とはしません。
+
+Library Checkerの追加・高速化では、オンライン提出は行わず、公式全件検証とPyPyの反復ベンチマークを残します。`benchmarks/official_benchmark.py`で既定は遅かった公式3ケースを各5回測定し、`verify/library_checker/benchmarks/`へ各回の時間・RSS・CPU/OS/PyPy・sourceと入力のhashを保存します。全件を反復した場合以外は、全ケースを複数回測定済みとは扱いません。
 
 bundleは選択moduleのsourceから、実際にimportする`library_codex`内依存だけを再帰的に展開します。生成物はpackage wrapperや動的な`bundle`関数ではなく、貼り付けて実行できる通常のPythonコードにします。
 

@@ -1,0 +1,176 @@
+{
+  "problem": "enumerate_quotients",
+  "status": "local_passed",
+  "verificationKey": "b5b869853a59f643779f2185eb0e22552f6ddac7c3b09485911e38663ee19ead",
+  "sourceSha256": "20df60313f4c63b2206829b55a84eb2f92d1096b5ade2253bf9859d6c1d490fc",
+  "modules": [
+    "library_codex.number_theory.EnumerateQuotient"
+  ],
+  "problemVersion": "26547a300d8f39a20ab07bf8a08c3ae73a077061e47bedf16f69e4e4b17353aa",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 26,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.057791772997006774,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "min_00",
+      "status": "AC",
+      "seconds": 0.05626419800682925,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "min_01",
+      "status": "AC",
+      "seconds": 0.05643477899138816,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "min_02",
+      "status": "AC",
+      "seconds": 0.050820795993786305,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "min_03",
+      "status": "AC",
+      "seconds": 0.05588080899906345,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "min_04",
+      "status": "AC",
+      "seconds": 0.05473391999839805,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "min_05",
+      "status": "AC",
+      "seconds": 0.06193583499407396,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "min_06",
+      "status": "AC",
+      "seconds": 0.06463933500344865,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "min_07",
+      "status": "AC",
+      "seconds": 0.05800425400957465,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "min_08",
+      "status": "AC",
+      "seconds": 0.05084053098107688,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.15840406299685128,
+      "diagnostic": "ok 970240 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.2026744649920147,
+      "diagnostic": "ok 1368818 tokens\n"
+    },
+    {
+      "name": "random_small_00",
+      "status": "AC",
+      "seconds": 0.056317911978112534,
+      "diagnostic": "ok 1248 tokens\n"
+    },
+    {
+      "name": "random_small_01",
+      "status": "AC",
+      "seconds": 0.05637296798522584,
+      "diagnostic": "ok 1360 tokens\n"
+    },
+    {
+      "name": "random_small_02",
+      "status": "AC",
+      "seconds": 0.06073061501956545,
+      "diagnostic": "ok 1520 tokens\n"
+    },
+    {
+      "name": "random_small_03",
+      "status": "AC",
+      "seconds": 0.05166289099724963,
+      "diagnostic": "ok 1310 tokens\n"
+    },
+    {
+      "name": "random_small_04",
+      "status": "AC",
+      "seconds": 0.057443983998382464,
+      "diagnostic": "ok 1790 tokens\n"
+    },
+    {
+      "name": "square_00",
+      "status": "AC",
+      "seconds": 0.119719679991249,
+      "diagnostic": "ok 779626 tokens\n"
+    },
+    {
+      "name": "square_01",
+      "status": "AC",
+      "seconds": 0.12739186201361008,
+      "diagnostic": "ok 926092 tokens\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.24905036800191738,
+      "diagnostic": "ok 2000000 tokens\n"
+    },
+    {
+      "name": "polynom_p1p1m1_00",
+      "status": "AC",
+      "seconds": 0.2307563159847632,
+      "diagnostic": "ok 1999998 tokens\n"
+    },
+    {
+      "name": "polynom_p1p1m1_01",
+      "status": "AC",
+      "seconds": 0.1324313179939054,
+      "diagnostic": "ok 926110 tokens\n"
+    },
+    {
+      "name": "polynom_p1p1z_00",
+      "status": "AC",
+      "seconds": 0.2345902459928766,
+      "diagnostic": "ok 1999999 tokens\n"
+    },
+    {
+      "name": "polynom_p1p1z_01",
+      "status": "AC",
+      "seconds": 0.14884336100658402,
+      "diagnostic": "ok 926111 tokens\n"
+    },
+    {
+      "name": "polynom_p1zm1_00",
+      "status": "AC",
+      "seconds": 0.2606068569875788,
+      "diagnostic": "ok 1999999 tokens\n"
+    },
+    {
+      "name": "polynom_p1zm1_01",
+      "status": "AC",
+      "seconds": 0.14160661099595018,
+      "diagnostic": "ok 926109 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T08:50:47.920919+00:00",
+  "onlineSubmission": null
+}

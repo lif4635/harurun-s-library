@@ -157,7 +157,6 @@ heuristic/SimulatedAnnealing
 heuristic/TopK
 linear_algebra/AdvancedMatrix
 linear_algebra/BlackBoxLinearAlgebra
-linear_algebra/F2Matrix
 linear_algebra/Matrix
 linear_algebra/PolynomialMatrix
 linear_algebra/Semiring

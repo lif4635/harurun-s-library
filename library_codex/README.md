@@ -16,9 +16,10 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 794 passed（2026-10-04）。検査中に分離したRangeParallelUnionFind専用2件も別途成功。
+- 前回のPyPy全検証: 794 passed（2026-10-04、`a748080`）。検査中に分離したRangeParallelUnionFind専用2件も別途成功。
+- 今回はPyPy quick 124件とF2Matrix専用5件が成功。全検査は再実行していない。
 - 再帰監査: direct/mutual recursion なし（2026-10-04）
-- Library Checker公式ケース: 76問題・1692ケース通過、未対応177問題。オンラインACとは区別する。[解答・結果と検査手順](../verify/library_checker/README.md)
+- Library Checker公式ケース: 91問題・2093ケース通過、未対応162問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 

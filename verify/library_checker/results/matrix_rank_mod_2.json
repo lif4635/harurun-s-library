@@ -1,0 +1,230 @@
+{
+  "problem": "matrix_rank_mod_2",
+  "status": "local_passed",
+  "verificationKey": "5cf5cb3f142b80eb1326e7fde963302b62979ea91eeefe21fbbd0925b62f437c",
+  "sourceSha256": "bd7de195eb4a447f903f8010d5e6576cd5d165bcf5f78b3d550f5d762d3c34e9",
+  "modules": [
+    "library_codex.linear_algebra.F2Matrix"
+  ],
+  "problemVersion": "8cb8f888489aa34862e751bc7528113b6abc7339f8bd69b7d5c37935cde52e15",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 35,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05221931298729032,
+      "diagnostic": "ok \"2\"\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05316698501701467,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05097656199359335,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "zero_00",
+      "status": "AC",
+      "seconds": 0.051875679986551404,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "zero_01",
+      "status": "AC",
+      "seconds": 0.05638599701342173,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "zero_02",
+      "status": "AC",
+      "seconds": 0.052441045991145074,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "zero_03",
+      "status": "AC",
+      "seconds": 0.04790529198362492,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "zero_04",
+      "status": "AC",
+      "seconds": 0.6407958070049062,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.1694669300050009,
+      "diagnostic": "ok \"693\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.12924067402491346,
+      "diagnostic": "ok \"198\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.11886309701367281,
+      "diagnostic": "ok \"88\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.11553892100346275,
+      "diagnostic": "ok \"1263\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.08957693399861455,
+      "diagnostic": "ok \"813\"\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 0.11904462400707416,
+      "diagnostic": "ok \"1245\"\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 0.12879193102708086,
+      "diagnostic": "ok \"902\"\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 0.07003883199649863,
+      "diagnostic": "ok \"793\"\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.1945011269999668,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 0.1827541509992443,
+      "diagnostic": "ok \"2\"\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 0.220406399021158,
+      "diagnostic": "ok \"3\"\n"
+    },
+    {
+      "name": "max_03",
+      "status": "AC",
+      "seconds": 0.44641959297587164,
+      "diagnostic": "ok \"4095\"\n"
+    },
+    {
+      "name": "max_04",
+      "status": "AC",
+      "seconds": 0.4454481659922749,
+      "diagnostic": "ok \"4095\"\n"
+    },
+    {
+      "name": "max_05",
+      "status": "AC",
+      "seconds": 0.42751855100505054,
+      "diagnostic": "ok \"4094\"\n"
+    },
+    {
+      "name": "max_06",
+      "status": "AC",
+      "seconds": 0.6584183379891329,
+      "diagnostic": "ok \"3\"\n"
+    },
+    {
+      "name": "max_07",
+      "status": "AC",
+      "seconds": 0.9238911389838904,
+      "diagnostic": "ok \"2\"\n"
+    },
+    {
+      "name": "max_08",
+      "status": "AC",
+      "seconds": 1.8459336839732714,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "lowrank_00",
+      "status": "AC",
+      "seconds": 0.2089500260190107,
+      "diagnostic": "ok \"299\"\n"
+    },
+    {
+      "name": "lowrank_01",
+      "status": "AC",
+      "seconds": 0.2399271879985463,
+      "diagnostic": "ok \"21\"\n"
+    },
+    {
+      "name": "lowrank_02",
+      "status": "AC",
+      "seconds": 0.18974202498793602,
+      "diagnostic": "ok \"11\"\n"
+    },
+    {
+      "name": "lowrank_03",
+      "status": "AC",
+      "seconds": 0.34987420999095775,
+      "diagnostic": "ok \"1263\"\n"
+    },
+    {
+      "name": "lowrank_04",
+      "status": "AC",
+      "seconds": 0.27688351197866723,
+      "diagnostic": "ok \"813\"\n"
+    },
+    {
+      "name": "lowrank_05",
+      "status": "AC",
+      "seconds": 0.3340478529862594,
+      "diagnostic": "ok \"1245\"\n"
+    },
+    {
+      "name": "lowrank_06",
+      "status": "AC",
+      "seconds": 0.19929576499271207,
+      "diagnostic": "ok \"252\"\n"
+    },
+    {
+      "name": "lowrank_07",
+      "status": "AC",
+      "seconds": 0.4184984599996824,
+      "diagnostic": "ok \"1235\"\n"
+    },
+    {
+      "name": "lowrank_08",
+      "status": "AC",
+      "seconds": 0.2206884989864193,
+      "diagnostic": "ok \"303\"\n"
+    },
+    {
+      "name": "lowrank_09",
+      "status": "AC",
+      "seconds": 0.30436215599183924,
+      "diagnostic": "ok \"24\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-04T09:01:05.577883+00:00",
+  "onlineSubmission": null
+}

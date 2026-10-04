@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 76,
-    "unimplemented": 177
+    "local_passed": 91,
+    "unimplemented": 162
   },
   "problems": [
     {
@@ -752,20 +752,24 @@
       "title": "Enumerate Quotients",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/enumerate_quotients",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.EnumerateQuotient"
+      ],
+      "solution": "solutions/enumerate_quotients.py",
+      "result": "results/enumerate_quotients.json"
     },
     {
       "name": "enumerate_triangles",
       "title": "Enumerate Triangles",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/enumerate_triangles",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_enumeration.EnumerateTriangles"
+      ],
+      "solution": "solutions/enumerate_triangles.py",
+      "result": "results/enumerate_triangles.json"
     },
     {
       "name": "euclidean_mst",
@@ -905,10 +909,12 @@
       "title": "Gcd Convolution",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/gcd_convolution",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.arithmetic_convolution.ArithmeticConvolution"
+      ],
+      "solution": "solutions/gcd_convolution.py",
+      "result": "results/gcd_convolution.json"
     },
     {
       "name": "gcd_of_gaussian_integers",
@@ -1039,20 +1045,24 @@
       "title": "Inverse Matrix",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/inverse_matrix",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix"
+      ],
+      "solution": "solutions/inverse_matrix.py",
+      "result": "results/inverse_matrix.json"
     },
     {
       "name": "inverse_matrix_mod_2",
       "title": "Inverse Matrix (Mod 2)",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/inverse_matrix_mod_2",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.F2Matrix"
+      ],
+      "solution": "solutions/inverse_matrix_mod_2.py",
+      "result": "results/inverse_matrix_mod_2.json"
     },
     {
       "name": "jump_on_tree",
@@ -1134,10 +1144,12 @@
       "title": "Lcm Convolution",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/lcm_convolution",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.arithmetic_convolution.ArithmeticConvolution"
+      ],
+      "solution": "solutions/lcm_convolution.py",
+      "result": "results/lcm_convolution.json"
     },
     {
       "name": "line_add_get_min",
@@ -1201,20 +1213,24 @@
       "title": "Longest Increasing Subsequence",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/longest_increasing_subsequence",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.algorithm.SequenceAlgorithms"
+      ],
+      "solution": "solutions/longest_increasing_subsequence.py",
+      "result": "results/longest_increasing_subsequence.json"
     },
     {
       "name": "lyndon_factorization",
       "title": "Lyndon Factorization",
       "category": "string",
       "url": "https://judge.yosupo.jp/problem/lyndon_factorization",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string_sequence.LyndonFactorization"
+      ],
+      "solution": "solutions/lyndon_factorization.py",
+      "result": "results/lyndon_factorization.json"
     },
     {
       "name": "majority_voting",
@@ -1271,10 +1287,12 @@
       "title": "Determinant of Matrix",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/matrix_det",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix"
+      ],
+      "solution": "solutions/matrix_det.py",
+      "result": "results/matrix_det.json"
     },
     {
       "name": "matrix_det_arbitrary_mod",
@@ -1291,10 +1309,12 @@
       "title": "Determinant of Matrix (Mod 2)",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/matrix_det_mod_2",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.F2Matrix"
+      ],
+      "solution": "solutions/matrix_det_mod_2.py",
+      "result": "results/matrix_det_mod_2.json"
     },
     {
       "name": "matrix_product",
@@ -1311,30 +1331,36 @@
       "title": "Matrix Product (Mod 2)",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/matrix_product_mod_2",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.F2Matrix"
+      ],
+      "solution": "solutions/matrix_product_mod_2.py",
+      "result": "results/matrix_product_mod_2.json"
     },
     {
       "name": "matrix_rank",
       "title": "Rank of Matrix",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/matrix_rank",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix"
+      ],
+      "solution": "solutions/matrix_rank.py",
+      "result": "results/matrix_rank.json"
     },
     {
       "name": "matrix_rank_mod_2",
       "title": "Rank of Matrix (Mod 2)",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/matrix_rank_mod_2",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.F2Matrix"
+      ],
+      "solution": "solutions/matrix_rank_mod_2.py",
+      "result": "results/matrix_rank_mod_2.json"
     },
     {
       "name": "maximum_independent_set",
@@ -1450,10 +1476,15 @@
       "title": "Montmort Number",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/montmort_number_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.combinatorial_series.DerangementNumbers"
+      ],
+      "solution": "solutions/montmort_number_mod.py",
+      "result": "results/montmort_number_mod.json"
     },
     {
       "name": "mul_mod2n_convolution",
@@ -2502,10 +2533,12 @@
       "title": "System of Linear Equations",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/system_of_linear_equations",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix"
+      ],
+      "solution": "solutions/system_of_linear_equations.py",
+      "result": "results/system_of_linear_equations.json"
     },
     {
       "name": "system_of_linear_equations_mod_2",
