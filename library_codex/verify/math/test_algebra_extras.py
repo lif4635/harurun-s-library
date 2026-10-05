@@ -6,7 +6,6 @@ from library_codex.combinatorics.FloatBinomial import FloatBinomial
 from library_codex.rational.InverseSum import inverse_sum
 from library_codex.combinatorics.PisanoPeriod import pisano_period
 from library_codex.algebra.PowerTable import power_table
-from library_codex.combinatorics.QBinomial import QBinomial
 from library_codex.combinatorics.RationalBinomial import RationalBinomial
 from library_codex.linear_algebra.Semiring import semiring_linear_recurrence, semiring_matrix_power
 
@@ -65,18 +64,3 @@ def test_pisano_period_and_power_table():
     assert power_table(100, 37, 1000000007) == [
         pow(value, 37, 1000000007) for value in range(101)
     ]
-
-
-def test_q_binomial_against_pascal_recurrence():
-    mod = 998244353
-    for q in (1, -1, 2, 3, 7):
-        table = QBinomial(q, 100, mod)
-        rows = [[1]]
-        for n in range(1, 50):
-            row = [0] * (n + 1)
-            row[0] = row[n] = 1
-            for k in range(1, n):
-                row[k] = (rows[-1][k] + pow(q, n - k, mod) * rows[-1][k - 1]) % mod
-            rows.append(row)
-            for k in range(n + 1):
-                assert table.C(n, k) == row[k]

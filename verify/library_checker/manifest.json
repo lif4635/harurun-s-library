@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 159,
-    "unimplemented": 94
+    "local_passed": 161,
+    "unimplemented": 92
   },
   "problems": [
     {
@@ -152,10 +152,18 @@
       "title": "Binomial Coefficient",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/binomial_coefficient",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.polynomial.PolynomialDivision",
+        "library_codex.polynomial.MultipointEvaluation",
+        "library_codex.prime.Factorization",
+        "library_codex.combinatorics.ArbitraryBinomial"
+      ],
+      "solution": "solutions/binomial_coefficient.py",
+      "result": "results/binomial_coefficient.json"
     },
     {
       "name": "binomial_coefficient_prime_mod",
@@ -2063,10 +2071,13 @@
       "title": "$q$-Binomial Coefficient (Prime Mod)",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/q_binomial_coefficient_prime_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.combinatorics.Combination",
+        "library_codex.combinatorics.QBinomial"
+      ],
+      "solution": "solutions/q_binomial_coefficient_prime_mod.py",
+      "result": "results/q_binomial_coefficient_prime_mod.json"
     },
     {
       "name": "queue_operate_all_composite",

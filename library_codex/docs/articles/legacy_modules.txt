@@ -33,7 +33,6 @@ combinatorial_series/PolynomialMobiusTransform
 combinatorial_series/PowerSums
 combinatorial_series/PRecursive
 combinatorial_series/StirlingMatrix
-combinatorics/ArbitraryBinomial
 combinatorics/BinomialQueries
 combinatorics/Combination
 combinatorics/DeBruijnSequence
@@ -43,7 +42,6 @@ combinatorics/FloatBinomial
 combinatorics/GrayCode
 combinatorics/IntegerPartitions
 combinatorics/PisanoPeriod
-combinatorics/QBinomial
 combinatorics/RationalBinomial
 combinatorics/SetPartitions
 convolution/ChirpZ

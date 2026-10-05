@@ -97,7 +97,10 @@ MODULE_OVERRIDES = {
     "graph/CSRGraph.py": ("CSRグラフとDijkstra・SCC・LowLinkの高速省メモリbackend", "構築 O(V+E)、各algorithmの標準計算量"),
     "shortest_path/GridBFS.py": ("障害物付きgridのBFS最短距離", "O(HW)"),
     "graph_matching/GeneralWeightedMatching.py": ("一般グラフの最大重みmatching", "O(V^3)"),
-    "combinatorics/ArbitraryBinomial.py": ("任意合成数法・巨大素数法の二項係数", "素因数分解・sqrt block依存"),
+    "combinatorics/ArbitraryBinomial.py": (
+        "素数冪や合成数の法で、nが法より大きい二項係数も求める",
+        "素数冪p^eごとに問い合わせO(log_p(n+1))、階乗表の拡張分を追加。大きい素数では平方根サイズの多項式演算を使う",
+    ),
     "combinatorics/BinomialQueries.py": ("二項係数prefix和と巨大添字Stirlingの一括query", "Mo法 / 補間依存"),
     "number_theory/Elementary.py": ("gcd・lcm・整数根など初等数学関数", "各標準計算量"),
     "number_theory/FloorPolynomialSum.py": ("floorを含む多項式和", "Euclid pathと次数依存"),

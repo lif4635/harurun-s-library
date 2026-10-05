@@ -11,6 +11,7 @@
 | [bell_number](bell_number.json) | 3 / 11 | 5 | 1.169 | 149.8 | 一致 |
 | [bernoulli_number](bernoulli_number.json) | 3 / 11 | 5 | 0.650 | 108.1 | 一致 |
 | [biconnected_components](biconnected_components.json) | 3 / 22 | 5 | 2.612 | 437.8 | 一致 |
+| [binomial_coefficient](binomial_coefficient.json) | 3 / 30 | 5 | 1.142 | 89.0 | 一致 |
 | [binomial_coefficient_prime_mod](binomial_coefficient_prime_mod.json) | 3 / 20 | 5 | 0.922 | 478.6 | 一致 |
 | [characteristic_polynomial](characteristic_polynomial.json) | 3 / 28 | 5 | 0.970 | 65.8 | 一致 |
 | [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
@@ -61,6 +62,7 @@
 | [pow_of_matrix](pow_of_matrix.json) | 3 / 43 | 5 | 2.075 | 91.0 | 一致 |
 | [power_projection_of_set_power_series](power_projection_of_set_power_series.json) | 3 / 30 | 5 | 4.099 | 441.4 | 一致 |
 | [prefix_substring_lcs](prefix_substring_lcs.json) | 3 / 11 | 5 | 0.739 | 128.8 | 一致 |
+| [q_binomial_coefficient_prime_mod](q_binomial_coefficient_prime_mod.json) | 3 / 30 | 5 | 1.198 | 403.1 | 一致 |
 | [range_add_range_min](range_add_range_min.json) | 3 / 23 | 5 | 1.635 | 132.5 | 一致 |
 | [range_chmin_chmax_add_range_sum](range_chmin_chmax_add_range_sum.json) | 3 / 33 | 5 | 9.523 | 161.7 | 一致 |
 | [range_linear_add_range_min](range_linear_add_range_min.json) | 3 / 28 | 5 | 3.962 | 88.6 | 一致 |

@@ -5,7 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`ArbitraryBinomial`](ArbitraryBinomial.md) | 任意合成数法・巨大素数法の二項係数 | 0 | 3 | 4 |
+| [`ArbitraryBinomial`](ArbitraryBinomial.md) | 素数冪や合成数の法で、nが法より大きい二項係数も求める | 0 | 3 | 4 |
 | [`BinomialQueries`](BinomialQueries.md) | 二項係数prefix和と巨大添字Stirlingの一括query | 1 | 2 | 4 |
 | [`Combination`](Combination.md) | 階乗表を使うCombと、小さいk向けの乗法式で二項係数を計算する。 | 1 | 1 | 9 |
 | [`DeBruijnSequence`](DeBruijnSequence.md) | 指定alphabetの全長order列を1回ずつ含む巡回列を作る。 | 1 | 0 | 0 |
@@ -16,7 +16,7 @@
 | [`IntegerPartitions`](IntegerPartitions.md) | 加法的整数分割の列挙 | 2 | 0 | 0 |
 | [`Langford`](Langford.md) | 通常・穴ありLangford列の構築 | 1 | 0 | 0 |
 | [`PisanoPeriod`](PisanoPeriod.md) | Fibonacci数列を法としたときの周期を求める。 | 2 | 0 | 0 |
-| [`QBinomial`](QBinomial.md) | q二項係数を計算する。 | 0 | 1 | 1 |
+| [`QBinomial`](QBinomial.md) | 固定したqと素数の法で、q二項係数を繰り返し求める。 | 0 | 1 | 1 |
 | [`RationalBinomial`](RationalBinomial.md) | 有理数として二項係数を正確に計算する。 | 0 | 1 | 7 |
 | [`SetPartitions`](SetPartitions.md) | 有限列の集合分割を重複なく列挙する。 | 1 | 0 | 0 |
 | [`Skolem`](Skolem.md) | 通常・穴ありSkolem列の構築 | 1 | 0 | 0 |

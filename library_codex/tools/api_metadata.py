@@ -3435,7 +3435,7 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[object]", "returnDescription": "arrangeで並べ替えた値を元の頂点番号順へ戻したlist。",
     },
     ("combinatorics/ArbitraryBinomial.py", "LargePrimeFactorial", "factorial"): {
-        "returnFormat": "int", "returnDescription": "n! mod prime。",
+        "returnFormat": "int", "returnDescription": "n!を構築時のmodで割った余り。0<=n<mod以外は0。",
     },
     ("rational/RationalFormalPowerSeries.py", "RationalFormalPowerSeries", "evaluate"): {
         "returnFormat": "Fraction", "returnDescription": "係数列を多項式としてpointへ代入した有理数。",
@@ -6598,4 +6598,61 @@ API_DETAILS_BY_SYMBOL[("rational/FractionSearch.py", None, "stern_brocot_binary_
     },
     "returnFormat": "tuple[tuple[int, int], tuple[int, int]]",
     "returnDescription": "(lower, upper)。各要素は(分子, 分母)。lowerはFalseとなる最大の候補、upperはTrueとなる最小の候補。下側がなければ(0, 1)、上側がなければ(1, 0)。0が既にTrueなら上下とも(0, 1)。limit=0なら判定せず((0, 1), (1, 0))。",
+}
+
+MODULE_CAPABILITIES["combinatorics/ArbitraryBinomial.py"] = (
+    "nが法より大きい場合も、素数冪や任意の合成数の法で二項係数を求める。",
+    "素数冪ごとの逆階乗表とCRT係数を再利用し、多数の問い合わせを処理する。",
+)
+MODULE_CAPABILITIES["combinatorics/QBinomial.py"] = (
+    "固定したqと素数の法でq二項係数を求める。q=0・1や小さい位数にも対応する。",
+)
+CLASS_DETAILS_BY_SYMBOL[("combinatorics/QBinomial.py", "QBinomial")] = {
+    "description": "固定したqで重み付けした二項係数を、素数mod上で求める表。",
+    "constructorCreates": "C(number, chosen)でq二項係数の剰余を繰り返し取得できる。q階乗が0になる場合は通常の二項係数との積へ分ける。",
+    "argumentDescriptions": {
+        "q": "q二項係数の重み。整数。負でもよく、modで正規化する。",
+        "maximum": "前計算するnumberの上限。0以上。",
+        "mod": "素数の法。2以上。素数であることは利用側で保証する。",
+    },
+}
+API_DETAILS_BY_SYMBOL[("combinatorics/QBinomial.py", "QBinomial", "C")]["argumentDescriptions"] = {
+    "number": "選択対象の個数n。maximum以下を指定すれば前計算の範囲で処理する。負なら0を返す。",
+    "chosen": "選ぶ個数k。k<0またはk>nなら0を返す。",
+}
+COMPLEXITY_BY_MODULE["combinatorics/QBinomial.py"] = {
+    "QBinomial": "q=0ならO(1)。それ以外はO(maximum + log mod)時間・O(maximum)領域を上限とする",
+    "C": "q=0ならO(1)。n<=maximumかつn<modならO(1)。準備範囲内でn>=modならO(log_mod(n+1))。範囲外では未準備のLucas桁(a,b)ごとにO(min(b,a-b)+log mod)を追加。周期未検出かつ表の範囲外ならValueError",
+}
+for _owner, _description, _creates, _arguments in (
+    ("PrimePowerBinomial", "素数冪の法で、nが法より大きい二項係数も求める。", "素因子を除いた階乗・逆階乗を必要な範囲まで拡張し、C(n,k)を繰り返し計算する。", {
+        "prime": "法の底となる素数。2以上。素数判定は行わない。",
+        "exponent": "法の指数。1以上。法はprime**exponentになる。",
+    }),
+    ("ArbitraryModBinomial", "固定した正の法で二項係数を求める。法が合成数でもよい。", "法を素数冪へ分解し、C(n,k)で各剰余を前計算したCRT係数により合成する。", {
+        "mod": "正の法。素因数分解の保証範囲である64ビット以内を使う。1ならすべて0。",
+    }),
+    ("LargePrimeFactorial", "大きい素数の法で、階乗と二項係数を多項式の多点評価により求める。", "factorial(n)でn!の剰余、C(n,k)で二項係数の剰余を取得できる。計算済みの階乗値をキャッシュする。", {
+        "mod": "素数の法。素数判定の保証範囲である64ビット以内を使う。",
+    }),
+):
+    CLASS_DETAILS_BY_SYMBOL[("combinatorics/ArbitraryBinomial.py", _owner)] = {
+        "description": _description, "constructorCreates": _creates,
+        "argumentDescriptions": _arguments,
+    }
+    API_DETAILS_BY_SYMBOL[("combinatorics/ArbitraryBinomial.py", _owner, "C")]["argumentDescriptions"] = {
+        "n": "選択対象の個数。法以上でもよい。負なら0を返す。",
+        "k": "選ぶ個数。0<=k<=n以外なら0を返す。",
+    }
+COMPLEXITY_BY_MODULE["combinatorics/ArbitraryBinomial.py"] = {
+    "PrimePowerBinomial": "O(e log(e+1))整数演算、O(e)領域。e=exponent。階乗表は遅延生成",
+    "PrimePowerBinomial.C": "O(log_p(n+1))時間。p=prime。表をL要素拡張する呼び出しにはO(L+log M)を追加。M=p**exponent、表は最大O(M)領域",
+    "ArbitraryModBinomial": "素因数分解の時間 + O(r log mod + Σ e_i log(e_i+1))整数演算。rは異なる素因数の数、e_iはその指数。階乗表は遅延生成",
+    "ArbitraryModBinomial.C": "素数冪成分ごとにO(log_p(n+1))、表の拡張分を追加。大きい素数成分pではO(log_p(n+1))回の階乗計算と逆元計算（1回O(log p)）。CRT合成はO(r)",
+    "LargePrimeFactorial": "素数判定のO(log mod)時間、O(1)初期領域。64ビット整数演算をO(1)とする",
+    "factorial": "キャッシュ済みなら期待O(1)。未計算ならO(sqrt(n) log²(n+2))時間・O(sqrt(n) log(n+2))作業領域を目安とし、係数の整数演算をO(1)とする",
+    "LargePrimeFactorial.C": "O(log_mod(n+1))桁。各桁で階乗3回と逆元計算1回。未計算の階乗1回はO(sqrt(mod) log²(mod))、逆元1回はO(log mod)",
+}
+API_DETAILS_BY_SYMBOL[("combinatorics/ArbitraryBinomial.py", "LargePrimeFactorial", "factorial")]["argumentDescriptions"] = {
+    "n": "階乗の引数。0<=n<modでn!の剰余を求め、それ以外は0を返す。",
 }
