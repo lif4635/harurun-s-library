@@ -7,6 +7,7 @@
 | --- | --- | ---: | ---: | ---: |
 | [`AhoCorasick`](AhoCorasick.md) | dict/固定alphabet対応Aho--Corasick（軽量・pattern別集計） | 0 | 1 | 11 |
 | [`CompressedTrie`](CompressedTrie.md) | 辺ラベルを元の語の区間で持つ圧縮Trie | 0 | 1 | 9 |
+| [`DequePalindromicTree`](DequePalindromicTree.md) | 両端で追加・削除する列の回文の種類数と最長回文接頭辞・接尾辞を保つ。 | 0 | 1 | 12 |
 | [`DynamicRollingHash`](DynamicRollingHash.md) | 点更新・反転hash対応segment tree | 0 | 1 | 9 |
 | [`LongestCommonSubsequence`](LongestCommonSubsequence.md) | bit-parallel LCS長・反復Hirschberg復元 | 2 | 0 | 0 |
 | [`Manacher`](Manacher.md) | 奇数・偶数半径・全中心極大回文列挙 | 7 | 0 | 0 |

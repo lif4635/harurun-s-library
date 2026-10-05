@@ -6347,3 +6347,53 @@ COMPLEXITY_BY_MODULE["graph_matching/GeneralWeightedMatching.py"] = {
     "add_edge": "O(1)",
     "run": "O(N³)時間、O(N²)領域。整数演算1回をO(1)とする",
 }
+
+SEARCH_TERMS_BY_MODULE["string/DequePalindromicTree.py"] = (
+    "両端回文木", "double-ended eertree", "回文の種類数", "回文接頭辞", "回文接尾辞",
+)
+MODULE_CAPABILITIES["string/DequePalindromicTree.py"] = (
+    "列の両端へ要素を追加・削除しながら、回文となる異なる非空の連続部分列の種類数を保つ。",
+    "最長の回文接頭辞・接尾辞の長さをO(1)で取得する。",
+)
+CLASS_DETAILS_BY_SYMBOL[("string/DequePalindromicTree.py", "DequePalindromicTree")] = {
+    "description": "文字列や整数列の両端を更新し、現在含まれる異なる回文の数と最長回文接頭辞・接尾辞を保つ。回文は連続部分列に限る。",
+    "constructorCreates": "sequenceと同じ並びの列。append・appendleftで追加し、pop・popleftで削除する。queryは回文の種類数・最長接頭辞長・最長接尾辞長を返す。",
+    "argumentDescriptions": {"sequence": "hash可能な要素の反復可能オブジェクト。str・bytes・整数列など。省略時は空。入力は変更しない。"},
+}
+for _method, _description, _format, _returned in (
+    ("append", "列の末尾へ1要素追加し、回文の情報を更新する。", "None", "末尾へsymbolを追加した状態になる。"),
+    ("appendleft", "列の先頭へ1要素追加し、回文の情報を更新する。", "None", "先頭へsymbolを追加した状態になる。"),
+    ("pop", "末尾の1要素を削除し、回文の情報を更新する。", "object", "削除した末尾要素。空の列ではIndexError。"),
+    ("popleft", "先頭の1要素を削除し、回文の情報を更新する。", "object", "削除した先頭要素。空の列ではIndexError。"),
+    ("distinct_count", "現在の列に現れる、異なる非空回文の種類数を取得する。", "int", "同じ内容の回文は出現位置が違っても1種類と数える。空の列では0。"),
+    ("longest_prefix", "先頭から始まる最長の回文の長さを取得する。", "int", "回文となる接頭辞の最大の長さ。空の列では0。"),
+    ("longest_suffix", "末尾で終わる最長の回文の長さを取得する。", "int", "回文となる接尾辞の最大の長さ。空の列では0。"),
+    ("query", "回文の種類数と、最長回文接頭辞・接尾辞の長さをまとめて取得する。", "tuple[int, int, int]", "(count, prefix_length, suffix_length)。空の列では(0,0,0)。"),
+    ("tolist", "現在の列を先頭から末尾の順で取り出す。", "list[object]", "長さlen(self)の新しいlist。要素自体はコピーしない。listの追加・削除では元の列は変わらない。"),
+    ("__len__", "現在保持する列の長さを取得する。", "int", "列の要素数。内部の回文ノード数ではない。"),
+    ("__str__", "現在の列を先頭から末尾の順で表示する。", "str", "tolist()と同じlistの文字列表現。状態は変更しない。"),
+    ("__repr__", "型名と現在の列を表示する。", "str", "DequePalindromicTree([...])の形式。状態は変更しない。"),
+):
+    API_DETAILS_BY_SYMBOL[("string/DequePalindromicTree.py", "DequePalindromicTree", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returned,
+    }
+for _method in ("append", "appendleft"):
+    API_DETAILS_BY_SYMBOL[("string/DequePalindromicTree.py", "DequePalindromicTree", _method)]["argumentDescriptions"] = {
+        "symbol": "追加するhash可能な1要素。格納中はhash値と等値比較の意味を変えない。strなら1文字ずつ、bytesなら整数を渡す。",
+    }
+API_DETAILS_BY_SYMBOL[("string/DequePalindromicTree.py", "DequePalindromicTree", "query")]["returnParts"] = [
+    {"name": "count", "format": "int", "description": "異なる非空回文の種類数。"},
+    {"name": "prefix_length", "format": "int", "description": "最長の回文接頭辞の長さ。"},
+    {"name": "suffix_length", "format": "int", "description": "最長の回文接尾辞の長さ。"},
+]
+COMPLEXITY_BY_MODULE["string/DequePalindromicTree.py"] = {
+    "DequePalindromicTree": "期待O(N log(N+2)+1)時間、O(N+1)領域。Nは初期列の長さ。hash・等値比較1回をO(1)とする",
+    "append": "償却期待O(log(L+2))。Lはこれまでの列の最大長。hash・等値比較1回をO(1)とする",
+    "appendleft": "償却期待O(log(L+2))。Lはこれまでの列の最大長。hash・等値比較1回をO(1)とする",
+    "pop": "償却期待O(1)。hash・等値比較1回をO(1)とする",
+    "popleft": "償却期待O(1)。hash・等値比較1回をO(1)とする",
+    "distinct_count": "O(1)", "longest_prefix": "O(1)", "longest_suffix": "O(1)",
+    "query": "O(1)", "__len__": "O(1)", "tolist": "O(N)。Nは現在の列の長さ",
+    "__str__": "O(N)と各要素の文字列化。Nは現在の列の長さ",
+    "__repr__": "O(N)と各要素の文字列化。Nは現在の列の長さ",
+}

@@ -36,6 +36,10 @@ segment         # SegTree([1, 2, 3])
 
 Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅延更新をleafへ反映してから値を返します。集約結果は変わりません。
 
+## 両端回文木
+
+`DequePalindromicTree.tolist()`と`str(obj)`は現在の列を先頭から末尾の順で示します。`repr(obj)`は`DequePalindromicTree([...])`です。列の長さをNとしてO(N)時間で、回文のカウンタや更新状態は変更しません。
+
 ## Tree Wavelet Matrix
 
 `TreeWaveletMatrix.tolist()`と`str(obj)`は、constructorへ渡した頂点値を頂点番号順のlistで返します。`repr(obj)`は`TreeWaveletMatrix([...])`の形です。内部のHLD順や圧縮後のrankは表示しません。

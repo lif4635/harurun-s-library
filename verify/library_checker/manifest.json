@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 130,
-    "unimplemented": 123
+    "local_passed": 136,
+    "unimplemented": 117
   },
   "problems": [
     {
@@ -41,10 +41,13 @@
       "title": "Aho Corasick",
       "category": "string",
       "url": "https://judge.yosupo.jp/problem/aho_corasick",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.Trie",
+        "library_codex.string.AhoCorasick"
+      ],
+      "solution": "solutions/aho_corasick.py",
+      "result": "results/aho_corasick.json"
     },
     {
       "name": "all_furthest_neighbors",
@@ -737,10 +740,12 @@
       "title": "Eertree",
       "category": "string",
       "url": "https://judge.yosupo.jp/problem/eertree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.PalindromicTree"
+      ],
+      "solution": "solutions/eertree.py",
+      "result": "results/eertree.json"
     },
     {
       "name": "enumerate_cliques",
@@ -1694,10 +1699,12 @@
       "title": "Palindromes in Deque",
       "category": "string",
       "url": "https://judge.yosupo.jp/problem/palindromes_in_deque",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.DequePalindromicTree"
+      ],
+      "solution": "solutions/palindromes_in_deque.py",
+      "result": "results/palindromes_in_deque.json"
     },
     {
       "name": "partition_function",
@@ -1975,10 +1982,12 @@
       "title": "Prefix-Substring LCS",
       "category": "string",
       "url": "https://judge.yosupo.jp/problem/prefix_substring_lcs",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.PrefixSubstringLCS"
+      ],
+      "solution": "solutions/prefix_substring_lcs.py",
+      "result": "results/prefix_substring_lcs.json"
     },
     {
       "name": "prefix_sum_of_polynomial",
@@ -2221,10 +2230,13 @@
       "title": "Run Enumerate",
       "category": "string",
       "url": "https://judge.yosupo.jp/problem/runenumerate",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.string.ZAlgorithm",
+        "library_codex.string.RunEnumeration"
+      ],
+      "solution": "solutions/runenumerate.py",
+      "result": "results/runenumerate.json"
     },
     {
       "name": "scc",
@@ -2864,10 +2876,13 @@
       "title": "Wildcard Pattern Matching",
       "category": "string",
       "url": "https://judge.yosupo.jp/problem/wildcard_pattern_matching",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.string.WildcardPatternMatching"
+      ],
+      "solution": "solutions/wildcard_pattern_matching.py",
+      "result": "results/wildcard_pattern_matching.json"
     },
     {
       "name": "zalgorithm",

@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-05T05:46:42+00:00",
+  "generatedAt": "2026-10-05T06:18:49+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "9c7a3c60978588a7cb372164d0fd6aaf64fb9f7eaccf4efe2544a076803ea9b7",
-  "inputStamp": "bf3d2ca53a4dd2412abf22100016801a28a0752d78f625cfce4dd313d34b431b",
+  "sourceFingerprint": "9e7016b8c193b901c74cb69c3e9462aefd0b148ba0292ce99d60f2f4bc314b2f",
+  "inputStamp": "6f96379f6cfd794b7f42475ccb9b37701193fdcca48beba690fd78d1a387792c",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 364,
-    "articles": 29,
+    "modules": 365,
+    "articles": 30,
     "functions": 505,
-    "classes": 223,
-    "methods": 1392,
+    "classes": 224,
+    "methods": 1404,
     "tests": 0
   },
   "categories": [
@@ -321,10 +321,10 @@
       "label": "文字列",
       "domain": "string",
       "domainLabel": "String",
-      "modules": 20,
+      "modules": 21,
       "functions": 29,
-      "classes": 21,
-      "methods": 232
+      "classes": 22,
+      "methods": 244
     },
     {
       "slug": "string_sequence",
@@ -421,7 +421,7 @@
     {
       "slug": "string",
       "label": "String",
-      "modules": 24
+      "modules": 25
     },
     {
       "slug": "optimization",
@@ -55743,6 +55743,324 @@
               "returnDescription": "用途欄に示した結果を1要素ずつ並べた列",
               "complexity": "O(L) / O(U)",
               "sourceLine": 149
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "string",
+      "categoryLabel": "文字列",
+      "domain": "string",
+      "domainLabel": "String",
+      "name": "DequePalindromicTree",
+      "modulePath": "library_codex.string.DequePalindromicTree",
+      "summary": "両端で追加・削除する列の回文の種類数と最長回文接頭辞・接尾辞を保つ。",
+      "capabilities": [
+        "列の両端へ要素を追加・削除しながら、回文となる異なる非空の連続部分列の種類数を保つ。",
+        "最長の回文接頭辞・接尾辞の長さをO(1)で取得する。"
+      ],
+      "article": {
+        "title": "両端を更新できる回文木",
+        "markdown": "文字列や整数列の両端へ要素を追加・削除しながら、回文の種類数と、最長の回文接頭辞・接尾辞を求めます。\n\n## 主な機能\n\n- `append(symbol)`・`appendleft(symbol)`で末尾・先頭へ1要素追加します。\n- `pop()`・`popleft()`で末尾・先頭の1要素を削除します。\n- `query()`で、現在の列にある異なる非空回文の種類数、最長の回文接頭辞の長さ、最長の回文接尾辞の長さを取得します。\n- 追加は償却期待O(log(L+2))、削除は償却期待O(1)、取得はO(1)です。Lはこれまでの列の最大長で、hash・等値比較1回をO(1)とします。保持領域はO(L+1)です。\n\n同じ回文が複数の位置に現れても1種類です。例えば`ababa`には`a`・`b`・`aba`・`bab`・`ababa`の5種類があります。ここでいう回文は、文字を飛ばさずに取り出す連続部分列です。\n\n## 使い方\n\n```python\ntree = DequePalindromicTree(\"ababa\")\ncount, prefix_length, suffix_length = tree.query()\nassert (count, prefix_length, suffix_length) == (5, 5, 5)\n\ntree.append(\"c\")\nassert tree.query() == (6, 5, 1)\nassert tree.popleft() == \"a\"\nassert tree.query() == (5, 3, 1)\n\ntree.appendleft(\"c\")\nassert tree.query() == (5, 1, 1)\nassert tree.tolist() == list(\"cbabac\")\n```\n\n`query()`の返り値は次の3要素です。\n\n- `count`: 現在の列に含まれる、異なる非空回文の種類数。\n- `prefix_length`: 先頭から始まる最長回文の長さ。\n- `suffix_length`: 末尾で終わる最長回文の長さ。\n\n個別には`distinct_count`・`longest_prefix`・`longest_suffix`で取得できます。空の列ではいずれも0です。\n\n## 仕組み\n\n回文を整数IDで管理し、長さ・suffix link・出現を保つためのカウンタを平坦な配列に格納します。列の両端に関係する回文だけを更新するsurface方式と、同じ文字で伸ばせない候補を飛ばすquick linkを使います。\n\n列はランダムアクセスできるリングバッファに置きます。削除で消えた回文のIDを再利用するため、短い列への追加・削除を何度繰り返しても、ノード領域が操作回数に比例して増え続けることはありません。\n\n## 注意点\n\n- 最長の回文接頭辞・接尾辞を返します。列の途中も含めた最長回文の長さではありません。\n- 空の列への`pop()`・`popleft()`は`IndexError`です。\n- 要素はhash可能で、格納中にhash値や等値比較の意味が変わらない必要があります。\n- `append(\"ab\")`は2文字追加ではなく、文字列`\"ab\"`を1要素として追加します。\n- 各回文の出現回数やノード一覧を取得する場合は`PalindromicTree`を使います。そちらは両端削除には対応しません。\n\n## 参考\n\n- [Double-Ended Palindromic Trees: A Linear-Time Data Structure and Its Applications](https://arxiv.org/abs/2210.02292)\n- [EERTREE: An Efficient Data Structure for Processing Palindromes in Strings](https://arxiv.org/abs/1506.04862)\n- [Library Checkerの公式解法](https://github.com/yosupo06/library-checker-problems/blob/master/string/palindromes_in_deque/sol/correct.cpp)",
+        "sourcePath": "library_codex/docs/articles/string/DequePalindromicTree.md"
+      },
+      "searchTerms": [
+        "DequePalindromicTree",
+        "Deque Palindromic Tree",
+        "library_codex.string.DequePalindromicTree",
+        "library codex string Deque Palindromic Tree",
+        "string/DequePalindromicTree.py",
+        "文字列",
+        "両端回文木",
+        "double-ended eertree",
+        "回文の種類数",
+        "回文接頭辞",
+        "回文接尾辞"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/string/DequePalindromicTree.py",
+      "inputFingerprint": "111db93b0c0e937e12a1949fffd5a44c5608bf11d970cb622cb19b4c2a8a4788",
+      "importCode": "from library_codex.string.DequePalindromicTree import DequePalindromicTree",
+      "sourceCode": "\"\"\"両端で追加・削除する列の回文の種類数と最長回文接頭辞・接尾辞を保つ。\"\"\"\n\n\nclass DequePalindromicTree:\n    __slots__ = (\n        \"_data\", \"_prefix\", \"_suffix\", \"_head\", \"_size\", \"_mask\",\n        \"_length\", \"_link\", \"_quick\", \"_parent\", \"_count\", \"_children\",\n        \"_edges\", \"_free\", \"_distinct\",\n    )\n\n    def __init__(self, sequence=()):\n        self._data = [None] * 8\n        self._prefix = [1] * 8\n        self._suffix = [1] * 8\n        self._head = self._size = self._distinct = 0\n        self._mask = 7\n        self._length = [-1, 0]\n        self._link = [0, 0]\n        self._quick = [0, 0]\n        self._parent = [0, 0]\n        self._count = [0, 0]\n        self._children = [0, 0]\n        self._edges = {}\n        self._free = []\n        for symbol in sequence:\n            self.append(symbol)\n\n    def __len__(self):\n        return self._size\n\n    @property\n    def distinct_count(self):\n        return self._distinct\n\n    @property\n    def longest_prefix(self):\n        return self._length[self._prefix[self._head]] if self._size else 0\n\n    @property\n    def longest_suffix(self):\n        return self._length[self._suffix[(self._head + self._size - 1) & self._mask]] if self._size else 0\n\n    def _grow(self):\n        size = self._size\n        head = self._head\n        self._data = self._data[head:] + self._data[:head] + [None] * size\n        self._prefix = self._prefix[head:] + self._prefix[:head] + [1] * size\n        self._suffix = self._suffix[head:] + self._suffix[:head] + [1] * size\n        self._head = 0\n        self._mask = 2 * size - 1\n\n    def _find(self, symbol, node, front):\n        length = self._length\n        link = self._link\n        quick = self._quick\n        data = self._data\n        mask = self._mask\n        size = self._size\n        start = self._head if front else self._head + size - 1\n        direction = 1 if front else -1\n        while True:\n            span = length[node]\n            if span == -1 or (span < size and data[(start + direction * span) & mask] == symbol):\n                return node\n            suffix = link[node]\n            span = length[suffix]\n            if span == -1 or data[(start + direction * span) & mask] == symbol:\n                return suffix\n            node = quick[node]\n\n    def _push(self, symbol, front):\n        hash(symbol)\n        if self._size == len(self._data):\n            self._grow()\n        size = self._size\n        head = self._head\n        mask = self._mask\n        length = self._length\n        link = self._link\n        if size:\n            last = self._prefix[head] if front else self._suffix[(head + size - 1) & mask]\n            parent = self._find(symbol, last, front)\n        else:\n            parent = 0\n        key = (parent, symbol)\n        node = self._edges.get(key, -1)\n        created = node == -1\n        if created:\n            suffix = 1 if parent == 0 else self._edges[self._find(symbol, link[parent], front), symbol]\n            if self._free:\n                node = self._free.pop()\n                length[node] = length[parent] + 2\n                link[node] = suffix\n                self._parent[node] = parent\n            else:\n                node = len(length)\n                length.append(length[parent] + 2)\n                link.append(suffix)\n                self._quick.append(0)\n                self._parent.append(parent)\n                self._count.append(0)\n                self._children.append(0)\n            self._children[suffix] += 1\n            self._edges[key] = node\n            self._distinct += 1\n        else:\n            suffix = link[node]\n        if front:\n            head = (head - 1) & mask\n            self._head = head\n            slot = head\n        else:\n            slot = (head + size) & mask\n        self._data[slot] = symbol\n        self._prefix[slot] = self._suffix[slot] = 1\n        size += 1\n        self._size = size\n        if created:\n            shorter = link[suffix]\n            start = head if front else head + size - 1\n            direction = 1 if front else -1\n            if shorter != 0 and self._data[(start + direction * length[suffix]) & mask] == self._data[(start + direction * length[shorter]) & mask]:\n                self._quick[node] = self._quick[suffix]\n            else:\n                self._quick[node] = shorter\n        if front:\n            self._prefix[head] = node\n            self._suffix[(head + length[node] - 1) & mask] = node\n            slot = (head + length[node] - length[suffix]) & mask\n            if length[suffix] and self._prefix[slot] == suffix:\n                self._prefix[slot] = 1\n        else:\n            self._suffix[(head + size - 1) & mask] = node\n            self._prefix[(head + size - length[node]) & mask] = node\n            slot = (head + size - length[node] + length[suffix] - 1) & mask\n            if length[suffix] and self._suffix[slot] == suffix:\n                self._suffix[slot] = 1\n        self._count[node] += 1\n\n    def append(self, symbol):\n        self._push(symbol, False)\n\n    def appendleft(self, symbol):\n        self._push(symbol, True)\n\n    def _pop(self, front):\n        size = self._size\n        if not size:\n            raise IndexError(\"pop from an empty palindromic deque\")\n        head = self._head\n        mask = self._mask\n        length = self._length\n        slot = head if front else (head + size - 1) & mask\n        node = self._prefix[slot] if front else self._suffix[slot]\n        symbol = self._data[slot]\n        suffix = self._link[node]\n        if front:\n            start = (head + length[node] - length[suffix]) & mask\n            end = (head + length[node] - 1) & mask\n            if length[node] >= 2 and length[self._prefix[start]] < length[suffix]:\n                self._prefix[start] = self._suffix[end] = suffix\n            else:\n                self._suffix[end] = 1\n            self._head = (head + 1) & mask\n        else:\n            start = (head + size - length[node]) & mask\n            end = (head + size - length[node] + length[suffix] - 1) & mask\n            if length[node] >= 2 and length[self._suffix[end]] < length[suffix]:\n                self._suffix[end] = self._prefix[start] = suffix\n            else:\n                self._prefix[start] = 1\n        self._count[node] -= 1\n        if self._count[node] == 0 and self._children[node] == 0:\n            del self._edges[self._parent[node], symbol]\n            self._children[suffix] -= 1\n            self._free.append(node)\n            self._distinct -= 1\n        self._data[slot] = None\n        self._prefix[slot] = self._suffix[slot] = 1\n        self._size -= 1\n        return symbol\n\n    def pop(self):\n        return self._pop(False)\n\n    def popleft(self):\n        return self._pop(True)\n\n    def query(self):\n        if not self._size:\n            return 0, 0, 0\n        return self._distinct, self._length[self._prefix[self._head]], self._length[self._suffix[(self._head + self._size - 1) & self._mask]]\n\n    def tolist(self):\n        return [self._data[(self._head + i) & self._mask] for i in range(self._size)]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"DequePalindromicTree(\" + repr(self.tolist()) + \")\"\n",
+      "standaloneCode": "\"\"\"両端で追加・削除する列の回文の種類数と最長回文接頭辞・接尾辞を保つ。\"\"\"\n\n\nclass DequePalindromicTree:\n    __slots__ = (\n        \"_data\", \"_prefix\", \"_suffix\", \"_head\", \"_size\", \"_mask\",\n        \"_length\", \"_link\", \"_quick\", \"_parent\", \"_count\", \"_children\",\n        \"_edges\", \"_free\", \"_distinct\",\n    )\n\n    def __init__(self, sequence=()):\n        self._data = [None] * 8\n        self._prefix = [1] * 8\n        self._suffix = [1] * 8\n        self._head = self._size = self._distinct = 0\n        self._mask = 7\n        self._length = [-1, 0]\n        self._link = [0, 0]\n        self._quick = [0, 0]\n        self._parent = [0, 0]\n        self._count = [0, 0]\n        self._children = [0, 0]\n        self._edges = {}\n        self._free = []\n        for symbol in sequence:\n            self.append(symbol)\n\n    def __len__(self):\n        return self._size\n\n    @property\n    def distinct_count(self):\n        return self._distinct\n\n    @property\n    def longest_prefix(self):\n        return self._length[self._prefix[self._head]] if self._size else 0\n\n    @property\n    def longest_suffix(self):\n        return self._length[self._suffix[(self._head + self._size - 1) & self._mask]] if self._size else 0\n\n    def _grow(self):\n        size = self._size\n        head = self._head\n        self._data = self._data[head:] + self._data[:head] + [None] * size\n        self._prefix = self._prefix[head:] + self._prefix[:head] + [1] * size\n        self._suffix = self._suffix[head:] + self._suffix[:head] + [1] * size\n        self._head = 0\n        self._mask = 2 * size - 1\n\n    def _find(self, symbol, node, front):\n        length = self._length\n        link = self._link\n        quick = self._quick\n        data = self._data\n        mask = self._mask\n        size = self._size\n        start = self._head if front else self._head + size - 1\n        direction = 1 if front else -1\n        while True:\n            span = length[node]\n            if span == -1 or (span < size and data[(start + direction * span) & mask] == symbol):\n                return node\n            suffix = link[node]\n            span = length[suffix]\n            if span == -1 or data[(start + direction * span) & mask] == symbol:\n                return suffix\n            node = quick[node]\n\n    def _push(self, symbol, front):\n        hash(symbol)\n        if self._size == len(self._data):\n            self._grow()\n        size = self._size\n        head = self._head\n        mask = self._mask\n        length = self._length\n        link = self._link\n        if size:\n            last = self._prefix[head] if front else self._suffix[(head + size - 1) & mask]\n            parent = self._find(symbol, last, front)\n        else:\n            parent = 0\n        key = (parent, symbol)\n        node = self._edges.get(key, -1)\n        created = node == -1\n        if created:\n            suffix = 1 if parent == 0 else self._edges[self._find(symbol, link[parent], front), symbol]\n            if self._free:\n                node = self._free.pop()\n                length[node] = length[parent] + 2\n                link[node] = suffix\n                self._parent[node] = parent\n            else:\n                node = len(length)\n                length.append(length[parent] + 2)\n                link.append(suffix)\n                self._quick.append(0)\n                self._parent.append(parent)\n                self._count.append(0)\n                self._children.append(0)\n            self._children[suffix] += 1\n            self._edges[key] = node\n            self._distinct += 1\n        else:\n            suffix = link[node]\n        if front:\n            head = (head - 1) & mask\n            self._head = head\n            slot = head\n        else:\n            slot = (head + size) & mask\n        self._data[slot] = symbol\n        self._prefix[slot] = self._suffix[slot] = 1\n        size += 1\n        self._size = size\n        if created:\n            shorter = link[suffix]\n            start = head if front else head + size - 1\n            direction = 1 if front else -1\n            if shorter != 0 and self._data[(start + direction * length[suffix]) & mask] == self._data[(start + direction * length[shorter]) & mask]:\n                self._quick[node] = self._quick[suffix]\n            else:\n                self._quick[node] = shorter\n        if front:\n            self._prefix[head] = node\n            self._suffix[(head + length[node] - 1) & mask] = node\n            slot = (head + length[node] - length[suffix]) & mask\n            if length[suffix] and self._prefix[slot] == suffix:\n                self._prefix[slot] = 1\n        else:\n            self._suffix[(head + size - 1) & mask] = node\n            self._prefix[(head + size - length[node]) & mask] = node\n            slot = (head + size - length[node] + length[suffix] - 1) & mask\n            if length[suffix] and self._suffix[slot] == suffix:\n                self._suffix[slot] = 1\n        self._count[node] += 1\n\n    def append(self, symbol):\n        self._push(symbol, False)\n\n    def appendleft(self, symbol):\n        self._push(symbol, True)\n\n    def _pop(self, front):\n        size = self._size\n        if not size:\n            raise IndexError(\"pop from an empty palindromic deque\")\n        head = self._head\n        mask = self._mask\n        length = self._length\n        slot = head if front else (head + size - 1) & mask\n        node = self._prefix[slot] if front else self._suffix[slot]\n        symbol = self._data[slot]\n        suffix = self._link[node]\n        if front:\n            start = (head + length[node] - length[suffix]) & mask\n            end = (head + length[node] - 1) & mask\n            if length[node] >= 2 and length[self._prefix[start]] < length[suffix]:\n                self._prefix[start] = self._suffix[end] = suffix\n            else:\n                self._suffix[end] = 1\n            self._head = (head + 1) & mask\n        else:\n            start = (head + size - length[node]) & mask\n            end = (head + size - length[node] + length[suffix] - 1) & mask\n            if length[node] >= 2 and length[self._suffix[end]] < length[suffix]:\n                self._suffix[end] = self._prefix[start] = suffix\n            else:\n                self._prefix[start] = 1\n        self._count[node] -= 1\n        if self._count[node] == 0 and self._children[node] == 0:\n            del self._edges[self._parent[node], symbol]\n            self._children[suffix] -= 1\n            self._free.append(node)\n            self._distinct -= 1\n        self._data[slot] = None\n        self._prefix[slot] = self._suffix[slot] = 1\n        self._size -= 1\n        return symbol\n\n    def pop(self):\n        return self._pop(False)\n\n    def popleft(self):\n        return self._pop(True)\n\n    def query(self):\n        if not self._size:\n            return 0, 0, 0\n        return self._distinct, self._length[self._prefix[self._head]], self._length[self._suffix[(self._head + self._size - 1) & self._mask]]\n\n    def tolist(self):\n        return [self._data[(self._head + i) & self._mask] for i in range(self._size)]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"DequePalindromicTree(\" + repr(self.tolist()) + \")\"\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 12
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "DequePalindromicTree",
+          "summary": "文字列や整数列の両端を更新し、現在含まれる異なる回文の数と最長回文接頭辞・接尾辞を保つ。回文は連続部分列に限る。",
+          "description": "文字列や整数列の両端を更新し、現在含まれる異なる回文の数と最長回文接頭辞・接尾辞を保つ。回文は連続部分列に限る。",
+          "searchTerms": [
+            "DequePalindromicTree",
+            "Deque Palindromic Tree",
+            "DequePalindromicTree(sequence=())"
+          ],
+          "constructor": "DequePalindromicTree(sequence=())",
+          "constructorArguments": "sequence: hash可能な要素の反復可能オブジェクト。str・bytes・整数列など。省略時は空。入力は変更しない。省略時: ()",
+          "constructorArgumentDetails": [
+            {
+              "name": "sequence",
+              "description": "ハッシュ可能な要素の反復可能オブジェクト。str・bytes・整数列など。省略時は空。入力は変更しない。省略時は ()"
+            }
+          ],
+          "constructorReturns": "DequePalindromicTree instance",
+          "constructorReturnFormat": "DequePalindromicTree",
+          "constructorReturnDescription": "sequenceと同じ並びの列。append・appendleftで追加し、pop・popleftで削除する。queryは回文の種類数・最長接頭辞長・最長接尾辞長を返す。",
+          "constructorCreates": "sequenceと同じ並びの列。append・appendleftで追加し、pop・popleftで削除する。queryは回文の種類数・最長接頭辞長・最長接尾辞長を返す。",
+          "constructorComplexity": "期待O(N log(N+2)+1)時間、O(N+1)領域。Nは初期列の長さ。hash・等値比較1回をO(1)とする",
+          "constructorSourceLine": 11,
+          "methods": [
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "現在保持する列の長さを取得する。",
+              "description": "現在保持する列の長さを取得する。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 列の要素数。内部の回文ノード数ではない。",
+              "returnFormat": "int",
+              "returnDescription": "列の要素数。内部の回文ノード数ではない。",
+              "complexity": "O(1)",
+              "sourceLine": 28
+            },
+            {
+              "name": "distinct_count",
+              "kind": "property",
+              "signature": "distinct_count",
+              "summary": "現在の列に現れる、異なる非空回文の種類数を取得する。",
+              "description": "現在の列に現れる、異なる非空回文の種類数を取得する。",
+              "searchTerms": [
+                "distinct_count",
+                "distinct count"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 同じ内容の回文は出現位置が違っても1種類と数える。空の列では0。",
+              "returnFormat": "int",
+              "returnDescription": "同じ内容の回文は出現位置が違っても1種類と数える。空の列では0。",
+              "complexity": "O(1)",
+              "sourceLine": 32
+            },
+            {
+              "name": "longest_prefix",
+              "kind": "property",
+              "signature": "longest_prefix",
+              "summary": "先頭から始まる最長の回文の長さを取得する。",
+              "description": "先頭から始まる最長の回文の長さを取得する。",
+              "searchTerms": [
+                "longest_prefix",
+                "longest prefix"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 回文となる接頭辞の最大の長さ。空の列では0。",
+              "returnFormat": "int",
+              "returnDescription": "回文となる接頭辞の最大の長さ。空の列では0。",
+              "complexity": "O(1)",
+              "sourceLine": 36
+            },
+            {
+              "name": "longest_suffix",
+              "kind": "property",
+              "signature": "longest_suffix",
+              "summary": "末尾で終わる最長の回文の長さを取得する。",
+              "description": "末尾で終わる最長の回文の長さを取得する。",
+              "searchTerms": [
+                "longest_suffix",
+                "longest suffix"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 回文となる接尾辞の最大の長さ。空の列では0。",
+              "returnFormat": "int",
+              "returnDescription": "回文となる接尾辞の最大の長さ。空の列では0。",
+              "complexity": "O(1)",
+              "sourceLine": 40
+            },
+            {
+              "name": "append",
+              "kind": "method",
+              "signature": "append(symbol)",
+              "summary": "列の末尾へ1要素追加し、回文の情報を更新する。",
+              "description": "列の末尾へ1要素追加し、回文の情報を更新する。",
+              "searchTerms": [
+                "append",
+                "append(symbol)"
+              ],
+              "arguments": "symbol: 追加するhash可能な1要素。格納中はhash値と等値比較の意味を変えない。strなら1文字ずつ、bytesなら整数を渡す。",
+              "argumentDetails": [
+                {
+                  "name": "symbol",
+                  "description": "追加するhash可能な1要素。格納中はhash値と等値比較の意味を変えない。strなら1文字ずつ、bytesなら整数を渡す。"
+                }
+              ],
+              "returns": "None — 末尾へsymbolを追加した状態になる。",
+              "returnFormat": "None",
+              "returnDescription": "末尾へsymbolを追加した状態になる。",
+              "complexity": "償却期待O(log(L+2))。Lはこれまでの列の最大長。hash・等値比較1回をO(1)とする",
+              "sourceLine": 140
+            },
+            {
+              "name": "appendleft",
+              "kind": "method",
+              "signature": "appendleft(symbol)",
+              "summary": "列の先頭へ1要素追加し、回文の情報を更新する。",
+              "description": "列の先頭へ1要素追加し、回文の情報を更新する。",
+              "searchTerms": [
+                "appendleft",
+                "appendleft(symbol)"
+              ],
+              "arguments": "symbol: 追加するhash可能な1要素。格納中はhash値と等値比較の意味を変えない。strなら1文字ずつ、bytesなら整数を渡す。",
+              "argumentDetails": [
+                {
+                  "name": "symbol",
+                  "description": "追加するhash可能な1要素。格納中はhash値と等値比較の意味を変えない。strなら1文字ずつ、bytesなら整数を渡す。"
+                }
+              ],
+              "returns": "None — 先頭へsymbolを追加した状態になる。",
+              "returnFormat": "None",
+              "returnDescription": "先頭へsymbolを追加した状態になる。",
+              "complexity": "償却期待O(log(L+2))。Lはこれまでの列の最大長。hash・等値比較1回をO(1)とする",
+              "sourceLine": 143
+            },
+            {
+              "name": "pop",
+              "kind": "method",
+              "signature": "pop()",
+              "summary": "末尾の1要素を削除し、回文の情報を更新する。",
+              "description": "末尾の1要素を削除し、回文の情報を更新する。",
+              "searchTerms": [
+                "pop",
+                "pop()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — 削除した末尾要素。空の列ではIndexError。",
+              "returnFormat": "object",
+              "returnDescription": "削除した末尾要素。空の列ではIndexError。",
+              "complexity": "償却期待O(1)。hash・等値比較1回をO(1)とする",
+              "sourceLine": 183
+            },
+            {
+              "name": "popleft",
+              "kind": "method",
+              "signature": "popleft()",
+              "summary": "先頭の1要素を削除し、回文の情報を更新する。",
+              "description": "先頭の1要素を削除し、回文の情報を更新する。",
+              "searchTerms": [
+                "popleft",
+                "popleft()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — 削除した先頭要素。空の列ではIndexError。",
+              "returnFormat": "object",
+              "returnDescription": "削除した先頭要素。空の列ではIndexError。",
+              "complexity": "償却期待O(1)。hash・等値比較1回をO(1)とする",
+              "sourceLine": 186
+            },
+            {
+              "name": "query",
+              "kind": "method",
+              "signature": "query()",
+              "summary": "回文の種類数と、最長回文接頭辞・接尾辞の長さをまとめて取得する。",
+              "description": "回文の種類数と、最長回文接頭辞・接尾辞の長さをまとめて取得する。",
+              "searchTerms": [
+                "query",
+                "query()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "tuple[int, int, int] — (count, prefix_length, suffix_length)。空の列では(0,0,0)。",
+              "returnFormat": "tuple[int, int, int]",
+              "returnDescription": "(count, prefix_length, suffix_length)。空の列では(0,0,0)。",
+              "complexity": "O(1)",
+              "sourceLine": 189,
+              "returnParts": [
+                {
+                  "name": "count",
+                  "format": "int",
+                  "description": "異なる非空回文の種類数。"
+                },
+                {
+                  "name": "prefix_length",
+                  "format": "int",
+                  "description": "最長の回文接頭辞の長さ。"
+                },
+                {
+                  "name": "suffix_length",
+                  "format": "int",
+                  "description": "最長の回文接尾辞の長さ。"
+                }
+              ]
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "現在の列を先頭から末尾の順で取り出す。",
+              "description": "現在の列を先頭から末尾の順で取り出す。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[object] — 長さlen(self)の新しいlist。要素自体はコピーしない。listの追加・削除では元の列は変わらない。",
+              "returnFormat": "list[object]",
+              "returnDescription": "長さlen(self)の新しいlist。要素自体はコピーしない。listの追加・削除では元の列は変わらない。",
+              "complexity": "O(N)。Nは現在の列の長さ",
+              "sourceLine": 194
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の列を先頭から末尾の順で表示する。",
+              "description": "現在の列を先頭から末尾の順で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じlistの文字列表現。状態は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じlistの文字列表現。状態は変更しない。",
+              "complexity": "O(N)と各要素の文字列化。Nは現在の列の長さ",
+              "sourceLine": 197
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名と現在の列を表示する。",
+              "description": "型名と現在の列を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — DequePalindromicTree([...])の形式。状態は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "DequePalindromicTree([...])の形式。状態は変更しない。",
+              "complexity": "O(N)と各要素の文字列化。Nは現在の列の長さ",
+              "sourceLine": 200
             }
           ]
         }

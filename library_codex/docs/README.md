@@ -66,7 +66,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 21 | 23 | 25 | 124 |
 | [tree_query](api/tree_query/README.md) | path・部分木上の静的検索 | 3 | 0 | 3 | 15 |
-| [string](api/string/README.md) | 文字列アルゴリズム | 20 | 29 | 21 | 232 |
+| [string](api/string/README.md) | 文字列アルゴリズム | 21 | 29 | 22 | 244 |
 | [string_sequence](api/string_sequence/README.md) | 編集距離・巡回shift・Lyndon分解・共通substring | 4 | 5 | 0 | 0 |
 | [optimization](api/optimization/README.md) | 最適化・DP高速化 | 17 | 16 | 10 | 51 |
 | [geometry](api/geometry/README.md) | 幾何・2次元点 | 15 | 23 | 1 | 2 |
@@ -74,4 +74,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **364 modules / 505 functions / 223 classes / 1392 methods・properties**。
+合計: **365 modules / 505 functions / 224 classes / 1404 methods・properties**。

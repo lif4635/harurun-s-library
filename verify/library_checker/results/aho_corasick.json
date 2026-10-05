@@ -1,0 +1,453 @@
+{
+  "problem": "aho_corasick",
+  "status": "local_passed",
+  "verificationKey": "4cc99ab5b840047e41ac1525ccd13cca4701ce1f5553ed5f0d2534968f6778c0",
+  "sourceSha256": "bc0148b57875bbefc21fc3759950e6a7ce1934525359c07aee59196acbe88f27",
+  "modules": [
+    "library_codex.string.Trie",
+    "library_codex.string.AhoCorasick"
+  ],
+  "problemVersion": "a0bfc0b28023544bbcd7662eb4875d4df6ca49de8f70dba07dd815eea8fd661b",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 72,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.059423167986096814,
+      "diagnostic": "ok 11 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.052628692996222526,
+      "diagnostic": "ok 10 tokens\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05186623698682524,
+      "diagnostic": "ok 20 tokens\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.05412948099547066,
+      "diagnostic": "ok 16 tokens\n"
+    },
+    {
+      "name": "bfs_00",
+      "status": "AC",
+      "seconds": 0.09727385101723485,
+      "diagnostic": "ok 4240 tokens\n"
+    },
+    {
+      "name": "bfs_01",
+      "status": "AC",
+      "seconds": 0.282274094002787,
+      "diagnostic": "ok 212068 tokens\n"
+    },
+    {
+      "name": "bfs_02",
+      "status": "AC",
+      "seconds": 0.5074426089995541,
+      "diagnostic": "ok 420772 tokens\n"
+    },
+    {
+      "name": "bfs_03",
+      "status": "AC",
+      "seconds": 0.714436365000438,
+      "diagnostic": "ok 764254 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.365415532985935,
+      "diagnostic": "ok 1000005 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.25735028099734336,
+      "diagnostic": "ok 666814 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.4871293150063138,
+      "diagnostic": "ok 1202657 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 2.436876981984824,
+      "diagnostic": "ok 1538498 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 1.747300771996379,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 1.4438272160186898,
+      "diagnostic": "ok 2000001 tokens\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 1.5872601789887995,
+      "diagnostic": "ok 1999969 tokens\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 1.5668469759984873,
+      "diagnostic": "ok 1999687 tokens\n"
+    },
+    {
+      "name": "random_08",
+      "status": "AC",
+      "seconds": 0.37248609599191695,
+      "diagnostic": "ok 1000053 tokens\n"
+    },
+    {
+      "name": "random_09",
+      "status": "AC",
+      "seconds": 0.2607713409815915,
+      "diagnostic": "ok 666500 tokens\n"
+    },
+    {
+      "name": "random_10",
+      "status": "AC",
+      "seconds": 0.7228330119978637,
+      "diagnostic": "ok 524133 tokens\n"
+    },
+    {
+      "name": "random_11",
+      "status": "AC",
+      "seconds": 2.842458684986923,
+      "diagnostic": "ok 1926725 tokens\n"
+    },
+    {
+      "name": "random_12",
+      "status": "AC",
+      "seconds": 1.421421625011135,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "random_13",
+      "status": "AC",
+      "seconds": 1.4790605119778775,
+      "diagnostic": "ok 2000003 tokens\n"
+    },
+    {
+      "name": "random_14",
+      "status": "AC",
+      "seconds": 1.4111643709766213,
+      "diagnostic": "ok 2000011 tokens\n"
+    },
+    {
+      "name": "random_15",
+      "status": "AC",
+      "seconds": 1.5376904089935124,
+      "diagnostic": "ok 1999029 tokens\n"
+    },
+    {
+      "name": "random_16",
+      "status": "AC",
+      "seconds": 0.3701211450097617,
+      "diagnostic": "ok 1000011 tokens\n"
+    },
+    {
+      "name": "random_17",
+      "status": "AC",
+      "seconds": 0.31620742499944754,
+      "diagnostic": "ok 667681 tokens\n"
+    },
+    {
+      "name": "random_18",
+      "status": "AC",
+      "seconds": 0.1739320780034177,
+      "diagnostic": "ok 185818 tokens\n"
+    },
+    {
+      "name": "random_19",
+      "status": "AC",
+      "seconds": 2.6476858139794786,
+      "diagnostic": "ok 1812645 tokens\n"
+    },
+    {
+      "name": "random_20",
+      "status": "AC",
+      "seconds": 1.266081078996649,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "random_21",
+      "status": "AC",
+      "seconds": 1.40885687500122,
+      "diagnostic": "ok 1999995 tokens\n"
+    },
+    {
+      "name": "random_22",
+      "status": "AC",
+      "seconds": 1.4124120099877473,
+      "diagnostic": "ok 1999991 tokens\n"
+    },
+    {
+      "name": "random_23",
+      "status": "AC",
+      "seconds": 1.521236160013359,
+      "diagnostic": "ok 1999939 tokens\n"
+    },
+    {
+      "name": "short_period_00",
+      "status": "AC",
+      "seconds": 1.4186646130110603,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "short_period_01",
+      "status": "AC",
+      "seconds": 0.8504038339888211,
+      "diagnostic": "ok 1073911 tokens\n"
+    },
+    {
+      "name": "short_period_02",
+      "status": "AC",
+      "seconds": 1.258083416003501,
+      "diagnostic": "ok 1517275 tokens\n"
+    },
+    {
+      "name": "short_period_03",
+      "status": "AC",
+      "seconds": 0.22380506800254807,
+      "diagnostic": "ok 191731 tokens\n"
+    },
+    {
+      "name": "short_period_04",
+      "status": "AC",
+      "seconds": 1.513828980998369,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "short_period_05",
+      "status": "AC",
+      "seconds": 1.4510862450115383,
+      "diagnostic": "ok 2000003 tokens\n"
+    },
+    {
+      "name": "short_period_06",
+      "status": "AC",
+      "seconds": 0.5247478249948472,
+      "diagnostic": "ok 745339 tokens\n"
+    },
+    {
+      "name": "short_period_07",
+      "status": "AC",
+      "seconds": 0.21172572200885043,
+      "diagnostic": "ok 214261 tokens\n"
+    },
+    {
+      "name": "short_period_08",
+      "status": "AC",
+      "seconds": 1.3714812270191032,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "short_period_09",
+      "status": "AC",
+      "seconds": 1.3666911649925169,
+      "diagnostic": "ok 2000003 tokens\n"
+    },
+    {
+      "name": "short_period_10",
+      "status": "AC",
+      "seconds": 0.6760763890051749,
+      "diagnostic": "ok 1002235 tokens\n"
+    },
+    {
+      "name": "short_period_11",
+      "status": "AC",
+      "seconds": 0.4136316079820972,
+      "diagnostic": "ok 524599 tokens\n"
+    },
+    {
+      "name": "short_period_12",
+      "status": "AC",
+      "seconds": 1.3348820050014183,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "short_period_13",
+      "status": "AC",
+      "seconds": 1.3333221110224258,
+      "diagnostic": "ok 2000003 tokens\n"
+    },
+    {
+      "name": "short_period_14",
+      "status": "AC",
+      "seconds": 1.3880365889926907,
+      "diagnostic": "ok 1979003 tokens\n"
+    },
+    {
+      "name": "short_period_15",
+      "status": "AC",
+      "seconds": 1.1693794240127318,
+      "diagnostic": "ok 1613127 tokens\n"
+    },
+    {
+      "name": "fibonacci_00",
+      "status": "AC",
+      "seconds": 1.3191662879835349,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "fibonacci_01",
+      "status": "AC",
+      "seconds": 1.3963063920091372,
+      "diagnostic": "ok 2000003 tokens\n"
+    },
+    {
+      "name": "fibonacci_02",
+      "status": "AC",
+      "seconds": 1.4204758720006794,
+      "diagnostic": "ok 1999749 tokens\n"
+    },
+    {
+      "name": "fibonacci_03",
+      "status": "AC",
+      "seconds": 1.4995127149741165,
+      "diagnostic": "ok 1969933 tokens\n"
+    },
+    {
+      "name": "fibonacci_04",
+      "status": "AC",
+      "seconds": 1.3165184159879573,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "fibonacci_05",
+      "status": "AC",
+      "seconds": 1.4521129290224053,
+      "diagnostic": "ok 1999995 tokens\n"
+    },
+    {
+      "name": "fibonacci_06",
+      "status": "AC",
+      "seconds": 1.6429123230045661,
+      "diagnostic": "ok 1998771 tokens\n"
+    },
+    {
+      "name": "fibonacci_07",
+      "status": "AC",
+      "seconds": 1.568755237996811,
+      "diagnostic": "ok 1956503 tokens\n"
+    },
+    {
+      "name": "fibonacci_08",
+      "status": "AC",
+      "seconds": 1.2826860480126925,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "fibonacci_09",
+      "status": "AC",
+      "seconds": 1.4406761189748067,
+      "diagnostic": "ok 1999993 tokens\n"
+    },
+    {
+      "name": "fibonacci_10",
+      "status": "AC",
+      "seconds": 1.554151162999915,
+      "diagnostic": "ok 1998871 tokens\n"
+    },
+    {
+      "name": "fibonacci_11",
+      "status": "AC",
+      "seconds": 1.4869131069863215,
+      "diagnostic": "ok 1951627 tokens\n"
+    },
+    {
+      "name": "fibonacci_12",
+      "status": "AC",
+      "seconds": 1.308913112996379,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "fibonacci_13",
+      "status": "AC",
+      "seconds": 1.3908235740091186,
+      "diagnostic": "ok 2000003 tokens\n"
+    },
+    {
+      "name": "fibonacci_14",
+      "status": "AC",
+      "seconds": 1.503290937980637,
+      "diagnostic": "ok 1999959 tokens\n"
+    },
+    {
+      "name": "fibonacci_15",
+      "status": "AC",
+      "seconds": 1.5037100650079083,
+      "diagnostic": "ok 1961947 tokens\n"
+    },
+    {
+      "name": "almost_single_00",
+      "status": "AC",
+      "seconds": 1.2666947250254452,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "almost_single_01",
+      "status": "AC",
+      "seconds": 1.305571246019099,
+      "diagnostic": "ok 2000001 tokens\n"
+    },
+    {
+      "name": "almost_single_02",
+      "status": "AC",
+      "seconds": 1.3336831989872735,
+      "diagnostic": "ok 1999973 tokens\n"
+    },
+    {
+      "name": "almost_single_03",
+      "status": "AC",
+      "seconds": 1.1613581359852105,
+      "diagnostic": "ok 1542841 tokens\n"
+    },
+    {
+      "name": "almost_single_04",
+      "status": "AC",
+      "seconds": 1.3130774949968327,
+      "diagnostic": "ok 2000002 tokens\n"
+    },
+    {
+      "name": "almost_single_05",
+      "status": "AC",
+      "seconds": 1.3611310760024935,
+      "diagnostic": "ok 2000001 tokens\n"
+    },
+    {
+      "name": "almost_single_06",
+      "status": "AC",
+      "seconds": 1.3344163979927544,
+      "diagnostic": "ok 1893505 tokens\n"
+    },
+    {
+      "name": "almost_single_07",
+      "status": "AC",
+      "seconds": 1.210016582015669,
+      "diagnostic": "ok 1382831 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:51:09.336230+00:00",
+  "onlineSubmission": null
+}

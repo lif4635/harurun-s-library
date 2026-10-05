@@ -1,0 +1,135 @@
+{
+  "problem": "wildcard_pattern_matching",
+  "status": "local_passed",
+  "verificationKey": "26eb439429c56bbdb5f890790ff00407f712d0bf205b4958173add5486c5a6f2",
+  "sourceSha256": "ab9b3073c7b8055ecf9147f28f5a9156052a902f0c77f50d17d262690e9d0076",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.string.WildcardPatternMatching"
+  ],
+  "problemVersion": "74377342c5a3e56e281a5953e4263e5a6a80091099cfe8b25909ae9d6a73c809",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 19,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.061311201978242025,
+      "diagnostic": "ok \"10111011\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.8452397149812896,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.8641271500091534,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.17431168298935518,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.4822710510052275,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.4734293509973213,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "random_ab_00",
+      "status": "AC",
+      "seconds": 0.7813657649967354,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "random_ab_01",
+      "status": "AC",
+      "seconds": 0.8146797569934279,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "random_ab_02",
+      "status": "AC",
+      "seconds": 0.1621345590101555,
+      "diagnostic": "ok \"000100000000001101100100100000...0000001110100000000000011101010\"\n"
+    },
+    {
+      "name": "random_ab_03",
+      "status": "AC",
+      "seconds": 0.4588245589984581,
+      "diagnostic": "ok \"101000001001011010000000010001...0000000010111100011111001001000\"\n"
+    },
+    {
+      "name": "random_ab_04",
+      "status": "AC",
+      "seconds": 0.4353321320086252,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "alternating_00",
+      "status": "AC",
+      "seconds": 0.71544736699434,
+      "diagnostic": "ok \"111111111111111111111111111111...0101010101010101010101010101010\"\n"
+    },
+    {
+      "name": "alternating_01",
+      "status": "AC",
+      "seconds": 0.7347824870084878,
+      "diagnostic": "ok \"010101010101010101010101010101...1010101010101010101010101010101\"\n"
+    },
+    {
+      "name": "alternating_02",
+      "status": "AC",
+      "seconds": 0.15235981697333045,
+      "diagnostic": "ok \"111111111111111111111111111111...1111111111111111111111111111111\"\n"
+    },
+    {
+      "name": "alternating_03",
+      "status": "AC",
+      "seconds": 0.414756029000273,
+      "diagnostic": "ok \"010101010101010101010101010101...0101010101010101010101010101010\"\n"
+    },
+    {
+      "name": "alternating_04",
+      "status": "AC",
+      "seconds": 0.3988632030086592,
+      "diagnostic": "ok \"010101010101010101010101010101...1010101010101010101010101010101\"\n"
+    },
+    {
+      "name": "hack_998244353_00",
+      "status": "AC",
+      "seconds": 0.8725552429968957,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "hack_998244353_01",
+      "status": "AC",
+      "seconds": 0.8761136700049974,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "hack_998244353_02",
+      "status": "AC",
+      "seconds": 0.8574767659883946,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:54:53.097362+00:00",
+  "onlineSubmission": null
+}

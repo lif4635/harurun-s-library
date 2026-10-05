@@ -17,9 +17,9 @@
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
 - 前回のPyPy全検証: 823 passed（2026-10-05、`c3e4f21`）。
-- 今回のPyPy quickは144件成功。性能検査は未変更のCSR Dijkstraが初回1.046倍で基準1.050倍を下回り、基準を変えない1回の再測定では1.164倍で全項目通過。[記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)を参照。full検査は今回再実行していない。
+- 今回のPyPy quickは144件、文字列・公式検査runnerの関連テストは66件成功。通常の性能回帰検査も通過。full検査は今回再実行していない。[文字列6問題の記録](docs/STRING_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
 - 再帰監査: direct/mutual recursion なし（2026-10-05）
-- Library Checker公式ケース: 130問題・2899ケース通過、未対応123問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- Library Checker公式ケース: 136問題・3073ケース通過、未対応117問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 
