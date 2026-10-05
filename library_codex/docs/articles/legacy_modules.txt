@@ -228,7 +228,6 @@ range_query/StaticRangeGroup
 range_query/StaticRMQ
 range_query/WaveletMatrix
 rational/Digamma
-rational/FractionSearch
 rational/InverseSum
 rational/RationalFormalPowerSeries
 rational/RationalNumberSearch

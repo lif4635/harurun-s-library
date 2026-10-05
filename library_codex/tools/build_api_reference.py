@@ -101,7 +101,10 @@ MODULE_OVERRIDES = {
     "combinatorics/BinomialQueries.py": ("二項係数prefix和と巨大添字Stirlingの一括query", "Mo法 / 補間依存"),
     "number_theory/Elementary.py": ("gcd・lcm・整数根など初等数学関数", "各標準計算量"),
     "number_theory/FloorPolynomialSum.py": ("floorを含む多項式和", "Euclid pathと次数依存"),
-    "rational/FractionSearch.py": ("Stern--Brocot/Farey型の有理数探索", "探索深さ依存"),
+    "rational/FractionSearch.py": (
+        "分子・分母の上限内で、有理数や単調な条件を挟む分数を求める",
+        "有理数の近似 O(log(max(x,y)+1))、単調判定の探索 O((T+1) log(limit+2))。Tは判定1回の時間",
+    ),
     "number_theory/MultiplicativeFunctions.py": ("乗法的関数・Dirichlet積・Min_25型prefix和", "商集合・素数列挙依存"),
     "game/Nimber.py": ("Conway nimber積・逆元・基底変換", "固定語長 O(1)"),
     "rational/RationalFormalPowerSeries.py": ("有理形式的冪級数の係数・prefix和", "Bostan--Mori依存"),

@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-05T08:52:28+00:00",
+  "generatedAt": "2026-10-05T09:23:10+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "bee24d1088dff479b5f591cfe5e00ca7c292ce8ae87f95977effd462bd4330f5",
-  "inputStamp": "94f8eedec7c5f2352351e155dd1646620c891ac642f9490f4ce4ee4df13d281f",
+  "sourceFingerprint": "f09dfc2dc9d06e57f8fce4fd2272bcabbc5a90a0254d46884b28edca0f5bf417",
+  "inputStamp": "960e05b8a11935df8c765ca2ef5c6cb7d3d6cd3b276039b02ad7164464043fc7",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 367,
-    "articles": 34,
-    "functions": 505,
+    "modules": 368,
+    "articles": 36,
+    "functions": 507,
     "classes": 226,
     "methods": 1428,
     "tests": 869
@@ -241,8 +241,8 @@
       "label": "整数・数論",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 17,
-      "functions": 40,
+      "modules": 18,
+      "functions": 41,
       "classes": 4,
       "methods": 25
     },
@@ -272,7 +272,7 @@
       "domain": "math",
       "domainLabel": "Math",
       "modules": 6,
-      "functions": 3,
+      "functions": 4,
       "classes": 3,
       "methods": 28
     },
@@ -411,7 +411,7 @@
     {
       "slug": "math",
       "label": "Math",
-      "modules": 52
+      "modules": 53
     },
     {
       "slug": "tree",
@@ -42032,6 +42032,84 @@
       "categoryLabel": "整数・数論",
       "domain": "math",
       "domainLabel": "Math",
+      "name": "MinMod",
+      "modulePath": "library_codex.number_theory.MinMod",
+      "summary": "一次式の剰余の最小値を、連続した整数範囲で求める。",
+      "capabilities": [
+        "連続した添字範囲で、一次式を法で割った余りの最小値を対数時間で求める。"
+      ],
+      "article": {
+        "title": "一次式の剰余の最小値",
+        "markdown": "## 主な機能\n\n`min_mod(n, modulus, multiplier, addend)`は、整数`i`を半開区間`[0, n)`で動かしたときの最小の余りを返す。\n\n$$\\min_{0\\le i<n} (\\mathrm{multiplier}\\cdot i+\\mathrm{addend})\\bmod\\mathrm{modulus}$$\n\n全項を列挙せず、除算で範囲を縮める。整数演算を定数時間として`O(log modulus)`時間、追加領域`O(1)`。\n\n## 使い方\n\n```python\nfrom library_codex.number_theory.MinMod import min_mod\n\nanswer = min_mod(4, 13, 5, 7)\nassert answer == 4\n```\n\n余りの列は`[7, 12, 4, 9]`で、返るのは最小値`4`。最小値を取る添字は返さない。\n\n## 仕組み\n\n余りが折り返す直前までの区間では値が増えるので、折り返し直後だけを候補に残す。この候補列も一次式の剰余で表せる。必要なら列を逆順に見て、各反復で法を半分以下へ縮める。\n\n## 注意点\n\n- `n`と`modulus`は正の整数。空の範囲は指定しない。\n- `multiplier`と`addend`は負でもよい。内部で法により正規化する。\n- 返り値は`0`以上`modulus`未満。",
+        "sourcePath": "library_codex/docs/articles/number_theory/MinMod.md"
+      },
+      "searchTerms": [
+        "MinMod",
+        "Min Mod",
+        "library_codex.number_theory.MinMod",
+        "library codex number theory Min Mod",
+        "number_theory/MinMod.py",
+        "整数・数論",
+        "剰余最小値",
+        "一次式の最小剰余"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/number_theory/MinMod.py",
+      "inputFingerprint": "d514981704351a50c4a2789b0c1ccbd7ea89ac0a1bf62d2213611bc94d972035",
+      "importCode": "from library_codex.number_theory.MinMod import min_mod",
+      "sourceCode": "\"\"\"一次式の剰余の最小値を、連続した整数範囲で求める。\"\"\"\n\n\ndef min_mod(n, modulus, multiplier, addend):\n    \"\"\"0<=i<nにおける(multiplier*i+addend)%modulusの最小値。O(log modulus)。\"\"\"\n    if n <= 0 or modulus <= 0:\n        raise ValueError(\"requires n > 0 and modulus > 0\")\n    multiplier %= modulus\n    addend %= modulus\n    answer = addend\n    while True:\n        if multiplier * 2 > modulus:\n            addend = (addend + multiplier * (n - 1)) % modulus\n            multiplier = modulus - multiplier\n        if addend < answer:\n            answer = addend\n        if answer == 0:\n            return 0\n        count = (multiplier * (n - 1) + addend) // modulus\n        if count == 0:\n            return answer\n        addend = (addend - modulus) % multiplier\n        n, modulus, multiplier = count, multiplier, -modulus % multiplier\n",
+      "standaloneCode": "\"\"\"一次式の剰余の最小値を、連続した整数範囲で求める。\"\"\"\n\n\ndef min_mod(n, modulus, multiplier, addend):\n    \"\"\"0<=i<nにおける(multiplier*i+addend)%modulusの最小値。O(log modulus)。\"\"\"\n    if n <= 0 or modulus <= 0:\n        raise ValueError(\"requires n > 0 and modulus > 0\")\n    multiplier %= modulus\n    addend %= modulus\n    answer = addend\n    while True:\n        if multiplier * 2 > modulus:\n            addend = (addend + multiplier * (n - 1)) % modulus\n            multiplier = modulus - multiplier\n        if addend < answer:\n            answer = addend\n        if answer == 0:\n            return 0\n        count = (multiplier * (n - 1) + addend) // modulus\n        if count == 0:\n            return answer\n        addend = (addend - modulus) % multiplier\n        n, modulus, multiplier = count, multiplier, -modulus % multiplier\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "min_mod",
+          "kind": "function",
+          "signature": "min_mod(n, modulus, multiplier, addend)",
+          "summary": "半開区間[0, n)の整数iに対する(multiplier*i+addend)%modulusの最小値を求める。",
+          "description": "半開区間[0, n)の整数iに対する(multiplier*i+addend)%modulusの最小値を求める。",
+          "searchTerms": [
+            "min_mod",
+            "min mod",
+            "min_mod(n, modulus, multiplier, addend)"
+          ],
+          "arguments": "n: 調べる項数。正の整数。 · modulus: 剰余の法。正の整数。 · multiplier: iに掛ける整数。負でもよい。 · addend: 各項へ加える整数。負でもよい。",
+          "argumentDetails": [
+            {
+              "name": "n",
+              "description": "調べる項数。正の整数。"
+            },
+            {
+              "name": "modulus",
+              "description": "剰余の法。正の整数。"
+            },
+            {
+              "name": "multiplier",
+              "description": "iに掛ける整数。負でもよい。"
+            },
+            {
+              "name": "addend",
+              "description": "各項へ加える整数。負でもよい。"
+            }
+          ],
+          "returns": "int — 0以上modulus未満の最小の余り。最小値を取る添字は返さない。",
+          "returnFormat": "int",
+          "returnDescription": "0以上modulus未満の最小の余り。最小値を取る添字は返さない。",
+          "complexity": "O(log(modulus+1))時間、O(1)追加領域。整数演算をO(1)とする",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "number_theory",
+      "categoryLabel": "整数・数論",
+      "domain": "math",
+      "domainLabel": "Math",
       "name": "ModularArithmetic",
       "modulePath": "library_codex.number_theory.ModularArithmetic",
       "summary": "Tonelli--Shanks平方根・拡張BSGS離散対数。",
@@ -47566,11 +47644,16 @@
       "domainLabel": "Math",
       "name": "FractionSearch",
       "modulePath": "library_codex.rational.FractionSearch",
-      "summary": "Stern--Brocot/Farey型の有理数探索。",
+      "summary": "分子・分母の上限内で、有理数や単調な条件を挟む分数を求める。",
       "capabilities": [
-        "stern_brocot_binary_search: stern brocot binary searchを求める。"
+        "分子・分母の上限を守り、指定した正の有理数を上下から最も近い分数で挟む。",
+        "分数の大小に関して単調な判定条件の境界を探す。"
       ],
-      "article": null,
+      "article": {
+        "title": "上限付きの分数近似と境界探索",
+        "markdown": "## 主な機能\n\n分子・分母がどちらも`limit`以下の正の既約分数から、条件の境界を挟む2つを求める。\n\n- `rational_bounds(numerator, denominator, limit)`は、指定した有理数以下で最大の分数と、以上で最小の分数を返す。整数演算を定数時間として`O(log(max(numerator, denominator)+1))`時間、追加領域`O(1)`。\n- `stern_brocot_binary_search(predicate, limit)`は、分数が増えると`False`から`True`へ変わる条件の境界を探す。判定1回を`T`として`O((T+1) log(limit+2))`時間。\n\n分数そのものが分かっている場合は`rational_bounds`を使う。比較関数の呼び出しや、同じ方向への移動量を二分探索する処理を省ける。\n\n## 使い方\n\n```python\nfrom library_codex.rational.FractionSearch import rational_bounds, stern_brocot_binary_search\n\nlower, upper = rational_bounds(7, 5, 4)\nassert (lower, upper) == ((4, 3), (3, 2))\n\nlower, upper = rational_bounds(14, 21, 3)\nassert lower == upper == (2, 3)\n\nlower, upper = stern_brocot_binary_search(lambda f: f[0] ** 2 >= 2 * f[1] ** 2, 4)\nassert (lower, upper) == ((4, 3), (3, 2))\n```\n\n- `lower`: 下側の分数。`(分子, 分母)`のtuple。\n- `upper`: 上側の分数。同じ形式。\n- 候補に下側が存在しなければ`(0, 1)`、上側が存在しなければ`(1, 0)`を返す。後者は正の無限大を表す。\n\n## 注意点\n\n- `rational_bounds`の対象は正の有理数。分子・分母・`limit`はすべて1以上。\n- 対象の既約分数が上限内なら、`rational_bounds`は上下に同じ分数を返す。\n- `predicate`は`(分子, 分母)`を受け取る。境界と等しい値を`True`にするかは利用側で決める。\n- `stern_brocot_binary_search`で`predicate((0, 1))`が`True`なら上下とも`(0, 1)`。`limit=0`なら判定を呼ばず`((0, 1), (1, 0))`を返す。",
+        "sourcePath": "library_codex/docs/articles/rational/FractionSearch.md"
+      },
       "searchTerms": [
         "FractionSearch",
         "Fraction Search",
@@ -47579,48 +47662,80 @@
         "rational/FractionSearch.py",
         "有理数・数値"
       ],
-      "complexity": "探索深さ依存",
+      "complexity": "有理数の近似 O(log(max(x,y)+1))、単調判定の探索 O((T+1) log(limit+2))。Tは判定1回の時間",
       "sourcePath": "library_codex/rational/FractionSearch.py",
-      "inputFingerprint": "3113805c5b2a804614791dff0f511b08163a0b5890e4cd54641c75a55b187dd6",
-      "importCode": "from library_codex.rational.FractionSearch import stern_brocot_binary_search",
-      "sourceCode": "from library_codex.rational.SternBrocotNode import SternBrocotNode\n\n\ndef stern_brocot_binary_search(predicate, limit):\n    \"\"\"Bracket a monotone predicate among reduced nonnegative fractions.\"\"\"\n    if limit < 0:\n        raise ValueError(\"limit must be nonnegative\")\n    node = SternBrocotNode()\n    if limit == 0:\n        return node.lower_bound(), node.upper_bound()\n    if predicate((0, 1)):\n        return (0, 1), (0, 1)\n\n    def over(return_value):\n        return (max(node.x, node.y) > limit\n                or bool(predicate(node.get())) == return_value)\n\n    go_left = over(True)\n    while True:\n        if go_left:\n            amount = 1\n            while True:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_left(1)\n            if max(node.x, node.y) > limit:\n                return node.lower_bound(), node.upper_bound()\n        else:\n            amount = 1\n            while True:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_right(1)\n            if max(node.x, node.y) > limit:\n                return node.lower_bound(), node.upper_bound()\n        go_left = not go_left\n\n\nbinary_search_on_stern_brocot_tree = stern_brocot_binary_search\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: rational/SternBrocotNode.py\n\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n    __slots__ = ('lx', 'ly', 'x', 'y', 'rx', 'ry', 'path', '_depth')\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        (self.lx, self.ly) = (0, 1)\n        (self.x, self.y) = (1, 1)\n        (self.rx, self.ry) = (1, 0)\n        self.path = []\n        self._depth = 0\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError('path runs must be nonzero')\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError('fraction must be positive')\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return (self.x, self.y)\n\n    def lower_bound(self):\n        return (self.lx, self.ly)\n\n    def upper_bound(self):\n        return (self.rx, self.ry)\n\n    def depth(self):\n        return self._depth\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self._depth:\n            return False\n        self._depth -= steps\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for (left, right) in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n\n# 本体\ndef stern_brocot_binary_search(predicate, limit):\n    \"\"\"Bracket a monotone predicate among reduced nonnegative fractions.\"\"\"\n    if limit < 0:\n        raise ValueError('limit must be nonnegative')\n    node = SternBrocotNode()\n    if limit == 0:\n        return (node.lower_bound(), node.upper_bound())\n    if predicate((0, 1)):\n        return ((0, 1), (0, 1))\n\n    def over(return_value):\n        return max(node.x, node.y) > limit or bool(predicate(node.get())) == return_value\n    go_left = over(True)\n    while True:\n        if go_left:\n            amount = 1\n            while True:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_left(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        else:\n            amount = 1\n            while True:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_right(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        go_left = not go_left\nbinary_search_on_stern_brocot_tree = stern_brocot_binary_search\n",
+      "inputFingerprint": "440b4992e06f8a2464dc6114a7146052548b8a5e9554394031b2955602bca06a",
+      "importCode": "from library_codex.rational.FractionSearch import rational_bounds, stern_brocot_binary_search",
+      "sourceCode": "\"\"\"分子・分母の上限内で、数値や単調な判定条件を挟む既約分数を求める。\"\"\"\n\nfrom library_codex.rational.SternBrocotNode import SternBrocotNode\n\n\ndef rational_bounds(numerator, denominator, limit):\n    \"\"\"分子・分母がlimit以下の分数で、正の有理数を上下から挟む。\"\"\"\n    if numerator <= 0 or denominator <= 0 or limit < 1:\n        raise ValueError(\"requires a positive fraction and limit >= 1\")\n    a, b, c, d = 0, 1, 1, 0\n    lower_error, upper_error = numerator, denominator\n    while a + c <= limit and b + d <= limit:\n        if lower_error == upper_error:\n            exact = a + c, b + d\n            return exact, exact\n        if lower_error > upper_error:\n            steps = (lower_error - 1) // upper_error\n            if c:\n                steps = min(steps, (limit - a) // c)\n            if d:\n                steps = min(steps, (limit - b) // d)\n            a += steps * c\n            b += steps * d\n            lower_error -= steps * upper_error\n        else:\n            steps = (upper_error - 1) // lower_error\n            if a:\n                steps = min(steps, (limit - c) // a)\n            if b:\n                steps = min(steps, (limit - d) // b)\n            c += steps * a\n            d += steps * b\n            upper_error -= steps * lower_error\n    return (a, b), (c, d)\n\n\ndef stern_brocot_binary_search(predicate, limit):\n    \"\"\"Bracket a monotone predicate among reduced nonnegative fractions.\"\"\"\n    if limit < 0:\n        raise ValueError(\"limit must be nonnegative\")\n    node = SternBrocotNode()\n    if limit == 0:\n        return node.lower_bound(), node.upper_bound()\n    if predicate((0, 1)):\n        return (0, 1), (0, 1)\n\n    def over(return_value):\n        return (max(node.x, node.y) > limit\n                or bool(predicate(node.get())) == return_value)\n\n    go_left = over(True)\n    while True:\n        if go_left:\n            amount = 1\n            while True:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_left(1)\n            if max(node.x, node.y) > limit:\n                return node.lower_bound(), node.upper_bound()\n        else:\n            amount = 1\n            while True:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_right(1)\n            if max(node.x, node.y) > limit:\n                return node.lower_bound(), node.upper_bound()\n        go_left = not go_left\n\n\nbinary_search_on_stern_brocot_tree = stern_brocot_binary_search\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: rational/SternBrocotNode.py\n\"\"\"Stern-Brocot木上の有理数と経路を扱う。\"\"\"\nfrom math import gcd\n\nclass SternBrocotNode:\n    \"\"\"A positive reduced rational and its run-length Stern--Brocot path.\"\"\"\n    __slots__ = ('lx', 'ly', 'x', 'y', 'rx', 'ry', 'path', '_depth')\n\n    def __init__(self, numerator=1, denominator=1, path=None):\n        (self.lx, self.ly) = (0, 1)\n        (self.x, self.y) = (1, 1)\n        (self.rx, self.ry) = (1, 0)\n        self.path = []\n        self._depth = 0\n        if path is not None:\n            for step in path:\n                if step > 0:\n                    self.go_right(step)\n                elif step < 0:\n                    self.go_left(-step)\n                else:\n                    raise ValueError('path runs must be nonzero')\n            return\n        if numerator <= 0 or denominator <= 0:\n            raise ValueError('fraction must be positive')\n        divisor = gcd(numerator, denominator)\n        numerator //= divisor\n        denominator //= divisor\n        while numerator != denominator:\n            if numerator > denominator:\n                steps = (numerator - 1) // denominator\n                numerator -= steps * denominator\n                self.go_right(steps)\n            else:\n                steps = (denominator - 1) // numerator\n                denominator -= steps * numerator\n                self.go_left(steps)\n\n    def get(self):\n        return (self.x, self.y)\n\n    def lower_bound(self):\n        return (self.lx, self.ly)\n\n    def upper_bound(self):\n        return (self.rx, self.ry)\n\n    def depth(self):\n        return self._depth\n\n    def go_left(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] > 0:\n            self.path.append(-steps)\n        else:\n            self.path[-1] -= steps\n        self.rx += self.lx * steps\n        self.ry += self.ly * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_right(self, steps=1):\n        if steps <= 0:\n            return self\n        self._depth += steps\n        if not self.path or self.path[-1] < 0:\n            self.path.append(steps)\n        else:\n            self.path[-1] += steps\n        self.lx += self.rx * steps\n        self.ly += self.ry * steps\n        self.x = self.rx + self.lx\n        self.y = self.ry + self.ly\n        return self\n\n    def go_parent(self, steps=1):\n        if steps < 0 or steps > self._depth:\n            return False\n        self._depth -= steps\n        while steps:\n            amount = min(steps, abs(self.path[-1]))\n            if self.path[-1] > 0:\n                self.x -= self.rx * amount\n                self.y -= self.ry * amount\n                self.lx = self.x - self.rx\n                self.ly = self.y - self.ry\n                self.path[-1] -= amount\n            else:\n                self.x -= self.lx * amount\n                self.y -= self.ly * amount\n                self.rx = self.x - self.lx\n                self.ry = self.y - self.ly\n                self.path[-1] += amount\n            steps -= amount\n            if self.path[-1] == 0:\n                self.path.pop()\n        return True\n\n    @staticmethod\n    def lca(first, second):\n        path = []\n        for (left, right) in zip(first.path, second.path):\n            if (left < 0) != (right < 0):\n                break\n            amount = min(abs(left), abs(right))\n            path.append(amount if left > 0 else -amount)\n            if left != right:\n                break\n        return SternBrocotNode(path=path)\n\n# 本体\n\"\"\"分子・分母の上限内で、数値や単調な判定条件を挟む既約分数を求める。\"\"\"\n\ndef rational_bounds(numerator, denominator, limit):\n    \"\"\"分子・分母がlimit以下の分数で、正の有理数を上下から挟む。\"\"\"\n    if numerator <= 0 or denominator <= 0 or limit < 1:\n        raise ValueError('requires a positive fraction and limit >= 1')\n    (a, b, c, d) = (0, 1, 1, 0)\n    (lower_error, upper_error) = (numerator, denominator)\n    while a + c <= limit and b + d <= limit:\n        if lower_error == upper_error:\n            exact = (a + c, b + d)\n            return (exact, exact)\n        if lower_error > upper_error:\n            steps = (lower_error - 1) // upper_error\n            if c:\n                steps = min(steps, (limit - a) // c)\n            if d:\n                steps = min(steps, (limit - b) // d)\n            a += steps * c\n            b += steps * d\n            lower_error -= steps * upper_error\n        else:\n            steps = (upper_error - 1) // lower_error\n            if a:\n                steps = min(steps, (limit - c) // a)\n            if b:\n                steps = min(steps, (limit - d) // b)\n            c += steps * a\n            d += steps * b\n            upper_error -= steps * lower_error\n    return ((a, b), (c, d))\n\ndef stern_brocot_binary_search(predicate, limit):\n    \"\"\"Bracket a monotone predicate among reduced nonnegative fractions.\"\"\"\n    if limit < 0:\n        raise ValueError('limit must be nonnegative')\n    node = SternBrocotNode()\n    if limit == 0:\n        return (node.lower_bound(), node.upper_bound())\n    if predicate((0, 1)):\n        return ((0, 1), (0, 1))\n\n    def over(return_value):\n        return max(node.x, node.y) > limit or bool(predicate(node.get())) == return_value\n    go_left = over(True)\n    while True:\n        if go_left:\n            amount = 1\n            while True:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_left(amount)\n                if over(False):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_left(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        else:\n            amount = 1\n            while True:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                    break\n                amount <<= 1\n            amount >>= 1\n            while amount:\n                node.go_right(amount)\n                if over(True):\n                    node.go_parent(amount)\n                amount >>= 1\n            node.go_right(1)\n            if max(node.x, node.y) > limit:\n                return (node.lower_bound(), node.upper_bound())\n        go_left = not go_left\nbinary_search_on_stern_brocot_tree = stern_brocot_binary_search\n",
       "bundledDependencies": [
         "library_codex.rational.SternBrocotNode"
       ],
       "counts": {
-        "functions": 1,
+        "functions": 2,
         "classes": 0,
         "methods": 0
       },
       "functions": [
         {
+          "name": "rational_bounds",
+          "kind": "function",
+          "signature": "rational_bounds(numerator, denominator, limit)",
+          "summary": "分子・分母がlimit以下の正の既約分数から、numerator/denominatorを上下から最も近く挟む2つを求める。",
+          "description": "分子・分母がlimit以下の正の既約分数から、numerator/denominatorを上下から最も近く挟む2つを求める。",
+          "searchTerms": [
+            "rational_bounds",
+            "rational bounds",
+            "rational_bounds(numerator, denominator, limit)"
+          ],
+          "arguments": "numerator: 近似したい正の有理数の分子。1以上。既約でなくてもよい。 · denominator: 近似したい有理数の分母。1以上。 · limit: 返す分数の分子・分母それぞれの上限。1以上。",
+          "argumentDetails": [
+            {
+              "name": "numerator",
+              "description": "近似したい正の有理数の分子。1以上。既約でなくてもよい。"
+            },
+            {
+              "name": "denominator",
+              "description": "近似したい有理数の分母。1以上。"
+            },
+            {
+              "name": "limit",
+              "description": "返す分数の分子・分母それぞれの上限。1以上。"
+            }
+          ],
+          "returns": "tuple[tuple[int, int], tuple[int, int]] — (lower, upper)。各要素は(分子, 分母)。lowerは対象以下の最大の分数、upperは対象以上の最小の分数。候補がなければlower=(0, 1)、upper=(1, 0)。対象を正確に表せる場合は上下が等しい。",
+          "returnFormat": "tuple[tuple[int, int], tuple[int, int]]",
+          "returnDescription": "(lower, upper)。各要素は(分子, 分母)。lowerは対象以下の最大の分数、upperは対象以上の最小の分数。候補がなければlower=(0, 1)、upper=(1, 0)。対象を正確に表せる場合は上下が等しい。",
+          "complexity": "O(log(max(numerator, denominator)+1))時間、O(1)追加領域。整数演算をO(1)とする",
+          "sourceLine": 6
+        },
+        {
           "name": "stern_brocot_binary_search",
           "kind": "function",
           "signature": "stern_brocot_binary_search(predicate, limit)",
-          "summary": "stern brocot binary searchを求める。",
-          "description": "stern brocot binary searchを求める。",
+          "summary": "分子・分母がlimit以下の既約分数で、単調な判定がFalseからTrueへ切り替わる境界を挟む。",
+          "description": "分子・分母がlimit以下の既約分数で、単調な判定がFalseからTrueへ切り替わる境界を挟む。",
           "searchTerms": [
             "stern_brocot_binary_search",
             "stern brocot binary search",
             "stern_brocot_binary_search(predicate, limit)"
           ],
-          "arguments": "predicate: 判定callback · limit: 上限。NoneならAPI既定の上限",
+          "arguments": "predicate: predicate((分子, 分母))が真偽値を返す関数。分数が増えるとFalseからTrueへ高々1回だけ変わる。 · limit: 分子・分母それぞれの上限。0以上。",
           "argumentDetails": [
             {
               "name": "predicate",
-              "description": "判定コールバック"
+              "description": "predicate((分子, 分母))が真偽値を返す関数。分数が増えるとFalseからTrueへ高々1回だけ変わる。"
             },
             {
               "name": "limit",
-              "description": "上限。NoneならAPI既定の上限"
+              "description": "分子・分母それぞれの上限。0以上。"
             }
           ],
-          "returns": "tuple / bool — 求めたstern brocot binary search。",
-          "returnFormat": "tuple / bool",
-          "returnDescription": "求めたstern brocot binary search。",
-          "complexity": "探索深さ依存",
-          "sourceLine": 4
+          "returns": "tuple[tuple[int, int], tuple[int, int]] — (lower, upper)。各要素は(分子, 分母)。lowerはFalseとなる最大の候補、upperはTrueとなる最小の候補。下側がなければ(0, 1)、上側がなければ(1, 0)。0が既にTrueなら上下とも(0, 1)。limit=0なら判定せず((0, 1), (1, 0))。",
+          "returnFormat": "tuple[tuple[int, int], tuple[int, int]]",
+          "returnDescription": "(lower, upper)。各要素は(分子, 分母)。lowerはFalseとなる最大の候補、upperはTrueとなる最小の候補。下側がなければ(0, 1)、上側がなければ(1, 0)。0が既にTrueなら上下とも(0, 1)。limit=0なら判定せず((0, 1), (1, 0))。",
+          "complexity": "O((T+1) log(limit+2))時間、O(log(limit+2))追加領域。Tはpredicate1回の時間。整数演算をO(1)とする",
+          "sourceLine": 37
         }
       ],
       "classes": []

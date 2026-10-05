@@ -6555,3 +6555,47 @@ for _module, _owner, _cost in (
                 ("tolist()と同じ内容の文字列表現。" if _method == "__str__" else _owner + "([...])の形式。"),
         }
         COMPLEXITY_BY_MODULE[_module][_method] = _cost + "時間。Nは要素数" + ("" if _method == "tolist" else "。加えて各要素の文字列化")
+
+SEARCH_TERMS_BY_MODULE["number_theory/MinMod.py"] = ("剰余最小値", "一次式の最小剰余")
+MODULE_CAPABILITIES["number_theory/MinMod.py"] = ("連続した添字範囲で、一次式を法で割った余りの最小値を対数時間で求める。",)
+COMPLEXITY_BY_MODULE["number_theory/MinMod.py"] = {
+    "min_mod": "O(log(modulus+1))時間、O(1)追加領域。整数演算をO(1)とする",
+}
+API_DETAILS_BY_SYMBOL[("number_theory/MinMod.py", None, "min_mod")] = {
+    "description": "半開区間[0, n)の整数iに対する(multiplier*i+addend)%modulusの最小値を求める。",
+    "argumentDescriptions": {
+        "n": "調べる項数。正の整数。",
+        "modulus": "剰余の法。正の整数。",
+        "multiplier": "iに掛ける整数。負でもよい。",
+        "addend": "各項へ加える整数。負でもよい。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "0以上modulus未満の最小の余り。最小値を取る添字は返さない。",
+}
+MODULE_CAPABILITIES["rational/FractionSearch.py"] = (
+    "分子・分母の上限を守り、指定した正の有理数を上下から最も近い分数で挟む。",
+    "分数の大小に関して単調な判定条件の境界を探す。",
+)
+COMPLEXITY_BY_MODULE["rational/FractionSearch.py"] = {
+    "rational_bounds": "O(log(max(numerator, denominator)+1))時間、O(1)追加領域。整数演算をO(1)とする",
+    "stern_brocot_binary_search": "O((T+1) log(limit+2))時間、O(log(limit+2))追加領域。Tはpredicate1回の時間。整数演算をO(1)とする",
+}
+API_DETAILS_BY_SYMBOL[("rational/FractionSearch.py", None, "rational_bounds")] = {
+    "description": "分子・分母がlimit以下の正の既約分数から、numerator/denominatorを上下から最も近く挟む2つを求める。",
+    "argumentDescriptions": {
+        "numerator": "近似したい正の有理数の分子。1以上。既約でなくてもよい。",
+        "denominator": "近似したい有理数の分母。1以上。",
+        "limit": "返す分数の分子・分母それぞれの上限。1以上。",
+    },
+    "returnFormat": "tuple[tuple[int, int], tuple[int, int]]",
+    "returnDescription": "(lower, upper)。各要素は(分子, 分母)。lowerは対象以下の最大の分数、upperは対象以上の最小の分数。候補がなければlower=(0, 1)、upper=(1, 0)。対象を正確に表せる場合は上下が等しい。",
+}
+API_DETAILS_BY_SYMBOL[("rational/FractionSearch.py", None, "stern_brocot_binary_search")] = {
+    "description": "分子・分母がlimit以下の既約分数で、単調な判定がFalseからTrueへ切り替わる境界を挟む。",
+    "argumentDescriptions": {
+        "predicate": "predicate((分子, 分母))が真偽値を返す関数。分数が増えるとFalseからTrueへ高々1回だけ変わる。",
+        "limit": "分子・分母それぞれの上限。0以上。",
+    },
+    "returnFormat": "tuple[tuple[int, int], tuple[int, int]]",
+    "returnDescription": "(lower, upper)。各要素は(分子, 分母)。lowerはFalseとなる最大の候補、upperはTrueとなる最小の候補。下側がなければ(0, 1)、上側がなければ(1, 0)。0が既にTrueなら上下とも(0, 1)。limit=0なら判定せず((0, 1), (1, 0))。",
+}

@@ -20,7 +20,8 @@
 - 木・区間・群の差の追加時は、変更関連28件と通常検査161件・quick性能検査が通過（2026-10-05）。この回ではfull検査は再実行していない。
 - 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
 - 再帰監査: direct/mutual recursion なし（2026-10-05）
-- Library Checker公式ケース: 154問題・3516ケース通過、未対応99問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- Library Checker公式ケース: 159問題・3637ケース通過、未対応94問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 整数・有理数5問題の追加は[検査とPyPy測定結果](docs/NUMBER_THEORY_BENCHMARK.md)を参照。
 - 区間クエリ4問題の追加と高速化は[検査・比較結果](docs/RANGE_QUERY_BENCHMARK.md)を参照。
 - 木・区間・群の差の7問題と高速化は[検査・比較結果](docs/TREE_RANGE_BENCHMARK.md)を参照。
 

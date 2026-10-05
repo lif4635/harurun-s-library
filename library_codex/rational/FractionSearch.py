@@ -1,4 +1,37 @@
+"""分子・分母の上限内で、数値や単調な判定条件を挟む既約分数を求める。"""
+
 from library_codex.rational.SternBrocotNode import SternBrocotNode
+
+
+def rational_bounds(numerator, denominator, limit):
+    """分子・分母がlimit以下の分数で、正の有理数を上下から挟む。"""
+    if numerator <= 0 or denominator <= 0 or limit < 1:
+        raise ValueError("requires a positive fraction and limit >= 1")
+    a, b, c, d = 0, 1, 1, 0
+    lower_error, upper_error = numerator, denominator
+    while a + c <= limit and b + d <= limit:
+        if lower_error == upper_error:
+            exact = a + c, b + d
+            return exact, exact
+        if lower_error > upper_error:
+            steps = (lower_error - 1) // upper_error
+            if c:
+                steps = min(steps, (limit - a) // c)
+            if d:
+                steps = min(steps, (limit - b) // d)
+            a += steps * c
+            b += steps * d
+            lower_error -= steps * upper_error
+        else:
+            steps = (upper_error - 1) // lower_error
+            if a:
+                steps = min(steps, (limit - c) // a)
+            if b:
+                steps = min(steps, (limit - d) // b)
+            c += steps * a
+            d += steps * b
+            upper_error -= steps * lower_error
+    return (a, b), (c, d)
 
 
 def stern_brocot_binary_search(predicate, limit):

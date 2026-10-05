@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 154,
-    "unimplemented": 99
+    "local_passed": 159,
+    "unimplemented": 94
   },
   "problems": [
     {
@@ -162,10 +162,12 @@
       "title": "Binomial Coefficient (Prime Mod)",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.combinatorics.Combination"
+      ],
+      "solution": "solutions/binomial_coefficient_prime_mod.py",
+      "result": "results/binomial_coefficient_prime_mod.json"
     },
     {
       "name": "bipartite_edge_coloring",
@@ -1466,10 +1468,12 @@
       "title": "Min of Mod of Linear",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/min_of_mod_of_linear",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.MinMod"
+      ],
+      "solution": "solutions/min_of_mod_of_linear.py",
+      "result": "results/min_of_mod_of_linear.json"
     },
     {
       "name": "min_plus_convolution_concave_arbitrary",
@@ -2197,10 +2201,13 @@
       "title": "Rational Approximation",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/rational_approximation",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.rational.SternBrocotNode",
+        "library_codex.rational.FractionSearch"
+      ],
+      "solution": "solutions/rational_approximation.py",
+      "result": "results/rational_approximation.json"
     },
     {
       "name": "rectangle_add_point_get",
@@ -2528,10 +2535,12 @@
       "title": "Stern–Brocot Tree",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/stern_brocot_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.rational.SternBrocotNode"
+      ],
+      "solution": "solutions/stern_brocot_tree.py",
+      "result": "results/stern_brocot_tree.json"
     },
     {
       "name": "stirling_number_of_the_first_kind",
@@ -2813,10 +2822,15 @@
       "title": "Represent A Number As Two Square Sum",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/two_square_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.GaussianInteger",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.prime.Factorization",
+        "library_codex.number_theory.TwoSquareRepresentations"
+      ],
+      "solution": "solutions/two_square_sum.py",
+      "result": "results/two_square_sum.json"
     },
     {
       "name": "unionfind",

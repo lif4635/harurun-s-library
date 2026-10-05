@@ -15,6 +15,7 @@
 | [`GaussianInteger`](GaussianInteger.md) | Gaussian整数の四則演算と最大公約数を扱う。 | 1 | 1 | 13 |
 | [`IntegerArithmetic`](IntegerArithmetic.md) | 整数のgcd・lcm・拡張gcdと法逆元を計算する。 | 5 | 0 | 0 |
 | [`IntegerDivision`](IntegerDivision.md) | 符号を含む整数除算の床・天井と厳密不等号版を計算する。 | 4 | 0 | 0 |
+| [`MinMod`](MinMod.md) | 一次式の剰余の最小値を、連続した整数範囲で求める。 | 1 | 0 | 0 |
 | [`ModularArithmetic`](ModularArithmetic.md) | Tonelli--Shanks平方根・拡張BSGS離散対数 | 2 | 0 | 0 |
 | [`ModularRoot`](ModularRoot.md) | 素数法k乗根・原始根・整数floor/ceil k乗根 | 4 | 0 | 0 |
 | [`MultiplicativeFunctions`](MultiplicativeFunctions.md) | 乗法的関数・Dirichlet積・Min_25型prefix和 | 8 | 3 | 12 |

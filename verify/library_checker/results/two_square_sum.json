@@ -1,0 +1,251 @@
+{
+  "problem": "two_square_sum",
+  "status": "local_passed",
+  "verificationKey": "322fb24a1962daed5100a68c4523e8a8db6340edbae1271251b7ab84ee01d4e1",
+  "sourceSha256": "d8b2b78f9417b2e1d3fd98269cd5d28db006c000d8454368accaae16016cefec",
+  "modules": [
+    "library_codex.number_theory.GaussianInteger",
+    "library_codex.number_theory.ModularArithmetic",
+    "library_codex.prime.Factorization",
+    "library_codex.number_theory.TwoSquareRepresentations"
+  ],
+  "problemVersion": "63841c34b69799e239b914fcff63d7891533bd83689eddf33bba47e8b7c8420a",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 38,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05613770999480039,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05235526998876594,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.06610317798913456,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.07030184598988853,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.07411211499129422,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.0688264959899243,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.057654103002278134,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.05542135800351389,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.05538955898373388,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.05748493198188953,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.05449710498214699,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.05929891599225812,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.08889869699487463,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 0.07605655799852684,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 0.08669768998515792,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_03",
+      "status": "AC",
+      "seconds": 0.09456790800322779,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_04",
+      "status": "AC",
+      "seconds": 0.09771905900561251,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "big2_00",
+      "status": "AC",
+      "seconds": 0.2916185219946783,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "big2_01",
+      "status": "AC",
+      "seconds": 0.2925783350074198,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "big2_02",
+      "status": "AC",
+      "seconds": 0.3596763290115632,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "big_semiprime_random_00",
+      "status": "AC",
+      "seconds": 0.2421509700070601,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "big_semiprime_random_01",
+      "status": "AC",
+      "seconds": 0.262628936994588,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "fixed_RNG_buster_00",
+      "status": "AC",
+      "seconds": 0.0625496459833812,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "num_of_solution_max_00",
+      "status": "AC",
+      "seconds": 0.5547338180185761,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "num_of_solution_max_01",
+      "status": "AC",
+      "seconds": 0.5174252830038313,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "power_of_2_3_5_13_00",
+      "status": "AC",
+      "seconds": 0.05547909400775097,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "power_of_2_3_5_13_01",
+      "status": "AC",
+      "seconds": 0.0566859660029877,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "power_of_2_3_5_13_02",
+      "status": "AC",
+      "seconds": 0.06735273101367056,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "power_of_2_3_5_13_03",
+      "status": "AC",
+      "seconds": 0.0648243360046763,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "prime_1_mod_4_00",
+      "status": "AC",
+      "seconds": 0.05958715299493633,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "prime_1_mod_4_01",
+      "status": "AC",
+      "seconds": 0.05967395598418079,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "prime_1_mod_4_02",
+      "status": "AC",
+      "seconds": 0.059997454984113574,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "prime_3_mod_4_00",
+      "status": "AC",
+      "seconds": 0.055462947988417,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "smooth_00",
+      "status": "AC",
+      "seconds": 0.06510606201482005,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "smooth_01",
+      "status": "AC",
+      "seconds": 0.07747611199738458,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "smooth_02",
+      "status": "AC",
+      "seconds": 0.12761048699030653,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "smooth_03",
+      "status": "AC",
+      "seconds": 0.19664284100872464,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "smooth_04",
+      "status": "AC",
+      "seconds": 0.11498157901223749,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T09:06:43.522258+00:00",
+  "onlineSubmission": null
+}
