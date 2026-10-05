@@ -4,9 +4,11 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-05時点の公式revision `1814c4e`では、115問題・2586ケースがローカル全件通過、138問題が未実装。
+2026-10-05時点の公式revision `1814c4e`では、123問題・2752ケースがローカル全件通過、130問題が未実装。
 
-`dynamic_sequence_range_affine_range_sum`は可換な集約の重複保存を省き、前回のTLEを解消した。変更後の公式33ケースはすべて10秒以内に通過し、最大8.929秒。区間頻度もバケット方式へ変更し、公式25ケースを再検査した。[比較結果](../../library_codex/docs/DATA_STRUCTURE_BENCHMARK.md)を参照。
+凸包・偏角順ソート・最近点対・最遠点対・矩形和・Gauss整数の最大公約数・大量加算2問題の計8問題、166ケースを追加した。最近点対は2ケースのTLEを修正し、29ケースすべて通過した。[変更前・上位PyPy実装との比較](../../library_codex/docs/CLOSEST_PAIR_BENCHMARK.md)を参照。
+
+動的列と区間頻度の前回の高速化は[比較結果](../../library_codex/docs/DATA_STRUCTURE_BENCHMARK.md)に記録している。
 
 - `drivers/`: 問題固有の入出力。アルゴリズムは `library_codex` から import する。
 - `solutions/`: 依存を展開した提出コード。そのまま単独で実行できる生成物。

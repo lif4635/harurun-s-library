@@ -8,13 +8,16 @@
 | --- | ---: | ---: | ---: | ---: | --- |
 | [bell_number](bell_number.json) | 3 / 11 | 5 | 1.169 | 149.8 | 一致 |
 | [bernoulli_number](bernoulli_number.json) | 3 / 11 | 5 | 0.650 | 108.1 | 一致 |
+| [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
 | [dynamic_sequence_range_affine_range_sum](dynamic_sequence_range_affine_range_sum.json) | 3 / 33 | 5 | 7.624 | 180.2 | 一致 |
 | [enumerate_quotients](enumerate_quotients.json) | 3 / 26 | 5 | 0.296 | 132.4 | 一致 |
 | [enumerate_triangles](enumerate_triangles.json) | 3 / 17 | 5 | 0.246 | 88.1 | 一致 |
 | [exp_of_formal_power_series_sparse](exp_of_formal_power_series_sparse.json) | 3 / 25 | 5 | 0.245 | 122.7 | 一致 |
 | [exp_of_set_power_series](exp_of_set_power_series.json) | 3 / 13 | 5 | 2.261 | 345.6 | 一致 |
+| [furthest_pair](furthest_pair.json) | 3 / 46 | 5 | 2.599 | 231.1 | 一致 |
 | [gcd_convolution](gcd_convolution.json) | 3 / 29 | 5 | 0.560 | 263.5 | 一致 |
+| [gcd_of_gaussian_integers](gcd_of_gaussian_integers.json) | 3 / 12 | 5 | 0.239 | 74.5 | 一致 |
 | [inv_of_formal_power_series_2d](inv_of_formal_power_series_2d.json) | 3 / 28 | 5 | 1.476 | 139.9 | 一致 |
 | [inv_of_formal_power_series_sparse](inv_of_formal_power_series_sparse.json) | 3 / 24 | 5 | 0.195 | 105.9 | 一致 |
 | [inverse_matrix](inverse_matrix.json) | 3 / 26 | 5 | 1.195 | 82.2 | 一致 |
@@ -24,6 +27,8 @@
 | [log_of_set_power_series](log_of_set_power_series.json) | 3 / 12 | 5 | 5.285 | 379.7 | 一致 |
 | [longest_increasing_subsequence](longest_increasing_subsequence.json) | 3 / 19 | 5 | 0.256 | 118.3 | 一致 |
 | [lyndon_factorization](lyndon_factorization.json) | 3 / 23 | 5 | 0.175 | 107.6 | 一致 |
+| [many_aplusb](many_aplusb.json) | 3 / 9 | 5 | 0.472 | 89.3 | 一致 |
+| [many_aplusb_128bit](many_aplusb_128bit.json) | 3 / 10 | 5 | 0.691 | 88.9 | 一致 |
 | [matrix_det](matrix_det.json) | 3 / 25 | 5 | 0.376 | 64.4 | 一致 |
 | [matrix_det_mod_2](matrix_det_mod_2.json) | 3 / 36 | 5 | 0.481 | 66.2 | 一致 |
 | [matrix_product_mod_2](matrix_product_mod_2.json) | 3 / 26 | 5 | 1.913 | 147.2 | 一致 |
@@ -38,7 +43,10 @@
 | [pow_of_formal_power_series_sparse](pow_of_formal_power_series_sparse.json) | 3 / 35 | 5 | 0.309 | 138.2 | 一致 |
 | [power_projection_of_set_power_series](power_projection_of_set_power_series.json) | 3 / 30 | 5 | 4.099 | 441.4 | 一致 |
 | [range_reverse_range_sum](range_reverse_range_sum.json) | 3 / 20 | 5 | 2.053 | 109.3 | 一致 |
+| [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
+| [sort_points_by_argument](sort_points_by_argument.json) | 3 / 21 | 5 | 1.240 | 108.3 | 一致 |
 | [sqrt_of_formal_power_series_sparse](sqrt_of_formal_power_series_sparse.json) | 3 / 45 | 5 | 0.277 | 142.3 | 一致 |
+| [static_convex_hull](static_convex_hull.json) | 3 / 25 | 5 | 2.111 | 196.6 | 一致 |
 | [stirling_number_of_the_first_kind](stirling_number_of_the_first_kind.json) | 3 / 10 | 5 | 0.833 | 97.0 | 一致 |
 | [stirling_number_of_the_first_kind_fixed_k](stirling_number_of_the_first_kind_fixed_k.json) | 3 / 14 | 5 | 1.960 | 185.2 | 一致 |
 | [stirling_number_of_the_second_kind](stirling_number_of_the_second_kind.json) | 3 / 10 | 5 | 0.608 | 109.4 | 一致 |

@@ -1,0 +1,78 @@
+{
+  "problem": "many_aplusb_128bit",
+  "status": "local_passed",
+  "verificationKey": "689b5fe11f0580be6f6d2e786f458be83bd8f40684ddc4034271aa83e567e6f4",
+  "sourceSha256": "b074fb19f2f637bd328f93b2ff1c056e79e4041c209896592a72a2064693a799",
+  "modules": [],
+  "problemVersion": "e51c66d51b0919ea99508693afd170c3052a0629c6d0392125b5131804e5e714",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 10,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.04800260899355635,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.4995361990004312,
+      "diagnostic": "ok 389813 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.5764029209967703,
+      "diagnostic": "ok 463046 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.6312499740161002,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.6083796189923305,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "digit_random_00",
+      "status": "AC",
+      "seconds": 0.4080002160044387,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "digit_random_01",
+      "status": "AC",
+      "seconds": 0.41583916899980977,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "all_max_abs_00",
+      "status": "AC",
+      "seconds": 0.5457966579997446,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "all_zero_00",
+      "status": "AC",
+      "seconds": 0.11079249199246988,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "carry_up_00",
+      "status": "AC",
+      "seconds": 0.5723495320125949,
+      "diagnostic": "ok 500000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T04:43:56.055516+00:00",
+  "onlineSubmission": null
+}

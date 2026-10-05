@@ -148,3 +148,23 @@ def test_solution_is_standalone(name):
         assert modules == []
     else:
         assert modules
+
+
+@pytest.mark.parametrize("name,data,expected", [
+    ("rectangle_sum", "3 4\n0 0 2\n1 1 3\n1 1 5\n0 0 1 1\n1 1 2 2\n0 0 2 2\n2 2 3 3\n", "2 8 10 0"),
+    ("static_convex_hull", "3\n0\n3\n1 2\n1 2\n1 2\n3\n0 0\n1 0\n2 0\n", "0 1 1 2 2 0 0 2 0"),
+    ("sort_points_by_argument", "5\n-1 0\n0 1\n1 0\n0 0\n0 -1\n", "0 -1 0 0 1 0 0 1 -1 0"),
+    ("gcd_of_gaussian_integers", "2\n0 0 0 0\n3 4 0 0\n", "0 0 3 4"),
+    ("closest_pair", "2\n3\n2 2\n2 2\n9 9\n3\n0 0\n10 0\n11 0\n", "0 1 1 2"),
+    ("furthest_pair", "2\n3\n2 2\n2 2\n2 2\n3\n0 0\n10 0\n11 0\n", "0 1 0 2"),
+    ("many_aplusb", "2\n0 0\n1000000000000000000 1000000000000000000\n", "0 2000000000000000000"),
+    ("many_aplusb_128bit", "2\n-10000000000000000000000000000000000000 1\n-7 7\n", "-9999999999999999999999999999999999999 0"),
+])
+def test_driver_input_output_contracts(tmp_path, name, data, expected):
+    source, _ = lc.solution(name)
+    assert "from library_codex" not in source
+    path = tmp_path / "main.py"
+    path.write_text(source)
+    result = subprocess.run([sys.executable, str(path)], input=data, text=True,
+                            capture_output=True, check=True, cwd=tmp_path, timeout=10)
+    assert result.stdout.split() == expected.split()

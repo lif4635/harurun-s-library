@@ -1,0 +1,92 @@
+{
+  "problem": "gcd_of_gaussian_integers",
+  "status": "local_passed",
+  "verificationKey": "ff7f2d521c882708545059fa15911da4cf45656a88736ba2fd37487060ede793",
+  "sourceSha256": "281d6dfe93f2730cde759e5225c939a37766e8662db25c5aa59f70c583373abf",
+  "modules": [
+    "library_codex.number_theory.GaussianInteger"
+  ],
+  "problemVersion": "065a942d8a7ecbce4ac7542cadf62148fee714f850c0d64c0dea2ff5329af92f",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 12,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.07834533898858353,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.32662282799719833,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.2809149620006792,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.25115220199222676,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.28854626798420213,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.2643819689983502,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.28282408200902864,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.2624699299922213,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "fibonacci_like_00",
+      "status": "AC",
+      "seconds": 0.2866903469839599,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "fibonacci_like_01",
+      "status": "AC",
+      "seconds": 0.28194882298703305,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "large_gcd_00",
+      "status": "AC",
+      "seconds": 0.235953112016432,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "large_gcd_01",
+      "status": "AC",
+      "seconds": 0.21876338598667644,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T04:40:32.194490+00:00",
+  "onlineSubmission": null
+}

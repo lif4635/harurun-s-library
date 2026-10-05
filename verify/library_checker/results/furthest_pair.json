@@ -1,0 +1,298 @@
+{
+  "problem": "furthest_pair",
+  "status": "local_passed",
+  "verificationKey": "c725ea3689bcd39dd0340b5cdb2a0f36a14d0d742a2df58c629975caec8ab271",
+  "sourceSha256": "8310afbbab8c52be99273f982f134ac117e5b6beb0c5a31f78b294771202b3bc",
+  "modules": [
+    "library_codex.geometry.Orientation",
+    "library_codex.geometry.ConvexHull",
+    "library_codex.geometry.FurthestPair"
+  ],
+  "problemVersion": "1dded8f390f37668ab0fe10be4be090df00adf70aa6cadb99c3f0732f58a8e40",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 46,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0542193420114927,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_same_00",
+      "status": "AC",
+      "seconds": 0.29302813799586147,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.6806503560219426,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.7582083139859606,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.7274284370068926,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.6609619829978328,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_04",
+      "status": "AC",
+      "seconds": 0.6313703659980092,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_05",
+      "status": "AC",
+      "seconds": 0.7052284009987488,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_06",
+      "status": "AC",
+      "seconds": 0.769569928990677,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_07",
+      "status": "AC",
+      "seconds": 0.7351270589861088,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_00",
+      "status": "AC",
+      "seconds": 0.7571573479799554,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_01",
+      "status": "AC",
+      "seconds": 0.7159273859870154,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_02",
+      "status": "AC",
+      "seconds": 0.6771994230221026,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 2.2161984959966503,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.3417896300088614,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 2.0331432160164695,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 1.9855383180256467,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 2.04501223898842,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_05",
+      "status": "AC",
+      "seconds": 0.30370266700629145,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_06",
+      "status": "AC",
+      "seconds": 1.9059207259851974,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_07",
+      "status": "AC",
+      "seconds": 2.11362547398312,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_colinear_00",
+      "status": "AC",
+      "seconds": 1.932303261011839,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_colinear_01",
+      "status": "AC",
+      "seconds": 1.9754475300142076,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_circle_00",
+      "status": "AC",
+      "seconds": 2.540079408994643,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_circle_01",
+      "status": "AC",
+      "seconds": 2.5059984300169162,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_grid_00",
+      "status": "AC",
+      "seconds": 1.1040362420026213,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_grid_01",
+      "status": "AC",
+      "seconds": 1.041801845014561,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "fix_near_grid_00",
+      "status": "AC",
+      "seconds": 1.0340168240072671,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "fix_near_grid_01",
+      "status": "AC",
+      "seconds": 1.0115047059953213,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_convex_hull_00",
+      "status": "AC",
+      "seconds": 2.4522835800016765,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_00",
+      "status": "AC",
+      "seconds": 0.056780840997816995,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_00",
+      "status": "AC",
+      "seconds": 2.051684201025637,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_01",
+      "status": "AC",
+      "seconds": 2.0091140209988225,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_02",
+      "status": "AC",
+      "seconds": 2.0621033209899906,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_03",
+      "status": "AC",
+      "seconds": 2.0960524949769024,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_04",
+      "status": "AC",
+      "seconds": 1.9073711739911232,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_05",
+      "status": "AC",
+      "seconds": 1.9378767519956455,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_06",
+      "status": "AC",
+      "seconds": 2.084401590982452,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_07",
+      "status": "AC",
+      "seconds": 2.0245756119838916,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_08",
+      "status": "AC",
+      "seconds": 2.067022974981228,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_09",
+      "status": "AC",
+      "seconds": 2.057361426006537,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_10",
+      "status": "AC",
+      "seconds": 2.2736421529843938,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_11",
+      "status": "AC",
+      "seconds": 2.0698057239933405,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_12",
+      "status": "AC",
+      "seconds": 2.0091041819832753,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_13",
+      "status": "AC",
+      "seconds": 2.000273769022897,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "hack_uso_caliper_large_14",
+      "status": "AC",
+      "seconds": 2.0093574989878107,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T04:41:58.771208+00:00",
+  "onlineSubmission": null
+}

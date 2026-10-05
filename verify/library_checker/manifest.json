@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 115,
-    "unimplemented": 138
+    "local_passed": 123,
+    "unimplemented": 130
   },
   "problems": [
     {
@@ -268,10 +268,12 @@
       "title": "Closest Pair of Points",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/closest_pair",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.geometry.ClosestPair"
+      ],
+      "solution": "solutions/closest_pair.py",
+      "result": "results/closest_pair.json"
     },
     {
       "name": "common_interval_decomposition_tree",
@@ -921,10 +923,14 @@
       "title": "Furthest Pair of Points",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/furthest_pair",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.geometry.Orientation",
+        "library_codex.geometry.ConvexHull",
+        "library_codex.geometry.FurthestPair"
+      ],
+      "solution": "solutions/furthest_pair.py",
+      "result": "results/furthest_pair.json"
     },
     {
       "name": "gcd_convolution",
@@ -943,10 +949,12 @@
       "title": "Gcd of Gaussian Integers",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/gcd_of_gaussian_integers",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.GaussianInteger"
+      ],
+      "solution": "solutions/gcd_of_gaussian_integers.py",
+      "result": "results/gcd_of_gaussian_integers.json"
     },
     {
       "name": "general_matching",
@@ -1295,20 +1303,20 @@
       "title": "Many A + B",
       "category": "sample",
       "url": "https://judge.yosupo.jp/problem/many_aplusb",
-      "status": "unimplemented",
+      "status": "local_passed",
       "modules": [],
-      "solution": null,
-      "result": null
+      "solution": "solutions/many_aplusb.py",
+      "result": "results/many_aplusb.json"
     },
     {
       "name": "many_aplusb_128bit",
       "title": "Many A + B (128 bit)",
       "category": "sample",
       "url": "https://judge.yosupo.jp/problem/many_aplusb_128bit",
-      "status": "unimplemented",
+      "status": "local_passed",
       "modules": [],
-      "solution": null,
-      "result": null
+      "solution": "solutions/many_aplusb_128bit.py",
+      "result": "results/many_aplusb_128bit.json"
     },
     {
       "name": "many_factorials",
@@ -2161,10 +2169,13 @@
       "title": "Rectangle Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/rectangle_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.fenwick_tree.BIT",
+        "library_codex.spatial_structure.StaticRectangleSum"
+      ],
+      "solution": "solutions/rectangle_sum.py",
+      "result": "results/rectangle_sum.json"
     },
     {
       "name": "rooted_tree_isomorphism_classification",
@@ -2272,10 +2283,12 @@
       "title": "Sort Points by Argument",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/sort_points_by_argument",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.geometry.ArgumentSort"
+      ],
+      "solution": "solutions/sort_points_by_argument.py",
+      "result": "results/sort_points_by_argument.json"
     },
     {
       "name": "sparse_matrix_det",
@@ -2340,10 +2353,13 @@
       "title": "Static Convex Hull",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/static_convex_hull",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.geometry.Orientation",
+        "library_codex.geometry.ConvexHull"
+      ],
+      "solution": "solutions/static_convex_hull.py",
+      "result": "results/static_convex_hull.json"
     },
     {
       "name": "static_range_count_distinct",

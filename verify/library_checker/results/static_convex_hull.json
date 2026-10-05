@@ -1,0 +1,171 @@
+{
+  "problem": "static_convex_hull",
+  "status": "local_passed",
+  "verificationKey": "cbf74d2be8a9fa8f0f53edf32e34fdb020fdf8cf4c239b9b5eb171afd0a63f3c",
+  "sourceSha256": "9520594cf6e2d215ce4e48e712397cf1f4fdc7377e52aa976fad67f96e6d0131",
+  "modules": [
+    "library_codex.geometry.Orientation",
+    "library_codex.geometry.ConvexHull"
+  ],
+  "problemVersion": "3b6669ecd879082b564847b4b141cd060fa10a9e9cd54ab5652cbcb45fc52445",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 25,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05537961400114,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.058129384997300804,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_same_00",
+      "status": "AC",
+      "seconds": 0.23884125897893682,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_same_01",
+      "status": "AC",
+      "seconds": 0.22885413200128824,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.4791689550038427,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.38442792498972267,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.4242901609977707,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.42634299598284997,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_04",
+      "status": "AC",
+      "seconds": 0.4989585930015892,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_05",
+      "status": "AC",
+      "seconds": 0.41509970001061447,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_06",
+      "status": "AC",
+      "seconds": 0.4434003960050177,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_07",
+      "status": "AC",
+      "seconds": 0.43168230800074525,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.9239228280202951,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.30106964200967923,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 1.899493461009115,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 1.8396059699880425,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 1.8895956110209227,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_05",
+      "status": "AC",
+      "seconds": 0.2665843720023986,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_06",
+      "status": "AC",
+      "seconds": 1.676170261023799,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_07",
+      "status": "AC",
+      "seconds": 1.9432207040081266,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_colinear_00",
+      "status": "AC",
+      "seconds": 1.8248085920058656,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_colinear_01",
+      "status": "AC",
+      "seconds": 1.651443451992236,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_circle_00",
+      "status": "AC",
+      "seconds": 2.00195917498786,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_circle_01",
+      "status": "AC",
+      "seconds": 1.956821684987517,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_ans_00",
+      "status": "AC",
+      "seconds": 2.228097307990538,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T04:39:10.764513+00:00",
+  "onlineSubmission": null
+}

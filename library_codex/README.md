@@ -16,10 +16,10 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- 前回のPyPy全検証: 794 passed（2026-10-04、`a748080`）。検査中に分離したRangeParallelUnionFind専用2件も別途成功。
-- 今回checkpointのPyPy quickは124件、Stirling数・数列の関連テストは5件成功。quick性能検査も成功。全検査は再実行していない。
+- 前回のPyPy全検証: 823 passed（2026-10-05、`c3e4f21`）。
+- 最近点対・提出コードの入出力・公式検査基盤の関連テストは33件成功。PyPy quickは135件、quick性能検査も成功。今回の全検査は再実行していない。
 - 再帰監査: direct/mutual recursion なし（2026-10-04）
-- Library Checker公式ケース: 109問題・2439ケース通過、未対応144問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- Library Checker公式ケース: 123問題・2752ケース通過、未対応130問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 
