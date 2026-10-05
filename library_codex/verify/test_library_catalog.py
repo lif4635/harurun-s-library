@@ -820,6 +820,37 @@ def test_point_frequency_article_and_standalone():
     assert tree.tolist() == [2, 2, 2, 3]
 
 
+def test_connectivity_article_and_merge_event_contract():
+    module = module_by_path(load_catalog(), "library_codex.graph_connectivity.AdvancedConnectivity")
+    assert "## 主な機能" in module["article"]["markdown"]
+    function = next(item for item in module["functions"] if item["name"] == "incremental_scc_offline")
+    assert function["returnFormat"] == "list[list[int]]"
+    assert "辺番号" in function["returnDescription"]
+    assert "log(M+2)" in function["complexity"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    events = namespace["incremental_scc_offline"](2, [(0, 1), (1, 0)])
+    assert events[0] == [] and len(events[1]) == 1
+    tree = namespace["ThreeEdgeConnectedComponents"](2, [(0, 1)] * 3)
+    assert tree[0] == tree[1]
+
+
+def test_weighted_matching_article_and_mate_contract():
+    module = module_by_path(load_catalog(), "library_codex.graph_matching.GeneralWeightedMatching")
+    assert "## 主な機能" in module["article"]["markdown"]
+    item = module["classes"][0]
+    methods = {method["name"]: method for method in item["methods"]}
+    assert methods["run"]["returnFormat"] == "list[int]"
+    assert "-1" in methods["run"]["returnDescription"]
+    assert "N³" in methods["run"]["complexity"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    matching = namespace["GeneralWeightedMatching"](4)
+    for u, v, w in [(0, 1, 9), (0, 2, 8), (1, 2, 10), (2, 3, 7)]:
+        matching.add_edge(u, v, w)
+    assert matching.run() == [1, 0, 3, 2]
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")

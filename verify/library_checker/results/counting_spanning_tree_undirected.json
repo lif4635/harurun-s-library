@@ -1,0 +1,153 @@
+{
+  "problem": "counting_spanning_tree_undirected",
+  "status": "local_passed",
+  "verificationKey": "a9cacb3509e520a311a0e1f9ac916b460cf9844d5401e0d889372afe01d48e23",
+  "sourceSha256": "15a10bfe19b953f46e486bc715037fbd3e169b52b3f0e95e1e66ff050750c0ac",
+  "modules": [
+    "library_codex.linear_algebra.Matrix",
+    "library_codex.linear_algebra.AdvancedMatrix"
+  ],
+  "problemVersion": "25ae39e0e9ba1c9f4e7a14129454d457f50931eca23a89c07b2df2d95435a20e",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 22,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0613677219953388,
+      "diagnostic": "ok \"8\"\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.056404232018394396,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05888538100407459,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.06567692701355554,
+      "diagnostic": "ok \"26\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.05590413897880353,
+      "diagnostic": "ok \"10\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.05911381900659762,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.059379237005487084,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.05873547398368828,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.06403342902194709,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.061460873985197395,
+      "diagnostic": "ok \"2\"\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.06602140498580411,
+      "diagnostic": "ok \"28\"\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.06291950898594223,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.06343588401796296,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.06317815399961546,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.21242522200918756,
+      "diagnostic": "ok \"418482333\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.22112279399880208,
+      "diagnostic": "ok \"426668514\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.19231411902001128,
+      "diagnostic": "ok \"585330741\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.09124370498466305,
+      "diagnostic": "ok \"475965228\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.09042743800091557,
+      "diagnostic": "ok \"261224992\"\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.5149180059961509,
+      "diagnostic": "ok \"942583965\"\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 0.5223855199874379,
+      "diagnostic": "ok \"366670255\"\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 0.5370378020161297,
+      "diagnostic": "ok \"420684631\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:07:42.973535+00:00",
+  "onlineSubmission": null
+}

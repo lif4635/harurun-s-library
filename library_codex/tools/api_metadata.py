@@ -1246,7 +1246,9 @@ API_DETAILS_BY_SYMBOL.update({
         "description": "登録した供給・需要と容量を満たす最小費用b-flowを求める。",
     },
     ("graph_matching/GeneralWeightedMatching.py", "GeneralWeightedMatching", "run"): {
-        "description": "一般グラフの最大重みmatchingを求める。",
+        "description": "端点を共有しない辺を選び、重みの合計を最大にする。辺数の最大化ではない。",
+        "returnFormat": "list[int]",
+        "returnDescription": "長さvertex_countのlist。result[v]は頂点vと組になる頂点番号、組にならない場合は-1。組になるu,vではresult[u]=vかつresult[v]=u。",
     },
     ("heuristic/SimulatedAnnealing.py", "SimulatedAnnealing", "run"): {
         "description": "proposeで候補を作り、温度に従って受理しながらstateを更新する。",
@@ -3529,7 +3531,7 @@ API_DETAILS_BY_SYMBOL.update({
         "returnDescription": "component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。",
     },
     ("graph_connectivity/AdvancedConnectivity.py", "ThreeEdgeConnectedComponents", "__getitem__"): {
-        "description": "vertexが属する3-edge-connected成分のIDを返す。",
+        "description": "vertexが属する三辺連結成分の番号を返す。",
         "returnFormat": "int",
         "returnDescription": "component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。",
     },
@@ -6307,4 +6309,41 @@ COMPLEXITY_BY_MODULE["linear_algebra/F2Matrix.py"] = {
     "__mul__": "multiplyと同じ",
     "__pow__": "powerと同じ",
     "__eq__": "O(H*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数",
+}
+
+MODULE_CAPABILITIES["graph_connectivity/AdvancedConnectivity.py"] = (
+    "無向グラフの二辺・三辺連結成分と、各頂点の成分番号を求める。",
+    "有向辺の追加時系列から、強連結成分の併合をUnion-Findで再現する辺番号列を求める。",
+)
+CLASS_DETAILS_BY_SYMBOL[("graph_connectivity/AdvancedConnectivity.py", "ThreeEdgeConnectedComponents")] = {
+    "description": "任意の2辺を取り除いても互いに到達できる頂点を、同じ三辺連結成分にまとめる。",
+    "constructorCreates": "groupsは三辺連結成分ごとの頂点list、component[v]は頂点vの成分番号。groups2・component2は二辺連結成分に対応する。",
+    "argumentDescriptions": {"n": "頂点数。", "edges": "無向辺(u,v)の列。1本につき1個を渡す。多重辺と自己ループを扱える。"},
+}
+API_DETAILS_BY_SYMBOL[("graph_connectivity/AdvancedConnectivity.py", None, "incremental_scc_offline")] = {
+    "description": "有向辺を順番に追加したときの強連結成分の合流を、すべての時刻について求める。",
+    "argumentDescriptions": {"n": "頂点数。", "edges": "追加順の有向辺(u,v)の列。処理前にすべての追加辺を渡す。入力は変更しない。"},
+    "returnFormat": "list[list[int]]",
+    "returnDescription": "長さMのlist。result[t]内の各辺番号iについて、元のedges[i]の両端点をUnion-Findで併合すると、時刻tの追加直後の強連結成分を再現できる。空listは併合なし。同じ辺番号は1回だけ現れ、全体で高々max(N-1,0)個。",
+}
+COMPLEXITY_BY_MODULE["graph_connectivity/AdvancedConnectivity.py"] = {
+    "ThreeEdgeConnectedComponents": "O(N+M)時間・領域。Nは頂点数、Mは辺数",
+    "__getitem__": "O(1)",
+    "incremental_scc_offline": "O((N+M) log(M+2))時間、O(N+M)追加領域",
+}
+CLASS_DETAILS_BY_SYMBOL[("graph_matching/GeneralWeightedMatching.py", "GeneralWeightedMatching")] = {
+    "description": "一般の無向グラフで、端点を共有しない辺の重み合計を最大化する。",
+    "constructorCreates": "vertex_count頂点で辺のないグラフ。add_edgeで整数重みの辺を登録し、runで各頂点の相手を求める。",
+    "argumentDescriptions": {"infinity": "双対更新の上限値。辺の重みより十分大きい正整数を指定する。通常は既定値を使う。"},
+}
+API_DETAILS_BY_SYMBOL[("graph_matching/GeneralWeightedMatching.py", "GeneralWeightedMatching", "add_edge")] = {
+    "description": "2頂点の間に整数重みの無向辺を登録する。すべての辺をrunの前に追加する。",
+    "argumentDescriptions": {"first": "辺の一方の端点。", "second": "辺のもう一方の端点。", "weight": "辺を選んだときに加算する整数。0以下は無視する。同じ端点間では最大値だけを保持する。"},
+    "returnFormat": "None",
+    "returnDescription": "登録した重みを更新する。自己ループは無視する。範囲外の頂点はIndexError。",
+}
+COMPLEXITY_BY_MODULE["graph_matching/GeneralWeightedMatching.py"] = {
+    "GeneralWeightedMatching": "O(N²)時間・領域。N=vertex_count",
+    "add_edge": "O(1)",
+    "run": "O(N³)時間、O(N²)領域。整数演算1回をO(1)とする",
 }

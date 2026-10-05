@@ -1,17 +1,10 @@
 import itertools
 import random
-import sys
-from pathlib import Path
-
-
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT))
-
-from graph_connectivity.AdvancedConnectivity import (  # noqa: E402
+from library_codex.graph_connectivity.AdvancedConnectivity import (
     ThreeEdgeConnectedComponents,
     incremental_scc_offline,
 )
-from graph_connectivity.StronglyConnectedComponents import SCC  # noqa: E402
+from library_codex.graph_connectivity.StronglyConnectedComponents import SCC
 
 
 def _connected_after_removal(n, edges, source, target, removed):
@@ -85,6 +78,7 @@ def test_incremental_scc_union_edges_after_every_prefix():
                      for _ in range(rng.randrange(22))]
             additions = incremental_scc_offline(n, edges)
             assert len(additions) == len(edges)
+            assert sum(map(len, additions)) <= n - 1
             dsu = _DSU(n)
             graph = [[] for _ in range(n)]
             used_edge_ids = set()
@@ -101,3 +95,17 @@ def test_incremental_scc_union_edges_after_every_prefix():
                     for b in range(n):
                         assert ((dsu.find(a) == dsu.find(b))
                                 == (component[a] == component[b]))
+
+
+def test_incremental_scc_empty_loops_and_long_cycle():
+    assert incremental_scc_offline(0, []) == []
+    assert incremental_scc_offline(3, [(0, 0), (2, 2), (0, 0)]) == [[], [], []]
+    n = 10000
+    edges = [(v, v + 1) for v in range(n - 1)] + [(n - 1, 0)]
+    result = incremental_scc_offline(n, edges)
+    assert all(not bucket for bucket in result[:-1])
+    assert len(result[-1]) == n - 1
+    dsu = _DSU(n)
+    for edge_id in result[-1]:
+        dsu.unite(*edges[edge_id])
+    assert len({dsu.find(v) for v in range(n)}) == 1

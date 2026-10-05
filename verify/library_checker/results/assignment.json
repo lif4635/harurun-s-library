@@ -1,0 +1,104 @@
+{
+  "problem": "assignment",
+  "status": "local_passed",
+  "verificationKey": "25a43b9b4eb52604404a0468138d83fc81659aa6cb36f5974e600da794bcdea7",
+  "sourceSha256": "7798b2dff086b3a3e0fd98043ebd3e73b575f4eae8e59a6b131459630f066d29",
+  "modules": [
+    "library_codex.graph_matching.Hungarian"
+  ],
+  "problemVersion": "78e67fd6a3e651c9e8c65cb28776674209e24fce4bb14e947e42af44ea4266ae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 14,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.050289481005165726,
+      "diagnostic": "ok OK: 9\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.08329768700059503,
+      "diagnostic": "ok OK: -177786996459\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.09226756199495867,
+      "diagnostic": "ok OK: -194569898514\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.07430795099935494,
+      "diagnostic": "ok OK: -84457481737\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.0841674150142353,
+      "diagnostic": "ok OK: -189776454376\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.05380543399951421,
+      "diagnostic": "ok OK: -17582466536\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.18132237100508064,
+      "diagnostic": "ok OK: -496704375190\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.15148355101700872,
+      "diagnostic": "ok OK: -496813819920\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.1448838830110617,
+      "diagnostic": "ok OK: -496705883735\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.17605967700365,
+      "diagnostic": "ok OK: -496720401496\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.17571038100868464,
+      "diagnostic": "ok OK: -496730725881\n"
+    },
+    {
+      "name": "hand_plus_00",
+      "status": "AC",
+      "seconds": 0.5547019820078276,
+      "diagnostic": "ok OK: 83333000\n"
+    },
+    {
+      "name": "hand_minus_00",
+      "status": "AC",
+      "seconds": 0.8471989610115997,
+      "diagnostic": "ok OK: -83333000\n"
+    },
+    {
+      "name": "multiplication_table_00",
+      "status": "AC",
+      "seconds": 0.6368025570118334,
+      "diagnostic": "ok OK: 20958500\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:04:41.483031+00:00",
+  "onlineSubmission": null
+}

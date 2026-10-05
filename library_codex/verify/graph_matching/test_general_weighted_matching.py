@@ -42,3 +42,14 @@ def test_general_weighted_matching_against_subset_dp():
                         score += weights[vertex][other]
             assert score == _brute(weights)
 
+
+def test_empty_parallel_and_nonpositive_edges():
+    assert GeneralWeightedMatching(0).run() == []
+    assert GeneralWeightedMatching(5).run() == [-1] * 5
+    matching = GeneralWeightedMatching(5)
+    for u, v, w in [(0, 0, 100), (0, 1, 3), (1, 0, 8), (0, 1, 2),
+                    (1, 2, -9), (2, 3, 0), (3, 4, 7)]:
+        matching.add_edge(u, v, w)
+    assert matching.run() == [1, 0, -1, 4, 3]
+    assert matching.run() == [1, 0, -1, 4, 3]
+

@@ -1,25 +1,15 @@
 from collections import deque
 
-
 class GeneralWeightedMatching:
     """Maximum-weight matching in a general graph (primal-dual blossom)."""
-
-    __slots__ = (
-        "n", "m", "stamp", "graph", "mate", "root", "used", "flower",
-        "belong", "dual", "state", "slack", "parent", "queue", "infinity",
-        "edge_u", "edge_v", "weight",
-    )
+    __slots__ = ('n', 'm', 'stamp', 'graph', 'mate', 'root', 'used', 'flower', 'belong', 'dual', 'state', 'slack', 'parent', 'queue', 'infinity')
 
     def __init__(self, vertex_count, infinity=10 ** 30):
         self.n = vertex_count
         self.m = vertex_count
         self.stamp = 0
         capacity = vertex_count * 2 + 2
-        self.graph = [list(range(i * capacity, (i + 1) * capacity))
-                      for i in range(capacity)]
-        self.edge_u = [i for i in range(capacity) for _ in range(capacity)]
-        self.edge_v = list(range(capacity)) * capacity
-        self.weight = [0] * (capacity * capacity)
+        self.graph = [[(i, j, 0) for j in range(capacity)] for i in range(capacity)]
         self.mate = [0] * capacity
         self.root = [0] * capacity
         self.used = [0] * capacity
@@ -34,36 +24,33 @@ class GeneralWeightedMatching:
         for vertex in range(vertex_count + 1):
             self.root[vertex] = vertex
             self.belong[vertex][vertex] = vertex
+            if vertex:
+                self.dual[vertex] = infinity
 
     def add_edge(self, first, second, weight):
         if not 0 <= first < self.n or not 0 <= second < self.n:
-            raise IndexError("vertex out of range")
+            raise IndexError('vertex out of range')
         if first == second:
             return
         first += 1
         second += 1
         weight *= 2
-        edge = self.graph[first][second]
-        if weight > self.weight[edge]:
-            self.weight[edge] = weight
-            self.weight[self.graph[second][first]] = weight
+        if weight > self.graph[first][second][2]:
+            self.graph[first][second] = (first, second, weight)
+            self.graph[second][first] = (second, first, weight)
 
     def _distance(self, edge):
-        return self.dual[self.edge_u[edge]] + self.dual[self.edge_v[edge]] - self.weight[edge]
+        return self.dual[edge[0]] + self.dual[edge[1]] - edge[2]
 
     def _update(self, first, second):
         previous = self.slack[second]
-        if previous == 0 or self._distance(self.graph[first][second]) < self._distance(
-            self.graph[previous][second]
-        ):
+        if previous == 0 or self._distance(self.graph[first][second]) < self._distance(self.graph[previous][second]):
             self.slack[second] = first
 
     def _recalculate(self, vertex):
         self.slack[vertex] = 0
         for source in range(1, self.n + 1):
-            if (self.weight[self.graph[source][vertex]]
-                    and self.root[source] != vertex
-                    and self.state[self.root[source]] == 1):
+            if self.graph[source][vertex][2] and self.root[source] != vertex and (self.state[self.root[source]] == 1):
                 self._update(source, vertex)
 
     def _push(self, vertex):
@@ -93,23 +80,22 @@ class GeneralWeightedMatching:
     def _match(self, first, second):
         stack = [(0, first, second)]
         while stack:
-            kind, first, second = stack.pop()
+            (kind, first, second) = stack.pop()
             if kind:
                 position = first
                 blossom = second
                 values = self.flower[blossom]
                 self.flower[blossom] = values[position:] + values[:position]
                 continue
-            self.mate[first] = self.edge_v[self.graph[first][second]]
+            self.mate[first] = self.graph[first][second][1]
             if first <= self.n:
                 continue
-            inside = self.belong[first][self.edge_u[self.graph[first][second]]]
+            inside = self.belong[first][self.graph[first][second][0]]
             position = self._find_even(first, inside)
             stack.append((1, position, first))
             stack.append((0, inside, second))
             for index in range(position - 1, -1, -1):
-                stack.append((0, self.flower[first][index],
-                              self.flower[first][index ^ 1]))
+                stack.append((0, self.flower[first][index], self.flower[first][index ^ 1]))
 
     def _link(self, first, second):
         while True:
@@ -129,8 +115,8 @@ class GeneralWeightedMatching:
             self.m += 1
         self.flower[blossom] = []
         for vertex in range(1, self.m + 1):
-            self.graph[blossom][vertex] = blossom * len(self.root) + vertex
-            self.graph[vertex][blossom] = vertex * len(self.root) + blossom
+            self.graph[blossom][vertex] = (blossom, vertex, 0)
+            self.graph[vertex][blossom] = (vertex, blossom, 0)
         for vertex in range(1, self.n + 1):
             self.belong[blossom][vertex] = 0
         self.state[blossom] = 1
@@ -153,9 +139,7 @@ class GeneralWeightedMatching:
         self._set_root(blossom, blossom)
         for component in self.flower[blossom]:
             for vertex in range(1, self.m + 1):
-                if (self.weight[self.graph[blossom][vertex]] == 0
-                        or self._distance(self.graph[component][vertex])
-                        < self._distance(self.graph[blossom][vertex])):
+                if self.graph[blossom][vertex][2] == 0 or self._distance(self.graph[component][vertex]) < self._distance(self.graph[blossom][vertex]):
                     self.graph[blossom][vertex] = self.graph[component][vertex]
                     self.graph[vertex][blossom] = self.graph[vertex][component]
             for vertex in range(1, self.n + 1):
@@ -166,7 +150,7 @@ class GeneralWeightedMatching:
     def _expand(self, blossom):
         for component in self.flower[blossom]:
             self._set_root(component, component)
-        inside = self.belong[blossom][self.edge_u[self.graph[blossom][self.parent[blossom]]]]
+        inside = self.belong[blossom][self.graph[blossom][self.parent[blossom]][0]]
         self.state[inside] = 2
         self.parent[inside] = self.parent[blossom]
         position = self._find_even(blossom, inside)
@@ -175,7 +159,7 @@ class GeneralWeightedMatching:
             inner = self.flower[blossom][index + 1]
             self.state[inner] = 1
             self.state[outer] = 2
-            self.parent[outer] = self.edge_u[self.graph[inner][outer]]
+            self.parent[outer] = self.graph[inner][outer][0]
             self.slack[inner] = self.slack[outer] = 0
             self._push(inner)
         for index in range(position + 1, len(self.flower[blossom])):
@@ -186,10 +170,10 @@ class GeneralWeightedMatching:
         self.root[blossom] = 0
 
     def _path(self, edge):
-        first = self.root[self.edge_u[edge]]
-        second = self.root[self.edge_v[edge]]
+        first = self.root[edge[0]]
+        second = self.root[edge[1]]
         if self.state[second] == 0:
-            self.parent[second] = self.edge_u[edge]
+            self.parent[second] = edge[0]
             self.state[second] = 2
             next_vertex = self.root[self.mate[second]]
             self.slack[second] = self.slack[next_vertex] = 0
@@ -235,11 +219,8 @@ class GeneralWeightedMatching:
         while True:
             while self.queue:
                 vertex = self.queue.popleft()
-                if self.state[self.root[vertex]] == 2:
-                    continue
                 for other in range(1, self.n + 1):
-                    if (self.weight[self.graph[vertex][other]]
-                            and self.root[other] != self.root[vertex]):
+                    if self.graph[vertex][other][2] and self.root[other] != self.root[vertex]:
                         if self._distance(self.graph[vertex][other]) == 0:
                             if self._path(self.graph[vertex][other]):
                                 return True
@@ -250,13 +231,9 @@ class GeneralWeightedMatching:
                 if self.root[vertex] == vertex and self.state[vertex] == 2:
                     delta = min(delta, self.dual[vertex] // 2)
             for vertex in range(1, self.m + 1):
-                if (self.root[vertex] == vertex and self.slack[vertex]
-                        and self.state[vertex] != 2):
-                    distance = self._distance(
-                        self.graph[self.slack[vertex]][vertex]
-                    )
-                    delta = min(delta, distance if self.state[vertex] == 0
-                                else distance // 2)
+                if self.root[vertex] == vertex and self.slack[vertex] and (self.state[vertex] != 2):
+                    distance = self._distance(self.graph[self.slack[vertex]][vertex])
+                    delta = min(delta, distance if self.state[vertex] == 0 else distance // 2)
             for vertex in range(1, self.n + 1):
                 if self.state[self.root[vertex]] == 1:
                     self.dual[vertex] -= delta
@@ -269,25 +246,32 @@ class GeneralWeightedMatching:
                     self.dual[vertex] += delta * (2 if self.state[vertex] == 1 else -2)
             for vertex in range(1, self.m + 1):
                 source = self.slack[vertex]
-                if (self.root[vertex] == vertex and source
-                        and self.root[source] != vertex
-                        and self._distance(self.graph[source][vertex]) == 0):
+                if self.root[vertex] == vertex and source and (self.root[source] != vertex) and (self._distance(self.graph[source][vertex]) == 0):
                     if self._path(self.graph[source][vertex]):
                         return True
             for vertex in range(self.n + 1, self.m + 1):
-                if (self.root[vertex] == vertex and self.state[vertex] == 2
-                        and self.dual[vertex] == 0):
+                if self.root[vertex] == vertex and self.state[vertex] == 2 and (self.dual[vertex] == 0):
                     self._expand(vertex)
 
     def run(self):
-        if not any(self.mate):
-            maximum = max((self.weight[edge] for row in self.graph[1:self.n + 1]
-                           for edge in row[1:self.n + 1]), default=0)
-            self.dual[1:self.n + 1] = [maximum // 2] * self.n
         while self._augment():
             pass
-        return [self.mate[vertex] - 1 if self.mate[vertex] else -1
-                for vertex in range(1, self.n + 1)]
-
-
+        return [self.mate[vertex] - 1 if self.mate[vertex] else -1 for vertex in range(1, self.n + 1)]
 WeightedMatching = GeneralWeightedMatching
+import sys
+
+def main():
+    read = sys.stdin.buffer.readline
+    (n, m) = map(int, read().split())
+    edges = [tuple(map(int, read().split())) for _ in range(m)]
+    solver = GeneralWeightedMatching(n)
+    for (u, v, w) in edges:
+        solver.add_edge(u, v, w)
+    mate = solver.run()
+    pairs = [(u, v) for (u, v) in enumerate(mate) if u < v]
+    weight = sum((w for (u, v, w) in edges if mate[u] == v))
+    answer = [f'{len(pairs)} {weight}']
+    answer.extend((f'{u} {v}' for (u, v) in pairs))
+    sys.stdout.write('\n'.join(answer))
+if __name__ == '__main__':
+    main()

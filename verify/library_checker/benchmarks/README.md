@@ -6,9 +6,13 @@
 
 | 問題 | 測定ケース / 公式全件 | 反復数 | 最大中央値（秒） | 最大RSS（MiB） | ソース同期 |
 | --- | ---: | ---: | ---: | ---: | --- |
+| [assignment](assignment.json) | 3 / 14 | 5 | 0.844 | 64.8 | 一致 |
 | [bell_number](bell_number.json) | 3 / 11 | 5 | 1.169 | 149.8 | 一致 |
 | [bernoulli_number](bernoulli_number.json) | 3 / 11 | 5 | 0.650 | 108.1 | 一致 |
+| [biconnected_components](biconnected_components.json) | 3 / 22 | 5 | 2.612 | 437.8 | 一致 |
 | [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
+| [counting_spanning_tree_directed](counting_spanning_tree_directed.json) | 3 / 22 | 5 | 0.545 | 124.0 | 一致 |
+| [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.535 | 110.5 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
 | [dynamic_sequence_range_affine_range_sum](dynamic_sequence_range_affine_range_sum.json) | 3 / 33 | 5 | 7.624 | 180.2 | 一致 |
 | [enumerate_quotients](enumerate_quotients.json) | 3 / 26 | 5 | 0.296 | 132.4 | 一致 |
@@ -18,6 +22,8 @@
 | [furthest_pair](furthest_pair.json) | 3 / 46 | 5 | 2.599 | 231.1 | 一致 |
 | [gcd_convolution](gcd_convolution.json) | 3 / 29 | 5 | 0.560 | 263.5 | 一致 |
 | [gcd_of_gaussian_integers](gcd_of_gaussian_integers.json) | 3 / 12 | 5 | 0.239 | 74.5 | 一致 |
+| [general_weighted_matching](general_weighted_matching.json) | 3 / 24 | 5 | 2.578 | 126.5 | 一致 |
+| [incremental_scc](incremental_scc.json) | 3 / 23 | 5 | 1.913 | 370.2 | 一致 |
 | [inv_of_formal_power_series_2d](inv_of_formal_power_series_2d.json) | 3 / 28 | 5 | 1.476 | 139.9 | 一致 |
 | [inv_of_formal_power_series_sparse](inv_of_formal_power_series_sparse.json) | 3 / 24 | 5 | 0.195 | 105.9 | 一致 |
 | [inverse_matrix](inverse_matrix.json) | 3 / 26 | 5 | 1.195 | 82.2 | 一致 |
@@ -53,3 +59,4 @@
 | [stirling_number_of_the_second_kind_fixed_k](stirling_number_of_the_second_kind_fixed_k.json) | 3 / 14 | 5 | 1.992 | 187.8 | 一致 |
 | [subset_convolution](subset_convolution.json) | 3 / 11 | 5 | 2.647 | 575.1 | 一致 |
 | [system_of_linear_equations](system_of_linear_equations.json) | 3 / 27 | 5 | 0.525 | 66.6 | 一致 |
+| [three_edge_connected_components](three_edge_connected_components.json) | 3 / 20 | 5 | 0.833 | 149.2 | 一致 |

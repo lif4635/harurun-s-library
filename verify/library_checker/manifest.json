@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 123,
-    "unimplemented": 130
+    "local_passed": 130,
+    "unimplemented": 123
   },
   "problems": [
     {
@@ -84,10 +84,12 @@
       "title": "Assignment Problem",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/assignment",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_matching.Hungarian"
+      ],
+      "solution": "solutions/assignment.py",
+      "result": "results/assignment.json"
     },
     {
       "name": "associative_array",
@@ -134,10 +136,13 @@
       "title": "Biconnected Components",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/biconnected_components",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.LowLink",
+        "library_codex.graph_connectivity.BiconnectedComponents"
+      ],
+      "solution": "solutions/biconnected_components.py",
+      "result": "results/biconnected_components.json"
     },
     {
       "name": "binomial_coefficient",
@@ -468,20 +473,26 @@
       "title": "Counting Spanning Trees (Directed)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/counting_spanning_tree_directed",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix",
+        "library_codex.linear_algebra.AdvancedMatrix"
+      ],
+      "solution": "solutions/counting_spanning_tree_directed.py",
+      "result": "results/counting_spanning_tree_directed.json"
     },
     {
       "name": "counting_spanning_tree_undirected",
       "title": "Counting Spanning Trees (Undirected)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/counting_spanning_tree_undirected",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix",
+        "library_codex.linear_algebra.AdvancedMatrix"
+      ],
+      "solution": "solutions/counting_spanning_tree_undirected.py",
+      "result": "results/counting_spanning_tree_undirected.json"
     },
     {
       "name": "counting_squarefrees",
@@ -973,10 +984,12 @@
       "title": "General Weighted Matching",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/general_weighted_matching",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_matching.GeneralWeightedMatching"
+      ],
+      "solution": "solutions/general_weighted_matching.py",
+      "result": "results/general_weighted_matching.json"
     },
     {
       "name": "global_minimum_cut_of_dynamic_star_augmented_graph",
@@ -1013,10 +1026,13 @@
       "title": "Strongly Connected Components (Incremental)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/incremental_scc",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.AdvancedConnectivity",
+        "library_codex.union_find.UnionFind"
+      ],
+      "solution": "solutions/incremental_scc.py",
+      "result": "results/incremental_scc.json"
     },
     {
       "name": "intersection_of_f2_vector_spaces",
@@ -2677,10 +2693,12 @@
       "title": "Three-Edge-Connected Components",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/three_edge_connected_components",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.AdvancedConnectivity"
+      ],
+      "solution": "solutions/three_edge_connected_components.py",
+      "result": "results/three_edge_connected_components.json"
     },
     {
       "name": "tree_decomposition_width_2",

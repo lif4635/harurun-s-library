@@ -7,17 +7,13 @@ class ThreeEdgeConnectedComponents:
     as one iterative DFS.  Self-loops do not affect the partition and parallel
     edges are handled by edge ID.
     """
-
-    __slots__ = (
-        "n", "edges", "component", "groups", "component2", "groups2",
-        "count", "count2"
-    )
+    __slots__ = ('n', 'edges', 'component', 'groups', 'component2', 'groups2', 'count', 'count2')
 
     def __init__(self, n, edges):
         self.n = n
         self.edges = list(edges)
         incident = [[] for _ in range(n)]
-        for edge_id, (u, v) in enumerate(self.edges):
+        for (edge_id, (u, v)) in enumerate(self.edges):
             incident[u].append(edge_id)
             if v != u:
                 incident[v].append(edge_id)
@@ -32,20 +28,18 @@ class ThreeEdgeConnectedComponents:
         dfs_id = 0
 
         def other(edge_id, vertex):
-            u, v = self.edges[edge_id]
+            (u, v) = self.edges[edge_id]
             return u ^ v ^ vertex
 
         def absorb(vertex, border_left, border_right):
             while path[vertex] >= 0:
                 child = path[vertex]
-                if (border_left < dfs_in[child]
-                        or dfs_out[child] < border_right):
+                if border_left < dfs_in[child] or dfs_out[child] < border_right:
                     break
                 degree[vertex] += degree[child] - 2
                 degree[child] = 0
                 path[vertex] = path[child]
                 color3[child] = vertex
-
         for start in range(n):
             if dfs_in[start] != -1:
                 continue
@@ -101,7 +95,6 @@ class ThreeEdgeConnectedComponents:
                 else:
                     absorb(vertex, dfs_in[to], dfs_out[to])
                     degree[vertex] -= 2
-
         inverse_order = [0] * n
         for vertex in range(n):
             inverse_order[dfs_in[vertex]] = vertex
@@ -115,21 +108,19 @@ class ThreeEdgeConnectedComponents:
                 else:
                     pointer[vertex] = pointer[pointer[vertex]]
             groups = [[] for _ in range(count)]
-            for vertex, component in enumerate(pointer):
+            for (vertex, component) in enumerate(pointer):
                 groups[component].append(vertex)
-            return count, groups
-
-        self.count2, self.groups2 = assign(color2)
-        self.count, self.groups = assign(color3)
+            return (count, groups)
+        (self.count2, self.groups2) = assign(color2)
+        (self.count, self.groups) = assign(color3)
         self.component2 = color2
         self.component = color3
 
     def __getitem__(self, vertex):
         return self.component[vertex]
 
-
-class _DSU:
-    __slots__ = ("parent",)
+class _graph_connectivity_advanced_connectivity_DSU:
+    __slots__ = ('parent',)
 
     def __init__(self, n):
         self.parent = [-1] * n
@@ -150,11 +141,10 @@ class _DSU:
         if first == second:
             return False
         if self.parent[first] > self.parent[second]:
-            first, second = second, first
+            (first, second) = (second, first)
         self.parent[first] += self.parent[second]
         self.parent[second] = first
         return True
-
 
 def incremental_scc_offline(n, edges):
     """Return SCC-union edge IDs for every directed edge-insertion time.
@@ -231,18 +221,16 @@ def incremental_scc_offline(n, edges):
                     if stack and low[vertex] < low[stack[-1]]:
                         low[stack[-1]] = low[vertex]
         return count
-
     components(n, range(m), m)
-    active = [edge_id for edge_id, (u, v) in enumerate(edges)
-              if component[u] == component[v]]
+    active = [edge_id for (edge_id, (u, v)) in enumerate(edges) if component[u] == component[v]]
     tasks = [(n, 0, active)]
     while tasks:
-        vertex_count, split, edge_ids = tasks.pop()
+        (vertex_count, split, edge_ids) = tasks.pop()
         local_m = len(edge_ids)
         if split == local_m:
             continue
         if split + 1 == local_m:
-            dsu = _DSU(vertex_count)
+            dsu = _graph_connectivity_advanced_connectivity_DSU(vertex_count)
             bucket = result[edge_ids[split]]
             for edge_id in edge_ids:
                 u = work_u[edge_id]
@@ -250,7 +238,6 @@ def incremental_scc_offline(n, edges):
                 if dsu.unite(u, v):
                     bucket.append(edge_id)
             continue
-
         mapping = [-1] * vertex_count
         next_vertex = 0
         for edge_id in edge_ids:
@@ -265,19 +252,17 @@ def incremental_scc_offline(n, edges):
             work_u[edge_id] = mapping[u]
             work_v[edge_id] = mapping[v]
         vertex_count = next_vertex
-        middle = (split + local_m) >> 1
+        middle = split + local_m >> 1
         component_count = components(vertex_count, edge_ids, middle)
         left = []
         right = []
         for position in range(split):
             edge_id = edge_ids[position]
-            (left if component[work_u[edge_id]] == component[work_v[edge_id]]
-             else right).append(edge_id)
+            (left if component[work_u[edge_id]] == component[work_v[edge_id]] else right).append(edge_id)
         left_split = len(left)
         for position in range(split, middle):
             edge_id = edge_ids[position]
-            (left if component[work_u[edge_id]] == component[work_v[edge_id]]
-             else right).append(edge_id)
+            (left if component[work_u[edge_id]] == component[work_v[edge_id]] else right).append(edge_id)
         right_split = len(right)
         for position in range(middle, local_m):
             edge_id = edge_ids[position]
@@ -289,6 +274,16 @@ def incremental_scc_offline(n, edges):
         tasks.append((component_count, right_split, right))
         tasks.append((vertex_count, left_split, left))
     return result
-
-
 IncrementalSccOffline = incremental_scc_offline
+import sys
+
+def main():
+    read = sys.stdin.buffer.readline
+    (n, m) = map(int, read().split())
+    edges = [tuple(map(int, read().split())) for _ in range(m)]
+    groups = ThreeEdgeConnectedComponents(n, edges).groups
+    answer = [str(len(groups))]
+    answer.extend((str(len(group)) + ' ' + ' '.join(map(str, group)) for group in groups))
+    sys.stdout.write('\n'.join(answer))
+if __name__ == '__main__':
+    main()

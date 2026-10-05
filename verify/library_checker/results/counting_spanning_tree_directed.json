@@ -1,0 +1,153 @@
+{
+  "problem": "counting_spanning_tree_directed",
+  "status": "local_passed",
+  "verificationKey": "14f8324e2e013a834dbba9292445acdc11e2617cc22cd43b80adb526dc63dd36",
+  "sourceSha256": "ea007c3db507aa93ba64492335c9000f18b81c83220738eefba947c720c889ff",
+  "modules": [
+    "library_codex.linear_algebra.Matrix",
+    "library_codex.linear_algebra.AdvancedMatrix"
+  ],
+  "problemVersion": "8b5ed61b5f55ae14288a3a90a88c3b3a5adfa1814c1977ff20e54f43fae245cd",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 22,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05930240199086256,
+      "diagnostic": "ok \"3\"\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.059629845985909924,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05947545199887827,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.05817222999758087,
+      "diagnostic": "ok \"8\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.05829021299723536,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.05475675201159902,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.062349621002795175,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.05671724700368941,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.059304505004547536,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.05840059201000258,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.056239148980239406,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.06102240300970152,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.056397587002720684,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.05740768401301466,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.22297459200490266,
+      "diagnostic": "ok \"456870198\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.2320850639953278,
+      "diagnostic": "ok \"575330272\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.1879991180030629,
+      "diagnostic": "ok \"825294431\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.10128299600910395,
+      "diagnostic": "ok \"469948486\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.0937764149857685,
+      "diagnostic": "ok \"251774123\"\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.5363043550169095,
+      "diagnostic": "ok \"560588738\"\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 0.5313865070056636,
+      "diagnostic": "ok \"203074988\"\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 0.5287292420107406,
+      "diagnostic": "ok \"236891059\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:07:30.459245+00:00",
+  "onlineSubmission": null
+}

@@ -9,7 +9,7 @@
 
 ## できること
 
-- `GeneralWeightedMatching`: 一般グラフの最大重みmatchingを扱う `GeneralWeightedMatching`。
+- `GeneralWeightedMatching`: 一般の無向グラフで、端点を共有しない辺の重み合計を最大化する。
 
 ## Import
 
@@ -19,14 +19,15 @@ from library_codex.graph_matching.GeneralWeightedMatching import GeneralWeighted
 
 ## Class `GeneralWeightedMatching`
 
-一般グラフの最大重みmatchingを扱う `GeneralWeightedMatching`。
+一般の無向グラフで、端点を共有しない辺の重み合計を最大化する。
 
-- constructor: [`GeneralWeightedMatching(vertex_count, infinity=10 ** 30)`](../../../graph_matching/GeneralWeightedMatching.py#L12)
-- 引数: `vertex_count`: 頂点数<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 30`
+- constructor: [`GeneralWeightedMatching(vertex_count, infinity=10 ** 30)`](../../../graph_matching/GeneralWeightedMatching.py#L13)
+- 引数: `vertex_count`: 頂点数<br>`infinity`: 双対更新の上限値。辺の重みより十分大きい正整数を指定する。通常は既定値を使う。省略時: `10 ** 30`
 - 返り値: `GeneralWeightedMatching` instance
-- 計算量: —
+- 計算量: O(N²)時間・領域。N=vertex_count
+- 作成後: vertex_count頂点で辺のないグラフ。add_edgeで整数重みの辺を登録し、runで各頂点の相手を求める。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add_edge(first, second, weight)`](../../../graph_matching/GeneralWeightedMatching.py#L36) | method | 辺を追加する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`weight`: 重み | `None` | — |
-| [`run()`](../../../graph_matching/GeneralWeightedMatching.py#L277) | method | 一般グラフの最大重みmatchingを求める。 | なし | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`add_edge(first, second, weight)`](../../../graph_matching/GeneralWeightedMatching.py#L38) | method | 2頂点の間に整数重みの無向辺を登録する。すべての辺をrunの前に追加する。 | `first`: 辺の一方の端点。<br>`second`: 辺のもう一方の端点。<br>`weight`: 辺を選んだときに加算する整数。0以下は無視する。同じ端点間では最大値だけを保持する。 | None — 登録した重みを更新する。自己ループは無視する。範囲外の頂点はIndexError。 | O(1) |
+| [`run()`](../../../graph_matching/GeneralWeightedMatching.py#L282) | method | 端点を共有しない辺を選び、重みの合計を最大にする。辺数の最大化ではない。 | なし | list[int] — 長さvertex_countのlist。result[v]は頂点vと組になる頂点番号、組にならない場合は-1。組になるu,vではresult[u]=vかつresult[v]=u。 | O(N³)時間、O(N²)領域。整数演算1回をO(1)とする |

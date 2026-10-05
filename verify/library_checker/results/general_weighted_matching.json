@@ -1,0 +1,164 @@
+{
+  "problem": "general_weighted_matching",
+  "status": "local_passed",
+  "verificationKey": "4717b2b450a8124fcf1e4999a31266a2501d10d3c6d08b0ce1b9127bb9bb2651",
+  "sourceSha256": "06f409f364493e53ea789ffc1d676de793554af377df0173a0e327d997444107",
+  "modules": [
+    "library_codex.graph_matching.GeneralWeightedMatching"
+  ],
+  "problemVersion": "ee018ef093dce3f31d011376a0aa1a8a19b51c939199dc4fb10fd90bbf854318",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 24,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05703671800438315,
+      "diagnostic": "ok OK: 3 matchings (cost = 15)\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.058929391991114244,
+      "diagnostic": "ok OK: 1 matchings (cost = 3)\n"
+    },
+    {
+      "name": "minimal_00",
+      "status": "AC",
+      "seconds": 0.054251278983429074,
+      "diagnostic": "ok OK: 0 matchings (cost = 0)\n"
+    },
+    {
+      "name": "issue610_00",
+      "status": "AC",
+      "seconds": 0.056490944989491254,
+      "diagnostic": "ok OK: 7 matchings (cost = 7)\n"
+    },
+    {
+      "name": "anti53256_00",
+      "status": "AC",
+      "seconds": 0.059926248010015115,
+      "diagnostic": "ok OK: 9 matchings (cost = 81)\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.06397225201362744,
+      "diagnostic": "ok OK: 6 matchings (cost = 50)\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.06852984800934792,
+      "diagnostic": "ok OK: 3 matchings (cost = 19)\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.6821818010066636,
+      "diagnostic": "ok OK: 250 matchings (cost = 244194530)\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.2364947560126893,
+      "diagnostic": "ok OK: 250 matchings (cost = 248580250)\n"
+    },
+    {
+      "name": "sparse_00",
+      "status": "AC",
+      "seconds": 0.28640521998750046,
+      "diagnostic": "ok OK: 208 matchings (cost = 140607212)\n"
+    },
+    {
+      "name": "sparse_01",
+      "status": "AC",
+      "seconds": 0.2323901700146962,
+      "diagnostic": "ok OK: 115 matchings (cost = 69723351)\n"
+    },
+    {
+      "name": "sparse_02",
+      "status": "AC",
+      "seconds": 0.19941205001669005,
+      "diagnostic": "ok OK: 70 matchings (cost = 35935997)\n"
+    },
+    {
+      "name": "sparse_03",
+      "status": "AC",
+      "seconds": 0.31366322698886506,
+      "diagnostic": "ok OK: 236 matchings (cost = 176065026)\n"
+    },
+    {
+      "name": "sparse_04",
+      "status": "AC",
+      "seconds": 0.2632290970068425,
+      "diagnostic": "ok OK: 192 matchings (cost = 125667090)\n"
+    },
+    {
+      "name": "binary_tree_00",
+      "status": "AC",
+      "seconds": 0.26227065300918184,
+      "diagnostic": "ok OK: 168 matchings (cost = 119581888)\n"
+    },
+    {
+      "name": "cycles_00",
+      "status": "AC",
+      "seconds": 0.26041524001630023,
+      "diagnostic": "ok OK: 229 matchings (cost = 143163175)\n"
+    },
+    {
+      "name": "grid_00",
+      "status": "AC",
+      "seconds": 0.4779159599856939,
+      "diagnostic": "ok OK: 246 matchings (cost = 236805997)\n"
+    },
+    {
+      "name": "complete_00",
+      "status": "AC",
+      "seconds": 1.2149479459912982,
+      "diagnostic": "ok OK: 250 matchings (cost = 249209796)\n"
+    },
+    {
+      "name": "complete_01",
+      "status": "AC",
+      "seconds": 1.952641237003263,
+      "diagnostic": "ok OK: 250 matchings (cost = 249190247)\n"
+    },
+    {
+      "name": "lila_arena_00",
+      "status": "AC",
+      "seconds": 0.1430331559968181,
+      "diagnostic": "ok OK: 50 matchings (cost = 48814559)\n"
+    },
+    {
+      "name": "complete_plane_00",
+      "status": "AC",
+      "seconds": 1.691036588017596,
+      "diagnostic": "ok OK: 250 matchings (cost = 135131415)\n"
+    },
+    {
+      "name": "complete_plane_01",
+      "status": "AC",
+      "seconds": 2.5681636549998075,
+      "diagnostic": "ok OK: 250 matchings (cost = 137768547)\n"
+    },
+    {
+      "name": "complete_mandist_00",
+      "status": "AC",
+      "seconds": 2.125494981999509,
+      "diagnostic": "ok OK: 250 matchings (cost = 124328901)\n"
+    },
+    {
+      "name": "complete_mandist_01",
+      "status": "AC",
+      "seconds": 1.2802642580063548,
+      "diagnostic": "ok OK: 250 matchings (cost = 126736851)\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:16:03.767193+00:00",
+  "onlineSubmission": null
+}

@@ -1,0 +1,158 @@
+{
+  "problem": "incremental_scc",
+  "status": "failed",
+  "verificationKey": "05030df05a400399156a22d8731024d0cd38bfa0afb157eecf26eb8fd2c129e8",
+  "sourceSha256": "e102b7d829c548192339c30447a5395061ce981f3aca43f8e43783210ea0e581",
+  "modules": [
+    "library_codex.graph_connectivity.StronglyConnectedComponents",
+    "library_codex.graph_connectivity.AdvancedConnectivity",
+    "library_codex.union_find.UnionFind"
+  ],
+  "problemVersion": "26d7ee8aebf498046607a5c029a870e874703d29e3579d50df831b5b15e5d6e2",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 23,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05693563100066967,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.056962014990858734,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05546721801511012,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.05655399299575947,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.05821683999965899,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.05498213699320331,
+      "diagnostic": "ok 8 tokens\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.05385588901117444,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_random_04",
+      "status": "AC",
+      "seconds": 0.059219340997515246,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 3.2107031189952977,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 2.5574071000155527,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.8084824370162096,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 2.7941996899899095,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 4.284475968015613,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 4.212453248997917,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 2.6781902740185615,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 2.627138929005014,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_08",
+      "status": "AC",
+      "seconds": 4.269520550005836,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "random_09",
+      "status": "AC",
+      "seconds": 2.7164020799973514,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 2.302486520988168,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 2.2884425169904716,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 2.179419506021077,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "large_cycle_00",
+      "status": "TLE",
+      "seconds": 5.079397605004488
+    },
+    {
+      "name": "large_cycle_01",
+      "status": "TLE",
+      "seconds": 5.084697627986316
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:09:06.773544+00:00",
+  "onlineSubmission": null
+}

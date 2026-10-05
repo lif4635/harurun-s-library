@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-05",
+  "phase": "first quick performance regression after 144 passed tests",
+  "case": "csr_dijkstra",
+  "vertices": 20000,
+  "edges": 100000,
+  "seed": 8200,
+  "checksum": "47604463",
+  "minimumSpeedup": 1.05,
+  "listSeconds": [
+    0.077422,
+    0.080273,
+    0.075923
+  ],
+  "csrSeconds": [
+    0.06664,
+    0.076563,
+    0.073986
+  ],
+  "listMedianSeconds": 0.077422,
+  "csrMedianSeconds": 0.073986,
+  "speedup": 1.046441218608926,
+  "status": "threshold_warning",
+  "note": "Extracted from the first run output. CSRGraph, Dijkstra, benchmark script and thresholds were unchanged. A single separately saved rerun passed; this warning was not discarded."
+}

@@ -1,5 +1,7 @@
 # Library Checkerとの速度比較
 
+2026-10-05のグラフ7問題と重み付き一般マッチング・辺追加SCCの高速化は[グラフの比較記録](GRAPH_ALGORITHMS_BENCHMARK.md)へまとめた。
+
 2026-10-05の区間頻度・動的列と、データ構造6問題の追加検査は[データ構造の比較記録](DATA_STRUCTURE_BENCHMARK.md)へまとめた。
 
 追加の8問題と問題別の解答比較は[問題別検査](LIBRARY_CHECKER_PROBLEMS.md)にまとめています。

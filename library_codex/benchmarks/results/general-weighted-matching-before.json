@@ -1,0 +1,157 @@
+{
+  "problem": "general_weighted_matching",
+  "status": "failed",
+  "verificationKey": "347ac4827ef9ecbfd295e23b2bdfd1df4a688a08734d9421bdcfb177f71d410e",
+  "sourceSha256": "a6035ab950f9ae88597b8aa07023855f01db29793e7b8fd5d68206f59894d37f",
+  "modules": [
+    "library_codex.graph_matching.GeneralWeightedMatching"
+  ],
+  "problemVersion": "ee018ef093dce3f31d011376a0aa1a8a19b51c939199dc4fb10fd90bbf854318",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 24,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0631508259975817,
+      "diagnostic": "ok OK: 3 matchings (cost = 15)\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05572236902662553,
+      "diagnostic": "ok OK: 1 matchings (cost = 3)\n"
+    },
+    {
+      "name": "minimal_00",
+      "status": "AC",
+      "seconds": 0.053189836005913094,
+      "diagnostic": "ok OK: 0 matchings (cost = 0)\n"
+    },
+    {
+      "name": "issue610_00",
+      "status": "AC",
+      "seconds": 0.061924239998916164,
+      "diagnostic": "ok OK: 7 matchings (cost = 7)\n"
+    },
+    {
+      "name": "anti53256_00",
+      "status": "AC",
+      "seconds": 0.06117807500413619,
+      "diagnostic": "ok OK: 9 matchings (cost = 81)\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.06064318600692786,
+      "diagnostic": "ok OK: 6 matchings (cost = 50)\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.05542878698906861,
+      "diagnostic": "ok OK: 3 matchings (cost = 19)\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.9106852510012686,
+      "diagnostic": "ok OK: 250 matchings (cost = 244194530)\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "TLE",
+      "seconds": 5.020723096007714
+    },
+    {
+      "name": "sparse_00",
+      "status": "AC",
+      "seconds": 0.7972643619868904,
+      "diagnostic": "ok OK: 208 matchings (cost = 140607212)\n"
+    },
+    {
+      "name": "sparse_01",
+      "status": "AC",
+      "seconds": 0.5791871190012898,
+      "diagnostic": "ok OK: 115 matchings (cost = 69723351)\n"
+    },
+    {
+      "name": "sparse_02",
+      "status": "AC",
+      "seconds": 0.49982560600619763,
+      "diagnostic": "ok OK: 70 matchings (cost = 35935997)\n"
+    },
+    {
+      "name": "sparse_03",
+      "status": "AC",
+      "seconds": 0.8591318760009017,
+      "diagnostic": "ok OK: 236 matchings (cost = 176065026)\n"
+    },
+    {
+      "name": "sparse_04",
+      "status": "AC",
+      "seconds": 0.6985098549921531,
+      "diagnostic": "ok OK: 192 matchings (cost = 125667090)\n"
+    },
+    {
+      "name": "binary_tree_00",
+      "status": "AC",
+      "seconds": 0.6357644140080083,
+      "diagnostic": "ok OK: 168 matchings (cost = 119581888)\n"
+    },
+    {
+      "name": "cycles_00",
+      "status": "AC",
+      "seconds": 0.6122666000155732,
+      "diagnostic": "ok OK: 229 matchings (cost = 143163175)\n"
+    },
+    {
+      "name": "grid_00",
+      "status": "AC",
+      "seconds": 1.5441186419920996,
+      "diagnostic": "ok OK: 246 matchings (cost = 236805997)\n"
+    },
+    {
+      "name": "complete_00",
+      "status": "TLE",
+      "seconds": 5.0215167489950545
+    },
+    {
+      "name": "complete_01",
+      "status": "TLE",
+      "seconds": 5.0274364599899855
+    },
+    {
+      "name": "lila_arena_00",
+      "status": "AC",
+      "seconds": 0.17491090699331835,
+      "diagnostic": "ok OK: 50 matchings (cost = 48814559)\n"
+    },
+    {
+      "name": "complete_plane_00",
+      "status": "TLE",
+      "seconds": 5.025241847994039
+    },
+    {
+      "name": "complete_plane_01",
+      "status": "TLE",
+      "seconds": 5.024405034986557
+    },
+    {
+      "name": "complete_mandist_00",
+      "status": "TLE",
+      "seconds": 5.021824669005582
+    },
+    {
+      "name": "complete_mandist_01",
+      "status": "TLE",
+      "seconds": 5.027176639006939
+    }
+  ],
+  "verifiedAt": "2026-10-05T05:06:26.535126+00:00",
+  "onlineSubmission": null
+}

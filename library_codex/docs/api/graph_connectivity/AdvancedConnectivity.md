@@ -9,8 +9,8 @@
 
 ## できること
 
-- `incremental_scc_offline`: incremental scc offlineを求める。
-- `ThreeEdgeConnectedComponents`: 三辺連結成分・辺追加offline SCC統合列を扱う `ThreeEdgeConnectedComponents`。
+- 無向グラフの二辺・三辺連結成分と、各頂点の成分番号を求める。
+- 有向辺の追加時系列から、強連結成分の併合をUnion-Findで再現する辺番号列を求める。
 
 ## Import
 
@@ -22,17 +22,18 @@ from library_codex.graph_connectivity.AdvancedConnectivity import incremental_sc
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`incremental_scc_offline(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L162) | incremental scc offlineを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | list[object] — 計算結果 | O((N+M) |
+| [`incremental_scc_offline(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L159) | 有向辺を順番に追加したときの強連結成分の合流を、すべての時刻について求める。 | `n`: 頂点数。<br>`edges`: 追加順の有向辺(u,v)の列。処理前にすべての追加辺を渡す。入力は変更しない。 | list[list[int]] — 長さMのlist。result[t]内の各辺番号iについて、元のedges[i]の両端点をUnion-Findで併合すると、時刻tの追加直後の強連結成分を再現できる。空listは併合なし。同じ辺番号は1回だけ現れ、全体で高々max(N-1,0)個。 | O((N+M) log(M+2))時間、O(N+M)追加領域 |
 
 ## Class `ThreeEdgeConnectedComponents`
 
-三辺連結成分・辺追加offline SCC統合列を扱う `ThreeEdgeConnectedComponents`。
+任意の2辺を取り除いても互いに到達できる頂点を、同じ三辺連結成分にまとめる。
 
-- constructor: [`ThreeEdgeConnectedComponents(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L19)
-- 引数: `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list
+- constructor: [`ThreeEdgeConnectedComponents(n, edges)`](../../../graph_connectivity/AdvancedConnectivity.py#L16)
+- 引数: `n`: 頂点数。<br>`edges`: 無向辺(u,v)の列。1本につき1個を渡す。多重辺と自己ループを扱える。
 - 返り値: `ThreeEdgeConnectedComponents` instance
-- 計算量: —
+- 計算量: O(N+M)時間・領域。Nは頂点数、Mは辺数
+- 作成後: groupsは三辺連結成分ごとの頂点list、component[v]は頂点vの成分番号。groups2・component2は二辺連結成分に対応する。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L130) | method | vertexが属する3-edge-connected成分のIDを返す。 | `vertex`: 頂点番号 | int — component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。 | — |
+| [`__getitem__(vertex)`](../../../graph_connectivity/AdvancedConnectivity.py#L127) | method | vertexが属する三辺連結成分の番号を返す。 | `vertex`: 頂点番号 | int — component[vertex]と同じ成分ID。このIDの頂点列はgroups[ID]。 | O(1) |
