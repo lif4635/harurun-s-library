@@ -883,3 +883,37 @@ def test_description_audit_detects_generic_return_and_tuple_parts():
         issue["reason"] for issue in CATALOG.description_quality_issues(data)
     }
     assert reasons == {"generic-purpose", "generic-return", "tuple-parts-missing"}
+
+@pytest.mark.parametrize("path,name", [
+    ("union_find.PotentialUnionFind", "PotentialUnionFind"),
+    ("tree.CentroidDistanceAdd", "CentroidDistanceAdd"),
+    ("range_query.StaticRangeMode", "StaticRangeMode"),
+])
+def test_tree_range_articles_and_standalone_contracts(path, name):
+    module = module_by_path(load_catalog(), "library_codex." + path)
+    assert "## 主な機能" in module["article"]["markdown"]
+    assert "## 使い方" in module["article"]["markdown"]
+    item = next(item for item in module["classes"] if item["name"] == name)
+    methods = {method["name"]: method for method in item["methods"]}
+    assert "tolist" in methods
+    assert "順" in methods["tolist"]["returnDescription"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    if name == "PotentialUnionFind":
+        tree = namespace[name](3, lambda a, b: (a + b) % 7, lambda a: -a % 7, 0)
+        assert tree.merge(0, 1, 5)
+        assert tree.merge(1, 2, 4)
+        assert tree.diff(0, 2) == 2
+        assert not tree.merge(0, 2, 3)
+        assert "op(inv(x_first),x_second)" in methods["diff"]["returnDescription"]
+        assert "T" in methods["merge"]["complexity"]
+    elif name == "CentroidDistanceAdd":
+        tree = namespace[name]([[1], [0, 2], [1]], [1, 2, 3])
+        tree.add(1, 1, 2, 5)
+        assert tree.tolist() == [6, 2, 8]
+        assert methods["add"]["returnFormat"] == "None"
+        assert "[lower, upper)" in methods["add"]["description"]
+    else:
+        table = namespace[name]([5, 2, 2, 5])
+        assert table.mode(0, 4) == (5, 2)
+        assert methods["mode"]["complexity"].startswith("O(B)")

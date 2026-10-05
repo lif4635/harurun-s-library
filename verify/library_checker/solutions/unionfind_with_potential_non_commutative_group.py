@@ -1,0 +1,100 @@
+"""群の要素で表した頂点間の差を保ち、矛盾する制約を拒否する。"""
+
+class PotentialUnionFind:
+    __slots__ = ('n', 'parent', 'potential', 'component_count', 'op', 'inv', 'unit')
+
+    def __init__(self, size, op, inv, unit):
+        if size < 0:
+            raise ValueError('size must be nonnegative')
+        self.n = size
+        self.parent = [-1] * size
+        self.potential = [unit] * size
+        self.component_count = size
+        self.op = op
+        self.inv = inv
+        self.unit = unit
+
+    def find(self, node):
+        parent = self.parent
+        if parent[node] < 0:
+            return node
+        path = []
+        while parent[parent[node]] >= 0:
+            path.append(node)
+            node = parent[node]
+        root = parent[node]
+        potential = self.potential
+        total = potential[node]
+        op = self.op
+        for vertex in reversed(path):
+            total = op(total, potential[vertex])
+            potential[vertex] = total
+            parent[vertex] = root
+        return root
+
+    def weight(self, node):
+        self.find(node)
+        return self.potential[node]
+
+    def merge(self, first, second, difference):
+        root_first = self.find(first)
+        root_second = self.find(second)
+        potential = self.potential
+        op = self.op
+        target = op(potential[first], difference)
+        if root_first == root_second:
+            return target == potential[second]
+        difference = op(target, self.inv(potential[second]))
+        parent = self.parent
+        if parent[root_first] > parent[root_second]:
+            (root_first, root_second) = (root_second, root_first)
+            difference = self.inv(difference)
+        parent[root_first] += parent[root_second]
+        parent[root_second] = root_first
+        potential[root_second] = difference
+        self.component_count -= 1
+        return True
+
+    def diff(self, first, second):
+        if self.find(first) != self.find(second):
+            return None
+        return self.op(self.inv(self.potential[first]), self.potential[second])
+
+    def same(self, first, second):
+        return self.find(first) == self.find(second)
+
+    def size(self, node):
+        return -self.parent[self.find(node)]
+
+    def tolist(self):
+        return [(self.find(node), self.potential[node]) for node in range(self.n)]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return 'PotentialUnionFind(%r)' % self.tolist()
+import sys
+
+def op(a, b):
+    mod = 998244353
+    return ((a[0] * b[0] + a[1] * b[2]) % mod, (a[0] * b[1] + a[1] * b[3]) % mod, (a[2] * b[0] + a[3] * b[2]) % mod, (a[2] * b[1] + a[3] * b[3]) % mod)
+
+def inv(a):
+    return (a[3], -a[1] % 998244353, -a[2] % 998244353, a[0])
+
+def main():
+    read = sys.stdin.buffer.readline
+    (n, q) = map(int, read().split())
+    tree = PotentialUnionFind(n, op, inv, (1, 0, 0, 1))
+    result = []
+    for _ in range(q):
+        query = list(map(int, read().split()))
+        if query[0] == 0:
+            result.append('1' if tree.merge(query[2], query[1], tuple(query[3:])) else '0')
+        else:
+            value = tree.diff(query[2], query[1])
+            result.append('-1' if value is None else ' '.join(map(str, value)))
+    sys.stdout.write('\n'.join(result))
+if __name__ == '__main__':
+    main()

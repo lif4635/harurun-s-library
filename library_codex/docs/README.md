@@ -46,10 +46,10 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [combinatorial_series](api/combinatorial_series/README.md) | 組合せ数列・漸化式・数列変換 | 11 | 23 | 0 | 0 |
 | [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 15 | 3 | 16 | 105 |
 | [fenwick_tree](api/fenwick_tree/README.md) | Fenwick木と加算・接頭和 | 3 | 0 | 3 | 17 |
-| [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 10 | 0 | 11 | 67 |
+| [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 11 | 0 | 12 | 76 |
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 12 | 0 | 12 | 126 |
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 11 | 3 | 9 | 76 |
-| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 12 | 4 | 12 | 68 |
+| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 12 | 4 | 12 | 71 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 16 | 24 | 6 | 32 |
 | [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 11 | 15 | 2 | 4 |
@@ -64,7 +64,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 3 | 3 | 28 |
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
-| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 21 | 23 | 25 | 124 |
+| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 22 | 23 | 26 | 132 |
 | [tree_query](api/tree_query/README.md) | path・部分木上の静的検索 | 3 | 0 | 3 | 15 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 21 | 29 | 22 | 244 |
 | [string_sequence](api/string_sequence/README.md) | 編集距離・巡回shift・Lyndon分解・共通substring | 4 | 5 | 0 | 0 |
@@ -74,4 +74,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **365 modules / 505 functions / 224 classes / 1404 methods・properties**。
+合計: **367 modules / 505 functions / 226 classes / 1424 methods・properties**。

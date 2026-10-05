@@ -5,7 +5,7 @@
 
 - 計算量の目安: 構築 $O(N\log N)$、更新/取得 $O(\log^2N)$
 - source: [`tree/CentroidDecomposition.py`](../../../tree/CentroidDecomposition.py)
-- 公開API: function 1、class 2、method/property 7（Python protocol 0を含む）
+- 公開API: function 1、class 2、method/property 10（Python protocol 2を含む）
 
 ## できること
 
@@ -46,14 +46,17 @@ from library_codex.tree.CentroidDecomposition import tree_centroid, CentroidDeco
 
 静的な重みなし木の各頂点に値を持たせ、点更新と、指定頂点から一定距離にある頂点の値の合計を処理する。距離は元の木で通る辺の本数。
 
-- constructor: [`CentroidDistanceFenwick(tree, values=None)`](../../../tree/CentroidDecomposition.py#L212)
+- constructor: [`CentroidDistanceFenwick(tree, values=None)`](../../../tree/CentroidDecomposition.py#L180)
 - 引数: `tree`: 連結な重みなし木の隣接list。<br>`values`: 各頂点の初期値を頂点番号順に並べた長さVのiterable。省略時はすべて0。省略時: `None`
 - 返り値: `CentroidDistanceFenwick` instance
-- 計算量: O(V log^2 V) time、O(V log V) memory
+- 計算量: O(V log V)時間・領域。Vは頂点数
 - 作成後: 各頂点の値をadd・setで更新し、queryで距離区間ごとの合計を求められる状態を作る。valuesを省略した場合、すべての頂点の初期値は0。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(vertex, delta)`](../../../tree/CentroidDecomposition.py#L246) | method | 頂点vertexに保存されている値へdeltaを加える。 | `vertex`: 頂点番号<br>`delta`: 加算差分 | 値は返さない。以後のqueryへ加算後の値を反映する。 | O(log^2 V) |
-| [`set(vertex, value)`](../../../tree/CentroidDecomposition.py#L258) | method | 頂点vertexに保存されている値をvalueへ置き換える。 | `vertex`: 頂点番号<br>`value`: 追加・設定・問い合わせる値 | 値は返さない。以後のqueryへ新しい値を反映する。 | O(log^2 V) |
-| [`query(vertex, lower=0, upper=None)`](../../../tree/CentroidDecomposition.py#L267) | method | vertexからの距離が半開区間 $[\mathrm{lower},\mathrm{upper})$ に入る頂点の値を合計する。upper=Noneなら距離の上限を設けない。 | `vertex`: 頂点番号<br>`lower`: 下限。省略時: `0`<br>`upper`: 上限。省略時: `None` | number — $\mathrm{lower}\le\operatorname{dist}(\mathrm{vertex},u)<\mathrm{upper}$ を満たすすべての頂点 $u$ に対する $\sum_u\mathrm{values}[u]$。query(vertex)は木全体の値の合計を返す。 | O(log^2 V) |
+| [`add(vertex, delta)`](../../../tree/CentroidDecomposition.py#L217) | method | 頂点vertexに保存されている値へdeltaを加える。 | `vertex`: 頂点番号<br>`delta`: 加算差分 | 値は返さない。以後のqueryへ加算後の値を反映する。 | O(log^2 V) |
+| [`set(vertex, value)`](../../../tree/CentroidDecomposition.py#L234) | method | 頂点vertexに保存されている値をvalueへ置き換える。 | `vertex`: 頂点番号<br>`value`: 追加・設定・問い合わせる値 | 値は返さない。以後のqueryへ新しい値を反映する。 | O(log^2 V) |
+| [`query(vertex, lower=0, upper=None)`](../../../tree/CentroidDecomposition.py#L237) | method | vertexからの距離が半開区間 $[\mathrm{lower},\mathrm{upper})$ に入る頂点の値を合計する。upper=Noneなら距離の上限を設けない。 | `vertex`: 頂点番号<br>`lower`: 下限。省略時: `0`<br>`upper`: 上限。省略時: `None` | number — $\mathrm{lower}\le\operatorname{dist}(\mathrm{vertex},u)<\mathrm{upper}$ を満たすすべての頂点 $u$ に対する $\sum_u\mathrm{values}[u]$。query(vertex)は木全体の値の合計を返す。 | O(log^2 V) |
+| [`tolist()`](../../../tree/CentroidDecomposition.py#L280) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | list — 入力と同じ順序の値を並べた新しいlist。 | O(N)時間。Nは要素数 |
+| [`__str__()`](../../../tree/CentroidDecomposition.py#L283) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — tolist()と同じ内容の文字列表現。 | O(N)時間。Nは要素数。加えて各要素の文字列化 |
+| [`__repr__()`](../../../tree/CentroidDecomposition.py#L286) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — CentroidDistanceFenwick([...])の形式。 | O(N)時間。Nは要素数。加えて各要素の文字列化 |

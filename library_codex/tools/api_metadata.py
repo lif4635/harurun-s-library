@@ -4854,7 +4854,7 @@ COMPLEXITY_BY_MODULE["tree/CentroidDecomposition.py"] = {
     "build": "O(V log V) time、O(V log V) memory",
     "ancestors": "O(1)。保持済みlistを返し、その長さはO(log V)",
     "bfs_layer": "O(K)。Kは列挙する頂点数",
-    "CentroidDistanceFenwick": "O(V log^2 V) time、O(V log V) memory",
+    "CentroidDistanceFenwick": "O(V log V)時間・領域。Vは頂点数",
     "add": "O(log^2 V)",
     "set": "O(log^2 V)",
     "query": "O(log^2 V)",
@@ -5074,7 +5074,7 @@ API_DETAILS_BY_SYMBOL.update({
 
 COMPLEXITY_BY_MODULE.update({
     "range_query/RangeMajority.py": {"RangeMajority": "構築 O(N) time・O(N) memory", "count": "O(log N)", "majority": "O(log N)", "is_majority": "O(log N)"},
-    "range_query/StaticRangeMode.py": {"StaticRangeMode": "構築 O(N sqrt N) time・O(N) memory", "count": "O(log N)", "mode": "O(sqrt N log N)"},
+    "range_query/StaticRangeMode.py": {"StaticRangeMode": "期待O(N ceil(N/B))時間、O(N + ceil(N/B)^2)領域。B=block_size、既定値は約sqrt(N)。hash・等値比較をO(1)とする", "count": "期待O(log(N+1))。hash・等値比較をO(1)とする", "mode": "O(B)。B=block_size"},
     "geometry/ConvexPolygon.py": {"ConvexPolygon": "構築 O(N)", "location": "O(log N)", "contains": "O(log N)"},
     "geometry/CircleGeometry.py": {"circle_line_intersections": "O(1)", "circle_circle_intersections": "O(1)", "tangent_points": "O(1)"},
     "algorithm/Sorting.py": {**COMPLEXITY_BY_MODULE.get("algorithm/Sorting.py", {}), "inverse_permutation": "O(N)", "compose_permutations": "O(N)", "permutation_cycles": "O(N)", "permutation_power": "O(N)"},
@@ -6423,3 +6423,104 @@ COMPLEXITY_BY_MODULE.setdefault("linear_algebra/Matrix.py", {})["matrix_multiply
 COMPLEXITY_BY_MODULE["linear_algebra/Strassen.py"] = {
     "strassen_matrix_multiply": "thresholdを定数としてO(S^log2(7))時間、O(S^2)追加領域。SはH,D,Wの最大値を切り上げた2冪。整数の四則演算をO(1)とする",
 }
+
+SEARCH_TERMS_BY_MODULE["union_find/PotentialUnionFind.py"] = (
+    "群の重み付きUnion-Find", "ポテンシャル付きDSU", "非可換群", "差分制約",
+)
+MODULE_CAPABILITIES["union_find/PotentialUnionFind.py"] = (
+    "頂点間の群の差を指定する制約を追加し、矛盾する制約は拒否する。",
+    "同じ連結成分に属する2頂点の差を取得する。可逆行列・順列などの非可換群にも対応する。",
+)
+CLASS_DETAILS_BY_SYMBOL[("union_find/PotentialUnionFind.py", "PotentialUnionFind")] = {
+    "description": "未知の頂点値に対する群の差を保つ。merge(a,b,d)はx_b=op(x_a,d)を追加し、diff(a,b)はop(inv(x_a),x_b)を返す。",
+    "constructorCreates": "size個の独立した頂点。mergeで矛盾しない制約だけを追加し、diffで接続済みの頂点間の差を取得できる。",
+    "argumentDescriptions": {
+        "size": "頂点数。0以上。",
+        "op": "群の積op(a,b)。入力を変更しない。非可換でもよい。",
+        "inv": "群の逆元inv(a)。入力を変更しない。",
+        "unit": "群の単位元。格納する群の要素は後から変更せず、同じ要素は==で等しくなる表現を使う。",
+    },
+}
+for _method, _description, _format, _returned in (
+    ("find", "所属する連結成分の代表頂点を取得する。", "int", "代表頂点の番号。mergeによって変わることがある。"),
+    ("weight", "現在の代表頂点からnodeへの群の差を取得する。", "object", "op(inv(x_root),x_node)。代表頂点が変われば値も変わる。"),
+    ("merge", "x_second=op(x_first,difference)という制約を追加する。", "bool", "矛盾しなければTrue。既知の制約と矛盾する場合はFalseを返し、その制約を追加しない。"),
+    ("diff", "firstからsecondへの群の差を取得する。", "object | None", "接続済みならop(inv(x_first),x_second)。未接続ならNone。"),
+    ("same", "2頂点が同じ連結成分にあるか判定する。", "bool", "既に差が定まっている2頂点ならTrue。"),
+    ("size", "nodeの連結成分に含まれる頂点数を取得する。", "int", "node自身を含む頂点数。"),
+    ("tolist", "各頂点の代表頂点と、その代表頂点からの差を取り出す。", "list[tuple[int, object]]", "頂点番号順の(root, op(inv(x_root),x_vertex))。群の要素自体はコピーしない。"),
+    ("__str__", "各頂点の代表頂点と差を表示する。", "str", "tolist()の文字列表現。"),
+    ("__repr__", "型名と各頂点の代表頂点・差を表示する。", "str", "PotentialUnionFind([...])の形式。"),
+):
+    API_DETAILS_BY_SYMBOL[("union_find/PotentialUnionFind.py", "PotentialUnionFind", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returned,
+    }
+API_DETAILS_BY_SYMBOL[("union_find/PotentialUnionFind.py", "PotentialUnionFind", "merge")]["argumentDescriptions"] = {
+    "first": "差の基準となる頂点。",
+    "second": "基準値にdifferenceを右から掛けた値を持つ頂点。",
+    "difference": "op(inv(x_first),x_second)として指定する群の要素。",
+}
+API_DETAILS_BY_SYMBOL[("union_find/PotentialUnionFind.py", "PotentialUnionFind", "diff")]["argumentDescriptions"] = {
+    "first": "差の基準となる頂点。",
+    "second": "基準からの差を求める頂点。",
+}
+API_DETAILS_BY_SYMBOL[("union_find/PotentialUnionFind.py", "PotentialUnionFind", "same")]["argumentDescriptions"] = {
+    "first": "接続を調べる一方の頂点。",
+    "second": "接続を調べるもう一方の頂点。",
+}
+for _method in ("find", "weight", "size"):
+    API_DETAILS_BY_SYMBOL[("union_find/PotentialUnionFind.py", "PotentialUnionFind", _method)]["argumentDescriptions"] = {"node": "対象の頂点。"}
+COMPLEXITY_BY_MODULE["union_find/PotentialUnionFind.py"] = {
+    "PotentialUnionFind": "O(N)時間・領域。N=size",
+    **{_method: "償却O(α(N) T)。Tは群の積・逆元・等値比較1回の最大時間"
+       for _method in ("find", "weight", "merge", "diff", "same", "size")},
+    "tolist": "O(N α(N) T)時間、O(N)追加領域。Tは群演算1回の時間",
+    "__str__": "O(N α(N) T)と各要素の文字列化",
+    "__repr__": "O(N α(N) T)と各要素の文字列化",
+}
+
+SEARCH_TERMS_BY_MODULE["tree/CentroidDistanceAdd.py"] = ("距離区間加算", "輪郭更新", "contour add", "重心分解")
+MODULE_CAPABILITIES["tree/CentroidDistanceAdd.py"] = (
+    "重みなし木で、ある頂点からの距離が半開区間に入るすべての頂点へ加算する。",
+    "更新後の頂点値を1点ずつ取得する。構築O(N log N)、更新・取得O(log² N)。",
+)
+CLASS_DETAILS_BY_SYMBOL[("tree/CentroidDistanceAdd.py", "CentroidDistanceAdd")] = {
+    "description": "静的な重みなし木で距離区間への加算と頂点値の取得を行う。",
+    "constructorCreates": "valuesを初期頂点値として持つ木。addで距離条件に合う頂点へ加算し、getで更新後の頂点値を読む。",
+    "argumentDescriptions": {
+        "tree": "連結な重みなし無向木の隣接list。空の木は指定しない。",
+        "values": "頂点番号順の初期値。長さは頂点数と一致させる。省略時はすべて0。",
+    },
+}
+API_DETAILS_BY_SYMBOL[("tree/CentroidDistanceAdd.py", "CentroidDistanceAdd", "add")] = {
+    "description": "vertexからの距離が半開区間[lower, upper)に入る頂点へdeltaを加える。",
+    "argumentDescriptions": {
+        "lower": "距離の下限。下限と同じ距離の頂点も含む。",
+        "upper": "距離の上限。上限と同じ距離の頂点は含まない。Noneなら上限なし。",
+        "delta": "条件に合う各頂点へ加える値。負でもよい。",
+    },
+    "returnFormat": "None",
+    "returnDescription": "条件に合う頂点値を更新する。距離範囲が空なら何も変更しない。",
+}
+API_DETAILS_BY_SYMBOL[("tree/CentroidDistanceAdd.py", "CentroidDistanceAdd", "get")] = {
+    "description": "初期値とこれまでの距離区間加算を反映したvertexの値を取得する。",
+    "returnFormat": "number",
+    "returnDescription": "vertexの初期値と、vertexを対象としたすべてのaddのdeltaの合計。",
+}
+COMPLEXITY_BY_MODULE["tree/CentroidDistanceAdd.py"] = {
+    "CentroidDistanceAdd": "O(N log N)時間・領域。Nは頂点数",
+    "add": "O(log² N)", "get": "O(log² N)",
+}
+for _module, _owner, _cost in (
+    ("tree/CentroidDistanceAdd.py", "CentroidDistanceAdd", "O(N log² N)"),
+    ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick", "O(N)"),
+    ("range_query/StaticRangeMode.py", "StaticRangeMode", "O(N)"),
+):
+    for _method in ("tolist", "__str__", "__repr__"):
+        API_DETAILS_BY_SYMBOL[(_module, _owner, _method)] = {
+            "description": "現在の値を元の頂点番号・添字順に取り出す。",
+            "returnFormat": "list" if _method == "tolist" else "str",
+            "returnDescription": "入力と同じ順序の値を並べた新しいlist。" if _method == "tolist" else
+                ("tolist()と同じ内容の文字列表現。" if _method == "__str__" else _owner + "([...])の形式。"),
+        }
+        COMPLEXITY_BY_MODULE[_module][_method] = _cost + "時間。Nは要素数" + ("" if _method == "tolist" else "。加えて各要素の文字列化")

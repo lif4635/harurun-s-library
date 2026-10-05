@@ -1,0 +1,449 @@
+{
+  "measuredAt": "2026-10-05T08:05:54.877123+00:00",
+  "problem": "vertex_add_range_contour_sum_on_tree",
+  "snapshot": {
+    "retrievedAt": "2026-10-05T07:26:22.690365+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "vertex_add_range_contour_sum_on_tree",
+    "problemInfo": {
+      "overall_version": "05c14c05416b36cef0160b43eee1888c71babd7c13c92c6fb8a537c7b3741f3a",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/tree/vertex_add_range_contour_sum_on_tree",
+      "testcases_version": "1bdef0f532b0bd753f51cbdd0f28659ad7c7b42277fea4c3a881b92250b85ffd",
+      "time_limit": 10,
+      "title": "Vertex Add Range Contour Sum on Tree",
+      "version": "707e56ead958ade39f3c28c09760c8aa5ceab9ffa9b3556ed4eb305431ea868f"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 388478,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 110116864,
+        "problem_name": "vertex_add_range_contour_sum_on_tree",
+        "problem_title": "Vertex Add Range Contour Sum on Tree",
+        "status": "AC",
+        "submission_time": "2026-07-26T18:50:45.604113Z",
+        "time": 0.993,
+        "user_name": "tyuyu62",
+        "sourceFile": "388478.py",
+        "sourceSha256": "1a4e57c0364ee40f581a0256466942f0c9d295ef9def73383c17a9b38494cced",
+        "url": "https://judge.yosupo.jp/submission/388478"
+      }
+    ]
+  },
+  "officialHashSha256": "eea2df77104c77d0ab2cff6c51115d17b3050564626f600efaa0406337202104",
+  "checkerSha256": "9141417f9200aa8cd1ddcb4cf20607f975d65fc9001a99099af0ac03f969f70b",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 5,
+  "seed": 92471,
+  "sourceSha256": {
+    "388478": "1a4e57c0364ee40f581a0256466942f0c9d295ef9def73383c17a9b38494cced",
+    "previous": "c1e7b9591863f614dbc700babd936d0f11c1a8d93de43d21ded575c3aa19176c",
+    "library": "26c5cf984320f55da2f9dbbbf2ab946b930e8ff8d344cfe5c005e04ff226bc24"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "random_max_2_00",
+      "inputSha256": "f8a7b9f96f9019b9c5ed9133967215ab3390ea515980671ab18cfb95b32ed5ef",
+      "implementations": {
+        "388478": {
+          "samples": [
+            {
+              "seconds": 1.0532188270008191,
+              "peakRssKiB": 105268,
+              "outputSha256": "22bc9dd365cf7b0320131422a72528763b7059c1f8152af9f5b11cc76be06275"
+            },
+            {
+              "seconds": 0.9819873340020422,
+              "peakRssKiB": 105508,
+              "outputSha256": "22bc9dd365cf7b0320131422a72528763b7059c1f8152af9f5b11cc76be06275"
+            },
+            {
+              "seconds": 1.0703575239749625,
+              "peakRssKiB": 105272,
+              "outputSha256": "22bc9dd365cf7b0320131422a72528763b7059c1f8152af9f5b11cc76be06275"
+            },
+            {
+              "seconds": 0.9379065860121045,
+              "peakRssKiB": 105372,
+              "outputSha256": "22bc9dd365cf7b0320131422a72528763b7059c1f8152af9f5b11cc76be06275"
+            },
+            {
+              "seconds": 1.0539751430042088,
+              "peakRssKiB": 105332,
+              "outputSha256": "22bc9dd365cf7b0320131422a72528763b7059c1f8152af9f5b11cc76be06275"
+            }
+          ],
+          "medianSeconds": 1.0532188270008191,
+          "peakRssKiB": 105508
+        },
+        "previous": {
+          "samples": [
+            {
+              "seconds": 6.543967486999463,
+              "peakRssKiB": 338688,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 6.810310861008475,
+              "peakRssKiB": 337744,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 7.0961234960122965,
+              "peakRssKiB": 338212,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 6.77319498299039,
+              "peakRssKiB": 338724,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 6.740134073013905,
+              "peakRssKiB": 338616,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            }
+          ],
+          "medianSeconds": 6.77319498299039,
+          "peakRssKiB": 338724
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 2.7297695750021376,
+              "peakRssKiB": 217952,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 2.6564764600188937,
+              "peakRssKiB": 218112,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 2.776601027988363,
+              "peakRssKiB": 217304,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 2.8898773360124324,
+              "peakRssKiB": 216880,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            },
+            {
+              "seconds": 2.8703536320244893,
+              "peakRssKiB": 217492,
+              "outputSha256": "5d1f7e5dce91005abec29f0dc8442f3e738519f7e0cbb4b2019d8cc448e86b50"
+            }
+          ],
+          "medianSeconds": 2.776601027988363,
+          "peakRssKiB": 218112
+        }
+      }
+    },
+    {
+      "case": "binary_2_00",
+      "inputSha256": "023313e93d26a324b87e2ba1b36e8814105a67b426f9f405d8f307b6a9505542",
+      "implementations": {
+        "388478": {
+          "samples": [
+            {
+              "seconds": 1.3019947890134063,
+              "peakRssKiB": 103540,
+              "outputSha256": "aa5da80a7e6d86013c90e485f3b2f2c7958dac8c69119bd544b7b38346dbb79c"
+            },
+            {
+              "seconds": 1.3601113820041064,
+              "peakRssKiB": 103508,
+              "outputSha256": "aa5da80a7e6d86013c90e485f3b2f2c7958dac8c69119bd544b7b38346dbb79c"
+            },
+            {
+              "seconds": 1.500388276996091,
+              "peakRssKiB": 103468,
+              "outputSha256": "aa5da80a7e6d86013c90e485f3b2f2c7958dac8c69119bd544b7b38346dbb79c"
+            },
+            {
+              "seconds": 1.472232540982077,
+              "peakRssKiB": 103268,
+              "outputSha256": "aa5da80a7e6d86013c90e485f3b2f2c7958dac8c69119bd544b7b38346dbb79c"
+            },
+            {
+              "seconds": 1.40891284000827,
+              "peakRssKiB": 103392,
+              "outputSha256": "aa5da80a7e6d86013c90e485f3b2f2c7958dac8c69119bd544b7b38346dbb79c"
+            }
+          ],
+          "medianSeconds": 1.40891284000827,
+          "peakRssKiB": 103540
+        },
+        "previous": {
+          "samples": [
+            {
+              "seconds": 10.352262045023963,
+              "peakRssKiB": 412256,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 10.024004607985262,
+              "peakRssKiB": 411420,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 10.20869044601568,
+              "peakRssKiB": 411844,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 10.206065954000223,
+              "peakRssKiB": 409772,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 10.176071954978397,
+              "peakRssKiB": 411812,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            }
+          ],
+          "medianSeconds": 10.206065954000223,
+          "peakRssKiB": 412256
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 4.02050373700331,
+              "peakRssKiB": 259288,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 4.069953039987013,
+              "peakRssKiB": 259324,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 4.147077771020122,
+              "peakRssKiB": 258780,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 4.164142744004494,
+              "peakRssKiB": 259356,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            },
+            {
+              "seconds": 4.134441957983654,
+              "peakRssKiB": 257996,
+              "outputSha256": "f1f0cc8ebcded9688a84fe52b4668516273573f256b1961c285d5e9434ec7053"
+            }
+          ],
+          "medianSeconds": 4.134441957983654,
+          "peakRssKiB": 259356
+        }
+      }
+    },
+    {
+      "case": "line_2_00",
+      "inputSha256": "50b58575cd85493d409ce06f549e6bdef224b09b174db15c2178a2f87bb698e4",
+      "implementations": {
+        "388478": {
+          "samples": [
+            {
+              "seconds": 1.7147361660026945,
+              "peakRssKiB": 129088,
+              "outputSha256": "1179e0d83de314be0155e3bc9097fcd46bbfc16aa6c57d307cd80c7512f76e91"
+            },
+            {
+              "seconds": 1.926914533978561,
+              "peakRssKiB": 129024,
+              "outputSha256": "1179e0d83de314be0155e3bc9097fcd46bbfc16aa6c57d307cd80c7512f76e91"
+            },
+            {
+              "seconds": 1.770732909993967,
+              "peakRssKiB": 128956,
+              "outputSha256": "1179e0d83de314be0155e3bc9097fcd46bbfc16aa6c57d307cd80c7512f76e91"
+            },
+            {
+              "seconds": 1.804497992998222,
+              "peakRssKiB": 129068,
+              "outputSha256": "1179e0d83de314be0155e3bc9097fcd46bbfc16aa6c57d307cd80c7512f76e91"
+            },
+            {
+              "seconds": 1.997199453995563,
+              "peakRssKiB": 127364,
+              "outputSha256": "1179e0d83de314be0155e3bc9097fcd46bbfc16aa6c57d307cd80c7512f76e91"
+            }
+          ],
+          "medianSeconds": 1.804497992998222,
+          "peakRssKiB": 129088
+        },
+        "previous": {
+          "samples": [
+            {
+              "seconds": 14.956203223991906,
+              "peakRssKiB": 447580,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 14.396157199982554,
+              "peakRssKiB": 448104,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 15.200973139988491,
+              "peakRssKiB": 447900,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 14.770728736999445,
+              "peakRssKiB": 448116,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 15.07900895999046,
+              "peakRssKiB": 447592,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            }
+          ],
+          "medianSeconds": 14.956203223991906,
+          "peakRssKiB": 448116
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 4.657806843024446,
+              "peakRssKiB": 288908,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 4.855406079994282,
+              "peakRssKiB": 289540,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 4.76433194798301,
+              "peakRssKiB": 289676,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 4.6330511499836575,
+              "peakRssKiB": 289560,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            },
+            {
+              "seconds": 4.989980045007542,
+              "peakRssKiB": 289412,
+              "outputSha256": "1a40c40a75a13aab87ec6242adb0ca18909d19ceea8e5aae9aa4dda50ad79e9a"
+            }
+          ],
+          "medianSeconds": 4.76433194798301,
+          "peakRssKiB": 289676
+        }
+      }
+    }
+  ]
+}

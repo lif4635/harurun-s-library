@@ -40,6 +40,12 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 
 `DequePalindromicTree.tolist()`と`str(obj)`は現在の列を先頭から末尾の順で示します。`repr(obj)`は`DequePalindromicTree([...])`です。列の長さをNとしてO(N)時間で、回文のカウンタや更新状態は変更しません。
 
+## 群の差・木の距離更新・区間最頻値
+
+`PotentialUnionFind.tolist()`は頂点番号順の`(代表頂点, その代表からの群の差)`を返します。`str`は同じlist、`repr`は`PotentialUnionFind([...])`です。経路圧縮だけを行い、制約は変更しません。
+
+`CentroidDistanceFenwick`・`CentroidDistanceAdd`・`StaticRangeMode`の`tolist()`は現在値を元の頂点番号・添字順に返します。`str`は同じlist、`repr`は型名を付けます。`CentroidDistanceAdd`ではO(N log² N)、他2つではO(N)かかります。
+
 ## Tree Wavelet Matrix
 
 `TreeWaveletMatrix.tolist()`と`str(obj)`は、constructorへ渡した頂点値を頂点番号順のlistで返します。`repr(obj)`は`TreeWaveletMatrix([...])`の形です。内部のHLD順や圧縮後のrankは表示しません。

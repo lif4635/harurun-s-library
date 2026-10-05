@@ -13,6 +13,7 @@
 | [biconnected_components](biconnected_components.json) | 3 / 22 | 5 | 2.612 | 437.8 | 一致 |
 | [characteristic_polynomial](characteristic_polynomial.json) | 3 / 28 | 5 | 0.970 | 65.8 | 一致 |
 | [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
+| [common_interval_decomposition_tree](common_interval_decomposition_tree.json) | 3 / 30 | 5 | 1.617 | 316.4 | 一致 |
 | [counting_spanning_tree_directed](counting_spanning_tree_directed.json) | 3 / 22 | 5 | 0.546 | 124.1 | 一致 |
 | [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.524 | 110.4 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
@@ -58,6 +59,7 @@
 | [pow_of_matrix](pow_of_matrix.json) | 3 / 43 | 5 | 2.075 | 91.0 | 一致 |
 | [power_projection_of_set_power_series](power_projection_of_set_power_series.json) | 3 / 30 | 5 | 4.099 | 441.4 | 一致 |
 | [prefix_substring_lcs](prefix_substring_lcs.json) | 3 / 11 | 5 | 0.739 | 128.8 | 一致 |
+| [range_chmin_chmax_add_range_sum](range_chmin_chmax_add_range_sum.json) | 3 / 33 | 5 | 9.523 | 161.7 | 一致 |
 | [range_reverse_range_sum](range_reverse_range_sum.json) | 3 / 20 | 5 | 2.053 | 109.3 | 一致 |
 | [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
 | [runenumerate](runenumerate.json) | 3 / 24 | 5 | 2.749 | 284.1 | 一致 |
@@ -65,6 +67,7 @@
 | [sparse_matrix_det](sparse_matrix_det.json) | 3 / 24 | 5 | 2.523 | 93.1 | 一致 |
 | [sqrt_of_formal_power_series_sparse](sqrt_of_formal_power_series_sparse.json) | 3 / 45 | 5 | 0.277 | 142.3 | 一致 |
 | [static_convex_hull](static_convex_hull.json) | 3 / 25 | 5 | 2.111 | 196.6 | 一致 |
+| [static_range_mode_query](static_range_mode_query.json) | 3 / 11 | 5 | 1.286 | 113.7 | 一致 |
 | [stirling_number_of_the_first_kind](stirling_number_of_the_first_kind.json) | 3 / 10 | 5 | 0.833 | 97.0 | 一致 |
 | [stirling_number_of_the_first_kind_fixed_k](stirling_number_of_the_first_kind_fixed_k.json) | 3 / 14 | 5 | 1.960 | 185.2 | 一致 |
 | [stirling_number_of_the_second_kind](stirling_number_of_the_second_kind.json) | 3 / 10 | 5 | 0.608 | 109.4 | 一致 |
@@ -72,4 +75,8 @@
 | [subset_convolution](subset_convolution.json) | 3 / 11 | 5 | 2.647 | 575.1 | 一致 |
 | [system_of_linear_equations](system_of_linear_equations.json) | 3 / 27 | 5 | 0.508 | 66.6 | 一致 |
 | [three_edge_connected_components](three_edge_connected_components.json) | 3 / 20 | 5 | 0.833 | 149.2 | 一致 |
+| [unionfind_with_potential](unionfind_with_potential.json) | 3 / 18 | 5 | 0.288 | 81.1 | 一致 |
+| [unionfind_with_potential_non_commutative_group](unionfind_with_potential_non_commutative_group.json) | 3 / 18 | 5 | 0.535 | 95.7 | 一致 |
+| [vertex_add_range_contour_sum_on_tree](vertex_add_range_contour_sum_on_tree.json) | 3 / 36 | 5 | 4.597 | 282.9 | 一致 |
+| [vertex_get_range_contour_add_on_tree](vertex_get_range_contour_add_on_tree.json) | 3 / 46 | 5 | 3.935 | 280.9 | 一致 |
 | [wildcard_pattern_matching](wildcard_pattern_matching.json) | 3 / 19 | 5 | 0.853 | 131.9 | 一致 |

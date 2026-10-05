@@ -1,10 +1,6 @@
 from collections import deque
 import random
 
-from library_codex.tree.CentroidDecomposition import (
-    CentroidDecomposition,
-    CentroidDistanceFenwick,
-)
 from library_codex.tree.DynamicDiameter import DynamicDiameter
 from library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition
 from library_codex.tree.Rerooting import Rerooting
@@ -170,42 +166,6 @@ def test_rerooting_weighted_sum_of_distances():
             assert solver[node] == (size, sum(distances(tree, node)))
 
 
-def test_centroid_decomposition_paths_and_distance_fenwick():
-    rng = random.Random(480216)
-    for size in range(1, 80):
-        tree = random_tree(size, rng)
-        decomposition = CentroidDecomposition(tree)
-        assert decomposition.parent[decomposition.root] == -1
-        assert len(decomposition.order) == size
-        all_distance = [distances(tree, node) for node in range(size)]
-        for vertex in range(size):
-            path = decomposition.paths[vertex]
-            assert path[-1][0] == vertex
-            for centroid, distance, _ in path:
-                assert distance == all_distance[vertex][centroid]
-            for first, second in zip(path, path[1:]):
-                assert decomposition.parent[second[0]] == first[0]
-
-        values = [rng.randrange(-20, 21) for _ in range(size)]
-        solver = CentroidDistanceFenwick(tree, values)
-        for _ in range(300):
-            if rng.randrange(3) == 0:
-                vertex = rng.randrange(size)
-                value = rng.randrange(-20, 21)
-                values[vertex] = value
-                solver.set(vertex, value)
-            else:
-                vertex = rng.randrange(size)
-                lower = rng.randrange(size + 1)
-                upper = rng.randrange(lower, size + 2)
-                expected = sum(
-                    values[node]
-                    for node in range(size)
-                    if lower <= all_distance[vertex][node] < upper
-                )
-                assert solver.query(vertex, lower, upper) == expected
-
-
 def test_tree_algorithms_deep_paths_without_recursion():
     size = 30000
     tree = [[] for _ in range(size)]
@@ -225,8 +185,6 @@ def test_tree_algorithms_deep_paths_without_recursion():
         lambda value, vertex: value + 1,
     )
     assert solver[0] == solver[size - 1] == size
-    decomposition = CentroidDecomposition(tree)
-    assert max(decomposition.depth) <= size.bit_length()
 
 
 def test_rooted_inverse_merging_and_inclusion_trees():

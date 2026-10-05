@@ -6,7 +6,8 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`AuxiliaryTree`](AuxiliaryTree.md) | 指定頂点集合とLCAだけからvirtual treeを構築する。 | 0 | 1 | 1 |
-| [`CentroidDecomposition`](CentroidDecomposition.md) | 重心分解・点加算/距離範囲和Fenwick | 1 | 2 | 7 |
+| [`CentroidDecomposition`](CentroidDecomposition.md) | 重心分解・点加算/距離範囲和Fenwick | 1 | 2 | 10 |
+| [`CentroidDistanceAdd`](CentroidDistanceAdd.md) | 重みなし木で、距離が指定範囲に入る頂点へ加算し、頂点値を取得する。 | 0 | 1 | 5 |
 | [`DSUOnTree`](DSUOnTree.md) | Euler区間を用いるDSU on Tree | 0 | 1 | 2 |
 | [`DynamicDiameter`](DynamicDiameter.md) | Static Top Treeによる固定木の動的重み付き直径 | 0 | 1 | 2 |
 | [`DynamicRerooting`](DynamicRerooting.md) | rake-compress top treeによる動的rerooting | 0 | 2 | 19 |

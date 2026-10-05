@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 143,
-    "unimplemented": 110
+    "local_passed": 150,
+    "unimplemented": 103
   },
   "problems": [
     {
@@ -290,10 +290,12 @@
       "title": "Common Interval Decomposition Tree",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/common_interval_decomposition_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.algorithm.PermutationTree"
+      ],
+      "solution": "solutions/common_interval_decomposition_tree.py",
+      "result": "results/common_interval_decomposition_tree.json"
     },
     {
       "name": "composition_of_formal_power_series",
@@ -2123,10 +2125,12 @@
       "title": "Range Chmin Chmax Add Range Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.SegmentTreeBeats"
+      ],
+      "solution": "solutions/range_chmin_chmax_add_range_sum.py",
+      "result": "results/range_chmin_chmax_add_range_sum.json"
     },
     {
       "name": "range_kth_smallest",
@@ -2461,10 +2465,12 @@
       "title": "Static Range Mode Query",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/static_range_mode_query",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.StaticRangeMode"
+      ],
+      "solution": "solutions/static_range_mode_query.py",
+      "result": "results/static_range_mode_query.json"
     },
     {
       "name": "static_range_sum",
@@ -2820,20 +2826,24 @@
       "title": "Unionfind with Potential",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/unionfind_with_potential",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.union_find.PotentialUnionFind"
+      ],
+      "solution": "solutions/unionfind_with_potential.py",
+      "result": "results/unionfind_with_potential.json"
     },
     {
       "name": "unionfind_with_potential_non_commutative_group",
       "title": "Unionfind with Potential (Non-Commutative Group)",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.union_find.PotentialUnionFind"
+      ],
+      "solution": "solutions/unionfind_with_potential_non_commutative_group.py",
+      "result": "results/unionfind_with_potential_non_commutative_group.json"
     },
     {
       "name": "vertex_add_path_sum",
@@ -2853,10 +2863,12 @@
       "title": "Vertex Add Range Contour Sum on Tree",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.CentroidDecomposition"
+      ],
+      "solution": "solutions/vertex_add_range_contour_sum_on_tree.py",
+      "result": "results/vertex_add_range_contour_sum_on_tree.json"
     },
     {
       "name": "vertex_add_subtree_sum",
@@ -2876,10 +2888,13 @@
       "title": "Vertex Get Range Contour Add on Tree",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/vertex_get_range_contour_add_on_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.CentroidDecomposition",
+        "library_codex.tree.CentroidDistanceAdd"
+      ],
+      "solution": "solutions/vertex_get_range_contour_add_on_tree.py",
+      "result": "results/vertex_get_range_contour_add_on_tree.json"
     },
     {
       "name": "vertex_set_path_composite",

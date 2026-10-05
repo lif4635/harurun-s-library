@@ -4,7 +4,7 @@
 Mode queries on an immutable sequence.。
 
 - source: [`range_query/StaticRangeMode.py`](../../../range_query/StaticRangeMode.py)
-- 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 5（Python protocol 2を含む）
 
 ## できること
 
@@ -21,13 +21,16 @@ from library_codex.range_query.StaticRangeMode import StaticRangeMode
 
 block 間の最頻値と値ごとの出現位置を前計算し、区間の mode を平方分割で求める。
 
-- constructor: [`StaticRangeMode(values, block_size=None)`](../../../range_query/StaticRangeMode.py#L12)
+- constructor: [`StaticRangeMode(values, block_size=None)`](../../../range_query/StaticRangeMode.py#L15)
 - 引数: `values`: 検索対象の不変な列。要素は hashable である必要がある。<br>`block_size`: 平方分割の block 幅。None ならおよそ平方根にする。省略時: `None`
 - 返り値: `StaticRangeMode` instance
-- 計算量: 構築 O(N sqrt N) time・O(N) memory
+- 計算量: 期待O(N ceil(N/B))時間、O(N + ceil(N/B)^2)領域。B=block_size、既定値は約sqrt(N)。hash・等値比較をO(1)とする
 - 作成後: 不変な values に対し、mode・count を任意の半開区間へ適用できる状態を作る。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`count(value, left, right)`](../../../range_query/StaticRangeMode.py#L50) | method | 条件に合う要素数を返す。 | `value`: 追加・設定・問い合わせる値<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 個数（int） | O(log N) |
-| [`mode(left, right)`](../../../range_query/StaticRangeMode.py#L55) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の mode と出現回数を返す。 | `left`: 含める左端 index。<br>`right`: 含めない右端 index。 | tuple[object \| None, int] — 非空なら (value, count)。同率時は区間内で最初に現れる value。空区間は (None, 0)。 | O(sqrt N log N) |
+| [`count(value, left, right)`](../../../range_query/StaticRangeMode.py#L73) | method | 条件に合う要素数を返す。 | `value`: 追加・設定・問い合わせる値<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 個数（int） | 期待O(log(N+1))。hash・等値比較をO(1)とする |
+| [`mode(left, right)`](../../../range_query/StaticRangeMode.py#L78) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の mode と出現回数を返す。 | `left`: 含める左端 index。<br>`right`: 含めない右端 index。 | tuple[object \| None, int] — 非空なら (value, count)。同率時は区間内で最初に現れる value。空区間は (None, 0)。 | O(B)。B=block_size |
+| [`tolist()`](../../../range_query/StaticRangeMode.py#L125) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | list — 入力と同じ順序の値を並べた新しいlist。 | O(N)時間。Nは要素数 |
+| [`__str__()`](../../../range_query/StaticRangeMode.py#L128) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — tolist()と同じ内容の文字列表現。 | O(N)時間。Nは要素数。加えて各要素の文字列化 |
+| [`__repr__()`](../../../range_query/StaticRangeMode.py#L131) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — StaticRangeMode([...])の形式。 | O(N)時間。Nは要素数。加えて各要素の文字列化 |

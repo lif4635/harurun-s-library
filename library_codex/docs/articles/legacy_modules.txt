@@ -225,7 +225,6 @@ range_query/RangeMex
 range_query/RangeXorBasis
 range_query/StaticRangeFrequency
 range_query/StaticRangeGroup
-range_query/StaticRangeMode
 range_query/StaticRMQ
 range_query/WaveletMatrix
 rational/Digamma

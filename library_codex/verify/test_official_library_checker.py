@@ -151,6 +151,13 @@ def test_solution_is_standalone(name):
 
 
 @pytest.mark.parametrize("name,data,expected", [
+    ("common_interval_decomposition_tree", "1\n0\n", "1 -1 0 0 linear"),
+    ("vertex_add_range_contour_sum_on_tree", "2 3\n1 2\n0 1\n1 0 1 2\n0 1 5\n1 0 0 2\n", "2 8"),
+    ("vertex_get_range_contour_add_on_tree", "2 4\n1 2\n0 1\n0 0 1 2 5\n1 0\n1 1\n0 1 0 1 -2\n", "1 7"),
+    ("range_chmin_chmax_add_range_sum", "3 4\n1 4 9\n0 0 3 5\n1 0 2 3\n2 1 3 -1\n3 0 3\n", "10"),
+    ("static_range_mode_query", "5 2\n1 2 2 1 3\n0 4\n1 5\n", "1 2 2 2"),
+    ("unionfind_with_potential", "3 5\n0 1 0 5\n0 2 1 4\n1 2 0\n0 2 0 8\n1 0 2\n", "1 1 9 0 998244344"),
+    ("unionfind_with_potential_non_commutative_group", "2 3\n0 1 0 1 3 0 1\n1 1 0\n1 0 1\n", "1 1 3 0 1 1 998244350 0 1"),
     ("characteristic_polynomial", "2\n1 2\n3 4\n", "998244351 998244348 1"),
     ("matrix_det_arbitrary_mod", "2 6\n1 2\n3 4\n", "4"),
     ("hafnian_of_matrix", "4\n0 1 1 1\n1 0 1 1\n1 1 0 1\n1 1 1 0\n", "3"),

@@ -11,6 +11,7 @@ Union-Findと連結成分管理のAPI一覧です。
 | [`MonoidUnionFind`](MonoidUnionFind.md) | 連結成分ごとのmonoid集約値と辺数を保持するUnion-Find。 | 0 | 1 | 5 |
 | [`PartialPersistentUnionFind`](PartialPersistentUnionFind.md) | 過去時刻の連結性と成分サイズを問い合わせる部分永続Union-Find。 | 0 | 1 | 6 |
 | [`PersistentUnionFind`](PersistentUnionFind.md) | 完全永続Union Find（非再帰） | 0 | 1 | 7 |
+| [`PotentialUnionFind`](PotentialUnionFind.md) | 群の要素で表した頂点間の差を保ち、矛盾する制約を拒否する。 | 0 | 1 | 9 |
 | [`RangeParallelUnionFind`](RangeParallelUnionFind.md) | 2つの同じ長さの区間をまとめて対応位置ごとに併合するUnion-Find。 | 0 | 1 | 4 |
 | [`RollbackUnionFind`](RollbackUnionFind.md) | undo・snapshot・成分和対応Union Find | 0 | 1 | 13 |
 | [`UnionFind`](UnionFind.md) | 通常Union-Findの併合・連結判定・成分size | 0 | 1 | 7 |

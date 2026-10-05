@@ -18,7 +18,6 @@ from library_codex.geometry.ConvexPolygon import ConvexPolygon
 from library_codex.geometry.PointInPolygon import point_location
 from library_codex.graph_connectivity.FunctionalGraph import FunctionalGraph
 from library_codex.range_query.RangeMajority import RangeMajority
-from library_codex.range_query.StaticRangeMode import StaticRangeMode
 from library_codex.tree.LCA import LCA
 
 
@@ -42,17 +41,15 @@ def tree_path(tree, source, target):
     return result[::-1]
 
 
-def test_range_mode_and_majority_random():
+def test_range_majority_random():
     rng = random.Random(871246)
     for size in range(1, 100):
         values = [rng.randrange(12) for _ in range(size)]
-        mode = StaticRangeMode(values)
         majority = RangeMajority(values)
         for _ in range(500):
             left = rng.randrange(size + 1)
             right = rng.randrange(left, size + 1)
             if left == right:
-                assert mode.mode(left, right) == (None, 0)
                 assert majority.majority(left, right) is None
                 continue
             expected_count = max(values[left:right].count(value) for value in set(values[left:right]))
@@ -60,7 +57,6 @@ def test_range_mode_and_majority_random():
                 value for value in values[left:right]
                 if values[left:right].count(value) == expected_count
             )
-            assert mode.mode(left, right) == (expected_value, expected_count)
             expected_majority = (
                 (expected_value, expected_count)
                 if expected_count * 2 > right - left else None

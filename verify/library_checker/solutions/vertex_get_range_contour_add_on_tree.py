@@ -1,6 +1,5 @@
 from bisect import bisect_left
 
-
 def tree_centroid(tree):
     """Return vertices whose removal leaves no component larger than half."""
     n = len(tree)
@@ -14,11 +13,11 @@ def tree_centroid(tree):
             if other == parent[vertex]:
                 continue
             if parent[other] != -2:
-                raise ValueError("graph must be a tree")
+                raise ValueError('graph must be a tree')
             parent[other] = vertex
             order.append(other)
     if len(order) != n:
-        raise ValueError("graph must be connected")
+        raise ValueError('graph must be connected')
     size = [1] * n
     for vertex in reversed(order[1:]):
         size[parent[vertex]] += size[vertex]
@@ -32,24 +31,13 @@ def tree_centroid(tree):
             result.append(vertex)
     return result
 
-
 class CentroidDecomposition:
-    __slots__ = (
-        "n",
-        "graph",
-        "parent",
-        "depth",
-        "children",
-        "root",
-        "order",
-        "paths",
-        "built",
-    )
+    __slots__ = ('n', 'graph', 'parent', 'depth', 'children', 'root', 'order', 'paths', 'built')
 
     def __init__(self, tree, build=True):
         if isinstance(tree, int):
             if tree <= 0:
-                raise ValueError("size must be positive")
+                raise ValueError('size must be positive')
             self.n = tree
             self.graph = [[] for _ in range(tree)]
             self.built = False
@@ -57,7 +45,7 @@ class CentroidDecomposition:
             self.graph = [list(row) for row in tree]
             self.n = len(self.graph)
             if self.n == 0:
-                raise ValueError("tree must be nonempty")
+                raise ValueError('tree must be nonempty')
             self.built = False
         self.parent = []
         self.depth = []
@@ -70,9 +58,9 @@ class CentroidDecomposition:
 
     def add_edge(self, first, second):
         if self.built:
-            raise RuntimeError("decomposition is already built")
+            raise RuntimeError('decomposition is already built')
         if not (0 <= first < self.n and 0 <= second < self.n):
-            raise IndexError("vertex is out of range")
+            raise IndexError('vertex is out of range')
         self.graph[first].append(second)
         self.graph[second].append(first)
 
@@ -85,7 +73,7 @@ class CentroidDecomposition:
                 if removed[other] or other == parent[node]:
                     continue
                 if other in parent:
-                    raise ValueError("graph must be a tree")
+                    raise ValueError('graph must be a tree')
                 parent[other] = node
                 order.append(other)
         size = {node: 1 for node in order}
@@ -101,15 +89,15 @@ class CentroidDecomposition:
             if largest * 2 <= total:
                 centroid = node
                 break
-        return centroid, order
+        return (centroid, order)
 
     def build(self):
         if self.built:
             return self.root
         n = self.n
         graph = self.graph
-        if sum(map(len, graph)) != (n - 1) << 1:
-            raise ValueError("graph must be a tree")
+        if sum(map(len, graph)) != n - 1 << 1:
+            raise ValueError('graph must be a tree')
         removed = bytearray(n)
         parent = [-1] * n
         depth = [0] * n
@@ -118,10 +106,10 @@ class CentroidDecomposition:
         order = []
         tasks = [(0, -1, 0)]
         while tasks:
-            start, centroid_parent, centroid_depth = tasks.pop()
+            (start, centroid_parent, centroid_depth) = tasks.pop()
             if removed[start]:
                 continue
-            centroid, component = self._component(start, removed)
+            (centroid, component) = self._component(start, removed)
             parent[centroid] = centroid_parent
             depth[centroid] = centroid_depth
             if centroid_parent >= 0:
@@ -135,15 +123,15 @@ class CentroidDecomposition:
                     continue
                 stack = [(neighbor, centroid, 1)]
                 while stack:
-                    node, par, distance = stack.pop()
+                    (node, par, distance) = stack.pop()
                     paths[node].append((centroid, distance, branch))
                     for other in graph[node]:
-                        if other != par and not removed[other]:
+                        if other != par and (not removed[other]):
                             stack.append((other, node, distance + 1))
                 tasks.append((neighbor, centroid, centroid_depth + 1))
                 branch += 1
         if len(order) != n:
-            raise ValueError("graph must be connected")
+            raise ValueError('graph must be connected')
         self.parent = parent
         self.depth = depth
         self.children = children
@@ -152,7 +140,6 @@ class CentroidDecomposition:
         self.paths = paths
         self.built = True
         return self.root
-
     run = build
 
     def ancestors(self, vertex):
@@ -160,35 +147,33 @@ class CentroidDecomposition:
 
     def bfs_layer(self, start, layer):
         if self.depth[start] < layer:
-            return [], []
+            return ([], [])
         vertices = [start]
         parents = [-1]
-        for index, node in enumerate(vertices):
+        for (index, node) in enumerate(vertices):
             par = parents[index]
             for other in self.graph[node]:
                 if other != par and self.depth[other] >= layer:
                     vertices.append(other)
                     parents.append(node)
-        return vertices, parents
-
+        return (vertices, parents)
 
 class CentroidDistanceFenwick:
     """Point add and distance-range sum on a static unweighted tree."""
-
-    __slots__ = ("decomposition", "bits", "branch_bits", "values")
+    __slots__ = ('decomposition', 'bits', 'branch_bits', 'values')
 
     def __init__(self, tree, values=None):
         decomposition = CentroidDecomposition(tree)
         n = decomposition.n
         values = [0] * n if values is None else list(values)
         if len(values) != n:
-            raise ValueError("values has wrong length")
+            raise ValueError('values has wrong length')
         paths = decomposition.paths
         lengths = [2] * n
         branch_lengths = [1] * n
         for path in paths:
             child = -1
-            for centroid, distance, _ in reversed(path):
+            for (centroid, distance, _) in reversed(path):
                 if lengths[centroid] < distance + 2:
                     lengths[centroid] = distance + 2
                 if child >= 0 and branch_lengths[child] < distance + 2:
@@ -196,10 +181,10 @@ class CentroidDistanceFenwick:
                 child = centroid
         bits = [[0] * length for length in lengths]
         branch_bits = [[0] * length for length in branch_lengths]
-        for vertex, path in enumerate(paths):
+        for (vertex, path) in enumerate(paths):
             value = values[vertex]
             child = -1
-            for centroid, distance, _ in reversed(path):
+            for (centroid, distance, _) in reversed(path):
                 bits[centroid][distance + 1] += value
                 if child >= 0:
                     branch_bits[child][distance + 1] += value
@@ -217,7 +202,7 @@ class CentroidDistanceFenwick:
     def add(self, vertex, delta):
         self.values[vertex] += delta
         child = -1
-        for centroid, distance, _ in reversed(self.decomposition.paths[vertex]):
+        for (centroid, distance, _) in reversed(self.decomposition.paths[vertex]):
             bit = self.bits[centroid]
             index = distance + 1
             while index < len(bit):
@@ -245,7 +230,7 @@ class CentroidDistanceFenwick:
             return 0
         answer = 0
         child = -1
-        for centroid, distance, _ in reversed(self.decomposition.paths[vertex]):
+        for (centroid, distance, _) in reversed(self.decomposition.paths[vertex]):
             left = lower - distance
             right = upper - distance
             if right > 0:
@@ -274,7 +259,6 @@ class CentroidDistanceFenwick:
                         begin &= begin - 1
             child = centroid
         return answer
-
     range_sum = query
 
     def tolist(self):
@@ -284,4 +268,114 @@ class CentroidDistanceFenwick:
         return str(self.tolist())
 
     def __repr__(self):
-        return "CentroidDistanceFenwick(%r)" % self.tolist()
+        return 'CentroidDistanceFenwick(%r)' % self.tolist()
+'重みなし木で、距離が指定範囲に入る頂点へ加算し、頂点値を取得する。'
+from bisect import bisect_left as _tree_centroid_distance_add_bisect_left
+
+class CentroidDistanceAdd:
+    __slots__ = ('decomposition', 'bits', 'branch_bits', 'values')
+
+    def __init__(self, tree, values=None):
+        decomposition = CentroidDecomposition(tree)
+        n = decomposition.n
+        values = [0] * n if values is None else list(values)
+        if len(values) != n:
+            raise ValueError('values has wrong length')
+        lengths = [2] * n
+        branch_lengths = [1] * n
+        for path in decomposition.paths:
+            child = -1
+            for (centroid, distance, _) in reversed(path):
+                if lengths[centroid] < distance + 2:
+                    lengths[centroid] = distance + 2
+                if child >= 0 and branch_lengths[child] < distance + 2:
+                    branch_lengths[child] = distance + 2
+                child = centroid
+        self.decomposition = decomposition
+        self.bits = [[0] * length for length in lengths]
+        self.branch_bits = [[0] * length for length in branch_lengths]
+        self.values = values
+
+    def add(self, vertex, lower, upper, delta):
+        if upper is None:
+            upper = self.decomposition.n + 1
+        if not isinstance(lower, int):
+            lower = _tree_centroid_distance_add_bisect_left(range(self.decomposition.n + 1), lower)
+        if not isinstance(upper, int):
+            upper = _tree_centroid_distance_add_bisect_left(range(self.decomposition.n + 1), upper)
+        if lower >= upper:
+            return
+        child = -1
+        for (centroid, distance, _) in reversed(self.decomposition.paths[vertex]):
+            left = max(0, lower - distance)
+            right = upper - distance
+            if left < right:
+                bit = self.bits[centroid]
+                index = left + 1
+                while index < len(bit):
+                    bit[index] += delta
+                    index += index & -index
+                index = right + 1
+                while index < len(bit):
+                    bit[index] -= delta
+                    index += index & -index
+                if child >= 0:
+                    bit = self.branch_bits[child]
+                    index = left + 1
+                    while index < len(bit):
+                        bit[index] += delta
+                        index += index & -index
+                    index = right + 1
+                    while index < len(bit):
+                        bit[index] -= delta
+                        index += index & -index
+            child = centroid
+
+    def get(self, vertex):
+        result = self.values[vertex]
+        child = -1
+        for (centroid, distance, _) in reversed(self.decomposition.paths[vertex]):
+            bit = self.bits[centroid]
+            index = distance + 1
+            while index:
+                result += bit[index]
+                index &= index - 1
+            if child >= 0:
+                bit = self.branch_bits[child]
+                index = distance + 1
+                while index:
+                    result -= bit[index]
+                    index &= index - 1
+            child = centroid
+        return result
+
+    def tolist(self):
+        return [self.get(vertex) for vertex in range(self.decomposition.n)]
+
+    def __str__(self):
+        return str(self.tolist())
+
+    def __repr__(self):
+        return 'CentroidDistanceAdd(%r)' % self.tolist()
+import sys
+
+def main():
+    read = sys.stdin.buffer.readline
+    (n, q) = map(int, read().split())
+    values = list(map(int, read().split()))
+    graph = [[] for _ in range(n)]
+    for _ in range(n - 1):
+        (u, v) = map(int, read().split())
+        graph[u].append(v)
+        graph[v].append(u)
+    tree = CentroidDistanceAdd(graph, values)
+    result = []
+    for _ in range(q):
+        query = list(map(int, read().split()))
+        if query[0] == 0:
+            tree.add(query[1], query[2], query[3], query[4])
+        else:
+            result.append(str(tree.get(query[1])))
+    sys.stdout.write('\n'.join(result))
+if __name__ == '__main__':
+    main()

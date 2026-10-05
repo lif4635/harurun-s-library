@@ -1,16 +1,10 @@
 """Mode queries on an immutable sequence."""
-
 from bisect import bisect_left
 from math import isqrt
 
-
 class StaticRangeMode:
     """Return a most frequent value in a half-open range in O(sqrt(N))."""
-
-    __slots__ = (
-        "values", "n", "block_size", "block_count", "modes", "positions",
-        "_ids", "_ranks", "_occurrences", "_mode_counts", "_mode_indices",
-    )
+    __slots__ = ('values', 'n', 'block_size', 'block_count', 'modes', 'positions', '_ids', '_ranks', '_occurrences', '_mode_counts', '_mode_indices')
 
     def __init__(self, values, block_size=None):
         values = list(values)
@@ -18,13 +12,13 @@ class StaticRangeMode:
         if block_size is None:
             block_size = max(1, isqrt(max(1, n)))
         if block_size <= 0:
-            raise ValueError("block_size must be positive")
+            raise ValueError('block_size must be positive')
         ids = []
         ranks = []
         mapping = {}
         occurrences = []
         positions = {}
-        for index, value in enumerate(values):
+        for (index, value) in enumerate(values):
             if value not in mapping:
                 mapping[value] = len(occurrences)
                 row = []
@@ -52,7 +46,7 @@ class StaticRangeMode:
                     current = count[code] + 1
                     count[code] = current
                     position = first_position[code]
-                    if current > best_count or current == best_count and position < best_position:
+                    if current > best_count or (current == best_count and position < best_position):
                         best_count = current
                         best_position = position
                 modes[first_block][last_block] = values[best_position]
@@ -78,9 +72,9 @@ class StaticRangeMode:
     def mode(self, left, right):
         """Return (value, count); ties use the earliest range occurrence."""
         if not 0 <= left <= right <= self.n:
-            raise IndexError("invalid half-open range")
+            raise IndexError('invalid half-open range')
         if left == right:
-            return None, 0
+            return (None, 0)
         width = self.block_size
         first_full = (left + width - 1) // width
         after_full = right // width
@@ -118,8 +112,7 @@ class StaticRangeMode:
             begin = rank - best_count + 1
             if begin >= 0 and left <= row[begin] < best_position:
                 best_position = row[begin]
-        return self.values[best_position], best_count
-
+        return (self.values[best_position], best_count)
     query = mode
 
     def tolist(self):
@@ -129,4 +122,18 @@ class StaticRangeMode:
         return str(self.tolist())
 
     def __repr__(self):
-        return "StaticRangeMode(%r)" % self.tolist()
+        return 'StaticRangeMode(%r)' % self.tolist()
+import sys
+
+def main():
+    read = sys.stdin.buffer.readline
+    (n, q) = map(int, read().split())
+    table = StaticRangeMode(list(map(int, read().split())))
+    result = []
+    for _ in range(q):
+        (left, right) = map(int, read().split())
+        (value, count) = table.mode(left, right)
+        result.append(f'{value} {count}')
+    sys.stdout.write('\n'.join(result))
+if __name__ == '__main__':
+    main()
