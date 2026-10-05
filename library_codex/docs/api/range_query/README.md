@@ -16,4 +16,4 @@
 | [`StaticRangeGroup`](StaticRangeGroup.md) | groupの静的列で半開区間積をO(1)取得する。 | 0 | 1 | 2 |
 | [`StaticRangeMode`](StaticRangeMode.md) | Mode queries on an immutable sequence. | 0 | 1 | 5 |
 | [`WaveletMatrix`](WaveletMatrix.md) | 非負整数列のrank・k-th・range frequency | 0 | 1 | 11 |
-| [`WeightedWaveletMatrix`](WeightedWaveletMatrix.md) | 静的な列で値域を絞った重み和とk個の最小・最大要素の重み和を求める。 | 0 | 1 | 5 |
+| [`WeightedWaveletMatrix`](WeightedWaveletMatrix.md) | 静的な列で値域を絞った重み和とk個の最小・最大要素の重み和を求める。 | 0 | 1 | 6 |

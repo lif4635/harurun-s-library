@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 150,
-    "unimplemented": 103
+    "local_passed": 154,
+    "unimplemented": 99
   },
   "problems": [
     {
@@ -2081,10 +2081,12 @@
       "title": "Range Add Range Min",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_add_range_min",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.LazySegTree"
+      ],
+      "solution": "solutions/range_add_range_min.py",
+      "result": "results/range_add_range_min.json"
     },
     {
       "name": "range_affine_point_get",
@@ -2149,10 +2151,12 @@
       "title": "Range Linear Add Range Min",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_linear_add_range_min",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.RangeLinearAddRangeMin"
+      ],
+      "solution": "solutions/range_linear_add_range_min.py",
+      "result": "results/range_linear_add_range_min.json"
     },
     {
       "name": "range_parallel_unionfind",
@@ -2455,10 +2459,13 @@
       "title": "Static Range LIS Query",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/static_range_lis_query",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.WaveletMatrix",
+        "library_codex.segment_tree.RangeLIS"
+      ],
+      "solution": "solutions/static_range_lis_query.py",
+      "result": "results/static_range_lis_query.json"
     },
     {
       "name": "static_range_mode_query",
@@ -2487,10 +2494,12 @@
       "title": "Static Range Sum with Upper Bound",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/static_range_sum_with_upper_bound",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.WeightedWaveletMatrix"
+      ],
+      "solution": "solutions/static_range_sum_with_upper_bound.py",
+      "result": "results/static_range_sum_with_upper_bound.json"
     },
     {
       "name": "static_rectangle_add_rectangle_sum",

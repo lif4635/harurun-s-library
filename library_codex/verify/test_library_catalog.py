@@ -140,6 +140,30 @@ def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
                 assert method["signature"].split("(", 1)[0] == method["name"]
 
 
+def test_range_query_extensions_catalog_and_standalone(tmp_path):
+    data = load_catalog()
+    weighted = module_by_path(data, "library_codex.range_query.WeightedWaveletMatrix")
+    cls = weighted["classes"][0]
+    method = next(item for item in cls["methods"] if item["name"] == "count_sum_lt")
+    assert method["returnFormat"] == "tuple[int, number]"
+    assert "count" in method["returnDescription"] and "weights" in method["returnDescription"]
+    assert method["complexity"].startswith("O(log S)")
+    linear = module_by_path(data, "library_codex.segment_tree.RangeLinearAddRangeMin")
+    assert "## 仕組み" in linear["article"]["markdown"]
+    assert "infinity" not in linear["classes"][0]["constructor"]
+    code = weighted["standaloneCode"] + "\n" + linear["standaloneCode"] + """
+wm = WeightedWaveletMatrix([5, 2, 2], [7, -1, 4])
+assert wm.count_sum_lt(0, 3, 3) == (2, 3)
+tree = RangeLinearAddRangeMin([5, 1, 3, 8])
+tree.add(1, 4, 2, -4)
+assert tree.tolist() == [5, -1, 3, 10]
+assert tree.query(0, 3) == -1
+"""
+    result = subprocess.run([sys.executable, "-I", "-c", code], cwd=tmp_path,
+                            text=True, capture_output=True, timeout=10)
+    assert result.returncode == 0, result.stderr
+
+
 def test_authored_articles_cover_new_modules_and_reference_examples():
     CATALOG.load_configuration(ROOT)
     documents = CATALOG.validate_article_coverage(ROOT)

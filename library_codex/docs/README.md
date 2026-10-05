@@ -44,12 +44,12 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [fps](api/fps/README.md) | modを指定できる形式的冪級数と母関数の演算 | 12 | 34 | 8 | 56 |
 | [polynomial](api/polynomial/README.md) | 多項式の評価・補間・GCD・因数分解 | 15 | 30 | 2 | 3 |
 | [combinatorial_series](api/combinatorial_series/README.md) | 組合せ数列・漸化式・数列変換 | 11 | 23 | 0 | 0 |
-| [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 15 | 3 | 16 | 105 |
+| [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 15 | 3 | 16 | 108 |
 | [fenwick_tree](api/fenwick_tree/README.md) | Fenwick木と加算・接頭和 | 3 | 0 | 3 | 17 |
 | [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 11 | 0 | 12 | 76 |
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 12 | 0 | 12 | 126 |
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 11 | 3 | 9 | 76 |
-| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 12 | 4 | 12 | 71 |
+| [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 12 | 4 | 12 | 72 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 43 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 16 | 24 | 6 | 32 |
 | [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 11 | 15 | 2 | 4 |
@@ -74,4 +74,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **367 modules / 505 functions / 226 classes / 1424 methods・properties**。
+合計: **367 modules / 505 functions / 226 classes / 1428 methods・properties**。

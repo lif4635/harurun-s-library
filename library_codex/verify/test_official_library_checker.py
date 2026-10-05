@@ -151,6 +151,10 @@ def test_solution_is_standalone(name):
 
 
 @pytest.mark.parametrize("name,data,expected", [
+    ("static_range_lis_query", "5 4\n3 0 2 1 4\n0 5\n1 4\n2 2\n3 5\n", "3 2 0 2"),
+    ("range_linear_add_range_min", "3 4\n5 1 3\n1 0 3\n0 1 3 2 -4\n1 0 3\n1 2 3\n", "1 -1 3"),
+    ("range_add_range_min", "3 4\n5 1 3\n1 0 3\n0 1 3 -4\n1 0 3\n1 0 1\n", "1 -3 5"),
+    ("static_range_sum_with_upper_bound", "5 4\n5 2 5 1 3\n0 5 3\n1 4 5\n2 2 100\n0 5 0\n", "3 6 3 8 0 0 0 0"),
     ("common_interval_decomposition_tree", "1\n0\n", "1 -1 0 0 linear"),
     ("vertex_add_range_contour_sum_on_tree", "2 3\n1 2\n0 1\n1 0 1 2\n0 1 5\n1 0 0 2\n", "2 8"),
     ("vertex_get_range_contour_add_on_tree", "2 4\n1 2\n0 1\n0 0 1 2 5\n1 0\n1 1\n0 1 0 1 -2\n", "1 7"),

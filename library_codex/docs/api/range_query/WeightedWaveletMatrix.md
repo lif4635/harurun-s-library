@@ -4,11 +4,12 @@
 静的な列で値域を絞った重み和とk個の最小・最大要素の重み和を求める。
 
 - source: [`range_query/WeightedWaveletMatrix.py`](../../../range_query/WeightedWaveletMatrix.py)
-- 公開API: function 0、class 1、method/property 5（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 6（Python protocol 0を含む）
 
 ## できること
 
 - 位置の半開区間と値の半開区間を同時に指定し、該当要素へ付けた重みの総和を求められる。
+- 値の上限を指定し、該当する要素の個数と重み和を一度の探索で求められる。
 - 区間内で値が小さい方または大きい方からk個を選んだときの重み和を求められる。
 - weightsを省略すると値自身を重みとし、range sumやk smallest sumにそのまま使える。
 
@@ -32,6 +33,7 @@ from library_codex.range_query.WeightedWaveletMatrix import WeightedWaveletMatri
 | --- | --- | --- | --- | --- | --- |
 | [`total(left, right)`](../../../range_query/WeightedWaveletMatrix.py#L96) | method | 指定した位置の半開区間にある全要素の重み和を返す。 | `left`: 含める左端index。<br>`right`: 含めない右端index。 | number — weights[left:right]の総和。weights省略時はvaluesの区間和。 | O(1) |
 | [`sum_lt(left, right, upper)`](../../../range_query/WeightedWaveletMatrix.py#L102) | method | 位置が $[\mathrm{left},\mathrm{right})$ にあり、valueがupper未満である要素の重みを合計する。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`upper`: 含めない値の上端。 | number — 条件を満たす各indexに対応するweightの総和。 | O(log S) |
-| [`range_sum(left, right, lower, upper)`](../../../range_query/WeightedWaveletMatrix.py#L127) | method | 位置が $[\mathrm{left},\mathrm{right})$、valueが $[\mathrm{lower},\mathrm{upper})$ にある要素の重みを合計する。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`lower`: 含める値の下端。<br>`upper`: 含めない値の上端。 | number — 位置と値域の両条件を満たす各indexに対応するweightの総和。 | O(log S) |
-| [`sum_k_smallest(left, right, k)`](../../../range_query/WeightedWaveletMatrix.py#L133) | method | 位置区間の要素をvalue昇順に並べ、先頭k個に対応する重みを合計する。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`k`: 選ぶ要素数。0から区間長まで。 | number — k個の重み和。同じvalue同士は元のindex順で選ぶ。k=0なら0。 | O(log S) |
-| [`sum_k_largest(left, right, k)`](../../../range_query/WeightedWaveletMatrix.py#L159) | method | 位置区間の要素をvalue降順に見て、先頭k個に対応する重みを合計する。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`k`: 選ぶ要素数。0から区間長まで。 | number — valueが大きい側のk個の重み和。境界の同値要素は元のindexが後のものから選ぶ。k=0なら0。 | O(log S) |
+| [`count_sum_lt(left, right, upper)`](../../../range_query/WeightedWaveletMatrix.py#L127) | method | 位置区間内で値がupper未満の要素を選び、個数と重み和を一度の探索で求める。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`upper`: 含めない値の上端。 | tuple[int, number] — (count, total)。countは条件を満たす要素数、totalはその要素に対応するweightsの総和。weights省略時はvalues自身の総和。該当要素がなければ(0, 0)。 | O(log S)。Sは異なる値の種類数。 |
+| [`range_sum(left, right, lower, upper)`](../../../range_query/WeightedWaveletMatrix.py#L160) | method | 位置が $[\mathrm{left},\mathrm{right})$、valueが $[\mathrm{lower},\mathrm{upper})$ にある要素の重みを合計する。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`lower`: 含める値の下端。<br>`upper`: 含めない値の上端。 | number — 位置と値域の両条件を満たす各indexに対応するweightの総和。 | O(log S) |
+| [`sum_k_smallest(left, right, k)`](../../../range_query/WeightedWaveletMatrix.py#L166) | method | 位置区間の要素をvalue昇順に並べ、先頭k個に対応する重みを合計する。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`k`: 選ぶ要素数。0から区間長まで。 | number — k個の重み和。同じvalue同士は元のindex順で選ぶ。k=0なら0。 | O(log S) |
+| [`sum_k_largest(left, right, k)`](../../../range_query/WeightedWaveletMatrix.py#L192) | method | 位置区間の要素をvalue降順に見て、先頭k個に対応する重みを合計する。 | `left`: 含める位置の左端。<br>`right`: 含めない位置の右端。<br>`k`: 選ぶ要素数。0から区間長まで。 | number — valueが大きい側のk個の重み和。境界の同値要素は元のindexが後のものから選ぶ。k=0なら0。 | O(log S) |

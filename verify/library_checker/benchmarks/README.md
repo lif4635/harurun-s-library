@@ -59,7 +59,9 @@
 | [pow_of_matrix](pow_of_matrix.json) | 3 / 43 | 5 | 2.075 | 91.0 | 一致 |
 | [power_projection_of_set_power_series](power_projection_of_set_power_series.json) | 3 / 30 | 5 | 4.099 | 441.4 | 一致 |
 | [prefix_substring_lcs](prefix_substring_lcs.json) | 3 / 11 | 5 | 0.739 | 128.8 | 一致 |
+| [range_add_range_min](range_add_range_min.json) | 3 / 23 | 5 | 1.635 | 132.5 | 一致 |
 | [range_chmin_chmax_add_range_sum](range_chmin_chmax_add_range_sum.json) | 3 / 33 | 5 | 9.523 | 161.7 | 一致 |
+| [range_linear_add_range_min](range_linear_add_range_min.json) | 3 / 28 | 5 | 3.962 | 88.6 | 一致 |
 | [range_reverse_range_sum](range_reverse_range_sum.json) | 3 / 20 | 5 | 2.053 | 109.3 | 一致 |
 | [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
 | [runenumerate](runenumerate.json) | 3 / 24 | 5 | 2.749 | 284.1 | 一致 |
@@ -67,7 +69,9 @@
 | [sparse_matrix_det](sparse_matrix_det.json) | 3 / 24 | 5 | 2.523 | 93.1 | 一致 |
 | [sqrt_of_formal_power_series_sparse](sqrt_of_formal_power_series_sparse.json) | 3 / 45 | 5 | 0.277 | 142.3 | 一致 |
 | [static_convex_hull](static_convex_hull.json) | 3 / 25 | 5 | 2.111 | 196.6 | 一致 |
+| [static_range_lis_query](static_range_lis_query.json) | 3 / 15 | 5 | 3.512 | 129.7 | 一致 |
 | [static_range_mode_query](static_range_mode_query.json) | 3 / 11 | 5 | 1.286 | 113.7 | 一致 |
+| [static_range_sum_with_upper_bound](static_range_sum_with_upper_bound.json) | 3 / 10 | 5 | 3.087 | 343.0 | 一致 |
 | [stirling_number_of_the_first_kind](stirling_number_of_the_first_kind.json) | 3 / 10 | 5 | 0.833 | 97.0 | 一致 |
 | [stirling_number_of_the_first_kind_fixed_k](stirling_number_of_the_first_kind_fixed_k.json) | 3 / 14 | 5 | 1.960 | 185.2 | 一致 |
 | [stirling_number_of_the_second_kind](stirling_number_of_the_second_kind.json) | 3 / 10 | 5 | 0.608 | 109.4 | 一致 |

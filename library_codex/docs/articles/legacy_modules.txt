@@ -242,7 +242,6 @@ segment_tree/PersistentSegmentTree
 segment_tree/RangeAddAssignRangeStats
 segment_tree/RangeAddCountTopK
 segment_tree/RangeAffineRangeSum
-segment_tree/RangeLinearAddRangeMin
 segment_tree/RangeLIS
 segment_tree/SegmentTreeBeats
 segment_tree/SegTree

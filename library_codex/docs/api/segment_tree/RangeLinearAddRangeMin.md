@@ -4,11 +4,11 @@
 indexの一次式を区間加算し、区間最小値を求める構造。
 
 - source: [`segment_tree/RangeLinearAddRangeMin.py`](../../../segment_tree/RangeLinearAddRangeMin.py)
-- 公開API: function 0、class 1、method/property 2（Python protocol 0を含む）
+- 公開API: function 0、class 1、method/property 5（Python protocol 2を含む）
 
 ## できること
 
-- `RangeLinearAddRangeMin`: indexの一次式を区間加算し、区間最小値を求める構造を扱う `RangeLinearAddRangeMin`。
+- `RangeLinearAddRangeMin`: 整数列へ一次式の区間加算と区間最小値の問い合わせを行う。
 
 ## Import
 
@@ -18,14 +18,18 @@ from library_codex.segment_tree.RangeLinearAddRangeMin import RangeLinearAddRang
 
 ## Class `RangeLinearAddRangeMin`
 
-indexの一次式を区間加算し、区間最小値を求める構造を扱う `RangeLinearAddRangeMin`。
+整数列へ一次式の区間加算と区間最小値の問い合わせを行う。
 
-- constructor: [`RangeLinearAddRangeMin(values, infinity=10 ** 60)`](../../../segment_tree/RangeLinearAddRangeMin.py#L8)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`infinity`: 到達不能・無限大を表す値。省略時: `10 ** 60`
+- constructor: [`RangeLinearAddRangeMin(values)`](../../../segment_tree/RangeLinearAddRangeMin.py#L9)
+- 引数: `values`: 初期整数列のiterable。空の列も構築できる。
 - 返り値: `RangeLinearAddRangeMin` instance
-- 計算量: —
+- 計算量: O(N) time・memory
+- 作成後: valuesを初期列として保持する。addで等差数列を加算し、queryで更新後の最小値を取得できる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(left, right, slope, intercept)`](../../../segment_tree/RangeLinearAddRangeMin.py#L109) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`slope`: 直線の傾き<br>`intercept`: 直線の切片 | `None` | O(log^2 N) |
-| [`query(left, right)`](../../../segment_tree/RangeLinearAddRangeMin.py#L155) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | number — $\min_{\mathrm{left}\le i<\mathrm{right}}a_i$。 | O(log^2 N) |
+| [`add(left, right, slope, intercept)`](../../../segment_tree/RangeLinearAddRangeMin.py#L83) | method | 半開区間の各位置iへslope*i+interceptを加える。iは元の列のindex。 | `left`: 含める左端。<br>`right`: 含めない右端。空区間も可。<br>`slope`: 隣り合う位置の増分の差。<br>`intercept`: 位置0での増分。 | None — 値は返さない。指定区間を加算後の列へ更新する。 | O(log^2 N) |
+| [`query(left, right)`](../../../segment_tree/RangeLinearAddRangeMin.py#L138) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | number — $\min_{\mathrm{left}\le i<\mathrm{right}}a_i$。 | O(log^2 N) |
+| [`tolist()`](../../../segment_tree/RangeLinearAddRangeMin.py#L162) | method | 加算後の値を元のindex順に並べた新しいlist。内部状態は変えない。 | なし | list[int] — 加算後の値を元のindex順に並べた新しいlist。内部状態は変えない。 | O(N) time・追加memory |
+| [`__str__()`](../../../segment_tree/RangeLinearAddRangeMin.py#L174) | method | tolist()の文字列表現。 | なし | str — tolist()の文字列表現。 | O(N) |
+| [`__repr__()`](../../../segment_tree/RangeLinearAddRangeMin.py#L177) | method | RangeLinearAddRangeMin([...])の形式で型名と現在の列を表示する。 | なし | str — RangeLinearAddRangeMin([...])の形式で型名と現在の列を表示する。 | O(N) |

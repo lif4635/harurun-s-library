@@ -1,0 +1,80 @@
+{
+  "problem": "static_range_sum_with_upper_bound",
+  "status": "local_passed",
+  "verificationKey": "3782f744e6e062b44a6f48c0778078bd841817f71543e59aa7b6df20813d63c8",
+  "sourceSha256": "063f0edb6c1d65f4d72e4a07dc3957421c93731f1cd86bbe9818a41d2dd90d99",
+  "modules": [
+    "library_codex.range_query.WeightedWaveletMatrix"
+  ],
+  "problemVersion": "27636af20f1968a328e14ecb6ec1c3b9d674c4bf1eb1b7d23f9f3a1f299634f1",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 10,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05145450701820664,
+      "diagnostic": "ok 8 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 2.2784805209957995,
+      "diagnostic": "ok 821846 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 2.6314804819994606,
+      "diagnostic": "ok 825814 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.8667831149941776,
+      "diagnostic": "ok 764694 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 3.1441490270080976,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 2.8479028459987603,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 3.39924567102571,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "small_a_x_00",
+      "status": "AC",
+      "seconds": 0.5385032360209152,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "small_a_x_01",
+      "status": "AC",
+      "seconds": 0.5606279779749457,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "small_a_x_02",
+      "status": "AC",
+      "seconds": 0.6140934400027618,
+      "diagnostic": "ok 1000000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T08:33:19.019313+00:00",
+  "onlineSubmission": null
+}

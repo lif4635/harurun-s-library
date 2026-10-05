@@ -1556,6 +1556,12 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "int",
         "returnDescription": "指定区間の狭義単調増加部分列の最大長。空区間なら0。",
     },
+    ("segment_tree/RangeLinearAddRangeMin.py", "RangeLinearAddRangeMin", "add"): {
+        "description": "半開区間の各位置iへslope*i+interceptを加える。iは元の列のindex。",
+        "argumentDescriptions": {"left": "含める左端。", "right": "含めない右端。空区間も可。", "slope": "隣り合う位置の増分の差。", "intercept": "位置0での増分。"},
+        "returnFormat": "None",
+        "returnDescription": "値は返さない。指定区間を加算後の列へ更新する。",
+    },
     ("segment_tree/RangeLinearAddRangeMin.py", "RangeLinearAddRangeMin", "query"): {
         "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ の最小値を返す。",
         "returnFormat": "number",
@@ -2366,8 +2372,12 @@ COMPLEXITY_BY_MODULE.update({
         "top_k": "O(K)",
     },
     "segment_tree/RangeLinearAddRangeMin.py": {
+        "RangeLinearAddRangeMin": "O(N) time・memory",
         "add": "O(log^2 N)",
         "query": "O(log^2 N)",
+        "tolist": "O(N) time・追加memory",
+        "__str__": "O(N)",
+        "__repr__": "O(N)",
     },
     "segment_tree/SortableSegmentTree.py": {
         "SortableSegmentTree": "O(N) time・memory、O(N) 回のop呼び出し",
@@ -5113,6 +5123,7 @@ MODULE_CAPABILITIES.update({
     ),
     "range_query/WeightedWaveletMatrix.py": (
         "位置の半開区間と値の半開区間を同時に指定し、該当要素へ付けた重みの総和を求められる。",
+        "値の上限を指定し、該当する要素の個数と重み和を一度の探索で求められる。",
         "区間内で値が小さい方または大きい方からk個を選んだときの重み和を求められる。",
         "weightsを省略すると値自身を重みとし、range sumやk smallest sumにそのまま使える。",
     ),
@@ -5178,6 +5189,12 @@ API_DETAILS_BY_SYMBOL.update({
         "argumentDescriptions": {"left": "含める位置の左端。", "right": "含めない位置の右端。", "upper": "含めない値の上端。"},
         "returnFormat": "number",
         "returnDescription": "条件を満たす各indexに対応するweightの総和。",
+    },
+    ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix", "count_sum_lt"): {
+        "description": "位置区間内で値がupper未満の要素を選び、個数と重み和を一度の探索で求める。",
+        "argumentDescriptions": {"left": "含める位置の左端。", "right": "含めない位置の右端。", "upper": "含めない値の上端。"},
+        "returnFormat": "tuple[int, number]",
+        "returnDescription": "(count, total)。countは条件を満たす要素数、totalはその要素に対応するweightsの総和。weights省略時はvalues自身の総和。該当要素がなければ(0, 0)。",
     },
     ("range_query/WeightedWaveletMatrix.py", "WeightedWaveletMatrix", "range_sum"): {
         "description": r"位置が $[\mathrm{left},\mathrm{right})$、valueが $[\mathrm{lower},\mathrm{upper})$ にある要素の重みを合計する。",
@@ -5260,7 +5277,7 @@ API_DETAILS_BY_SYMBOL.update({
 
 COMPLEXITY_BY_MODULE.update({
     "range_query/StaticRangeDistinct.py": {"StaticRangeDistinct": "構築 O(N log N) time・O(N log N) memory", "count": "O(log N)"},
-    "range_query/WeightedWaveletMatrix.py": {"WeightedWaveletMatrix": "構築 O(N log S) time・O(N log S) memory", "total": "O(1)", "sum_lt": "O(log S)", "range_sum": "O(log S)", "sum_k_smallest": "O(log S)", "sum_k_largest": "O(log S)"},
+    "range_query/WeightedWaveletMatrix.py": {"WeightedWaveletMatrix": "構築 O(N log S) time・O(N log S) memory", "total": "O(1)", "sum_lt": "O(log S)", "count_sum_lt": "O(log S)。Sは異なる値の種類数。", "range_sum": "O(log S)", "sum_k_smallest": "O(log S)", "sum_k_largest": "O(log S)"},
     "graph_connectivity/BridgeForest.py": {"BridgeForest": "構築 O((V+E) log V) time・O(V log V+E) memory", "bridge_distance": "O(log V)", "bridge_path": "O(log V+K)", "kth_bridge": "O(log V)", "is_bridge_separator": "O(1)"},
     "graph_flow/MaxFlow.py": {**COMPLEXITY_BY_MODULE.get("graph_flow/MaxFlow.py", {}), "flow_value": "O(E)", "flow_paths": "O(E(V+E)) worst、返すpath数はO(E)"},
     "graph_connectivity/DominatorTree.py": {**COMPLEXITY_BY_MODULE.get("graph_connectivity/DominatorTree.py", {}), "DominatorTree": "構築 O((V+E) alpha(V)+V log V)", "dominates": "O(1)", "nearest_common_dominator": "O(log V)", "dominator_path": "O(K)"},
@@ -6423,6 +6440,20 @@ COMPLEXITY_BY_MODULE.setdefault("linear_algebra/Matrix.py", {})["matrix_multiply
 COMPLEXITY_BY_MODULE["linear_algebra/Strassen.py"] = {
     "strassen_matrix_multiply": "thresholdを定数としてO(S^log2(7))時間、O(S^2)追加領域。SはH,D,Wの最大値を切り上げた2冪。整数の四則演算をO(1)とする",
 }
+
+CLASS_DETAILS_BY_SYMBOL[("segment_tree/RangeLinearAddRangeMin.py", "RangeLinearAddRangeMin")] = {
+    "description": "整数列へ一次式の区間加算と区間最小値の問い合わせを行う。",
+    "constructorCreates": "valuesを初期列として保持する。addで等差数列を加算し、queryで更新後の最小値を取得できる。",
+    "argumentDescriptions": {"values": "初期整数列のiterable。空の列も構築できる。"},
+}
+for _method, _format, _description in (
+    ("tolist", "list[int]", "加算後の値を元のindex順に並べた新しいlist。内部状態は変えない。"),
+    ("__str__", "str", "tolist()の文字列表現。"),
+    ("__repr__", "str", "RangeLinearAddRangeMin([...])の形式で型名と現在の列を表示する。"),
+):
+    API_DETAILS_BY_SYMBOL[("segment_tree/RangeLinearAddRangeMin.py", "RangeLinearAddRangeMin", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _description,
+    }
 
 SEARCH_TERMS_BY_MODULE["union_find/PotentialUnionFind.py"] = (
     "群の重み付きUnion-Find", "ポテンシャル付きDSU", "非可換群", "差分制約",

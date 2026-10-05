@@ -1,0 +1,111 @@
+{
+  "problem": "static_range_lis_query",
+  "status": "local_passed",
+  "verificationKey": "9f8de7f8af8fa62b2f5a1993e0fb5346b888f77064a08dd8eb21795f23863303",
+  "sourceSha256": "de2e1173abbf62e9c760d434250e7aceb534ed6ba6d1be37aa60648b7c7771f2",
+  "modules": [
+    "library_codex.range_query.WaveletMatrix",
+    "library_codex.segment_tree.RangeLIS"
+  ],
+  "problemVersion": "65f30b1fca58c65bceea84e36b4241d1490d0659d2f5e1093358288d8b378cf6",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 15,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06296987700625323,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.12282264299574308,
+      "diagnostic": "ok 829 tokens\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.12892321299295872,
+      "diagnostic": "ok 759 tokens\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.28195186000084504,
+      "diagnostic": "ok 392 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.6135186980245635,
+      "diagnostic": "ok 75848 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.757544350984972,
+      "diagnostic": "ok 7874 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.9446675330109429,
+      "diagnostic": "ok 68166 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 3.3644989900058135,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 3.435308644984616,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 3.387276060995646,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "almost_sorted_00",
+      "status": "AC",
+      "seconds": 2.7545564160100184,
+      "diagnostic": "ok 7812 tokens\n"
+    },
+    {
+      "name": "almost_sorted_01",
+      "status": "AC",
+      "seconds": 2.921731754002394,
+      "diagnostic": "ok 48914 tokens\n"
+    },
+    {
+      "name": "almost_sorted_02",
+      "status": "AC",
+      "seconds": 2.884897957992507,
+      "diagnostic": "ok 57900 tokens\n"
+    },
+    {
+      "name": "sorted_00",
+      "status": "AC",
+      "seconds": 2.416232540010242,
+      "diagnostic": "ok 7812 tokens\n"
+    },
+    {
+      "name": "issue_1223_00",
+      "status": "AC",
+      "seconds": 2.7239821040129755,
+      "diagnostic": "ok 100000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T08:24:32.372814+00:00",
+  "onlineSubmission": null
+}

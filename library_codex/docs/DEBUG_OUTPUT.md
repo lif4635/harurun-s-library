@@ -46,6 +46,11 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 
 `CentroidDistanceFenwick`・`CentroidDistanceAdd`・`StaticRangeMode`の`tolist()`は現在値を元の頂点番号・添字順に返します。`str`は同じlist、`repr`は型名を付けます。`CentroidDistanceAdd`ではO(N log² N)、他2つではO(N)かかります。
 
+## 一次式の区間加算
+
+`RangeLinearAddRangeMin.tolist()`は、保留中の一次式加算も含めた現在値をindex順に返します。
+`str`は同じlist、`repr`は`RangeLinearAddRangeMin([...])`です。時間・追加メモリはO(N)で、内部の遅延状態は変更しません。
+
 ## Tree Wavelet Matrix
 
 `TreeWaveletMatrix.tolist()`と`str(obj)`は、constructorへ渡した頂点値を頂点番号順のlistで返します。`repr(obj)`は`TreeWaveletMatrix([...])`の形です。内部のHLD順や圧縮後のrankは表示しません。
