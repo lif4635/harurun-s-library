@@ -1,13 +1,8 @@
 from itertools import permutations
 import random
 
-from library_codex.linear_algebra.BlackBoxLinearAlgebra import (
-    SparseMatrix,
-    black_box_determinant,
-    black_box_linear_solve,
-    black_box_minimal_polynomial,
-    black_box_power,
-)
+import pytest
+
 from library_codex.linear_algebra.Matrix import (
     characteristic_polynomial,
     inverse_matrix,
@@ -22,6 +17,54 @@ from library_codex.linear_algebra.Matrix import (
 
 
 MOD = 998244353
+
+
+def _product(first, second, mod):
+    width = len(second[0]) if second else 0
+    return [[sum(first[i][k] * second[k][j] for k in range(len(second))) % mod
+             for j in range(width)] for i in range(len(first))]
+
+
+def test_matrix_product_modular_accumulation_boundaries():
+    rng = random.Random(20261005)
+    for mod in (1, 2, 101, MOD, 1 << 30, (1 << 30) + 1, (1 << 89) - 1, -101):
+        for inner in (0, 1, 7, 8, 9, 15, 16, 17, 33):
+            for sparse in (False, True):
+                first = [[rng.randrange(-mod * mod, mod * mod + 1)
+                          if not sparse or rng.randrange(5) == 0 else 0
+                          for _ in range(inner)] for _ in range(3)]
+                second = [[rng.randrange(-mod * mod, mod * mod + 1)
+                           for _ in range(5)] for _ in range(inner)]
+                saved = ([row[:] for row in first], [row[:] for row in second])
+                assert matrix_multiply(first, second, mod) == _product(first, second, mod)
+                assert (first, second) == saved
+            first = [[mod - 1] * inner] * 3
+            second = [[mod - 1] * 5 for _ in range(inner)]
+            assert matrix_multiply(first, second, mod) == _product(first, second, mod)
+    assert matrix_multiply([], []) == []
+    assert matrix_multiply([[], []], []) == [[], []]
+    for first, second in (([[1, 2], [3]], [[1], [2]]), ([[1]], [[1], [2]]),
+                          ([[1, 2]], [[1], [2, 3]])):
+        with pytest.raises(ValueError):
+            matrix_multiply(first, second)
+
+
+def test_matrix_power_against_repeated_product():
+    rng = random.Random(620510)
+    for mod in (2, 101, MOD, (1 << 61) - 1):
+        for size in range(7):
+            matrix = [[rng.randrange(-mod, 2 * mod) for _ in range(size)]
+                      for _ in range(size)]
+            expected = [[int(i == j) for j in range(size)] for i in range(size)]
+            saved = [row[:] for row in matrix]
+            for exponent in range(15):
+                assert matrix_power(matrix, exponent, mod) == expected
+                expected = _product(expected, matrix, mod)
+            assert matrix == saved
+    with pytest.raises(ValueError):
+        matrix_power([[1, 2]], 2)
+    with pytest.raises(ValueError):
+        matrix_power([[1]], -1)
 
 
 def brute_determinant(matrix, mod=MOD):
@@ -111,53 +154,6 @@ def test_linear_equation_particular_and_kernel():
                         0
                     ] * height
     assert linear_equation([[0], [0]], [0, 1], 11) is None
-
-
-def test_black_box_dense_and_sparse_operations():
-    rng = random.Random(937841)
-    for size in range(1, 18):
-        for case in range(40):
-            dense = [[0] * size for _ in range(size)]
-            sparse = SparseMatrix(size)
-            for row in range(size):
-                for column in range(size):
-                    if rng.randrange(4) == 0:
-                        value = rng.randrange(MOD)
-                        dense[row][column] = value
-                        sparse.add(row, column, value)
-            vector = [rng.randrange(MOD) for _ in range(size)]
-            exponent = rng.randrange(1000)
-            expected = matrix_vector_multiply(
-                matrix_power(dense, exponent, MOD), vector, MOD
-            )
-            assert black_box_power(
-                sparse, vector, exponent, MOD, case, 5
-            ) == expected
-            determinant = matrix_determinant(dense, MOD)
-            assert black_box_determinant(
-                sparse, MOD, case + 10000, 12
-            ) == determinant
-
-
-def test_black_box_minpoly_and_linear_solve():
-    rng = random.Random(516829)
-    for size in range(1, 40):
-        diagonal = [rng.randrange(1, MOD) for _ in range(size)]
-        while len(set(diagonal)) != size:
-            diagonal = [rng.randrange(1, MOD) for _ in range(size)]
-        matrix = [
-            [diagonal[row] if row == column else 0 for column in range(size)]
-            for row in range(size)
-        ]
-        vector = [rng.randrange(1, MOD) for _ in range(size)]
-        polynomial = black_box_minimal_polynomial(
-            matrix, MOD, vector, size, 4
-        )
-        assert len(polynomial) == size + 1
-        solution = black_box_linear_solve(
-            matrix, vector, MOD, size + 1, 4
-        )
-        assert matrix_vector_multiply(matrix, solution, MOD) == vector
 
 
 def test_sparse_linear_equation_general_and_banded():

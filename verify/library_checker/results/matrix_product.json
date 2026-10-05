@@ -1,0 +1,152 @@
+{
+  "problem": "matrix_product",
+  "status": "local_passed",
+  "verificationKey": "f861ff1b52efda42b70fe681067c126e2dceb216dedef2ad8746d41b18fcb1f4",
+  "sourceSha256": "c0acedb006705e14078bc74e130ed665ad21ebb78899ea6eb6b71c3deea805d8",
+  "modules": [
+    "library_codex.linear_algebra.Strassen"
+  ],
+  "problemVersion": "9c48466e0c3d48c3a14256f7e0560055f41ad052ea93cdd559b64f03ab51c87e",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 22,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.054495542019139975,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05539114499697462,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05522303900215775,
+      "diagnostic": "ok \"578563231\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.061854410014348,
+      "diagnostic": "ok 537840 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.0633322299981955,
+      "diagnostic": "ok 558692 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.7507986129785422,
+      "diagnostic": "ok 343227 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 2.1198046060162596,
+      "diagnostic": "ok 1048576 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 2.2077243819949217,
+      "diagnostic": "ok 1048576 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 2.259487394010648,
+      "diagnostic": "ok 1048576 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.06539275997783989,
+      "diagnostic": "ok 5141 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.06315702499705367,
+      "diagnostic": "ok 1470 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.05682175399851985,
+      "diagnostic": "ok 528 tokens\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.06057176599279046,
+      "diagnostic": "ok 5330 tokens\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.05799666800885461,
+      "diagnostic": "ok 2540 tokens\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.06382489099632949,
+      "diagnostic": "ok 4982 tokens\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.05668002300080843,
+      "diagnostic": "ok 438 tokens\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.05926417399314232,
+      "diagnostic": "ok 2093 tokens\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.05770075699547306,
+      "diagnostic": "ok 448 tokens\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.06311091798124835,
+      "diagnostic": "ok 2328 tokens\n"
+    },
+    {
+      "name": "signed_overflow_00",
+      "status": "AC",
+      "seconds": 0.061397301993565634,
+      "diagnostic": "ok 1444 tokens\n"
+    },
+    {
+      "name": "unsigned_overflow_00",
+      "status": "AC",
+      "seconds": 0.057552908023353666,
+      "diagnostic": "ok 324 tokens\n"
+    },
+    {
+      "name": "unsigned_overflow_01",
+      "status": "AC",
+      "seconds": 0.05510395299643278,
+      "diagnostic": "ok 361 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T06:44:04.751112+00:00",
+  "onlineSubmission": null
+}

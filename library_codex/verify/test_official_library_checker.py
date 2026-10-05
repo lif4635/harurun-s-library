@@ -151,6 +151,13 @@ def test_solution_is_standalone(name):
 
 
 @pytest.mark.parametrize("name,data,expected", [
+    ("characteristic_polynomial", "2\n1 2\n3 4\n", "998244351 998244348 1"),
+    ("matrix_det_arbitrary_mod", "2 6\n1 2\n3 4\n", "4"),
+    ("hafnian_of_matrix", "4\n0 1 1 1\n1 0 1 1\n1 1 0 1\n1 1 1 0\n", "3"),
+    ("pfaffian_of_matrix", "1\n0 7\n998244346 0\n", "7"),
+    ("matrix_product", "2 3 1\n1 2 3\n4 5 6\n7\n8\n9\n", "50 122"),
+    ("pow_of_matrix", "2 5\n1 1\n1 0\n", "8 5 5 3"),
+    ("sparse_matrix_det", "2 3\n0 0 2\n0 1 3\n1 1 5\n", "10"),
     ("assignment", "2\n1 8\n5 2\n", "3 0 1"),
     ("biconnected_components", "1 0\n", "1 1 0"),
     ("three_edge_connected_components", "2 3\n0 1\n0 1\n0 1\n", "1 2 0 1"),

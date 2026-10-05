@@ -1,8 +1,8 @@
 {
   "problem": "inverse_matrix",
   "status": "local_passed",
-  "verificationKey": "175b77609cfe14b89be09ccd57870d0cc8a688293d69274dfcfb85398a35ecca",
-  "sourceSha256": "ea363f728cd3ac629c466ada900aaf659225bc6bdd70c0fc8f366de49a1488c6",
+  "verificationKey": "cad8ec4d5738a9ec5defea553cb1dc6e2a960e9f4ef2d75160c20ac1c938fbfa",
+  "sourceSha256": "d709e137d3b26ff9834a90f5317e944407e41a929982f744feecc9c9cb4aeb87",
   "modules": [
     "library_codex.linear_algebra.Matrix"
   ],
@@ -17,160 +17,160 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.04936478502349928,
+      "seconds": 0.05314572900533676,
       "diagnostic": "ok 9 tokens\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.05167716299183667,
+      "seconds": 0.05412490601884201,
       "diagnostic": "ok \"-1\"\n"
     },
     {
       "name": "example_02",
       "status": "AC",
-      "seconds": 0.053453870001249015,
+      "seconds": 0.05256271897815168,
       "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.1304707560047973,
+      "seconds": 0.11697923298925161,
       "diagnostic": "ok 32761 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.14814129000296816,
+      "seconds": 0.13225445500575006,
       "diagnostic": "ok 39204 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.07490762398811057,
+      "seconds": 0.06828473199857399,
       "diagnostic": "ok 7744 tokens\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.12741658301092684,
+      "seconds": 0.12980609902297147,
       "diagnostic": "ok 37249 tokens\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 0.05607430500094779,
+      "seconds": 0.05526744300732389,
       "diagnostic": "ok 400 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 1.1251419479958713,
+      "seconds": 1.0924520039989147,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 1.2130603109835647,
+      "seconds": 1.0884822120133322,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 1.1485506449826062,
+      "seconds": 1.1051878509751987,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "max_random_03",
       "status": "AC",
-      "seconds": 1.1059954049997032,
+      "seconds": 1.1074207189958543,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "max_random_04",
       "status": "AC",
-      "seconds": 1.1236015080066863,
+      "seconds": 1.1280543449975085,
       "diagnostic": "ok 250000 tokens\n"
     },
     {
       "name": "lowrank_max_random_00",
       "status": "AC",
-      "seconds": 0.7512957710132468,
+      "seconds": 0.7696592480060644,
       "diagnostic": "ok \"-1\"\n"
     },
     {
       "name": "lowrank_max_random_01",
       "status": "AC",
-      "seconds": 0.622868484002538,
+      "seconds": 0.6221224859764334,
       "diagnostic": "ok \"-1\"\n"
     },
     {
       "name": "lowrank_max_random_02",
       "status": "AC",
-      "seconds": 0.9454695300082676,
+      "seconds": 0.9383873030019458,
       "diagnostic": "ok \"-1\"\n"
     },
     {
       "name": "lowrank_max_random_03",
       "status": "AC",
-      "seconds": 0.6658285110024735,
+      "seconds": 0.6119507990079001,
       "diagnostic": "ok \"-1\"\n"
     },
     {
       "name": "lowrank_max_random_04",
       "status": "AC",
-      "seconds": 0.7982127960131038,
+      "seconds": 0.7309078800026327,
       "diagnostic": "ok \"-1\"\n"
     },
     {
       "name": "perm_max_random_00",
       "status": "AC",
-      "seconds": 0.09327313900575973,
+      "seconds": 0.09420694201253355,
       "diagnostic": "ok 244036 tokens\n"
     },
     {
       "name": "perm_max_random_01",
       "status": "AC",
-      "seconds": 0.09982480900362134,
+      "seconds": 0.09371747000841424,
       "diagnostic": "ok 245025 tokens\n"
     },
     {
       "name": "perm_max_random_02",
       "status": "AC",
-      "seconds": 0.10266559701994993,
+      "seconds": 0.09784287700313143,
       "diagnostic": "ok 247009 tokens\n"
     },
     {
       "name": "perm_max_random_03",
       "status": "AC",
-      "seconds": 0.09571638499619439,
+      "seconds": 0.09387113997945562,
       "diagnostic": "ok 240100 tokens\n"
     },
     {
       "name": "perm_max_random_04",
       "status": "AC",
-      "seconds": 0.10857679700711742,
+      "seconds": 0.09298111600219272,
       "diagnostic": "ok 243049 tokens\n"
     },
     {
       "name": "anti55588_00",
       "status": "AC",
-      "seconds": 0.059343414002796635,
+      "seconds": 0.056213717005448416,
       "diagnostic": "ok 9 tokens\n"
     },
     {
       "name": "signed_overflow_00",
       "status": "AC",
-      "seconds": 0.06558426699484698,
+      "seconds": 0.059141046018339694,
       "diagnostic": "ok \"-1\"\n"
     },
     {
       "name": "unsigned_overflow_00",
       "status": "AC",
-      "seconds": 0.053662078018533066,
+      "seconds": 0.057095149997621775,
       "diagnostic": "ok \"-1\"\n"
     }
   ],
-  "verifiedAt": "2026-10-04T08:49:50.691061+00:00",
+  "verifiedAt": "2026-10-05T06:40:56.175059+00:00",
   "onlineSubmission": null
 }

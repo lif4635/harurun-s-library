@@ -16,10 +16,10 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- 前回のPyPy全検証: 823 passed（2026-10-05、`c3e4f21`）。
-- 今回のPyPy quickは144件、文字列・公式検査runnerの関連テストは66件成功。通常の性能回帰検査も通過。full検査は今回再実行していない。[文字列6問題の記録](docs/STRING_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
+- PyPy 全検証: 869 passed（2026-10-05、行列7問題の追加時）。
+- 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
 - 再帰監査: direct/mutual recursion なし（2026-10-05）
-- Library Checker公式ケース: 136問題・3073ケース通過、未対応117問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- Library Checker公式ケース: 143問題・3248ケース通過、未対応110問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 
 対応の正本は `REFERENCE_INVENTORY.md` です。
 

@@ -9,7 +9,7 @@
 
 ## できること
 
-- `strassen_matrix_multiply`: 2つの入力をこの構造の演算規則で乗算する。
+- `strassen_matrix_multiply`: 長方形行列firstとsecondの積をStrassen法で求める。mod=Noneなら整数の積をそのまま返す。
 
 ## Import
 
@@ -17,8 +17,14 @@
 from library_codex.linear_algebra.Strassen import strassen_matrix_multiply
 ```
 
+## 公開定数
+
+| 定数 | 値 | source |
+| --- | --- | --- |
+| `DEFAULT_MOD` | `998244353` | [L1](../../../linear_algebra/Strassen.py#L1) |
+
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`strassen_matrix_multiply(first, second, mod=DEFAULT_MOD, threshold=32)`](../../../linear_algebra/Strassen.py#L44) | 2つの入力をこの構造の演算規則で乗算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`<br>`threshold`: naive法等へ切り替える閾値。省略時: `32` | list[list[number]] — 各行をlistで持つ行列 | — |
+| [`strassen_matrix_multiply(first, second, mod=DEFAULT_MOD, threshold=256)`](../../../linear_algebra/Strassen.py#L64) | 長方形行列firstとsecondの積をStrassen法で求める。mod=Noneなら整数の積をそのまま返す。 | `first`: H行D列の整数の2次元list。<br>`second`: D行W列の整数の2次元list。firstの列数とsecondの行数を一致させる。<br>`mod`: 各成分を割った余りを求める法。Noneなら剰余を取らない。0は指定しない。省略時: `DEFAULT_MOD`<br>`threshold`: 分割を止めて通常の行列積へ切り替える正方行列のサイズ。1以上。大きいほど分割回数が減る。省略時: `256` | list[list[int]] — H行W列の新しい行列。result[i][j]はfirstのi行目とsecondのj列目の内積。modを指定した場合はその余り。入力は変更しない。 | thresholdを定数としてO(S^log2(7))時間、O(S^2)追加領域。SはH,D,Wの最大値を切り上げた2冪。整数の四則演算をO(1)とする |

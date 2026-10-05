@@ -1,18 +1,38 @@
-from library_codex.fps.FormalPowerSeries import DEFAULT_MOD
+DEFAULT_MOD = 998244353
 
 
 def _naive(first, second, mod):
-    size = len(first)
-    result = [[0] * size for _ in range(size)]
-    for row in range(size):
+    rows = len(first)
+    columns = len(second[0])
+    result = [[0] * columns for _ in range(rows)]
+    if mod is not None and 0 < mod <= 1 << 30:
+        for row in range(rows):
+            output = result[row]
+            remaining = 0
+            for pivot, value in enumerate(first[row]):
+                if not value:
+                    continue
+                source = second[pivot]
+                if remaining:
+                    for column in range(columns):
+                        output[column] += value * source[column]
+                    remaining -= 1
+                else:
+                    for column in range(columns):
+                        output[column] = (output[column] + value * source[column]) % mod
+                    remaining = 7
+            for column in range(columns):
+                output[column] %= mod
+        return result
+    for row in range(rows):
         output = result[row]
         for pivot, value in enumerate(first[row]):
             if value:
                 source = second[pivot]
-                for column in range(size):
+                for column in range(columns):
                     output[column] += value * source[column]
         if mod is not None:
-            for column in range(size):
+            for column in range(columns):
                 output[column] %= mod
     return result
 
@@ -41,8 +61,10 @@ def _quadrants(matrix):
     )
 
 
-def strassen_matrix_multiply(first, second, mod=DEFAULT_MOD, threshold=32):
+def strassen_matrix_multiply(first, second, mod=DEFAULT_MOD, threshold=256):
     """Rectangular matrix product using an explicit-stack Strassen engine."""
+    if threshold < 1:
+        raise ValueError("threshold must be positive")
     rows = len(first)
     inner = len(first[0]) if rows else 0
     if any(len(row) != inner for row in first):
@@ -57,6 +79,16 @@ def strassen_matrix_multiply(first, second, mod=DEFAULT_MOD, threshold=32):
     size = 1
     while size < max(rows, inner, columns):
         size <<= 1
+    work = size * size * size
+    block = size
+    while block > threshold:
+        work = work * 7 // 8
+        block >>= 1
+    if rows * inner * columns <= work:
+        if mod is None:
+            return _naive(first, second, mod)
+        return _naive([[value % mod for value in row] for row in first],
+                      [[value % mod for value in row] for row in second], mod)
     left = [[0] * size for _ in range(size)]
     right = [[0] * size for _ in range(size)]
     for row in range(rows):

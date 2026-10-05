@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 136,
-    "unimplemented": 117
+    "local_passed": 143,
+    "unimplemented": 110
   },
   "problems": [
     {
@@ -236,10 +236,12 @@
       "title": "Characteristic Polynomial",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/characteristic_polynomial",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix"
+      ],
+      "solution": "solutions/characteristic_polynomial.py",
+      "result": "results/characteristic_polynomial.json"
     },
     {
       "name": "chordal_graph_recognition",
@@ -1011,10 +1013,13 @@
       "title": "Hafnian of Matrix",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/hafnian_of_matrix",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix",
+        "library_codex.linear_algebra.AdvancedMatrix"
+      ],
+      "solution": "solutions/hafnian_of_matrix.py",
+      "result": "results/hafnian_of_matrix.json"
     },
     {
       "name": "incremental_minimum_spanning_forest",
@@ -1366,10 +1371,13 @@
       "title": "Determinant of Matrix (Arbitrary Mod)",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/matrix_det_arbitrary_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix",
+        "library_codex.linear_algebra.AdvancedMatrix"
+      ],
+      "solution": "solutions/matrix_det_arbitrary_mod.py",
+      "result": "results/matrix_det_arbitrary_mod.json"
     },
     {
       "name": "matrix_det_mod_2",
@@ -1388,10 +1396,12 @@
       "title": "Matrix Product",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/matrix_product",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Strassen"
+      ],
+      "solution": "solutions/matrix_product.py",
+      "result": "results/matrix_product.json"
     },
     {
       "name": "matrix_product_mod_2",
@@ -1761,10 +1771,13 @@
       "title": "Pfaffian of Matrix",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/pfaffian_of_matrix",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix",
+        "library_codex.linear_algebra.AdvancedMatrix"
+      ],
+      "solution": "solutions/pfaffian_of_matrix.py",
+      "result": "results/pfaffian_of_matrix.json"
     },
     {
       "name": "point_add_range_sum",
@@ -1945,10 +1958,12 @@
       "title": "Pow of Matrix",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/pow_of_matrix",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.Matrix"
+      ],
+      "solution": "solutions/pow_of_matrix.py",
+      "result": "results/pow_of_matrix.json"
     },
     {
       "name": "power_projection_of_set_power_series",
@@ -2323,10 +2338,18 @@
       "title": "Determinant of Sparse Matrix",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/sparse_matrix_det",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.polynomial.PolynomialDivision",
+        "library_codex.combinatorial_series.LinearRecurrence",
+        "library_codex.linear_algebra.Matrix",
+        "library_codex.linear_algebra.BlackBoxLinearAlgebra"
+      ],
+      "solution": "solutions/sparse_matrix_det.py",
+      "result": "results/sparse_matrix_det.json"
     },
     {
       "name": "sqrt_mod",

@@ -4,9 +4,11 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-05時点の公式revision `1814c4e`では、136問題・3073ケースがローカル全件通過、117問題が未実装。
+2026-10-05時点の公式revision `1814c4e`では、143問題・3248ケースがローカル全件通過、110問題が未実装。
 
-文字列の6問題、174ケースを追加した。両端への追加・削除に対応する回文木を新規実装し、上位PyPy提出と比較した。[文字列の検査・比較結果](../../library_codex/docs/STRING_ALGORITHMS_BENCHMARK.md)に記録している。
+行列の7問題、175ケースを追加した。行列累乗の時間超過を解消し、行列積も高速化した。[行列の検査・比較結果](../../library_codex/docs/MATRIX_ALGORITHMS_BENCHMARK.md)に記録している。
+
+前回の文字列6問題と両端回文木は[文字列の検査・比較結果](../../library_codex/docs/STRING_ALGORITHMS_BENCHMARK.md)に記録している。
 
 前回の辺追加SCCと重み付き一般マッチングのTLE修正は[高速化と上位PyPy実装との比較](../../library_codex/docs/GRAPH_ALGORITHMS_BENCHMARK.md)に記録している。
 

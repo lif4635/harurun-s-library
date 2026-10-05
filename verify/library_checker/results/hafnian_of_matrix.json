@@ -1,0 +1,87 @@
+{
+  "problem": "hafnian_of_matrix",
+  "status": "local_passed",
+  "verificationKey": "e3f8c40528f2e2d312d9df1c782459261a8fea8293b75c0699b1485bf59ab7d7",
+  "sourceSha256": "e8919fd398a70b0d91425f9a2238032c1e43ffb2b166a44eb891c8f738c1179f",
+  "modules": [
+    "library_codex.linear_algebra.Matrix",
+    "library_codex.linear_algebra.AdvancedMatrix"
+  ],
+  "problemVersion": "a41286480f74630d74e31ac2858f141b6daad838b5824a0f653047963d32022e",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 11,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06018180298269726,
+      "diagnostic": "ok \"28\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.06324114100425504,
+      "diagnostic": "ok \"232629697\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.06359351298306137,
+      "diagnostic": "ok \"941874620\"\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.07203734200447798,
+      "diagnostic": "ok \"271368849\"\n"
+    },
+    {
+      "name": "large_00",
+      "status": "AC",
+      "seconds": 0.15973359500640072,
+      "diagnostic": "ok \"169912760\"\n"
+    },
+    {
+      "name": "large_01",
+      "status": "AC",
+      "seconds": 0.1782588450005278,
+      "diagnostic": "ok \"997311712\"\n"
+    },
+    {
+      "name": "large_02",
+      "status": "AC",
+      "seconds": 0.5037506039952859,
+      "diagnostic": "ok \"996645792\"\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 3.947219347988721,
+      "diagnostic": "ok \"416280314\"\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 4.183153215999482,
+      "diagnostic": "ok \"917222949\"\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 3.927616211993154,
+      "diagnostic": "ok \"744537742\"\n"
+    },
+    {
+      "name": "hack77047_00",
+      "status": "AC",
+      "seconds": 1.3469740900036413,
+      "diagnostic": "ok \"312882810\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T06:40:38.749960+00:00",
+  "onlineSubmission": null
+}

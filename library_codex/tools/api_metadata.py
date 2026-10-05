@@ -6397,3 +6397,29 @@ COMPLEXITY_BY_MODULE["string/DequePalindromicTree.py"] = {
     "__str__": "O(N)と各要素の文字列化。Nは現在の列の長さ",
     "__repr__": "O(N)と各要素の文字列化。Nは現在の列の長さ",
 }
+
+API_DETAILS_BY_SYMBOL[("linear_algebra/Matrix.py", None, "matrix_multiply")] = {
+    "description": "長方形行列firstとsecondの積を、各成分でmodを取って求める。",
+    "argumentDescriptions": {
+        "first": "H行D列の整数の2次元list。",
+        "second": "D行W列の整数の2次元list。firstの列数とsecondの行数を一致させる。",
+        "mod": "各成分を割った余りを求める法。0は指定しない。",
+    },
+    "returnFormat": "list[list[int]]",
+    "returnDescription": "H行W列の新しい行列。result[i][j]はfirstのi行目とsecondのj列目の内積をmodで割った余り。入力は変更しない。",
+}
+API_DETAILS_BY_SYMBOL[("linear_algebra/Strassen.py", None, "strassen_matrix_multiply")] = {
+    "description": "長方形行列firstとsecondの積をStrassen法で求める。mod=Noneなら整数の積をそのまま返す。",
+    "argumentDescriptions": {
+        "first": "H行D列の整数の2次元list。",
+        "second": "D行W列の整数の2次元list。firstの列数とsecondの行数を一致させる。",
+        "mod": "各成分を割った余りを求める法。Noneなら剰余を取らない。0は指定しない。",
+        "threshold": "分割を止めて通常の行列積へ切り替える正方行列のサイズ。1以上。大きいほど分割回数が減る。",
+    },
+    "returnFormat": "list[list[int]]",
+    "returnDescription": "H行W列の新しい行列。result[i][j]はfirstのi行目とsecondのj列目の内積。modを指定した場合はその余り。入力は変更しない。",
+}
+COMPLEXITY_BY_MODULE.setdefault("linear_algebra/Matrix.py", {})["matrix_multiply"] = "O(H D W)時間、O(H W + D W)追加領域。整数の四則演算をO(1)とする"
+COMPLEXITY_BY_MODULE["linear_algebra/Strassen.py"] = {
+    "strassen_matrix_multiply": "thresholdを定数としてO(S^log2(7))時間、O(S^2)追加領域。SはH,D,Wの最大値を切り上げた2冪。整数の四則演算をO(1)とする",
+}

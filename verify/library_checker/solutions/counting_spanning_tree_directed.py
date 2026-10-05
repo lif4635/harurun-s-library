@@ -41,6 +41,27 @@ def matrix_multiply(first, second, mod=DEFAULT_MOD):
     if inner != other_height:
         raise ValueError('incompatible matrix shapes')
     result = [[0] * width for _ in range(height)]
+    if 0 < mod <= 1 << 30:
+        right = [[value % mod for value in row] for row in second]
+        for row in range(height):
+            output = result[row]
+            remaining = 0
+            for (pivot, value) in enumerate(first[row]):
+                left = value % mod
+                if not left:
+                    continue
+                source = right[pivot]
+                if remaining:
+                    for column in range(width):
+                        output[column] += left * source[column]
+                    remaining -= 1
+                else:
+                    for column in range(width):
+                        output[column] = (output[column] + left * source[column]) % mod
+                    remaining = 7
+            for column in range(width):
+                output[column] %= mod
+        return result
     for row in range(height):
         output = result[row]
         for (pivot, left) in enumerate(first[row]):

@@ -1,0 +1,257 @@
+{
+  "problem": "pow_of_matrix",
+  "status": "failed",
+  "verificationKey": "85159411416d350ab936039da3e8180c8b58ff5d33f009e40307bc563fb1d857",
+  "sourceSha256": "f1ecdbeba36197f9134ebeaaec5f7d5b11aeff7f9ddef22c4c658683246f21cd",
+  "modules": [
+    "library_codex.linear_algebra.Matrix"
+  ],
+  "problemVersion": "43fbe969899e901a790d24b4d35e9c03d0fa5013db23edf6da7adaee214e17ee",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 43,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.054926337994402274,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.052641219983343035,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05477312600123696,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "TLE",
+      "seconds": 5.015367475018138
+    },
+    {
+      "name": "random_01",
+      "status": "TLE",
+      "seconds": 5.016094890015665
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.1303742100135423,
+      "diagnostic": "ok 7744 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.0642022289976012,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.05948484898544848,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.061975118005648255,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.07063294600811787,
+      "diagnostic": "ok \"627477696\"\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.07047521098866127,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.0636795680038631,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.06106062498292886,
+      "diagnostic": "ok \"316400973\"\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.0674199859786313,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.05940941200242378,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.05879180601914413,
+      "diagnostic": "ok \"837030307\"\n"
+    },
+    {
+      "name": "small_10",
+      "status": "AC",
+      "seconds": 0.05812440000590868,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "small_11",
+      "status": "AC",
+      "seconds": 0.05733924699597992,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "TLE",
+      "seconds": 5.012232929002494
+    },
+    {
+      "name": "max_random_01",
+      "status": "TLE",
+      "seconds": 5.017829532007454
+    },
+    {
+      "name": "max_random_02",
+      "status": "TLE",
+      "seconds": 5.016595120978309
+    },
+    {
+      "name": "max_random_03",
+      "status": "TLE",
+      "seconds": 5.018027534999419
+    },
+    {
+      "name": "max_random_worst_00",
+      "status": "TLE",
+      "seconds": 5.013728466001339
+    },
+    {
+      "name": "max_random_worst_01",
+      "status": "TLE",
+      "seconds": 5.017391817003954
+    },
+    {
+      "name": "max_random_worst_02",
+      "status": "TLE",
+      "seconds": 5.0173250779917
+    },
+    {
+      "name": "max_random_worst_03",
+      "status": "TLE",
+      "seconds": 5.016633094986901
+    },
+    {
+      "name": "lowrank_max_random_00",
+      "status": "TLE",
+      "seconds": 5.01624645802076
+    },
+    {
+      "name": "lowrank_max_random_01",
+      "status": "TLE",
+      "seconds": 5.015486588003114
+    },
+    {
+      "name": "perm_max_random_00",
+      "status": "AC",
+      "seconds": 0.09804603300290182,
+      "diagnostic": "ok 37636 tokens\n"
+    },
+    {
+      "name": "perm_max_random_01",
+      "status": "AC",
+      "seconds": 0.09446915599983186,
+      "diagnostic": "ok 38025 tokens\n"
+    },
+    {
+      "name": "signed_overflow_00",
+      "status": "AC",
+      "seconds": 0.12084994002361782,
+      "diagnostic": "ok 1444 tokens\n"
+    },
+    {
+      "name": "unsigned_overflow_00",
+      "status": "AC",
+      "seconds": 0.07569687301293015,
+      "diagnostic": "ok 324 tokens\n"
+    },
+    {
+      "name": "nontrivial_frobenius_form_00",
+      "status": "AC",
+      "seconds": 0.10322917302255519,
+      "diagnostic": "ok 40000 tokens\n"
+    },
+    {
+      "name": "nontrivial_frobenius_form_01",
+      "status": "TLE",
+      "seconds": 5.017260895983782
+    },
+    {
+      "name": "nontrivial_frobenius_form_02",
+      "status": "TLE",
+      "seconds": 5.0156388739997055
+    },
+    {
+      "name": "nontrivial_frobenius_form_03",
+      "status": "TLE",
+      "seconds": 5.017127816012362
+    },
+    {
+      "name": "nontrivial_frobenius_form_04",
+      "status": "TLE",
+      "seconds": 5.014465134008788
+    },
+    {
+      "name": "nontrivial_frobenius_form_05",
+      "status": "TLE",
+      "seconds": 5.016636624990497
+    },
+    {
+      "name": "nontrivial_frobenius_form_06",
+      "status": "TLE",
+      "seconds": 5.016160772996955
+    },
+    {
+      "name": "nontrivial_frobenius_form_07",
+      "status": "TLE",
+      "seconds": 5.016538588999538
+    },
+    {
+      "name": "nontrivial_frobenius_form_08",
+      "status": "TLE",
+      "seconds": 5.016795347997686
+    },
+    {
+      "name": "nontrivial_frobenius_form_09",
+      "status": "TLE",
+      "seconds": 5.016560007992666
+    },
+    {
+      "name": "frobenius_hack_00",
+      "status": "AC",
+      "seconds": 0.05676703300559893,
+      "diagnostic": "ok 9 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T06:25:08.654798+00:00",
+  "onlineSubmission": null
+}
