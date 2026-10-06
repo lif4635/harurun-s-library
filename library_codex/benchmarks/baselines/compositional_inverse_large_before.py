@@ -4,7 +4,7 @@
 `len(first) + len(second) - 1` の係数列を返す。汎用mod判定、原始根探索、
 CRTを通らず、固定したradix-4の変換表だけを使う。
 """
-from array import array as _convolution_ntt998_array
+from array import array
 MOD = 998244353
 PRIMITIVE_ROOT = 3
 MAX_LOG = 23
@@ -27,9 +27,9 @@ def _convolution_ntt998_ntt_plan(size, inverse=False):
     rate2 = _convolution_ntt998_IRATE2 if inverse else _convolution_ntt998_RATE2
     rate3 = _convolution_ntt998_IRATE3 if inverse else _convolution_ntt998_RATE3
     count = max(1, size >> 2)
-    first = _convolution_ntt998_array('I', [1]) * count
-    second = _convolution_ntt998_array('I', [1]) * count
-    third = _convolution_ntt998_array('I', [1]) * count
+    first = array('I', [1]) * count
+    second = array('I', [1]) * count
+    third = array('I', [1]) * count
     rotation = 1
     for block in range(count):
         first[block] = rotation
@@ -37,7 +37,7 @@ def _convolution_ntt998_ntt_plan(size, inverse=False):
         third[block] = second[block] * rotation % MOD
         rotation = rotation * rate3[(~block & -~block).bit_length()] % MOD
     count = max(1, size >> 1)
-    binary = _convolution_ntt998_array('I', [1]) * count
+    binary = array('I', [1]) * count
     rotation = 1
     for block in range(count):
         binary[block] = rotation
@@ -781,57 +781,62 @@ def fps_product(polynomials):
 def _fps998_power_projection_power_projection_zero_constant(polynomial, weights, count):
     if not polynomial or not weights:
         return [0] * count
-    size = 1 << (len(weights) - 1).bit_length()
-    width = size * 2
-    forward_plan = _convolution_ntt998_ntt_plan(width * 2)
-    inverse_plan = _convolution_ntt998_ntt_plan(width, inverse=True)
-    inverse_width = pow(width, MOD - 2, MOD)
-    inverse_two = MOD + 1 >> 1
-    inverse_root = pow(3, MOD - 1 - (MOD - 1) // (width * 2), MOD)
-    reverse = [0] * width
-    half = width >> 1
-    for index in range(1, width):
-        reverse[index] = reverse[index >> 1] >> 1 | (index & 1) * half
-    odd_scale = [0] * width
-    value = inverse_two
-    for index in reverse:
-        odd_scale[index] = value
-        value = value * inverse_root % MOD
-    numerator = [0] * width
-    denominator = [0] * width
-    for (index, value) in enumerate(weights):
-        numerator[size - 1 - index] = value % MOD
-    for index in range(1, min(len(polynomial), len(weights))):
-        denominator[index] = -polynomial[index] % MOD
+    original_size = len(weights)
+    size = 1
+    while size < original_size:
+        size <<= 1
+    degree = original_size - 1
     height = size
     blocks = 1
-    while height > 1:
-        numerator.extend([0] * width)
-        denominator.extend([0] * width)
-        denominator[width] = 1
-        _convolution_ntt998_butterfly(numerator, forward_plan)
-        _convolution_ntt998_butterfly(denominator, forward_plan)
-        for index in range(width):
-            left = index << 1
-            right = left | 1
-            numerator[index] = (numerator[left] * denominator[right] - numerator[right] * denominator[left]) % MOD * odd_scale[index] % MOD
-            denominator[index] = denominator[left] * denominator[right] % MOD
-        del numerator[width:]
-        del denominator[width:]
-        _convolution_ntt998_butterfly_inv(numerator, inverse_plan, height >> 1)
-        _convolution_ntt998_butterfly_inv(denominator, inverse_plan, height >> 1)
+    numerator = [0] * height
+    denominator = [0] * height
+    padded_weights = [value % MOD for value in reversed(weights)]
+    padded_weights.extend([0] * (size - original_size))
+    numerator[:size] = padded_weights
+    limit = min(len(polynomial), original_size)
+    for index in range(1, limit):
+        denominator[index] = -polynomial[index] % MOD
+    while degree:
+        total = 4 * height * blocks
+        frequency_p = [0] * total
+        frequency_q = [0] * total
+        for block in range(blocks):
+            source = block * height
+            target = block * height * 2
+            frequency_p[target:target + degree + 1] = numerator[source:source + degree + 1]
+            frequency_q[target:target + degree + 1] = denominator[source:source + degree + 1]
+        frequency_q[blocks * height * 2] = (frequency_q[blocks * height * 2] + 1) % MOD
+        _convolution_ntt998_butterfly(frequency_p)
+        _convolution_ntt998_butterfly(frequency_q)
+        reduced_q = [0] * (total >> 1)
+        for index in range(0, total, 2):
+            (frequency_q[index], frequency_q[index + 1]) = (frequency_q[index + 1], frequency_q[index])
+            frequency_p[index] = frequency_p[index] * frequency_q[index] % MOD
+            frequency_p[index + 1] = frequency_p[index + 1] * frequency_q[index + 1] % MOD
+            reduced_q[index >> 1] = frequency_q[index] * frequency_q[index + 1] % MOD
+        _convolution_ntt998__intt(frequency_p)
+        _convolution_ntt998__intt(reduced_q)
+        reduced_q[0] = (reduced_q[0] - 1) % MOD
+        child_height = height >> 1
+        child_degree = degree >> 1
+        parity = degree & 1
+        child_size = height * blocks
+        child_p = [0] * child_size
+        child_q = [0] * child_size
         for block in range(blocks << 1):
-            start = block * height + (height >> 1)
-            stop = (block + 1) * height
-            for index in range(block * height, start):
-                numerator[index] = numerator[index] * inverse_width % MOD
-                denominator[index] = denominator[index] * inverse_width % MOD
-            numerator[start:stop] = [0] * (height >> 1)
-            denominator[start:stop] = [0] * (height >> 1)
-        denominator[0] = 0
+            source = block * height * 2
+            target = block * child_height
+            for index in range(child_degree + 1):
+                child_p[target + index] = frequency_p[source + (index << 1) + parity]
+                child_q[target + index] = reduced_q[block * height + index]
+        numerator = child_p
+        denominator = child_q
+        degree >>= 1
         height >>= 1
         blocks <<= 1
-    result = numerator[:width:2][::-1][:count]
+    result = numerator[:blocks]
+    result.reverse()
+    result = result[:count]
     result.extend([0] * (count - len(result)))
     return result
 
@@ -882,24 +887,24 @@ def power_coefficient(polynomial, multiplier=None, count=None):
             weights[exponent] = multiplier[multiplier_index]
     return power_projection(polynomial, weights, count)
 '998244353上でFPS合成と合成逆関数を計算する。\n\n`fps_compose(outer, inner, degree)`は`outer(inner(x)) mod x^degree`、\n`fps_compositional_inv(series, degree)`は`series(g(x))=x mod x^degree`\nとなる`g`の係数列を返す。\n'
-from array import array
+from array import array as _fps998_composition_array
 
-def _add_constant(series, value):
+def _fps998_composition_add_constant(series, value):
     if series:
         series[0] = (series[0] + value) % MOD
     else:
         series.append(value % MOD)
 
-def _compose_naive(outer, inner, degree):
+def _fps998_composition_compose_naive(outer, inner, degree):
     result = []
     inner = [value % MOD for value in inner[:degree]]
     for coefficient in reversed(outer[:degree]):
         result = multiply(result, inner)[:degree]
-        _add_constant(result, coefficient)
+        _fps998_composition_add_constant(result, coefficient)
     result.extend([0] * (degree - len(result)))
     return result
 
-def _build_frequency_q(series, height, blocks, tables):
+def _fps998_composition_build_frequency_q(series, height, blocks, tables):
     total = 4 * height * blocks
     frequency = [0] * total
     for block in range(blocks):
@@ -910,8 +915,8 @@ def _build_frequency_q(series, height, blocks, tables):
     _convolution_ntt998_butterfly(frequency, tables)
     return frequency
 
-def _descend_q(series, height, blocks, tables, inverse_tables):
-    frequency = _build_frequency_q(series, height, blocks, tables)
+def _fps998_composition_descend_q(series, height, blocks, tables, inverse_tables):
+    frequency = _fps998_composition_build_frequency_q(series, height, blocks, tables)
     half_total = 2 * height * blocks
     reduced = [0] * half_total
     for index in range(half_total):
@@ -926,9 +931,9 @@ def _descend_q(series, height, blocks, tables, inverse_tables):
         for index in range(child_height):
             child[target + index] = reduced[source + index] * scale % MOD
     child[0] = (child[0] - 1) % MOD
-    return (child, array('I', frequency))
+    return (child, _fps998_composition_array('I', frequency))
 
-def _ascend_p(child, frequency_q, height, blocks, tables, inverse_tables):
+def _fps998_composition_ascend_p(child, frequency_q, height, blocks, tables, inverse_tables):
     total = len(frequency_q)
     half = total >> 1
     reduced = [0] * half
@@ -953,7 +958,7 @@ def _ascend_p(child, frequency_q, height, blocks, tables, inverse_tables):
             result[target + index] = frequency_p[source + index] * scale % MOD
     return result
 
-def _compose_ntt(outer, inner, degree):
+def _fps998_composition_compose_ntt(outer, inner, degree):
     height = 1 << (degree - 1).bit_length()
     _convolution_ntt998_check_length(height << 2)
     outer_values = [value % MOD for value in outer[:degree]]
@@ -970,14 +975,14 @@ def _compose_ntt(outer, inner, degree):
     block_height = height
     blocks = 1
     while block_height > 1:
-        (current, frequency_q) = _descend_q(current, block_height, blocks, tables, inverse_tables)
+        (current, frequency_q) = _fps998_composition_descend_q(current, block_height, blocks, tables, inverse_tables)
         frames.append((frequency_q, block_height, blocks))
         block_height >>= 1
         blocks <<= 1
     result = outer_values
     while frames:
         (frequency_q, block_height, blocks) = frames.pop()
-        result = _ascend_p(result, frequency_q, block_height, blocks, tables, inverse_tables)
+        result = _fps998_composition_ascend_p(result, frequency_q, block_height, blocks, tables, inverse_tables)
     return result[:degree]
 
 def fps_compose(outer, inner, degree=None):
@@ -1023,8 +1028,8 @@ def fps_compose(outer, inner, degree=None):
                 power = power * value % MOD
             return result
     if degree <= 64:
-        return _compose_naive(outer, inner, degree)
-    return _compose_ntt(outer, inner, degree)
+        return _fps998_composition_compose_naive(outer, inner, degree)
+    return _fps998_composition_compose_ntt(outer, inner, degree)
 
 def fps_compositional_inv(series, degree=None):
     """`series(g(x))=x mod x^degree`となる`g`の係数を返す。O(N log^2 N)。"""
@@ -1069,10 +1074,7 @@ def fps_compositional_inv(series, degree=None):
         result[index] = result[index] * inverse_linear % MOD
     return [0] + result
 import sys
-
-def solve():
-    n = int(sys.stdin.buffer.readline())
-    outer = list(map(int, sys.stdin.buffer.readline().split()))
-    inner = list(map(int, sys.stdin.buffer.readline().split()))
-    print(' '.join(map(str, fps_compose(outer, inner, n))))
-solve()
+read = sys.stdin.buffer.readline
+size = int(read())
+values = list(map(int, read().split()))
+print(*fps_compositional_inv(values, size))

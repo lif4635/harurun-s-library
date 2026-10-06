@@ -6,10 +6,8 @@ from library_codex.fps.FormalPowerSeries import (
     fps_multiply,
     fps_product,
 )
-from library_codex.polynomial.PolynomialDivision import poly_mod
 from library_codex.polynomial.PartialFractionDistinct import partial_fraction_distinct
 from library_codex.polynomial.PolynomialGCD import polynomial_extended_gcd, polynomial_gcd
-from library_codex.polynomial.PolynomialModularPower import polynomial_inverse_mod, polynomial_pow_mod
 from library_codex.polynomial.PolynomialPrefixSum import polynomial_prefix_sum
 from library_codex.polynomial.PolynomialResultant import polynomial_resultant
 from library_codex.polynomial.PolynomialRoots import polynomial_roots
@@ -58,7 +56,7 @@ def _sylvester_resultant(first, second, mod):
     return determinant % mod
 
 
-def test_polynomial_gcd_extended_inverse_and_power():
+def test_polynomial_gcd_extended():
     rng = random.Random(11)
     for _ in range(80):
         common = [rng.randrange(MOD) for _ in range(rng.randrange(1, 5))]
@@ -71,17 +69,6 @@ def test_polynomial_gcd_extended_inverse_and_power():
         gcd2, left, right = polynomial_extended_gcd(first, second)
         assert gcd2 == gcd
         assert _shrink(fps_add(fps_multiply(left, first), fps_multiply(right, second))) == gcd
-
-    modulus = [1, 2, 0, 1]
-    value = [3, 1]
-    inverse = polynomial_inverse_mod(value, modulus)
-    assert poly_mod(fps_multiply(value, inverse), modulus) == [1]
-    direct = [1]
-    for _ in range(37):
-        direct = poly_mod(fps_multiply(direct, value), modulus)
-    assert polynomial_pow_mod(value, 37, modulus) == direct
-    assert polynomial_pow_mod(value, -1, modulus) == inverse
-
 
 def test_resultant_against_sylvester_determinant():
     rng = random.Random(12)

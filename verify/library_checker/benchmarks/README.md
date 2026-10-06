@@ -16,6 +16,10 @@
 | [characteristic_polynomial](characteristic_polynomial.json) | 3 / 28 | 5 | 0.970 | 65.8 | 一致 |
 | [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
 | [common_interval_decomposition_tree](common_interval_decomposition_tree.json) | 3 / 30 | 5 | 1.617 | 316.4 | 一致 |
+| [composition_of_formal_power_series](composition_of_formal_power_series.json) | 3 / 27 | 5 | 0.176 | 78.8 | 一致 |
+| [composition_of_formal_power_series_large](composition_of_formal_power_series_large.json) | 3 / 32 | 5 | 2.046 | 140.7 | 一致 |
+| [compositional_inverse_of_formal_power_series](compositional_inverse_of_formal_power_series.json) | 3 / 23 | 5 | 0.235 | 77.3 | 一致 |
+| [compositional_inverse_of_formal_power_series_large](compositional_inverse_of_formal_power_series_large.json) | 3 / 28 | 5 | 2.392 | 114.5 | 一致 |
 | [counting_spanning_tree_directed](counting_spanning_tree_directed.json) | 3 / 22 | 5 | 0.546 | 124.1 | 一致 |
 | [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.524 | 110.4 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
@@ -25,6 +29,7 @@
 | [enumerate_triangles](enumerate_triangles.json) | 3 / 17 | 5 | 0.246 | 88.1 | 一致 |
 | [exp_of_formal_power_series_sparse](exp_of_formal_power_series_sparse.json) | 3 / 25 | 5 | 0.245 | 122.7 | 一致 |
 | [exp_of_set_power_series](exp_of_set_power_series.json) | 3 / 13 | 5 | 2.261 | 345.6 | 一致 |
+| [factorization_of_polynomials](factorization_of_polynomials.json) | 3 / 67 | 5 | 2.791 | 89.5 | 一致 |
 | [furthest_pair](furthest_pair.json) | 3 / 46 | 5 | 2.599 | 231.1 | 一致 |
 | [gcd_convolution](gcd_convolution.json) | 3 / 29 | 5 | 0.560 | 263.5 | 一致 |
 | [gcd_of_gaussian_integers](gcd_of_gaussian_integers.json) | 3 / 12 | 5 | 0.239 | 74.5 | 一致 |
@@ -33,6 +38,7 @@
 | [incremental_scc](incremental_scc.json) | 3 / 23 | 5 | 1.913 | 370.2 | 一致 |
 | [inv_of_formal_power_series_2d](inv_of_formal_power_series_2d.json) | 3 / 28 | 5 | 1.476 | 139.9 | 一致 |
 | [inv_of_formal_power_series_sparse](inv_of_formal_power_series_sparse.json) | 3 / 24 | 5 | 0.195 | 105.9 | 一致 |
+| [inv_of_polynomials](inv_of_polynomials.json) | 3 / 18 | 5 | 3.604 | 121.9 | 一致 |
 | [inverse_matrix](inverse_matrix.json) | 3 / 26 | 5 | 1.140 | 82.3 | 一致 |
 | [inverse_matrix_mod_2](inverse_matrix_mod_2.json) | 3 / 37 | 5 | 2.399 | 153.9 | 一致 |
 | [lcm_convolution](lcm_convolution.json) | 3 / 29 | 5 | 0.590 | 263.6 | 一致 |
@@ -58,6 +64,7 @@
 | [pfaffian_of_matrix](pfaffian_of_matrix.json) | 3 / 27 | 5 | 0.424 | 66.5 | 一致 |
 | [point_set_range_frequency](point_set_range_frequency.json) | 3 / 25 | 5 | 0.683 | 178.8 | 一致 |
 | [polynomial_composite_set_power_series](polynomial_composite_set_power_series.json) | 3 / 18 | 5 | 5.367 | 359.6 | 一致 |
+| [polynomial_root_finding](polynomial_root_finding.json) | 3 / 36 | 5 | 1.773 | 90.3 | 一致 |
 | [pow_of_formal_power_series_sparse](pow_of_formal_power_series_sparse.json) | 3 / 35 | 5 | 0.309 | 138.2 | 一致 |
 | [pow_of_matrix](pow_of_matrix.json) | 3 / 43 | 5 | 2.075 | 91.0 | 一致 |
 | [power_projection_of_set_power_series](power_projection_of_set_power_series.json) | 3 / 30 | 5 | 4.099 | 441.4 | 一致 |

@@ -69,7 +69,6 @@ fps998/FPS
 fps998/LinearRecurrence
 fps998/MultipointEvaluation
 fps998/NTT2D
-fps998/PowerProjection
 fps998/SubsetSum
 game/GrundyNumbers
 game/ImpartialGameSolver
@@ -203,9 +202,7 @@ polynomial/PartialFractionDistinct
 polynomial/PolynomialDivision
 polynomial/PolynomialDivision998
 polynomial/PolynomialExponentialSum
-polynomial/PolynomialFactorization
 polynomial/PolynomialGCD
-polynomial/PolynomialModularPower
 polynomial/PolynomialPrefixSum
 polynomial/PolynomialResultant
 polynomial/PolynomialRoots

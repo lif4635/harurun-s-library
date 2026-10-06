@@ -4,7 +4,7 @@
 `len(first) + len(second) - 1` の係数列を返す。汎用mod判定、原始根探索、
 CRTを通らず、固定したradix-4の変換表だけを使う。
 """
-from array import array as _convolution_ntt998_array
+from array import array
 MOD = 998244353
 PRIMITIVE_ROOT = 3
 MAX_LOG = 23
@@ -27,9 +27,9 @@ def _convolution_ntt998_ntt_plan(size, inverse=False):
     rate2 = _convolution_ntt998_IRATE2 if inverse else _convolution_ntt998_RATE2
     rate3 = _convolution_ntt998_IRATE3 if inverse else _convolution_ntt998_RATE3
     count = max(1, size >> 2)
-    first = _convolution_ntt998_array('I', [1]) * count
-    second = _convolution_ntt998_array('I', [1]) * count
-    third = _convolution_ntt998_array('I', [1]) * count
+    first = array('I', [1]) * count
+    second = array('I', [1]) * count
+    third = array('I', [1]) * count
     rotation = 1
     for block in range(count):
         first[block] = rotation
@@ -37,7 +37,7 @@ def _convolution_ntt998_ntt_plan(size, inverse=False):
         third[block] = second[block] * rotation % MOD
         rotation = rotation * rate3[(~block & -~block).bit_length()] % MOD
     count = max(1, size >> 1)
-    binary = _convolution_ntt998_array('I', [1]) * count
+    binary = array('I', [1]) * count
     rotation = 1
     for block in range(count):
         binary[block] = rotation
@@ -882,24 +882,24 @@ def power_coefficient(polynomial, multiplier=None, count=None):
             weights[exponent] = multiplier[multiplier_index]
     return power_projection(polynomial, weights, count)
 '998244353上でFPS合成と合成逆関数を計算する。\n\n`fps_compose(outer, inner, degree)`は`outer(inner(x)) mod x^degree`、\n`fps_compositional_inv(series, degree)`は`series(g(x))=x mod x^degree`\nとなる`g`の係数列を返す。\n'
-from array import array
+from array import array as _fps998_composition_array
 
-def _add_constant(series, value):
+def _fps998_composition_add_constant(series, value):
     if series:
         series[0] = (series[0] + value) % MOD
     else:
         series.append(value % MOD)
 
-def _compose_naive(outer, inner, degree):
+def _fps998_composition_compose_naive(outer, inner, degree):
     result = []
     inner = [value % MOD for value in inner[:degree]]
     for coefficient in reversed(outer[:degree]):
         result = multiply(result, inner)[:degree]
-        _add_constant(result, coefficient)
+        _fps998_composition_add_constant(result, coefficient)
     result.extend([0] * (degree - len(result)))
     return result
 
-def _build_frequency_q(series, height, blocks, tables):
+def _fps998_composition_build_frequency_q(series, height, blocks, tables):
     total = 4 * height * blocks
     frequency = [0] * total
     for block in range(blocks):
@@ -910,8 +910,8 @@ def _build_frequency_q(series, height, blocks, tables):
     _convolution_ntt998_butterfly(frequency, tables)
     return frequency
 
-def _descend_q(series, height, blocks, tables, inverse_tables):
-    frequency = _build_frequency_q(series, height, blocks, tables)
+def _fps998_composition_descend_q(series, height, blocks, tables, inverse_tables):
+    frequency = _fps998_composition_build_frequency_q(series, height, blocks, tables)
     half_total = 2 * height * blocks
     reduced = [0] * half_total
     for index in range(half_total):
@@ -926,9 +926,9 @@ def _descend_q(series, height, blocks, tables, inverse_tables):
         for index in range(child_height):
             child[target + index] = reduced[source + index] * scale % MOD
     child[0] = (child[0] - 1) % MOD
-    return (child, array('I', frequency))
+    return (child, _fps998_composition_array('I', frequency))
 
-def _ascend_p(child, frequency_q, height, blocks, tables, inverse_tables):
+def _fps998_composition_ascend_p(child, frequency_q, height, blocks, tables, inverse_tables):
     total = len(frequency_q)
     half = total >> 1
     reduced = [0] * half
@@ -953,7 +953,7 @@ def _ascend_p(child, frequency_q, height, blocks, tables, inverse_tables):
             result[target + index] = frequency_p[source + index] * scale % MOD
     return result
 
-def _compose_ntt(outer, inner, degree):
+def _fps998_composition_compose_ntt(outer, inner, degree):
     height = 1 << (degree - 1).bit_length()
     _convolution_ntt998_check_length(height << 2)
     outer_values = [value % MOD for value in outer[:degree]]
@@ -970,14 +970,14 @@ def _compose_ntt(outer, inner, degree):
     block_height = height
     blocks = 1
     while block_height > 1:
-        (current, frequency_q) = _descend_q(current, block_height, blocks, tables, inverse_tables)
+        (current, frequency_q) = _fps998_composition_descend_q(current, block_height, blocks, tables, inverse_tables)
         frames.append((frequency_q, block_height, blocks))
         block_height >>= 1
         blocks <<= 1
     result = outer_values
     while frames:
         (frequency_q, block_height, blocks) = frames.pop()
-        result = _ascend_p(result, frequency_q, block_height, blocks, tables, inverse_tables)
+        result = _fps998_composition_ascend_p(result, frequency_q, block_height, blocks, tables, inverse_tables)
     return result[:degree]
 
 def fps_compose(outer, inner, degree=None):
@@ -1023,8 +1023,8 @@ def fps_compose(outer, inner, degree=None):
                 power = power * value % MOD
             return result
     if degree <= 64:
-        return _compose_naive(outer, inner, degree)
-    return _compose_ntt(outer, inner, degree)
+        return _fps998_composition_compose_naive(outer, inner, degree)
+    return _fps998_composition_compose_ntt(outer, inner, degree)
 
 def fps_compositional_inv(series, degree=None):
     """`series(g(x))=x mod x^degree`となる`g`の係数を返す。O(N log^2 N)。"""
@@ -1069,10 +1069,7 @@ def fps_compositional_inv(series, degree=None):
         result[index] = result[index] * inverse_linear % MOD
     return [0] + result
 import sys
-
-def solve():
-    n = int(sys.stdin.buffer.readline())
-    outer = list(map(int, sys.stdin.buffer.readline().split()))
-    inner = list(map(int, sys.stdin.buffer.readline().split()))
-    print(' '.join(map(str, fps_compose(outer, inner, n))))
-solve()
+read = sys.stdin.buffer.readline
+size = int(read())
+values = list(map(int, read().split()))
+print(*fps_compositional_inv(values, size))

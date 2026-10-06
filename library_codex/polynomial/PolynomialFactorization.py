@@ -1,3 +1,5 @@
+from random import Random
+
 from library_codex.fps.FormalPowerSeries import (
     DEFAULT_MOD,
     fps_derivative,
@@ -64,7 +66,7 @@ def _square_free_decomposition(polynomial, mod):
     return result
 
 
-def _equal_degree_factorization(polynomial, degree, mod, state):
+def _equal_degree_factorization(polynomial, degree, mod, randrange):
     result = []
     stack = [polynomial]
     while stack:
@@ -77,9 +79,7 @@ def _equal_degree_factorization(polynomial, degree, mod, state):
         while len(split) <= 1 or len(split) == len(source):
             random_polynomial = [0] * source_degree
             for index in range(source_degree):
-                state[0] = (state[0] * 6364136223846793005
-                            + 1442695040888963407) & ((1 << 64) - 1)
-                random_polynomial[index] = state[0] % mod
+                random_polynomial[index] = randrange(mod)
             initial = polynomial_gcd(random_polynomial, source, mod)
             if 1 < len(initial) < len(source):
                 split = initial
@@ -105,7 +105,7 @@ def _equal_degree_factorization(polynomial, degree, mod, state):
     return result
 
 
-def _factor_square_free(polynomial, mod, state):
+def _factor_square_free(polynomial, mod, randrange):
     result = []
     remaining = polynomial_monic(polynomial, mod)
     x = [0, 1]
@@ -118,7 +118,7 @@ def _factor_square_free(polynomial, mod, state):
         )
         if len(common) > 1:
             result.extend(_equal_degree_factorization(
-                polynomial_monic(common, mod), degree, mod, state
+                polynomial_monic(common, mod), degree, mod, randrange
             ))
             remaining = _divide_exact(remaining, common, mod)
             if len(remaining) > 1:
@@ -137,10 +137,10 @@ def factor_polynomial(polynomial, mod=DEFAULT_MOD, seed=712367821):
     if len(source) == 1:
         return [source]
     source = polynomial_monic(source, mod)
-    state = [seed & ((1 << 64) - 1)]
+    randrange = Random(seed).randrange
     result = []
     for square_free, multiplicity in _square_free_decomposition(source, mod):
-        factors = _factor_square_free(square_free, mod, state)
+        factors = _factor_square_free(square_free, mod, randrange)
         for _ in range(multiplicity):
             result.extend(factor[:] for factor in factors)
     result.sort(key=lambda factor: (len(factor), factor))

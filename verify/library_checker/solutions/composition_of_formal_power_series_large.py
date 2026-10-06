@@ -781,62 +781,57 @@ def fps_product(polynomials):
 def _fps998_power_projection_power_projection_zero_constant(polynomial, weights, count):
     if not polynomial or not weights:
         return [0] * count
-    original_size = len(weights)
-    size = 1
-    while size < original_size:
-        size <<= 1
-    degree = original_size - 1
+    size = 1 << (len(weights) - 1).bit_length()
+    width = size * 2
+    forward_plan = _convolution_ntt998_ntt_plan(width * 2)
+    inverse_plan = _convolution_ntt998_ntt_plan(width, inverse=True)
+    inverse_width = pow(width, MOD - 2, MOD)
+    inverse_two = MOD + 1 >> 1
+    inverse_root = pow(3, MOD - 1 - (MOD - 1) // (width * 2), MOD)
+    reverse = [0] * width
+    half = width >> 1
+    for index in range(1, width):
+        reverse[index] = reverse[index >> 1] >> 1 | (index & 1) * half
+    odd_scale = [0] * width
+    value = inverse_two
+    for index in reverse:
+        odd_scale[index] = value
+        value = value * inverse_root % MOD
+    numerator = [0] * width
+    denominator = [0] * width
+    for (index, value) in enumerate(weights):
+        numerator[size - 1 - index] = value % MOD
+    for index in range(1, min(len(polynomial), len(weights))):
+        denominator[index] = -polynomial[index] % MOD
     height = size
     blocks = 1
-    numerator = [0] * height
-    denominator = [0] * height
-    padded_weights = [value % MOD for value in reversed(weights)]
-    padded_weights.extend([0] * (size - original_size))
-    numerator[:size] = padded_weights
-    limit = min(len(polynomial), original_size)
-    for index in range(1, limit):
-        denominator[index] = -polynomial[index] % MOD
-    while degree:
-        total = 4 * height * blocks
-        frequency_p = [0] * total
-        frequency_q = [0] * total
-        for block in range(blocks):
-            source = block * height
-            target = block * height * 2
-            frequency_p[target:target + degree + 1] = numerator[source:source + degree + 1]
-            frequency_q[target:target + degree + 1] = denominator[source:source + degree + 1]
-        frequency_q[blocks * height * 2] = (frequency_q[blocks * height * 2] + 1) % MOD
-        _convolution_ntt998_butterfly(frequency_p)
-        _convolution_ntt998_butterfly(frequency_q)
-        reduced_q = [0] * (total >> 1)
-        for index in range(0, total, 2):
-            (frequency_q[index], frequency_q[index + 1]) = (frequency_q[index + 1], frequency_q[index])
-            frequency_p[index] = frequency_p[index] * frequency_q[index] % MOD
-            frequency_p[index + 1] = frequency_p[index + 1] * frequency_q[index + 1] % MOD
-            reduced_q[index >> 1] = frequency_q[index] * frequency_q[index + 1] % MOD
-        _convolution_ntt998__intt(frequency_p)
-        _convolution_ntt998__intt(reduced_q)
-        reduced_q[0] = (reduced_q[0] - 1) % MOD
-        child_height = height >> 1
-        child_degree = degree >> 1
-        parity = degree & 1
-        child_size = height * blocks
-        child_p = [0] * child_size
-        child_q = [0] * child_size
+    while height > 1:
+        numerator.extend([0] * width)
+        denominator.extend([0] * width)
+        denominator[width] = 1
+        _convolution_ntt998_butterfly(numerator, forward_plan)
+        _convolution_ntt998_butterfly(denominator, forward_plan)
+        for index in range(width):
+            left = index << 1
+            right = left | 1
+            numerator[index] = (numerator[left] * denominator[right] - numerator[right] * denominator[left]) % MOD * odd_scale[index] % MOD
+            denominator[index] = denominator[left] * denominator[right] % MOD
+        del numerator[width:]
+        del denominator[width:]
+        _convolution_ntt998_butterfly_inv(numerator, inverse_plan, height >> 1)
+        _convolution_ntt998_butterfly_inv(denominator, inverse_plan, height >> 1)
         for block in range(blocks << 1):
-            source = block * height * 2
-            target = block * child_height
-            for index in range(child_degree + 1):
-                child_p[target + index] = frequency_p[source + (index << 1) + parity]
-                child_q[target + index] = reduced_q[block * height + index]
-        numerator = child_p
-        denominator = child_q
-        degree >>= 1
+            start = block * height + (height >> 1)
+            stop = (block + 1) * height
+            for index in range(block * height, start):
+                numerator[index] = numerator[index] * inverse_width % MOD
+                denominator[index] = denominator[index] * inverse_width % MOD
+            numerator[start:stop] = [0] * (height >> 1)
+            denominator[start:stop] = [0] * (height >> 1)
+        denominator[0] = 0
         height >>= 1
         blocks <<= 1
-    result = numerator[:blocks]
-    result.reverse()
-    result = result[:count]
+    result = numerator[:width:2][::-1][:count]
     result.extend([0] * (count - len(result)))
     return result
 

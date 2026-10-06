@@ -8,8 +8,8 @@
 
 ## できること
 
-- `polynomial_inverse_mod`: polynomial inverse modを計算する。
-- `polynomial_pow_mod`: polynomial pow modを求める。
+- `polynomial_inverse_mod`: polynomialを掛けるとmodulusで割った余りが1になる多項式を求める。互いに素でなければZeroDivisionError。
+- `polynomial_pow_mod`: polynomialのexponent乗をmodulusで割った余りを求める。同じ法多項式の逆係数列を再利用する。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.polynomial.PolynomialModularPower import polynomial_inverse_m
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L18) | polynomial inverse modを計算する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `poly_mod(inverse, modulus, mod)` | polynomial_extended_gcd(N) + polynomial division |
-| [`polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L27) | polynomial pow modを求める。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`exponent`: 非負の指数<br>`modulus`: 法<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[number] — 昇冪順の係数列 [a0, a1, ...] | O(M(N) log exponent) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_inverse_mod(polynomial, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L13) | polynomialを掛けるとmodulusで割った余りが1になる多項式を求める。互いに素でなければZeroDivisionError。 | `polynomial`: 定数項から順の係数列。<br>`modulus`: 割る多項式の昇べき順係数列。末尾の0を除いた次数が1以上。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | list[int] — 逆元の定数項から順の係数列。次数はmodulus未満。末尾の0は含まない。 | O(M(L) log(L+1))。Lは入力の最大次数、M(L)は多項式積の時間（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_pow_mod(polynomial, exponent, modulus, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialModularPower.py#L22) | polynomialのexponent乗をmodulusで割った余りを求める。同じ法多項式の逆係数列を再利用する。 | `polynomial`: 定数項から順の係数列。<br>`exponent`: 整数の指数。負なら多項式の逆元を先に求める。<br>`modulus`: 割る多項式の昇べき順係数列。末尾の0を除いた次数が1以上。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | list[int] — 剰余の定数項から順の係数列。次数はmodulus未満。零多項式は[]。exponent=0では[1]。負の指数で逆元がなければZeroDivisionError。 | O(M(L) + M(N) log(\|exponent\|+1))。Nはmodulusの次数、Lは入力の最大次数、M(N)は多項式積の時間。負の指数では逆元のO(M(L) log(L+1))を追加（M(L)は長さLの多項式乗算cost） |

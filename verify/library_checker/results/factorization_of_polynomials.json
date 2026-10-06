@@ -1,0 +1,429 @@
+{
+  "problem": "factorization_of_polynomials",
+  "status": "local_passed",
+  "verificationKey": "59b126d8b5eb8943256fe975bda0176443e0140c688d27be6f827d1c81170c38",
+  "sourceSha256": "6fcefe35656ef8616dcc5eca7abef599f919e8eddab95e276c393917f74eba03",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.number_theory.ModularArithmetic",
+    "library_codex.fps.FormalPowerSeries",
+    "library_codex.polynomial.PolynomialDivision",
+    "library_codex.polynomial._HalfGCD",
+    "library_codex.polynomial.PolynomialGCD",
+    "library_codex.polynomial.PolynomialModularPower",
+    "library_codex.polynomial.PolynomialFactorization"
+  ],
+  "problemVersion": "6c218c6a6d3ee7d2b0ecd3c6ab2b0dfc2fc5211d96731c384e444e6399ab3e4d",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 67,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0718650369963143,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.06860792700899765,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.06654893700033426,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.06709371102624573,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_00",
+      "status": "AC",
+      "seconds": 0.08665963201201521,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_01",
+      "status": "AC",
+      "seconds": 0.0886373819957953,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_02",
+      "status": "AC",
+      "seconds": 0.08487295900704339,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_03",
+      "status": "AC",
+      "seconds": 0.07817294698907062,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_04",
+      "status": "AC",
+      "seconds": 0.08280984099837951,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_05",
+      "status": "AC",
+      "seconds": 0.09600440197391436,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_06",
+      "status": "AC",
+      "seconds": 0.08883052101009525,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_factors_07",
+      "status": "AC",
+      "seconds": 0.0928637410106603,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_coeff_00",
+      "status": "AC",
+      "seconds": 0.08987890000571497,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_coeff_01",
+      "status": "AC",
+      "seconds": 0.08088391899946146,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_coeff_02",
+      "status": "AC",
+      "seconds": 0.07339542300906032,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_coeff_03",
+      "status": "AC",
+      "seconds": 0.16027274800580926,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "random_coeff_04",
+      "status": "AC",
+      "seconds": 0.08590123598696664,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_1_00",
+      "status": "AC",
+      "seconds": 0.09980733299744315,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_1_01",
+      "status": "AC",
+      "seconds": 1.117491462995531,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_1_02",
+      "status": "AC",
+      "seconds": 1.0800088100077119,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_1_03",
+      "status": "AC",
+      "seconds": 0.08555684497696348,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_1_04",
+      "status": "AC",
+      "seconds": 1.0911039559869096,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_2_00",
+      "status": "AC",
+      "seconds": 1.4622316659952048,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_2_01",
+      "status": "AC",
+      "seconds": 1.934209747996647,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_2_02",
+      "status": "AC",
+      "seconds": 2.7582879010005854,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_2_03",
+      "status": "AC",
+      "seconds": 0.5205453730013687,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_2_04",
+      "status": "AC",
+      "seconds": 2.7587095460039563,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_3_00",
+      "status": "AC",
+      "seconds": 0.6267575099773239,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_3_01",
+      "status": "AC",
+      "seconds": 1.6325334249995649,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_3_02",
+      "status": "AC",
+      "seconds": 1.864779207011452,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_3_03",
+      "status": "AC",
+      "seconds": 0.49116762398625724,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "irreducible_3_04",
+      "status": "AC",
+      "seconds": 1.899597147013992,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "same_degree_00",
+      "status": "AC",
+      "seconds": 0.1015148549922742,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "same_degree_01",
+      "status": "AC",
+      "seconds": 0.24725960899377242,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "same_degree_02",
+      "status": "AC",
+      "seconds": 0.2837122119963169,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "same_degree_03",
+      "status": "AC",
+      "seconds": 0.19362241998896934,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "same_degree_04",
+      "status": "AC",
+      "seconds": 0.17587047902634367,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_00",
+      "status": "AC",
+      "seconds": 0.10507840898935683,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_01",
+      "status": "AC",
+      "seconds": 0.08831545800785534,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_02",
+      "status": "AC",
+      "seconds": 0.08059798300382681,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_03",
+      "status": "AC",
+      "seconds": 0.19617039599688724,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_04",
+      "status": "AC",
+      "seconds": 0.0997185859887395,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_linear_00",
+      "status": "AC",
+      "seconds": 0.07851164301973768,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_linear_01",
+      "status": "AC",
+      "seconds": 0.08821246898151003,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_linear_02",
+      "status": "AC",
+      "seconds": 0.0849525909870863,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_linear_03",
+      "status": "AC",
+      "seconds": 0.08378906702273525,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_linear_04",
+      "status": "AC",
+      "seconds": 0.08098766702460125,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "constant_00",
+      "status": "AC",
+      "seconds": 0.07120849800412543,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_consecutive_degrees_00",
+      "status": "AC",
+      "seconds": 0.18298623801092617,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_consecutive_degrees_01",
+      "status": "AC",
+      "seconds": 0.1796812350221444,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_consecutive_degrees_02",
+      "status": "AC",
+      "seconds": 0.17853767299675383,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_sparse_degrees_00",
+      "status": "AC",
+      "seconds": 0.1280483180016745,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_sparse_degrees_01",
+      "status": "AC",
+      "seconds": 0.10528193099889904,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "square_free_sparse_degrees_02",
+      "status": "AC",
+      "seconds": 0.10484404300223105,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "large_p2_00",
+      "status": "AC",
+      "seconds": 0.1515749150130432,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "large_p2_01",
+      "status": "AC",
+      "seconds": 0.17438330201548524,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "large_p2_02",
+      "status": "AC",
+      "seconds": 0.16352741501759738,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "zero_derivative_00",
+      "status": "AC",
+      "seconds": 0.08169868600089103,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "zero_derivative_01",
+      "status": "AC",
+      "seconds": 0.079705272015417,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "zero_derivative_02",
+      "status": "AC",
+      "seconds": 0.07442672501201741,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "zero_derivative_03",
+      "status": "AC",
+      "seconds": 0.08752568400814198,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "zero_derivative_04",
+      "status": "AC",
+      "seconds": 0.07423356801155023,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "multiplicity_multiple_of_p_00",
+      "status": "AC",
+      "seconds": 0.06626393398619257,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "multiplicity_multiple_of_p_01",
+      "status": "AC",
+      "seconds": 0.06709136802237481,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "multiplicity_multiple_of_p_02",
+      "status": "AC",
+      "seconds": 0.0744781130051706,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "multiplicity_multiple_of_p_03",
+      "status": "AC",
+      "seconds": 0.07357989100273699,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "multiplicity_multiple_of_p_04",
+      "status": "AC",
+      "seconds": 0.06916217401158065,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-05T10:21:27.690746+00:00",
+  "onlineSubmission": null
+}

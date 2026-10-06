@@ -12,10 +12,6 @@ from library_codex.fps998.LinearRecurrence import (
     nth_term,
 )
 from library_codex.fps998.NTT2D import intt2d, multiply2d, ntt2d
-from library_codex.fps998.PowerProjection import (
-    power_coefficient,
-    power_projection,
-)
 from library_codex.fps998.SubsetSum import multiset_sum, subset_sum
 
 
@@ -71,34 +67,6 @@ def test_fps998_bostan_mori_ntt_path_against_series_expansion():
             numerator, denominator, index + 1
         )[index]
         assert bostan_mori(index, numerator, denominator) == expected
-
-
-def test_fps998_power_projection_against_naive():
-    rng = random.Random(9985)
-    for _ in range(1000):
-        size = rng.randrange(1, 20)
-        count = rng.randrange(25)
-        polynomial = [rng.randrange(MOD) for _ in range(size)]
-        weights = [rng.randrange(MOD) for _ in range(size)]
-        expected = []
-        power = [1]
-        for _ in range(count):
-            expected.append(sum(
-                weights[index] * power[index]
-                for index in range(min(len(weights), len(power)))
-            ) % MOD)
-            power = multiply(power, polynomial)
-        assert power_projection(polynomial, weights, count) == expected
-
-        multiplier = [rng.randrange(MOD) for _ in range(rng.randrange(1, size + 1))]
-        expected = []
-        power = [1]
-        degree = size - 1
-        for _ in range(count):
-            product = multiply(power, multiplier)
-            expected.append(product[degree] if degree < len(product) else 0)
-            power = multiply(power, polynomial)
-        assert power_coefficient(polynomial, multiplier, count) == expected
 
 
 def test_fps998_subset_and_multiset_generating_functions():
@@ -163,6 +131,5 @@ def test_fps998_ntt2d_round_trip_and_multiply():
 
 if __name__ == "__main__":
     test_fps998_linear_recurrence_family()
-    test_fps998_power_projection_against_naive()
     test_fps998_subset_and_multiset_generating_functions()
     test_fps998_ntt2d_round_trip_and_multiply()

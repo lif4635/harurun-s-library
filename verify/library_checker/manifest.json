@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 161,
-    "unimplemented": 92
+    "local_passed": 166,
+    "unimplemented": 87
   },
   "problems": [
     {
@@ -336,20 +336,30 @@
       "title": "Compositional Inverse of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.fps998.PowerProjection",
+        "library_codex.fps998.Composition"
+      ],
+      "solution": "solutions/compositional_inverse_of_formal_power_series.py",
+      "result": "results/compositional_inverse_of_formal_power_series.json"
     },
     {
       "name": "compositional_inverse_of_formal_power_series_large",
       "title": "Compositional Inverse of Formal Power Series (Large)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series_large",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.fps998.PowerProjection",
+        "library_codex.fps998.Composition"
+      ],
+      "solution": "solutions/compositional_inverse_of_formal_power_series_large.py",
+      "result": "results/compositional_inverse_of_formal_power_series_large.json"
     },
     {
       "name": "connected_components_of_complement_graph",
@@ -906,10 +916,19 @@
       "title": "Factorization of Polynomial (Mod)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/factorization_of_polynomials",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.polynomial.PolynomialDivision",
+        "library_codex.polynomial._HalfGCD",
+        "library_codex.polynomial.PolynomialGCD",
+        "library_codex.polynomial.PolynomialModularPower",
+        "library_codex.polynomial.PolynomialFactorization"
+      ],
+      "solution": "solutions/factorization_of_polynomials.py",
+      "result": "results/factorization_of_polynomials.json"
     },
     {
       "name": "factorize",
@@ -1111,10 +1130,18 @@
       "title": "Inv of Polynomials",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/inv_of_polynomials",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.polynomial.PolynomialDivision",
+        "library_codex.polynomial._HalfGCD",
+        "library_codex.polynomial.PolynomialGCD",
+        "library_codex.polynomial.PolynomialModularPower"
+      ],
+      "solution": "solutions/inv_of_polynomials.py",
+      "result": "results/inv_of_polynomials.json"
     },
     {
       "name": "inverse_matrix",
@@ -1923,10 +1950,19 @@
       "title": "Polynomial Root Finding (Mod 998244353)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/polynomial_root_finding",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.polynomial.PolynomialDivision",
+        "library_codex.polynomial._HalfGCD",
+        "library_codex.polynomial.PolynomialGCD",
+        "library_codex.polynomial.PolynomialModularPower",
+        "library_codex.polynomial.PolynomialRoots"
+      ],
+      "solution": "solutions/polynomial_root_finding.py",
+      "result": "results/polynomial_root_finding.json"
     },
     {
       "name": "polynomial_taylor_shift",

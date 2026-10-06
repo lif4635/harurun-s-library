@@ -73,7 +73,7 @@ MODULE_OVERRIDES = {
     "fps/MultivariateFPS.py": ("各変数の次数を打ち切った冪級数の積・逆数・log・exp・整数冪", "2変数の積・逆数・log・expはO(N log(N+1))。Nは係数数"),
     "fps/OnlineFormalPowerSeries.py": ("係数を逐次確定するオンラインFPS演算", "償却 O(N log N) 系"),
     "combinatorial_series/PRecursive.py": ("P再帰列の推定・列挙・巨大添字項", "多項式行列積依存"),
-    "polynomial/PolynomialFactorization.py": ("有限体上の多項式GCD・因数分解", "高速Euclid / Cantor--Zassenhaus"),
+    "polynomial/PolynomialFactorization.py": ("素数の法で多項式を既約因子へ分解し、重複度を保って返す", "期待 O(N M(N) (log mod + log(N+1)))。Nは次数、M(N)は多項式積の時間"),
     "combinatorial_series/StirlingMatrix.py": ("Stirling変換を表す行列作用", "高速多項式演算依存"),
     "data_structure/AdvancedOrdered.py": ("高度な順序集合・区間集合・永続順序構造", "各操作 O(log N) 系"),
     "data_structure/AdvancedRangeStructures.py": ("Top-K区間集約・KD木・sortable sequence", "各構造の計算量"),

@@ -6656,3 +6656,56 @@ COMPLEXITY_BY_MODULE["combinatorics/ArbitraryBinomial.py"] = {
 API_DETAILS_BY_SYMBOL[("combinatorics/ArbitraryBinomial.py", "LargePrimeFactorial", "factorial")]["argumentDescriptions"] = {
     "n": "階乗の引数。0<=n<modでn!の剰余を求め、それ以外は0を返す。",
 }
+
+MODULE_CAPABILITIES["polynomial/PolynomialFactorization.py"] = (
+    "素数の法で多項式を既約なモニック因子へ分解し、重複する因子もその回数だけ返す。",
+)
+API_DETAILS_BY_SYMBOL[("polynomial/PolynomialFactorization.py", None, "factor_polynomial")] = {
+    "description": "最高次係数を1へ正規化した多項式を、素数mod上でそれ以上分解できない因子の積へ分ける。",
+    "argumentDescriptions": {
+        "polynomial": "定数項から順に並べた係数列。末尾の0は無視する。零多項式ではValueError。",
+        "mod": "素数の法。2以上。素数判定は行わない。",
+        "seed": "因子の分割に使う乱数のseed。同じ環境での再現に使う。",
+    },
+    "returnFormat": "list[list[int]]",
+    "returnDescription": "各要素が既約因子の昇べき順係数列。同じ因子は重複度だけ現れ、次数・係数列の辞書順に並ぶ。非定数入力では各因子の最高次係数は1で、元の最高次係数は含まない。非零定数cだけの入力では[[c % mod]]。",
+}
+COMPLEXITY_BY_MODULE["polynomial/PolynomialFactorization.py"] = {
+    "factor_polynomial": "期待 O(N M(N) (log mod + log(N+1)))を上限の目安とする。Nは次数、M(N)は多項式積の時間。因子次数と乱数に依存し、試行回数の最悪保証はない",
+    "half_gcd": "O(M(N) log(N+1))。Nは入力の最大次数、M(N)は多項式積の時間",
+    "polynomial_inverse": "O(M(N) log(N+1))。Nは入力の最大次数、M(N)は多項式積の時間",
+}
+COMPLEXITY_BY_MODULE["polynomial/PolynomialModularPower.py"] = {
+    "polynomial_inverse_mod": "O(M(L) log(L+1))。Lは入力の最大次数、M(L)は多項式積の時間",
+    "polynomial_pow_mod": "O(M(L) + M(N) log(|exponent|+1))。Nはmodulusの次数、Lは入力の最大次数、M(N)は多項式積の時間。負の指数では逆元のO(M(L) log(L+1))を追加",
+}
+for _name, _description, _returns in (
+    ("polynomial_inverse_mod", "polynomialを掛けるとmodulusで割った余りが1になる多項式を求める。互いに素でなければZeroDivisionError。", "逆元の定数項から順の係数列。次数はmodulus未満。末尾の0は含まない。"),
+    ("polynomial_pow_mod", "polynomialのexponent乗をmodulusで割った余りを求める。同じ法多項式の逆係数列を再利用する。", "剰余の定数項から順の係数列。次数はmodulus未満。零多項式は[]。exponent=0では[1]。負の指数で逆元がなければZeroDivisionError。"),
+):
+    API_DETAILS_BY_SYMBOL[("polynomial/PolynomialModularPower.py", None, _name)] = {
+        "description": _description,
+        "argumentDescriptions": {
+            "polynomial": "定数項から順の係数列。",
+            "modulus": "割る多項式の昇べき順係数列。末尾の0を除いた次数が1以上。",
+            "mod": "係数を計算する素数の法。",
+        },
+        "returnFormat": "list[int]", "returnDescription": _returns,
+    }
+API_DETAILS_BY_SYMBOL[("polynomial/PolynomialModularPower.py", None, "polynomial_pow_mod")]["argumentDescriptions"]["exponent"] = "整数の指数。負なら多項式の逆元を先に求める。"
+API_DETAILS_BY_SYMBOL[("polynomial/PolynomialFactorization.py", None, "half_gcd")] = {
+    "description": "2つの多項式の最大公約多項式を求め、最高次係数を1に揃える。変換行列は返さない。",
+    "argumentDescriptions": {"first": "1つ目の昇べき順係数列。", "second": "2つ目の昇べき順係数列。", "mod": "係数を計算する素数の法。"},
+    "returnFormat": "list[int]",
+    "returnDescription": "モニックな最大公約多項式の昇べき順係数列。互いに素なら[1]、両方とも零多項式なら[]。",
+}
+API_DETAILS_BY_SYMBOL[("polynomial/PolynomialFactorization.py", None, "polynomial_inverse")] = {
+    "description": "firstを掛けるとmodulusで割った余りが1になる多項式を、存在するかどうかと一緒に返す。",
+    "argumentDescriptions": {"first": "逆元を求める多項式の昇べき順係数列。", "modulus": "次数1以上の法多項式。昇べき順係数列。", "mod": "係数を計算する素数の法。"},
+    "returnFormat": "tuple[bool, list[int]]",
+    "returnDescription": "(存在するか, 逆元の昇べき順係数列)。互いに素なら(True, inverse)、逆元がなければ(False, [])。inverseの次数はmodulus未満。",
+}
+CLASS_DETAILS_BY_SYMBOL[("polynomial/PolynomialFactorization.py", "HalfGCD")] = {
+    "description": "多項式のGCDと逆元判定をstatic methodとして持つ。状態は保持しない。",
+    "constructorCreates": "gcd(first, second, mod)でモニックGCD、PolyInv(first, modulus, mod)で(存在するか, 逆元の係数列)を取得できる。instanceを作らずclassからも呼べる。",
+}

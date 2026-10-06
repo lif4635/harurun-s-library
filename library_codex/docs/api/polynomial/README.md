@@ -11,7 +11,7 @@
 | [`PolynomialDivision`](PolynomialDivision.md) | Polynomial quotient and remainder in ascending coefficient order. | 3 | 0 | 0 |
 | [`PolynomialDivision998`](PolynomialDivision998.md) | Fast polynomial quotient and remainder modulo 998244353. | 3 | 0 | 0 |
 | [`PolynomialExponentialSum`](PolynomialExponentialSum.md) | 多項式と指数関数の積の有限和・極限和を計算する。 | 2 | 0 | 0 |
-| [`PolynomialFactorization`](PolynomialFactorization.md) | 有限体上の多項式GCD・因数分解 | 3 | 1 | 0 |
+| [`PolynomialFactorization`](PolynomialFactorization.md) | 素数の法で多項式を既約因子へ分解し、重複度を保って返す | 3 | 1 | 0 |
 | [`PolynomialGCD`](PolynomialGCD.md) | 多項式のmonic化・gcd・拡張gcdを計算する。 | 3 | 0 | 0 |
 | [`PolynomialModularPower`](PolynomialModularPower.md) | 多項式を別の多項式で割った剰余環上の逆元と冪を計算する。 | 2 | 0 | 0 |
 | [`PolynomialPrefixSum`](PolynomialPrefixSum.md) | 多項式値列のprefix和を補間して求める。 | 1 | 0 | 0 |
