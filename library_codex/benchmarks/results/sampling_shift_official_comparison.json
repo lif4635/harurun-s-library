@@ -1,0 +1,350 @@
+{
+  "measuredAt": "2026-10-06T09:33:42.265953+00:00",
+  "problem": "shift_of_sampling_points_of_polynomial",
+  "snapshot": {
+    "retrievedAt": "2026-10-06T09:18:20.441795+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "shift_of_sampling_points_of_polynomial",
+    "problemInfo": {
+      "overall_version": "c6bf532eb48fdc0f81f33a95fc95c38af2471bfec1d95b8c75f2671293e03c8b",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/polynomial/shift_of_sampling_points_of_polynomial",
+      "testcases_version": "9c70cad8b695c73c9b7b019ff38374bc8b6d9c856e7c171b219512c5037ac092",
+      "time_limit": 5,
+      "title": "Shift of Sampling Points of Polynomial",
+      "version": "7e26ec64a90f1a39bfe7cc825d5c22b119e17d818f5c89adfe892167277e47fd"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 389217,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 187793408,
+        "problem_name": "shift_of_sampling_points_of_polynomial",
+        "problem_title": "Shift of Sampling Points of Polynomial",
+        "status": "AC",
+        "submission_time": "2026-07-29T18:03:48.692649Z",
+        "time": 0.531,
+        "user_name": "tyuyu62",
+        "sourceFile": "389217.py",
+        "sourceSha256": "f99ef91a150f6038da161a0a2b921307811411cbcfb81ecac24778fac5fc9fe4",
+        "url": "https://judge.yosupo.jp/submission/389217"
+      }
+    ]
+  },
+  "officialHashSha256": "61262473eb9652b027de17b6a5f5af52b19026023cc7cc637b234618b26c8f8e",
+  "checkerSha256": "9141417f9200aa8cd1ddcb4cf20607f975d65fc9001a99099af0ac03f969f70b",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 5,
+  "seed": 92471,
+  "sourceSha256": {
+    "389217": "f99ef91a150f6038da161a0a2b921307811411cbcfb81ecac24778fac5fc9fe4",
+    "previous": "9e2e545188dadcc6ddd19596b042d1789495be93b61e2e4396b6878f96023963",
+    "library": "30704f83a03994035f74ec75da6b04f6f52b4809cf7a08b07003506c4e9c551e"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "e526fcfd1ecadc0600a2a273afc613dce722123e15c8973968ae0b6ae17ac99e",
+      "implementations": {
+        "389217": {
+          "samples": [
+            {
+              "seconds": 0.5400403759558685,
+              "peakRssKiB": 211212,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.5371242429828271,
+              "peakRssKiB": 211296,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.5324940959690139,
+              "peakRssKiB": 211276,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.49443714995868504,
+              "peakRssKiB": 211212,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.4686996939708479,
+              "peakRssKiB": 211272,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            }
+          ],
+          "medianSeconds": 0.5324940959690139,
+          "peakRssKiB": 211296
+        },
+        "previous": {
+          "samples": [
+            {
+              "seconds": 1.3195865649613552,
+              "peakRssKiB": 157508,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 1.3489317030180246,
+              "peakRssKiB": 157512,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 1.3306874289992265,
+              "peakRssKiB": 157452,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 1.201824368967209,
+              "peakRssKiB": 157572,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 1.2313461209996603,
+              "peakRssKiB": 157436,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            }
+          ],
+          "medianSeconds": 1.3195865649613552,
+          "peakRssKiB": 157572
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 0.6282966889557429,
+              "peakRssKiB": 161428,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.6424058749689721,
+              "peakRssKiB": 160844,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.6239062750246376,
+              "peakRssKiB": 161308,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.5695103690377437,
+              "peakRssKiB": 161356,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            },
+            {
+              "seconds": 0.5846169919823296,
+              "peakRssKiB": 161456,
+              "outputSha256": "e2f8e28aee3d056b2079c03d09ba987ff15549cac4e179e4178a51d62dcde571"
+            }
+          ],
+          "medianSeconds": 0.6239062750246376,
+          "peakRssKiB": 161456
+        }
+      }
+    },
+    {
+      "case": "type2_random_00",
+      "inputSha256": "b229281705ea033c7cbca224a36a926430ed69268a767e656a5d2a671777d7f9",
+      "implementations": {
+        "389217": {
+          "samples": [
+            {
+              "seconds": 0.4577446079929359,
+              "peakRssKiB": 184488,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.5004995599738322,
+              "peakRssKiB": 184496,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.4551879740320146,
+              "peakRssKiB": 184336,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.46803630696376786,
+              "peakRssKiB": 184412,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.5061964900232852,
+              "peakRssKiB": 184512,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            }
+          ],
+          "medianSeconds": 0.46803630696376786,
+          "peakRssKiB": 184512
+        },
+        "previous": {
+          "samples": [
+            {
+              "seconds": 1.1263246239977889,
+              "peakRssKiB": 156796,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 1.1254310440272093,
+              "peakRssKiB": 157116,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 1.1285110850003548,
+              "peakRssKiB": 156608,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 1.1009167520096526,
+              "peakRssKiB": 157292,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 1.0746116509544663,
+              "peakRssKiB": 157304,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            }
+          ],
+          "medianSeconds": 1.1254310440272093,
+          "peakRssKiB": 157304
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 0.5208124849596061,
+              "peakRssKiB": 145324,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.5634082580218092,
+              "peakRssKiB": 145348,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.5351094540092163,
+              "peakRssKiB": 146604,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.5343217849731445,
+              "peakRssKiB": 146572,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            },
+            {
+              "seconds": 0.5682100119884126,
+              "peakRssKiB": 146464,
+              "outputSha256": "35fab573e78a9dc00ce9a477ded1a9d655e039779bc16fb4bdd119d31a5d78d6"
+            }
+          ],
+          "medianSeconds": 0.5351094540092163,
+          "peakRssKiB": 146604
+        }
+      }
+    }
+  ]
+}

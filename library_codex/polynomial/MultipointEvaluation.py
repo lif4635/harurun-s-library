@@ -6,6 +6,7 @@ from library_codex.fps.FormalPowerSeries import (
     fps_shrink,
 )
 from library_codex.polynomial.PolynomialDivision import poly_mod
+from library_codex.convolution.MiddleProduct import middle_product
 
 
 def _batch_inverse(values, mod):
@@ -200,8 +201,6 @@ def interpolate_consecutive(values, point, mod=DEFAULT_MOD):
 
 
 def _sample_point_shift_segment(values, point, count, mod):
-    from library_codex.fps.FormalPowerSeries import fps_multiply
-
     degree = len(values) - 1
     factorial = 1
     for index in range(2, degree + 1):
@@ -216,22 +215,19 @@ def _sample_point_shift_segment(values, point, count, mod):
     weighted = [0] * (degree + 1)
     for index, value in enumerate(values):
         weighted[index] = (
-            value
-            * inverse_factorial[index]
+            value * inverse_factorial[index] % mod
             * inverse_factorial[degree - index]
         ) % mod
         if (degree - index) & 1:
             weighted[index] = -weighted[index] % mod
-    reciprocals = [0] * (count + degree)
-    for index in range(len(reciprocals)):
-        reciprocals[index] = pow(point - degree + index, -1, mod)
-    product = fps_multiply(weighted, reciprocals, mod)
+    reciprocals = _batch_inverse(range(point - degree, point + count), mod)
+    product = middle_product(reciprocals, weighted[::-1], mod)
     falling = point % mod
     for index in range(1, degree + 1):
         falling = falling * (point - index) % mod
     result = [0] * count
     for index in range(count):
-        result[index] = falling * product[degree + index] % mod
+        result[index] = falling * product[index] % mod
         falling = falling * (point + index + 1) % mod
         falling = falling * reciprocals[index] % mod
     return result

@@ -50,6 +50,8 @@ def compare(args):
         if not name or name in sources:
             raise ValueError("duplicate or empty variant name")
         sources[name] = Path(path).resolve()
+    if not sources:
+        raise ValueError("at least one reviewed submission or variant is required")
     expected_hashes = json.loads((args.problem / "hash.json").read_text())
     cases = []
     for name in args.cases:
@@ -109,7 +111,7 @@ def compare(args):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--snapshot", type=Path, required=True)
-    parser.add_argument("--reviewed", type=int, nargs="+", required=True)
+    parser.add_argument("--reviewed", type=int, nargs="+", default=[])
     parser.add_argument("--problem", type=Path, required=True)
     parser.add_argument("--cases", nargs="+", required=True)
     parser.add_argument("--variant", action="append", default=[])

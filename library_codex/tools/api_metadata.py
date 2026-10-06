@@ -6709,3 +6709,120 @@ CLASS_DETAILS_BY_SYMBOL[("polynomial/PolynomialFactorization.py", "HalfGCD")] = 
     "description": "多項式のGCDと逆元判定をstatic methodとして持つ。状態は保持しない。",
     "constructorCreates": "gcd(first, second, mod)でモニックGCD、PolyInv(first, modulus, mod)で(存在するか, 逆元の係数列)を取得できる。instanceを作らずclassからも呼べる。",
 }
+
+API_DETAILS_BY_SYMBOL.update({
+    ("polynomial/GeometricMultipointEvaluation.py", None, "multipoint_evaluation_geometric"): {
+        "description": "多項式fの値を、初項initial・公比ratioの等比数列上でまとめて求める。",
+        "argumentDescriptions": {
+            "polynomial": "fの定数項から順の係数列。",
+            "initial": "最初の評価点。0も指定できる。",
+            "ratio": "評価点の公比。0・1も指定できる。",
+            "count": "求める値の個数。0以上。",
+            "mod": "係数を計算する素数の法。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さcountの列。result[i]はf(initial*ratio^i)をmodで割った余り。count=0なら[]。空の係数列は零多項式として扱う。",
+    },
+    ("polynomial/GeometricMultipointEvaluation.py", None, "interpolate_geometric"): {
+        "description": "等比数列上の値から、次数len(values)未満の多項式の係数を復元する。",
+        "argumentDescriptions": {
+            "values": "values[i]=f(initial*ratio^i)となる値の列。係数列ではない。",
+            "initial": "最初の評価点。2点以上なら0以外。",
+            "ratio": "評価点の公比。すべての評価点がmod上で異なる必要がある。ratio=0は2点まで。",
+            "mod": "係数を計算する素数の法。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さlen(values)の昇べき順係数列。result[j]がx^jの係数。末尾の0も保持し、空入力なら[]。評価点が重複するとValueError。",
+    },
+    ("polynomial/PolynomialPrefixSum.py", None, "polynomial_prefix_sum"): {
+        "description": "整数点上の多項式fの累積和を、別の多項式gの係数として求める。",
+        "argumentDescriptions": {
+            "polynomial": "fの定数項から順の係数列。",
+            "mod": "係数を計算する素数の法。fの次数+1より大きい必要がある。",
+            "inclusive": "Falseなら0以上n未満、Trueなら0以上n以下のfの値を足す。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "gの定数項から順の係数列。g(n)=sum(f(i), 0<=i<n)。inclusive=Trueではi=nも含める。非零入力なら長さdeg(f)+2、零多項式なら[]。",
+    },
+    ("polynomial/PolynomialExponentialSum.py", None, "sum_polynomial_exponential"): {
+        "description": "多項式fの連続した標本値から、公比ratioの重みを付けた有限和を求める。",
+        "argumentDescriptions": {
+            "values": "f(0), f(1), ..., f(d)の列。次数d以下のfを指定する。空列は不可。",
+            "ratio": "各項に掛ける重みの公比。0・1も指定できる。",
+            "count": "足す項数。0以下では0を返す。",
+            "mod": "素数の法。len(values)より大きい必要がある。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "sum(ratio^i*f(i), 0<=i<count)をmodで割った余り。ratio=1なら通常の総和、ratio=0かつcount>0ならf(0)。",
+    },
+    ("polynomial/PolynomialExponentialSum.py", None, "limit_sum_polynomial_exponential"): {
+        "description": "多項式fに等比重みを付けた無限和を、有理関数として評価する。",
+        "argumentDescriptions": {
+            "values": "f(0), f(1), ..., f(d)の列。次数d以下のfを指定する。空列は不可。",
+            "ratio": "重みの公比。mod上で1となる値は指定できない。",
+            "mod": "素数の法。len(values)より大きい必要がある。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "sum(f(i)*z^i, i>=0)を有理関数に直し、z=ratioで評価したmod上の値。数値的な収束判定や有限回の打切り和ではない。ratio=0ならf(0)。",
+    },
+    ("polynomial/MultipointEvaluation.py", None, "polynomial_interpolation"): {
+        "description": "異なる評価点points[i]と値values[i]から、次数len(points)未満の多項式を復元する。",
+        "argumentDescriptions": {"points": "mod上で互いに異なる評価点の列。", "values": "pointsと同じ長さで、values[i]=f(points[i])となる列。", "mod": "係数を計算する素数の法。"},
+        "returnFormat": "list[int]", "returnDescription": "長さlen(points)の昇べき順係数列。末尾の0も保持する。空入力なら[]。",
+    },
+    ("polynomial/MultipointEvaluation.py", None, "interpolate_consecutive"): {
+        "description": "f(0), ..., f(N-1)から、次数N未満の多項式fの値を1点で求める。",
+        "argumentDescriptions": {"values": "f(0), ..., f(N-1)の標本値。1<=N<=mod。", "point": "値を求める整数点。負数やmod以上の値も指定できる。", "mod": "係数を計算する素数の法。"},
+        "returnFormat": "int", "returnDescription": "f(point)をmodで割った余り。係数列ではなく1点での値を返す。",
+    },
+    ("polynomial/MultipointEvaluation.py", None, "sample_point_shift"): {
+        "description": "f(0), ..., f(N-1)から、f(point), ..., f(point+count-1)へ連続した評価点をずらす。",
+        "argumentDescriptions": {"values": "次数N未満のfの標本値f(0), ..., f(N-1)。1<=N<=mod。", "point": "出力の最初の評価点。負数やmod以上の値も指定できる。", "count": "出力する値の個数。0以上。Noneならlen(values)。", "mod": "係数を計算する素数の法。"},
+        "returnFormat": "list[int]", "returnDescription": "長さcountの列。result[i]=f(point+i) mod mod。評価点がmodをまたいでも使える。係数をずらすTaylor shiftとは入力形式が異なる。",
+    },
+})
+API_DETAILS_BY_SYMBOL[("polynomial/MultipointEvaluation.py", None, "multipoint_evaluation")]["argumentDescriptions"] = {
+    "polynomial": "fの昇べき順係数列。", "points": "評価点の列。重複してもよい。", "mod": "係数を計算する素数の法。",
+}
+CLASS_DETAILS_BY_SYMBOL[("polynomial/MultipointEvaluation.py", "ProductTree")] = {
+    "description": "評価点を固定し、複数の多項式の多点評価や、異なる値の列からの補間に積木を使い回す。",
+    "constructorCreates": "pointsを保持する。evaluate(f)で各点の値、interpolate(values)で係数を取得できる。polynomialは各(x-points[i])の積の係数列。",
+    "argumentDescriptions": {"points": "固定する評価点の列。補間を使う場合はmod上で互いに異なること。", "mod": "係数を計算する素数の法。"},
+}
+API_DETAILS_BY_SYMBOL.update({
+    ("polynomial/MultipointEvaluation.py", "ProductTree", "evaluate"): {
+        "description": "登録したすべての評価点で多項式fの値を求める。",
+        "argumentDescriptions": {"polynomial": "fの昇べき順係数列。", "direct_threshold": "積木の下部で直接代入へ切り替える点数の上限。1以上。通常は省略してよい。"},
+        "returnFormat": "list[int]", "returnDescription": "登録したpointsと同じ長さ・順番の列。result[i]=f(points[i]) mod mod。",
+    },
+    ("polynomial/MultipointEvaluation.py", "ProductTree", "interpolate"): {
+        "description": "登録した評価点での値から、次数len(points)未満の多項式を復元する。",
+        "argumentDescriptions": {"values": "登録したpointsと同じ長さの列。values[i]=f(points[i])。"},
+        "returnFormat": "list[int]", "returnDescription": "長さlen(points)の昇べき順係数列。末尾の0も保持する。空の積木なら[]。",
+    },
+    ("polynomial/MultipointEvaluation.py", "ProductTree", "polynomial"): {
+        "description": "各評価点を根に持つモニック多項式を返す。",
+        "returnFormat": "list[int]", "returnDescription": "prod(x-points[i])の昇べき順係数列のコピー。長さlen(points)+1。空の積木なら[1]。",
+    },
+})
+COMPLEXITY_BY_MODULE["polynomial/GeometricMultipointEvaluation.py"] = {
+    "multipoint_evaluation_geometric": "O(M(N+C) + log mod)。Nは係数数、Cはcount、M(L)は多項式積の時間。998244353ではO((N+C) log(N+C) + log mod)",
+    "interpolate_geometric": "O(M(N) + log mod)。Nは標本数、M(N)は多項式積の時間。998244353ではO(N log N + log mod)",
+}
+COMPLEXITY_BY_MODULE["polynomial/PolynomialPrefixSum.py"] = {
+    "polynomial_prefix_sum": "O(M(N) + log mod)。Nは入力長、M(N)は多項式積の時間。998244353ではO(N log N + log mod)",
+}
+COMPLEXITY_BY_MODULE["polynomial/PolynomialExponentialSum.py"] = {
+    "limit_sum_polynomial_exponential": "O(N + log mod)。Nは標本数",
+    "sum_polynomial_exponential": "O(N + log mod + log(max(1, count)))。Nは標本数",
+}
+COMPLEXITY_BY_MODULE["polynomial/MultipointEvaluation.py"] = {
+    "multipoint_evaluation": "O(M(L) + M(N) log(N+1))。Nは評価点数、Lは入力の係数数、M(k)は多項式積の時間",
+    "polynomial_interpolation": "O(M(N) log(N+1) + log mod)。Nは標本数、M(N)は多項式積の時間",
+    "interpolate_consecutive": "O(N + log mod)。Nは標本数",
+    "sample_point_shift": "O(M(N+C) + (1+C/mod) log mod)。Nは標本数、Cはcount、M(k)は多項式積の時間",
+    "__init__": "O(M(N) log(N+1))。Nは評価点数、M(N)は多項式積の時間",
+    "polynomial": "O(N)。Nは評価点数",
+    "evaluate": "O(M(L) + M(N) log(N+1) + N*direct_threshold)。Nは評価点数、Lは係数数、M(k)は多項式積の時間",
+    "interpolate": "O(M(N) log(N+1) + log mod)。Nは標本数、M(N)は多項式積の時間",
+}

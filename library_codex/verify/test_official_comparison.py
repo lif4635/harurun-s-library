@@ -27,6 +27,25 @@ def setup_case(tmp_path):
                            repeat=2, seed=3, timeout=30, output=tmp_path / "result.json")
 
 
+def test_local_variants_without_external_submission(tmp_path, monkeypatch):
+    args = setup_case(tmp_path)
+    args.reviewed = []
+    with pytest.raises(ValueError, match="at least one"):
+        comparison.compare(args)
+    args.variant = ["local=" + str(tmp_path / "1.py")]
+    def measure(command, input_path, output_path, rss_path, timeout):
+        output_path.write_text("1")
+        return 0.25, 1024
+    monkeypatch.setattr(comparison, "measure", measure)
+    monkeypatch.setattr(comparison.subprocess, "check_output", lambda *a, **k: "version")
+    monkeypatch.setattr(comparison.subprocess, "run",
+                        lambda *a, **k: SimpleNamespace(returncode=0, stderr=b""))
+    comparison.compare(args)
+    report = json.loads(args.output.read_text())
+    assert list(report["results"][0]["implementations"]) == ["local"]
+    assert report["sourceSha256"]["local"] == comparison.file_digest(tmp_path / "1.py")
+
+
 def test_rejects_unreviewed_or_modified_source(tmp_path):
     args = setup_case(tmp_path)
     args.reviewed = [2]

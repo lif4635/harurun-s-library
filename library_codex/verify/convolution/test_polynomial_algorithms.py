@@ -8,7 +8,6 @@ from library_codex.fps.FormalPowerSeries import (
 )
 from library_codex.polynomial.PartialFractionDistinct import partial_fraction_distinct
 from library_codex.polynomial.PolynomialGCD import polynomial_extended_gcd, polynomial_gcd
-from library_codex.polynomial.PolynomialPrefixSum import polynomial_prefix_sum
 from library_codex.polynomial.PolynomialResultant import polynomial_resultant
 from library_codex.polynomial.PolynomialRoots import polynomial_roots
 from library_codex.combinatorial_series.PowerSums import power_sums, prefix_sum_powers
@@ -152,7 +151,7 @@ def test_partial_fraction_and_power_sums():
     assert actual == expected
 
 
-def test_prefix_sum_powers_and_faulhaber_polynomial():
+def test_prefix_sum_powers():
     for count in (0, 1, 2, 10, 123456789):
         actual = prefix_sum_powers(count, 20)
         if count < 100:
@@ -166,12 +165,3 @@ def test_prefix_sum_powers_and_faulhaber_polynomial():
         123456789 * (123456789 - 1) // 2 % MOD,
         123456789 * (123456789 - 1) * (2 * 123456789 - 1) // 6 % MOD,
     ]
-
-    polynomial = [7, 3, 5, 11]
-    exclusive = polynomial_prefix_sum(polynomial)
-    inclusive = polynomial_prefix_sum(polynomial, inclusive=True)
-    for count in range(30):
-        direct = sum(fps_evaluate(polynomial, value) for value in range(count)) % MOD
-        assert fps_evaluate(exclusive, count) == direct
-        direct = (direct + fps_evaluate(polynomial, count)) % MOD
-        assert fps_evaluate(inclusive, count) == direct

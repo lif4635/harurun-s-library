@@ -196,14 +196,10 @@ ordered_set/PersistentRBSTSet
 ordered_set/RangeSet
 ordered_set/TopKSum
 ordered_set/TreapSet
-polynomial/GeometricMultipointEvaluation
-polynomial/MultipointEvaluation
 polynomial/PartialFractionDistinct
 polynomial/PolynomialDivision
 polynomial/PolynomialDivision998
-polynomial/PolynomialExponentialSum
 polynomial/PolynomialGCD
-polynomial/PolynomialPrefixSum
 polynomial/PolynomialResultant
 polynomial/PolynomialRoots
 polynomial/PowerEnumerate

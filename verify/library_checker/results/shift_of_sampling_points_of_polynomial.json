@@ -1,0 +1,217 @@
+{
+  "problem": "shift_of_sampling_points_of_polynomial",
+  "status": "local_passed",
+  "verificationKey": "33bb97a1f82d8b5599bcc6957dab3d7b3b638e902ad8b5208194631a79f74d67",
+  "sourceSha256": "30704f83a03994035f74ec75da6b04f6f52b4809cf7a08b07003506c4e9c551e",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.number_theory.ModularArithmetic",
+    "library_codex.fps.FormalPowerSeries",
+    "library_codex.polynomial.PolynomialDivision",
+    "library_codex.convolution.MiddleProduct",
+    "library_codex.polynomial.MultipointEvaluation"
+  ],
+  "problemVersion": "d8c0a5a8945490de141f034afebabd0415a8652ab5b569206acda9cf609d7262",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 32,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.07010073802666739,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0750434150104411,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.0768751300056465,
+      "diagnostic": "ok 43 tokens\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.07704612199449912,
+      "diagnostic": "ok 21 tokens\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.0756122600287199,
+      "diagnostic": "ok 11 tokens\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.08933428302407265,
+      "diagnostic": "ok 82 tokens\n"
+    },
+    {
+      "name": "medium_random_00",
+      "status": "AC",
+      "seconds": 0.1136777299689129,
+      "diagnostic": "ok 9942 tokens\n"
+    },
+    {
+      "name": "medium_random_01",
+      "status": "AC",
+      "seconds": 0.11638772999867797,
+      "diagnostic": "ok 9920 tokens\n"
+    },
+    {
+      "name": "medium_random_02",
+      "status": "AC",
+      "seconds": 0.11885087302653119,
+      "diagnostic": "ok 10038 tokens\n"
+    },
+    {
+      "name": "medium_random_03",
+      "status": "AC",
+      "seconds": 0.1108012929908,
+      "diagnostic": "ok 9981 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.6260751230292954,
+      "diagnostic": "ok 524288 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.6492175910389051,
+      "diagnostic": "ok 524288 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.6399693290004507,
+      "diagnostic": "ok 524288 tokens\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.6266146760317497,
+      "diagnostic": "ok 524288 tokens\n"
+    },
+    {
+      "name": "type0_random_00",
+      "status": "AC",
+      "seconds": 0.14134366903454065,
+      "diagnostic": "ok 77101 tokens\n"
+    },
+    {
+      "name": "type0_random_01",
+      "status": "AC",
+      "seconds": 0.13713729399023578,
+      "diagnostic": "ok 17685 tokens\n"
+    },
+    {
+      "name": "type0_random_02",
+      "status": "AC",
+      "seconds": 0.07866978499805555,
+      "diagnostic": "ok 8245 tokens\n"
+    },
+    {
+      "name": "type0_random_03",
+      "status": "AC",
+      "seconds": 0.15134021203266457,
+      "diagnostic": "ok 130386 tokens\n"
+    },
+    {
+      "name": "type1_random_00",
+      "status": "AC",
+      "seconds": 0.5711673379992135,
+      "diagnostic": "ok 473347 tokens\n"
+    },
+    {
+      "name": "type1_random_01",
+      "status": "AC",
+      "seconds": 0.5662419400177896,
+      "diagnostic": "ok 198898 tokens\n"
+    },
+    {
+      "name": "type1_random_02",
+      "status": "AC",
+      "seconds": 0.12803271401207894,
+      "diagnostic": "ok 34897 tokens\n"
+    },
+    {
+      "name": "type1_random_03",
+      "status": "AC",
+      "seconds": 0.41162645001895726,
+      "diagnostic": "ok 484287 tokens\n"
+    },
+    {
+      "name": "type2_random_00",
+      "status": "AC",
+      "seconds": 0.5806015959824435,
+      "diagnostic": "ok 410924 tokens\n"
+    },
+    {
+      "name": "type2_random_01",
+      "status": "AC",
+      "seconds": 0.5982132449862547,
+      "diagnostic": "ok 412908 tokens\n"
+    },
+    {
+      "name": "type2_random_02",
+      "status": "AC",
+      "seconds": 0.28991085599409416,
+      "diagnostic": "ok 382348 tokens\n"
+    },
+    {
+      "name": "type2_random_03",
+      "status": "AC",
+      "seconds": 0.343596893013455,
+      "diagnostic": "ok 25840 tokens\n"
+    },
+    {
+      "name": "type3_random_00",
+      "status": "AC",
+      "seconds": 0.5081646900507621,
+      "diagnostic": "ok 410924 tokens\n"
+    },
+    {
+      "name": "type3_random_01",
+      "status": "AC",
+      "seconds": 0.5334318130044267,
+      "diagnostic": "ok 412908 tokens\n"
+    },
+    {
+      "name": "type3_random_02",
+      "status": "AC",
+      "seconds": 0.3357575919944793,
+      "diagnostic": "ok 382348 tokens\n"
+    },
+    {
+      "name": "type3_random_03",
+      "status": "AC",
+      "seconds": 0.34374940901761875,
+      "diagnostic": "ok 25840 tokens\n"
+    },
+    {
+      "name": "N_1_00",
+      "status": "AC",
+      "seconds": 0.14660471305251122,
+      "diagnostic": "ok 389813 tokens\n"
+    },
+    {
+      "name": "c_0_00",
+      "status": "AC",
+      "seconds": 0.34730372100602835,
+      "diagnostic": "ok 410923 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-06T09:30:38.332890+00:00",
+  "onlineSubmission": null
+}

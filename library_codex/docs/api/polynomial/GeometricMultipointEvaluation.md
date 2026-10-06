@@ -8,8 +8,8 @@
 
 ## できること
 
-- `multipoint_evaluation_geometric`: 入力した多項式・式を指定点で評価する。
-- `interpolate_geometric`: interpolate geometricを求める。
+- `multipoint_evaluation_geometric`: 多項式fの値を、初項initial・公比ratioの等比数列上でまとめて求める。
+- `interpolate_geometric`: 等比数列上の値から、次数len(values)未満の多項式の係数を復元する。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.polynomial.GeometricMultipointEvaluation import multipoint_ev
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`multipoint_evaluation_geometric(polynomial, initial, ratio, count, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L17) | 入力した多項式・式を指定点で評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — polynomial(initial*ratio^i)をi=0..count-1の順に並べたlist。 | O(M(N+C)) modular operations |
-| [`interpolate_geometric(values, initial, ratio, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L63) | interpolate geometricを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`initial`: 初期値または初項列<br>`ratio`: 等比数列の公比<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` | O(M(N) log N) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`multipoint_evaluation_geometric(polynomial, initial, ratio, count, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L6) | 多項式fの値を、初項initial・公比ratioの等比数列上でまとめて求める。 | `polynomial`: fの定数項から順の係数列。<br>`initial`: 最初の評価点。0も指定できる。<br>`ratio`: 評価点の公比。0・1も指定できる。<br>`count`: 求める値の個数。0以上。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | list[int] — 長さcountの列。result[i]はf(initial*ratio^i)をmodで割った余り。count=0なら[]。空の係数列は零多項式として扱う。 | O(M(N+C) + log mod)。Nは係数数、Cはcount、M(L)は多項式積の時間。998244353ではO((N+C) log(N+C) + log mod)（M(L)は長さLの多項式乗算cost） |
+| [`interpolate_geometric(values, initial, ratio, mod=DEFAULT_MOD)`](../../../polynomial/GeometricMultipointEvaluation.py#L58) | 等比数列上の値から、次数len(values)未満の多項式の係数を復元する。 | `values`: values[i]=f(initial*ratio^i)となる値の列。係数列ではない。<br>`initial`: 最初の評価点。2点以上なら0以外。<br>`ratio`: 評価点の公比。すべての評価点がmod上で異なる必要がある。ratio=0は2点まで。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | list[int] — 長さlen(values)の昇べき順係数列。result[j]がx^jの係数。末尾の0も保持し、空入力なら[]。評価点が重複するとValueError。 | O(M(N) + log mod)。Nは標本数、M(N)は多項式積の時間。998244353ではO(N log N + log mod)（M(L)は長さLの多項式乗算cost） |

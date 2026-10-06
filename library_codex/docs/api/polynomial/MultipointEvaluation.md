@@ -10,10 +10,10 @@
 ## できること
 
 - `multipoint_evaluation`: 多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。
-- `polynomial_interpolation`: 多項式補間を計算する。
-- `interpolate_consecutive`: interpolate consecutiveを求める。
-- `sample_point_shift`: sample point shiftを求める。
-- `ProductTree`: 積木による多点評価・多項式補間・連続点補間を扱う `ProductTree`。
+- `polynomial_interpolation`: 異なる評価点points[i]と値values[i]から、次数len(points)未満の多項式を復元する。
+- `interpolate_consecutive`: f(0), ..., f(N-1)から、次数N未満の多項式fの値を1点で求める。
+- `sample_point_shift`: f(0), ..., f(N-1)から、f(point), ..., f(point+count-1)へ連続した評価点をずらす。
+- `ProductTree`: 評価点を固定し、複数の多項式の多点評価や、異なる値の列からの補間に積木を使い回す。
 
 ## Import
 
@@ -31,22 +31,23 @@ from library_codex.polynomial.MultipointEvaluation import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L148) | 多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[int] — pointsと同じ長さの列result。$\mathrm{result}[i]=f(\mathrm{points}[i])\bmod\mathrm{mod}$。 | — |
-| [`polynomial_interpolation(points, values, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L152) | 多項式補間を計算する。 | `points`: 評価点の列<br>`values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `ProductTree(points, mod).interpolate(values)` | — |
-| [`interpolate_consecutive(values, point, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L156) | interpolate consecutiveを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `values[point] % mod` / 数値または入力要素型 `result % mod` | — |
-| [`sample_point_shift(values, point, count=None, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L240) | sample point shiftを求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`point`: 評価点・座標<br>`count`: 個数。省略時: `None`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / list[object] — 計算結果 | — |
+| [`multipoint_evaluation(polynomial, points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L149) | 多項式 $f$ をすべての評価点 $\mathrm{points}_i$ で一括評価する。 | `polynomial`: fの昇べき順係数列。<br>`points`: 評価点の列。重複してもよい。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | list[int] — pointsと同じ長さの列result。$\mathrm{result}[i]=f(\mathrm{points}[i])\bmod\mathrm{mod}$。 | O(M(L) + M(N) log(N+1))。Nは評価点数、Lは入力の係数数、M(k)は多項式積の時間（M(L)は長さLの多項式乗算cost） |
+| [`polynomial_interpolation(points, values, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L153) | 異なる評価点points[i]と値values[i]から、次数len(points)未満の多項式を復元する。 | `points`: mod上で互いに異なる評価点の列。<br>`values`: pointsと同じ長さで、values[i]=f(points[i])となる列。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | list[int] — 長さlen(points)の昇べき順係数列。末尾の0も保持する。空入力なら[]。 | O(M(N) log(N+1) + log mod)。Nは標本数、M(N)は多項式積の時間（M(L)は長さLの多項式乗算cost） |
+| [`interpolate_consecutive(values, point, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L157) | f(0), ..., f(N-1)から、次数N未満の多項式fの値を1点で求める。 | `values`: f(0), ..., f(N-1)の標本値。1<=N<=mod。<br>`point`: 値を求める整数点。負数やmod以上の値も指定できる。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | int — f(point)をmodで割った余り。係数列ではなく1点での値を返す。 | O(N + log mod)。Nは標本数 |
+| [`sample_point_shift(values, point, count=None, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L236) | f(0), ..., f(N-1)から、f(point), ..., f(point+count-1)へ連続した評価点をずらす。 | `values`: 次数N未満のfの標本値f(0), ..., f(N-1)。1<=N<=mod。<br>`point`: 出力の最初の評価点。負数やmod以上の値も指定できる。<br>`count`: 出力する値の個数。0以上。Noneならlen(values)。省略時: `None`<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD` | list[int] — 長さcountの列。result[i]=f(point+i) mod mod。評価点がmodをまたいでも使える。係数をずらすTaylor shiftとは入力形式が異なる。 | O(M(N+C) + (1+C/mod) log mod)。Nは標本数、Cはcount、M(k)は多項式積の時間 |
 
 ## Class `ProductTree`
 
-積木による多点評価・多項式補間・連続点補間を扱う `ProductTree`。
+評価点を固定し、複数の多項式の多点評価や、異なる値の列からの補間に積木を使い回す。
 
-- constructor: [`ProductTree(points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L33)
-- 引数: `points`: 評価点の列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD`
+- constructor: [`ProductTree(points, mod=DEFAULT_MOD)`](../../../polynomial/MultipointEvaluation.py#L34)
+- 引数: `points`: 固定する評価点の列。補間を使う場合はmod上で互いに異なること。<br>`mod`: 係数を計算する素数の法。省略時: `DEFAULT_MOD`
 - 返り値: `ProductTree` instance
 - 計算量: —
+- 作成後: pointsを保持する。evaluate(f)で各点の値、interpolate(values)で係数を取得できる。polynomialは各(x-points[i])の積の係数列。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`polynomial`](../../../polynomial/MultipointEvaluation.py#L56) | property | 多項式を求める。 | なし | list[number] — 昇冪順の係数列 [a0, a1, ...] / `self.products[1][:]` | — |
-| [`evaluate(polynomial, direct_threshold=64)`](../../../polynomial/MultipointEvaluation.py#L61) | method | 指定点で値を評価する。 | `polynomial`: 昇冪係数列 `[a0, a1, ...]`<br>`direct_threshold`: direct thresholdとして使う入力。省略時: `64` | list[int] — 登録したpointsと同じ順のpolynomial(points[i])。 | — |
-| [`interpolate(values)`](../../../polynomial/MultipointEvaluation.py#L114) | method | 補間を求める。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / `result[:self.n]` | — |
+| [`polynomial`](../../../polynomial/MultipointEvaluation.py#L57) | property | 各評価点を根に持つモニック多項式を返す。 | なし | list[int] — prod(x-points[i])の昇べき順係数列のコピー。長さlen(points)+1。空の積木なら[1]。 | O(N)。Nは評価点数 |
+| [`evaluate(polynomial, direct_threshold=64)`](../../../polynomial/MultipointEvaluation.py#L62) | method | 登録したすべての評価点で多項式fの値を求める。 | `polynomial`: fの昇べき順係数列。<br>`direct_threshold`: 積木の下部で直接代入へ切り替える点数の上限。1以上。通常は省略してよい。省略時: `64` | list[int] — 登録したpointsと同じ長さ・順番の列。result[i]=f(points[i]) mod mod。 | O(M(L) + M(N) log(N+1) + N*direct_threshold)。Nは評価点数、Lは係数数、M(k)は多項式積の時間（M(L)は長さLの多項式乗算cost） |
+| [`interpolate(values)`](../../../polynomial/MultipointEvaluation.py#L115) | method | 登録した評価点での値から、次数len(points)未満の多項式を復元する。 | `values`: 登録したpointsと同じ長さの列。values[i]=f(points[i])。 | list[int] — 長さlen(points)の昇べき順係数列。末尾の0も保持する。空の積木なら[]。 | O(M(N) log(N+1) + log mod)。Nは標本数、M(N)は多項式積の時間（M(L)は長さLの多項式乗算cost） |

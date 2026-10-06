@@ -246,6 +246,23 @@ def test_centroid_decomposition_classes_have_distinct_roles():
     assert "点更新" in distance_query["description"]
 
 
+def test_catalog_polynomial_sampling_descriptions():
+    data = load_catalog()
+    for module_name in ("GeometricMultipointEvaluation", "PolynomialPrefixSum", "PolynomialExponentialSum", "MultipointEvaluation"):
+        module = module_by_path(data, "library_codex.polynomial." + module_name)
+        for function in module["functions"]:
+            assert function["returnFormat"] in ("list[int]", "int")
+            assert function["complexity"].startswith("O(")
+            assert "を求める。" != function["description"]
+    geometric = module_by_path(data, "library_codex.polynomial.GeometricMultipointEvaluation")
+    interpolation = next(row for row in geometric["functions"] if row["name"] == "interpolate_geometric")
+    assert "末尾の0" in interpolation["returnDescription"]
+    assert "ValueError" in interpolation["returnDescription"]
+    sums = module_by_path(data, "library_codex.polynomial.PolynomialExponentialSum")
+    infinite = next(row for row in sums["functions"] if row["name"] == "limit_sum_polynomial_exponential")
+    assert "数値的な収束" in infinite["returnDescription"]
+
+
 def test_catalog_has_precise_group_middle_product_and_half_open_range_details():
     data = load_catalog()
 

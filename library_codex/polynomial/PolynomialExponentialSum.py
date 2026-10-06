@@ -1,18 +1,7 @@
 """多項式と指数関数の積の有限和・極限和を計算する。"""
 
-from library_codex.fps.FormalPowerSeries import (
-    DEFAULT_MOD,
-    fps_add,
-    fps_exponential,
-    fps_inverse,
-    fps_logarithm,
-    fps_multiply,
-)
-
-from library_codex.polynomial.MultipointEvaluation import (
-    ProductTree,
-    interpolate_consecutive,
-)
+from library_codex.fps.FormalPowerSeries import DEFAULT_MOD
+from library_codex.polynomial.MultipointEvaluation import interpolate_consecutive
 
 from library_codex.combinatorics.Combination import Comb
 
@@ -57,7 +46,7 @@ def sum_polynomial_exponential(values, ratio, count, mod=DEFAULT_MOD):
     if ratio == 0:
         return values[0] % mod
     if ratio == 1:
-        return interpolate_consecutive(prefixes, last, mod)
+        return interpolate_consecutive([0] + prefixes, count, mod)
     combination = Comb(degree + 1, mod)
     constant = 0
     for index in range(degree + 1):

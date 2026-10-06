@@ -11,7 +11,7 @@
 | [bell_number](bell_number.json) | 3 / 11 | 5 | 1.169 | 149.8 | 一致 |
 | [bernoulli_number](bernoulli_number.json) | 3 / 11 | 5 | 0.650 | 108.1 | 一致 |
 | [biconnected_components](biconnected_components.json) | 3 / 22 | 5 | 2.612 | 437.8 | 一致 |
-| [binomial_coefficient](binomial_coefficient.json) | 3 / 30 | 5 | 1.142 | 89.0 | 一致 |
+| [binomial_coefficient](binomial_coefficient.json) | 3 / 30 | 5 | 1.149 | 89.1 | 一致 |
 | [binomial_coefficient_prime_mod](binomial_coefficient_prime_mod.json) | 3 / 20 | 5 | 0.922 | 478.6 | 一致 |
 | [characteristic_polynomial](characteristic_polynomial.json) | 3 / 28 | 5 | 0.970 | 65.8 | 一致 |
 | [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
@@ -57,6 +57,7 @@
 | [matrix_rank_mod_2](matrix_rank_mod_2.json) | 3 / 35 | 5 | 1.606 | 315.5 | 一致 |
 | [min_of_mod_of_linear](min_of_mod_of_linear.json) | 3 / 17 | 5 | 0.140 | 64.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |
+| [multipoint_evaluation_on_geometric_sequence](multipoint_evaluation_on_geometric_sequence.json) | 3 / 25 | 5 | 0.572 | 161.1 | 一致 |
 | [ordered_set](ordered_set.json) | 3 / 37 | 5 | 2.446 | 279.1 | 一致 |
 | [palindromes_in_deque](palindromes_in_deque.json) | 3 / 24 | 5 | 0.742 | 284.9 | 一致 |
 | [partition_function](partition_function.json) | 3 / 11 | 5 | 0.677 | 98.6 | 一致 |
@@ -64,11 +65,13 @@
 | [pfaffian_of_matrix](pfaffian_of_matrix.json) | 3 / 27 | 5 | 0.424 | 66.5 | 一致 |
 | [point_set_range_frequency](point_set_range_frequency.json) | 3 / 25 | 5 | 0.683 | 178.8 | 一致 |
 | [polynomial_composite_set_power_series](polynomial_composite_set_power_series.json) | 3 / 18 | 5 | 5.367 | 359.6 | 一致 |
+| [polynomial_interpolation_on_geometric_sequence](polynomial_interpolation_on_geometric_sequence.json) | 3 / 28 | 5 | 0.953 | 176.8 | 一致 |
 | [polynomial_root_finding](polynomial_root_finding.json) | 3 / 36 | 5 | 1.773 | 90.3 | 一致 |
 | [pow_of_formal_power_series_sparse](pow_of_formal_power_series_sparse.json) | 3 / 35 | 5 | 0.309 | 138.2 | 一致 |
 | [pow_of_matrix](pow_of_matrix.json) | 3 / 43 | 5 | 2.075 | 91.0 | 一致 |
 | [power_projection_of_set_power_series](power_projection_of_set_power_series.json) | 3 / 30 | 5 | 4.099 | 441.4 | 一致 |
 | [prefix_substring_lcs](prefix_substring_lcs.json) | 3 / 11 | 5 | 0.739 | 128.8 | 一致 |
+| [prefix_sum_of_polynomial](prefix_sum_of_polynomial.json) | 3 / 26 | 5 | 1.034 | 153.6 | 一致 |
 | [q_binomial_coefficient_prime_mod](q_binomial_coefficient_prime_mod.json) | 3 / 30 | 5 | 1.198 | 403.1 | 一致 |
 | [range_add_range_min](range_add_range_min.json) | 3 / 23 | 5 | 1.635 | 132.5 | 一致 |
 | [range_chmin_chmax_add_range_sum](range_chmin_chmax_add_range_sum.json) | 3 / 33 | 5 | 9.523 | 161.7 | 一致 |
@@ -77,6 +80,7 @@
 | [rational_approximation](rational_approximation.json) | 3 / 28 | 5 | 0.177 | 80.5 | 一致 |
 | [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
 | [runenumerate](runenumerate.json) | 3 / 24 | 5 | 2.749 | 284.1 | 一致 |
+| [shift_of_sampling_points_of_polynomial](shift_of_sampling_points_of_polynomial.json) | 3 / 32 | 5 | 0.647 | 157.6 | 一致 |
 | [sort_points_by_argument](sort_points_by_argument.json) | 3 / 21 | 5 | 1.240 | 108.3 | 一致 |
 | [sparse_matrix_det](sparse_matrix_det.json) | 3 / 24 | 5 | 2.523 | 93.1 | 一致 |
 | [sqrt_of_formal_power_series_sparse](sqrt_of_formal_power_series_sparse.json) | 3 / 45 | 5 | 0.277 | 142.3 | 一致 |

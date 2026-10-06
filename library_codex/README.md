@@ -20,7 +20,8 @@
 - 木・区間・群の差の追加時は、変更関連28件と通常検査161件・quick性能検査が通過（2026-10-05）。この回ではfull検査は再実行していない。
 - 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
 - 再帰監査: direct/mutual recursion なし（2026-10-05）
-- Library Checker公式ケース: 166問題・3869ケース通過、未対応87問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- Library Checker公式ケース: 170問題・3980ケース通過、未対応83問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 多項式の評価・補間・累積和4問題と、公比1の有限和の修正は[検査・比較結果](docs/POLYNOMIAL_SAMPLING_BENCHMARK.md)を参照。
 - 多項式5問題の追加と因数分解の修正は[検査・比較結果](docs/POLYNOMIAL_ALGORITHMS_BENCHMARK.md)を参照。
 - 任意法・q二項係数の2問題と高速化は[検査・比較結果](docs/BINOMIAL_BENCHMARK.md)を参照。
 - 整数・有理数5問題の追加は[検査とPyPy測定結果](docs/NUMBER_THEORY_BENCHMARK.md)を参照。

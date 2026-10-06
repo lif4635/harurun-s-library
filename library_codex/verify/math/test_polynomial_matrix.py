@@ -5,7 +5,6 @@ from library_codex.fps.FormalPowerSeries import (
     fps_add,
     fps_multiply,
 )
-from library_codex.polynomial.MultipointEvaluation import sample_point_shift
 from library_codex.linear_algebra.Matrix import (
     identity_matrix,
     matrix_multiply,
@@ -44,18 +43,6 @@ def brute_polynomial_determinant(matrix):
     return result or [0]
 
 
-def test_sample_point_shift_random_polynomials():
-    rng = random.Random(813749)
-    for degree in range(60):
-        for _ in range(100):
-            polynomial = [rng.randrange(MOD) for _ in range(degree + 1)]
-            samples = [evaluate(polynomial, point) for point in range(degree + 1)]
-            point = rng.randrange(-2 * MOD, 2 * MOD)
-            count = rng.randrange(80)
-            shifted = sample_point_shift(samples, point, count, MOD)
-            assert shifted == [
-                evaluate(polynomial, point + index) for index in range(count)
-            ]
 
 
 def test_polynomial_matrix_determinant_against_permutations():

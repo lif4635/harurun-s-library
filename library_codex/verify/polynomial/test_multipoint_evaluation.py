@@ -16,6 +16,7 @@ from library_codex.polynomial.MultipointEvaluation import (
     interpolate_consecutive,
     multipoint_evaluation,
     polynomial_interpolation,
+    sample_point_shift,
 )
 
 
@@ -109,6 +110,39 @@ def test_large_without_recursion():
     assert len(values) == size
     restored = tree.interpolate(values)
     assert restored == polynomial
+
+
+def test_sample_point_shift_random_polynomials():
+    rng = random.Random(813749)
+    for degree in range(60):
+        for _ in range(100):
+            polynomial = [rng.randrange(MOD) for _ in range(degree + 1)]
+            samples = [fps_evaluate(polynomial, point) for point in range(degree + 1)]
+            point = rng.randrange(-2 * MOD, 2 * MOD)
+            count = rng.randrange(80)
+            shifted = sample_point_shift(samples, point, count, MOD)
+            assert shifted == [
+                fps_evaluate(polynomial, point + index) for index in range(count)
+            ]
+
+
+def test_sampling_shift_wraparound_and_nonmutation():
+    rng = random.Random(2710)
+    for mod in (17, 101, MOD):
+        for size in range(1, min(mod + 1, 80)):
+            polynomial = [rng.randrange(mod) for _ in range(size)]
+            samples = [fps_evaluate(polynomial, i, mod) for i in range(size)]
+            saved = samples[:]
+            for point in (-2 * mod - 3, 0, size - 1, size, mod - 2, mod + 7):
+                count = 2 * min(mod, 100) + 5
+                expected = [fps_evaluate(polynomial, point + i, mod) for i in range(count)]
+                assert sample_point_shift(samples, point, count, mod) == expected
+                assert samples == saved
+    assert sample_point_shift([2], 10, 0) == []
+    with pytest.raises(ValueError):
+        sample_point_shift([], 0)
+    with pytest.raises(ValueError):
+        sample_point_shift([1], 0, -1)
 
 
 if __name__ == "__main__":

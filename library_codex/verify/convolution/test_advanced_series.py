@@ -1,14 +1,6 @@
 import random
 
 from library_codex.fps.CompositeExponential import composite_exponential
-from library_codex.polynomial.GeometricMultipointEvaluation import (
-    interpolate_geometric,
-    multipoint_evaluation_geometric,
-)
-from library_codex.polynomial.PolynomialExponentialSum import (
-    limit_sum_polynomial_exponential,
-    sum_polynomial_exponential,
-)
 from library_codex.polynomial.PrefixSumPolynomial import prefix_sum_polynomial
 from library_codex.polynomial.ProductGeometricSubstitutions import product_geometric_substitutions
 from library_codex.fps.SumOfRationals import sum_of_rationals
@@ -63,21 +55,8 @@ def test_prefix_sum_polynomial():
             assert fps_evaluate(result, point) == running
 
 
-def test_geometric_evaluation_interpolation_and_product():
+def test_product_geometric_substitutions():
     rng = random.Random(827)
-    for size in range(1, 90):
-        polynomial = [rng.randrange(MOD) for _ in range(size)]
-        initial = rng.randrange(1, MOD)
-        ratio = rng.randrange(2, 100000)
-        count = rng.randrange(size, size + 50)
-        values = multipoint_evaluation_geometric(polynomial, initial, ratio, count)
-        point = initial
-        for value in values:
-            assert value == fps_evaluate(polynomial, point)
-            point = point * ratio % MOD
-        samples = values[:size]
-        assert interpolate_geometric(samples, initial, ratio) == polynomial
-
     for _ in range(50):
         degree = rng.randrange(1, 70)
         polynomial = [1] + [rng.randrange(MOD) for _ in range(degree - 1)]
@@ -93,34 +72,3 @@ def test_geometric_evaluation_interpolation_and_product():
             power = power * ratio % MOD
         expected.extend([0] * (degree - len(expected)))
         assert actual == expected[:degree]
-
-
-def test_sum_of_polynomial_times_exponential():
-    rng = random.Random(909)
-    for degree in range(20):
-        coefficients = [rng.randrange(MOD) for _ in range(degree + 1)]
-        samples = [fps_evaluate(coefficients, point)
-                   for point in range(degree + 1)]
-        ratio = rng.randrange(2, 1000)
-        for count in list(range(30)) + [10 ** 12 + 39]:
-            actual = sum_polynomial_exponential(samples, ratio, count)
-            if count < 30:
-                expected = sum(pow(ratio, index, MOD)
-                               * fps_evaluate(coefficients, index)
-                               for index in range(count)) % MOD
-                assert actual == expected
-        limit = limit_sum_polynomial_exponential(samples, ratio)
-        differences = samples[:]
-        expected_limit = 0
-        ratio_power = 1
-        denominator_power = 1 - ratio
-        for order in range(degree + 1):
-            expected_limit += (differences[0] * ratio_power
-                               * pow(denominator_power, -1, MOD))
-            differences = [
-                (differences[index + 1] - differences[index]) % MOD
-                for index in range(len(differences) - 1)
-            ]
-            ratio_power = ratio_power * ratio % MOD
-            denominator_power = denominator_power * (1 - ratio) % MOD
-        assert limit == expected_limit % MOD

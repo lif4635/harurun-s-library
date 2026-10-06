@@ -8,8 +8,8 @@
 
 ## できること
 
-- `limit_sum_polynomial_exponential`: limit sum polynomial exponentialを計算する。
-- `sum_polynomial_exponential`: 和多項式指数を計算する。
+- `limit_sum_polynomial_exponential`: 多項式fに等比重みを付けた無限和を、有理関数として評価する。
+- `sum_polynomial_exponential`: 多項式fの連続した標本値から、公比ratioの重みを付けた有限和を求める。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.polynomial.PolynomialExponentialSum import limit_sum_polynomi
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`limit_sum_polynomial_exponential(values, ratio, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialExponentialSum.py#L19) | limit sum polynomial exponentialを計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`ratio`: 等比数列の公比<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | 数値または入力要素型 `answer % mod * pow(pow(1 - ratio, degree + 1, mod), -1, mod) %...` | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |
-| [`sum_polynomial_exponential(values, ratio, count, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialExponentialSum.py#L40) | 和多項式指数を計算する。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`ratio`: 等比数列の公比<br>`count`: 個数<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `0` / 数値または入力要素型 `values[0] % mod` / `interpolate_consecutive(prefixes, last, mod)` / 数値または入力要素型 `(pow(ratio, last, mod) * interpolate_consecutive(adjusted, las...` | O(M(N)) modular operations（M(L)は長さLの多項式乗算cost） |
+| [`limit_sum_polynomial_exponential(values, ratio, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialExponentialSum.py#L8) | 多項式fに等比重みを付けた無限和を、有理関数として評価する。 | `values`: f(0), f(1), ..., f(d)の列。次数d以下のfを指定する。空列は不可。<br>`ratio`: 重みの公比。mod上で1となる値は指定できない。<br>`mod`: 素数の法。len(values)より大きい必要がある。省略時: `DEFAULT_MOD` | int — sum(f(i)*z^i, i>=0)を有理関数に直し、z=ratioで評価したmod上の値。数値的な収束判定や有限回の打切り和ではない。ratio=0ならf(0)。 | O(N + log mod)。Nは標本数 |
+| [`sum_polynomial_exponential(values, ratio, count, mod=DEFAULT_MOD)`](../../../polynomial/PolynomialExponentialSum.py#L29) | 多項式fの連続した標本値から、公比ratioの重みを付けた有限和を求める。 | `values`: f(0), f(1), ..., f(d)の列。次数d以下のfを指定する。空列は不可。<br>`ratio`: 各項に掛ける重みの公比。0・1も指定できる。<br>`count`: 足す項数。0以下では0を返す。<br>`mod`: 素数の法。len(values)より大きい必要がある。省略時: `DEFAULT_MOD` | int — sum(ratio^i*f(i), 0<=i<count)をmodで割った余り。ratio=1なら通常の総和、ratio=0かつcount>0ならf(0)。 | O(N + log mod + log(max(1, count)))。Nは標本数 |

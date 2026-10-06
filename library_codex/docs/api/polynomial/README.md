@@ -14,7 +14,7 @@
 | [`PolynomialFactorization`](PolynomialFactorization.md) | 素数の法で多項式を既約因子へ分解し、重複度を保って返す | 3 | 1 | 0 |
 | [`PolynomialGCD`](PolynomialGCD.md) | 多項式のmonic化・gcd・拡張gcdを計算する。 | 3 | 0 | 0 |
 | [`PolynomialModularPower`](PolynomialModularPower.md) | 多項式を別の多項式で割った剰余環上の逆元と冪を計算する。 | 2 | 0 | 0 |
-| [`PolynomialPrefixSum`](PolynomialPrefixSum.md) | 多項式値列のprefix和を補間して求める。 | 1 | 0 | 0 |
+| [`PolynomialPrefixSum`](PolynomialPrefixSum.md) | 多項式fから、g(n)=sum(f(i), 0 <= i < n)の係数を求める。 | 1 | 0 | 0 |
 | [`PolynomialResultant`](PolynomialResultant.md) | 2つの多項式のresultantを計算する。 | 1 | 0 | 0 |
 | [`PolynomialRoots`](PolynomialRoots.md) | 有限体上で多項式の根を列挙する。 | 1 | 0 | 0 |
 | [`PowerEnumerate`](PowerEnumerate.md) | 多項式の冪に関する内積または係数をまとめて列挙する。 | 2 | 0 | 0 |

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 166,
-    "unimplemented": 87
+    "local_passed": 170,
+    "unimplemented": 83
   },
   "problems": [
     {
@@ -158,6 +158,7 @@
         "library_codex.number_theory.ModularArithmetic",
         "library_codex.fps.FormalPowerSeries",
         "library_codex.polynomial.PolynomialDivision",
+        "library_codex.convolution.MiddleProduct",
         "library_codex.polynomial.MultipointEvaluation",
         "library_codex.prime.Factorization",
         "library_codex.combinatorics.ArbitraryBinomial"
@@ -1663,10 +1664,16 @@
       "title": "Multipoint Evaluation (Geometric Sequence)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/multipoint_evaluation_on_geometric_sequence",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.convolution.MiddleProduct",
+        "library_codex.polynomial.GeometricMultipointEvaluation"
+      ],
+      "solution": "solutions/multipoint_evaluation_on_geometric_sequence.py",
+      "result": "results/multipoint_evaluation_on_geometric_sequence.json"
     },
     {
       "name": "multivariate_convolution",
@@ -1940,10 +1947,16 @@
       "title": "Polynomial Interpolation (Geometric Sequence)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/polynomial_interpolation_on_geometric_sequence",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.convolution.MiddleProduct",
+        "library_codex.polynomial.GeometricMultipointEvaluation"
+      ],
+      "solution": "solutions/polynomial_interpolation_on_geometric_sequence.py",
+      "result": "results/polynomial_interpolation_on_geometric_sequence.json"
     },
     {
       "name": "polynomial_root_finding",
@@ -2059,10 +2072,15 @@
       "title": "Prefix Sum of Polynomial",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/prefix_sum_of_polynomial",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.polynomial.PolynomialPrefixSum"
+      ],
+      "solution": "solutions/prefix_sum_of_polynomial.py",
+      "result": "results/prefix_sum_of_polynomial.json"
     },
     {
       "name": "primality_test",
@@ -2366,10 +2384,17 @@
       "title": "Shift of Sampling Points of Polynomial",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.polynomial.PolynomialDivision",
+        "library_codex.convolution.MiddleProduct",
+        "library_codex.polynomial.MultipointEvaluation"
+      ],
+      "solution": "solutions/shift_of_sampling_points_of_polynomial.py",
+      "result": "results/shift_of_sampling_points_of_polynomial.json"
     },
     {
       "name": "shortest_path",

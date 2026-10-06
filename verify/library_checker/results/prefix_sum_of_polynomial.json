@@ -1,0 +1,179 @@
+{
+  "problem": "prefix_sum_of_polynomial",
+  "status": "local_passed",
+  "verificationKey": "7367928dcf66bae9fc321ef38bff2ee5084f60a3220a4e0ebf6b5408a6c05b05",
+  "sourceSha256": "ccbb3ba884eac0d85a51cbdb3050a8ea8c1ad9b1e61639b6b3446d6e83db8d89",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.number_theory.ModularArithmetic",
+    "library_codex.fps.FormalPowerSeries",
+    "library_codex.polynomial.PolynomialPrefixSum"
+  ],
+  "problemVersion": "f331a43199770617a6f350cdef7062d220949f1571c4bd0e9515725de50f1406",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 26,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.07250203500734642,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.06734091101679951,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.0791806040215306,
+      "diagnostic": "ok 54 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.06987029494484887,
+      "diagnostic": "ok 71 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.07619462901493534,
+      "diagnostic": "ok 89 tokens\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.07488747301977128,
+      "diagnostic": "ok 66 tokens\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.06852850003633648,
+      "diagnostic": "ok 21 tokens\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.07431193598313257,
+      "diagnostic": "ok 94 tokens\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.06979783502174541,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.07059627800481394,
+      "diagnostic": "ok 92 tokens\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.06757732597179711,
+      "diagnostic": "ok 65 tokens\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.07313098799204454,
+      "diagnostic": "ok 98 tokens\n"
+    },
+    {
+      "name": "small_10",
+      "status": "AC",
+      "seconds": 0.07582763396203518,
+      "diagnostic": "ok 38 tokens\n"
+    },
+    {
+      "name": "small_11",
+      "status": "AC",
+      "seconds": 0.07865419000154361,
+      "diagnostic": "ok 97 tokens\n"
+    },
+    {
+      "name": "small_12",
+      "status": "AC",
+      "seconds": 0.08301396301249042,
+      "diagnostic": "ok 35 tokens\n"
+    },
+    {
+      "name": "small_13",
+      "status": "AC",
+      "seconds": 0.07186275499407202,
+      "diagnostic": "ok 100 tokens\n"
+    },
+    {
+      "name": "small_14",
+      "status": "AC",
+      "seconds": 0.06624767504399642,
+      "diagnostic": "ok 23 tokens\n"
+    },
+    {
+      "name": "small_15",
+      "status": "AC",
+      "seconds": 0.06663656199816614,
+      "diagnostic": "ok 13 tokens\n"
+    },
+    {
+      "name": "medium_00",
+      "status": "AC",
+      "seconds": 0.1215553639922291,
+      "diagnostic": "ok 10081 tokens\n"
+    },
+    {
+      "name": "medium_01",
+      "status": "AC",
+      "seconds": 0.11550175497541204,
+      "diagnostic": "ok 10098 tokens\n"
+    },
+    {
+      "name": "medium_02",
+      "status": "AC",
+      "seconds": 0.12454924295889214,
+      "diagnostic": "ok 9988 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.9767964460188523,
+      "diagnostic": "ok 389814 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.0285918330191635,
+      "diagnostic": "ok 463047 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.19429107598261908,
+      "diagnostic": "ok 53337 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.027245924982708,
+      "diagnostic": "ok 524289 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.031267920974642,
+      "diagnostic": "ok 524289 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-06T09:30:06.534368+00:00",
+  "onlineSubmission": null
+}

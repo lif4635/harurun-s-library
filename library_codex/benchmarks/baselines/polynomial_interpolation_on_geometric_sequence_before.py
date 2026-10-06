@@ -967,43 +967,6 @@ def poly_divmod(dividend, divisor, mod=DEFAULT_MOD):
 def poly_mod(dividend, divisor, mod=DEFAULT_MOD):
     """Return the remainder of polynomial division. O(N log N)."""
     return poly_divmod(dividend, divisor, mod)[1]
-'2列の相関に当たるmiddle productを高速に計算する。'
-_convolution_middle_product_DEFAULT_MOD = 998244353
-
-def middle_product(first, second, mod=_convolution_middle_product_DEFAULT_MOD):
-    """Return c[i] = sum(second[j] * first[i+j]) modulo mod.
-
-    The result has ``len(first) - len(second) + 1`` elements.  For
-    998244353, the NTT length is only the next power of two at least
-    ``len(first)``; coefficients outside the requested middle cannot wrap
-    into the returned range.
-    """
-    first = list(first)
-    second = list(second)
-    first_size = len(first)
-    second_size = len(second)
-    if second_size == 0:
-        raise ValueError('second must be nonempty')
-    if first_size < second_size:
-        raise ValueError('len(first) must be at least len(second)')
-    output_size = first_size - second_size + 1
-    if min(second_size, output_size) <= 60:
-        return [sum((second[j] * first[i + j] for j in range(second_size))) % mod for i in range(output_size)]
-    if mod != _convolution_middle_product_DEFAULT_MOD:
-        product = convolution(first, list(reversed(second)), mod)
-        return product[second_size - 1:first_size]
-    size = 1 << (first_size - 1).bit_length()
-    left = [value % mod for value in first]
-    left.extend([0] * (size - first_size))
-    right = [value % mod for value in reversed(second)]
-    right.extend([0] * (size - second_size))
-    ntt = get_ntt(mod)
-    ntt.butterfly(left)
-    ntt.butterfly(right)
-    for index in range(size):
-        left[index] = left[index] * right[index] % mod
-    ntt.butterfly_inv(left)
-    return left[second_size - 1:first_size]
 
 def _polynomial_multipoint_evaluation_batch_inverse(values, mod):
     size = len(values)
@@ -1186,17 +1149,19 @@ def _polynomial_multipoint_evaluation_sample_point_shift_segment(values, point, 
             inverse_factorial[index - 1] = inverse_factorial[index] * index % mod
     weighted = [0] * (degree + 1)
     for (index, value) in enumerate(values):
-        weighted[index] = value * inverse_factorial[index] % mod * inverse_factorial[degree - index] % mod
+        weighted[index] = value * inverse_factorial[index] * inverse_factorial[degree - index] % mod
         if degree - index & 1:
             weighted[index] = -weighted[index] % mod
-    reciprocals = _polynomial_multipoint_evaluation_batch_inverse(range(point - degree, point + count), mod)
-    product = middle_product(reciprocals, weighted[::-1], mod)
+    reciprocals = [0] * (count + degree)
+    for index in range(len(reciprocals)):
+        reciprocals[index] = pow(point - degree + index, -1, mod)
+    product = fps_multiply(weighted, reciprocals, mod)
     falling = point % mod
     for index in range(1, degree + 1):
         falling = falling * (point - index) % mod
     result = [0] * count
     for index in range(count):
-        result[index] = falling * product[index] % mod
+        result[index] = falling * product[degree + index] % mod
         falling = falling * (point + index + 1) % mod
         falling = falling * reciprocals[index] % mod
     return result
@@ -1240,317 +1205,56 @@ MultipointEvaluation = multipoint_evaluation
 PolynomialInterpolation = polynomial_interpolation
 Interpolate = interpolate_consecutive
 SamplePointShift = sample_point_shift
-from math import gcd as _prime_factorization_gcd
-_prime_factorization_SMALL_PRIMES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37)
-_prime_factorization_MILLER_RABIN_BASES = (2, 325, 9375, 28178, 450775, 9780504, 1795265022)
+'等比数列上の多点評価と補間を計算する。'
 
-def is_prime(number):
-    if number < 2:
-        return False
-    if number >= 1 << 64:
-        raise ValueError('deterministic primality is supported below 2^64')
-    for prime in _prime_factorization_SMALL_PRIMES:
-        if number % prime == 0:
-            return number == prime
-    odd = number - 1
-    exponent = 0
-    while odd & 1 == 0:
-        odd >>= 1
-        exponent += 1
-    for base in _prime_factorization_MILLER_RABIN_BASES:
-        base %= number
-        if base == 0:
-            continue
-        value = pow(base, odd, number)
-        if value == 1 or value == number - 1:
-            continue
-        for _ in range(exponent - 1):
-            value = value * value % number
-            if value == number - 1:
-                break
-        else:
-            return False
-    return True
-
-def pollard_rho(number):
-    if number < 2:
-        raise ValueError('number must be at least 2')
-    for prime in _prime_factorization_SMALL_PRIMES:
-        if number % prime == 0:
-            return prime
-    if is_prime(number):
-        return number
-    constant = 1
-    seed = 2
-    while True:
-        y = seed
-        power = 1
-        factor = 1
-        saved = y
-        x = y
-        while factor == 1:
-            x = y
-            for _ in range(power):
-                y = (y * y + constant) % number
-            offset = 0
-            product = 1
-            while offset < power and factor == 1:
-                saved = y
-                block = min(128, power - offset)
-                for _ in range(block):
-                    y = (y * y + constant) % number
-                    product = product * abs(x - y) % number
-                factor = _prime_factorization_gcd(product, number)
-                offset += block
-            power <<= 1
-        if factor == number:
-            factor = 1
-            while factor == 1:
-                saved = (saved * saved + constant) % number
-                factor = _prime_factorization_gcd(abs(x - saved), number)
-        if factor != number:
-            return factor
-        constant += 1
-        seed += 1
-        if constant == number:
-            constant = 1
-
-def prime_factors(number):
-    if number < 1:
-        raise ValueError('number must be positive')
-    if number == 1:
+def multipoint_evaluation_geometric(polynomial, initial, ratio, count, mod=DEFAULT_MOD):
+    """Evaluate f(initial*ratio**i), 0 <= i < count."""
+    if count < 0:
+        raise ValueError('count must be nonnegative')
+    if count == 0:
         return []
-    result = []
-    remaining = number
-    for prime in _prime_factorization_SMALL_PRIMES:
-        while remaining % prime == 0:
-            result.append(prime)
-            remaining //= prime
-    stack = [remaining] if remaining > 1 else []
-    while stack:
-        current = stack.pop()
-        if current == 1:
-            continue
-        if is_prime(current):
-            result.append(current)
-            continue
-        factor = pollard_rho(current)
-        stack.append(factor)
-        stack.append(current // factor)
-    result.sort()
-    return result
-
-def factor_count(number):
-    result = {}
-    for prime in prime_factors(number):
-        result[prime] = result.get(prime, 0) + 1
-    return result
-
-def divisors(number):
-    if number < 1:
-        raise ValueError('number must be positive')
-    result = [1]
-    for (prime, exponent) in factor_count(number).items():
-        initial_size = len(result)
+    size = len(polynomial)
+    if size == 0:
+        return [0] * count
+    initial %= mod
+    ratio %= mod
+    if ratio == 0:
+        first = 0
         power = 1
-        for _ in range(exponent):
-            power *= prime
-            for index in range(initial_size):
-                result.append(result[index] * power)
-    result.sort()
-    return result
+        for coefficient in polynomial:
+            first = (first + coefficient * power) % mod
+            power = power * initial % mod
+        return [first] + [polynomial[0] % mod] * (count - 1)
+    inverse_ratio = pow(ratio, -1, mod)
+    total = size + count - 1
+    triangular = [1] * total
+    inverse_triangular = [1] * total
+    ratio_power = 1
+    inverse_power = 1
+    for index in range(1, total):
+        triangular[index] = triangular[index - 1] * ratio_power % mod
+        inverse_triangular[index] = inverse_triangular[index - 1] * inverse_power % mod
+        ratio_power = ratio_power * ratio % mod
+        inverse_power = inverse_power * inverse_ratio % mod
+    weighted = [0] * size
+    initial_power = 1
+    for (index, coefficient) in enumerate(polynomial):
+        weighted[index] = coefficient * inverse_triangular[index] % mod * initial_power % mod
+        initial_power = initial_power * initial % mod
+    weighted.reverse()
+    product = fps_multiply(weighted, triangular, mod)
+    return [product[size - 1 + index] * inverse_triangular[index] % mod for index in range(count)]
 
-def euler_phi(number):
-    if number < 1:
-        raise ValueError('number must be positive')
-    result = number
-    for prime in factor_count(number):
-        result -= result // prime
-    return result
-
-def mobius(number):
-    factors = factor_count(number)
-    for exponent in factors.values():
-        if exponent > 1:
-            return 0
-    return -1 if len(factors) & 1 else 1
-
-def factor_count_pairs(number):
-    return list(factor_count(number).items())
-miller_rabin = is_prime
-factorize = prime_factors
-Pollard = prime_factors
-Pollard2 = factor_count_pairs
-EnumDivisors = divisors
-'合成数の法や、大きい素数の法で二項係数を求める。'
-from math import isqrt as _combinatorics_arbitrary_binomial_isqrt
-
-class LargePrimeFactorial:
-    """Factorials modulo a large prime via sqrt decomposition and multipoint eval."""
-    __slots__ = ('mod', 'cache')
-
-    def __init__(self, mod):
-        if not is_prime(mod):
-            raise ValueError('mod must be prime')
-        self.mod = mod
-        self.cache = {0: 1, 1: 1}
-
-    def factorial(self, n):
-        mod = self.mod
-        if not 0 <= n < mod:
-            return 0 if n >= mod else 0
-        cached = self.cache.get(n)
-        if cached is not None:
-            return cached
-        if mod - 1 - n < _combinatorics_arbitrary_binomial_isqrt(n):
-            product = 1
-            for value in range(n + 1, mod):
-                product = product * value % mod
-            result = -pow(product, -1, mod) % mod
-            self.cache[n] = result
-            return result
-        block = max(1, _combinatorics_arbitrary_binomial_isqrt(n))
-        (quotient, remainder) = divmod(n, block)
-        roots = [-value % mod for value in range(1, block + 1)]
-        polynomial = ProductTree(roots, mod).polynomial
-        points = [index * block % mod for index in range(quotient)]
-        values = ProductTree(points, mod).evaluate(polynomial)
-        result = 1
-        for value in values:
-            result = result * value % mod
-        for value in range(quotient * block + 1, n + 1):
-            result = result * value % mod
-        self.cache[n] = result
-        return result
-
-    def C(self, n, k):
-        if k < 0 or n < k:
-            return 0
-        mod = self.mod
-        result = 1
-        while n:
-            (n, nd) = divmod(n, mod)
-            (k, kd) = divmod(k, mod)
-            if nd < kd:
-                return 0
-            denominator = self.factorial(kd) * self.factorial(nd - kd) % mod
-            result = result * self.factorial(nd) % mod * pow(denominator, -1, mod) % mod
-        return result
-
-class PrimePowerBinomial:
-    """素数冪を法とする二項係数を、素因子を除いた階乗表で求める。"""
-    __slots__ = ('prime', 'exponent', 'mod', 'delta', 'prefix', 'inverse_prefix', 'powers')
-
-    def __init__(self, prime, exponent):
-        """prime**exponentを法とする表を用意する。階乗表は初回のCで拡張する。"""
-        if prime < 2 or exponent < 1:
-            raise ValueError('requires prime >= 2 and exponent >= 1')
-        self.prime = prime
-        self.exponent = exponent
-        self.mod = prime ** exponent
-        self.delta = 1 if prime == 2 and exponent >= 3 else self.mod - 1
-        self.prefix = [1]
-        self.inverse_prefix = [1]
-        self.powers = [prime ** i for i in range(exponent)]
-
-    def _ensure(self, size):
-        prefix = self.prefix
-        old = len(prefix)
-        if size < old:
-            return
-        mod = self.mod
-        size = min(mod - 1, max(size * 2, old * 2 - 1))
-        prime = self.prime
-        value = prefix[-1]
-        for index in range(old, size + 1):
-            if index % prime:
-                value = value * index % mod
-            prefix.append(value)
-        inverse = self.inverse_prefix
-        inverse.extend([1] * (size + 1 - old))
-        value = pow(value, -1, mod)
-        for index in range(size, old - 1, -1):
-            inverse[index] = value
-            if index % prime:
-                value = value * index % mod
-
-    def C(self, n, k):
-        """C(n,k)を法で割った余り。表の拡張を除きO(log_prime(n+1))時間。"""
-        if n < 0 or k < 0 or n < k:
-            return 0
-        if k == 0 or k == n:
-            return 1
-        mod = self.mod
-        prime = self.prime
-        limit = self.exponent
-        if len(self.prefix) <= min(n, mod - 1):
-            (a, b, c) = (n, k, n - k)
-            required = valuation = 0
-            while a:
-                required = max(required, a % mod, b % mod, c % mod)
-                a //= prime
-                b //= prime
-                c //= prime
-                valuation += a - b - c
-                if valuation >= limit:
-                    return 0
-            self._ensure(required)
-        (prefix, inverse) = (self.prefix, self.inverse_prefix)
-        exponent = high = depth = 0
-        result = 1
-        remaining = n - k
-        while n:
-            result = result * prefix[n % mod] % mod
-            result = result * inverse[k % mod] % mod
-            result = result * inverse[remaining % mod] % mod
-            n //= prime
-            k //= prime
-            remaining //= prime
-            carry = n - k - remaining
-            exponent += carry
-            if exponent >= limit:
-                return 0
-            depth += 1
-            if depth >= limit:
-                high += carry
-        if high & 1:
-            result = result * self.delta % mod
-        return result * self.powers[exponent] % mod
-
-class ArbitraryModBinomial:
-    """法を素数冪へ分解し、各二項係数を前計算したCRT係数で合成する。"""
-    __slots__ = ('mod', 'components', 'moduli', 'coefficients')
-
-    def __init__(self, mod):
-        """固定した正の法で、繰り返しC(n,k)を計算できる状態を作る。"""
-        if mod < 1:
-            raise ValueError('mod must be positive')
-        self.mod = mod
-        self.components = []
-        self.moduli = []
-        self.coefficients = []
-        for (prime, exponent) in factor_count(mod).items():
-            modulus = prime ** exponent
-            if exponent == 1 and prime > 2000000:
-                component = LargePrimeFactorial(prime)
-            else:
-                component = PrimePowerBinomial(prime, exponent)
-            self.components.append(component)
-            self.moduli.append(modulus)
-            quotient = mod // modulus
-            self.coefficients.append(quotient * pow(quotient, -1, modulus) % mod)
-
-    def C(self, n, k):
-        """C(n,k)をmodで割った余り。n<0またはkが範囲外なら0。"""
-        if self.mod == 1 or n < 0 or k < 0 or (k > n):
-            return 0
-        answer = 0
-        for (component, coefficient) in zip(self.components, self.coefficients):
-            answer += component.C(n, k) * coefficient
-        return answer % self.mod
+def interpolate_geometric(values, initial, ratio, mod=DEFAULT_MOD):
+    """Interpolate f from f(initial*ratio**i); points must be distinct."""
+    points = [0] * len(values)
+    power = initial % mod
+    ratio %= mod
+    for index in range(len(values)):
+        points[index] = power
+        power = power * ratio % mod
+    return ProductTree(points, mod).interpolate(values)
 import sys
 read = sys.stdin.buffer.readline
-(count, mod) = map(int, read().split())
-table = ArbitraryModBinomial(mod)
-result = [str(table.C(*map(int, read().split()))) for _ in range(count)]
-sys.stdout.write('\n'.join(result))
+(n, a, r) = map(int, read().split())
+print(*interpolate_geometric(list(map(int, read().split())), a, r))
