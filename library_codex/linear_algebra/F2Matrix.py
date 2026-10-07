@@ -114,6 +114,51 @@ class F2Matrix:
         rank = 0
         pivots = []
         rows = self.rows
+        if self.height >= 128 and pivot_end >= 64:
+            for start in range(0, pivot_end, 8):
+                if rank == self.height:
+                    break
+                first = rank
+                columns = []
+                for column in range(start, min(start + 8, pivot_end)):
+                    bit = 1 << column
+                    pivot = rank
+                    while pivot < self.height:
+                        value = rows[pivot]
+                        for offset, earlier in enumerate(columns):
+                            if value >> earlier & 1:
+                                value ^= rows[first + offset]
+                        rows[pivot] = value
+                        if value & bit:
+                            break
+                        pivot += 1
+                    if pivot == self.height:
+                        continue
+                    rows[rank], rows[pivot] = rows[pivot], rows[rank]
+                    columns.append(column)
+                    rank += 1
+                    if rank == self.height:
+                        break
+                if not columns:
+                    continue
+                block = [0] * 8
+                for offset in range(len(columns) - 1, -1, -1):
+                    column = columns[offset]
+                    bit = 1 << column
+                    value = rows[first + offset]
+                    for earlier in range(first, first + offset):
+                        if rows[earlier] & bit:
+                            rows[earlier] ^= value
+                    block[column - start] = value
+                table = [0]
+                for value in block:
+                    table += [previous ^ value for previous in table]
+                for row in range(first):
+                    rows[row] ^= table[(rows[row] >> start) & 255]
+                for row in range(rank, self.height):
+                    rows[row] ^= table[(rows[row] >> start) & 255]
+                pivots.extend(columns)
+            return rank, pivots
         for column in range(pivot_end):
             bit = 1 << column
             pivot = rank
@@ -215,6 +260,41 @@ class F2Matrix:
         return F2Matrix(
             size, size, [(row >> size) & mask for row in combined.rows]
         )
+
+    def solve(self, vector):
+        """Return (particular, kernel) as packed integers, or None."""
+        height = self.height
+        width = self.width
+        if isinstance(vector, int):
+            if vector < 0 or vector.bit_length() > height:
+                raise ValueError("invalid right-hand side")
+            packed = vector.to_bytes((height + 7) >> 3, "little")
+            rhs = [(packed[row >> 3] >> (row & 7)) & 1 for row in range(height)]
+        else:
+            if len(vector) != height:
+                raise ValueError("invalid vector size")
+            rhs = [value & 1 for value in vector]
+        combined = F2Matrix(
+            height, width + 1,
+            [value | rhs[row] << width for row, value in enumerate(self.rows)],
+        )
+        rank, pivots = combined.sweep(width)
+        rows = combined.rows
+        if any(row >> width for row in rows[rank:]):
+            return None
+        particular = 0
+        for row, column in enumerate(pivots):
+            particular |= (rows[row] >> width) << column
+        pivot_set = set(pivots)
+        kernel = []
+        for free in range(width):
+            if free in pivot_set:
+                continue
+            value = 1 << free
+            for row, column in enumerate(pivots):
+                value |= ((rows[row] >> free) & 1) << column
+            kernel.append(value)
+        return particular, kernel
 
     def matvec(self, vector):
         if isinstance(vector, int):

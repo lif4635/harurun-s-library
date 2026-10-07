@@ -154,7 +154,6 @@ linear_algebra/Matrix
 linear_algebra/PolynomialMatrix
 linear_algebra/Semiring
 linear_algebra/Strassen
-linear_algebra/XorBasis
 number_theory/ChineseRemainder
 number_theory/DigitFrequency
 number_theory/DiscreteLog
@@ -269,7 +268,6 @@ spatial_structure/PointUpdateRangeTree2D
 spatial_structure/RectangleAddRectangleSum
 spatial_structure/SegmentTree2D
 spatial_structure/StaticRectangleSum
-spatial_structure/UnionRectangle
 string/AhoCorasick
 string/CompressedTrie
 string/DynamicRollingHash

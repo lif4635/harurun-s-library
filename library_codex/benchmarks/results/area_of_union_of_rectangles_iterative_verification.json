@@ -1,0 +1,139 @@
+{
+  "problem": "area_of_union_of_rectangles",
+  "status": "failed",
+  "verificationKey": "704ef07356cdd81fcf56e39e8a8976a85bf48d5fc6d1ebb9f6de3d9e58dcf5d7",
+  "sourceSha256": "822fd5f9c1bd5844d03a640aa6c92bee8922801a5b54e113cd94e9591df897fe",
+  "modules": [
+    "library_codex.spatial_structure.UnionRectangle"
+  ],
+  "problemVersion": "eb971960278783604ee2a48bcbbda6e10ce96e7389247961b21dc49a7e2abb59",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 21,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05540061596548185,
+      "diagnostic": "ok \"7\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 4.482265266997274,
+      "diagnostic": "ok \"999968462827318866\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "TLE",
+      "seconds": 5.03303638700163
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.39815969695337117,
+      "diagnostic": "ok \"999736288070881612\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 4.93967503902968,
+      "diagnostic": "ok \"999973370478693171\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 2.613612840010319,
+      "diagnostic": "ok \"999957302767930760\"\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "TLE",
+      "seconds": 5.039396871055942
+    },
+    {
+      "name": "max_random_01",
+      "status": "TLE",
+      "seconds": 5.037454325996805
+    },
+    {
+      "name": "max_random_02",
+      "status": "TLE",
+      "seconds": 5.035370255005546
+    },
+    {
+      "name": "max_random_03",
+      "status": "TLE",
+      "seconds": 5.103047151991632
+    },
+    {
+      "name": "max_random_04",
+      "status": "TLE",
+      "seconds": 5.039438484993298
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.08058964100200683,
+      "diagnostic": "ok \"988176294090956697\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.06601016799686477,
+      "diagnostic": "ok \"961769473726731310\"\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.056107425945810974,
+      "diagnostic": "ok \"897747382648029890\"\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.08425717399222776,
+      "diagnostic": "ok \"992136089624332131\"\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.07681890402454883,
+      "diagnostic": "ok \"977810955851160713\"\n"
+    },
+    {
+      "name": "edge_bound_00",
+      "status": "AC",
+      "seconds": 4.753777637029998,
+      "diagnostic": "ok \"550093566288820292\"\n"
+    },
+    {
+      "name": "edge_bound_01",
+      "status": "AC",
+      "seconds": 4.747668945987243,
+      "diagnostic": "ok \"548950299809450774\"\n"
+    },
+    {
+      "name": "edge_bound_02",
+      "status": "AC",
+      "seconds": 4.670113313011825,
+      "diagnostic": "ok \"548243757578764917\"\n"
+    },
+    {
+      "name": "edge_bound_03",
+      "status": "AC",
+      "seconds": 4.847337010025512,
+      "diagnostic": "ok \"550073600031361957\"\n"
+    },
+    {
+      "name": "edge_bound_04",
+      "status": "TLE",
+      "seconds": 5.0294881199952215
+    }
+  ],
+  "verifiedAt": "2026-10-07T02:56:27.179609+00:00",
+  "onlineSubmission": null
+}

@@ -4,11 +4,13 @@
 整数集合のxor線形基底を構築し、表現可能性や最大値を求める。
 
 - source: [`linear_algebra/XorBasis.py`](../../../linear_algebra/XorBasis.py)
-- 公開API: function 0、class 1、method/property 8（Python protocol 1を含む）
+- 公開API: function 0、class 1、method/property 12（Python protocol 3を含む）
 
 ## できること
 
-- `XorBasis`: 整数集合のxor線形基底を構築し、表現可能性や最大値を求めるを扱う `XorBasis`。
+- 整数をいくつか選んでXORしたとき、指定値を作れるかを判定する。
+- 作れる値の最小・最大・k番目・昇順位置を、全列挙せずに求める。
+- 2つの集合の両方でXORによって作れる値を、新しい基底で表す。
 
 ## Import
 
@@ -18,20 +20,25 @@ from library_codex.linear_algebra.XorBasis import XorBasis
 
 ## Class `XorBasis`
 
-整数集合のxor線形基底を構築し、表現可能性や最大値を求めるを扱う `XorBasis`。
+登録した非負整数の部分集合XORで作れる値を、独立な基底で保持する。
 
 - constructor: [`XorBasis(values=())`](../../../linear_algebra/XorBasis.py#L8)
-- 引数: `values`: 初期値のiterable。整数ならsizeを表す場合がある。省略時: `()`
+- 引数: `values`: 非負整数のiterable。空・0・重複も可。入力の値そのものではなく、その部分集合XORで作れる集合を管理する。省略時: `()`
 - 返り値: `XorBasis` instance
-- 計算量: —
+- 計算量: O(N*D*(1+ceil(B/w)))。Nは入力数、Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数
+- 作成後: containsで表現可能性、minimum・maximumで極値、kth_smallest・rankで昇順の値と位置を取得できる。intersectionは2つの空間の共通部分を返す。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`insert(value)`](../../../linear_algebra/XorBasis.py#L13) | method | 指定位置へ要素を挿入する。 | `value`: 追加・設定・問い合わせる値 | bool | O(B)（Bは管理値のbit幅） |
-| [`__len__()`](../../../linear_algebra/XorBasis.py#L29) | method | len(obj)。 | なし | 要素数（int） | — |
-| [`contains(value)`](../../../linear_algebra/XorBasis.py#L32) | method | 指定値を保持しているか判定する。 | `value`: 追加・設定・問い合わせる値 | bool | O(B)（Bは管理値のbit幅） |
-| [`kth_smallest(index)`](../../../linear_algebra/XorBasis.py#L40) | method | k番目最小を求める。 | `index`: 位置 | `-1` / 計算結果（int） | O(B^2) |
-| [`maximum(xor=0)`](../../../linear_algebra/XorBasis.py#L49) | method | 最大を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 | O(B)（Bは管理値のbit幅） |
-| [`minimum(xor=0)`](../../../linear_algebra/XorBasis.py#L56) | method | 最小を求める。 | `xor`: 全要素へ作用させるXOR値。省略時: `0` | 計算結果 | O(B)（Bは管理値のbit幅） |
-| [`xor_kth(xor, index)`](../../../linear_algebra/XorBasis.py#L63) | method | XORk番目を求める。 | `xor`: 全要素へ作用させるXOR値<br>`index`: 位置 | `-1` / 数値または入力要素型 `self.minimum(xor) ^ self.kth_smallest(index)` | O(B^2) |
-| [`rank(value)`](../../../linear_algebra/XorBasis.py#L68) | method | 指定範囲内の出現数または線形代数上のrankを返す。 | `value`: 追加・設定・問い合わせる値 | rank・出現数（int） | O(1)（Bは管理値のbit幅） |
+| [`insert(value)`](../../../linear_algebra/XorBasis.py#L27) | method | valueを選べる値として追加し、作れる値の集合を広げる。 | `value`: 非負整数。 | bool — valueが既存の基底で作れなければTrue。作れる値や0ならFalseで、基底数は増えない。 | O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`__len__()`](../../../linear_algebra/XorBasis.py#L43) | method | 独立な基底の本数を返す。 | なし | int — 空間の次元D。作れる値の個数は2^Dで、0を含む。 | O(1) |
+| [`contains(value)`](../../../linear_algebra/XorBasis.py#L46) | method | valueが登録値の部分集合XORで作れるかを判定する。 | `value`: 非負整数。 | bool — 作れればTrue。登録した値そのものに限らない。0は常にTrue。 | O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`kth_smallest(index)`](../../../linear_algebra/XorBasis.py#L54) | method | 作れる値を昇順に並べたときのindex番目を返す。 | `index`: 位置 | int — 範囲内なら対応する非負整数。indexが0以上2^D未満でなければ-1。 | O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`maximum(xor=0)`](../../../linear_algebra/XorBasis.py#L63) | method | 作れる各値にxorを掛けた集合の最大値を返す。 | `xor`: 作れる各値に掛ける非負整数のXOR値。省略時: `0` | int — max(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。 | O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`minimum(xor=0)`](../../../linear_algebra/XorBasis.py#L70) | method | 作れる各値にxorを掛けた集合の最小値を返す。 | `xor`: 作れる各値に掛ける非負整数のXOR値。省略時: `0` | int — min(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。 | O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`xor_kth(xor, index)`](../../../linear_algebra/XorBasis.py#L77) | method | 作れる各値にxorを掛け、昇順に並べたときのindex番目を返す。 | `xor`: 作れる各値に掛ける非負整数のXOR値。<br>`index`: 位置 | int — 変換後の集合でindex番目の非負整数。範囲外なら-1。 | O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`rank(value)`](../../../linear_algebra/XorBasis.py#L82) | method | valueが作れる値の昇順で何番目かを返す。 | `value`: 非負整数。 | int — 作れれば0以上2^D未満の位置、作れなければ-1。空間の次元ではない。 | O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`intersection(other)`](../../../linear_algebra/XorBasis.py#L93) | method | 両方の基底で作れる値の共通部分を求める。入力は変更しない。 | `other`: 共通部分を求める相手のXorBasis。 | XorBasis — 共通部分を表す独立したXorBasis。contains・kth_smallestなどをそのまま使える。0しか共通しなければlen(result)=0。 | O((D1+D2)^2*(1+ceil(B/w)))。D1,D2は各基底数、Bは整数のbit幅、wは整数の1桁のbit数 |
+| [`tolist()`](../../../linear_algebra/XorBasis.py#L117) | method | 昇順の簡約基底をコピーして返す。 | なし | list[int] — 長さDの独立な非負整数列。全組合せで作れる値の列ではない。変更しても元の基底は変わらない。 | O(D)。Dは基底数 |
+| [`__str__()`](../../../linear_algebra/XorBasis.py#L120) | method | 昇順の基底をlistの形で表示する。 | なし | str — tolist()と同じ基底を文字列化する。 | O(D)と基底の整数文字列化 |
+| [`__repr__()`](../../../linear_algebra/XorBasis.py#L123) | method | 型名と昇順の基底を表示する。 | なし | str — XorBasis([...])の形。表示後も状態は変わらない。 | O(D)と基底の整数文字列化 |

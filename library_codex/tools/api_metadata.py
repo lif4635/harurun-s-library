@@ -6272,13 +6272,14 @@ COMPLEXITY_BY_MODULE["segment_tree/DualSegTree.py"] = {
 }
 
 CLASS_DETAILS_BY_SYMBOL[("linear_algebra/F2Matrix.py", "F2Matrix")] = {
-    "description": "0・1成分の行列を、1行につき1個の整数で保持する。積・階数・行列式・逆行列を求められる。",
+    "description": "0・1成分の行列を、1行につき1個の整数で保持する。積・階数・行列式・逆行列・連立方程式の解を求められる。",
     "constructorCreates": "height行width列の行列。rows[i]の第jビットが(i,j)成分になる。rows省略時は零行列で、width省略時は正方行列。",
     "argumentDescriptions": {"rows": "各行をビット列として格納した長さheightの整数列。width以上のビットは捨てる。入力は変更しない。"},
 }
 MODULE_CAPABILITIES["linear_algebra/F2Matrix.py"] = (
     "0・1成分の行列積、階数、行列式、逆行列をビット演算で求める。",
     "密な行列積は8列ずつまとめ、疎な行列積は1の立つ位置だけを処理する。",
+    "連立方程式の解を一つと、XORで加えられる零空間の基底をビット列で返す。",
 )
 for _method, _description, _format, _returned in (
     ("from_lists", "0・1成分の2次元listから行列を作る。各値の下位1ビットを使う。", "F2Matrix", "入力と同じ行・列順の新しい行列。入力は変更しない。"),
@@ -6825,4 +6826,91 @@ COMPLEXITY_BY_MODULE["polynomial/MultipointEvaluation.py"] = {
     "polynomial": "O(N)。Nは評価点数",
     "evaluate": "O(M(L) + M(N) log(N+1) + N*direct_threshold)。Nは評価点数、Lは係数数、M(k)は多項式積の時間",
     "interpolate": "O(M(N) log(N+1) + log mod)。Nは標本数、M(N)は多項式積の時間",
+}
+
+API_DETAILS_BY_SYMBOL[("linear_algebra/F2Matrix.py", "F2Matrix", "solve")] = {
+    "description": "mod 2の連立方程式Ax=bの全解を、特解と零空間の基底で表す。元の行列は変更しない。",
+    "argumentDescriptions": {"vector": "右辺b。長さheightの整数列（各値の下位1ビットを使う）、または第iビットが第i成分の非負整数。整数のheight以上のビットは0であること。"},
+    "returnFormat": "tuple[int, list[int]] | None",
+    "returnDescription": "解がなければNone。存在すれば(particular, kernel)。ベクトルは整数の第jビットが第j成分を表す。kernelが空なら解は一意。",
+    "returnParts": [
+        {"name": "particular", "format": "int", "description": "Ax=bを満たす解の一つ。自由変数をすべて0としたビット列。"},
+        {"name": "kernel", "format": "list[int]", "description": "Ax=0の基底。長さはwidth-rank、自由変数の列番号順。任意の要素を選んでXORしparticularへ加えると、ちょうど全解を得られる。"},
+    ],
+}
+COMPLEXITY_BY_MODULE["linear_algebra/F2Matrix.py"]["solve"] = "O((H+W)*W*(1+ceil((W+1)/w)))。H行W列、wは整数の1桁のビット数。追加メモリO((H+W)*(1+ceil((W+1)/w)))。返す基底を含む"
+
+CLASS_DETAILS_BY_SYMBOL[("linear_algebra/XorBasis.py", "XorBasis")] = {
+    "description": "登録した非負整数の部分集合XORで作れる値を、独立な基底で保持する。",
+    "constructorCreates": "containsで表現可能性、minimum・maximumで極値、kth_smallest・rankで昇順の値と位置を取得できる。intersectionは2つの空間の共通部分を返す。",
+    "argumentDescriptions": {"values": "非負整数のiterable。空・0・重複も可。入力の値そのものではなく、その部分集合XORで作れる集合を管理する。"},
+}
+MODULE_CAPABILITIES["linear_algebra/XorBasis.py"] = (
+    "整数をいくつか選んでXORしたとき、指定値を作れるかを判定する。",
+    "作れる値の最小・最大・k番目・昇順位置を、全列挙せずに求める。",
+    "2つの集合の両方でXORによって作れる値を、新しい基底で表す。",
+)
+for _method, _description, _format, _returns in (
+    ("insert", "valueを選べる値として追加し、作れる値の集合を広げる。", "bool", "valueが既存の基底で作れなければTrue。作れる値や0ならFalseで、基底数は増えない。"),
+    ("__len__", "独立な基底の本数を返す。", "int", "空間の次元D。作れる値の個数は2^Dで、0を含む。"),
+    ("contains", "valueが登録値の部分集合XORで作れるかを判定する。", "bool", "作れればTrue。登録した値そのものに限らない。0は常にTrue。"),
+    ("kth_smallest", "作れる値を昇順に並べたときのindex番目を返す。", "int", "範囲内なら対応する非負整数。indexが0以上2^D未満でなければ-1。"),
+    ("minimum", "作れる各値にxorを掛けた集合の最小値を返す。", "int", "min(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。"),
+    ("maximum", "作れる各値にxorを掛けた集合の最大値を返す。", "int", "max(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。"),
+    ("xor_kth", "作れる各値にxorを掛け、昇順に並べたときのindex番目を返す。", "int", "変換後の集合でindex番目の非負整数。範囲外なら-1。"),
+    ("rank", "valueが作れる値の昇順で何番目かを返す。", "int", "作れれば0以上2^D未満の位置、作れなければ-1。空間の次元ではない。"),
+    ("intersection", "両方の基底で作れる値の共通部分を求める。入力は変更しない。", "XorBasis", "共通部分を表す独立したXorBasis。contains・kth_smallestなどをそのまま使える。0しか共通しなければlen(result)=0。"),
+    ("tolist", "昇順の簡約基底をコピーして返す。", "list[int]", "長さDの独立な非負整数列。全組合せで作れる値の列ではない。変更しても元の基底は変わらない。"),
+    ("__str__", "昇順の基底をlistの形で表示する。", "str", "tolist()と同じ基底を文字列化する。"),
+    ("__repr__", "型名と昇順の基底を表示する。", "str", "XorBasis([...])の形。表示後も状態は変わらない。"),
+):
+    API_DETAILS_BY_SYMBOL[("linear_algebra/XorBasis.py", "XorBasis", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+    }
+for _method in ("insert", "contains", "rank"):
+    API_DETAILS_BY_SYMBOL[("linear_algebra/XorBasis.py", "XorBasis", _method)]["argumentDescriptions"] = {"value": "非負整数。"}
+for _method in ("minimum", "maximum", "xor_kth"):
+    API_DETAILS_BY_SYMBOL[("linear_algebra/XorBasis.py", "XorBasis", _method)]["argumentDescriptions"] = {"xor": "作れる各値に掛ける非負整数のXOR値。"}
+API_DETAILS_BY_SYMBOL[("linear_algebra/XorBasis.py", "XorBasis", "intersection")]["argumentDescriptions"] = {"other": "共通部分を求める相手のXorBasis。"}
+COMPLEXITY_BY_MODULE["linear_algebra/XorBasis.py"] = {
+    "XorBasis": "O(N*D*(1+ceil(B/w)))。Nは入力数、Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+    **{name: "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数"
+       for name in ("insert", "contains", "kth_smallest", "minimum", "maximum", "xor_kth", "rank")},
+    "intersection": "O((D1+D2)^2*(1+ceil(B/w)))。D1,D2は各基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+    "__len__": "O(1)", "tolist": "O(D)。Dは基底数",
+    "__str__": "O(D)と基底の整数文字列化", "__repr__": "O(D)と基底の整数文字列化",
+}
+CLASS_DETAILS_BY_SYMBOL[("spatial_structure/UnionRectangle.py", "UnionRectangle")] = {
+    "description": "軸平行な長方形を追加してから、重複を除いた面積を求める。",
+    "constructorCreates": "空の長方形列。add(left, right, bottom, top)で追加し、run()で現在の和集合面積を計算できる。runのたびに計算し直す。",
+}
+MODULE_CAPABILITIES["spatial_structure/UnionRectangle.py"] = (
+    "軸に平行な長方形の和集合面積を求める。重なった部分は一度だけ数える。",
+    "関数へ長方形の列を直接渡すか、UnionRectangleへ順番に追加してから計算する。",
+)
+API_DETAILS_BY_SYMBOL[("spatial_structure/UnionRectangle.py", None, "union_rectangle_area")] = {
+    "description": "長方形の和集合面積を求める。入力は変更しない。",
+    "argumentDescriptions": {"rectangles": "(left, right, bottom, top)のiterable。各領域は半開長方形[left,right)×[bottom,top)。幅または高さが0以下なら無視する。"},
+    "returnFormat": "int", "returnDescription": "どれか一つ以上の長方形に含まれる面積。整数座標なら厳密な整数。空入力なら0。",
+}
+API_DETAILS_BY_SYMBOL[("spatial_structure/UnionRectangle.py", "UnionRectangle", "add")] = {
+    "description": "半開長方形[left,right)×[bottom,top)を末尾へ登録する。",
+    "argumentDescriptions": {"left": "x座標の下端。", "right": "x座標の上端（含まない）。", "bottom": "y座標の下端。", "top": "y座標の上端（含まない）。"},
+    "returnFormat": "None", "returnDescription": "値は返さない。次のrun()の面積計算に含める。幅または高さが0以下の長方形はrun()で無視する。",
+}
+for _method, _description, _format, _returns in (
+    ("run", "現在までに登録した長方形の和集合面積を求める。", "int", "重なりを一度だけ数えた面積。登録内容は保持され、再実行できる。"),
+    ("tolist", "登録した長方形を入力順にコピーして返す。", "list[tuple[int, int, int, int]]", "各要素は(left, right, bottom, top)。半開長方形[left,right)×[bottom,top)を表す。変更しても登録内容は変わらない。"),
+    ("__str__", "登録した長方形をlistの形で表示する。", "str", "tolist()と同じ順序・内容の文字列。"),
+    ("__repr__", "型名と登録した長方形を表示する。", "str", "UnionRectangle([...])の形。"),
+):
+    API_DETAILS_BY_SYMBOL[("spatial_structure/UnionRectangle.py", "UnionRectangle", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+    }
+COMPLEXITY_BY_MODULE["spatial_structure/UnionRectangle.py"] = {
+    "union_rectangle_area": "O(N log(N+1))時間、O(N)メモリ。Nは入力長方形数",
+    "UnionRectangle": "O(1)", "add": "償却O(1)",
+    "run": "O(N log(N+1))時間、O(N)追加メモリ。Nは登録長方形数",
+    "tolist": "O(N)。Nは登録長方形数",
+    "__str__": "O(N)と座標の文字列化", "__repr__": "O(N)と座標の文字列化",
 }

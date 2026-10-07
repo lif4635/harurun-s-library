@@ -98,3 +98,72 @@ def test_block_inverse_matches_scalar_elimination():
             copy = rows.copy()
             copy[duplicate] = rows[(duplicate + 1) % size]
             assert F2Matrix(size, size, copy).inverse() is None
+
+
+def test_solve_matches_all_small_solutions():
+    rng = random.Random(717389)
+    for height in range(8):
+        for width in range(8):
+            for _ in range(30):
+                rows = [rng.getrandbits(width) for _ in range(height)]
+                matrix = F2Matrix(height, width, rows)
+                rhs = rng.getrandbits(height)
+                expected = {value for value in range(1 << width)
+                            if matrix.matvec(value) == rhs}
+                answer = matrix.solve(rhs)
+                assert answer == matrix.solve([(rhs >> i) & 1 for i in range(height)])
+                assert matrix.rows == rows
+                if not expected:
+                    assert answer is None
+                    continue
+                particular, kernel = answer
+                generated = {particular}
+                for value in kernel:
+                    assert matrix.matvec(value) == 0
+                    generated |= {previous ^ value for previous in tuple(generated)}
+                assert len(generated) == 1 << len(kernel)
+                assert generated == expected
+    for rhs in (-1, 4, [], [0, 1, 0]):
+        with pytest.raises(ValueError):
+            F2Matrix(2, 3).solve(rhs)
+
+
+def test_sweep_and_solve_rectangular_block_boundaries():
+    rng = random.Random(861921)
+    for height, width in ((127, 129), (128, 128), (129, 257), (257, 129), (256, 256)):
+        for rank_limit in (0, 1, 7, 8, 9, min(height, width)):
+            generators = [rng.getrandbits(width) for _ in range(rank_limit)]
+            source = []
+            for i in range(height):
+                row = 0
+                for value in generators:
+                    if rng.randrange(2):
+                        row ^= value
+                source.append(row)
+            matrix = F2Matrix(height, width, source)
+            rhs = matrix.matvec(rng.getrandbits(width))
+            augmented = [row | ((rhs >> i) & 1) << width for i, row in enumerate(source)]
+            expected = augmented.copy()
+            pivots = []
+            for column in range(width):
+                found = next((i for i in range(len(pivots), height)
+                              if expected[i] >> column & 1), None)
+                if found is None:
+                    continue
+                pivot = len(pivots)
+                expected[pivot], expected[found] = expected[found], expected[pivot]
+                for i in range(height):
+                    if i != pivot and expected[i] >> column & 1:
+                        expected[i] ^= expected[pivot]
+                pivots.append(column)
+            combined = F2Matrix(height, width + 1, augmented)
+            assert combined.sweep(width) == (len(pivots), pivots)
+            assert combined.rows == expected
+            particular, kernel = matrix.solve(rhs)
+            assert matrix.matvec(particular) == rhs
+            assert len(kernel) == width - len(pivots)
+            assert F2Matrix(len(kernel), width, kernel).rank() == len(kernel)
+            assert all(matrix.matvec(value) == 0 for value in kernel)
+            assert matrix.rows == source
+    with pytest.raises(ValueError):
+        F2Matrix(2, 3).sweep(4)

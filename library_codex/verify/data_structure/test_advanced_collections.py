@@ -8,10 +8,6 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
 from library_codex.sequence_structure.SkewHeap import SkewHeap  # noqa: E402
-from library_codex.spatial_structure.UnionRectangle import (  # noqa: E402
-    UnionRectangle,
-    union_rectangle_area,
-)
 from library_codex.graph_spanning.MinimumSpanningTree import (  # noqa: E402
     manhattan_mst,
     minimum_spanning_tree,
@@ -36,24 +32,6 @@ def test_manhattan_mst_against_complete_graph_kruskal():
             assert value == sum(abs(points[u][0] - points[v][0])
                                 + abs(points[u][1] - points[v][1])
                                 for u, v in edges)
-
-
-def test_union_rectangle_area_against_unit_cells():
-    rng = random.Random(131)
-    for _ in range(20_000):
-        rectangles = []
-        cells = set()
-        for _ in range(rng.randrange(20)):
-            left, right = sorted((rng.randrange(-10, 11), rng.randrange(-10, 11)))
-            bottom, top = sorted((rng.randrange(-10, 11), rng.randrange(-10, 11)))
-            rectangles.append((left, right, bottom, top))
-            cells.update((x, y) for x in range(left, right)
-                         for y in range(bottom, top))
-        assert union_rectangle_area(rectangles) == len(cells)
-        solver = UnionRectangle()
-        for rectangle in rectangles:
-            solver.add(*rectangle)
-        assert solver.run() == len(cells)
 
 
 def test_skew_heap_meld_lazy_and_deep_nonrecursive():

@@ -1,8 +1,8 @@
 {
   "problem": "matrix_det_mod_2",
   "status": "local_passed",
-  "verificationKey": "fb1d5ce5e29680f38676c53fbc654a128ebc6e0dd63f423010fec1e31f72c8f3",
-  "sourceSha256": "0e75f0865667083190e74a7ae67231262d832352ba97bf8d4c25106f3e400707",
+  "verificationKey": "6c718217c7c7cfd2e1f5f98627ffab83dbdbad77677bbad30ef86859a2ff43dc",
+  "sourceSha256": "6c57b6d220abf14447476867581139949c50d283d47f2ec16a3c7f3fe11484a8",
   "modules": [
     "library_codex.linear_algebra.F2Matrix"
   ],
@@ -17,220 +17,220 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.05821829798514955,
+      "seconds": 0.05261903000064194,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.05322671198518947,
+      "seconds": 0.050719004997517914,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.053541953006060794,
+      "seconds": 0.050775623007211834,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.05168419302208349,
+      "seconds": 0.058441943023353815,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.057356579025508836,
+      "seconds": 0.05856849398696795,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "small_03",
       "status": "AC",
-      "seconds": 0.051814512989949435,
+      "seconds": 0.0640706509584561,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "small_04",
       "status": "AC",
-      "seconds": 0.05515849799849093,
+      "seconds": 0.05565711896633729,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "small_05",
       "status": "AC",
-      "seconds": 0.054268784006126225,
+      "seconds": 0.058327077014837414,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "middle_00",
       "status": "AC",
-      "seconds": 0.06148617502185516,
+      "seconds": 0.06383280403679237,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "middle_01",
       "status": "AC",
-      "seconds": 0.05789663799805567,
+      "seconds": 0.057618287042714655,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "middle_02",
       "status": "AC",
-      "seconds": 0.055496852000942454,
+      "seconds": 0.05871400103205815,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "middle_03",
       "status": "AC",
-      "seconds": 0.05693878000602126,
+      "seconds": 0.05771640798775479,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "middle_04",
       "status": "AC",
-      "seconds": 0.060013273992808536,
+      "seconds": 0.06024774495745078,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "middle_05",
       "status": "AC",
-      "seconds": 0.06759891798719764,
+      "seconds": 0.06597009603865445,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.05988463500398211,
+      "seconds": 0.06495279702357948,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.06924718999653123,
+      "seconds": 0.05247176700504497,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.05791819197474979,
+      "seconds": 0.05490223300876096,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.2916539050056599,
+      "seconds": 0.2692719309707172,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 0.1956366510130465,
+      "seconds": 0.17359709698939696,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "random_05",
       "status": "AC",
-      "seconds": 0.40483047399902716,
+      "seconds": 0.3816625580075197,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 0.4551855829777196,
+      "seconds": 0.41778302198508754,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 0.43631206901045516,
+      "seconds": 0.42437631700886413,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 0.4523868170217611,
+      "seconds": 0.43944917200133204,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "max_random_03",
       "status": "AC",
-      "seconds": 0.43910755301476456,
+      "seconds": 0.4326923830085434,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "max_random_04",
       "status": "AC",
-      "seconds": 0.4479631360154599,
+      "seconds": 0.4340644840267487,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "max_random_05",
       "status": "AC",
-      "seconds": 0.47942707801121287,
+      "seconds": 0.4457960900035687,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "lowrank_max_random_00",
       "status": "AC",
-      "seconds": 0.32763131300453097,
+      "seconds": 0.3269661099766381,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "lowrank_max_random_01",
       "status": "AC",
-      "seconds": 0.38410591799765825,
+      "seconds": 0.4183458060142584,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "lowrank_max_random_02",
       "status": "AC",
-      "seconds": 0.3435075119778048,
+      "seconds": 0.3301907600252889,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "lowrank_max_random_03",
       "status": "AC",
-      "seconds": 0.3471602720092051,
+      "seconds": 0.31817880499875173,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "lowrank_max_random_04",
       "status": "AC",
-      "seconds": 0.3985881669796072,
+      "seconds": 0.25992216396844015,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "perm_max_random_00",
       "status": "AC",
-      "seconds": 0.16050437800004147,
+      "seconds": 0.15746918198419735,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "perm_max_random_01",
       "status": "AC",
-      "seconds": 0.17577561701182276,
+      "seconds": 0.15985500701935962,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "perm_max_random_02",
       "status": "AC",
-      "seconds": 0.15972807200159878,
+      "seconds": 0.15025011298712343,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "perm_max_random_03",
       "status": "AC",
-      "seconds": 0.18031453699222766,
+      "seconds": 0.15102202002890408,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "perm_max_random_04",
       "status": "AC",
-      "seconds": 0.1754853269958403,
+      "seconds": 0.15021578897722065,
       "diagnostic": "ok \"0\"\n"
     }
   ],
-  "verifiedAt": "2026-10-04T09:00:56.472351+00:00",
+  "verifiedAt": "2026-10-07T03:00:05.961913+00:00",
   "onlineSubmission": null
 }

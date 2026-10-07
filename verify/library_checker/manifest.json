@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 170,
-    "unimplemented": 83
+    "local_passed": 173,
+    "unimplemented": 80
   },
   "problems": [
     {
@@ -77,10 +77,12 @@
       "title": "Area of Union of Rectangles",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/area_of_union_of_rectangles",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.spatial_structure.UnionRectangle"
+      ],
+      "solution": "solutions/area_of_union_of_rectangles.py",
+      "result": "results/area_of_union_of_rectangles.json"
     },
     {
       "name": "assignment",
@@ -1081,10 +1083,12 @@
       "title": "Intersection of $\\mathbb{F}_{2}$ vector spaces",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/intersection_of_f2_vector_spaces",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.XorBasis"
+      ],
+      "solution": "solutions/intersection_of_f2_vector_spaces.py",
+      "result": "results/intersection_of_f2_vector_spaces.json"
     },
     {
       "name": "inv_of_formal_power_series",
@@ -2801,10 +2805,12 @@
       "title": "System of Linear Equations (Mod 2)",
       "category": "linear_algebra",
       "url": "https://judge.yosupo.jp/problem/system_of_linear_equations_mod_2",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.linear_algebra.F2Matrix"
+      ],
+      "solution": "solutions/system_of_linear_equations_mod_2.py",
+      "result": "results/system_of_linear_equations_mod_2.json"
     },
     {
       "name": "tetration_mod",

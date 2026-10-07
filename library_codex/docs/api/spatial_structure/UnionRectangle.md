@@ -4,12 +4,12 @@
 軸平行矩形の和集合面積をsweep lineで求める。
 
 - source: [`spatial_structure/UnionRectangle.py`](../../../spatial_structure/UnionRectangle.py)
-- 公開API: function 1、class 1、method/property 2（Python protocol 0を含む）
+- 公開API: function 1、class 1、method/property 5（Python protocol 2を含む）
 
 ## できること
 
-- `union_rectangle_area`: union rectangle areaを求める。
-- `UnionRectangle`: 軸平行矩形の和集合面積をsweep lineで求めるを扱う `UnionRectangle`。
+- 軸に平行な長方形の和集合面積を求める。重なった部分は一度だけ数える。
+- 関数へ長方形の列を直接渡すか、UnionRectangleへ順番に追加してから計算する。
 
 ## Import
 
@@ -21,18 +21,22 @@ from library_codex.spatial_structure.UnionRectangle import union_rectangle_area,
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`union_rectangle_area(rectangles)`](../../../spatial_structure/UnionRectangle.py#L3) | union rectangle areaを求める。 | `rectangles`: 矩形 `(left, bottom, right, top)` のiterable | `0` / `area`（int） | O(N log N) |
+| [`union_rectangle_area(rectangles)`](../../../spatial_structure/UnionRectangle.py#L3) | 長方形の和集合面積を求める。入力は変更しない。 | `rectangles`: (left, right, bottom, top)のiterable。各領域は半開長方形[left,right)×[bottom,top)。幅または高さが0以下なら無視する。 | int — どれか一つ以上の長方形に含まれる面積。整数座標なら厳密な整数。空入力なら0。 | O(N log(N+1))時間、O(N)メモリ。Nは入力長方形数 |
 
 ## Class `UnionRectangle`
 
-軸平行矩形の和集合面積をsweep lineで求めるを扱う `UnionRectangle`。
+軸平行な長方形を追加してから、重複を除いた面積を求める。
 
-- constructor: [`UnionRectangle()`](../../../spatial_structure/UnionRectangle.py#L68)
+- constructor: [`UnionRectangle()`](../../../spatial_structure/UnionRectangle.py#L76)
 - 引数: なし
 - 返り値: `UnionRectangle` instance
-- 計算量: —
+- 計算量: O(1)
+- 作成後: 空の長方形列。add(left, right, bottom, top)で追加し、run()で現在の和集合面積を計算できる。runのたびに計算し直す。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(left, right, bottom, top)`](../../../spatial_structure/UnionRectangle.py#L71) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない）<br>`bottom`: 矩形の下端（含まない）<br>`top`: 矩形の上端（含む） | `None` | O(1) |
-| [`run()`](../../../spatial_structure/UnionRectangle.py#L74) | method | 登録した軸平行長方形のunion面積を求める。 | なし | `union_rectangle_area(self.rectangles)` | O(N log N) |
+| [`add(left, right, bottom, top)`](../../../spatial_structure/UnionRectangle.py#L79) | method | 半開長方形[left,right)×[bottom,top)を末尾へ登録する。 | `left`: x座標の下端。<br>`right`: x座標の上端（含まない）。<br>`bottom`: y座標の下端。<br>`top`: y座標の上端（含まない）。 | None — 値は返さない。次のrun()の面積計算に含める。幅または高さが0以下の長方形はrun()で無視する。 | 償却O(1) |
+| [`run()`](../../../spatial_structure/UnionRectangle.py#L82) | method | 現在までに登録した長方形の和集合面積を求める。 | なし | int — 重なりを一度だけ数えた面積。登録内容は保持され、再実行できる。 | O(N log(N+1))時間、O(N)追加メモリ。Nは登録長方形数 |
+| [`tolist()`](../../../spatial_structure/UnionRectangle.py#L85) | method | 登録した長方形を入力順にコピーして返す。 | なし | list[tuple[int, int, int, int]] — 各要素は(left, right, bottom, top)。半開長方形[left,right)×[bottom,top)を表す。変更しても登録内容は変わらない。 | O(N)。Nは登録長方形数 |
+| [`__str__()`](../../../spatial_structure/UnionRectangle.py#L88) | method | 登録した長方形をlistの形で表示する。 | なし | str — tolist()と同じ順序・内容の文字列。 | O(N)と座標の文字列化 |
+| [`__repr__()`](../../../spatial_structure/UnionRectangle.py#L91) | method | 型名と登録した長方形を表示する。 | なし | str — UnionRectangle([...])の形。 | O(N)と座標の文字列化 |

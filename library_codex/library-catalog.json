@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-06T09:37:08+00:00",
+  "generatedAt": "2026-10-07T03:24:37+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "504605068a6b1233867a3454c68b9876055a40972698118629eb028671c5c20d",
-  "inputStamp": "fae27011d857b738949d25096d1403fc6261e7254d5cb8f2297f8826d54d7750",
+  "sourceFingerprint": "9175a6b021598927529ebb5f562403a6d48ec920fe002fd3f8d1a22cd092d421",
+  "inputStamp": "d0e8ba4e4518b6eff5f0713bd3217d802dbff0591fea59f0ca70f39b05b24596",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 368,
-    "articles": 45,
+    "articles": 47,
     "functions": 507,
     "classes": 226,
-    "methods": 1428,
+    "methods": 1436,
     "tests": 869
   },
   "categories": [
@@ -164,7 +164,7 @@
       "modules": 13,
       "functions": 1,
       "classes": 13,
-      "methods": 43
+      "methods": 46
     },
     {
       "slug": "graph",
@@ -264,7 +264,7 @@
       "modules": 8,
       "functions": 32,
       "classes": 5,
-      "methods": 31
+      "methods": 36
     },
     {
       "slug": "rational",
@@ -29946,10 +29946,14 @@
       "modulePath": "library_codex.spatial_structure.UnionRectangle",
       "summary": "軸平行矩形の和集合面積をsweep lineで求める。",
       "capabilities": [
-        "union_rectangle_area: union rectangle areaを求める。",
-        "UnionRectangle: 軸平行矩形の和集合面積をsweep lineで求めるためのクラス。"
+        "軸に平行な長方形の和集合面積を求める。重なった部分は一度だけ数える。",
+        "関数へ長方形の列を直接渡すか、UnionRectangleへ順番に追加してから計算する。"
       ],
-      "article": null,
+      "article": {
+        "title": "長方形の和集合の面積",
+        "markdown": "軸に平行な長方形を重ねたとき、どれか一つ以上に含まれる領域の面積を求める。\n\n## 主な機能\n\n- `union_rectangle_area(rectangles)` — 長方形の列から面積を求めるfunction。\n- `UnionRectangle()` — `add(left, right, bottom, top)`で長方形を追加し、`run()`で現在の面積を求めるclass。\n\n長方形1個の入力順は `(left, right, bottom, top)`。表す領域は次の半開長方形。\n\n$$\n[\\mathrm{left},\\mathrm{right})\\times[\\mathrm{bottom},\\mathrm{top}).\n$$\n\nN個の面積計算は `O(N log N)` 時間、`O(N)` メモリ。座標圧縮と走査線を使うため、座標の最大値に比例する配列は作らない。\n\n## 使い方\n\n```python\nfrom library_codex.spatial_structure.UnionRectangle import UnionRectangle, union_rectangle_area\n\nrectangles = [(0, 2, 0, 2), (1, 3, 1, 3)]\nassert union_rectangle_area(rectangles) == 7\narea = UnionRectangle()\nfor rectangle in rectangles:\n    area.add(*rectangle)\nassert area.run() == 7\n```\n\n- 各長方形の面積は4、重なる面積は1なので、返り値は4+4-1=7。\n- 返り値は面積の整数1個。重なりの回数や外周の長さではない。\n- `tolist()`は追加した長方形を入力順で返すコピー。\n\n## 注意点\n\n- `left >= right`または`bottom >= top`の長方形は無視する。端点を自動で入れ替えない。\n- 負の座標・大きな整数座標・同じ長方形の重複も扱える。整数座標なら丸め誤差はない。\n- `run()`は毎回計算し直す。追加の途中で何度も呼ぶ場合、1回ごとに `O(N log N)`。\n- `run()`や表示は、登録した長方形を削除・変更しない。",
+        "sourcePath": "library_codex/docs/articles/spatial_structure/UnionRectangle.md"
+      },
       "searchTerms": [
         "UnionRectangle",
         "Union Rectangle",
@@ -29960,47 +29964,47 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/spatial_structure/UnionRectangle.py",
-      "inputFingerprint": "9e154a7ff42076094b6fabfac3d01355ff4443adada92b37096fa6ee90b5e21b",
+      "inputFingerprint": "6897d2548ee17df3a10556bc2143b9f497beea82848a58e60175e8ef61d61756",
       "importCode": "from library_codex.spatial_structure.UnionRectangle import union_rectangle_area, UnionRectangle",
-      "sourceCode": "\"\"\"軸平行矩形の和集合面積をsweep lineで求める。\"\"\"\n\ndef union_rectangle_area(rectangles):\n    \"\"\"Area of the union of axis-aligned half-open rectangles.\"\"\"\n    rectangles = [(left, right, bottom, top)\n                  for left, right, bottom, top in rectangles\n                  if left < right and bottom < top]\n    if not rectangles:\n        return 0\n    ys = sorted({coordinate for rectangle in rectangles\n                 for coordinate in rectangle[2:]})\n    index = {value: i for i, value in enumerate(ys)}\n    events = []\n    for left, right, bottom, top in rectangles:\n        lower = index[bottom]\n        upper = index[top]\n        events.append((left, 1, lower, upper))\n        events.append((right, -1, lower, upper))\n    events.sort()\n    segments = len(ys) - 1\n    size = 1\n    while size < segments:\n        size <<= 1\n    cover = [0] * (size << 1)\n    covered = [0] * (size << 1)\n\n    def pull(node, left, right):\n        if cover[node]:\n            covered[node] = ys[min(right, segments)] - ys[left]\n        elif right - left == 1:\n            covered[node] = 0\n        else:\n            covered[node] = covered[node << 1] + covered[node << 1 | 1]\n\n    def update(query_left, query_right, delta):\n        stack = [(1, 0, size, 0)]\n        while stack:\n            node, left, right, state = stack.pop()\n            if query_right <= left or right <= query_left:\n                continue\n            if state:\n                pull(node, left, right)\n            elif query_left <= left and right <= query_right:\n                cover[node] += delta\n                pull(node, left, right)\n            else:\n                middle = (left + right) >> 1\n                stack.append((node, left, right, 1))\n                stack.append((node << 1 | 1, middle, right, 0))\n                stack.append((node << 1, left, middle, 0))\n\n    area = 0\n    previous_x = events[0][0]\n    position = 0\n    while position < len(events):\n        x = events[position][0]\n        area += covered[1] * (x - previous_x)\n        while position < len(events) and events[position][0] == x:\n            _, delta, lower, upper = events[position]\n            update(lower, upper, delta)\n            position += 1\n        previous_x = x\n    return area\n\nclass UnionRectangle:\n    __slots__ = (\"rectangles\",)\n\n    def __init__(self):\n        self.rectangles = []\n\n    def add(self, left, right, bottom, top):\n        self.rectangles.append((left, right, bottom, top))\n\n    def run(self):\n        return union_rectangle_area(self.rectangles)\n",
-      "standaloneCode": "\"\"\"軸平行矩形の和集合面積をsweep lineで求める。\"\"\"\n\ndef union_rectangle_area(rectangles):\n    \"\"\"Area of the union of axis-aligned half-open rectangles.\"\"\"\n    rectangles = [(left, right, bottom, top)\n                  for left, right, bottom, top in rectangles\n                  if left < right and bottom < top]\n    if not rectangles:\n        return 0\n    ys = sorted({coordinate for rectangle in rectangles\n                 for coordinate in rectangle[2:]})\n    index = {value: i for i, value in enumerate(ys)}\n    events = []\n    for left, right, bottom, top in rectangles:\n        lower = index[bottom]\n        upper = index[top]\n        events.append((left, 1, lower, upper))\n        events.append((right, -1, lower, upper))\n    events.sort()\n    segments = len(ys) - 1\n    size = 1\n    while size < segments:\n        size <<= 1\n    cover = [0] * (size << 1)\n    covered = [0] * (size << 1)\n\n    def pull(node, left, right):\n        if cover[node]:\n            covered[node] = ys[min(right, segments)] - ys[left]\n        elif right - left == 1:\n            covered[node] = 0\n        else:\n            covered[node] = covered[node << 1] + covered[node << 1 | 1]\n\n    def update(query_left, query_right, delta):\n        stack = [(1, 0, size, 0)]\n        while stack:\n            node, left, right, state = stack.pop()\n            if query_right <= left or right <= query_left:\n                continue\n            if state:\n                pull(node, left, right)\n            elif query_left <= left and right <= query_right:\n                cover[node] += delta\n                pull(node, left, right)\n            else:\n                middle = (left + right) >> 1\n                stack.append((node, left, right, 1))\n                stack.append((node << 1 | 1, middle, right, 0))\n                stack.append((node << 1, left, middle, 0))\n\n    area = 0\n    previous_x = events[0][0]\n    position = 0\n    while position < len(events):\n        x = events[position][0]\n        area += covered[1] * (x - previous_x)\n        while position < len(events) and events[position][0] == x:\n            _, delta, lower, upper = events[position]\n            update(lower, upper, delta)\n            position += 1\n        previous_x = x\n    return area\n\nclass UnionRectangle:\n    __slots__ = (\"rectangles\",)\n\n    def __init__(self):\n        self.rectangles = []\n\n    def add(self, left, right, bottom, top):\n        self.rectangles.append((left, right, bottom, top))\n\n    def run(self):\n        return union_rectangle_area(self.rectangles)\n",
+      "sourceCode": "\"\"\"軸平行矩形の和集合面積をsweep lineで求める。\"\"\"\n\ndef union_rectangle_area(rectangles):\n    \"\"\"Area of the union of axis-aligned half-open rectangles.\"\"\"\n    rectangles = [(left, right, bottom, top)\n                  for left, right, bottom, top in rectangles\n                  if left < right and bottom < top]\n    if not rectangles:\n        return 0\n    xs = sorted({value for rectangle in rectangles for value in rectangle[:2]})\n    ys = sorted({value for rectangle in rectangles for value in rectangle[2:]})\n    sweep_axis = 0\n    interval_axis = 2\n    if len(xs) < len(ys):\n        xs, ys = ys, xs\n        sweep_axis, interval_axis = 2, 0\n    x_index = {value: i for i, value in enumerate(xs)}\n    y_index = {value: i for i, value in enumerate(ys)}\n    heads = [-1] * len(xs)\n    links = [0] * (2 * len(rectangles))\n    lowers = [0] * len(rectangles)\n    uppers = [0] * len(rectangles)\n    for i, rectangle in enumerate(rectangles):\n        lowers[i] = y_index[rectangle[interval_axis]]\n        uppers[i] = y_index[rectangle[interval_axis + 1]]\n        left = x_index[rectangle[sweep_axis]]\n        right = x_index[rectangle[sweep_axis + 1]]\n        event = i << 1\n        links[event] = heads[left]\n        heads[left] = event\n        links[event | 1] = heads[right]\n        heads[right] = event | 1\n    del x_index, y_index\n    size = len(ys) - 1\n    cover = [0] * (size << 1)\n    uncovered = [0] * size + [ys[i + 1] - ys[i] for i in range(size)]\n    for node in range(size - 1, 0, -1):\n        uncovered[node] = uncovered[node << 1] + uncovered[node << 1 | 1]\n    total = ys[-1] - ys[0]\n    area = 0\n    for position in range(len(xs) - 1):\n        event = heads[position]\n        while event != -1:\n            index = event >> 1\n            delta = 1 - ((event & 1) << 1)\n            left = lowers[index] + size\n            right = uppers[index] + size\n            left_path = (left // (left & -left)) >> 1\n            right_path = ((right // (right & -right)) - 1) >> 1\n            while left < right:\n                if left & 1:\n                    cover[left] += delta\n                    left += 1\n                if right & 1:\n                    right -= 1\n                    cover[right] += delta\n                left >>= 1\n                right >>= 1\n            while left_path:\n                child = left_path << 1\n                uncovered[left_path] = ((0 if cover[child] else uncovered[child])\n                                        + (0 if cover[child | 1] else uncovered[child | 1]))\n                left_path >>= 1\n            while right_path:\n                child = right_path << 1\n                uncovered[right_path] = ((0 if cover[child] else uncovered[child])\n                                         + (0 if cover[child | 1] else uncovered[child | 1]))\n                right_path >>= 1\n            event = links[event]\n        area += (total - (0 if cover[1] else uncovered[1])) * (xs[position + 1] - xs[position])\n    return area\n\nclass UnionRectangle:\n    __slots__ = (\"rectangles\",)\n\n    def __init__(self):\n        self.rectangles = []\n\n    def add(self, left, right, bottom, top):\n        self.rectangles.append((left, right, bottom, top))\n\n    def run(self):\n        return union_rectangle_area(self.rectangles)\n\n    def tolist(self):\n        return self.rectangles[:]\n\n    def __str__(self):\n        return str(self.rectangles)\n\n    def __repr__(self):\n        return \"UnionRectangle(\" + str(self.rectangles) + \")\"\n",
+      "standaloneCode": "\"\"\"軸平行矩形の和集合面積をsweep lineで求める。\"\"\"\n\ndef union_rectangle_area(rectangles):\n    \"\"\"Area of the union of axis-aligned half-open rectangles.\"\"\"\n    rectangles = [(left, right, bottom, top)\n                  for left, right, bottom, top in rectangles\n                  if left < right and bottom < top]\n    if not rectangles:\n        return 0\n    xs = sorted({value for rectangle in rectangles for value in rectangle[:2]})\n    ys = sorted({value for rectangle in rectangles for value in rectangle[2:]})\n    sweep_axis = 0\n    interval_axis = 2\n    if len(xs) < len(ys):\n        xs, ys = ys, xs\n        sweep_axis, interval_axis = 2, 0\n    x_index = {value: i for i, value in enumerate(xs)}\n    y_index = {value: i for i, value in enumerate(ys)}\n    heads = [-1] * len(xs)\n    links = [0] * (2 * len(rectangles))\n    lowers = [0] * len(rectangles)\n    uppers = [0] * len(rectangles)\n    for i, rectangle in enumerate(rectangles):\n        lowers[i] = y_index[rectangle[interval_axis]]\n        uppers[i] = y_index[rectangle[interval_axis + 1]]\n        left = x_index[rectangle[sweep_axis]]\n        right = x_index[rectangle[sweep_axis + 1]]\n        event = i << 1\n        links[event] = heads[left]\n        heads[left] = event\n        links[event | 1] = heads[right]\n        heads[right] = event | 1\n    del x_index, y_index\n    size = len(ys) - 1\n    cover = [0] * (size << 1)\n    uncovered = [0] * size + [ys[i + 1] - ys[i] for i in range(size)]\n    for node in range(size - 1, 0, -1):\n        uncovered[node] = uncovered[node << 1] + uncovered[node << 1 | 1]\n    total = ys[-1] - ys[0]\n    area = 0\n    for position in range(len(xs) - 1):\n        event = heads[position]\n        while event != -1:\n            index = event >> 1\n            delta = 1 - ((event & 1) << 1)\n            left = lowers[index] + size\n            right = uppers[index] + size\n            left_path = (left // (left & -left)) >> 1\n            right_path = ((right // (right & -right)) - 1) >> 1\n            while left < right:\n                if left & 1:\n                    cover[left] += delta\n                    left += 1\n                if right & 1:\n                    right -= 1\n                    cover[right] += delta\n                left >>= 1\n                right >>= 1\n            while left_path:\n                child = left_path << 1\n                uncovered[left_path] = ((0 if cover[child] else uncovered[child])\n                                        + (0 if cover[child | 1] else uncovered[child | 1]))\n                left_path >>= 1\n            while right_path:\n                child = right_path << 1\n                uncovered[right_path] = ((0 if cover[child] else uncovered[child])\n                                         + (0 if cover[child | 1] else uncovered[child | 1]))\n                right_path >>= 1\n            event = links[event]\n        area += (total - (0 if cover[1] else uncovered[1])) * (xs[position + 1] - xs[position])\n    return area\n\nclass UnionRectangle:\n    __slots__ = (\"rectangles\",)\n\n    def __init__(self):\n        self.rectangles = []\n\n    def add(self, left, right, bottom, top):\n        self.rectangles.append((left, right, bottom, top))\n\n    def run(self):\n        return union_rectangle_area(self.rectangles)\n\n    def tolist(self):\n        return self.rectangles[:]\n\n    def __str__(self):\n        return str(self.rectangles)\n\n    def __repr__(self):\n        return \"UnionRectangle(\" + str(self.rectangles) + \")\"\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 1,
         "classes": 1,
-        "methods": 2
+        "methods": 5
       },
       "functions": [
         {
           "name": "union_rectangle_area",
           "kind": "function",
           "signature": "union_rectangle_area(rectangles)",
-          "summary": "union rectangle areaを求める。",
-          "description": "union rectangle areaを求める。",
+          "summary": "長方形の和集合面積を求める。入力は変更しない。",
+          "description": "長方形の和集合面積を求める。入力は変更しない。",
           "searchTerms": [
             "union_rectangle_area",
             "union rectangle area",
             "union_rectangle_area(rectangles)"
           ],
-          "arguments": "rectangles: 矩形 (left, bottom, right, top) のiterable",
+          "arguments": "rectangles: (left, right, bottom, top)のiterable。各領域は半開長方形[left,right)×[bottom,top)。幅または高さが0以下なら無視する。",
           "argumentDetails": [
             {
               "name": "rectangles",
-              "description": "矩形 (left, bottom, right, top) の反復可能オブジェクト"
+              "description": "(left, right, bottom, top)のiterable。各領域は半開長方形[left,right)×[bottom,top)。幅または高さが0以下なら無視する。"
             }
           ],
-          "returns": "int — 0 / area（int）",
+          "returns": "int — どれか一つ以上の長方形に含まれる面積。整数座標なら厳密な整数。空入力なら0。",
           "returnFormat": "int",
-          "returnDescription": "0 / area（int）",
-          "complexity": "O(N log N)",
+          "returnDescription": "どれか一つ以上の長方形に含まれる面積。整数座標なら厳密な整数。空入力なら0。",
+          "complexity": "O(N log(N+1))時間、O(N)メモリ。Nは入力長方形数",
           "sourceLine": 3
         }
       ],
       "classes": [
         {
           "name": "UnionRectangle",
-          "summary": "軸平行矩形の和集合面積をsweep lineで求めるためのクラス。",
-          "description": "軸平行矩形の和集合面積をsweep lineで求めるためのクラス。",
+          "summary": "軸平行な長方形を追加してから、重複を除いた面積を求める。",
+          "description": "軸平行な長方形を追加してから、重複を除いた面積を求める。",
           "searchTerms": [
             "UnionRectangle",
             "Union Rectangle",
@@ -30011,63 +30015,119 @@
           "constructorArgumentDetails": [],
           "constructorReturns": "UnionRectangle instance",
           "constructorReturnFormat": "UnionRectangle",
-          "constructorReturnDescription": "軸平行矩形の和集合面積をsweep lineで求めるためのクラス。",
-          "constructorCreates": "軸平行矩形の和集合面積をsweep lineで求めるためのクラス。",
-          "constructorComplexity": "実装依存",
-          "constructorSourceLine": 68,
+          "constructorReturnDescription": "空の長方形列。add(left, right, bottom, top)で追加し、run()で現在の和集合面積を計算できる。runのたびに計算し直す。",
+          "constructorCreates": "空の長方形列。add(left, right, bottom, top)で追加し、run()で現在の和集合面積を計算できる。runのたびに計算し直す。",
+          "constructorComplexity": "O(1)",
+          "constructorSourceLine": 76,
           "methods": [
             {
               "name": "add",
               "kind": "method",
               "signature": "add(left, right, bottom, top)",
-              "summary": "引数で指定した要素・辺・区間へ値を追加する。",
-              "description": "引数で指定した要素・辺・区間へ値を追加する。",
+              "summary": "半開長方形[left,right)×[bottom,top)を末尾へ登録する。",
+              "description": "半開長方形[left,right)×[bottom,top)を末尾へ登録する。",
               "searchTerms": [
                 "add",
                 "add(left, right, bottom, top)"
               ],
-              "arguments": "left: 半開区間の左端（含む） · right: 半開区間の右端（含まない） · bottom: 矩形の下端（含まない） · top: 矩形の上端（含む）",
+              "arguments": "left: x座標の下端。 · right: x座標の上端（含まない）。 · bottom: y座標の下端。 · top: y座標の上端（含まない）。",
               "argumentDetails": [
                 {
                   "name": "left",
-                  "description": "半開区間の左端（含む）"
+                  "description": "x座標の下端。"
                 },
                 {
                   "name": "right",
-                  "description": "半開区間の右端（含まない）"
+                  "description": "x座標の上端（含まない）。"
                 },
                 {
                   "name": "bottom",
-                  "description": "矩形の下端（含まない）"
+                  "description": "y座標の下端。"
                 },
                 {
                   "name": "top",
-                  "description": "矩形の上端（含む）"
+                  "description": "y座標の上端（含まない）。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 値は返さない。次のrun()の面積計算に含める。幅または高さが0以下の長方形はrun()で無視する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "O(1)",
-              "sourceLine": 71
+              "returnDescription": "値は返さない。次のrun()の面積計算に含める。幅または高さが0以下の長方形はrun()で無視する。",
+              "complexity": "償却O(1)",
+              "sourceLine": 79
             },
             {
               "name": "run",
               "kind": "method",
               "signature": "run()",
-              "summary": "登録した軸平行長方形のunion面積を求める。",
-              "description": "登録した軸平行長方形のunion面積を求める。",
+              "summary": "現在までに登録した長方形の和集合面積を求める。",
+              "description": "現在までに登録した長方形の和集合面積を求める。",
               "searchTerms": [
                 "run",
                 "run()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "計算結果（入力型に依存） — 求めた登録した軸平行長方形のunion面積。",
-              "returnFormat": "計算結果（入力型に依存）",
-              "returnDescription": "求めた登録した軸平行長方形のunion面積。",
-              "complexity": "O(N log N)",
-              "sourceLine": 74
+              "returns": "int — 重なりを一度だけ数えた面積。登録内容は保持され、再実行できる。",
+              "returnFormat": "int",
+              "returnDescription": "重なりを一度だけ数えた面積。登録内容は保持され、再実行できる。",
+              "complexity": "O(N log(N+1))時間、O(N)追加メモリ。Nは登録長方形数",
+              "sourceLine": 82
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "登録した長方形を入力順にコピーして返す。",
+              "description": "登録した長方形を入力順にコピーして返す。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[tuple[int, int, int, int]] — 各要素は(left, right, bottom, top)。半開長方形[left,right)×[bottom,top)を表す。変更しても登録内容は変わらない。",
+              "returnFormat": "list[tuple[int, int, int, int]]",
+              "returnDescription": "各要素は(left, right, bottom, top)。半開長方形[left,right)×[bottom,top)を表す。変更しても登録内容は変わらない。",
+              "complexity": "O(N)。Nは登録長方形数",
+              "sourceLine": 85
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "登録した長方形をlistの形で表示する。",
+              "description": "登録した長方形をlistの形で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じ順序・内容の文字列。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じ順序・内容の文字列。",
+              "complexity": "O(N)と座標の文字列化",
+              "sourceLine": 88
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名と登録した長方形を表示する。",
+              "description": "型名と登録した長方形を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — UnionRectangle([...])の形。",
+              "returnFormat": "str",
+              "returnDescription": "UnionRectangle([...])の形。",
+              "complexity": "O(N)と座標の文字列化",
+              "sourceLine": 91
             }
           ]
         }
@@ -45895,11 +45955,12 @@
       "summary": "Python int ビット-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列。",
       "capabilities": [
         "0・1成分の行列積、階数、行列式、逆行列をビット演算で求める。",
-        "密な行列積は8列ずつまとめ、疎な行列積は1の立つ位置だけを処理する。"
+        "密な行列積は8列ずつまとめ、疎な行列積は1の立つ位置だけを処理する。",
+        "連立方程式の解を一つと、XORで加えられる零空間の基底をビット列で返す。"
       ],
       "article": {
         "title": "0・1成分の行列",
-        "markdown": "## 主な機能\n\n`F2Matrix`は、行列積・階数・行列式・逆行列をmod 2で求めるclass。各行をPythonの整数1個で保持し、XORで行をまとめて加算する。\n\n- `multiply`は通常のmod 2の積。密な入力では8列分をまとめた表を使い、疎な入力では1が立つ位置だけを処理する。\n- `rank`は線形独立な行の本数、`inverse`は正方行列の逆行列を求める。大きい逆行列は8列ずつまとめて消去する。\n- `and_or_product`は、積をAND、和をORにした別の演算。到達可能性などを扱うときに使う。\n\nN行N列なら、積・階数・逆行列の最悪計算量は次のとおり。\n\n$$\nO(N^3/w + N^2)\n$$\n\nwは多倍長整数の1桁のビット数であり、Pythonの整数演算を定数時間とは数えない。密な積の8ビット表は定数倍を減らすもので、このBig-Oは変わらない。\n\n## 使い方\n\n```python\nfrom library_codex.linear_algebra.F2Matrix import F2Matrix\n\na = F2Matrix.from_lists([[1, 1], [0, 1]])\nrank = a.rank()\nb = a.inverse()\nproduct = (a * b).to_lists()\n```\n\n- `rank`は2。\n- `b`は逆行列。非可逆な行列では`None`になる。\n- `product`は`[[1, 0], [0, 1]]`。\n\nビット列で直接作るなら`F2Matrix(2, 2, [0b11, 0b10])`も同じ行列になる。`rows[i]`の下位ビットから順に第0列、第1列を表すため、文字列`\"01\"`をそのまま`int(..., 2)`へ渡す場合とは左右が逆になる。\n\n## 注意点\n\n- `rank`・`multiply`・`inverse`は元の行列を変更しない。\n- `sweep`は自分の`rows`を簡約行階段形へ書き換える。\n- `to_lists`は全成分を展開する。大きい行列の出力は`rows`の整数を直接文字列化すると、一成分ずつ取り出す負担を避けられる。",
+        "markdown": "## 主な機能\n\n`F2Matrix`は、行列積・階数・行列式・逆行列をmod 2で求めるclass。各行をPythonの整数1個で保持し、XORで行をまとめて加算する。\n\n- `multiply`は通常のmod 2の積。密な入力では8列分をまとめた表を使い、疎な入力では1が立つ位置だけを処理する。\n- `rank`は線形独立な行の本数、`inverse`は正方行列の逆行列を求める。大きい逆行列は8列ずつまとめて消去する。\n- `solve(b)`は連立方程式Ax=bの解を一つと、自由に足せる零空間の基底を求める。解がなければNone。大きい行列は8列ずつまとめて消去する。\n- `and_or_product`は、積をAND、和をORにした別の演算。到達可能性などを扱うときに使う。\n\nN行N列なら、積・階数・逆行列の最悪計算量は次のとおり。\n\n$$\nO(N^3/w + N^2)\n$$\n\nwは多倍長整数の1桁のビット数であり、Pythonの整数演算を定数時間とは数えない。密な積の8ビット表は定数倍を減らすもので、このBig-Oは変わらない。\n\n## 使い方\n\n```python\nfrom library_codex.linear_algebra.F2Matrix import F2Matrix\n\na = F2Matrix.from_lists([[1, 1], [0, 1]])\nrank = a.rank()\nb = a.inverse()\nproduct = (a * b).to_lists()\n```\n\n- `rank`は2。\n- `b`は逆行列。非可逆な行列では`None`になる。\n- `product`は`[[1, 0], [0, 1]]`。\n\nビット列で直接作るなら`F2Matrix(2, 2, [0b11, 0b10])`も同じ行列になる。`rows[i]`の下位ビットから順に第0列、第1列を表すため、文字列`\"01\"`をそのまま`int(..., 2)`へ渡す場合とは左右が逆になる。\n\n## 連立方程式\n\n連立方程式は整数に詰めたビット列で扱う。\n\n```python\nfrom library_codex.linear_algebra.F2Matrix import F2Matrix\n\na = F2Matrix.from_lists([[1, 1, 0], [0, 1, 1]])\nparticular, kernel = a.solve([1, 0])\nassert a.matvec(particular) == 1\nassert kernel == [0b111]\nassert a.matvec(particular ^ kernel[0]) == 1\n```\n\n- particular: 解を一つ表す整数。第jビットがxの第j成分。\n- kernel: Ax=0を満たす独立なビット列のlist。各要素を任意にXORしてparticularへ加えると、ちょうど全解を得られる。\n- kernelの長さ: 列数−rank。空なら解は一意。Noneは「解なし」で、空のkernelとは異なる。\n- b: 行数と同じ長さの整数列、または第iビットが第i成分となる非負整数。返り値はどちらでも同じビット列形式。\n\nN行M列のsolveは、基底の復元を含め `O((N+M) M ceil((M+1)/w))` 時間、`O((N+M) ceil((M+1)/w))` メモリが上界。解を全列挙する時間は含まない。\n\n## 注意点\n\n- `rank`・`multiply`・`inverse`・`solve`は元の行列を変更しない。\n- `sweep`は自分の`rows`を簡約行階段形へ書き換える。\n- `to_lists`は全成分を展開する。大きい行列の出力は`rows`の整数を直接文字列化すると、一成分ずつ取り出す負担を避けられる。",
         "sourcePath": "library_codex/docs/articles/linear_algebra/F2Matrix.md"
       },
       "searchTerms": [
@@ -45912,22 +45973,22 @@
       ],
       "complexity": "掃き出し O(HW) big-int演算",
       "sourcePath": "library_codex/linear_algebra/F2Matrix.py",
-      "inputFingerprint": "ce36b98b330b2c2ff3cf311a7309868d063c8d553579043ef470330004200dc7",
+      "inputFingerprint": "5fed17d17ff7a64b939d17a07880ed142edf86bc39ab4a8fc158c1b70cca4122",
       "importCode": "from library_codex.linear_algebra.F2Matrix import F2Matrix",
-      "sourceCode": "class F2Matrix:\n    __slots__ = (\"height\", \"width\", \"rows\")\n\n    def __init__(self, height, width=None, rows=None):\n        if width is None:\n            width = height\n        if height < 0 or width < 0:\n            raise ValueError(\"matrix dimensions must be nonnegative\")\n        self.height = height\n        self.width = width\n        mask = (1 << width) - 1\n        if rows is None:\n            self.rows = [0] * height\n        else:\n            if len(rows) != height:\n                raise ValueError(\"invalid row count\")\n            self.rows = [row & mask for row in rows]\n\n    @classmethod\n    def from_lists(cls, matrix):\n        height = len(matrix)\n        width = len(matrix[0]) if height else 0\n        rows = [0] * height\n        for row, values in enumerate(matrix):\n            if len(values) != width:\n                raise ValueError(\"matrix rows must have equal length\")\n            bits = 0\n            for column, value in enumerate(values):\n                bits |= (value & 1) << column\n            rows[row] = bits\n        return cls(height, width, rows)\n\n    @classmethod\n    def identity(cls, size):\n        return cls(size, size, [1 << index for index in range(size)])\n\n    def copy(self):\n        return F2Matrix(self.height, self.width, self.rows)\n\n    def to_lists(self):\n        return [\n            [(bits >> column) & 1 for column in range(self.width)]\n            for bits in self.rows\n        ]\n\n    def get(self, row, column):\n        return (self.rows[row] >> column) & 1\n\n    def set(self, row, column, value=True):\n        bit = 1 << column\n        if value:\n            self.rows[row] |= bit\n        else:\n            self.rows[row] &= ~bit\n\n    def multiply(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        blocks = (self.width + 7) >> 3\n        if sum(row.bit_count() for row in self.rows) > blocks * (self.height + 255):\n            for start in range(0, self.width, 8):\n                table = [0]\n                for source in source_rows[start:start + 8]:\n                    table += [value ^ source for value in table]\n                mask = len(table) - 1\n                for row, bits in enumerate(self.rows):\n                    result[row] ^= table[(bits >> start) & mask]\n            return F2Matrix(self.height, other.width, result)\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value ^= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def and_or_product(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value |= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def power(self, exponent):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        if exponent < 0:\n            raise ValueError(\"exponent must be nonnegative\")\n        result = F2Matrix.identity(self.height)\n        base = self.copy()\n        while exponent:\n            if exponent & 1:\n                result = result.multiply(base)\n            exponent >>= 1\n            if exponent:\n                base = base.multiply(base)\n        return result\n\n    def sweep(self, pivot_end=None):\n        if pivot_end is None:\n            pivot_end = self.width\n        if not 0 <= pivot_end <= self.width:\n            raise ValueError(\"invalid pivot_end\")\n        rank = 0\n        pivots = []\n        rows = self.rows\n        for column in range(pivot_end):\n            bit = 1 << column\n            pivot = rank\n            while pivot < self.height and not rows[pivot] & bit:\n                pivot += 1\n            if pivot == self.height:\n                continue\n            rows[rank], rows[pivot] = rows[pivot], rows[rank]\n            pivot_row = rows[rank]\n            for row in range(self.height):\n                if row != rank and rows[row] & bit:\n                    rows[row] ^= pivot_row\n            pivots.append(column)\n            rank += 1\n            if rank == self.height:\n                break\n        return rank, pivots\n\n    def rank(self):\n        rank = 0\n        if self.width <= 2 * self.height:\n            basis = [0] * self.width\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis[column]\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        else:\n            basis = {}\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis.get(column)\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        return rank\n\n    def determinant(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        return int(self.rank() == self.height)\n\n    def inverse(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        size = self.height\n        combined = F2Matrix(\n            size,\n            size * 2,\n            [self.rows[row] | 1 << (size + row) for row in range(size)],\n        )\n        if size >= 128:\n            rows = combined.rows\n            for start in range(0, size, 8):\n                end = min(start + 8, size)\n                for column in range(start, end):\n                    bit = 1 << column\n                    pivot = column\n                    while pivot < size:\n                        value = rows[pivot]\n                        for earlier in range(start, column):\n                            if value >> earlier & 1:\n                                value ^= rows[earlier]\n                        rows[pivot] = value\n                        if value & bit:\n                            break\n                        pivot += 1\n                    if pivot == size:\n                        return None\n                    rows[column], rows[pivot] = rows[pivot], rows[column]\n                for column in range(end - 1, start - 1, -1):\n                    bit = 1 << column\n                    value = rows[column]\n                    for earlier in range(start, column):\n                        if rows[earlier] & bit:\n                            rows[earlier] ^= value\n                table = [0]\n                for value in rows[start:end]:\n                    table += [previous ^ value for previous in table]\n                mask = len(table) - 1\n                for row in range(start):\n                    rows[row] ^= table[rows[row] >> start & mask]\n                for row in range(end, size):\n                    rows[row] ^= table[rows[row] >> start & mask]\n            return F2Matrix(size, size, [row >> size for row in rows])\n        rank, _ = combined.sweep(size)\n        if rank != size:\n            return None\n        mask = (1 << size) - 1\n        return F2Matrix(\n            size, size, [(row >> size) & mask for row in combined.rows]\n        )\n\n    def matvec(self, vector):\n        if isinstance(vector, int):\n            bits = vector\n            return_integer = True\n        else:\n            if len(vector) != self.width:\n                raise ValueError(\"invalid vector size\")\n            bits = 0\n            for column, value in enumerate(vector):\n                bits |= (value & 1) << column\n            return_integer = False\n        result = 0\n        for row, source in enumerate(self.rows):\n            result |= ((source & bits).bit_count() & 1) << row\n        if return_integer:\n            return result\n        return [(result >> row) & 1 for row in range(self.height)]\n\n    def __mul__(self, other):\n        return self.multiply(other)\n\n    def __pow__(self, exponent):\n        return self.power(exponent)\n\n    def __eq__(self, other):\n        return (\n            isinstance(other, F2Matrix)\n            and self.height == other.height\n            and self.width == other.width\n            and self.rows == other.rows\n        )\n\n\nF2_Matrix = F2Matrix\nand_or_product = F2Matrix.and_or_product\n",
-      "standaloneCode": "class F2Matrix:\n    __slots__ = (\"height\", \"width\", \"rows\")\n\n    def __init__(self, height, width=None, rows=None):\n        if width is None:\n            width = height\n        if height < 0 or width < 0:\n            raise ValueError(\"matrix dimensions must be nonnegative\")\n        self.height = height\n        self.width = width\n        mask = (1 << width) - 1\n        if rows is None:\n            self.rows = [0] * height\n        else:\n            if len(rows) != height:\n                raise ValueError(\"invalid row count\")\n            self.rows = [row & mask for row in rows]\n\n    @classmethod\n    def from_lists(cls, matrix):\n        height = len(matrix)\n        width = len(matrix[0]) if height else 0\n        rows = [0] * height\n        for row, values in enumerate(matrix):\n            if len(values) != width:\n                raise ValueError(\"matrix rows must have equal length\")\n            bits = 0\n            for column, value in enumerate(values):\n                bits |= (value & 1) << column\n            rows[row] = bits\n        return cls(height, width, rows)\n\n    @classmethod\n    def identity(cls, size):\n        return cls(size, size, [1 << index for index in range(size)])\n\n    def copy(self):\n        return F2Matrix(self.height, self.width, self.rows)\n\n    def to_lists(self):\n        return [\n            [(bits >> column) & 1 for column in range(self.width)]\n            for bits in self.rows\n        ]\n\n    def get(self, row, column):\n        return (self.rows[row] >> column) & 1\n\n    def set(self, row, column, value=True):\n        bit = 1 << column\n        if value:\n            self.rows[row] |= bit\n        else:\n            self.rows[row] &= ~bit\n\n    def multiply(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        blocks = (self.width + 7) >> 3\n        if sum(row.bit_count() for row in self.rows) > blocks * (self.height + 255):\n            for start in range(0, self.width, 8):\n                table = [0]\n                for source in source_rows[start:start + 8]:\n                    table += [value ^ source for value in table]\n                mask = len(table) - 1\n                for row, bits in enumerate(self.rows):\n                    result[row] ^= table[(bits >> start) & mask]\n            return F2Matrix(self.height, other.width, result)\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value ^= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def and_or_product(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value |= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def power(self, exponent):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        if exponent < 0:\n            raise ValueError(\"exponent must be nonnegative\")\n        result = F2Matrix.identity(self.height)\n        base = self.copy()\n        while exponent:\n            if exponent & 1:\n                result = result.multiply(base)\n            exponent >>= 1\n            if exponent:\n                base = base.multiply(base)\n        return result\n\n    def sweep(self, pivot_end=None):\n        if pivot_end is None:\n            pivot_end = self.width\n        if not 0 <= pivot_end <= self.width:\n            raise ValueError(\"invalid pivot_end\")\n        rank = 0\n        pivots = []\n        rows = self.rows\n        for column in range(pivot_end):\n            bit = 1 << column\n            pivot = rank\n            while pivot < self.height and not rows[pivot] & bit:\n                pivot += 1\n            if pivot == self.height:\n                continue\n            rows[rank], rows[pivot] = rows[pivot], rows[rank]\n            pivot_row = rows[rank]\n            for row in range(self.height):\n                if row != rank and rows[row] & bit:\n                    rows[row] ^= pivot_row\n            pivots.append(column)\n            rank += 1\n            if rank == self.height:\n                break\n        return rank, pivots\n\n    def rank(self):\n        rank = 0\n        if self.width <= 2 * self.height:\n            basis = [0] * self.width\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis[column]\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        else:\n            basis = {}\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis.get(column)\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        return rank\n\n    def determinant(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        return int(self.rank() == self.height)\n\n    def inverse(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        size = self.height\n        combined = F2Matrix(\n            size,\n            size * 2,\n            [self.rows[row] | 1 << (size + row) for row in range(size)],\n        )\n        if size >= 128:\n            rows = combined.rows\n            for start in range(0, size, 8):\n                end = min(start + 8, size)\n                for column in range(start, end):\n                    bit = 1 << column\n                    pivot = column\n                    while pivot < size:\n                        value = rows[pivot]\n                        for earlier in range(start, column):\n                            if value >> earlier & 1:\n                                value ^= rows[earlier]\n                        rows[pivot] = value\n                        if value & bit:\n                            break\n                        pivot += 1\n                    if pivot == size:\n                        return None\n                    rows[column], rows[pivot] = rows[pivot], rows[column]\n                for column in range(end - 1, start - 1, -1):\n                    bit = 1 << column\n                    value = rows[column]\n                    for earlier in range(start, column):\n                        if rows[earlier] & bit:\n                            rows[earlier] ^= value\n                table = [0]\n                for value in rows[start:end]:\n                    table += [previous ^ value for previous in table]\n                mask = len(table) - 1\n                for row in range(start):\n                    rows[row] ^= table[rows[row] >> start & mask]\n                for row in range(end, size):\n                    rows[row] ^= table[rows[row] >> start & mask]\n            return F2Matrix(size, size, [row >> size for row in rows])\n        rank, _ = combined.sweep(size)\n        if rank != size:\n            return None\n        mask = (1 << size) - 1\n        return F2Matrix(\n            size, size, [(row >> size) & mask for row in combined.rows]\n        )\n\n    def matvec(self, vector):\n        if isinstance(vector, int):\n            bits = vector\n            return_integer = True\n        else:\n            if len(vector) != self.width:\n                raise ValueError(\"invalid vector size\")\n            bits = 0\n            for column, value in enumerate(vector):\n                bits |= (value & 1) << column\n            return_integer = False\n        result = 0\n        for row, source in enumerate(self.rows):\n            result |= ((source & bits).bit_count() & 1) << row\n        if return_integer:\n            return result\n        return [(result >> row) & 1 for row in range(self.height)]\n\n    def __mul__(self, other):\n        return self.multiply(other)\n\n    def __pow__(self, exponent):\n        return self.power(exponent)\n\n    def __eq__(self, other):\n        return (\n            isinstance(other, F2Matrix)\n            and self.height == other.height\n            and self.width == other.width\n            and self.rows == other.rows\n        )\n\n\nF2_Matrix = F2Matrix\nand_or_product = F2Matrix.and_or_product\n",
+      "sourceCode": "class F2Matrix:\n    __slots__ = (\"height\", \"width\", \"rows\")\n\n    def __init__(self, height, width=None, rows=None):\n        if width is None:\n            width = height\n        if height < 0 or width < 0:\n            raise ValueError(\"matrix dimensions must be nonnegative\")\n        self.height = height\n        self.width = width\n        mask = (1 << width) - 1\n        if rows is None:\n            self.rows = [0] * height\n        else:\n            if len(rows) != height:\n                raise ValueError(\"invalid row count\")\n            self.rows = [row & mask for row in rows]\n\n    @classmethod\n    def from_lists(cls, matrix):\n        height = len(matrix)\n        width = len(matrix[0]) if height else 0\n        rows = [0] * height\n        for row, values in enumerate(matrix):\n            if len(values) != width:\n                raise ValueError(\"matrix rows must have equal length\")\n            bits = 0\n            for column, value in enumerate(values):\n                bits |= (value & 1) << column\n            rows[row] = bits\n        return cls(height, width, rows)\n\n    @classmethod\n    def identity(cls, size):\n        return cls(size, size, [1 << index for index in range(size)])\n\n    def copy(self):\n        return F2Matrix(self.height, self.width, self.rows)\n\n    def to_lists(self):\n        return [\n            [(bits >> column) & 1 for column in range(self.width)]\n            for bits in self.rows\n        ]\n\n    def get(self, row, column):\n        return (self.rows[row] >> column) & 1\n\n    def set(self, row, column, value=True):\n        bit = 1 << column\n        if value:\n            self.rows[row] |= bit\n        else:\n            self.rows[row] &= ~bit\n\n    def multiply(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        blocks = (self.width + 7) >> 3\n        if sum(row.bit_count() for row in self.rows) > blocks * (self.height + 255):\n            for start in range(0, self.width, 8):\n                table = [0]\n                for source in source_rows[start:start + 8]:\n                    table += [value ^ source for value in table]\n                mask = len(table) - 1\n                for row, bits in enumerate(self.rows):\n                    result[row] ^= table[(bits >> start) & mask]\n            return F2Matrix(self.height, other.width, result)\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value ^= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def and_or_product(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value |= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def power(self, exponent):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        if exponent < 0:\n            raise ValueError(\"exponent must be nonnegative\")\n        result = F2Matrix.identity(self.height)\n        base = self.copy()\n        while exponent:\n            if exponent & 1:\n                result = result.multiply(base)\n            exponent >>= 1\n            if exponent:\n                base = base.multiply(base)\n        return result\n\n    def sweep(self, pivot_end=None):\n        if pivot_end is None:\n            pivot_end = self.width\n        if not 0 <= pivot_end <= self.width:\n            raise ValueError(\"invalid pivot_end\")\n        rank = 0\n        pivots = []\n        rows = self.rows\n        if self.height >= 128 and pivot_end >= 64:\n            for start in range(0, pivot_end, 8):\n                if rank == self.height:\n                    break\n                first = rank\n                columns = []\n                for column in range(start, min(start + 8, pivot_end)):\n                    bit = 1 << column\n                    pivot = rank\n                    while pivot < self.height:\n                        value = rows[pivot]\n                        for offset, earlier in enumerate(columns):\n                            if value >> earlier & 1:\n                                value ^= rows[first + offset]\n                        rows[pivot] = value\n                        if value & bit:\n                            break\n                        pivot += 1\n                    if pivot == self.height:\n                        continue\n                    rows[rank], rows[pivot] = rows[pivot], rows[rank]\n                    columns.append(column)\n                    rank += 1\n                    if rank == self.height:\n                        break\n                if not columns:\n                    continue\n                block = [0] * 8\n                for offset in range(len(columns) - 1, -1, -1):\n                    column = columns[offset]\n                    bit = 1 << column\n                    value = rows[first + offset]\n                    for earlier in range(first, first + offset):\n                        if rows[earlier] & bit:\n                            rows[earlier] ^= value\n                    block[column - start] = value\n                table = [0]\n                for value in block:\n                    table += [previous ^ value for previous in table]\n                for row in range(first):\n                    rows[row] ^= table[(rows[row] >> start) & 255]\n                for row in range(rank, self.height):\n                    rows[row] ^= table[(rows[row] >> start) & 255]\n                pivots.extend(columns)\n            return rank, pivots\n        for column in range(pivot_end):\n            bit = 1 << column\n            pivot = rank\n            while pivot < self.height and not rows[pivot] & bit:\n                pivot += 1\n            if pivot == self.height:\n                continue\n            rows[rank], rows[pivot] = rows[pivot], rows[rank]\n            pivot_row = rows[rank]\n            for row in range(self.height):\n                if row != rank and rows[row] & bit:\n                    rows[row] ^= pivot_row\n            pivots.append(column)\n            rank += 1\n            if rank == self.height:\n                break\n        return rank, pivots\n\n    def rank(self):\n        rank = 0\n        if self.width <= 2 * self.height:\n            basis = [0] * self.width\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis[column]\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        else:\n            basis = {}\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis.get(column)\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        return rank\n\n    def determinant(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        return int(self.rank() == self.height)\n\n    def inverse(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        size = self.height\n        combined = F2Matrix(\n            size,\n            size * 2,\n            [self.rows[row] | 1 << (size + row) for row in range(size)],\n        )\n        if size >= 128:\n            rows = combined.rows\n            for start in range(0, size, 8):\n                end = min(start + 8, size)\n                for column in range(start, end):\n                    bit = 1 << column\n                    pivot = column\n                    while pivot < size:\n                        value = rows[pivot]\n                        for earlier in range(start, column):\n                            if value >> earlier & 1:\n                                value ^= rows[earlier]\n                        rows[pivot] = value\n                        if value & bit:\n                            break\n                        pivot += 1\n                    if pivot == size:\n                        return None\n                    rows[column], rows[pivot] = rows[pivot], rows[column]\n                for column in range(end - 1, start - 1, -1):\n                    bit = 1 << column\n                    value = rows[column]\n                    for earlier in range(start, column):\n                        if rows[earlier] & bit:\n                            rows[earlier] ^= value\n                table = [0]\n                for value in rows[start:end]:\n                    table += [previous ^ value for previous in table]\n                mask = len(table) - 1\n                for row in range(start):\n                    rows[row] ^= table[rows[row] >> start & mask]\n                for row in range(end, size):\n                    rows[row] ^= table[rows[row] >> start & mask]\n            return F2Matrix(size, size, [row >> size for row in rows])\n        rank, _ = combined.sweep(size)\n        if rank != size:\n            return None\n        mask = (1 << size) - 1\n        return F2Matrix(\n            size, size, [(row >> size) & mask for row in combined.rows]\n        )\n\n    def solve(self, vector):\n        \"\"\"Return (particular, kernel) as packed integers, or None.\"\"\"\n        height = self.height\n        width = self.width\n        if isinstance(vector, int):\n            if vector < 0 or vector.bit_length() > height:\n                raise ValueError(\"invalid right-hand side\")\n            packed = vector.to_bytes((height + 7) >> 3, \"little\")\n            rhs = [(packed[row >> 3] >> (row & 7)) & 1 for row in range(height)]\n        else:\n            if len(vector) != height:\n                raise ValueError(\"invalid vector size\")\n            rhs = [value & 1 for value in vector]\n        combined = F2Matrix(\n            height, width + 1,\n            [value | rhs[row] << width for row, value in enumerate(self.rows)],\n        )\n        rank, pivots = combined.sweep(width)\n        rows = combined.rows\n        if any(row >> width for row in rows[rank:]):\n            return None\n        particular = 0\n        for row, column in enumerate(pivots):\n            particular |= (rows[row] >> width) << column\n        pivot_set = set(pivots)\n        kernel = []\n        for free in range(width):\n            if free in pivot_set:\n                continue\n            value = 1 << free\n            for row, column in enumerate(pivots):\n                value |= ((rows[row] >> free) & 1) << column\n            kernel.append(value)\n        return particular, kernel\n\n    def matvec(self, vector):\n        if isinstance(vector, int):\n            bits = vector\n            return_integer = True\n        else:\n            if len(vector) != self.width:\n                raise ValueError(\"invalid vector size\")\n            bits = 0\n            for column, value in enumerate(vector):\n                bits |= (value & 1) << column\n            return_integer = False\n        result = 0\n        for row, source in enumerate(self.rows):\n            result |= ((source & bits).bit_count() & 1) << row\n        if return_integer:\n            return result\n        return [(result >> row) & 1 for row in range(self.height)]\n\n    def __mul__(self, other):\n        return self.multiply(other)\n\n    def __pow__(self, exponent):\n        return self.power(exponent)\n\n    def __eq__(self, other):\n        return (\n            isinstance(other, F2Matrix)\n            and self.height == other.height\n            and self.width == other.width\n            and self.rows == other.rows\n        )\n\n\nF2_Matrix = F2Matrix\nand_or_product = F2Matrix.and_or_product\n",
+      "standaloneCode": "class F2Matrix:\n    __slots__ = (\"height\", \"width\", \"rows\")\n\n    def __init__(self, height, width=None, rows=None):\n        if width is None:\n            width = height\n        if height < 0 or width < 0:\n            raise ValueError(\"matrix dimensions must be nonnegative\")\n        self.height = height\n        self.width = width\n        mask = (1 << width) - 1\n        if rows is None:\n            self.rows = [0] * height\n        else:\n            if len(rows) != height:\n                raise ValueError(\"invalid row count\")\n            self.rows = [row & mask for row in rows]\n\n    @classmethod\n    def from_lists(cls, matrix):\n        height = len(matrix)\n        width = len(matrix[0]) if height else 0\n        rows = [0] * height\n        for row, values in enumerate(matrix):\n            if len(values) != width:\n                raise ValueError(\"matrix rows must have equal length\")\n            bits = 0\n            for column, value in enumerate(values):\n                bits |= (value & 1) << column\n            rows[row] = bits\n        return cls(height, width, rows)\n\n    @classmethod\n    def identity(cls, size):\n        return cls(size, size, [1 << index for index in range(size)])\n\n    def copy(self):\n        return F2Matrix(self.height, self.width, self.rows)\n\n    def to_lists(self):\n        return [\n            [(bits >> column) & 1 for column in range(self.width)]\n            for bits in self.rows\n        ]\n\n    def get(self, row, column):\n        return (self.rows[row] >> column) & 1\n\n    def set(self, row, column, value=True):\n        bit = 1 << column\n        if value:\n            self.rows[row] |= bit\n        else:\n            self.rows[row] &= ~bit\n\n    def multiply(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        blocks = (self.width + 7) >> 3\n        if sum(row.bit_count() for row in self.rows) > blocks * (self.height + 255):\n            for start in range(0, self.width, 8):\n                table = [0]\n                for source in source_rows[start:start + 8]:\n                    table += [value ^ source for value in table]\n                mask = len(table) - 1\n                for row, bits in enumerate(self.rows):\n                    result[row] ^= table[(bits >> start) & mask]\n            return F2Matrix(self.height, other.width, result)\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value ^= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def and_or_product(self, other):\n        if self.width != other.height:\n            raise ValueError(\"incompatible matrix shapes\")\n        result = [0] * self.height\n        source_rows = other.rows\n        for row, bits in enumerate(self.rows):\n            value = 0\n            while bits:\n                least = bits & -bits\n                value |= source_rows[least.bit_length() - 1]\n                bits ^= least\n            result[row] = value\n        return F2Matrix(self.height, other.width, result)\n\n    def power(self, exponent):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        if exponent < 0:\n            raise ValueError(\"exponent must be nonnegative\")\n        result = F2Matrix.identity(self.height)\n        base = self.copy()\n        while exponent:\n            if exponent & 1:\n                result = result.multiply(base)\n            exponent >>= 1\n            if exponent:\n                base = base.multiply(base)\n        return result\n\n    def sweep(self, pivot_end=None):\n        if pivot_end is None:\n            pivot_end = self.width\n        if not 0 <= pivot_end <= self.width:\n            raise ValueError(\"invalid pivot_end\")\n        rank = 0\n        pivots = []\n        rows = self.rows\n        if self.height >= 128 and pivot_end >= 64:\n            for start in range(0, pivot_end, 8):\n                if rank == self.height:\n                    break\n                first = rank\n                columns = []\n                for column in range(start, min(start + 8, pivot_end)):\n                    bit = 1 << column\n                    pivot = rank\n                    while pivot < self.height:\n                        value = rows[pivot]\n                        for offset, earlier in enumerate(columns):\n                            if value >> earlier & 1:\n                                value ^= rows[first + offset]\n                        rows[pivot] = value\n                        if value & bit:\n                            break\n                        pivot += 1\n                    if pivot == self.height:\n                        continue\n                    rows[rank], rows[pivot] = rows[pivot], rows[rank]\n                    columns.append(column)\n                    rank += 1\n                    if rank == self.height:\n                        break\n                if not columns:\n                    continue\n                block = [0] * 8\n                for offset in range(len(columns) - 1, -1, -1):\n                    column = columns[offset]\n                    bit = 1 << column\n                    value = rows[first + offset]\n                    for earlier in range(first, first + offset):\n                        if rows[earlier] & bit:\n                            rows[earlier] ^= value\n                    block[column - start] = value\n                table = [0]\n                for value in block:\n                    table += [previous ^ value for previous in table]\n                for row in range(first):\n                    rows[row] ^= table[(rows[row] >> start) & 255]\n                for row in range(rank, self.height):\n                    rows[row] ^= table[(rows[row] >> start) & 255]\n                pivots.extend(columns)\n            return rank, pivots\n        for column in range(pivot_end):\n            bit = 1 << column\n            pivot = rank\n            while pivot < self.height and not rows[pivot] & bit:\n                pivot += 1\n            if pivot == self.height:\n                continue\n            rows[rank], rows[pivot] = rows[pivot], rows[rank]\n            pivot_row = rows[rank]\n            for row in range(self.height):\n                if row != rank and rows[row] & bit:\n                    rows[row] ^= pivot_row\n            pivots.append(column)\n            rank += 1\n            if rank == self.height:\n                break\n        return rank, pivots\n\n    def rank(self):\n        rank = 0\n        if self.width <= 2 * self.height:\n            basis = [0] * self.width\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis[column]\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        else:\n            basis = {}\n            for value in self.rows:\n                while value:\n                    column = value.bit_length() - 1\n                    pivot = basis.get(column)\n                    if pivot:\n                        value ^= pivot\n                    else:\n                        basis[column] = value\n                        rank += 1\n                        break\n        return rank\n\n    def determinant(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        return int(self.rank() == self.height)\n\n    def inverse(self):\n        if self.height != self.width:\n            raise ValueError(\"matrix must be square\")\n        size = self.height\n        combined = F2Matrix(\n            size,\n            size * 2,\n            [self.rows[row] | 1 << (size + row) for row in range(size)],\n        )\n        if size >= 128:\n            rows = combined.rows\n            for start in range(0, size, 8):\n                end = min(start + 8, size)\n                for column in range(start, end):\n                    bit = 1 << column\n                    pivot = column\n                    while pivot < size:\n                        value = rows[pivot]\n                        for earlier in range(start, column):\n                            if value >> earlier & 1:\n                                value ^= rows[earlier]\n                        rows[pivot] = value\n                        if value & bit:\n                            break\n                        pivot += 1\n                    if pivot == size:\n                        return None\n                    rows[column], rows[pivot] = rows[pivot], rows[column]\n                for column in range(end - 1, start - 1, -1):\n                    bit = 1 << column\n                    value = rows[column]\n                    for earlier in range(start, column):\n                        if rows[earlier] & bit:\n                            rows[earlier] ^= value\n                table = [0]\n                for value in rows[start:end]:\n                    table += [previous ^ value for previous in table]\n                mask = len(table) - 1\n                for row in range(start):\n                    rows[row] ^= table[rows[row] >> start & mask]\n                for row in range(end, size):\n                    rows[row] ^= table[rows[row] >> start & mask]\n            return F2Matrix(size, size, [row >> size for row in rows])\n        rank, _ = combined.sweep(size)\n        if rank != size:\n            return None\n        mask = (1 << size) - 1\n        return F2Matrix(\n            size, size, [(row >> size) & mask for row in combined.rows]\n        )\n\n    def solve(self, vector):\n        \"\"\"Return (particular, kernel) as packed integers, or None.\"\"\"\n        height = self.height\n        width = self.width\n        if isinstance(vector, int):\n            if vector < 0 or vector.bit_length() > height:\n                raise ValueError(\"invalid right-hand side\")\n            packed = vector.to_bytes((height + 7) >> 3, \"little\")\n            rhs = [(packed[row >> 3] >> (row & 7)) & 1 for row in range(height)]\n        else:\n            if len(vector) != height:\n                raise ValueError(\"invalid vector size\")\n            rhs = [value & 1 for value in vector]\n        combined = F2Matrix(\n            height, width + 1,\n            [value | rhs[row] << width for row, value in enumerate(self.rows)],\n        )\n        rank, pivots = combined.sweep(width)\n        rows = combined.rows\n        if any(row >> width for row in rows[rank:]):\n            return None\n        particular = 0\n        for row, column in enumerate(pivots):\n            particular |= (rows[row] >> width) << column\n        pivot_set = set(pivots)\n        kernel = []\n        for free in range(width):\n            if free in pivot_set:\n                continue\n            value = 1 << free\n            for row, column in enumerate(pivots):\n                value |= ((rows[row] >> free) & 1) << column\n            kernel.append(value)\n        return particular, kernel\n\n    def matvec(self, vector):\n        if isinstance(vector, int):\n            bits = vector\n            return_integer = True\n        else:\n            if len(vector) != self.width:\n                raise ValueError(\"invalid vector size\")\n            bits = 0\n            for column, value in enumerate(vector):\n                bits |= (value & 1) << column\n            return_integer = False\n        result = 0\n        for row, source in enumerate(self.rows):\n            result |= ((source & bits).bit_count() & 1) << row\n        if return_integer:\n            return result\n        return [(result >> row) & 1 for row in range(self.height)]\n\n    def __mul__(self, other):\n        return self.multiply(other)\n\n    def __pow__(self, exponent):\n        return self.power(exponent)\n\n    def __eq__(self, other):\n        return (\n            isinstance(other, F2Matrix)\n            and self.height == other.height\n            and self.width == other.width\n            and self.rows == other.rows\n        )\n\n\nF2_Matrix = F2Matrix\nand_or_product = F2Matrix.and_or_product\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
         "classes": 1,
-        "methods": 17
+        "methods": 18
       },
       "functions": [],
       "classes": [
         {
           "name": "F2Matrix",
-          "summary": "0・1成分の行列を、1行につき1個の整数で保持する。積・階数・行列式・逆行列を求められる。",
-          "description": "0・1成分の行列を、1行につき1個の整数で保持する。積・階数・行列式・逆行列を求められる。",
+          "summary": "0・1成分の行列を、1行につき1個の整数で保持する。積・階数・行列式・逆行列・連立方程式の解を求められる。",
+          "description": "0・1成分の行列を、1行につき1個の整数で保持する。積・階数・行列式・逆行列・連立方程式の解を求められる。",
           "searchTerms": [
             "F2Matrix",
             "F2 Matrix",
@@ -46207,7 +46268,7 @@
               "returnFormat": "int",
               "returnDescription": "0以上min(height,width)以下の階数。入力は変更しない。",
               "complexity": "O(H*(min(H,W)+1)*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数",
-              "sourceLine": 135
+              "sourceLine": 180
             },
             {
               "name": "determinant",
@@ -46225,7 +46286,7 @@
               "returnFormat": "int",
               "returnDescription": "可逆なら1、非可逆なら0。0行0列では1。",
               "complexity": "O(N²*(1+ceil(N/w)))。N行N列、wは整数の1桁のビット数",
-              "sourceLine": 163
+              "sourceLine": 208
             },
             {
               "name": "inverse",
@@ -46243,7 +46304,42 @@
               "returnFormat": "F2Matrix | None",
               "returnDescription": "元の行列と掛けると単位行列になる新しい行列。非可逆ならNone。入力は変更しない。",
               "complexity": "O(N²*(1+ceil(N/w)))。N行N列、wは整数の1桁のビット数",
-              "sourceLine": 168
+              "sourceLine": 213
+            },
+            {
+              "name": "solve",
+              "kind": "method",
+              "signature": "solve(vector)",
+              "summary": "mod 2の連立方程式Ax=bの全解を、特解と零空間の基底で表す。元の行列は変更しない。",
+              "description": "mod 2の連立方程式Ax=bの全解を、特解と零空間の基底で表す。元の行列は変更しない。",
+              "searchTerms": [
+                "solve",
+                "solve(vector)"
+              ],
+              "arguments": "vector: 右辺b。長さheightの整数列（各値の下位1ビットを使う）、または第iビットが第i成分の非負整数。整数のheight以上のビットは0であること。",
+              "argumentDetails": [
+                {
+                  "name": "vector",
+                  "description": "右辺b。長さheightの整数列（各値の下位1ビットを使う）、または第iビットが第i成分の非負整数。整数のheight以上のビットは0であること。"
+                }
+              ],
+              "returns": "tuple[int, list[int]] | None — 解がなければNone。存在すれば(particular, kernel)。ベクトルは整数の第jビットが第j成分を表す。kernelが空なら解は一意。",
+              "returnFormat": "tuple[int, list[int]] | None",
+              "returnDescription": "解がなければNone。存在すれば(particular, kernel)。ベクトルは整数の第jビットが第j成分を表す。kernelが空なら解は一意。",
+              "complexity": "O((H+W)*W*(1+ceil((W+1)/w)))。H行W列、wは整数の1桁のビット数。追加メモリO((H+W)*(1+ceil((W+1)/w)))。返す基底を含む",
+              "sourceLine": 264,
+              "returnParts": [
+                {
+                  "name": "particular",
+                  "format": "int",
+                  "description": "Ax=bを満たす解の一つ。自由変数をすべて0としたビット列。"
+                },
+                {
+                  "name": "kernel",
+                  "format": "list[int]",
+                  "description": "Ax=0の基底。長さはwidth-rank、自由変数の列番号順。任意の要素を選んでXORしparticularへ加えると、ちょうど全解を得られる。"
+                }
+              ]
             },
             {
               "name": "matvec",
@@ -46266,7 +46362,7 @@
               "returnFormat": "int | list[int]",
               "returnDescription": "整数入力なら出力の第iビットが第i成分。list入力なら長さheightの0・1のlist。",
               "complexity": "O(H*(1+ceil((H+W)/w)))。list入力ではO(W*(1+ceil(W/w)))も必要。H行W列、wは整数の1桁のビット数",
-              "sourceLine": 219
+              "sourceLine": 299
             },
             {
               "name": "__mul__",
@@ -46290,7 +46386,7 @@
               "returnFormat": "計算結果（入力型に依存）",
               "returnDescription": "乗算した結果。",
               "complexity": "multiplyと同じ",
-              "sourceLine": 237
+              "sourceLine": 317
             },
             {
               "name": "__pow__",
@@ -46314,7 +46410,7 @@
               "returnFormat": "計算結果（入力型に依存）",
               "returnDescription": "累乗した結果。",
               "complexity": "powerと同じ",
-              "sourceLine": 240
+              "sourceLine": 320
             },
             {
               "name": "__eq__",
@@ -46338,7 +46434,7 @@
               "returnFormat": "bool",
               "returnDescription": "bool",
               "complexity": "O(H*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数",
-              "sourceLine": 243
+              "sourceLine": 323
             }
           ]
         }
@@ -47379,9 +47475,15 @@
       "modulePath": "library_codex.linear_algebra.XorBasis",
       "summary": "整数集合のxor線形基底を構築し、表現可能性や最大値を求める。",
       "capabilities": [
-        "XorBasis: 整数集合のxor線形基底を構築し、表現可能性や最大値を求めるためのクラス。"
+        "整数をいくつか選んでXORしたとき、指定値を作れるかを判定する。",
+        "作れる値の最小・最大・k番目・昇順位置を、全列挙せずに求める。",
+        "2つの集合の両方でXORによって作れる値を、新しい基底で表す。"
       ],
-      "article": null,
+      "article": {
+        "title": "XORで作れる値の集合",
+        "markdown": "整数をいくつか選んでXORしたとき、どの値を作れるかを基底で管理する。\n\n## 主な機能\n\n- `XorBasis(values)` — 非負整数の列から構築するclass。重複・0・ほかの値のXORで作れる値は、独立した基底として数えない。\n- `insert(value)` — 作れる値の集合へvalueを追加する。集合が広がったときだけTrue。\n- `contains(value)` — 登録値そのものに限らず、それらのXORで作れるかを判定する。\n- `kth_smallest(index)`・`rank(value)` — 作れる値を昇順に並べたときの値・位置を取得する。\n- `intersection(other)` — 両方で作れる値だけを表す、新しいXorBasisを返す。\n\n基底数D、整数のビット幅B、多倍長整数の1桁の幅wに対し、通常の検索・追加は `O(D ceil(B/w))`。集合の共通部分は基底数D₁、D₂に対し `O((D₁+D₂)^2 ceil(B/w))`。作れる値の個数は2のD乗でも、全列挙はしない。\n\n## 使い方\n\n```python\nfrom library_codex.linear_algebra.XorBasis import XorBasis\n\na = XorBasis([3, 5])\nb = XorBasis([6, 8])\ncommon = a.intersection(b)\nassert a.contains(6)\nassert common.tolist() == [6]\nassert len(common) == 1\nassert [common.kth_smallest(i) for i in range(2)] == [0, 6]\nassert common.rank(6) == 1\n```\n\n- aで作れる値: 0, 3, 5, 6。\n- bで作れる値: 0, 6, 8, 14。\n- 共通部分: 0, 6。返り値の基底は6だけで、0は基底へ入れない。\n- `len(common)`: 作れる値の個数ではなく、独立な基底の本数。\n- `tolist()`: 基底を昇順で返すコピー。作れる値すべての列ではない。\n\n## 注意点\n\n- `intersection`は両方の入力を変更しない。返り値には通常の検索・追加も使える。\n- `rank(value)`は値の昇順での位置。空間の次元を知りたいときは `len(basis)`。\n- 作れない値のrank、範囲外のkthは-1。共通部分が0だけなら空の基底になる。\n- `minimum(xor)`・`maximum(xor)`・`xor_kth(xor, index)`は、作れる各値にxorを掛けた集合での検索。",
+        "sourcePath": "library_codex/docs/articles/linear_algebra/XorBasis.md"
+      },
       "searchTerms": [
         "XorBasis",
         "Xor Basis",
@@ -47392,71 +47494,71 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/linear_algebra/XorBasis.py",
-      "inputFingerprint": "dc7c13033cec0036b307958b2ac3161f2eb23ecd2ad279ef57b82b6aac8e98e5",
+      "inputFingerprint": "0b9ceecab80378be07a389a20f8364790d88e5fe71eb29a13396531d22f6dea6",
       "importCode": "from library_codex.linear_algebra.XorBasis import XorBasis",
-      "sourceCode": "\"\"\"整数集合のxor線形基底を構築し、表現可能性や最大値を求める。\"\"\"\n\nclass XorBasis:\n    \"\"\"Reduced nonnegative integer XOR basis with ordered-value queries.\"\"\"\n\n    __slots__ = (\"basis\",)\n\n    def __init__(self, values=()):\n        self.basis = []\n        for value in values:\n            self.insert(value)\n\n    def insert(self, value):\n        reduced = value\n        for basis in self.basis:\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n        if reduced == 0:\n            return False\n        for i, basis in enumerate(self.basis):\n            if basis ^ reduced < basis:\n                self.basis[i] = basis ^ reduced\n        self.basis.append(reduced)\n        self.basis.sort()\n        return True\n\n    add = insert\n\n    def __len__(self):\n        return len(self.basis)\n\n    def contains(self, value):\n        for basis in reversed(self.basis):\n            if value ^ basis < value:\n                value ^= basis\n        return value == 0\n\n    can_make = contains\n\n    def kth_smallest(self, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        result = 0\n        for i, basis in enumerate(self.basis):\n            if index >> i & 1:\n                result ^= basis\n        return result\n\n    def maximum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis > result:\n                result ^= basis\n        return result\n\n    def minimum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis < result:\n                result ^= basis\n        return result\n\n    def xor_kth(self, xor, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        return self.minimum(xor) ^ self.kth_smallest(index)\n\n    def rank(self, value):\n        \"\"\"Index in sorted representable values, or -1 if unrepresentable.\"\"\"\n        index = 0\n        reduced = value\n        for i in range(len(self.basis) - 1, -1, -1):\n            basis = self.basis[i]\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n                index |= 1 << i\n        return index if reduced == 0 else -1\n",
-      "standaloneCode": "\"\"\"整数集合のxor線形基底を構築し、表現可能性や最大値を求める。\"\"\"\n\nclass XorBasis:\n    \"\"\"Reduced nonnegative integer XOR basis with ordered-value queries.\"\"\"\n\n    __slots__ = (\"basis\",)\n\n    def __init__(self, values=()):\n        self.basis = []\n        for value in values:\n            self.insert(value)\n\n    def insert(self, value):\n        reduced = value\n        for basis in self.basis:\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n        if reduced == 0:\n            return False\n        for i, basis in enumerate(self.basis):\n            if basis ^ reduced < basis:\n                self.basis[i] = basis ^ reduced\n        self.basis.append(reduced)\n        self.basis.sort()\n        return True\n\n    add = insert\n\n    def __len__(self):\n        return len(self.basis)\n\n    def contains(self, value):\n        for basis in reversed(self.basis):\n            if value ^ basis < value:\n                value ^= basis\n        return value == 0\n\n    can_make = contains\n\n    def kth_smallest(self, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        result = 0\n        for i, basis in enumerate(self.basis):\n            if index >> i & 1:\n                result ^= basis\n        return result\n\n    def maximum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis > result:\n                result ^= basis\n        return result\n\n    def minimum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis < result:\n                result ^= basis\n        return result\n\n    def xor_kth(self, xor, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        return self.minimum(xor) ^ self.kth_smallest(index)\n\n    def rank(self, value):\n        \"\"\"Index in sorted representable values, or -1 if unrepresentable.\"\"\"\n        index = 0\n        reduced = value\n        for i in range(len(self.basis) - 1, -1, -1):\n            basis = self.basis[i]\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n                index |= 1 << i\n        return index if reduced == 0 else -1\n",
+      "sourceCode": "\"\"\"整数集合のxor線形基底を構築し、表現可能性や最大値を求める。\"\"\"\n\nclass XorBasis:\n    \"\"\"Reduced nonnegative integer XOR basis with ordered-value queries.\"\"\"\n\n    __slots__ = (\"basis\",)\n\n    def __init__(self, values=()):\n        basis = []\n        for value in values:\n            for previous in basis:\n                candidate = value ^ previous\n                if candidate < value:\n                    value = candidate\n            if value:\n                basis.append(value)\n        basis.sort()\n        for i in range(len(basis)):\n            value = basis[i]\n            for j in range(i):\n                candidate = value ^ basis[j]\n                if candidate < value:\n                    value = candidate\n            basis[i] = value\n        self.basis = basis\n\n    def insert(self, value):\n        reduced = value\n        for basis in self.basis:\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n        if reduced == 0:\n            return False\n        for i, basis in enumerate(self.basis):\n            if basis ^ reduced < basis:\n                self.basis[i] = basis ^ reduced\n        self.basis.append(reduced)\n        self.basis.sort()\n        return True\n\n    add = insert\n\n    def __len__(self):\n        return len(self.basis)\n\n    def contains(self, value):\n        for basis in reversed(self.basis):\n            if value ^ basis < value:\n                value ^= basis\n        return value == 0\n\n    can_make = contains\n\n    def kth_smallest(self, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        result = 0\n        for i, basis in enumerate(self.basis):\n            if index >> i & 1:\n                result ^= basis\n        return result\n\n    def maximum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis > result:\n                result ^= basis\n        return result\n\n    def minimum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis < result:\n                result ^= basis\n        return result\n\n    def xor_kth(self, xor, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        return self.minimum(xor) ^ self.kth_smallest(index)\n\n    def rank(self, value):\n        \"\"\"Index in sorted representable values, or -1 if unrepresentable.\"\"\"\n        index = 0\n        reduced = value\n        for i in range(len(self.basis) - 1, -1, -1):\n            basis = self.basis[i]\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n                index |= 1 << i\n        return index if reduced == 0 else -1\n\n    def intersection(self, other):\n        \"\"\"Return a new basis for values representable by both operands.\"\"\"\n        if self.basis == other.basis:\n            result = XorBasis()\n            result.basis = self.basis[:]\n            return result\n        residuals = []\n        tags = []\n        common = []\n        for value in other.basis:\n            residual = self.minimum(value)\n            tag = value ^ residual\n            for previous, previous_tag in zip(residuals, tags):\n                candidate = residual ^ previous\n                if candidate < residual:\n                    residual = candidate\n                    tag ^= previous_tag\n            if residual:\n                residuals.append(residual)\n                tags.append(tag)\n            else:\n                common.append(tag)\n        return XorBasis(common)\n\n    def tolist(self):\n        return self.basis[:]\n\n    def __str__(self):\n        return str(self.basis)\n\n    def __repr__(self):\n        return \"XorBasis(\" + str(self.basis) + \")\"\n",
+      "standaloneCode": "\"\"\"整数集合のxor線形基底を構築し、表現可能性や最大値を求める。\"\"\"\n\nclass XorBasis:\n    \"\"\"Reduced nonnegative integer XOR basis with ordered-value queries.\"\"\"\n\n    __slots__ = (\"basis\",)\n\n    def __init__(self, values=()):\n        basis = []\n        for value in values:\n            for previous in basis:\n                candidate = value ^ previous\n                if candidate < value:\n                    value = candidate\n            if value:\n                basis.append(value)\n        basis.sort()\n        for i in range(len(basis)):\n            value = basis[i]\n            for j in range(i):\n                candidate = value ^ basis[j]\n                if candidate < value:\n                    value = candidate\n            basis[i] = value\n        self.basis = basis\n\n    def insert(self, value):\n        reduced = value\n        for basis in self.basis:\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n        if reduced == 0:\n            return False\n        for i, basis in enumerate(self.basis):\n            if basis ^ reduced < basis:\n                self.basis[i] = basis ^ reduced\n        self.basis.append(reduced)\n        self.basis.sort()\n        return True\n\n    add = insert\n\n    def __len__(self):\n        return len(self.basis)\n\n    def contains(self, value):\n        for basis in reversed(self.basis):\n            if value ^ basis < value:\n                value ^= basis\n        return value == 0\n\n    can_make = contains\n\n    def kth_smallest(self, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        result = 0\n        for i, basis in enumerate(self.basis):\n            if index >> i & 1:\n                result ^= basis\n        return result\n\n    def maximum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis > result:\n                result ^= basis\n        return result\n\n    def minimum(self, xor=0):\n        result = xor\n        for basis in reversed(self.basis):\n            if result ^ basis < result:\n                result ^= basis\n        return result\n\n    def xor_kth(self, xor, index):\n        if not 0 <= index < 1 << len(self.basis):\n            return -1\n        return self.minimum(xor) ^ self.kth_smallest(index)\n\n    def rank(self, value):\n        \"\"\"Index in sorted representable values, or -1 if unrepresentable.\"\"\"\n        index = 0\n        reduced = value\n        for i in range(len(self.basis) - 1, -1, -1):\n            basis = self.basis[i]\n            if reduced ^ basis < reduced:\n                reduced ^= basis\n                index |= 1 << i\n        return index if reduced == 0 else -1\n\n    def intersection(self, other):\n        \"\"\"Return a new basis for values representable by both operands.\"\"\"\n        if self.basis == other.basis:\n            result = XorBasis()\n            result.basis = self.basis[:]\n            return result\n        residuals = []\n        tags = []\n        common = []\n        for value in other.basis:\n            residual = self.minimum(value)\n            tag = value ^ residual\n            for previous, previous_tag in zip(residuals, tags):\n                candidate = residual ^ previous\n                if candidate < residual:\n                    residual = candidate\n                    tag ^= previous_tag\n            if residual:\n                residuals.append(residual)\n                tags.append(tag)\n            else:\n                common.append(tag)\n        return XorBasis(common)\n\n    def tolist(self):\n        return self.basis[:]\n\n    def __str__(self):\n        return str(self.basis)\n\n    def __repr__(self):\n        return \"XorBasis(\" + str(self.basis) + \")\"\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
         "classes": 1,
-        "methods": 8
+        "methods": 12
       },
       "functions": [],
       "classes": [
         {
           "name": "XorBasis",
-          "summary": "整数集合のxor線形基底を構築し、表現可能性や最大値を求めるためのクラス。",
-          "description": "整数集合のxor線形基底を構築し、表現可能性や最大値を求めるためのクラス。",
+          "summary": "登録した非負整数の部分集合XORで作れる値を、独立な基底で保持する。",
+          "description": "登録した非負整数の部分集合XORで作れる値を、独立な基底で保持する。",
           "searchTerms": [
             "XorBasis",
             "Xor Basis",
             "XorBasis(values=())"
           ],
           "constructor": "XorBasis(values=())",
-          "constructorArguments": "values: 初期値のiterable。整数ならsizeを表す場合がある。省略時: ()",
+          "constructorArguments": "values: 非負整数のiterable。空・0・重複も可。入力の値そのものではなく、その部分集合XORで作れる集合を管理する。省略時: ()",
           "constructorArgumentDetails": [
             {
               "name": "values",
-              "description": "初期値の反復可能オブジェクト。整数ならsizeを表す場合がある。省略時は ()"
+              "description": "非負整数の反復可能オブジェクト。空・0・重複も可。入力の値そのものではなく、その部分集合XORで作れる集合を管理する。省略時は ()"
             }
           ],
           "constructorReturns": "XorBasis instance",
           "constructorReturnFormat": "XorBasis",
-          "constructorReturnDescription": "整数集合のxor線形基底を構築し、表現可能性や最大値を求めるためのクラス。",
-          "constructorCreates": "整数集合のxor線形基底を構築し、表現可能性や最大値を求めるためのクラス。",
-          "constructorComplexity": "実装依存",
+          "constructorReturnDescription": "containsで表現可能性、minimum・maximumで極値、kth_smallest・rankで昇順の値と位置を取得できる。intersectionは2つの空間の共通部分を返す。",
+          "constructorCreates": "containsで表現可能性、minimum・maximumで極値、kth_smallest・rankで昇順の値と位置を取得できる。intersectionは2つの空間の共通部分を返す。",
+          "constructorComplexity": "O(N*D*(1+ceil(B/w)))。Nは入力数、Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
           "constructorSourceLine": 8,
           "methods": [
             {
               "name": "insert",
               "kind": "method",
               "signature": "insert(value)",
-              "summary": "指定位置へ要素を挿入する。",
-              "description": "指定位置へ要素を挿入する。",
+              "summary": "valueを選べる値として追加し、作れる値の集合を広げる。",
+              "description": "valueを選べる値として追加し、作れる値の集合を広げる。",
               "searchTerms": [
                 "insert",
                 "insert(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 非負整数。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "非負整数。"
                 }
               ],
-              "returns": "bool — bool",
+              "returns": "bool — valueが既存の基底で作れなければTrue。作れる値や0ならFalseで、基底数は増えない。",
               "returnFormat": "bool",
-              "returnDescription": "bool",
-              "complexity": "O(B)（Bは管理値のbit幅）",
-              "sourceLine": 13
+              "returnDescription": "valueが既存の基底で作れなければTrue。作れる値や0ならFalseで、基底数は増えない。",
+              "complexity": "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 27
             },
             {
               "name": "__len__",
               "kind": "method",
               "signature": "__len__()",
-              "summary": "要素数を返す。",
-              "description": "要素数を返す。",
+              "summary": "独立な基底の本数を返す。",
+              "description": "独立な基底の本数を返す。",
               "searchTerms": [
                 "__len__",
                 "len",
@@ -47464,41 +47566,41 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "int — 要素数。",
+              "returns": "int — 空間の次元D。作れる値の個数は2^Dで、0を含む。",
               "returnFormat": "int",
-              "returnDescription": "要素数。",
+              "returnDescription": "空間の次元D。作れる値の個数は2^Dで、0を含む。",
               "complexity": "O(1)",
-              "sourceLine": 29
+              "sourceLine": 43
             },
             {
               "name": "contains",
               "kind": "method",
               "signature": "contains(value)",
-              "summary": "指定値を保持しているか判定する。",
-              "description": "指定値を保持しているか判定する。",
+              "summary": "valueが登録値の部分集合XORで作れるかを判定する。",
+              "description": "valueが登録値の部分集合XORで作れるかを判定する。",
               "searchTerms": [
                 "contains",
                 "contains(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 非負整数。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "非負整数。"
                 }
               ],
-              "returns": "bool — 条件を満たすかどうか。",
+              "returns": "bool — 作れればTrue。登録した値そのものに限らない。0は常にTrue。",
               "returnFormat": "bool",
-              "returnDescription": "条件を満たすかどうか。",
-              "complexity": "O(B)（Bは管理値のbit幅）",
-              "sourceLine": 32
+              "returnDescription": "作れればTrue。登録した値そのものに限らない。0は常にTrue。",
+              "complexity": "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 46
             },
             {
               "name": "kth_smallest",
               "kind": "method",
               "signature": "kth_smallest(index)",
-              "summary": "k番目最小を求める。",
-              "description": "k番目最小を求める。",
+              "summary": "作れる値を昇順に並べたときのindex番目を返す。",
+              "description": "作れる値を昇順に並べたときのindex番目を返す。",
               "searchTerms": [
                 "kth_smallest",
                 "kth smallest",
@@ -47511,108 +47613,187 @@
                   "description": "位置"
                 }
               ],
-              "returns": "int / float — -1 / 計算結果（int）",
-              "returnFormat": "int / float",
-              "returnDescription": "-1 / 計算結果（int）",
-              "complexity": "O(B^2)",
-              "sourceLine": 40
+              "returns": "int — 範囲内なら対応する非負整数。indexが0以上2^D未満でなければ-1。",
+              "returnFormat": "int",
+              "returnDescription": "範囲内なら対応する非負整数。indexが0以上2^D未満でなければ-1。",
+              "complexity": "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 54
             },
             {
               "name": "maximum",
               "kind": "method",
               "signature": "maximum(xor=0)",
-              "summary": "最大を求める。",
-              "description": "最大を求める。",
+              "summary": "作れる各値にxorを掛けた集合の最大値を返す。",
+              "description": "作れる各値にxorを掛けた集合の最大値を返す。",
               "searchTerms": [
                 "maximum",
                 "maximum(xor=0)"
               ],
-              "arguments": "xor: 全要素へ作用させるXOR値。省略時: 0",
+              "arguments": "xor: 作れる各値に掛ける非負整数のXOR値。",
               "argumentDetails": [
                 {
                   "name": "xor",
-                  "description": "全要素へ作用させるXOR値。省略時は 0"
+                  "description": "作れる各値に掛ける非負整数のXOR値。"
                 }
               ],
-              "returns": "集計値（要素型と演算に依存） — 求めた最大。",
-              "returnFormat": "集計値（要素型と演算に依存）",
-              "returnDescription": "求めた最大。",
-              "complexity": "O(B)（Bは管理値のbit幅）",
-              "sourceLine": 49
+              "returns": "int — max(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。",
+              "returnFormat": "int",
+              "returnDescription": "max(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。",
+              "complexity": "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 63
             },
             {
               "name": "minimum",
               "kind": "method",
               "signature": "minimum(xor=0)",
-              "summary": "最小を求める。",
-              "description": "最小を求める。",
+              "summary": "作れる各値にxorを掛けた集合の最小値を返す。",
+              "description": "作れる各値にxorを掛けた集合の最小値を返す。",
               "searchTerms": [
                 "minimum",
                 "minimum(xor=0)"
               ],
-              "arguments": "xor: 全要素へ作用させるXOR値。省略時: 0",
+              "arguments": "xor: 作れる各値に掛ける非負整数のXOR値。",
               "argumentDetails": [
                 {
                   "name": "xor",
-                  "description": "全要素へ作用させるXOR値。省略時は 0"
+                  "description": "作れる各値に掛ける非負整数のXOR値。"
                 }
               ],
-              "returns": "集計値（要素型と演算に依存） — 求めた最小。",
-              "returnFormat": "集計値（要素型と演算に依存）",
-              "returnDescription": "求めた最小。",
-              "complexity": "O(B)（Bは管理値のbit幅）",
-              "sourceLine": 56
+              "returns": "int — min(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。",
+              "returnFormat": "int",
+              "returnDescription": "min(xor XOR x)。xは基底で作れる値を動く。空基底ならxor。",
+              "complexity": "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 70
             },
             {
               "name": "xor_kth",
               "kind": "method",
               "signature": "xor_kth(xor, index)",
-              "summary": "XORk番目を求める。",
-              "description": "XORk番目を求める。",
+              "summary": "作れる各値にxorを掛け、昇順に並べたときのindex番目を返す。",
+              "description": "作れる各値にxorを掛け、昇順に並べたときのindex番目を返す。",
               "searchTerms": [
                 "xor_kth",
                 "xor kth",
                 "xor_kth(xor, index)"
               ],
-              "arguments": "xor: 全要素へ作用させるXOR値 · index: 位置",
+              "arguments": "xor: 作れる各値に掛ける非負整数のXOR値。 · index: 位置",
               "argumentDetails": [
                 {
                   "name": "xor",
-                  "description": "全要素へ作用させるXOR値"
+                  "description": "作れる各値に掛ける非負整数のXOR値。"
                 },
                 {
                   "name": "index",
                   "description": "位置"
                 }
               ],
-              "returns": "入力要素と同じ型 — 求めたXORk番目。",
-              "returnFormat": "入力要素と同じ型",
-              "returnDescription": "求めたXORk番目。",
-              "complexity": "O(B^2)",
-              "sourceLine": 63
+              "returns": "int — 変換後の集合でindex番目の非負整数。範囲外なら-1。",
+              "returnFormat": "int",
+              "returnDescription": "変換後の集合でindex番目の非負整数。範囲外なら-1。",
+              "complexity": "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 77
             },
             {
               "name": "rank",
               "kind": "method",
               "signature": "rank(value)",
-              "summary": "指定範囲内の出現数または線形代数上のランクを返す。",
-              "description": "指定範囲内の出現数または線形代数上のランクを返す。",
+              "summary": "valueが作れる値の昇順で何番目かを返す。",
+              "description": "valueが作れる値の昇順で何番目かを返す。",
               "searchTerms": [
                 "rank",
                 "rank(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 非負整数。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "非負整数。"
                 }
               ],
-              "returns": "int — ランク・出現数（int）",
+              "returns": "int — 作れれば0以上2^D未満の位置、作れなければ-1。空間の次元ではない。",
               "returnFormat": "int",
-              "returnDescription": "ランク・出現数（int）",
-              "complexity": "O(1)（Bは管理値のbit幅）",
-              "sourceLine": 68
+              "returnDescription": "作れれば0以上2^D未満の位置、作れなければ-1。空間の次元ではない。",
+              "complexity": "O(D*(1+ceil(B/w)))。Dは基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 82
+            },
+            {
+              "name": "intersection",
+              "kind": "method",
+              "signature": "intersection(other)",
+              "summary": "両方の基底で作れる値の共通部分を求める。入力は変更しない。",
+              "description": "両方の基底で作れる値の共通部分を求める。入力は変更しない。",
+              "searchTerms": [
+                "intersection",
+                "intersection(other)"
+              ],
+              "arguments": "other: 共通部分を求める相手のXorBasis。",
+              "argumentDetails": [
+                {
+                  "name": "other",
+                  "description": "共通部分を求める相手のXorBasis。"
+                }
+              ],
+              "returns": "XorBasis — 共通部分を表す独立したXorBasis。contains・kth_smallestなどをそのまま使える。0しか共通しなければlen(result)=0。",
+              "returnFormat": "XorBasis",
+              "returnDescription": "共通部分を表す独立したXorBasis。contains・kth_smallestなどをそのまま使える。0しか共通しなければlen(result)=0。",
+              "complexity": "O((D1+D2)^2*(1+ceil(B/w)))。D1,D2は各基底数、Bは整数のbit幅、wは整数の1桁のbit数",
+              "sourceLine": 93
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "昇順の簡約基底をコピーして返す。",
+              "description": "昇順の簡約基底をコピーして返す。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[int] — 長さDの独立な非負整数列。全組合せで作れる値の列ではない。変更しても元の基底は変わらない。",
+              "returnFormat": "list[int]",
+              "returnDescription": "長さDの独立な非負整数列。全組合せで作れる値の列ではない。変更しても元の基底は変わらない。",
+              "complexity": "O(D)。Dは基底数",
+              "sourceLine": 117
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "昇順の基底をlistの形で表示する。",
+              "description": "昇順の基底をlistの形で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じ基底を文字列化する。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じ基底を文字列化する。",
+              "complexity": "O(D)と基底の整数文字列化",
+              "sourceLine": 120
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名と昇順の基底を表示する。",
+              "description": "型名と昇順の基底を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — XorBasis([...])の形。表示後も状態は変わらない。",
+              "returnFormat": "str",
+              "returnDescription": "XorBasis([...])の形。表示後も状態は変わらない。",
+              "complexity": "O(D)と基底の整数文字列化",
+              "sourceLine": 123
             }
           ]
         }

@@ -1,8 +1,8 @@
 {
   "problem": "matrix_rank_mod_2",
   "status": "local_passed",
-  "verificationKey": "5cf5cb3f142b80eb1326e7fde963302b62979ea91eeefe21fbbd0925b62f437c",
-  "sourceSha256": "bd7de195eb4a447f903f8010d5e6576cd5d165bcf5f78b3d550f5d762d3c34e9",
+  "verificationKey": "39cd7244ce0daf4be8f289859ed8f6c2cdfe29718f9f262fa2afa642430a2504",
+  "sourceSha256": "210f6101d3e017db68d72275dee4d14ea696422bd37a021591b399c3f261959c",
   "modules": [
     "library_codex.linear_algebra.F2Matrix"
   ],
@@ -17,214 +17,214 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.05221931298729032,
+      "seconds": 0.055284037021920085,
       "diagnostic": "ok \"2\"\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.05316698501701467,
+      "seconds": 0.05273594299796969,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "example_02",
       "status": "AC",
-      "seconds": 0.05097656199359335,
+      "seconds": 0.05190563399810344,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "zero_00",
       "status": "AC",
-      "seconds": 0.051875679986551404,
+      "seconds": 0.054018556023947895,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "zero_01",
       "status": "AC",
-      "seconds": 0.05638599701342173,
+      "seconds": 0.05623693100642413,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "zero_02",
       "status": "AC",
-      "seconds": 0.052441045991145074,
+      "seconds": 0.05220448999898508,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "zero_03",
       "status": "AC",
-      "seconds": 0.04790529198362492,
+      "seconds": 0.05438571400009096,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "zero_04",
       "status": "AC",
-      "seconds": 0.6407958070049062,
+      "seconds": 0.6150602850248106,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.1694669300050009,
+      "seconds": 0.16892038995865732,
       "diagnostic": "ok \"693\"\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.12924067402491346,
+      "seconds": 0.13420786702772602,
       "diagnostic": "ok \"198\"\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.11886309701367281,
+      "seconds": 0.1215177439735271,
       "diagnostic": "ok \"88\"\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.11553892100346275,
+      "seconds": 0.11267385800601915,
       "diagnostic": "ok \"1263\"\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 0.08957693399861455,
+      "seconds": 0.09313176100840792,
       "diagnostic": "ok \"813\"\n"
     },
     {
       "name": "random_05",
       "status": "AC",
-      "seconds": 0.11904462400707416,
+      "seconds": 0.12571837997529656,
       "diagnostic": "ok \"1245\"\n"
     },
     {
       "name": "random_06",
       "status": "AC",
-      "seconds": 0.12879193102708086,
+      "seconds": 0.12366943794768304,
       "diagnostic": "ok \"902\"\n"
     },
     {
       "name": "random_07",
       "status": "AC",
-      "seconds": 0.07003883199649863,
+      "seconds": 0.07133955298922956,
       "diagnostic": "ok \"793\"\n"
     },
     {
       "name": "max_00",
       "status": "AC",
-      "seconds": 0.1945011269999668,
+      "seconds": 0.19585441297385842,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "max_01",
       "status": "AC",
-      "seconds": 0.1827541509992443,
+      "seconds": 0.18413273699115962,
       "diagnostic": "ok \"2\"\n"
     },
     {
       "name": "max_02",
       "status": "AC",
-      "seconds": 0.220406399021158,
+      "seconds": 0.1786846020258963,
       "diagnostic": "ok \"3\"\n"
     },
     {
       "name": "max_03",
       "status": "AC",
-      "seconds": 0.44641959297587164,
+      "seconds": 0.4174591719638556,
       "diagnostic": "ok \"4095\"\n"
     },
     {
       "name": "max_04",
       "status": "AC",
-      "seconds": 0.4454481659922749,
+      "seconds": 0.4201082190265879,
       "diagnostic": "ok \"4095\"\n"
     },
     {
       "name": "max_05",
       "status": "AC",
-      "seconds": 0.42751855100505054,
+      "seconds": 0.41425398900173604,
       "diagnostic": "ok \"4094\"\n"
     },
     {
       "name": "max_06",
       "status": "AC",
-      "seconds": 0.6584183379891329,
+      "seconds": 0.6415702929953113,
       "diagnostic": "ok \"3\"\n"
     },
     {
       "name": "max_07",
       "status": "AC",
-      "seconds": 0.9238911389838904,
+      "seconds": 0.860553520033136,
       "diagnostic": "ok \"2\"\n"
     },
     {
       "name": "max_08",
       "status": "AC",
-      "seconds": 1.8459336839732714,
+      "seconds": 1.446129315008875,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "lowrank_00",
       "status": "AC",
-      "seconds": 0.2089500260190107,
+      "seconds": 0.1934413310373202,
       "diagnostic": "ok \"299\"\n"
     },
     {
       "name": "lowrank_01",
       "status": "AC",
-      "seconds": 0.2399271879985463,
+      "seconds": 0.25984161702217534,
       "diagnostic": "ok \"21\"\n"
     },
     {
       "name": "lowrank_02",
       "status": "AC",
-      "seconds": 0.18974202498793602,
+      "seconds": 0.18531399901257828,
       "diagnostic": "ok \"11\"\n"
     },
     {
       "name": "lowrank_03",
       "status": "AC",
-      "seconds": 0.34987420999095775,
+      "seconds": 0.3582215450005606,
       "diagnostic": "ok \"1263\"\n"
     },
     {
       "name": "lowrank_04",
       "status": "AC",
-      "seconds": 0.27688351197866723,
+      "seconds": 0.28681160003179684,
       "diagnostic": "ok \"813\"\n"
     },
     {
       "name": "lowrank_05",
       "status": "AC",
-      "seconds": 0.3340478529862594,
+      "seconds": 0.34620535699650645,
       "diagnostic": "ok \"1245\"\n"
     },
     {
       "name": "lowrank_06",
       "status": "AC",
-      "seconds": 0.19929576499271207,
+      "seconds": 0.20962887204950675,
       "diagnostic": "ok \"252\"\n"
     },
     {
       "name": "lowrank_07",
       "status": "AC",
-      "seconds": 0.4184984599996824,
+      "seconds": 0.4257525849970989,
       "diagnostic": "ok \"1235\"\n"
     },
     {
       "name": "lowrank_08",
       "status": "AC",
-      "seconds": 0.2206884989864193,
+      "seconds": 0.23237886698916554,
       "diagnostic": "ok \"303\"\n"
     },
     {
       "name": "lowrank_09",
       "status": "AC",
-      "seconds": 0.30436215599183924,
+      "seconds": 0.30915890500182286,
       "diagnostic": "ok \"24\"\n"
     }
   ],
-  "verifiedAt": "2026-10-04T09:01:05.577883+00:00",
+  "verifiedAt": "2026-10-07T03:00:35.927217+00:00",
   "onlineSubmission": null
 }

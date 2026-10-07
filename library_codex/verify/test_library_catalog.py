@@ -246,6 +246,24 @@ def test_centroid_decomposition_classes_have_distinct_roles():
     assert "点更新" in distance_query["description"]
 
 
+def test_catalog_f2_solutions_xor_intersection_and_rectangles():
+    data = load_catalog()
+    matrix = module_by_path(data, "library_codex.linear_algebra.F2Matrix")
+    solve = next(method for method in matrix["classes"][0]["methods"] if method["name"] == "solve")
+    assert solve["returnFormat"] == "tuple[int, list[int]] | None"
+    assert [part["name"] for part in solve["returnParts"]] == ["particular", "kernel"]
+    assert "全解" in solve["returnParts"][1]["description"]
+    basis = module_by_path(data, "library_codex.linear_algebra.XorBasis")
+    methods = {method["name"]: method for method in basis["classes"][0]["methods"]}
+    assert methods["intersection"]["returnFormat"] == "XorBasis"
+    assert "空間の次元ではない" in methods["rank"]["returnDescription"]
+    assert methods["rank"]["complexity"] != "O(1)"
+    rectangles = module_by_path(data, "library_codex.spatial_structure.UnionRectangle")
+    assert "left, right, bottom, top" in rectangles["article"]["markdown"]
+    assert rectangles["functions"][0]["returnFormat"] == "int"
+    assert all(module["article"] for module in (matrix, basis, rectangles))
+
+
 def test_catalog_polynomial_sampling_descriptions():
     data = load_catalog()
     for module_name in ("GeometricMultipointEvaluation", "PolynomialPrefixSum", "PolynomialExponentialSum", "MultipointEvaluation"):

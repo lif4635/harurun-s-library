@@ -25,6 +25,8 @@ segment         # SegTree([1, 2, 3])
 | PointSetRangeFrequency | 更新後の列を添字順に並べたlist | `tolist()` |
 | OrderedMap | key順のdict | `items()` |
 | Permutation Tree | node index順のdict list | `tolist()` |
+| XorBasis | 昇順の簡約基底。表現できる値の全列挙ではない | `tolist()` |
+| UnionRectangle | 追加順の長方形list | `tolist()` |
 
 `repr(obj)` は同じ内容へ型名を付けます。たとえば `FastSet([2, 5, 9])` のように表示します。
 

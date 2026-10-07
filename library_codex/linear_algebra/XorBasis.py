@@ -6,9 +6,23 @@ class XorBasis:
     __slots__ = ("basis",)
 
     def __init__(self, values=()):
-        self.basis = []
+        basis = []
         for value in values:
-            self.insert(value)
+            for previous in basis:
+                candidate = value ^ previous
+                if candidate < value:
+                    value = candidate
+            if value:
+                basis.append(value)
+        basis.sort()
+        for i in range(len(basis)):
+            value = basis[i]
+            for j in range(i):
+                candidate = value ^ basis[j]
+                if candidate < value:
+                    value = candidate
+            basis[i] = value
+        self.basis = basis
 
     def insert(self, value):
         reduced = value
@@ -76,3 +90,35 @@ class XorBasis:
                 index |= 1 << i
         return index if reduced == 0 else -1
 
+    def intersection(self, other):
+        """Return a new basis for values representable by both operands."""
+        if self.basis == other.basis:
+            result = XorBasis()
+            result.basis = self.basis[:]
+            return result
+        residuals = []
+        tags = []
+        common = []
+        for value in other.basis:
+            residual = self.minimum(value)
+            tag = value ^ residual
+            for previous, previous_tag in zip(residuals, tags):
+                candidate = residual ^ previous
+                if candidate < residual:
+                    residual = candidate
+                    tag ^= previous_tag
+            if residual:
+                residuals.append(residual)
+                tags.append(tag)
+            else:
+                common.append(tag)
+        return XorBasis(common)
+
+    def tolist(self):
+        return self.basis[:]
+
+    def __str__(self):
+        return str(self.basis)
+
+    def __repr__(self):
+        return "XorBasis(" + str(self.basis) + ")"
