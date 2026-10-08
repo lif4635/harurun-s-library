@@ -44,7 +44,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [fps](api/fps/README.md) | modを指定できる形式的冪級数と母関数の演算 | 12 | 34 | 8 | 56 |
 | [polynomial](api/polynomial/README.md) | 多項式の評価・補間・GCD・因数分解 | 15 | 30 | 2 | 3 |
 | [combinatorial_series](api/combinatorial_series/README.md) | 組合せ数列・漸化式・数列変換 | 11 | 23 | 0 | 0 |
-| [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 15 | 3 | 16 | 108 |
+| [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 16 | 3 | 17 | 118 |
 | [fenwick_tree](api/fenwick_tree/README.md) | Fenwick木と加算・接頭和 | 3 | 0 | 3 | 17 |
 | [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 11 | 0 | 12 | 76 |
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 12 | 0 | 12 | 126 |
@@ -74,4 +74,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **368 modules / 507 functions / 226 classes / 1436 methods・properties**。
+合計: **369 modules / 507 functions / 227 classes / 1446 methods・properties**。

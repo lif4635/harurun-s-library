@@ -1,4 +1,5 @@
 import json
+import random
 from pathlib import Path
 import subprocess
 import sys
@@ -193,3 +194,58 @@ def test_driver_input_output_contracts(tmp_path, name, data, expected):
     result = subprocess.run([sys.executable, str(path)], input=data, text=True,
                             capture_output=True, check=True, cwd=tmp_path, timeout=10)
     assert result.stdout.split() == expected.split()
+
+
+@pytest.mark.parametrize("name", [
+    "point_set_range_composite_large_array",
+    "range_affine_range_sum_large_array",
+    "range_set_range_composite",
+])
+def test_affine_drivers_against_direct_simulation(tmp_path, name):
+    source, _ = lc.solution(name)
+    assert "from library_codex" not in source
+    path = tmp_path / "main.py"
+    path.write_text(source)
+    rng = random.Random(109731)
+    mod = 998244353
+    for n in (1, 7, 16, 31):
+        coordinates = list(range(n + 1))
+        if name.endswith("large_array"):
+            coordinates = [i * (10**9 // n) for i in range(n + 1)]
+        values = [(1, 0)] * n
+        if name == "range_set_range_composite":
+            values = [(rng.randrange(mod), rng.randrange(mod)) for _ in range(n)]
+        totals = [0] * n
+        lines = [f"{coordinates[-1]} 200"]
+        if name == "range_set_range_composite":
+            lines.extend(f"{a} {b}" for a, b in values)
+        expected = []
+        for step in range(200):
+            left = rng.randrange(n)
+            right = rng.randrange(left + 1, n + 1)
+            if step < 10 or step % 3 == 0:
+                x = rng.randrange(mod)
+                if name == "range_affine_range_sum_large_array":
+                    lines.append(f"1 {coordinates[left]} {coordinates[right]}")
+                    expected.append(sum(totals[left:right]) % mod)
+                else:
+                    lines.append(f"1 {coordinates[left]} {coordinates[right]} {x}")
+                    for a, b in values[left:right]:
+                        x = (a * x + b) % mod
+                    expected.append(x)
+            else:
+                a = rng.choice((0, 1, mod - 1, rng.randrange(mod)))
+                b = rng.randrange(mod)
+                if name == "point_set_range_composite_large_array":
+                    lines.append(f"0 {coordinates[left]} {a} {b}")
+                    values[left] = a, b
+                elif name == "range_affine_range_sum_large_array":
+                    lines.append(f"0 {coordinates[left]} {coordinates[right]} {a} {b}")
+                    for i in range(left, right):
+                        totals[i] = (a * totals[i] + b * (coordinates[i + 1] - coordinates[i])) % mod
+                else:
+                    lines.append(f"0 {left} {right} {a} {b}")
+                    values[left:right] = [(a, b)] * (right - left)
+        result = subprocess.run([sys.executable, str(path)], input="\n".join(lines) + "\n",
+                                text=True, capture_output=True, check=True, cwd=tmp_path, timeout=10)
+        assert list(map(int, result.stdout.split())) == expected

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 173,
-    "unimplemented": 80
+    "local_passed": 176,
+    "unimplemented": 77
   },
   "problems": [
     {
@@ -1870,10 +1870,12 @@
       "title": "Point Set Range Composite (Large Array)",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/point_set_range_composite_large_array",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.SegTree"
+      ],
+      "solution": "solutions/point_set_range_composite_large_array.py",
+      "result": "results/point_set_range_composite_large_array.json"
     },
     {
       "name": "point_set_range_frequency",
@@ -2190,10 +2192,12 @@
       "title": "Range Affine Range Sum (Large Array)",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_affine_range_sum_large_array",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.LazySegTree"
+      ],
+      "solution": "solutions/range_affine_range_sum_large_array.py",
+      "result": "results/range_affine_range_sum_large_array.json"
     },
     {
       "name": "range_chmin_chmax_add_range_sum",
@@ -2260,10 +2264,12 @@
       "title": "Range Set Range Composite",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/range_set_range_composite",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.RangeAssignSegTree"
+      ],
+      "solution": "solutions/range_set_range_composite.py",
+      "result": "results/range_set_range_composite.json"
     },
     {
       "name": "rational_approximation",

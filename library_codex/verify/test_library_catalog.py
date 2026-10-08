@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -244,6 +245,32 @@ def test_centroid_decomposition_classes_have_distinct_roles():
         method for method in decomposition["methods"] if method["name"] == "add_edge"
     )["returnDescription"]
     assert "点更新" in distance_query["description"]
+
+
+def test_catalog_range_assignment_and_compressed_coordinate_articles():
+    data = load_catalog()
+    module = module_by_path(data, "library_codex.segment_tree.RangeAssignSegTree")
+    methods = {method["name"]: method for method in module["classes"][0]["methods"]}
+    assert methods["assign"]["returnFormat"] == "None"
+    assert "[left, right)" in methods["assign"]["description"]
+    assert "op(value, current)" in methods["add"]["description"]
+    assert "T" in methods["assign"]["complexity"]
+    assert "O(N)" in methods["tolist"]["complexity"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    tree = namespace["RangeAssignSegTree"](lambda a, b: a + b, 0, [1, 2, 3])
+    tree.assign(0, 2, 7)
+    assert tree.tolist() == [7, 7, 3]
+    assert tree.prod(0, 3) == 17
+    lazy = module_by_path(data, "library_codex.segment_tree.LazySegTree")
+    assert "元の座標幅ではなく葉の個数" in lazy["article"]["markdown"]
+    assert module_by_path(data, "library_codex.segment_tree.SegTree")["article"]
+    for name in ("SegTree", "LazySegTree", "RangeAssignSegTree"):
+        article = module_by_path(data, "library_codex.segment_tree." + name)["article"]["markdown"]
+        examples = re.findall(r"```python\n(.*?)\n```", article, re.S)
+        assert examples
+        for example in examples:
+            exec(compile(example, name + ".md", "exec"), {})
 
 
 def test_catalog_f2_solutions_xor_intersection_and_rectangles():

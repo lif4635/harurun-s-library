@@ -24,6 +24,7 @@ QUICK_TESTS = (
     ROOT / "verify" / "test_library_catalog.py",
     ROOT / "verify" / "test_module_boundaries.py",
     ROOT / "verify" / "data_structure" / "test_debug_output.py",
+    ROOT / "verify" / "segment_tree" / "test_range_assign_segtree.py",
     ROOT / "verify" / "data_structure" / "test_dynamic_wavelet_matrix.py",
     ROOT / "verify" / "data_structure" / "test_int_range_tree.py",
     ROOT / "verify" / "graph_flow" / "test_advanced_flow.py",

@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T03:24:37+00:00",
+  "generatedAt": "2026-10-08T16:25:49+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "9175a6b021598927529ebb5f562403a6d48ec920fe002fd3f8d1a22cd092d421",
-  "inputStamp": "d0e8ba4e4518b6eff5f0713bd3217d802dbff0591fea59f0ca70f39b05b24596",
+  "sourceFingerprint": "5881aa7332ab647123bb8f0e8af372e199066890b6dd701b8d011c9cce8c937b",
+  "inputStamp": "f865201418b234aa15f013b36416b7c99ad0df32ec84608aa960902bd3a30536",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 368,
-    "articles": 47,
+    "modules": 369,
+    "articles": 50,
     "functions": 507,
-    "classes": 226,
-    "methods": 1436,
+    "classes": 227,
+    "methods": 1446,
     "tests": 869
   },
   "categories": [
@@ -101,10 +101,10 @@
       "label": "セグメント木",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 15,
+      "modules": 16,
       "functions": 3,
-      "classes": 16,
-      "methods": 108
+      "classes": 17,
+      "methods": 118
     },
     {
       "slug": "fenwick_tree",
@@ -401,7 +401,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 77
+      "modules": 78
     },
     {
       "slug": "graph",
@@ -12489,7 +12489,11 @@
         "区間加算・区間和、区間代入・区間最小などを、mapping・composition・作用の単位元idを指定して構成できる。",
         "一点更新・一点取得に加え、max_right・min_leftによる集約値の境界探索も使える。"
       ],
-      "article": null,
+      "article": {
+        "title": "区間更新と区間積",
+        "markdown": "配列の半開区間へまとめて作用を適用し、指定区間の和・最小値・関数合成などを求める。\n\n## 主な機能\n\n- `LazySegTree(op, identity, mapping, composition, id, values)` — 集計方法と更新方法を指定して構築するclass。\n- `apply(left, right, action)` — 区間内の各要素へactionを適用する。\n- `prod(left, right)` — 現在の区間積を左から右の順序で返す。\n- `set`・`get`・`tolist` — 遅延中の更新も反映した要素を上書き・取得する。\n\nop・mapping・compositionがO(1)なら、構築はO(N)、区間更新と区間積はO(log N)。\n\n## 使い方\n\n```python\nfrom library_codex.segment_tree.LazySegTree import LazySegTree\n\ntree = LazySegTree(\n    lambda a, b: a + b, 0,\n    lambda delta, total, length: total + delta * length,\n    lambda new, old: new + old, 0,\n    [1, 2, 3],\n)\ntree.apply(0, 2, 5)\nassert tree.prod(0, 3) == 16\nassert tree.tolist() == [6, 7, 3]\n```\n\n- op: 隣り合う集計値を、左・右の順にまとめる。\n- mapping(action, value, length): 要素数lengthの区間にactionを適用した後の集計値。\n- composition(new, old): oldの後にnewを適用する作用。引数の順番を逆にしない。\n- id: 何も変更しない作用。集計値の単位元identityとは別物。\n\n## 座標圧縮した区間への更新\n\n巨大配列で更新と問い合わせの端点を先に集められるなら、隣り合う端点の間を一つの葉にする。ただし、mappingへ渡されるlengthは**元の座標幅ではなく葉の個数**。元の幅は集計値に含める。\n\n```python\nfrom library_codex.segment_tree.LazySegTree import LazySegTree\n\ntree = LazySegTree(\n    lambda a, b: (a[0] + b[0], a[1] + b[1]), (0, 0),\n    lambda f, s, length: (f[0] * s[0] + f[1] * s[1], s[1]),\n    lambda f, g: (f[0] * g[0], f[0] * g[1] + f[1]), (1, 0),\n    [(0, 3), (0, 7)],\n)\ntree.apply(0, 2, (1, 5))\ntree.apply(1, 2, (2, 1))\nassert tree.prod(0, 2) == (92, 10)\nassert tree.get(1) == (77, 7)\n```\n\n- 葉0は元の区間[0,3)、葉1は[3,10)を表す。\n- 集計値の第1要素は元の配列の和、第2要素は元の座標幅。\n- 最後の返り値(92,10)は、値5が3個、値11が7個ある区間の和と幅。\n- getやtolistも、元の各点の値ではなく圧縮した葉の集計値を返す。\n\n## 同じ一次関数で区間を上書きする場合\n\n更新が代入だけなら、RangeAssignSegTreeへ合成演算を渡せばよい。mapping・compositionを別に定義する必要はない。\n\n集計値を一次関数の係数(a,b)とし、opで右側の関数を後から合成する。上書き作用ではcomposition(new,old)はnewだけを返す。\n\n長さLの区間へ同じ関数fを設定した後の集計値は、fのL回合成。単に係数をL倍するのではない。f、fの2回合成、4回合成、と繰り返し二乗した結果を更新ごとに再利用すると、各nodeで冪を計算し直す負担を減らせる。逆元を使う式に頼らなければ、傾き0・1でも同じ計算で扱える。\n\n## 注意点\n\n- mappingは区間をまとめてから適用しても、各部分へ適用してからopでまとめても同じ結果になること。\n- affine更新`x -> a*x+b`では更新順が重要。加算だけのtestでは順序の誤りを検出できない。\n- mappingなどが重い場合、その呼出しコストも計算量へ含める。\n- tolistはO(N)で子へ更新を反映する。論理的な要素は変わらない。",
+        "sourcePath": "library_codex/docs/articles/segment_tree/LazySegTree.md"
+      },
       "searchTerms": [
         "LazySegTree",
         "Lazy Seg Tree",
@@ -12504,7 +12508,7 @@
       ],
       "complexity": "構築 O(N)、各操作 O(log N)",
       "sourcePath": "library_codex/segment_tree/LazySegTree.py",
-      "inputFingerprint": "3b14dd5e84394b04d9b8d841e7899d2b187b7a0880bc3552aa5c79b3bcdace7e",
+      "inputFingerprint": "d7949f1dae02bfe8036ce4c07e2636e128f2843b4239ae224596cc95abac3cb0",
       "importCode": "from library_codex.segment_tree.LazySegTree import LazySegTree",
       "sourceCode": "\"\"\"Range actions and range products with lazy propagation.\n\nUse this when one update affects every element in a half-open interval and\ninterval aggregates are also required.  The caller supplies the monoid, how an\naction changes an aggregate, and how newer and older actions compose.\n\"\"\"\n\n\nclass LazySegTree:\n    __slots__ = (\n        \"n\", \"size\", \"log\", \"data\", \"lazy\", \"pending\", \"length\",\n        \"op\", \"identity\", \"mapping\", \"composition\", \"id\"\n    )\n\n    def __init__(\n        self,\n        op,\n        identity,\n        mapping,\n        composition,\n        id,\n        values,\n    ):\n        if isinstance(values, int):\n            n = values\n            values = [identity] * n\n        else:\n            values = list(values)\n            n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1)\n        data[size : size + n] = values\n        length = [0] * (size << 1)\n        for index in range(size, size + n):\n            length[index] = 1\n        for node in range(size - 1, 0, -1):\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            length[node] = length[node << 1] + length[node << 1 | 1]\n        self.n = n\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = data\n        self.lazy = [id] * size\n        self.pending = bytearray(size)\n        self.length = length\n        self.op = op\n        self.identity = identity\n        self.mapping = mapping\n        self.composition = composition\n        self.id = id\n\n    def _update(self, node):\n        self.data[node] = self.op(\n            self.data[node << 1], self.data[node << 1 | 1]\n        )\n\n    def _all_apply(self, node, action):\n        self.data[node] = self.mapping(\n            action, self.data[node], self.length[node]\n        )\n        if node < self.size:\n            if self.pending[node]:\n                self.lazy[node] = self.composition(action, self.lazy[node])\n            else:\n                self.lazy[node] = action\n                self.pending[node] = 1\n\n    def _push(self, node):\n        if self.pending[node]:\n            action = self.lazy[node]\n            self._all_apply(node << 1, action)\n            self._all_apply(node << 1 | 1, action)\n            self.lazy[node] = self.id\n            self.pending[node] = 0\n\n    def set(self, index, value):\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        self.data[node] = value\n        for shift in range(1, self.log + 1):\n            self._update(node >> shift)\n\n    def add(self, index, value):\n        \"\"\"indexの現在値をop(value, current)で置き換える。O(log N)。\"\"\"\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        self.data[node] = self.op(value, self.data[node])\n        for shift in range(1, self.log + 1):\n            self._update(node >> shift)\n\n    def get(self, index):\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        return self.data[node]\n\n    def tolist(self):\n        \"\"\"遅延作用を反映した現在の要素列をlistで返す。O(N)。\"\"\"\n        for node in range(1, self.size):\n            self._push(node)\n        return self.data[self.size:self.size + self.n]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"LazySegTree(%r)\" % self.tolist()\n\n    def prod(self, left, right):\n        if left == right:\n            return self.identity\n        left += self.size\n        right += self.size\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        first = self.identity\n        second = self.identity\n        op = self.op\n        data = self.data\n        while left < right:\n            if left & 1:\n                first = op(first, data[left])\n                left += 1\n            if right & 1:\n                right -= 1\n                second = op(data[right], second)\n            left >>= 1\n            right >>= 1\n        return op(first, second)\n\n    query = prod\n\n    def apply(self, left, right=None, action=None):\n        if action is None:\n            index = left\n            action = right\n            node = index + self.size\n            for shift in range(self.log, 0, -1):\n                self._push(node >> shift)\n            self._all_apply(node, action)\n            for shift in range(1, self.log + 1):\n                self._update(node >> shift)\n            return\n        if left == right:\n            return\n        left += self.size\n        right += self.size\n        original_left = left\n        original_right = right\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        while left < right:\n            if left & 1:\n                self._all_apply(left, action)\n                left += 1\n            if right & 1:\n                right -= 1\n                self._all_apply(right, action)\n            left >>= 1\n            right >>= 1\n        left = original_left\n        right = original_right\n        for shift in range(1, self.log + 1):\n            if (left >> shift) << shift != left:\n                self._update(left >> shift)\n            if (right >> shift) << shift != right:\n                self._update((right - 1) >> shift)\n\n    range_apply = apply\n\n    def all_prod(self):\n        return self.data[1]\n\n    def max_right(self, left, predicate):\n        if left == self.n:\n            return self.n\n        node = left + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        value = self.identity\n        while True:\n            while not node & 1:\n                node >>= 1\n            merged = self.op(value, self.data[node])\n            if not predicate(merged):\n                while node < self.size:\n                    self._push(node)\n                    node <<= 1\n                    merged = self.op(value, self.data[node])\n                    if predicate(merged):\n                        value = merged\n                        node += 1\n                return min(node - self.size, self.n)\n            value = merged\n            node += 1\n            if node & -node == node:\n                break\n        return self.n\n\n    def min_left(self, right, predicate):\n        if right == 0:\n            return 0\n        node = right + self.size\n        for shift in range(self.log, 0, -1):\n            self._push((node - 1) >> shift)\n        value = self.identity\n        while True:\n            node -= 1\n            while node > 1 and node & 1:\n                node >>= 1\n            merged = self.op(self.data[node], value)\n            if not predicate(merged):\n                while node < self.size:\n                    self._push(node)\n                    node = node << 1 | 1\n                    merged = self.op(self.data[node], value)\n                    if predicate(merged):\n                        value = merged\n                        node -= 1\n                return max(0, node + 1 - self.size)\n            value = merged\n            if node & -node == node:\n                break\n        return 0\n",
       "standaloneCode": "\"\"\"Range actions and range products with lazy propagation.\n\nUse this when one update affects every element in a half-open interval and\ninterval aggregates are also required.  The caller supplies the monoid, how an\naction changes an aggregate, and how newer and older actions compose.\n\"\"\"\n\n\nclass LazySegTree:\n    __slots__ = (\n        \"n\", \"size\", \"log\", \"data\", \"lazy\", \"pending\", \"length\",\n        \"op\", \"identity\", \"mapping\", \"composition\", \"id\"\n    )\n\n    def __init__(\n        self,\n        op,\n        identity,\n        mapping,\n        composition,\n        id,\n        values,\n    ):\n        if isinstance(values, int):\n            n = values\n            values = [identity] * n\n        else:\n            values = list(values)\n            n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1)\n        data[size : size + n] = values\n        length = [0] * (size << 1)\n        for index in range(size, size + n):\n            length[index] = 1\n        for node in range(size - 1, 0, -1):\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            length[node] = length[node << 1] + length[node << 1 | 1]\n        self.n = n\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = data\n        self.lazy = [id] * size\n        self.pending = bytearray(size)\n        self.length = length\n        self.op = op\n        self.identity = identity\n        self.mapping = mapping\n        self.composition = composition\n        self.id = id\n\n    def _update(self, node):\n        self.data[node] = self.op(\n            self.data[node << 1], self.data[node << 1 | 1]\n        )\n\n    def _all_apply(self, node, action):\n        self.data[node] = self.mapping(\n            action, self.data[node], self.length[node]\n        )\n        if node < self.size:\n            if self.pending[node]:\n                self.lazy[node] = self.composition(action, self.lazy[node])\n            else:\n                self.lazy[node] = action\n                self.pending[node] = 1\n\n    def _push(self, node):\n        if self.pending[node]:\n            action = self.lazy[node]\n            self._all_apply(node << 1, action)\n            self._all_apply(node << 1 | 1, action)\n            self.lazy[node] = self.id\n            self.pending[node] = 0\n\n    def set(self, index, value):\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        self.data[node] = value\n        for shift in range(1, self.log + 1):\n            self._update(node >> shift)\n\n    def add(self, index, value):\n        \"\"\"indexの現在値をop(value, current)で置き換える。O(log N)。\"\"\"\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        self.data[node] = self.op(value, self.data[node])\n        for shift in range(1, self.log + 1):\n            self._update(node >> shift)\n\n    def get(self, index):\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        return self.data[node]\n\n    def tolist(self):\n        \"\"\"遅延作用を反映した現在の要素列をlistで返す。O(N)。\"\"\"\n        for node in range(1, self.size):\n            self._push(node)\n        return self.data[self.size:self.size + self.n]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"LazySegTree(%r)\" % self.tolist()\n\n    def prod(self, left, right):\n        if left == right:\n            return self.identity\n        left += self.size\n        right += self.size\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        first = self.identity\n        second = self.identity\n        op = self.op\n        data = self.data\n        while left < right:\n            if left & 1:\n                first = op(first, data[left])\n                left += 1\n            if right & 1:\n                right -= 1\n                second = op(data[right], second)\n            left >>= 1\n            right >>= 1\n        return op(first, second)\n\n    query = prod\n\n    def apply(self, left, right=None, action=None):\n        if action is None:\n            index = left\n            action = right\n            node = index + self.size\n            for shift in range(self.log, 0, -1):\n                self._push(node >> shift)\n            self._all_apply(node, action)\n            for shift in range(1, self.log + 1):\n                self._update(node >> shift)\n            return\n        if left == right:\n            return\n        left += self.size\n        right += self.size\n        original_left = left\n        original_right = right\n        for shift in range(self.log, 0, -1):\n            if (left >> shift) << shift != left:\n                self._push(left >> shift)\n            if (right >> shift) << shift != right:\n                self._push((right - 1) >> shift)\n        while left < right:\n            if left & 1:\n                self._all_apply(left, action)\n                left += 1\n            if right & 1:\n                right -= 1\n                self._all_apply(right, action)\n            left >>= 1\n            right >>= 1\n        left = original_left\n        right = original_right\n        for shift in range(1, self.log + 1):\n            if (left >> shift) << shift != left:\n                self._update(left >> shift)\n            if (right >> shift) << shift != right:\n                self._update((right - 1) >> shift)\n\n    range_apply = apply\n\n    def all_prod(self):\n        return self.data[1]\n\n    def max_right(self, left, predicate):\n        if left == self.n:\n            return self.n\n        node = left + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        value = self.identity\n        while True:\n            while not node & 1:\n                node >>= 1\n            merged = self.op(value, self.data[node])\n            if not predicate(merged):\n                while node < self.size:\n                    self._push(node)\n                    node <<= 1\n                    merged = self.op(value, self.data[node])\n                    if predicate(merged):\n                        value = merged\n                        node += 1\n                return min(node - self.size, self.n)\n            value = merged\n            node += 1\n            if node & -node == node:\n                break\n        return self.n\n\n    def min_left(self, right, predicate):\n        if right == 0:\n            return 0\n        node = right + self.size\n        for shift in range(self.log, 0, -1):\n            self._push((node - 1) >> shift)\n        value = self.identity\n        while True:\n            node -= 1\n            while node > 1 and node & 1:\n                node >>= 1\n            merged = self.op(self.data[node], value)\n            if not predicate(merged):\n                while node < self.size:\n                    self._push(node)\n                    node = node << 1 | 1\n                    merged = self.op(self.data[node], value)\n                    if predicate(merged):\n                        value = merged\n                        node -= 1\n                return max(0, node + 1 - self.size)\n            value = merged\n            if node & -node == node:\n                break\n        return 0\n",
@@ -14504,6 +14508,315 @@
       "categoryLabel": "セグメント木",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
+      "name": "RangeAssignSegTree",
+      "modulePath": "library_codex.segment_tree.RangeAssignSegTree",
+      "summary": "区間を同じ値で上書きし、任意のモノイドの区間積を求める。",
+      "capabilities": [
+        "半開区間を同じ値で上書きし、現在の区間和・最小値・関数合成などを求める。",
+        "結合的なopに対応し、非可換でも左から右の順序を保つ。"
+      ],
+      "article": {
+        "title": "区間代入と区間積",
+        "markdown": "配列の指定区間を同じ値で上書きしながら、区間和・最小値・関数合成などを求める。\n\n## 主な機能\n\n- `RangeAssignSegTree(op, identity, values)` — 集計の演算だけを指定する区間代入用のclass。LazySegTreeのmapping・composition・idは不要。\n- `assign(left, right, value)` — 半開区間[left,right)の全要素をvalueにする。\n- `prod(left, right)` — 現在の要素を左から右へopでまとめる。opは可換でなくてもよい。\n- `set`・`add`・`get` — 一点の上書き、opによる更新、現在値の取得。\n\nopがO(1)なら構築O(N)、区間代入・区間積はO(log N)。同じ値を何個並べたときの積も内部で計算するため、区間長に比例する代入処理は行わない。\n\n## 使い方\n\n```python\nfrom library_codex.segment_tree.RangeAssignSegTree import RangeAssignSegTree\n\ntree = RangeAssignSegTree(lambda a, b: a + b, 0, [1, 2, 3, 4])\ntree.assign(1, 4, 7)\ntree.add(0, 5)\nassert tree.prod(0, 3) == 20\nassert tree.all_prod() == 27\nassert tree.tolist() == [6, 7, 7, 7]\n```\n\n- prodはopで集計した値を一つ返す。空区間ならidentity。\n- getは指定位置の要素、tolistは現在の全要素をindex順に並べた浅いコピー。\n- strは同じlistを表示し、reprは`RangeAssignSegTree([...])`の形になる。\n\n## 関数合成にも使う\n\n一次関数を係数(a,b)で表す場合、左の関数の後に右の関数を適用する演算は次のように書ける。\n\n```python\nfrom library_codex.segment_tree.RangeAssignSegTree import RangeAssignSegTree\n\ndef op(left, right):\n    a, b = left\n    c, d = right\n    return a * c, b * c + d\n\ntree = RangeAssignSegTree(op, (1, 0), 3)\ntree.assign(0, 3, (2, 1))\nassert tree.prod(0, 3) == (8, 7)\ntree.set(1, (1, 5))\nassert tree.prod(0, 3) == (4, 13)\n```\n\n返り値(8,7)は、2x+1を3回合成した関数8x+7の係数。傾きが0・1でも扱え、割り算や逆元は必要ない。modを使う場合はopの中で係数を剰余へ戻す。\n\n## 仕組み\n\n一回の代入につき、同じ値1個・2個・4個、と繰り返し二乗で積を作る。各段は「その積」と「半分の長さの段」への参照だけを保持する。子へ代入を下ろすときは半分の段を参照するだけなので、opを計算し直さない。\n\n過去の全更新の表は保持しない。高さhのnodeが保持する段数はh+1以下で、全nodeについて足してもO(N)。値そのものの大きさを除き、保持する値・参照の個数はO(N)。配列要素ごとのnode classや再帰は使わない。\n\n## 注意点\n\n- 代入以外の区間加算・affine変換なども必要ならLazySegTreeを使う。\n- opは結合的で、引数の値を破壊しないこと。可変objectを格納した場合、取得したobjectの内部を書き換えると集計を壊すため、変更はset・assignで行う。\n- addは`op(value, current)`。非可換な場合は順番に注意する。\n- opがO(T)なら代入と区間積はO(T log N)。長い文字列や巨大整数を扱う場合、その演算・保持コストも含める。\n- Noneも通常の値として扱える。空区間の代入は何も変更しない。",
+        "sourcePath": "library_codex/docs/articles/segment_tree/RangeAssignSegTree.md"
+      },
+      "searchTerms": [
+        "RangeAssignSegTree",
+        "Range Assign Seg Tree",
+        "library_codex.segment_tree.RangeAssignSegTree",
+        "library codex segment tree Range Assign Seg Tree",
+        "segment_tree/RangeAssignSegTree.py",
+        "セグメント木",
+        "区間代入",
+        "区間上書き",
+        "range assign",
+        "range set",
+        "区間関数合成"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/segment_tree/RangeAssignSegTree.py",
+      "inputFingerprint": "fbdfc2602786c737b5d390b68c1abbd0d00aaeb48de667ea451bda8a108d8416",
+      "importCode": "from library_codex.segment_tree.RangeAssignSegTree import RangeAssignSegTree",
+      "sourceCode": "\"\"\"区間を同じ値で上書きし、任意のモノイドの区間積を求める。\"\"\"\n\n\nclass RangeAssignSegTree:\n    __slots__ = (\"n\", \"size\", \"log\", \"data\", \"lazy\", \"op\", \"identity\")\n\n    def __init__(self, op, identity, values):\n        if isinstance(values, int):\n            if values < 0:\n                raise ValueError(\"size must be nonnegative\")\n            values = [identity] * values\n        else:\n            values = list(values)\n        n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1)\n        data[size:size + n] = values\n        for node in range(size - 1, 0, -1):\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = data\n        self.lazy = [None] * size\n        self.op = op\n        self.identity = identity\n\n    def _push(self, node):\n        tag = self.lazy[node]\n        if tag is not None:\n            child_tag = tag[1]\n            child = node << 1\n            self.data[child] = self.data[child | 1] = child_tag[0]\n            if child < self.size:\n                self.lazy[child] = self.lazy[child | 1] = child_tag\n            self.lazy[node] = None\n\n    def _prepare(self, left, right):\n        for shift in range(self.log, 0, -1):\n            if left >> shift << shift != left:\n                self._push(left >> shift)\n            if right >> shift << shift != right:\n                self._push((right - 1) >> shift)\n\n    def assign(self, left, right, value):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if left == right:\n            return\n        left += self.size\n        right += self.size\n        self._prepare(left, right)\n        first, last = left, right\n        data, lazy, op, size = self.data, self.lazy, self.op, self.size\n        tag = value, None\n        while left < right:\n            if left & 1:\n                data[left] = tag[0]\n                if left < size:\n                    lazy[left] = tag\n                left += 1\n            if right & 1:\n                right -= 1\n                data[right] = tag[0]\n                if right < size:\n                    lazy[right] = tag\n            left >>= 1\n            right >>= 1\n            if left < right:\n                tag = op(tag[0], tag[0]), tag\n        for shift in range(1, self.log + 1):\n            if first >> shift << shift != first:\n                node = first >> shift\n                data[node] = op(data[node << 1], data[node << 1 | 1])\n            if last >> shift << shift != last:\n                node = (last - 1) >> shift\n                data[node] = op(data[node << 1], data[node << 1 | 1])\n\n    def prod(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if left == right:\n            return self.identity\n        left += self.size\n        right += self.size\n        self._prepare(left, right)\n        first = second = self.identity\n        data, op = self.data, self.op\n        while left < right:\n            if left & 1:\n                first = op(first, data[left])\n                left += 1\n            if right & 1:\n                right -= 1\n                second = op(data[right], second)\n            left >>= 1\n            right >>= 1\n        return op(first, second)\n\n    def set(self, index, value):\n        self.assign(index, index + 1, value)\n\n    def add(self, index, value):\n        self.set(index, self.op(value, self.get(index)))\n\n    def get(self, index):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index out of range\")\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        return self.data[node]\n\n    def all_prod(self):\n        return self.data[1]\n\n    def tolist(self):\n        for node in range(1, self.size):\n            self._push(node)\n        return self.data[self.size:self.size + self.n]\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"RangeAssignSegTree(\" + str(self.tolist()) + \")\"\n",
+      "standaloneCode": "\"\"\"区間を同じ値で上書きし、任意のモノイドの区間積を求める。\"\"\"\n\n\nclass RangeAssignSegTree:\n    __slots__ = (\"n\", \"size\", \"log\", \"data\", \"lazy\", \"op\", \"identity\")\n\n    def __init__(self, op, identity, values):\n        if isinstance(values, int):\n            if values < 0:\n                raise ValueError(\"size must be nonnegative\")\n            values = [identity] * values\n        else:\n            values = list(values)\n        n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1)\n        data[size:size + n] = values\n        for node in range(size - 1, 0, -1):\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = data\n        self.lazy = [None] * size\n        self.op = op\n        self.identity = identity\n\n    def _push(self, node):\n        tag = self.lazy[node]\n        if tag is not None:\n            child_tag = tag[1]\n            child = node << 1\n            self.data[child] = self.data[child | 1] = child_tag[0]\n            if child < self.size:\n                self.lazy[child] = self.lazy[child | 1] = child_tag\n            self.lazy[node] = None\n\n    def _prepare(self, left, right):\n        for shift in range(self.log, 0, -1):\n            if left >> shift << shift != left:\n                self._push(left >> shift)\n            if right >> shift << shift != right:\n                self._push((right - 1) >> shift)\n\n    def assign(self, left, right, value):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if left == right:\n            return\n        left += self.size\n        right += self.size\n        self._prepare(left, right)\n        first, last = left, right\n        data, lazy, op, size = self.data, self.lazy, self.op, self.size\n        tag = value, None\n        while left < right:\n            if left & 1:\n                data[left] = tag[0]\n                if left < size:\n                    lazy[left] = tag\n                left += 1\n            if right & 1:\n                right -= 1\n                data[right] = tag[0]\n                if right < size:\n                    lazy[right] = tag\n            left >>= 1\n            right >>= 1\n            if left < right:\n                tag = op(tag[0], tag[0]), tag\n        for shift in range(1, self.log + 1):\n            if first >> shift << shift != first:\n                node = first >> shift\n                data[node] = op(data[node << 1], data[node << 1 | 1])\n            if last >> shift << shift != last:\n                node = (last - 1) >> shift\n                data[node] = op(data[node << 1], data[node << 1 | 1])\n\n    def prod(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if left == right:\n            return self.identity\n        left += self.size\n        right += self.size\n        self._prepare(left, right)\n        first = second = self.identity\n        data, op = self.data, self.op\n        while left < right:\n            if left & 1:\n                first = op(first, data[left])\n                left += 1\n            if right & 1:\n                right -= 1\n                second = op(data[right], second)\n            left >>= 1\n            right >>= 1\n        return op(first, second)\n\n    def set(self, index, value):\n        self.assign(index, index + 1, value)\n\n    def add(self, index, value):\n        self.set(index, self.op(value, self.get(index)))\n\n    def get(self, index):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index out of range\")\n        node = index + self.size\n        for shift in range(self.log, 0, -1):\n            self._push(node >> shift)\n        return self.data[node]\n\n    def all_prod(self):\n        return self.data[1]\n\n    def tolist(self):\n        for node in range(1, self.size):\n            self._push(node)\n        return self.data[self.size:self.size + self.n]\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"RangeAssignSegTree(\" + str(self.tolist()) + \")\"\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 10
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "RangeAssignSegTree",
+          "summary": "区間を同じ値で上書きしながら、指定区間のモノイド積を求める。",
+          "description": "区間を同じ値で上書きしながら、指定区間のモノイド積を求める。",
+          "searchTerms": [
+            "RangeAssignSegTree",
+            "Range Assign Seg Tree",
+            "RangeAssignSegTree(op, identity, values)"
+          ],
+          "constructor": "RangeAssignSegTree(op, identity, values)",
+          "constructorArguments": "op: 左側と右側の集計値をこの順にまとめる結合的な二項演算。引数そのものを変更しないこと。 · identity: opの左右両方の単位元。空区間の積にも使う。 · values: 初期値の列。非負整数NならidentityがN個ある列として構築する。",
+          "constructorArgumentDetails": [
+            {
+              "name": "op",
+              "description": "左側と右側の集計値をこの順にまとめる結合的な二項演算。引数そのものを変更しないこと"
+            },
+            {
+              "name": "identity",
+              "description": "opの左右両方の単位元。空区間の積にも使う"
+            },
+            {
+              "name": "values",
+              "description": "初期値の列。非負整数NならidentityがN個ある列として構築する"
+            }
+          ],
+          "constructorReturns": "RangeAssignSegTree instance",
+          "constructorReturnFormat": "RangeAssignSegTree",
+          "constructorReturnDescription": "valuesを保持する区間代入セグ木。assignで区間上書き、setで一点上書き、prodで左から右の区間積を取得できる。",
+          "constructorCreates": "valuesを保持する区間代入セグ木。assignで区間上書き、setで一点上書き、prodで左から右の区間積を取得できる。",
+          "constructorComplexity": "O(N*T)時間、O(N)個の値と参照。Tはop一回の時間",
+          "constructorSourceLine": 7,
+          "methods": [
+            {
+              "name": "assign",
+              "kind": "method",
+              "signature": "assign(left, right, value)",
+              "summary": "半開区間[left, right)の各要素をvalueで上書きする。",
+              "description": "半開区間[left, right)の各要素をvalueで上書きする。",
+              "searchTerms": [
+                "assign",
+                "assign(left, right, value)"
+              ],
+              "arguments": "left: 含む左端。0 <= left <= right <= N。 · right: 含まない右端。 · value: 代入またはopへ渡す値。Noneも通常の値として使える。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "含む左端。0 <= left <= right <= N。"
+                },
+                {
+                  "name": "right",
+                  "description": "含まない右端。"
+                },
+                {
+                  "name": "value",
+                  "description": "代入またはopへ渡す値。Noneも通常の値として使える。"
+                }
+              ],
+              "returns": "None — 指定区間の要素がすべてvalueになる。空区間なら変更しない。",
+              "returnFormat": "None",
+              "returnDescription": "指定区間の要素がすべてvalueになる。空区間なら変更しない。",
+              "complexity": "O(T log(N+1))。Tはop一回の時間",
+              "sourceLine": 45
+            },
+            {
+              "name": "prod",
+              "kind": "method",
+              "signature": "prod(left, right)",
+              "summary": "半開区間[left, right)を左から右の順にopでまとめる。",
+              "description": "半開区間[left, right)を左から右の順にopでまとめる。",
+              "searchTerms": [
+                "prod",
+                "prod(left, right)"
+              ],
+              "arguments": "left: 含む左端。0 <= left <= right <= N。 · right: 含まない右端。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "含む左端。0 <= left <= right <= N。"
+                },
+                {
+                  "name": "right",
+                  "description": "含まない右端。"
+                }
+              ],
+              "returns": "object — 区間内の値のモノイド積。空区間ではidentity。要素のlistではなく集計値を一つ返す。",
+              "returnFormat": "object",
+              "returnDescription": "区間内の値のモノイド積。空区間ではidentity。要素のlistではなく集計値を一つ返す。",
+              "complexity": "O(T log(N+1))。Tはop一回の時間",
+              "sourceLine": 79
+            },
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(index, value)",
+              "summary": "indexの一要素をvalueで上書きする。",
+              "description": "indexの一要素をvalueで上書きする。",
+              "searchTerms": [
+                "set",
+                "set(index, value)"
+              ],
+              "arguments": "index: 位置 · value: 代入またはopへ渡す値。Noneも通常の値として使える。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "位置"
+                },
+                {
+                  "name": "value",
+                  "description": "代入またはopへ渡す値。Noneも通常の値として使える。"
+                }
+              ],
+              "returns": "None — 指定した要素だけをvalueへ置き換える。",
+              "returnFormat": "None",
+              "returnDescription": "指定した要素だけをvalueへ置き換える。",
+              "complexity": "O(T log(N+1))。Tはop一回の時間",
+              "sourceLine": 100
+            },
+            {
+              "name": "add",
+              "kind": "method",
+              "signature": "add(index, value)",
+              "summary": "indexの現在値をop(value, current)へ置き換える。",
+              "description": "indexの現在値をop(value, current)へ置き換える。",
+              "searchTerms": [
+                "add",
+                "add(index, value)"
+              ],
+              "arguments": "index: 位置 · value: 代入またはopへ渡す値。Noneも通常の値として使える。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "位置"
+                },
+                {
+                  "name": "value",
+                  "description": "代入またはopへ渡す値。Noneも通常の値として使える。"
+                }
+              ],
+              "returns": "None — valueを先、現在値を後にopへ渡した結果で、一要素を更新する。数値加算とは限らない。",
+              "returnFormat": "None",
+              "returnDescription": "valueを先、現在値を後にopへ渡した結果で、一要素を更新する。数値加算とは限らない。",
+              "complexity": "O(T log(N+1))。Tはop一回の時間",
+              "sourceLine": 103
+            },
+            {
+              "name": "get",
+              "kind": "method",
+              "signature": "get(index)",
+              "summary": "indexの現在の要素を返す。",
+              "description": "indexの現在の要素を返す。",
+              "searchTerms": [
+                "get",
+                "get(index)"
+              ],
+              "arguments": "index: 位置",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "位置"
+                }
+              ],
+              "returns": "object — 区間上書きと一点更新を反映した、指定indexの値。",
+              "returnFormat": "object",
+              "returnDescription": "区間上書きと一点更新を反映した、指定indexの値。",
+              "complexity": "O(log(N+1))。opの呼び出しはない",
+              "sourceLine": 106
+            },
+            {
+              "name": "all_prod",
+              "kind": "method",
+              "signature": "all_prod()",
+              "summary": "配列全体の現在の積を返す。",
+              "description": "配列全体の現在の積を返す。",
+              "searchTerms": [
+                "all_prod",
+                "all prod",
+                "all_prod()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — prod(0, len(tree))と同じ集計値。空の木ではidentity。",
+              "returnFormat": "object",
+              "returnDescription": "prod(0, len(tree))と同じ集計値。空の木ではidentity。",
+              "complexity": "O(1)",
+              "sourceLine": 114
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "現在の要素をindex順のlistへコピーする。",
+              "description": "現在の要素をindex順のlistへコピーする。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[object] — 長さN。result[i]はget(i)と同じ値。遅延中の上書きも反映する。浅いコピーなので要素そのものは共有する。",
+              "returnFormat": "list[object]",
+              "returnDescription": "長さN。result[i]はget(i)と同じ値。遅延中の上書きも反映する。浅いコピーなので要素そのものは共有する。",
+              "complexity": "O(N)時間・追加メモリ。opの呼び出しはない",
+              "sourceLine": 117
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "保持している配列の長さを返す。",
+              "description": "保持している配列の長さを返す。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — constructorで決まる要素数N。",
+              "returnFormat": "int",
+              "returnDescription": "constructorで決まる要素数N。",
+              "complexity": "O(1)",
+              "sourceLine": 122
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の要素をlistの形で表示する。",
+              "description": "現在の要素をlistの形で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()を文字列にしたもの。論理的な要素は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()を文字列にしたもの。論理的な要素は変更しない。",
+              "complexity": "O(N)と各要素の文字列化",
+              "sourceLine": 125
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名と現在の要素列を表示する。",
+              "description": "型名と現在の要素列を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — RangeAssignSegTree([...])の形。",
+              "returnFormat": "str",
+              "returnDescription": "RangeAssignSegTree([...])の形。",
+              "complexity": "O(N)と各要素の文字列化",
+              "sourceLine": 128
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "segment_tree",
+      "categoryLabel": "セグメント木",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
       "name": "RangeLIS",
       "modulePath": "library_codex.segment_tree.RangeLIS",
       "summary": "Seaweed モノイドによる静的区間LIS。",
@@ -14814,7 +15127,11 @@
         "文字列結合や行列積のような非可換演算でも、左から右の順序を保って集約できる。",
         "接頭の集約値に対する単調な条件を使い、条件が崩れる最初の境界を O(log N) で探せる。"
       ],
-      "article": null,
+      "article": {
+        "title": "一点変更と区間積",
+        "markdown": "配列の一か所を変更しながら、指定した半開区間を左から順にまとめた値を求める。\n\n## 主な機能\n\n- `SegTree(op, identity, values)` — 結合的な演算opと単位元identityで構築するclass。構築はO(N)。\n- `set(index, value)`・`get(index)` — 一点の上書き・取得。\n- `prod(left, right)` — values[left:right]の積。空区間ではidentityを返す。O(log N)回のopを使う。\n- `max_right`・`min_left` — 積に対する条件が満たされる最大の範囲を探す。\n\nopは可換でなくてもよい。文字列連結や関数合成でも、左から右の順番を保つ。\n\n## 使い方\n\n```python\nfrom library_codex.segment_tree.SegTree import SegTree\n\ntree = SegTree(lambda a, b: a + b, \"\", [\"a\", \"b\", \"c\"])\ntree.set(1, \"X\")\nassert tree.prod(0, 3) == \"aXc\"\nassert tree.prod(1, 1) == \"\"\nassert tree.tolist() == [\"a\", \"X\", \"c\"]\n```\n\n- `prod`: opでまとめた値を一つ返す。元の要素のlistではない。\n- `tolist`: 現在の要素をindex順に並べたコピー。\n- `all_prod`: 配列全体の積をO(1)で返す。\n\n## 巨大な配列で更新する場所が少ない場合\n\n初期値がすべてidentityで、更新位置を先に列挙できるなら、更新する座標だけを昇順に圧縮する。未登録の座標には単位元しかないため、積から省いてよい。\n\n- 構築: `positions = sorted(set(更新位置))`とし、その長さのSegTreeを作る。\n- 更新: 元の座標に対応する圧縮後のindexへsetする。\n- 問い合わせ: leftとrightをそれぞれ`bisect_left(positions, ...)`で移し、prodへ渡す。\n- 境界そのものがpositionsに存在しなくてもよい。更新がない区間の積はidentity。\n\n更新位置数KならO(K)のセグ木で済む。初期値がidentityでない場合や、区間内の要素数にも意味がある場合には、そのまま省略できない。\n\n## 注意点\n\n- `add(index, value)`は数値の加算とは限らず、現在値を`op(value, current)`へ置き換える。\n- 境界探索のpredicateはidentityに対してTrueで、区間を延ばしたときTrueからFalseへ一度だけ変わること。\n- op自体がO(T)なら、区間積・一点更新はO(T log N)。長い文字列の連結などを定数時間とは数えない。",
+        "sourcePath": "library_codex/docs/articles/segment_tree/SegTree.md"
+      },
       "searchTerms": [
         "SegTree",
         "Seg Tree",
@@ -14825,7 +15142,7 @@
       ],
       "complexity": "構築 O(N)、各操作 O(log N)",
       "sourcePath": "library_codex/segment_tree/SegTree.py",
-      "inputFingerprint": "268bb35f73d6411cbc1e514bf1a036cf41af36bef1c03c579240336e22d0981e",
+      "inputFingerprint": "6230ebf2ee07ae84c7d15a2394bf3ba11077d567aeb4b9c660ba4340122017fe",
       "importCode": "from library_codex.segment_tree.SegTree import SegTree",
       "sourceCode": "\"\"\"Point updates and range products for an arbitrary monoid.\n\nUse this when values change one position at a time and a half-open interval\nmust be folded with an associative operation.  ``max_right`` and ``min_left``\nalso find the first boundary where a monotone predicate stops holding.\n\"\"\"\n\n\nclass SegTree:\n    __slots__ = (\"n\", \"size\", \"log\", \"data\", \"op\", \"identity\")\n\n    def __init__(self, op, identity, values):\n        if isinstance(values, int):\n            n = values\n            values = [identity] * n\n        else:\n            values = list(values)\n            n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1)\n        data[size : size + n] = values\n        for node in range(size - 1, 0, -1):\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = data\n        self.op = op\n        self.identity = identity\n\n    def set(self, index, value):\n        node = index + self.size\n        data = self.data\n        data[node] = value\n        op = self.op\n        node >>= 1\n        while node:\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            node >>= 1\n\n    def add(self, index, value):\n        \"\"\"indexの現在値をop(value, current)で置き換える。O(log N)。\"\"\"\n        node = index + self.size\n        data = self.data\n        op = self.op\n        data[node] = op(value, data[node])\n        node >>= 1\n        while node:\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            node >>= 1\n\n    def get(self, index):\n        return self.data[index + self.size]\n\n    def tolist(self):\n        \"\"\"現在の要素列をlistで返す。O(N)。\"\"\"\n        return self.data[self.size:self.size + self.n]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"SegTree(%r)\" % self.tolist()\n\n    def prod(self, left, right):\n        left += self.size\n        right += self.size\n        first = self.identity\n        second = self.identity\n        data = self.data\n        op = self.op\n        while left < right:\n            if left & 1:\n                first = op(first, data[left])\n                left += 1\n            if right & 1:\n                right -= 1\n                second = op(data[right], second)\n            left >>= 1\n            right >>= 1\n        return op(first, second)\n\n    query = prod\n\n    def all_prod(self):\n        return self.data[1]\n\n    def max_right(self, left, predicate):\n        if left == self.n:\n            return self.n\n        left += self.size\n        value = self.identity\n        data = self.data\n        op = self.op\n        while True:\n            while not left & 1:\n                left >>= 1\n            merged = op(value, data[left])\n            if not predicate(merged):\n                while left < self.size:\n                    left <<= 1\n                    merged = op(value, data[left])\n                    if predicate(merged):\n                        value = merged\n                        left += 1\n                return min(left - self.size, self.n)\n            value = merged\n            left += 1\n            if left & -left == left:\n                break\n        return self.n\n\n    def min_left(self, right, predicate):\n        if right == 0:\n            return 0\n        right += self.size\n        value = self.identity\n        data = self.data\n        op = self.op\n        while True:\n            right -= 1\n            while right > 1 and right & 1:\n                right >>= 1\n            merged = op(data[right], value)\n            if not predicate(merged):\n                while right < self.size:\n                    right = right << 1 | 1\n                    merged = op(data[right], value)\n                    if predicate(merged):\n                        value = merged\n                        right -= 1\n                return max(0, right + 1 - self.size)\n            value = merged\n            if right & -right == right:\n                break\n        return 0\n\n    def __getitem__(self, index):\n        return self.get(index)\n",
       "standaloneCode": "\"\"\"Point updates and range products for an arbitrary monoid.\n\nUse this when values change one position at a time and a half-open interval\nmust be folded with an associative operation.  ``max_right`` and ``min_left``\nalso find the first boundary where a monotone predicate stops holding.\n\"\"\"\n\n\nclass SegTree:\n    __slots__ = (\"n\", \"size\", \"log\", \"data\", \"op\", \"identity\")\n\n    def __init__(self, op, identity, values):\n        if isinstance(values, int):\n            n = values\n            values = [identity] * n\n        else:\n            values = list(values)\n            n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1)\n        data[size : size + n] = values\n        for node in range(size - 1, 0, -1):\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = data\n        self.op = op\n        self.identity = identity\n\n    def set(self, index, value):\n        node = index + self.size\n        data = self.data\n        data[node] = value\n        op = self.op\n        node >>= 1\n        while node:\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            node >>= 1\n\n    def add(self, index, value):\n        \"\"\"indexの現在値をop(value, current)で置き換える。O(log N)。\"\"\"\n        node = index + self.size\n        data = self.data\n        op = self.op\n        data[node] = op(value, data[node])\n        node >>= 1\n        while node:\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            node >>= 1\n\n    def get(self, index):\n        return self.data[index + self.size]\n\n    def tolist(self):\n        \"\"\"現在の要素列をlistで返す。O(N)。\"\"\"\n        return self.data[self.size:self.size + self.n]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"SegTree(%r)\" % self.tolist()\n\n    def prod(self, left, right):\n        left += self.size\n        right += self.size\n        first = self.identity\n        second = self.identity\n        data = self.data\n        op = self.op\n        while left < right:\n            if left & 1:\n                first = op(first, data[left])\n                left += 1\n            if right & 1:\n                right -= 1\n                second = op(data[right], second)\n            left >>= 1\n            right >>= 1\n        return op(first, second)\n\n    query = prod\n\n    def all_prod(self):\n        return self.data[1]\n\n    def max_right(self, left, predicate):\n        if left == self.n:\n            return self.n\n        left += self.size\n        value = self.identity\n        data = self.data\n        op = self.op\n        while True:\n            while not left & 1:\n                left >>= 1\n            merged = op(value, data[left])\n            if not predicate(merged):\n                while left < self.size:\n                    left <<= 1\n                    merged = op(value, data[left])\n                    if predicate(merged):\n                        value = merged\n                        left += 1\n                return min(left - self.size, self.n)\n            value = merged\n            left += 1\n            if left & -left == left:\n                break\n        return self.n\n\n    def min_left(self, right, predicate):\n        if right == 0:\n            return 0\n        right += self.size\n        value = self.identity\n        data = self.data\n        op = self.op\n        while True:\n            right -= 1\n            while right > 1 and right & 1:\n                right >>= 1\n            merged = op(data[right], value)\n            if not predicate(merged):\n                while right < self.size:\n                    right = right << 1 | 1\n                    merged = op(data[right], value)\n                    if predicate(merged):\n                        value = merged\n                        right -= 1\n                return max(0, right + 1 - self.size)\n            value = merged\n            if right & -right == right:\n                break\n        return 0\n\n    def __getitem__(self, index):\n        return self.get(index)\n",

@@ -224,7 +224,6 @@ rational/RationalNumberSearch
 segment_tree/DualSegTree
 segment_tree/DynamicLazySegmentTree
 segment_tree/DynamicSegmentTree
-segment_tree/LazySegTree
 segment_tree/MaxInterval
 segment_tree/PersistentLazySegmentTree
 segment_tree/PersistentSegmentTree
@@ -233,7 +232,6 @@ segment_tree/RangeAddCountTopK
 segment_tree/RangeAffineRangeSum
 segment_tree/RangeLIS
 segment_tree/SegmentTreeBeats
-segment_tree/SegTree
 segment_tree/SortableSegmentTree
 sequence_structure/CartesianTree
 sequence_structure/ErasableHeap

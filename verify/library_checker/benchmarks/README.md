@@ -65,6 +65,7 @@
 | [partition_function](partition_function.json) | 3 / 11 | 5 | 0.677 | 98.6 | 一致 |
 | [persistent_unionfind](persistent_unionfind.json) | 3 / 14 | 5 | 0.869 | 180.4 | 一致 |
 | [pfaffian_of_matrix](pfaffian_of_matrix.json) | 3 / 27 | 5 | 0.424 | 66.5 | 一致 |
+| [point_set_range_composite_large_array](point_set_range_composite_large_array.json) | 3 / 25 | 5 | 0.960 | 147.6 | 一致 |
 | [point_set_range_frequency](point_set_range_frequency.json) | 3 / 25 | 5 | 0.683 | 178.8 | 一致 |
 | [polynomial_composite_set_power_series](polynomial_composite_set_power_series.json) | 3 / 18 | 5 | 5.367 | 359.6 | 一致 |
 | [polynomial_interpolation_on_geometric_sequence](polynomial_interpolation_on_geometric_sequence.json) | 3 / 28 | 5 | 0.953 | 176.8 | 一致 |
@@ -76,9 +77,11 @@
 | [prefix_sum_of_polynomial](prefix_sum_of_polynomial.json) | 3 / 26 | 5 | 1.034 | 153.6 | 一致 |
 | [q_binomial_coefficient_prime_mod](q_binomial_coefficient_prime_mod.json) | 3 / 30 | 5 | 1.198 | 403.1 | 一致 |
 | [range_add_range_min](range_add_range_min.json) | 3 / 23 | 5 | 1.635 | 132.5 | 一致 |
+| [range_affine_range_sum_large_array](range_affine_range_sum_large_array.json) | 3 / 31 | 5 | 0.903 | 109.9 | 一致 |
 | [range_chmin_chmax_add_range_sum](range_chmin_chmax_add_range_sum.json) | 3 / 33 | 5 | 9.523 | 161.7 | 一致 |
 | [range_linear_add_range_min](range_linear_add_range_min.json) | 3 / 28 | 5 | 3.962 | 88.6 | 一致 |
 | [range_reverse_range_sum](range_reverse_range_sum.json) | 3 / 20 | 5 | 2.053 | 109.3 | 一致 |
+| [range_set_range_composite](range_set_range_composite.json) | 3 / 23 | 5 | 2.074 | 130.5 | 一致 |
 | [rational_approximation](rational_approximation.json) | 3 / 28 | 5 | 0.177 | 80.5 | 一致 |
 | [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
 | [runenumerate](runenumerate.json) | 3 / 24 | 5 | 2.749 | 284.1 | 一致 |

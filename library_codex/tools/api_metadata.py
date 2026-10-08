@@ -6914,3 +6914,50 @@ COMPLEXITY_BY_MODULE["spatial_structure/UnionRectangle.py"] = {
     "tolist": "O(N)。Nは登録長方形数",
     "__str__": "O(N)と座標の文字列化", "__repr__": "O(N)と座標の文字列化",
 }
+
+MODULE_CAPABILITIES["segment_tree/RangeAssignSegTree.py"] = (
+    "半開区間を同じ値で上書きし、現在の区間和・最小値・関数合成などを求める。",
+    "結合的なopに対応し、非可換でも左から右の順序を保つ。",
+)
+SEARCH_TERMS_BY_MODULE["segment_tree/RangeAssignSegTree.py"] = (
+    "区間代入", "区間上書き", "range assign", "range set", "区間関数合成",
+)
+CLASS_DETAILS_BY_SYMBOL[("segment_tree/RangeAssignSegTree.py", "RangeAssignSegTree")] = {
+    "description": "区間を同じ値で上書きしながら、指定区間のモノイド積を求める。",
+    "constructorCreates": "valuesを保持する区間代入セグ木。assignで区間上書き、setで一点上書き、prodで左から右の区間積を取得できる。",
+    "argumentDescriptions": {
+        "op": "左側と右側の集計値をこの順にまとめる結合的な二項演算。引数そのものを変更しないこと。",
+        "identity": "opの左右両方の単位元。空区間の積にも使う。",
+        "values": "初期値の列。非負整数NならidentityがN個ある列として構築する。",
+    },
+}
+for _method, _description, _format, _returns in (
+    ("assign", "半開区間[left, right)の各要素をvalueで上書きする。", "None", "指定区間の要素がすべてvalueになる。空区間なら変更しない。"),
+    ("set", "indexの一要素をvalueで上書きする。", "None", "指定した要素だけをvalueへ置き換える。"),
+    ("add", "indexの現在値をop(value, current)へ置き換える。", "None", "valueを先、現在値を後にopへ渡した結果で、一要素を更新する。数値加算とは限らない。"),
+    ("get", "indexの現在の要素を返す。", "object", "区間上書きと一点更新を反映した、指定indexの値。"),
+    ("prod", "半開区間[left, right)を左から右の順にopでまとめる。", "object", "区間内の値のモノイド積。空区間ではidentity。要素のlistではなく集計値を一つ返す。"),
+    ("all_prod", "配列全体の現在の積を返す。", "object", "prod(0, len(tree))と同じ集計値。空の木ではidentity。"),
+    ("tolist", "現在の要素をindex順のlistへコピーする。", "list[object]", "長さN。result[i]はget(i)と同じ値。遅延中の上書きも反映する。浅いコピーなので要素そのものは共有する。"),
+    ("__len__", "保持している配列の長さを返す。", "int", "constructorで決まる要素数N。"),
+    ("__str__", "現在の要素をlistの形で表示する。", "str", "tolist()を文字列にしたもの。論理的な要素は変更しない。"),
+    ("__repr__", "型名と現在の要素列を表示する。", "str", "RangeAssignSegTree([...])の形。"),
+):
+    API_DETAILS_BY_SYMBOL[("segment_tree/RangeAssignSegTree.py", "RangeAssignSegTree", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+    }
+for _method in ("assign", "prod"):
+    API_DETAILS_BY_SYMBOL[("segment_tree/RangeAssignSegTree.py", "RangeAssignSegTree", _method)]["argumentDescriptions"] = {
+        "left": "含む左端。0 <= left <= right <= N。",
+        "right": "含まない右端。",
+    }
+for _method in ("assign", "set", "add"):
+    API_DETAILS_BY_SYMBOL[("segment_tree/RangeAssignSegTree.py", "RangeAssignSegTree", _method)].setdefault("argumentDescriptions", {})["value"] = "代入またはopへ渡す値。Noneも通常の値として使える。"
+COMPLEXITY_BY_MODULE["segment_tree/RangeAssignSegTree.py"] = {
+    "RangeAssignSegTree": "O(N*T)時間、O(N)個の値と参照。Tはop一回の時間",
+    **{name: "O(T log(N+1))。Tはop一回の時間" for name in ("assign", "set", "add", "prod")},
+    "get": "O(log(N+1))。opの呼び出しはない",
+    "all_prod": "O(1)", "__len__": "O(1)",
+    "tolist": "O(N)時間・追加メモリ。opの呼び出しはない",
+    "__str__": "O(N)と各要素の文字列化", "__repr__": "O(N)と各要素の文字列化",
+}
