@@ -273,6 +273,30 @@ def test_catalog_range_assignment_and_compressed_coordinate_articles():
             exec(compile(example, name + ".md", "exec"), {})
 
 
+def test_catalog_graph_enumeration_and_steiner_articles():
+    data = load_catalog()
+    paths = ("graph_enumeration.ChromaticNumber", "graph_enumeration.EnumerateCliques",
+             "graph_enumeration.MaximumIndependentSet", "graph_enumeration.CountC4PerEdge",
+             "graph_enumeration.GraphProperties", "graph_spanning.MinimumSteinerTree")
+    for path in paths:
+        module = module_by_path(data, "library_codex." + path)
+        examples = re.findall(r"```python\n(.*?)\n```", module["article"]["markdown"], re.S)
+        assert examples
+        namespace = {}
+        exec(module["standaloneCode"], namespace)
+        for example in examples:
+            exec(compile(example, path + ".md", "exec"), {})
+            body = "\n".join(line for line in example.splitlines() if not line.startswith("from library_codex."))
+            exec(compile(body, path + "-standalone.md", "exec"), namespace)
+        for symbol in module["functions"]:
+            assert symbol["name"] and symbol["complexity"]
+    module = module_by_path(data, "library_codex.graph_enumeration.ChromaticNumber")
+    assert all(symbol["returnFormat"] == "int" for symbol in module["functions"])
+    module = module_by_path(data, "library_codex.graph_spanning.MinimumSteinerTree")
+    symbol = next(s for s in module["functions"] if s["name"] == "minimum_steiner_tree")
+    assert [part["name"] for part in symbol["returnParts"]] == ["cost", "edge_ids"]
+
+
 def test_catalog_deque_and_tree_order_articles():
     data = load_catalog()
     for path in ("sequence_structure.Deque", "tree.ZeroOneTree"):

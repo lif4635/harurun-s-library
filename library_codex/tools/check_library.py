@@ -12,6 +12,12 @@ REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
+    ROOT / "verify" / "graph_enumeration" / "test_chromatic_number.py",
+    ROOT / "verify" / "graph_enumeration" / "test_enumerate_cliques.py",
+    ROOT / "verify" / "graph_enumeration" / "test_maximum_independent_set.py",
+    ROOT / "verify" / "graph_enumeration" / "test_count_c4_per_edge.py",
+    ROOT / "verify" / "graph_enumeration" / "test_graph_properties.py",
+    ROOT / "verify" / "graph_spanning" / "test_minimum_steiner_tree.py",
     ROOT / "verify" / "sequence_structure" / "test_deque.py",
     ROOT / "verify" / "tree" / "test_zero_one_tree.py",
     ROOT / "verify" / "test_official_library_checker.py",

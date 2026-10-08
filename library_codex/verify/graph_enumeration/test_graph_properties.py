@@ -112,3 +112,26 @@ def test_bipartite_edge_coloring_multigraph():
                     incident = [color[i] for i, (_, v) in enumerate(edges)
                                 if v == vertex]
                     assert len(incident) == len(set(incident))
+
+
+def test_chordal_long_path_cycle_and_cached_copies():
+    n = 20000
+    path = _graph(n, [(i, i + 1) for i in range(n - 1)])
+    recognizer = ChordalGraphRecognizer(path)
+    assert recognizer.is_chordal()
+    assert _is_peo(recognizer.perfect_elimination_order(), path)
+    copied = recognizer.mcs_order()
+    copied.clear()
+    assert len(recognizer.mcs_order()) == n
+    copied = recognizer.perfect_elimination_order()
+    copied.clear()
+    assert len(recognizer.perfect_elimination_order()) == n
+    path[0].append(n - 1)
+    path[-1].append(0)
+    recognizer = ChordalGraphRecognizer(path)
+    cycle = recognizer.induced_cycle()
+    assert len(cycle) == n
+    assert _is_induced_cycle(cycle, path)
+    assert all(cycle[(i+1) % n] in path[v] for i, v in enumerate(cycle))
+    cycle.clear()
+    assert len(recognizer.induced_cycle()) == n

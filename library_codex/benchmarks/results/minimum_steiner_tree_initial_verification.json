@@ -1,0 +1,164 @@
+{
+  "problem": "minimum_steiner_tree",
+  "status": "local_passed",
+  "verificationKey": "ff2e63d7ee0ee75fb036cad9b586c780840bdd5785cf338b1516876a00094d0d",
+  "sourceSha256": "aca83f10575b367c43d7b76115ee22cba0b73700b8b416362e5f7221e064b5a8",
+  "modules": [
+    "library_codex.graph_spanning.MinimumSteinerTree"
+  ],
+  "problemVersion": "ac4c692dd048a2de4edb388397a02429adeaf9be982ec078596a0d6102cb1569",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 24,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06103408703347668,
+      "diagnostic": "ok OK: 3\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0633631760138087,
+      "diagnostic": "ok OK: 0\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.06305089202942327,
+      "diagnostic": "ok OK: 2\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.058672475977800786,
+      "diagnostic": "ok OK: 0\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.1047814580379054,
+      "diagnostic": "ok OK: 868670643\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.16429343196796253,
+      "diagnostic": "ok OK: 1752598926\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.07513201696565375,
+      "diagnostic": "ok OK: 875610627\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.08239498798502609,
+      "diagnostic": "ok OK: 100816540\n"
+    },
+    {
+      "name": "random_max_00",
+      "status": "AC",
+      "seconds": 0.5884406840195879,
+      "diagnostic": "ok OK: 1132218710\n"
+    },
+    {
+      "name": "random_max_01",
+      "status": "AC",
+      "seconds": 0.540037305036094,
+      "diagnostic": "ok OK: 1346867905\n"
+    },
+    {
+      "name": "random_max_02",
+      "status": "AC",
+      "seconds": 0.4828865489689633,
+      "diagnostic": "ok OK: 1431545901\n"
+    },
+    {
+      "name": "random_max_03",
+      "status": "AC",
+      "seconds": 0.6137010070378892,
+      "diagnostic": "ok OK: 1706554709\n"
+    },
+    {
+      "name": "random_max_04",
+      "status": "AC",
+      "seconds": 0.5331126929959282,
+      "diagnostic": "ok OK: 1340115248\n"
+    },
+    {
+      "name": "random_complete_00",
+      "status": "AC",
+      "seconds": 0.31041288800770417,
+      "diagnostic": "ok OK: 589472917\n"
+    },
+    {
+      "name": "random_complete_01",
+      "status": "AC",
+      "seconds": 0.3221201270353049,
+      "diagnostic": "ok OK: 942616218\n"
+    },
+    {
+      "name": "random_complete_02",
+      "status": "AC",
+      "seconds": 0.31897156295599416,
+      "diagnostic": "ok OK: 628007118\n"
+    },
+    {
+      "name": "random_complete_03",
+      "status": "AC",
+      "seconds": 0.3265389259904623,
+      "diagnostic": "ok OK: 479255806\n"
+    },
+    {
+      "name": "random_complete_04",
+      "status": "AC",
+      "seconds": 0.31995867198565975,
+      "diagnostic": "ok OK: 559542895\n"
+    },
+    {
+      "name": "random_small_00",
+      "status": "AC",
+      "seconds": 0.06236488005379215,
+      "diagnostic": "ok OK: 0\n"
+    },
+    {
+      "name": "random_small_01",
+      "status": "AC",
+      "seconds": 0.06658010702813044,
+      "diagnostic": "ok OK: 108315350\n"
+    },
+    {
+      "name": "random_small_02",
+      "status": "AC",
+      "seconds": 0.18167801899835467,
+      "diagnostic": "ok OK: 601163099\n"
+    },
+    {
+      "name": "random_small_03",
+      "status": "AC",
+      "seconds": 0.06287349801277742,
+      "diagnostic": "ok OK: 0\n"
+    },
+    {
+      "name": "random_small_04",
+      "status": "AC",
+      "seconds": 0.07413368800189346,
+      "diagnostic": "ok OK: 100816540\n"
+    },
+    {
+      "name": "overflow_killer_00",
+      "status": "AC",
+      "seconds": 0.8518537519848906,
+      "diagnostic": "ok OK: 12999999298\n"
+    }
+  ],
+  "verifiedAt": "2026-10-08T18:11:19.847712+00:00",
+  "onlineSubmission": null
+}

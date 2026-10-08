@@ -12,7 +12,6 @@ from shortest_path.DialDijkstra import dial_dijkstra  # noqa: E402
 from graph_enumeration.HeldKarp import held_karp_cycle, held_karp_path  # noqa: E402
 from graph_matching.Hungarian import hungarian, hungarian_max  # noqa: E402
 from graph_spanning.MinimumCostArborescence import minimum_cost_arborescence  # noqa: E402
-from graph_spanning.MinimumSteinerTree import minimum_steiner_tree, steiner_tree_dp  # noqa: E402
 
 
 def test_hungarian_rectangular_against_permutations():
@@ -38,48 +37,6 @@ def test_hungarian_rectangular_against_permutations():
                 assert value == expected_max[0]
                 assert len(set(assignment)) == rows
                 assert value == sum(cost[i][assignment[i]] for i in range(rows))
-
-
-def _connected_terminals(n, edges, selected, terminals):
-    if not terminals:
-        return True
-    graph = [[] for _ in range(n)]
-    for edge_id in selected:
-        u, v, _ = edges[edge_id]
-        graph[u].append(v)
-        graph[v].append(u)
-    seen = {terminals[0]}
-    stack = [terminals[0]]
-    while stack:
-        v = stack.pop()
-        for to in graph[v]:
-            if to not in seen:
-                seen.add(to)
-                stack.append(to)
-    return all(v in seen for v in terminals)
-
-
-def test_minimum_steiner_tree_against_edge_subsets():
-    rng = random.Random(11)
-    for n in range(2, 8):
-        pairs = [(u, v) for u in range(n) for v in range(u + 1, n)]
-        for _ in range(100):
-            rng.shuffle(pairs)
-            chosen_pairs = pairs[:rng.randrange(min(len(pairs), 8) + 1)]
-            edges = [(u, v, rng.randrange(7)) for u, v in chosen_pairs]
-            terminals = rng.sample(range(n), rng.randrange(1, min(4, n) + 1))
-            expected = float("inf")
-            for mask in range(1 << len(edges)):
-                selected = [i for i in range(len(edges)) if mask >> i & 1]
-                if _connected_terminals(n, edges, selected, terminals):
-                    expected = min(expected, sum(edges[i][2] for i in selected))
-            value, selected = minimum_steiner_tree(n, edges, terminals)
-            assert value == expected
-            if value < float("inf"):
-                assert _connected_terminals(n, edges, selected, terminals)
-                assert sum(edges[i][2] for i in selected) == value
-            table = steiner_tree_dp(n, edges, terminals)
-            assert min(table[-1]) == expected
 
 
 def test_held_karp_path_and_cycle_against_permutations():

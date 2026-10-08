@@ -7028,3 +7028,110 @@ COMPLEXITY_BY_MODULE["tree/ZeroOneTree.py"] = {
     name: "O(N log(N+1)*T)時間、O(N)追加メモリ。Tは整数の積・比較の時間。通常の固定幅整数ならT=O(1)"
     for name in ("min_inversions", "min_block_inversions")
 }
+
+MODULE_CAPABILITIES.update({
+    "graph_enumeration/CountC4PerEdge.py": ("各辺を含む4頂点の閉路を数える。平行な辺は別々の選択肢として扱う。", "重み付きでは、その辺以外の3辺の重みの積を足し合わせる。"),
+    "graph_spanning/MinimumSteinerTree.py": ("指定頂点をすべて結ぶ最小費用の辺集合を復元する。指定外の頂点を経由してよい。", "指定頂点の各部分集合と終点ごとの最小費用表も求められる。"),
+    "graph_enumeration/ChromaticNumber.py": ("隣接頂点が異なる色になるよう塗るための最小色数を求める。", "exact=Trueでは剰余衝突を使わず、整数演算で厳密に判定する。"),
+    "graph_enumeration/EnumerateCliques.py": ("どの2頂点間にも辺がある頂点集合を、極大なものに限らずすべて列挙する。", "callbackを渡すと、結果を全部保存せず一つずつ処理できる。"),
+    "graph_enumeration/MaximumIndependentSet.py": ("互いに隣接しない頂点集合のうち、要素数または重みの合計が最大のものを求める。",),
+    "graph_enumeration/GraphProperties.py": ("chordal graphか判定し、成立時は頂点の除去順、不成立時は長さ4以上の誘導閉路を返す。", "別のfunctionとして、二部多重グラフの辺彩色も含む。"),
+})
+API_DETAILS_BY_SYMBOL[("graph_enumeration/CountC4PerEdge.py", None, "count_c4_per_edge")] = {
+    "description": "入力の各辺について、その辺を含む4頂点の閉路を数える。対角線の有無は問わない。",
+    "argumentDescriptions": {"n": "頂点数。", "edges": "(u, v)のlist。無向辺を各1回書く。多重辺は可、自己辺は不可。入力の並び順が辺番号になる。", "weight": "edgesと同じ長さの重み列。省略時はすべて1。負数や0も可。"},
+    "returnFormat": "list[int]",
+    "returnDescription": "長さlen(edges)の列。result[i]は辺iを固定し、残る3辺の重みの積を、その辺iを含む全4-cycleについて合計した値。辺i自身の重みは掛けない。平行辺でも元の各辺に一つずつ結果を返す。",
+}
+COMPLEXITY_BY_MODULE["graph_enumeration/CountC4PerEdge.py"] = {
+    "count_c4_per_edge": "O(N log(N+1) + (M + U sqrt(U))*T)時間、O(N+M)メモリ。Uは平行辺をまとめた辺数、Tは重みの積・加算の時間。hash処理は期待時間",
+}
+for _name in ("minimum_steiner_tree", "steiner_tree_dp"):
+    API_DETAILS_BY_SYMBOL[("graph_spanning/MinimumSteinerTree.py", None, _name)] = {
+        "description": "指定頂点をすべて結ぶ最小費用と辺集合を求める。" if _name == "minimum_steiner_tree" else "指定頂点の部分集合と終点ごとに、すべてを結ぶ最小費用の表を作る。",
+        "argumentDescriptions": {"n": "頂点数。", "edges": "(u, v, cost)の辺列。無向、多重辺可。costは非負整数。", "terminals": "必ず結ぶ頂点の列。重複を除いた最初の出現順を使う。指定外の頂点も経由できる。"},
+        "returnFormat": "tuple[int | float, list[int]]" if _name == "minimum_steiner_tree" else "list[list[int | float]]",
+        "returnDescription": "(cost, edge_ids)。解が複数なら一つを返す。指定頂点が0個・1個なら(0, [])。" if _name == "minimum_steiner_tree" else "2^K行・N列の表。table[mask][v]はmaskが表す指定頂点と頂点vをすべて結ぶ最小費用。maskのbit iは重複除去後のterminals[i]。不可能な状態とmask=0の行はfloat('inf')。",
+    }
+API_DETAILS_BY_SYMBOL[("graph_spanning/MinimumSteinerTree.py", None, "minimum_steiner_tree")]["returnParts"] = [
+    {"name": "cost", "format": "int | float", "description": "選んだ辺の費用の合計。指定頂点を結べなければfloat('inf')。"},
+    {"name": "edge_ids", "format": "list[int]", "description": "使用する元のedgesの添字。重複なし、順序は保証しない。結べなければ空list。"},
+]
+COMPLEXITY_BY_MODULE["graph_spanning/MinimumSteinerTree.py"] = {
+    "minimum_steiner_tree": "O(3^(K-1) N + 2^(K-1) (N+M) log(N+M+1))時間、O(2^(K-1) N + M)メモリ。K>=2は重複除去後の指定頂点数。整数演算をO(1)とする",
+    "steiner_tree_dp": "O(3^K N + 2^K (N+M) log(N+M+1))時間、O(2^K N + M)メモリ。Kは重複除去後の指定頂点数。整数演算をO(1)とする",
+}
+for _name in ("chromatic_number", "chromatic_number_from_edges"):
+    API_DETAILS_BY_SYMBOL[("graph_enumeration/ChromaticNumber.py", None, _name)] = {
+        "description": "隣接頂点が同色にならない頂点彩色の最小色数を求める。色の割り当て自体は返さない。",
+        "argumentDescriptions": {"exact": "Trueなら任意精度整数で厳密に判定。Falseは固定した2つの法で判定するため、理論上は彩色数を過大評価する可能性がある。", **({"graph": "単純無向グラフの隣接list。"} if _name == "chromatic_number" else {"n": "頂点数。", "edges": "単純無向グラフの(u, v)の辺列。"})},
+        "returnFormat": "int",
+        "returnDescription": "必要な色数。空グラフは0、頂点があって辺がなければ1。exact=Falseには剰余衝突による過大評価の可能性がある。",
+    }
+COMPLEXITY_BY_MODULE["graph_enumeration/ChromaticNumber.py"] = {
+    name: "O(N 2^N)回の整数演算、O(2^N)個の整数。exact=Trueでは途中の整数は最大O(N^2)bitになり得る"
+    for name in ("chromatic_number", "chromatic_number_from_edges")
+}
+API_DETAILS_BY_SYMBOL[("graph_enumeration/EnumerateCliques.py", None, "enumerate_cliques")] = {
+    "description": "クリークを重複なくすべて列挙する。最大・極大クリークだけの列挙ではない。",
+    "argumentDescriptions": {"graph": "単純無向グラフの隣接list。", "callback": "callback(vertices)としてクリークごとに呼ぶ。verticesは昇順の頂点番号list。省略時は全結果をlistに保存する。", "include_empty": "Trueなら空listも一つのクリークとして含める。"},
+    "returnFormat": "list[list[int]] | int",
+    "returnDescription": "callback省略時はクリークごとの頂点list。各list内は昇順、クリーク同士の順序は保証しない。callback指定時は呼び出した回数を整数で返す。",
+}
+COMPLEXITY_BY_MODULE["graph_enumeration/EnumerateCliques.py"] = {
+    "enumerate_cliques": "O((N+M+NC)B + C*T)時間。Cは列挙数、Tはcallback一回の最大時間、BはN bit整数演算の時間。callbackなしでは出力にO(NC)メモリ、探索用はO(N^2)個のN bit整数が上界",
+}
+for _name, _description, _format, _returns in (
+    ("maximum_independent_set", "互いに隣接しない頂点を最大個数選ぶ。", "list[int]", "選んだ頂点番号を昇順で返す。解が複数なら一つを選ぶ。空グラフでは空list。"),
+    ("maximum_independent_set_mask", "最大独立集合の要素数とbit集合を求める。", "tuple[int, int]", "(size, mask)。sizeは最大要素数、maskのbit vが1なら頂点vを選ぶ。"),
+    ("maximum_weight_independent_set", "互いに隣接しない頂点を、重みの合計が最大になるよう選ぶ。", "tuple[int, int]", "(value, mask)。valueは選んだ頂点の重みの合計、maskのbit vが1なら頂点vを選ぶ。空集合も可なのでvalueは0以上。"),
+):
+    API_DETAILS_BY_SYMBOL[("graph_enumeration/MaximumIndependentSet.py", None, _name)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+        "argumentDescriptions": {"graph": "単純無向グラフの隣接list。", **({"weight": "長さNの頂点重み列。weight[v]が頂点vの整数重み。負数や0も可。"} if _name == "maximum_weight_independent_set" else {})},
+    }
+COMPLEXITY_BY_MODULE["graph_enumeration/MaximumIndependentSet.py"] = {
+    name: "最悪O(N 2^N B)時間。BはN bit整数演算の時間。枝刈りで短くなるが、指数時間の保証は変わらない"
+    for name in ("maximum_independent_set", "maximum_independent_set_mask", "maximum_weight_independent_set")
+}
+CLASS_DETAILS_BY_SYMBOL[("graph_enumeration/GraphProperties.py", "ChordalGraphRecognizer")] = {
+    "description": "長さ4以上の誘導閉路を持たないか調べ、判定の証拠も取り出す。",
+    "constructorCreates": "無向グラフをコピーした判定器。is_chordalで判定し、成立時はperfect_elimination_order、不成立時はinduced_cycleで証拠を取得できる。",
+    "argumentDescriptions": {"graph": "対称な無向隣接list。重複した隣接先と自己辺は取り除く。元のlistは変更しない。"},
+}
+for _name, _description, _format, _returns in (
+    ("mcs_order", "すでに選ばれた隣接頂点が最も多い頂点から順に選ぶ。", "list[int]", "選択順の頂点番号を並べた長さNの順列。同点の選び方は保証しない。返るlistはコピー。"),
+    ("is_chordal", "長さ4以上の誘導閉路が存在しないか判定する。", "bool", "chordal graphならTrue。Falseならinduced_cycleで反例の閉路を取得できる。"),
+    ("perfect_elimination_order", "各頂点の後ろに残る隣接頂点がクリークになる除去順を返す。", "list[int]", "成立時は長さNの頂点順列。不成立時は空list。返るlistはコピー。"),
+    ("induced_cycle", "chordalでない理由となる、対角線のない閉路を一つ返す。", "list[int]", "閉路に沿った相異なる頂点番号のlist。末尾から先頭にも辺があり、先頭を末尾へ重ねない。長さは4以上。chordalなら空list。"),
+):
+    API_DETAILS_BY_SYMBOL[("graph_enumeration/GraphProperties.py", "ChordalGraphRecognizer", _name)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+    }
+COMPLEXITY_BY_MODULE["graph_enumeration/GraphProperties.py"].update({
+    "ChordalGraphRecognizer": "期待O(N+M)時間・メモリ。グラフのコピーと重複除去のみで判定は遅延実行",
+    "mcs_order": "初回O(N+M)、再呼出しO(N)。返すlistのコピーを含む",
+    "is_chordal": "初回O(N+M)、判定済みならO(1)",
+    "perfect_elimination_order": "未判定ならO(N+M)、判定済みならO(N)。返すlistのコピーを含む",
+    "induced_cycle": "初回O(N+M)、計算済みならO(L)。Lは返す閉路長",
+    "bipartite_edge_coloring": "O(D^2 S sqrt(S))時間、O(DS+M)メモリ。S=max(left_size,right_size)、Dは最大次数。正則化した辺数はDS",
+})
+API_DETAILS_BY_SYMBOL[("graph_enumeration/GraphProperties.py", None, "bipartite_edge_coloring")] = {
+    "description": "同じ頂点に接する辺が異色になるよう、二部多重グラフの辺を最小色数で塗る。",
+    "argumentDescriptions": {"edges": "(left, right)の辺列。多重辺可。左右の頂点番号は別々に数える。"},
+    "returnFormat": "tuple[int, list[int]]",
+    "returnDescription": "(count, colors)。countは最大次数に等しい最小色数、colors[i]は入力辺iの色番号で0以上count未満。辺がなければ(0, [])。",
+}
+for _name, _first, _meaning in (
+    ("maximum_independent_set_mask", "size", "選んだ頂点の個数。全独立集合の中で最大。"),
+    ("maximum_weight_independent_set", "value", "選んだ頂点の重みの合計。全独立集合の中で最大で、空集合も許す。"),
+):
+    API_DETAILS_BY_SYMBOL[("graph_enumeration/MaximumIndependentSet.py", None, _name)]["returnParts"] = [
+        {"name": _first, "format": "int", "description": _meaning},
+        {"name": "mask", "format": "int", "description": "選んだ頂点のbit集合。mask >> v & 1が1なら頂点vを選ぶ。"},
+    ]
+SEARCH_TERMS_BY_MODULE.update({
+    "graph_enumeration/CountC4PerEdge.py": ("4-cycle", "四角形", "長さ4の閉路"),
+    "graph_spanning/MinimumSteinerTree.py": ("シュタイナー木", "指定頂点を結ぶ"),
+    "graph_enumeration/GraphProperties.py": ("弦グラフ", "誘導閉路", "完全除去順序"),
+})

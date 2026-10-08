@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 178,
-    "unimplemented": 75
+    "local_passed": 184,
+    "unimplemented": 69
   },
   "problems": [
     {
@@ -261,20 +261,26 @@
       "title": "Chordal Graph Recognition",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/chordal_graph_recognition",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_matching.BipartiteMatching",
+        "library_codex.graph_enumeration.GraphProperties"
+      ],
+      "solution": "solutions/chordal_graph_recognition.py",
+      "result": "results/chordal_graph_recognition.json"
     },
     {
       "name": "chromatic_number",
       "title": "Chromatic Number",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/chromatic_number",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph.GraphFromEdges",
+        "library_codex.graph_enumeration.ChromaticNumber"
+      ],
+      "solution": "solutions/chromatic_number.py",
+      "result": "results/chromatic_number.json"
     },
     {
       "name": "chromatic_polynomial",
@@ -473,10 +479,12 @@
       "title": "Counting $C _ 4$'s",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/counting_c4",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_enumeration.CountC4PerEdge"
+      ],
+      "solution": "solutions/counting_c4.py",
+      "result": "results/counting_c4.json"
     },
     {
       "name": "counting_eulerian_circuits",
@@ -781,10 +789,12 @@
       "title": "Enumerate Cliques",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/enumerate_cliques",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_enumeration.EnumerateCliques"
+      ],
+      "solution": "solutions/enumerate_cliques.py",
+      "result": "results/enumerate_cliques.json"
     },
     {
       "name": "enumerate_palindromes",
@@ -1490,10 +1500,12 @@
       "title": "Maximum Independent Set",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/maximum_independent_set",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_enumeration.MaximumIndependentSet"
+      ],
+      "solution": "solutions/maximum_independent_set.py",
+      "result": "results/maximum_independent_set.json"
     },
     {
       "name": "min_cost_b_flow",
@@ -1591,10 +1603,12 @@
       "title": "Minimum Steiner Tree",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/minimum_steiner_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_spanning.MinimumSteinerTree"
+      ],
+      "solution": "solutions/minimum_steiner_tree.py",
+      "result": "results/minimum_steiner_tree.json"
     },
     {
       "name": "montmort_number_mod",

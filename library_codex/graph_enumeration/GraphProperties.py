@@ -8,7 +8,7 @@ class ChordalGraphRecognizer:
 
     def __init__(self, graph):
         self.n = len(graph)
-        self.adjacency = [set(neighbors) - {v}
+        self.adjacency = [list(set(neighbors) - {v})
                           for v, neighbors in enumerate(graph)]
         self._mcs = None
         self._peo = None
@@ -21,24 +21,40 @@ class ChordalGraphRecognizer:
             return self._mcs[:]
         n = self.n
         score = [0] * n
-        active = [True] * n
-        buckets = [set() for _ in range(n + 1)]
-        buckets[0].update(range(n))
+        previous = list(range(-1, n - 1))
+        following = list(range(1, n)) + [-1] if n else []
+        buckets = [-1] * (max(map(len, self.adjacency), default=0) + 1)
+        buckets[0] = 0 if n else -1
         maximum = 0
         order = []
         for _ in range(n):
-            while maximum and not buckets[maximum]:
+            while maximum and buckets[maximum] < 0:
                 maximum -= 1
-            v = buckets[maximum].pop()
-            active[v] = False
+            v = buckets[maximum]
+            after = following[v]
+            buckets[maximum] = after
+            if after >= 0:
+                previous[after] = -1
+            score[v] = -1
             order.append(v)
             for to in self.adjacency[v]:
-                if active[to]:
-                    old = score[to]
-                    buckets[old].remove(to)
+                old = score[to]
+                if old >= 0:
+                    before, after = previous[to], following[to]
+                    if before < 0:
+                        buckets[old] = after
+                    else:
+                        following[before] = after
+                    if after >= 0:
+                        previous[after] = before
                     old += 1
                     score[to] = old
-                    buckets[old].add(to)
+                    after = buckets[old]
+                    previous[to] = -1
+                    following[to] = after
+                    if after >= 0:
+                        previous[after] = to
+                    buckets[old] = to
                     if old > maximum:
                         maximum = old
         self._mcs = order
@@ -51,20 +67,35 @@ class ChordalGraphRecognizer:
         position = [0] * self.n
         for i, v in enumerate(peo):
             position[v] = i
-        violation = None
+        children = [-1] * self.n
+        following = [-1] * self.n
         for v in peo:
-            later = [to for to in self.adjacency[v]
-                     if position[to] > position[v]]
-            if len(later) <= 1:
+            best = self.n
+            parent = -1
+            for to in self.adjacency[v]:
+                if position[v] < position[to] < best:
+                    best = position[to]
+                    parent = to
+            if parent >= 0:
+                following[v] = children[parent]
+                children[parent] = v
+        marked = [-1] * self.n
+        first_bad = self.n
+        violation = None
+        for parent in range(self.n):
+            if children[parent] < 0:
                 continue
-            parent = min(later, key=position.__getitem__)
-            parent_neighbors = self.adjacency[parent]
-            for to in later:
-                if to != parent and to not in parent_neighbors:
-                    violation = (v, parent, to)
-                    break
-            if violation is not None:
-                break
+            for to in self.adjacency[parent]:
+                marked[to] = parent
+            v = children[parent]
+            while v >= 0:
+                if position[v] < first_bad:
+                    for to in self.adjacency[v]:
+                        if position[to] > position[v] and to != parent and marked[to] != parent:
+                            violation = (v, parent, to)
+                            first_bad = position[v]
+                            break
+                v = following[v]
         self._peo = peo
         self._violation = violation
         self._chordal = violation is None
@@ -84,7 +115,7 @@ class ChordalGraphRecognizer:
         position = [0] * self.n
         for i, vertex in enumerate(self._peo):
             position[vertex] = i
-        forbidden = self.adjacency[v] - {source, target}
+        forbidden = set(self.adjacency[v]) - {source, target}
         parent = [-1] * self.n
         parent[source] = source
         queue = [source]

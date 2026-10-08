@@ -1,0 +1,187 @@
+{
+  "problem": "counting_c4",
+  "status": "failed",
+  "verificationKey": "cff952ecbf82156adab922f4498f95ea5a59dfc0e59a405e2d4d2559089a5063",
+  "sourceSha256": "258ca7a1892505f3f4c5ebc5fc227d038ab11605789c2343bb3bbcc82f66f2cb",
+  "modules": [
+    "library_codex.graph_enumeration.CountC4PerEdge"
+  ],
+  "problemVersion": "095e9c641781cc8396f95af901a75f4f49bde331626eec06b10a0bbf0e3d8ee5",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 29,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.060417484026402235,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "WA",
+      "seconds": 0.05655530403601006,
+      "diagnostic": "wrong answer 1st words differ - expected: '2', found: '4'\n"
+    },
+    {
+      "name": "minimum_00",
+      "status": "AC",
+      "seconds": 0.05574168701423332,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_sparse_simple_00",
+      "status": "AC",
+      "seconds": 0.0830465389881283,
+      "diagnostic": "ok 1323 tokens\n"
+    },
+    {
+      "name": "small_sparse_simple_01",
+      "status": "AC",
+      "seconds": 0.0603501980076544,
+      "diagnostic": "ok 235 tokens\n"
+    },
+    {
+      "name": "small_sparse_simple_02",
+      "status": "AC",
+      "seconds": 0.05670257203746587,
+      "diagnostic": "ok 139 tokens\n"
+    },
+    {
+      "name": "small_dense_simple_00",
+      "status": "AC",
+      "seconds": 0.8125624430249445,
+      "diagnostic": "ok 148779 tokens\n"
+    },
+    {
+      "name": "small_dense_simple_01",
+      "status": "AC",
+      "seconds": 0.13907225104048848,
+      "diagnostic": "ok 19691 tokens\n"
+    },
+    {
+      "name": "small_dense_simple_02",
+      "status": "AC",
+      "seconds": 0.07549985096557066,
+      "diagnostic": "ok 1419 tokens\n"
+    },
+    {
+      "name": "large_random_simple_00",
+      "status": "AC",
+      "seconds": 0.5558146859984845,
+      "diagnostic": "ok 274010 tokens\n"
+    },
+    {
+      "name": "large_random_simple_01",
+      "status": "AC",
+      "seconds": 0.3978339059976861,
+      "diagnostic": "ok 210548 tokens\n"
+    },
+    {
+      "name": "large_random_simple_02",
+      "status": "AC",
+      "seconds": 0.21787717699771747,
+      "diagnostic": "ok 92222 tokens\n"
+    },
+    {
+      "name": "max_random_simple_00",
+      "status": "AC",
+      "seconds": 0.5506812139647081,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_random_simple_01",
+      "status": "AC",
+      "seconds": 0.6345140389748849,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_random_simple_02",
+      "status": "AC",
+      "seconds": 0.6037743149790913,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "star_00",
+      "status": "AC",
+      "seconds": 0.27606986998580396,
+      "diagnostic": "ok 299999 tokens\n"
+    },
+    {
+      "name": "star_01",
+      "status": "AC",
+      "seconds": 0.2922193100093864,
+      "diagnostic": "ok 299999 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_00",
+      "status": "AC",
+      "seconds": 2.19613657402806,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_01",
+      "status": "AC",
+      "seconds": 2.593983262020629,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_02",
+      "status": "AC",
+      "seconds": 2.835694445995614,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_03",
+      "status": "AC",
+      "seconds": 2.9265553489676677,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_complete_00",
+      "status": "AC",
+      "seconds": 3.289403543982189,
+      "diagnostic": "ok 299925 tokens\n"
+    },
+    {
+      "name": "multiplied_c4_00",
+      "status": "TLE",
+      "seconds": 10.027298537024762
+    },
+    {
+      "name": "multiplied_c4_01",
+      "status": "TLE",
+      "seconds": 10.028123890981078
+    },
+    {
+      "name": "dense_00",
+      "status": "TLE",
+      "seconds": 10.026678247959353
+    },
+    {
+      "name": "dense_01",
+      "status": "TLE",
+      "seconds": 10.02373749401886
+    },
+    {
+      "name": "dense_02",
+      "status": "TLE",
+      "seconds": 10.024971582985017
+    },
+    {
+      "name": "dense_03",
+      "status": "TLE",
+      "seconds": 10.022424808994401
+    },
+    {
+      "name": "dense_04",
+      "status": "TLE",
+      "seconds": 10.021539356035646
+    }
+  ],
+  "verifiedAt": "2026-10-08T18:09:27.181763+00:00",
+  "onlineSubmission": null
+}

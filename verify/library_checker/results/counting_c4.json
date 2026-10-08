@@ -1,0 +1,194 @@
+{
+  "problem": "counting_c4",
+  "status": "local_passed",
+  "verificationKey": "1697978f404067f5e3ad11270bd269f7564bc75c9859714d5e1a9d34db7d6a37",
+  "sourceSha256": "0836daa574a830ce261f1d2e2874a182ba1cd055475970e13a7b487acc5833c0",
+  "modules": [
+    "library_codex.graph_enumeration.CountC4PerEdge"
+  ],
+  "problemVersion": "095e9c641781cc8396f95af901a75f4f49bde331626eec06b10a0bbf0e3d8ee5",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 29,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0589337179553695,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.061881645990069956,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "minimum_00",
+      "status": "AC",
+      "seconds": 0.058883942023385316,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "small_sparse_simple_00",
+      "status": "AC",
+      "seconds": 0.09449855197453871,
+      "diagnostic": "ok 1323 tokens\n"
+    },
+    {
+      "name": "small_sparse_simple_01",
+      "status": "AC",
+      "seconds": 0.060537961951922625,
+      "diagnostic": "ok 235 tokens\n"
+    },
+    {
+      "name": "small_sparse_simple_02",
+      "status": "AC",
+      "seconds": 0.05500367999775335,
+      "diagnostic": "ok 139 tokens\n"
+    },
+    {
+      "name": "small_dense_simple_00",
+      "status": "AC",
+      "seconds": 0.7543769890326075,
+      "diagnostic": "ok 148779 tokens\n"
+    },
+    {
+      "name": "small_dense_simple_01",
+      "status": "AC",
+      "seconds": 0.13319943798705935,
+      "diagnostic": "ok 19691 tokens\n"
+    },
+    {
+      "name": "small_dense_simple_02",
+      "status": "AC",
+      "seconds": 0.07937181199667975,
+      "diagnostic": "ok 1419 tokens\n"
+    },
+    {
+      "name": "large_random_simple_00",
+      "status": "AC",
+      "seconds": 0.7094296530121937,
+      "diagnostic": "ok 274010 tokens\n"
+    },
+    {
+      "name": "large_random_simple_01",
+      "status": "AC",
+      "seconds": 0.5187275749631226,
+      "diagnostic": "ok 210548 tokens\n"
+    },
+    {
+      "name": "large_random_simple_02",
+      "status": "AC",
+      "seconds": 0.2501108549768105,
+      "diagnostic": "ok 92222 tokens\n"
+    },
+    {
+      "name": "max_random_simple_00",
+      "status": "AC",
+      "seconds": 0.7196370609453879,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_random_simple_01",
+      "status": "AC",
+      "seconds": 0.7047086450038478,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_random_simple_02",
+      "status": "AC",
+      "seconds": 0.7313352130004205,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "star_00",
+      "status": "AC",
+      "seconds": 0.5066697240108624,
+      "diagnostic": "ok 299999 tokens\n"
+    },
+    {
+      "name": "star_01",
+      "status": "AC",
+      "seconds": 0.47843665996333584,
+      "diagnostic": "ok 299999 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_00",
+      "status": "AC",
+      "seconds": 3.5244721669587307,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_01",
+      "status": "AC",
+      "seconds": 3.4315765960491262,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_02",
+      "status": "AC",
+      "seconds": 2.7560590429930016,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_near_k_simple_03",
+      "status": "AC",
+      "seconds": 2.598172901023645,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "max_complete_00",
+      "status": "AC",
+      "seconds": 3.280891327012796,
+      "diagnostic": "ok 299925 tokens\n"
+    },
+    {
+      "name": "multiplied_c4_00",
+      "status": "AC",
+      "seconds": 0.29201221698895097,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "multiplied_c4_01",
+      "status": "AC",
+      "seconds": 0.28810085298027843,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "dense_00",
+      "status": "AC",
+      "seconds": 0.22101219004252926,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "dense_01",
+      "status": "AC",
+      "seconds": 0.226290560036432,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "dense_02",
+      "status": "AC",
+      "seconds": 0.2196098010172136,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "dense_03",
+      "status": "AC",
+      "seconds": 0.2202750529977493,
+      "diagnostic": "ok 300000 tokens\n"
+    },
+    {
+      "name": "dense_04",
+      "status": "AC",
+      "seconds": 0.2258482369943522,
+      "diagnostic": "ok 300000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-08T18:18:01.541544+00:00",
+  "onlineSubmission": null
+}

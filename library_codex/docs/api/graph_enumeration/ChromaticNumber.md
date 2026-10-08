@@ -8,8 +8,8 @@
 
 ## できること
 
-- `chromatic_number`: chromatic numberを求める。
-- `chromatic_number_from_edges`: chromatic number from edgesを求める。
+- 隣接頂点が異なる色になるよう塗るための最小色数を求める。
+- exact=Trueでは剰余衝突を使わず、整数演算で厳密に判定する。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.graph_enumeration.ChromaticNumber import chromatic_number, ch
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`chromatic_number(graph, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L16) | chromatic numberを求める。 | `graph`: 隣接listまたはグラフobject<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `0` / 各頂点の色を格納したlist[int] / `n` | O(n 2^n) / O(2^n) |
-| [`chromatic_number_from_edges(n, edges, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L74) | chromatic number from edgesを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`exact`: 近似を使わず厳密な条件で処理するか。省略時: `False` | `chromatic_number(graph_from_edges(n, edges), exact)` | O(V 2^V) |
+| [`chromatic_number(graph, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L16) | 隣接頂点が同色にならない頂点彩色の最小色数を求める。色の割り当て自体は返さない。 | `graph`: 単純無向グラフの隣接list。<br>`exact`: Trueなら任意精度整数で厳密に判定。Falseは固定した2つの法で判定するため、理論上は彩色数を過大評価する可能性がある。省略時: `False` | int — 必要な色数。空グラフは0、頂点があって辺がなければ1。exact=Falseには剰余衝突による過大評価の可能性がある。 | O(N 2^N)回の整数演算、O(2^N)個の整数。exact=Trueでは途中の整数は最大O(N^2)bitになり得る |
+| [`chromatic_number_from_edges(n, edges, exact=False)`](../../../graph_enumeration/ChromaticNumber.py#L74) | 隣接頂点が同色にならない頂点彩色の最小色数を求める。色の割り当て自体は返さない。 | `n`: 頂点数。<br>`edges`: 単純無向グラフの(u, v)の辺列。<br>`exact`: Trueなら任意精度整数で厳密に判定。Falseは固定した2つの法で判定するため、理論上は彩色数を過大評価する可能性がある。省略時: `False` | int — 必要な色数。空グラフは0、頂点があって辺がなければ1。exact=Falseには剰余衝突による過大評価の可能性がある。 | O(N 2^N)回の整数演算、O(2^N)個の整数。exact=Trueでは途中の整数は最大O(N^2)bitになり得る |

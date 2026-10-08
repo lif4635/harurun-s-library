@@ -8,7 +8,8 @@
 
 ## できること
 
-- `count_c4_per_edge`: c4 per edgeの個数を求める。
+- 各辺を含む4頂点の閉路を数える。平行な辺は別々の選択肢として扱う。
+- 重み付きでは、その辺以外の3辺の重みの積を足し合わせる。
 
 ## Import
 
@@ -20,4 +21,4 @@ from library_codex.graph_enumeration.CountC4PerEdge import count_c4_per_edge
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`count_c4_per_edge(n, edges, weight=None)`](../../../graph_enumeration/CountC4PerEdge.py#L3) | c4 per edgeの個数を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`weight`: 重み。省略時: `None` | 答え（数値または入力要素型） | O(n + m sqrt(m) |
+| [`count_c4_per_edge(n, edges, weight=None)`](../../../graph_enumeration/CountC4PerEdge.py#L3) | 入力の各辺について、その辺を含む4頂点の閉路を数える。対角線の有無は問わない。 | `n`: 頂点数。<br>`edges`: (u, v)のlist。無向辺を各1回書く。多重辺は可、自己辺は不可。入力の並び順が辺番号になる。<br>`weight`: edgesと同じ長さの重み列。省略時はすべて1。負数や0も可。省略時: `None` | list[int] — 長さlen(edges)の列。result[i]は辺iを固定し、残る3辺の重みの積を、その辺iを含む全4-cycleについて合計した値。辺i自身の重みは掛けない。平行辺でも元の各辺に一つずつ結果を返す。 | O(N log(N+1) + (M + U sqrt(U))*T)時間、O(N+M)メモリ。Uは平行辺をまとめた辺数、Tは重みの積・加算の時間。hash処理は期待時間 |

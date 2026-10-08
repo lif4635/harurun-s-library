@@ -8,8 +8,8 @@
 
 ## できること
 
-- `minimum_steiner_tree`: minimum steiner treeを求める。
-- `steiner_tree_dp`: steiner tree dpを求める。
+- 指定頂点をすべて結ぶ最小費用の辺集合を復元する。指定外の頂点を経由してよい。
+- 指定頂点の各部分集合と終点ごとの最小費用表も求められる。
 
 ## Import
 
@@ -21,5 +21,5 @@ from library_codex.graph_spanning.MinimumSteinerTree import minimum_steiner_tree
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`minimum_steiner_tree(n, edges, terminals)`](../../../graph_spanning/MinimumSteinerTree.py#L5) | minimum steiner treeを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`terminals`: Steiner木で接続するterminal頂点列 | tuple(`0`, list `[]`) / tuple(`inf`（float）, list `[]`) / tuple(答え, list `list(selected)`) | O(3^K N + 2^K (N+M) |
-| [`steiner_tree_dp(n, edges, terminals)`](../../../graph_spanning/MinimumSteinerTree.py#L81) | steiner tree dpを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list<br>`terminals`: Steiner木で接続するterminal頂点列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(3^K V + 2^K (V+E) log V)（Kはterminal数） |
+| [`minimum_steiner_tree(n, edges, terminals)`](../../../graph_spanning/MinimumSteinerTree.py#L5) | 指定頂点をすべて結ぶ最小費用と辺集合を求める。 | `n`: 頂点数。<br>`edges`: (u, v, cost)の辺列。無向、多重辺可。costは非負整数。<br>`terminals`: 必ず結ぶ頂点の列。重複を除いた最初の出現順を使う。指定外の頂点も経由できる。 | tuple[int \| float, list[int]] — (cost, edge_ids)。解が複数なら一つを返す。指定頂点が0個・1個なら(0, [])。 | O(3^(K-1) N + 2^(K-1) (N+M) log(N+M+1))時間、O(2^(K-1) N + M)メモリ。K>=2は重複除去後の指定頂点数。整数演算をO(1)とする |
+| [`steiner_tree_dp(n, edges, terminals)`](../../../graph_spanning/MinimumSteinerTree.py#L85) | 指定頂点の部分集合と終点ごとに、すべてを結ぶ最小費用の表を作る。 | `n`: 頂点数。<br>`edges`: (u, v, cost)の辺列。無向、多重辺可。costは非負整数。<br>`terminals`: 必ず結ぶ頂点の列。重複を除いた最初の出現順を使う。指定外の頂点も経由できる。 | list[list[int \| float]] — 2^K行・N列の表。table[mask][v]はmaskが表す指定頂点と頂点vをすべて結ぶ最小費用。maskのbit iは重複除去後のterminals[i]。不可能な状態とmask=0の行はfloat('inf')。 | O(3^K N + 2^K (N+M) log(N+M+1))時間、O(2^K N + M)メモリ。Kは重複除去後の指定頂点数。整数演算をO(1)とする |

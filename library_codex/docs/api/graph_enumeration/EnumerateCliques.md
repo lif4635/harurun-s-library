@@ -8,7 +8,8 @@
 
 ## できること
 
-- `enumerate_cliques`: cliquesを列挙する。
+- どの2頂点間にも辺がある頂点集合を、極大なものに限らずすべて列挙する。
+- callbackを渡すと、結果を全部保存せず一つずつ処理できる。
 
 ## Import
 
@@ -20,4 +21,4 @@ from library_codex.graph_enumeration.EnumerateCliques import enumerate_cliques
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph_enumeration/EnumerateCliques.py#L22) | cliquesを列挙する。 | `graph`: 隣接listまたはグラフobject<br>`callback`: 各要素・状態で呼ぶ関数。省略時: `None`<br>`include_empty`: 空集合・空列も結果に含めるか。省略時: `False` | list/None/int `result if callback is None else count` | — |
+| [`enumerate_cliques(graph, callback=None, include_empty=False)`](../../../graph_enumeration/EnumerateCliques.py#L22) | クリークを重複なくすべて列挙する。最大・極大クリークだけの列挙ではない。 | `graph`: 単純無向グラフの隣接list。<br>`callback`: callback(vertices)としてクリークごとに呼ぶ。verticesは昇順の頂点番号list。省略時は全結果をlistに保存する。省略時: `None`<br>`include_empty`: Trueなら空listも一つのクリークとして含める。省略時: `False` | list[list[int]] \| int — callback省略時はクリークごとの頂点list。各list内は昇順、クリーク同士の順序は保証しない。callback指定時は呼び出した回数を整数で返す。 | O((N+M+NC)B + C*T)時間。Cは列挙数、Tはcallback一回の最大時間、BはN bit整数演算の時間。callbackなしでは出力にO(NC)メモリ、探索用はO(N^2)個のN bit整数が上界 |

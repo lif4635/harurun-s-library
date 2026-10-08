@@ -9,8 +9,8 @@ Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色。
 
 ## できること
 
-- `bipartite_edge_coloring`: bipartite edge coloringを求める。
-- `ChordalGraphRecognizer`: Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色を扱う `ChordalGraphRecognizer`。
+- chordal graphか判定し、成立時は頂点の除去順、不成立時は長さ4以上の誘導閉路を返す。
+- 別のfunctionとして、二部多重グラフの辺彩色も含む。
 
 ## Import
 
@@ -22,20 +22,21 @@ from library_codex.graph_enumeration.GraphProperties import bipartite_edge_color
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph_enumeration/GraphProperties.py#L117) | bipartite edge coloringを求める。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: 辺のiterable/list | tuple(`0`, list `[]`) / tuple(各頂点の色を格納したlist[int], 答え（数値または入力要素型）) | — |
+| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph_enumeration/GraphProperties.py#L148) | 同じ頂点に接する辺が異色になるよう、二部多重グラフの辺を最小色数で塗る。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: (left, right)の辺列。多重辺可。左右の頂点番号は別々に数える。 | tuple[int, list[int]] — (count, colors)。countは最大次数に等しい最小色数、colors[i]は入力辺iの色番号で0以上count未満。辺がなければ(0, [])。 | O(D^2 S sqrt(S))時間、O(DS+M)メモリ。S=max(left_size,right_size)、Dは最大次数。正則化した辺数はDS |
 
 ## Class `ChordalGraphRecognizer`
 
-Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色を扱う `ChordalGraphRecognizer`。
+長さ4以上の誘導閉路を持たないか調べ、判定の証拠も取り出す。
 
 - constructor: [`ChordalGraphRecognizer(graph)`](../../../graph_enumeration/GraphProperties.py#L9)
-- 引数: `graph`: 隣接listまたはグラフobject
+- 引数: `graph`: 対称な無向隣接list。重複した隣接先と自己辺は取り除く。元のlistは変更しない。
 - 返り値: `ChordalGraphRecognizer` instance
-- 計算量: —
+- 計算量: 期待O(N+M)時間・メモリ。グラフのコピーと重複除去のみで判定は遅延実行
+- 作成後: 無向グラフをコピーした判定器。is_chordalで判定し、成立時はperfect_elimination_order、不成立時はinduced_cycleで証拠を取得できる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`mcs_order()`](../../../graph_enumeration/GraphProperties.py#L19) | method | 最大重み探索（MCS）で頂点を選ぶ順序を返す。 | なし | list[int] — MCSで選ばれた頂点番号を先頭から並べた長さnの列 | O(V+E) |
-| [`is_chordal()`](../../../graph_enumeration/GraphProperties.py#L47) | method | chordalかどうかを判定する。 | なし | bool | — |
-| [`perfect_elimination_order()`](../../../graph_enumeration/GraphProperties.py#L73) | method | perfect elimination orderを求める。 | なし | list[int] — 頂点または要素の位置を結果順に並べた列 | — |
-| [`induced_cycle()`](../../../graph_enumeration/GraphProperties.py#L76) | method | induced cycleを求める。 | なし | `self._cycle[:]` / list[object] — 用途欄に示した結果を1要素ずつ並べた列 | — |
+| [`mcs_order()`](../../../graph_enumeration/GraphProperties.py#L19) | method | すでに選ばれた隣接頂点が最も多い頂点から順に選ぶ。 | なし | list[int] — 選択順の頂点番号を並べた長さNの順列。同点の選び方は保証しない。返るlistはコピー。 | 初回O(N+M)、再呼出しO(N)。返すlistのコピーを含む |
+| [`is_chordal()`](../../../graph_enumeration/GraphProperties.py#L63) | method | 長さ4以上の誘導閉路が存在しないか判定する。 | なし | bool — chordal graphならTrue。Falseならinduced_cycleで反例の閉路を取得できる。 | 初回O(N+M)、判定済みならO(1) |
+| [`perfect_elimination_order()`](../../../graph_enumeration/GraphProperties.py#L104) | method | 各頂点の後ろに残る隣接頂点がクリークになる除去順を返す。 | なし | list[int] — 成立時は長さNの頂点順列。不成立時は空list。返るlistはコピー。 | 未判定ならO(N+M)、判定済みならO(N)。返すlistのコピーを含む |
+| [`induced_cycle()`](../../../graph_enumeration/GraphProperties.py#L107) | method | chordalでない理由となる、対角線のない閉路を一つ返す。 | なし | list[int] — 閉路に沿った相異なる頂点番号のlist。末尾から先頭にも辺があり、先頭を末尾へ重ねない。長さは4以上。chordalなら空list。 | 初回O(N+M)、計算済みならO(L)。Lは返す閉路長 |

@@ -8,9 +8,7 @@
 
 ## できること
 
-- `maximum_independent_set_mask`: maximum independent set maskを求める。
-- `maximum_independent_set`: 最大独立集合を求める。
-- `maximum_weight_independent_set`: maximum weight independent setを求める。
+- 互いに隣接しない頂点集合のうち、要素数または重みの合計が最大のものを求める。
 
 ## Import
 
@@ -22,6 +20,6 @@ from library_codex.graph_enumeration.MaximumIndependentSet import maximum_indepe
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`maximum_independent_set_mask(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L41) | maximum independent set maskを求める。 | `graph`: 隣接listまたはグラフobject | tuple(`0`, `0`) / tuple(`best`（数値または入力要素型）, `best_mask`（数値または入力要素型）) | 最悪 O(2^V) |
-| [`maximum_independent_set(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L92) | 最大独立集合を求める。 | `graph`: 隣接listまたはグラフobject | `_mask_vertices(mask)` | 最悪 O(2^V + V) |
-| [`maximum_weight_independent_set(graph, weight)`](../../../graph_enumeration/MaximumIndependentSet.py#L97) | maximum weight independent setを求める。 | `graph`: 隣接listまたはグラフobject<br>`weight`: 重み | tuple(`best_weight`（int）, `best_mask`（int）) | 最悪 O(2^V) |
+| [`maximum_independent_set_mask(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L41) | 最大独立集合の要素数とbit集合を求める。 | `graph`: 単純無向グラフの隣接list。 | tuple[int, int] — (size, mask)。sizeは最大要素数、maskのbit vが1なら頂点vを選ぶ。 | 最悪O(N 2^N B)時間。BはN bit整数演算の時間。枝刈りで短くなるが、指数時間の保証は変わらない |
+| [`maximum_independent_set(graph)`](../../../graph_enumeration/MaximumIndependentSet.py#L92) | 互いに隣接しない頂点を最大個数選ぶ。 | `graph`: 単純無向グラフの隣接list。 | list[int] — 選んだ頂点番号を昇順で返す。解が複数なら一つを選ぶ。空グラフでは空list。 | 最悪O(N 2^N B)時間。BはN bit整数演算の時間。枝刈りで短くなるが、指数時間の保証は変わらない |
+| [`maximum_weight_independent_set(graph, weight)`](../../../graph_enumeration/MaximumIndependentSet.py#L97) | 互いに隣接しない頂点を、重みの合計が最大になるよう選ぶ。 | `graph`: 単純無向グラフの隣接list。<br>`weight`: 長さNの頂点重み列。weight[v]が頂点vの整数重み。負数や0も可。 | tuple[int, int] — (value, mask)。valueは選んだ頂点の重みの合計、maskのbit vが1なら頂点vを選ぶ。空集合も可なのでvalueは0以上。 | 最悪O(N 2^N B)時間。BはN bit整数演算の時間。枝刈りで短くなるが、指数時間の保証は変わらない |

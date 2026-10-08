@@ -120,15 +120,10 @@ graph_connectivity/OnlineDynamicConnectivity
 graph_connectivity/Reachability
 graph_connectivity/StronglyConnectedComponents
 graph_connectivity/TwoEdgeConnectedComponents
-graph_enumeration/ChromaticNumber
-graph_enumeration/CountC4PerEdge
-graph_enumeration/EnumerateCliques
 graph_enumeration/EnumerateTriangles
 graph_enumeration/GraphCounting
-graph_enumeration/GraphProperties
 graph_enumeration/HeldKarp
 graph_enumeration/MaximalIndependentSets
-graph_enumeration/MaximumIndependentSet
 graph_enumeration/MinimumCostCycle
 graph_flow/AdvancedFlow
 graph_flow/MaxFlow
@@ -143,7 +138,6 @@ graph_spanning/GraphOrdering
 graph_spanning/MergeTree
 graph_spanning/MinimumCostArborescence
 graph_spanning/MinimumSpanningTree
-graph_spanning/MinimumSteinerTree
 heuristic/LogTable
 heuristic/MultiArmedBandit
 heuristic/SimulatedAnnealing

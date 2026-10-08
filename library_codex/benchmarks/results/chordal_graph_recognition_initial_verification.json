@@ -1,0 +1,153 @@
+{
+  "problem": "chordal_graph_recognition",
+  "status": "local_passed",
+  "verificationKey": "d218d6e8e5d834222f8990526219e2da3ba58b28f793c2cc3fa9424fc1e5dfc5",
+  "sourceSha256": "49678da0417223b8a9116e23f7ba27b5bae31600cab6536875cc7e8934b8a808",
+  "modules": [
+    "library_codex.graph_matching.BipartiteMatching",
+    "library_codex.graph_enumeration.GraphProperties"
+  ],
+  "problemVersion": "2fc15b4b37cee400e266d12d95b37d3ea7b9c90f098777d3065c2e5871c7de4f",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 22,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06348413601517677,
+      "diagnostic": "ok n=4, m=4 ans=YES\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.06685637700138614,
+      "diagnostic": "ok n=5, m=4 ans=NO\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.0629239379777573,
+      "diagnostic": "ok n=10, m=15 ans=NO\n"
+    },
+    {
+      "name": "heawood_00",
+      "status": "AC",
+      "seconds": 0.06362239201553166,
+      "diagnostic": "ok n=14, m=28 ans=NO\n"
+    },
+    {
+      "name": "path_00",
+      "status": "AC",
+      "seconds": 0.9115519840270281,
+      "diagnostic": "ok n=200000, m=199999 ans=YES\n"
+    },
+    {
+      "name": "cycle_00",
+      "status": "AC",
+      "seconds": 1.0174574029515497,
+      "diagnostic": "ok n=200000, m=200000 ans=NO\n"
+    },
+    {
+      "name": "thick_cycle_00",
+      "status": "AC",
+      "seconds": 0.545253592019435,
+      "diagnostic": "ok n=100000, m=200000 ans=NO\n"
+    },
+    {
+      "name": "wheel_00",
+      "status": "AC",
+      "seconds": 0.5156383360153995,
+      "diagnostic": "ok n=100001, m=200000 ans=NO\n"
+    },
+    {
+      "name": "complete_00",
+      "status": "AC",
+      "seconds": 0.17942221101839095,
+      "diagnostic": "ok n=632, m=199396 ans=YES\n"
+    },
+    {
+      "name": "complete_minus_ab_00",
+      "status": "AC",
+      "seconds": 0.17502352700103074,
+      "diagnostic": "ok n=632, m=199395 ans=YES\n"
+    },
+    {
+      "name": "complete_minus_ab_cd_00",
+      "status": "AC",
+      "seconds": 0.15443649399094284,
+      "diagnostic": "ok n=632, m=199394 ans=NO\n"
+    },
+    {
+      "name": "complete_minus_ab_ac_00",
+      "status": "AC",
+      "seconds": 0.16605242498917505,
+      "diagnostic": "ok n=632, m=199394 ans=YES\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.8669796870090067,
+      "diagnostic": "ok n=200000, m=200000 ans=NO\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.9260455840267241,
+      "diagnostic": "ok n=200000, m=200000 ans=NO\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.8912311739986762,
+      "diagnostic": "ok n=200000, m=200000 ans=NO\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.8091613340075128,
+      "diagnostic": "ok n=200000, m=200000 ans=NO\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.8549561619875021,
+      "diagnostic": "ok n=200000, m=200000 ans=NO\n"
+    },
+    {
+      "name": "2tree_00",
+      "status": "AC",
+      "seconds": 0.5631019650027156,
+      "diagnostic": "ok n=100001, m=199999 ans=YES\n"
+    },
+    {
+      "name": "2tree_01",
+      "status": "AC",
+      "seconds": 0.625963378988672,
+      "diagnostic": "ok n=100001, m=199999 ans=YES\n"
+    },
+    {
+      "name": "2tree_02",
+      "status": "AC",
+      "seconds": 0.5728577510453761,
+      "diagnostic": "ok n=100001, m=199999 ans=YES\n"
+    },
+    {
+      "name": "2tree_03",
+      "status": "AC",
+      "seconds": 0.571943029994145,
+      "diagnostic": "ok n=100001, m=199999 ans=YES\n"
+    },
+    {
+      "name": "2tree_04",
+      "status": "AC",
+      "seconds": 0.6000189210171811,
+      "diagnostic": "ok n=100001, m=199999 ans=YES\n"
+    }
+  ],
+  "verifiedAt": "2026-10-08T18:11:38.251177+00:00",
+  "onlineSubmission": null
+}

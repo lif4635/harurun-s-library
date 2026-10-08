@@ -1,0 +1,116 @@
+{
+  "problem": "maximum_independent_set",
+  "status": "local_passed",
+  "verificationKey": "6956b6a07bec2fbc32791f8087ca6dd56cbb2d233fee745f8c8a149d28517c6b",
+  "sourceSha256": "4a4b629195fba58c0bc24cf419eb685d0c1581e3b6f21504f88eeb1da251b5c8",
+  "modules": [
+    "library_codex.graph_enumeration.MaximumIndependentSet"
+  ],
+  "problemVersion": "6dbfc359f6d32a0f504854d8c0429fd3b74d33c98fa9723beac38fb5b5c34dfe",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 16,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05896316299913451,
+      "diagnostic": "ok OK: 4 vertexes\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05843507603276521,
+      "diagnostic": "ok OK: 3 vertexes\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.06259558902820572,
+      "diagnostic": "ok OK: 5 vertexes\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.05793966696364805,
+      "diagnostic": "ok OK: 3 vertexes\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.05639977497048676,
+      "diagnostic": "ok OK: 21 vertexes\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.05587706301594153,
+      "diagnostic": "ok OK: 1 vertexes\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.05603178800083697,
+      "diagnostic": "ok OK: 8 vertexes\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.06176503200549632,
+      "diagnostic": "ok OK: 3 vertexes\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.06718369998270646,
+      "diagnostic": "ok OK: 11 vertexes\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.06989317300030962,
+      "diagnostic": "ok OK: 19 vertexes\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.06295978702837601,
+      "diagnostic": "ok OK: 11 vertexes\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.06855314096901566,
+      "diagnostic": "ok OK: 5 vertexes\n"
+    },
+    {
+      "name": "hack0_00",
+      "status": "AC",
+      "seconds": 0.07130250299815089,
+      "diagnostic": "ok OK: 30 vertexes\n"
+    },
+    {
+      "name": "handmade_00",
+      "status": "AC",
+      "seconds": 0.06088234100025147,
+      "diagnostic": "ok OK: 4 vertexes\n"
+    },
+    {
+      "name": "one_two_00",
+      "status": "AC",
+      "seconds": 0.056281072029378265,
+      "diagnostic": "ok OK: 14 vertexes\n"
+    },
+    {
+      "name": "many_maximals_00",
+      "status": "AC",
+      "seconds": 0.05943548702634871,
+      "diagnostic": "ok OK: 13 vertexes\n"
+    }
+  ],
+  "verifiedAt": "2026-10-08T18:09:16.436121+00:00",
+  "onlineSubmission": null
+}

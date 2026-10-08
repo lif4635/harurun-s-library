@@ -3,14 +3,42 @@
 def count_c4_per_edge(n, edges, weight=None):
     """For each edge, sum products of the other three edges over all C4s.
 
-    With omitted weights this is simply the number of (not necessarily induced)
-    4-cycles containing each edge.  Runs in O(n + m sqrt(m)) on a simple graph.
+    Parallel edges are distinct choices. Self-loops are not accepted.
+    With omitted weights, count the cycles containing each original edge.
     """
     m = len(edges)
     if weight is None:
         weight = [1] * m
     elif len(weight) != m:
         raise ValueError("weight length must equal the number of edges")
+    index = {}
+    unique = []
+    total = []
+    original = []
+    for i, (u, v) in enumerate(edges):
+        if not 0 <= u < n or not 0 <= v < n:
+            raise IndexError("edge endpoint is out of range")
+        if u == v:
+            raise ValueError("self-loops are not supported")
+        if u > v:
+            u, v = v, u
+        key = u * n + v
+        e = index.get(key, -1)
+        if e < 0:
+            e = len(unique)
+            index[key] = e
+            unique.append((u, v))
+            total.append(weight[i])
+        else:
+            total[e] += weight[i]
+        original.append(e)
+    del index
+    answer = _count_simple(n, unique, total)
+    return [answer[e] for e in original]
+
+
+def _count_simple(n, edges, weight):
+    m = len(edges)
     degree = [0] * n
     for u, v in edges:
         degree[u] += 1
@@ -52,22 +80,28 @@ def count_c4_per_edge(n, edges, weight=None):
     answer = [0] * m
     for v in range(n - 1, -1, -1):
         for i in range(start[v], end[v]):
-            evw = edge_id[i]
-            w = to[i]
-            end[w] -= 1
-            for j in range(start[w], end[w]):
-                ewx = edge_id[j]
-                x = to[j]
-                path_sum[x] += weight[evw] * weight[ewx]
+            end[to[i]] -= 1
         for i in range(start[v], end[v]):
             evw = edge_id[i]
             w = to[i]
+            first_weight = weight[evw]
             for j in range(start[w], end[w]):
                 ewx = edge_id[j]
                 x = to[j]
-                value = path_sum[x] - weight[evw] * weight[ewx]
-                answer[evw] += value * weight[ewx]
-                answer[ewx] += value * weight[evw]
+                path_sum[x] += first_weight * weight[ewx]
+        for i in range(start[v], end[v]):
+            evw = edge_id[i]
+            w = to[i]
+            first_weight = weight[evw]
+            increment = 0
+            for j in range(start[w], end[w]):
+                ewx = edge_id[j]
+                x = to[j]
+                second_weight = weight[ewx]
+                value = path_sum[x] - first_weight * second_weight
+                increment += value * second_weight
+                answer[ewx] += value * first_weight
+            answer[evw] += increment
         for i in range(start[v], end[v]):
             w = to[i]
             for j in range(start[w], end[w]):
