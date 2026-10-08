@@ -23,6 +23,7 @@
 | [compositional_inverse_of_formal_power_series_large](compositional_inverse_of_formal_power_series_large.json) | 3 / 28 | 5 | 2.392 | 114.5 | 一致 |
 | [counting_spanning_tree_directed](counting_spanning_tree_directed.json) | 3 / 22 | 5 | 0.546 | 124.1 | 一致 |
 | [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.524 | 110.4 | 一致 |
+| [deque](deque.json) | 3 / 36 | 5 | 0.175 | 85.0 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
 | [dynamic_sequence_range_affine_range_sum](dynamic_sequence_range_affine_range_sum.json) | 3 / 33 | 5 | 7.624 | 180.2 | 一致 |
 | [eertree](eertree.json) | 3 / 24 | 5 | 1.424 | 721.5 | 一致 |
@@ -84,6 +85,7 @@
 | [range_set_range_composite](range_set_range_composite.json) | 3 / 23 | 5 | 2.074 | 130.5 | 一致 |
 | [rational_approximation](rational_approximation.json) | 3 / 28 | 5 | 0.177 | 80.5 | 一致 |
 | [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
+| [rooted_tree_topological_order_with_minimum_inversions](rooted_tree_topological_order_with_minimum_inversions.json) | 3 / 30 | 5 | 0.687 | 117.7 | 一致 |
 | [runenumerate](runenumerate.json) | 3 / 24 | 5 | 2.749 | 284.1 | 一致 |
 | [shift_of_sampling_points_of_polynomial](shift_of_sampling_points_of_polynomial.json) | 3 / 32 | 5 | 0.647 | 157.6 | 一致 |
 | [sort_points_by_argument](sort_points_by_argument.json) | 3 / 21 | 5 | 1.240 | 108.3 | 一致 |

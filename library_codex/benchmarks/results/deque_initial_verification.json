@@ -1,0 +1,236 @@
+{
+  "problem": "deque",
+  "status": "local_passed",
+  "verificationKey": "e25b824615f6d4c6a65a3eca3e60dd52f7c1b865d6ec15a4d646ed022ccd1916",
+  "sourceSha256": "7d78ba8b6495ff370396680ecf8744785cca04a8d1f962027cfeb68a658a7846",
+  "modules": [
+    "library_codex.sequence_structure.Deque"
+  ],
+  "problemVersion": "6b3d875841c593040adb0f3c4e39483ec583a75efee490c89aff3ac36c179835",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 36,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.08056287898216397,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.07722037698840722,
+      "diagnostic": "ok 0 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.0721046770340763,
+      "diagnostic": "ok 0 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.07091684400802478,
+      "diagnostic": "ok \"155763712\"\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.05984672898193821,
+      "diagnostic": "ok 0 tokens\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.06539754197001457,
+      "diagnostic": "ok \"731227835\"\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.06358009699033573,
+      "diagnostic": "ok 0 tokens\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.06570317700970918,
+      "diagnostic": "ok 0 tokens\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.0589811599929817,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.06937494402518496,
+      "diagnostic": "ok \"605967993\"\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.07377062499290332,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.13540880399523303,
+      "diagnostic": "ok 77903 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.15328887704527006,
+      "diagnostic": "ok 92535 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.09148553799604997,
+      "diagnostic": "ok 10711 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.15832242497708648,
+      "diagnostic": "ok 85673 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.12270116299623623,
+      "diagnostic": "ok 55494 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.17219089902937412,
+      "diagnostic": "ok 99542 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.17000257596373558,
+      "diagnostic": "ok 99736 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.17837493098340929,
+      "diagnostic": "ok 100095 tokens\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.16668177401879802,
+      "diagnostic": "ok 4933 tokens\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.18546477402560413,
+      "diagnostic": "ok 4969 tokens\n"
+    },
+    {
+      "name": "max_random_05",
+      "status": "AC",
+      "seconds": 0.15755397599423304,
+      "diagnostic": "ok 2562 tokens\n"
+    },
+    {
+      "name": "max_random_06",
+      "status": "AC",
+      "seconds": 0.14507896301802248,
+      "diagnostic": "ok 2548 tokens\n"
+    },
+    {
+      "name": "max_random_07",
+      "status": "AC",
+      "seconds": 0.19789582100929692,
+      "diagnostic": "ok 479906 tokens\n"
+    },
+    {
+      "name": "max_random_08",
+      "status": "AC",
+      "seconds": 0.18639245902886614,
+      "diagnostic": "ok 160341 tokens\n"
+    },
+    {
+      "name": "max_random_09",
+      "status": "AC",
+      "seconds": 0.14586857403628528,
+      "diagnostic": "ok 134621 tokens\n"
+    },
+    {
+      "name": "max_random_10",
+      "status": "AC",
+      "seconds": 0.18163987598381937,
+      "diagnostic": "ok 77973 tokens\n"
+    },
+    {
+      "name": "max_random_11",
+      "status": "AC",
+      "seconds": 0.1815414580050856,
+      "diagnostic": "ok 149735 tokens\n"
+    },
+    {
+      "name": "max_random_12",
+      "status": "AC",
+      "seconds": 0.1904777399613522,
+      "diagnostic": "ok 117898 tokens\n"
+    },
+    {
+      "name": "max_random_13",
+      "status": "AC",
+      "seconds": 0.15546395897399634,
+      "diagnostic": "ok 110952 tokens\n"
+    },
+    {
+      "name": "max_random_14",
+      "status": "AC",
+      "seconds": 0.1792297739884816,
+      "diagnostic": "ok 136101 tokens\n"
+    },
+    {
+      "name": "max_random_15",
+      "status": "AC",
+      "seconds": 0.1962743229814805,
+      "diagnostic": "ok 142283 tokens\n"
+    },
+    {
+      "name": "max_random_16",
+      "status": "AC",
+      "seconds": 0.1683324839686975,
+      "diagnostic": "ok 153607 tokens\n"
+    },
+    {
+      "name": "max_random_17",
+      "status": "AC",
+      "seconds": 0.17461241100681946,
+      "diagnostic": "ok 67530 tokens\n"
+    },
+    {
+      "name": "max_random_18",
+      "status": "AC",
+      "seconds": 0.18351306003751233,
+      "diagnostic": "ok 246627 tokens\n"
+    },
+    {
+      "name": "max_random_19",
+      "status": "AC",
+      "seconds": 0.16822026099544019,
+      "diagnostic": "ok 60794 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-08T17:42:48.495596+00:00",
+  "onlineSubmission": null
+}

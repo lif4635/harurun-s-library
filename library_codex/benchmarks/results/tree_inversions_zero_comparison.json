@@ -1,0 +1,287 @@
+{
+  "measuredAt": "2026-10-08T17:51:24.991845+00:00",
+  "problem": "rooted_tree_topological_order_with_minimum_inversions",
+  "snapshot": {
+    "retrievedAt": "2026-10-08T17:41:14.511642+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "rooted_tree_topological_order_with_minimum_inversions",
+    "problemInfo": {
+      "overall_version": "2de5bd360d6a953d8388a0185a659fd44a16b1b5bbb1180c315b8adeea5fad4b",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/tree/rooted_tree_topological_order_with_minimum_inversions",
+      "testcases_version": "798113793a5e1cee706d7ea937a1db978e613fe7241827f901cdd5f76d3ad355",
+      "time_limit": 5,
+      "title": "Rooted Tree Topological Order with Minimum Inversions",
+      "version": "2dd63b923efae5295b07bbf29734cf5986c7db3b61e3f045bf1c3f5afae1f32e"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 301086,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 194977792,
+        "problem_name": "rooted_tree_topological_order_with_minimum_inversions",
+        "problem_title": "Rooted Tree Topological Order with Minimum Inversions",
+        "status": "AC",
+        "submission_time": "2025-07-19T14:45:39.298255Z",
+        "time": 1.382,
+        "user_name": "toyuzuko",
+        "sourceFile": "301086.py",
+        "sourceSha256": "7757e48c1a7d2992e8da8c7fb89bc0b9b2e5742ad9831e70f834ff90ccbc9d9c",
+        "url": "https://judge.yosupo.jp/submission/301086"
+      }
+    ]
+  },
+  "officialHashSha256": "8d981c95f23352e93d03dd70a68ffaee804eab1e1b432bae24c73616baf5eba1",
+  "checkerSha256": "2d18e8b5e88df29a5638d2de3bd216fde559001b5f7e6e9dbcaa229bf2382448",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 5,
+  "seed": 92471,
+  "sourceSha256": {
+    "301086": "7757e48c1a7d2992e8da8c7fb89bc0b9b2e5742ad9831e70f834ff90ccbc9d9c",
+    "library": "ba8b6c9f203e820dfcbcbeeb452fe762c80af2759b41ae4c3318a0ae403d46da"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_bival_00",
+      "inputSha256": "533db553dc66fbd24371295fc8308e4d78b3e1b639ad8ca375269e71988ec57d",
+      "implementations": {
+        "301086": {
+          "samples": [
+            {
+              "seconds": 1.8671305230236612,
+              "peakRssKiB": 187724,
+              "outputSha256": "fea88a14e3d84e805cf6b067cce3ea1bd7dba9eba0c23426b664cf71e345dc5f"
+            },
+            {
+              "seconds": 1.9343124370207079,
+              "peakRssKiB": 187712,
+              "outputSha256": "fea88a14e3d84e805cf6b067cce3ea1bd7dba9eba0c23426b664cf71e345dc5f"
+            },
+            {
+              "seconds": 1.6863578539923765,
+              "peakRssKiB": 187924,
+              "outputSha256": "fea88a14e3d84e805cf6b067cce3ea1bd7dba9eba0c23426b664cf71e345dc5f"
+            },
+            {
+              "seconds": 1.7128327109967358,
+              "peakRssKiB": 187968,
+              "outputSha256": "fea88a14e3d84e805cf6b067cce3ea1bd7dba9eba0c23426b664cf71e345dc5f"
+            },
+            {
+              "seconds": 1.6866767070023343,
+              "peakRssKiB": 187980,
+              "outputSha256": "fea88a14e3d84e805cf6b067cce3ea1bd7dba9eba0c23426b664cf71e345dc5f"
+            }
+          ],
+          "medianSeconds": 1.7128327109967358,
+          "peakRssKiB": 187980
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 0.7236773509648629,
+              "peakRssKiB": 121504,
+              "outputSha256": "07fca580f47b58ce00e4fd9d6754fd93a95bfe1dbee8b29869f9d47814cb858d"
+            },
+            {
+              "seconds": 0.7202341509982944,
+              "peakRssKiB": 121236,
+              "outputSha256": "07fca580f47b58ce00e4fd9d6754fd93a95bfe1dbee8b29869f9d47814cb858d"
+            },
+            {
+              "seconds": 0.7085155760287307,
+              "peakRssKiB": 121372,
+              "outputSha256": "07fca580f47b58ce00e4fd9d6754fd93a95bfe1dbee8b29869f9d47814cb858d"
+            },
+            {
+              "seconds": 0.7145599959767424,
+              "peakRssKiB": 121372,
+              "outputSha256": "07fca580f47b58ce00e4fd9d6754fd93a95bfe1dbee8b29869f9d47814cb858d"
+            },
+            {
+              "seconds": 0.6884978179587051,
+              "peakRssKiB": 121500,
+              "outputSha256": "07fca580f47b58ce00e4fd9d6754fd93a95bfe1dbee8b29869f9d47814cb858d"
+            }
+          ],
+          "medianSeconds": 0.7145599959767424,
+          "peakRssKiB": 121504
+        }
+      }
+    },
+    {
+      "case": "weight_zero_00",
+      "inputSha256": "d34ec0befb3794e0bf83cbd7d6ef379d9b063590d08c305907fc793e8d8f810c",
+      "implementations": {
+        "301086": {
+          "samples": [
+            {
+              "seconds": 1.1196132429759018,
+              "peakRssKiB": 186972,
+              "outputSha256": "22bb10ac5731a65ea4e9a30b9860217e8efa383639692e3f234c46e122c363fe"
+            },
+            {
+              "seconds": 1.1796248109894805,
+              "peakRssKiB": 186644,
+              "outputSha256": "22bb10ac5731a65ea4e9a30b9860217e8efa383639692e3f234c46e122c363fe"
+            },
+            {
+              "seconds": 1.103950738965068,
+              "peakRssKiB": 186676,
+              "outputSha256": "22bb10ac5731a65ea4e9a30b9860217e8efa383639692e3f234c46e122c363fe"
+            },
+            {
+              "seconds": 1.079380085982848,
+              "peakRssKiB": 187036,
+              "outputSha256": "22bb10ac5731a65ea4e9a30b9860217e8efa383639692e3f234c46e122c363fe"
+            },
+            {
+              "seconds": 1.1379259480163455,
+              "peakRssKiB": 186948,
+              "outputSha256": "22bb10ac5731a65ea4e9a30b9860217e8efa383639692e3f234c46e122c363fe"
+            }
+          ],
+          "medianSeconds": 1.1196132429759018,
+          "peakRssKiB": 187036
+        },
+        "library": {
+          "samples": [
+            {
+              "seconds": 0.23616931203287095,
+              "peakRssKiB": 112276,
+              "outputSha256": "5f2adc6994c2366ba0609f71b0e4b8d6ef0daf8985681208ee9623a2ebcb6e9d"
+            },
+            {
+              "seconds": 0.25727146898861974,
+              "peakRssKiB": 112248,
+              "outputSha256": "5f2adc6994c2366ba0609f71b0e4b8d6ef0daf8985681208ee9623a2ebcb6e9d"
+            },
+            {
+              "seconds": 0.2361112919752486,
+              "peakRssKiB": 112420,
+              "outputSha256": "5f2adc6994c2366ba0609f71b0e4b8d6ef0daf8985681208ee9623a2ebcb6e9d"
+            },
+            {
+              "seconds": 0.23566164000658318,
+              "peakRssKiB": 112368,
+              "outputSha256": "5f2adc6994c2366ba0609f71b0e4b8d6ef0daf8985681208ee9623a2ebcb6e9d"
+            },
+            {
+              "seconds": 0.24911695497576147,
+              "peakRssKiB": 112364,
+              "outputSha256": "5f2adc6994c2366ba0609f71b0e4b8d6ef0daf8985681208ee9623a2ebcb6e9d"
+            }
+          ],
+          "medianSeconds": 0.23616931203287095,
+          "peakRssKiB": 112420
+        }
+      }
+    }
+  ]
+}

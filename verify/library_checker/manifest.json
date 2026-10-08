@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 176,
-    "unimplemented": 77
+    "local_passed": 178,
+    "unimplemented": 75
   },
   "problems": [
     {
@@ -563,10 +563,12 @@
       "title": "Deque",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/deque",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.sequence_structure.Deque"
+      ],
+      "solution": "solutions/deque.py",
+      "result": "results/deque.json"
     },
     {
       "name": "deque_operate_all_composite",
@@ -2325,10 +2327,12 @@
       "title": "Rooted Tree Topological Order with Minimum Inversions",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/rooted_tree_topological_order_with_minimum_inversions",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.ZeroOneTree"
+      ],
+      "solution": "solutions/rooted_tree_topological_order_with_minimum_inversions.py",
+      "result": "results/rooted_tree_topological_order_with_minimum_inversions.json"
     },
     {
       "name": "runenumerate",

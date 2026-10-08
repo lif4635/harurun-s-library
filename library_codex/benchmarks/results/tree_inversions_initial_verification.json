@@ -1,0 +1,200 @@
+{
+  "problem": "rooted_tree_topological_order_with_minimum_inversions",
+  "status": "failed",
+  "verificationKey": "b7db62b972dfc0be6186d44ec1aed82c4a029612ec9db10d5b09080ac219c5c5",
+  "sourceSha256": "fd46d7b42a4e805874769e1d0070a28d368f3b34af615ecfd3102ba92241ec4c",
+  "modules": [
+    "library_codex.tree.ZeroOneTree"
+  ],
+  "problemVersion": "b7cb43ae5531ea94ba9d811f095d0119664edf9239b6ba7b2bce268313898560",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 30,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.080292833968997,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0790750189917162,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "min_00",
+      "status": "AC",
+      "seconds": 0.08246099698590115,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "min_01",
+      "status": "AC",
+      "seconds": 0.08589784300420433,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "min_02",
+      "status": "AC",
+      "seconds": 0.08075365197146311,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.0423602710361592,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.1568927229964174,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.473929239960853,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 1.4446577000198886,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.24035794800147414,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.4985694329952821,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 2.176323838008102,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 1.7467450510011986,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 1.4360821699956432,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 1.4995155929937027,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_typical_tree_00",
+      "status": "AC",
+      "seconds": 2.2151375290122814,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_typical_tree_01",
+      "status": "AC",
+      "seconds": 1.065703566011507,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_typical_tree_02",
+      "status": "AC",
+      "seconds": 1.0082350010052323,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_typical_tree_03",
+      "status": "AC",
+      "seconds": 1.5360831349971704,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "two_path_00",
+      "status": "AC",
+      "seconds": 0.6158064670162275,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "two_path_01",
+      "status": "AC",
+      "seconds": 0.41521314997226,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "two_path_02",
+      "status": "AC",
+      "seconds": 3.3418462749687023,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "two_path_03",
+      "status": "AC",
+      "seconds": 0.692944626964163,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "two_path_04",
+      "status": "AC",
+      "seconds": 0.43111679796129465,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "almost_line_00",
+      "status": "AC",
+      "seconds": 1.5279665859998204,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "almost_line_01",
+      "status": "AC",
+      "seconds": 1.772739793988876,
+      "diagnostic": "ok correct answer\n"
+    },
+    {
+      "name": "max_bival_00",
+      "status": "WA",
+      "seconds": 1.1781564489938319,
+      "diagnostic": "wrong answer Invalid permutation\n"
+    },
+    {
+      "name": "max_bival_01",
+      "status": "WA",
+      "seconds": 0.9864566990290768,
+      "diagnostic": "wrong answer Invalid permutation\n"
+    },
+    {
+      "name": "max_bival_02",
+      "status": "WA",
+      "seconds": 1.0060809930437244,
+      "diagnostic": "wrong answer Invalid permutation\n"
+    },
+    {
+      "name": "weight_zero_00",
+      "status": "AC",
+      "seconds": 0.4463882059790194,
+      "diagnostic": "ok correct answer\n"
+    }
+  ],
+  "verifiedAt": "2026-10-08T17:43:08.740050+00:00",
+  "onlineSubmission": null
+}

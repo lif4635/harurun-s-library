@@ -9,8 +9,8 @@
 
 ## できること
 
-- 親を子より先に並べる制約の下で、0/1ラベル列の転倒数を最小化できる。
-- 各頂点が複数の0と1を持つblock版も同じAPIで処理できる。
+- 親を子より先に並べる制約の下で、0/1ラベル列や0列・1列の塊の転倒数を最小化する。
+- 最小値だけでなく、その値を達成する頂点の並び順も復元できる。
 
 ## Import
 
@@ -22,5 +22,5 @@ from library_codex.tree.ZeroOneTree import min_block_inversions, min_inversions
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`min_block_inversions(parent, zero_count, one_count, root=0)`](../../../tree/ZeroOneTree.py#L46) | 各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。 | `parent`: 各頂点の親番号。root自身の親はrootにする<br>`zero_count`: 各頂点blockに含まれる0の個数<br>`one_count`: 各頂点blockに含まれる1の個数<br>`root`: 根の0-indexed頂点番号。省略時: `0` | int — 親優先制約を満たす並べ方の最小転倒数 | O(N log N) |
-| [`min_inversions(parent, labels, root=0)`](../../../tree/ZeroOneTree.py#L85) | 0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。 | `parent`: 各頂点の親番号。root自身の親はrootにする<br>`labels`: 各頂点の0または1のラベル<br>`root`: 根の0-indexed頂点番号。省略時: `0` | int — 0/1ラベルを親優先で並べるときの最小転倒数 | O(N log N) |
+| [`min_block_inversions(parent, zero_count, one_count, root=0, *, return_order=False)`](../../../tree/ZeroOneTree.py#L54) | 各頂点の0列・1列を一つの塊として親優先で並べ、転倒数を最小化する。 | `parent`: 長さNの親配列。rootへつながる一つの根付き木。root自身の要素は無視する。入力は変更しない。<br>`zero_count`: 長さNの非負整数列。頂点vの塊の先頭にある0の個数。<br>`one_count`: 長さNの非負整数列。頂点vの塊で0列の後ろにある1の個数。両方0の塊も可。<br>`root`: 根の頂点番号。Nは1以上。省略時: `0`<br>`return_order`: Trueなら最小値と最適順序のtuple、Falseなら最小値の整数だけを返す。省略時: `False` | int \| tuple[int, list[int]] — 通常は最小転倒数。return_order=Trueでは(cost, order)で返す。最適順序が複数あるときは一つを選び、辞書順最小は保証しない。 | O(N log(N+1)*T)時間、O(N)追加メモリ。Tは整数の積・比較の時間。通常の固定幅整数ならT=O(1) |
+| [`min_inversions(parent, labels, root=0, *, return_order=False)`](../../../tree/ZeroOneTree.py#L117) | 0/1ラベルを持つ木を親優先で並べ、1が0より前に現れる組の個数を最小化する。 | `parent`: 長さNの親配列。rootへつながる一つの根付き木。root自身の要素は無視する。入力は変更しない。<br>`labels`: 長さNの0/1列。labels[v]は頂点vのラベル。<br>`root`: 根の頂点番号。Nは1以上。省略時: `0`<br>`return_order`: Trueなら最小値と最適順序のtuple、Falseなら最小値の整数だけを返す。省略時: `False` | int \| tuple[int, list[int]] — 通常は最小転倒数。return_order=Trueでは(cost, order)で返す。最適順序が複数あるときは一つを選び、辞書順最小は保証しない。 | O(N log(N+1)*T)時間、O(N)追加メモリ。Tは整数の積・比較の時間。通常の固定幅整数ならT=O(1) |

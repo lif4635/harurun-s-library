@@ -306,7 +306,6 @@ tree/SubtreeDiameter
 tree/TreeDiameter
 tree/TreeDistanceFrequency
 tree/TreeIsomorphism
-tree/ZeroOneTree
 tree_query/TreeMo
 tree_query/TreeMonoid
 tree_query/TreeWaveletMatrix

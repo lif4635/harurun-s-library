@@ -48,6 +48,10 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 
 `CentroidDistanceFenwick`・`CentroidDistanceAdd`・`StaticRangeMode`の`tolist()`は現在値を元の頂点番号・添字順に返します。`str`は同じlist、`repr`は型名を付けます。`CentroidDistanceAdd`ではO(N log² N)、他2つではO(N)かかります。
 
+## 両端キュー
+
+`Deque.tolist()`は左端から右端の順の浅いコピーをO(N)時間・追加メモリで返す。`str`は同じlist、`repr`は`Deque([...])`。表示で列の内容や両端は変わらない。
+
 ## 区間代入
 
 `RangeAssignSegTree.tolist()`は区間代入を反映した現在値をindex順に返す浅いコピー。`str`は同じlist、`repr`は`RangeAssignSegTree([...])`。O(N)時間で、opを呼び出さずに遅延情報を下ろし、論理値を変更しない。

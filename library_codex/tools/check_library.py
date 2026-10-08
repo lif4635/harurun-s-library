@@ -12,6 +12,8 @@ REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
+    ROOT / "verify" / "sequence_structure" / "test_deque.py",
+    ROOT / "verify" / "tree" / "test_zero_one_tree.py",
     ROOT / "verify" / "test_official_library_checker.py",
     ROOT / "verify" / "test_official_benchmark.py",
     ROOT / "verify" / "test_official_comparison.py",

@@ -6961,3 +6961,70 @@ COMPLEXITY_BY_MODULE["segment_tree/RangeAssignSegTree.py"] = {
     "tolist": "O(N)時間・追加メモリ。opの呼び出しはない",
     "__str__": "O(N)と各要素の文字列化", "__repr__": "O(N)と各要素の文字列化",
 }
+
+MODULE_CAPABILITIES["sequence_structure/Deque.py"] = (
+    "両端へ追加・削除しながら、途中の要素を添字で取得・変更する。",
+    "追加・削除は償却O(1)、添字アクセスはO(1)。負のindexも使える。",
+)
+SEARCH_TERMS_BY_MODULE["sequence_structure/Deque.py"] = ("両端キュー", "ランダムアクセス")
+CLASS_DETAILS_BY_SYMBOL[("sequence_structure/Deque.py", "Deque")] = {
+    "description": "両端の追加・削除と任意位置の取得・変更を扱う可変長の列。",
+    "constructorCreates": "valuesと同じ順序の列。append・appendleftで追加、pop・popleftで削除、queue[index]で取得・変更できる。",
+    "argumentDescriptions": {"values": "初期列のiterable。省略時は空。列はコピーするが要素objectは共有する。"},
+}
+for _method, _description, _format, _returns in (
+    ("append", "右端へvalueを追加する。", "None", "列の末尾がvalueになり、長さが1増える。"),
+    ("appendleft", "左端へvalueを追加する。", "None", "列の先頭がvalueになり、既存要素のindexが1ずつ増える。"),
+    ("pop", "右端の一要素を削除して返す。", "object", "削除前のqueue[-1]。空ならIndexError。"),
+    ("popleft", "左端の一要素を削除して返す。", "object", "削除前のqueue[0]。空ならIndexError。"),
+    ("__getitem__", "indexの要素を返す。", "object", "左からindex番目の現在値。負のindexは末尾から数える。範囲外はIndexError。"),
+    ("__setitem__", "indexの要素をvalueへ置き換える。", "None", "長さを変えずに一要素を変更する。負のindexは末尾から数える。範囲外はIndexError。"),
+    ("__len__", "現在の要素数を返す。", "int", "空なら0。両端の追加・削除を反映した列の長さ。"),
+    ("tolist", "現在の列をlistへコピーする。", "list[object]", "左端から右端の順。result[i]はqueue[i]と同じ値。浅いコピーで、要素objectは共有する。"),
+    ("__str__", "現在の列をlistの形で表示する。", "str", "tolist()と同じ順序の文字列。列は変更しない。"),
+    ("__repr__", "型名と現在の列を表示する。", "str", "Deque([...])の形。列は変更しない。"),
+):
+    API_DETAILS_BY_SYMBOL[("sequence_structure/Deque.py", "Deque", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+    }
+for _method in ("__getitem__", "__setitem__"):
+    API_DETAILS_BY_SYMBOL[("sequence_structure/Deque.py", "Deque", _method)]["argumentDescriptions"] = {
+        "index": "-len(queue)以上len(queue)未満の整数。sliceは不可。",
+    }
+COMPLEXITY_BY_MODULE["sequence_structure/Deque.py"] = {
+    "Deque": "O(N)時間・メモリ。Nは初期列の長さ",
+    **{name: "償却O(1)、一回の最悪O(N)。Nは現在の要素数" for name in ("append", "appendleft", "pop", "popleft")},
+    "__getitem__": "O(1)", "__setitem__": "O(1)", "__len__": "O(1)",
+    "tolist": "O(N)時間・追加メモリ。Nは現在の要素数",
+    "__str__": "O(N)と要素の文字列化", "__repr__": "O(N)と要素の文字列化",
+}
+MODULE_CAPABILITIES["tree/ZeroOneTree.py"] = (
+    "親を子より先に並べる制約の下で、0/1ラベル列や0列・1列の塊の転倒数を最小化する。",
+    "最小値だけでなく、その値を達成する頂点の並び順も復元できる。",
+)
+for _name, _description, _arguments in (
+    ("min_inversions", "0/1ラベルを持つ木を親優先で並べ、1が0より前に現れる組の個数を最小化する。", {"labels": "長さNの0/1列。labels[v]は頂点vのラベル。"}),
+    ("min_block_inversions", "各頂点の0列・1列を一つの塊として親優先で並べ、転倒数を最小化する。", {
+        "zero_count": "長さNの非負整数列。頂点vの塊の先頭にある0の個数。",
+        "one_count": "長さNの非負整数列。頂点vの塊で0列の後ろにある1の個数。両方0の塊も可。",
+    }),
+):
+    API_DETAILS_BY_SYMBOL[("tree/ZeroOneTree.py", None, _name)] = {
+        "description": _description,
+        "argumentDescriptions": {
+            "parent": "長さNの親配列。rootへつながる一つの根付き木。root自身の要素は無視する。入力は変更しない。",
+            "root": "根の頂点番号。Nは1以上。",
+            "return_order": "Trueなら最小値と最適順序のtuple、Falseなら最小値の整数だけを返す。",
+            **_arguments,
+        },
+        "returnFormat": "int | tuple[int, list[int]]",
+        "returnDescription": "通常は最小転倒数。return_order=Trueでは(cost, order)で返す。最適順序が複数あるときは一つを選び、辞書順最小は保証しない。",
+        "returnParts": [
+            {"name": "cost", "format": "int", "description": "親優先の全順序の中での最小転倒数。任意精度の非負整数。"},
+            {"name": "order", "format": "list[int]", "description": "長さNの頂点の順列。order[i]がi番目の頂点で、親は子より前にある。return_order=Trueの場合のみ返す。"},
+        ],
+    }
+COMPLEXITY_BY_MODULE["tree/ZeroOneTree.py"] = {
+    name: "O(N log(N+1)*T)時間、O(N)追加メモリ。Tは整数の積・比較の時間。通常の固定幅整数ならT=O(1)"
+    for name in ("min_inversions", "min_block_inversions")
+}

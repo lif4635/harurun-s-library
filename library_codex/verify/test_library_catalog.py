@@ -273,6 +273,29 @@ def test_catalog_range_assignment_and_compressed_coordinate_articles():
             exec(compile(example, name + ".md", "exec"), {})
 
 
+def test_catalog_deque_and_tree_order_articles():
+    data = load_catalog()
+    for path in ("sequence_structure.Deque", "tree.ZeroOneTree"):
+        module = module_by_path(data, "library_codex." + path)
+        examples = re.findall(r"```python\n(.*?)\n```", module["article"]["markdown"], re.S)
+        assert examples
+        for example in examples:
+            exec(compile(example, path + ".md", "exec"), {})
+        namespace = {}
+        exec(module["standaloneCode"], namespace)
+        if path.endswith("Deque"):
+            queue = namespace["Deque"]([3, 4])
+            queue.appendleft(2)
+            queue[-1] = 5
+            assert queue.tolist() == [2, 3, 5]
+            methods = {item["name"]: item for item in module["classes"][0]["methods"]}
+            assert methods["__getitem__"]["complexity"] == "O(1)"
+        else:
+            function = next(item for item in module["functions"] if item["name"] == "min_block_inversions")
+            assert [part["name"] for part in function["returnParts"]] == ["cost", "order"]
+            assert namespace["min_block_inversions"]([0], [0], [0], return_order=True) == (0, [0])
+
+
 def test_catalog_f2_solutions_xor_intersection_and_rectangles():
     data = load_catalog()
     matrix = module_by_path(data, "library_codex.linear_algebra.F2Matrix")

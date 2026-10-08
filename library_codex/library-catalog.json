@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-08T16:25:49+00:00",
+  "generatedAt": "2026-10-08T17:55:40+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "5881aa7332ab647123bb8f0e8af372e199066890b6dd701b8d011c9cce8c937b",
-  "inputStamp": "f865201418b234aa15f013b36416b7c99ad0df32ec84608aa960902bd3a30536",
+  "sourceFingerprint": "605df4fab46dd2bccfeb3ed759bb3c20716661402c929298c36565bfc710d23a",
+  "inputStamp": "45935c76643558e0ab34c94ee5b09d254741bec3627e97622b0820007242f921",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 369,
-    "articles": 50,
+    "modules": 370,
+    "articles": 52,
     "functions": 507,
-    "classes": 227,
-    "methods": 1446,
+    "classes": 228,
+    "methods": 1456,
     "tests": 869
   },
   "categories": [
@@ -141,10 +141,10 @@
       "label": "列・queue・heap",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 11,
+      "modules": 12,
       "functions": 3,
-      "classes": 9,
-      "methods": 76
+      "classes": 10,
+      "methods": 86
     },
     {
       "slug": "range_query",
@@ -401,7 +401,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 78
+      "modules": 79
     },
     {
       "slug": "graph",
@@ -23030,6 +23030,282 @@
         }
       ],
       "classes": []
+    },
+    {
+      "category": "sequence_structure",
+      "categoryLabel": "列・queue・heap",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
+      "name": "Deque",
+      "modulePath": "library_codex.sequence_structure.Deque",
+      "summary": "両端の追加・削除と、任意位置の取得・変更ができる両端キュー。",
+      "capabilities": [
+        "両端へ追加・削除しながら、途中の要素を添字で取得・変更する。",
+        "追加・削除は償却O(1)、添字アクセスはO(1)。負のindexも使える。"
+      ],
+      "article": {
+        "title": "両端の追加・削除と添字アクセス",
+        "markdown": "列の先頭と末尾を追加・削除しながら、途中の要素も一定時間で取得・変更する。\n\n## 主な機能\n\n- `Deque(values=())` — 初期列をコピーして構築するclass。空からでも始められる。\n- `append`・`appendleft` — 右端・左端への追加。償却O(1)。\n- `pop`・`popleft` — 右端・左端の値を返して削除。償却O(1)。\n- `queue[index]`・`queue[index] = value` — 途中の位置の取得・変更。O(1)。負のindexも使える。\n\n標準の`collections.deque`では中央付近への添字アクセスがO(N)になる。途中の値を頻繁に読む場合はこちらを使う。全体のモノイド積も必要ならSWAGDequeを使う。\n\n## 使い方\n\n```python\nfrom library_codex.sequence_structure.Deque import Deque\n\nqueue = Deque([2, 3])\nqueue.appendleft(1)\nqueue.append(4)\nqueue[1] = 8\nassert queue[-1] == 4\nassert queue.popleft() == 1\nassert queue.pop() == 4\nassert queue.tolist() == [8, 3]\nassert list(queue) == [8, 3]\n```\n\n- pop・popleftは削除した要素を返す。空ならIndexError。\n- tolistは現在の要素を左から右へ並べた浅いコピー。表示も同じ順序。\n- indexは-length以上length未満。範囲外はIndexErrorで、sliceには対応しない。\n\n## 仕組み\n\n左側を逆順のlist、右側を順方向のlistへ分ける。削除する側が空になったときだけ、反対側のおよそ半分を移す。各追加は償却O(1)、各削除も償却O(1)だが、移し替える一回だけはO(N)かかる。\n\n## 注意点\n\n- 保持する要素数に比例するメモリを使う。最大操作数に合わせた固定配列の事前確保はしない。\n- 中央への挿入・削除や区間反転は扱わない。\n- 要素objectはコピーしない。格納した可変objectの変更は元のobjectにも反映される。",
+        "sourcePath": "library_codex/docs/articles/sequence_structure/Deque.md"
+      },
+      "searchTerms": [
+        "Deque",
+        "library_codex.sequence_structure.Deque",
+        "library codex sequence structure Deque",
+        "sequence_structure/Deque.py",
+        "列・queue・heap",
+        "両端キュー",
+        "ランダムアクセス"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/sequence_structure/Deque.py",
+      "inputFingerprint": "9aecf2573734dd366df938935d8da83f176409cd7434b6d482e9bac684d233b7",
+      "importCode": "from library_codex.sequence_structure.Deque import Deque",
+      "sourceCode": "\"\"\"両端の追加・削除と、任意位置の取得・変更ができる両端キュー。\"\"\"\n\n\nclass Deque:\n    __slots__ = (\"front\", \"back\")\n\n    def __init__(self, values=()):\n        self.front = []\n        self.back = list(values)\n\n    def appendleft(self, value):\n        self.front.append(value)\n\n    def append(self, value):\n        self.back.append(value)\n\n    def popleft(self):\n        if not self.front:\n            if not self.back:\n                raise IndexError(\"pop from empty Deque\")\n            split = (len(self.back) + 1) >> 1\n            self.front = self.back[:split][::-1]\n            self.back = self.back[split:]\n        return self.front.pop()\n\n    def pop(self):\n        if not self.back:\n            if not self.front:\n                raise IndexError(\"pop from empty Deque\")\n            split = (len(self.front) + 1) >> 1\n            self.back = self.front[:split][::-1]\n            self.front = self.front[split:]\n        return self.back.pop()\n\n    def __len__(self):\n        return len(self.front) + len(self.back)\n\n    def __getitem__(self, index):\n        size = len(self.front) + len(self.back)\n        if index < 0:\n            index += size\n        if not 0 <= index < size:\n            raise IndexError(\"index out of range\")\n        first = len(self.front)\n        return self.front[first - 1 - index] if index < first else self.back[index - first]\n\n    def __setitem__(self, index, value):\n        size = len(self.front) + len(self.back)\n        if index < 0:\n            index += size\n        if not 0 <= index < size:\n            raise IndexError(\"index out of range\")\n        first = len(self.front)\n        if index < first:\n            self.front[first - 1 - index] = value\n        else:\n            self.back[index - first] = value\n\n    def tolist(self):\n        return self.front[::-1] + self.back\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"Deque(\" + str(self.tolist()) + \")\"\n",
+      "standaloneCode": "\"\"\"両端の追加・削除と、任意位置の取得・変更ができる両端キュー。\"\"\"\n\n\nclass Deque:\n    __slots__ = (\"front\", \"back\")\n\n    def __init__(self, values=()):\n        self.front = []\n        self.back = list(values)\n\n    def appendleft(self, value):\n        self.front.append(value)\n\n    def append(self, value):\n        self.back.append(value)\n\n    def popleft(self):\n        if not self.front:\n            if not self.back:\n                raise IndexError(\"pop from empty Deque\")\n            split = (len(self.back) + 1) >> 1\n            self.front = self.back[:split][::-1]\n            self.back = self.back[split:]\n        return self.front.pop()\n\n    def pop(self):\n        if not self.back:\n            if not self.front:\n                raise IndexError(\"pop from empty Deque\")\n            split = (len(self.front) + 1) >> 1\n            self.back = self.front[:split][::-1]\n            self.front = self.front[split:]\n        return self.back.pop()\n\n    def __len__(self):\n        return len(self.front) + len(self.back)\n\n    def __getitem__(self, index):\n        size = len(self.front) + len(self.back)\n        if index < 0:\n            index += size\n        if not 0 <= index < size:\n            raise IndexError(\"index out of range\")\n        first = len(self.front)\n        return self.front[first - 1 - index] if index < first else self.back[index - first]\n\n    def __setitem__(self, index, value):\n        size = len(self.front) + len(self.back)\n        if index < 0:\n            index += size\n        if not 0 <= index < size:\n            raise IndexError(\"index out of range\")\n        first = len(self.front)\n        if index < first:\n            self.front[first - 1 - index] = value\n        else:\n            self.back[index - first] = value\n\n    def tolist(self):\n        return self.front[::-1] + self.back\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"Deque(\" + str(self.tolist()) + \")\"\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 10
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "Deque",
+          "summary": "両端の追加・削除と任意位置の取得・変更を扱う可変長の列。",
+          "description": "両端の追加・削除と任意位置の取得・変更を扱う可変長の列。",
+          "searchTerms": [
+            "Deque",
+            "Deque(values=())"
+          ],
+          "constructor": "Deque(values=())",
+          "constructorArguments": "values: 初期列のiterable。省略時は空。列はコピーするが要素objectは共有する。省略時: ()",
+          "constructorArgumentDetails": [
+            {
+              "name": "values",
+              "description": "初期列の反復可能オブジェクト。省略時は空。列はコピーするが要素オブジェクトは共有する。省略時は ()"
+            }
+          ],
+          "constructorReturns": "Deque instance",
+          "constructorReturnFormat": "Deque",
+          "constructorReturnDescription": "valuesと同じ順序の列。append・appendleftで追加、pop・popleftで削除、queue[index]で取得・変更できる。",
+          "constructorCreates": "valuesと同じ順序の列。append・appendleftで追加、pop・popleftで削除、queue[index]で取得・変更できる。",
+          "constructorComplexity": "O(N)時間・メモリ。Nは初期列の長さ",
+          "constructorSourceLine": 7,
+          "methods": [
+            {
+              "name": "appendleft",
+              "kind": "method",
+              "signature": "appendleft(value)",
+              "summary": "左端へvalueを追加する。",
+              "description": "左端へvalueを追加する。",
+              "searchTerms": [
+                "appendleft",
+                "appendleft(value)"
+              ],
+              "arguments": "value: 追加・設定・問い合わせる値",
+              "argumentDetails": [
+                {
+                  "name": "value",
+                  "description": "追加・設定・問い合わせる値"
+                }
+              ],
+              "returns": "None — 列の先頭がvalueになり、既存要素のindexが1ずつ増える。",
+              "returnFormat": "None",
+              "returnDescription": "列の先頭がvalueになり、既存要素のindexが1ずつ増える。",
+              "complexity": "償却O(1)、一回の最悪O(N)。Nは現在の要素数",
+              "sourceLine": 11
+            },
+            {
+              "name": "append",
+              "kind": "method",
+              "signature": "append(value)",
+              "summary": "右端へvalueを追加する。",
+              "description": "右端へvalueを追加する。",
+              "searchTerms": [
+                "append",
+                "append(value)"
+              ],
+              "arguments": "value: 追加・設定・問い合わせる値",
+              "argumentDetails": [
+                {
+                  "name": "value",
+                  "description": "追加・設定・問い合わせる値"
+                }
+              ],
+              "returns": "None — 列の末尾がvalueになり、長さが1増える。",
+              "returnFormat": "None",
+              "returnDescription": "列の末尾がvalueになり、長さが1増える。",
+              "complexity": "償却O(1)、一回の最悪O(N)。Nは現在の要素数",
+              "sourceLine": 14
+            },
+            {
+              "name": "popleft",
+              "kind": "method",
+              "signature": "popleft()",
+              "summary": "左端の一要素を削除して返す。",
+              "description": "左端の一要素を削除して返す。",
+              "searchTerms": [
+                "popleft",
+                "popleft()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — 削除前のqueue[0]。空ならIndexError。",
+              "returnFormat": "object",
+              "returnDescription": "削除前のqueue[0]。空ならIndexError。",
+              "complexity": "償却O(1)、一回の最悪O(N)。Nは現在の要素数",
+              "sourceLine": 17
+            },
+            {
+              "name": "pop",
+              "kind": "method",
+              "signature": "pop()",
+              "summary": "右端の一要素を削除して返す。",
+              "description": "右端の一要素を削除して返す。",
+              "searchTerms": [
+                "pop",
+                "pop()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — 削除前のqueue[-1]。空ならIndexError。",
+              "returnFormat": "object",
+              "returnDescription": "削除前のqueue[-1]。空ならIndexError。",
+              "complexity": "償却O(1)、一回の最悪O(N)。Nは現在の要素数",
+              "sourceLine": 26
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "現在の要素数を返す。",
+              "description": "現在の要素数を返す。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 空なら0。両端の追加・削除を反映した列の長さ。",
+              "returnFormat": "int",
+              "returnDescription": "空なら0。両端の追加・削除を反映した列の長さ。",
+              "complexity": "O(1)",
+              "sourceLine": 35
+            },
+            {
+              "name": "__getitem__",
+              "kind": "method",
+              "signature": "__getitem__(index)",
+              "summary": "indexの要素を返す。",
+              "description": "indexの要素を返す。",
+              "searchTerms": [
+                "__getitem__",
+                "getitem",
+                "__getitem__(index)"
+              ],
+              "arguments": "index: -len(queue)以上len(queue)未満の整数。sliceは不可。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "-len(queue)以上len(queue)未満の整数。sliceは不可。"
+                }
+              ],
+              "returns": "object — 左からindex番目の現在値。負のindexは末尾から数える。範囲外はIndexError。",
+              "returnFormat": "object",
+              "returnDescription": "左からindex番目の現在値。負のindexは末尾から数える。範囲外はIndexError。",
+              "complexity": "O(1)",
+              "sourceLine": 38
+            },
+            {
+              "name": "__setitem__",
+              "kind": "method",
+              "signature": "__setitem__(index, value)",
+              "summary": "indexの要素をvalueへ置き換える。",
+              "description": "indexの要素をvalueへ置き換える。",
+              "searchTerms": [
+                "__setitem__",
+                "setitem",
+                "__setitem__(index, value)"
+              ],
+              "arguments": "index: -len(queue)以上len(queue)未満の整数。sliceは不可。 · value: 追加・設定・問い合わせる値",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "-len(queue)以上len(queue)未満の整数。sliceは不可。"
+                },
+                {
+                  "name": "value",
+                  "description": "追加・設定・問い合わせる値"
+                }
+              ],
+              "returns": "None — 長さを変えずに一要素を変更する。負のindexは末尾から数える。範囲外はIndexError。",
+              "returnFormat": "None",
+              "returnDescription": "長さを変えずに一要素を変更する。負のindexは末尾から数える。範囲外はIndexError。",
+              "complexity": "O(1)",
+              "sourceLine": 47
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "現在の列をlistへコピーする。",
+              "description": "現在の列をlistへコピーする。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[object] — 左端から右端の順。result[i]はqueue[i]と同じ値。浅いコピーで、要素objectは共有する。",
+              "returnFormat": "list[object]",
+              "returnDescription": "左端から右端の順。result[i]はqueue[i]と同じ値。浅いコピーで、要素objectは共有する。",
+              "complexity": "O(N)時間・追加メモリ。Nは現在の要素数",
+              "sourceLine": 59
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の列をlistの形で表示する。",
+              "description": "現在の列をlistの形で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じ順序の文字列。列は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じ順序の文字列。列は変更しない。",
+              "complexity": "O(N)と要素の文字列化",
+              "sourceLine": 62
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名と現在の列を表示する。",
+              "description": "型名と現在の列を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — Deque([...])の形。列は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "Deque([...])の形。列は変更しない。",
+              "complexity": "O(N)と要素の文字列化",
+              "sourceLine": 65
+            }
+          ]
+        }
+      ]
     },
     {
       "category": "sequence_structure",
@@ -55761,10 +56037,14 @@
       "modulePath": "library_codex.tree.ZeroOneTree",
       "summary": "親優先制約付き0/1列の転倒数最小化。",
       "capabilities": [
-        "親を子より先に並べる制約の下で、0/1ラベル列の転倒数を最小化できる。",
-        "各頂点が複数の0と1を持つblock版も同じAPIで処理できる。"
+        "親を子より先に並べる制約の下で、0/1ラベル列や0列・1列の塊の転倒数を最小化する。",
+        "最小値だけでなく、その値を達成する頂点の並び順も復元できる。"
       ],
-      "article": null,
+      "article": {
+        "title": "親を先に並べる制約下の最小転倒数",
+        "markdown": "木の頂点を親から子の順序を守って一列に並べ、後ろの0より前にある1の個数の合計を最小にする。各頂点に複数の0・1をまとめて持たせる場合も扱える。\n\n## 主な機能\n\n- `min_inversions(parent, labels, root=0, return_order=False)` — 各頂点が0か1のラベルを持つ場合のfunction。\n- `min_block_inversions(parent, zero_count, one_count, root=0, return_order=False)` — 各頂点を「0をzero_count[v]個、その後ろに1をone_count[v]個」の塊とするfunction。塊の内部を分割して他の頂点を挿入することはできない。\n- `return_order=True`なら、最小値に加えて、その値を達成する頂点の順列も返す。\n\nN頂点に対してO(N log(N+1))回の整数演算、O(N)追加メモリ。入力の木や重みは変更しない。根の親の値は参照しない。\n\n## 使い方\n\n```python\nfrom library_codex.tree.ZeroOneTree import min_block_inversions, min_inversions\n\nparent = [-1, 0, 0]\nassert min_inversions(parent, [1, 0, 1]) == 1\ncost, order = min_block_inversions(parent, [0, 2, 0], [1, 0, 3], return_order=True)\nassert cost == 2\nassert order == [0, 1, 2]\n```\n\n- costは最小転倒数。上の例では根の1の後に頂点1の0が2個並ぶため2になる。\n- order[i]はi番目に並べる頂点番号。頂点ごとの位置を返す配列ではない。\n- 最適順序が複数あるときは、そのうち一つを返す。辞書順最小などの追加条件は付けない。\n- return_orderを省略した場合は整数だけを返し、順序復元用の配列も作らない。\n\n## 重みとして使う\n\n頂点順orderに対し、最小化する値は次の式。cがzero_count、dがone_countに対応する。\n\n$$\n\\sum_{j<i} d_{\\mathrm{order}[j]}c_{\\mathrm{order}[i]}\n$$\n\nc・dを個数ではなく非負整数の重みとして与えてもよい。実際に0/1列へ展開しないので、大きな重みも渡せる。\n\n## 仕組み\n\n0の個数と1の個数の比で優先度を決め、優先する塊を親側の塊の直後へ結合する。比の比較には整数の交差積を使い、浮動小数点の丸めを避ける。\n\n優先度キューは整数IDを一つずつ保持し、親の重みが変わったらその位置を更新する。過去の優先度のobjectは残さない。順序は次の頂点と末尾を表す二つの配列で復元する。\n\n## 注意点\n\n- 親配列はrootへつながる一つの根付き木であること。親の番号が子より小さい必要はない。\n- 負の重みは不可。両方0の空の塊も使える。\n- 各塊は0が先、1が後。塊内部の転倒数が別にある場合は、その固定分を結果へ加える。\n- 大きな整数では積・比較自体の時間も必要。これをTとするとO(N log(N+1) T)。",
+        "sourcePath": "library_codex/docs/articles/tree/ZeroOneTree.md"
+      },
       "searchTerms": [
         "ZeroOneTree",
         "Zero One Tree",
@@ -55775,10 +56055,10 @@
       ],
       "complexity": "O(N log N)",
       "sourcePath": "library_codex/tree/ZeroOneTree.py",
-      "inputFingerprint": "333b676e2d403241815fa95b741018097358fbcb72b448a5ec1d58c0a66f2eb8",
+      "inputFingerprint": "78c77a30fa344c7787d6f3a00fae8665a8f413dc299a7afe1e14511b48f1733a",
       "importCode": "from library_codex.tree.ZeroOneTree import min_block_inversions, min_inversions",
-      "sourceCode": "\"\"\"親を子より先に並べる制約下で0/1列の転倒数を最小化する。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\nclass _Block:\n    __slots__ = (\"zero\", \"one\", \"vertex\")\n\n    def __init__(self, zero, one, vertex):\n        self.zero = zero\n        self.one = one\n        self.vertex = vertex\n\n    def __lt__(self, other):\n        first = self.zero * other.one\n        second = other.zero * self.one\n        if first != second:\n            return first > second\n        return self.vertex < other.vertex\n\n\ndef _validate_parent(parent, root):\n    size = len(parent)\n    if not 0 <= root < size:\n        raise IndexError(\"root is outside the tree\")\n    state = [0] * size\n    state[root] = 2\n    for start in range(size):\n        if state[start]:\n            continue\n        path = []\n        vertex = start\n        while state[vertex] == 0:\n            state[vertex] = 1\n            path.append(vertex)\n            next_vertex = parent[vertex]\n            if not 0 <= next_vertex < size:\n                raise IndexError(\"parent is outside the tree\")\n            vertex = next_vertex\n        if state[vertex] == 1:\n            raise ValueError(\"parent contains a cycle\")\n        for vertex in path:\n            state[vertex] = 2\n\n\ndef min_block_inversions(parent, zero_count, one_count, root=0):\n    \"\"\"各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    parent = list(parent)\n    zero_count = list(zero_count)\n    one_count = list(one_count)\n    size = len(parent)\n    if len(zero_count) != size or len(one_count) != size:\n        raise ValueError(\"parent and count arrays must have the same length\")\n    if any(value < 0 for value in zero_count + one_count):\n        raise ValueError(\"counts must be nonnegative\")\n    _validate_parent(parent, root)\n\n    representative = list(range(size))\n    heap = []\n    for vertex in range(size):\n        if vertex != root:\n            heappush(heap, _Block(zero_count[vertex], one_count[vertex], vertex))\n\n    answer = 0\n    while heap:\n        block = heappop(heap)\n        vertex = block.vertex\n        if block.zero != zero_count[vertex] or block.one != one_count[vertex]:\n            continue\n        ancestor = parent[vertex]\n        while representative[ancestor] != ancestor:\n            representative[ancestor] = representative[representative[ancestor]]\n            ancestor = representative[ancestor]\n        representative[vertex] = ancestor\n        answer += one_count[ancestor] * zero_count[vertex]\n        zero_count[ancestor] += zero_count[vertex]\n        one_count[ancestor] += one_count[vertex]\n        if ancestor != root:\n            heappush(heap, _Block(\n                zero_count[ancestor], one_count[ancestor], ancestor\n            ))\n    return answer\n\n\ndef min_inversions(parent, labels, root=0):\n    \"\"\"0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    labels = list(labels)\n    if any(label not in (0, 1) for label in labels):\n        raise ValueError(\"labels must contain only 0 and 1\")\n    return min_block_inversions(\n        parent,\n        [label == 0 for label in labels],\n        [label == 1 for label in labels],\n        root,\n    )\n",
-      "standaloneCode": "\"\"\"親を子より先に並べる制約下で0/1列の転倒数を最小化する。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\nclass _Block:\n    __slots__ = (\"zero\", \"one\", \"vertex\")\n\n    def __init__(self, zero, one, vertex):\n        self.zero = zero\n        self.one = one\n        self.vertex = vertex\n\n    def __lt__(self, other):\n        first = self.zero * other.one\n        second = other.zero * self.one\n        if first != second:\n            return first > second\n        return self.vertex < other.vertex\n\n\ndef _validate_parent(parent, root):\n    size = len(parent)\n    if not 0 <= root < size:\n        raise IndexError(\"root is outside the tree\")\n    state = [0] * size\n    state[root] = 2\n    for start in range(size):\n        if state[start]:\n            continue\n        path = []\n        vertex = start\n        while state[vertex] == 0:\n            state[vertex] = 1\n            path.append(vertex)\n            next_vertex = parent[vertex]\n            if not 0 <= next_vertex < size:\n                raise IndexError(\"parent is outside the tree\")\n            vertex = next_vertex\n        if state[vertex] == 1:\n            raise ValueError(\"parent contains a cycle\")\n        for vertex in path:\n            state[vertex] = 2\n\n\ndef min_block_inversions(parent, zero_count, one_count, root=0):\n    \"\"\"各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    parent = list(parent)\n    zero_count = list(zero_count)\n    one_count = list(one_count)\n    size = len(parent)\n    if len(zero_count) != size or len(one_count) != size:\n        raise ValueError(\"parent and count arrays must have the same length\")\n    if any(value < 0 for value in zero_count + one_count):\n        raise ValueError(\"counts must be nonnegative\")\n    _validate_parent(parent, root)\n\n    representative = list(range(size))\n    heap = []\n    for vertex in range(size):\n        if vertex != root:\n            heappush(heap, _Block(zero_count[vertex], one_count[vertex], vertex))\n\n    answer = 0\n    while heap:\n        block = heappop(heap)\n        vertex = block.vertex\n        if block.zero != zero_count[vertex] or block.one != one_count[vertex]:\n            continue\n        ancestor = parent[vertex]\n        while representative[ancestor] != ancestor:\n            representative[ancestor] = representative[representative[ancestor]]\n            ancestor = representative[ancestor]\n        representative[vertex] = ancestor\n        answer += one_count[ancestor] * zero_count[vertex]\n        zero_count[ancestor] += zero_count[vertex]\n        one_count[ancestor] += one_count[vertex]\n        if ancestor != root:\n            heappush(heap, _Block(\n                zero_count[ancestor], one_count[ancestor], ancestor\n            ))\n    return answer\n\n\ndef min_inversions(parent, labels, root=0):\n    \"\"\"0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    labels = list(labels)\n    if any(label not in (0, 1) for label in labels):\n        raise ValueError(\"labels must contain only 0 and 1\")\n    return min_block_inversions(\n        parent,\n        [label == 0 for label in labels],\n        [label == 1 for label in labels],\n        root,\n    )\n",
+      "sourceCode": "\"\"\"親を子より先に並べる制約下で0/1列の転倒数を最小化する。\"\"\"\n\ndef _higher(first, second, zero, one):\n    if one[first] == 0 or one[second] == 0:\n        if one[first] != one[second]:\n            return one[first] == 0\n        return first < second\n    a = zero[first] * one[second]\n    b = zero[second] * one[first]\n    return a > b or a == b and first < second\n\n\ndef _sift_down(heap, position, zero, one, index):\n    value = heap[index]\n    size = len(heap)\n    child = index * 2 + 1\n    while child < size:\n        if child + 1 < size and _higher(heap[child + 1], heap[child], zero, one):\n            child += 1\n        if not _higher(heap[child], value, zero, one):\n            break\n        heap[index] = heap[child]\n        position[heap[index]] = index\n        index = child\n        child = index * 2 + 1\n    heap[index] = value\n    position[value] = index\n\n\ndef _validate_parent(parent, root):\n    size = len(parent)\n    if not 0 <= root < size:\n        raise IndexError(\"root is outside the tree\")\n    state = [0] * size\n    state[root] = 2\n    for start in range(size):\n        if state[start]:\n            continue\n        path = []\n        vertex = start\n        while state[vertex] == 0:\n            state[vertex] = 1\n            path.append(vertex)\n            next_vertex = parent[vertex]\n            if not 0 <= next_vertex < size:\n                raise IndexError(\"parent is outside the tree\")\n            vertex = next_vertex\n        if state[vertex] == 1:\n            raise ValueError(\"parent contains a cycle\")\n        for vertex in path:\n            state[vertex] = 2\n\n\ndef min_block_inversions(parent, zero_count, one_count, root=0, *, return_order=False):\n    \"\"\"各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    parent = list(parent)\n    zero_count = list(zero_count)\n    one_count = list(one_count)\n    size = len(parent)\n    if len(zero_count) != size or len(one_count) != size:\n        raise ValueError(\"parent and count arrays must have the same length\")\n    if any(value < 0 for value in zero_count + one_count):\n        raise ValueError(\"counts must be nonnegative\")\n    _validate_parent(parent, root)\n\n    representative = list(range(size))\n    if return_order:\n        following = [-1] * size\n        tail = list(range(size))\n    heap = [vertex for vertex in range(size) if vertex != root]\n    position = [-1] * size\n    for index, vertex in enumerate(heap):\n        position[vertex] = index\n    for index in range(len(heap) // 2 - 1, -1, -1):\n        _sift_down(heap, position, zero_count, one_count, index)\n\n    answer = 0\n    while heap:\n        vertex = heap[0]\n        last = heap.pop()\n        if heap:\n            heap[0] = last\n            _sift_down(heap, position, zero_count, one_count, 0)\n        position[vertex] = -1\n        ancestor = parent[vertex]\n        while representative[ancestor] != ancestor:\n            representative[ancestor] = representative[representative[ancestor]]\n            ancestor = representative[ancestor]\n        representative[vertex] = ancestor\n        if return_order:\n            following[tail[ancestor]] = vertex\n            tail[ancestor] = tail[vertex]\n        answer += one_count[ancestor] * zero_count[vertex]\n        zero_count[ancestor] += zero_count[vertex]\n        one_count[ancestor] += one_count[vertex]\n        if ancestor != root:\n            index = position[ancestor]\n            while index:\n                up = (index - 1) >> 1\n                if not _higher(ancestor, heap[up], zero_count, one_count):\n                    break\n                heap[index] = heap[up]\n                position[heap[index]] = index\n                index = up\n            heap[index] = ancestor\n            position[ancestor] = index\n    if return_order:\n        order = []\n        vertex = root\n        while vertex != -1:\n            order.append(vertex)\n            vertex = following[vertex]\n        return answer, order\n    return answer\n\n\ndef min_inversions(parent, labels, root=0, *, return_order=False):\n    \"\"\"0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    labels = list(labels)\n    if any(label not in (0, 1) for label in labels):\n        raise ValueError(\"labels must contain only 0 and 1\")\n    return min_block_inversions(\n        parent,\n        [label == 0 for label in labels],\n        [label == 1 for label in labels],\n        root,\n        return_order=return_order,\n    )\n",
+      "standaloneCode": "\"\"\"親を子より先に並べる制約下で0/1列の転倒数を最小化する。\"\"\"\n\ndef _higher(first, second, zero, one):\n    if one[first] == 0 or one[second] == 0:\n        if one[first] != one[second]:\n            return one[first] == 0\n        return first < second\n    a = zero[first] * one[second]\n    b = zero[second] * one[first]\n    return a > b or a == b and first < second\n\n\ndef _sift_down(heap, position, zero, one, index):\n    value = heap[index]\n    size = len(heap)\n    child = index * 2 + 1\n    while child < size:\n        if child + 1 < size and _higher(heap[child + 1], heap[child], zero, one):\n            child += 1\n        if not _higher(heap[child], value, zero, one):\n            break\n        heap[index] = heap[child]\n        position[heap[index]] = index\n        index = child\n        child = index * 2 + 1\n    heap[index] = value\n    position[value] = index\n\n\ndef _validate_parent(parent, root):\n    size = len(parent)\n    if not 0 <= root < size:\n        raise IndexError(\"root is outside the tree\")\n    state = [0] * size\n    state[root] = 2\n    for start in range(size):\n        if state[start]:\n            continue\n        path = []\n        vertex = start\n        while state[vertex] == 0:\n            state[vertex] = 1\n            path.append(vertex)\n            next_vertex = parent[vertex]\n            if not 0 <= next_vertex < size:\n                raise IndexError(\"parent is outside the tree\")\n            vertex = next_vertex\n        if state[vertex] == 1:\n            raise ValueError(\"parent contains a cycle\")\n        for vertex in path:\n            state[vertex] = 2\n\n\ndef min_block_inversions(parent, zero_count, one_count, root=0, *, return_order=False):\n    \"\"\"各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    parent = list(parent)\n    zero_count = list(zero_count)\n    one_count = list(one_count)\n    size = len(parent)\n    if len(zero_count) != size or len(one_count) != size:\n        raise ValueError(\"parent and count arrays must have the same length\")\n    if any(value < 0 for value in zero_count + one_count):\n        raise ValueError(\"counts must be nonnegative\")\n    _validate_parent(parent, root)\n\n    representative = list(range(size))\n    if return_order:\n        following = [-1] * size\n        tail = list(range(size))\n    heap = [vertex for vertex in range(size) if vertex != root]\n    position = [-1] * size\n    for index, vertex in enumerate(heap):\n        position[vertex] = index\n    for index in range(len(heap) // 2 - 1, -1, -1):\n        _sift_down(heap, position, zero_count, one_count, index)\n\n    answer = 0\n    while heap:\n        vertex = heap[0]\n        last = heap.pop()\n        if heap:\n            heap[0] = last\n            _sift_down(heap, position, zero_count, one_count, 0)\n        position[vertex] = -1\n        ancestor = parent[vertex]\n        while representative[ancestor] != ancestor:\n            representative[ancestor] = representative[representative[ancestor]]\n            ancestor = representative[ancestor]\n        representative[vertex] = ancestor\n        if return_order:\n            following[tail[ancestor]] = vertex\n            tail[ancestor] = tail[vertex]\n        answer += one_count[ancestor] * zero_count[vertex]\n        zero_count[ancestor] += zero_count[vertex]\n        one_count[ancestor] += one_count[vertex]\n        if ancestor != root:\n            index = position[ancestor]\n            while index:\n                up = (index - 1) >> 1\n                if not _higher(ancestor, heap[up], zero_count, one_count):\n                    break\n                heap[index] = heap[up]\n                position[heap[index]] = index\n                index = up\n            heap[index] = ancestor\n            position[ancestor] = index\n    if return_order:\n        order = []\n        vertex = root\n        while vertex != -1:\n            order.append(vertex)\n            vertex = following[vertex]\n        return answer, order\n    return answer\n\n\ndef min_inversions(parent, labels, root=0, *, return_order=False):\n    \"\"\"0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。\"\"\"\n    labels = list(labels)\n    if any(label not in (0, 1) for label in labels):\n        raise ValueError(\"labels must contain only 0 and 1\")\n    return min_block_inversions(\n        parent,\n        [label == 0 for label in labels],\n        [label == 1 for label in labels],\n        root,\n        return_order=return_order,\n    )\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 2,
@@ -55789,70 +56069,102 @@
         {
           "name": "min_block_inversions",
           "kind": "function",
-          "signature": "min_block_inversions(parent, zero_count, one_count, root=0)",
-          "summary": "各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。",
-          "description": "各頂点の0列・1列を親優先で並べたときの最小転倒数を返す。O(N log N)。",
+          "signature": "min_block_inversions(parent, zero_count, one_count, root=0, *, return_order=False)",
+          "summary": "各頂点の0列・1列を一つの塊として親優先で並べ、転倒数を最小化する。",
+          "description": "各頂点の0列・1列を一つの塊として親優先で並べ、転倒数を最小化する。",
           "searchTerms": [
             "min_block_inversions",
             "min block inversions",
-            "min_block_inversions(parent, zero_count, one_count, root=0)"
+            "min_block_inversions(parent, zero_count, one_count, root=0, *, return_order=False)"
           ],
-          "arguments": "parent: 各頂点の親番号。root自身の親はrootにする · zero_count: 各頂点blockに含まれる0の個数 · one_count: 各頂点blockに含まれる1の個数 · root: 根の0-indexed頂点番号。省略時: 0",
+          "arguments": "parent: 長さNの親配列。rootへつながる一つの根付き木。root自身の要素は無視する。入力は変更しない。 · zero_count: 長さNの非負整数列。頂点vの塊の先頭にある0の個数。 · one_count: 長さNの非負整数列。頂点vの塊で0列の後ろにある1の個数。両方0の塊も可。 · root: 根の頂点番号。Nは1以上。 · return_order: Trueなら最小値と最適順序のtuple、Falseなら最小値の整数だけを返す。",
           "argumentDetails": [
             {
               "name": "parent",
-              "description": "各頂点の親番号。root自身の親はrootにする"
+              "description": "長さNの親配列。rootへつながる一つの根付き木。root自身の要素は無視する。入力は変更しない。"
             },
             {
               "name": "zero_count",
-              "description": "各頂点blockに含まれる0の個数"
+              "description": "長さNの非負整数列。頂点vの塊の先頭にある0の個数。"
             },
             {
               "name": "one_count",
-              "description": "各頂点blockに含まれる1の個数"
+              "description": "長さNの非負整数列。頂点vの塊で0列の後ろにある1の個数。両方0の塊も可。"
             },
             {
               "name": "root",
-              "description": "根の0始まり頂点番号。省略時は 0"
+              "description": "根の頂点番号。Nは1以上。"
+            },
+            {
+              "name": "return_order",
+              "description": "Trueなら最小値と最適順序のtuple、Falseなら最小値の整数だけを返す。"
             }
           ],
-          "returns": "int — 親優先制約を満たす並べ方の最小転倒数",
-          "returnFormat": "int",
-          "returnDescription": "親優先制約を満たす並べ方の最小転倒数",
-          "complexity": "O(N log N)",
-          "sourceLine": 46
+          "returns": "int | tuple[int, list[int]] — 通常は最小転倒数。return_order=Trueでは(cost, order)で返す。最適順序が複数あるときは一つを選び、辞書順最小は保証しない。",
+          "returnFormat": "int | tuple[int, list[int]]",
+          "returnDescription": "通常は最小転倒数。return_order=Trueでは(cost, order)で返す。最適順序が複数あるときは一つを選び、辞書順最小は保証しない。",
+          "complexity": "O(N log(N+1)*T)時間、O(N)追加メモリ。Tは整数の積・比較の時間。通常の固定幅整数ならT=O(1)",
+          "sourceLine": 54,
+          "returnParts": [
+            {
+              "name": "cost",
+              "format": "int",
+              "description": "親優先の全順序の中での最小転倒数。任意精度の非負整数。"
+            },
+            {
+              "name": "order",
+              "format": "list[int]",
+              "description": "長さNの頂点の順列。order[i]がi番目の頂点で、親は子より前にある。return_order=Trueの場合のみ返す。"
+            }
+          ]
         },
         {
           "name": "min_inversions",
           "kind": "function",
-          "signature": "min_inversions(parent, labels, root=0)",
-          "summary": "0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。",
-          "description": "0/1ラベル付き木を親優先で並べたときの最小転倒数を返す。O(N log N)。",
+          "signature": "min_inversions(parent, labels, root=0, *, return_order=False)",
+          "summary": "0/1ラベルを持つ木を親優先で並べ、1が0より前に現れる組の個数を最小化する。",
+          "description": "0/1ラベルを持つ木を親優先で並べ、1が0より前に現れる組の個数を最小化する。",
           "searchTerms": [
             "min_inversions",
             "min inversions",
-            "min_inversions(parent, labels, root=0)"
+            "min_inversions(parent, labels, root=0, *, return_order=False)"
           ],
-          "arguments": "parent: 各頂点の親番号。root自身の親はrootにする · labels: 各頂点の0または1のラベル · root: 根の0-indexed頂点番号。省略時: 0",
+          "arguments": "parent: 長さNの親配列。rootへつながる一つの根付き木。root自身の要素は無視する。入力は変更しない。 · labels: 長さNの0/1列。labels[v]は頂点vのラベル。 · root: 根の頂点番号。Nは1以上。 · return_order: Trueなら最小値と最適順序のtuple、Falseなら最小値の整数だけを返す。",
           "argumentDetails": [
             {
               "name": "parent",
-              "description": "各頂点の親番号。root自身の親はrootにする"
+              "description": "長さNの親配列。rootへつながる一つの根付き木。root自身の要素は無視する。入力は変更しない。"
             },
             {
               "name": "labels",
-              "description": "各頂点の0または1のラベル"
+              "description": "長さNの0/1列。labels[v]は頂点vのラベル。"
             },
             {
               "name": "root",
-              "description": "根の0始まり頂点番号。省略時は 0"
+              "description": "根の頂点番号。Nは1以上。"
+            },
+            {
+              "name": "return_order",
+              "description": "Trueなら最小値と最適順序のtuple、Falseなら最小値の整数だけを返す。"
             }
           ],
-          "returns": "int — 0/1ラベルを親優先で並べるときの最小転倒数",
-          "returnFormat": "int",
-          "returnDescription": "0/1ラベルを親優先で並べるときの最小転倒数",
-          "complexity": "O(N log N)",
-          "sourceLine": 85
+          "returns": "int | tuple[int, list[int]] — 通常は最小転倒数。return_order=Trueでは(cost, order)で返す。最適順序が複数あるときは一つを選び、辞書順最小は保証しない。",
+          "returnFormat": "int | tuple[int, list[int]]",
+          "returnDescription": "通常は最小転倒数。return_order=Trueでは(cost, order)で返す。最適順序が複数あるときは一つを選び、辞書順最小は保証しない。",
+          "complexity": "O(N log(N+1)*T)時間、O(N)追加メモリ。Tは整数の積・比較の時間。通常の固定幅整数ならT=O(1)",
+          "sourceLine": 117,
+          "returnParts": [
+            {
+              "name": "cost",
+              "format": "int",
+              "description": "親優先の全順序の中での最小転倒数。任意精度の非負整数。"
+            },
+            {
+              "name": "order",
+              "format": "list[int]",
+              "description": "長さNの頂点の順列。order[i]がi番目の頂点で、親は子より前にある。return_order=Trueの場合のみ返す。"
+            }
+          ]
         }
       ],
       "classes": []
