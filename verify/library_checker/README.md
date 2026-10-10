@@ -4,7 +4,9 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-09時点の公式revision `1814c4e`では、184問題・4339ケースがローカル全件通過、69問題が未実装。
+2026-10-10時点の公式revision `1814c4e`では、188問題・4433ケースがローカル全件通過、65問題が未実装。
+
+木分解・st-numbering・マンハッタンMST・k本の最短walkの4問題、94ケースを追加した。新規2moduleと既存2実装の軽量化は[検査・比較結果](../../library_codex/docs/GRAPH_DECOMPOSITION_BENCHMARK.md)を参照。
 
 彩色数・クリーク列挙・最大独立集合・C4数え上げ・Steiner木・chordal判定の6問題、140ケースを追加した。修正内容と上位PyPy提出との比較は[測定記録](../../library_codex/docs/GRAPH_ENUMERATION_BENCHMARK.md)を参照。
 

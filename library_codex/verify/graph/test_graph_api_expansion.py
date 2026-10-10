@@ -1,55 +1,7 @@
-import itertools
 import random
 
 from library_codex.graph.TournamentPath import tournament_hamiltonian_path
-from library_codex.graph_spanning.MinimumSpanningTree import second_spanning_tree
 from library_codex.tree.TreeDiameter import tree_metric_center
-
-
-def _all_spanning_tree_costs(n, edges):
-    result = []
-    for chosen in itertools.combinations(range(len(edges)), n - 1):
-        parent = list(range(n))
-        def find(v):
-            while parent[v] != v:
-                v = parent[v]
-            return v
-        for edge_id in chosen:
-            first, second, _ = edges[edge_id]
-            first, second = find(first), find(second)
-            if first != second:
-                parent[second] = first
-        if len({find(v) for v in range(n)}) == 1:
-            result.append((sum(edges[i][2] for i in chosen), tuple(chosen)))
-    return sorted(result)
-
-
-def test_second_spanning_tree_random_against_enumeration():
-    random.seed(20260824)
-    for n in range(2, 8):
-        for _ in range(120):
-            edges = [(i, i + 1, random.randrange(1, 7)) for i in range(n - 1)]
-            for i in range(n):
-                for j in range(i + 2, n):
-                    if random.randrange(2):
-                        edges.append((i, j, random.randrange(1, 7)))
-            all_trees = _all_spanning_tree_costs(n, edges)
-            got = second_spanning_tree(n, edges)
-            if len(all_trees) < 2:
-                assert got is None
-            else:
-                assert got is not None
-                mst_cost, second_cost, mst_edges, second_edges, added, removed = got
-                assert mst_cost == all_trees[0][0]
-                expected = min(cost for cost, chosen in all_trees
-                               if set(chosen) != set(mst_edges))
-                assert second_cost == expected
-                assert set(second_edges) == set(mst_edges) - {removed} | {added}
-            strict = second_spanning_tree(n, edges, strict=True)
-            larger = [cost for cost, _ in all_trees if cost > all_trees[0][0]]
-            assert (None if not larger else strict[1]) == (
-                None if not larger else min(larger)
-            )
 
 
 def test_tournament_hamiltonian_path_random():

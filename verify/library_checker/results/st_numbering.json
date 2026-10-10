@@ -1,0 +1,188 @@
+{
+  "problem": "st_numbering",
+  "status": "local_passed",
+  "verificationKey": "ce3e390e1d91faa04e69a7c3eb5501553879a9b3d7c6fc897da76ade97da6d97",
+  "sourceSha256": "02e10fecf0fa380ca3b35110de47fa811bab981a3174fae3a3c773538221dc8e",
+  "modules": [
+    "library_codex.graph_connectivity.STNumbering"
+  ],
+  "problemVersion": "af1fd9b67104a9effcd6ef9359e5376b67483decc9922ea29eae68c289911d40",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 28,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06405171996448189,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05332497402559966,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.1573708950309083,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.1914728090632707,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.15379761799704283,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.15244214795529842,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_random_04",
+      "status": "AC",
+      "seconds": 0.157554525998421,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_00",
+      "status": "AC",
+      "seconds": 0.14911431702785194,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_01",
+      "status": "AC",
+      "seconds": 0.1331400980707258,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_02",
+      "status": "AC",
+      "seconds": 0.12487767799757421,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_03",
+      "status": "AC",
+      "seconds": 0.12012195494025946,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_04",
+      "status": "AC",
+      "seconds": 0.14246241399087012,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.10581511596683413,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.14169256994500756,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.1598627750063315,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 0.43787806399632245,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.14398028200957924,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_05",
+      "status": "AC",
+      "seconds": 0.12393043003976345,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_06",
+      "status": "AC",
+      "seconds": 0.15582404204178602,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_07",
+      "status": "AC",
+      "seconds": 0.460014168987982,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_no_00",
+      "status": "AC",
+      "seconds": 0.14243511098902673,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_no_01",
+      "status": "AC",
+      "seconds": 0.1257900120690465,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "complete_00",
+      "status": "AC",
+      "seconds": 0.14156137593090534,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "path_00",
+      "status": "AC",
+      "seconds": 0.6453669590409845,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "cycle_00",
+      "status": "AC",
+      "seconds": 0.5011895799543709,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "cycle_01",
+      "status": "AC",
+      "seconds": 0.5312065599719062,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "star_plus_one_00",
+      "status": "AC",
+      "seconds": 0.25241780397482216,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "triangle_path_00",
+      "status": "AC",
+      "seconds": 0.3780594060663134,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-10T07:29:16.173366+00:00",
+  "onlineSubmission": null
+}

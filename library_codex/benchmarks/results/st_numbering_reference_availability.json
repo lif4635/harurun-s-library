@@ -1,0 +1,118 @@
+{
+  "retrievedAt": "2026-10-10T07:21:37.519083+00:00",
+  "api": "https://v3.api.judge.yosupo.jp",
+  "problem": "st_numbering",
+  "problemInfo": {
+    "overall_version": "0e132d259f883f0725363d65db9fa0b905082123b4c12d2f800d61f5b51d1c3d",
+    "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/graph/st_numbering",
+    "testcases_version": "29bf3f6be63763820448ee51932cbb8697d50f889a4cb0aee3a594e3882d1c9c",
+    "time_limit": 5,
+    "title": "st-Numbering",
+    "version": "4169a7a75e7b9eda9a886744f4daa5fec68d47bcdf213916b2c4f2dcdb19337c"
+  },
+  "language": "pypy3",
+  "languages": [
+    {
+      "id": "cpp",
+      "name": "C++23",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp20",
+      "name": "C++20",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp17",
+      "name": "C++17",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp-func",
+      "name": "C++23(Function)",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "version": "rustc(1.94.1 edition 2024)"
+    },
+    {
+      "id": "d",
+      "name": "LDC2",
+      "version": "ldc2 1.36.0"
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "version": "openjdk 17"
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "version": "Deno 2.7.14"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "version": "Deno 2.7.14"
+    },
+    {
+      "id": "python3",
+      "name": "Python3",
+      "version": "python3.10 + numpy + scipy"
+    },
+    {
+      "id": "pypy3",
+      "name": "PyPy3",
+      "version": "pypy3.9-7.3.9"
+    },
+    {
+      "id": "haskell",
+      "name": "GHC",
+      "version": "ghc 9.6.7"
+    },
+    {
+      "id": "haskell-llvm",
+      "name": "GHC (LLVM)",
+      "version": "ghc 9.6.7 + LLVM 11"
+    },
+    {
+      "id": "nim",
+      "name": "Nim",
+      "version": "Nim 2.2.4"
+    },
+    {
+      "id": "csharp",
+      "name": "C#",
+      "version": "dotnet 10.0"
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "version": "go 1.18.2"
+    },
+    {
+      "id": "lisp",
+      "name": "Common Lisp",
+      "version": "sbcl 2.1.5"
+    },
+    {
+      "id": "crystal",
+      "name": "Crystal",
+      "version": "crystal 1.9.1"
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "version": "ruby 2.7.1"
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "version": "swift 6.1.2"
+    }
+  ],
+  "selection": "AC, is_latest, ascending judge time; ties may vary",
+  "submissions": []
+}

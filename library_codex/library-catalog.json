@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-08T18:58:45+00:00",
+  "generatedAt": "2026-10-10T08:20:13+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "c27931eb9c831474ba75bb36b8e4d8f18e2102ab8a1d6dae16440089fc6dc163",
-  "inputStamp": "9456e1dc61550dbe4ec89b57758635a41350028d7f7c90d5890bd48c50f72473",
+  "sourceFingerprint": "b9eb760bef5b0cd279226497c92729cee94951df82e497380e2a94102f0d2409",
+  "inputStamp": "b1c65d618dab2d322732306a6d39eb3bf27943f559b52d8927051031aea54589",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 370,
-    "articles": 58,
-    "functions": 507,
+    "modules": 372,
+    "articles": 62,
+    "functions": 509,
     "classes": 228,
     "methods": 1456,
-    "tests": 955
+    "tests": 968
   },
   "categories": [
     {
@@ -191,8 +191,8 @@
       "label": "連結性・分解",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 17,
-      "functions": 14,
+      "modules": 19,
+      "functions": 16,
       "classes": 13,
       "methods": 75
     },
@@ -406,7 +406,7 @@
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 72
+      "modules": 74
     },
     {
       "slug": "math",
@@ -33836,12 +33836,16 @@
       "domainLabel": "Graph",
       "name": "KShortestWalks",
       "modulePath": "library_codex.shortest_path.KShortestWalks",
-      "summary": "非負辺重みの有向グラフで、同じ頂点や辺を再訪してよいwalkをコスト順に列挙する。",
+      "summary": "非負辺重みの有向グラフで、頂点や辺を再訪できるwalkの長さを昇順に求める。",
       "capabilities": [
         "非負辺重みの有向グラフで、sourceからtargetへ至るwalkのコストを小さい順に最大k個列挙できる。",
         "既存KShortestPathsと異なり、同じ頂点・辺を何度でも通るwalkを対象にする。cycleや平行辺も区別する。"
       ],
-      "article": null,
+      "article": {
+        "title": "短い順にk本のwalk",
+        "markdown": "有向グラフで、始点から終点への移動の費用を、小さい順に最大k個求める。\n\n## 主な機能\n\n`k_shortest_walks(vertex_count, edges, source, target, k)` は、頂点や辺を何度通ってもよいwalkを対象にする。平行辺は別の辺として数え、費用が同じでも別の辺列なら別の結果として残す。辺重みは非負。\n\nN頂点・M辺で、時間は `O((N+M) log(N+M+2) + k log(k+1))`、メモリは `O(N+M+N log(M+2)+k)`。逆向きの最短距離を求め、最短路から外れる辺の追加費用をヒープで列挙する。\n\n## 使い方\n\n```python\nfrom library_codex.shortest_path.KShortestWalks import k_shortest_walks\n\nedges = [(0, 1, 2), (1, 1, 3), (1, 2, 4), (0, 2, 10)]\ncosts = k_shortest_walks(3, edges, 0, 2, 5)\nassert costs == [6, 9, 10, 12, 15]\nassert k_shortest_walks(2, [], 0, 1, 5) == []\n```\n\n- `costs[i]`: i+1番目に短いwalkの費用。昇順に並ぶ。\n- 本数がk個に満たない場合: 存在する分だけ返す。`-1` や無限大では埋めない。\n- 始点と終点が同じ場合: 辺を使わないwalkの費用0も数える。\n\n## 注意点\n\n- 同じ頂点を再訪しない単純パスをk本求める機能ではない。\n- 費用0の閉路があっても、先頭k個で停止する。同じ費用が何度も返り得る。\n- 費用だけを返す。通った辺列は復元しない。\n- 整数の上限を固定していない。巨大な整数では、その演算時間も必要になる。",
+        "sourcePath": "library_codex/docs/articles/shortest_path/KShortestWalks.md"
+      },
       "searchTerms": [
         "KShortestWalks",
         "KShortest Walks",
@@ -33855,10 +33859,10 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/shortest_path/KShortestWalks.py",
-      "inputFingerprint": "0a81f0d923cf5cb506a4a9deb792f6033d6864f584c1c3f2cb2deb9ddeb309ea",
+      "inputFingerprint": "fad34792bcad03ab762daba901f5f78608b2b517b4c85b5d451c844a53707c24",
       "importCode": "from library_codex.shortest_path.KShortestWalks import k_shortest_walks",
-      "sourceCode": "\"\"\"非負辺重みの有向グラフで、同じ頂点や辺を再訪してよいwalkをコスト順に列挙する。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef _rank(node):\n    return 0 if node is None else node[3]\n\n\ndef _meld(first, second):\n    \"\"\"2つの永続leftist heapを、入力を変更せずに併合する。\"\"\"\n    path = []\n    while first is not None and second is not None:\n        if second[0] < first[0]:\n            first, second = second, first\n        path.append(first)\n        first = first[2]\n    root = first if first is not None else second\n    while path:\n        old = path.pop()\n        left = old[1]\n        right = root\n        if _rank(left) < _rank(right):\n            left, right = right, left\n        root = (old[0], left, right, _rank(right) + 1)\n    return root\n\n\ndef _insert(root, item):\n    return _meld(root, (item, None, None, 1))\n\n\ndef k_shortest_walks(vertex_count, edges, source, target, k):\n    \"\"\"sourceからtargetへのwalkのコストを、小さい順に最大k個返す。\"\"\"\n    if k <= 0:\n        return []\n    if not 0 <= source < vertex_count or not 0 <= target < vertex_count:\n        raise IndexError(\"source or target is outside the graph\")\n\n    graph = [[] for _ in range(vertex_count)]\n    reverse = [[] for _ in range(vertex_count)]\n    for edge_id, edge in enumerate(edges):\n        start, end, cost = edge\n        if not 0 <= start < vertex_count or not 0 <= end < vertex_count:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if cost < 0:\n            raise ValueError(\"edge weights must be nonnegative\")\n        graph[start].append((end, cost, edge_id))\n        reverse[end].append((start, cost, edge_id))\n\n    infinity = float(\"inf\")\n    distance = [infinity] * vertex_count\n    parent = [-1] * vertex_count\n    parent_edge = [-1] * vertex_count\n    distance[target] = 0\n    heap = [(0, target)]\n    while heap:\n        dist, vertex = heappop(heap)\n        if dist != distance[vertex]:\n            continue\n        for predecessor, cost, edge_id in reverse[vertex]:\n            candidate = dist + cost\n            if candidate < distance[predecessor]:\n                distance[predecessor] = candidate\n                parent[predecessor] = vertex\n                parent_edge[predecessor] = edge_id\n                heappush(heap, (candidate, predecessor))\n\n    if distance[source] == infinity:\n        return []\n\n    children = [[] for _ in range(vertex_count)]\n    for vertex in range(vertex_count):\n        if parent[vertex] != -1:\n            children[parent[vertex]].append(vertex)\n\n    roots = [None] * vertex_count\n    order = [target]\n    for vertex in order:\n        root = None if vertex == target else roots[parent[vertex]]\n        tree_edge = parent_edge[vertex]\n        for to, cost, edge_id in graph[vertex]:\n            if edge_id == tree_edge or distance[to] == infinity:\n                continue\n            delta = cost + distance[to] - distance[vertex]\n            root = _insert(root, (delta, to, edge_id))\n        roots[vertex] = root\n        order.extend(children[vertex])\n\n    answer = [distance[source]]\n    root = roots[source]\n    if root is None:\n        return answer\n\n    candidates = []\n    serial = 0\n    heappush(candidates, (answer[0] + root[0][0], serial, root))\n    while candidates and len(answer) < k:\n        cost, _, node = heappop(candidates)\n        answer.append(cost)\n        delta, to, _edge_id = node[0]\n        left = node[1]\n        right = node[2]\n        if left is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + left[0][0] - delta, serial, left\n            ))\n        if right is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + right[0][0] - delta, serial, right\n            ))\n        next_root = roots[to]\n        if next_root is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + next_root[0][0], serial, next_root\n            ))\n    return answer\n",
-      "standaloneCode": "\"\"\"非負辺重みの有向グラフで、同じ頂点や辺を再訪してよいwalkをコスト順に列挙する。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef _rank(node):\n    return 0 if node is None else node[3]\n\n\ndef _meld(first, second):\n    \"\"\"2つの永続leftist heapを、入力を変更せずに併合する。\"\"\"\n    path = []\n    while first is not None and second is not None:\n        if second[0] < first[0]:\n            first, second = second, first\n        path.append(first)\n        first = first[2]\n    root = first if first is not None else second\n    while path:\n        old = path.pop()\n        left = old[1]\n        right = root\n        if _rank(left) < _rank(right):\n            left, right = right, left\n        root = (old[0], left, right, _rank(right) + 1)\n    return root\n\n\ndef _insert(root, item):\n    return _meld(root, (item, None, None, 1))\n\n\ndef k_shortest_walks(vertex_count, edges, source, target, k):\n    \"\"\"sourceからtargetへのwalkのコストを、小さい順に最大k個返す。\"\"\"\n    if k <= 0:\n        return []\n    if not 0 <= source < vertex_count or not 0 <= target < vertex_count:\n        raise IndexError(\"source or target is outside the graph\")\n\n    graph = [[] for _ in range(vertex_count)]\n    reverse = [[] for _ in range(vertex_count)]\n    for edge_id, edge in enumerate(edges):\n        start, end, cost = edge\n        if not 0 <= start < vertex_count or not 0 <= end < vertex_count:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if cost < 0:\n            raise ValueError(\"edge weights must be nonnegative\")\n        graph[start].append((end, cost, edge_id))\n        reverse[end].append((start, cost, edge_id))\n\n    infinity = float(\"inf\")\n    distance = [infinity] * vertex_count\n    parent = [-1] * vertex_count\n    parent_edge = [-1] * vertex_count\n    distance[target] = 0\n    heap = [(0, target)]\n    while heap:\n        dist, vertex = heappop(heap)\n        if dist != distance[vertex]:\n            continue\n        for predecessor, cost, edge_id in reverse[vertex]:\n            candidate = dist + cost\n            if candidate < distance[predecessor]:\n                distance[predecessor] = candidate\n                parent[predecessor] = vertex\n                parent_edge[predecessor] = edge_id\n                heappush(heap, (candidate, predecessor))\n\n    if distance[source] == infinity:\n        return []\n\n    children = [[] for _ in range(vertex_count)]\n    for vertex in range(vertex_count):\n        if parent[vertex] != -1:\n            children[parent[vertex]].append(vertex)\n\n    roots = [None] * vertex_count\n    order = [target]\n    for vertex in order:\n        root = None if vertex == target else roots[parent[vertex]]\n        tree_edge = parent_edge[vertex]\n        for to, cost, edge_id in graph[vertex]:\n            if edge_id == tree_edge or distance[to] == infinity:\n                continue\n            delta = cost + distance[to] - distance[vertex]\n            root = _insert(root, (delta, to, edge_id))\n        roots[vertex] = root\n        order.extend(children[vertex])\n\n    answer = [distance[source]]\n    root = roots[source]\n    if root is None:\n        return answer\n\n    candidates = []\n    serial = 0\n    heappush(candidates, (answer[0] + root[0][0], serial, root))\n    while candidates and len(answer) < k:\n        cost, _, node = heappop(candidates)\n        answer.append(cost)\n        delta, to, _edge_id = node[0]\n        left = node[1]\n        right = node[2]\n        if left is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + left[0][0] - delta, serial, left\n            ))\n        if right is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + right[0][0] - delta, serial, right\n            ))\n        next_root = roots[to]\n        if next_root is not None:\n            serial += 1\n            heappush(candidates, (\n                cost + next_root[0][0], serial, next_root\n            ))\n    return answer\n",
+      "sourceCode": "\"\"\"非負辺重みの有向グラフで、頂点や辺を再訪できるwalkの長さを昇順に求める。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef k_shortest_walks(vertex_count, edges, source, target, k):\n    \"\"\"Return up to k walk costs, retaining equal costs with multiplicity.\"\"\"\n    if k <= 0:\n        return []\n    n = vertex_count\n    if not 0 <= source < n or not 0 <= target < n:\n        raise IndexError(\"source or target is outside the graph\")\n    edge_from = []\n    edge_to = []\n    weight = []\n    start = [0] * (n + 1)\n    reverse_start = [0] * (n + 1)\n    for u, v, cost in edges:\n        if not 0 <= u < n or not 0 <= v < n:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if cost < 0:\n            raise ValueError(\"edge weights must be nonnegative\")\n        edge_from.append(u)\n        edge_to.append(v)\n        weight.append(cost)\n        start[u + 1] += 1\n        reverse_start[v + 1] += 1\n    for v in range(n):\n        start[v + 1] += start[v]\n        reverse_start[v + 1] += reverse_start[v]\n    m = len(weight)\n    forward = [0] * m\n    reverse = [0] * m\n    cursor = start[:-1]\n    reverse_cursor = reverse_start[:-1]\n    for e in range(m):\n        u, v = edge_from[e], edge_to[e]\n        forward[cursor[u]] = e\n        reverse[reverse_cursor[v]] = e\n        cursor[u] += 1\n        reverse_cursor[v] += 1\n    inf = float(\"inf\")\n    distance = [inf] * n\n    tree_edge = [-1] * n\n    distance[target] = 0\n    queue = [(0, target)]\n    order = []\n    while queue:\n        dist, v = heappop(queue)\n        if distance[v] != dist:\n            continue\n        order.append(v)\n        for i in range(reverse_start[v], reverse_start[v + 1]):\n            e = reverse[i]\n            u = edge_from[e]\n            candidate = dist + weight[e]\n            if candidate < distance[u]:\n                distance[u] = candidate\n                tree_edge[u] = e\n                heappush(queue, (candidate, u))\n    if distance[source] == inf:\n        return []\n    if k == 1:\n        return [distance[source]]\n    del reverse, reverse_start, reverse_cursor, cursor, edge_from\n    key = [0]\n    destination = [0]\n    left = [0]\n    right = [0]\n    rank = [0]\n    roots = [0] * n\n\n    def meld(a, b, persistent):\n        path = []\n        while a and b:\n            if key[b] < key[a]:\n                a, b = b, a\n            path.append(a)\n            a = right[a]\n        root = a or b\n        while path:\n            node = path.pop()\n            l, r = left[node], root\n            if rank[l] < rank[r]:\n                l, r = r, l\n            if persistent:\n                key.append(key[node])\n                destination.append(destination[node])\n                left.append(l)\n                right.append(r)\n                rank.append(rank[r] + 1)\n                root = len(key) - 1\n            else:\n                left[node] = l\n                right[node] = r\n                rank[node] = rank[r] + 1\n                root = node\n        return root\n\n    for v in order:\n        root = 0\n        chosen = tree_edge[v]\n        for i in range(start[v], start[v + 1]):\n            e = forward[i]\n            u = edge_to[e]\n            if e == chosen or distance[u] == inf:\n                continue\n            key.append(weight[e] + distance[u] - distance[v])\n            destination.append(u)\n            left.append(0)\n            right.append(0)\n            rank.append(1)\n            root = meld(root, len(key) - 1, False)\n        if chosen >= 0:\n            inherited = roots[edge_to[chosen]]\n            root = meld(inherited, root, True) if root else inherited\n        roots[v] = root\n    answer = [distance[source]]\n    root = roots[source]\n    candidates = [(answer[0] + key[root], root)] if root else []\n    while candidates and len(answer) < k:\n        cost, node = heappop(candidates)\n        answer.append(cost)\n        base = cost - key[node]\n        child = left[node]\n        if child:\n            heappush(candidates, (base + key[child], child))\n        child = right[node]\n        if child:\n            heappush(candidates, (base + key[child], child))\n        root = roots[destination[node]]\n        if root:\n            heappush(candidates, (cost + key[root], root))\n    return answer\n",
+      "standaloneCode": "\"\"\"非負辺重みの有向グラフで、頂点や辺を再訪できるwalkの長さを昇順に求める。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef k_shortest_walks(vertex_count, edges, source, target, k):\n    \"\"\"Return up to k walk costs, retaining equal costs with multiplicity.\"\"\"\n    if k <= 0:\n        return []\n    n = vertex_count\n    if not 0 <= source < n or not 0 <= target < n:\n        raise IndexError(\"source or target is outside the graph\")\n    edge_from = []\n    edge_to = []\n    weight = []\n    start = [0] * (n + 1)\n    reverse_start = [0] * (n + 1)\n    for u, v, cost in edges:\n        if not 0 <= u < n or not 0 <= v < n:\n            raise IndexError(\"an edge endpoint is outside the graph\")\n        if cost < 0:\n            raise ValueError(\"edge weights must be nonnegative\")\n        edge_from.append(u)\n        edge_to.append(v)\n        weight.append(cost)\n        start[u + 1] += 1\n        reverse_start[v + 1] += 1\n    for v in range(n):\n        start[v + 1] += start[v]\n        reverse_start[v + 1] += reverse_start[v]\n    m = len(weight)\n    forward = [0] * m\n    reverse = [0] * m\n    cursor = start[:-1]\n    reverse_cursor = reverse_start[:-1]\n    for e in range(m):\n        u, v = edge_from[e], edge_to[e]\n        forward[cursor[u]] = e\n        reverse[reverse_cursor[v]] = e\n        cursor[u] += 1\n        reverse_cursor[v] += 1\n    inf = float(\"inf\")\n    distance = [inf] * n\n    tree_edge = [-1] * n\n    distance[target] = 0\n    queue = [(0, target)]\n    order = []\n    while queue:\n        dist, v = heappop(queue)\n        if distance[v] != dist:\n            continue\n        order.append(v)\n        for i in range(reverse_start[v], reverse_start[v + 1]):\n            e = reverse[i]\n            u = edge_from[e]\n            candidate = dist + weight[e]\n            if candidate < distance[u]:\n                distance[u] = candidate\n                tree_edge[u] = e\n                heappush(queue, (candidate, u))\n    if distance[source] == inf:\n        return []\n    if k == 1:\n        return [distance[source]]\n    del reverse, reverse_start, reverse_cursor, cursor, edge_from\n    key = [0]\n    destination = [0]\n    left = [0]\n    right = [0]\n    rank = [0]\n    roots = [0] * n\n\n    def meld(a, b, persistent):\n        path = []\n        while a and b:\n            if key[b] < key[a]:\n                a, b = b, a\n            path.append(a)\n            a = right[a]\n        root = a or b\n        while path:\n            node = path.pop()\n            l, r = left[node], root\n            if rank[l] < rank[r]:\n                l, r = r, l\n            if persistent:\n                key.append(key[node])\n                destination.append(destination[node])\n                left.append(l)\n                right.append(r)\n                rank.append(rank[r] + 1)\n                root = len(key) - 1\n            else:\n                left[node] = l\n                right[node] = r\n                rank[node] = rank[r] + 1\n                root = node\n        return root\n\n    for v in order:\n        root = 0\n        chosen = tree_edge[v]\n        for i in range(start[v], start[v + 1]):\n            e = forward[i]\n            u = edge_to[e]\n            if e == chosen or distance[u] == inf:\n                continue\n            key.append(weight[e] + distance[u] - distance[v])\n            destination.append(u)\n            left.append(0)\n            right.append(0)\n            rank.append(1)\n            root = meld(root, len(key) - 1, False)\n        if chosen >= 0:\n            inherited = roots[edge_to[chosen]]\n            root = meld(inherited, root, True) if root else inherited\n        roots[v] = root\n    answer = [distance[source]]\n    root = roots[source]\n    candidates = [(answer[0] + key[root], root)] if root else []\n    while candidates and len(answer) < k:\n        cost, node = heappop(candidates)\n        answer.append(cost)\n        base = cost - key[node]\n        child = left[node]\n        if child:\n            heappush(candidates, (base + key[child], child))\n        child = right[node]\n        if child:\n            heappush(candidates, (base + key[child], child))\n        root = roots[destination[node]]\n        if root:\n            heappush(candidates, (cost + key[root], root))\n    return answer\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 1,
@@ -33903,8 +33907,8 @@
           "returns": "list[number] — 存在するwalkのコストを小さい順に最大k個並べた列。walkがk個未満なら存在する分だけ返し、source=targetでは空walkのコスト0が先頭になる。",
           "returnFormat": "list[number]",
           "returnDescription": "存在するwalkのコストを小さい順に最大k個並べた列。walkがk個未満なら存在する分だけ返し、source=targetでは空walkのコスト0が先頭になる。",
-          "complexity": "O((V+E) log V + E log E + K log K) time、O(V + E log E + K) memory",
-          "sourceLine": 33
+          "complexity": "O((N+M) log(N+M+2) + K log(K+1))時間、O(N+M+N log(M+2)+K)メモリ。整数演算・比較をO(1)とする",
+          "sourceLine": 6
         }
       ],
       "classes": []
@@ -37087,6 +37091,81 @@
       "categoryLabel": "連結性・分解",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "STNumbering",
+      "modulePath": "library_codex.graph_connectivity.STNumbering",
+      "summary": "無向グラフを、指定した始点から終点へ全頂点を通れる向きに並べる。",
+      "capabilities": [
+        "始点を最初、終点を最後にし、各内部頂点が前後の両方に隣接先を持つ順位を付ける。",
+        "順位の小さい側から辺を向けると、各頂点を含む始点から終点へのパスが存在する。"
+      ],
+      "article": {
+        "title": "st-numbering",
+        "markdown": "無向グラフの頂点に順位を付け、各頂点を含むsからtへの有向パスが存在するようにする。\n\n## 主な機能\n\n`st_numbering(graph, source, target)` は、始点の順位を0、終点の順位をN-1にする。それ以外の各頂点には、順位が小さい隣接先と大きい隣接先が少なくとも一つずつ存在する。辺を順位の小さい側から大きい側へ向ければ、閉路のない有向グラフになる。\n\n条件を満たす順位列がなければ `None`。隣接listまたは無向 `CSRGraph` を受け取り、`O(N+M)` 時間・追加メモリで求める。\n\n## 使い方\n\n```python\nfrom library_codex.graph_connectivity.STNumbering import st_numbering\n\ngraph = [[1], [0, 2], [1, 3], [2]]\nrank = st_numbering(graph, 0, 3)\nassert rank == [0, 1, 2, 3]\nassert st_numbering(graph, 0, 2) is None\n```\n\n終点を2にすると、頂点3を経由して2へ進むために同じ辺を逆に戻る必要がある。そのため、すべての頂点がs-tパスに乗る向き付けは作れない。\n\n返り値は「順位順の頂点番号」ではなく `rank[v]` が頂点vの順位になる配列。順位順に読むなら `sorted(range(len(graph)), key=rank.__getitem__)` とする。\n\n## 注意点\n\n- 各頂点を含むパスは別々でよい。全頂点を一度ずつ通る一本のパスを求める機能ではない。\n- sとtの間に辺がなくてもよい。二重連結グラフに限らず、パスなどでも指定したsとtに対して成立することがある。\n- 隣接listは対称な無向グラフを渡す。多重辺・自己辺は可。入力は変更しない。\n- 頂点が一つなら `[0]`。二つ以上でs=tなら `None`。",
+        "sourcePath": "library_codex/docs/articles/graph_connectivity/STNumbering.md"
+      },
+      "searchTerms": [
+        "STNumbering",
+        "library_codex.graph_connectivity.STNumbering",
+        "library codex graph connectivity STNumbering",
+        "graph_connectivity/STNumbering.py",
+        "連結性・分解",
+        "双極向き付け",
+        "bipolar orientation",
+        "st順序"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_connectivity/STNumbering.py",
+      "inputFingerprint": "5150719a67327400e2befed1681248647c28e47aec1b9ac0cb488c6bbf03b71e",
+      "importCode": "from library_codex.graph_connectivity.STNumbering import st_numbering",
+      "sourceCode": "\"\"\"無向グラフを、指定した始点から終点へ全頂点を通れる向きに並べる。\"\"\"\n\n\ndef st_numbering(graph, source, target):\n    \"\"\"Return vertex ranks with source first and target last, or None.\"\"\"\n    n = len(graph)\n    if not 0 <= source < n or not 0 <= target < n:\n        raise IndexError(\"source or target is outside the graph\")\n    if n == 1:\n        return [0]\n    if source == target:\n        return None\n    if hasattr(graph, \"start\"):\n        if graph.directed:\n            raise ValueError(\"st-numbering requires an undirected graph\")\n        start, to = graph.start, graph.to\n    else:\n        start = [0]\n        to = []\n        for row in graph:\n            to.extend(row)\n            start.append(len(to))\n    preorder = [-1] * n\n    low = [0] * n\n    parent = [-1] * n\n    cursor = start[:-1]\n    preorder[source] = 0\n    preorder[target] = low[target] = 1\n    order = [source, target]\n    v = target\n    while v >= 0:\n        if cursor[v] == start[v + 1]:\n            p = parent[v]\n            if p >= 0 and low[v] < low[p]:\n                low[p] = low[v]\n            v = p\n            continue\n        u = to[cursor[v]]\n        cursor[v] += 1\n        if not 0 <= u < n:\n            raise IndexError(\"neighbor is outside the graph\")\n        if preorder[u] < 0:\n            parent[u] = v\n            preorder[u] = low[u] = len(order)\n            order.append(u)\n            v = u\n        elif preorder[u] < low[v]:\n            low[v] = preorder[u]\n    if len(order) != n:\n        return None\n    previous = [-1] * n\n    following = [-1] * n\n    following[source] = target\n    previous[target] = source\n    negative = bytearray(n)\n    negative[source] = 1\n    for v in order[2:]:\n        p = parent[v]\n        if negative[order[low[v]]]:\n            q = previous[p]\n            if q < 0:\n                return None\n            following[q] = v\n            following[v] = p\n            previous[v] = q\n            previous[p] = v\n            negative[p] = 0\n        else:\n            q = following[p]\n            if q < 0:\n                return None\n            following[p] = v\n            following[v] = q\n            previous[v] = p\n            previous[q] = v\n            negative[p] = 1\n    rank = [-1] * n\n    v = source\n    for i in range(n):\n        if v < 0:\n            return None\n        rank[v] = i\n        v = following[v]\n    if rank[target] != n - 1:\n        return None\n    for v in range(n):\n        earlier = v == source\n        later = v == target\n        for i in range(start[v], start[v + 1]):\n            value = rank[to[i]]\n            earlier |= value < rank[v]\n            later |= rank[v] < value\n        if not earlier or not later:\n            return None\n    return rank\n",
+      "standaloneCode": "\"\"\"無向グラフを、指定した始点から終点へ全頂点を通れる向きに並べる。\"\"\"\n\n\ndef st_numbering(graph, source, target):\n    \"\"\"Return vertex ranks with source first and target last, or None.\"\"\"\n    n = len(graph)\n    if not 0 <= source < n or not 0 <= target < n:\n        raise IndexError(\"source or target is outside the graph\")\n    if n == 1:\n        return [0]\n    if source == target:\n        return None\n    if hasattr(graph, \"start\"):\n        if graph.directed:\n            raise ValueError(\"st-numbering requires an undirected graph\")\n        start, to = graph.start, graph.to\n    else:\n        start = [0]\n        to = []\n        for row in graph:\n            to.extend(row)\n            start.append(len(to))\n    preorder = [-1] * n\n    low = [0] * n\n    parent = [-1] * n\n    cursor = start[:-1]\n    preorder[source] = 0\n    preorder[target] = low[target] = 1\n    order = [source, target]\n    v = target\n    while v >= 0:\n        if cursor[v] == start[v + 1]:\n            p = parent[v]\n            if p >= 0 and low[v] < low[p]:\n                low[p] = low[v]\n            v = p\n            continue\n        u = to[cursor[v]]\n        cursor[v] += 1\n        if not 0 <= u < n:\n            raise IndexError(\"neighbor is outside the graph\")\n        if preorder[u] < 0:\n            parent[u] = v\n            preorder[u] = low[u] = len(order)\n            order.append(u)\n            v = u\n        elif preorder[u] < low[v]:\n            low[v] = preorder[u]\n    if len(order) != n:\n        return None\n    previous = [-1] * n\n    following = [-1] * n\n    following[source] = target\n    previous[target] = source\n    negative = bytearray(n)\n    negative[source] = 1\n    for v in order[2:]:\n        p = parent[v]\n        if negative[order[low[v]]]:\n            q = previous[p]\n            if q < 0:\n                return None\n            following[q] = v\n            following[v] = p\n            previous[v] = q\n            previous[p] = v\n            negative[p] = 0\n        else:\n            q = following[p]\n            if q < 0:\n                return None\n            following[p] = v\n            following[v] = q\n            previous[v] = p\n            previous[q] = v\n            negative[p] = 1\n    rank = [-1] * n\n    v = source\n    for i in range(n):\n        if v < 0:\n            return None\n        rank[v] = i\n        v = following[v]\n    if rank[target] != n - 1:\n        return None\n    for v in range(n):\n        earlier = v == source\n        later = v == target\n        for i in range(start[v], start[v + 1]):\n            value = rank[to[i]]\n            earlier |= value < rank[v]\n            later |= rank[v] < value\n        if not earlier or not later:\n            return None\n    return rank\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "st_numbering",
+          "kind": "function",
+          "signature": "st_numbering(graph, source, target)",
+          "summary": "sourceからtargetへの有向パスが各頂点を通るように、無向辺を順位の小さい側から向けるための順位列を求める。",
+          "description": "sourceからtargetへの有向パスが各頂点を通るように、無向辺を順位の小さい側から向けるための順位列を求める。",
+          "searchTerms": [
+            "st_numbering",
+            "st numbering",
+            "st_numbering(graph, source, target)"
+          ],
+          "arguments": "graph: 対称な無向隣接list、またはdirected=FalseのCSRGraph。多重辺・自己辺は可。入力は変更しない。 · source: 順位を0にする頂点。 · target: 順位をN-1にする頂点。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "対称な無向隣接list、またはdirected=FalseのCSRGraph。多重辺・自己辺は可。入力は変更しない。"
+            },
+            {
+              "name": "source",
+              "description": "順位を0にする頂点。"
+            },
+            {
+              "name": "target",
+              "description": "順位をN-1にする頂点。"
+            }
+          ],
+          "returns": "list[int] | None — rank[v]が頂点vの順位となる長さNの順列。内部頂点には必ず順位の小さい隣接先と大きい隣接先がある。成立しなければNone。N=1は[0]、N>=2かつsource=targetはNone。",
+          "returnFormat": "list[int] | None",
+          "returnDescription": "rank[v]が頂点vの順位となる長さNの順列。内部頂点には必ず順位の小さい隣接先と大きい隣接先がある。成立しなければNone。N=1は[0]、N>=2かつsource=targetはNone。",
+          "complexity": "O(N+M)時間・O(N+M)追加メモリ。CSRGraph入力ではO(N)追加メモリ",
+          "sourceLine": 4
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_connectivity",
+      "categoryLabel": "連結性・分解",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "StronglyConnectedComponents",
       "modulePath": "library_codex.graph_connectivity.StronglyConnectedComponents",
       "summary": "反復Kosaraju・縮約DAG。",
@@ -37255,6 +37334,90 @@
           ]
         }
       ]
+    },
+    {
+      "category": "graph_connectivity",
+      "categoryLabel": "連結性・分解",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "TreeDecompositionWidth2",
+      "modulePath": "library_codex.graph_connectivity.TreeDecompositionWidth2",
+      "summary": "木幅2以下かを判定し、頂点集合と親配列で木分解を返す。",
+      "capabilities": [
+        "木幅2以下かを判定し、最大3頂点の集合と、その集合をつなぐ木の親配列を返す。",
+        "非連結グラフや孤立頂点も、一つの木分解にまとめる。"
+      ],
+      "article": {
+        "title": "木幅2以下の木分解",
+        "markdown": "グラフを、最大3頂点ずつの小さな集合に分け、その集合同士を木でつなぐ。\n\n## 主な機能\n\n`tree_decomposition_width2(n, edges)` は、無向グラフの木幅が2以下なら木分解を返す。木幅が3以上なら `None`。頂点数N・入力辺数Mに対して期待 `O(N+M)` 時間・メモリ。\n\n辺の両端は必ずどこか一つの集合に入り、同じ頂点を含む集合は木の上でつながっている。この性質を使い、独立集合や彩色などのDPを、各集合の高々3頂点の状態で進められる。DPそのものはこの関数には含まない。\n\n## 使い方\n\n```python\nfrom library_codex.graph_connectivity.TreeDecompositionWidth2 import tree_decomposition_width2\n\nedges = [(0, 1), (1, 2), (2, 0), (2, 3)]\nbags, parent = tree_decomposition_width2(4, edges)\nassert len(bags) == len(parent) == 4\nassert all(len(bag) <= 3 for bag in bags)\ntree_edges = [(i, p) for i, p in enumerate(parent) if p >= 0]\nassert len(tree_edges) == 3\n```\n\n- `bags[i]`: 木分解の頂点iが持つ、元の頂点番号のlist。各listの長さは1〜3。\n- `parent[i]`: 木分解側の親番号。元のグラフの頂点番号ではない。最後の集合が根で、その値は `-1`。\n- 根以外は必ず `i < parent[i]`。子の結果を親へ渡すDPは、iを小さい順に処理できる。\n\n## 仕組み\n\n次数が2以下の頂点を順に取り除く。隣接先が2個なら、それらの間に辺を補う。最後まで取り除ければ、そのときの頂点と隣接先が各集合になる。途中で次数3以上の頂点しか残らなければ、木幅は3以上。\n\n## 注意点\n\n- 平行辺は一本へまとめ、自己辺は無視する。入力は変更しない。\n- 非連結でも使える。成分ごとの分解をつなぎ、一つの木にする。\n- 孤立頂点も一つの集合へ含める。N=0は `([], [])`。\n- 木幅0・1を最小化して返すAPIではない。保証するのは幅2以下の分解。",
+        "sourcePath": "library_codex/docs/articles/graph_connectivity/TreeDecompositionWidth2.md"
+      },
+      "searchTerms": [
+        "TreeDecompositionWidth2",
+        "Tree Decomposition Width2",
+        "library_codex.graph_connectivity.TreeDecompositionWidth2",
+        "library codex graph connectivity Tree Decomposition Width2",
+        "graph_connectivity/TreeDecompositionWidth2.py",
+        "連結性・分解",
+        "木分解",
+        "木幅2",
+        "部分2木"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_connectivity/TreeDecompositionWidth2.py",
+      "inputFingerprint": "6fd6ecbb10cd1dd312adf5ca0ae92c1719a49df0a0951623b06b7d574a38f2b6",
+      "importCode": "from library_codex.graph_connectivity.TreeDecompositionWidth2 import tree_decomposition_width2",
+      "sourceCode": "\"\"\"木幅2以下かを判定し、頂点集合と親配列で木分解を返す。\"\"\"\n\n\ndef tree_decomposition_width2(n, edges):\n    \"\"\"Return (bags, parent), or None when the treewidth exceeds two.\"\"\"\n    if n < 0:\n        raise ValueError(\"number of vertices must be nonnegative\")\n    head = [-1] * n\n    degree = [0] * n\n    to = []\n    following = []\n    previous = []\n    present = set()\n\n    def add(a, b):\n        for v, u in ((a, b), (b, a)):\n            index = len(to)\n            old = head[v]\n            to.append(u)\n            following.append(old)\n            previous.append(-1)\n            if old >= 0:\n                previous[old] = index\n            head[v] = index\n            degree[v] += 1\n\n    for a, b in edges:\n        if not 0 <= a < n or not 0 <= b < n:\n            raise IndexError(\"edge endpoint is outside the graph\")\n        if a == b:\n            continue\n        key = a * n + b if a < b else b * n + a\n        if key not in present:\n            present.add(key)\n            add(a, b)\n\n    queue = [v for v in range(n) if degree[v] <= 2]\n    bags = []\n    position = [-1] * n\n    for v in queue:\n        if degree[v] < 0:\n            continue\n        bag = [v]\n        while head[v] >= 0:\n            edge = head[v]\n            u = to[edge]\n            bag.append(u)\n            present.remove(v * n + u if v < u else u * n + v)\n            for index, vertex in ((edge, v), (edge ^ 1, u)):\n                before, after = previous[index], following[index]\n                if before < 0:\n                    head[vertex] = after\n                else:\n                    following[before] = after\n                if after >= 0:\n                    previous[after] = before\n                degree[vertex] -= 1\n        degree[v] = -1\n        position[v] = len(bags)\n        bags.append(bag)\n        if len(bag) == 3:\n            a, b = bag[1], bag[2]\n            key = a * n + b if a < b else b * n + a\n            if key not in present:\n                present.add(key)\n                add(a, b)\n        for u in bag[1:]:\n            if degree[u] <= 2:\n                queue.append(u)\n    if len(bags) != n:\n        return None\n    parent = [-1] * n\n    for i, bag in enumerate(bags):\n        if len(bag) == 1:\n            if i + 1 < n:\n                parent[i] = n - 1\n        elif len(bag) == 2:\n            parent[i] = position[bag[1]]\n        else:\n            parent[i] = min(position[bag[1]], position[bag[2]])\n    return bags, parent\n",
+      "standaloneCode": "\"\"\"木幅2以下かを判定し、頂点集合と親配列で木分解を返す。\"\"\"\n\n\ndef tree_decomposition_width2(n, edges):\n    \"\"\"Return (bags, parent), or None when the treewidth exceeds two.\"\"\"\n    if n < 0:\n        raise ValueError(\"number of vertices must be nonnegative\")\n    head = [-1] * n\n    degree = [0] * n\n    to = []\n    following = []\n    previous = []\n    present = set()\n\n    def add(a, b):\n        for v, u in ((a, b), (b, a)):\n            index = len(to)\n            old = head[v]\n            to.append(u)\n            following.append(old)\n            previous.append(-1)\n            if old >= 0:\n                previous[old] = index\n            head[v] = index\n            degree[v] += 1\n\n    for a, b in edges:\n        if not 0 <= a < n or not 0 <= b < n:\n            raise IndexError(\"edge endpoint is outside the graph\")\n        if a == b:\n            continue\n        key = a * n + b if a < b else b * n + a\n        if key not in present:\n            present.add(key)\n            add(a, b)\n\n    queue = [v for v in range(n) if degree[v] <= 2]\n    bags = []\n    position = [-1] * n\n    for v in queue:\n        if degree[v] < 0:\n            continue\n        bag = [v]\n        while head[v] >= 0:\n            edge = head[v]\n            u = to[edge]\n            bag.append(u)\n            present.remove(v * n + u if v < u else u * n + v)\n            for index, vertex in ((edge, v), (edge ^ 1, u)):\n                before, after = previous[index], following[index]\n                if before < 0:\n                    head[vertex] = after\n                else:\n                    following[before] = after\n                if after >= 0:\n                    previous[after] = before\n                degree[vertex] -= 1\n        degree[v] = -1\n        position[v] = len(bags)\n        bags.append(bag)\n        if len(bag) == 3:\n            a, b = bag[1], bag[2]\n            key = a * n + b if a < b else b * n + a\n            if key not in present:\n                present.add(key)\n                add(a, b)\n        for u in bag[1:]:\n            if degree[u] <= 2:\n                queue.append(u)\n    if len(bags) != n:\n        return None\n    parent = [-1] * n\n    for i, bag in enumerate(bags):\n        if len(bag) == 1:\n            if i + 1 < n:\n                parent[i] = n - 1\n        elif len(bag) == 2:\n            parent[i] = position[bag[1]]\n        else:\n            parent[i] = min(position[bag[1]], position[bag[2]])\n    return bags, parent\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "tree_decomposition_width2",
+          "kind": "function",
+          "signature": "tree_decomposition_width2(n, edges)",
+          "summary": "各辺の両端を同じ集合に含め、同じ頂点を含む集合が木の上で連結になる、幅2以下の木分解を作る。",
+          "description": "各辺の両端を同じ集合に含め、同じ頂点を含む集合が木の上で連結になる、幅2以下の木分解を作る。",
+          "searchTerms": [
+            "tree_decomposition_width2",
+            "tree decomposition width2",
+            "tree_decomposition_width2(n, edges)"
+          ],
+          "arguments": "n: 非負の頂点数。 · edges: 無向辺(u, v)のiterable。平行辺を一本にまとめ、自己辺は無視する。入力は変更しない。",
+          "argumentDetails": [
+            {
+              "name": "n",
+              "description": "非負の頂点数。"
+            },
+            {
+              "name": "edges",
+              "description": "無向辺(u, v)のiterable。平行辺を一本にまとめ、自己辺は無視する。入力は変更しない。"
+            }
+          ],
+          "returns": "tuple[list[list[int]], list[int]] | None — 成立時は(bags, parent)。両方長さN。不可能ならNone。N=0なら([], [])。",
+          "returnFormat": "tuple[list[list[int]], list[int]] | None",
+          "returnDescription": "成立時は(bags, parent)。両方長さN。不可能ならNone。N=0なら([], [])。",
+          "complexity": "期待O(N+M)時間・O(N+M)メモリ。hash処理を期待O(1)とする",
+          "sourceLine": 4,
+          "returnParts": [
+            {
+              "name": "bags",
+              "format": "list[list[int]]",
+              "description": "bags[i]は分解側の頂点iが持つ、元の頂点番号のlist。各集合の大きさは1〜3。孤立頂点も含む。"
+            },
+            {
+              "name": "parent",
+              "format": "list[int]",
+              "description": "parent[i]は分解側の親番号。根N-1は-1、それ以外はiより大きい番号。非連結な入力でも一つの木になる。"
+            }
+          ]
+        }
+      ],
+      "classes": []
     },
     {
       "category": "graph_connectivity",
@@ -40050,9 +40213,15 @@
       "modulePath": "library_codex.graph_spanning.MinimumSpanningTree",
       "summary": "Kruskal最小全域森・最小全域木（辺ID付き）。",
       "capabilities": [
-        "最小全域木と辺集合が異なる次善の全域木を復元し、同コストを許す場合と真に大きいコストだけの場合を選べる。"
+        "重み付き無向グラフの最小全域木・最小全域森を、元の辺番号付きで求める。",
+        "平面上の点のマンハッタンMSTを、全点対の辺を作らずに求める。",
+        "最小全域木と辺集合が異なる木も復元できる。"
       ],
-      "article": null,
+      "article": {
+        "title": "最小全域木とマンハッタンMST",
+        "markdown": "すべての頂点を、辺重みの合計が最小になるようにつなぐ。\n\n## 主な機能\n\n- `minimum_spanning_tree(n, edges)` — 重み付き無向グラフから最小全域木を選ぶ。非連結なら `None`。\n- `minimum_spanning_forest(n, edges)` — 非連結でも、各連結成分を最小費用でつなぐ。成分数も返す。\n- `kruskal(n, edges)` — 最小全域森の費用だけを返す。\n- `manhattan_mst(points)` — 平面上の点をマンハッタン距離でつなぐ。全点対の辺を作らず `O(N log(N+1))` で求める。\n- `second_spanning_tree(n, edges, strict=False)` — 最小全域木とは辺集合の異なる木を、一つの辺の交換で求める。\n\n辺列から求める最小全域木・森は `O(N+M log(M+1))`。Mは入力辺数で、平行辺や負の重みも使える。\n\n## 使い方\n\n```python\nfrom library_codex.graph_spanning.MinimumSpanningTree import minimum_spanning_tree, manhattan_mst\n\nedges = [(0, 1, 5), (1, 2, 2), (0, 2, 10)]\ncost, edge_ids = minimum_spanning_tree(3, edges)\nassert cost == 7\nassert set(edge_ids) == {0, 1}\n\npoints = [(0, 0), (2, 0), (2, 3)]\ncost, pairs = manhattan_mst(points)\nassert cost == 5\nassert len(pairs) == 2\n```\n\n- `edge_ids`: 入力 `edges` の添字。端点の組ではない。\n- `pairs`: マンハッタンMSTが選んだ `(u, v)` のlist。uとvは入力 `points` の添字。\n- 最小全域森の第3要素: 連結成分数。選んだ辺数はNからこの値を引いた数になる。\n\n## 注意点\n\n- 解が複数ある場合の選び方や、返す辺の順序は保証しない。入力は変更しない。\n- 同じ座標の点も別頂点として扱い、距離0の辺でつなぐ。\n- `second_spanning_tree` の `strict=False` は同じ費用の別の木も許す。`True` は費用が真に大きい木だけを対象にする。\n- マンハッタンMSTは4方向の走査と座標圧縮したBITで候補辺を絞る。全点対の辺を列挙する必要はない。",
+        "sourcePath": "library_codex/docs/articles/graph_spanning/MinimumSpanningTree.md"
+      },
       "searchTerms": [
         "MinimumSpanningTree",
         "Minimum Spanning Tree",
@@ -40063,13 +40232,11 @@
       ],
       "complexity": "O(Elog  E)",
       "sourcePath": "library_codex/graph_spanning/MinimumSpanningTree.py",
-      "inputFingerprint": "446b044fd2d6bbe8dc9aa74e9fc02ddfe5bd1b39ffdc653e29e4c508b88b13a6",
+      "inputFingerprint": "dfdd136f0f9895fd153a001c57d6ed0ebfec435751ea01be11b726705bb08f9f",
       "importCode": "from library_codex.graph_spanning.MinimumSpanningTree import (\n    minimum_spanning_forest,\n    minimum_spanning_tree,\n    kruskal,\n    second_spanning_tree,\n    manhattan_mst,\n)",
-      "sourceCode": "def minimum_spanning_forest(n, edges):\n    edges = list(edges)\n    parent = [-1] * n\n    order = sorted(range(len(edges)), key=lambda i: edges[i][2])\n    selected = []\n    cost = 0\n    components = n\n\n    for eid in order:\n        u, v, w = edges[eid]\n        x = u\n        while parent[x] >= 0:\n            if parent[parent[x]] >= 0:\n                parent[x] = parent[parent[x]]\n            x = parent[x]\n        y = v\n        while parent[y] >= 0:\n            if parent[parent[y]] >= 0:\n                parent[y] = parent[parent[y]]\n            y = parent[y]\n        if x == y:\n            continue\n        if parent[x] > parent[y]:\n            x, y = y, x\n        parent[x] += parent[y]\n        parent[y] = x\n        cost += w\n        selected.append(eid)\n        components -= 1\n        if components == 1:\n            break\n    return cost, selected, components\n\n\ndef minimum_spanning_tree(n, edges):\n    cost, selected, components = minimum_spanning_forest(n, edges)\n    if components > 1:\n        return None\n    return cost, selected\n\n\ndef kruskal(n, edges):\n    return minimum_spanning_forest(n, edges)[0]\n\n\ndef second_spanning_tree(n, edges, strict=False):\n    \"\"\"MSTと辺集合が異なる最小costの全域木を1本求める。\"\"\"\n    edges = list(edges)\n    result = minimum_spanning_tree(n, edges)\n    if result is None or n <= 1:\n        return None\n    mst_cost, selected = result\n    selected_set = set(selected)\n    tree = [[] for _ in range(n)]\n    for edge_id in selected:\n        first, second, weight = edges[edge_id]\n        tree[first].append((second, weight, edge_id))\n        tree[second].append((first, weight, edge_id))\n\n    levels = max(1, n.bit_length())\n    parent = [[-1] * n for _ in range(levels)]\n    largest = [[()] * n for _ in range(levels)]\n    depth = [0] * n\n    order = [0]\n    for vertex in order:\n        for other, weight, edge_id in tree[vertex]:\n            if other == parent[0][vertex]:\n                continue\n            parent[0][other] = vertex\n            largest[0][other] = ((weight, edge_id),)\n            depth[other] = depth[vertex] + 1\n            order.append(other)\n\n    def merge(first, second):\n        by_weight = {}\n        for weight, edge_id in first + second:\n            old = by_weight.get(weight)\n            if old is None or edge_id < old:\n                by_weight[weight] = edge_id\n        return tuple(sorted(\n            ((weight, edge_id) for weight, edge_id in by_weight.items()),\n            reverse=True,\n        )[:2])\n\n    for level in range(1, levels):\n        old_parent = parent[level - 1]\n        current_parent = parent[level]\n        for vertex in range(n):\n            middle = old_parent[vertex]\n            if middle >= 0:\n                current_parent[vertex] = old_parent[middle]\n                largest[level][vertex] = merge(\n                    largest[level - 1][vertex], largest[level - 1][middle]\n                )\n\n    def path_largest(first, second):\n        values = ()\n        if depth[first] < depth[second]:\n            first, second = second, first\n        difference = depth[first] - depth[second]\n        level = 0\n        while difference:\n            if difference & 1:\n                values = merge(values, largest[level][first])\n                first = parent[level][first]\n            difference >>= 1\n            level += 1\n        if first == second:\n            return values\n        for level in range(levels - 1, -1, -1):\n            if parent[level][first] != parent[level][second]:\n                values = merge(values, largest[level][first])\n                values = merge(values, largest[level][second])\n                first = parent[level][first]\n                second = parent[level][second]\n        values = merge(values, largest[0][first])\n        return merge(values, largest[0][second])\n\n    best = None\n    for edge_id, (first, second, weight) in enumerate(edges):\n        if edge_id in selected_set or first == second:\n            continue\n        candidates = path_largest(first, second)\n        removed = None\n        for old_weight, old_edge_id in candidates:\n            candidate_cost = mst_cost + weight - old_weight\n            if not strict or candidate_cost > mst_cost:\n                removed = old_edge_id\n                candidate = (candidate_cost, edge_id, old_edge_id)\n                break\n        if removed is not None and (best is None or candidate < best):\n            best = candidate\n    if best is None:\n        return None\n    second_cost, added, removed = best\n    second_edges = [edge_id for edge_id in selected if edge_id != removed]\n    second_edges.append(added)\n    second_edges.sort()\n    return mst_cost, second_cost, selected, second_edges, added, removed\n\n\ndef manhattan_mst(points):\n    \"\"\"Return ``(cost, vertex_pairs)`` of a Manhattan MST in O(N log N).\"\"\"\n    from library_codex.ordered_set.TreapSet import TreapSet\n\n    n = len(points)\n    if n <= 1:\n        return 0, []\n    x = [point[0] for point in points]\n    y = [point[1] for point in points]\n    order = list(range(n))\n    candidates = []\n    for outer in range(2):\n        for _ in range(2):\n            order.sort(key=lambda i: x[i] + y[i])\n            sweep = TreapSet()\n            at_key = {}\n            for i in order:\n                threshold = -y[i]\n                key = sweep.ge(threshold)\n                while key is not None:\n                    j = at_key[key]\n                    if x[i] - x[j] < y[i] - y[j]:\n                        break\n                    candidates.append((\n                        abs(x[i] - x[j]) + abs(y[i] - y[j]), i, j\n                    ))\n                    sweep.discard(key)\n                    key = sweep.ge(threshold)\n                at_key[threshold] = i\n                sweep.add(threshold)\n            x, y = y, x\n        x = [-value for value in x]\n    parent = [-1] * n\n\n    def find(v):\n        root = v\n        while parent[root] >= 0:\n            root = parent[root]\n        while v != root:\n            to = parent[v]\n            parent[v] = root\n            v = to\n        return root\n\n    answer = []\n    cost = 0\n    for weight, first, second in sorted(candidates):\n        u = find(first)\n        v = find(second)\n        if u == v:\n            continue\n        if parent[u] > parent[v]:\n            u, v = v, u\n        parent[u] += parent[v]\n        parent[v] = u\n        cost += weight\n        answer.append((first, second))\n        if len(answer) == n - 1:\n            break\n    return cost, answer\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: ordered_set/TreapSet.py\n\"\"\"順序・k番目・前後要素を対数時間で扱う乱択平衡二分探索木。\"\"\"\nfrom operator import add\n\nclass TreapSet:\n    __slots__ = ('root', 'key', 'priority', 'left', 'right', 'parent', 'size', 'state')\n\n    def __init__(self, values=()):\n        self.root = -1\n        self.key = []\n        self.priority = []\n        self.left = []\n        self.right = []\n        self.parent = []\n        self.size = []\n        self.state = 11400714819323198485\n        for value in values:\n            self.add(value)\n\n    def _random(self):\n        value = self.state\n        value ^= value << 7 & (1 << 64) - 1\n        value ^= value >> 9\n        self.state = value\n        return value\n\n    def _new(self, key):\n        node = len(self.key)\n        self.key.append(key)\n        self.priority.append(self._random())\n        self.left.append(-1)\n        self.right.append(-1)\n        self.parent.append(-1)\n        self.size.append(1)\n        return node\n\n    def _update(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        self.size[node] = 1 + (self.size[left] if left >= 0 else 0) + (self.size[right] if right >= 0 else 0)\n\n    def _update_up(self, node):\n        while node >= 0:\n            self._update(node)\n            node = self.parent[node]\n\n    def _rotate(self, node):\n        parent = self.parent[node]\n        grandparent = self.parent[parent]\n        if self.left[parent] == node:\n            middle = self.right[node]\n            self.right[node] = parent\n            self.left[parent] = middle\n        else:\n            middle = self.left[node]\n            self.left[node] = parent\n            self.right[parent] = middle\n        if middle >= 0:\n            self.parent[middle] = parent\n        self.parent[parent] = node\n        self.parent[node] = grandparent\n        if grandparent < 0:\n            self.root = node\n        elif self.left[grandparent] == parent:\n            self.left[grandparent] = node\n        else:\n            self.right[grandparent] = node\n        self._update(parent)\n        self._update(node)\n\n    def _find(self, key):\n        node = self.root\n        while node >= 0:\n            current = self.key[node]\n            if key == current:\n                return node\n            node = self.left[node] if key < current else self.right[node]\n        return -1\n\n    def add(self, key):\n        if self.root < 0:\n            self.root = self._new(key)\n            return True\n        node = self.root\n        while True:\n            current = self.key[node]\n            if key == current:\n                return False\n            if key < current:\n                child = self.left[node]\n                if child < 0:\n                    child = self._new(key)\n                    self.left[node] = child\n                    self.parent[child] = node\n                    break\n            else:\n                child = self.right[node]\n                if child < 0:\n                    child = self._new(key)\n                    self.right[node] = child\n                    self.parent[child] = node\n                    break\n            node = child\n        self._update_up(node)\n        while self.parent[child] >= 0 and self.priority[child] < self.priority[self.parent[child]]:\n            self._rotate(child)\n        self._update_up(self.parent[child])\n        return True\n    insert = add\n\n    def discard(self, key):\n        node = self._find(key)\n        if node < 0:\n            return False\n        while self.left[node] >= 0 or self.right[node] >= 0:\n            left = self.left[node]\n            right = self.right[node]\n            if right < 0 or (left >= 0 and self.priority[left] < self.priority[right]):\n                self._rotate(left)\n            else:\n                self._rotate(right)\n        parent = self.parent[node]\n        if parent < 0:\n            self.root = -1\n        elif self.left[parent] == node:\n            self.left[parent] = -1\n        else:\n            self.right[parent] = -1\n        self._update_up(parent)\n        return True\n    erase = discard\n\n    def bisect_left(self, key):\n        node = self.root\n        result = 0\n        while node >= 0:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if self.key[node] < key:\n                result += left_size + 1\n                node = self.right[node]\n            else:\n                node = left\n        return result\n    lower_bound = bisect_left\n\n    def bisect_right(self, key):\n        node = self.root\n        result = 0\n        while node >= 0:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if self.key[node] <= key:\n                result += left_size + 1\n                node = self.right[node]\n            else:\n                node = left\n        return result\n    upper_bound = bisect_right\n\n    def kth(self, index):\n        if index < 0 or index >= len(self):\n            raise IndexError('kth index out of range')\n        node = self.root\n        while True:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                return self.key[node]\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n\n    def ge(self, key, default=None):\n        index = self.bisect_left(key)\n        return self.kth(index) if index < len(self) else default\n\n    def gt(self, key, default=None):\n        index = self.bisect_right(key)\n        return self.kth(index) if index < len(self) else default\n\n    def le(self, key, default=None):\n        index = self.bisect_right(key) - 1\n        return self.kth(index) if index >= 0 else default\n\n    def lt(self, key, default=None):\n        index = self.bisect_left(key) - 1\n        return self.kth(index) if index >= 0 else default\n\n    def min(self):\n        return self.kth(0)\n\n    def max(self):\n        return self.kth(len(self) - 1)\n\n    def __contains__(self, key):\n        return self._find(key) >= 0\n\n    def __len__(self):\n        root = self.root\n        return self.size[root] if root >= 0 else 0\n\n    def __iter__(self):\n        stack = []\n        node = self.root\n        while stack or node >= 0:\n            while node >= 0:\n                stack.append(node)\n                node = self.left[node]\n            node = stack.pop()\n            yield self.key[node]\n            node = self.right[node]\n\n    def tolist(self):\n        \"\"\"保持するkeyを昇順listで返す。O(N)。\"\"\"\n        return list(self)\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'TreapSet(%r)' % self.tolist()\n\n# 本体\ndef minimum_spanning_forest(n, edges):\n    edges = list(edges)\n    parent = [-1] * n\n    order = sorted(range(len(edges)), key=lambda i: edges[i][2])\n    selected = []\n    cost = 0\n    components = n\n    for eid in order:\n        (u, v, w) = edges[eid]\n        x = u\n        while parent[x] >= 0:\n            if parent[parent[x]] >= 0:\n                parent[x] = parent[parent[x]]\n            x = parent[x]\n        y = v\n        while parent[y] >= 0:\n            if parent[parent[y]] >= 0:\n                parent[y] = parent[parent[y]]\n            y = parent[y]\n        if x == y:\n            continue\n        if parent[x] > parent[y]:\n            (x, y) = (y, x)\n        parent[x] += parent[y]\n        parent[y] = x\n        cost += w\n        selected.append(eid)\n        components -= 1\n        if components == 1:\n            break\n    return (cost, selected, components)\n\ndef minimum_spanning_tree(n, edges):\n    (cost, selected, components) = minimum_spanning_forest(n, edges)\n    if components > 1:\n        return None\n    return (cost, selected)\n\ndef kruskal(n, edges):\n    return minimum_spanning_forest(n, edges)[0]\n\ndef second_spanning_tree(n, edges, strict=False):\n    \"\"\"MSTと辺集合が異なる最小costの全域木を1本求める。\"\"\"\n    edges = list(edges)\n    result = minimum_spanning_tree(n, edges)\n    if result is None or n <= 1:\n        return None\n    (mst_cost, selected) = result\n    selected_set = set(selected)\n    tree = [[] for _ in range(n)]\n    for edge_id in selected:\n        (first, second, weight) = edges[edge_id]\n        tree[first].append((second, weight, edge_id))\n        tree[second].append((first, weight, edge_id))\n    levels = max(1, n.bit_length())\n    parent = [[-1] * n for _ in range(levels)]\n    largest = [[()] * n for _ in range(levels)]\n    depth = [0] * n\n    order = [0]\n    for vertex in order:\n        for (other, weight, edge_id) in tree[vertex]:\n            if other == parent[0][vertex]:\n                continue\n            parent[0][other] = vertex\n            largest[0][other] = ((weight, edge_id),)\n            depth[other] = depth[vertex] + 1\n            order.append(other)\n\n    def merge(first, second):\n        by_weight = {}\n        for (weight, edge_id) in first + second:\n            old = by_weight.get(weight)\n            if old is None or edge_id < old:\n                by_weight[weight] = edge_id\n        return tuple(sorted(((weight, edge_id) for (weight, edge_id) in by_weight.items()), reverse=True)[:2])\n    for level in range(1, levels):\n        old_parent = parent[level - 1]\n        current_parent = parent[level]\n        for vertex in range(n):\n            middle = old_parent[vertex]\n            if middle >= 0:\n                current_parent[vertex] = old_parent[middle]\n                largest[level][vertex] = merge(largest[level - 1][vertex], largest[level - 1][middle])\n\n    def path_largest(first, second):\n        values = ()\n        if depth[first] < depth[second]:\n            (first, second) = (second, first)\n        difference = depth[first] - depth[second]\n        level = 0\n        while difference:\n            if difference & 1:\n                values = merge(values, largest[level][first])\n                first = parent[level][first]\n            difference >>= 1\n            level += 1\n        if first == second:\n            return values\n        for level in range(levels - 1, -1, -1):\n            if parent[level][first] != parent[level][second]:\n                values = merge(values, largest[level][first])\n                values = merge(values, largest[level][second])\n                first = parent[level][first]\n                second = parent[level][second]\n        values = merge(values, largest[0][first])\n        return merge(values, largest[0][second])\n    best = None\n    for (edge_id, (first, second, weight)) in enumerate(edges):\n        if edge_id in selected_set or first == second:\n            continue\n        candidates = path_largest(first, second)\n        removed = None\n        for (old_weight, old_edge_id) in candidates:\n            candidate_cost = mst_cost + weight - old_weight\n            if not strict or candidate_cost > mst_cost:\n                removed = old_edge_id\n                candidate = (candidate_cost, edge_id, old_edge_id)\n                break\n        if removed is not None and (best is None or candidate < best):\n            best = candidate\n    if best is None:\n        return None\n    (second_cost, added, removed) = best\n    second_edges = [edge_id for edge_id in selected if edge_id != removed]\n    second_edges.append(added)\n    second_edges.sort()\n    return (mst_cost, second_cost, selected, second_edges, added, removed)\n\ndef manhattan_mst(points):\n    \"\"\"Return ``(cost, vertex_pairs)`` of a Manhattan MST in O(N log N).\"\"\"\n    n = len(points)\n    if n <= 1:\n        return (0, [])\n    x = [point[0] for point in points]\n    y = [point[1] for point in points]\n    order = list(range(n))\n    candidates = []\n    for outer in range(2):\n        for _ in range(2):\n            order.sort(key=lambda i: x[i] + y[i])\n            sweep = TreapSet()\n            at_key = {}\n            for i in order:\n                threshold = -y[i]\n                key = sweep.ge(threshold)\n                while key is not None:\n                    j = at_key[key]\n                    if x[i] - x[j] < y[i] - y[j]:\n                        break\n                    candidates.append((abs(x[i] - x[j]) + abs(y[i] - y[j]), i, j))\n                    sweep.discard(key)\n                    key = sweep.ge(threshold)\n                at_key[threshold] = i\n                sweep.add(threshold)\n            (x, y) = (y, x)\n        x = [-value for value in x]\n    parent = [-1] * n\n\n    def find(v):\n        root = v\n        while parent[root] >= 0:\n            root = parent[root]\n        while v != root:\n            to = parent[v]\n            parent[v] = root\n            v = to\n        return root\n    answer = []\n    cost = 0\n    for (weight, first, second) in sorted(candidates):\n        u = find(first)\n        v = find(second)\n        if u == v:\n            continue\n        if parent[u] > parent[v]:\n            (u, v) = (v, u)\n        parent[u] += parent[v]\n        parent[v] = u\n        cost += weight\n        answer.append((first, second))\n        if len(answer) == n - 1:\n            break\n    return (cost, answer)\n",
-      "bundledDependencies": [
-        "library_codex.ordered_set.TreapSet"
-      ],
+      "sourceCode": "def minimum_spanning_forest(n, edges):\n    edges = list(edges)\n    parent = [-1] * n\n    order = sorted(range(len(edges)), key=lambda i: edges[i][2])\n    selected = []\n    cost = 0\n    components = n\n\n    for eid in order:\n        u, v, w = edges[eid]\n        x = u\n        while parent[x] >= 0:\n            if parent[parent[x]] >= 0:\n                parent[x] = parent[parent[x]]\n            x = parent[x]\n        y = v\n        while parent[y] >= 0:\n            if parent[parent[y]] >= 0:\n                parent[y] = parent[parent[y]]\n            y = parent[y]\n        if x == y:\n            continue\n        if parent[x] > parent[y]:\n            x, y = y, x\n        parent[x] += parent[y]\n        parent[y] = x\n        cost += w\n        selected.append(eid)\n        components -= 1\n        if components == 1:\n            break\n    return cost, selected, components\n\n\ndef minimum_spanning_tree(n, edges):\n    cost, selected, components = minimum_spanning_forest(n, edges)\n    if components > 1:\n        return None\n    return cost, selected\n\n\ndef kruskal(n, edges):\n    return minimum_spanning_forest(n, edges)[0]\n\n\ndef second_spanning_tree(n, edges, strict=False):\n    \"\"\"MSTと辺集合が異なる最小costの全域木を1本求める。\"\"\"\n    edges = list(edges)\n    result = minimum_spanning_tree(n, edges)\n    if result is None or n <= 1:\n        return None\n    mst_cost, selected = result\n    selected_set = set(selected)\n    tree = [[] for _ in range(n)]\n    for edge_id in selected:\n        first, second, weight = edges[edge_id]\n        tree[first].append((second, weight, edge_id))\n        tree[second].append((first, weight, edge_id))\n\n    levels = max(1, n.bit_length())\n    parent = [[-1] * n for _ in range(levels)]\n    largest = [[()] * n for _ in range(levels)]\n    depth = [0] * n\n    order = [0]\n    for vertex in order:\n        for other, weight, edge_id in tree[vertex]:\n            if other == parent[0][vertex]:\n                continue\n            parent[0][other] = vertex\n            largest[0][other] = ((weight, edge_id),)\n            depth[other] = depth[vertex] + 1\n            order.append(other)\n\n    def merge(first, second):\n        by_weight = {}\n        for weight, edge_id in first + second:\n            old = by_weight.get(weight)\n            if old is None or edge_id < old:\n                by_weight[weight] = edge_id\n        return tuple(sorted(\n            ((weight, edge_id) for weight, edge_id in by_weight.items()),\n            reverse=True,\n        )[:2])\n\n    for level in range(1, levels):\n        old_parent = parent[level - 1]\n        current_parent = parent[level]\n        for vertex in range(n):\n            middle = old_parent[vertex]\n            if middle >= 0:\n                current_parent[vertex] = old_parent[middle]\n                largest[level][vertex] = merge(\n                    largest[level - 1][vertex], largest[level - 1][middle]\n                )\n\n    def path_largest(first, second):\n        values = ()\n        if depth[first] < depth[second]:\n            first, second = second, first\n        difference = depth[first] - depth[second]\n        level = 0\n        while difference:\n            if difference & 1:\n                values = merge(values, largest[level][first])\n                first = parent[level][first]\n            difference >>= 1\n            level += 1\n        if first == second:\n            return values\n        for level in range(levels - 1, -1, -1):\n            if parent[level][first] != parent[level][second]:\n                values = merge(values, largest[level][first])\n                values = merge(values, largest[level][second])\n                first = parent[level][first]\n                second = parent[level][second]\n        values = merge(values, largest[0][first])\n        return merge(values, largest[0][second])\n\n    best = None\n    for edge_id, (first, second, weight) in enumerate(edges):\n        if edge_id in selected_set or first == second:\n            continue\n        candidates = path_largest(first, second)\n        removed = None\n        for old_weight, old_edge_id in candidates:\n            candidate_cost = mst_cost + weight - old_weight\n            if not strict or candidate_cost > mst_cost:\n                removed = old_edge_id\n                candidate = (candidate_cost, edge_id, old_edge_id)\n                break\n        if removed is not None and (best is None or candidate < best):\n            best = candidate\n    if best is None:\n        return None\n    second_cost, added, removed = best\n    second_edges = [edge_id for edge_id in selected if edge_id != removed]\n    second_edges.append(added)\n    second_edges.sort()\n    return mst_cost, second_cost, selected, second_edges, added, removed\n\n\ndef manhattan_mst(points):\n    \"\"\"Return (cost, vertex_pairs) of a Manhattan MST in O(N log N).\"\"\"\n    n = len(points)\n    if n <= 1:\n        return 0, []\n    x = [point[0] for point in points]\n    y = [point[1] for point in points]\n    order = list(range(n))\n    costs = []\n    first = []\n    second = []\n    for _ in range(2):\n        for _ in range(2):\n            order.sort(key=lambda i: x[i] + y[i])\n            keys = sorted(set(y))\n            index = {value: i for i, value in enumerate(keys)}\n            size = len(keys)\n            bit = [0] * (size + 1)\n            who = [-1] * size\n            top = 1 << (size.bit_length() - 1)\n            for i in order:\n                p = index[y[i]]\n                q = p + 1\n                count = 0\n                while q:\n                    count += bit[q]\n                    q &= q - 1\n                while count:\n                    q = 0\n                    step = top\n                    k = count\n                    while step:\n                        nxt = q + step\n                        if nxt <= size and bit[nxt] < k:\n                            q = nxt\n                            k -= bit[nxt]\n                        step >>= 1\n                    j = who[q]\n                    dx = x[i] - x[j]\n                    dy = y[i] - y[j]\n                    if dx < dy:\n                        break\n                    costs.append(dx + dy)\n                    first.append(i)\n                    second.append(j)\n                    q += 1\n                    while q <= size:\n                        bit[q] -= 1\n                        q += q & -q\n                    count -= 1\n                who[p] = i\n                q = p + 1\n                while q <= size:\n                    bit[q] += 1\n                    q += q & -q\n            x, y = y, x\n        x = [-value for value in x]\n    parent = [-1] * n\n    answer = []\n    cost = 0\n    for e in sorted(range(len(costs)), key=costs.__getitem__):\n        a, b = first[e], second[e]\n        u, v = a, b\n        while parent[u] >= 0:\n            if parent[parent[u]] >= 0:\n                parent[u] = parent[parent[u]]\n            u = parent[u]\n        while parent[v] >= 0:\n            if parent[parent[v]] >= 0:\n                parent[v] = parent[parent[v]]\n            v = parent[v]\n        if u == v:\n            continue\n        if parent[u] > parent[v]:\n            u, v = v, u\n        parent[u] += parent[v]\n        parent[v] = u\n        cost += costs[e]\n        answer.append((a, b))\n        if len(answer) == n - 1:\n            break\n    return cost, answer\n",
+      "standaloneCode": "def minimum_spanning_forest(n, edges):\n    edges = list(edges)\n    parent = [-1] * n\n    order = sorted(range(len(edges)), key=lambda i: edges[i][2])\n    selected = []\n    cost = 0\n    components = n\n\n    for eid in order:\n        u, v, w = edges[eid]\n        x = u\n        while parent[x] >= 0:\n            if parent[parent[x]] >= 0:\n                parent[x] = parent[parent[x]]\n            x = parent[x]\n        y = v\n        while parent[y] >= 0:\n            if parent[parent[y]] >= 0:\n                parent[y] = parent[parent[y]]\n            y = parent[y]\n        if x == y:\n            continue\n        if parent[x] > parent[y]:\n            x, y = y, x\n        parent[x] += parent[y]\n        parent[y] = x\n        cost += w\n        selected.append(eid)\n        components -= 1\n        if components == 1:\n            break\n    return cost, selected, components\n\n\ndef minimum_spanning_tree(n, edges):\n    cost, selected, components = minimum_spanning_forest(n, edges)\n    if components > 1:\n        return None\n    return cost, selected\n\n\ndef kruskal(n, edges):\n    return minimum_spanning_forest(n, edges)[0]\n\n\ndef second_spanning_tree(n, edges, strict=False):\n    \"\"\"MSTと辺集合が異なる最小costの全域木を1本求める。\"\"\"\n    edges = list(edges)\n    result = minimum_spanning_tree(n, edges)\n    if result is None or n <= 1:\n        return None\n    mst_cost, selected = result\n    selected_set = set(selected)\n    tree = [[] for _ in range(n)]\n    for edge_id in selected:\n        first, second, weight = edges[edge_id]\n        tree[first].append((second, weight, edge_id))\n        tree[second].append((first, weight, edge_id))\n\n    levels = max(1, n.bit_length())\n    parent = [[-1] * n for _ in range(levels)]\n    largest = [[()] * n for _ in range(levels)]\n    depth = [0] * n\n    order = [0]\n    for vertex in order:\n        for other, weight, edge_id in tree[vertex]:\n            if other == parent[0][vertex]:\n                continue\n            parent[0][other] = vertex\n            largest[0][other] = ((weight, edge_id),)\n            depth[other] = depth[vertex] + 1\n            order.append(other)\n\n    def merge(first, second):\n        by_weight = {}\n        for weight, edge_id in first + second:\n            old = by_weight.get(weight)\n            if old is None or edge_id < old:\n                by_weight[weight] = edge_id\n        return tuple(sorted(\n            ((weight, edge_id) for weight, edge_id in by_weight.items()),\n            reverse=True,\n        )[:2])\n\n    for level in range(1, levels):\n        old_parent = parent[level - 1]\n        current_parent = parent[level]\n        for vertex in range(n):\n            middle = old_parent[vertex]\n            if middle >= 0:\n                current_parent[vertex] = old_parent[middle]\n                largest[level][vertex] = merge(\n                    largest[level - 1][vertex], largest[level - 1][middle]\n                )\n\n    def path_largest(first, second):\n        values = ()\n        if depth[first] < depth[second]:\n            first, second = second, first\n        difference = depth[first] - depth[second]\n        level = 0\n        while difference:\n            if difference & 1:\n                values = merge(values, largest[level][first])\n                first = parent[level][first]\n            difference >>= 1\n            level += 1\n        if first == second:\n            return values\n        for level in range(levels - 1, -1, -1):\n            if parent[level][first] != parent[level][second]:\n                values = merge(values, largest[level][first])\n                values = merge(values, largest[level][second])\n                first = parent[level][first]\n                second = parent[level][second]\n        values = merge(values, largest[0][first])\n        return merge(values, largest[0][second])\n\n    best = None\n    for edge_id, (first, second, weight) in enumerate(edges):\n        if edge_id in selected_set or first == second:\n            continue\n        candidates = path_largest(first, second)\n        removed = None\n        for old_weight, old_edge_id in candidates:\n            candidate_cost = mst_cost + weight - old_weight\n            if not strict or candidate_cost > mst_cost:\n                removed = old_edge_id\n                candidate = (candidate_cost, edge_id, old_edge_id)\n                break\n        if removed is not None and (best is None or candidate < best):\n            best = candidate\n    if best is None:\n        return None\n    second_cost, added, removed = best\n    second_edges = [edge_id for edge_id in selected if edge_id != removed]\n    second_edges.append(added)\n    second_edges.sort()\n    return mst_cost, second_cost, selected, second_edges, added, removed\n\n\ndef manhattan_mst(points):\n    \"\"\"Return (cost, vertex_pairs) of a Manhattan MST in O(N log N).\"\"\"\n    n = len(points)\n    if n <= 1:\n        return 0, []\n    x = [point[0] for point in points]\n    y = [point[1] for point in points]\n    order = list(range(n))\n    costs = []\n    first = []\n    second = []\n    for _ in range(2):\n        for _ in range(2):\n            order.sort(key=lambda i: x[i] + y[i])\n            keys = sorted(set(y))\n            index = {value: i for i, value in enumerate(keys)}\n            size = len(keys)\n            bit = [0] * (size + 1)\n            who = [-1] * size\n            top = 1 << (size.bit_length() - 1)\n            for i in order:\n                p = index[y[i]]\n                q = p + 1\n                count = 0\n                while q:\n                    count += bit[q]\n                    q &= q - 1\n                while count:\n                    q = 0\n                    step = top\n                    k = count\n                    while step:\n                        nxt = q + step\n                        if nxt <= size and bit[nxt] < k:\n                            q = nxt\n                            k -= bit[nxt]\n                        step >>= 1\n                    j = who[q]\n                    dx = x[i] - x[j]\n                    dy = y[i] - y[j]\n                    if dx < dy:\n                        break\n                    costs.append(dx + dy)\n                    first.append(i)\n                    second.append(j)\n                    q += 1\n                    while q <= size:\n                        bit[q] -= 1\n                        q += q & -q\n                    count -= 1\n                who[p] = i\n                q = p + 1\n                while q <= size:\n                    bit[q] += 1\n                    q += q & -q\n            x, y = y, x\n        x = [-value for value in x]\n    parent = [-1] * n\n    answer = []\n    cost = 0\n    for e in sorted(range(len(costs)), key=costs.__getitem__):\n        a, b = first[e], second[e]\n        u, v = a, b\n        while parent[u] >= 0:\n            if parent[parent[u]] >= 0:\n                parent[u] = parent[parent[u]]\n            u = parent[u]\n        while parent[v] >= 0:\n            if parent[parent[v]] >= 0:\n                parent[v] = parent[parent[v]]\n            v = parent[v]\n        if u == v:\n            continue\n        if parent[u] > parent[v]:\n            u, v = v, u\n        parent[u] += parent[v]\n        parent[v] = u\n        cost += costs[e]\n        answer.append((a, b))\n        if len(answer) == n - 1:\n            break\n    return cost, answer\n",
+      "bundledDependencies": [],
       "counts": {
         "functions": 5,
         "classes": 0,
@@ -40080,83 +40247,112 @@
           "name": "minimum_spanning_forest",
           "kind": "function",
           "signature": "minimum_spanning_forest(n, edges)",
-          "summary": "最小全域森を求める。",
-          "description": "最小全域森を求める。",
+          "summary": "各連結成分を最小費用でつなぐ辺集合と、連結成分数を求める。",
+          "description": "各連結成分を最小費用でつなぐ辺集合と、連結成分数を求める。",
           "searchTerms": [
             "minimum_spanning_forest",
             "minimum spanning forest",
             "minimum_spanning_forest(n, edges)"
           ],
-          "arguments": "n: 要素数・頂点数・次数 · edges: 辺のiterable/list",
+          "arguments": "n: 非負の頂点数。 · edges: 無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。",
           "argumentDetails": [
             {
               "name": "n",
-              "description": "要素数・頂点数・次数"
+              "description": "非負の頂点数。"
             },
             {
               "name": "edges",
-              "description": "辺の反復可能オブジェクト/list"
+              "description": "無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。"
             }
           ],
-          "returns": "tuple — 求めた最小全域森。",
-          "returnFormat": "tuple",
-          "returnDescription": "求めた最小全域森。",
-          "complexity": "O(Elog E)",
-          "sourceLine": 1
+          "returns": "tuple[number, list[int], int] — (cost, edge_ids, components)。空グラフは(0, [], 0)。",
+          "returnFormat": "tuple[number, list[int], int]",
+          "returnDescription": "(cost, edge_ids, components)。空グラフは(0, [], 0)。",
+          "complexity": "O(N+M log(M+1))時間、O(N+M)メモリ",
+          "sourceLine": 1,
+          "returnParts": [
+            {
+              "name": "cost",
+              "format": "number",
+              "description": "選択した辺の重みの合計。"
+            },
+            {
+              "name": "edge_ids",
+              "format": "list[int]",
+              "description": "選択した元のedgesの添字。順序は保証しない。"
+            },
+            {
+              "name": "components",
+              "format": "int",
+              "description": "連結成分の個数。選択した辺数はN-components。"
+            }
+          ]
         },
         {
           "name": "minimum_spanning_tree",
           "kind": "function",
           "signature": "minimum_spanning_tree(n, edges)",
-          "summary": "最小全域木を求める。",
-          "description": "最小全域木を求める。",
+          "summary": "全頂点を最小費用でつなぐ辺集合を求める。",
+          "description": "全頂点を最小費用でつなぐ辺集合を求める。",
           "searchTerms": [
             "minimum_spanning_tree",
             "minimum spanning tree",
             "minimum_spanning_tree(n, edges)"
           ],
-          "arguments": "n: 要素数・頂点数・次数 · edges: 辺のiterable/list",
+          "arguments": "n: 非負の頂点数。 · edges: 無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。",
           "argumentDetails": [
             {
               "name": "n",
-              "description": "要素数・頂点数・次数"
+              "description": "非負の頂点数。"
             },
             {
               "name": "edges",
-              "description": "辺の反復可能オブジェクト/list"
+              "description": "無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。"
             }
           ],
-          "returns": "tuple / None — 求めた最小全域木。",
-          "returnFormat": "tuple / None",
-          "returnDescription": "求めた最小全域木。",
-          "complexity": "O(Elog E)",
-          "sourceLine": 35
+          "returns": "tuple[number, list[int]] | None — 連結なら(cost, edge_ids)、非連結ならNone。空グラフは(0, [])。",
+          "returnFormat": "tuple[number, list[int]] | None",
+          "returnDescription": "連結なら(cost, edge_ids)、非連結ならNone。空グラフは(0, [])。",
+          "complexity": "O(N+M log(M+1))時間、O(N+M)メモリ",
+          "sourceLine": 35,
+          "returnParts": [
+            {
+              "name": "cost",
+              "format": "number",
+              "description": "選択した辺の重みの合計。"
+            },
+            {
+              "name": "edge_ids",
+              "format": "list[int]",
+              "description": "選択した元のedgesの添字。順序は保証しない。"
+            }
+          ]
         },
         {
           "name": "kruskal",
           "kind": "function",
           "signature": "kruskal(n, edges)",
-          "summary": "kruskalを求める。",
-          "description": "kruskalを求める。",
+          "summary": "最小全域森の辺重みの合計だけを求める。",
+          "description": "最小全域森の辺重みの合計だけを求める。",
           "searchTerms": [
             "kruskal",
             "kruskal(n, edges)"
           ],
-          "arguments": "n: 要素数・頂点数・次数 · edges: 辺のiterable/list",
+          "arguments": "n: 非負の頂点数。 · edges: 無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。",
           "argumentDetails": [
             {
               "name": "n",
-              "description": "要素数・頂点数・次数"
+              "description": "非負の頂点数。"
             },
             {
               "name": "edges",
-              "description": "辺の反復可能オブジェクト/list"
+              "description": "無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。"
             }
           ],
-          "returns": "計算結果（入力型に依存） — 求めたkruskal。",
-          "returnFormat": "計算結果（入力型に依存）",
-          "returnDescription": "求めたkruskal。",
-          "complexity": "O(Elog E)",
+          "returns": "number — 各連結成分を最小費用でつないだ辺重みの合計。非連結でも値を返し、空グラフは0。",
+          "returnFormat": "number",
+          "returnDescription": "各連結成分を最小費用でつないだ辺重みの合計。非連結でも値を返し、空グラフは0。",
+          "complexity": "O(N+M log(M+1))時間、O(N+M)メモリ",
           "sourceLine": 42
         },
         {
@@ -40188,32 +40384,76 @@
           "returns": "tuple[number, number, list[int], list[int], int, int] | None — 存在すれば(mst_cost, second_cost, mst_edges, second_edges, added, removed)。edge listは入力edge indexで、second_edgesはmst_edgesからremovedを除きaddedを加えたもの。別treeが存在しなければNone。",
           "returnFormat": "tuple[number, number, list[int], list[int], int, int] | None",
           "returnDescription": "存在すれば(mst_cost, second_cost, mst_edges, second_edges, added, removed)。edge listは入力edge indexで、second_edgesはmst_edgesからremovedを除きaddedを加えたもの。別treeが存在しなければNone。",
-          "complexity": "O((V+E) log V) time、O(V log V + E) memory",
-          "sourceLine": 46
+          "complexity": "O(M log(M+1)+(N+M) log(N+1))時間・O(N log(N+1)+M)メモリ",
+          "sourceLine": 46,
+          "returnParts": [
+            {
+              "name": "mst_cost",
+              "format": "number",
+              "description": "最小全域木の辺重みの合計。"
+            },
+            {
+              "name": "second_cost",
+              "format": "number",
+              "description": "条件を満たす別の全域木の、最小の辺重み合計。"
+            },
+            {
+              "name": "mst_edges",
+              "format": "list[int]",
+              "description": "最小全域木が選んだ入力辺の添字。"
+            },
+            {
+              "name": "second_edges",
+              "format": "list[int]",
+              "description": "別の全域木が選んだ入力辺の添字。昇順。"
+            },
+            {
+              "name": "added",
+              "format": "int",
+              "description": "最小全域木へ追加する入力辺の添字。"
+            },
+            {
+              "name": "removed",
+              "format": "int",
+              "description": "最小全域木から取り除く入力辺の添字。"
+            }
+          ]
         },
         {
           "name": "manhattan_mst",
           "kind": "function",
           "signature": "manhattan_mst(points)",
-          "summary": "manhattan mstを求める。",
-          "description": "manhattan mstを求める。",
+          "summary": "平面上の全点を、マンハッタン距離の合計が最小になるようにつなぐ。",
+          "description": "平面上の全点を、マンハッタン距離の合計が最小になるようにつなぐ。",
           "searchTerms": [
             "manhattan_mst",
             "manhattan mst",
             "manhattan_mst(points)"
           ],
-          "arguments": "points: 評価点の列",
+          "arguments": "points: (x, y)の座標列。同一座標の点も別頂点として扱う。入力は変更しない。",
           "argumentDetails": [
             {
               "name": "points",
-              "description": "評価点の列"
+              "description": "(x, y)の座標列。同一座標の点も別頂点として扱う。入力は変更しない。"
             }
           ],
-          "returns": "tuple — 求めたmanhattan mst。",
-          "returnFormat": "tuple",
-          "returnDescription": "求めたmanhattan mst。",
-          "complexity": "O(N log N)",
-          "sourceLine": 142
+          "returns": "tuple[number, list[tuple[int, int]]] — (cost, pairs)。N>=1では辺数N-1。N=0または1では(0, [])。",
+          "returnFormat": "tuple[number, list[tuple[int, int]]]",
+          "returnDescription": "(cost, pairs)。N>=1では辺数N-1。N=0または1では(0, [])。",
+          "complexity": "O(N log(N+1))時間・O(N)メモリ。hash処理は期待時間、座標の演算・比較をO(1)とする",
+          "sourceLine": 142,
+          "returnParts": [
+            {
+              "name": "cost",
+              "format": "number",
+              "description": "選択した辺のマンハッタン距離の合計。"
+            },
+            {
+              "name": "pairs",
+              "format": "list[tuple[int, int]]",
+              "description": "選んだ辺(u, v)のlist。uとvはpointsの添字。辺の向き・順序・同点の選び方は保証しない。"
+            }
+          ]
         }
       ],
       "classes": []

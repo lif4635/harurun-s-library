@@ -140,62 +140,84 @@ def second_spanning_tree(n, edges, strict=False):
 
 
 def manhattan_mst(points):
-    """Return ``(cost, vertex_pairs)`` of a Manhattan MST in O(N log N)."""
-    from library_codex.ordered_set.TreapSet import TreapSet
-
+    """Return (cost, vertex_pairs) of a Manhattan MST in O(N log N)."""
     n = len(points)
     if n <= 1:
         return 0, []
     x = [point[0] for point in points]
     y = [point[1] for point in points]
     order = list(range(n))
-    candidates = []
-    for outer in range(2):
+    costs = []
+    first = []
+    second = []
+    for _ in range(2):
         for _ in range(2):
             order.sort(key=lambda i: x[i] + y[i])
-            sweep = TreapSet()
-            at_key = {}
+            keys = sorted(set(y))
+            index = {value: i for i, value in enumerate(keys)}
+            size = len(keys)
+            bit = [0] * (size + 1)
+            who = [-1] * size
+            top = 1 << (size.bit_length() - 1)
             for i in order:
-                threshold = -y[i]
-                key = sweep.ge(threshold)
-                while key is not None:
-                    j = at_key[key]
-                    if x[i] - x[j] < y[i] - y[j]:
+                p = index[y[i]]
+                q = p + 1
+                count = 0
+                while q:
+                    count += bit[q]
+                    q &= q - 1
+                while count:
+                    q = 0
+                    step = top
+                    k = count
+                    while step:
+                        nxt = q + step
+                        if nxt <= size and bit[nxt] < k:
+                            q = nxt
+                            k -= bit[nxt]
+                        step >>= 1
+                    j = who[q]
+                    dx = x[i] - x[j]
+                    dy = y[i] - y[j]
+                    if dx < dy:
                         break
-                    candidates.append((
-                        abs(x[i] - x[j]) + abs(y[i] - y[j]), i, j
-                    ))
-                    sweep.discard(key)
-                    key = sweep.ge(threshold)
-                at_key[threshold] = i
-                sweep.add(threshold)
+                    costs.append(dx + dy)
+                    first.append(i)
+                    second.append(j)
+                    q += 1
+                    while q <= size:
+                        bit[q] -= 1
+                        q += q & -q
+                    count -= 1
+                who[p] = i
+                q = p + 1
+                while q <= size:
+                    bit[q] += 1
+                    q += q & -q
             x, y = y, x
         x = [-value for value in x]
     parent = [-1] * n
-
-    def find(v):
-        root = v
-        while parent[root] >= 0:
-            root = parent[root]
-        while v != root:
-            to = parent[v]
-            parent[v] = root
-            v = to
-        return root
-
     answer = []
     cost = 0
-    for weight, first, second in sorted(candidates):
-        u = find(first)
-        v = find(second)
+    for e in sorted(range(len(costs)), key=costs.__getitem__):
+        a, b = first[e], second[e]
+        u, v = a, b
+        while parent[u] >= 0:
+            if parent[parent[u]] >= 0:
+                parent[u] = parent[parent[u]]
+            u = parent[u]
+        while parent[v] >= 0:
+            if parent[parent[v]] >= 0:
+                parent[v] = parent[parent[v]]
+            v = parent[v]
         if u == v:
             continue
         if parent[u] > parent[v]:
             u, v = v, u
         parent[u] += parent[v]
         parent[v] = u
-        cost += weight
-        answer.append((first, second))
+        cost += costs[e]
+        answer.append((a, b))
         if len(answer) == n - 1:
             break
     return cost, answer

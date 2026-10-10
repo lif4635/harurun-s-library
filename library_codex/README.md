@@ -16,10 +16,11 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 955 passed（2026-10-09、グラフ列挙・Steiner木・chordal判定6問題の追加時）。
+- PyPy 全検証: 968 passed（2026-10-10、木分解・st-numbering・マンハッタンMST・最短walk4問題の追加時）。
 - 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
-- 再帰監査: direct/mutual recursion なし（2026-10-09、6093関数）
-- Library Checker公式ケース: 184問題・4339ケース通過、未対応69問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 再帰監査: direct/mutual recursion なし（2026-10-10、6162関数）
+- Library Checker公式ケース: 188問題・4433ケース通過、未対応65問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 木分解・st-numberingの追加と、マンハッタンMST・k本の最短walkの高速化は[検査・比較結果](docs/GRAPH_DECOMPOSITION_BENCHMARK.md)を参照。
 - 彩色数・クリーク・独立集合・C4・Steiner木・chordal判定の6問題は[検査・比較結果](docs/GRAPH_ENUMERATION_BENCHMARK.md)を参照。多重辺C4の修正とSteiner木・chordal判定の軽量化を含む。
 - 添字アクセス付きDequeと、木の最小転倒数・順序復元は[検査・比較結果](docs/DEQUE_TREE_ORDER_BENCHMARK.md)を参照。重み0の塊を含む既存実装の不具合も修正した。
 - 区間代入と巨大配列の3問題、専用のRangeAssignSegTreeは[検査・比較結果](docs/AFFINE_RANGE_BENCHMARK.md)を参照。

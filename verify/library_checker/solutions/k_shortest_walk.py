@@ -1,7 +1,5 @@
 """非負辺重みの有向グラフで、頂点や辺を再訪できるwalkの長さを昇順に求める。"""
-
 from heapq import heappop, heappush
-
 
 def k_shortest_walks(vertex_count, edges, source, target, k):
     """Return up to k walk costs, retaining equal costs with multiplicity."""
@@ -9,17 +7,17 @@ def k_shortest_walks(vertex_count, edges, source, target, k):
         return []
     n = vertex_count
     if not 0 <= source < n or not 0 <= target < n:
-        raise IndexError("source or target is outside the graph")
+        raise IndexError('source or target is outside the graph')
     edge_from = []
     edge_to = []
     weight = []
     start = [0] * (n + 1)
     reverse_start = [0] * (n + 1)
-    for u, v, cost in edges:
+    for (u, v, cost) in edges:
         if not 0 <= u < n or not 0 <= v < n:
-            raise IndexError("an edge endpoint is outside the graph")
+            raise IndexError('an edge endpoint is outside the graph')
         if cost < 0:
-            raise ValueError("edge weights must be nonnegative")
+            raise ValueError('edge weights must be nonnegative')
         edge_from.append(u)
         edge_to.append(v)
         weight.append(cost)
@@ -34,19 +32,19 @@ def k_shortest_walks(vertex_count, edges, source, target, k):
     cursor = start[:-1]
     reverse_cursor = reverse_start[:-1]
     for e in range(m):
-        u, v = edge_from[e], edge_to[e]
+        (u, v) = (edge_from[e], edge_to[e])
         forward[cursor[u]] = e
         reverse[reverse_cursor[v]] = e
         cursor[u] += 1
         reverse_cursor[v] += 1
-    inf = float("inf")
+    inf = float('inf')
     distance = [inf] * n
     tree_edge = [-1] * n
     distance[target] = 0
     queue = [(0, target)]
     order = []
     while queue:
-        dist, v = heappop(queue)
+        (dist, v) = heappop(queue)
         if distance[v] != dist:
             continue
         order.append(v)
@@ -74,15 +72,15 @@ def k_shortest_walks(vertex_count, edges, source, target, k):
         path = []
         while a and b:
             if key[b] < key[a]:
-                a, b = b, a
+                (a, b) = (b, a)
             path.append(a)
             a = right[a]
         root = a or b
         while path:
             node = path.pop()
-            l, r = left[node], root
+            (l, r) = (left[node], root)
             if rank[l] < rank[r]:
-                l, r = r, l
+                (l, r) = (r, l)
             if persistent:
                 key.append(key[node])
                 destination.append(destination[node])
@@ -96,7 +94,6 @@ def k_shortest_walks(vertex_count, edges, source, target, k):
                 rank[node] = rank[r] + 1
                 root = node
         return root
-
     for v in order:
         root = 0
         chosen = tree_edge[v]
@@ -119,7 +116,7 @@ def k_shortest_walks(vertex_count, edges, source, target, k):
     root = roots[source]
     candidates = [(answer[0] + key[root], root)] if root else []
     while candidates and len(answer) < k:
-        cost, node = heappop(candidates)
+        (cost, node) = heappop(candidates)
         answer.append(cost)
         base = cost - key[node]
         child = left[node]
@@ -132,3 +129,9 @@ def k_shortest_walks(vertex_count, edges, source, target, k):
         if root:
             heappush(candidates, (cost + key[root], root))
     return answer
+import sys
+read = sys.stdin.buffer.readline
+(n, m, source, target, k) = map(int, read().split())
+edges = [tuple(map(int, read().split())) for _ in range(m)]
+answer = k_shortest_walks(n, edges, source, target, k)
+sys.stdout.write('\n'.join(map(str, answer + [-1] * (k - len(answer)))) + '\n')

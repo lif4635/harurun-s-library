@@ -9,7 +9,9 @@ Kruskal最小全域森・最小全域木（辺ID付き）。
 
 ## できること
 
-- 最小全域木と辺集合が異なる次善の全域木を復元し、同costを許す場合と真に大きいcostだけの場合を選べる。
+- 重み付き無向グラフの最小全域木・最小全域森を、元の辺番号付きで求める。
+- 平面上の点のマンハッタンMSTを、全点対の辺を作らずに求める。
+- 最小全域木と辺集合が異なる木も復元できる。
 
 ## Import
 
@@ -27,8 +29,8 @@ from library_codex.graph_spanning.MinimumSpanningTree import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`minimum_spanning_forest(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L1) | 最小全域forestを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`（int）, `selected`（list）, 連結成分情報) | — |
-| [`minimum_spanning_tree(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L35) | 最小全域木を求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | tuple(`cost`, `selected`) / `None` | — |
-| [`kruskal(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L42) | kruskalを求める。 | `n`: 要素数・頂点数・次数<br>`edges`: 辺のiterable/list | `minimum_spanning_forest(n, edges)[0]` | — |
-| [`second_spanning_tree(n, edges, strict=False)`](../../../graph_spanning/MinimumSpanningTree.py#L46) | Kruskalで得たMSTから1辺を交換し、辺集合が異なる最小costの全域木を求める。 | `n`: 頂点数。<br>`edges`: (first, second, weight)を並べた無向辺列。<br>`strict`: FalseならMSTと同costの別treeも許す。TrueならcostがMSTより真に大きいtreeだけを対象にする。省略時: `False` | tuple[number, number, list[int], list[int], int, int] \| None — 存在すれば(mst_cost, second_cost, mst_edges, second_edges, added, removed)。edge listは入力edge indexで、second_edgesはmst_edgesからremovedを除きaddedを加えたもの。別treeが存在しなければNone。 | O((V+E) log V) time、O(V log V + E) memory |
-| [`manhattan_mst(points)`](../../../graph_spanning/MinimumSpanningTree.py#L142) | manhattan mstを求める。 | `points`: 評価点の列 | tuple(`0`, list `[]`) / tuple(`cost`（int）, 答え（list）) | O(N log N) |
+| [`minimum_spanning_forest(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L1) | 各連結成分を最小費用でつなぐ辺集合と、連結成分数を求める。 | `n`: 非負の頂点数。<br>`edges`: 無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。 | tuple[number, list[int], int] — (cost, edge_ids, components)。空グラフは(0, [], 0)。 | O(N+M log(M+1))時間、O(N+M)メモリ |
+| [`minimum_spanning_tree(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L35) | 全頂点を最小費用でつなぐ辺集合を求める。 | `n`: 非負の頂点数。<br>`edges`: 無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。 | tuple[number, list[int]] \| None — 連結なら(cost, edge_ids)、非連結ならNone。空グラフは(0, [])。 | O(N+M log(M+1))時間、O(N+M)メモリ |
+| [`kruskal(n, edges)`](../../../graph_spanning/MinimumSpanningTree.py#L42) | 最小全域森の辺重みの合計だけを求める。 | `n`: 非負の頂点数。<br>`edges`: 無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。 | number — 各連結成分を最小費用でつないだ辺重みの合計。非連結でも値を返し、空グラフは0。 | O(N+M log(M+1))時間、O(N+M)メモリ |
+| [`second_spanning_tree(n, edges, strict=False)`](../../../graph_spanning/MinimumSpanningTree.py#L46) | Kruskalで得たMSTから1辺を交換し、辺集合が異なる最小costの全域木を求める。 | `n`: 頂点数。<br>`edges`: (first, second, weight)を並べた無向辺列。<br>`strict`: FalseならMSTと同costの別treeも許す。TrueならcostがMSTより真に大きいtreeだけを対象にする。省略時: `False` | tuple[number, number, list[int], list[int], int, int] \| None — 存在すれば(mst_cost, second_cost, mst_edges, second_edges, added, removed)。edge listは入力edge indexで、second_edgesはmst_edgesからremovedを除きaddedを加えたもの。別treeが存在しなければNone。 | O(M log(M+1)+(N+M) log(N+1))時間・O(N log(N+1)+M)メモリ |
+| [`manhattan_mst(points)`](../../../graph_spanning/MinimumSpanningTree.py#L142) | 平面上の全点を、マンハッタン距離の合計が最小になるようにつなぐ。 | `points`: (x, y)の座標列。同一座標の点も別頂点として扱う。入力は変更しない。 | tuple[number, list[tuple[int, int]]] — (cost, pairs)。N>=1では辺数N-1。N=0または1では(0, [])。 | O(N log(N+1))時間・O(N)メモリ。hash処理は期待時間、座標の演算・比較をO(1)とする |

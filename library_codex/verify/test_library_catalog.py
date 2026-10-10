@@ -297,6 +297,29 @@ def test_catalog_graph_enumeration_and_steiner_articles():
     assert [part["name"] for part in symbol["returnParts"]] == ["cost", "edge_ids"]
 
 
+def test_catalog_decomposition_spanning_and_walk_articles():
+    data = load_catalog()
+    paths = ("graph_connectivity.TreeDecompositionWidth2", "graph_connectivity.STNumbering",
+             "graph_spanning.MinimumSpanningTree", "shortest_path.KShortestWalks")
+    for path in paths:
+        module = module_by_path(data, "library_codex." + path)
+        examples = re.findall(r"```python\n(.*?)\n```", module["article"]["markdown"], re.S)
+        assert examples
+        namespace = {}
+        exec(module["standaloneCode"], namespace)
+        for example in examples:
+            exec(compile(example, path + ".md", "exec"), {})
+            body = "\n".join(line for line in example.splitlines() if not line.startswith("from library_codex."))
+            exec(compile(body, path + "-standalone.md", "exec"), namespace)
+        assert all(symbol["name"] and symbol["complexity"] for symbol in module["functions"])
+    module = module_by_path(data, "library_codex.graph_connectivity.TreeDecompositionWidth2")
+    assert [part["name"] for part in module["functions"][0]["returnParts"]] == ["bags", "parent"]
+    module = module_by_path(data, "library_codex.graph_spanning.MinimumSpanningTree")
+    symbols = {symbol["name"]: symbol for symbol in module["functions"]}
+    assert [part["name"] for part in symbols["manhattan_mst"]["returnParts"]] == ["cost", "pairs"]
+    assert len(symbols["second_spanning_tree"]["returnParts"]) == 6
+
+
 def test_catalog_deque_and_tree_order_articles():
     data = load_catalog()
     for path in ("sequence_structure.Deque", "tree.ZeroOneTree"):

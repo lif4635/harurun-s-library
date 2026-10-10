@@ -137,7 +137,6 @@ graph_matching/StableRoommates
 graph_spanning/GraphOrdering
 graph_spanning/MergeTree
 graph_spanning/MinimumCostArborescence
-graph_spanning/MinimumSpanningTree
 heuristic/LogTable
 heuristic/MultiArmedBandit
 heuristic/SimulatedAnnealing
@@ -244,7 +243,6 @@ shortest_path/Dijkstra
 shortest_path/DijkstraRadixHeap
 shortest_path/GridBFS
 shortest_path/KShortestPaths
-shortest_path/KShortestWalks
 shortest_path/Top2Dijkstra
 shortest_path/WarshallFloyd
 shortest_path/ZeroOneBFS

@@ -8,32 +8,6 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT.parent))
 
 from library_codex.sequence_structure.SkewHeap import SkewHeap  # noqa: E402
-from library_codex.graph_spanning.MinimumSpanningTree import (  # noqa: E402
-    manhattan_mst,
-    minimum_spanning_tree,
-)
-
-
-def test_manhattan_mst_against_complete_graph_kruskal():
-    rng = random.Random(130)
-    for n in range(1, 80):
-        for _ in range(100):
-            points = [(rng.randrange(-100, 101), rng.randrange(-100, 101))
-                      for _ in range(n)]
-            complete = [
-                (u, v, abs(points[u][0] - points[v][0])
-                 + abs(points[u][1] - points[v][1]))
-                for u in range(n) for v in range(u + 1, n)
-            ]
-            expected, _ = minimum_spanning_tree(n, complete)
-            value, edges = manhattan_mst(points)
-            assert value == expected
-            assert len(edges) == n - 1
-            assert value == sum(abs(points[u][0] - points[v][0])
-                                + abs(points[u][1] - points[v][1])
-                                for u, v in edges)
-
-
 def test_skew_heap_meld_lazy_and_deep_nonrecursive():
     rng = random.Random(132)
     heap = SkewHeap()

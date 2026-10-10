@@ -1,0 +1,164 @@
+{
+  "problem": "tree_decomposition_width_2",
+  "status": "local_passed",
+  "verificationKey": "761d61b74cd50c0bc0f941abf7813ff249b89b4c7e18130c359200c2ce4f1806",
+  "sourceSha256": "4d3230f405ccf12c8cdeb101bb0d3f7cba7887d040743c27c13335f43c18c057",
+  "modules": [
+    "library_codex.graph_connectivity.TreeDecompositionWidth2"
+  ],
+  "problemVersion": "125cbdaa4037c9e4f530596f405d9ad2795a175fa6535820a815bc31cd892dd3",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 24,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.052907485980540514,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05131413403432816,
+      "diagnostic": "ok OK not found\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.05528960004448891,
+      "diagnostic": "ok OK not found\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.05305344401858747,
+      "diagnostic": "ok OK not found\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.05279427592176944,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.05597243690863252,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "small_random_04",
+      "status": "AC",
+      "seconds": 0.05390872491989285,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "max_cycle_00",
+      "status": "AC",
+      "seconds": 2.2794675229815766,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "max_parallel_00",
+      "status": "AC",
+      "seconds": 1.0865112249739468,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "max_sparse_random_00",
+      "status": "AC",
+      "seconds": 1.4421372190117836,
+      "diagnostic": "ok OK not found\n"
+    },
+    {
+      "name": "max_sparse_random_01",
+      "status": "AC",
+      "seconds": 1.5028846330242231,
+      "diagnostic": "ok OK not found\n"
+    },
+    {
+      "name": "max_sparse_random_02",
+      "status": "AC",
+      "seconds": 1.3917924229754135,
+      "diagnostic": "ok OK not found\n"
+    },
+    {
+      "name": "cactus_00",
+      "status": "AC",
+      "seconds": 1.7080171760171652,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "cactus_01",
+      "status": "AC",
+      "seconds": 2.137377267004922,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "outer_planer_00",
+      "status": "AC",
+      "seconds": 0.9932944690808654,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "outer_planer_01",
+      "status": "AC",
+      "seconds": 1.0720024789916351,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "outer_planer_fix_00",
+      "status": "AC",
+      "seconds": 1.864262840943411,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "outer_planer_fix_01",
+      "status": "AC",
+      "seconds": 2.243655906058848,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "series_parallel_00",
+      "status": "AC",
+      "seconds": 1.216604841989465,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "series_parallel_01",
+      "status": "AC",
+      "seconds": 1.238244376028888,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "many_series_parallel_00",
+      "status": "AC",
+      "seconds": 1.5736463739303872,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "many_series_parallel_01",
+      "status": "AC",
+      "seconds": 1.748226462979801,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "tree_00",
+      "status": "AC",
+      "seconds": 1.9241325340699404,
+      "diagnostic": "ok OK found\n"
+    },
+    {
+      "name": "tree_01",
+      "status": "AC",
+      "seconds": 1.8630916649708524,
+      "diagnostic": "ok OK found\n"
+    }
+  ],
+  "verifiedAt": "2026-10-10T07:27:04.548751+00:00",
+  "onlineSubmission": null
+}

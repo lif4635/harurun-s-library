@@ -184,6 +184,10 @@ def test_solution_is_standalone(name):
     ("closest_pair", "2\n3\n2 2\n2 2\n9 9\n3\n0 0\n10 0\n11 0\n", "0 1 1 2"),
     ("furthest_pair", "2\n3\n2 2\n2 2\n2 2\n3\n0 0\n10 0\n11 0\n", "0 1 0 2"),
     ("many_aplusb", "2\n0 0\n1000000000000000000 1000000000000000000\n", "0 2000000000000000000"),
+    ("tree_decomposition_width_2", "p tw 1 0\n", "s td 1 2 1 b 1 1"),
+    ("st_numbering", "2\n3 2 0 2\n0 1\n1 2\n3 2 0 1\n0 1\n1 2\n", "Yes 0 1 2 No"),
+    ("manhattanmst", "1\n-100 200\n", "0"),
+    ("k_shortest_walk", "2 2 0 1 4\n0 1 3\n1 1 2\n", "3 5 7 9"),
     ("many_aplusb_128bit", "2\n-10000000000000000000000000000000000000 1\n-7 7\n", "-9999999999999999999999999999999999999 0"),
 ])
 def test_driver_input_output_contracts(tmp_path, name, data, expected):

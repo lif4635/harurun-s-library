@@ -210,8 +210,8 @@ def manhattan_mst(points):
     return (cost, answer)
 import sys
 read = sys.stdin.buffer.readline
-(n, m) = map(int, read().split())
-edges = [tuple(map(int, read().split())) for _ in range(m)]
-(cost, selected) = minimum_spanning_tree(n, edges)
+n = int(read())
+points = [tuple(map(int, read().split())) for _ in range(n)]
+(cost, pairs) = manhattan_mst(points)
 print(cost)
-print(*selected)
+sys.stdout.write('\n'.join((f'{u} {v}' for (u, v) in pairs)) + '\n')

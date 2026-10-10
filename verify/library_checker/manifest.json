@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 184,
-    "unimplemented": 69
+    "local_passed": 188,
+    "unimplemented": 65
   },
   "problems": [
     {
@@ -1201,10 +1201,12 @@
       "title": "K-Shortest Walk",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/k_shortest_walk",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.shortest_path.KShortestWalks"
+      ],
+      "solution": "solutions/k_shortest_walk.py",
+      "result": "results/k_shortest_walk.json"
     },
     {
       "name": "kth_root_integer",
@@ -1375,10 +1377,12 @@
       "title": "Manhattan MST",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/manhattanmst",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_spanning.MinimumSpanningTree"
+      ],
+      "solution": "solutions/manhattanmst.py",
+      "result": "results/manhattanmst.json"
     },
     {
       "name": "many_aplusb",
@@ -1592,7 +1596,6 @@
       "url": "https://judge.yosupo.jp/problem/minimum_spanning_tree",
       "status": "local_passed",
       "modules": [
-        "library_codex.ordered_set.TreapSet",
         "library_codex.graph_spanning.MinimumSpanningTree"
       ],
       "solution": "solutions/minimum_spanning_tree.py",
@@ -2509,10 +2512,12 @@
       "title": "st-Numbering",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/st_numbering",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.STNumbering"
+      ],
+      "solution": "solutions/st_numbering.py",
+      "result": "results/st_numbering.json"
     },
     {
       "name": "static_convex_hull",
@@ -2866,10 +2871,12 @@
       "title": "Tree Decomposition (Width 2)",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/tree_decomposition_width_2",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.TreeDecompositionWidth2"
+      ],
+      "solution": "solutions/tree_decomposition_width_2.py",
+      "result": "results/tree_decomposition_width_2.json"
     },
     {
       "name": "tree_diameter",

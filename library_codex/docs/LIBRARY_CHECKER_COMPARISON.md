@@ -1,5 +1,7 @@
 # Library Checkerとの速度比較
 
+2026-10-10の木分解・st-numbering・マンハッタンMST・k本の最短walkの4問題は[検査・比較記録](GRAPH_DECOMPOSITION_BENCHMARK.md)へまとめた。
+
 2026-10-05の行列7問題と、行列積・行列累乗の高速化は[行列の比較記録](MATRIX_ALGORITHMS_BENCHMARK.md)へまとめた。
 
 2026-10-05のグラフ7問題と重み付き一般マッチング・辺追加SCCの高速化は[グラフの比較記録](GRAPH_ALGORITHMS_BENCHMARK.md)へまとめた。

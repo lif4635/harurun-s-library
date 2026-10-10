@@ -48,11 +48,13 @@
 | [inv_of_polynomials](inv_of_polynomials.json) | 3 / 18 | 5 | 3.604 | 121.9 | 一致 |
 | [inverse_matrix](inverse_matrix.json) | 3 / 26 | 5 | 1.140 | 82.3 | 一致 |
 | [inverse_matrix_mod_2](inverse_matrix_mod_2.json) | 3 / 37 | 5 | 2.268 | 152.8 | 一致 |
+| [k_shortest_walk](k_shortest_walk.json) | 3 / 26 | 5 | 1.448 | 195.5 | 一致 |
 | [lcm_convolution](lcm_convolution.json) | 3 / 29 | 5 | 0.590 | 263.6 | 一致 |
 | [log_of_formal_power_series_sparse](log_of_formal_power_series_sparse.json) | 3 / 24 | 5 | 0.301 | 140.1 | 一致 |
 | [log_of_set_power_series](log_of_set_power_series.json) | 3 / 12 | 5 | 5.285 | 379.7 | 一致 |
 | [longest_increasing_subsequence](longest_increasing_subsequence.json) | 3 / 19 | 5 | 0.256 | 118.3 | 一致 |
 | [lyndon_factorization](lyndon_factorization.json) | 3 / 23 | 5 | 0.175 | 107.6 | 一致 |
+| [manhattanmst](manhattanmst.json) | 3 / 16 | 5 | 3.376 | 232.9 | 一致 |
 | [many_aplusb](many_aplusb.json) | 3 / 9 | 5 | 0.472 | 89.3 | 一致 |
 | [many_aplusb_128bit](many_aplusb_128bit.json) | 3 / 10 | 5 | 0.691 | 88.9 | 一致 |
 | [matrix_det](matrix_det.json) | 3 / 25 | 5 | 0.345 | 64.3 | 一致 |
@@ -64,6 +66,7 @@
 | [matrix_rank_mod_2](matrix_rank_mod_2.json) | 3 / 35 | 5 | 1.501 | 315.6 | 一致 |
 | [maximum_independent_set](maximum_independent_set.json) | 3 / 16 | 5 | 0.110 | 59.1 | 一致 |
 | [min_of_mod_of_linear](min_of_mod_of_linear.json) | 3 / 17 | 5 | 0.140 | 64.4 | 一致 |
+| [minimum_spanning_tree](minimum_spanning_tree.json) | 3 / 31 | 5 | 1.637 | 200.0 | 一致 |
 | [minimum_steiner_tree](minimum_steiner_tree.json) | 3 / 24 | 5 | 0.441 | 67.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |
 | [multipoint_evaluation_on_geometric_sequence](multipoint_evaluation_on_geometric_sequence.json) | 3 / 25 | 5 | 0.572 | 161.1 | 一致 |
@@ -97,6 +100,7 @@
 | [sort_points_by_argument](sort_points_by_argument.json) | 3 / 21 | 5 | 1.240 | 108.3 | 一致 |
 | [sparse_matrix_det](sparse_matrix_det.json) | 3 / 24 | 5 | 2.523 | 93.1 | 一致 |
 | [sqrt_of_formal_power_series_sparse](sqrt_of_formal_power_series_sparse.json) | 3 / 45 | 5 | 0.277 | 142.3 | 一致 |
+| [st_numbering](st_numbering.json) | 3 / 28 | 5 | 0.545 | 110.5 | 一致 |
 | [static_convex_hull](static_convex_hull.json) | 3 / 25 | 5 | 2.111 | 196.6 | 一致 |
 | [static_range_lis_query](static_range_lis_query.json) | 3 / 15 | 5 | 3.512 | 129.7 | 一致 |
 | [static_range_mode_query](static_range_mode_query.json) | 3 / 11 | 5 | 1.286 | 113.7 | 一致 |
@@ -110,6 +114,7 @@
 | [system_of_linear_equations](system_of_linear_equations.json) | 3 / 27 | 5 | 0.508 | 66.6 | 一致 |
 | [system_of_linear_equations_mod_2](system_of_linear_equations_mod_2.json) | 3 / 36 | 5 | 1.393 | 105.7 | 一致 |
 | [three_edge_connected_components](three_edge_connected_components.json) | 3 / 20 | 5 | 0.833 | 149.2 | 一致 |
+| [tree_decomposition_width_2](tree_decomposition_width_2.json) | 3 / 24 | 5 | 2.636 | 372.3 | 一致 |
 | [two_square_sum](two_square_sum.json) | 3 / 38 | 5 | 0.541 | 105.3 | 一致 |
 | [unionfind_with_potential](unionfind_with_potential.json) | 3 / 18 | 5 | 0.288 | 81.1 | 一致 |
 | [unionfind_with_potential_non_commutative_group](unionfind_with_potential_non_commutative_group.json) | 3 / 18 | 5 | 0.535 | 95.7 | 一致 |

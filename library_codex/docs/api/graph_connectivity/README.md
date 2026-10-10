@@ -20,5 +20,7 @@
 | [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md) | 辺追加削除・連結性・成分和のオフライン処理 | 0 | 1 | 10 |
 | [`OnlineDynamicConnectivity`](OnlineDynamicConnectivity.md) | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | 0 | 1 | 4 |
 | [`Reachability`](Reachability.md) | 有向グラフ上の複数の到達可能性queryをまとめて判定する。 | 1 | 0 | 0 |
+| [`STNumbering`](STNumbering.md) | 無向グラフを、指定した始点から終点へ全頂点を通れる向きに並べる。 | 1 | 0 | 0 |
 | [`StronglyConnectedComponents`](StronglyConnectedComponents.md) | 反復Kosaraju・縮約DAG | 2 | 1 | 2 |
+| [`TreeDecompositionWidth2`](TreeDecompositionWidth2.md) | 木幅2以下かを判定し、頂点集合と親配列で木分解を返す。 | 1 | 0 | 0 |
 | [`TwoEdgeConnectedComponents`](TwoEdgeConnectedComponents.md) | 二辺連結成分・橋森・辺の成分対応 | 1 | 1 | 6 |

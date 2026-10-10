@@ -2665,6 +2665,14 @@ API_DETAILS_BY_SYMBOL.update({
         "argumentDescriptions": {"n": "頂点数。", "edges": "(first, second, weight)を並べた無向辺列。", "strict": "FalseならMSTと同costの別treeも許す。TrueならcostがMSTより真に大きいtreeだけを対象にする。"},
         "returnFormat": "tuple[number, number, list[int], list[int], int, int] | None",
         "returnDescription": "存在すれば(mst_cost, second_cost, mst_edges, second_edges, added, removed)。edge listは入力edge indexで、second_edgesはmst_edgesからremovedを除きaddedを加えたもの。別treeが存在しなければNone。",
+        "returnParts": [
+            {"name": "mst_cost", "format": "number", "description": "最小全域木の辺重みの合計。"},
+            {"name": "second_cost", "format": "number", "description": "条件を満たす別の全域木の、最小の辺重み合計。"},
+            {"name": "mst_edges", "format": "list[int]", "description": "最小全域木が選んだ入力辺の添字。"},
+            {"name": "second_edges", "format": "list[int]", "description": "別の全域木が選んだ入力辺の添字。昇順。"},
+            {"name": "added", "format": "int", "description": "最小全域木へ追加する入力辺の添字。"},
+            {"name": "removed", "format": "int", "description": "最小全域木から取り除く入力辺の添字。"},
+        ],
     },
     ("graph_flow/MaxFlow.py", None, "feasible_circulation"): {
         "description": "各有向辺のlower/upper境界と全頂点のflow保存則を満たすcirculationを構成する。",
@@ -7134,4 +7142,67 @@ SEARCH_TERMS_BY_MODULE.update({
     "graph_enumeration/CountC4PerEdge.py": ("4-cycle", "四角形", "長さ4の閉路"),
     "graph_spanning/MinimumSteinerTree.py": ("シュタイナー木", "指定頂点を結ぶ"),
     "graph_enumeration/GraphProperties.py": ("弦グラフ", "誘導閉路", "完全除去順序"),
+})
+
+MODULE_CAPABILITIES.update({
+    "graph_connectivity/TreeDecompositionWidth2.py": ("木幅2以下かを判定し、最大3頂点の集合と、その集合をつなぐ木の親配列を返す。", "非連結グラフや孤立頂点も、一つの木分解にまとめる。"),
+    "graph_connectivity/STNumbering.py": ("始点を最初、終点を最後にし、各内部頂点が前後の両方に隣接先を持つ順位を付ける。", "順位の小さい側から辺を向けると、各頂点を含む始点から終点へのパスが存在する。"),
+    "graph_spanning/MinimumSpanningTree.py": ("重み付き無向グラフの最小全域木・最小全域森を、元の辺番号付きで求める。", "平面上の点のマンハッタンMSTを、全点対の辺を作らずに求める。", "最小全域木と辺集合が異なる木も復元できる。"),
+})
+SEARCH_TERMS_BY_MODULE.update({
+    "graph_connectivity/TreeDecompositionWidth2.py": ("木分解", "木幅2", "部分2木"),
+    "graph_connectivity/STNumbering.py": ("双極向き付け", "bipolar orientation", "st順序"),
+})
+API_DETAILS_BY_SYMBOL[("graph_connectivity/TreeDecompositionWidth2.py", None, "tree_decomposition_width2")] = {
+    "description": "各辺の両端を同じ集合に含め、同じ頂点を含む集合が木の上で連結になる、幅2以下の木分解を作る。",
+    "argumentDescriptions": {"n": "非負の頂点数。", "edges": "無向辺(u, v)のiterable。平行辺を一本にまとめ、自己辺は無視する。入力は変更しない。"},
+    "returnFormat": "tuple[list[list[int]], list[int]] | None",
+    "returnDescription": "成立時は(bags, parent)。両方長さN。不可能ならNone。N=0なら([], [])。",
+    "returnParts": [
+        {"name": "bags", "format": "list[list[int]]", "description": "bags[i]は分解側の頂点iが持つ、元の頂点番号のlist。各集合の大きさは1〜3。孤立頂点も含む。"},
+        {"name": "parent", "format": "list[int]", "description": "parent[i]は分解側の親番号。根N-1は-1、それ以外はiより大きい番号。非連結な入力でも一つの木になる。"},
+    ],
+}
+API_DETAILS_BY_SYMBOL[("graph_connectivity/STNumbering.py", None, "st_numbering")] = {
+    "description": "sourceからtargetへの有向パスが各頂点を通るように、無向辺を順位の小さい側から向けるための順位列を求める。",
+    "argumentDescriptions": {"graph": "対称な無向隣接list、またはdirected=FalseのCSRGraph。多重辺・自己辺は可。入力は変更しない。", "source": "順位を0にする頂点。", "target": "順位をN-1にする頂点。"},
+    "returnFormat": "list[int] | None",
+    "returnDescription": "rank[v]が頂点vの順位となる長さNの順列。内部頂点には必ず順位の小さい隣接先と大きい隣接先がある。成立しなければNone。N=1は[0]、N>=2かつsource=targetはNone。",
+}
+COMPLEXITY_BY_MODULE.update({
+    "graph_connectivity/TreeDecompositionWidth2.py": {"tree_decomposition_width2": "期待O(N+M)時間・O(N+M)メモリ。hash処理を期待O(1)とする"},
+    "graph_connectivity/STNumbering.py": {"st_numbering": "O(N+M)時間・O(N+M)追加メモリ。CSRGraph入力ではO(N)追加メモリ"},
+    "shortest_path/KShortestWalks.py": {"k_shortest_walks": "O((N+M) log(N+M+2) + K log(K+1))時間、O(N+M+N log(M+2)+K)メモリ。整数演算・比較をO(1)とする"},
+})
+for _name, _description, _format, _returns in (
+    ("minimum_spanning_forest", "各連結成分を最小費用でつなぐ辺集合と、連結成分数を求める。", "tuple[number, list[int], int]", "(cost, edge_ids, components)。空グラフは(0, [], 0)。"),
+    ("minimum_spanning_tree", "全頂点を最小費用でつなぐ辺集合を求める。", "tuple[number, list[int]] | None", "連結なら(cost, edge_ids)、非連結ならNone。空グラフは(0, [])。"),
+    ("kruskal", "最小全域森の辺重みの合計だけを求める。", "number", "各連結成分を最小費用でつないだ辺重みの合計。非連結でも値を返し、空グラフは0。"),
+):
+    _details = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+        "argumentDescriptions": {"n": "非負の頂点数。", "edges": "無向辺(u, v, weight)のiterable。並び順が辺番号。負の重み・多重辺は可。自己辺は選ばない。入力は変更しない。"},
+    }
+    if _name != "kruskal":
+        _details["returnParts"] = [
+            {"name": "cost", "format": "number", "description": "選択した辺の重みの合計。"},
+            {"name": "edge_ids", "format": "list[int]", "description": "選択した元のedgesの添字。順序は保証しない。"},
+        ]
+        if _name == "minimum_spanning_forest":
+            _details["returnParts"].append({"name": "components", "format": "int", "description": "連結成分の個数。選択した辺数はN-components。"})
+    API_DETAILS_BY_SYMBOL[("graph_spanning/MinimumSpanningTree.py", None, _name)] = _details
+    COMPLEXITY_BY_MODULE["graph_spanning/MinimumSpanningTree.py"][_name] = "O(N+M log(M+1))時間、O(N+M)メモリ"
+API_DETAILS_BY_SYMBOL[("graph_spanning/MinimumSpanningTree.py", None, "manhattan_mst")] = {
+    "description": "平面上の全点を、マンハッタン距離の合計が最小になるようにつなぐ。",
+    "argumentDescriptions": {"points": "(x, y)の座標列。同一座標の点も別頂点として扱う。入力は変更しない。"},
+    "returnFormat": "tuple[number, list[tuple[int, int]]]",
+    "returnDescription": "(cost, pairs)。N>=1では辺数N-1。N=0または1では(0, [])。",
+    "returnParts": [
+        {"name": "cost", "format": "number", "description": "選択した辺のマンハッタン距離の合計。"},
+        {"name": "pairs", "format": "list[tuple[int, int]]", "description": "選んだ辺(u, v)のlist。uとvはpointsの添字。辺の向き・順序・同点の選び方は保証しない。"},
+    ],
+}
+COMPLEXITY_BY_MODULE["graph_spanning/MinimumSpanningTree.py"].update({
+    "manhattan_mst": "O(N log(N+1))時間・O(N)メモリ。hash処理は期待時間、座標の演算・比較をO(1)とする",
+    "second_spanning_tree": "O(M log(M+1)+(N+M) log(N+1))時間・O(N log(N+1)+M)メモリ",
 })

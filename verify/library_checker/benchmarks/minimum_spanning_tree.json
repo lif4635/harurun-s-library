@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "problem": "minimum_spanning_tree",
+  "measuredAt": "2026-10-10T07:42:37.525526+00:00",
+  "environment": {
+    "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+    "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "cpu": "AMD Ryzen 7 3700X 8-Core Processor",
+    "machine": "x86_64"
+  },
+  "sourceSha256": "f71b9b0f556cb49a197bbed249e9d9e370c152300725a64983c89a66d2703ad6",
+  "modules": [
+    "library_codex.graph_spanning.MinimumSpanningTree"
+  ],
+  "problemVersion": "1b2a188d3440e8cfdcd88a4e96b48413649341b41e725357001a7a797665a41a",
+  "officialHashSha256": "6c693e799e81e573c2b4fb65cf02498da16eecb1e2a5cbb8d179a445ad4bd84c",
+  "checkerSha256": "a0aa86f0fd315d3ecc252c822035f4c974ca2490a5abc26347730af98da6446f",
+  "verificationSha256": "461c96fecf594d4acc52d5c7de66d330b365750364fe31ab89281881ee685499",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "repeat": 5,
+  "seed": 92471,
+  "officialCases": 31,
+  "selection": "slowest cases in preceding full verification",
+  "selectedCases": [
+    "max_random_02",
+    "max_random_01",
+    "max_random_04"
+  ],
+  "timeLimitSeconds": 5.0,
+  "protocol": "sequential fresh PyPy processes; startup, JIT and I/O included; shuffled case order; official checker; peak RSS from GNU time; memory limit not enforced",
+  "results": [
+    {
+      "case": "max_random_02",
+      "inputSha256": "e922cddc347c430132015acd94835261383f14d436d16376f68b78903d06b975",
+      "expectedSha256": "a55460cb0b6c90cd3273669f883ae075ae53ccb82a15681f0ca1315ac6941ecd",
+      "samples": [
+        {
+          "seconds": 1.8038807690609246,
+          "peakRssKiB": 201280,
+          "outputSha256": "17f6a8da8187d84a3f6939566818dbf2aa655dac5673d981e7582339a654d987"
+        },
+        {
+          "seconds": 1.7429894639644772,
+          "peakRssKiB": 201208,
+          "outputSha256": "17f6a8da8187d84a3f6939566818dbf2aa655dac5673d981e7582339a654d987"
+        },
+        {
+          "seconds": 1.5325716460356489,
+          "peakRssKiB": 201276,
+          "outputSha256": "17f6a8da8187d84a3f6939566818dbf2aa655dac5673d981e7582339a654d987"
+        },
+        {
+          "seconds": 1.5936627589398995,
+          "peakRssKiB": 201072,
+          "outputSha256": "17f6a8da8187d84a3f6939566818dbf2aa655dac5673d981e7582339a654d987"
+        },
+        {
+          "seconds": 1.6321404909249395,
+          "peakRssKiB": 201276,
+          "outputSha256": "17f6a8da8187d84a3f6939566818dbf2aa655dac5673d981e7582339a654d987"
+        }
+      ],
+      "medianSeconds": 1.6321404909249395,
+      "minSeconds": 1.5325716460356489,
+      "maxSeconds": 1.8038807690609246,
+      "peakRssKiB": 201280
+    },
+    {
+      "case": "max_random_01",
+      "inputSha256": "7923205b114a3b91eeffa3b34ffbf3dd2457f7514876c4919c92fe8af944d4f2",
+      "expectedSha256": "df2845e7acf93627476de3e95535f035085b2293196c44db491cfa7598a2c5be",
+      "samples": [
+        {
+          "seconds": 1.7833699330221862,
+          "peakRssKiB": 204548,
+          "outputSha256": "da551e50ba245b05bf30b9ce85521e811892730181d15605d5b85de496f126df"
+        },
+        {
+          "seconds": 1.619553300901316,
+          "peakRssKiB": 204716,
+          "outputSha256": "da551e50ba245b05bf30b9ce85521e811892730181d15605d5b85de496f126df"
+        },
+        {
+          "seconds": 1.5752672349335626,
+          "peakRssKiB": 204724,
+          "outputSha256": "da551e50ba245b05bf30b9ce85521e811892730181d15605d5b85de496f126df"
+        },
+        {
+          "seconds": 1.6374884539982304,
+          "peakRssKiB": 204736,
+          "outputSha256": "da551e50ba245b05bf30b9ce85521e811892730181d15605d5b85de496f126df"
+        },
+        {
+          "seconds": 1.7174788509728387,
+          "peakRssKiB": 204772,
+          "outputSha256": "da551e50ba245b05bf30b9ce85521e811892730181d15605d5b85de496f126df"
+        }
+      ],
+      "medianSeconds": 1.6374884539982304,
+      "minSeconds": 1.5752672349335626,
+      "maxSeconds": 1.7833699330221862,
+      "peakRssKiB": 204772
+    },
+    {
+      "case": "max_random_04",
+      "inputSha256": "38a30545074ddfa969bc382751d6502f71f00a5058a8a76238196051b5cc555f",
+      "expectedSha256": "e012e0efa2bf36beb0edd0b7e218dc4be1f583c9283a0ea9b04832d75b45542f",
+      "samples": [
+        {
+          "seconds": 1.6463104089489207,
+          "peakRssKiB": 196192,
+          "outputSha256": "a06ed0e89ee2081d523b44449b89dfa3f80ff5d6cb87555085c684d1af9587b9"
+        },
+        {
+          "seconds": 1.6938132699579,
+          "peakRssKiB": 196204,
+          "outputSha256": "a06ed0e89ee2081d523b44449b89dfa3f80ff5d6cb87555085c684d1af9587b9"
+        },
+        {
+          "seconds": 1.4880846469895914,
+          "peakRssKiB": 196216,
+          "outputSha256": "a06ed0e89ee2081d523b44449b89dfa3f80ff5d6cb87555085c684d1af9587b9"
+        },
+        {
+          "seconds": 1.600272533018142,
+          "peakRssKiB": 196100,
+          "outputSha256": "a06ed0e89ee2081d523b44449b89dfa3f80ff5d6cb87555085c684d1af9587b9"
+        },
+        {
+          "seconds": 1.5572679250035435,
+          "peakRssKiB": 196324,
+          "outputSha256": "a06ed0e89ee2081d523b44449b89dfa3f80ff5d6cb87555085c684d1af9587b9"
+        }
+      ],
+      "medianSeconds": 1.600272533018142,
+      "minSeconds": 1.4880846469895914,
+      "maxSeconds": 1.6938132699579,
+      "peakRssKiB": 196324
+    }
+  ]
+}
