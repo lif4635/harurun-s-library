@@ -50,7 +50,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 12 | 0 | 12 | 126 |
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 12 | 3 | 10 | 86 |
 | [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 12 | 4 | 12 | 72 |
-| [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 13 | 1 | 13 | 46 |
+| [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 14 | 1 | 14 | 51 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 16 | 24 | 6 | 32 |
 | [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 11 | 15 | 2 | 4 |
 | [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 19 | 16 | 13 | 75 |
@@ -74,4 +74,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **372 modules / 510 functions / 228 classes / 1456 methods・properties**。
+合計: **373 modules / 510 functions / 229 classes / 1461 methods・properties**。

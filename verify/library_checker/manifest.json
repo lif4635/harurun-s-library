@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 189,
-    "unimplemented": 64
+    "local_passed": 192,
+    "unimplemented": 61
   },
   "problems": [
     {
@@ -1870,10 +1870,13 @@
       "title": "Point Add Rectangle Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/point_add_rectangle_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.spatial_structure.CompressedFenwick2D",
+        "library_codex.spatial_structure.DynamicPointAddRectangleSum"
+      ],
+      "solution": "solutions/point_add_rectangle_sum.py",
+      "result": "results/point_add_rectangle_sum.json"
     },
     {
       "name": "point_set_range_composite",
@@ -2311,10 +2314,13 @@
       "title": "Rectangle Add Point Get",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/rectangle_add_point_get",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.spatial_structure.CompressedFenwick2D",
+        "library_codex.spatial_structure.RectangleAddPointGet"
+      ],
+      "solution": "solutions/rectangle_add_point_get.py",
+      "result": "results/rectangle_add_point_get.json"
     },
     {
       "name": "rectangle_sum",
@@ -2621,10 +2627,12 @@
       "title": "Static Rectangle Add Rectangle Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/static_rectangle_add_rectangle_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.spatial_structure.RectangleAddRectangleSum"
+      ],
+      "solution": "solutions/static_rectangle_add_rectangle_sum.py",
+      "result": "results/static_rectangle_add_rectangle_sum.json"
     },
     {
       "name": "staticrmq",

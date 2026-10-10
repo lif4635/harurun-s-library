@@ -16,11 +16,12 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 972 passed（2026-10-10、凹列min-plus追加時。全体実行971件通過後、公開関数の期待値1件を更新しcatalog関連を再検査して全972件を確認）。
+- PyPy 全検証: 980 passed（2026-10-10、二次元の加算・範囲和3問題の整備後に全体を実行）。
 - 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
-- 再帰監査: direct/mutual recursion なし（2026-10-10、6167関数）
-- Library Checker公式ケース: 189問題・4474ケース通過、未対応64問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 再帰監査: direct/mutual recursion なし（2026-10-10、6217関数）
+- Library Checker公式ケース: 192問題・4524ケース通過、未対応61問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 - 凹列と一般列のmin-plus畳み込みの追加と、上位PyPy提出との比較は[測定記録](docs/MINPLUS_CONCAVE_BENCHMARK.md)を参照。
+- 点加算・長方形和、長方形加算・点取得、静的な長方形加算・長方形和の3問題と、入力別の速度・メモリ比較は[二次元クエリの記録](docs/SPATIAL_QUERIES_BENCHMARK.md)を参照。
 - 木分解・st-numberingの追加と、マンハッタンMST・k本の最短walkの高速化は[検査・比較結果](docs/GRAPH_DECOMPOSITION_BENCHMARK.md)を参照。
 - 彩色数・クリーク・独立集合・C4・Steiner木・chordal判定の6問題は[検査・比較結果](docs/GRAPH_ENUMERATION_BENCHMARK.md)を参照。多重辺C4の修正とSteiner木・chordal判定の軽量化を含む。
 - 添字アクセス付きDequeと、木の最小転倒数・順序復元は[検査・比較結果](docs/DEQUE_TREE_ORDER_BENCHMARK.md)を参照。重み0の塊を含む既存実装の不具合も修正した。

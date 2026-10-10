@@ -245,16 +245,13 @@ shortest_path/KShortestPaths
 shortest_path/Top2Dijkstra
 shortest_path/WarshallFloyd
 shortest_path/ZeroOneBFS
-spatial_structure/CompressedFenwick2D
 spatial_structure/CumulativeSum2D
 spatial_structure/DynamicLiChaoTree
-spatial_structure/DynamicPointAddRectangleSum
 spatial_structure/FenwickTree2D
 spatial_structure/LazyKDTree
 spatial_structure/LiChaoTree
 spatial_structure/LineContainer2D
 spatial_structure/PointUpdateRangeTree2D
-spatial_structure/RectangleAddRectangleSum
 spatial_structure/SegmentTree2D
 spatial_structure/StaticRectangleSum
 string/AhoCorasick

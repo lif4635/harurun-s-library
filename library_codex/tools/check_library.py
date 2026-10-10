@@ -12,6 +12,10 @@ REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
+    ROOT / "verify" / "spatial_structure" / "test_compressed_fenwick_2d.py",
+    ROOT / "verify" / "spatial_structure" / "test_dynamic_point_add_rectangle_sum.py",
+    ROOT / "verify" / "spatial_structure" / "test_rectangle_add_rectangle_sum.py",
+    ROOT / "verify" / "spatial_structure" / "test_rectangle_add_point_get.py",
     ROOT / "verify" / "convolution" / "test_min_plus_convolution.py",
     ROOT / "verify" / "graph_connectivity" / "test_tree_decomposition_width2.py",
     ROOT / "verify" / "graph_connectivity" / "test_st_numbering.py",

@@ -8,7 +8,7 @@
 
 ## できること
 
-- `RectangleAddRectangleSum`: 矩形への一括加算後に別の矩形和をofflineで求めるを扱う `RectangleAddRectangleSum`。
+- すべての長方形加算を反映した後の長方形和をまとめて求める。
 
 ## Import
 
@@ -18,15 +18,16 @@ from library_codex.spatial_structure.RectangleAddRectangleSum import RectangleAd
 
 ## Class `RectangleAddRectangleSum`
 
-矩形への一括加算後に別の矩形和をofflineで求めるを扱う `RectangleAddRectangleSum`。
+すべての長方形加算を反映した後の長方形和をまとめて求める。
 
-- constructor: [`RectangleAddRectangleSum()`](../../../spatial_structure/RectangleAddRectangleSum.py#L10)
+- constructor: [`RectangleAddRectangleSum()`](../../../spatial_structure/RectangleAddRectangleSum.py#L8)
 - 引数: なし
 - 返り値: `RectangleAddRectangleSum` instance
-- 計算量: —
+- 計算量: O(1)
+- 作成後: 空の加算・問い合わせ一覧。addとqueryを登録し、solveで全加算後の答えを取得する。登録順は結果へ影響しない。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(left, bottom, right, top, value)`](../../../spatial_structure/RectangleAddRectangleSum.py#L14) | method | 半開区間 [left, right) の各要素へvalueを加える。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む）<br>`value`: 追加・設定・問い合わせる値 | `None` | O(1) |
-| [`query(left, bottom, right, top)`](../../../spatial_structure/RectangleAddRectangleSum.py#L19) | method | 半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の重み総和queryを登録する。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | None — 値は返さない。solveが登録順の各query結果を返す。 | O(1) |
-| [`solve()`](../../../spatial_structure/RectangleAddRectangleSum.py#L24) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | O((R+Q) log(R+Q))（Rは矩形追加数、Qはquery数） |
+| [`add(left, bottom, right, top, value)`](../../../spatial_structure/RectangleAddRectangleSum.py#L12) | method | 半開領域[left, right) × [bottom, top)へvalueを加算する。 | `left`: x座標の下限。含む。<br>`bottom`: y座標の下限。含む。<br>`right`: x座標の上限。含まない。<br>`top`: y座標の上限。含まない。<br>`value`: 各点へ加える整数。負でもよい。 | None — 加算を登録する。solveで反映する。 | 償却O(1) |
+| [`query(left, bottom, right, top)`](../../../spatial_structure/RectangleAddRectangleSum.py#L17) | method | 半開領域[left, right) × [bottom, top)の合計の問い合わせを登録する。 | `left`: x座標の下限。含む。<br>`bottom`: y座標の下限。含む。<br>`right`: x座標の上限。含まない。<br>`top`: y座標の上限。含まない。 | None — 問い合わせを追加する。答えはsolveのlistに、このqueryの登録順で入る。 | 償却O(1) |
+| [`solve(mod=None)`](../../../spatial_structure/RectangleAddRectangleSum.py#L22) | method | 登録した問い合わせの答えをまとめて計算する。 | `mod`: 正の整数ならその法で計算する。Noneなら任意精度整数で正確な合計を返す。省略時: `None` | list[int] — result[i]はi番目のqueryの長方形和。登録順に関係なく全addを反映する。mod指定時は0以上mod未満の剰余。操作列は変更しない。 | O((R+Q) log(R+Q+2))時間・O(R+Q)追加メモリ。Rは加算数、Qは問い合わせ数。整数の演算・比較をO(1)とする |

@@ -14,6 +14,7 @@
 | [`LiChaoTree`](LiChaoTree.md) | 固定座標のLi Chao Tree（線分・min/max対応） | 0 | 1 | 5 |
 | [`LineContainer2D`](LineContainer2D.md) | 二変数一次式を追加し、指定点での最大値・最小値を求める構造。 | 0 | 1 | 3 |
 | [`PointUpdateRangeTree2D`](PointUpdateRangeTree2D.md) | 登録済み二次元点の重みを更新し、半開矩形和をonlineで求めるrange tree。 | 0 | 1 | 5 |
+| [`RectangleAddPointGet`](RectangleAddPointGet.md) | 長方形へ加算し、事前登録した点の現在値を求める。 | 0 | 1 | 5 |
 | [`RectangleAddRectangleSum`](RectangleAddRectangleSum.md) | 矩形への一括加算後に別の矩形和をofflineで求める。 | 0 | 1 | 3 |
 | [`SegmentTree2D`](SegmentTree2D.md) | 二次元gridの一点更新と半開矩形monoid積を扱うSegment Tree。 | 0 | 1 | 6 |
 | [`StaticRectangleSum`](StaticRectangleSum.md) | 重み付き点集合に対する静的なoffline矩形和queryを処理する。 | 0 | 1 | 3 |

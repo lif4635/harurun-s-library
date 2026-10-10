@@ -78,6 +78,7 @@
 | [partition_function](partition_function.json) | 3 / 11 | 5 | 0.677 | 98.6 | 一致 |
 | [persistent_unionfind](persistent_unionfind.json) | 3 / 14 | 5 | 0.869 | 180.4 | 一致 |
 | [pfaffian_of_matrix](pfaffian_of_matrix.json) | 3 / 27 | 5 | 0.424 | 66.5 | 一致 |
+| [point_add_rectangle_sum](point_add_rectangle_sum.json) | 3 / 18 | 5 | 2.774 | 196.0 | 一致 |
 | [point_set_range_composite_large_array](point_set_range_composite_large_array.json) | 3 / 25 | 5 | 0.960 | 147.6 | 一致 |
 | [point_set_range_frequency](point_set_range_frequency.json) | 3 / 25 | 5 | 0.683 | 178.8 | 一致 |
 | [polynomial_composite_set_power_series](polynomial_composite_set_power_series.json) | 3 / 18 | 5 | 5.367 | 359.6 | 一致 |
@@ -96,6 +97,7 @@
 | [range_reverse_range_sum](range_reverse_range_sum.json) | 3 / 20 | 5 | 2.053 | 109.3 | 一致 |
 | [range_set_range_composite](range_set_range_composite.json) | 3 / 23 | 5 | 2.074 | 130.5 | 一致 |
 | [rational_approximation](rational_approximation.json) | 3 / 28 | 5 | 0.177 | 80.5 | 一致 |
+| [rectangle_add_point_get](rectangle_add_point_get.json) | 3 / 19 | 5 | 2.920 | 154.2 | 一致 |
 | [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
 | [rooted_tree_topological_order_with_minimum_inversions](rooted_tree_topological_order_with_minimum_inversions.json) | 3 / 30 | 5 | 0.687 | 117.7 | 一致 |
 | [runenumerate](runenumerate.json) | 3 / 24 | 5 | 2.749 | 284.1 | 一致 |
@@ -108,6 +110,7 @@
 | [static_range_lis_query](static_range_lis_query.json) | 3 / 15 | 5 | 3.512 | 129.7 | 一致 |
 | [static_range_mode_query](static_range_mode_query.json) | 3 / 11 | 5 | 1.286 | 113.7 | 一致 |
 | [static_range_sum_with_upper_bound](static_range_sum_with_upper_bound.json) | 3 / 10 | 5 | 3.087 | 343.0 | 一致 |
+| [static_rectangle_add_rectangle_sum](static_rectangle_add_rectangle_sum.json) | 3 / 13 | 5 | 4.697 | 256.0 | 一致 |
 | [stern_brocot_tree](stern_brocot_tree.json) | 3 / 18 | 5 | 0.305 | 76.0 | 一致 |
 | [stirling_number_of_the_first_kind](stirling_number_of_the_first_kind.json) | 3 / 10 | 5 | 0.833 | 97.0 | 一致 |
 | [stirling_number_of_the_first_kind_fixed_k](stirling_number_of_the_first_kind_fixed_k.json) | 3 / 14 | 5 | 1.960 | 185.2 | 一致 |

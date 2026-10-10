@@ -1,0 +1,129 @@
+{
+  "problem": "point_add_rectangle_sum",
+  "status": "local_passed",
+  "verificationKey": "b2fc44ca8b771f3902791009b65b1a11bfc56f0fd070bb0c3cc0ef794346ed04",
+  "sourceSha256": "69a2519f545b58d37255dcf5624880865dd8f380fcd1bc1c8023d472aa57c5b8",
+  "modules": [
+    "library_codex.spatial_structure.CompressedFenwick2D",
+    "library_codex.spatial_structure.DynamicPointAddRectangleSum"
+  ],
+  "problemVersion": "908426e7fc559abf89bec98c56db3dde68969dad3468b08612e0765bf966c579",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 18,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06118120194878429,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.08931536308955401,
+      "diagnostic": "ok 152 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.08145976904779673,
+      "diagnostic": "ok 122 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.07209093892015517,
+      "diagnostic": "ok 194 tokens\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.07555695297196507,
+      "diagnostic": "ok 113 tokens\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.1034247720381245,
+      "diagnostic": "ok 432 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.1350843060063198,
+      "diagnostic": "ok 38804 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.0733385989442468,
+      "diagnostic": "ok 9882 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.4514164209831506,
+      "diagnostic": "ok 31017 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 2.9376952060265467,
+      "diagnostic": "ok 50135 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 2.8282916619209573,
+      "diagnostic": "ok 49998 tokens\n"
+    },
+    {
+      "name": "many_points_00",
+      "status": "AC",
+      "seconds": 2.4924513529986143,
+      "diagnostic": "ok 16733 tokens\n"
+    },
+    {
+      "name": "many_queries_00",
+      "status": "AC",
+      "seconds": 2.6311125529464334,
+      "diagnostic": "ok 83406 tokens\n"
+    },
+    {
+      "name": "xy_concentrate_00",
+      "status": "AC",
+      "seconds": 0.9209334849147126,
+      "diagnostic": "ok 50253 tokens\n"
+    },
+    {
+      "name": "xy_concentrate_01",
+      "status": "AC",
+      "seconds": 1.0202308989828452,
+      "diagnostic": "ok 49999 tokens\n"
+    },
+    {
+      "name": "xy_concentrate_02",
+      "status": "AC",
+      "seconds": 0.9453137250384316,
+      "diagnostic": "ok 49882 tokens\n"
+    },
+    {
+      "name": "power_of_2_00",
+      "status": "AC",
+      "seconds": 1.5476891999132931,
+      "diagnostic": "ok 65536 tokens\n"
+    },
+    {
+      "name": "power_of_2_01",
+      "status": "AC",
+      "seconds": 1.4264768559951335,
+      "diagnostic": "ok 65536 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-10T11:17:35.606443+00:00",
+  "onlineSubmission": null
+}

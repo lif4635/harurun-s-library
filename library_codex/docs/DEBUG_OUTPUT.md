@@ -65,6 +65,10 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 
 `TreeWaveletMatrix.tolist()`と`str(obj)`は、constructorへ渡した頂点値を頂点番号順のlistで返します。`repr(obj)`は`TreeWaveletMatrix([...])`の形です。内部のHLD順や圧縮後のrankは表示しません。
 
+## 長方形加算・点取得
+
+`RectangleAddPointGet.items()`は登録点の`(x, y, 現在値)`を座標の辞書順に返す。重複登録は一つにまとめる。`str`は同じlist、`repr`は型名を付ける。O(N log²(N+1))時間・O(N)追加メモリで、更新状態は変更しない。
+
 ## Permutation Tree
 
 `PermutationTree.tolist()`は、内部の平坦な配列から各nodeの`kind`、`left`、`right`、`minimum`、`maximum`、`parent`、`children`を読み出し、node index順のdict listで返します。`children`はcopyなので、返り値を変更しても木の親子関係は変わりません。`repr(obj)`は`PermutationTree([...])`の形です。

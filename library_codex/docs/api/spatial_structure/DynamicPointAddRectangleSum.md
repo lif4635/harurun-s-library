@@ -8,7 +8,7 @@
 
 ## できること
 
-- `DynamicPointAddRectangleSum`: 点の重み追加と矩形和queryが混ざる列をofflineで処理するを扱う `DynamicPointAddRectangleSum`。
+- 点加算と長方形和の操作列を、登録順を保ってまとめて処理する。
 
 ## Import
 
@@ -18,15 +18,16 @@ from library_codex.spatial_structure.DynamicPointAddRectangleSum import DynamicP
 
 ## Class `DynamicPointAddRectangleSum`
 
-点の重み追加と矩形和queryが混ざる列をofflineで処理するを扱う `DynamicPointAddRectangleSum`。
+点加算と長方形和の操作列を、登録順を保ってまとめて処理する。
 
 - constructor: [`DynamicPointAddRectangleSum()`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L8)
 - 引数: なし
 - 返り値: `DynamicPointAddRectangleSum` instance
-- 計算量: —
+- 計算量: O(1)
+- 作成後: 空の操作列。addとqueryを操作順に登録し、solveで問い合わせの答えをまとめて取得する。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(x, y, value)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L11) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` | O(1) |
-| [`query(left, bottom, right, top)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L14) | method | 半開長方形 $[\mathrm{left},\mathrm{right})\times[\mathrm{bottom},\mathrm{top})$ の点重み和queryを登録する。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | None — 値は返さない。solveが登録順の各query結果を返す。 | O(1) |
-| [`solve()`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L17) | method | 設定済みの問題を解き、答えを返す。 | なし | 登録順の答えのlist | O((U+Q) log^2 U)（Uは点追加数、Qはquery数） |
+| [`add(x, y, value)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L11) | method | 点(x, y)の現在値へvalueを加算する。 | `x`: 対象点のx座標。<br>`y`: 対象点のy座標。<br>`value`: 各点へ加える整数。負でもよい。 | None — 加算を登録する。solveで反映する。 | 償却O(1) |
+| [`query(left, bottom, right, top)`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L14) | method | 半開領域[left, right) × [bottom, top)の合計の問い合わせを登録する。 | `left`: x座標の下限。含む。<br>`bottom`: y座標の下限。含む。<br>`right`: x座標の上限。含まない。<br>`top`: y座標の上限。含まない。 | None — 問い合わせを追加する。答えはsolveのlistに、このqueryの登録順で入る。 | 償却O(1) |
+| [`solve()`](../../../spatial_structure/DynamicPointAddRectangleSum.py#L17) | method | 登録した問い合わせの答えをまとめて計算する。 | なし | list[int] — result[i]はi番目のqueryの長方形和。各queryより前のaddだけを反映する。操作列は変更しない。 | O((U+Q) log²(U+2))時間・O(U log(U+2)+Q)追加メモリ。Uは加算数、Qは問い合わせ数 |

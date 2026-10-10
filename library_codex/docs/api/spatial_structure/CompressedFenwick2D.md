@@ -8,7 +8,7 @@
 
 ## できること
 
-- `CompressedFenwick2D`: 事前に与えた疎な座標だけを保持する二次元Fenwick Treeを扱う `CompressedFenwick2D`。
+- 登録点への加算と半開長方形内の重み和を求める。
 
 ## Import
 
@@ -18,15 +18,16 @@ from library_codex.spatial_structure.CompressedFenwick2D import CompressedFenwic
 
 ## Class `CompressedFenwick2D`
 
-事前に与えた疎な座標だけを保持する二次元Fenwick Treeを扱う `CompressedFenwick2D`。
+登録点への加算と半開長方形内の重み和を求める。
 
 - constructor: [`CompressedFenwick2D(points)`](../../../spatial_structure/CompressedFenwick2D.py#L10)
-- 引数: `points`: 評価点の列
+- 引数: `points`: 今後更新・取得する整数座標(x, y)のiterable。重複は一つにまとめる。未登録の点の更新・取得はKeyError。
 - 返り値: `CompressedFenwick2D` instance
-- 計算量: —
+- 計算量: O(P+N log(N+1))時間・O(N log(N+1))メモリ。Pは入力点数、Nは異なる登録点数。hash処理は期待時間
+- 作成後: 登録点の値がすべて0の構造。addで一点へ加算し、sumで長方形内の合計を取得する。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`add(x, y, value)`](../../../spatial_structure/CompressedFenwick2D.py#L25) | method | 引数で指定した要素・辺・区間へ値を追加する。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象<br>`value`: 追加・設定・問い合わせる値 | `None` | O(log^2 N) |
-| [`prefix_sum(x, y)`](../../../spatial_structure/CompressedFenwick2D.py#L42) | method | 半開区間 [0, right) の総和を返す。 | `x`: 値・座標・問い合わせ対象<br>`y`: 値・座標・問い合わせ対象 | prefixの和（入力要素型） | O(log^2 N) |
-| [`sum(left, bottom, right, top)`](../../../spatial_structure/CompressedFenwick2D.py#L54) | method | 半開区間 [left, right) の値を集約して返す。 | `left`: 半開区間の左端（含む）<br>`bottom`: 矩形の下端（含まない）<br>`right`: 半開区間の右端（含まない）<br>`top`: 矩形の上端（含む） | 区間・集合の和（入力要素型） | O(log^2 N) |
+| [`add(x, y, value)`](../../../spatial_structure/CompressedFenwick2D.py#L27) | method | 点(x, y)の現在値へvalueを加算する。 | `x`: 対象点のx座標。<br>`y`: 対象点のy座標。<br>`value`: 各点へ加える整数。負でもよい。 | None — 対象点の値を変更する。 | O(log^2 N) |
+| [`prefix_sum(x, y)`](../../../spatial_structure/CompressedFenwick2D.py#L38) | method | x座標がx未満、y座標がy未満の登録点の重みを合計する。 | `x`: x座標の上限。含まない。<br>`y`: y座標の上限。含まない。 | int — 両方の条件を満たす登録点の現在値の合計。境界上の点は含まない。 | O(log^2 N) |
+| [`sum(left, bottom, right, top)`](../../../spatial_structure/CompressedFenwick2D.py#L50) | method | 半開領域[left, right) × [bottom, top)に含まれる登録点の重みを合計する。 | `left`: x座標の下限。含む。<br>`bottom`: y座標の下限。含む。<br>`right`: x座標の上限。含まない。<br>`top`: y座標の上限。含まない。 | int — 領域内の登録点の現在値の合計。幅または高さが0以下なら0。 | O(log^2 N) |

@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-10T09:02:47+00:00",
+  "generatedAt": "2026-10-10T11:35:23+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "ff01a2712c86e82e2bdd91e5b6476ef1d5d4fc1212d66f4bba653e41aa2386e6",
-  "inputStamp": "cb62b70a9f81ca5c9ac802155f704881f2b1d6f71303518de51a954cb3f43016",
+  "sourceFingerprint": "01ce3445f7adc3753eecfd118fc2f86ce4cec39078a2acf00e3cc032717c2cba",
+  "inputStamp": "884d48d00cb7f9b47fcf07aebcc3c76799611a193185aa330062b32f2fa34499",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 372,
-    "articles": 63,
+    "modules": 373,
+    "articles": 67,
     "functions": 510,
-    "classes": 228,
-    "methods": 1456,
-    "tests": 972
+    "classes": 229,
+    "methods": 1461,
+    "tests": 980
   },
   "categories": [
     {
@@ -161,10 +161,10 @@
       "label": "2次元・直線",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 13,
+      "modules": 14,
       "functions": 1,
-      "classes": 13,
-      "methods": 46
+      "classes": 14,
+      "methods": 51
     },
     {
       "slug": "graph",
@@ -401,7 +401,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 79
+      "modules": 80
     },
     {
       "slug": "graph",
@@ -28602,9 +28602,13 @@
       "modulePath": "library_codex.spatial_structure.CompressedFenwick2D",
       "summary": "事前に与えた疎な座標だけを保持する二次元Fenwick Tree。",
       "capabilities": [
-        "CompressedFenwick2D: 事前に与えた疎な座標だけを保持する二次元Fenwick Treeを行うクラス。"
+        "登録点への加算と半開長方形内の重み和を求める。"
       ],
-      "article": null,
+      "article": {
+        "title": "疎な二次元の点加算・長方形和",
+        "markdown": "事前登録した平面上の点へ加算し、長方形内の点の重みの合計を求める。\n\n## 主な機能\n\n`CompressedFenwick2D(points)`へ、今後更新する点の座標を渡す。`add(x, y, value)`で一点へ加算し、`sum(left, bottom, right, top)`で半開領域 `[left, right) × [bottom, top)` 内の合計を返す。\n\n入力点数をP、異なる登録点数をNとして、構築はO(P+N log(N+1))時間・O(N log(N+1))メモリ、更新・取得はO(log²(N+1))時間。hash処理は期待時間。長方形の境界は事前登録しなくてよい。\n\n## 使い方\n\n```python\nfrom library_codex.spatial_structure.CompressedFenwick2D import CompressedFenwick2D\n\ntree = CompressedFenwick2D([(0, 0), (3, 2)])\ntree.add(0, 0, 7)\ntree.add(3, 2, -2)\nassert tree.sum(0, 0, 3, 3) == 7\nassert tree.prefix_sum(4, 3) == 5\n```\n\n- `sum`: 指定長方形に含まれる登録点の現在値の合計。\n- `prefix_sum(x, y)`: x座標がx未満、y座標がy未満の登録点の合計。\n\n## 注意点\n\n- 座標・重みは整数。負値も使える。\n- 同じ座標の重複登録は一つにまとめ、初期値は0。\n- 未登録の点への`add`は、状態を変えずに`KeyError`。登録済みのxとyの組合せでも、その点自体が未登録なら更新できない。\n- 空または逆向きの長方形の合計は0。",
+        "sourcePath": "library_codex/docs/articles/spatial_structure/CompressedFenwick2D.md"
+      },
       "searchTerms": [
         "CompressedFenwick2D",
         "Compressed Fenwick2 D",
@@ -28615,10 +28619,10 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/spatial_structure/CompressedFenwick2D.py",
-      "inputFingerprint": "49c1ede6e0639c1a43f9cdf71b77d213248cb67b6f124f688c89786943581460",
+      "inputFingerprint": "dbd5cc004651ee6504dc1140da64b4662d031547726ee925249d2bde7b790ee7",
       "importCode": "from library_codex.spatial_structure.CompressedFenwick2D import CompressedFenwick2D",
-      "sourceCode": "\"\"\"事前に与えた疎な座標だけを保持する二次元Fenwick Tree。\"\"\"\n\nfrom bisect import bisect_left\n\nclass CompressedFenwick2D:\n    \"\"\"Point add / rectangle sum; every update coordinate is preregistered.\"\"\"\n\n    __slots__ = (\"xs\", \"ys\", \"bit\")\n\n    def __init__(self, points):\n        points = list(points)\n        xs = sorted(set(x for x, _ in points))\n        ys = [[] for _ in range(len(xs) + 1)]\n        for x, y in points:\n            index = bisect_left(xs, x) + 1\n            while index <= len(xs):\n                ys[index].append(y)\n                index += index & -index\n        for index in range(1, len(ys)):\n            ys[index] = sorted(set(ys[index]))\n        self.xs = xs\n        self.ys = ys\n        self.bit = [[0] * (len(row) + 1) for row in ys]\n\n    def add(self, x, y, value):\n        x_index = bisect_left(self.xs, x)\n        if x_index == len(self.xs) or self.xs[x_index] != x:\n            raise KeyError(\"update coordinate was not registered\")\n        x_index += 1\n        while x_index <= len(self.xs):\n            row_coordinates = self.ys[x_index]\n            y_index = bisect_left(row_coordinates, y)\n            if y_index == len(row_coordinates) or row_coordinates[y_index] != y:\n                raise KeyError(\"update coordinate was not registered\")\n            y_index += 1\n            row = self.bit[x_index]\n            while y_index < len(row):\n                row[y_index] += value\n                y_index += y_index & -y_index\n            x_index += x_index & -x_index\n\n    def prefix_sum(self, x, y):\n        x_index = bisect_left(self.xs, x)\n        result = 0\n        while x_index:\n            y_index = bisect_left(self.ys[x_index], y)\n            row = self.bit[x_index]\n            while y_index:\n                result += row[y_index]\n                y_index &= y_index - 1\n            x_index &= x_index - 1\n        return result\n\n    def sum(self, left, bottom, right, top):\n        return (\n            self.prefix_sum(right, top)\n            - self.prefix_sum(left, top)\n            - self.prefix_sum(right, bottom)\n            + self.prefix_sum(left, bottom)\n        )\n\n    prod = sum\n",
-      "standaloneCode": "\"\"\"事前に与えた疎な座標だけを保持する二次元Fenwick Tree。\"\"\"\n\nfrom bisect import bisect_left\n\nclass CompressedFenwick2D:\n    \"\"\"Point add / rectangle sum; every update coordinate is preregistered.\"\"\"\n\n    __slots__ = (\"xs\", \"ys\", \"bit\")\n\n    def __init__(self, points):\n        points = list(points)\n        xs = sorted(set(x for x, _ in points))\n        ys = [[] for _ in range(len(xs) + 1)]\n        for x, y in points:\n            index = bisect_left(xs, x) + 1\n            while index <= len(xs):\n                ys[index].append(y)\n                index += index & -index\n        for index in range(1, len(ys)):\n            ys[index] = sorted(set(ys[index]))\n        self.xs = xs\n        self.ys = ys\n        self.bit = [[0] * (len(row) + 1) for row in ys]\n\n    def add(self, x, y, value):\n        x_index = bisect_left(self.xs, x)\n        if x_index == len(self.xs) or self.xs[x_index] != x:\n            raise KeyError(\"update coordinate was not registered\")\n        x_index += 1\n        while x_index <= len(self.xs):\n            row_coordinates = self.ys[x_index]\n            y_index = bisect_left(row_coordinates, y)\n            if y_index == len(row_coordinates) or row_coordinates[y_index] != y:\n                raise KeyError(\"update coordinate was not registered\")\n            y_index += 1\n            row = self.bit[x_index]\n            while y_index < len(row):\n                row[y_index] += value\n                y_index += y_index & -y_index\n            x_index += x_index & -x_index\n\n    def prefix_sum(self, x, y):\n        x_index = bisect_left(self.xs, x)\n        result = 0\n        while x_index:\n            y_index = bisect_left(self.ys[x_index], y)\n            row = self.bit[x_index]\n            while y_index:\n                result += row[y_index]\n                y_index &= y_index - 1\n            x_index &= x_index - 1\n        return result\n\n    def sum(self, left, bottom, right, top):\n        return (\n            self.prefix_sum(right, top)\n            - self.prefix_sum(left, top)\n            - self.prefix_sum(right, bottom)\n            + self.prefix_sum(left, bottom)\n        )\n\n    prod = sum\n",
+      "sourceCode": "\"\"\"事前に与えた疎な座標だけを保持する二次元Fenwick Tree。\"\"\"\n\nfrom bisect import bisect_left\n\nclass CompressedFenwick2D:\n    \"\"\"Point add / rectangle sum; every update coordinate is preregistered.\"\"\"\n\n    __slots__ = (\"xs\", \"ys\", \"bit\", \"_points\")\n\n    def __init__(self, points):\n        points = {(x, y) for x, y in points}\n        xs = sorted(set(x for x, _ in points))\n        ranks = {x: i + 1 for i, x in enumerate(xs)}\n        self._points = {(x, y): ranks[x] for x, y in points}\n        ys = [[] for _ in range(len(xs) + 1)]\n        for y, x in sorted((y, x) for x, y in points):\n            index = ranks[x]\n            while index <= len(xs):\n                row = ys[index]\n                if not row or row[-1] != y:\n                    row.append(y)\n                index += index & -index\n        self.xs = xs\n        self.ys = ys\n        self.bit = [[0] * (len(row) + 1) for row in ys]\n\n    def add(self, x, y, value):\n        x_index = self._points[(x, y)]\n        while x_index <= len(self.xs):\n            row_coordinates = self.ys[x_index]\n            y_index = bisect_left(row_coordinates, y) + 1\n            row = self.bit[x_index]\n            while y_index < len(row):\n                row[y_index] += value\n                y_index += y_index & -y_index\n            x_index += x_index & -x_index\n\n    def prefix_sum(self, x, y):\n        x_index = bisect_left(self.xs, x)\n        result = 0\n        while x_index:\n            y_index = bisect_left(self.ys[x_index], y)\n            row = self.bit[x_index]\n            while y_index:\n                result += row[y_index]\n                y_index &= y_index - 1\n            x_index &= x_index - 1\n        return result\n\n    def sum(self, left, bottom, right, top):\n        if left >= right or bottom >= top:\n            return 0\n        left = bisect_left(self.xs, left)\n        right = bisect_left(self.xs, right)\n        result = 0\n        while left != right:\n            if left < right:\n                index = right\n                right &= right - 1\n                sign = 1\n            else:\n                index = left\n                left &= left - 1\n                sign = -1\n            coordinates = self.ys[index]\n            low = bisect_left(coordinates, bottom)\n            high = bisect_left(coordinates, top)\n            row = self.bit[index]\n            total = 0\n            while low != high:\n                if low < high:\n                    total += row[high]\n                    high &= high - 1\n                else:\n                    total -= row[low]\n                    low &= low - 1\n            result += sign * total\n        return result\n\n    prod = sum\n",
+      "standaloneCode": "\"\"\"事前に与えた疎な座標だけを保持する二次元Fenwick Tree。\"\"\"\n\nfrom bisect import bisect_left\n\nclass CompressedFenwick2D:\n    \"\"\"Point add / rectangle sum; every update coordinate is preregistered.\"\"\"\n\n    __slots__ = (\"xs\", \"ys\", \"bit\", \"_points\")\n\n    def __init__(self, points):\n        points = {(x, y) for x, y in points}\n        xs = sorted(set(x for x, _ in points))\n        ranks = {x: i + 1 for i, x in enumerate(xs)}\n        self._points = {(x, y): ranks[x] for x, y in points}\n        ys = [[] for _ in range(len(xs) + 1)]\n        for y, x in sorted((y, x) for x, y in points):\n            index = ranks[x]\n            while index <= len(xs):\n                row = ys[index]\n                if not row or row[-1] != y:\n                    row.append(y)\n                index += index & -index\n        self.xs = xs\n        self.ys = ys\n        self.bit = [[0] * (len(row) + 1) for row in ys]\n\n    def add(self, x, y, value):\n        x_index = self._points[(x, y)]\n        while x_index <= len(self.xs):\n            row_coordinates = self.ys[x_index]\n            y_index = bisect_left(row_coordinates, y) + 1\n            row = self.bit[x_index]\n            while y_index < len(row):\n                row[y_index] += value\n                y_index += y_index & -y_index\n            x_index += x_index & -x_index\n\n    def prefix_sum(self, x, y):\n        x_index = bisect_left(self.xs, x)\n        result = 0\n        while x_index:\n            y_index = bisect_left(self.ys[x_index], y)\n            row = self.bit[x_index]\n            while y_index:\n                result += row[y_index]\n                y_index &= y_index - 1\n            x_index &= x_index - 1\n        return result\n\n    def sum(self, left, bottom, right, top):\n        if left >= right or bottom >= top:\n            return 0\n        left = bisect_left(self.xs, left)\n        right = bisect_left(self.xs, right)\n        result = 0\n        while left != right:\n            if left < right:\n                index = right\n                right &= right - 1\n                sign = 1\n            else:\n                index = left\n                left &= left - 1\n                sign = -1\n            coordinates = self.ys[index]\n            low = bisect_left(coordinates, bottom)\n            high = bisect_left(coordinates, top)\n            row = self.bit[index]\n            total = 0\n            while low != high:\n                if low < high:\n                    total += row[high]\n                    high &= high - 1\n                else:\n                    total -= row[low]\n                    low &= low - 1\n            result += sign * total\n        return result\n\n    prod = sum\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
@@ -28629,121 +28633,121 @@
       "classes": [
         {
           "name": "CompressedFenwick2D",
-          "summary": "事前に与えた疎な座標だけを保持する二次元Fenwick Treeを行うクラス。",
-          "description": "事前に与えた疎な座標だけを保持する二次元Fenwick Treeを行うクラス。",
+          "summary": "登録点への加算と半開長方形内の重み和を求める。",
+          "description": "登録点への加算と半開長方形内の重み和を求める。",
           "searchTerms": [
             "CompressedFenwick2D",
             "Compressed Fenwick2 D",
             "CompressedFenwick2D(points)"
           ],
           "constructor": "CompressedFenwick2D(points)",
-          "constructorArguments": "points: 評価点の列",
+          "constructorArguments": "points: 今後更新・取得する整数座標(x, y)のiterable。重複は一つにまとめる。未登録の点の更新・取得はKeyError。",
           "constructorArgumentDetails": [
             {
               "name": "points",
-              "description": "評価点の列"
+              "description": "今後更新・取得する整数座標(x, y)の反復可能オブジェクト。重複は一つにまとめる。未登録の点の更新・取得はKeyError"
             }
           ],
           "constructorReturns": "CompressedFenwick2D instance",
           "constructorReturnFormat": "CompressedFenwick2D",
-          "constructorReturnDescription": "事前に与えた疎な座標だけを保持する二次元Fenwick Treeを行うクラス。",
-          "constructorCreates": "事前に与えた疎な座標だけを保持する二次元Fenwick Treeを行うクラス。",
-          "constructorComplexity": "実装依存",
+          "constructorReturnDescription": "登録点の値がすべて0の構造。addで一点へ加算し、sumで長方形内の合計を取得する。",
+          "constructorCreates": "登録点の値がすべて0の構造。addで一点へ加算し、sumで長方形内の合計を取得する。",
+          "constructorComplexity": "O(P+N log(N+1))時間・O(N log(N+1))メモリ。Pは入力点数、Nは異なる登録点数。hash処理は期待時間",
           "constructorSourceLine": 10,
           "methods": [
             {
               "name": "add",
               "kind": "method",
               "signature": "add(x, y, value)",
-              "summary": "引数で指定した要素・辺・区間へ値を追加する。",
-              "description": "引数で指定した要素・辺・区間へ値を追加する。",
+              "summary": "点(x, y)の現在値へvalueを加算する。",
+              "description": "点(x, y)の現在値へvalueを加算する。",
               "searchTerms": [
                 "add",
                 "add(x, y, value)"
               ],
-              "arguments": "x: 値・座標・問い合わせ対象 · y: 値・座標・問い合わせ対象 · value: 追加・設定・問い合わせる値",
+              "arguments": "x: 対象点のx座標。 · y: 対象点のy座標。 · value: 各点へ加える整数。負でもよい。",
               "argumentDetails": [
                 {
                   "name": "x",
-                  "description": "値・座標・問い合わせ対象"
+                  "description": "対象点のx座標。"
                 },
                 {
                   "name": "y",
-                  "description": "値・座標・問い合わせ対象"
+                  "description": "対象点のy座標。"
                 },
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "各点へ加える整数。負でもよい。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 対象点の値を変更する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
+              "returnDescription": "対象点の値を変更する。",
               "complexity": "O(log^2 N)",
-              "sourceLine": 25
+              "sourceLine": 27
             },
             {
               "name": "prefix_sum",
               "kind": "method",
               "signature": "prefix_sum(x, y)",
-              "summary": "半開区間 [0, right) の総和を返す。",
-              "description": "半開区間 [0, right) の総和を返す。",
+              "summary": "x座標がx未満、y座標がy未満の登録点の重みを合計する。",
+              "description": "x座標がx未満、y座標がy未満の登録点の重みを合計する。",
               "searchTerms": [
                 "prefix_sum",
                 "prefix sum",
                 "prefix_sum(x, y)"
               ],
-              "arguments": "x: 値・座標・問い合わせ対象 · y: 値・座標・問い合わせ対象",
+              "arguments": "x: x座標の上限。含まない。 · y: y座標の上限。含まない。",
               "argumentDetails": [
                 {
                   "name": "x",
-                  "description": "値・座標・問い合わせ対象"
+                  "description": "x座標の上限。含まない。"
                 },
                 {
                   "name": "y",
-                  "description": "値・座標・問い合わせ対象"
+                  "description": "y座標の上限。含まない。"
                 }
               ],
-              "returns": "int — 接頭の和（入力要素型）",
+              "returns": "int — 両方の条件を満たす登録点の現在値の合計。境界上の点は含まない。",
               "returnFormat": "int",
-              "returnDescription": "接頭の和（入力要素型）",
+              "returnDescription": "両方の条件を満たす登録点の現在値の合計。境界上の点は含まない。",
               "complexity": "O(log^2 N)",
-              "sourceLine": 42
+              "sourceLine": 38
             },
             {
               "name": "sum",
               "kind": "method",
               "signature": "sum(left, bottom, right, top)",
-              "summary": "半開区間 $[\\mathrm{left},\\mathrm{right})$ の和 $\\sum_{i=\\mathrm{left}}^{\\mathrm{right}-1}a_i$ を返す。",
-              "description": "半開区間 $[\\mathrm{left},\\mathrm{right})$ の和 $\\sum_{i=\\mathrm{left}}^{\\mathrm{right}-1}a_i$ を返す。",
+              "summary": "半開領域[left, right) × [bottom, top)に含まれる登録点の重みを合計する。",
+              "description": "半開領域[left, right) × [bottom, top)に含まれる登録点の重みを合計する。",
               "searchTerms": [
                 "sum",
                 "sum(left, bottom, right, top)"
               ],
-              "arguments": "left: 半開区間の左端（含む） · bottom: 矩形の下端（含まない） · right: 半開区間の右端（含まない） · top: 矩形の上端（含む）",
+              "arguments": "left: x座標の下限。含む。 · bottom: y座標の下限。含む。 · right: x座標の上限。含まない。 · top: y座標の上限。含まない。",
               "argumentDetails": [
                 {
                   "name": "left",
-                  "description": "半開区間の左端（含む）"
+                  "description": "x座標の下限。含む。"
                 },
                 {
                   "name": "bottom",
-                  "description": "矩形の下端（含まない）"
+                  "description": "y座標の下限。含む。"
                 },
                 {
                   "name": "right",
-                  "description": "半開区間の右端（含まない）"
+                  "description": "x座標の上限。含まない。"
                 },
                 {
                   "name": "top",
-                  "description": "矩形の上端（含む）"
+                  "description": "y座標の上限。含まない。"
                 }
               ],
-              "returns": "int / float — $\\sum_{i=\\mathrm{left}}^{\\mathrm{right}-1}a_i$。",
-              "returnFormat": "int / float",
-              "returnDescription": "$\\sum_{i=\\mathrm{left}}^{\\mathrm{right}-1}a_i$。",
+              "returns": "int — 領域内の登録点の現在値の合計。幅または高さが0以下なら0。",
+              "returnFormat": "int",
+              "returnDescription": "領域内の登録点の現在値の合計。幅または高さが0以下なら0。",
               "complexity": "O(log^2 N)",
-              "sourceLine": 54
+              "sourceLine": 50
             }
           ]
         }
@@ -29012,9 +29016,13 @@
       "modulePath": "library_codex.spatial_structure.DynamicPointAddRectangleSum",
       "summary": "点の重み追加と矩形和クエリが混ざる列をオフラインで処理する。",
       "capabilities": [
-        "DynamicPointAddRectangleSum: 点の重み追加と矩形和クエリが混ざる列をオフラインで処理するためのクラス。"
+        "点加算と長方形和の操作列を、登録順を保ってまとめて処理する。"
       ],
-      "article": null,
+      "article": {
+        "title": "点加算と長方形和をまとめて処理",
+        "markdown": "点への加算と長方形和の問い合わせを登録し、操作順を保って答えをまとめて求める。\n\n## 主な機能\n\n`add`と`query`を実際の操作順に呼び、最後に`solve()`を呼ぶ。各問い合わせに反映されるのは、その`query`より前に登録した加算だけ。\n\n点加算数をU、問い合わせ数をQとして、登録は1回償却O(1)、`solve`はO((U+Q) log²(U+2))時間、O(U log(U+2)+Q)追加メモリ。\n\n## 使い方\n\n```python\nfrom library_codex.spatial_structure.DynamicPointAddRectangleSum import DynamicPointAddRectangleSum\n\nsolver = DynamicPointAddRectangleSum()\nsolver.add(1, 2, 7)\nsolver.query(0, 0, 3, 3)\nsolver.add(1, 2, -2)\nsolver.query(0, 0, 3, 3)\nassert solver.solve() == [7, 5]\n```\n\n- `solve()`の返り値: `query`の登録順に長方形和を並べたlist。`add`に対応する要素は含まない。\n- 問い合わせの領域: 半開領域 `[left, right) × [bottom, top)`。\n\n## 注意点\n\n- 座標・加算値は整数。負値も使える。\n- `solve`を繰り返しても操作列は消えない。新しい操作を追加して再計算もできる。\n- 即座に問い合わせへ答えたい場合は、更新点を事前登録する`CompressedFenwick2D`を使う。",
+        "sourcePath": "library_codex/docs/articles/spatial_structure/DynamicPointAddRectangleSum.md"
+      },
       "searchTerms": [
         "DynamicPointAddRectangleSum",
         "Dynamic Point Add Rectangle Sum",
@@ -29025,10 +29033,10 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/spatial_structure/DynamicPointAddRectangleSum.py",
-      "inputFingerprint": "5f0c9884fde7ab6099bf8eb15085fce3533d4bc7f4c33561b92fd23cfa3a179f",
+      "inputFingerprint": "837eff2ca4f1b9bf37e6c9713e7346d22e7f2306e9467419f92ccd0c60b4133d",
       "importCode": "from library_codex.spatial_structure.DynamicPointAddRectangleSum import DynamicPointAddRectangleSum",
       "sourceCode": "\"\"\"点の重み追加と矩形和queryが混ざる列をofflineで処理する。\"\"\"\n\nfrom library_codex.spatial_structure.CompressedFenwick2D import CompressedFenwick2D\n\nclass DynamicPointAddRectangleSum:\n    __slots__ = (\"operations\",)\n\n    def __init__(self):\n        self.operations = []\n\n    def add(self, x, y, value):\n        self.operations.append((0, x, y, value))\n\n    def query(self, left, bottom, right, top):\n        self.operations.append((1, left, bottom, right, top))\n\n    def solve(self):\n        points = [(op[1], op[2]) for op in self.operations if op[0] == 0]\n        fenwick = CompressedFenwick2D(points)\n        result = []\n        for operation in self.operations:\n            if operation[0] == 0:\n                fenwick.add(operation[1], operation[2], operation[3])\n            else:\n                result.append(fenwick.sum(*operation[1:]))\n        return result\n\n    run = solve\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: spatial_structure/CompressedFenwick2D.py\n\"\"\"事前に与えた疎な座標だけを保持する二次元Fenwick Tree。\"\"\"\nfrom bisect import bisect_left\n\nclass CompressedFenwick2D:\n    \"\"\"Point add / rectangle sum; every update coordinate is preregistered.\"\"\"\n    __slots__ = ('xs', 'ys', 'bit')\n\n    def __init__(self, points):\n        points = list(points)\n        xs = sorted(set((x for (x, _) in points)))\n        ys = [[] for _ in range(len(xs) + 1)]\n        for (x, y) in points:\n            index = bisect_left(xs, x) + 1\n            while index <= len(xs):\n                ys[index].append(y)\n                index += index & -index\n        for index in range(1, len(ys)):\n            ys[index] = sorted(set(ys[index]))\n        self.xs = xs\n        self.ys = ys\n        self.bit = [[0] * (len(row) + 1) for row in ys]\n\n    def add(self, x, y, value):\n        x_index = bisect_left(self.xs, x)\n        if x_index == len(self.xs) or self.xs[x_index] != x:\n            raise KeyError('update coordinate was not registered')\n        x_index += 1\n        while x_index <= len(self.xs):\n            row_coordinates = self.ys[x_index]\n            y_index = bisect_left(row_coordinates, y)\n            if y_index == len(row_coordinates) or row_coordinates[y_index] != y:\n                raise KeyError('update coordinate was not registered')\n            y_index += 1\n            row = self.bit[x_index]\n            while y_index < len(row):\n                row[y_index] += value\n                y_index += y_index & -y_index\n            x_index += x_index & -x_index\n\n    def prefix_sum(self, x, y):\n        x_index = bisect_left(self.xs, x)\n        result = 0\n        while x_index:\n            y_index = bisect_left(self.ys[x_index], y)\n            row = self.bit[x_index]\n            while y_index:\n                result += row[y_index]\n                y_index &= y_index - 1\n            x_index &= x_index - 1\n        return result\n\n    def sum(self, left, bottom, right, top):\n        return self.prefix_sum(right, top) - self.prefix_sum(left, top) - self.prefix_sum(right, bottom) + self.prefix_sum(left, bottom)\n    prod = sum\n\n# 本体\n\"\"\"点の重み追加と矩形和queryが混ざる列をofflineで処理する。\"\"\"\n\nclass DynamicPointAddRectangleSum:\n    __slots__ = ('operations',)\n\n    def __init__(self):\n        self.operations = []\n\n    def add(self, x, y, value):\n        self.operations.append((0, x, y, value))\n\n    def query(self, left, bottom, right, top):\n        self.operations.append((1, left, bottom, right, top))\n\n    def solve(self):\n        points = [(op[1], op[2]) for op in self.operations if op[0] == 0]\n        fenwick = CompressedFenwick2D(points)\n        result = []\n        for operation in self.operations:\n            if operation[0] == 0:\n                fenwick.add(operation[1], operation[2], operation[3])\n            else:\n                result.append(fenwick.sum(*operation[1:]))\n        return result\n    run = solve\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: spatial_structure/CompressedFenwick2D.py\n\"\"\"事前に与えた疎な座標だけを保持する二次元Fenwick Tree。\"\"\"\nfrom bisect import bisect_left\n\nclass CompressedFenwick2D:\n    \"\"\"Point add / rectangle sum; every update coordinate is preregistered.\"\"\"\n    __slots__ = ('xs', 'ys', 'bit', '_points')\n\n    def __init__(self, points):\n        points = {(x, y) for (x, y) in points}\n        xs = sorted(set((x for (x, _) in points)))\n        ranks = {x: i + 1 for (i, x) in enumerate(xs)}\n        self._points = {(x, y): ranks[x] for (x, y) in points}\n        ys = [[] for _ in range(len(xs) + 1)]\n        for (y, x) in sorted(((y, x) for (x, y) in points)):\n            index = ranks[x]\n            while index <= len(xs):\n                row = ys[index]\n                if not row or row[-1] != y:\n                    row.append(y)\n                index += index & -index\n        self.xs = xs\n        self.ys = ys\n        self.bit = [[0] * (len(row) + 1) for row in ys]\n\n    def add(self, x, y, value):\n        x_index = self._points[x, y]\n        while x_index <= len(self.xs):\n            row_coordinates = self.ys[x_index]\n            y_index = bisect_left(row_coordinates, y) + 1\n            row = self.bit[x_index]\n            while y_index < len(row):\n                row[y_index] += value\n                y_index += y_index & -y_index\n            x_index += x_index & -x_index\n\n    def prefix_sum(self, x, y):\n        x_index = bisect_left(self.xs, x)\n        result = 0\n        while x_index:\n            y_index = bisect_left(self.ys[x_index], y)\n            row = self.bit[x_index]\n            while y_index:\n                result += row[y_index]\n                y_index &= y_index - 1\n            x_index &= x_index - 1\n        return result\n\n    def sum(self, left, bottom, right, top):\n        if left >= right or bottom >= top:\n            return 0\n        left = bisect_left(self.xs, left)\n        right = bisect_left(self.xs, right)\n        result = 0\n        while left != right:\n            if left < right:\n                index = right\n                right &= right - 1\n                sign = 1\n            else:\n                index = left\n                left &= left - 1\n                sign = -1\n            coordinates = self.ys[index]\n            low = bisect_left(coordinates, bottom)\n            high = bisect_left(coordinates, top)\n            row = self.bit[index]\n            total = 0\n            while low != high:\n                if low < high:\n                    total += row[high]\n                    high &= high - 1\n                else:\n                    total -= row[low]\n                    low &= low - 1\n            result += sign * total\n        return result\n    prod = sum\n\n# 本体\n\"\"\"点の重み追加と矩形和queryが混ざる列をofflineで処理する。\"\"\"\n\nclass DynamicPointAddRectangleSum:\n    __slots__ = ('operations',)\n\n    def __init__(self):\n        self.operations = []\n\n    def add(self, x, y, value):\n        self.operations.append((0, x, y, value))\n\n    def query(self, left, bottom, right, top):\n        self.operations.append((1, left, bottom, right, top))\n\n    def solve(self):\n        points = [(op[1], op[2]) for op in self.operations if op[0] == 0]\n        fenwick = CompressedFenwick2D(points)\n        result = []\n        for operation in self.operations:\n            if operation[0] == 0:\n                fenwick.add(operation[1], operation[2], operation[3])\n            else:\n                result.append(fenwick.sum(*operation[1:]))\n        return result\n    run = solve\n",
       "bundledDependencies": [
         "library_codex.spatial_structure.CompressedFenwick2D"
       ],
@@ -29041,8 +29049,8 @@
       "classes": [
         {
           "name": "DynamicPointAddRectangleSum",
-          "summary": "点の重み追加と矩形和クエリが混ざる列をオフラインで処理するためのクラス。",
-          "description": "点の重み追加と矩形和クエリが混ざる列をオフラインで処理するためのクラス。",
+          "summary": "点加算と長方形和の操作列を、登録順を保ってまとめて処理する。",
+          "description": "点加算と長方形和の操作列を、登録順を保ってまとめて処理する。",
           "searchTerms": [
             "DynamicPointAddRectangleSum",
             "Dynamic Point Add Rectangle Sum",
@@ -29053,93 +29061,93 @@
           "constructorArgumentDetails": [],
           "constructorReturns": "DynamicPointAddRectangleSum instance",
           "constructorReturnFormat": "DynamicPointAddRectangleSum",
-          "constructorReturnDescription": "点の重み追加と矩形和クエリが混ざる列をオフラインで処理するためのクラス。",
-          "constructorCreates": "点の重み追加と矩形和クエリが混ざる列をオフラインで処理するためのクラス。",
-          "constructorComplexity": "実装依存",
+          "constructorReturnDescription": "空の操作列。addとqueryを操作順に登録し、solveで問い合わせの答えをまとめて取得する。",
+          "constructorCreates": "空の操作列。addとqueryを操作順に登録し、solveで問い合わせの答えをまとめて取得する。",
+          "constructorComplexity": "O(1)",
           "constructorSourceLine": 8,
           "methods": [
             {
               "name": "add",
               "kind": "method",
               "signature": "add(x, y, value)",
-              "summary": "引数で指定した要素・辺・区間へ値を追加する。",
-              "description": "引数で指定した要素・辺・区間へ値を追加する。",
+              "summary": "点(x, y)の現在値へvalueを加算する。",
+              "description": "点(x, y)の現在値へvalueを加算する。",
               "searchTerms": [
                 "add",
                 "add(x, y, value)"
               ],
-              "arguments": "x: 値・座標・問い合わせ対象 · y: 値・座標・問い合わせ対象 · value: 追加・設定・問い合わせる値",
+              "arguments": "x: 対象点のx座標。 · y: 対象点のy座標。 · value: 各点へ加える整数。負でもよい。",
               "argumentDetails": [
                 {
                   "name": "x",
-                  "description": "値・座標・問い合わせ対象"
+                  "description": "対象点のx座標。"
                 },
                 {
                   "name": "y",
-                  "description": "値・座標・問い合わせ対象"
+                  "description": "対象点のy座標。"
                 },
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "各点へ加える整数。負でもよい。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 加算を登録する。solveで反映する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "O(1)",
+              "returnDescription": "加算を登録する。solveで反映する。",
+              "complexity": "償却O(1)",
               "sourceLine": 11
             },
             {
               "name": "query",
               "kind": "method",
               "signature": "query(left, bottom, right, top)",
-              "summary": "半開長方形 $[\\mathrm{left},\\mathrm{right})\\times[\\mathrm{bottom},\\mathrm{top})$ の点重み和queryを登録する。",
-              "description": "半開長方形 $[\\mathrm{left},\\mathrm{right})\\times[\\mathrm{bottom},\\mathrm{top})$ の点重み和queryを登録する。",
+              "summary": "半開領域[left, right) × [bottom, top)の合計の問い合わせを登録する。",
+              "description": "半開領域[left, right) × [bottom, top)の合計の問い合わせを登録する。",
               "searchTerms": [
                 "query",
                 "query(left, bottom, right, top)"
               ],
-              "arguments": "left: 半開区間の左端（含む） · bottom: 矩形の下端（含まない） · right: 半開区間の右端（含まない） · top: 矩形の上端（含む）",
+              "arguments": "left: x座標の下限。含む。 · bottom: y座標の下限。含む。 · right: x座標の上限。含まない。 · top: y座標の上限。含まない。",
               "argumentDetails": [
                 {
                   "name": "left",
-                  "description": "半開区間の左端（含む）"
+                  "description": "x座標の下限。含む。"
                 },
                 {
                   "name": "bottom",
-                  "description": "矩形の下端（含まない）"
+                  "description": "y座標の下限。含む。"
                 },
                 {
                   "name": "right",
-                  "description": "半開区間の右端（含まない）"
+                  "description": "x座標の上限。含まない。"
                 },
                 {
                   "name": "top",
-                  "description": "矩形の上端（含む）"
+                  "description": "y座標の上限。含まない。"
                 }
               ],
-              "returns": "None — 値は返さない。solveが登録順の各query結果を返す。",
+              "returns": "None — 問い合わせを追加する。答えはsolveのlistに、このqueryの登録順で入る。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。solveが登録順の各query結果を返す。",
-              "complexity": "O(1)",
+              "returnDescription": "問い合わせを追加する。答えはsolveのlistに、このqueryの登録順で入る。",
+              "complexity": "償却O(1)",
               "sourceLine": 14
             },
             {
               "name": "solve",
               "kind": "method",
               "signature": "solve()",
-              "summary": "設定済みの問題を解き、答えを返す。",
-              "description": "設定済みの問題を解き、答えを返す。",
+              "summary": "登録した問い合わせの答えをまとめて計算する。",
+              "description": "登録した問い合わせの答えをまとめて計算する。",
               "searchTerms": [
                 "solve",
                 "solve()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "list[object] — 登録順の答えのlist",
-              "returnFormat": "list[object]",
-              "returnDescription": "登録順の答えのlist",
-              "complexity": "O((U+Q) log^2 U)（Uは点追加数、Qはquery数）",
+              "returns": "list[int] — result[i]はi番目のqueryの長方形和。各queryより前のaddだけを反映する。操作列は変更しない。",
+              "returnFormat": "list[int]",
+              "returnDescription": "result[i]はi番目のqueryの長方形和。各queryより前のaddだけを反映する。操作列は変更しない。",
+              "complexity": "O((U+Q) log²(U+2))時間・O(U log(U+2)+Q)追加メモリ。Uは加算数、Qは問い合わせ数",
               "sourceLine": 17
             }
           ]
@@ -30072,13 +30080,211 @@
       "categoryLabel": "2次元・直線",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
+      "name": "RectangleAddPointGet",
+      "modulePath": "library_codex.spatial_structure.RectangleAddPointGet",
+      "summary": "長方形へ加算し、事前登録した点の現在値を求める。",
+      "capabilities": [
+        "半開長方形への加算と登録点の現在値の取得を行う。"
+      ],
+      "article": {
+        "title": "長方形への加算と一点の取得",
+        "markdown": "平面上の登録点へ長方形単位で加算し、各点の現在値を取得する。\n\n## 主な機能\n\n`RectangleAddPointGet(points)`へ、今後値を読みたい点の座標を渡す。初期値はすべて0。`add`は半開領域 `[left, right) × [bottom, top)` に含まれる登録点へ加算し、`get(x, y)`はその点の現在値を返す。\n\n入力点数をP、異なる登録点数をNとして、構築はO(P+N log(N+1))時間・O(N log(N+1))メモリ、加算・取得はO(log²(N+1))時間。hash処理は期待時間。長方形の境界は事前登録しなくてよい。\n\n## 使い方\n\n```python\nfrom library_codex.spatial_structure.RectangleAddPointGet import RectangleAddPointGet\n\ntree = RectangleAddPointGet([(0, 0), (1, 1), (2, 1)])\ntree.add(0, 0, 2, 2, 5)\ntree.add(1, 1, 3, 2, -2)\nassert tree.get(0, 0) == 5\nassert tree.get(1, 1) == 3\nassert tree.get(2, 1) == -2\nassert tree.items() == [(0, 0, 5), (1, 1, 3), (2, 1, -2)]\n```\n\n- `get(x, y)`: その点を含む、これまでの長方形加算の合計。\n- `items()`: `(x, y, 現在値)`を座標の辞書順で並べたlist。重複登録した点は一度だけ返す。\n\n## 仕組み\n\n疎な二次元BITで、点加算と長方形和の処理を入れ替える。長方形の四隅ではなく、値を読みたい点だけを保存するため、更新する長方形が多くても構造の大きさは増えない。\n\n## 注意点\n\n- 座標・加算値は整数。負値も使える。\n- 右端と上端は含まない。幅または高さが0以下なら加算しない。\n- 未登録の点を`get`すると`KeyError`。登録済みのxとyを組み替えただけの点も、登録していなければ取得できない。\n- 問い合わせを先に読める問題では、取得する点だけ集めて構築してから操作順に処理する。",
+        "sourcePath": "library_codex/docs/articles/spatial_structure/RectangleAddPointGet.md"
+      },
+      "searchTerms": [
+        "RectangleAddPointGet",
+        "Rectangle Add Point Get",
+        "library_codex.spatial_structure.RectangleAddPointGet",
+        "library codex spatial structure Rectangle Add Point Get",
+        "spatial_structure/RectangleAddPointGet.py",
+        "2次元・直線",
+        "長方形加算",
+        "矩形加算",
+        "一点取得",
+        "二次元双対BIT"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/spatial_structure/RectangleAddPointGet.py",
+      "inputFingerprint": "247521f3e17e5cce9f20bb6c99b198f79128cdb89786d2d859acf5e7acff33a5",
+      "importCode": "from library_codex.spatial_structure.RectangleAddPointGet import RectangleAddPointGet",
+      "sourceCode": "\"\"\"長方形へ加算し、事前登録した点の現在値を求める。\"\"\"\n\nfrom bisect import bisect_left\n\nfrom library_codex.spatial_structure.CompressedFenwick2D import CompressedFenwick2D\n\n\nclass RectangleAddPointGet:\n    __slots__ = (\"_fenwick\",)\n\n    def __init__(self, points):\n        self._fenwick = CompressedFenwick2D(points)\n\n    def add(self, left, bottom, right, top, value):\n        \"\"\"[left, right) × [bottom, top) の登録点へvalueを加える。\"\"\"\n        if left >= right or bottom >= top:\n            return\n        fenwick = self._fenwick\n        left = bisect_left(fenwick.xs, left)\n        right = bisect_left(fenwick.xs, right)\n        while left != right:\n            if left < right:\n                index = right\n                right &= right - 1\n                delta = value\n            else:\n                index = left\n                left &= left - 1\n                delta = -value\n            coordinates = fenwick.ys[index]\n            low = bisect_left(coordinates, bottom)\n            high = bisect_left(coordinates, top)\n            row = fenwick.bit[index]\n            while low != high:\n                if low < high:\n                    row[high] += delta\n                    high &= high - 1\n                else:\n                    row[low] -= delta\n                    low &= low - 1\n\n    def get(self, x, y):\n        \"\"\"登録点(x, y)に、それまでのaddで加えた値の合計を返す。\"\"\"\n        fenwick = self._fenwick\n        index = fenwick._points[(x, y)]\n        result = 0\n        while index <= len(fenwick.xs):\n            position = bisect_left(fenwick.ys[index], y) + 1\n            row = fenwick.bit[index]\n            while position < len(row):\n                result += row[position]\n                position += position & -position\n            index += index & -index\n        return result\n\n    def items(self):\n        return [(x, y, self.get(x, y)) for x, y in sorted(self._fenwick._points)]\n\n    def __str__(self):\n        return str(self.items())\n\n    def __repr__(self):\n        return f\"RectangleAddPointGet({self.items()!r})\"\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: spatial_structure/CompressedFenwick2D.py\n\"\"\"事前に与えた疎な座標だけを保持する二次元Fenwick Tree。\"\"\"\nfrom bisect import bisect_left as _spatial_structure_compressed_fenwick2_d_bisect_left\n\nclass CompressedFenwick2D:\n    \"\"\"Point add / rectangle sum; every update coordinate is preregistered.\"\"\"\n    __slots__ = ('xs', 'ys', 'bit', '_points')\n\n    def __init__(self, points):\n        points = {(x, y) for (x, y) in points}\n        xs = sorted(set((x for (x, _) in points)))\n        ranks = {x: i + 1 for (i, x) in enumerate(xs)}\n        self._points = {(x, y): ranks[x] for (x, y) in points}\n        ys = [[] for _ in range(len(xs) + 1)]\n        for (y, x) in sorted(((y, x) for (x, y) in points)):\n            index = ranks[x]\n            while index <= len(xs):\n                row = ys[index]\n                if not row or row[-1] != y:\n                    row.append(y)\n                index += index & -index\n        self.xs = xs\n        self.ys = ys\n        self.bit = [[0] * (len(row) + 1) for row in ys]\n\n    def add(self, x, y, value):\n        x_index = self._points[x, y]\n        while x_index <= len(self.xs):\n            row_coordinates = self.ys[x_index]\n            y_index = _spatial_structure_compressed_fenwick2_d_bisect_left(row_coordinates, y) + 1\n            row = self.bit[x_index]\n            while y_index < len(row):\n                row[y_index] += value\n                y_index += y_index & -y_index\n            x_index += x_index & -x_index\n\n    def prefix_sum(self, x, y):\n        x_index = _spatial_structure_compressed_fenwick2_d_bisect_left(self.xs, x)\n        result = 0\n        while x_index:\n            y_index = _spatial_structure_compressed_fenwick2_d_bisect_left(self.ys[x_index], y)\n            row = self.bit[x_index]\n            while y_index:\n                result += row[y_index]\n                y_index &= y_index - 1\n            x_index &= x_index - 1\n        return result\n\n    def sum(self, left, bottom, right, top):\n        if left >= right or bottom >= top:\n            return 0\n        left = _spatial_structure_compressed_fenwick2_d_bisect_left(self.xs, left)\n        right = _spatial_structure_compressed_fenwick2_d_bisect_left(self.xs, right)\n        result = 0\n        while left != right:\n            if left < right:\n                index = right\n                right &= right - 1\n                sign = 1\n            else:\n                index = left\n                left &= left - 1\n                sign = -1\n            coordinates = self.ys[index]\n            low = _spatial_structure_compressed_fenwick2_d_bisect_left(coordinates, bottom)\n            high = _spatial_structure_compressed_fenwick2_d_bisect_left(coordinates, top)\n            row = self.bit[index]\n            total = 0\n            while low != high:\n                if low < high:\n                    total += row[high]\n                    high &= high - 1\n                else:\n                    total -= row[low]\n                    low &= low - 1\n            result += sign * total\n        return result\n    prod = sum\n\n# 本体\n\"\"\"長方形へ加算し、事前登録した点の現在値を求める。\"\"\"\nfrom bisect import bisect_left\n\nclass RectangleAddPointGet:\n    __slots__ = ('_fenwick',)\n\n    def __init__(self, points):\n        self._fenwick = CompressedFenwick2D(points)\n\n    def add(self, left, bottom, right, top, value):\n        \"\"\"[left, right) × [bottom, top) の登録点へvalueを加える。\"\"\"\n        if left >= right or bottom >= top:\n            return\n        fenwick = self._fenwick\n        left = bisect_left(fenwick.xs, left)\n        right = bisect_left(fenwick.xs, right)\n        while left != right:\n            if left < right:\n                index = right\n                right &= right - 1\n                delta = value\n            else:\n                index = left\n                left &= left - 1\n                delta = -value\n            coordinates = fenwick.ys[index]\n            low = bisect_left(coordinates, bottom)\n            high = bisect_left(coordinates, top)\n            row = fenwick.bit[index]\n            while low != high:\n                if low < high:\n                    row[high] += delta\n                    high &= high - 1\n                else:\n                    row[low] -= delta\n                    low &= low - 1\n\n    def get(self, x, y):\n        \"\"\"登録点(x, y)に、それまでのaddで加えた値の合計を返す。\"\"\"\n        fenwick = self._fenwick\n        index = fenwick._points[x, y]\n        result = 0\n        while index <= len(fenwick.xs):\n            position = bisect_left(fenwick.ys[index], y) + 1\n            row = fenwick.bit[index]\n            while position < len(row):\n                result += row[position]\n                position += position & -position\n            index += index & -index\n        return result\n\n    def items(self):\n        return [(x, y, self.get(x, y)) for (x, y) in sorted(self._fenwick._points)]\n\n    def __str__(self):\n        return str(self.items())\n\n    def __repr__(self):\n        return f'RectangleAddPointGet({self.items()!r})'\n",
+      "bundledDependencies": [
+        "library_codex.spatial_structure.CompressedFenwick2D"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 5
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "RectangleAddPointGet",
+          "summary": "半開長方形への加算と登録点の現在値の取得を行う。",
+          "description": "半開長方形への加算と登録点の現在値の取得を行う。",
+          "searchTerms": [
+            "RectangleAddPointGet",
+            "Rectangle Add Point Get",
+            "RectangleAddPointGet(points)"
+          ],
+          "constructor": "RectangleAddPointGet(points)",
+          "constructorArguments": "points: 値を取得する整数座標(x, y)のiterable。重複は一つにまとめる。未登録点のgetはKeyError。加算長方形の境界は登録不要。",
+          "constructorArgumentDetails": [
+            {
+              "name": "points",
+              "description": "値を取得する整数座標(x, y)の反復可能オブジェクト。重複は一つにまとめる。未登録点のgetはKeyError。加算長方形の境界は登録不要"
+            }
+          ],
+          "constructorReturns": "RectangleAddPointGet instance",
+          "constructorReturnFormat": "RectangleAddPointGet",
+          "constructorReturnDescription": "登録点の値がすべて0の構造。addで長方形へ加算し、getで一点の現在値を取得する。",
+          "constructorCreates": "登録点の値がすべて0の構造。addで長方形へ加算し、getで一点の現在値を取得する。",
+          "constructorComplexity": "O(P+N log(N+1))時間・O(N log(N+1))メモリ。Pは入力点数、Nは異なる登録点数。hash処理は期待時間",
+          "constructorSourceLine": 11,
+          "methods": [
+            {
+              "name": "add",
+              "kind": "method",
+              "signature": "add(left, bottom, right, top, value)",
+              "summary": "半開領域[left, right) × [bottom, top)へvalueを加算する。",
+              "description": "半開領域[left, right) × [bottom, top)へvalueを加算する。",
+              "searchTerms": [
+                "add",
+                "add(left, bottom, right, top, value)"
+              ],
+              "arguments": "left: x座標の下限。含む。 · bottom: y座標の下限。含む。 · right: x座標の上限。含まない。 · top: y座標の上限。含まない。 · value: 各点へ加える整数。負でもよい。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "x座標の下限。含む。"
+                },
+                {
+                  "name": "bottom",
+                  "description": "y座標の下限。含む。"
+                },
+                {
+                  "name": "right",
+                  "description": "x座標の上限。含まない。"
+                },
+                {
+                  "name": "top",
+                  "description": "y座標の上限。含まない。"
+                },
+                {
+                  "name": "value",
+                  "description": "各点へ加える整数。負でもよい。"
+                }
+              ],
+              "returns": "None — 対象点の値を変更する。",
+              "returnFormat": "None",
+              "returnDescription": "対象点の値を変更する。",
+              "complexity": "O(log²(N+1))時間",
+              "sourceLine": 14
+            },
+            {
+              "name": "get",
+              "kind": "method",
+              "signature": "get(x, y)",
+              "summary": "登録点(x, y)の現在値を取得する。",
+              "description": "登録点(x, y)の現在値を取得する。",
+              "searchTerms": [
+                "get",
+                "get(x, y)"
+              ],
+              "arguments": "x: 対象点のx座標。 · y: 対象点のy座標。",
+              "argumentDetails": [
+                {
+                  "name": "x",
+                  "description": "対象点のx座標。"
+                },
+                {
+                  "name": "y",
+                  "description": "対象点のy座標。"
+                }
+              ],
+              "returns": "int — その点を含む、これまでのaddのvalueの合計。未登録点はKeyError。",
+              "returnFormat": "int",
+              "returnDescription": "その点を含む、これまでのaddのvalueの合計。未登録点はKeyError。",
+              "complexity": "O(log²(N+1))時間",
+              "sourceLine": 42
+            },
+            {
+              "name": "items",
+              "kind": "method",
+              "signature": "items()",
+              "summary": "登録点の座標と現在値を辞書順で取り出す。",
+              "description": "登録点の座標と現在値を辞書順で取り出す。",
+              "searchTerms": [
+                "items",
+                "items()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[tuple[int, int, int]] — (x, y, 現在値)のlist。重複登録した点は一度だけ返す。",
+              "returnFormat": "list[tuple[int, int, int]]",
+              "returnDescription": "(x, y, 現在値)のlist。重複登録した点は一度だけ返す。",
+              "complexity": "O(N log²(N+1))時間・O(N)追加メモリ",
+              "sourceLine": 56
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "登録点の座標と現在値を辞書順で取り出す。",
+              "description": "登録点の座標と現在値を辞書順で取り出す。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — itemsと同じ内容の文字列。reprは先頭に型名を付ける。",
+              "returnFormat": "str",
+              "returnDescription": "itemsと同じ内容の文字列。reprは先頭に型名を付ける。",
+              "complexity": "O(N log²(N+1))時間・O(N)追加メモリ",
+              "sourceLine": 59
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "登録点の座標と現在値を辞書順で取り出す。",
+              "description": "登録点の座標と現在値を辞書順で取り出す。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — itemsと同じ内容の文字列。reprは先頭に型名を付ける。",
+              "returnFormat": "str",
+              "returnDescription": "itemsと同じ内容の文字列。reprは先頭に型名を付ける。",
+              "complexity": "O(N log²(N+1))時間・O(N)追加メモリ",
+              "sourceLine": 62
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "spatial_structure",
+      "categoryLabel": "2次元・直線",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
       "name": "RectangleAddRectangleSum",
       "modulePath": "library_codex.spatial_structure.RectangleAddRectangleSum",
       "summary": "矩形への一括加算後に別の矩形和をオフラインで求める。",
       "capabilities": [
-        "RectangleAddRectangleSum: 矩形への一括加算後に別の矩形和をオフラインで求めるためのクラス。"
+        "すべての長方形加算を反映した後の長方形和をまとめて求める。"
       ],
-      "article": null,
+      "article": {
+        "title": "長方形への一括加算後の長方形和",
+        "markdown": "初期値0の整数格子へ複数の長方形加算を行い、別の長方形内の値の合計を求める。\n\n## 主な機能\n\n`add`で長方形加算を、`query`で集計する長方形を登録する。`solve()`はすべての加算を反映した答えを返す。`solve(mod)`なら指定した法での剰余を返し、中間の係数も剰余にして計算する。\n\n加算数をR、問い合わせ数をQとして、登録は1回償却O(1)、計算はO((R+Q) log(R+Q+2))時間・O(R+Q)追加メモリ。整数の演算・比較をO(1)としている。\n\n## 使い方\n\n```python\nfrom library_codex.spatial_structure.RectangleAddRectangleSum import RectangleAddRectangleSum\n\nsolver = RectangleAddRectangleSum()\nsolver.add(0, 0, 3, 2, 5)\nsolver.add(1, 0, 2, 2, -1)\nsolver.query(0, 0, 3, 2)\nsolver.query(1, 0, 3, 1)\nassert solver.solve() == [28, 9]\nassert solver.solve(7) == [0, 2]\n```\n\n- `solve`の返り値: `query`の登録順のlist。`result[i]`はi番目の問い合わせ領域の格子点値の合計。\n- 領域: 加算・問い合わせの両方とも半開領域 `[left, right) × [bottom, top)`。重なった幅×高さ×加算値を、各加算について足したものになる。\n\n## 注意点\n\n- **操作順は考慮しない。** `query`より後の`add`も、すべての問い合わせに反映される。\n- 座標・加算値は整数。負値も使える。\n- 幅または高さが0以下の長方形は空として扱う。\n- `mod`は正の整数。省略時は剰余を取らず、任意精度整数で計算する。\n- `solve`は登録内容を変更しない。",
+        "sourcePath": "library_codex/docs/articles/spatial_structure/RectangleAddRectangleSum.md"
+      },
       "searchTerms": [
         "RectangleAddRectangleSum",
         "Rectangle Add Rectangle Sum",
@@ -30089,13 +30295,11 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/spatial_structure/RectangleAddRectangleSum.py",
-      "inputFingerprint": "9d5de6866dc5f7317d02de5679613d8665fa79fa960d392f7e0cd7765300c6a6",
+      "inputFingerprint": "c3ed1efb409346019d2db18af1ae7a447cf31f82d65d0d10815292139989f5af",
       "importCode": "from library_codex.spatial_structure.RectangleAddRectangleSum import RectangleAddRectangleSum",
-      "sourceCode": "\"\"\"矩形への一括加算後に別の矩形和をofflineで求める。\"\"\"\n\nfrom bisect import bisect_left\n\nfrom library_codex.fenwick_tree.BIT import BIT\n\nclass RectangleAddRectangleSum:\n    __slots__ = (\"rectangles\", \"queries\")\n\n    def __init__(self):\n        self.rectangles = []\n        self.queries = []\n\n    def add(self, left, bottom, right, top, value):\n        self.rectangles.append((left, bottom, right, top, value))\n\n    add_rectangle = add\n\n    def query(self, left, bottom, right, top):\n        self.queries.append((left, bottom, right, top))\n\n    add_query = query\n\n    def solve(self):\n        events = []\n        ys = []\n        for left, bottom, right, top, value in self.rectangles:\n            events.append((left, bottom, value))\n            events.append((left, top, -value))\n            events.append((right, bottom, -value))\n            events.append((right, top, value))\n            ys.append(bottom)\n            ys.append(top)\n        requests = []\n        for index, (left, bottom, right, top) in enumerate(self.queries):\n            requests.append((left, bottom, 1, index))\n            requests.append((left, top, -1, index))\n            requests.append((right, bottom, -1, index))\n            requests.append((right, top, 1, index))\n        events.sort()\n        requests.sort()\n        ys = sorted(set(ys))\n        bits = [BIT(len(ys)) for _ in range(4)]\n        result = [0] * len(self.queries)\n        event_index = 0\n        for x, y, sign, query_index in requests:\n            while event_index < len(events) and events[event_index][0] < x:\n                event_x, event_y, value = events[event_index]\n                index = bisect_left(ys, event_y)\n                bits[0].add(index, value)\n                bits[1].add(index, value * event_x)\n                bits[2].add(index, value * event_y)\n                bits[3].add(index, value * event_x * event_y)\n                event_index += 1\n            index = bisect_left(ys, y)\n            s00 = bits[0].prefix_sum(index)\n            sx = bits[1].prefix_sum(index)\n            sy = bits[2].prefix_sum(index)\n            sxy = bits[3].prefix_sum(index)\n            prefix = x * y * s00 - y * sx - x * sy + sxy\n            result[query_index] += sign * prefix\n        return result\n\n    run = solve\n",
-      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: fenwick_tree/BIT.py\n\"\"\"一点加算・prefix和・区間和を対数時間で扱うBIT。\"\"\"\n\nclass BIT:\n    __slots__ = ('n', 'bit')\n\n    def __init__(self, values):\n        if isinstance(values, int):\n            if values < 0:\n                raise ValueError('size must be nonnegative')\n            self.n = values\n            self.bit = [0] * (values + 1)\n        else:\n            values = list(values)\n            n = len(values)\n            bit = [0] + values\n            for index in range(1, n + 1):\n                parent = index + (index & -index)\n                if parent <= n:\n                    bit[parent] += bit[index]\n            self.n = n\n            self.bit = bit\n\n    def add(self, index, value):\n        \"\"\"a[index]へvalueを加える。\"\"\"\n        index += 1\n        bit = self.bit\n        while index <= self.n:\n            bit[index] += value\n            index += index & -index\n\n    def prefix_sum(self, right):\n        \"\"\"半開区間[0, right)の和を返す。\"\"\"\n        result = 0\n        bit = self.bit\n        while right:\n            result += bit[right]\n            right &= right - 1\n        return result\n\n    def sum(self, left, right=None):\n        \"\"\"[left, right)の和を返す。right省略時は[0, left)の和。\"\"\"\n        if right is None:\n            return self.prefix_sum(left)\n        return self.prefix_sum(right) - self.prefix_sum(left)\n\n    def get(self, index):\n        \"\"\"a[index]を返す。\"\"\"\n        return self.sum(index, index + 1)\n\n    def set(self, index, value):\n        \"\"\"a[index]をvalueへ置き換える。\"\"\"\n        self.add(index, value - self.get(index))\n\n    def lower_bound(self, target):\n        \"\"\"prefix和がtarget以上になる最小の右端を返す。\"\"\"\n        if target <= 0:\n            return 0\n        index = 0\n        step = 1 << self.n.bit_length() - 1 if self.n else 0\n        bit = self.bit\n        while step:\n            next_index = index + step\n            if next_index <= self.n and bit[next_index] < target:\n                target -= bit[next_index]\n                index = next_index\n            step >>= 1\n        return index if index < self.n else self.n\n\n    def __len__(self):\n        return self.n\n\n    def tolist(self):\n        \"\"\"現在の要素列をlistで返す。O(N)。\"\"\"\n        values = self.bit[1:]\n        for index in range(self.n, 0, -1):\n            parent = index + (index & -index)\n            if parent <= self.n:\n                values[parent - 1] -= values[index - 1]\n        return values\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'BIT(%r)' % self.tolist()\n\n# 本体\n\"\"\"矩形への一括加算後に別の矩形和をofflineで求める。\"\"\"\nfrom bisect import bisect_left\n\nclass RectangleAddRectangleSum:\n    __slots__ = ('rectangles', 'queries')\n\n    def __init__(self):\n        self.rectangles = []\n        self.queries = []\n\n    def add(self, left, bottom, right, top, value):\n        self.rectangles.append((left, bottom, right, top, value))\n    add_rectangle = add\n\n    def query(self, left, bottom, right, top):\n        self.queries.append((left, bottom, right, top))\n    add_query = query\n\n    def solve(self):\n        events = []\n        ys = []\n        for (left, bottom, right, top, value) in self.rectangles:\n            events.append((left, bottom, value))\n            events.append((left, top, -value))\n            events.append((right, bottom, -value))\n            events.append((right, top, value))\n            ys.append(bottom)\n            ys.append(top)\n        requests = []\n        for (index, (left, bottom, right, top)) in enumerate(self.queries):\n            requests.append((left, bottom, 1, index))\n            requests.append((left, top, -1, index))\n            requests.append((right, bottom, -1, index))\n            requests.append((right, top, 1, index))\n        events.sort()\n        requests.sort()\n        ys = sorted(set(ys))\n        bits = [BIT(len(ys)) for _ in range(4)]\n        result = [0] * len(self.queries)\n        event_index = 0\n        for (x, y, sign, query_index) in requests:\n            while event_index < len(events) and events[event_index][0] < x:\n                (event_x, event_y, value) = events[event_index]\n                index = bisect_left(ys, event_y)\n                bits[0].add(index, value)\n                bits[1].add(index, value * event_x)\n                bits[2].add(index, value * event_y)\n                bits[3].add(index, value * event_x * event_y)\n                event_index += 1\n            index = bisect_left(ys, y)\n            s00 = bits[0].prefix_sum(index)\n            sx = bits[1].prefix_sum(index)\n            sy = bits[2].prefix_sum(index)\n            sxy = bits[3].prefix_sum(index)\n            prefix = x * y * s00 - y * sx - x * sy + sxy\n            result[query_index] += sign * prefix\n        return result\n    run = solve\n",
-      "bundledDependencies": [
-        "library_codex.fenwick_tree.BIT"
-      ],
+      "sourceCode": "\"\"\"矩形への一括加算後に別の矩形和をofflineで求める。\"\"\"\n\nfrom bisect import bisect_left\n\nclass RectangleAddRectangleSum:\n    __slots__ = (\"rectangles\", \"queries\")\n\n    def __init__(self):\n        self.rectangles = []\n        self.queries = []\n\n    def add(self, left, bottom, right, top, value):\n        self.rectangles.append((left, bottom, right, top, value))\n\n    add_rectangle = add\n\n    def query(self, left, bottom, right, top):\n        self.queries.append((left, bottom, right, top))\n\n    add_query = query\n\n    def solve(self, mod=None):\n        \"\"\"各queryの長方形和を登録順に返す。mod指定時はその剰余。\"\"\"\n        if mod is not None and mod <= 0:\n            raise ValueError(\"mod must be positive\")\n        events = []\n        ys = []\n        for left, bottom, right, top, value in self.rectangles:\n            if left >= right or bottom >= top:\n                continue\n            events.append((left, bottom, top, value))\n            events.append((right, bottom, top, -value))\n            ys.append(bottom)\n            ys.append(top)\n        requests = []\n        for index, (left, bottom, right, top) in enumerate(self.queries):\n            if left < right and bottom < top:\n                requests.append((left, bottom, top, ~index))\n                requests.append((right, bottom, top, index))\n        events.sort()\n        requests.sort()\n        ys = sorted(set(ys))\n        n = len(ys)\n        b0 = [0] * (n + 1)\n        bx = [0] * (n + 1)\n        by = [0] * (n + 1)\n        bxy = [0] * (n + 1)\n        result = [0] * len(self.queries)\n        event_index = 0\n        for x, bottom, top, query_index in requests:\n            while event_index < len(events) and events[event_index][0] < x:\n                event_x, low, high, value = events[event_index]\n                vx = value * event_x\n                if mod is not None:\n                    value %= mod\n                    vx %= mod\n                for y, sign in ((low, 1), (high, -1)):\n                    vy = value * y\n                    vxy = vx * y\n                    if mod is not None:\n                        vy %= mod\n                        vxy %= mod\n                    v0, v1, v2, v3 = sign * value, sign * vx, sign * vy, sign * vxy\n                    index = bisect_left(ys, y) + 1\n                    while index <= n:\n                        b0[index] += v0\n                        bx[index] += v1\n                        by[index] += v2\n                        bxy[index] += v3\n                        index += index & -index\n                event_index += 1\n            total = 0\n            for y, sign in ((bottom, -1), (top, 1)):\n                index = bisect_left(ys, y)\n                s0 = sx = sy = sxy = 0\n                while index:\n                    s0 += b0[index]\n                    sx += bx[index]\n                    sy += by[index]\n                    sxy += bxy[index]\n                    index &= index - 1\n                if mod is not None:\n                    s0 %= mod\n                    sx %= mod\n                    sy %= mod\n                    sxy %= mod\n                total += sign * (x * (y * s0 - sy) - y * sx + sxy)\n            if query_index < 0:\n                result[~query_index] -= total\n            else:\n                result[query_index] += total\n        if mod is not None:\n            return [value % mod for value in result]\n        return result\n\n    run = solve\n",
+      "standaloneCode": "\"\"\"矩形への一括加算後に別の矩形和をofflineで求める。\"\"\"\n\nfrom bisect import bisect_left\n\nclass RectangleAddRectangleSum:\n    __slots__ = (\"rectangles\", \"queries\")\n\n    def __init__(self):\n        self.rectangles = []\n        self.queries = []\n\n    def add(self, left, bottom, right, top, value):\n        self.rectangles.append((left, bottom, right, top, value))\n\n    add_rectangle = add\n\n    def query(self, left, bottom, right, top):\n        self.queries.append((left, bottom, right, top))\n\n    add_query = query\n\n    def solve(self, mod=None):\n        \"\"\"各queryの長方形和を登録順に返す。mod指定時はその剰余。\"\"\"\n        if mod is not None and mod <= 0:\n            raise ValueError(\"mod must be positive\")\n        events = []\n        ys = []\n        for left, bottom, right, top, value in self.rectangles:\n            if left >= right or bottom >= top:\n                continue\n            events.append((left, bottom, top, value))\n            events.append((right, bottom, top, -value))\n            ys.append(bottom)\n            ys.append(top)\n        requests = []\n        for index, (left, bottom, right, top) in enumerate(self.queries):\n            if left < right and bottom < top:\n                requests.append((left, bottom, top, ~index))\n                requests.append((right, bottom, top, index))\n        events.sort()\n        requests.sort()\n        ys = sorted(set(ys))\n        n = len(ys)\n        b0 = [0] * (n + 1)\n        bx = [0] * (n + 1)\n        by = [0] * (n + 1)\n        bxy = [0] * (n + 1)\n        result = [0] * len(self.queries)\n        event_index = 0\n        for x, bottom, top, query_index in requests:\n            while event_index < len(events) and events[event_index][0] < x:\n                event_x, low, high, value = events[event_index]\n                vx = value * event_x\n                if mod is not None:\n                    value %= mod\n                    vx %= mod\n                for y, sign in ((low, 1), (high, -1)):\n                    vy = value * y\n                    vxy = vx * y\n                    if mod is not None:\n                        vy %= mod\n                        vxy %= mod\n                    v0, v1, v2, v3 = sign * value, sign * vx, sign * vy, sign * vxy\n                    index = bisect_left(ys, y) + 1\n                    while index <= n:\n                        b0[index] += v0\n                        bx[index] += v1\n                        by[index] += v2\n                        bxy[index] += v3\n                        index += index & -index\n                event_index += 1\n            total = 0\n            for y, sign in ((bottom, -1), (top, 1)):\n                index = bisect_left(ys, y)\n                s0 = sx = sy = sxy = 0\n                while index:\n                    s0 += b0[index]\n                    sx += bx[index]\n                    sy += by[index]\n                    sxy += bxy[index]\n                    index &= index - 1\n                if mod is not None:\n                    s0 %= mod\n                    sx %= mod\n                    sy %= mod\n                    sxy %= mod\n                total += sign * (x * (y * s0 - sy) - y * sx + sxy)\n            if query_index < 0:\n                result[~query_index] -= total\n            else:\n                result[query_index] += total\n        if mod is not None:\n            return [value % mod for value in result]\n        return result\n\n    run = solve\n",
+      "bundledDependencies": [],
       "counts": {
         "functions": 0,
         "classes": 1,
@@ -30105,8 +30309,8 @@
       "classes": [
         {
           "name": "RectangleAddRectangleSum",
-          "summary": "矩形への一括加算後に別の矩形和をオフラインで求めるためのクラス。",
-          "description": "矩形への一括加算後に別の矩形和をオフラインで求めるためのクラス。",
+          "summary": "すべての長方形加算を反映した後の長方形和をまとめて求める。",
+          "description": "すべての長方形加算を反映した後の長方形和をまとめて求める。",
           "searchTerms": [
             "RectangleAddRectangleSum",
             "Rectangle Add Rectangle Sum",
@@ -30117,102 +30321,107 @@
           "constructorArgumentDetails": [],
           "constructorReturns": "RectangleAddRectangleSum instance",
           "constructorReturnFormat": "RectangleAddRectangleSum",
-          "constructorReturnDescription": "矩形への一括加算後に別の矩形和をオフラインで求めるためのクラス。",
-          "constructorCreates": "矩形への一括加算後に別の矩形和をオフラインで求めるためのクラス。",
-          "constructorComplexity": "実装依存",
-          "constructorSourceLine": 10,
+          "constructorReturnDescription": "空の加算・問い合わせ一覧。addとqueryを登録し、solveで全加算後の答えを取得する。登録順は結果へ影響しない。",
+          "constructorCreates": "空の加算・問い合わせ一覧。addとqueryを登録し、solveで全加算後の答えを取得する。登録順は結果へ影響しない。",
+          "constructorComplexity": "O(1)",
+          "constructorSourceLine": 8,
           "methods": [
             {
               "name": "add",
               "kind": "method",
               "signature": "add(left, bottom, right, top, value)",
-              "summary": "半開区間 $[\\mathrm{left},\\mathrm{right})$ の各要素にvalueを加える。",
-              "description": "半開区間 $[\\mathrm{left},\\mathrm{right})$ の各要素にvalueを加える。",
+              "summary": "半開領域[left, right) × [bottom, top)へvalueを加算する。",
+              "description": "半開領域[left, right) × [bottom, top)へvalueを加算する。",
               "searchTerms": [
                 "add",
                 "add(left, bottom, right, top, value)"
               ],
-              "arguments": "left: 半開区間の左端（含む） · bottom: 矩形の下端（含まない） · right: 半開区間の右端（含まない） · top: 矩形の上端（含む） · value: 追加・設定・問い合わせる値",
+              "arguments": "left: x座標の下限。含む。 · bottom: y座標の下限。含む。 · right: x座標の上限。含まない。 · top: y座標の上限。含まない。 · value: 各点へ加える整数。負でもよい。",
               "argumentDetails": [
                 {
                   "name": "left",
-                  "description": "半開区間の左端（含む）"
+                  "description": "x座標の下限。含む。"
                 },
                 {
                   "name": "bottom",
-                  "description": "矩形の下端（含まない）"
+                  "description": "y座標の下限。含む。"
                 },
                 {
                   "name": "right",
-                  "description": "半開区間の右端（含まない）"
+                  "description": "x座標の上限。含まない。"
                 },
                 {
                   "name": "top",
-                  "description": "矩形の上端（含む）"
+                  "description": "y座標の上限。含まない。"
                 },
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "各点へ加える整数。負でもよい。"
                 }
               ],
-              "returns": "None — 値は返さない。対象を直接更新する。",
+              "returns": "None — 加算を登録する。solveで反映する。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。対象を直接更新する。",
-              "complexity": "O(1)",
-              "sourceLine": 14
+              "returnDescription": "加算を登録する。solveで反映する。",
+              "complexity": "償却O(1)",
+              "sourceLine": 12
             },
             {
               "name": "query",
               "kind": "method",
               "signature": "query(left, bottom, right, top)",
-              "summary": "半開長方形 $[\\mathrm{left},\\mathrm{right})\\times[\\mathrm{bottom},\\mathrm{top})$ の重み総和queryを登録する。",
-              "description": "半開長方形 $[\\mathrm{left},\\mathrm{right})\\times[\\mathrm{bottom},\\mathrm{top})$ の重み総和queryを登録する。",
+              "summary": "半開領域[left, right) × [bottom, top)の合計の問い合わせを登録する。",
+              "description": "半開領域[left, right) × [bottom, top)の合計の問い合わせを登録する。",
               "searchTerms": [
                 "query",
                 "query(left, bottom, right, top)"
               ],
-              "arguments": "left: 半開区間の左端（含む） · bottom: 矩形の下端（含まない） · right: 半開区間の右端（含まない） · top: 矩形の上端（含む）",
+              "arguments": "left: x座標の下限。含む。 · bottom: y座標の下限。含む。 · right: x座標の上限。含まない。 · top: y座標の上限。含まない。",
               "argumentDetails": [
                 {
                   "name": "left",
-                  "description": "半開区間の左端（含む）"
+                  "description": "x座標の下限。含む。"
                 },
                 {
                   "name": "bottom",
-                  "description": "矩形の下端（含まない）"
+                  "description": "y座標の下限。含む。"
                 },
                 {
                   "name": "right",
-                  "description": "半開区間の右端（含まない）"
+                  "description": "x座標の上限。含まない。"
                 },
                 {
                   "name": "top",
-                  "description": "矩形の上端（含む）"
+                  "description": "y座標の上限。含まない。"
                 }
               ],
-              "returns": "None — 値は返さない。solveが登録順の各query結果を返す。",
+              "returns": "None — 問い合わせを追加する。答えはsolveのlistに、このqueryの登録順で入る。",
               "returnFormat": "None",
-              "returnDescription": "値は返さない。solveが登録順の各query結果を返す。",
-              "complexity": "O(1)",
-              "sourceLine": 19
+              "returnDescription": "問い合わせを追加する。答えはsolveのlistに、このqueryの登録順で入る。",
+              "complexity": "償却O(1)",
+              "sourceLine": 17
             },
             {
               "name": "solve",
               "kind": "method",
-              "signature": "solve()",
-              "summary": "設定済みの問題を解き、答えを返す。",
-              "description": "設定済みの問題を解き、答えを返す。",
+              "signature": "solve(mod=None)",
+              "summary": "登録した問い合わせの答えをまとめて計算する。",
+              "description": "登録した問い合わせの答えをまとめて計算する。",
               "searchTerms": [
                 "solve",
-                "solve()"
+                "solve(mod=None)"
               ],
-              "arguments": "なし",
-              "argumentDetails": [],
-              "returns": "int / float — 登録順の答えのlist",
-              "returnFormat": "int / float",
-              "returnDescription": "登録順の答えのlist",
-              "complexity": "O((R+Q) log(R+Q))（Rは矩形追加数、Qはquery数）",
-              "sourceLine": 24
+              "arguments": "mod: 正の整数ならその法で計算する。Noneなら任意精度整数で正確な合計を返す。",
+              "argumentDetails": [
+                {
+                  "name": "mod",
+                  "description": "正の整数ならその法で計算する。Noneなら任意精度整数で正確な合計を返す。"
+                }
+              ],
+              "returns": "list[int] — result[i]はi番目のqueryの長方形和。登録順に関係なく全addを反映する。mod指定時は0以上mod未満の剰余。操作列は変更しない。",
+              "returnFormat": "list[int]",
+              "returnDescription": "result[i]はi番目のqueryの長方形和。登録順に関係なく全addを反映する。mod指定時は0以上mod未満の剰余。操作列は変更しない。",
+              "complexity": "O((R+Q) log(R+Q+2))時間・O(R+Q)追加メモリ。Rは加算数、Qは問い合わせ数。整数の演算・比較をO(1)とする",
+              "sourceLine": 22
             }
           ]
         }

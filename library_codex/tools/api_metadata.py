@@ -7223,3 +7223,96 @@ COMPLEXITY_BY_MODULE["graph_spanning/MinimumSpanningTree.py"].update({
     "manhattan_mst": "O(N log(N+1))時間・O(N)メモリ。hash処理は期待時間、座標の演算・比較をO(1)とする",
     "second_spanning_tree": "O(M log(M+1)+(N+M) log(N+1))時間・O(N log(N+1)+M)メモリ",
 })
+
+for _owner, _purpose, _creates in (
+    ("CompressedFenwick2D", "登録点への加算と半開長方形内の重み和を求める。", "登録点の値がすべて0の構造。addで一点へ加算し、sumで長方形内の合計を取得する。"),
+    ("RectangleAddPointGet", "半開長方形への加算と登録点の現在値の取得を行う。", "登録点の値がすべて0の構造。addで長方形へ加算し、getで一点の現在値を取得する。"),
+    ("DynamicPointAddRectangleSum", "点加算と長方形和の操作列を、登録順を保ってまとめて処理する。", "空の操作列。addとqueryを操作順に登録し、solveで問い合わせの答えをまとめて取得する。"),
+    ("RectangleAddRectangleSum", "すべての長方形加算を反映した後の長方形和をまとめて求める。", "空の加算・問い合わせ一覧。addとqueryを登録し、solveで全加算後の答えを取得する。登録順は結果へ影響しない。"),
+):
+    _module = "spatial_structure/" + _owner + ".py"
+    MODULE_CAPABILITIES[_module] = (_purpose,)
+    CLASS_DETAILS_BY_SYMBOL[(_module, _owner)] = {
+        "description": _purpose, "constructorCreates": _creates,
+    }
+    if _owner in ("CompressedFenwick2D", "RectangleAddPointGet"):
+        CLASS_DETAILS_BY_SYMBOL[(_module, _owner)]["argumentDescriptions"] = {
+            "points": "今後更新・取得する整数座標(x, y)のiterable。重複は一つにまとめる。未登録の点の更新・取得はKeyError。",
+        }
+    _costs = COMPLEXITY_BY_MODULE.setdefault(_module, {})
+    _costs[_owner] = "O(P+N log(N+1))時間・O(N log(N+1))メモリ。Pは入力点数、Nは異なる登録点数。hash処理は期待時間" if _owner in ("CompressedFenwick2D", "RectangleAddPointGet") else "O(1)"
+    if _owner in ("DynamicPointAddRectangleSum", "RectangleAddRectangleSum"):
+        _costs.update({"add": "償却O(1)", "query": "償却O(1)"})
+
+COMPLEXITY_BY_MODULE["spatial_structure/RectangleAddPointGet.py"].update({
+    "add": "O(log²(N+1))時間", "get": "O(log²(N+1))時間",
+    "items": "O(N log²(N+1))時間・O(N)追加メモリ",
+    "__str__": "O(N log²(N+1))時間・O(N)追加メモリ",
+    "__repr__": "O(N log²(N+1))時間・O(N)追加メモリ",
+})
+COMPLEXITY_BY_MODULE["spatial_structure/RectangleAddRectangleSum.py"]["solve"] = "O((R+Q) log(R+Q+2))時間・O(R+Q)追加メモリ。Rは加算数、Qは問い合わせ数。整数の演算・比較をO(1)とする"
+COMPLEXITY_BY_MODULE["spatial_structure/DynamicPointAddRectangleSum.py"]["solve"] = "O((U+Q) log²(U+2))時間・O(U log(U+2)+Q)追加メモリ。Uは加算数、Qは問い合わせ数"
+for _owner in ("CompressedFenwick2D", "RectangleAddPointGet", "DynamicPointAddRectangleSum", "RectangleAddRectangleSum"):
+    _module = "spatial_structure/" + _owner + ".py"
+    _rectangle_add = _owner in ("RectangleAddPointGet", "RectangleAddRectangleSum")
+    API_DETAILS_BY_SYMBOL[(_module, _owner, "add")] = {
+        "description": "半開領域[left, right) × [bottom, top)へvalueを加算する。" if _rectangle_add else "点(x, y)の現在値へvalueを加算する。",
+        "argumentDescriptions": {"value": "各点へ加える整数。負でもよい。"},
+        "returnFormat": "None",
+        "returnDescription": "加算を登録する。solveで反映する。" if _owner in ("DynamicPointAddRectangleSum", "RectangleAddRectangleSum") else "対象点の値を変更する。",
+    }
+    if _rectangle_add:
+        API_DETAILS_BY_SYMBOL[(_module, _owner, "add")]["argumentDescriptions"].update({
+            "left": "x座標の下限。含む。", "right": "x座標の上限。含まない。",
+            "bottom": "y座標の下限。含む。", "top": "y座標の上限。含まない。",
+        })
+    if _owner in ("DynamicPointAddRectangleSum", "RectangleAddRectangleSum"):
+        API_DETAILS_BY_SYMBOL[(_module, _owner, "query")] = {
+            "description": "半開領域[left, right) × [bottom, top)の合計の問い合わせを登録する。",
+            "returnFormat": "None", "returnDescription": "問い合わせを追加する。答えはsolveのlistに、このqueryの登録順で入る。",
+        }
+        API_DETAILS_BY_SYMBOL[(_module, _owner, "solve")] = {
+            "description": "登録した問い合わせの答えをまとめて計算する。",
+            "returnFormat": "list[int]",
+            "returnDescription": "result[i]はi番目のqueryの長方形和。" + ("各queryより前のaddだけを反映する。" if _owner == "DynamicPointAddRectangleSum" else "登録順に関係なく全addを反映する。mod指定時は0以上mod未満の剰余。") + "操作列は変更しない。",
+        }
+API_DETAILS_BY_SYMBOL[("spatial_structure/RectangleAddRectangleSum.py", "RectangleAddRectangleSum", "solve")]["argumentDescriptions"] = {
+    "mod": "正の整数ならその法で計算する。Noneなら任意精度整数で正確な合計を返す。",
+}
+API_DETAILS_BY_SYMBOL[("spatial_structure/RectangleAddPointGet.py", "RectangleAddPointGet", "get")] = {
+    "description": "登録点(x, y)の現在値を取得する。",
+    "returnFormat": "int", "returnDescription": "その点を含む、これまでのaddのvalueの合計。未登録点はKeyError。",
+}
+for _method in ("items", "__str__", "__repr__"):
+    API_DETAILS_BY_SYMBOL[("spatial_structure/RectangleAddPointGet.py", "RectangleAddPointGet", _method)] = {
+        "description": "登録点の座標と現在値を辞書順で取り出す。",
+        "returnFormat": "list[tuple[int, int, int]]" if _method == "items" else "str",
+        "returnDescription": "(x, y, 現在値)のlist。重複登録した点は一度だけ返す。" if _method == "items" else "itemsと同じ内容の文字列。reprは先頭に型名を付ける。",
+    }
+API_DETAILS_BY_SYMBOL[("spatial_structure/CompressedFenwick2D.py", "CompressedFenwick2D", "sum")] = {
+    "description": "半開領域[left, right) × [bottom, top)に含まれる登録点の重みを合計する。",
+    "returnFormat": "int", "returnDescription": "領域内の登録点の現在値の合計。幅または高さが0以下なら0。",
+}
+API_DETAILS_BY_SYMBOL[("spatial_structure/CompressedFenwick2D.py", "CompressedFenwick2D", "prefix_sum")] = {
+    "description": "x座標がx未満、y座標がy未満の登録点の重みを合計する。",
+    "returnFormat": "int", "returnDescription": "両方の条件を満たす登録点の現在値の合計。境界上の点は含まない。",
+}
+SEARCH_TERMS_BY_MODULE["spatial_structure/RectangleAddPointGet.py"] = ("長方形加算", "矩形加算", "一点取得", "二次元双対BIT")
+CLASS_DETAILS_BY_SYMBOL[("spatial_structure/RectangleAddPointGet.py", "RectangleAddPointGet")]["argumentDescriptions"] = {
+    "points": "値を取得する整数座標(x, y)のiterable。重複は一つにまとめる。未登録点のgetはKeyError。加算長方形の境界は登録不要。",
+}
+for _owner, _method in (
+    ("CompressedFenwick2D", "sum"),
+    ("DynamicPointAddRectangleSum", "query"),
+    ("RectangleAddRectangleSum", "query"),
+):
+    API_DETAILS_BY_SYMBOL[("spatial_structure/" + _owner + ".py", _owner, _method)]["argumentDescriptions"] = {
+        "left": "x座標の下限。含む。", "right": "x座標の上限。含まない。",
+        "bottom": "y座標の下限。含む。", "top": "y座標の上限。含まない。",
+    }
+for _owner, _method in (("CompressedFenwick2D", "add"), ("DynamicPointAddRectangleSum", "add"), ("RectangleAddPointGet", "get")):
+    _arguments = API_DETAILS_BY_SYMBOL[("spatial_structure/" + _owner + ".py", _owner, _method)].setdefault("argumentDescriptions", {})
+    _arguments.update({"x": "対象点のx座標。", "y": "対象点のy座標。"})
+API_DETAILS_BY_SYMBOL[("spatial_structure/CompressedFenwick2D.py", "CompressedFenwick2D", "prefix_sum")]["argumentDescriptions"] = {
+    "x": "x座標の上限。含まない。", "y": "y座標の上限。含まない。",
+}
