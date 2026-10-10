@@ -7,7 +7,7 @@
 | --- | --- | ---: | ---: | ---: |
 | [`ChirpZ`](ChirpZ.md) | 等比数列上の多項式評価をchirp-z変換でまとめて求める。 | 1 | 0 | 0 |
 | [`MiddleProduct`](MiddleProduct.md) | 長い列と短い列のずらし内積を求める高速middle product | 1 | 0 | 0 |
-| [`MinPlusConvolution`](MinPlusConvolution.md) | 凸列を含むmin-plus畳み込み | 2 | 0 | 0 |
+| [`MinPlusConvolution`](MinPlusConvolution.md) | 凸列・凹列を含むmin-plus畳み込み | 3 | 0 | 0 |
 | [`MultidimensionalDFT`](MultidimensionalDFT.md) | 多次元DFTと多変数循環畳み込みを計算する。 | 2 | 0 | 0 |
 | [`MultivariateMultiplication`](MultivariateMultiplication.md) | 多変数多項式を指定shapeの係数配列として乗算する。 | 1 | 0 | 0 |
 | [`NTT`](NTT.md) | 動的radix-4 NTT・NTT-friendly/任意mod/符号付き整数畳み込み | 7 | 1 | 4 |

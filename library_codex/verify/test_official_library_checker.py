@@ -188,6 +188,7 @@ def test_solution_is_standalone(name):
     ("st_numbering", "2\n3 2 0 2\n0 1\n1 2\n3 2 0 1\n0 1\n1 2\n", "Yes 0 1 2 No"),
     ("manhattanmst", "1\n-100 200\n", "0"),
     ("k_shortest_walk", "2 2 0 1 4\n0 1 3\n1 1 2\n", "3 5 7 9"),
+    ("min_plus_convolution_concave_arbitrary", "4 3\n5 7 7 4\n4 -2 9\n", "9 3 5 5 2 13"),
     ("many_aplusb_128bit", "2\n-10000000000000000000000000000000000000 1\n-7 7\n", "-9999999999999999999999999999999999999 0"),
 ])
 def test_driver_input_output_contracts(tmp_path, name, data, expected):

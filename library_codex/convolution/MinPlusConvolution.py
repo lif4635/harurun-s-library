@@ -1,4 +1,4 @@
-"""凸列を含むmin-plus畳み込みを高速に計算する。"""
+"""凸列または凹列を含むmin-plus畳み込みを高速に計算する。"""
 
 from library_codex.optimization.MonotoneMinima import monotone_minima
 
@@ -65,3 +65,62 @@ def minplus_conv_convex(first, second):
             right += 1
         result.append(result[-1] + difference)
     return result
+
+
+def _concave_prefix(a, b, count, offset, step, result, indices):
+    candidates = []
+    ends = []
+    for row in range(count):
+        while ends and ends[-1] <= row:
+            ends.pop()
+            candidates.pop()
+        if row < len(a):
+            value = a[row]
+            if not candidates or value + b[0] < a[candidates[-1]] + b[row - candidates[-1]]:
+                end = count
+                while candidates:
+                    old = candidates[-1]
+                    end = ends[-1]
+                    if value + b[end - 1 - row] < a[old] + b[end - 1 - old]:
+                        candidates.pop()
+                        ends.pop()
+                        end = count
+                    else:
+                        left = row + 1
+                        right = end - 1
+                        while left < right:
+                            middle = (left + right) >> 1
+                            if value + b[middle - row] < a[old] + b[middle - old]:
+                                left = middle + 1
+                            else:
+                                right = middle
+                        end = left
+                        break
+                candidates.append(row)
+                ends.append(end)
+        column = candidates[-1]
+        value = a[column] + b[row - column]
+        target = offset + step * row
+        if value < result[target]:
+            result[target] = value
+            if indices is not None:
+                indices[target] = row - column if step == 1 else len(b) - 1 - row + column
+
+
+def minplus_conv_concave(arbitrary, concave, return_argmin=False):
+    """一般列と、隣接差分が広義単調減少する凹列のmin-plus畳み込みを返す。"""
+    if not arbitrary or not concave:
+        return ([], []) if return_argmin else []
+    n = len(arbitrary)
+    m = len(concave)
+    result = [arbitrary[0] + value for value in concave]
+    result.extend(value + concave[-1] for value in arbitrary[1:])
+    indices = list(range(m)) + [m - 1] * (n - 1) if return_argmin else None
+    reversed_concave = concave[::-1]
+    for start in range(0, n, m):
+        block = arbitrary[start:start + m]
+        _concave_prefix(block, concave, m, start, 1, result, indices)
+        if len(block) > 1:
+            _concave_prefix(block[::-1], reversed_concave, len(block) - 1,
+                            start + m + len(block) - 2, -1, result, indices)
+    return (result, indices) if return_argmin else result

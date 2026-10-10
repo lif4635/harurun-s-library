@@ -76,6 +76,7 @@ SEARCH_TERMS_BY_MODULE = {
         "高速minplus",
         "min-plus convolution",
         "凸畳み込み",
+        "凹畳み込み",
         "Monge",
     ),
 }
@@ -179,9 +180,10 @@ MODULE_CAPABILITIES = {
         "法と原始根を指定して、標準設定以外のNTTも構築できる。",
     ),
     "convolution/MinPlusConvolution.py": (
-        "一方または両方が凸な列のmin-plus畳み込みを高速に計算する。",
+        "一方が凸または凹な列のmin-plus畳み込みを高速に計算する。",
         "一般列×凸列はmonotone minima、凸列×凸列は差分列のmergeで処理する。",
-        "一般列との畳み込みでは、必要なら最小値を作った凸列側の添字も返せる。",
+        "一般列×凹列は候補の有効範囲を二分探索して処理する。",
+        "一般列との畳み込みでは、必要なら最小値を作った凸列・凹列側の添字も返せる。",
     ),
     "optimization/ConvexConcaveConvolution.py": (
         "凹列と一般列のmax-plus畳み込みを高速に計算する。",
@@ -856,6 +858,20 @@ API_DETAILS_BY_SYMBOL = {
         "returnDescription": (
             r"長さ $\lvert a\rvert+\lvert b\rvert-1$ の列c。"
             r"$c_k=\min_{i+j=k}(a_i+b_j)$。"
+        ),
+    },
+    ("convolution/MinPlusConvolution.py", None, "minplus_conv_concave"): {
+        "description": r"一般列aと凹列bから $c_k=\min_{i+j=k}(a_i+b_j)$ を求める。入力列は変更しない。",
+        "argumentDescriptions": {
+            "arbitrary": "任意の有限な数値の列a。凹性・単調性は不要。",
+            "concave": r"有限な数値の凹列b。差分 $b_{j+1}-b_j$ が広義単調減少であること。凸列はminplus_convへ渡す。",
+            "return_argmin": "最小値を作る凹列側の添字jも返すか。同じ最小値を作る候補の選び方は保証しない。",
+        },
+        "returnFormat": "list[number] | tuple[list[number], list[int]]",
+        "returnDescription": "両方が空でないとき、長さlen(arbitrary)+len(concave)-1の最小値列。return_argmin=Trueでは(values, indices)。どちらかが空なら[]、添字も要求した場合は([], [])。",
+        "returnParts": (
+            {"name": "values", "format": "list[number]", "description": r"values[k]は $\min_{i+j=k}(a_i+b_j)$。"},
+            {"name": "indices", "format": "list[int]", "description": "return_argmin=Trueのときだけ返す。j=indices[k]としてarbitrary[k-j]+concave[j]==values[k]となる。"},
         ),
     },
     (
@@ -2147,6 +2163,7 @@ COMPLEXITY_BY_MODULE = {
     "convolution/MinPlusConvolution.py": {
         "minplus_conv": "O(A log(A+C) + C)（Aはarbitrary、Cはconvexの長さ）",
         "minplus_conv_convex": "O(N+M)",
+        "minplus_conv_concave": "O(A log(C+1)+C)時間・O(A+C)追加メモリ。Aはarbitrary、Cはconcaveの長さ",
     },
     "optimization/ConvexConcaveConvolution.py": {
         "concave_max_plus_convolution": "O(A log(A+C) + C)（Aはarbitrary、Cはconcaveの長さ）",

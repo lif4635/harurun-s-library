@@ -66,6 +66,9 @@
 | [matrix_rank_mod_2](matrix_rank_mod_2.json) | 3 / 35 | 5 | 1.501 | 315.6 | 一致 |
 | [maximum_independent_set](maximum_independent_set.json) | 3 / 16 | 5 | 0.110 | 59.1 | 一致 |
 | [min_of_mod_of_linear](min_of_mod_of_linear.json) | 3 / 17 | 5 | 0.140 | 64.4 | 一致 |
+| [min_plus_convolution_concave_arbitrary](min_plus_convolution_concave_arbitrary.json) | 3 / 41 | 5 | 0.621 | 161.4 | 一致 |
+| [min_plus_convolution_convex_arbitrary](min_plus_convolution_convex_arbitrary.json) | 3 / 41 | 5 | 0.648 | 183.8 | 一致 |
+| [min_plus_convolution_convex_convex](min_plus_convolution_convex_convex.json) | 3 / 34 | 5 | 0.423 | 182.7 | 一致 |
 | [minimum_spanning_tree](minimum_spanning_tree.json) | 3 / 31 | 5 | 1.637 | 200.0 | 一致 |
 | [minimum_steiner_tree](minimum_steiner_tree.json) | 3 / 24 | 5 | 0.441 | 67.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |

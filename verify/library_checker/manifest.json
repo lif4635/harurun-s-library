@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 188,
-    "unimplemented": 65
+    "local_passed": 189,
+    "unimplemented": 64
   },
   "problems": [
     {
@@ -1538,10 +1538,13 @@
       "title": "Min Plus Convolution (Concave and Arbitrary)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/min_plus_convolution_concave_arbitrary",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.optimization.MonotoneMinima",
+        "library_codex.convolution.MinPlusConvolution"
+      ],
+      "solution": "solutions/min_plus_convolution_concave_arbitrary.py",
+      "result": "results/min_plus_convolution_concave_arbitrary.json"
     },
     {
       "name": "min_plus_convolution_convex_arbitrary",

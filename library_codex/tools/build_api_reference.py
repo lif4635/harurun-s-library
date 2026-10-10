@@ -41,8 +41,8 @@ COMPATIBILITY_MODULES = {
 # overviews and complexity notes are read directly from that table.
 MODULE_OVERRIDES = {
     "convolution/MinPlusConvolution.py": (
-        "凸列を含むmin-plus畳み込み",
-        "一般列×凸列 O(A log(A+C)+C)、凸列×凸列 O(N+M)",
+        "凸列・凹列を含むmin-plus畳み込み",
+        "一般列×凸列 O(A log(A+C)+C)、一般列×凹列 O(A log(C+1)+C)、凸列×凸列 O(N+M)",
     ),
     "optimization/ConvexConcaveConvolution.py": (
         "凹列を含むmax-plus畳み込み",

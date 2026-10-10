@@ -378,6 +378,19 @@ def test_catalog_polynomial_sampling_descriptions():
     assert "数値的な収束" in infinite["returnDescription"]
 
 
+def test_catalog_minplus_distinguishes_concave_from_convex():
+    module = module_by_path(load_catalog(), "library_codex.convolution.MinPlusConvolution")
+    assert "凹列" in module["summary"]
+    functions = {entry["name"]: entry for entry in module["functions"]}
+    concave = functions["minplus_conv_concave"]
+    assert "広義単調減少" in str(concave["arguments"])
+    assert "広義単調増加" in str(functions["minplus_conv"]["arguments"])
+    assert "O(A log(C+1)+C)" in concave["complexity"]
+    assert [part["name"] for part in concave["returnParts"]] == ["values", "indices"]
+    assert "len(arbitrary)+len(concave)-1" in concave["returnDescription"]
+    assert "凹列の場合の仕組み" in module["article"]["markdown"]
+
+
 def test_catalog_has_precise_group_middle_product_and_half_open_range_details():
     data = load_catalog()
 
@@ -748,7 +761,7 @@ def test_math_descriptions_cover_common_library_families():
 
     min_plus = module_by_path(data, "library_codex.convolution.MinPlusConvolution")
     min_plus_functions = {item["name"]: item for item in min_plus["functions"]}
-    assert set(min_plus_functions) == {"minplus_conv", "minplus_conv_convex"}
+    assert set(min_plus_functions) == {"minplus_conv", "minplus_conv_convex", "minplus_conv_concave"}
     assert "$c_k=\\min_{i+j=k}" in min_plus_functions["minplus_conv"]["description"]
     assert min_plus_functions["minplus_conv"]["complexity"].startswith("O(A log(")
     assert min_plus_functions["minplus_conv_convex"]["complexity"] == "O(N+M)"

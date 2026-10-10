@@ -12,6 +12,7 @@ REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
+    ROOT / "verify" / "convolution" / "test_min_plus_convolution.py",
     ROOT / "verify" / "graph_connectivity" / "test_tree_decomposition_width2.py",
     ROOT / "verify" / "graph_connectivity" / "test_st_numbering.py",
     ROOT / "verify" / "graph_spanning" / "test_minimum_spanning_tree.py",

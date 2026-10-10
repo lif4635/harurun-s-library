@@ -1,13 +1,13 @@
 {
-  "problem": "min_plus_convolution_convex_arbitrary",
+  "problem": "min_plus_convolution_concave_arbitrary",
   "status": "local_passed",
-  "verificationKey": "ce145c9c7832dc157eda20662bcc0e662bba6463d6c0d61a6ae69ae5409db6b5",
-  "sourceSha256": "5ee2e20d436e930d5e35a086e3eb1074822d432491ce575064a8ee8e1010d8a0",
+  "verificationKey": "609ce18815bb8bd20b70ff40d054a24cc33248d8623756d23d9163857dc3d2ce",
+  "sourceSha256": "f9cb33bfabbe494ed5a1ee98a29066c7a85c0e8930629997d34b644a9c3ae138",
   "modules": [
     "library_codex.optimization.MonotoneMinima",
     "library_codex.convolution.MinPlusConvolution"
   ],
-  "problemVersion": "697919d03409984f2746aa39f5767725246b89ba7237137ab77fda9eec2f2662",
+  "problemVersion": "3ba8fe7144737864fbb19f5ec783ea8536f1a6221587f7812230a74b22c214a0",
   "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
   "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
   "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
@@ -18,250 +18,250 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.06365431507583708,
+      "seconds": 0.07477339706383646,
       "diagnostic": "ok 8 tokens\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.05567798495758325,
-      "diagnostic": "ok \"348927966\"\n"
+      "seconds": 0.06671348202507943,
+      "diagnostic": "ok \"964369526\"\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.05542368208989501,
+      "seconds": 0.06950156099628657,
       "diagnostic": "ok 2 tokens\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.06233250489458442,
+      "seconds": 0.0665431849192828,
       "diagnostic": "ok 3 tokens\n"
     },
     {
       "name": "small_03",
       "status": "AC",
-      "seconds": 0.05640768492594361,
+      "seconds": 0.06646617699880153,
       "diagnostic": "ok 2 tokens\n"
     },
     {
       "name": "small_04",
       "status": "AC",
-      "seconds": 0.06670344097074121,
+      "seconds": 0.0821022680029273,
       "diagnostic": "ok 3 tokens\n"
     },
     {
       "name": "small_05",
       "status": "AC",
-      "seconds": 0.07071370200719684,
+      "seconds": 0.06666698399931192,
       "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "small_06",
       "status": "AC",
-      "seconds": 0.059532993007451296,
+      "seconds": 0.06107913993764669,
       "diagnostic": "ok 3 tokens\n"
     },
     {
       "name": "small_07",
       "status": "AC",
-      "seconds": 0.05348350398708135,
+      "seconds": 0.06552439101506025,
       "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "small_08",
       "status": "AC",
-      "seconds": 0.06007943395525217,
+      "seconds": 0.05993754300288856,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "med_random_00",
       "status": "AC",
-      "seconds": 0.07190815696958452,
+      "seconds": 0.07542752695735544,
       "diagnostic": "ok 1189 tokens\n"
     },
     {
       "name": "med_random_01",
       "status": "AC",
-      "seconds": 0.0595903400098905,
+      "seconds": 0.07468901190441102,
       "diagnostic": "ok 630 tokens\n"
     },
     {
       "name": "med_random_02",
       "status": "AC",
-      "seconds": 0.07246532605495304,
+      "seconds": 0.06616600800771266,
       "diagnostic": "ok 680 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.4598946759942919,
+      "seconds": 0.3271094870287925,
       "diagnostic": "ok 800735 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.3535623480565846,
+      "seconds": 0.2893939570058137,
       "diagnostic": "ok 875952 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.3296224009245634,
+      "seconds": 0.25243635999504477,
       "diagnostic": "ok 435682 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 0.3954788950504735,
+      "seconds": 0.35093688894994557,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 0.41470194899011403,
+      "seconds": 0.31991580489557236,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 0.41216528601944447,
+      "seconds": 0.40297852898947895,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "monotone_00",
       "status": "AC",
-      "seconds": 0.5498445390257984,
+      "seconds": 0.3227210370823741,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "monotone_01",
       "status": "AC",
-      "seconds": 0.4749918249435723,
+      "seconds": 0.6383074859622866,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "monotone_02",
       "status": "AC",
-      "seconds": 0.4377200979506597,
+      "seconds": 0.684664141968824,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "monotone_03",
       "status": "AC",
-      "seconds": 0.523090771981515,
+      "seconds": 0.3824971760623157,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "small_slopes_00",
       "status": "AC",
-      "seconds": 0.46246473491191864,
+      "seconds": 0.3316953289322555,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "small_slopes_01",
       "status": "AC",
-      "seconds": 0.4702891180058941,
+      "seconds": 0.3667518539587036,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "near_power_of_2_00",
       "status": "AC",
-      "seconds": 0.24651616101618856,
+      "seconds": 0.19200194894801825,
       "diagnostic": "ok 524285 tokens\n"
     },
     {
       "name": "near_power_of_2_01",
       "status": "AC",
-      "seconds": 0.2394674929091707,
+      "seconds": 0.2537562579382211,
       "diagnostic": "ok 524286 tokens\n"
     },
     {
       "name": "near_power_of_2_02",
       "status": "AC",
-      "seconds": 0.2527077739359811,
+      "seconds": 0.24605258996598423,
       "diagnostic": "ok 524287 tokens\n"
     },
     {
       "name": "near_power_of_2_03",
       "status": "AC",
-      "seconds": 0.25600344396661967,
+      "seconds": 0.23203500697854906,
       "diagnostic": "ok 524286 tokens\n"
     },
     {
       "name": "near_power_of_2_04",
       "status": "AC",
-      "seconds": 0.27926191803999245,
+      "seconds": 0.2588650359539315,
       "diagnostic": "ok 524287 tokens\n"
     },
     {
       "name": "near_power_of_2_05",
       "status": "AC",
-      "seconds": 0.270989587996155,
+      "seconds": 0.25269661704078317,
       "diagnostic": "ok 524288 tokens\n"
     },
     {
       "name": "near_power_of_2_06",
       "status": "AC",
-      "seconds": 0.25172005989588797,
+      "seconds": 0.22555901494342834,
       "diagnostic": "ok 524287 tokens\n"
     },
     {
       "name": "near_power_of_2_07",
       "status": "AC",
-      "seconds": 0.3056051339954138,
+      "seconds": 0.1923568130005151,
       "diagnostic": "ok 524288 tokens\n"
     },
     {
       "name": "near_power_of_2_08",
       "status": "AC",
-      "seconds": 0.24342616007197648,
+      "seconds": 0.18749884609133005,
       "diagnostic": "ok 524289 tokens\n"
     },
     {
       "name": "hack_00",
       "status": "AC",
-      "seconds": 0.06972914794459939,
+      "seconds": 0.06474337494000793,
       "diagnostic": "ok 24 tokens\n"
     },
     {
       "name": "large_small_00",
       "status": "AC",
-      "seconds": 0.2819003009935841,
+      "seconds": 0.20825368398800492,
       "diagnostic": "ok 524288 tokens\n"
     },
     {
       "name": "large_small_01",
       "status": "AC",
-      "seconds": 0.4313101490261033,
+      "seconds": 0.21458726993296295,
       "diagnostic": "ok 524289 tokens\n"
     },
     {
       "name": "large_small_02",
       "status": "AC",
-      "seconds": 0.34001154301222414,
+      "seconds": 0.28620305994991213,
       "diagnostic": "ok 524288 tokens\n"
     },
     {
       "name": "large_small_03",
       "status": "AC",
-      "seconds": 0.31996838201303035,
+      "seconds": 0.27180256601423025,
       "diagnostic": "ok 524289 tokens\n"
     },
     {
       "name": "only_first_small_00",
       "status": "AC",
-      "seconds": 0.41912973404396325,
+      "seconds": 0.33508001000154763,
       "diagnostic": "ok 1048575 tokens\n"
     },
     {
       "name": "only_first_small_01",
       "status": "AC",
-      "seconds": 0.451154790003784,
+      "seconds": 0.3458904840517789,
       "diagnostic": "ok 1048575 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-10T08:34:30.374529+00:00",
+  "verifiedAt": "2026-10-10T08:30:37.401778+00:00",
   "onlineSubmission": null
 }

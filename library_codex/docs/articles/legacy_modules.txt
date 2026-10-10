@@ -46,7 +46,6 @@ combinatorics/RationalBinomial
 combinatorics/SetPartitions
 convolution/ChirpZ
 convolution/MiddleProduct
-convolution/MinPlusConvolution
 convolution/MultidimensionalDFT
 convolution/NTT
 convolution/NTT998

@@ -4,7 +4,9 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-10時点の公式revision `1814c4e`では、188問題・4433ケースがローカル全件通過、65問題が未実装。
+2026-10-10時点の公式revision `1814c4e`では、189問題・4474ケースがローカル全件通過、64問題が未実装。
+
+凹列と一般列のmin-plus畳み込み41ケースを追加した。既存の凸列2問題も再検証し、3問題のPyPy反復測定を更新した。実装の説明と上位PyPy提出との比較は[測定記録](../../library_codex/docs/MINPLUS_CONCAVE_BENCHMARK.md)を参照。
 
 木分解・st-numbering・マンハッタンMST・k本の最短walkの4問題、94ケースを追加した。新規2moduleと既存2実装の軽量化は[検査・比較結果](../../library_codex/docs/GRAPH_DECOMPOSITION_BENCHMARK.md)を参照。
 
