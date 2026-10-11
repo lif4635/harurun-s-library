@@ -125,8 +125,6 @@ graph_enumeration/HeldKarp
 graph_enumeration/MaximalIndependentSets
 graph_enumeration/MinimumCostCycle
 graph_flow/AdvancedFlow
-graph_flow/MaxFlow
-graph_flow/MinCostBFlow
 graph_flow/MinCostFlow
 graph_matching/BipartiteEdgeColoring
 graph_matching/DAGMinimumPathCover

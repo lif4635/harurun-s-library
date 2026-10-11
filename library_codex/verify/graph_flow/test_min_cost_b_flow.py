@@ -100,3 +100,14 @@ def test_large_banded_transport():
     assert feasible
     assert all(solver.get_flow(edge_id) == 10**9 for edge_id in edge_ids)
     assert cost == sum(vertex % 17 - 8 for vertex in range(size - 1)) * 10**9
+
+
+def test_negative_unit_cycle_and_zero_cost_edges():
+    for n in range(2, 17):
+        for rotation in range(n):
+            solver = MinCostBFlow(n)
+            for i in range(n):
+                solver.add_edge((i + rotation) % n, (i + rotation + 1) % n, 0, 13, -1 if i == 0 else 0)
+            assert solver.run() == (True, -13)
+            assert all(solver.get_flow(i) == 13 for i in range(n))
+            check_dual(solver)

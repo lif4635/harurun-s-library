@@ -12,6 +12,8 @@ REPOSITORY = ROOT.parent
 TOOLS = ROOT / "tools"
 
 QUICK_TESTS = (
+    ROOT / "verify" / "graph_flow" / "test_max_flow.py",
+    ROOT / "verify" / "graph_flow" / "test_min_cost_b_flow.py",
     ROOT / "verify" / "spatial_structure" / "test_compressed_fenwick_2d.py",
     ROOT / "verify" / "spatial_structure" / "test_dynamic_point_add_rectangle_sum.py",
     ROOT / "verify" / "spatial_structure" / "test_rectangle_add_rectangle_sum.py",

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 192,
-    "unimplemented": 61
+    "local_passed": 193,
+    "unimplemented": 60
   },
   "problems": [
     {
@@ -1516,10 +1516,13 @@
       "title": "Minimum Cost b-flow",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/min_cost_b_flow",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_flow.MaxFlow",
+        "library_codex.graph_flow.MinCostBFlow"
+      ],
+      "solution": "solutions/min_cost_b_flow.py",
+      "result": "results/min_cost_b_flow.json"
     },
     {
       "name": "min_of_mod_of_linear",

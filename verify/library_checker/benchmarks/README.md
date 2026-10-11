@@ -65,6 +65,7 @@
 | [matrix_rank](matrix_rank.json) | 3 / 36 | 5 | 0.358 | 64.3 | 一致 |
 | [matrix_rank_mod_2](matrix_rank_mod_2.json) | 3 / 35 | 5 | 1.501 | 315.6 | 一致 |
 | [maximum_independent_set](maximum_independent_set.json) | 3 / 16 | 5 | 0.110 | 59.1 | 一致 |
+| [min_cost_b_flow](min_cost_b_flow.json) | 3 / 54 | 5 | 0.197 | 63.5 | 一致 |
 | [min_of_mod_of_linear](min_of_mod_of_linear.json) | 3 / 17 | 5 | 0.140 | 64.4 | 一致 |
 | [min_plus_convolution_concave_arbitrary](min_plus_convolution_concave_arbitrary.json) | 3 / 41 | 5 | 0.621 | 161.4 | 一致 |
 | [min_plus_convolution_convex_arbitrary](min_plus_convolution_convex_arbitrary.json) | 3 / 41 | 5 | 0.648 | 183.8 | 一致 |

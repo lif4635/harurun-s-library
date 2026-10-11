@@ -1,11 +1,12 @@
 class MaxFlowGraph:
-    __slots__ = ("n", "graph", "pos")
+    __slots__ = ("n", "graph", "to", "capacity")
 
     def __init__(self, n):
         assert n >= 0
         self.n = n
         self.graph = [[] for _ in range(n)]
-        self.pos = []
+        self.to = []
+        self.capacity = []
 
     def add_vertex(self):
         self.graph.append([])
@@ -15,86 +16,43 @@ class MaxFlowGraph:
     def add_edge(self, source, target, capacity):
         assert 0 <= source < self.n and 0 <= target < self.n and capacity >= 0
         graph = self.graph
-        source_id = len(graph[source])
-        target_id = len(graph[target])
-        if source == target:
-            target_id += 1
-        self.pos.append((source, source_id))
-        graph[source].append([target, target_id, capacity])
-        graph[target].append([source, source_id, 0])
-        return len(self.pos) - 1
+        edge = len(self.to)
+        graph[source].append(edge)
+        graph[target].append(edge + 1)
+        self.to.extend((target, source))
+        self.capacity.extend((capacity, 0))
+        return edge >> 1
 
     def get_edge(self, i):
-        source, index = self.pos[i]
-        edge = self.graph[source][index]
-        reverse = self.graph[edge[0]][edge[1]]
-        return source, edge[0], edge[2] + reverse[2], reverse[2]
+        edge = i * 2
+        capacity = self.capacity
+        return self.to[edge + 1], self.to[edge], capacity[edge] + capacity[edge + 1], capacity[edge + 1]
 
     def edges(self):
-        return [self.get_edge(i) for i in range(len(self.pos))]
+        return [self.get_edge(i) for i in range(len(self.to) >> 1)]
 
     def residual_graph(self, include_zero=False):
         """Return ``(to, residual_capacity)`` rows of the residual graph."""
         if include_zero:
-            return [[(edge[0], edge[2]) for edge in row] for row in self.graph]
+            return [[(self.to[edge], self.capacity[edge]) for edge in row] for row in self.graph]
         return [
-            [(edge[0], edge[2]) for edge in row if edge[2]]
+            [(self.to[edge], self.capacity[edge]) for edge in row if self.capacity[edge]]
             for row in self.graph
         ]
 
     def change_edge(self, i, capacity, flow):
         assert 0 <= flow <= capacity
-        source, index = self.pos[i]
-        edge = self.graph[source][index]
-        reverse = self.graph[edge[0]][edge[1]]
-        edge[2] = capacity - flow
-        reverse[2] = flow
-
-    def _send_one(self, source, sink, limit, level, current):
-        graph = self.graph
-        stack_v = [source]
-        stack_e = []
-        stack_cap = [limit]
-        n = self.n
-        while stack_v:
-            v = stack_v[-1]
-            if v == sink:
-                flow = stack_cap[-1]
-                for u, i in stack_e:
-                    edge = graph[u][i]
-                    edge[2] -= flow
-                    graph[edge[0]][edge[1]][2] += flow
-                return flow
-
-            edges = graph[v]
-            i = current[v]
-            next_level = level[v] + 1
-            while i < len(edges):
-                edge = edges[i]
-                if edge[2] and level[edge[0]] == next_level:
-                    break
-                i += 1
-            current[v] = i
-            if i == len(edges):
-                level[v] = n
-                stack_v.pop()
-                stack_cap.pop()
-                if stack_e:
-                    parent, edge_id = stack_e.pop()
-                    current[parent] = edge_id + 1
-                continue
-
-            edge = edges[i]
-            stack_e.append((v, i))
-            stack_v.append(edge[0])
-            stack_cap.append(min(stack_cap[-1], edge[2]))
-        return 0
+        edge = i * 2
+        self.capacity[edge] = capacity - flow
+        self.capacity[edge + 1] = flow
 
     def flow(self, source, sink, flow_limit=None):
         assert 0 <= source < self.n and 0 <= sink < self.n and source != sink
         graph = self.graph
+        to = self.to
+        capacity = self.capacity
         if flow_limit is None:
-            flow_limit = sum(edge[2] for edge in graph[source])
+            flow_limit = sum(capacity[edge] for edge in graph[source])
         assert flow_limit >= 0
         total = 0
         n = self.n
@@ -105,19 +63,54 @@ class MaxFlowGraph:
             for v in que:
                 next_level = level[v] + 1
                 for edge in graph[v]:
-                    if edge[2] and level[edge[0]] < 0:
-                        level[edge[0]] = next_level
-                        que.append(edge[0])
+                    other = to[edge]
+                    if capacity[edge] and level[other] < 0:
+                        level[other] = next_level
+                        que.append(other)
+                if level[sink] >= 0:
+                    break
             if level[sink] < 0:
                 break
             current = [0] * n
-            while total < flow_limit:
-                pushed = self._send_one(
-                    source, sink, flow_limit - total, level, current
-                )
-                if pushed == 0:
-                    break
-                total += pushed
+            vertices = [sink]
+            path = []
+            limits = [flow_limit - total]
+            sent = [0]
+            while vertices:
+                v = vertices[-1]
+                rest = limits[-1] - sent[-1]
+                if v == source:
+                    sent[-1] = limits[-1]
+                elif rest:
+                    row = graph[v]
+                    index = current[v]
+                    wanted = level[v] - 1
+                    while index < len(row):
+                        edge = row[index]
+                        if capacity[edge ^ 1] and level[to[edge]] == wanted:
+                            break
+                        index += 1
+                    current[v] = index
+                    if index < len(row):
+                        path.append(edge)
+                        vertices.append(to[edge])
+                        available = capacity[edge ^ 1]
+                        limits.append(rest if rest < available else available)
+                        sent.append(0)
+                        continue
+                    level[v] = n
+                pushed = sent.pop()
+                vertices.pop()
+                limits.pop()
+                if path:
+                    edge = path.pop()
+                    capacity[edge] += pushed
+                    capacity[edge ^ 1] -= pushed
+                    sent[-1] += pushed
+                    if sent[-1] < limits[-1]:
+                        current[vertices[-1]] += 1
+                else:
+                    total += pushed
         return total
 
     max_flow = flow
@@ -129,11 +122,14 @@ class MaxFlowGraph:
         visited[source] = True
         que = [source]
         graph = self.graph
+        to = self.to
+        capacity = self.capacity
         for v in que:
             for edge in graph[v]:
-                if edge[2] and not visited[edge[0]]:
-                    visited[edge[0]] = True
-                    que.append(edge[0])
+                other = to[edge]
+                if capacity[edge] and not visited[other]:
+                    visited[other] = True
+                    que.append(other)
         return visited
 
     def min_cut_edges(self, source):
@@ -143,7 +139,7 @@ class MaxFlowGraph:
         """
         reachable = self.min_cut(source)
         result = []
-        for edge_id in range(len(self.pos)):
+        for edge_id in range(len(self.to) >> 1):
             first, second, capacity, flow = self.get_edge(edge_id)
             if reachable[first] and not reachable[second]:
                 result.append((edge_id, first, second, capacity, flow))
@@ -154,7 +150,7 @@ class MaxFlowGraph:
         if not 0 <= source < self.n:
             raise IndexError("source is outside the graph")
         value = 0
-        for edge_id in range(len(self.pos)):
+        for edge_id in range(len(self.to) >> 1):
             first, second, _, flow = self.get_edge(edge_id)
             if first == source:
                 value += flow

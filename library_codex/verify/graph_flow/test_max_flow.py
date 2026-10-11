@@ -175,6 +175,43 @@ def test_flow_decomposition_ignores_circulation():
     assert graph.flow_paths(0, 3) == [(4, [0, 1, 3], [first, second])]
 
 
+def test_random_partial_flow_then_new_edges():
+    rng = random.Random(2324635)
+    for n in range(2, 10):
+        for _ in range(120):
+            graph = MaxFlowGraph(n)
+            edges = []
+            total = 0
+            for _ in range(5):
+                for _ in range(8):
+                    edge = (rng.randrange(n), rng.randrange(n), rng.randrange(10))
+                    edges.append(edge)
+                    graph.add_edge(*edge)
+                want = brute_min_cut(n, edges, 0, n - 1)
+                limit = rng.randrange(6)
+                pushed = graph.flow(0, n - 1, limit)
+                assert pushed == min(limit, want - total)
+                total += pushed
+                assert graph.flow_value(0) == total
+                before = graph.edges()
+                assert graph.flow(0, n - 1, 0) == 0
+                assert graph.edges() == before
+            total += graph.flow(0, n - 1)
+            validate(graph, n, 0, n - 1, total)
+
+
+def test_large_capacities_and_parallel_self_loops():
+    graph = MaxFlowGraph(3)
+    huge = 10**70
+    for edge in [(0, 0, huge), (0, 1, huge), (0, 1, huge), (1, 1, huge), (1, 2, huge + 17), (2, 2, huge)]:
+        graph.add_edge(*edge)
+    assert graph.flow(0, 2, huge + 3) == huge + 3
+    assert graph.flow(0, 2) == 14
+    assert graph.flow(0, 2) == 0
+    validate(graph, 3, 0, 2, huge + 17)
+    assert graph.get_edge(0) == (0, 0, huge, 0)
+
+
 if __name__ == "__main__":
     random.seed(0)
     test_random_against_min_cut()

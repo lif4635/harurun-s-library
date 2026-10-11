@@ -4,7 +4,11 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-10時点の公式revision `1814c4e`では、189問題・4474ケースがローカル全件通過、64問題が未実装。
+2026-10-11時点の公式revision `1814c4e`では、193問題・4578ケースがローカル全件通過、60問題が未実装。
+
+最小費用b-flowの54ケースを追加した。最大流の軽量化とPython版ACLとの比較は[flowの検査・比較結果](../../library_codex/docs/FLOW_BENCHMARK.md)へ記録する。
+
+二次元の加算・範囲和3問題、50ケースを追加した。[検査・比較結果](../../library_codex/docs/SPATIAL_QUERIES_BENCHMARK.md)へ記録している。
 
 凹列と一般列のmin-plus畳み込み41ケースを追加した。既存の凸列2問題も再検証し、3問題のPyPy反復測定を更新した。実装の説明と上位PyPy提出との比較は[測定記録](../../library_codex/docs/MINPLUS_CONCAVE_BENCHMARK.md)を参照。
 

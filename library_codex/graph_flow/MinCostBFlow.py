@@ -165,7 +165,7 @@ class MinCostBFlow:
             super_source, super_sink, positive
         ) != positive:
             return False, 0
-        scale = self.n
+        scale = self.n + 1
         for edge_id, data in enumerate(self.edge_data):
             source, target, lower, upper, cost, _ = data
             _, _, capacity, flow = feasibility.get_edge(edge_id)

@@ -16,10 +16,10 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 980 passed（2026-10-10、二次元の加算・範囲和3問題の整備後に全体を実行）。
+- PyPy 全検証: 985 passed（2026-10-11、最大流の軽量化・最小費用b-flowの整備後に全体を実行）。
 - 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
-- 再帰監査: direct/mutual recursion なし（2026-10-10、6217関数）
-- Library Checker公式ケース: 192問題・4524ケース通過、未対応61問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 再帰監査: direct/mutual recursion なし（2026-10-11、6245関数）
+- Library Checker公式ケース: 193問題・4578ケース通過、未対応60問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 - 凹列と一般列のmin-plus畳み込みの追加と、上位PyPy提出との比較は[測定記録](docs/MINPLUS_CONCAVE_BENCHMARK.md)を参照。
 - 点加算・長方形和、長方形加算・点取得、静的な長方形加算・長方形和の3問題と、入力別の速度・メモリ比較は[二次元クエリの記録](docs/SPATIAL_QUERIES_BENCHMARK.md)を参照。
 - 木分解・st-numberingの追加と、マンハッタンMST・k本の最短walkの高速化は[検査・比較結果](docs/GRAPH_DECOMPOSITION_BENCHMARK.md)を参照。
@@ -113,12 +113,12 @@ BinaryTrieの圧縮化・モノイド集約版・Stern–Brocot木の修正と�
 | `graph/EulerianTrail.py` | 有向・無向Euler路・閉路・成分別分解（非再帰） | $O(V+E)$ |
 | `graph_connectivity/FunctionalGraph.py` | Functional graph の周期分解・移動・距離 | 構築 $O(N\log N)$、移動 $O(\log N)$（周期上は $O(1)$） |
 | `graph_connectivity/LowLink.py` | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | $O(V+E)$ |
-| `graph_flow/MaxFlow.py` | ACL互換寄りの反復Dinic・min-cut・辺変更 | Dinicの計算量 |
+| `graph_flow/MaxFlow.py` | 容量付き有向グラフの最大流・最小カット・辺ごとの流量 | 最大流 O(V²E)、最小カット O(V+E) |
 | `graph_flow/PushRelabel.py` | 最高ラベル方式の最大流・最小カット | $O(V^2\sqrt E)$ |
 | `graph_flow/AdvancedFlow.py` | 全頂点対の最小カット木・無向グラフの大域最小カット | $V-1$回の最大流 / $O(V^3)$ |
 | `graph/CSRGraph.py` | flat CSR表現・最短路・探索・DAG・連結性・SCC・LowLinkの高速backend | 構築 $O(V+E)$、各標準計算量 |
 | `shortest_path/GridBFS.py` | 障害物付きgridの距離表・2点間最短距離 | $O(HW)$ |
-| `graph_flow/MinCostBFlow.py` | lower/upper・頂点supply・負費用対応minimum-cost b-flow | cost scaling法 |
+| `graph_flow/MinCostBFlow.py` | 頂点の供給・需要と辺の流量上下限を守る最小費用流 | O(V²E log(VC+2)+V+E) |
 | `graph_flow/MinCostFlow.py` | 非負費用のポテンシャル付き最小費用流・slope | $O(FE\log V)$ |
 | `graph_spanning/MinimumSpanningTree.py` | Kruskal最小全域森・最小全域木（辺ID付き） | $O(E\log E)$ |
 | `graph_connectivity/NamoriDecomposition.py` | 重み付き擬森林の周期・付随木分解と距離 | 構築 $O(V+E)$、距離 $O(\log V)$ |

@@ -7316,3 +7316,87 @@ for _owner, _method in (("CompressedFenwick2D", "add"), ("DynamicPointAddRectang
 API_DETAILS_BY_SYMBOL[("spatial_structure/CompressedFenwick2D.py", "CompressedFenwick2D", "prefix_sum")]["argumentDescriptions"] = {
     "x": "x座標の上限。含まない。", "y": "y座標の上限。含まない。",
 }
+
+CLASS_DETAILS_BY_SYMBOL[("graph_flow/MaxFlow.py", "MaxFlowGraph")] = {
+    "description": "有向辺の容量と現在の流量を保持し、最大流・残余グラフ・最小カットを求める。",
+    "constructorCreates": "空の容量付きグラフ。add_edgeで辺を追加し、flowで始点から終点への流量を追加できる。",
+    "argumentDescriptions": {"n": "最初の頂点数。"},
+}
+COMPLEXITY_BY_MODULE["graph_flow/MaxFlow.py"] = {
+    "MaxFlowGraph": "O(V)", "add_vertex": "償却O(1)", "add_edge": "償却O(1)",
+    "get_edge": "O(1)", "edges": "O(E)", "change_edge": "O(1)",
+    "flow": "O(V²E+V)、追加領域 O(V)", "min_cut": "O(V+E)",
+    "residual_graph": "O(V+E)", "min_cut_edges": "O(V+E)",
+    "flow_value": "O(E)", "flow_paths": "O(E(V+E))、返すpath数はO(E)",
+    "feasible_circulation": "O(V²(E+V)+V+E)",
+    "max_flow_with_bounds": "O(V²(E+V)+V+E)",
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MaxFlow.py", "MaxFlowGraph", "add_edge")] = {
+    "description": "指定した容量の有向辺を追加する。平行辺・自己ループも追加できる。",
+    "argumentDescriptions": {"target": "辺の終点。", "capacity": "非負の有限容量。"},
+    "returnFormat": "int", "returnDescription": "追加順の辺ID。get_edge・change_edgeで使う。",
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MaxFlow.py", "MaxFlowGraph", "change_edge")] = {
+    "description": "指定辺の容量と流量を直接置き換える。他の辺は変更しない。",
+    "argumentDescriptions": {"i": "add_edgeが返した辺ID。", "capacity": "変更後の非負の有限容量。", "flow": "変更後の流量。0以上capacity以下。"},
+    "returnFormat": "None", "returnDescription": "指定辺とその逆辺の残余容量を更新する。頂点の流量保存則は利用者が維持する。",
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MaxFlow.py", "MaxFlowGraph", "flow")] = {
+    "description": "現在の残余グラフで、sourceからsinkへ追加で流せる量を求める。",
+    "argumentDescriptions": {"flow_limit": "今回追加する流量の上限。Noneなら最大まで流す。0なら状態を変えない。"},
+    "returnFormat": "number", "returnDescription": "今回追加した流量。過去の呼出し分を含む累計ではない。各辺の流量も更新する。",
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MaxFlow.py", "MaxFlowGraph", "get_edge")] = {
+    "description": "追加順の辺IDから、その辺の現在の容量と流量を取得する。",
+    "returnFormat": "tuple[int, int, number, number]",
+    "returnDescription": "(始点, 終点, 元の容量, 現在の流量)。",
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MaxFlow.py", "MaxFlowGraph", "edges")] = {
+    "description": "追加した全有向辺の現在の容量・流量を追加順で取得する。",
+    "returnFormat": "list[tuple[int, int, number, number]]",
+    "returnDescription": "result[i]はi番目に追加した辺の(始点, 終点, 元の容量, 現在の流量)。逆辺は別要素として返さない。",
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MaxFlow.py", "MaxFlowGraph", "min_cut")] = {
+    "description": "残余容量が正の辺でsourceから到達できる頂点を求める。",
+    "returnFormat": "list[bool]", "returnDescription": "長さV。result[v]はvへ到達できるか。最大まで流した後は最小カットのsource側。流量制限による途中終了時には最小カットとは限らない。",
+}
+CLASS_DETAILS_BY_SYMBOL[("graph_flow/MinCostBFlow.py", "MinCostBFlow")] = {
+    "description": "各頂点の供給・需要と各辺の流量上下限を守り、費用の合計を最小にする。",
+    "constructorCreates": "空の費用付きグラフ。add_edgeで辺、add_supply・add_demandで供給・需要を登録し、runで最小費用と各辺の流量を求められる。",
+}
+MODULE_CAPABILITIES["graph_flow/MinCostBFlow.py"] = (
+    "頂点ごとの供給・需要と辺ごとの流量上下限を同時に満たす最小費用流を求める。",
+    "負の費用・負の流量下限・自己ループに対応する。",
+    "最小費用、追加順の各辺の流量、最適性を確認するポテンシャルを取得する。",
+)
+COMPLEXITY_BY_MODULE["graph_flow/MinCostBFlow.py"] = {
+    "MinCostBFlow": "O(V)", "add_edge": "償却O(1)", "add_supply": "O(1)", "add_demand": "O(1)",
+    "run": "O(V²E log(VC+2)+V+E)、Cは費用の絶対値の最大。領域 O(V+E)",
+    "get_flow": "O(1)", "get_edge": "O(1)", "edges": "O(E)",
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MinCostBFlow.py", "MinCostBFlow", "add_edge")] = {
+    "description": "流量の上下限と単位費用を指定して有向辺を追加する。",
+    "argumentDescriptions": {"lower": "許す流量の下限。負の整数も可。", "upper": "許す流量の上限。lower以上。", "cost": "流量1あたりの費用。負の整数も可。", "target": "辺の終点。"},
+    "returnFormat": "int", "returnDescription": "追加した辺のID。get_flow・get_edgeでこの辺を指定する。",
+}
+for _method, _sign, _meaning in (("add_supply", "加える", "正なら供給"), ("add_demand", "引く", "正なら需要")):
+    API_DETAILS_BY_SYMBOL[("graph_flow/MinCostBFlow.py", "MinCostBFlow", _method)] = {
+        "description": "指定頂点で必要な流出量−流入量からamountを引く。" if _method == "add_demand" else "指定頂点で必要な流出量−流入量にamountを加える。",
+        "argumentDescriptions": {"amount": "整数。" + _meaning + "。同じ頂点への指定は累積する。"},
+        "returnFormat": "None", "returnDescription": "頂点の供給・需要の指定を更新する。runの前に呼ぶ。",
+    }
+API_DETAILS_BY_SYMBOL[("graph_flow/MinCostBFlow.py", "MinCostBFlow", "run")] = {
+    "description": "登録した全制約を満たす最小費用流を求め、辺の流量とdualを保存する。一度だけ呼べる。",
+    "returnFormat": "tuple[bool, int]", "returnDescription": "(実行可能か, 最小費用)。実行不可能なら(False, 0)で、0は最適値を意味しない。",
+    "returnParts": [{"name": "feasible", "format": "bool", "description": "全制約を満たす流量が存在するか。"}, {"name": "cost", "format": "int", "description": "feasibleがTrueなら最小費用。任意精度整数。"}],
+}
+API_DETAILS_BY_SYMBOL[("graph_flow/MinCostBFlow.py", "MinCostBFlow", "get_flow")] = {
+    "description": "指定辺の最適解での流量を取得する。runが実行可能を返した後に使う。",
+    "returnFormat": "int", "returnDescription": "edge_id番目に追加した辺の流量。登録した下限以上・上限以下。",
+}
+for _method in ("get_edge", "edges"):
+    API_DETAILS_BY_SYMBOL[("graph_flow/MinCostBFlow.py", "MinCostBFlow", _method)] = {
+        "description": "指定辺の境界・費用・流量を取得する。" if _method == "get_edge" else "全辺の境界・費用・流量を追加順で取得する。",
+        "returnFormat": "tuple[int, int, int, int, int, int]" if _method == "get_edge" else "list[tuple[int, int, int, int, int, int]]",
+        "returnDescription": "(始点, 終点, 下限, 上限, 単位費用, 流量)" + ("。" if _method == "get_edge" else "のlist。result[i]はi番目に追加した辺。") + "流量はrunが実行可能を返した後に解として使う。",
+    }
