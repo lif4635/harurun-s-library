@@ -16,9 +16,10 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 992 passed（2026-10-13、64bit nim積の高速化・RangeMajorityの点更新追加後に全体を実行）。
+- PyPy 全検証: 999 passed（2026-10-14、DebugView追加後に全体・性能検査を実行）。
 - 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
-- 再帰監査: direct/mutual recursion なし（2026-10-13、6281関数）
+- 再帰監査: direct/mutual recursion なし（2026-10-14、6298関数）
+- フロー・グラフ・配列のVS Code表示は[DebugView](docs/articles/debug/DebugView.md)を参照。
 - Library Checker公式ケース: 195問題・4600ケース通過、未対応58問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
 - 64bit nim積の高速化と、RangeMajorityへの点更新追加は[検査・比較結果](docs/NIMBER_MAJORITY_BENCHMARK.md)を参照。
 - 凹列と一般列のmin-plus畳み込みの追加と、上位PyPy提出との比較は[測定記録](docs/MINPLUS_CONCAVE_BENCHMARK.md)を参照。

@@ -7510,3 +7510,20 @@ for _method in ("get_edge", "edges"):
         "returnFormat": "tuple[int, int, int, int, int, int]" if _method == "get_edge" else "list[tuple[int, int, int, int, int, int]]",
         "returnDescription": "(始点, 終点, 下限, 上限, 単位費用, 流量)" + ("。" if _method == "get_edge" else "のlist。result[i]はi番目に追加した辺。") + "流量はrunが実行可能を返した後に解として使う。",
     }
+
+for _function, _description, _arguments, _complexity in (
+    ("dump_flow", "現在の流量・容量・残余辺をHaru DeskのDebugパネルへ送る。フローの状態は変更しない。",
+     {"graph": "MaxFlowGraph・PushRelabel・MinCostFlowGraph、または実行可能解を得たMinCostBFlow。", "source": "残余到達性を調べる始点。省略時は到達性を表示しない。", "sink": "終点。始点と異なる頂点。省略時は最小カットを判定しない。"}, "O(V + E + B)。Bは出力文字列長。"),
+    ("dump_graph", "辺listからグラフや木をHaru DeskのDebugパネルへ送る。",
+     {"n": "頂点数。0以上500以下。", "edges": "(始点, 終点)または(始点, 終点, 重み)の列。辺IDは列挙順。最大3000辺。", "directed": "Trueなら有向辺として矢印を表示する。"}, "O(V + E + B)。Bは出力文字列長。"),
+    ("dump_array", "列の現在値をHaru DeskのDebugパネルへ添字付きで表示する。",
+     {"values": "反復可能な列、またはtolist()を持つ構造。各要素をstrで表示する。最大10000要素。"}, "O(N + B) + tolist()の時間。Bは出力文字列長。"),
+):
+    _arguments.update({"name": "表示名。同じprocess・同じ名前の最新状態を置き換える。", "directory": "保存先。省略時はHARU_DUMP_DIR環境変数、なければ作業directoryの.haru-dump。自動表示はworkspace内の.haru-dumpだけ。"})
+    if _function != "dump_array":
+        _arguments.update({"labels": "頂点順の表示名の列。省略時は頂点番号。", "positions": "頂点順の(x, y)座標の列。yは下向き。省略時は自動配置。"})
+    API_DETAILS_BY_SYMBOL[("debug/DebugView.py", None, _function)] = {
+        "description": _description, "argumentDescriptions": _arguments,
+        "returnFormat": "str", "returnDescription": "保存したJSON fileの絶対path。標準出力には書かない。Haru Desk 1.36以降が保存を検知して表示する。",
+    }
+    COMPLEXITY_BY_MODULE.setdefault("debug/DebugView.py", {})[_function] = _complexity

@@ -1,5 +1,9 @@
 # デバッグ出力
 
+## VS Codeの右側へ自動表示
+
+`debug/DebugView.py`の`dump_flow`・`dump_graph`・`dump_array`で現在の状態を保存すると、Haru Desk 1.36以降がDebugパネルを自動更新する。フロー本体の通常操作は変更しない。利用方法と制限は[DebugView](articles/debug/DebugView.md)を参照。
+
 主要なデータ構造は、内部node配列ではなく利用者から見える論理的な内容を `str(obj)` と `repr(obj)` で表示します。
 
 ```python

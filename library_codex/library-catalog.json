@@ -1,21 +1,31 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-13T11:45:18+00:00",
+  "generatedAt": "2026-10-13T16:22:31+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "03e7f5edca80c47f8ce4f7b0af4930a60b8dd2751c2ada0bd69fbcc1da514404",
-  "inputStamp": "fce26cf8a7839149799c83f4339ca62fe821fb538f6e3428c626c08336f39bb9",
-  "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
+  "sourceFingerprint": "7bd43dd15089c9350b240e87f64c777570bc9716df863db4ce8d400c516b2f93",
+  "inputStamp": "57710d9d662a38bd57103ee64221dedf8225a7646bf8be5aeba94ef5fa625819",
+  "generatorFingerprint": "352195430bf6e369885f591759bddcd812c5bfcd99b18c1767fe7dbf15c80ef2",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 373,
-    "articles": 71,
-    "functions": 510,
+    "modules": 374,
+    "articles": 72,
+    "functions": 513,
     "classes": 229,
     "methods": 1465,
-    "tests": 992
+    "tests": 999
   },
   "categories": [
+    {
+      "slug": "debug",
+      "label": "デバッグ",
+      "domain": "algorithm",
+      "domainLabel": "Algorithms",
+      "modules": 1,
+      "functions": 3,
+      "classes": 0,
+      "methods": 0
+    },
     {
       "slug": "algorithm",
       "label": "アルゴリズム",
@@ -391,7 +401,7 @@
     {
       "slug": "algorithm",
       "label": "Algorithms",
-      "modules": 17
+      "modules": 18
     },
     {
       "slug": "convolution",
@@ -445,6 +455,176 @@
     }
   ],
   "modules": [
+    {
+      "category": "debug",
+      "categoryLabel": "デバッグ",
+      "domain": "algorithm",
+      "domainLabel": "Algorithms",
+      "name": "DebugView",
+      "modulePath": "library_codex.debug.DebugView",
+      "summary": "フロー・グラフ・配列の現在値をHaru Deskの右側へ送る。",
+      "capabilities": [
+        "dump_flow: 現在の流量・容量・残余辺をHaru DeskのDebugパネルへ送る。フローの状態は変更しない。",
+        "dump_graph: 辺listからグラフや木をHaru DeskのDebugパネルへ送る。",
+        "dump_array: 列の現在値をHaru DeskのDebugパネルへ添字付きで表示する。"
+      ],
+      "article": {
+        "title": "実行中の状態を右側に表示する",
+        "markdown": "## 主な機能\n\nHaru Desk 1.36以降を入れたVS Codeで、Pythonから書き出した状態を右側のDebugパネルへ自動表示する。手動でのコピーや貼り付けは不要。\n\n- `dump_flow(g, s, t)`：MaxFlowGraph・PushRelabel・MinCostFlowGraphの容量、流量、順方向と逆方向の残余容量を表示する。実行可能解を得たMinCostBFlowにも対応する。\n- `dump_graph(n, edges)`：辺listからグラフや木を表示する。重み、多重辺、自己ループ、有向辺に対応する。\n- `dump_array(values)`：列、または`tolist()`を持つBIT・SegTreeなどの論理値を添字付きで表示する。\n\nフロー・グラフの書き出しは`O(V + E + B)`、配列は列挙時間に加えて`O(B)`。`B`は文字列化した出力サイズ。計算本体へ記録処理を追加せず、呼び出した時点だけを書き出す。\n\n## 使い方\n\n```python\nfrom library_codex.graph_flow.MaxFlow import MaxFlowGraph\nfrom library_codex.debug.DebugView import dump_flow, dump_graph, dump_array\n\ng = MaxFlowGraph(4)\nfor u, v, capacity in [(0, 1, 3), (0, 2, 2), (1, 2, 1), (1, 3, 2), (2, 3, 3)]:\n    g.add_edge(u, v, capacity)\ng.flow(0, 3)\ndump_flow(g, 0, 3)\ndump_graph(4, [(0, 1), (1, 2), (1, 3)], name=\"tree\")\ndump_array([4, 1, 7], name=\"values\")\n```\n\nVS Codeで開いたworkspace内を作業directoryとして実行する。通常のターミナル、Haru DeskのRun、デバッガのいずれでも同じ形式で使える。戻り値は保存したJSONの絶対pathで、標準出力には何も追加しない。\n\n同じprocess・同じ`name`の出力は同じfileを置き換える。違う`name`ならパネル上の選択欄で切り替えられる。残すのは各fileの最新状態で、全呼び出しの履歴ではない。\n\n`labels`には頂点順の表示名、`positions`には頂点順の`[x, y]`を渡せる。座標のyは下向き。グリッドでは`positions=[(v % width, v // width) for v in range(n)]`を指定すると元の配置で表示できる。更新時にはドラッグした配置を維持し、`Reset view`で指定座標に戻す。\n\n## 注意点\n\n- JSONは作業directoryの`.haru-dump`へ一時fileを経由して保存する。Gitへ入れない場合は`.gitignore`へ`.haru-dump/`を追加する。\n- 保存先は`directory`、環境変数`HARU_DUMP_DIR`、`.haru-dump`の順で選ぶ。自動表示の対象は開いたworkspace内の`.haru-dump`directoryだけ。\n- Haru Deskが有効な、信頼済みworkspaceでPython fileを開いてから実行する。拡張の起動前に保存した古いfileは自動表示しない。\n- 最大500頂点・3000辺・10000配列要素・2 MiB。上限超過や不正な入力は例外とし、以前のJSONを残す。巨大な入力は小さな再現ケースで調べる。\n- `Residual`は正の残余容量を持つ辺だけを表示する。逆辺は破線。元の辺番号は詳細欄で確認できる。\n- 最小カットと表示するのは、通常の最大流で流量保存を満たし、残余グラフでsinkへ到達できない場合だけ。流量上限で途中停止した結果や`change_edge`後の不整合な状態を最小カットと呼ばない。\n- MinCostBFlowは実行可能解を得た後に使う。費用付きフローでは、表示から最適性を判定しない。\n- フローやグラフは変更しない。`dump_array(obj)`は`obj.tolist()`を呼ぶため、そのmethodの計算量・内部状態の扱いに従う。\n- 実数・整数の辺情報は文字列で転送し、大きな整数をJavaScriptの数値へ丸めない。非有限の値は受け付けない。\n- 提出時にはデバッグ用importと呼び出しを外す。通常操作に負担はないが、dump自体には列挙・文字列化・file書き込みの時間がかかる。",
+        "sourcePath": "library_codex/docs/articles/debug/DebugView.md"
+      },
+      "searchTerms": [
+        "DebugView",
+        "Debug View",
+        "library_codex.debug.DebugView",
+        "library codex debug Debug View",
+        "debug/DebugView.py",
+        "デバッグ"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/debug/DebugView.py",
+      "inputFingerprint": "c390f30b12f419484d4c758e542e7ab68ea06df21c898c923f93f0163c2fbb34",
+      "importCode": "from library_codex.debug.DebugView import dump_flow, dump_graph, dump_array",
+      "sourceCode": "\"\"\"フロー・グラフ・配列の現在値をHaru Deskの右側へ送る。\"\"\"\n\nimport hashlib\nimport json\nimport math\nimport os\nimport tempfile\nimport time\n\n\ndef _debug_number(value):\n    if not isinstance(value, (int, float)) or isinstance(value, bool):\n        raise TypeError(\"edge values must be numbers\")\n    if isinstance(value, float) and not math.isfinite(value):\n        raise ValueError(\"edge values must be finite\")\n    text = str(value)\n    if len(text) > 1000:\n        raise ValueError(\"edge numbers must be at most 1000 characters\")\n    return text\n\n\ndef _debug_vertices(n, labels, positions):\n    if not isinstance(n, int) or not 0 <= n <= 500:\n        raise ValueError(\"viewer supports 0 to 500 vertices\")\n    if labels is not None and len(labels) != n:\n        raise ValueError(\"labels must contain one label per vertex\")\n    if positions is not None and len(positions) != n:\n        raise ValueError(\"positions must contain one [x, y] per vertex\")\n    nodes = []\n    for i in range(n):\n        node = {\"id\": i, \"label\": str(i if labels is None else labels[i])}\n        if len(node[\"label\"]) > 20000:\n            raise ValueError(\"labels must be at most 20000 characters\")\n        if positions is not None:\n            x, y = positions[i]\n            if not math.isfinite(x) or not math.isfinite(y):\n                raise ValueError(\"positions must be finite\")\n            node[\"position\"] = [float(x), float(y)]\n        nodes.append(node)\n    return nodes\n\n\ndef _debug_endpoint(v, n):\n    if not isinstance(v, int) or not 0 <= v < n:\n        raise ValueError(\"edge endpoint outside graph\")\n\n\ndef _debug_write(payload, name, directory):\n    name = str(name)\n    if len(name) > 200:\n        raise ValueError(\"name must be at most 200 characters\")\n    payload.update(schemaVersion=1, name=name, pid=os.getpid(), capturedAt=time.time_ns())\n    text = json.dumps(payload, ensure_ascii=True, allow_nan=False, separators=(\",\", \":\"))\n    if len(text) > 2 * 1024 * 1024:\n        raise ValueError(\"snapshot exceeds 2 MiB; select a smaller graph or array\")\n    directory = os.path.abspath(directory or os.environ.get(\"HARU_DUMP_DIR\") or \".haru-dump\")\n    os.makedirs(directory, exist_ok=True)\n    key = hashlib.sha256(name.encode()).hexdigest()[:16]\n    destination = os.path.join(directory, str(os.getpid()) + \"-\" + key + \".json\")\n    fd, temporary = tempfile.mkstemp(prefix=\".snapshot-\", suffix=\".tmp\", dir=directory)\n    try:\n        with os.fdopen(fd, \"w\", encoding=\"utf-8\") as stream:\n            stream.write(text)\n        os.replace(temporary, destination)\n    finally:\n        if os.path.exists(temporary):\n            os.unlink(temporary)\n    return destination\n\n\ndef dump_flow(graph, source=None, sink=None, *, name=\"flow\", labels=None, positions=None, directory=None):\n    \"\"\"現在の辺の容量・流量・残余容量をJSONへ保存する。グラフは変更しない。\"\"\"\n    n = graph.n\n    nodes = _debug_vertices(n, labels, positions)\n    for vertex in (source, sink):\n        if vertex is not None:\n            _debug_endpoint(vertex, n)\n    if source is not None and source == sink:\n        raise ValueError(\"source and sink must differ\")\n    edges = []\n    adjacency = [[] for _ in range(n)]\n    balance = [0] * n\n    ordinary = True\n    for i, row in enumerate(graph.edges()):\n        if i >= 3000:\n            raise ValueError(\"viewer supports at most 3000 edges\")\n        cost = None\n        lower = 0\n        if len(row) == 4:\n            u, v, capacity, flow = row\n        elif len(row) == 5:\n            u, v, capacity, flow, cost = row\n            ordinary = False\n        elif len(row) == 6:\n            u, v, lower, capacity, cost, flow = row\n            ordinary = False\n        else:\n            raise TypeError(\"unsupported flow edge format\")\n        _debug_endpoint(u, n)\n        _debug_endpoint(v, n)\n        edge = {\"id\": i, \"from\": u, \"to\": v, \"capacity\": _debug_number(capacity),\n                \"flow\": _debug_number(flow), \"lower\": _debug_number(lower),\n                \"forward\": _debug_number(capacity - flow), \"reverse\": _debug_number(flow - lower)}\n        if not lower <= flow <= capacity:\n            raise ValueError(\"flow outside bounds; b-flow must have a feasible solution\")\n        if cost is not None:\n            edge[\"cost\"] = _debug_number(cost)\n        edges.append(edge)\n        if capacity > flow:\n            adjacency[u].append(v)\n        if flow > lower:\n            adjacency[v].append(u)\n        balance[u] += flow\n        balance[v] -= flow\n    reachable = [False] * n\n    if source is not None:\n        reachable[source] = True\n        queue = [source]\n        for u in queue:\n            for v in adjacency[u]:\n                if not reachable[v]:\n                    reachable[v] = True\n                    queue.append(v)\n    feasible = source is not None and sink is not None and all(\n        balance[i] == 0 for i in range(n) if i != source and i != sink\n    ) and balance[source] >= 0 and balance[source] == -balance[sink]\n    minimum = bool(ordinary and feasible and not reachable[sink])\n    return _debug_write({\"kind\": \"flow\", \"nodes\": nodes, \"edges\": edges, \"directed\": True,\n                   \"source\": source, \"sink\": sink, \"reachable\": reachable,\n                   \"minimumCut\": minimum}, name, directory)\n\n\ndef dump_graph(n, edges, *, directed=False, name=\"graph\", labels=None, positions=None, directory=None):\n    \"\"\"辺listのグラフや木をJSONへ保存する。辺は(u, v)または(u, v, weight)。\"\"\"\n    nodes = _debug_vertices(n, labels, positions)\n    result = []\n    for i, row in enumerate(edges):\n        if i >= 3000:\n            raise ValueError(\"viewer supports at most 3000 edges\")\n        if len(row) not in (2, 3):\n            raise ValueError(\"edges must be (u, v) or (u, v, weight)\")\n        u, v = row[:2]\n        _debug_endpoint(u, n)\n        _debug_endpoint(v, n)\n        edge = {\"id\": i, \"from\": u, \"to\": v}\n        if len(row) == 3:\n            edge[\"weight\"] = _debug_number(row[2])\n        result.append(edge)\n    return _debug_write({\"kind\": \"graph\", \"nodes\": nodes, \"edges\": result,\n                   \"directed\": bool(directed)}, name, directory)\n\n\ndef dump_array(values, *, name=\"array\", directory=None):\n    \"\"\"列またはtolist()を持つ構造の論理値を、添字付き表示用JSONへ保存する。\"\"\"\n    if hasattr(values, \"tolist\"):\n        values = values.tolist()\n    result = []\n    for value in values:\n        if len(result) >= 10000:\n            raise ValueError(\"viewer supports at most 10000 array elements\")\n        text = str(value)\n        if len(text) > 20000:\n            raise ValueError(\"array values must be at most 20000 characters\")\n        result.append(text)\n    return _debug_write({\"kind\": \"array\", \"values\": result}, name, directory)\n",
+      "standaloneCode": "\"\"\"フロー・グラフ・配列の現在値をHaru Deskの右側へ送る。\"\"\"\n\nimport hashlib\nimport json\nimport math\nimport os\nimport tempfile\nimport time\n\n\ndef _debug_number(value):\n    if not isinstance(value, (int, float)) or isinstance(value, bool):\n        raise TypeError(\"edge values must be numbers\")\n    if isinstance(value, float) and not math.isfinite(value):\n        raise ValueError(\"edge values must be finite\")\n    text = str(value)\n    if len(text) > 1000:\n        raise ValueError(\"edge numbers must be at most 1000 characters\")\n    return text\n\n\ndef _debug_vertices(n, labels, positions):\n    if not isinstance(n, int) or not 0 <= n <= 500:\n        raise ValueError(\"viewer supports 0 to 500 vertices\")\n    if labels is not None and len(labels) != n:\n        raise ValueError(\"labels must contain one label per vertex\")\n    if positions is not None and len(positions) != n:\n        raise ValueError(\"positions must contain one [x, y] per vertex\")\n    nodes = []\n    for i in range(n):\n        node = {\"id\": i, \"label\": str(i if labels is None else labels[i])}\n        if len(node[\"label\"]) > 20000:\n            raise ValueError(\"labels must be at most 20000 characters\")\n        if positions is not None:\n            x, y = positions[i]\n            if not math.isfinite(x) or not math.isfinite(y):\n                raise ValueError(\"positions must be finite\")\n            node[\"position\"] = [float(x), float(y)]\n        nodes.append(node)\n    return nodes\n\n\ndef _debug_endpoint(v, n):\n    if not isinstance(v, int) or not 0 <= v < n:\n        raise ValueError(\"edge endpoint outside graph\")\n\n\ndef _debug_write(payload, name, directory):\n    name = str(name)\n    if len(name) > 200:\n        raise ValueError(\"name must be at most 200 characters\")\n    payload.update(schemaVersion=1, name=name, pid=os.getpid(), capturedAt=time.time_ns())\n    text = json.dumps(payload, ensure_ascii=True, allow_nan=False, separators=(\",\", \":\"))\n    if len(text) > 2 * 1024 * 1024:\n        raise ValueError(\"snapshot exceeds 2 MiB; select a smaller graph or array\")\n    directory = os.path.abspath(directory or os.environ.get(\"HARU_DUMP_DIR\") or \".haru-dump\")\n    os.makedirs(directory, exist_ok=True)\n    key = hashlib.sha256(name.encode()).hexdigest()[:16]\n    destination = os.path.join(directory, str(os.getpid()) + \"-\" + key + \".json\")\n    fd, temporary = tempfile.mkstemp(prefix=\".snapshot-\", suffix=\".tmp\", dir=directory)\n    try:\n        with os.fdopen(fd, \"w\", encoding=\"utf-8\") as stream:\n            stream.write(text)\n        os.replace(temporary, destination)\n    finally:\n        if os.path.exists(temporary):\n            os.unlink(temporary)\n    return destination\n\n\ndef dump_flow(graph, source=None, sink=None, *, name=\"flow\", labels=None, positions=None, directory=None):\n    \"\"\"現在の辺の容量・流量・残余容量をJSONへ保存する。グラフは変更しない。\"\"\"\n    n = graph.n\n    nodes = _debug_vertices(n, labels, positions)\n    for vertex in (source, sink):\n        if vertex is not None:\n            _debug_endpoint(vertex, n)\n    if source is not None and source == sink:\n        raise ValueError(\"source and sink must differ\")\n    edges = []\n    adjacency = [[] for _ in range(n)]\n    balance = [0] * n\n    ordinary = True\n    for i, row in enumerate(graph.edges()):\n        if i >= 3000:\n            raise ValueError(\"viewer supports at most 3000 edges\")\n        cost = None\n        lower = 0\n        if len(row) == 4:\n            u, v, capacity, flow = row\n        elif len(row) == 5:\n            u, v, capacity, flow, cost = row\n            ordinary = False\n        elif len(row) == 6:\n            u, v, lower, capacity, cost, flow = row\n            ordinary = False\n        else:\n            raise TypeError(\"unsupported flow edge format\")\n        _debug_endpoint(u, n)\n        _debug_endpoint(v, n)\n        edge = {\"id\": i, \"from\": u, \"to\": v, \"capacity\": _debug_number(capacity),\n                \"flow\": _debug_number(flow), \"lower\": _debug_number(lower),\n                \"forward\": _debug_number(capacity - flow), \"reverse\": _debug_number(flow - lower)}\n        if not lower <= flow <= capacity:\n            raise ValueError(\"flow outside bounds; b-flow must have a feasible solution\")\n        if cost is not None:\n            edge[\"cost\"] = _debug_number(cost)\n        edges.append(edge)\n        if capacity > flow:\n            adjacency[u].append(v)\n        if flow > lower:\n            adjacency[v].append(u)\n        balance[u] += flow\n        balance[v] -= flow\n    reachable = [False] * n\n    if source is not None:\n        reachable[source] = True\n        queue = [source]\n        for u in queue:\n            for v in adjacency[u]:\n                if not reachable[v]:\n                    reachable[v] = True\n                    queue.append(v)\n    feasible = source is not None and sink is not None and all(\n        balance[i] == 0 for i in range(n) if i != source and i != sink\n    ) and balance[source] >= 0 and balance[source] == -balance[sink]\n    minimum = bool(ordinary and feasible and not reachable[sink])\n    return _debug_write({\"kind\": \"flow\", \"nodes\": nodes, \"edges\": edges, \"directed\": True,\n                   \"source\": source, \"sink\": sink, \"reachable\": reachable,\n                   \"minimumCut\": minimum}, name, directory)\n\n\ndef dump_graph(n, edges, *, directed=False, name=\"graph\", labels=None, positions=None, directory=None):\n    \"\"\"辺listのグラフや木をJSONへ保存する。辺は(u, v)または(u, v, weight)。\"\"\"\n    nodes = _debug_vertices(n, labels, positions)\n    result = []\n    for i, row in enumerate(edges):\n        if i >= 3000:\n            raise ValueError(\"viewer supports at most 3000 edges\")\n        if len(row) not in (2, 3):\n            raise ValueError(\"edges must be (u, v) or (u, v, weight)\")\n        u, v = row[:2]\n        _debug_endpoint(u, n)\n        _debug_endpoint(v, n)\n        edge = {\"id\": i, \"from\": u, \"to\": v}\n        if len(row) == 3:\n            edge[\"weight\"] = _debug_number(row[2])\n        result.append(edge)\n    return _debug_write({\"kind\": \"graph\", \"nodes\": nodes, \"edges\": result,\n                   \"directed\": bool(directed)}, name, directory)\n\n\ndef dump_array(values, *, name=\"array\", directory=None):\n    \"\"\"列またはtolist()を持つ構造の論理値を、添字付き表示用JSONへ保存する。\"\"\"\n    if hasattr(values, \"tolist\"):\n        values = values.tolist()\n    result = []\n    for value in values:\n        if len(result) >= 10000:\n            raise ValueError(\"viewer supports at most 10000 array elements\")\n        text = str(value)\n        if len(text) > 20000:\n            raise ValueError(\"array values must be at most 20000 characters\")\n        result.append(text)\n    return _debug_write({\"kind\": \"array\", \"values\": result}, name, directory)\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "dump_flow",
+          "kind": "function",
+          "signature": "dump_flow(graph, source=None, sink=None, *, name='flow', labels=None, positions=None, directory=None)",
+          "summary": "現在の流量・容量・残余辺をHaru DeskのDebugパネルへ送る。フローの状態は変更しない。",
+          "description": "現在の流量・容量・残余辺をHaru DeskのDebugパネルへ送る。フローの状態は変更しない。",
+          "searchTerms": [
+            "dump_flow",
+            "dump flow",
+            "dump_flow(graph, source=None, sink=None, *, name='flow', labels=None, positions=None, directory=None)"
+          ],
+          "arguments": "graph: MaxFlowGraph・PushRelabel・MinCostFlowGraph、または実行可能解を得たMinCostBFlow。 · source: 残余到達性を調べる始点。省略時は到達性を表示しない。 · sink: 終点。始点と異なる頂点。省略時は最小カットを判定しない。 · name: 表示名。同じprocess・同じ名前の最新状態を置き換える。 · labels: 頂点順の表示名の列。省略時は頂点番号。 · positions: 頂点順の(x, y)座標の列。yは下向き。省略時は自動配置。 · directory: 保存先。省略時はHARU_DUMP_DIR環境変数、なければ作業directoryの.haru-dump。自動表示はworkspace内の.haru-dumpだけ。",
+          "argumentDetails": [
+            {
+              "name": "graph",
+              "description": "MaxFlowGraph・PushRelabel・MinCostFlowGraph、または実行可能解を得たMinCostBFlow。"
+            },
+            {
+              "name": "source",
+              "description": "残余到達性を調べる始点。省略時は到達性を表示しない。"
+            },
+            {
+              "name": "sink",
+              "description": "終点。始点と異なる頂点。省略時は最小カットを判定しない。"
+            },
+            {
+              "name": "name",
+              "description": "表示名。同じprocess・同じ名前の最新状態を置き換える。"
+            },
+            {
+              "name": "labels",
+              "description": "頂点順の表示名の列。省略時は頂点番号。"
+            },
+            {
+              "name": "positions",
+              "description": "頂点順の(x, y)座標の列。yは下向き。省略時は自動配置。"
+            },
+            {
+              "name": "directory",
+              "description": "保存先。省略時はHARU_DUMP_DIR環境変数、なければ作業directoryの.haru-dump。自動表示はworkspace内の.haru-dumpだけ。"
+            }
+          ],
+          "returns": "str — 保存したJSON fileの絶対path。標準出力には書かない。Haru Desk 1.36以降が保存を検知して表示する。",
+          "returnFormat": "str",
+          "returnDescription": "保存したJSON fileの絶対path。標準出力には書かない。Haru Desk 1.36以降が保存を検知して表示する。",
+          "complexity": "O(V + E + B)。Bは出力文字列長。",
+          "sourceLine": 71
+        },
+        {
+          "name": "dump_graph",
+          "kind": "function",
+          "signature": "dump_graph(n, edges, *, directed=False, name='graph', labels=None, positions=None, directory=None)",
+          "summary": "辺listからグラフや木をHaru DeskのDebugパネルへ送る。",
+          "description": "辺listからグラフや木をHaru DeskのDebugパネルへ送る。",
+          "searchTerms": [
+            "dump_graph",
+            "dump graph",
+            "dump_graph(n, edges, *, directed=False, name='graph', labels=None, positions=None, directory=None)"
+          ],
+          "arguments": "n: 頂点数。0以上500以下。 · edges: (始点, 終点)または(始点, 終点, 重み)の列。辺IDは列挙順。最大3000辺。 · directed: Trueなら有向辺として矢印を表示する。 · name: 表示名。同じprocess・同じ名前の最新状態を置き換える。 · labels: 頂点順の表示名の列。省略時は頂点番号。 · positions: 頂点順の(x, y)座標の列。yは下向き。省略時は自動配置。 · directory: 保存先。省略時はHARU_DUMP_DIR環境変数、なければ作業directoryの.haru-dump。自動表示はworkspace内の.haru-dumpだけ。",
+          "argumentDetails": [
+            {
+              "name": "n",
+              "description": "頂点数。0以上500以下。"
+            },
+            {
+              "name": "edges",
+              "description": "(始点, 終点)または(始点, 終点, 重み)の列。辺IDは列挙順。最大3000辺。"
+            },
+            {
+              "name": "directed",
+              "description": "Trueなら有向辺として矢印を表示する。"
+            },
+            {
+              "name": "name",
+              "description": "表示名。同じprocess・同じ名前の最新状態を置き換える。"
+            },
+            {
+              "name": "labels",
+              "description": "頂点順の表示名の列。省略時は頂点番号。"
+            },
+            {
+              "name": "positions",
+              "description": "頂点順の(x, y)座標の列。yは下向き。省略時は自動配置。"
+            },
+            {
+              "name": "directory",
+              "description": "保存先。省略時はHARU_DUMP_DIR環境変数、なければ作業directoryの.haru-dump。自動表示はworkspace内の.haru-dumpだけ。"
+            }
+          ],
+          "returns": "str — 保存したJSON fileの絶対path。標準出力には書かない。Haru Desk 1.36以降が保存を検知して表示する。",
+          "returnFormat": "str",
+          "returnDescription": "保存したJSON fileの絶対path。標準出力には書かない。Haru Desk 1.36以降が保存を検知して表示する。",
+          "complexity": "O(V + E + B)。Bは出力文字列長。",
+          "sourceLine": 133
+        },
+        {
+          "name": "dump_array",
+          "kind": "function",
+          "signature": "dump_array(values, *, name='array', directory=None)",
+          "summary": "列の現在値をHaru DeskのDebugパネルへ添字付きで表示する。",
+          "description": "列の現在値をHaru DeskのDebugパネルへ添字付きで表示する。",
+          "searchTerms": [
+            "dump_array",
+            "dump array",
+            "dump_array(values, *, name='array', directory=None)"
+          ],
+          "arguments": "values: 反復可能な列、またはtolist()を持つ構造。各要素をstrで表示する。最大10000要素。 · name: 表示名。同じprocess・同じ名前の最新状態を置き換える。 · directory: 保存先。省略時はHARU_DUMP_DIR環境変数、なければ作業directoryの.haru-dump。自動表示はworkspace内の.haru-dumpだけ。",
+          "argumentDetails": [
+            {
+              "name": "values",
+              "description": "反復可能な列、またはtolist()を持つ構造。各要素をstrで表示する。最大10000要素。"
+            },
+            {
+              "name": "name",
+              "description": "表示名。同じprocess・同じ名前の最新状態を置き換える。"
+            },
+            {
+              "name": "directory",
+              "description": "保存先。省略時はHARU_DUMP_DIR環境変数、なければ作業directoryの.haru-dump。自動表示はworkspace内の.haru-dumpだけ。"
+            }
+          ],
+          "returns": "str — 保存したJSON fileの絶対path。標準出力には書かない。Haru Desk 1.36以降が保存を検知して表示する。",
+          "returnFormat": "str",
+          "returnDescription": "保存したJSON fileの絶対path。標準出力には書かない。Haru Desk 1.36以降が保存を検知して表示する。",
+          "complexity": "O(N + B) + tolist()の時間。Bは出力文字列長。",
+          "sourceLine": 153
+        }
+      ],
+      "classes": []
+    },
     {
       "category": "algorithm",
       "categoryLabel": "アルゴリズム",

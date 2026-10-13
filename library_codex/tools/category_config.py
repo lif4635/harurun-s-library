@@ -17,6 +17,11 @@ DOMAIN_LABELS = {
 
 
 CATEGORY_INFO = {
+    "debug": {
+        "label": "デバッグ",
+        "description": "ローカル実行時の状態の可視化",
+        "domain": "algorithm",
+    },
     "algorithm": {
         "label": "アルゴリズム",
         "description": "汎用アルゴリズム・列・順列",
