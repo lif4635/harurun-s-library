@@ -31,6 +31,6 @@ from library_codex.tree.CentroidDistanceAdd import CentroidDistanceAdd
 | --- | --- | --- | --- | --- | --- |
 | [`add(vertex, lower, upper, delta)`](../../../tree/CentroidDistanceAdd.py#L32) | method | vertexからの距離が半開区間[lower, upper)に入る頂点へdeltaを加える。 | `vertex`: 頂点番号<br>`lower`: 距離の下限。下限と同じ距離の頂点も含む。<br>`upper`: 距離の上限。上限と同じ距離の頂点は含まない。Noneなら上限なし。<br>`delta`: 条件に合う各頂点へ加える値。負でもよい。 | None — 条件に合う頂点値を更新する。距離範囲が空なら何も変更しない。 | O(log² N) |
 | [`get(vertex)`](../../../tree/CentroidDistanceAdd.py#L67) | method | 初期値とこれまでの距離区間加算を反映したvertexの値を取得する。 | `vertex`: 頂点番号 | number — vertexの初期値と、vertexを対象としたすべてのaddのdeltaの合計。 | O(log² N) |
-| [`tolist()`](../../../tree/CentroidDistanceAdd.py#L85) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | list — 入力と同じ順序の値を並べた新しいlist。 | O(N log² N)時間。Nは要素数 |
+| [`tolist()`](../../../tree/CentroidDistanceAdd.py#L85) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | list[number] — 長さNの新しいlist。頂点番号順で、result[v]はget(v)と同じ現在値。これまでの距離区間加算を反映する。 | O(N log² N)時間。Nは要素数 |
 | [`__str__()`](../../../tree/CentroidDistanceAdd.py#L88) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — tolist()と同じ内容の文字列表現。 | O(N log² N)時間。Nは要素数。加えて各要素の文字列化 |
 | [`__repr__()`](../../../tree/CentroidDistanceAdd.py#L91) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — CentroidDistanceAdd([...])の形式。 | O(N log² N)時間。Nは要素数。加えて各要素の文字列化 |

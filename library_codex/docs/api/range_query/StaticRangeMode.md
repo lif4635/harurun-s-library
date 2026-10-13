@@ -31,6 +31,6 @@ block 間の最頻値と値ごとの出現位置を前計算し、区間の mode
 | --- | --- | --- | --- | --- | --- |
 | [`count(value, left, right)`](../../../range_query/StaticRangeMode.py#L73) | method | 条件に合う要素数を返す。 | `value`: 追加・設定・問い合わせる値<br>`left`: 半開区間の左端（含む）<br>`right`: 半開区間の右端（含まない） | 個数（int） | 期待O(log(N+1))。hash・等値比較をO(1)とする |
 | [`mode(left, right)`](../../../range_query/StaticRangeMode.py#L78) | method | 半開区間 $[\mathrm{left},\mathrm{right})$ の mode と出現回数を返す。 | `left`: 含める左端 index。<br>`right`: 含めない右端 index。 | tuple[object \| None, int] — 非空なら (value, count)。同率時は区間内で最初に現れる value。空区間は (None, 0)。 | O(B)。B=block_size |
-| [`tolist()`](../../../range_query/StaticRangeMode.py#L125) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | list — 入力と同じ順序の値を並べた新しいlist。 | O(N)時間。Nは要素数 |
+| [`tolist()`](../../../range_query/StaticRangeMode.py#L125) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | list[object] — 構築時のvaluesを元の添字順に並べた長さNの新しいlist。要素自体はコピーせず共有する。 | O(N)時間。Nは要素数 |
 | [`__str__()`](../../../range_query/StaticRangeMode.py#L128) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — tolist()と同じ内容の文字列表現。 | O(N)時間。Nは要素数。加えて各要素の文字列化 |
 | [`__repr__()`](../../../range_query/StaticRangeMode.py#L131) | method | 現在の値を元の頂点番号・添字順に取り出す。 | なし | str — StaticRangeMode([...])の形式。 | O(N)時間。Nは要素数。加えて各要素の文字列化 |

@@ -245,6 +245,9 @@ def test_centroid_decomposition_classes_have_distinct_roles():
         method for method in decomposition["methods"] if method["name"] == "add_edge"
     )["returnDescription"]
     assert "点更新" in distance_query["description"]
+    debug = next(method for method in distance_query["methods"] if method["name"] == "tolist")
+    assert debug["returnFormat"] == "list[number]"
+    assert "result[v]" in debug["returnDescription"]
 
 
 def test_catalog_range_assignment_and_compressed_coordinate_articles():
@@ -1066,6 +1069,7 @@ def test_tree_range_articles_and_standalone_contracts(path, name):
     methods = {method["name"]: method for method in item["methods"]}
     assert "tolist" in methods
     assert "順" in methods["tolist"]["returnDescription"]
+    assert methods["tolist"]["returnFormat"].startswith("list[")
     namespace = {}
     exec(module["standaloneCode"], namespace)
     if name == "PotentialUnionFind":

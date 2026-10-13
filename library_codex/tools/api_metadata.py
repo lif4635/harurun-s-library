@@ -6568,16 +6568,19 @@ COMPLEXITY_BY_MODULE["tree/CentroidDistanceAdd.py"] = {
     "CentroidDistanceAdd": "O(N log N)時間・領域。Nは頂点数",
     "add": "O(log² N)", "get": "O(log² N)",
 }
-for _module, _owner, _cost in (
-    ("tree/CentroidDistanceAdd.py", "CentroidDistanceAdd", "O(N log² N)"),
-    ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick", "O(N)"),
-    ("range_query/StaticRangeMode.py", "StaticRangeMode", "O(N)"),
+for _module, _owner, _cost, _format, _result in (
+    ("tree/CentroidDistanceAdd.py", "CentroidDistanceAdd", "O(N log² N)", "list[number]",
+     "長さNの新しいlist。頂点番号順で、result[v]はget(v)と同じ現在値。これまでの距離区間加算を反映する。"),
+    ("tree/CentroidDecomposition.py", "CentroidDistanceFenwick", "O(N)", "list[number]",
+     "長さNの新しいlist。頂点番号順で、result[v]は頂点vの現在値。add・setによる更新を反映し、距離範囲の合計ではない。"),
+    ("range_query/StaticRangeMode.py", "StaticRangeMode", "O(N)", "list[object]",
+     "構築時のvaluesを元の添字順に並べた長さNの新しいlist。要素自体はコピーせず共有する。"),
 ):
     for _method in ("tolist", "__str__", "__repr__"):
         API_DETAILS_BY_SYMBOL[(_module, _owner, _method)] = {
             "description": "現在の値を元の頂点番号・添字順に取り出す。",
-            "returnFormat": "list" if _method == "tolist" else "str",
-            "returnDescription": "入力と同じ順序の値を並べた新しいlist。" if _method == "tolist" else
+            "returnFormat": _format if _method == "tolist" else "str",
+            "returnDescription": _result if _method == "tolist" else
                 ("tolist()と同じ内容の文字列表現。" if _method == "__str__" else _owner + "([...])の形式。"),
         }
         COMPLEXITY_BY_MODULE[_module][_method] = _cost + "時間。Nは要素数" + ("" if _method == "tolist" else "。加えて各要素の文字列化")
