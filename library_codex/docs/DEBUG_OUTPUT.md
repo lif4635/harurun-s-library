@@ -23,6 +23,7 @@ segment         # SegTree([1, 2, 3])
 | Implicit Treap・Dynamic Wavelet Matrix | 現在の列 | `tolist()` |
 | TreapSet | keyの昇順list | `tolist()` |
 | PointSetRangeFrequency | 更新後の列を添字順に並べたlist | `tolist()` |
+| RangeMajority | 更新後の列を添字順に並べたlist。O(N)時間・追加領域 | `tolist()` |
 | OrderedMap | key順のdict | `items()` |
 | Permutation Tree | node index順のdict list | `tolist()` |
 | XorBasis | 昇順の簡約基底。表現できる値の全列挙ではない | `tolist()` |

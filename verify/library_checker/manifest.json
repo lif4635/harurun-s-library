@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 193,
-    "unimplemented": 60
+    "local_passed": 195,
+    "unimplemented": 58
   },
   "problems": [
     {
@@ -1367,10 +1367,12 @@
       "title": "Majority Voting",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/majority_voting",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.RangeMajority"
+      ],
+      "solution": "solutions/majority_voting.py",
+      "result": "results/majority_voting.json"
     },
     {
       "name": "manhattanmst",
@@ -1729,10 +1731,12 @@
       "title": "Nim Product ($\\mathbb{F}_{2^{64}}$)",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/nim_product_64",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.game.Nimber"
+      ],
+      "solution": "solutions/nim_product_64.py",
+      "result": "results/nim_product_64.json"
     },
     {
       "name": "number_of_increasing_sequences_between_two_sequences",

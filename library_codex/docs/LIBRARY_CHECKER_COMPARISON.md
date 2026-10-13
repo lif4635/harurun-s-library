@@ -1,5 +1,7 @@
 # Library Checkerとの速度比較
 
+2026-10-13の64bit nim積と点更新付き区間過半数検索は[検査・比較記録](NIMBER_MAJORITY_BENCHMARK.md)へまとめた。
+
 2026-10-10の木分解・st-numbering・マンハッタンMST・k本の最短walkの4問題は[検査・比較記録](GRAPH_DECOMPOSITION_BENCHMARK.md)へまとめた。
 
 2026-10-05の行列7問題と、行列積・行列累乗の高速化は[行列の比較記録](MATRIX_ALGORITHMS_BENCHMARK.md)へまとめた。

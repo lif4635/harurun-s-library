@@ -7,7 +7,7 @@
 | --- | --- | ---: | ---: | ---: |
 | [`DisjointSparseTable`](DisjointSparseTable.md) | 静的列の半群区間積 | 0 | 1 | 1 |
 | [`DynamicWaveletMatrix`](DynamicWaveletMatrix.md) | 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版 | 1 | 3 | 37 |
-| [`RangeMajority`](RangeMajority.md) | Strict-majority queries on an immutable sequence. | 0 | 1 | 3 |
+| [`RangeMajority`](RangeMajority.md) | 区間の過半数を占める値と出現回数。点更新にも対応する。 | 0 | 1 | 7 |
 | [`RangeMex`](RangeMex.md) | 静的な列の複数の半開区間についてmexをまとめて求める。 | 1 | 0 | 0 |
 | [`RangeXorBasis`](RangeXorBasis.md) | 静的整数列の複数の半開区間について、XOR線形基底を一括計算する。 | 2 | 0 | 0 |
 | [`StaticRMQ`](StaticRMQ.md) | 静的range minimum・最左argmin | 0 | 1 | 3 |

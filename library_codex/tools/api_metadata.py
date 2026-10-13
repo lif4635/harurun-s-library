@@ -3490,10 +3490,91 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "number", "returnDescription": "保持する区分線形凸関数のpointにおける値。",
     },
     ("game/Nimber.py", "Nimber", "power"): {
+        "description": "nim積を繰り返した累乗を二分累乗で求める。",
+        "argumentDescriptions": {"exponent": "非負の整数指数。0なら1を返す。"},
         "returnFormat": "Nimber", "returnDescription": "nim積に関するselfのexponent乗。",
     },
     ("heuristic/LogTable.py", "LogTable", "__call__"): {
         "returnFormat": "float", "returnDescription": "周期表に保存したindex位置の対数近似値。",
+    },
+})
+
+MODULE_CAPABILITIES["game/Nimber.py"] = (
+    "64bit以下の非負整数のnim積を整数で求める。通常の整数積とは異なり、2と2のnim積は3。",
+    "Nimberでは加減算をXORとして扱い、nim積に関する逆元・除算・累乗を計算できる。",
+    "64bitの積は16bitの対数表を初回だけ作り、以後は表引きで計算する。",
+)
+CLASS_DETAILS_BY_SYMBOL[("game/Nimber.py", "Nimber")] = {
+    "description": "加減算がXOR、乗算がnim積となる体の要素を表す。",
+    "constructorCreates": "指定bit幅のnimber。演算子で加減乗除、powerで累乗、inverseで逆元を求め、intで整数表示を取り出せる。",
+    "argumentDescriptions": {"value": "下位bits bitをnimberの整数表示として使う。", "bits": "8・16・32・64のいずれか。演算する相手と揃える。"},
+}
+CLASS_DETAILS_BY_SYMBOL[("game/Nimber.py", "NimberToField")] = {
+    "description": "nimberの通常のbit表示と、指定したrootの累乗を基底とする係数bit列を相互変換する。",
+    "constructorCreates": "field2nimberで係数bit列からnimberへ、nimber2fieldで逆向きに変換できる表。",
+    "argumentDescriptions": {"primitive_root": "Nimberまたは64bit整数。1, root, ..., root^(bits-1)が基底を作る必要があり、作らなければValueError。"},
+}
+for _bits in (16, 32, 64):
+    API_DETAILS_BY_SYMBOL[("game/Nimber.py", None, "nim_product" + str(_bits))] = {
+        "description": str(_bits) + "bit以内の非負整数同士のnim積を求める。",
+        "argumentDescriptions": {"first": "0以上2^" + str(_bits) + "未満。範囲検査は行わない。", "second": "firstと同じ範囲の非負整数。"},
+        "returnFormat": "int", "returnDescription": str(_bits) + "bit以内のnim積。通常の整数積を剰余で丸めたものではない。",
+    }
+API_DETAILS_BY_SYMBOL[("game/Nimber.py", None, "nim_product")] = {
+    "description": "指定bit幅に対応するnim積の関数を選んで計算する。",
+    "argumentDescriptions": {"first": "指定幅以内の非負整数。", "second": "指定幅以内の非負整数。", "bits": "通常は8・16・32・64を指定。64を超えるとValueError。"},
+    "returnFormat": "int", "returnDescription": "firstとsecondのnim積。0と任意の値の積は0、1との積は元の値。",
+}
+API_DETAILS_BY_SYMBOL[("game/Nimber.py", "Nimber", "inverse")] = {
+    "description": "selfとのnim積が1になる逆元を求める。0ならZeroDivisionError。",
+    "returnFormat": "Nimber", "returnDescription": "selfと同じbit幅の逆元。",
+}
+API_DETAILS_BY_SYMBOL[("game/Nimber.py", "NimberToField", "field2nimber")] = {
+    "description": "rootの累乗に対する係数bit列をnimberへ変換する。",
+    "argumentDescriptions": {"value": "bits bit以内の非負整数。bit iがroot^iの係数（0か1）。"},
+    "returnFormat": "Nimber", "returnDescription": "valueの立っているbit iそれぞれのroot^iをXORしたnimber。",
+}
+API_DETAILS_BY_SYMBOL[("game/Nimber.py", "NimberToField", "nimber2field")] = {
+    "description": "nimberをrootの累乗に対する係数bit列へ変換する。",
+    "argumentDescriptions": {"value": "同じbit幅のNimber、またはbits bit以内の非負整数。"},
+    "returnFormat": "int", "returnDescription": "bit iがroot^iの係数。field2nimberで元のnimberへ戻せる。",
+}
+COMPLEXITY_BY_MODULE["game/Nimber.py"] = {
+    "nim_product16": "O(1)", "nim_product32": "O(1)",
+    "nim_product64": "O(1)。初回の両引数が2以上の呼出しのみO(2^16)時間・領域の前計算を行う",
+    "nim_product": "O(1)。32bitを超える積では初回のみO(2^16)時間・領域の前計算を行う",
+    "Nimber": "O(1)", "power": "O(log(exponent+1))回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+    "inverse": "O(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+    "NimberToField": "O(bits²)回のbit演算とO(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+    "field2nimber": "O(bits)", "nimber2field": "O(bits)",
+    "__int__": "O(1)", "__eq__": "O(1)", "__add__": "O(1)",
+    "__mul__": "O(1)。64bitでは表がなければO(2^16)時間・領域の前計算を行う",
+    "__truediv__": "O(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+}
+API_DETAILS_BY_SYMBOL.update({
+    ("game/Nimber.py", "Nimber", "__int__"): {
+        "description": "nimberの整数表示を取り出す。",
+        "returnFormat": "int", "returnDescription": "保持しているbits bit以内の非負整数。",
+    },
+    ("game/Nimber.py", "Nimber", "__eq__"): {
+        "description": "同じ値を表すnimberか比較する。",
+        "argumentDescriptions": {"other": "同じbit幅のNimber、または整数表示。"},
+        "returnFormat": "bool", "returnDescription": "整数表示が一致すればTrue。異なるbit幅のNimberならValueError。",
+    },
+    ("game/Nimber.py", "Nimber", "__add__"): {
+        "description": "整数表示のXORでnimberを加算する。",
+        "argumentDescriptions": {"other": "同じbit幅のNimber、またはその幅以内の非負整数。"},
+        "returnFormat": "Nimber", "returnDescription": "selfとotherのXORを表す、selfと同じbit幅のnimber。",
+    },
+    ("game/Nimber.py", "Nimber", "__mul__"): {
+        "description": "nimber同士のnim積を計算する。",
+        "argumentDescriptions": {"other": "同じbit幅のNimber、またはその幅以内の非負整数。"},
+        "returnFormat": "Nimber", "returnDescription": "selfとotherのnim積を表す、selfと同じbit幅のnimber。",
+    },
+    ("game/Nimber.py", "Nimber", "__truediv__"): {
+        "description": "otherの逆元とのnim積で除算する。0で割るとZeroDivisionError。",
+        "argumentDescriptions": {"other": "同じbit幅のNimber、またはその幅以内の正整数。いずれも0以外。"},
+        "returnFormat": "Nimber", "returnDescription": "otherとのnim積がselfになる、selfと同じbit幅のnimber。",
     },
 })
 
@@ -4939,8 +5020,9 @@ SEARCH_TERMS_BY_SYMBOL.update({
 
 MODULE_CAPABILITIES.update({
     "range_query/RangeMajority.py": (
-        "変更されない列の半開区間について、要素数の半分を超えて現れる値があるか判定できる。",
-        "候補を Boyer--Moore のモノイドで絞り、出現位置 list で本当に過半数か検証する。",
+        "半開区間で要素数の半分を超えて現れる値と、その正確な出現回数を求める。",
+        "setで1要素を置き換えられる。指定した値の出現回数だけを数えることもできる。",
+        "更新前は出現位置の二分探索、更新後は値ごとの平衡木で候補の出現回数を確認する。答えをランダムに推測しない。",
     ),
     "range_query/StaticRangeMode.py": (
         "変更されない列の半開区間で、出現回数が最大の値とその回数を求められる。",
@@ -4958,9 +5040,9 @@ MODULE_CAPABILITIES.update({
 
 CLASS_DETAILS_BY_SYMBOL.update({
     ("range_query/RangeMajority.py", "RangeMajority"): {
-        "description": "区間の majority 候補を Segment Tree で求め、値ごとの出現位置を二分探索して厳密に検証する。",
-        "constructorCreates": "不変な values を前処理し、majority・is_majority・count を任意の半開区間へ適用できる状態を作る。",
-        "argumentDescriptions": {"values": "検索対象の不変な列。要素は hashable である必要がある。"},
+        "description": "区間の過半数候補を異なる値同士の打ち消しで絞り、出現回数を数えて厳密に検証する。点更新にも対応する。",
+        "constructorCreates": "valuesをコピーして保持する。majorityで過半数の値と回数、countで指定値の回数を取得し、setで要素を変更できる。",
+        "argumentDescriptions": {"values": "検索対象の列。要素は辞書のキーに使える値。整数・文字列・tuple・Noneなどを扱える。"},
     },
     ("range_query/StaticRangeMode.py", "StaticRangeMode"): {
         "description": "block 間の最頻値と値ごとの出現位置を前計算し、区間の mode を平方分割で求める。",
@@ -4987,11 +5069,28 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "int",
         "returnDescription": "指定区間で values[i] == value を満たす index i の個数。",
     },
+    ("range_query/RangeMajority.py", "RangeMajority", "set"): {
+        "description": "index番目の要素をvalueへ置き換える。以後の問い合わせには新しい値を反映する。",
+        "argumentDescriptions": {"value": "辞書のキーに使える新しい値。Noneも可。"},
+        "returnFormat": "None", "returnDescription": "値は返さない。指定位置だけを変更し、列の長さは変えない。",
+    },
+    ("range_query/RangeMajority.py", "RangeMajority", "tolist"): {
+        "description": "更新を反映した現在の列を取得する。",
+        "returnFormat": "list[object]", "returnDescription": "長さNの新しいlist。result[i]は現在のi番目の値。要素自身はコピーしない。",
+    },
+    ("range_query/RangeMajority.py", "RangeMajority", "__str__"): {
+        "description": "現在の列を添字順に表示する。",
+        "returnFormat": "str", "returnDescription": "tolist()と同じ内容のlist表記。問い合わせや更新の状態は変えない。",
+    },
+    ("range_query/RangeMajority.py", "RangeMajority", "__repr__"): {
+        "description": "型名と現在の列を表示する。",
+        "returnFormat": "str", "returnDescription": "RangeMajority([...])形式の文字列。中身はtolist()と同じ。",
+    },
     ("range_query/RangeMajority.py", "RangeMajority", "majority"): {
         "description": r"半開区間 $[\mathrm{left},\mathrm{right})$ に長さの半分を超えて現れる値を探す。",
         "argumentDescriptions": {"left": "含める左端 index。", "right": "含めない右端 index。"},
         "returnFormat": "tuple[object, int] | None",
-        "returnDescription": "厳密な過半数があれば (value, count)。なければ None。空区間も None。",
+        "returnDescription": "厳密な過半数があれば (value, count)。なければ None。空区間も None。value自体がNoneなら(None, count)を返す。",
         "returnParts": (
             {"name": "value", "format": "object", "description": "区間内で厳密な過半数を占める唯一の値。"},
             {"name": "count", "format": "int", "description": "その value が指定区間に現れる正確な回数。"},
@@ -5000,6 +5099,7 @@ API_DETAILS_BY_SYMBOL.update({
     ("range_query/RangeMajority.py", "RangeMajority", "is_majority"): {
         "description": "value が指定半開区間の厳密な過半数か判定する。",
         "argumentDescriptions": {"value": "調べる値。", "left": "含める左端 index。", "right": "含めない右端 index。"},
+        "returnFormat": "bool", "returnDescription": "valueの出現回数が区間長の半分を超えるならTrue。空区間ならFalse。",
         "returnFormat": "bool",
         "returnDescription": "value の出現数が (right-left)/2 より大きければ True。",
     },
@@ -5108,7 +5208,14 @@ API_DETAILS_BY_SYMBOL.update({
 })
 
 COMPLEXITY_BY_MODULE.update({
-    "range_query/RangeMajority.py": {"RangeMajority": "構築 O(N) time・O(N) memory", "count": "O(log N)", "majority": "O(log N)", "is_majority": "O(log N)"},
+    "range_query/RangeMajority.py": {
+        "RangeMajority": "O(N)時間・領域。Nは列の長さ。hash・等値比較をO(1)とする",
+        "set": "初めて値を変更するときO(N)、以降は期待O(log(N+1))、最悪O(N)。同じ値ならO(1)。hash・等値比較をO(1)とする",
+        "count": "更新前O(log(N+1))。更新後は期待O(log(N+1))、最悪O(N)。hash・等値比較をO(1)とする",
+        "majority": "更新前O(log(N+1))。更新後は期待O(log(N+1))、最悪O(N)。hash・等値比較をO(1)とする",
+        "is_majority": "更新前O(log(N+1))。更新後は期待O(log(N+1))、最悪O(N)。hash・等値比較をO(1)とする",
+        "tolist": "O(N)時間・追加領域", "__str__": "O(N+出力文字数)", "__repr__": "O(N+出力文字数)",
+    },
     "range_query/StaticRangeMode.py": {"StaticRangeMode": "期待O(N ceil(N/B))時間、O(N + ceil(N/B)^2)領域。B=block_size、既定値は約sqrt(N)。hash・等値比較をO(1)とする", "count": "期待O(log(N+1))。hash・等値比較をO(1)とする", "mode": "O(B)。B=block_size"},
     "geometry/ConvexPolygon.py": {"ConvexPolygon": "構築 O(N)", "location": "O(log N)", "contains": "O(log N)"},
     "geometry/CircleGeometry.py": {"circle_line_intersections": "O(1)", "circle_circle_intersections": "O(1)", "tangent_points": "O(1)"},

@@ -152,6 +152,8 @@ def test_solution_is_standalone(name):
 
 
 @pytest.mark.parametrize("name,data,expected", [
+    ("nim_product_64", "5\n0 17\n1 42\n2 2\n2 3\n3 3\n", "0 42 3 1 2"),
+    ("majority_voting", "5 7\n1 2 1 2 1\n1 0 5\n1 0 4\n0 1 1\n1 0 4\n0 3 1\n1 1 5\n1 3 3\n", "1 -1 1 1 -1"),
     ("static_range_lis_query", "5 4\n3 0 2 1 4\n0 5\n1 4\n2 2\n3 5\n", "3 2 0 2"),
     ("range_linear_add_range_min", "3 4\n5 1 3\n1 0 3\n0 1 3 2 -4\n1 0 3\n1 2 3\n", "1 -1 3"),
     ("range_add_range_min", "3 4\n5 1 3\n1 0 3\n0 1 3 -4\n1 0 3\n1 0 1\n", "1 -3 5"),

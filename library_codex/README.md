@@ -16,10 +16,11 @@
 - 元の `library` 由来の基礎Geometry 4モジュールを移植済み
 - 外部参照スナップショットの高度なGeometry 22件は引き続き保留
 - 保留中の高度なGeometryを除く未監査項目は0件
-- PyPy 全検証: 985 passed（2026-10-11、最大流の軽量化・最小費用b-flowの整備後に全体を実行）。
+- PyPy 全検証: 992 passed（2026-10-13、64bit nim積の高速化・RangeMajorityの点更新追加後に全体を実行）。
 - 行列積・行列累乗の高速化と公式7問題の追加は[行列の記録](docs/MATRIX_ALGORITHMS_BENCHMARK.md)を参照。前回の性能検査の警告と再測定は[グラフの記録](docs/GRAPH_ALGORITHMS_BENCHMARK.md)に残している。
-- 再帰監査: direct/mutual recursion なし（2026-10-11、6245関数）
-- Library Checker公式ケース: 193問題・4578ケース通過、未対応60問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 再帰監査: direct/mutual recursion なし（2026-10-13、6281関数）
+- Library Checker公式ケース: 195問題・4600ケース通過、未対応58問題。オンライン提出はしない。[解答・結果と検査手順](../verify/library_checker/README.md) / [PyPy反復ベンチマーク](../verify/library_checker/benchmarks/README.md)
+- 64bit nim積の高速化と、RangeMajorityへの点更新追加は[検査・比較結果](docs/NIMBER_MAJORITY_BENCHMARK.md)を参照。
 - 凹列と一般列のmin-plus畳み込みの追加と、上位PyPy提出との比較は[測定記録](docs/MINPLUS_CONCAVE_BENCHMARK.md)を参照。
 - 点加算・長方形和、長方形加算・点取得、静的な長方形加算・長方形和の3問題と、入力別の速度・メモリ比較は[二次元クエリの記録](docs/SPATIAL_QUERIES_BENCHMARK.md)を参照。
 - 木分解・st-numberingの追加と、マンハッタンMST・k本の最短walkの高速化は[検査・比較結果](docs/GRAPH_DECOMPOSITION_BENCHMARK.md)を参照。

@@ -1,0 +1,80 @@
+{
+  "problem": "nim_product_64",
+  "status": "local_passed",
+  "verificationKey": "4a53f657b8b1a2ff3f9ca9e22b091f99638aa6fc0b2f254d55614e7be4ec6cb3",
+  "sourceSha256": "29f3251fc054f6bdc7026cf21b4ef806128ce84b0984c4ed4ab53490555df2b3",
+  "modules": [
+    "library_codex.game.Nimber"
+  ],
+  "problemVersion": "eff61c15d788ce634564c09f18b715b7055fed56d8b51837f2f654c225038a2d",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 10,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.0745064290240407,
+      "diagnostic": "ok 11 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.3901280430145562,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.90506572695449,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "random_few_00",
+      "status": "AC",
+      "seconds": 0.2470447749365121,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "random_few_01",
+      "status": "AC",
+      "seconds": 0.24325072101783007,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.3016327020013705,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "small_few_00",
+      "status": "AC",
+      "seconds": 0.10185815102886409,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "large_00",
+      "status": "AC",
+      "seconds": 1.3322447059908882,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "large_few_00",
+      "status": "AC",
+      "seconds": 0.22856490302365273,
+      "diagnostic": "ok 100000 tokens\n"
+    },
+    {
+      "name": "power_of_two_00",
+      "status": "AC",
+      "seconds": 0.11409528797958046,
+      "diagnostic": "ok 4096 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-13T11:09:35.610595+00:00",
+  "onlineSubmission": null
+}

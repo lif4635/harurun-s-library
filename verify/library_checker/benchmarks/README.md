@@ -54,6 +54,7 @@
 | [log_of_set_power_series](log_of_set_power_series.json) | 3 / 12 | 5 | 5.285 | 379.7 | 一致 |
 | [longest_increasing_subsequence](longest_increasing_subsequence.json) | 3 / 19 | 5 | 0.256 | 118.3 | 一致 |
 | [lyndon_factorization](lyndon_factorization.json) | 3 / 23 | 5 | 0.175 | 107.6 | 一致 |
+| [majority_voting](majority_voting.json) | 3 / 12 | 5 | 2.673 | 197.7 | 一致 |
 | [manhattanmst](manhattanmst.json) | 3 / 16 | 5 | 3.376 | 232.9 | 一致 |
 | [many_aplusb](many_aplusb.json) | 3 / 9 | 5 | 0.472 | 89.3 | 一致 |
 | [many_aplusb_128bit](many_aplusb_128bit.json) | 3 / 10 | 5 | 0.691 | 88.9 | 一致 |
@@ -74,6 +75,7 @@
 | [minimum_steiner_tree](minimum_steiner_tree.json) | 3 / 24 | 5 | 0.441 | 67.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |
 | [multipoint_evaluation_on_geometric_sequence](multipoint_evaluation_on_geometric_sequence.json) | 3 / 25 | 5 | 0.572 | 161.1 | 一致 |
+| [nim_product_64](nim_product_64.json) | 3 / 10 | 5 | 1.508 | 185.0 | 一致 |
 | [ordered_set](ordered_set.json) | 3 / 37 | 5 | 2.446 | 279.1 | 一致 |
 | [palindromes_in_deque](palindromes_in_deque.json) | 3 / 24 | 5 | 0.742 | 284.9 | 一致 |
 | [partition_function](partition_function.json) | 3 / 11 | 5 | 0.677 | 98.6 | 一致 |

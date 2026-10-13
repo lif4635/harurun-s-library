@@ -27,6 +27,9 @@ def _build_product8():
 
 
 _PRODUCT8 = _build_product8()
+_EXP16 = []
+_LOG16 = []
+_CORRECTION16 = []
 
 
 def nim_product16(first, second):
@@ -47,14 +50,44 @@ def nim_product32(first, second):
     return ((mixed ^ lower) << 16) ^ correction ^ lower
 
 
+def _prepare_product64():
+    exp = [0] * 65535
+    log = [0] * 65536
+    value = 1
+    for index in range(65535):
+        exp[index] = value
+        log[value] = index
+        value = nim_product16(value, 10279)
+    _EXP16.extend(exp + exp)
+    _LOG16.extend(log)
+    _CORRECTION16.extend(nim_product16(value, 32768) for value in range(65536))
+
+
+def _product32_lookup(first, second, exp, log, correction):
+    a, b = first >> 16, first & 65535
+    c, d = second >> 16, second & 65535
+    lower = exp[log[b] + log[d]] if b and d else 0
+    upper = exp[log[a] + log[c]] if a and c else 0
+    a ^= b
+    c ^= d
+    mixed = exp[log[a] + log[c]] if a and c else 0
+    return ((mixed ^ lower) << 16) ^ correction[upper] ^ lower
+
+
 def nim_product64(first, second):
-    mask = (1 << 32) - 1
-    first_high, first_low = first >> 32, first & mask
-    second_high, second_low = second >> 32, second & mask
-    lower = nim_product32(first_low, second_low)
-    mixed = nim_product32(first_high ^ first_low, second_high ^ second_low)
-    correction = nim_product32(nim_product32(first_high, second_high), 1 << 31)
-    return ((mixed ^ lower) << 32) ^ correction ^ lower
+    if first <= 1 or second <= 1:
+        return first * second
+    if not _EXP16:
+        _prepare_product64()
+    exp, log, correction = _EXP16, _LOG16, _CORRECTION16
+    first_high, first_low = first >> 32, first & 0xffffffff
+    second_high, second_low = second >> 32, second & 0xffffffff
+    lower = _product32_lookup(first_low, second_low, exp, log, correction)
+    upper = _product32_lookup(first_high, second_high, exp, log, correction)
+    mixed = _product32_lookup(first_high ^ first_low, second_high ^ second_low, exp, log, correction)
+    a, b = upper >> 16, upper & 65535
+    adjusted = (correction[a ^ b] << 16) ^ correction[correction[a]]
+    return ((mixed ^ lower) << 32) ^ adjusted ^ lower
 
 
 def nim_product(first, second, bits=64):

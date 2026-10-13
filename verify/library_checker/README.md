@@ -4,7 +4,9 @@
 
 `unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
 
-2026-10-11時点の公式revision `1814c4e`では、193問題・4578ケースがローカル全件通過、60問題が未実装。
+2026-10-13時点の公式revision `1814c4e`では、195問題・4600ケースがローカル全件通過、58問題が未実装。
+
+64bit nim積・点更新付き区間過半数検索の2問題、22ケースを追加した。既存Nimberの高速化とRangeMajorityの拡張は[検査・比較結果](../../library_codex/docs/NIMBER_MAJORITY_BENCHMARK.md)に記録する。
 
 最小費用b-flowの54ケースを追加した。最大流の軽量化とPython版ACLとの比較は[flowの検査・比較結果](../../library_codex/docs/FLOW_BENCHMARK.md)へ記録する。
 

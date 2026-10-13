@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-13T07:31:36+00:00",
+  "generatedAt": "2026-10-13T11:45:18+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "ebe3c42b4bf1bfde68c25c7dabeacb4847d2644f202a8807ec3e7b64bc88b179",
-  "inputStamp": "96ff6a95ca1ad177261b528438a65199529c3da8055561597db7bd05853b510e",
+  "sourceFingerprint": "03e7f5edca80c47f8ce4f7b0af4930a60b8dd2751c2ada0bd69fbcc1da514404",
+  "inputStamp": "fce26cf8a7839149799c83f4339ca62fe821fb538f6e3428c626c08336f39bb9",
   "generatorFingerprint": "1838ac37c215abce3617f7ab4263ec69c05e5872169052e911d95ebb2b66a430",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 373,
-    "articles": 69,
+    "articles": 71,
     "functions": 510,
     "classes": 229,
-    "methods": 1461,
-    "tests": 985
+    "methods": 1465,
+    "tests": 992
   },
   "categories": [
     {
@@ -154,7 +154,7 @@
       "modules": 12,
       "functions": 4,
       "classes": 12,
-      "methods": 72
+      "methods": 76
     },
     {
       "slug": "spatial_structure",
@@ -26868,12 +26868,17 @@
       "domainLabel": "Data Structures",
       "name": "RangeMajority",
       "modulePath": "library_codex.range_query.RangeMajority",
-      "summary": "Strict-majority queries on an immutable sequence.。",
+      "summary": "区間の過半数を占める値と出現回数。点更新にも対応する。",
       "capabilities": [
-        "変更されない列の半開区間について、要素数の半分を超えて現れる値があるか判定できる。",
-        "候補を Boyer--Moore のモノイドで絞り、出現位置 list で本当に過半数か検証する。"
+        "半開区間で要素数の半分を超えて現れる値と、その正確な出現回数を求める。",
+        "setで1要素を置き換えられる。指定した値の出現回数だけを数えることもできる。",
+        "更新前は出現位置の二分探索、更新後は値ごとの平衡木で候補の出現回数を確認する。答えをランダムに推測しない。"
       ],
-      "article": null,
+      "article": {
+        "title": "点更新できる区間過半数検索",
+        "markdown": "## 主な機能\n\n配列の半開区間 `[left, right)` から、長さの半分を超えて現れる値とその回数を求める。ちょうど半分の場合や空区間では、過半数は存在しない。\n\n- `majority(left, right)`: 過半数があれば `(値, 出現回数)`、なければ `None`。\n- `count(value, left, right)`: 指定した値の出現回数。\n- `set(index, value)`: 1要素の置き換え。\n\n配列長をNとして構築はO(N)時間・領域。更新しない場合、問い合わせはO(log(N+1))。初めて値を変えるときにO(N)の準備を行い、その後の更新・問い合わせは期待O(log(N+1))、最悪O(N)。hashと等値比較をO(1)とした計算量。\n\n最も多く現れる値を必ず返す構造ではない。過半数に届かなくても最頻値が必要なら、変更しない配列には `StaticRangeMode` を使う。\n\n## 使い方\n\n```python\ntable = RangeMajority([1, 2, 1, 2, 1])\nassert table.majority(0, 5) == (1, 3)\nassert table.majority(0, 4) is None\ntable.set(1, 1)\nassert table.majority(0, 4) == (1, 3)\nassert table.count(2, 0, 5) == 1\nassert table.tolist() == [1, 1, 1, 2, 1]\n```\n\n- 1回目は1が5要素中3回現れるため、`(1, 3)`。\n- 2回目は1も2も4要素中2回で、過半数ではない。\n- 更新後は現在の列に対して回数を数える。\n\n## 仕組み\n\n異なる値を1個ずつ打ち消しても、もとの区間に過半数の値があれば最後の候補に残る。この候補と残り個数をセグ木で管理し、候補が実際に何回現れるかを別に数えて判定する。打ち消し後の個数は出現回数ではない。また、候補の合成は一般の結合的なモノイドではない。\n\n更新前は値ごとの出現位置をソート済み配列で持つ。初回の更新で、出現位置を管理するtreapに切り替える。配列の添字をそのままノード番号に使い、左右の子・親・部分木サイズを平坦な配列へ保存する。更新のたびにノードobjectを作らず、同じN個のノードを再利用する。\n\n## 注意点\n\n- 要素は辞書のキーとして使える値。整数の大小関係は使わないため、文字列やtupleでもよい。\n- `None`も要素として使える。`(None, 3)`は「値Noneが3回」、返り値そのものが`None`なら「過半数なし」。\n- treapの優先度だけを乱数で決める。答えの正しさは乱数に依存しない。\n- `tolist()`は現在の列の浅いコピー。元の入力listや返されたlistを書き換えても、管理中の列は変わらない。",
+        "sourcePath": "library_codex/docs/articles/range_query/RangeMajority.md"
+      },
       "searchTerms": [
         "RangeMajority",
         "Range Majority",
@@ -26886,42 +26891,69 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/range_query/RangeMajority.py",
-      "inputFingerprint": "d7dbac2b23b5e6eadfa85d2dcc7c42500243b9d00da23a3dd5bd4688519f8462",
+      "inputFingerprint": "f11cfedd796ea1459a9cf89db4d4461d0e9ac46df28016371b64071860ea8b54",
       "importCode": "from library_codex.range_query.RangeMajority import RangeMajority",
-      "sourceCode": "\"\"\"Strict-majority queries on an immutable sequence.\"\"\"\n\nfrom bisect import bisect_left\n\n\nclass RangeMajority:\n    \"\"\"Find a value occurring more than half the time in a half-open range.\"\"\"\n\n    __slots__ = (\"n\", \"size\", \"data\", \"positions\")\n\n    def __init__(self, values):\n        values = list(values)\n        n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [(None, 0)] * (size << 1)\n        positions = {}\n        for index, value in enumerate(values):\n            data[size + index] = (value, 1)\n            positions.setdefault(value, []).append(index)\n        for node in range(size - 1, 0, -1):\n            data[node] = self._merge(data[node << 1], data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.data = data\n        self.positions = positions\n\n    @staticmethod\n    def _merge(first, second):\n        if first[0] == second[0]:\n            return first[0], first[1] + second[1]\n        if first[1] >= second[1]:\n            return first[0], first[1] - second[1]\n        return second[0], second[1] - first[1]\n\n    def count(self, value, left, right):\n        \"\"\"Return occurrences of ``value`` in ``[left, right)``.\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        row = self.positions.get(value, ())\n        return bisect_left(row, right) - bisect_left(row, left)\n\n    def majority(self, left, right):\n        \"\"\"Return ``(value, count)`` for the strict majority, or ``None``.\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if left == right:\n            return None\n        left_node = left + self.size\n        right_node = right + self.size\n        first = (None, 0)\n        second = (None, 0)\n        data = self.data\n        while left_node < right_node:\n            if left_node & 1:\n                first = self._merge(first, data[left_node])\n                left_node += 1\n            if right_node & 1:\n                right_node -= 1\n                second = self._merge(data[right_node], second)\n            left_node >>= 1\n            right_node >>= 1\n        candidate = self._merge(first, second)[0]\n        count = self.count(candidate, left, right)\n        return (candidate, count) if count * 2 > right - left else None\n\n    def is_majority(self, value, left, right):\n        \"\"\"Return whether ``value`` is a strict majority of the range.\"\"\"\n        return self.count(value, left, right) * 2 > right - left\n",
-      "standaloneCode": "\"\"\"Strict-majority queries on an immutable sequence.\"\"\"\n\nfrom bisect import bisect_left\n\n\nclass RangeMajority:\n    \"\"\"Find a value occurring more than half the time in a half-open range.\"\"\"\n\n    __slots__ = (\"n\", \"size\", \"data\", \"positions\")\n\n    def __init__(self, values):\n        values = list(values)\n        n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [(None, 0)] * (size << 1)\n        positions = {}\n        for index, value in enumerate(values):\n            data[size + index] = (value, 1)\n            positions.setdefault(value, []).append(index)\n        for node in range(size - 1, 0, -1):\n            data[node] = self._merge(data[node << 1], data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.data = data\n        self.positions = positions\n\n    @staticmethod\n    def _merge(first, second):\n        if first[0] == second[0]:\n            return first[0], first[1] + second[1]\n        if first[1] >= second[1]:\n            return first[0], first[1] - second[1]\n        return second[0], second[1] - first[1]\n\n    def count(self, value, left, right):\n        \"\"\"Return occurrences of ``value`` in ``[left, right)``.\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        row = self.positions.get(value, ())\n        return bisect_left(row, right) - bisect_left(row, left)\n\n    def majority(self, left, right):\n        \"\"\"Return ``(value, count)`` for the strict majority, or ``None``.\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if left == right:\n            return None\n        left_node = left + self.size\n        right_node = right + self.size\n        first = (None, 0)\n        second = (None, 0)\n        data = self.data\n        while left_node < right_node:\n            if left_node & 1:\n                first = self._merge(first, data[left_node])\n                left_node += 1\n            if right_node & 1:\n                right_node -= 1\n                second = self._merge(data[right_node], second)\n            left_node >>= 1\n            right_node >>= 1\n        candidate = self._merge(first, second)[0]\n        count = self.count(candidate, left, right)\n        return (candidate, count) if count * 2 > right - left else None\n\n    def is_majority(self, value, left, right):\n        \"\"\"Return whether ``value`` is a strict majority of the range.\"\"\"\n        return self.count(value, left, right) * 2 > right - left\n",
+      "sourceCode": "\"\"\"区間の過半数を占める値と出現回数。点更新にも対応する。\"\"\"\n\nfrom bisect import bisect_left\nfrom random import getrandbits\n\n\nclass RangeMajority:\n    __slots__ = (\"n\", \"size\", \"candidate\", \"balance\", \"positions\",\n                 \"_roots\", \"_left\", \"_right\", \"_parent\", \"_sizes\", \"_priority\")\n\n    def __init__(self, values):\n        values = list(values)\n        self.n = n = len(values)\n        self.size = size = 1 << (n - 1).bit_length() if n else 1\n        self.candidate = [None] * (size << 1)\n        self.balance = [0] * (size << 1)\n        self.candidate[size:size + n] = values\n        self.balance[size:size + n] = [1] * n\n        self.positions = positions = {}\n        for index, value in enumerate(values):\n            positions.setdefault(value, []).append(index)\n        for node in range(size - 1, 0, -1):\n            self._update(node)\n        self._roots = None\n        self._left = self._right = self._parent = self._sizes = self._priority = None\n\n    def _update(self, node):\n        candidates, counts = self.candidate, self.balance\n        a, b = node << 1, node << 1 | 1\n        x, y = counts[a], counts[b]\n        if candidates[a] == candidates[b]:\n            candidates[node], counts[node] = candidates[a], x + y\n        elif x >= y:\n            candidates[node], counts[node] = candidates[a], x - y\n        else:\n            candidates[node], counts[node] = candidates[b], y - x\n\n    def _enable_updates(self):\n        n = self.n\n        left, right, parent = [-1] * n, [-1] * n, [-1] * n\n        sizes = [1] * n\n        priority = [getrandbits(32) for _ in range(n)]\n        roots = {}\n        for value, indices in self.positions.items():\n            stack = []\n            for node in indices:\n                last = -1\n                while stack and priority[stack[-1]] > priority[node]:\n                    last = stack.pop()\n                if stack:\n                    right[stack[-1]] = node\n                    parent[node] = stack[-1]\n                if last >= 0:\n                    left[node] = last\n                    parent[last] = node\n                stack.append(node)\n            roots[value] = stack[0]\n        order = list(roots.values())\n        for node in order:\n            if left[node] >= 0:\n                order.append(left[node])\n            if right[node] >= 0:\n                order.append(right[node])\n        for node in reversed(order):\n            if parent[node] >= 0:\n                sizes[parent[node]] += sizes[node]\n        self._roots, self._priority = roots, priority\n        self._left, self._right, self._parent, self._sizes = left, right, parent, sizes\n        self.positions = None\n\n    def _rotate(self, node, value):\n        left, right, parent, sizes = self._left, self._right, self._parent, self._sizes\n        p = parent[node]\n        grand = parent[p]\n        if left[p] == node:\n            middle = right[node]\n            right[node], left[p] = p, middle\n        else:\n            middle = left[node]\n            left[node], right[p] = p, middle\n        if middle >= 0:\n            parent[middle] = p\n        parent[p], parent[node] = node, grand\n        if grand < 0:\n            self._roots[value] = node\n        elif left[grand] == p:\n            left[grand] = node\n        else:\n            right[grand] = node\n        sizes[node] = sizes[p]\n        sizes[p] = 1 + (sizes[left[p]] if left[p] >= 0 else 0) + (sizes[right[p]] if right[p] >= 0 else 0)\n\n    def set(self, index, value):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index out of range\")\n        hash(value)\n        old = self.candidate[self.size + index]\n        if old == value:\n            return\n        if self._roots is None:\n            self._enable_updates()\n        left, right, parent, sizes = self._left, self._right, self._parent, self._sizes\n        priority, roots = self._priority, self._roots\n        while left[index] >= 0 or right[index] >= 0:\n            a, b = left[index], right[index]\n            child = a if b < 0 or (a >= 0 and priority[a] < priority[b]) else b\n            self._rotate(child, old)\n        p = parent[index]\n        if p < 0:\n            del roots[old]\n        elif left[p] == index:\n            left[p] = -1\n        else:\n            right[p] = -1\n        while p >= 0:\n            sizes[p] -= 1\n            p = parent[p]\n        parent[index], sizes[index] = -1, 1\n        node = roots.get(value, -1)\n        if node < 0:\n            roots[value] = index\n        else:\n            while True:\n                sizes[node] += 1\n                child = left[node] if index < node else right[node]\n                if child < 0:\n                    if index < node:\n                        left[node] = index\n                    else:\n                        right[node] = index\n                    parent[index] = node\n                    break\n                node = child\n            while parent[index] >= 0 and priority[index] < priority[parent[index]]:\n                self._rotate(index, value)\n        node = self.size + index\n        self.candidate[node] = value\n        node >>= 1\n        while node:\n            self._update(node)\n            node >>= 1\n\n    def _rank(self, value, index):\n        node = self._roots.get(value, -1)\n        left, right, sizes = self._left, self._right, self._sizes\n        result = 0\n        while node >= 0:\n            if node >= index:\n                node = left[node]\n            else:\n                result += 1 + (sizes[left[node]] if left[node] >= 0 else 0)\n                node = right[node]\n        return result\n\n    def count(self, value, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if self._roots is not None:\n            return self._rank(value, right) - self._rank(value, left)\n        row = self.positions.get(value, ())\n        return bisect_left(row, right) - bisect_left(row, left)\n\n    def majority(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        first, last = left + self.size, right + self.size\n        value, count = None, 0\n        candidates, counts = self.candidate, self.balance\n        while first < last:\n            if first & 1:\n                other, amount = candidates[first], counts[first]\n                if value == other:\n                    count += amount\n                elif count >= amount:\n                    count -= amount\n                else:\n                    value, count = other, amount - count\n                first += 1\n            if last & 1:\n                last -= 1\n                other, amount = candidates[last], counts[last]\n                if value == other:\n                    count += amount\n                elif count >= amount:\n                    count -= amount\n                else:\n                    value, count = other, amount - count\n            first >>= 1\n            last >>= 1\n        if not count:\n            return None\n        count = self.count(value, left, right)\n        return (value, count) if count * 2 > right - left else None\n\n    def is_majority(self, value, left, right):\n        return self.count(value, left, right) * 2 > right - left\n\n    def tolist(self):\n        return self.candidate[self.size:self.size + self.n]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"RangeMajority(%r)\" % self.tolist()\n",
+      "standaloneCode": "\"\"\"区間の過半数を占める値と出現回数。点更新にも対応する。\"\"\"\n\nfrom bisect import bisect_left\nfrom random import getrandbits\n\n\nclass RangeMajority:\n    __slots__ = (\"n\", \"size\", \"candidate\", \"balance\", \"positions\",\n                 \"_roots\", \"_left\", \"_right\", \"_parent\", \"_sizes\", \"_priority\")\n\n    def __init__(self, values):\n        values = list(values)\n        self.n = n = len(values)\n        self.size = size = 1 << (n - 1).bit_length() if n else 1\n        self.candidate = [None] * (size << 1)\n        self.balance = [0] * (size << 1)\n        self.candidate[size:size + n] = values\n        self.balance[size:size + n] = [1] * n\n        self.positions = positions = {}\n        for index, value in enumerate(values):\n            positions.setdefault(value, []).append(index)\n        for node in range(size - 1, 0, -1):\n            self._update(node)\n        self._roots = None\n        self._left = self._right = self._parent = self._sizes = self._priority = None\n\n    def _update(self, node):\n        candidates, counts = self.candidate, self.balance\n        a, b = node << 1, node << 1 | 1\n        x, y = counts[a], counts[b]\n        if candidates[a] == candidates[b]:\n            candidates[node], counts[node] = candidates[a], x + y\n        elif x >= y:\n            candidates[node], counts[node] = candidates[a], x - y\n        else:\n            candidates[node], counts[node] = candidates[b], y - x\n\n    def _enable_updates(self):\n        n = self.n\n        left, right, parent = [-1] * n, [-1] * n, [-1] * n\n        sizes = [1] * n\n        priority = [getrandbits(32) for _ in range(n)]\n        roots = {}\n        for value, indices in self.positions.items():\n            stack = []\n            for node in indices:\n                last = -1\n                while stack and priority[stack[-1]] > priority[node]:\n                    last = stack.pop()\n                if stack:\n                    right[stack[-1]] = node\n                    parent[node] = stack[-1]\n                if last >= 0:\n                    left[node] = last\n                    parent[last] = node\n                stack.append(node)\n            roots[value] = stack[0]\n        order = list(roots.values())\n        for node in order:\n            if left[node] >= 0:\n                order.append(left[node])\n            if right[node] >= 0:\n                order.append(right[node])\n        for node in reversed(order):\n            if parent[node] >= 0:\n                sizes[parent[node]] += sizes[node]\n        self._roots, self._priority = roots, priority\n        self._left, self._right, self._parent, self._sizes = left, right, parent, sizes\n        self.positions = None\n\n    def _rotate(self, node, value):\n        left, right, parent, sizes = self._left, self._right, self._parent, self._sizes\n        p = parent[node]\n        grand = parent[p]\n        if left[p] == node:\n            middle = right[node]\n            right[node], left[p] = p, middle\n        else:\n            middle = left[node]\n            left[node], right[p] = p, middle\n        if middle >= 0:\n            parent[middle] = p\n        parent[p], parent[node] = node, grand\n        if grand < 0:\n            self._roots[value] = node\n        elif left[grand] == p:\n            left[grand] = node\n        else:\n            right[grand] = node\n        sizes[node] = sizes[p]\n        sizes[p] = 1 + (sizes[left[p]] if left[p] >= 0 else 0) + (sizes[right[p]] if right[p] >= 0 else 0)\n\n    def set(self, index, value):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index out of range\")\n        hash(value)\n        old = self.candidate[self.size + index]\n        if old == value:\n            return\n        if self._roots is None:\n            self._enable_updates()\n        left, right, parent, sizes = self._left, self._right, self._parent, self._sizes\n        priority, roots = self._priority, self._roots\n        while left[index] >= 0 or right[index] >= 0:\n            a, b = left[index], right[index]\n            child = a if b < 0 or (a >= 0 and priority[a] < priority[b]) else b\n            self._rotate(child, old)\n        p = parent[index]\n        if p < 0:\n            del roots[old]\n        elif left[p] == index:\n            left[p] = -1\n        else:\n            right[p] = -1\n        while p >= 0:\n            sizes[p] -= 1\n            p = parent[p]\n        parent[index], sizes[index] = -1, 1\n        node = roots.get(value, -1)\n        if node < 0:\n            roots[value] = index\n        else:\n            while True:\n                sizes[node] += 1\n                child = left[node] if index < node else right[node]\n                if child < 0:\n                    if index < node:\n                        left[node] = index\n                    else:\n                        right[node] = index\n                    parent[index] = node\n                    break\n                node = child\n            while parent[index] >= 0 and priority[index] < priority[parent[index]]:\n                self._rotate(index, value)\n        node = self.size + index\n        self.candidate[node] = value\n        node >>= 1\n        while node:\n            self._update(node)\n            node >>= 1\n\n    def _rank(self, value, index):\n        node = self._roots.get(value, -1)\n        left, right, sizes = self._left, self._right, self._sizes\n        result = 0\n        while node >= 0:\n            if node >= index:\n                node = left[node]\n            else:\n                result += 1 + (sizes[left[node]] if left[node] >= 0 else 0)\n                node = right[node]\n        return result\n\n    def count(self, value, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if self._roots is not None:\n            return self._rank(value, right) - self._rank(value, left)\n        row = self.positions.get(value, ())\n        return bisect_left(row, right) - bisect_left(row, left)\n\n    def majority(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        first, last = left + self.size, right + self.size\n        value, count = None, 0\n        candidates, counts = self.candidate, self.balance\n        while first < last:\n            if first & 1:\n                other, amount = candidates[first], counts[first]\n                if value == other:\n                    count += amount\n                elif count >= amount:\n                    count -= amount\n                else:\n                    value, count = other, amount - count\n                first += 1\n            if last & 1:\n                last -= 1\n                other, amount = candidates[last], counts[last]\n                if value == other:\n                    count += amount\n                elif count >= amount:\n                    count -= amount\n                else:\n                    value, count = other, amount - count\n            first >>= 1\n            last >>= 1\n        if not count:\n            return None\n        count = self.count(value, left, right)\n        return (value, count) if count * 2 > right - left else None\n\n    def is_majority(self, value, left, right):\n        return self.count(value, left, right) * 2 > right - left\n\n    def tolist(self):\n        return self.candidate[self.size:self.size + self.n]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"RangeMajority(%r)\" % self.tolist()\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 0,
         "classes": 1,
-        "methods": 3
+        "methods": 7
       },
       "functions": [],
       "classes": [
         {
           "name": "RangeMajority",
-          "summary": "区間の majority 候補を Segment Tree で求め、値ごとの出現位置を二分探索して厳密に検証する。",
-          "description": "区間の majority 候補を Segment Tree で求め、値ごとの出現位置を二分探索して厳密に検証する。",
+          "summary": "区間の過半数候補を異なる値同士の打ち消しで絞り、出現回数を数えて厳密に検証する。点更新にも対応する。",
+          "description": "区間の過半数候補を異なる値同士の打ち消しで絞り、出現回数を数えて厳密に検証する。点更新にも対応する。",
           "searchTerms": [
             "RangeMajority",
             "Range Majority",
             "RangeMajority(values)"
           ],
           "constructor": "RangeMajority(values)",
-          "constructorArguments": "values: 検索対象の不変な列。要素は hashable である必要がある。",
+          "constructorArguments": "values: 検索対象の列。要素は辞書のキーに使える値。整数・文字列・tuple・Noneなどを扱える。",
           "constructorArgumentDetails": [
             {
               "name": "values",
-              "description": "検索対象の不変な列。要素は hashable である必要がある"
+              "description": "検索対象の列。要素は辞書のキーに使える値。整数・文字列・tuple・Noneなどを扱える"
             }
           ],
           "constructorReturns": "RangeMajority instance",
           "constructorReturnFormat": "RangeMajority",
-          "constructorReturnDescription": "不変な values を前処理し、majority・is_majority・count を任意の半開区間へ適用できる状態を作る。",
-          "constructorCreates": "不変な values を前処理し、majority・is_majority・count を任意の半開区間へ適用できる状態を作る。",
-          "constructorComplexity": "構築 O(N) time・O(N) memory",
+          "constructorReturnDescription": "valuesをコピーして保持する。majorityで過半数の値と回数、countで指定値の回数を取得し、setで要素を変更できる。",
+          "constructorCreates": "valuesをコピーして保持する。majorityで過半数の値と回数、countで指定値の回数を取得し、setで要素を変更できる。",
+          "constructorComplexity": "O(N)時間・領域。Nは列の長さ。hash・等値比較をO(1)とする",
           "constructorSourceLine": 11,
           "methods": [
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(index, value)",
+              "summary": "index番目の要素をvalueへ置き換える。以後の問い合わせには新しい値を反映する。",
+              "description": "index番目の要素をvalueへ置き換える。以後の問い合わせには新しい値を反映する。",
+              "searchTerms": [
+                "set",
+                "set(index, value)"
+              ],
+              "arguments": "index: 位置 · value: 辞書のキーに使える新しい値。Noneも可。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "位置"
+                },
+                {
+                  "name": "value",
+                  "description": "辞書のキーに使える新しい値。Noneも可。"
+                }
+              ],
+              "returns": "None — 値は返さない。指定位置だけを変更し、列の長さは変えない。",
+              "returnFormat": "None",
+              "returnDescription": "値は返さない。指定位置だけを変更し、列の長さは変えない。",
+              "complexity": "初めて値を変更するときO(N)、以降は期待O(log(N+1))、最悪O(N)。同じ値ならO(1)。hash・等値比較をO(1)とする",
+              "sourceLine": 93
+            },
             {
               "name": "count",
               "kind": "method",
@@ -26950,8 +26982,8 @@
               "returns": "int — 指定区間で values[i] == value を満たす index i の個数。",
               "returnFormat": "int",
               "returnDescription": "指定区間で values[i] == value を満たす index i の個数。",
-              "complexity": "O(log N)",
-              "sourceLine": 35
+              "complexity": "更新前O(log(N+1))。更新後は期待O(log(N+1))、最悪O(N)。hash・等値比較をO(1)とする",
+              "sourceLine": 155
             },
             {
               "name": "majority",
@@ -26974,11 +27006,11 @@
                   "description": "含めない右端 index。"
                 }
               ],
-              "returns": "tuple[object, int] | None — 厳密な過半数があれば (value, count)。なければ None。空区間も None。",
+              "returns": "tuple[object, int] | None — 厳密な過半数があれば (value, count)。なければ None。空区間も None。value自体がNoneなら(None, count)を返す。",
               "returnFormat": "tuple[object, int] | None",
-              "returnDescription": "厳密な過半数があれば (value, count)。なければ None。空区間も None。",
-              "complexity": "O(log N)",
-              "sourceLine": 42,
+              "returnDescription": "厳密な過半数があれば (value, count)。なければ None。空区間も None。value自体がNoneなら(None, count)を返す。",
+              "complexity": "更新前O(log(N+1))。更新後は期待O(log(N+1))、最悪O(N)。hash・等値比較をO(1)とする",
+              "sourceLine": 163,
               "returnParts": [
                 {
                   "name": "value",
@@ -27021,8 +27053,64 @@
               "returns": "bool — value の出現数が (right-left)/2 より大きければ True。",
               "returnFormat": "bool",
               "returnDescription": "value の出現数が (right-left)/2 より大きければ True。",
-              "complexity": "O(log N)",
-              "sourceLine": 66
+              "complexity": "更新前O(log(N+1))。更新後は期待O(log(N+1))、最悪O(N)。hash・等値比較をO(1)とする",
+              "sourceLine": 195
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "更新を反映した現在の列を取得する。",
+              "description": "更新を反映した現在の列を取得する。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[object] — 長さNの新しいlist。result[i]は現在のi番目の値。要素自身はコピーしない。",
+              "returnFormat": "list[object]",
+              "returnDescription": "長さNの新しいlist。result[i]は現在のi番目の値。要素自身はコピーしない。",
+              "complexity": "O(N)時間・追加領域",
+              "sourceLine": 198
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の列を添字順に表示する。",
+              "description": "現在の列を添字順に表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じ内容のlist表記。問い合わせや更新の状態は変えない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じ内容のlist表記。問い合わせや更新の状態は変えない。",
+              "complexity": "O(N+出力文字数)",
+              "sourceLine": 201
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名と現在の列を表示する。",
+              "description": "型名と現在の列を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — RangeMajority([...])形式の文字列。中身はtolist()と同じ。",
+              "returnFormat": "str",
+              "returnDescription": "RangeMajority([...])形式の文字列。中身はtolist()と同じ。",
+              "complexity": "O(N+出力文字数)",
+              "sourceLine": 204
             }
           ]
         }
@@ -70051,13 +70139,15 @@
       "modulePath": "library_codex.game.Nimber",
       "summary": "Conway nimber積・逆元・基底変換。",
       "capabilities": [
-        "nim_product16: nim product16を求める。",
-        "nim_product32: nim product32を求める。",
-        "nim_product64: nim product64を求める。",
-        "nim_product: nim productを計算する。",
-        "Nimber: Conway nimber積・逆元・基底変換を行うクラス。"
+        "64ビット以下の非負整数のnim積を整数で求める。通常の整数積とは異なり、2と2のnim積は3。",
+        "Nimberでは加減算をXORとして扱い、nim積に関する逆元・除算・累乗を計算できる。",
+        "64ビットの積は16ビットの対数表を初回だけ作り、以後は表引きで計算する。"
       ],
-      "article": null,
+      "article": {
+        "title": "Nimの積・逆元",
+        "markdown": "## 主な機能\n\n64bit以下の非負整数をnimberとして扱い、nim積を計算する。通常の整数積ではなく、たとえば2と2のnim積は3になる。問題でnim積が定義されているときや、加算をXORとする体上の計算に使う。通常のNimの山を合わせるだけならXORで足り、nim積は必要ない。\n\n- `nim_product64(a, b)`: 64bitのnim積を整数で返す。積だけ必要ならこれを使う。\n- `nim_product16(a, b)`・`nim_product32(a, b)`: 入力の上限が16bit・32bitと分かっている場合に使う。\n- `Nimber(value, bits=64)`: 加減算・積・除算を演算子で書き、`power`で累乗、`inverse`で逆元を求める。\n- `NimberToField(root)`: rootの累乗を基底とする多項式表示との変換を行う。単に積を求める場合は不要。\n\n64bit版は初回の非自明な積でO(2^16)時間・領域の表を作り、その後は1回O(1)。16bit・32bitだけを使う場合、この追加の表は作らない。別途、moduleの読み込み時にO(2^16)の8bit積表を作る。\n\n## 使い方\n\n```python\nassert nim_product64(2, 2) == 3\nassert nim_product64(2, 3) == 1\nassert nim_product64(0, 12345) == 0\n\na = Nimber(2)\nb = Nimber(3)\nassert int(a + b) == (2 ^ 3)\nassert int(a * b) == 1\nassert int(a * a.inverse()) == 1\nassert int(a.power(2)) == 3\n```\n\n- 関数の返り値は整数。入力が64bit以内なら、結果も64bit以内。\n- `Nimber`の演算結果は同じbit幅の`Nimber`。整数を取り出すときは `int(...)`。\n- 加算・減算はどちらもXOR。積を通常の整数積や「整数積を2の冪で割った余り」で代用できない。\n\n## 仕組み\n\n16bitの非零nimberは、ある生成元の累乗で表せる。指数から値、値から指数の表を用意すると、16bitの積を指数の加算と表引きで求められる。\n\n64bitの積は16bitの部分へ分解する。小さい積を9回求め、固定値との積は別の表で処理する。毎回8bitまで細かく分解していた処理を減らしている。\n\n## 注意点\n\n- `nim_product16`・`32`・`64`へ渡す値は、指定bit幅以内の非負整数。範囲検査は行わない。\n- `Nimber`のbit幅は8・16・32・64。異なる幅同士の演算はできない。\n- 0の逆元は存在せず、`inverse()`は`ZeroDivisionError`を送出する。\n- `power(exponent)`は非負の指数のみ。計算量はO(log(exponent+1))回の積。\n- `NimberToField`は、渡したrootの累乗が基底にならなければ`ValueError`を送出する。",
+        "sourcePath": "library_codex/docs/articles/game/Nimber.md"
+      },
       "searchTerms": [
         "Nimber",
         "library_codex.game.Nimber",
@@ -70067,10 +70157,10 @@
       ],
       "complexity": "固定語長 O(1)",
       "sourcePath": "library_codex/game/Nimber.py",
-      "inputFingerprint": "72e4dc253977d018804dfee5e76c92537ef9a476a7aba8645a0e705ba9bc20ed",
+      "inputFingerprint": "783b305c3757f0d49ab1097ad137a5a8048c9ab8f7faabced5219a5a6458e94c",
       "importCode": "from library_codex.game.Nimber import (\n    nim_product16,\n    nim_product32,\n    nim_product64,\n    nim_product,\n    Nimber,\n    NimberToField,\n)",
-      "sourceCode": "def _build_product8():\n    table = [[0] * 256 for _ in range(256)]\n    table[1][1] = 1\n    for exponent in range(1, 4):\n        bits = 1 << exponent\n        half = bits >> 1\n        limit = 1 << bits\n        lower_limit = 1 << half\n        for first in range(limit):\n            for second in range(first, limit):\n                if first < lower_limit and second < lower_limit:\n                    continue\n                if min(first, second) <= 1:\n                    value = first * second\n                else:\n                    first_high = first >> half\n                    first_low = first & (lower_limit - 1)\n                    second_high = second >> half\n                    second_low = second & (lower_limit - 1)\n                    upper = table[first_high][second_high]\n                    lower = table[first_low][second_low]\n                    mixed = table[first_high ^ first_low][second_high ^ second_low]\n                    correction = table[upper][lower_limit >> 1]\n                    value = ((mixed ^ lower) << half) ^ correction ^ lower\n                table[first][second] = table[second][first] = value\n    return table\n\n\n_PRODUCT8 = _build_product8()\n\n\ndef nim_product16(first, second):\n    first_high, first_low = first >> 8, first & 255\n    second_high, second_low = second >> 8, second & 255\n    lower = _PRODUCT8[first_low][second_low]\n    mixed = _PRODUCT8[first_high ^ first_low][second_high ^ second_low]\n    correction = _PRODUCT8[_PRODUCT8[first_high][second_high]][128]\n    return ((mixed ^ lower) << 8) ^ correction ^ lower\n\n\ndef nim_product32(first, second):\n    first_high, first_low = first >> 16, first & 65535\n    second_high, second_low = second >> 16, second & 65535\n    lower = nim_product16(first_low, second_low)\n    mixed = nim_product16(first_high ^ first_low, second_high ^ second_low)\n    correction = nim_product16(nim_product16(first_high, second_high), 1 << 15)\n    return ((mixed ^ lower) << 16) ^ correction ^ lower\n\n\ndef nim_product64(first, second):\n    mask = (1 << 32) - 1\n    first_high, first_low = first >> 32, first & mask\n    second_high, second_low = second >> 32, second & mask\n    lower = nim_product32(first_low, second_low)\n    mixed = nim_product32(first_high ^ first_low, second_high ^ second_low)\n    correction = nim_product32(nim_product32(first_high, second_high), 1 << 31)\n    return ((mixed ^ lower) << 32) ^ correction ^ lower\n\n\ndef nim_product(first, second, bits=64):\n    if bits <= 8:\n        return _PRODUCT8[first][second]\n    if bits <= 16:\n        return nim_product16(first, second)\n    if bits <= 32:\n        return nim_product32(first, second)\n    if bits <= 64:\n        return nim_product64(first, second)\n    raise ValueError(\"only nimbers up to 64 bits are supported\")\n\n\nclass Nimber:\n    __slots__ = (\"value\", \"bits\")\n\n    def __init__(self, value=0, bits=64):\n        if bits not in (8, 16, 32, 64):\n            raise ValueError(\"bits must be 8, 16, 32, or 64\")\n        self.bits = bits\n        self.value = value & ((1 << bits) - 1)\n\n    x = property(lambda self: self.value)\n    v = property(lambda self: self.value)\n\n    def _coerce(self, other):\n        if isinstance(other, Nimber):\n            if self.bits != other.bits:\n                raise ValueError(\"nimber widths differ\")\n            return other.value\n        return other\n\n    def __int__(self):\n        return self.value\n\n    def __eq__(self, other):\n        return self.value == self._coerce(other)\n\n    def __add__(self, other):\n        return Nimber(self.value ^ self._coerce(other), self.bits)\n\n    __sub__ = __add__\n    __radd__ = __add__\n    __rsub__ = __add__\n\n    def __mul__(self, other):\n        return Nimber(nim_product(self.value, self._coerce(other), self.bits),\n                      self.bits)\n\n    __rmul__ = __mul__\n\n    def power(self, exponent):\n        if exponent < 0:\n            raise ValueError(\"nimber exponent must be nonnegative\")\n        result = Nimber(1, self.bits)\n        base = self\n        while exponent:\n            if exponent & 1:\n                result = result * base\n            exponent >>= 1\n            if exponent:\n                base = base * base\n        return result\n\n    pow = power\n\n    def inverse(self):\n        if self.value == 0:\n            raise ZeroDivisionError(\"zero nimber has no inverse\")\n        return self.power((1 << self.bits) - 2)\n\n    inv = inverse\n\n    def __truediv__(self, other):\n        other = Nimber(self._coerce(other), self.bits)\n        return self * other.inverse()\n\n\nclass NimberToField:\n    \"\"\"Linear basis conversion between nimber bits and a polynomial basis.\"\"\"\n\n    __slots__ = (\"bits\", \"field_to_nimber\", \"nimber_to_field\")\n\n    def __init__(self, primitive_root):\n        if not isinstance(primitive_root, Nimber):\n            primitive_root = Nimber(primitive_root)\n        bits = primitive_root.bits\n        self.bits = bits\n        columns = [0] * bits\n        current = Nimber(1, bits)\n        for index in range(bits):\n            columns[index] = current.value\n            current = current * primitive_root\n        rows = [0] * bits\n        for row in range(bits):\n            left = 0\n            for column, value in enumerate(columns):\n                if value >> row & 1:\n                    left |= 1 << column\n            rows[row] = left | (1 << (bits + row))\n        for column in range(bits):\n            pivot = column\n            while pivot < bits and (rows[pivot] >> column & 1) == 0:\n                pivot += 1\n            if pivot == bits:\n                raise ValueError(\"primitive_root powers do not form a basis\")\n            rows[column], rows[pivot] = rows[pivot], rows[column]\n            for row in range(bits):\n                if row != column and (rows[row] >> column & 1):\n                    rows[row] ^= rows[column]\n        inverse_rows = [row >> bits for row in rows]\n        reverse_columns = [0] * bits\n        for input_bit in range(bits):\n            coordinate = 0\n            for output_bit, row in enumerate(inverse_rows):\n                if row >> input_bit & 1:\n                    coordinate |= 1 << output_bit\n            reverse_columns[input_bit] = coordinate\n        self.field_to_nimber = columns\n        self.nimber_to_field = reverse_columns\n\n    @staticmethod\n    def _apply(columns, value):\n        result = 0\n        while value:\n            bit = (value & -value).bit_length() - 1\n            result ^= columns[bit]\n            value &= value - 1\n        return result\n\n    def field2nimber(self, value):\n        return Nimber(self._apply(self.field_to_nimber, value), self.bits)\n\n    def nimber2field(self, value):\n        if isinstance(value, Nimber):\n            value = value.value\n        return self._apply(self.nimber_to_field, value)\n\n\nNimber8 = lambda value=0: Nimber(value, 8)\nNimber16 = lambda value=0: Nimber(value, 16)\nNimber32 = lambda value=0: Nimber(value, 32)\nNimber64 = lambda value=0: Nimber(value, 64)\nproduct16 = nim_product16\nproduct32 = nim_product32\nproduct64 = nim_product64\n",
-      "standaloneCode": "def _build_product8():\n    table = [[0] * 256 for _ in range(256)]\n    table[1][1] = 1\n    for exponent in range(1, 4):\n        bits = 1 << exponent\n        half = bits >> 1\n        limit = 1 << bits\n        lower_limit = 1 << half\n        for first in range(limit):\n            for second in range(first, limit):\n                if first < lower_limit and second < lower_limit:\n                    continue\n                if min(first, second) <= 1:\n                    value = first * second\n                else:\n                    first_high = first >> half\n                    first_low = first & (lower_limit - 1)\n                    second_high = second >> half\n                    second_low = second & (lower_limit - 1)\n                    upper = table[first_high][second_high]\n                    lower = table[first_low][second_low]\n                    mixed = table[first_high ^ first_low][second_high ^ second_low]\n                    correction = table[upper][lower_limit >> 1]\n                    value = ((mixed ^ lower) << half) ^ correction ^ lower\n                table[first][second] = table[second][first] = value\n    return table\n\n\n_PRODUCT8 = _build_product8()\n\n\ndef nim_product16(first, second):\n    first_high, first_low = first >> 8, first & 255\n    second_high, second_low = second >> 8, second & 255\n    lower = _PRODUCT8[first_low][second_low]\n    mixed = _PRODUCT8[first_high ^ first_low][second_high ^ second_low]\n    correction = _PRODUCT8[_PRODUCT8[first_high][second_high]][128]\n    return ((mixed ^ lower) << 8) ^ correction ^ lower\n\n\ndef nim_product32(first, second):\n    first_high, first_low = first >> 16, first & 65535\n    second_high, second_low = second >> 16, second & 65535\n    lower = nim_product16(first_low, second_low)\n    mixed = nim_product16(first_high ^ first_low, second_high ^ second_low)\n    correction = nim_product16(nim_product16(first_high, second_high), 1 << 15)\n    return ((mixed ^ lower) << 16) ^ correction ^ lower\n\n\ndef nim_product64(first, second):\n    mask = (1 << 32) - 1\n    first_high, first_low = first >> 32, first & mask\n    second_high, second_low = second >> 32, second & mask\n    lower = nim_product32(first_low, second_low)\n    mixed = nim_product32(first_high ^ first_low, second_high ^ second_low)\n    correction = nim_product32(nim_product32(first_high, second_high), 1 << 31)\n    return ((mixed ^ lower) << 32) ^ correction ^ lower\n\n\ndef nim_product(first, second, bits=64):\n    if bits <= 8:\n        return _PRODUCT8[first][second]\n    if bits <= 16:\n        return nim_product16(first, second)\n    if bits <= 32:\n        return nim_product32(first, second)\n    if bits <= 64:\n        return nim_product64(first, second)\n    raise ValueError(\"only nimbers up to 64 bits are supported\")\n\n\nclass Nimber:\n    __slots__ = (\"value\", \"bits\")\n\n    def __init__(self, value=0, bits=64):\n        if bits not in (8, 16, 32, 64):\n            raise ValueError(\"bits must be 8, 16, 32, or 64\")\n        self.bits = bits\n        self.value = value & ((1 << bits) - 1)\n\n    x = property(lambda self: self.value)\n    v = property(lambda self: self.value)\n\n    def _coerce(self, other):\n        if isinstance(other, Nimber):\n            if self.bits != other.bits:\n                raise ValueError(\"nimber widths differ\")\n            return other.value\n        return other\n\n    def __int__(self):\n        return self.value\n\n    def __eq__(self, other):\n        return self.value == self._coerce(other)\n\n    def __add__(self, other):\n        return Nimber(self.value ^ self._coerce(other), self.bits)\n\n    __sub__ = __add__\n    __radd__ = __add__\n    __rsub__ = __add__\n\n    def __mul__(self, other):\n        return Nimber(nim_product(self.value, self._coerce(other), self.bits),\n                      self.bits)\n\n    __rmul__ = __mul__\n\n    def power(self, exponent):\n        if exponent < 0:\n            raise ValueError(\"nimber exponent must be nonnegative\")\n        result = Nimber(1, self.bits)\n        base = self\n        while exponent:\n            if exponent & 1:\n                result = result * base\n            exponent >>= 1\n            if exponent:\n                base = base * base\n        return result\n\n    pow = power\n\n    def inverse(self):\n        if self.value == 0:\n            raise ZeroDivisionError(\"zero nimber has no inverse\")\n        return self.power((1 << self.bits) - 2)\n\n    inv = inverse\n\n    def __truediv__(self, other):\n        other = Nimber(self._coerce(other), self.bits)\n        return self * other.inverse()\n\n\nclass NimberToField:\n    \"\"\"Linear basis conversion between nimber bits and a polynomial basis.\"\"\"\n\n    __slots__ = (\"bits\", \"field_to_nimber\", \"nimber_to_field\")\n\n    def __init__(self, primitive_root):\n        if not isinstance(primitive_root, Nimber):\n            primitive_root = Nimber(primitive_root)\n        bits = primitive_root.bits\n        self.bits = bits\n        columns = [0] * bits\n        current = Nimber(1, bits)\n        for index in range(bits):\n            columns[index] = current.value\n            current = current * primitive_root\n        rows = [0] * bits\n        for row in range(bits):\n            left = 0\n            for column, value in enumerate(columns):\n                if value >> row & 1:\n                    left |= 1 << column\n            rows[row] = left | (1 << (bits + row))\n        for column in range(bits):\n            pivot = column\n            while pivot < bits and (rows[pivot] >> column & 1) == 0:\n                pivot += 1\n            if pivot == bits:\n                raise ValueError(\"primitive_root powers do not form a basis\")\n            rows[column], rows[pivot] = rows[pivot], rows[column]\n            for row in range(bits):\n                if row != column and (rows[row] >> column & 1):\n                    rows[row] ^= rows[column]\n        inverse_rows = [row >> bits for row in rows]\n        reverse_columns = [0] * bits\n        for input_bit in range(bits):\n            coordinate = 0\n            for output_bit, row in enumerate(inverse_rows):\n                if row >> input_bit & 1:\n                    coordinate |= 1 << output_bit\n            reverse_columns[input_bit] = coordinate\n        self.field_to_nimber = columns\n        self.nimber_to_field = reverse_columns\n\n    @staticmethod\n    def _apply(columns, value):\n        result = 0\n        while value:\n            bit = (value & -value).bit_length() - 1\n            result ^= columns[bit]\n            value &= value - 1\n        return result\n\n    def field2nimber(self, value):\n        return Nimber(self._apply(self.field_to_nimber, value), self.bits)\n\n    def nimber2field(self, value):\n        if isinstance(value, Nimber):\n            value = value.value\n        return self._apply(self.nimber_to_field, value)\n\n\nNimber8 = lambda value=0: Nimber(value, 8)\nNimber16 = lambda value=0: Nimber(value, 16)\nNimber32 = lambda value=0: Nimber(value, 32)\nNimber64 = lambda value=0: Nimber(value, 64)\nproduct16 = nim_product16\nproduct32 = nim_product32\nproduct64 = nim_product64\n",
+      "sourceCode": "def _build_product8():\n    table = [[0] * 256 for _ in range(256)]\n    table[1][1] = 1\n    for exponent in range(1, 4):\n        bits = 1 << exponent\n        half = bits >> 1\n        limit = 1 << bits\n        lower_limit = 1 << half\n        for first in range(limit):\n            for second in range(first, limit):\n                if first < lower_limit and second < lower_limit:\n                    continue\n                if min(first, second) <= 1:\n                    value = first * second\n                else:\n                    first_high = first >> half\n                    first_low = first & (lower_limit - 1)\n                    second_high = second >> half\n                    second_low = second & (lower_limit - 1)\n                    upper = table[first_high][second_high]\n                    lower = table[first_low][second_low]\n                    mixed = table[first_high ^ first_low][second_high ^ second_low]\n                    correction = table[upper][lower_limit >> 1]\n                    value = ((mixed ^ lower) << half) ^ correction ^ lower\n                table[first][second] = table[second][first] = value\n    return table\n\n\n_PRODUCT8 = _build_product8()\n_EXP16 = []\n_LOG16 = []\n_CORRECTION16 = []\n\n\ndef nim_product16(first, second):\n    first_high, first_low = first >> 8, first & 255\n    second_high, second_low = second >> 8, second & 255\n    lower = _PRODUCT8[first_low][second_low]\n    mixed = _PRODUCT8[first_high ^ first_low][second_high ^ second_low]\n    correction = _PRODUCT8[_PRODUCT8[first_high][second_high]][128]\n    return ((mixed ^ lower) << 8) ^ correction ^ lower\n\n\ndef nim_product32(first, second):\n    first_high, first_low = first >> 16, first & 65535\n    second_high, second_low = second >> 16, second & 65535\n    lower = nim_product16(first_low, second_low)\n    mixed = nim_product16(first_high ^ first_low, second_high ^ second_low)\n    correction = nim_product16(nim_product16(first_high, second_high), 1 << 15)\n    return ((mixed ^ lower) << 16) ^ correction ^ lower\n\n\ndef _prepare_product64():\n    exp = [0] * 65535\n    log = [0] * 65536\n    value = 1\n    for index in range(65535):\n        exp[index] = value\n        log[value] = index\n        value = nim_product16(value, 10279)\n    _EXP16.extend(exp + exp)\n    _LOG16.extend(log)\n    _CORRECTION16.extend(nim_product16(value, 32768) for value in range(65536))\n\n\ndef _product32_lookup(first, second, exp, log, correction):\n    a, b = first >> 16, first & 65535\n    c, d = second >> 16, second & 65535\n    lower = exp[log[b] + log[d]] if b and d else 0\n    upper = exp[log[a] + log[c]] if a and c else 0\n    a ^= b\n    c ^= d\n    mixed = exp[log[a] + log[c]] if a and c else 0\n    return ((mixed ^ lower) << 16) ^ correction[upper] ^ lower\n\n\ndef nim_product64(first, second):\n    if first <= 1 or second <= 1:\n        return first * second\n    if not _EXP16:\n        _prepare_product64()\n    exp, log, correction = _EXP16, _LOG16, _CORRECTION16\n    first_high, first_low = first >> 32, first & 0xffffffff\n    second_high, second_low = second >> 32, second & 0xffffffff\n    lower = _product32_lookup(first_low, second_low, exp, log, correction)\n    upper = _product32_lookup(first_high, second_high, exp, log, correction)\n    mixed = _product32_lookup(first_high ^ first_low, second_high ^ second_low, exp, log, correction)\n    a, b = upper >> 16, upper & 65535\n    adjusted = (correction[a ^ b] << 16) ^ correction[correction[a]]\n    return ((mixed ^ lower) << 32) ^ adjusted ^ lower\n\n\ndef nim_product(first, second, bits=64):\n    if bits <= 8:\n        return _PRODUCT8[first][second]\n    if bits <= 16:\n        return nim_product16(first, second)\n    if bits <= 32:\n        return nim_product32(first, second)\n    if bits <= 64:\n        return nim_product64(first, second)\n    raise ValueError(\"only nimbers up to 64 bits are supported\")\n\n\nclass Nimber:\n    __slots__ = (\"value\", \"bits\")\n\n    def __init__(self, value=0, bits=64):\n        if bits not in (8, 16, 32, 64):\n            raise ValueError(\"bits must be 8, 16, 32, or 64\")\n        self.bits = bits\n        self.value = value & ((1 << bits) - 1)\n\n    x = property(lambda self: self.value)\n    v = property(lambda self: self.value)\n\n    def _coerce(self, other):\n        if isinstance(other, Nimber):\n            if self.bits != other.bits:\n                raise ValueError(\"nimber widths differ\")\n            return other.value\n        return other\n\n    def __int__(self):\n        return self.value\n\n    def __eq__(self, other):\n        return self.value == self._coerce(other)\n\n    def __add__(self, other):\n        return Nimber(self.value ^ self._coerce(other), self.bits)\n\n    __sub__ = __add__\n    __radd__ = __add__\n    __rsub__ = __add__\n\n    def __mul__(self, other):\n        return Nimber(nim_product(self.value, self._coerce(other), self.bits),\n                      self.bits)\n\n    __rmul__ = __mul__\n\n    def power(self, exponent):\n        if exponent < 0:\n            raise ValueError(\"nimber exponent must be nonnegative\")\n        result = Nimber(1, self.bits)\n        base = self\n        while exponent:\n            if exponent & 1:\n                result = result * base\n            exponent >>= 1\n            if exponent:\n                base = base * base\n        return result\n\n    pow = power\n\n    def inverse(self):\n        if self.value == 0:\n            raise ZeroDivisionError(\"zero nimber has no inverse\")\n        return self.power((1 << self.bits) - 2)\n\n    inv = inverse\n\n    def __truediv__(self, other):\n        other = Nimber(self._coerce(other), self.bits)\n        return self * other.inverse()\n\n\nclass NimberToField:\n    \"\"\"Linear basis conversion between nimber bits and a polynomial basis.\"\"\"\n\n    __slots__ = (\"bits\", \"field_to_nimber\", \"nimber_to_field\")\n\n    def __init__(self, primitive_root):\n        if not isinstance(primitive_root, Nimber):\n            primitive_root = Nimber(primitive_root)\n        bits = primitive_root.bits\n        self.bits = bits\n        columns = [0] * bits\n        current = Nimber(1, bits)\n        for index in range(bits):\n            columns[index] = current.value\n            current = current * primitive_root\n        rows = [0] * bits\n        for row in range(bits):\n            left = 0\n            for column, value in enumerate(columns):\n                if value >> row & 1:\n                    left |= 1 << column\n            rows[row] = left | (1 << (bits + row))\n        for column in range(bits):\n            pivot = column\n            while pivot < bits and (rows[pivot] >> column & 1) == 0:\n                pivot += 1\n            if pivot == bits:\n                raise ValueError(\"primitive_root powers do not form a basis\")\n            rows[column], rows[pivot] = rows[pivot], rows[column]\n            for row in range(bits):\n                if row != column and (rows[row] >> column & 1):\n                    rows[row] ^= rows[column]\n        inverse_rows = [row >> bits for row in rows]\n        reverse_columns = [0] * bits\n        for input_bit in range(bits):\n            coordinate = 0\n            for output_bit, row in enumerate(inverse_rows):\n                if row >> input_bit & 1:\n                    coordinate |= 1 << output_bit\n            reverse_columns[input_bit] = coordinate\n        self.field_to_nimber = columns\n        self.nimber_to_field = reverse_columns\n\n    @staticmethod\n    def _apply(columns, value):\n        result = 0\n        while value:\n            bit = (value & -value).bit_length() - 1\n            result ^= columns[bit]\n            value &= value - 1\n        return result\n\n    def field2nimber(self, value):\n        return Nimber(self._apply(self.field_to_nimber, value), self.bits)\n\n    def nimber2field(self, value):\n        if isinstance(value, Nimber):\n            value = value.value\n        return self._apply(self.nimber_to_field, value)\n\n\nNimber8 = lambda value=0: Nimber(value, 8)\nNimber16 = lambda value=0: Nimber(value, 16)\nNimber32 = lambda value=0: Nimber(value, 32)\nNimber64 = lambda value=0: Nimber(value, 64)\nproduct16 = nim_product16\nproduct32 = nim_product32\nproduct64 = nim_product64\n",
+      "standaloneCode": "def _build_product8():\n    table = [[0] * 256 for _ in range(256)]\n    table[1][1] = 1\n    for exponent in range(1, 4):\n        bits = 1 << exponent\n        half = bits >> 1\n        limit = 1 << bits\n        lower_limit = 1 << half\n        for first in range(limit):\n            for second in range(first, limit):\n                if first < lower_limit and second < lower_limit:\n                    continue\n                if min(first, second) <= 1:\n                    value = first * second\n                else:\n                    first_high = first >> half\n                    first_low = first & (lower_limit - 1)\n                    second_high = second >> half\n                    second_low = second & (lower_limit - 1)\n                    upper = table[first_high][second_high]\n                    lower = table[first_low][second_low]\n                    mixed = table[first_high ^ first_low][second_high ^ second_low]\n                    correction = table[upper][lower_limit >> 1]\n                    value = ((mixed ^ lower) << half) ^ correction ^ lower\n                table[first][second] = table[second][first] = value\n    return table\n\n\n_PRODUCT8 = _build_product8()\n_EXP16 = []\n_LOG16 = []\n_CORRECTION16 = []\n\n\ndef nim_product16(first, second):\n    first_high, first_low = first >> 8, first & 255\n    second_high, second_low = second >> 8, second & 255\n    lower = _PRODUCT8[first_low][second_low]\n    mixed = _PRODUCT8[first_high ^ first_low][second_high ^ second_low]\n    correction = _PRODUCT8[_PRODUCT8[first_high][second_high]][128]\n    return ((mixed ^ lower) << 8) ^ correction ^ lower\n\n\ndef nim_product32(first, second):\n    first_high, first_low = first >> 16, first & 65535\n    second_high, second_low = second >> 16, second & 65535\n    lower = nim_product16(first_low, second_low)\n    mixed = nim_product16(first_high ^ first_low, second_high ^ second_low)\n    correction = nim_product16(nim_product16(first_high, second_high), 1 << 15)\n    return ((mixed ^ lower) << 16) ^ correction ^ lower\n\n\ndef _prepare_product64():\n    exp = [0] * 65535\n    log = [0] * 65536\n    value = 1\n    for index in range(65535):\n        exp[index] = value\n        log[value] = index\n        value = nim_product16(value, 10279)\n    _EXP16.extend(exp + exp)\n    _LOG16.extend(log)\n    _CORRECTION16.extend(nim_product16(value, 32768) for value in range(65536))\n\n\ndef _product32_lookup(first, second, exp, log, correction):\n    a, b = first >> 16, first & 65535\n    c, d = second >> 16, second & 65535\n    lower = exp[log[b] + log[d]] if b and d else 0\n    upper = exp[log[a] + log[c]] if a and c else 0\n    a ^= b\n    c ^= d\n    mixed = exp[log[a] + log[c]] if a and c else 0\n    return ((mixed ^ lower) << 16) ^ correction[upper] ^ lower\n\n\ndef nim_product64(first, second):\n    if first <= 1 or second <= 1:\n        return first * second\n    if not _EXP16:\n        _prepare_product64()\n    exp, log, correction = _EXP16, _LOG16, _CORRECTION16\n    first_high, first_low = first >> 32, first & 0xffffffff\n    second_high, second_low = second >> 32, second & 0xffffffff\n    lower = _product32_lookup(first_low, second_low, exp, log, correction)\n    upper = _product32_lookup(first_high, second_high, exp, log, correction)\n    mixed = _product32_lookup(first_high ^ first_low, second_high ^ second_low, exp, log, correction)\n    a, b = upper >> 16, upper & 65535\n    adjusted = (correction[a ^ b] << 16) ^ correction[correction[a]]\n    return ((mixed ^ lower) << 32) ^ adjusted ^ lower\n\n\ndef nim_product(first, second, bits=64):\n    if bits <= 8:\n        return _PRODUCT8[first][second]\n    if bits <= 16:\n        return nim_product16(first, second)\n    if bits <= 32:\n        return nim_product32(first, second)\n    if bits <= 64:\n        return nim_product64(first, second)\n    raise ValueError(\"only nimbers up to 64 bits are supported\")\n\n\nclass Nimber:\n    __slots__ = (\"value\", \"bits\")\n\n    def __init__(self, value=0, bits=64):\n        if bits not in (8, 16, 32, 64):\n            raise ValueError(\"bits must be 8, 16, 32, or 64\")\n        self.bits = bits\n        self.value = value & ((1 << bits) - 1)\n\n    x = property(lambda self: self.value)\n    v = property(lambda self: self.value)\n\n    def _coerce(self, other):\n        if isinstance(other, Nimber):\n            if self.bits != other.bits:\n                raise ValueError(\"nimber widths differ\")\n            return other.value\n        return other\n\n    def __int__(self):\n        return self.value\n\n    def __eq__(self, other):\n        return self.value == self._coerce(other)\n\n    def __add__(self, other):\n        return Nimber(self.value ^ self._coerce(other), self.bits)\n\n    __sub__ = __add__\n    __radd__ = __add__\n    __rsub__ = __add__\n\n    def __mul__(self, other):\n        return Nimber(nim_product(self.value, self._coerce(other), self.bits),\n                      self.bits)\n\n    __rmul__ = __mul__\n\n    def power(self, exponent):\n        if exponent < 0:\n            raise ValueError(\"nimber exponent must be nonnegative\")\n        result = Nimber(1, self.bits)\n        base = self\n        while exponent:\n            if exponent & 1:\n                result = result * base\n            exponent >>= 1\n            if exponent:\n                base = base * base\n        return result\n\n    pow = power\n\n    def inverse(self):\n        if self.value == 0:\n            raise ZeroDivisionError(\"zero nimber has no inverse\")\n        return self.power((1 << self.bits) - 2)\n\n    inv = inverse\n\n    def __truediv__(self, other):\n        other = Nimber(self._coerce(other), self.bits)\n        return self * other.inverse()\n\n\nclass NimberToField:\n    \"\"\"Linear basis conversion between nimber bits and a polynomial basis.\"\"\"\n\n    __slots__ = (\"bits\", \"field_to_nimber\", \"nimber_to_field\")\n\n    def __init__(self, primitive_root):\n        if not isinstance(primitive_root, Nimber):\n            primitive_root = Nimber(primitive_root)\n        bits = primitive_root.bits\n        self.bits = bits\n        columns = [0] * bits\n        current = Nimber(1, bits)\n        for index in range(bits):\n            columns[index] = current.value\n            current = current * primitive_root\n        rows = [0] * bits\n        for row in range(bits):\n            left = 0\n            for column, value in enumerate(columns):\n                if value >> row & 1:\n                    left |= 1 << column\n            rows[row] = left | (1 << (bits + row))\n        for column in range(bits):\n            pivot = column\n            while pivot < bits and (rows[pivot] >> column & 1) == 0:\n                pivot += 1\n            if pivot == bits:\n                raise ValueError(\"primitive_root powers do not form a basis\")\n            rows[column], rows[pivot] = rows[pivot], rows[column]\n            for row in range(bits):\n                if row != column and (rows[row] >> column & 1):\n                    rows[row] ^= rows[column]\n        inverse_rows = [row >> bits for row in rows]\n        reverse_columns = [0] * bits\n        for input_bit in range(bits):\n            coordinate = 0\n            for output_bit, row in enumerate(inverse_rows):\n                if row >> input_bit & 1:\n                    coordinate |= 1 << output_bit\n            reverse_columns[input_bit] = coordinate\n        self.field_to_nimber = columns\n        self.nimber_to_field = reverse_columns\n\n    @staticmethod\n    def _apply(columns, value):\n        result = 0\n        while value:\n            bit = (value & -value).bit_length() - 1\n            result ^= columns[bit]\n            value &= value - 1\n        return result\n\n    def field2nimber(self, value):\n        return Nimber(self._apply(self.field_to_nimber, value), self.bits)\n\n    def nimber2field(self, value):\n        if isinstance(value, Nimber):\n            value = value.value\n        return self._apply(self.nimber_to_field, value)\n\n\nNimber8 = lambda value=0: Nimber(value, 8)\nNimber16 = lambda value=0: Nimber(value, 16)\nNimber32 = lambda value=0: Nimber(value, 32)\nNimber64 = lambda value=0: Nimber(value, 64)\nproduct16 = nim_product16\nproduct32 = nim_product32\nproduct64 = nim_product64\n",
       "bundledDependencies": [],
       "counts": {
         "functions": 4,
@@ -70082,153 +70172,153 @@
           "name": "nim_product16",
           "kind": "function",
           "signature": "nim_product16(first, second)",
-          "summary": "nim product16を求める。",
-          "description": "nim product16を求める。",
+          "summary": "16bit以内の非負整数同士のnim積を求める。",
+          "description": "16bit以内の非負整数同士のnim積を求める。",
           "searchTerms": [
             "nim_product16",
             "nim product16",
             "nim_product16(first, second)"
           ],
-          "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値",
+          "arguments": "first: 0以上2^16未満。範囲検査は行わない。 · second: firstと同じ範囲の非負整数。",
           "argumentDetails": [
             {
               "name": "first",
-              "description": "第1入力・左側の値"
+              "description": "0以上2^16未満。範囲検査は行わない。"
             },
             {
               "name": "second",
-              "description": "第2入力・右側の値"
+              "description": "firstと同じ範囲の非負整数。"
             }
           ],
-          "returns": "入力要素と同じ型 — 求めたnim product16。",
-          "returnFormat": "入力要素と同じ型",
-          "returnDescription": "求めたnim product16。",
+          "returns": "int — 16bit以内のnim積。通常の整数積を剰余で丸めたものではない。",
+          "returnFormat": "int",
+          "returnDescription": "16bit以内のnim積。通常の整数積を剰余で丸めたものではない。",
           "complexity": "O(1)",
-          "sourceLine": 32
+          "sourceLine": 35
         },
         {
           "name": "nim_product32",
           "kind": "function",
           "signature": "nim_product32(first, second)",
-          "summary": "nim product32を求める。",
-          "description": "nim product32を求める。",
+          "summary": "32bit以内の非負整数同士のnim積を求める。",
+          "description": "32bit以内の非負整数同士のnim積を求める。",
           "searchTerms": [
             "nim_product32",
             "nim product32",
             "nim_product32(first, second)"
           ],
-          "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値",
+          "arguments": "first: 0以上2^32未満。範囲検査は行わない。 · second: firstと同じ範囲の非負整数。",
           "argumentDetails": [
             {
               "name": "first",
-              "description": "第1入力・左側の値"
+              "description": "0以上2^32未満。範囲検査は行わない。"
             },
             {
               "name": "second",
-              "description": "第2入力・右側の値"
+              "description": "firstと同じ範囲の非負整数。"
             }
           ],
-          "returns": "入力要素と同じ型 — 求めたnim product32。",
-          "returnFormat": "入力要素と同じ型",
-          "returnDescription": "求めたnim product32。",
+          "returns": "int — 32bit以内のnim積。通常の整数積を剰余で丸めたものではない。",
+          "returnFormat": "int",
+          "returnDescription": "32bit以内のnim積。通常の整数積を剰余で丸めたものではない。",
           "complexity": "O(1)",
-          "sourceLine": 41
+          "sourceLine": 44
         },
         {
           "name": "nim_product64",
           "kind": "function",
           "signature": "nim_product64(first, second)",
-          "summary": "nim product64を求める。",
-          "description": "nim product64を求める。",
+          "summary": "64bit以内の非負整数同士のnim積を求める。",
+          "description": "64bit以内の非負整数同士のnim積を求める。",
           "searchTerms": [
             "nim_product64",
             "nim product64",
             "nim_product64(first, second)"
           ],
-          "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値",
+          "arguments": "first: 0以上2^64未満。範囲検査は行わない。 · second: firstと同じ範囲の非負整数。",
           "argumentDetails": [
             {
               "name": "first",
-              "description": "第1入力・左側の値"
+              "description": "0以上2^64未満。範囲検査は行わない。"
             },
             {
               "name": "second",
-              "description": "第2入力・右側の値"
+              "description": "firstと同じ範囲の非負整数。"
             }
           ],
-          "returns": "入力要素と同じ型 — 求めたnim product64。",
-          "returnFormat": "入力要素と同じ型",
-          "returnDescription": "求めたnim product64。",
-          "complexity": "O(1)",
-          "sourceLine": 50
+          "returns": "int — 64bit以内のnim積。通常の整数積を剰余で丸めたものではない。",
+          "returnFormat": "int",
+          "returnDescription": "64bit以内のnim積。通常の整数積を剰余で丸めたものではない。",
+          "complexity": "O(1)。初回の両引数が2以上の呼出しのみO(2^16)時間・領域の前計算を行う",
+          "sourceLine": 77
         },
         {
           "name": "nim_product",
           "kind": "function",
           "signature": "nim_product(first, second, bits=64)",
-          "summary": "nim productを計算する。",
-          "description": "nim productを計算する。",
+          "summary": "指定bit幅に対応するnim積の関数を選んで計算する。",
+          "description": "指定bit幅に対応するnim積の関数を選んで計算する。",
           "searchTerms": [
             "nim_product",
             "nim product",
             "nim_product(first, second, bits=64)"
           ],
-          "arguments": "first: 第1入力・左側の値 · second: 第2入力・右側の値 · bits: 使用bit数。省略時: 64",
+          "arguments": "first: 指定幅以内の非負整数。 · second: 指定幅以内の非負整数。 · bits: 通常は8・16・32・64を指定。64を超えるとValueError。",
           "argumentDetails": [
             {
               "name": "first",
-              "description": "第1入力・左側の値"
+              "description": "指定幅以内の非負整数。"
             },
             {
               "name": "second",
-              "description": "第2入力・右側の値"
+              "description": "指定幅以内の非負整数。"
             },
             {
               "name": "bits",
-              "description": "使用ビット数。省略時は 64"
+              "description": "通常は8・16・32・64を指定。64を超えるとValueError。"
             }
           ],
-          "returns": "集計値（要素型と演算に依存） — 計算したnim product。",
-          "returnFormat": "集計値（要素型と演算に依存）",
-          "returnDescription": "計算したnim product。",
-          "complexity": "O(1)",
-          "sourceLine": 60
+          "returns": "int — firstとsecondのnim積。0と任意の値の積は0、1との積は元の値。",
+          "returnFormat": "int",
+          "returnDescription": "firstとsecondのnim積。0と任意の値の積は0、1との積は元の値。",
+          "complexity": "O(1)。32bitを超える積では初回のみO(2^16)時間・領域の前計算を行う",
+          "sourceLine": 93
         }
       ],
       "classes": [
         {
           "name": "Nimber",
-          "summary": "Conway nimber積・逆元・基底変換を行うクラス。",
-          "description": "Conway nimber積・逆元・基底変換を行うクラス。",
+          "summary": "加減算がXOR、乗算がnim積となる体の要素を表す。",
+          "description": "加減算がXOR、乗算がnim積となる体の要素を表す。",
           "searchTerms": [
             "Nimber",
             "Nimber(value=0, bits=64)"
           ],
           "constructor": "Nimber(value=0, bits=64)",
-          "constructorArguments": "value: 追加・設定・問い合わせる値。省略時: 0 · bits: 使用bit数。省略時: 64",
+          "constructorArguments": "value: 下位bits bitをnimberの整数表示として使う。省略時: 0 · bits: 8・16・32・64のいずれか。演算する相手と揃える。省略時: 64",
           "constructorArgumentDetails": [
             {
               "name": "value",
-              "description": "追加・設定・問い合わせる値。省略時は 0"
+              "description": "下位bits ビットをnimberの整数表示として使う。省略時は 0"
             },
             {
               "name": "bits",
-              "description": "使用ビット数。省略時は 64"
+              "description": "8・16・32・64のいずれか。演算する相手と揃える。省略時は 64"
             }
           ],
           "constructorReturns": "Nimber instance",
           "constructorReturnFormat": "Nimber",
-          "constructorReturnDescription": "Conway nimber積・逆元・基底変換を行うクラス。",
-          "constructorCreates": "Conway nimber積・逆元・基底変換を行うクラス。",
+          "constructorReturnDescription": "指定bit幅のnimber。演算子で加減乗除、powerで累乗、inverseで逆元を求め、intで整数表示を取り出せる。",
+          "constructorCreates": "指定bit幅のnimber。演算子で加減乗除、powerで累乗、inverseで逆元を求め、intで整数表示を取り出せる。",
           "constructorComplexity": "O(1)",
-          "constructorSourceLine": 75,
+          "constructorSourceLine": 108,
           "methods": [
             {
               "name": "__int__",
               "kind": "method",
               "signature": "__int__()",
-              "summary": "int(obj)。",
-              "description": "int(obj)。",
+              "summary": "nimberの整数表示を取り出す。",
+              "description": "nimberの整数表示を取り出す。",
               "searchTerms": [
                 "__int__",
                 "int",
@@ -70236,220 +70326,220 @@
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "int — int",
+              "returns": "int — 保持しているbits bit以内の非負整数。",
               "returnFormat": "int",
-              "returnDescription": "int",
+              "returnDescription": "保持しているbits bit以内の非負整数。",
               "complexity": "O(1)",
-              "sourceLine": 91
+              "sourceLine": 124
             },
             {
               "name": "__eq__",
               "kind": "method",
               "signature": "__eq__(other)",
-              "summary": "2つの値が等しいか判定する。",
-              "description": "2つの値が等しいか判定する。",
+              "summary": "同じ値を表すnimberか比較する。",
+              "description": "同じ値を表すnimberか比較する。",
               "searchTerms": [
                 "__eq__",
                 "eq",
                 "__eq__(other)"
               ],
-              "arguments": "other: 同じ型のもう一方のobject・値",
+              "arguments": "other: 同じbit幅のNimber、または整数表示。",
               "argumentDetails": [
                 {
                   "name": "other",
-                  "description": "同じ型のもう一方のオブジェクト・値"
+                  "description": "同じbit幅のNimber、または整数表示。"
                 }
               ],
-              "returns": "bool — bool",
+              "returns": "bool — 整数表示が一致すればTrue。異なるbit幅のNimberならValueError。",
               "returnFormat": "bool",
-              "returnDescription": "bool",
+              "returnDescription": "整数表示が一致すればTrue。異なるbit幅のNimberならValueError。",
               "complexity": "O(1)",
-              "sourceLine": 94
+              "sourceLine": 127
             },
             {
               "name": "__add__",
               "kind": "method",
               "signature": "__add__(other)",
-              "summary": "加算した結果を返す。",
-              "description": "加算した結果を返す。",
+              "summary": "整数表示のXORでnimberを加算する。",
+              "description": "整数表示のXORでnimberを加算する。",
               "searchTerms": [
                 "__add__",
                 "add",
                 "__add__(other)"
               ],
-              "arguments": "other: 同じ型のもう一方のobject・値",
+              "arguments": "other: 同じbit幅のNimber、またはその幅以内の非負整数。",
               "argumentDetails": [
                 {
                   "name": "other",
-                  "description": "同じ型のもう一方のオブジェクト・値"
+                  "description": "同じbit幅のNimber、またはその幅以内の非負整数。"
                 }
               ],
-              "returns": "Nimber — Nimber のインスタンス。",
+              "returns": "Nimber — selfとotherのXORを表す、selfと同じbit幅のnimber。",
               "returnFormat": "Nimber",
-              "returnDescription": "Nimber のインスタンス。",
+              "returnDescription": "selfとotherのXORを表す、selfと同じbit幅のnimber。",
               "complexity": "O(1)",
-              "sourceLine": 97
+              "sourceLine": 130
             },
             {
               "name": "__mul__",
               "kind": "method",
               "signature": "__mul__(other)",
-              "summary": "乗算した結果を返す。",
-              "description": "乗算した結果を返す。",
+              "summary": "nimber同士のnim積を計算する。",
+              "description": "nimber同士のnim積を計算する。",
               "searchTerms": [
                 "__mul__",
                 "mul",
                 "__mul__(other)"
               ],
-              "arguments": "other: 同じ型のもう一方のobject・値",
+              "arguments": "other: 同じbit幅のNimber、またはその幅以内の非負整数。",
               "argumentDetails": [
                 {
                   "name": "other",
-                  "description": "同じ型のもう一方のオブジェクト・値"
+                  "description": "同じbit幅のNimber、またはその幅以内の非負整数。"
                 }
               ],
-              "returns": "Nimber — Nimber のインスタンス。",
+              "returns": "Nimber — selfとotherのnim積を表す、selfと同じbit幅のnimber。",
               "returnFormat": "Nimber",
-              "returnDescription": "Nimber のインスタンス。",
-              "complexity": "O(1)",
-              "sourceLine": 104
+              "returnDescription": "selfとotherのnim積を表す、selfと同じbit幅のnimber。",
+              "complexity": "O(1)。64bitでは表がなければO(2^16)時間・領域の前計算を行う",
+              "sourceLine": 137
             },
             {
               "name": "power",
               "kind": "method",
               "signature": "power(exponent)",
-              "summary": "入力した値・多項式を指定指数だけ累乗する。",
-              "description": "入力した値・多項式を指定指数だけ累乗する。",
+              "summary": "nim積を繰り返した累乗を二分累乗で求める。",
+              "description": "nim積を繰り返した累乗を二分累乗で求める。",
               "searchTerms": [
                 "power",
                 "power(exponent)"
               ],
-              "arguments": "exponent: 非負の指数",
+              "arguments": "exponent: 非負の整数指数。0なら1を返す。",
               "argumentDetails": [
                 {
                   "name": "exponent",
-                  "description": "非負の指数"
+                  "description": "非負の整数指数。0なら1を返す。"
                 }
               ],
               "returns": "Nimber — nim積に関するselfのexponent乗。",
               "returnFormat": "Nimber",
               "returnDescription": "nim積に関するselfのexponent乗。",
-              "complexity": "O(1)",
-              "sourceLine": 110
+              "complexity": "O(log(exponent+1))回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+              "sourceLine": 143
             },
             {
               "name": "inverse",
               "kind": "method",
               "signature": "inverse()",
-              "summary": "逆元・逆変換を求める。",
-              "description": "逆元・逆変換を求める。",
+              "summary": "selfとのnim積が1になる逆元を求める。0ならZeroDivisionError。",
+              "description": "selfとのnim積が1になる逆元を求める。0ならZeroDivisionError。",
               "searchTerms": [
                 "inverse",
                 "inverse()"
               ],
               "arguments": "なし",
               "argumentDetails": [],
-              "returns": "計算結果（入力型に依存） — 求めた逆元・逆変換。",
-              "returnFormat": "計算結果（入力型に依存）",
-              "returnDescription": "求めた逆元・逆変換。",
-              "complexity": "O(1)",
-              "sourceLine": 125
+              "returns": "Nimber — selfと同じbit幅の逆元。",
+              "returnFormat": "Nimber",
+              "returnDescription": "selfと同じbit幅の逆元。",
+              "complexity": "O(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+              "sourceLine": 158
             },
             {
               "name": "__truediv__",
               "kind": "method",
               "signature": "__truediv__(other)",
-              "summary": "除算した結果を返す。",
-              "description": "除算した結果を返す。",
+              "summary": "otherの逆元とのnim積で除算する。0で割るとZeroDivisionError。",
+              "description": "otherの逆元とのnim積で除算する。0で割るとZeroDivisionError。",
               "searchTerms": [
                 "__truediv__",
                 "truediv",
                 "__truediv__(other)"
               ],
-              "arguments": "other: 同じ型のもう一方のobject・値",
+              "arguments": "other: 同じbit幅のNimber、またはその幅以内の正整数。いずれも0以外。",
               "argumentDetails": [
                 {
                   "name": "other",
-                  "description": "同じ型のもう一方のオブジェクト・値"
+                  "description": "同じbit幅のNimber、またはその幅以内の正整数。いずれも0以外。"
                 }
               ],
-              "returns": "入力要素と同じ型 — 除算した結果。",
-              "returnFormat": "入力要素と同じ型",
-              "returnDescription": "除算した結果。",
-              "complexity": "O(1)",
-              "sourceLine": 132
+              "returns": "Nimber — otherとのnim積がselfになる、selfと同じbit幅のnimber。",
+              "returnFormat": "Nimber",
+              "returnDescription": "otherとのnim積がselfになる、selfと同じbit幅のnimber。",
+              "complexity": "O(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+              "sourceLine": 165
             }
           ]
         },
         {
           "name": "NimberToField",
-          "summary": "Conway nimber積・逆元・基底変換を行うクラス。",
-          "description": "Conway nimber積・逆元・基底変換を行うクラス。",
+          "summary": "nimberの通常のbit表示と、指定したrootの累乗を基底とする係数bit列を相互変換する。",
+          "description": "nimberの通常のbit表示と、指定したrootの累乗を基底とする係数bit列を相互変換する。",
           "searchTerms": [
             "NimberToField",
             "Nimber To Field",
             "NimberToField(primitive_root)"
           ],
           "constructor": "NimberToField(primitive_root)",
-          "constructorArguments": "primitive_root: primitive rootとして使う入力",
+          "constructorArguments": "primitive_root: Nimberまたは64bit整数。1, root, ..., root^(bits-1)が基底を作る必要があり、作らなければValueError。",
           "constructorArgumentDetails": [
             {
               "name": "primitive_root",
-              "description": "primitive rootとして使う入力"
+              "description": "Nimberまたは64ビット整数。1, root, ..., root^(bits-1)が基底を作る必要があり、作らなければValueError"
             }
           ],
           "constructorReturns": "NimberToField instance",
           "constructorReturnFormat": "NimberToField",
-          "constructorReturnDescription": "Conway nimber積・逆元・基底変換を行うクラス。",
-          "constructorCreates": "Conway nimber積・逆元・基底変換を行うクラス。",
-          "constructorComplexity": "O(1)",
-          "constructorSourceLine": 142,
+          "constructorReturnDescription": "field2nimberで係数bit列からnimberへ、nimber2fieldで逆向きに変換できる表。",
+          "constructorCreates": "field2nimberで係数bit列からnimberへ、nimber2fieldで逆向きに変換できる表。",
+          "constructorComplexity": "O(bits²)回のbit演算とO(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う",
+          "constructorSourceLine": 175,
           "methods": [
             {
               "name": "field2nimber",
               "kind": "method",
               "signature": "field2nimber(value)",
-              "summary": "field2nimberを求める。",
-              "description": "field2nimberを求める。",
+              "summary": "rootの累乗に対する係数bit列をnimberへ変換する。",
+              "description": "rootの累乗に対する係数bit列をnimberへ変換する。",
               "searchTerms": [
                 "field2nimber",
                 "field2nimber(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: bits bit以内の非負整数。bit iがroot^iの係数（0か1）。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "bits bit以内の非負整数。bit iがroot^iの係数（0か1）。"
                 }
               ],
-              "returns": "Nimber — Nimber のインスタンス。",
+              "returns": "Nimber — valueの立っているbit iそれぞれのroot^iをXORしたnimber。",
               "returnFormat": "Nimber",
-              "returnDescription": "Nimber のインスタンス。",
-              "complexity": "O(1)",
-              "sourceLine": 189
+              "returnDescription": "valueの立っているbit iそれぞれのroot^iをXORしたnimber。",
+              "complexity": "O(bits)",
+              "sourceLine": 222
             },
             {
               "name": "nimber2field",
               "kind": "method",
               "signature": "nimber2field(value)",
-              "summary": "nimber2fieldを求める。",
-              "description": "nimber2fieldを求める。",
+              "summary": "nimberをrootの累乗に対する係数bit列へ変換する。",
+              "description": "nimberをrootの累乗に対する係数bit列へ変換する。",
               "searchTerms": [
                 "nimber2field",
                 "nimber2field(value)"
               ],
-              "arguments": "value: 追加・設定・問い合わせる値",
+              "arguments": "value: 同じbit幅のNimber、またはbits bit以内の非負整数。",
               "argumentDetails": [
                 {
                   "name": "value",
-                  "description": "追加・設定・問い合わせる値"
+                  "description": "同じbit幅のNimber、またはbits bit以内の非負整数。"
                 }
               ],
-              "returns": "計算結果（入力型に依存） — 求めたnimber2field。",
-              "returnFormat": "計算結果（入力型に依存）",
-              "returnDescription": "求めたnimber2field。",
-              "complexity": "O(1)",
-              "sourceLine": 192
+              "returns": "int — bit iがroot^iの係数。field2nimberで元のnimberへ戻せる。",
+              "returnFormat": "int",
+              "returnDescription": "bit iがroot^iの係数。field2nimberで元のnimberへ戻せる。",
+              "complexity": "O(bits)",
+              "sourceLine": 225
             }
           ]
         }

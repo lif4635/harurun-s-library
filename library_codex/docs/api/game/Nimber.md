@@ -9,11 +9,9 @@ Conway nimber積・逆元・基底変換。
 
 ## できること
 
-- `nim_product16`: nim product16を求める。
-- `nim_product32`: nim product32を求める。
-- `nim_product64`: nim product64を求める。
-- `nim_product`: nim productを計算する。
-- `Nimber`: Conway nimber積・逆元・基底変換を扱う `Nimber`。
+- 64bit以下の非負整数のnim積を整数で求める。通常の整数積とは異なり、2と2のnim積は3。
+- Nimberでは加減算をXORとして扱い、nim積に関する逆元・除算・累乗を計算できる。
+- 64bitの積は16bitの対数表を初回だけ作り、以後は表引きで計算する。
 
 ## Import
 
@@ -32,40 +30,42 @@ from library_codex.game.Nimber import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`nim_product16(first, second)`](../../../game/Nimber.py#L32) | nim product16を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 8 ^ correction ^ lower` | — |
-| [`nim_product32(first, second)`](../../../game/Nimber.py#L41) | nim product32を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 16 ^ correction ^ lower` | — |
-| [`nim_product64(first, second)`](../../../game/Nimber.py#L50) | nim product64を求める。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値 | 数値または入力要素型 `(mixed ^ lower) << 32 ^ correction ^ lower` | — |
-| [`nim_product(first, second, bits=64)`](../../../game/Nimber.py#L60) | nim productを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`bits`: 使用bit数。省略時: `64` | `_PRODUCT8[first][second]` / `nim_product16(first, second)` / `nim_product32(first, second)` / `nim_product64(first, second)` | — |
+| [`nim_product16(first, second)`](../../../game/Nimber.py#L35) | 16bit以内の非負整数同士のnim積を求める。 | `first`: 0以上2^16未満。範囲検査は行わない。<br>`second`: firstと同じ範囲の非負整数。 | int — 16bit以内のnim積。通常の整数積を剰余で丸めたものではない。 | O(1) |
+| [`nim_product32(first, second)`](../../../game/Nimber.py#L44) | 32bit以内の非負整数同士のnim積を求める。 | `first`: 0以上2^32未満。範囲検査は行わない。<br>`second`: firstと同じ範囲の非負整数。 | int — 32bit以内のnim積。通常の整数積を剰余で丸めたものではない。 | O(1) |
+| [`nim_product64(first, second)`](../../../game/Nimber.py#L77) | 64bit以内の非負整数同士のnim積を求める。 | `first`: 0以上2^64未満。範囲検査は行わない。<br>`second`: firstと同じ範囲の非負整数。 | int — 64bit以内のnim積。通常の整数積を剰余で丸めたものではない。 | O(1)。初回の両引数が2以上の呼出しのみO(2^16)時間・領域の前計算を行う |
+| [`nim_product(first, second, bits=64)`](../../../game/Nimber.py#L93) | 指定bit幅に対応するnim積の関数を選んで計算する。 | `first`: 指定幅以内の非負整数。<br>`second`: 指定幅以内の非負整数。<br>`bits`: 通常は8・16・32・64を指定。64を超えるとValueError。省略時: `64` | int — firstとsecondのnim積。0と任意の値の積は0、1との積は元の値。 | O(1)。32bitを超える積では初回のみO(2^16)時間・領域の前計算を行う |
 
 ## Class `Nimber`
 
-Conway nimber積・逆元・基底変換を扱う `Nimber`。
+加減算がXOR、乗算がnim積となる体の要素を表す。
 
-- constructor: [`Nimber(value=0, bits=64)`](../../../game/Nimber.py#L75)
-- 引数: `value`: 追加・設定・問い合わせる値。省略時: `0`<br>`bits`: 使用bit数。省略時: `64`
+- constructor: [`Nimber(value=0, bits=64)`](../../../game/Nimber.py#L108)
+- 引数: `value`: 下位bits bitをnimberの整数表示として使う。省略時: `0`<br>`bits`: 8・16・32・64のいずれか。演算する相手と揃える。省略時: `64`
 - 返り値: `Nimber` instance
-- 計算量: —
+- 計算量: O(1)
+- 作成後: 指定bit幅のnimber。演算子で加減乗除、powerで累乗、inverseで逆元を求め、intで整数表示を取り出せる。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`__int__()`](../../../game/Nimber.py#L91) | method | int(obj)。 | なし | int | — |
-| [`__eq__(other)`](../../../game/Nimber.py#L94) | method | obj == other。 | `other`: 同じ型のもう一方のobject・値 | bool | — |
-| [`__add__(other)`](../../../game/Nimber.py#L97) | method | obj + other。 | `other`: 同じ型のもう一方のobject・値 | Nimber instance | — |
-| [`__mul__(other)`](../../../game/Nimber.py#L104) | method | obj * other。 | `other`: 同じ型のもう一方のobject・値 | Nimber instance | — |
-| [`power(exponent)`](../../../game/Nimber.py#L110) | method | 入力した値・多項式を指定指数だけ累乗する。 | `exponent`: 非負の指数 | Nimber — nim積に関するselfのexponent乗。 | — |
-| [`inverse()`](../../../game/Nimber.py#L125) | method | 逆元・逆変換を求める。 | なし | `self.power((1 << self.bits) - 2)` | — |
-| [`__truediv__(other)`](../../../game/Nimber.py#L132) | method | obj / other。 | `other`: 同じ型のもう一方のobject・値 | 数値または入力要素型 `self * other.inverse()` | — |
+| [`__int__()`](../../../game/Nimber.py#L124) | method | nimberの整数表示を取り出す。 | なし | int — 保持しているbits bit以内の非負整数。 | O(1) |
+| [`__eq__(other)`](../../../game/Nimber.py#L127) | method | 同じ値を表すnimberか比較する。 | `other`: 同じbit幅のNimber、または整数表示。 | bool — 整数表示が一致すればTrue。異なるbit幅のNimberならValueError。 | O(1) |
+| [`__add__(other)`](../../../game/Nimber.py#L130) | method | 整数表示のXORでnimberを加算する。 | `other`: 同じbit幅のNimber、またはその幅以内の非負整数。 | Nimber — selfとotherのXORを表す、selfと同じbit幅のnimber。 | O(1) |
+| [`__mul__(other)`](../../../game/Nimber.py#L137) | method | nimber同士のnim積を計算する。 | `other`: 同じbit幅のNimber、またはその幅以内の非負整数。 | Nimber — selfとotherのnim積を表す、selfと同じbit幅のnimber。 | O(1)。64bitでは表がなければO(2^16)時間・領域の前計算を行う |
+| [`power(exponent)`](../../../game/Nimber.py#L143) | method | nim積を繰り返した累乗を二分累乗で求める。 | `exponent`: 非負の整数指数。0なら1を返す。 | Nimber — nim積に関するselfのexponent乗。 | O(log(exponent+1))回のnim積。64bitでは表がなければO(2^16)の前計算も行う |
+| [`inverse()`](../../../game/Nimber.py#L158) | method | selfとのnim積が1になる逆元を求める。0ならZeroDivisionError。 | なし | Nimber — selfと同じbit幅の逆元。 | O(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う |
+| [`__truediv__(other)`](../../../game/Nimber.py#L165) | method | otherの逆元とのnim積で除算する。0で割るとZeroDivisionError。 | `other`: 同じbit幅のNimber、またはその幅以内の正整数。いずれも0以外。 | Nimber — otherとのnim積がselfになる、selfと同じbit幅のnimber。 | O(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う |
 
 ## Class `NimberToField`
 
-Conway nimber積・逆元・基底変換を扱う `NimberToField`。
+nimberの通常のbit表示と、指定したrootの累乗を基底とする係数bit列を相互変換する。
 
-- constructor: [`NimberToField(primitive_root)`](../../../game/Nimber.py#L142)
-- 引数: `primitive_root`: primitive rootとして使う入力
+- constructor: [`NimberToField(primitive_root)`](../../../game/Nimber.py#L175)
+- 引数: `primitive_root`: Nimberまたは64bit整数。1, root, ..., root^(bits-1)が基底を作る必要があり、作らなければValueError。
 - 返り値: `NimberToField` instance
-- 計算量: —
+- 計算量: O(bits²)回のbit演算とO(bits)回のnim積。64bitでは表がなければO(2^16)の前計算も行う
+- 作成後: field2nimberで係数bit列からnimberへ、nimber2fieldで逆向きに変換できる表。
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`field2nimber(value)`](../../../game/Nimber.py#L189) | method | field2nimberを求める。 | `value`: 追加・設定・問い合わせる値 | Nimber instance | — |
-| [`nimber2field(value)`](../../../game/Nimber.py#L192) | method | nimber2fieldを求める。 | `value`: 追加・設定・問い合わせる値 | `self._apply(self.nimber_to_field, value)` | — |
+| [`field2nimber(value)`](../../../game/Nimber.py#L222) | method | rootの累乗に対する係数bit列をnimberへ変換する。 | `value`: bits bit以内の非負整数。bit iがroot^iの係数（0か1）。 | Nimber — valueの立っているbit iそれぞれのroot^iをXORしたnimber。 | O(bits) |
+| [`nimber2field(value)`](../../../game/Nimber.py#L225) | method | nimberをrootの累乗に対する係数bit列へ変換する。 | `value`: 同じbit幅のNimber、またはbits bit以内の非負整数。 | int — bit iがroot^iの係数。field2nimberで元のnimberへ戻せる。 | O(bits) |
