@@ -304,7 +304,7 @@
 - [x] `Math/scarysum.hpp` — `number_theory/FloorPolynomialSum.py`
 - [x] `Math/sieve.hpp` — `prime/Sieve.py`
 - [x] `Math/sternbrocot.hpp` — `math/Structures.py`
-- [x] `Math/stirlingquery.hpp` — `combinatorics/BinomialQueries.py`
+- [x] `Math/stirlingquery.hpp` — `combinatorics/StirlingNumberQuery.py`
 - [x] `Math/totient.hpp` — `prime/Sieve.py`
 - [x] `Math/twosat.hpp` — `graph/GraphMatching.py`
 - [x] `Math/twosquare.hpp` — `math/NumberTheoryExtras.py`

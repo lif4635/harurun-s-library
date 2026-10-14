@@ -2168,7 +2168,7 @@ COVERED = {
     (
         "tko919/library",
         "Math/stirlingquery.hpp",
-    ): "combinatorics/BinomialQueries.py",
+    ): "combinatorics/StirlingNumberQuery.py",
     **{
         ("NyaanNyaan/library", path): "combinatorics/ArbitraryBinomial.py"
         for path in (

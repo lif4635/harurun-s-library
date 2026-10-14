@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 206,
-    "unimplemented": 47
+    "local_passed": 208,
+    "unimplemented": 45
   },
   "problems": [
     {
@@ -2718,10 +2718,12 @@
       "title": "Stirling Number of the First Kind (Small p, Large n)",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind_small_p_large_n",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.combinatorics.StirlingNumberQuery"
+      ],
+      "solution": "solutions/stirling_number_of_the_first_kind_small_p_large_n.py",
+      "result": "results/stirling_number_of_the_first_kind_small_p_large_n.json"
     },
     {
       "name": "stirling_number_of_the_second_kind",
@@ -2758,10 +2760,12 @@
       "title": "Stirling Number of the Second Kind (Small p, Large n)",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind_small_p_large_n",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.combinatorics.StirlingNumberQuery"
+      ],
+      "solution": "solutions/stirling_number_of_the_second_kind_small_p_large_n.py",
+      "result": "results/stirling_number_of_the_second_kind_small_p_large_n.json"
     },
     {
       "name": "subset_convolution",

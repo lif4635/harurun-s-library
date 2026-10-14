@@ -1,3 +1,5 @@
+"""二項係数の部分和を、隣接する添字への移動や一括queryで求める。"""
+
 from math import isqrt
 
 from library_codex.fps.FormalPowerSeries import DEFAULT_MOD
@@ -64,83 +66,3 @@ def comb_prefix_sums(queries, mod=DEFAULT_MOD):
         target_n, target_m = queries[query_index]
         result[query_index] = cursor.move(target_n, target_m)
     return result
-
-
-class StirlingNumberQuery:
-    __slots__ = ("prime", "binomial_table", "first", "second")
-
-    def __init__(self, prime):
-        if prime < 2:
-            raise ValueError("prime must be at least two")
-        self.prime = prime
-        binomial = [[0] * prime for _ in range(prime)]
-        first = [[0] * prime for _ in range(prime)]
-        second = [[0] * prime for _ in range(prime)]
-        binomial[0][0] = first[0][0] = second[0][0] = 1
-        for n in range(1, prime):
-            for k in range(n + 1):
-                if k:
-                    binomial[n][k] = binomial[n - 1][k - 1]
-                    first[n][k] = first[n - 1][k - 1]
-                    second[n][k] = second[n - 1][k - 1]
-                binomial[n][k] = (binomial[n][k]
-                                  + binomial[n - 1][k]) % prime
-                first[n][k] = (first[n][k]
-                               + (prime - n + 1) * first[n - 1][k]) % prime
-                second[n][k] = (second[n][k]
-                                + k * second[n - 1][k]) % prime
-        self.binomial_table = binomial
-        self.first = first
-        self.second = second
-
-    def _binomial(self, n, k):
-        if n < 0 or k < 0 or n < k:
-            return 0
-        result = 1
-        prime = self.prime
-        while n:
-            n, nd = divmod(n, prime)
-            k, kd = divmod(k, prime)
-            if kd > nd:
-                return 0
-            result = result * self.binomial_table[nd][kd] % prime
-        return result
-
-    def first_kind(self, n, k):
-        if n < 0 or k < 0 or k > n:
-            return 0
-        prime = self.prime
-        quotient, remainder = divmod(n, prime)
-        if k < quotient:
-            return 0
-        a, b = divmod(k - quotient, prime - 1)
-        if b == 0 and remainder:
-            b += prime - 1
-            a -= 1
-        if a < 0 or a > quotient or b > remainder:
-            return 0
-        result = self._binomial(quotient, a) * self.first[remainder][b] % prime
-        return -result % prime if (quotient + a) & 1 else result
-
-    FirstKind = first_kind
-
-    def second_kind(self, n, k):
-        if n < 0 or k < 0 or k > n:
-            return 0
-        if n == 0:
-            return 1
-        prime = self.prime
-        quotient, remainder = divmod(k, prime)
-        if n < quotient:
-            return 0
-        a, b = divmod(n - quotient, prime - 1)
-        if b == 0:
-            b += prime - 1
-            a -= 1
-        if a < 0 or b < remainder:
-            return 0
-        if b == prime - 1 and remainder == 0:
-            return self._binomial(a, quotient - 1)
-        return self._binomial(a, quotient) * self.second[b][remainder] % prime
-
-    SecondKind = second_kind

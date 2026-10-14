@@ -6,7 +6,7 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`ArbitraryBinomial`](ArbitraryBinomial.md) | 素数冪や合成数の法で、nが法より大きい二項係数も求める | 0 | 3 | 4 |
-| [`BinomialQueries`](BinomialQueries.md) | 二項係数prefix和と巨大添字Stirlingの一括query | 1 | 2 | 4 |
+| [`BinomialQueries`](BinomialQueries.md) | 二項係数の部分和を、添字の移動や一括queryで求める。 | 1 | 1 | 2 |
 | [`Combination`](Combination.md) | 階乗表を使うCombと、小さいk向けの乗法式で二項係数を計算する。 | 1 | 1 | 9 |
 | [`DeBruijnSequence`](DeBruijnSequence.md) | 指定alphabetの全長order列を1回ずつ含む巡回列を作る。 | 1 | 0 | 0 |
 | [`ErdosGinzburgZiv`](ErdosGinzburgZiv.md) | Erdős–Ginzburg–Ziv定理の部分列構成 | 1 | 0 | 0 |
@@ -20,3 +20,4 @@
 | [`RationalBinomial`](RationalBinomial.md) | 有理数として二項係数を正確に計算する。 | 0 | 1 | 7 |
 | [`SetPartitions`](SetPartitions.md) | 有限列の集合分割を重複なく列挙する。 | 1 | 0 | 0 |
 | [`Skolem`](Skolem.md) | 通常・穴ありSkolem列の構築 | 1 | 0 | 0 |
+| [`StirlingNumberQuery`](StirlingNumberQuery.md) | 小さい素数を法に、巨大なn・kのStirling数を繰り返し求める。 | 0 | 1 | 3 |

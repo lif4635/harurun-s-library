@@ -332,7 +332,6 @@ MODULE_CAPABILITIES.update({
     "combinatorics/BinomialQueries.py": (
         "複数のsum(C(n,k), 0<=k<=m)をquery順に一括計算できる。",
         "BinomialPrefixで現在の(n,m)を前後へ動かし、隣接移動ごとにO(1)でprefix和を更新できる。",
-        "素数法で巨大なnに対する第1種・第2種Stirling数をqueryできる。",
     ),
     "tree/ZeroOneTree.py": (
         "親を子より先に並べる制約の下で、0/1ラベル列の転倒数を最小化できる。",
@@ -953,16 +952,6 @@ API_DETAILS_BY_SYMBOL = {
         "description": r"現在位置 $(n,m)$ の $\sum_{k=0}^{m}\binom{n}{k}$ を返す。",
         "returnFormat": "int",
         "returnDescription": r"現在位置の $\sum_{k=0}^{m}\binom{n}{k}\bmod\mathrm{mod}$。",
-    },
-    ("combinatorics/BinomialQueries.py", "StirlingNumberQuery", "first_kind"): {
-        "description": r"符号なし第一種 Stirling 数 $c(n,k)$ を求める。",
-        "returnFormat": "int",
-        "returnDescription": r"$c(n,k)\bmod\mathrm{mod}$。",
-    },
-    ("combinatorics/BinomialQueries.py", "StirlingNumberQuery", "second_kind"): {
-        "description": r"第二種 Stirling 数 $S(n,k)$ を求める。",
-        "returnFormat": "int",
-        "returnDescription": r"$S(n,k)\bmod\mathrm{mod}$。",
     },
     ("fenwick_tree/BIT.py", "BIT", "prefix_sum"): {
         "description": r"先頭からright未満までの和 $\sum_{i=0}^{\mathrm{right}-1}a_i$ を返す。",
@@ -7743,4 +7732,41 @@ API_DETAILS_BY_SYMBOL[("linear_algebra/Adjugate.py", None, "adjugate")] = {
     },
     "returnFormat": "list[list[int]]",
     "returnDescription": "N×Nの行列。result[i][j]は入力のj行目とi列目を除いた小行列の行列式に(-1)^(i+j)を掛け、modで剰余を取った値。空行列なら[]、1×1なら[[1]]。階数N−2以下なら零行列。",
+}
+SEARCH_TERMS_BY_MODULE["combinatorics/StirlingNumberQuery.py"] = ("スターリング数", "集合分割", "下降階乗", "小さい素数")
+COMPLEXITY_BY_MODULE["combinatorics/StirlingNumberQuery.py"] = {
+    "StirlingNumberQuery": "O(p)時間・領域。pはprime。階乗・逆階乗だけを前計算する。",
+    "first_kind": "O(1 + log_p(n+1))時間、O(1)追加領域。ただし第一種の表が必要になった最初の呼び出しではO(p²)時間・領域。pはprime。整数の四則演算をO(1)として数える。",
+    "second_kind": "O(1 + log_p(n+1))時間、O(1)追加領域。ただし第二種の表が必要になった最初の呼び出しではO(p²)時間・領域。pはprime。整数の四則演算をO(1)として数える。",
+    "__repr__": "O(1)時間・領域。pは65535以下。",
+}
+CLASS_DETAILS_BY_SYMBOL[("combinatorics/StirlingNumberQuery.py", "StirlingNumberQuery")] = {
+    "description": "小さい素数を法に、巨大なn・kのStirling数を繰り返し求める。第一種は符号付き。",
+    "constructorCreates": "first_kind(n, k)で符号付き第一種、second_kind(n, k)で第二種の剰余を取得できる。それぞれの表は必要になったときに一度だけ作り、使わない種類の表は保持しない。",
+    "argumentDescriptions": {
+        "prime": "2以上65535以下の素数。Stirling表の構築はO(prime²)なので数千程度を想定。範囲外・合成数ならValueError。",
+    },
+}
+API_DETAILS_BY_SYMBOL[("combinatorics/StirlingNumberQuery.py", "StirlingNumberQuery", "first_kind")] = {
+    "description": "下降階乗x(x−1)…(x−n+1)を展開したときのx^kの係数を求める。符号付き第一種のStirling数。",
+    "argumentDescriptions": {
+        "n": "下降階乗の次数。非負整数。負数なら0を返す。",
+        "k": "係数を読む次数。k<0またはk>nなら0を返す。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "係数をprimeで割った余り。0以上prime未満。負の係数も非負の剰余で返す。n=k=0なら1、n>0かつk=0なら0。",
+}
+API_DETAILS_BY_SYMBOL[("combinatorics/StirlingNumberQuery.py", "StirlingNumberQuery", "second_kind")] = {
+    "description": "n個の区別できる要素をk個の空でないグループへ分ける個数を求める。グループの順序は区別しない。",
+    "argumentDescriptions": {
+        "n": "分ける要素数。非負整数。負数なら0を返す。",
+        "k": "グループ数。k<0またはk>nなら0を返す。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "分け方の個数をprimeで割った余り。0以上prime未満。n=k=0なら1、n>0かつk=0なら0。",
+}
+API_DETAILS_BY_SYMBOL[("combinatorics/StirlingNumberQuery.py", "StirlingNumberQuery", "__repr__")] = {
+    "description": "型名と法を表示する。前計算表は展開しない。",
+    "returnFormat": "str",
+    "returnDescription": "StirlingNumberQuery(prime=7)の形式の文字列。",
 }

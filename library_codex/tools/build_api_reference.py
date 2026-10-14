@@ -100,7 +100,7 @@ MODULE_OVERRIDES = {
         "素数冪や合成数の法で、nが法より大きい二項係数も求める",
         "素数冪p^eごとに問い合わせO(log_p(n+1))、階乗表の拡張分を追加。大きい素数では平方根サイズの多項式演算を使う",
     ),
-    "combinatorics/BinomialQueries.py": ("二項係数prefix和と巨大添字Stirlingの一括query", "Mo法 / 補間依存"),
+    "combinatorics/BinomialQueries.py": ("二項係数の部分和を、添字の移動や一括queryで求める。", ""),
     "number_theory/Elementary.py": ("gcd・lcm・整数根など初等数学関数", "各標準計算量"),
     "number_theory/FloorPolynomialSum.py": ("floorを含む多項式和", "Euclid pathと次数依存"),
     "rational/FractionSearch.py": (
