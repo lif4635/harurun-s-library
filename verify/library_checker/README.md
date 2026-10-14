@@ -1,130 +1,92 @@
-# Library Checker の公式ケース検査
+# Library Checker
 
-`manifest.json` に公式の全問題と対応状況を記録する。未実装・未検証・失敗を残し、提出コードがあるだけで完了にしない。
+[解答](solutions/) · [検証結果](results/) · [PyPyベンチマーク](benchmarks/README.md) · [対応状況](manifest.json)
 
-`unimplemented` は、その問題の提出コードが未整備であることを表す。既存ライブラリに必要な機能がないという意味ではない。
+## 解答を探す
 
-2026-10-13時点の公式revision `1814c4e`では、195問題・4600ケースがローカル全件通過、58問題が未実装。
+問題URL末尾の名前でファイルを探す。たとえば`https://judge.yosupo.jp/problem/scc`なら、[solutions/scc.py](solutions/scc.py)。
 
-64bit nim積・点更新付き区間過半数検索の2問題、22ケースを追加した。既存Nimberの高速化とRangeMajorityの拡張は[検査・比較結果](../../library_codex/docs/NIMBER_MAJORITY_BENCHMARK.md)に記録する。
+`solutions/`のコードは依存を展開済みなので、ライブラリをインストールせず単独で実行できる。リポジトリ直下から実行する場合：
 
-最小費用b-flowの54ケースを追加した。最大流の軽量化とPython版ACLとの比較は[flowの検査・比較結果](../../library_codex/docs/FLOW_BENCHMARK.md)へ記録する。
+```sh
+pypy3 verify/library_checker/solutions/scc.py < input.txt
+```
 
-二次元の加算・範囲和3問題、50ケースを追加した。[検査・比較結果](../../library_codex/docs/SPATIAL_QUERIES_BENCHMARK.md)へ記録している。
+実装を読んだり変更したりするときは[drivers/scc.py](drivers/scc.py)のimport先を辿る。driverは入出力、`library_codex`はアルゴリズムを担当する。生成済みの`solutions/`は直接編集しない。
 
-凹列と一般列のmin-plus畳み込み41ケースを追加した。既存の凸列2問題も再検証し、3問題のPyPy反復測定を更新した。実装の説明と上位PyPy提出との比較は[測定記録](../../library_codex/docs/MINPLUS_CONCAVE_BENCHMARK.md)を参照。
+## 検証済みか確認する
 
-木分解・st-numbering・マンハッタンMST・k本の最短walkの4問題、94ケースを追加した。新規2moduleと既存2実装の軽量化は[検査・比較結果](../../library_codex/docs/GRAPH_DECOMPOSITION_BENCHMARK.md)を参照。
+[manifest.json](manifest.json)に全問題の対応状況、使用モジュール、解答と結果のパスがある。個別の結果は`results/<問題名>.json`、反復測定は`benchmarks/<問題名>.json`。
 
-彩色数・クリーク列挙・最大独立集合・C4数え上げ・Steiner木・chordal判定の6問題、140ケースを追加した。修正内容と上位PyPy提出との比較は[測定記録](../../library_codex/docs/GRAPH_ENUMERATION_BENCHMARK.md)を参照。
+| 状態 | 意味 |
+| --- | --- |
+| `local_passed` | 記録された公式問題versionの全ケースをローカルで通過 |
+| `unimplemented` | 問題用の解答がない。ライブラリに必要な機能がないとは限らない |
+| `unverified` | 解答はあるが検証結果がない |
+| `stale` | 解答または公式問題が結果の記録時から変わっている |
+| `incomplete` | 全ケースの検査が終わっていない |
+| `failed` / `error` | ケースの不通過 / 生成・実行基盤の失敗 |
 
-Dequeと木の最小転倒数の2問題、66ケースを追加した。順序復元、重み0の不具合修正、整数IDの優先度キューへの変更は[測定記録](../../library_codex/docs/DEQUE_TREE_ORDER_BENCHMARK.md)を参照。
+結果JSONにはケース別の判定と時間、実行環境、source hash、公式問題versionを記録する。保存済みの対応状況は、下の`list`で現在のsourceと公式checkoutに照らして更新できる。
 
-巨大配列の関数合成・affine更新と、区間上書きの関数合成3問題、79ケースを追加した。RangeAssignSegTreeの追加と時間超過の解消は[測定記録](../../library_codex/docs/AFFINE_RANGE_BENCHMARK.md)を参照。
+オンライン提出は行っていない。公式checkerと時間制限を使うが、CPU・OS・PyPyの違いがあり、メモリ制限も強制していないため、オンラインACを保証するものではない。
 
-F₂連立方程式・空間交差・長方形の和集合面積の3問題、74ケースを追加した。時間超過からの高速化と上位PyPy提出との比較は[測定記録](../../library_codex/docs/F2_AND_RECTANGLE_BENCHMARK.md)にまとめた。
+## 手元で検証する
 
-多項式の評価・補間・累積和の4問題、111ケースを追加した。公比1の有限和も修正した。[検査・比較結果](../../library_codex/docs/POLYNOMIAL_SAMPLING_BENCHMARK.md)に記録している。
+WSLのPyPy、g++、Gitを使う。以下はすべてリポジトリ直下で実行する。
 
-多項式5問題、172ケースを追加した。合成逆のpower projection、剰余の前計算再利用、法2の因数分解の停止しない入力への修正を[検査・比較結果](../../library_codex/docs/POLYNOMIAL_ALGORITHMS_BENCHMARK.md)に記録している。
-
-任意法・q二項係数の2問題、60ケースを追加した。逆階乗・CRT係数の再利用と、巨大整数の二項係数を作らないq二項係数の実装を[検査・比較結果](../../library_codex/docs/BINOMIAL_BENCHMARK.md)に記録している。
-
-整数・有理数の5問題、121ケースを追加した。有理数の上下近似と一次式の最小剰余を除算で求める実装を追加し、[検査とPyPy測定結果](../../library_codex/docs/NUMBER_THEORY_BENCHMARK.md)へ記録している。
-
-区間クエリ4問題、76ケースを追加した。WeightedWaveletMatrixの32ビット化、一次式加算の配列化、区間加算driverの演算選択を[検査・比較結果](../../library_codex/docs/RANGE_QUERY_BENCHMARK.md)に記録している。
-
-木・区間・群の差の7問題、192ケースを追加した。距離範囲和と区間最頻値の時間超過を解消した。[検査・比較結果](../../library_codex/docs/TREE_RANGE_BENCHMARK.md)に記録している。
-
-行列の7問題、175ケースを追加した。行列累乗の時間超過を解消し、行列積も高速化した。[行列の検査・比較結果](../../library_codex/docs/MATRIX_ALGORITHMS_BENCHMARK.md)に記録している。
-
-前回の文字列6問題と両端回文木は[文字列の検査・比較結果](../../library_codex/docs/STRING_ALGORITHMS_BENCHMARK.md)に記録している。
-
-前回の辺追加SCCと重み付き一般マッチングのTLE修正は[高速化と上位PyPy実装との比較](../../library_codex/docs/GRAPH_ALGORITHMS_BENCHMARK.md)に記録している。
-
-前回の最近点対の高速化は[変更前・上位PyPy実装との比較](../../library_codex/docs/CLOSEST_PAIR_BENCHMARK.md)に記録している。
-
-動的列と区間頻度の前回の高速化は[比較結果](../../library_codex/docs/DATA_STRUCTURE_BENCHMARK.md)に記録している。
-
-- `drivers/`: 問題固有の入出力。アルゴリズムは `library_codex` から import する。
-- `solutions/`: 依存を展開した提出コード。そのまま単独で実行できる生成物。
-- `results/`: 公式全ケースの判定、時間、source hash、公式問題version、実行環境。
-- [`benchmarks/`](benchmarks/README.md): PyPyで反復測定した時間・最大RSS・各回の生データ。
-- `manifest.json`: 問題一覧と解答・結果の対応。
-
-以前からある問題別 benchmark の解答も生成に利用する。`drivers/` に同名ファイルを置いた場合はそちらを使う。生成済み `solutions/` は直接編集しない。
-
-## 実行
-
-WSL の PyPy、g++、Git と、[公式問題リポジトリ](https://github.com/yosupo06/library-checker-problems)を使う。初回は専用キャッシュへ取得する。
+初回だけ[公式問題リポジトリ](https://github.com/yosupo06/library-checker-problems)を取得する。取得先は任意で、以降の`--official`へ同じパスを渡す。
 
 ```sh
 git clone https://github.com/yosupo06/library-checker-problems.git /home/harurun/.cache/harurun-library-checker/problems
-pypy3 library_codex/tools/check_library_checker.py list --official /home/harurun/.cache/harurun-library-checker/problems
-pypy3 library_codex/tools/check_library_checker.py test --official /home/harurun/.cache/harurun-library-checker/problems
 ```
 
-特定の問題だけ回す場合は名前を指定する。
+特定の問題を検査する：
 
 ```sh
-pypy3 library_codex/tools/check_library_checker.py test convolution_mod scc --official /home/harurun/.cache/harurun-library-checker/problems
+pypy3 library_codex/tools/check_library_checker.py test scc --official /home/harurun/.cache/harurun-library-checker/problems
 ```
 
-公式の `generate.py` で全入力・正解出力・checkerを用意し、公式 `hash.json` と一致することを検査する。その後、各入力に提出コードを起動して、公式checkerで判定する。別解を許す問題も出力文字列の単純一致では判定しない。
+- 問題名は複数指定できる。省略すると解答のある全問題を検査する。
+- 公式生成器で入力・正解・checkerを用意し、公式hashと照合する。判定は出力の単純一致ではなく公式checkerで行う。
+- 同じ解答・問題version・runner・実行環境で通過済みなら結果を再利用する。`--force`で再実行できる。
+- `--reuse-tests <既存キャッシュ>`で、公式hashが一致する入力・正解だけをコピーして再利用できる。コピー元は変更しない。
+- 実行は逐次。大きな入力・正解ファイルはGitへ入れない。
 
-- 同じ解答・公式問題version・runner・実行環境で全件通過済みなら再実行しない。`--force` で測り直せる。
-- 解答が依存するライブラリを変更すると、展開後のsource hashが変わり再検査される。
-- 公式テストやcheckerは、公式生成器の更新判定で再利用する。大きな入出力はGitへ入れない。
-- 既存キャッシュがある場合、`--reuse-tests /home/harurun/.cache/online-judge-tools/library-checker-problems` を追加すると、公式hashが一致する入力・正解出力だけをコピーする。コピー元は変更しない。
-- テスト実行は逐次。計測には起動・JIT・入出力を含む。
+検査せず対応状況だけを更新する：
 
-## 解答の追加と更新
+```sh
+pypy3 library_codex/tools/check_library_checker.py list --official /home/harurun/.cache/harurun-library-checker/problems
+```
 
-1. 未対応問題の制約と高速解法を確認する。既存ライブラリで不足する場合は、再利用可能な実装を `library_codex` へ追加・改善する。
-2. 専用の単純解比較test、API説明、記事を追加する。
-3. `drivers/<problem>.py` に入出力を書き、提出コードを生成する。
-4. 公式全ケースを実行する。TLE・WA・REは結果を残し、成功として扱わない。
-5. PyPyで時間のかかった公式ケースを反復測定し、`benchmarks/`へ記録する。オンライン提出は行わない。
+公式リポジトリを更新した後もこのコマンドを使う。新しい問題は未対応として一覧へ加わる。
+
+## 解答を追加・変更する
+
+1. `library_codex`の実装と専用テストを追加・修正する。[保守手順](../../library_codex/docs/CONTRIBUTING.md)も参照。
+2. `drivers/<問題名>.py`へ入出力を書く。同名の既存benchmark用解答がある場合、driverが優先される。
+3. 以下で提出コードを再生成し、同期を検査する。
+4. 上の`test`で公式全ケースを検査する。必要なら下の手順で性能を測る。
 
 ```sh
 pypy3 library_codex/tools/check_library_checker.py build
 pypy3 library_codex/tools/check_library_checker.py check
 ```
 
-この2コマンドは公式リポジトリなしでも使える。通常の `check_changed.py` と `check_library.py` は提出コードの同期とrunnerのunit testを検査し、重い公式テスト全件を毎回起動しない。`prepare_checkpoint.py` は提出コードも再生成する。
+この2コマンドは公式リポジトリなしで使える。通常の`check_changed.py`・`check_library.py`は提出コードの同期とrunnerのテストを行うが、公式全ケースは実行しない。
 
-公式問題リポジトリを更新した後は `list` または `test` を実行する。問題一覧はそのcheckout内の `info.toml` から作り直すため、新しい問題も未実装として現れる。
+## 速度を測る
 
-## 判定の範囲
-
-`local_passed` は、その公式revisionの全ケースをローカルchecker・制限時間で通過した状態。オンラインのAC提出ではない。`onlineSubmission` は未提出なら `null`。
-
-時間制限は公式の値を使うが、手元のCPU・PyPy version・OS負荷はオンラインjudgeと異なる。メモリ制限は再現していない。したがってオンラインACや本番環境での同じ実行時間を保証しない。
-
-`stale` は解答または公式問題が変更された状態。`incomplete` は途中までの実行、`failed` は少なくとも一件が不通過、`error` は生成・実行基盤の失敗。結果JSONは一時ファイルから置き換え、途中で壊れたJSONを残さない。
-
-## PyPyベンチマーク
-
-公式全件検証を終えた問題に対して、次で測定する。
+公式全ケースの検証後、遅かった3ケースを各5回測る例：
 
 ```sh
-pypy3 library_codex/benchmarks/official_benchmark.py matrix_product_mod_2 inverse_matrix_mod_2 --official /home/harurun/.cache/harurun-library-checker/problems --repeat 5 --slowest 3
+pypy3 library_codex/benchmarks/official_benchmark.py scc --official /home/harurun/.cache/harurun-library-checker/problems --repeat 5 --slowest 3
 ```
 
-- 既定では直前の全件検証で遅かった3ケースを各5回実行する。`--slowest 0`なら全公式ケースを反復する。
-- 各回は新しいPyPy processで、起動・JIT・入出力を含む。ケース順を入れ替え、逐次実行する。ほかの重いテストと同時に測らない。
-- 全出力を公式checkerで検査する。入力・期待出力は公式hashと照合する。
-- CPU、OS、PyPy version、公式revision、source・入力・checkerのhash、各回の時間とRSS、中央値・最小値・最大値をJSONへ保存する。
-- 現在のsourceで公式全件検証が済んでいなければ測定しない。失敗した測定で以前の正常なベンチマークJSONを上書きしない。
-- `benchmarks/README.md`へ一覧を生成する。既存結果が現在のsourceと異なる場合は「要再測定」と表示する。
-- 測定用timeoutは最低30秒。公式の制限時間内に通るかどうかは`results/`の全件検証で判断する。RSSは記録するがメモリ制限は強制しない。
+- `--slowest 0`で全公式ケースを反復する。
+- 各回は新しいPyPyプロセスで、起動・JIT・入出力を含む。ケース順を入れ替え、他の重い検査と同時に走らせない。
+- 出力は毎回公式checkerで検査する。現在のsourceで公式全件検証が済んでいなければ測定しない。
+- 時間・最大RSS・入力とsourceのhash・実行環境をJSONへ保存し、[一覧](benchmarks/README.md)を更新する。失敗時に以前の正常な測定結果を上書きしない。
+- 測定用timeoutは最低30秒。公式時間制限の判定は`results/`で確認する。環境の異なる記録をそのまま速度比較しない。
 
-これは全入力の最悪時間やオンラインjudgeでの速度を保証するものではない。上位提出との同一入力比較は[比較記録](../../library_codex/docs/LIBRARY_CHECKER_COMPARISON.md)へ分けて残す。
-
-## 性能上の注意
-
-`bipartitematching` は次数優先の初期マッチングと、距離ラベルによる再割当を行い、走査上限に達したらHopcroft–Karpへ戻る。`a1076d2`との同条件5回比較では、`augmented_cycle_02`の中央値が2.976秒から0.558秒になった。PyPy最速提出は同じ入力で0.396秒だった。公式44ケースは全件通過し、その実行の最大は0.678秒。詳細は[上位提出との比較](../../library_codex/docs/LIBRARY_CHECKER_COMPARISON.md)へ保存している。オンライン環境の速度は未確認。
-
-`range_affine_point_get` の追加時に、`DualSegTree`で包含する区間と部分区間の更新順序が逆転する不具合を修正した。区間更新前に境界まで保留中の作用を下ろし、非可換なaffine変換も入力順に適用する。専用の小入力比較と公式全件検査で検証する。
-
-`range_parallel_unionfind` も最速PyPy提出を参照した。代表探索の重複を除き、階層を固定幅の整数配列へまとめ、driverの入力は1行ずつ処理する。同じ大規模3ケースの比較で約1.9〜2.2倍高速化し、最大RSSを約44%削減した。時間・メモリ・最速提出との差は同じ[比較記録](../../library_codex/docs/LIBRARY_CHECKER_COMPARISON.md)へ保存している。
+実装方式や他の提出との比較は[比較記録の索引](../../library_codex/docs/BENCHMARKS.md)から探せる。

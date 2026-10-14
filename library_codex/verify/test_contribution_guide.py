@@ -1,4 +1,7 @@
 from pathlib import Path
+import re
+import subprocess
+import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,3 +85,29 @@ def test_contribution_contract_is_installed():
     assert "tools/check_changed.py" in readme_text
     assert "データ構造なら`tolist()`または`items()`" in pull_request_text
     assert "tools/check_changed.py" in pull_request_text
+
+
+def test_readme_local_links():
+    paths = [
+        REPOSITORY / "README.md",
+        ROOT / "README.md",
+        REPOSITORY / "verify" / "library_checker" / "README.md",
+        ROOT / "docs" / "BENCHMARKS.md",
+    ]
+    for path in paths:
+        for target in re.findall(r"\]\(([^)]+)\)", path.read_text(encoding="utf-8")):
+            if target.startswith(("https://", "http://", "#")):
+                continue
+            assert (path.parent / target.split("#")[0]).exists(), (path, target)
+
+
+def test_readme_python_example():
+    text = (ROOT / "README.md").read_text(encoding="utf-8")
+    examples = re.findall(r"```python\n(.*?)```", text, re.S)
+    assert len(examples) == 1
+    result = subprocess.run(
+        [sys.executable, "-c", examples[0]], cwd=REPOSITORY,
+        text=True, capture_output=True, timeout=10,
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.splitlines() == ["10", "6"]
