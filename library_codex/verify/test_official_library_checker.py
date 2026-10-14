@@ -200,6 +200,11 @@ def test_solution_is_standalone(name):
     ("addition_of_big_integers", "4\n99999999999999999999 1\n-100000000000000000000 1\n-7 7\n-7 -8\n", "100000000000000000000 -99999999999999999999 0 -15"),
     ("addition_of_hex_big_integers", "4\nFFFFFFFFFFFFFFFFFFFF 1\n-100000000000000000000 1\n-A A\n-A -F\n", "100000000000000000000 -FFFFFFFFFFFFFFFFFFFF 0 -19"),
     ("counting_eulerian_circuits", "5 4\n0 1\n0 1\n1 0\n1 0\n", "2"),
+    ("convolution_mod_1000000007", "2 3\n1 2\n3 4 5\n", "3 10 13 10"),
+    ("convolution_mod_1000000007",
+     "61 61\n" + (" ".join(["1000000006"] * 61) + "\n") * 2,
+     " ".join(map(str, list(range(1, 62)) + list(range(60, 0, -1))))),
+    ("factorial", "5\n0\n1\n10\n998244351\n998244352\n", "1 1 3628800 1 998244352"),
 ])
 def test_driver_input_output_contracts(tmp_path, name, data, expected):
     source, _ = lc.solution(name)

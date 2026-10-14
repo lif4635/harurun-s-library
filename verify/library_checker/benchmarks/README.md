@@ -26,6 +26,7 @@
 | [composition_of_formal_power_series_large](composition_of_formal_power_series_large.json) | 3 / 32 | 5 | 2.046 | 140.7 | 一致 |
 | [compositional_inverse_of_formal_power_series](compositional_inverse_of_formal_power_series.json) | 3 / 23 | 5 | 0.235 | 77.3 | 一致 |
 | [compositional_inverse_of_formal_power_series_large](compositional_inverse_of_formal_power_series_large.json) | 3 / 28 | 5 | 2.392 | 114.5 | 一致 |
+| [convolution_mod_1000000007](convolution_mod_1000000007.json) | 3 / 48 | 5 | 1.260 | 187.1 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
 | [counting_eulerian_circuits](counting_eulerian_circuits.json) | 3 / 16 | 5 | 0.435 | 95.1 | 一致 |
 | [counting_spanning_tree_directed](counting_spanning_tree_directed.json) | 3 / 22 | 5 | 0.546 | 124.1 | 一致 |
@@ -44,6 +45,7 @@
 | [enumerate_triangles](enumerate_triangles.json) | 3 / 17 | 5 | 0.246 | 88.1 | 一致 |
 | [exp_of_formal_power_series_sparse](exp_of_formal_power_series_sparse.json) | 3 / 25 | 5 | 0.245 | 122.7 | 一致 |
 | [exp_of_set_power_series](exp_of_set_power_series.json) | 3 / 13 | 5 | 2.261 | 345.6 | 一致 |
+| [factorial](factorial.json) | 3 / 7 | 5 | 3.433 | 99.9 | 一致 |
 | [factorization_of_polynomials](factorization_of_polynomials.json) | 3 / 67 | 5 | 2.791 | 89.5 | 一致 |
 | [furthest_pair](furthest_pair.json) | 3 / 46 | 5 | 2.599 | 231.1 | 一致 |
 | [gcd_convolution](gcd_convolution.json) | 3 / 29 | 5 | 0.560 | 263.5 | 一致 |

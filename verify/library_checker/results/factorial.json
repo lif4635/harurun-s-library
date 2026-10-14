@@ -1,0 +1,69 @@
+{
+  "problem": "factorial",
+  "status": "local_passed",
+  "verificationKey": "6d396e5508cc867b3fe5abf705bfb48ee5edbe004278e54827e440b9decd4f78",
+  "sourceSha256": "bc71dd7c270c9e19b76fa9dd0381d6d375b46a479b452487f22c34ba76c7bc64",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.number_theory.ModularArithmetic",
+    "library_codex.fps.FormalPowerSeries",
+    "library_codex.polynomial.PolynomialDivision",
+    "library_codex.convolution.MiddleProduct",
+    "library_codex.polynomial.MultipointEvaluation",
+    "library_codex.prime.Factorization",
+    "library_codex.combinatorics.ArbitraryBinomial"
+  ],
+  "problemVersion": "a6ec84e0cb028e8354f4ab8f8851b937fea768f972f28f7c3c84a16c797099fc",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 7,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.137123906002671,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.8936162710015196,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.4503995819977717,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "near_max_00",
+      "status": "AC",
+      "seconds": 3.3494753660015704,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "near_max_01",
+      "status": "AC",
+      "seconds": 3.348045587001252,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "near_half_00",
+      "status": "AC",
+      "seconds": 2.5022011299988662,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "near_half_01",
+      "status": "AC",
+      "seconds": 2.4021801210001286,
+      "diagnostic": "ok 5 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-14T18:26:25.325988+00:00",
+  "onlineSubmission": null
+}
