@@ -40,7 +40,7 @@ print(seg.prod(0, 2))
 - [PyPyベンチマーク](../verify/library_checker/benchmarks/README.md)：入力・環境を記録した反復測定。
 - [実装の比較記録](docs/BENCHMARKS.md)：高速化の根拠と、比較対象・適用条件。
 
-PyPy 全検証: 999 passed（2026-10-14）。この値は全体検査を実行した時点の記録で、Library Checkerの問題数ではない。
+PyPy 全検証: 1006 passed（2026-10-14）。この値は全体検査を実行した時点の記録で、Library Checkerの問題数ではない。
 
 ## 変更する
 

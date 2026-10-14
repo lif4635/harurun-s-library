@@ -31,6 +31,7 @@
 - [任意法・q二項係数](BINOMIAL_BENCHMARK.md)
 - [整数・有理数](NUMBER_THEORY_BENCHMARK.md)
 - [行列積・行列累乗](MATRIX_ALGORITHMS_BENCHMARK.md)
+- [余因子行列](ADJUGATE_BENCHMARK.md)
 - [F₂連立方程式・空間交差・長方形の和集合面積](F2_AND_RECTANGLE_BENCHMARK.md)
 
 ## 文字列・幾何

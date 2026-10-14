@@ -6,6 +6,7 @@
 
 | 問題 | 測定ケース / 公式全件 | 反復数 | 最大中央値（秒） | 最大RSS（MiB） | ソース同期 |
 | --- | ---: | ---: | ---: | ---: | --- |
+| [adjugate_matrix](adjugate_matrix.json) | 3 / 44 | 5 | 0.524 | 78.2 | 一致 |
 | [aho_corasick](aho_corasick.json) | 3 / 72 | 5 | 2.762 | 627.6 | 一致 |
 | [area_of_union_of_rectangles](area_of_union_of_rectangles.json) | 3 / 21 | 5 | 3.142 | 418.5 | 一致 |
 | [assignment](assignment.json) | 3 / 14 | 5 | 0.844 | 64.8 | 一致 |

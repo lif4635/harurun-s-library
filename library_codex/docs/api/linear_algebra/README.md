@@ -5,6 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`Adjugate`](Adjugate.md) | 素数法の正方行列の余因子行列を、特異な場合も含めて求める。 | 1 | 0 | 0 |
 | [`AdvancedMatrix`](AdvancedMatrix.md) | 合成数法行列式・Hafnian/Pfaffian・Matrix-Tree | 5 | 0 | 0 |
 | [`BlackBoxLinearAlgebra`](BlackBoxLinearAlgebra.md) | dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式 | 4 | 2 | 3 |
 | [`F2Matrix`](F2Matrix.md) | Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列 | 0 | 1 | 18 |

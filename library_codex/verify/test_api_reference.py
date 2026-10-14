@@ -9,6 +9,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_module_overviews_do_not_depend_on_readme(tmp_path, monkeypatch):
+    monkeypatch.syspath_prepend(str(ROOT / "tools"))
+    namespace = runpy.run_path(str(ROOT / "tools" / "build_api_reference.py"))
+    read = namespace["read_overviews"]
+    expected = read()
+    monkeypatch.setitem(read.__globals__, "ROOT", tmp_path)
+    assert read() == expected
+    assert expected["graph_flow/MaxFlow.py"][0] == "容量付き有向グラフの最大流・最小カット・辺ごとの流量"
+    assert expected["tree/HeavyLightDecomposition.py"][0] == "木のパスと部分木を配列上の区間に変換する"
+    for key, (summary, complexity) in namespace["MODULE_OVERVIEWS"].items():
+        assert (ROOT / key).is_file(), key
+        assert summary and complexity
+
+
 def test_name_only_metadata_does_not_cross_module_boundaries():
     metadata = runpy.run_path(str(ROOT / "tools" / "api_metadata.py"))
     catalog = json.loads((ROOT / "library-catalog.json").read_text(encoding="utf-8"))

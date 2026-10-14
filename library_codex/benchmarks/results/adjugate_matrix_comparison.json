@@ -1,0 +1,563 @@
+{
+  "measuredAt": "2026-10-14T09:22:13.143632+00:00",
+  "problem": "adjugate_matrix",
+  "snapshot": {
+    "retrievedAt": "2026-10-14T09:13:51.829542+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "adjugate_matrix",
+    "problemInfo": {
+      "overall_version": "bd46ee3706af7d2191cf9e42efc9cee86c5e2d01b0fbf4e44f5deb434c98faa2",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/linear_algebra/adjugate_matrix",
+      "testcases_version": "509820d9b67dd760d6f27839eec4da21a9ea5ed87c05675366a3d7e737013941",
+      "time_limit": 5,
+      "title": "Adjugate Matrix",
+      "version": "5e25ed8cf6b30f701015b3eeb36ee9fe4220ffee5d8f30192370327de39876f0"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 250213,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 49205248,
+        "problem_name": "adjugate_matrix",
+        "problem_title": "Adjugate Matrix",
+        "status": "AC",
+        "submission_time": "2024-11-17T09:15:44.093537Z",
+        "time": 0.74,
+        "user_name": "Kazu1998k",
+        "sourceFile": "250213.py",
+        "sourceSha256": "cb3463fefcc8c0d4a6be24766968838c8156699f4ca93171d0e0dbf01c1178ca",
+        "url": "https://judge.yosupo.jp/submission/250213"
+      },
+      {
+        "id": 282908,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 46878720,
+        "problem_name": "adjugate_matrix",
+        "problem_title": "Adjugate Matrix",
+        "status": "AC",
+        "submission_time": "2025-05-02T07:20:42.594356Z",
+        "time": 1.096,
+        "user_name": "toyuzuko",
+        "sourceFile": "282908.py",
+        "sourceSha256": "29abb34b5e94f8aed4bacea3a7c4e6ce3de658f31be89d7f7f016443b11fa5a8",
+        "url": "https://judge.yosupo.jp/submission/282908"
+      }
+    ]
+  },
+  "officialHashSha256": "61bcb915097b58709f1365e77df8b426e7ef79141a5dde1888186cc1ac463c83",
+  "checkerSha256": "9141417f9200aa8cd1ddcb4cf20607f975d65fc9001a99099af0ac03f969f70b",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 5,
+  "seed": 92471,
+  "sourceSha256": {
+    "250213": "cb3463fefcc8c0d4a6be24766968838c8156699f4ca93171d0e0dbf01c1178ca",
+    "baseline": "235e37ddcba00a26b9194fc40642c042d96e3dc13166e98f75f633c672432ae0",
+    "candidate": "75bad1e84974903203c9773c442fab7adf7f770851980995f6dd7bc5922cd026"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "50d8b0042774c39e52fb1ce2086df9cecafe4ae808265921f266d88108c87e2d",
+      "implementations": {
+        "250213": {
+          "samples": [
+            {
+              "seconds": 0.7668986109783873,
+              "peakRssKiB": 83024,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.8284784839488566,
+              "peakRssKiB": 82924,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.7194189979927614,
+              "peakRssKiB": 83068,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.7439570249989629,
+              "peakRssKiB": 83128,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.7776475829305127,
+              "peakRssKiB": 83144,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            }
+          ],
+          "medianSeconds": 0.7668986109783873,
+          "peakRssKiB": 83144
+        },
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 1.2429713119054213,
+              "peakRssKiB": 79876,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 1.2078580559464172,
+              "peakRssKiB": 79868,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 1.1734633790329099,
+              "peakRssKiB": 79988,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 1.1951546540949494,
+              "peakRssKiB": 80068,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 1.1566467810189351,
+              "peakRssKiB": 79660,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            }
+          ],
+          "medianSeconds": 1.1951546540949494,
+          "peakRssKiB": 80068
+        },
+        "candidate": {
+          "samples": [
+            {
+              "seconds": 0.5091695970622823,
+              "peakRssKiB": 80048,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.5189583299215883,
+              "peakRssKiB": 80040,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.5403700250899419,
+              "peakRssKiB": 79776,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.4807802130235359,
+              "peakRssKiB": 79868,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            },
+            {
+              "seconds": 0.514877863926813,
+              "peakRssKiB": 79912,
+              "outputSha256": "52dc6dc96a52673cb739be67c2b46f32111903d0a26f56c3a448df5ded96a963"
+            }
+          ],
+          "medianSeconds": 0.514877863926813,
+          "peakRssKiB": 80048
+        }
+      }
+    },
+    {
+      "case": "highrank_max_random_00",
+      "inputSha256": "2966feb99b12cbe66390efa1ec90e48137779e4baac46d819c796ef4867fee05",
+      "implementations": {
+        "250213": {
+          "samples": [
+            {
+              "seconds": 0.7335426040226594,
+              "peakRssKiB": 85248,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.6985802320996299,
+              "peakRssKiB": 85324,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.7093747010221705,
+              "peakRssKiB": 85204,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.7331285799155012,
+              "peakRssKiB": 85432,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.6998675790382549,
+              "peakRssKiB": 85384,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            }
+          ],
+          "medianSeconds": 0.7093747010221705,
+          "peakRssKiB": 85432
+        },
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 1.1786409760825336,
+              "peakRssKiB": 73644,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 1.20271025900729,
+              "peakRssKiB": 73604,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 1.226236144080758,
+              "peakRssKiB": 73612,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 1.1912994320737198,
+              "peakRssKiB": 73488,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 1.1848342560697347,
+              "peakRssKiB": 73604,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            }
+          ],
+          "medianSeconds": 1.1912994320737198,
+          "peakRssKiB": 73644
+        },
+        "candidate": {
+          "samples": [
+            {
+              "seconds": 0.46368750697001815,
+              "peakRssKiB": 73772,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.47683589602820575,
+              "peakRssKiB": 74020,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.46094008500222117,
+              "peakRssKiB": 73716,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.4745338320499286,
+              "peakRssKiB": 73776,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            },
+            {
+              "seconds": 0.46894067293033004,
+              "peakRssKiB": 73876,
+              "outputSha256": "8441114b97860fde2e84b9e5f3d76c421f4f4375cc3280459bd3ef96c593f0bb"
+            }
+          ],
+          "medianSeconds": 0.46894067293033004,
+          "peakRssKiB": 74020
+        }
+      }
+    },
+    {
+      "case": "lowrank_max_random_02",
+      "inputSha256": "c50006179417997b2109f75364c7ef578cbb881a2563821929e6b8f89237a287",
+      "implementations": {
+        "250213": {
+          "samples": [
+            {
+              "seconds": 0.5815334210637957,
+              "peakRssKiB": 82624,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.6245372070698068,
+              "peakRssKiB": 82700,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.6046544859418646,
+              "peakRssKiB": 82664,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.65501766896341,
+              "peakRssKiB": 82620,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.6188658400205895,
+              "peakRssKiB": 82568,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            }
+          ],
+          "medianSeconds": 0.6188658400205895,
+          "peakRssKiB": 82700
+        },
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 1.0373464680742472,
+              "peakRssKiB": 72096,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.9599265910219401,
+              "peakRssKiB": 72068,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 1.0220257319742814,
+              "peakRssKiB": 71972,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 1.0267216509673744,
+              "peakRssKiB": 72184,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 1.0047543459804729,
+              "peakRssKiB": 72068,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            }
+          ],
+          "medianSeconds": 1.0220257319742814,
+          "peakRssKiB": 72184
+        },
+        "candidate": {
+          "samples": [
+            {
+              "seconds": 0.40487530699465424,
+              "peakRssKiB": 72156,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.42261631099972874,
+              "peakRssKiB": 72112,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.40882236103061587,
+              "peakRssKiB": 71988,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.4237412849906832,
+              "peakRssKiB": 72116,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            },
+            {
+              "seconds": 0.4621643869904801,
+              "peakRssKiB": 72388,
+              "outputSha256": "be2cbd9a57a268337e7d5233062afbabe98cdab17cebff42b89ce393eae62509"
+            }
+          ],
+          "medianSeconds": 0.42261631099972874,
+          "peakRssKiB": 72388
+        }
+      }
+    },
+    {
+      "case": "perm_max_random_00",
+      "inputSha256": "6c2fa92feaf606e0375a67ae0e308457c8a9c555230aac23ed9d1d118660b27f",
+      "implementations": {
+        "250213": {
+          "samples": [
+            {
+              "seconds": 0.7093066279776394,
+              "peakRssKiB": 84664,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.6851488810498267,
+              "peakRssKiB": 84628,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.7186729919631034,
+              "peakRssKiB": 84688,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.7835768330842257,
+              "peakRssKiB": 84556,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.7331471339566633,
+              "peakRssKiB": 84760,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            }
+          ],
+          "medianSeconds": 0.7186729919631034,
+          "peakRssKiB": 84760
+        },
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 0.09439996397122741,
+              "peakRssKiB": 71936,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.10583854897413403,
+              "peakRssKiB": 71924,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.09487072296906263,
+              "peakRssKiB": 71972,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.10996810591313988,
+              "peakRssKiB": 72084,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.10681347304489464,
+              "peakRssKiB": 71928,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            }
+          ],
+          "medianSeconds": 0.10583854897413403,
+          "peakRssKiB": 72084
+        },
+        "candidate": {
+          "samples": [
+            {
+              "seconds": 0.09427186695393175,
+              "peakRssKiB": 72136,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.10167244204785675,
+              "peakRssKiB": 72120,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.10709473304450512,
+              "peakRssKiB": 71976,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.11123983399011195,
+              "peakRssKiB": 71984,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            },
+            {
+              "seconds": 0.10639854799956083,
+              "peakRssKiB": 71968,
+              "outputSha256": "a089546471db69ddca07f3b218258c2d2a80515a46d8acbef27bb0c367035d0a"
+            }
+          ],
+          "medianSeconds": 0.10639854799956083,
+          "peakRssKiB": 72136
+        }
+      }
+    }
+  ]
+}

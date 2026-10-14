@@ -21,6 +21,7 @@ from api_metadata import (
     CLASS_DETAILS_BY_SYMBOL,
     COMPLEXITY_BY_MODULE,
     MODULE_CAPABILITIES,
+    MODULE_OVERVIEWS,
     PROTOCOL_METHODS,
     PURPOSE_BY_NAME,
     RETURN_DETAILS,
@@ -37,8 +38,6 @@ COMPATIBILITY_MODULES = {
     "algorithm/MiscAlgorithms.py",
 }
 
-# Modules added after the overview table in README was written.  The other
-# overviews and complexity notes are read directly from that table.
 MODULE_OVERRIDES = {
     "convolution/MinPlusConvolution.py": (
         "凸列・凹列を含むmin-plus畳み込み",
@@ -1426,30 +1425,8 @@ def public_constants(module):
 
 
 def read_overviews():
-    overviews = dict(MODULE_OVERRIDES)
-    readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    by_basename = {}
-    for path in source_modules():
-        by_basename.setdefault(path.name, []).append(path)
-    for line in readme.splitlines():
-        if not line.startswith("|") or "`" not in line or ".py`" not in line:
-            continue
-        columns = [column.strip() for column in line.strip().strip("|").split("|")]
-        if len(columns) < 3:
-            continue
-        match = re.fullmatch(r"`([^`]+\.py)`", columns[0])
-        if not match:
-            continue
-        raw = match.group(1)
-        candidates = []
-        direct = ROOT / raw
-        if direct.exists():
-            candidates = [direct]
-        elif os.path.basename(raw) in by_basename:
-            candidates = by_basename[os.path.basename(raw)]
-        if len(candidates) == 1:
-            key = candidates[0].relative_to(ROOT).as_posix()
-            overviews.setdefault(key, (columns[1], columns[2]))
+    overviews = dict(MODULE_OVERVIEWS)
+    overviews.update(MODULE_OVERRIDES)
     return overviews
 
 
