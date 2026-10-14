@@ -1,0 +1,116 @@
+{
+  "problem": "tree_path_composite_sum",
+  "status": "local_passed",
+  "verificationKey": "8bad005ec3c9276cdc6106caaa6035de649d460b9e42884b51cc751789f5e08e",
+  "sourceSha256": "4babac8cd77ce021271784ada01be1a5731322ece2b2e015a8921d0e3f9164df",
+  "modules": [
+    "library_codex.tree.Rerooting"
+  ],
+  "problemVersion": "e8bc4e3cdf271e3894a7c1153b4d8cc916795368649a7f2ad37c574d829aa96a",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 16,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05797734700172441,
+      "diagnostic": "ok 8 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05814143200041144,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "n_hundreds_00",
+      "status": "AC",
+      "seconds": 0.057918075002817204,
+      "diagnostic": "ok 280 tokens\n"
+    },
+    {
+      "name": "n_hundreds_01",
+      "status": "AC",
+      "seconds": 0.07231205800053431,
+      "diagnostic": "ok 297 tokens\n"
+    },
+    {
+      "name": "tiny_00",
+      "status": "AC",
+      "seconds": 0.05121928899825434,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "tiny_01",
+      "status": "AC",
+      "seconds": 0.05227262500193319,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_00",
+      "status": "AC",
+      "seconds": 1.9072186090015748,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_01",
+      "status": "AC",
+      "seconds": 1.3632479830012016,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_02",
+      "status": "AC",
+      "seconds": 1.8387463870021747,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_03",
+      "status": "AC",
+      "seconds": 1.8603108289971715,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_04",
+      "status": "AC",
+      "seconds": 1.7531472720002057,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_05",
+      "status": "AC",
+      "seconds": 1.421681517000252,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_06",
+      "status": "AC",
+      "seconds": 1.7663753569977416,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_07",
+      "status": "AC",
+      "seconds": 1.7737991159992816,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_08",
+      "status": "AC",
+      "seconds": 1.6966481630006456,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_09",
+      "status": "AC",
+      "seconds": 1.503973175000283,
+      "diagnostic": "ok 200000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-14T17:05:42.542853+00:00",
+  "onlineSubmission": null
+}

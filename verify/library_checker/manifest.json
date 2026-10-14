@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 204,
-    "unimplemented": 49
+    "local_passed": 206,
+    "unimplemented": 47
   },
   "problems": [
     {
@@ -1962,10 +1962,12 @@
       "title": "Point Set Tree Path Composite Sum (Fixed Root)",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.StaticTopTree"
+      ],
+      "solution": "solutions/point_set_tree_path_composite_sum_fixed_root.py",
+      "result": "results/point_set_tree_path_composite_sum_fixed_root.json"
     },
     {
       "name": "polynomial_composite_set_power_series",
@@ -2929,10 +2931,12 @@
       "title": "Tree Path Composite Sum",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/tree_path_composite_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.Rerooting"
+      ],
+      "solution": "solutions/tree_path_composite_sum.py",
+      "result": "results/tree_path_composite_sum.json"
     },
     {
       "name": "two_edge_connected_components",

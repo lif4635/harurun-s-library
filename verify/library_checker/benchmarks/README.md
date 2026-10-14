@@ -93,6 +93,7 @@
 | [point_add_rectangle_sum](point_add_rectangle_sum.json) | 3 / 18 | 5 | 2.774 | 196.0 | 一致 |
 | [point_set_range_composite_large_array](point_set_range_composite_large_array.json) | 3 / 25 | 5 | 0.960 | 147.6 | 一致 |
 | [point_set_range_frequency](point_set_range_frequency.json) | 3 / 25 | 5 | 0.683 | 178.8 | 一致 |
+| [point_set_tree_path_composite_sum_fixed_root](point_set_tree_path_composite_sum_fixed_root.json) | 3 / 26 | 5 | 1.975 | 249.0 | 一致 |
 | [polynomial_composite_set_power_series](polynomial_composite_set_power_series.json) | 3 / 18 | 5 | 5.367 | 359.6 | 一致 |
 | [polynomial_interpolation_on_geometric_sequence](polynomial_interpolation_on_geometric_sequence.json) | 3 / 28 | 5 | 0.953 | 176.8 | 一致 |
 | [polynomial_root_finding](polynomial_root_finding.json) | 3 / 36 | 5 | 1.773 | 90.3 | 一致 |
@@ -133,6 +134,7 @@
 | [system_of_linear_equations_mod_2](system_of_linear_equations_mod_2.json) | 3 / 36 | 5 | 1.393 | 105.7 | 一致 |
 | [three_edge_connected_components](three_edge_connected_components.json) | 3 / 20 | 5 | 0.833 | 149.2 | 一致 |
 | [tree_decomposition_width_2](tree_decomposition_width_2.json) | 3 / 24 | 5 | 2.636 | 372.3 | 一致 |
+| [tree_path_composite_sum](tree_path_composite_sum.json) | 3 / 16 | 5 | 1.834 | 207.4 | 一致 |
 | [two_square_sum](two_square_sum.json) | 3 / 38 | 5 | 0.541 | 105.3 | 一致 |
 | [unionfind_with_potential](unionfind_with_potential.json) | 3 / 18 | 5 | 0.288 | 81.1 | 一致 |
 | [unionfind_with_potential_non_commutative_group](unionfind_with_potential_non_commutative_group.json) | 3 / 18 | 5 | 0.535 | 95.7 | 一致 |

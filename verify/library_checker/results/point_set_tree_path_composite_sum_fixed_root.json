@@ -1,0 +1,176 @@
+{
+  "problem": "point_set_tree_path_composite_sum_fixed_root",
+  "status": "local_passed",
+  "verificationKey": "be9f5b59e0a6f570a1e9bcbf2b161321470d312dfaae684ca32081a653fda5bd",
+  "sourceSha256": "c18c62d580f531a1a08ce0fe2b37ba8312e9bdc57998b538419647de9de04629",
+  "modules": [
+    "library_codex.tree.StaticTopTree"
+  ],
+  "problemVersion": "f74c556cefcef08b627d8d59bd701c96a56606ff85ae6717582c48e6ee8a6e7d",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 26,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05513115799840307,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05563377799990121,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "n_hundreds_00",
+      "status": "AC",
+      "seconds": 0.06274784999914118,
+      "diagnostic": "ok 142 tokens\n"
+    },
+    {
+      "name": "n_hundreds_01",
+      "status": "AC",
+      "seconds": 0.05992842900013784,
+      "diagnostic": "ok 120 tokens\n"
+    },
+    {
+      "name": "tiny_00",
+      "status": "AC",
+      "seconds": 0.059767524999188026,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "tiny_01",
+      "status": "AC",
+      "seconds": 0.054660352998325834,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_00",
+      "status": "AC",
+      "seconds": 1.7001565919999848,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_01",
+      "status": "AC",
+      "seconds": 1.417538980000245,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_02",
+      "status": "AC",
+      "seconds": 1.8644096259995422,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_03",
+      "status": "AC",
+      "seconds": 1.6824442719989747,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_04",
+      "status": "AC",
+      "seconds": 1.5827282290010771,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_05",
+      "status": "AC",
+      "seconds": 1.6065637669998978,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_06",
+      "status": "AC",
+      "seconds": 1.5989593560007052,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_07",
+      "status": "AC",
+      "seconds": 1.6441584620006324,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_08",
+      "status": "AC",
+      "seconds": 1.8509209270014253,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_09",
+      "status": "AC",
+      "seconds": 1.553101361998415,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_00",
+      "status": "AC",
+      "seconds": 1.7919119879989012,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_01",
+      "status": "AC",
+      "seconds": 1.3715060350004933,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_02",
+      "status": "AC",
+      "seconds": 1.8769092740003543,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_03",
+      "status": "AC",
+      "seconds": 1.66963356999986,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_04",
+      "status": "AC",
+      "seconds": 1.5785710820018721,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_05",
+      "status": "AC",
+      "seconds": 1.4603849099985382,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_06",
+      "status": "AC",
+      "seconds": 1.5628386069984117,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_07",
+      "status": "AC",
+      "seconds": 1.7209445260014036,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_08",
+      "status": "AC",
+      "seconds": 1.7272808269990492,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_09",
+      "status": "AC",
+      "seconds": 1.6251416819977749,
+      "diagnostic": "ok 200000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-14T17:06:11.888026+00:00",
+  "onlineSubmission": null
+}
