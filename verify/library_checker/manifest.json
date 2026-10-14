@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 196,
-    "unimplemented": 57
+    "local_passed": 201,
+    "unimplemented": 52
   },
   "problems": [
     {
@@ -707,10 +707,12 @@
       "title": "Dynamic Graph Vertex Add Component Sum",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.OfflineDynamicSum"
+      ],
+      "solution": "solutions/dynamic_graph_vertex_add_component_sum.py",
+      "result": "results/dynamic_graph_vertex_add_component_sum.json"
     },
     {
       "name": "dynamic_point_set_rectangle_affine_rectangle_sum",
@@ -739,40 +741,48 @@
       "title": "Dynamic Tree Subtree Add Subtree Sum",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_subtree_add_subtree_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.OfflineDynamicSum"
+      ],
+      "solution": "solutions/dynamic_tree_subtree_add_subtree_sum.py",
+      "result": "results/dynamic_tree_subtree_add_subtree_sum.json"
     },
     {
       "name": "dynamic_tree_vertex_add_path_sum",
       "title": "Dynamic Tree Vertex Add Path Sum",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.LinkCutTree"
+      ],
+      "solution": "solutions/dynamic_tree_vertex_add_path_sum.py",
+      "result": "results/dynamic_tree_vertex_add_path_sum.json"
     },
     {
       "name": "dynamic_tree_vertex_add_subtree_sum",
       "title": "Dynamic Tree Vertex Add Subtree Sum",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_subtree_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_connectivity.OfflineDynamicSum"
+      ],
+      "solution": "solutions/dynamic_tree_vertex_add_subtree_sum.py",
+      "result": "results/dynamic_tree_vertex_add_subtree_sum.json"
     },
     {
       "name": "dynamic_tree_vertex_set_path_composite",
       "title": "Dynamic Tree Vertex Set Path Composite",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.LinkCutTree"
+      ],
+      "solution": "solutions/dynamic_tree_vertex_set_path_composite.py",
+      "result": "results/dynamic_tree_vertex_set_path_composite.json"
     },
     {
       "name": "eertree",

@@ -124,48 +124,80 @@ class LinkCutTree:
             self.lazy[node] = None
             self.has_lazy[node] = 0
 
-    def _rotate(self, node):
-        parent = self.parent[node]
-        grandparent = self.parent[parent]
-        if self.left[parent] == node:
-            middle = self.right[node]
-            self.right[node] = parent
-            self.left[parent] = middle
-        else:
-            middle = self.left[node]
-            self.left[node] = parent
-            self.right[parent] = middle
-        if middle >= 0:
-            self.parent[middle] = parent
-        self.parent[parent] = node
-        self.parent[node] = grandparent
-        if grandparent >= 0:
-            if self.left[grandparent] == parent:
-                self.left[grandparent] = node
-            elif self.right[grandparent] == parent:
-                self.right[grandparent] = node
-        self._update(parent)
-        self._update(node)
-
     def _splay(self, node):
+        left = self.left
+        right = self.right
+        parent = self.parent
+        forward = self.forward
+        backward = self.backward
+        size = self.size
+        value = self.value
+        op = self.op
         stack = [node]
         current = node
-        while not self._is_aux_root(current):
-            current = self.parent[current]
+        while True:
+            p = parent[current]
+            if p < 0 or left[p] != current and right[p] != current:
+                break
+            current = p
             stack.append(current)
+        root_forward = forward[current]
+        root_backward = backward[current]
+        root_size = size[current]
         while stack:
             self._push(stack.pop())
-        while not self._is_aux_root(node):
-            parent = self.parent[node]
-            if not self._is_aux_root(parent):
-                grandparent = self.parent[parent]
-                if (self.left[grandparent] == parent) == (
-                    self.left[parent] == node
-                ):
-                    self._rotate(parent)
+        while True:
+            p = parent[node]
+            if p < 0 or left[p] != node and right[p] != node:
+                break
+            g = parent[p]
+            rotations = 1
+            current = node
+            if g >= 0 and (left[g] == p or right[g] == p):
+                rotations = 2
+                if (left[p] == node) == (left[g] == p):
+                    current = p
+            while rotations:
+                p = parent[current]
+                g = parent[p]
+                if left[p] == current:
+                    middle = right[current]
+                    right[current] = p
+                    left[p] = middle
                 else:
-                    self._rotate(node)
-            self._rotate(node)
+                    middle = left[current]
+                    left[current] = p
+                    right[p] = middle
+                if middle >= 0:
+                    parent[middle] = p
+                parent[p] = current
+                parent[current] = g
+                if g >= 0:
+                    if left[g] == p:
+                        left[g] = current
+                    elif right[g] == p:
+                        right[g] = current
+                a = left[p]
+                b = right[p]
+                f = value[p]
+                r = f
+                count = 1
+                if a >= 0:
+                    f = op(forward[a], f)
+                    r = op(r, backward[a])
+                    count += size[a]
+                if b >= 0:
+                    f = op(f, forward[b])
+                    r = op(backward[b], r)
+                    count += size[b]
+                forward[p] = f
+                backward[p] = r
+                size[p] = count
+                rotations -= 1
+                current = node
+        forward[node] = root_forward
+        backward[node] = root_backward
+        size[node] = root_size
         return node
 
     def access(self, node):
@@ -211,7 +243,8 @@ class LinkCutTree:
 
     def link(self, child, parent):
         self.make_root(child)
-        if self.find_root(parent) == child:
+        self.access(parent)
+        if child == parent or self.parent[child] >= 0:
             return False
         self.parent[child] = parent
         return True
@@ -419,48 +452,66 @@ class SubtreeLinkCutTree:
                 self._toggle(right)
             self.reverse[node] = 0
 
-    def _rotate(self, node):
-        parent = self.parent[node]
-        grandparent = self.parent[parent]
-        if self.left[parent] == node:
-            middle = self.right[node]
-            self.right[node] = parent
-            self.left[parent] = middle
-        else:
-            middle = self.left[node]
-            self.left[node] = parent
-            self.right[parent] = middle
-        if middle >= 0:
-            self.parent[middle] = parent
-        self.parent[parent] = node
-        self.parent[node] = grandparent
-        if grandparent >= 0:
-            if self.left[grandparent] == parent:
-                self.left[grandparent] = node
-            elif self.right[grandparent] == parent:
-                self.right[grandparent] = node
-        self._update(parent)
-        self._update(node)
-
     def _splay(self, node):
+        left = self.left
+        right = self.right
+        parent = self.parent
+        total = self.total
+        value = self.value
+        virtual = self.virtual
+        op = self.op
         stack = [node]
         current = node
-        while not self._is_aux_root(current):
-            current = self.parent[current]
+        while True:
+            p = parent[current]
+            if p < 0 or left[p] != current and right[p] != current:
+                break
+            current = p
             stack.append(current)
+        root_total = total[current]
         while stack:
             self._push(stack.pop())
-        while not self._is_aux_root(node):
-            parent = self.parent[node]
-            if not self._is_aux_root(parent):
-                grandparent = self.parent[parent]
-                if (self.left[grandparent] == parent) == (
-                    self.left[parent] == node
-                ):
-                    self._rotate(parent)
+        while True:
+            p = parent[node]
+            if p < 0 or left[p] != node and right[p] != node:
+                break
+            g = parent[p]
+            rotations = 1
+            current = node
+            if g >= 0 and (left[g] == p or right[g] == p):
+                rotations = 2
+                if (left[p] == node) == (left[g] == p):
+                    current = p
+            while rotations:
+                p = parent[current]
+                g = parent[p]
+                if left[p] == current:
+                    middle = right[current]
+                    right[current] = p
+                    left[p] = middle
                 else:
-                    self._rotate(node)
-            self._rotate(node)
+                    middle = left[current]
+                    left[current] = p
+                    right[p] = middle
+                if middle >= 0:
+                    parent[middle] = p
+                parent[p] = current
+                parent[current] = g
+                if g >= 0:
+                    if left[g] == p:
+                        left[g] = current
+                    elif right[g] == p:
+                        right[g] = current
+                aggregate = op(value[p], virtual[p])
+                a, b = left[p], right[p]
+                if a >= 0:
+                    aggregate = op(total[a], aggregate)
+                if b >= 0:
+                    aggregate = op(aggregate, total[b])
+                total[p] = aggregate
+                rotations -= 1
+                current = node
+        total[node] = root_total
         return node
 
     def access(self, node):
@@ -512,9 +563,9 @@ class SubtreeLinkCutTree:
 
     def link(self, child, parent):
         self.make_root(child)
-        if self.find_root(parent) == child:
-            return False
         self.access(parent)
+        if child == parent or self.parent[child] >= 0:
+            return False
         self.parent[child] = parent
         self.virtual[parent] = self.op(
             self.virtual[parent], self.total[child]

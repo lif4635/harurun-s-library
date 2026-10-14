@@ -29,7 +29,12 @@
 | [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.524 | 110.4 | 一致 |
 | [deque](deque.json) | 3 / 36 | 5 | 0.175 | 85.0 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
+| [dynamic_graph_vertex_add_component_sum](dynamic_graph_vertex_add_component_sum.json) | 3 / 19 | 5 | 0.528 | 125.9 | 一致 |
 | [dynamic_sequence_range_affine_range_sum](dynamic_sequence_range_affine_range_sum.json) | 3 / 33 | 5 | 7.624 | 180.2 | 一致 |
+| [dynamic_tree_subtree_add_subtree_sum](dynamic_tree_subtree_add_subtree_sum.json) | 3 / 18 | 5 | 1.449 | 230.5 | 一致 |
+| [dynamic_tree_vertex_add_path_sum](dynamic_tree_vertex_add_path_sum.json) | 3 / 15 | 5 | 4.380 | 104.4 | 一致 |
+| [dynamic_tree_vertex_add_subtree_sum](dynamic_tree_vertex_add_subtree_sum.json) | 3 / 18 | 5 | 1.207 | 202.7 | 一致 |
+| [dynamic_tree_vertex_set_path_composite](dynamic_tree_vertex_set_path_composite.json) | 3 / 23 | 5 | 4.693 | 104.3 | 一致 |
 | [eertree](eertree.json) | 3 / 24 | 5 | 1.424 | 721.5 | 一致 |
 | [enumerate_cliques](enumerate_cliques.json) | 3 / 23 | 5 | 0.087 | 59.7 | 一致 |
 | [enumerate_quotients](enumerate_quotients.json) | 3 / 26 | 5 | 0.296 | 132.4 | 一致 |

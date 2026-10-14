@@ -7644,6 +7644,65 @@ MODULE_OVERVIEWS = {
 SEARCH_TERMS_BY_MODULE["linear_algebra/Adjugate.py"] = (
     "余因子行列", "随伴行列", "cofactor matrix",
 )
+MODULE_OVERVIEWS["graph_connectivity/OfflineDynamicSum.py"] = (
+    "辺の追加削除・頂点加算・成分加算・成分和のオフライン処理",
+    "O(N + (K log(T+1) + T) log(N+1))",
+)
+MODULE_CAPABILITIES["graph_connectivity/OfflineDynamicSum.py"] = (
+    "無向グラフの辺追加・削除と値の加算を先読みし、各時点の連結成分の総和を求める。",
+    "成分全体への加算後に辺を削除しても、各頂点への加算を保持する。",
+)
+SEARCH_TERMS_BY_MODULE["graph_connectivity/OfflineDynamicSum.py"] = (
+    "動的連結性", "成分和", "部分木加算", "rollback union find",
+)
+CLASS_DETAILS_BY_SYMBOL[("graph_connectivity/OfflineDynamicSum.py", "OfflineDynamicSum")] = {
+    "description": "辺が追加・削除される無向グラフの頂点加算・成分加算・成分和を、操作の先読みにより処理する。",
+    "constructorCreates": "valuesをコピーし、辺のないグラフを作る。辺変更と加算、queryを呼び出し順に登録し、solveでqueryの答えをまとめて取得できる。",
+    "argumentDescriptions": {"values": "各頂点の初期値を頂点順に並べた整数のiterable。負数も可。"},
+}
+COMPLEXITY_BY_MODULE["graph_connectivity/OfflineDynamicSum.py"] = {
+    "OfflineDynamicSum": "O(N)時間・領域。Nは頂点数。",
+    "add_edge": "期待・償却 O(1)",
+    "remove_edge": "期待・償却 O(1)",
+    "add": "償却 O(1)",
+    "add_component": "償却 O(1)",
+    "query": "償却 O(1)",
+    "solve": "O(N + (K log(T+1) + T) log(N+1))時間、O(N + T + K log(T+1))領域。Tは加算・queryの総数、Kは辺の有効期間数。整数加減算をO(1)として数える。",
+}
+API_DETAILS_BY_SYMBOL.update({
+    ("graph_connectivity/OfflineDynamicSum.py", "OfflineDynamicSum", "add_edge"): {
+        "description": "以降の操作でuとvをつなぐ無向辺を追加する。",
+        "returnFormat": "None",
+        "returnDescription": "値は返さず、辺の存在期間を登録する。同じ辺が既に存在するとValueError。",
+    },
+    ("graph_connectivity/OfflineDynamicSum.py", "OfflineDynamicSum", "remove_edge"): {
+        "description": "無向辺u–vを削除し、以降の操作ではその辺を使わない。",
+        "returnFormat": "None",
+        "returnDescription": "値は返さず、辺の存在期間を閉じる。存在しない辺ならValueError。",
+    },
+    ("graph_connectivity/OfflineDynamicSum.py", "OfflineDynamicSum", "add"): {
+        "description": "vertexの値にdeltaを加える操作を登録する。",
+        "argumentDescriptions": {"delta": "1頂点への加算量。負数も可。"},
+        "returnFormat": "None",
+        "returnDescription": "値は返さない。以降に登録したqueryの答えに加算が反映される。",
+    },
+    ("graph_connectivity/OfflineDynamicSum.py", "OfflineDynamicSum", "add_component"): {
+        "description": "その時点でvertexとつながっているすべての頂点へdeltaずつ加える。",
+        "argumentDescriptions": {"delta": "成分内の各頂点への加算量。成分の総和への加算量ではない。負数も可。"},
+        "returnFormat": "None",
+        "returnDescription": "値は返さず、成分加算を登録する。後に成分が分裂しても各頂点への加算を保持する。",
+    },
+    ("graph_connectivity/OfflineDynamicSum.py", "OfflineDynamicSum", "query"): {
+        "description": "その時点でvertexとつながっている頂点の値の総和を問い合わせる。",
+        "returnFormat": "int",
+        "returnDescription": "solveが返すlistの添字。この呼び出しでは和を計算せず、問い合わせを登録する。添字はqueryの呼び出し順に増える。",
+    },
+    ("graph_connectivity/OfflineDynamicSum.py", "OfflineDynamicSum", "solve"): {
+        "description": "登録済みの全操作を処理し、queryの答えをまとめて返す。",
+        "returnFormat": "list[int]",
+        "returnDescription": "queryの呼び出し順の成分和。queryが返した添字iに対してresult[i]がその時点の答え。queryがなければ[]。登録内容を変更せず、再実行や操作の追加ができる。",
+    },
+})
 COMPLEXITY_BY_MODULE["linear_algebra/Adjugate.py"] = {
     "adjugate": "O(N³ + N log mod)時間、O(N²)領域。Nは行列の行数。整数四則演算をO(1)として数える。",
 }

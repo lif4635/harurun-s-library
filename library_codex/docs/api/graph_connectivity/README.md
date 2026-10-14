@@ -18,6 +18,7 @@
 | [`LowLink`](LowLink.md) | 辺ID付きlowlink・橋・関節点（多重辺対応、非再帰） | 1 | 1 | 3 |
 | [`NamoriDecomposition`](NamoriDecomposition.md) | 重み付き擬森林の周期・付随木分解と距離 | 0 | 1 | 22 |
 | [`OfflineDynamicConnectivity`](OfflineDynamicConnectivity.md) | 辺追加削除・連結性・成分和のオフライン処理 | 0 | 1 | 10 |
+| [`OfflineDynamicSum`](OfflineDynamicSum.md) | 辺の追加削除・頂点加算・成分加算・成分和のオフライン処理 | 0 | 1 | 6 |
 | [`OnlineDynamicConnectivity`](OnlineDynamicConnectivity.md) | splay Euler Tour Tree＋HDT level昇格による完全動的連結性 | 0 | 1 | 4 |
 | [`Reachability`](Reachability.md) | 有向グラフ上の複数の到達可能性queryをまとめて判定する。 | 1 | 0 | 0 |
 | [`STNumbering`](STNumbering.md) | 無向グラフを、指定した始点から終点へ全頂点を通れる向きに並べる。 | 1 | 0 | 0 |

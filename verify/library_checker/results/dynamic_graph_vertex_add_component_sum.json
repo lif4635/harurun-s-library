@@ -1,0 +1,134 @@
+{
+  "problem": "dynamic_graph_vertex_add_component_sum",
+  "status": "local_passed",
+  "verificationKey": "f99674f005c2a0ccca22ab35dc7539ce26762d3df4e5538e3d25a4021d8bf66b",
+  "sourceSha256": "1861c28aed0e48f6226e9093101a3824f9781d48922c7f8ceba07f02ac15a9e8",
+  "modules": [
+    "library_codex.graph_connectivity.OfflineDynamicSum"
+  ],
+  "problemVersion": "412bb843060d9e2c6d8179a22a80895d196a40656420e7eee2fac5f22b20cd85",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 19,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05034769594203681,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "link_and_cut_00",
+      "status": "AC",
+      "seconds": 0.4533963780850172,
+      "diagnostic": "ok 3000 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.04907598393037915,
+      "diagnostic": "ok 81 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.04942824493627995,
+      "diagnostic": "ok 58 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.05420175299514085,
+      "diagnostic": "ok 100 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.3710175600135699,
+      "diagnostic": "ok 68636 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.30347441195044667,
+      "diagnostic": "ok 52617 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.16450040298514068,
+      "diagnostic": "ok 23155 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.2280844810884446,
+      "diagnostic": "ok 32492 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.22969994298182428,
+      "diagnostic": "ok 24943 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.4205656530102715,
+      "diagnostic": "ok 75252 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 0.48604448791593313,
+      "diagnostic": "ok 74714 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 0.41606705309823155,
+      "diagnostic": "ok 75053 tokens\n"
+    },
+    {
+      "name": "dense_00",
+      "status": "AC",
+      "seconds": 0.4351133769378066,
+      "diagnostic": "ok 60119 tokens\n"
+    },
+    {
+      "name": "dense_01",
+      "status": "AC",
+      "seconds": 0.37016189901623875,
+      "diagnostic": "ok 59856 tokens\n"
+    },
+    {
+      "name": "dense_02",
+      "status": "AC",
+      "seconds": 0.32937443896662444,
+      "diagnostic": "ok 59731 tokens\n"
+    },
+    {
+      "name": "uv_swapped_00",
+      "status": "AC",
+      "seconds": 0.4050381149863824,
+      "diagnostic": "ok 75090 tokens\n"
+    },
+    {
+      "name": "uv_swapped_01",
+      "status": "AC",
+      "seconds": 0.43610567098949105,
+      "diagnostic": "ok 74976 tokens\n"
+    },
+    {
+      "name": "uv_swapped_02",
+      "status": "AC",
+      "seconds": 0.3732721109408885,
+      "diagnostic": "ok 74656 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-14T10:49:31.763344+00:00",
+  "onlineSubmission": null
+}
