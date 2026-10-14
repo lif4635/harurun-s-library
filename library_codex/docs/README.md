@@ -58,8 +58,8 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 5 | 4 | 4 | 30 |
 | [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 8 | 6 | 3 | 15 |
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 5 | 11 | 1 | 6 |
-| [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 10 | 18 | 1 | 4 |
-| [number_theory](api/number_theory/README.md) | 整数演算・合同式・乗法的関数 | 18 | 41 | 4 | 25 |
+| [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 11 | 19 | 1 | 4 |
+| [number_theory](api/number_theory/README.md) | 整数演算・合同式・乗法的関数 | 19 | 42 | 4 | 25 |
 | [combinatorics](api/combinatorics/README.md) | 二項係数・組合せ構成 | 15 | 18 | 9 | 29 |
 | [linear_algebra](api/linear_algebra/README.md) | 行列・線形方程式・線形基底 | 9 | 33 | 5 | 36 |
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 4 | 3 | 28 |
@@ -75,4 +75,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **376 modules / 514 functions / 230 classes / 1471 methods・properties**。
+合計: **378 modules / 516 functions / 230 classes / 1471 methods・properties**。

@@ -9,6 +9,7 @@ clique・cycle・彩色・部分集合DPのAPI一覧です。
 | [`CountC4PerEdge`](CountC4PerEdge.md) | 各辺が含まれる長さ4のcycle数を数える。 | 1 | 0 | 0 |
 | [`EnumerateCliques`](EnumerateCliques.md) | 小規模無向グラフのcliqueを列挙する。 | 1 | 0 | 0 |
 | [`EnumerateTriangles`](EnumerateTriangles.md) | 無向グラフに含まれる三角形を重複なく列挙する。 | 1 | 0 | 0 |
+| [`EulerianCircuits`](EulerianCircuits.md) | 有向グラフの全辺を一度ずつ使う閉路を、巡回シフトを同一視して数える。 | 1 | 0 | 0 |
 | [`GraphCounting`](GraphCounting.md) | 彩色多項式・有向/無向全域木数・有向Euler閉路数 | 5 | 0 | 0 |
 | [`GraphProperties`](GraphProperties.md) | Chordal認識・誘導閉路証拠・二部グラフ最小辺彩色 | 1 | 1 | 4 |
 | [`HeldKarp`](HeldKarp.md) | 全頂点を一度ずつ通る最短Hamilton pathまたはcycleをbit DPで求める。 | 2 | 0 | 0 |

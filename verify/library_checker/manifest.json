@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 201,
-    "unimplemented": 52
+    "local_passed": 204,
+    "unimplemented": 49
   },
   "problems": [
     {
@@ -11,20 +11,22 @@
       "title": "Addition of Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/addition_of_big_integers",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.DecimalAddition"
+      ],
+      "solution": "solutions/addition_of_big_integers.py",
+      "result": "results/addition_of_big_integers.json"
     },
     {
       "name": "addition_of_hex_big_integers",
       "title": "Addition of Hex Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/addition_of_hex_big_integers",
-      "status": "unimplemented",
+      "status": "local_passed",
       "modules": [],
-      "solution": null,
-      "result": null
+      "solution": "solutions/addition_of_hex_big_integers.py",
+      "result": "results/addition_of_hex_big_integers.json"
     },
     {
       "name": "adjugate_matrix",
@@ -493,10 +495,12 @@
       "title": "Counting Eulerian Circuits",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/counting_eulerian_circuits",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_enumeration.EulerianCircuits"
+      ],
+      "solution": "solutions/counting_eulerian_circuits.py",
+      "result": "results/counting_eulerian_circuits.json"
     },
     {
       "name": "counting_primes",

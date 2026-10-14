@@ -1,0 +1,162 @@
+{
+  "problem": "addition_of_hex_big_integers",
+  "status": "local_passed",
+  "verificationKey": "52badcf6adf49a0b3b31f62af5b886bcd10eddb8cc47b2a0e11155049213562a",
+  "sourceSha256": "9d343ad63356710372b5ed9169955b11e22af3dcdb4dd544707bb7d3e50954ce",
+  "modules": [],
+  "problemVersion": "4f04fde8a177ea373f8678392d80c37697f0d461377169deb2a7065e7e758a22",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 24,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05470743800015043,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.2060298269998384,
+      "diagnostic": "ok 159984 tokens\n"
+    },
+    {
+      "name": "medium_00",
+      "status": "AC",
+      "seconds": 0.1264188860000104,
+      "diagnostic": "ok 3179 tokens\n"
+    },
+    {
+      "name": "medium_01",
+      "status": "AC",
+      "seconds": 0.12931697799967878,
+      "diagnostic": "ok 3196 tokens\n"
+    },
+    {
+      "name": "medium_02",
+      "status": "AC",
+      "seconds": 0.13769332999981998,
+      "diagnostic": "ok 3168 tokens\n"
+    },
+    {
+      "name": "large_00",
+      "status": "AC",
+      "seconds": 0.11784152700010964,
+      "diagnostic": "ok 35 tokens\n"
+    },
+    {
+      "name": "large_01",
+      "status": "AC",
+      "seconds": 0.11672187900012432,
+      "diagnostic": "ok 33 tokens\n"
+    },
+    {
+      "name": "large_02",
+      "status": "AC",
+      "seconds": 0.11852031500029625,
+      "diagnostic": "ok 33 tokens\n"
+    },
+    {
+      "name": "max_max_00",
+      "status": "AC",
+      "seconds": 0.11748121199980233,
+      "diagnostic": "ok \"13FB285130B78781A3BCDBE1A99CA6...5738B5D89E03AA2EE84662B8061B9D8\"\n"
+    },
+    {
+      "name": "max_max_01",
+      "status": "AC",
+      "seconds": 0.12378868900032103,
+      "diagnostic": "ok \"50F9E10A3AF4D8C71857E97B980818...1574DA9A519F44418F720B16D7CF4C5\"\n"
+    },
+    {
+      "name": "max_max_02",
+      "status": "AC",
+      "seconds": 0.12796147600010954,
+      "diagnostic": "ok \"DFCB58FB442A93684685E34D0FA98E...B55ABD60E7D74EF02679B3CD8099518\"\n"
+    },
+    {
+      "name": "max_max_03",
+      "status": "AC",
+      "seconds": 0.1285711540003831,
+      "diagnostic": "ok \"-176AC13A95F605F9A8FFE1A025C3E...9FADB0AA8253538C1FBB7A30C0F782A\"\n"
+    },
+    {
+      "name": "max_max_04",
+      "status": "AC",
+      "seconds": 0.12900496200018097,
+      "diagnostic": "ok \"1A052EEF879EB1BF41B66ECFED1A1A...EE80CAAF4FFBCB9E2B60950A38F3779\"\n"
+    },
+    {
+      "name": "max_max_05",
+      "status": "AC",
+      "seconds": 0.12814418799962368,
+      "diagnostic": "ok \"7488E936EA9F7BDE8E6B8F98E7CF6D...800411FCCC068A1EC061F46D9FF52EB\"\n"
+    },
+    {
+      "name": "max_max_06",
+      "status": "AC",
+      "seconds": 0.12223284900028375,
+      "diagnostic": "ok \"-261BAFFA724976A5CA0EA3232961E...C1626B935C350493027DBE218EFCC4B\"\n"
+    },
+    {
+      "name": "max_max_07",
+      "status": "AC",
+      "seconds": 0.12017723000008118,
+      "diagnostic": "ok \"-1173A9E7366B7A4BB16D2A3DDC017...8519CC8719A157C221D3C5F2B603F12\"\n"
+    },
+    {
+      "name": "sum_zero_00",
+      "status": "AC",
+      "seconds": 0.1265427259995704,
+      "diagnostic": "ok 3177 tokens\n"
+    },
+    {
+      "name": "large_small_00",
+      "status": "AC",
+      "seconds": 0.12823605899984614,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "power_00",
+      "status": "AC",
+      "seconds": 0.10139416399988477,
+      "diagnostic": "ok 3570 tokens\n"
+    },
+    {
+      "name": "power_01",
+      "status": "AC",
+      "seconds": 0.091444593000233,
+      "diagnostic": "ok 3568 tokens\n"
+    },
+    {
+      "name": "carry_chain_00",
+      "status": "AC",
+      "seconds": 0.09563977200014051,
+      "diagnostic": "ok 5320 tokens\n"
+    },
+    {
+      "name": "carry_chain_01",
+      "status": "AC",
+      "seconds": 0.1032822090000991,
+      "diagnostic": "ok 5320 tokens\n"
+    },
+    {
+      "name": "carry_chain_02",
+      "status": "AC",
+      "seconds": 0.11968462400000135,
+      "diagnostic": "ok 5320 tokens\n"
+    },
+    {
+      "name": "carry_chain_03",
+      "status": "AC",
+      "seconds": 0.11730567499989775,
+      "diagnostic": "ok 5320 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-14T11:53:39.718441+00:00",
+  "onlineSubmission": null
+}

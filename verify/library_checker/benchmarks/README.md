@@ -6,6 +6,8 @@
 
 | 問題 | 測定ケース / 公式全件 | 反復数 | 最大中央値（秒） | 最大RSS（MiB） | ソース同期 |
 | --- | ---: | ---: | ---: | ---: | --- |
+| [addition_of_big_integers](addition_of_big_integers.json) | 3 / 22 | 5 | 0.331 | 93.7 | 一致 |
+| [addition_of_hex_big_integers](addition_of_hex_big_integers.json) | 3 / 24 | 5 | 0.230 | 83.2 | 一致 |
 | [adjugate_matrix](adjugate_matrix.json) | 3 / 44 | 5 | 0.524 | 78.2 | 一致 |
 | [aho_corasick](aho_corasick.json) | 3 / 72 | 5 | 2.762 | 627.6 | 一致 |
 | [area_of_union_of_rectangles](area_of_union_of_rectangles.json) | 3 / 21 | 5 | 3.142 | 418.5 | 一致 |
@@ -25,6 +27,7 @@
 | [compositional_inverse_of_formal_power_series](compositional_inverse_of_formal_power_series.json) | 3 / 23 | 5 | 0.235 | 77.3 | 一致 |
 | [compositional_inverse_of_formal_power_series_large](compositional_inverse_of_formal_power_series_large.json) | 3 / 28 | 5 | 2.392 | 114.5 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
+| [counting_eulerian_circuits](counting_eulerian_circuits.json) | 3 / 16 | 5 | 0.435 | 95.1 | 一致 |
 | [counting_spanning_tree_directed](counting_spanning_tree_directed.json) | 3 / 22 | 5 | 0.546 | 124.1 | 一致 |
 | [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.524 | 110.4 | 一致 |
 | [deque](deque.json) | 3 / 36 | 5 | 0.175 | 85.0 | 一致 |

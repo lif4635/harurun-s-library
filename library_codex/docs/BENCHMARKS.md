@@ -6,6 +6,7 @@
 
 ## グラフ・木
 
+- [オイラー閉路の数え上げ](DECIMAL_ADDITION_BENCHMARK.md)
 - [動的木のパス積・動的グラフの成分加算](DYNAMIC_TREE_BENCHMARK.md)
 - [最大流・最小費用b-flow](FLOW_BENCHMARK.md)
 - [SCC・一般マッチング](GRAPH_ALGORITHMS_BENCHMARK.md)
@@ -26,6 +27,7 @@
 
 ## 数論・多項式・線形代数
 
+- [巨大整数の10進・16進加算](DECIMAL_ADDITION_BENCHMARK.md)
 - [凹列のmin-plus畳み込み](MINPLUS_CONCAVE_BENCHMARK.md)
 - [多項式の評価・補間・累積和](POLYNOMIAL_SAMPLING_BENCHMARK.md)
 - [多項式の合成逆・剰余・因数分解](POLYNOMIAL_ALGORITHMS_BENCHMARK.md)

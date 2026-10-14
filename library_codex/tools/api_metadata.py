@@ -7703,6 +7703,35 @@ API_DETAILS_BY_SYMBOL.update({
         "returnDescription": "queryの呼び出し順の成分和。queryが返した添字iに対してresult[i]がその時点の答え。queryがなければ[]。登録内容を変更せず、再実行や操作の追加ができる。",
     },
 })
+SEARCH_TERMS_BY_MODULE["number_theory/DecimalAddition.py"] = ("多倍長整数", "巨大整数", "筆算")
+SEARCH_TERMS_BY_MODULE["graph_enumeration/EulerianCircuits.py"] = ("オイラー閉路", "BEST定理")
+COMPLEXITY_BY_MODULE["number_theory/DecimalAddition.py"] = {
+    "add_decimal": "O(L)時間・追加領域。Lは2入力の総文字数。",
+}
+COMPLEXITY_BY_MODULE["graph_enumeration/EulerianCircuits.py"] = {
+    "count_eulerian_circuits": "O(N + M + K³ + K log mod)時間、O(N + M + K²)追加領域。Kは辺を持つ頂点数、Nは全頂点数、Mは辺数。剰余演算をO(1)として数える。",
+}
+API_DETAILS_BY_SYMBOL.update({
+    ("number_theory/DecimalAddition.py", None, "add_decimal"): {
+        "description": "2つの符号付き10進文字列を、整数全体への変換を避けて加算する。",
+        "argumentDescriptions": {
+            "first": "符号付き10進整数のstr。先頭の+・-とASCII数字を使える。先頭の0も可。",
+            "second": "もう一方の符号付き10進整数のstr。firstと同じ形式。",
+        },
+        "returnFormat": "str",
+        "returnDescription": "2入力の和を表す10進文字列。先頭の余分な0や+は付けず、負数だけに-を付ける。ゼロは常に\"0\"。形式が不正ならValueError。",
+    },
+    ("graph_enumeration/EulerianCircuits.py", None, "count_eulerian_circuits"): {
+        "description": "有向グラフの全辺を一度ずつ使う閉路を数える。並行辺は区別し、辺順の巡回シフトは同一視する。",
+        "argumentDescriptions": {
+            "n": "頂点数。辺のない孤立頂点を含めてよい。",
+            "edges": "(出発頂点, 到着頂点)を並べたiterable。並行辺・自己ループも1本ずつ並べる。",
+            "mod": "個数を求める法。素数を指定する。素数判定は行わない。",
+        },
+        "returnFormat": "int",
+        "returnDescription": "巡回シフトを同一視したオイラー閉路数をmodで割った余り。1本の辺を先頭に固定した数と等しい。閉路が存在しない場合と辺が1本もない場合は0。孤立頂点は数に影響しない。",
+    },
+})
 COMPLEXITY_BY_MODULE["linear_algebra/Adjugate.py"] = {
     "adjugate": "O(N³ + N log mod)時間、O(N²)領域。Nは行列の行数。整数四則演算をO(1)として数える。",
 }

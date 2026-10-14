@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-14T11:40:53+00:00",
+  "generatedAt": "2026-10-14T12:35:10+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "cf68294c280336c0e6162560dadb67e49512e6668d82f8b2a879aab10fc7050a",
-  "inputStamp": "3fd9a30d4c82d197753eaa06a6a7a725b9014a93b15fe8c71c520f7ce41b612f",
+  "sourceFingerprint": "70c2fe3a1599261f25c928efb8946accabe6334f2b46fbfe774cc6f0862da629",
+  "inputStamp": "067e61f8bb0423be10b60741a09a081127b83111c8c232af02c797a26d94fb42",
   "generatorFingerprint": "352195430bf6e369885f591759bddcd812c5bfcd99b18c1767fe7dbf15c80ef2",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 376,
-    "articles": 74,
-    "functions": 514,
+    "modules": 378,
+    "articles": 76,
+    "functions": 516,
     "classes": 230,
     "methods": 1471,
-    "tests": 1017
+    "tests": 1029
   },
   "categories": [
     {
@@ -241,8 +241,8 @@
       "label": "列挙・小規模グラフ",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 10,
-      "functions": 18,
+      "modules": 11,
+      "functions": 19,
       "classes": 1,
       "methods": 4
     },
@@ -251,8 +251,8 @@
       "label": "整数・数論",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 18,
-      "functions": 41,
+      "modules": 19,
+      "functions": 42,
       "classes": 4,
       "methods": 25
     },
@@ -416,12 +416,12 @@
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 75
+      "modules": 76
     },
     {
       "slug": "math",
       "label": "Math",
-      "modules": 54
+      "modules": 55
     },
     {
       "slug": "tree",
@@ -41674,6 +41674,80 @@
       "categoryLabel": "列挙・小規模グラフ",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "EulerianCircuits",
+      "modulePath": "library_codex.graph_enumeration.EulerianCircuits",
+      "summary": "有向グラフの全辺を一度ずつ使う閉路を、巡回シフトを同一視して数える。",
+      "capabilities": [
+        "count_eulerian_circuits: 有向グラフの全辺を一度ずつ使う閉路を数える。並行辺は区別し、辺順の巡回シフトは同一視する。"
+      ],
+      "article": {
+        "title": "有向オイラー閉路の個数",
+        "markdown": "有向グラフの全辺を一度ずつ使って出発点へ戻る巡回路が、何通りあるかを求める。\n\n## 主な機能\n\n`count_eulerian_circuits(n, edges, mod)`は、頂点数と有向辺の列を受け取り、閉路の個数をmodで割った余りを返す。\n\n- 並行辺は1本ずつ区別する。自己ループも使える。\n- 同じ辺順を巡回シフトしたものは同一と数える。1本の辺を先頭に固定して数えることと等しい。\n- 辺を持たない孤立頂点は無視する。全辺を通れない場合と、辺が1本もない場合は0。\n\n辺を持つ頂点数をK、全頂点数をN、辺数をMとして、時間は`O(N + M + K³ + K log mod)`、追加領域は`O(N + M + K²)`。行列式で数えるため、大きな疎グラフ向けの線形時間アルゴリズムではない。\n\n## 使い方\n\n```python\nfrom library_codex.graph_enumeration.EulerianCircuits import count_eulerian_circuits\n\nedges = [(0, 1), (0, 1), (1, 0), (1, 0)]\nassert count_eulerian_circuits(2, edges) == 2\nassert count_eulerian_circuits(5, edges) == 2\nassert count_eulerian_circuits(1, [(0, 0)] * 4) == 6\nassert count_eulerian_circuits(2, [(0, 1)]) == 0\n```\n\n最初の例では0→1の並行辺を別々の辺として扱う。頂点だけを並べると同じに見えても、通る辺の順序が異なれば別の閉路。\n\n## 仕組み\n\n各頂点の入次数と出次数が一致するかを確かめ、孤立頂点を除いた有向ラプラシアンの余因子から、根に向かう全域木の個数を求める。BEST定理により、答えは次になる。\n\n$$\n\\tau_r\\prod_v (d_v-1)!\n$$\n\nここで、積は辺を持つ頂点について取り、dは出次数、τは任意の根rへ向かう全域木の個数。辺を持つ成分が分かれている場合は余因子が0になり、答えも0になる。\n\n## 注意点\n\n- `edges`の各要素は`(出発頂点, 到着頂点)`。辺の重みや重複度を3要素目に指定する形式ではない。\n- `mod`には素数を指定する。既定値は998244353。素数判定は行わない。\n- 巡回シフト前の始点・開始辺まで区別したい場合、辺が1本以上なら結果に辺数を掛ける。\n- 閉路の辺順自体は返さない。順序を構築する場合は`EulerianTrail`を使う。\n\n## 参考\n\n[Library Checkerの定義と公式解答](https://github.com/yosupo06/library-checker-problems/tree/master/graph/counting_eulerian_circuits)",
+        "sourcePath": "library_codex/docs/articles/graph_enumeration/EulerianCircuits.md"
+      },
+      "searchTerms": [
+        "EulerianCircuits",
+        "Eulerian Circuits",
+        "library_codex.graph_enumeration.EulerianCircuits",
+        "library codex graph enumeration Eulerian Circuits",
+        "graph_enumeration/EulerianCircuits.py",
+        "列挙・小規模グラフ",
+        "オイラー閉路",
+        "BEST定理"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_enumeration/EulerianCircuits.py",
+      "inputFingerprint": "3fa9335eb7ca766bc70a9f64ce0e2f002804ddf460e37696e8d29840cb63033f",
+      "importCode": "from library_codex.graph_enumeration.EulerianCircuits import count_eulerian_circuits",
+      "sourceCode": "\"\"\"有向グラフの全辺を一度ずつ使う閉路を、巡回シフトを同一視して数える。\"\"\"\n\ndef count_eulerian_circuits(n, edges, mod=998244353):\n    if n < 0 or mod < 2:\n        raise ValueError(\"n must be nonnegative and mod must be at least 2\")\n    edges = list(edges)\n    incoming = [0] * n\n    outgoing = [0] * n\n    for u, v in edges:\n        if not 0 <= u < n or not 0 <= v < n:\n            raise IndexError(\"vertex out of range\")\n        outgoing[u] += 1\n        incoming[v] += 1\n    if not edges or incoming != outgoing:\n        return 0\n    index = [-1] * n\n    active = 0\n    factor = 1\n    for vertex, degree in enumerate(outgoing):\n        if degree:\n            index[vertex] = active\n            active += 1\n            if degree > mod:\n                return 0\n            for value in range(2, degree):\n                factor = factor * value % mod\n    size = active - 1\n    laplacian = [[0] * size for _ in range(size)]\n    for u, v in edges:\n        a, b = index[u], index[v]\n        if a < size:\n            laplacian[a][a] += 1\n            if b < size:\n                laplacian[a][b] -= 1\n    for column in range(size):\n        pivot = column\n        while pivot < size and laplacian[pivot][column] % mod == 0:\n            pivot += 1\n        if pivot == size:\n            return 0\n        if pivot != column:\n            laplacian[pivot], laplacian[column] = laplacian[column], laplacian[pivot]\n            factor = -factor\n        source = laplacian[column]\n        value = source[column] % mod\n        factor = factor * value % mod\n        inverse = pow(value, -1, mod)\n        for row in range(column + 1, size):\n            target = laplacian[row]\n            coefficient = target[column] * inverse % mod\n            if coefficient:\n                for j in range(column + 1, size):\n                    target[j] = (target[j] - coefficient * source[j]) % mod\n    return factor % mod\n",
+      "standaloneCode": "\"\"\"有向グラフの全辺を一度ずつ使う閉路を、巡回シフトを同一視して数える。\"\"\"\n\ndef count_eulerian_circuits(n, edges, mod=998244353):\n    if n < 0 or mod < 2:\n        raise ValueError(\"n must be nonnegative and mod must be at least 2\")\n    edges = list(edges)\n    incoming = [0] * n\n    outgoing = [0] * n\n    for u, v in edges:\n        if not 0 <= u < n or not 0 <= v < n:\n            raise IndexError(\"vertex out of range\")\n        outgoing[u] += 1\n        incoming[v] += 1\n    if not edges or incoming != outgoing:\n        return 0\n    index = [-1] * n\n    active = 0\n    factor = 1\n    for vertex, degree in enumerate(outgoing):\n        if degree:\n            index[vertex] = active\n            active += 1\n            if degree > mod:\n                return 0\n            for value in range(2, degree):\n                factor = factor * value % mod\n    size = active - 1\n    laplacian = [[0] * size for _ in range(size)]\n    for u, v in edges:\n        a, b = index[u], index[v]\n        if a < size:\n            laplacian[a][a] += 1\n            if b < size:\n                laplacian[a][b] -= 1\n    for column in range(size):\n        pivot = column\n        while pivot < size and laplacian[pivot][column] % mod == 0:\n            pivot += 1\n        if pivot == size:\n            return 0\n        if pivot != column:\n            laplacian[pivot], laplacian[column] = laplacian[column], laplacian[pivot]\n            factor = -factor\n        source = laplacian[column]\n        value = source[column] % mod\n        factor = factor * value % mod\n        inverse = pow(value, -1, mod)\n        for row in range(column + 1, size):\n            target = laplacian[row]\n            coefficient = target[column] * inverse % mod\n            if coefficient:\n                for j in range(column + 1, size):\n                    target[j] = (target[j] - coefficient * source[j]) % mod\n    return factor % mod\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "count_eulerian_circuits",
+          "kind": "function",
+          "signature": "count_eulerian_circuits(n, edges, mod=998244353)",
+          "summary": "有向グラフの全辺を一度ずつ使う閉路を数える。並行辺は区別し、辺順の巡回シフトは同一視する。",
+          "description": "有向グラフの全辺を一度ずつ使う閉路を数える。並行辺は区別し、辺順の巡回シフトは同一視する。",
+          "searchTerms": [
+            "count_eulerian_circuits",
+            "count eulerian circuits",
+            "count_eulerian_circuits(n, edges, mod=998244353)"
+          ],
+          "arguments": "n: 頂点数。辺のない孤立頂点を含めてよい。 · edges: (出発頂点, 到着頂点)を並べたiterable。並行辺・自己ループも1本ずつ並べる。 · mod: 個数を求める法。素数を指定する。素数判定は行わない。",
+          "argumentDetails": [
+            {
+              "name": "n",
+              "description": "頂点数。辺のない孤立頂点を含めてよい。"
+            },
+            {
+              "name": "edges",
+              "description": "(出発頂点, 到着頂点)を並べたiterable。並行辺・自己ループも1本ずつ並べる。"
+            },
+            {
+              "name": "mod",
+              "description": "個数を求める法。素数を指定する。素数判定は行わない。"
+            }
+          ],
+          "returns": "int — 巡回シフトを同一視したオイラー閉路数をmodで割った余り。1本の辺を先頭に固定した数と等しい。閉路が存在しない場合と辺が1本もない場合は0。孤立頂点は数に影響しない。",
+          "returnFormat": "int",
+          "returnDescription": "巡回シフトを同一視したオイラー閉路数をmodで割った余り。1本の辺を先頭に固定した数と等しい。閉路が存在しない場合と辺が1本もない場合は0。孤立頂点は数に影響しない。",
+          "complexity": "O(N + M + K³ + K log mod)時間、O(N + M + K²)追加領域。Kは辺を持つ頂点数、Nは全頂点数、Mは辺数。剰余演算をO(1)として数える。",
+          "sourceLine": 3
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_enumeration",
+      "categoryLabel": "列挙・小規模グラフ",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "GraphCounting",
       "modulePath": "library_codex.graph_enumeration.GraphCounting",
       "summary": "彩色多項式・有向/無向全域木数・有向Euler閉路数。",
@@ -42591,6 +42665,77 @@
           "returnDescription": "求めたgarner mod。",
           "complexity": "O(Klog M) / O(K^2)",
           "sourceLine": 86
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "number_theory",
+      "categoryLabel": "整数・数論",
+      "domain": "math",
+      "domainLabel": "Math",
+      "name": "DecimalAddition",
+      "modulePath": "library_codex.number_theory.DecimalAddition",
+      "summary": "符号付き10進文字列を、桁数に比例する時間で加算する。",
+      "capabilities": [
+        "add_decimal: 2つの符号付き10進文字列を、整数全体への変換を避けて加算する。"
+      ],
+      "article": {
+        "title": "大きな10進整数を文字列のまま加算する",
+        "markdown": "数十万桁・数百万桁の整数を、整数全体へ変換せずに足し合わせる。\n\n## 主な機能\n\n`add_decimal(first, second)`は符号付き10進文字列を2つ受け取り、和を10進文字列で返す。負数同士や、符号の異なる数の加算にも使える。\n\n入力の総文字数をLとして、時間・追加領域ともに`O(L)`。再帰や外部ライブラリは使わない。\n\n通常の大きさの整数ならPythonの`int`と`+`で十分。この関数は、巨大な10進文字列を`int`へ変換し、最後に`str`へ戻す時間を避けたいときに使う。16進文字列では標準の`int(text, 16)`と`format(value, \"X\")`を使えるため、同じ処理を包む別APIは置かない。\n\n## 使い方\n\n```python\nfrom library_codex.number_theory.DecimalAddition import add_decimal\n\nassert add_decimal(\"99999999999999999999\", \"1\") == \"100000000000000000000\"\nassert add_decimal(\"-100000000000000000000\", \"3\") == \"-99999999999999999997\"\nassert add_decimal(\"+0012\", \"-0012\") == \"0\"\n```\n\n返り値には先頭の余分な0や`+`を付けない。負数だけに`-`が付き、ゼロは常に`\"0\"`。\n\n## 仕組み\n\n末尾から9桁ずつ取り出し、繰り上がり・繰り下がりを処理する。巨大な入力全体を多倍長整数へ変換せず、各9桁だけを`int`へ変換する。両方とも18桁以内の場合だけ、通常の整数加算を使う。\n\n## 注意点\n\n- 入力は`str`。先頭の`+`・`-`とASCIIの数字だけを受け付ける。\n- 空文字列、空白、小数点、桁区切り、全角数字は`ValueError`。\n- 文字列を返す関数なので、そのまま掛け算などの整数演算へ渡す用途ではない。",
+        "sourcePath": "library_codex/docs/articles/number_theory/DecimalAddition.md"
+      },
+      "searchTerms": [
+        "DecimalAddition",
+        "Decimal Addition",
+        "library_codex.number_theory.DecimalAddition",
+        "library codex number theory Decimal Addition",
+        "number_theory/DecimalAddition.py",
+        "整数・数論",
+        "多倍長整数",
+        "巨大整数",
+        "筆算"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/number_theory/DecimalAddition.py",
+      "inputFingerprint": "423ec4bd3b964ebfa691bd27f9d354c6ebbfec5384ba3c521d4de6471640ab72",
+      "importCode": "from library_codex.number_theory.DecimalAddition import add_decimal",
+      "sourceCode": "\"\"\"符号付き10進文字列を、桁数に比例する時間で加算する。\"\"\"\n\n\ndef _decimal_parts(value):\n    negative = value.startswith(\"-\")\n    if value[:1] in (\"+\", \"-\"):\n        value = value[1:]\n    if not value or not value.isascii() or not value.isdecimal():\n        raise ValueError(\"expected a signed decimal string\")\n    return negative, value.lstrip(\"0\") or \"0\"\n\n\ndef add_decimal(first, second):\n    negative, first = _decimal_parts(first)\n    other_negative, second = _decimal_parts(second)\n    if len(first) <= 18 and len(second) <= 18:\n        a = -int(first) if negative else int(first)\n        b = -int(second) if other_negative else int(second)\n        return str(a + b)\n    if (len(first), first) < (len(second), second):\n        first, second = second, first\n        negative, other_negative = other_negative, negative\n    direction = 1 if negative == other_negative else -1\n    if direction < 0 and first == second:\n        return \"0\"\n    i, j = len(first), len(second)\n    carry = 0\n    parts = []\n    while i:\n        left = max(0, i - 9)\n        right = max(0, j - 9)\n        value = int(first[left:i]) + carry\n        if j:\n            value += direction * int(second[right:j])\n        carry, digit = divmod(value, 1000000000)\n        parts.append(str(digit).zfill(9))\n        i, j = left, right\n    if carry:\n        parts.append(str(carry))\n    result = \"\".join(reversed(parts)).lstrip(\"0\") or \"0\"\n    return \"-\" + result if negative and result != \"0\" else result\n",
+      "standaloneCode": "\"\"\"符号付き10進文字列を、桁数に比例する時間で加算する。\"\"\"\n\n\ndef _decimal_parts(value):\n    negative = value.startswith(\"-\")\n    if value[:1] in (\"+\", \"-\"):\n        value = value[1:]\n    if not value or not value.isascii() or not value.isdecimal():\n        raise ValueError(\"expected a signed decimal string\")\n    return negative, value.lstrip(\"0\") or \"0\"\n\n\ndef add_decimal(first, second):\n    negative, first = _decimal_parts(first)\n    other_negative, second = _decimal_parts(second)\n    if len(first) <= 18 and len(second) <= 18:\n        a = -int(first) if negative else int(first)\n        b = -int(second) if other_negative else int(second)\n        return str(a + b)\n    if (len(first), first) < (len(second), second):\n        first, second = second, first\n        negative, other_negative = other_negative, negative\n    direction = 1 if negative == other_negative else -1\n    if direction < 0 and first == second:\n        return \"0\"\n    i, j = len(first), len(second)\n    carry = 0\n    parts = []\n    while i:\n        left = max(0, i - 9)\n        right = max(0, j - 9)\n        value = int(first[left:i]) + carry\n        if j:\n            value += direction * int(second[right:j])\n        carry, digit = divmod(value, 1000000000)\n        parts.append(str(digit).zfill(9))\n        i, j = left, right\n    if carry:\n        parts.append(str(carry))\n    result = \"\".join(reversed(parts)).lstrip(\"0\") or \"0\"\n    return \"-\" + result if negative and result != \"0\" else result\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "add_decimal",
+          "kind": "function",
+          "signature": "add_decimal(first, second)",
+          "summary": "2つの符号付き10進文字列を、整数全体への変換を避けて加算する。",
+          "description": "2つの符号付き10進文字列を、整数全体への変換を避けて加算する。",
+          "searchTerms": [
+            "add_decimal",
+            "add decimal",
+            "add_decimal(first, second)"
+          ],
+          "arguments": "first: 符号付き10進整数のstr。先頭の+・-とASCII数字を使える。先頭の0も可。 · second: もう一方の符号付き10進整数のstr。firstと同じ形式。",
+          "argumentDetails": [
+            {
+              "name": "first",
+              "description": "符号付き10進整数のstr。先頭の+・-とASCII数字を使える。先頭の0も可。"
+            },
+            {
+              "name": "second",
+              "description": "もう一方の符号付き10進整数のstr。firstと同じ形式。"
+            }
+          ],
+          "returns": "str — 2入力の和を表す10進文字列。先頭の余分な0や+は付けず、負数だけに-を付ける。ゼロは常に\"0\"。形式が不正ならValueError。",
+          "returnFormat": "str",
+          "returnDescription": "2入力の和を表す10進文字列。先頭の余分な0や+は付けず、負数だけに-を付ける。ゼロは常に\"0\"。形式が不正ならValueError。",
+          "complexity": "O(L)時間・追加領域。Lは2入力の総文字数。",
+          "sourceLine": 13
         }
       ],
       "classes": []

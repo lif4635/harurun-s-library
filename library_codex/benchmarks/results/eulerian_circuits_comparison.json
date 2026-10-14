@@ -1,0 +1,355 @@
+{
+  "measuredAt": "2026-10-14T12:12:01.258409+00:00",
+  "problem": "counting_eulerian_circuits",
+  "snapshot": {
+    "retrievedAt": "2026-10-14T11:53:38.516459+00:00",
+    "api": "https://v3.api.judge.yosupo.jp",
+    "problem": "counting_eulerian_circuits",
+    "problemInfo": {
+      "overall_version": "78b669c9cc891356c2fc9995ec39296546373b55974218571654b06d2b6d56be",
+      "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/graph/counting_eulerian_circuits",
+      "testcases_version": "7eabc2616664b0ac78c4d6397d0bd3c1ae6380e8a80c81655ea578a4250e7ced",
+      "time_limit": 5,
+      "title": "Counting Eulerian Circuits",
+      "version": "25b2db54e992d69737fa101cef2766f1dd1c5cfb114c1bc86c45ad49146473c9"
+    },
+    "language": "pypy3",
+    "languages": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ],
+    "selection": "AC, is_latest, ascending judge time; ties may vary",
+    "submissions": [
+      {
+        "id": 297721,
+        "is_latest": true,
+        "lang": "pypy3",
+        "memory": 78290944,
+        "problem_name": "counting_eulerian_circuits",
+        "problem_title": "Counting Eulerian Circuits",
+        "status": "AC",
+        "submission_time": "2025-07-06T14:56:28.680425Z",
+        "time": 0.528,
+        "user_name": "toyuzuko",
+        "sourceFile": "297721.py",
+        "sourceSha256": "14937688385857747cf95681d11d6d2f0e44bf7d01f133261313014611260846",
+        "url": "https://judge.yosupo.jp/submission/297721"
+      }
+    ]
+  },
+  "officialHashSha256": "8584b518f9e24a411c6253aa5248e655214c2e51d0d6de2202a8daa653ed1a8a",
+  "checkerSha256": "9141417f9200aa8cd1ddcb4cf20607f975d65fc9001a99099af0ac03f969f70b",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 5,
+  "seed": 92471,
+  "sourceSha256": {
+    "297721": "14937688385857747cf95681d11d6d2f0e44bf7d01f133261313014611260846",
+    "candidate": "193057e227c0445476089424d132a492d84d9c5b6069a00ea10dcfd7788649ae"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_circuit_00",
+      "inputSha256": "673a9a66bdb12c9cda9d5c4c6913d25c18645c34a51eb921e8661f669435577c",
+      "implementations": {
+        "297721": {
+          "samples": [
+            {
+              "seconds": 0.497978989999865,
+              "peakRssKiB": 96452,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.4252006859996982,
+              "peakRssKiB": 96600,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.44778531600013594,
+              "peakRssKiB": 96692,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.50842418000002,
+              "peakRssKiB": 96588,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.4993884400000752,
+              "peakRssKiB": 96704,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            }
+          ],
+          "medianSeconds": 0.497978989999865,
+          "peakRssKiB": 96704
+        },
+        "candidate": {
+          "samples": [
+            {
+              "seconds": 0.4335132070000327,
+              "peakRssKiB": 97216,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.43034542600025816,
+              "peakRssKiB": 97136,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.4522974950000389,
+              "peakRssKiB": 97268,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.46381809000013163,
+              "peakRssKiB": 97248,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            },
+            {
+              "seconds": 0.4486300549997395,
+              "peakRssKiB": 97268,
+              "outputSha256": "be50cef4d0d7e5e7ffa22642b383c5dc968e22433e32ec62ca92155ac29aa3a2"
+            }
+          ],
+          "medianSeconds": 0.4486300549997395,
+          "peakRssKiB": 97268
+        }
+      }
+    },
+    {
+      "case": "has_isolated_point_00",
+      "inputSha256": "c42de417eff46897e7186185baca74b3f6b1f0f7f99a6c90ea72b0a955cf18a4",
+      "implementations": {
+        "297721": {
+          "samples": [
+            {
+              "seconds": 0.5167563410000184,
+              "peakRssKiB": 108516,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.5289611950001927,
+              "peakRssKiB": 109924,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.5880926900003942,
+              "peakRssKiB": 110016,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.6105443080000441,
+              "peakRssKiB": 108572,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.5890126550002606,
+              "peakRssKiB": 108520,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            }
+          ],
+          "medianSeconds": 0.5880926900003942,
+          "peakRssKiB": 110016
+        },
+        "candidate": {
+          "samples": [
+            {
+              "seconds": 0.14369414399970992,
+              "peakRssKiB": 95756,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.14812537999978304,
+              "peakRssKiB": 95704,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.14666960500017012,
+              "peakRssKiB": 95724,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.14724124400026994,
+              "peakRssKiB": 95712,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            },
+            {
+              "seconds": 0.17680427499999496,
+              "peakRssKiB": 95824,
+              "outputSha256": "eef25657a298385e709ef325d2e393348b0e1294fece6dc7b07170124de55722"
+            }
+          ],
+          "medianSeconds": 0.14724124400026994,
+          "peakRssKiB": 95824
+        }
+      }
+    },
+    {
+      "case": "loops_00",
+      "inputSha256": "3cdd245d8fecbaacdeb91fa7209610151fec254d1a2ceaa04d675835b6fbb128",
+      "implementations": {
+        "297721": {
+          "samples": [
+            {
+              "seconds": 0.3104821769998125,
+              "peakRssKiB": 96352,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.3296172310001566,
+              "peakRssKiB": 96300,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.30203069099979984,
+              "peakRssKiB": 96176,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.25388571800021964,
+              "peakRssKiB": 96244,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.26414937099980307,
+              "peakRssKiB": 96284,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            }
+          ],
+          "medianSeconds": 0.30203069099979984,
+          "peakRssKiB": 96352
+        },
+        "candidate": {
+          "samples": [
+            {
+              "seconds": 0.14322784200021488,
+              "peakRssKiB": 97128,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.2555626600001233,
+              "peakRssKiB": 97140,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.12617504899981213,
+              "peakRssKiB": 97148,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.13279673599981834,
+              "peakRssKiB": 97208,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            },
+            {
+              "seconds": 0.129212741000174,
+              "peakRssKiB": 97064,
+              "outputSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+            }
+          ],
+          "medianSeconds": 0.13279673599981834,
+          "peakRssKiB": 97208
+        }
+      }
+    }
+  ]
+}

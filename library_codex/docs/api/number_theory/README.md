@@ -6,6 +6,7 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`ChineseRemainder`](ChineseRemainder.md) | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 4 | 0 | 0 |
+| [`DecimalAddition`](DecimalAddition.md) | 符号付き10進文字列を、桁数に比例する時間で加算する。 | 1 | 0 | 0 |
 | [`DigitFrequency`](DigitFrequency.md) | 整数区間を位取り表記したときの各digit出現数を数える。 | 1 | 0 | 0 |
 | [`DiscreteLog`](DiscreteLog.md) | 合成数modulusにも対応する離散対数を求める。 | 1 | 0 | 0 |
 | [`Elementary`](Elementary.md) | gcd・lcm・整数根など初等数学関数 | 2 | 0 | 0 |
