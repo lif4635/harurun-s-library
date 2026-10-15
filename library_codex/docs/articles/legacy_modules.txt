@@ -286,7 +286,6 @@ tree/RootedTree
 tree/StaticTopTree
 tree/SubtreeDiameter
 tree/TreeDiameter
-tree/TreeDistanceFrequency
 tree/TreeIsomorphism
 tree_query/TreeMo
 tree_query/TreeMonoid

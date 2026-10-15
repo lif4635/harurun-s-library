@@ -7808,3 +7808,38 @@ API_DETAILS_BY_SYMBOL[("combinatorics/StirlingNumberQuery.py", "StirlingNumberQu
     "returnFormat": "str",
     "returnDescription": "StirlingNumberQuery(prime=7)の形式の文字列。",
 }
+
+COMPLEXITY_BY_MODULE["polynomial/NewtonBasis998.py"] = {
+    "to_newton": "O(N log² N)。Nは係数列の長さ。追加メモリ O(N log N)",
+    "from_newton": "O(N log² N)。Nは係数列の長さ。追加メモリ O(N log N)",
+}
+COMPLEXITY_BY_MODULE["tree/TreeDistanceFrequency.py"] = {
+    "tree_distance_counts": "O(N log² N)。Nは頂点数。追加メモリ O(N)",
+}
+API_DETAILS_BY_SYMBOL[("tree/TreeDistanceFrequency.py", None, "tree_distance_counts")] = {
+    "description": "重みなし木の頂点対を、順序を区別せず距離ごとに数える。modを取らない正確な整数で返す。",
+    "argumentDescriptions": {
+        "tree": "無向木の隣接リスト。tree[v]はvに隣接する頂点番号の列。各辺は両側へ入れる。空の木も可。",
+        "include_same": "Trueなら自分自身との頂点対も数え、result[0]を頂点数にする。Falseならresult[0]は0。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "result[d]が距離dの頂点対数。非空の木では長さが直径+1で、それ以上の距離の0は省く。空の木なら[]。1頂点なら[0]、include_same=Trueなら[1]。",
+}
+API_DETAILS_BY_SYMBOL[("polynomial/NewtonBasis998.py", None, "to_newton")] = {
+    "description": "通常の昇べき順の多項式を、点列の順で定まるNewton基底へ変換する。法は998244353。",
+    "argumentDescriptions": {
+        "polynomial": "polynomial[i]がxのi乗の係数。負数や法以上の整数も剰余に直す。",
+        "points": "polynomialと同じ長さの点列。基底B_i(x)=∏_{j<i}(x−points[j])を定める。重複可。最後の点は結果に影響しない。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "result[i]がB_iの係数。長さはpolynomialと同じで、末尾の0も保持する。係数は0以上998244353未満。空入力なら[]。",
+}
+API_DETAILS_BY_SYMBOL[("polynomial/NewtonBasis998.py", None, "from_newton")] = {
+    "description": "点列で定まるNewton基底の係数を、通常の昇べき順の多項式係数へ戻す。法は998244353。",
+    "argumentDescriptions": {
+        "coefficients": "coefficients[i]が基底B_i(x)=∏_{j<i}(x−points[j])に掛かる係数。",
+        "points": "coefficientsと同じ長さの点列。重複可。最後の点は結果に影響しない。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "result[i]が通常の多項式のi次の係数。長さはcoefficientsと同じで、末尾の0も保持する。係数は0以上998244353未満。空入力なら[]。",
+}

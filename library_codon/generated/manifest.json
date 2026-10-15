@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 379,
+  "moduleCount": 380,
   "supportedCount": 7,
   "modules": [
     {
@@ -1395,6 +1395,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "polynomial/NewtonBasis998",
+      "sourcePath": "library_codex/polynomial/NewtonBasis998.py",
+      "sourceSha256": "01242cb7ba3023462847ea2e08e577cfab9131d9704369b0eb626c305a7ea8d1",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "polynomial/PartialFractionDistinct",
       "sourcePath": "library_codex/polynomial/PartialFractionDistinct.py",
       "sourceSha256": "62d02d9ce33493083e4b1c7583e70ba675b5788a1a1a9e89ef8c771bd702bf69",
@@ -2191,7 +2197,7 @@
     {
       "modulePath": "tree/TreeDistanceFrequency",
       "sourcePath": "library_codex/tree/TreeDistanceFrequency.py",
-      "sourceSha256": "6e3b77c4954a1cd060cdeb8c7b7602672b4be802792cc0945cbf1ffb409f008a",
+      "sourceSha256": "8a42e593077eea49559b41c68ff791794c29f30dad38f4903a42ceece7c13476",
       "status": "unsupported"
     },
     {

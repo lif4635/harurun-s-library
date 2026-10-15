@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 214,
-    "unimplemented": 39
+    "local_passed": 217,
+    "unimplemented": 36
   },
   "problems": [
     {
@@ -401,10 +401,15 @@
       "title": "Conversion from Monomial Basis to Newton Basis",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/conversion_from_monomial_basis_to_newton_basis",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.fps998.MultipointEvaluation",
+        "library_codex.polynomial.NewtonBasis998"
+      ],
+      "solution": "solutions/conversion_from_monomial_basis_to_newton_basis.py",
+      "result": "results/conversion_from_monomial_basis_to_newton_basis.json"
     },
     {
       "name": "convex_layers",
@@ -1004,10 +1009,14 @@
       "title": "Frequency Table of Tree Distance",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.convolution.NTT998",
+        "library_codex.tree.TreeDistanceFrequency"
+      ],
+      "solution": "solutions/frequency_table_of_tree_distance.py",
+      "result": "results/frequency_table_of_tree_distance.json"
     },
     {
       "name": "furthest_pair",
@@ -1680,10 +1689,13 @@
       "title": "Convolution on the Multiplicative Monoid of $\\mathbb{Z} / P\\mathbb{Z}$",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/mul_modp_convolution",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime"
+      ],
+      "solution": "solutions/mul_modp_convolution.py",
+      "result": "results/mul_modp_convolution.json"
     },
     {
       "name": "multiplication_of_big_integers",

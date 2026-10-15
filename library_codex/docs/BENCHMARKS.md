@@ -6,6 +6,7 @@
 
 ## グラフ・木
 
+- [木の距離分布の速度とメモリ](TREE_DISTANCE_FREQUENCY_BENCHMARK.md)
 - [オイラー閉路の数え上げ](DECIMAL_ADDITION_BENCHMARK.md)
 - [動的木のパス積・動的グラフの成分加算](DYNAMIC_TREE_BENCHMARK.md)
 - [最大流・最小費用b-flow](FLOW_BENCHMARK.md)

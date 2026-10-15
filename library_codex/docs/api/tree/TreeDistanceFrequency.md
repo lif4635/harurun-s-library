@@ -9,7 +9,7 @@
 
 ## できること
 
-- `tree_distance_counts`: 木の頂点pair数を距離ごとに数える。
+- `tree_distance_counts`: 重みなし木の頂点対を、順序を区別せず距離ごとに数える。modを取らない正確な整数で返す。
 
 ## Import
 
@@ -21,4 +21,4 @@ from library_codex.tree.TreeDistanceFrequency import tree_distance_counts
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`tree_distance_counts(tree, include_same=False)`](../../../tree/TreeDistanceFrequency.py#L7) | 木の頂点pair数を距離ごとに数える。 | `tree`: 木の隣接list<br>`include_same`: include sameを有効にするか。省略時: `False` | list[int] — $\mathrm{result}[d]$ は距離が $d$ の頂点のunordered pair数。include_same=Trueなら $\mathrm{result}[0]$ は頂点数 | O(N log^2 N) |
+| [`tree_distance_counts(tree, include_same=False)`](../../../tree/TreeDistanceFrequency.py#L24) | 重みなし木の頂点対を、順序を区別せず距離ごとに数える。modを取らない正確な整数で返す。 | `tree`: 無向木の隣接リスト。tree[v]はvに隣接する頂点番号の列。各辺は両側へ入れる。空の木も可。<br>`include_same`: Trueなら自分自身との頂点対も数え、result[0]を頂点数にする。Falseならresult[0]は0。省略時: `False` | list[int] — result[d]が距離dの頂点対数。非空の木では長さが直径+1で、それ以上の距離の0は省く。空の木なら[]。1頂点なら[0]、include_same=Trueなら[1]。 | O(N log² N)。Nは頂点数。追加メモリ O(N) |

@@ -1,0 +1,7 @@
+{
+  "problem": "frequency_table_of_tree_distance",
+  "language": "pypy3",
+  "submissions": [],
+  "comparison": "local before/after; no external submissions",
+  "baselineLibraryRevision": "3d4494b7a1b71cb86845df349ad9730cfe8d83eb"
+}

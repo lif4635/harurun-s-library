@@ -1,0 +1,142 @@
+{
+  "problem": "frequency_table_of_tree_distance",
+  "status": "local_passed",
+  "verificationKey": "54c624575130b2b8057a7ee6cba43d9d4dd20ddeef02fbf668df10c467696391",
+  "sourceSha256": "6aca79bef258c22486d0890a216749ac66b28da0a83984f1b1c4bbe94a759146",
+  "modules": [
+    "library_codex.convolution.NTT",
+    "library_codex.convolution.NTT998",
+    "library_codex.tree.TreeDistanceFrequency"
+  ],
+  "problemVersion": "f94034a5fe60bcbabf94017099c37f51d77e1212266e4045100a1cf7a96ed680",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 20,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05511502800800372,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.10003542400954757,
+      "diagnostic": "ok 692 tokens\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.06860420000157319,
+      "diagnostic": "ok 197 tokens\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.05790927101043053,
+      "diagnostic": "ok 87 tokens\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.06842773499374744,
+      "diagnostic": "ok 192 tokens\n"
+    },
+    {
+      "name": "small_random_04",
+      "status": "AC",
+      "seconds": 0.08664191400748678,
+      "diagnostic": "ok 531 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.7290008279960603,
+      "diagnostic": "ok 127668 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.8770659590081777,
+      "diagnostic": "ok 150762 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.31974142100079916,
+      "diagnostic": "ok 53335 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 1.0589695329981623,
+      "diagnostic": "ok 167104 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.1583921520068543,
+      "diagnostic": "ok 14867 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.5394340399943758,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.4124317730020266,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "uni_00",
+      "status": "AC",
+      "seconds": 0.39519873399694916,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "almost_uni_00",
+      "status": "AC",
+      "seconds": 0.565399803002947,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "almost_uni_01",
+      "status": "AC",
+      "seconds": 0.5098296049982309,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "line_00",
+      "status": "AC",
+      "seconds": 2.491086025009281,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "line_star_00",
+      "status": "AC",
+      "seconds": 2.2043500839936314,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "line_star_01",
+      "status": "AC",
+      "seconds": 1.8346565960091539,
+      "diagnostic": "ok 199999 tokens\n"
+    },
+    {
+      "name": "line_star_02",
+      "status": "AC",
+      "seconds": 2.5175914889987325,
+      "diagnostic": "ok 199999 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-15T07:32:27.598050+00:00",
+  "onlineSubmission": null
+}

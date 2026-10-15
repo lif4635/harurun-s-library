@@ -26,6 +26,7 @@
 | [composition_of_formal_power_series_large](composition_of_formal_power_series_large.json) | 3 / 32 | 5 | 2.046 | 140.7 | 一致 |
 | [compositional_inverse_of_formal_power_series](compositional_inverse_of_formal_power_series.json) | 3 / 23 | 5 | 0.235 | 77.3 | 一致 |
 | [compositional_inverse_of_formal_power_series_large](compositional_inverse_of_formal_power_series_large.json) | 3 / 28 | 5 | 2.392 | 114.5 | 一致 |
+| [conversion_from_monomial_basis_to_newton_basis](conversion_from_monomial_basis_to_newton_basis.json) | 3 / 15 | 5 | 1.134 | 148.2 | 一致 |
 | [convolution_mod_1000000007](convolution_mod_1000000007.json) | 3 / 48 | 5 | 1.260 | 187.1 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
 | [counting_eulerian_circuits](counting_eulerian_circuits.json) | 3 / 16 | 5 | 0.435 | 95.1 | 一致 |
@@ -47,6 +48,7 @@
 | [exp_of_set_power_series](exp_of_set_power_series.json) | 3 / 13 | 5 | 2.261 | 345.6 | 一致 |
 | [factorial](factorial.json) | 3 / 7 | 5 | 3.433 | 99.9 | 一致 |
 | [factorization_of_polynomials](factorization_of_polynomials.json) | 3 / 67 | 5 | 2.791 | 89.5 | 一致 |
+| [frequency_table_of_tree_distance](frequency_table_of_tree_distance.json) | 3 / 20 | 5 | 2.490 | 124.9 | 一致 |
 | [furthest_pair](furthest_pair.json) | 3 / 46 | 5 | 2.599 | 231.1 | 一致 |
 | [gcd_convolution](gcd_convolution.json) | 3 / 29 | 5 | 0.560 | 263.5 | 一致 |
 | [gcd_of_gaussian_integers](gcd_of_gaussian_integers.json) | 3 / 12 | 5 | 0.239 | 74.5 | 一致 |
@@ -86,6 +88,7 @@
 | [minimum_spanning_tree](minimum_spanning_tree.json) | 3 / 31 | 5 | 1.637 | 200.0 | 一致 |
 | [minimum_steiner_tree](minimum_steiner_tree.json) | 3 / 24 | 5 | 0.441 | 67.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |
+| [mul_modp_convolution](mul_modp_convolution.json) | 3 / 40 | 5 | 0.578 | 165.6 | 一致 |
 | [multipoint_evaluation_on_geometric_sequence](multipoint_evaluation_on_geometric_sequence.json) | 3 / 25 | 5 | 0.572 | 161.1 | 一致 |
 | [multivariate_convolution](multivariate_convolution.json) | 3 / 17 | 5 | 4.683 | 240.2 | 一致 |
 | [multivariate_convolution_cyclic](multivariate_convolution_cyclic.json) | 3 / 24 | 5 | 4.038 | 177.3 | 一致 |
