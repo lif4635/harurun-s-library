@@ -4066,7 +4066,7 @@ COMPLEXITY_BY_MODULE.update({
     "algebra/Affine.py": {
         "__call__": "O(1)", "__mul__": "O(1)", "__eq__": "O(1)",
     },
-    "algebra/PowerTable.py": {"power_table": "O(length)"},
+    "algebra/PowerTable.py": {"power_table": "mod>0ではO(N log log(N+2) + π(N) log(exponent+1))、メモリO(N)。N=limit、π(N)はN以下の素数の個数。mod=NoneではO(N log(exponent+2))回の整数乗算。多倍長演算のコストは別途必要"},
 })
 
 COMPLEXITY_BY_MODULE.update({
@@ -6906,6 +6906,16 @@ API_DETAILS_BY_SYMBOL.update({
         },
         "returnFormat": "list[int]",
         "returnDescription": "gの定数項から順の係数列。g(n)=sum(f(i), 0<=i<n)。inclusive=Trueではi=nも含める。非零入力なら長さdeg(f)+2、零多項式なら[]。",
+    },
+    ("algebra/PowerTable.py", None, "power_table"): {
+        "description": "整数0からlimitまでを同じ指数で累乗する。正の法では素数の冪を合成数にも使い回す。",
+        "argumentDescriptions": {
+            "limit": "含める上限。0以上の整数。",
+            "exponent": "すべての要素に共通の非負整数の指数。",
+            "mod": "正の整数の法。合成数や1も指定できる。Noneなら剰余を取らず整数で返す。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さlimit+1の列。result[i]=i**exponent。mod指定時は各要素をその法で割った余りにする。0**0は1とする。",
     },
     ("polynomial/PolynomialExponentialSum.py", None, "sum_polynomial_exponential"): {
         "description": "多項式fの連続した標本値から、公比ratioの重みを付けた有限和を求める。",

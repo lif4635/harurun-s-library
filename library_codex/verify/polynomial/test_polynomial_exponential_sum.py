@@ -71,3 +71,30 @@ def test_large_count_difference_identity():
                 left = sum_polynomial_exponential(values, ratio, count, mod)
                 right = sum_polynomial_exponential(values, ratio, count + 1, mod)
                 assert (right - left) % mod == pow(ratio, count, mod) * fps_evaluate(coefficients, count, mod) % mod
+
+
+def test_redundant_samples_negative_values_and_field_boundary():
+    rng = random.Random(7311)
+    for mod in (17, 101, MOD):
+        size = min(80, mod - 1)
+        for _ in range(20):
+            coefficients = [rng.randrange(-mod, mod) for _ in range(rng.randrange(1, 9))]
+            samples = tuple(fps_evaluate(coefficients, i, mod) - mod for i in range(size))
+            ratio = rng.randrange(-mod, mod)
+            for count in (0, 1, size, size + 1, mod, 2 * mod + 3 if mod < 1000 else 400):
+                if count > 1000:
+                    continue
+                expected = sum(pow(ratio, i, mod) * fps_evaluate(coefficients, i, mod) for i in range(count)) % mod
+                assert sum_polynomial_exponential(samples, ratio, count, mod) == expected
+            if ratio % mod != 1:
+                shorter = tuple(fps_evaluate(coefficients, i, mod) for i in range(len(coefficients)))
+                assert limit_sum_polynomial_exponential(samples, ratio, mod) == limit_sum_polynomial_exponential(shorter, ratio, mod)
+
+
+def test_large_constant_polynomial():
+    samples = [7] * 100001
+    count = 10 ** 18 + 33
+    assert sum_polynomial_exponential(samples, 2, count) == 7 * (pow(2, count, MOD) - 1) % MOD
+    assert limit_sum_polynomial_exponential(samples, 2) == MOD - 7
+    assert sum_polynomial_exponential(samples, 1, count) == 7 * count % MOD
+    assert samples == [7] * 100001

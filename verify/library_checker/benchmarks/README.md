@@ -143,6 +143,8 @@
 | [stirling_number_of_the_second_kind_fixed_k](stirling_number_of_the_second_kind_fixed_k.json) | 3 / 14 | 5 | 1.992 | 187.8 | 一致 |
 | [stirling_number_of_the_second_kind_small_p_large_n](stirling_number_of_the_second_kind_small_p_large_n.json) | 3 / 20 | 5 | 0.401 | 79.5 | 一致 |
 | [subset_convolution](subset_convolution.json) | 3 / 11 | 5 | 2.647 | 575.1 | 一致 |
+| [sum_of_exponential_times_polynomial](sum_of_exponential_times_polynomial.json) | 3 / 20 | 5 | 1.691 | 364.9 | 一致 |
+| [sum_of_exponential_times_polynomial_limit](sum_of_exponential_times_polynomial_limit.json) | 3 / 10 | 5 | 0.917 | 212.3 | 一致 |
 | [system_of_linear_equations](system_of_linear_equations.json) | 3 / 27 | 5 | 0.508 | 66.6 | 一致 |
 | [system_of_linear_equations_mod_2](system_of_linear_equations_mod_2.json) | 3 / 36 | 5 | 1.393 | 105.7 | 一致 |
 | [three_edge_connected_components](three_edge_connected_components.json) | 3 / 20 | 5 | 0.833 | 149.2 | 一致 |

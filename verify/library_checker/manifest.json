@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 219,
-    "unimplemented": 34
+    "local_passed": 221,
+    "unimplemented": 32
   },
   "problems": [
     {
@@ -2841,20 +2841,26 @@
       "title": "$\\sum_{i=0}^{n-1} r^i i^d$",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/sum_of_exponential_times_polynomial",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.algebra.PowerTable",
+        "library_codex.polynomial.PolynomialExponentialSum"
+      ],
+      "solution": "solutions/sum_of_exponential_times_polynomial.py",
+      "result": "results/sum_of_exponential_times_polynomial.json"
     },
     {
       "name": "sum_of_exponential_times_polynomial_limit",
       "title": "$\\sum_{i=0}^{\\infty} r^i i^d$",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/sum_of_exponential_times_polynomial_limit",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.algebra.PowerTable",
+        "library_codex.polynomial.PolynomialExponentialSum"
+      ],
+      "solution": "solutions/sum_of_exponential_times_polynomial_limit.py",
+      "result": "results/sum_of_exponential_times_polynomial_limit.json"
     },
     {
       "name": "sum_of_floor_of_linear",

@@ -7,5 +7,5 @@
 | --- | --- | ---: | ---: | ---: |
 | [`Affine`](Affine.md) | 一次関数の評価・合成・反転を扱う。 | 0 | 1 | 3 |
 | [`FastPower`](FastPower.md) | 同じ底や指数で繰り返す累乗計算を前計算で高速化する。 | 0 | 1 | 1 |
-| [`PowerTable`](PowerTable.md) | 固定した底の累乗値をまとめて前計算する。 | 1 | 0 | 0 |
+| [`PowerTable`](PowerTable.md) | 0からlimitまでの整数を、同じ指数で累乗した値をまとめて求める。 | 1 | 0 | 0 |
 | [`SATSolver`](SATSolver.md) | watched literal型の反復SAT solver | 0 | 1 | 4 |

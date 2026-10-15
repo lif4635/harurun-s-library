@@ -19,7 +19,7 @@
     {
       "modulePath": "algebra/PowerTable",
       "sourcePath": "library_codex/algebra/PowerTable.py",
-      "sourceSha256": "551e7dee70b54ea47f62bc1a00cc730c0919fb0b49a7175e14b53a9a1d44a414",
+      "sourceSha256": "8e27facd63c1d8641274030c506e0bcfb9fe9fc9bac0c3b198cf5ad80349aad9",
       "status": "unsupported"
     },
     {
@@ -1421,7 +1421,7 @@
     {
       "modulePath": "polynomial/PolynomialExponentialSum",
       "sourcePath": "library_codex/polynomial/PolynomialExponentialSum.py",
-      "sourceSha256": "455ecd4c73c9d5737c58cccccbc0da2186518f722be378d055a2c635d00e2512",
+      "sourceSha256": "d873ebbead331d81eb87f55c5d156f5843e1e40703e1f89cf5f525baaa757ad7",
       "status": "unsupported"
     },
     {

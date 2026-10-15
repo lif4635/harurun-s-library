@@ -5,7 +5,6 @@ from library_codex.rational.Digamma import digamma
 from library_codex.combinatorics.FloatBinomial import FloatBinomial
 from library_codex.rational.InverseSum import inverse_sum
 from library_codex.combinatorics.PisanoPeriod import pisano_period
-from library_codex.algebra.PowerTable import power_table
 from library_codex.combinatorics.RationalBinomial import RationalBinomial
 from library_codex.linear_algebra.Semiring import semiring_linear_recurrence, semiring_matrix_power
 
@@ -51,7 +50,7 @@ def test_float_and_rational_binomial_and_inverse_sum():
             assert abs(inverse_sum(left, right) - expected) < 1e-11
 
 
-def test_pisano_period_and_power_table():
+def test_pisano_period():
     for modulus in range(1, 300):
         first, second = 0, 1 % modulus
         period = 0
@@ -61,6 +60,3 @@ def test_pisano_period_and_power_table():
             if first == 0 and second == 1 % modulus:
                 break
         assert pisano_period(modulus) == period
-    assert power_table(100, 37, 1000000007) == [
-        pow(value, 37, 1000000007) for value in range(101)
-    ]

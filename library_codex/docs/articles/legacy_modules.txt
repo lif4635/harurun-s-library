@@ -2,7 +2,6 @@
 # New modules must not be added here; write docs/articles/<category>/<Module>.md.
 algebra/Affine
 algebra/FastPower
-algebra/PowerTable
 algebra/SATSolver
 algorithm/AllButOne
 algorithm/Base64Integers

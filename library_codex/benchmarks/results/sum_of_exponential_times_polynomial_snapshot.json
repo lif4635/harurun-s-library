@@ -1,0 +1,7 @@
+{
+  "problem": "sum_of_exponential_times_polynomial",
+  "language": "pypy3",
+  "submissions": [],
+  "baselineLibraryRevision": "fa2cf00275c11e35299bea5af0585f548d413aec",
+  "baselineScope": "AST-extracted unchanged functions and Comb from the library revision, with problem input and output; unrelated imports omitted"
+}

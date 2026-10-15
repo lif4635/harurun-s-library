@@ -1,0 +1,81 @@
+{
+  "problem": "sum_of_exponential_times_polynomial_limit",
+  "status": "local_passed",
+  "verificationKey": "590a4a79eb4fc8b30221f12140f6aeeaf2a8f936a38dd2e8efd36b0d4d09736f",
+  "sourceSha256": "11dc9b706c3b57e2e094b136b504ca54564daefbe2a468c299557a34a5634bad",
+  "modules": [
+    "library_codex.algebra.PowerTable",
+    "library_codex.polynomial.PolynomialExponentialSum"
+  ],
+  "problemVersion": "c7e88bec58ea2d7e09961a1f871e91fabd77ec0ae8c15ba2651f1ea29b83c671",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 10,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.05589933699229732,
+      "diagnostic": "ok \"1082\"\n"
+    },
+    {
+      "name": "0_00",
+      "status": "AC",
+      "seconds": 0.050471923997974955,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "0_01",
+      "status": "AC",
+      "seconds": 0.04992383799981326,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "0_02",
+      "status": "AC",
+      "seconds": 0.5030278409976745,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "2_00",
+      "status": "AC",
+      "seconds": 0.04923299599613529,
+      "diagnostic": "ok \"79364091\"\n"
+    },
+    {
+      "name": "2_01",
+      "status": "AC",
+      "seconds": 0.04996502499852795,
+      "diagnostic": "ok \"253019860\"\n"
+    },
+    {
+      "name": "2_02",
+      "status": "AC",
+      "seconds": 0.05571246999897994,
+      "diagnostic": "ok \"191157706\"\n"
+    },
+    {
+      "name": "2_03",
+      "status": "AC",
+      "seconds": 0.09032343899889383,
+      "diagnostic": "ok \"820526039\"\n"
+    },
+    {
+      "name": "2_04",
+      "status": "AC",
+      "seconds": 0.9150251720129745,
+      "diagnostic": "ok \"385041413\"\n"
+    },
+    {
+      "name": "2_05",
+      "status": "AC",
+      "seconds": 0.8837965209968388,
+      "diagnostic": "ok \"594550970\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-15T13:07:01.626268+00:00",
+  "onlineSubmission": null
+}

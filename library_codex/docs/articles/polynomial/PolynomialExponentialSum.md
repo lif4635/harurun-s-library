@@ -29,6 +29,15 @@ assert sum_polynomial_exponential(samples, 1, 4) == 6
 assert limit_sum_polynomial_exponential(samples, 2) == 2
 ```
 
+冪の和では、`power_table`で標本値をまとめて作れる。
+
+```python
+from library_codex.algebra.PowerTable import power_table
+
+samples = power_table(3, 3, 998244353)
+assert sum_polynomial_exponential(samples, 2, 4) == 250
+```
+
 - `samples = [0, 1]`: f(0)=0, f(1)=1なので、次数1以下という条件のもとでf(x)=xを表す。
 - 有限和: 0+2+8+24=34。
 - 無限和: F(z)=z/(1-z)²へz=2を代入した値。実数上で級数が収束するという意味ではない。
@@ -41,3 +50,18 @@ assert limit_sum_polynomial_exponential(samples, 2) == 2
 - 有限和はr=0・1にも対応する。countが0以下なら0。
 - 無限和ではrが法上で1になる場合は `ValueError`。
 - 法はNより大きい素数。省略時は998244353。
+
+## 仕組み
+
+無限和の分母は次数dに対して次の形になる。
+
+$$
+(1-r)^{d+1}.
+$$
+
+分子を標本値の線形結合で求める。逆階乗を共有し、等比列や累積和の配列を無限和用に保持しない。有限和は定数項を除くと「多項式の値×等比重み」に分離でき、その多項式を連続した整数点から補間する。補間の左右の積も両方の配列を作らず、片側は走査中に計算する。
+
+## 参考
+
+- [Library Checkerの公式実装](https://github.com/yosupo06/library-checker-problems/blob/master/other/sum_of_exponential_times_polynomial/sol/correct.cpp)
+- [Nyaanの等比重み付き多項式和](https://nyaannyaan.github.io/library/fps/sum-of-exponential-times-poly.hpp.html)

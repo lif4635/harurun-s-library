@@ -1,0 +1,141 @@
+{
+  "problem": "sum_of_exponential_times_polynomial",
+  "status": "local_passed",
+  "verificationKey": "8154543eb79f54f54cc6ddd46a7ff7ec8dffb5572f60546b358766bdc8ac480f",
+  "sourceSha256": "3ec9c24963113e35130affa38f0a3ef4700b7c4cd04bad1d5f42bbfc417195e9",
+  "modules": [
+    "library_codex.algebra.PowerTable",
+    "library_codex.polynomial.PolynomialExponentialSum"
+  ],
+  "problemVersion": "212438400ac5f6711da1ae24a9d59995e8f43e549b0f4f56226f40303a801315",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 20,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.049517220992129296,
+      "diagnostic": "ok \"2767418\"\n"
+    },
+    {
+      "name": "0_00",
+      "status": "AC",
+      "seconds": 0.05340153399447445,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "0_01",
+      "status": "AC",
+      "seconds": 0.05076224998629186,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "0_02",
+      "status": "AC",
+      "seconds": 0.5516079539956991,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "0_03",
+      "status": "AC",
+      "seconds": 0.535410950993537,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "0_04",
+      "status": "AC",
+      "seconds": 0.525037497995072,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "1_00",
+      "status": "AC",
+      "seconds": 0.05018895700050052,
+      "diagnostic": "ok \"716070898\"\n"
+    },
+    {
+      "name": "1_01",
+      "status": "AC",
+      "seconds": 0.053613630996551365,
+      "diagnostic": "ok \"564636644\"\n"
+    },
+    {
+      "name": "1_02",
+      "status": "AC",
+      "seconds": 0.056024475998128764,
+      "diagnostic": "ok \"753289567\"\n"
+    },
+    {
+      "name": "1_03",
+      "status": "AC",
+      "seconds": 1.3011834369972348,
+      "diagnostic": "ok \"162522666\"\n"
+    },
+    {
+      "name": "1_04",
+      "status": "AC",
+      "seconds": 0.5262148849869845,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "1_05",
+      "status": "AC",
+      "seconds": 0.6031252819957444,
+      "diagnostic": "ok \"862273276\"\n"
+    },
+    {
+      "name": "1_06",
+      "status": "AC",
+      "seconds": 1.2701180490112165,
+      "diagnostic": "ok \"425147615\"\n"
+    },
+    {
+      "name": "2_00",
+      "status": "AC",
+      "seconds": 0.05390254499798175,
+      "diagnostic": "ok \"355576302\"\n"
+    },
+    {
+      "name": "2_01",
+      "status": "AC",
+      "seconds": 0.05929305899189785,
+      "diagnostic": "ok \"699058665\"\n"
+    },
+    {
+      "name": "2_02",
+      "status": "AC",
+      "seconds": 0.05991797300521284,
+      "diagnostic": "ok \"839074286\"\n"
+    },
+    {
+      "name": "2_03",
+      "status": "AC",
+      "seconds": 1.2549968690000242,
+      "diagnostic": "ok \"926232817\"\n"
+    },
+    {
+      "name": "2_04",
+      "status": "AC",
+      "seconds": 0.511042249010643,
+      "diagnostic": "ok \"0\"\n"
+    },
+    {
+      "name": "2_05",
+      "status": "AC",
+      "seconds": 0.6683547660068143,
+      "diagnostic": "ok \"106104225\"\n"
+    },
+    {
+      "name": "2_06",
+      "status": "AC",
+      "seconds": 1.7370883580006193,
+      "diagnostic": "ok \"830968358\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-15T13:06:50.759870+00:00",
+  "onlineSubmission": null
+}
