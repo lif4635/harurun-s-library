@@ -3737,13 +3737,38 @@ API_DETAILS_BY_SYMBOL.update({
     },
 })
 
+API_DETAILS_BY_SYMBOL.update({
+    ("convolution/MultidimensionalDFT.py", None, "multidimensional_dft"): {
+        "description": "各軸の1の累乗根で多項式を評価する。inverse=Trueなら正規化した逆変換を行う。",
+        "argumentDescriptions": {
+            "values": "長さproduct(base)の係数列。base[0]の指数が最も速く変化する並び。",
+            "base": "各軸の長さ。すべて正で、mod-1の約数であること。空なら定数1個。",
+            "inverse": "Trueなら変換値から係数列へ戻す。",
+            "mod": "係数の法となる素数。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "入力と同じ長さ・軸順の新しいlist。順変換では各軸の原始base[i]乗根の累乗点での評価値、逆変換では元の係数をmodで割った余り。入力は変更しない。",
+    },
+    ("convolution/MultidimensionalDFT.py", None, "multivariate_circular_convolution"): {
+        "description": "二つの多変数多項式を掛け、各軸の指数をbase[i]で割った余りへ折り返す。",
+        "argumentDescriptions": {
+            "first": "長さproduct(base)の係数列。base[0]の指数が最も速く変化する並び。",
+            "second": "firstと同じ長さ・軸順の係数列。",
+            "base": "各軸の長さ。すべて正で、mod-1の約数であること。空なら定数同士の積。",
+            "mod": "係数の法となる素数。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さproduct(base)の積の係数列。各軸で指数の和をbase[i]で割った余りが一致する項の積を足し、modで割った余りを入れる。入力と同じ軸順で、入力は変更しない。",
+    },
+})
+
 COMPLEXITY_BY_MODULE.update({
     "convolution/ChirpZ.py": {
         "chirp_z": "O(M(N+C)) modular operations（Nは係数数、Cは評価点数）",
     },
     "convolution/MultidimensionalDFT.py": {
-        "multidimensional_dft": "O(S * sum(log base[i])) modular operations（S=product(base)）",
-        "multivariate_circular_convolution": "3回のmultidimensional_dft + O(S)",
+        "multidimensional_dft": "O(S * sum(log(base[i]+1)) + sqrt(p) + g*log²(p))時間・O(S+D)領域。S=product(base)、D=len(base)、p=mod、gは最小の原始根。後ろの2項は原始根探索",
+        "multivariate_circular_convolution": "O(S * sum(log(base[i]+1)) + sqrt(p) + g*log²(p))時間・O(S+D)領域。S=product(base)、D=len(base)、p=mod、gは最小の原始根。後ろの2項は原始根探索",
     },
     "convolution/MultivariateMultiplication.py": {
         "multivariate_multiplication": "2変数はO(N log(N+1))時間・O(N)領域。一般にはO(D*N log(N+1)+D²*N)時間・O(D*N)領域。N=product(base)、Dはbase[i]>1の変数数",

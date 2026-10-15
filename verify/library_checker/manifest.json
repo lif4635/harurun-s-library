@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 210,
-    "unimplemented": 43
+    "local_passed": 213,
+    "unimplemented": 40
   },
   "problems": [
     {
@@ -1738,20 +1738,28 @@
       "title": "Multidimensional Convolution (Truncated)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/multivariate_convolution",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.convolution.NTT998",
+        "library_codex.convolution.MultivariateMultiplication"
+      ],
+      "solution": "solutions/multivariate_convolution.py",
+      "result": "results/multivariate_convolution.json"
     },
     {
       "name": "multivariate_convolution_cyclic",
       "title": "Multidimensional Convolution (Circular)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/multivariate_convolution_cyclic",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.convolution.ChirpZ",
+        "library_codex.convolution.MultidimensionalDFT"
+      ],
+      "solution": "solutions/multivariate_convolution_cyclic.py",
+      "result": "results/multivariate_convolution_cyclic.json"
     },
     {
       "name": "nim_product_64",
@@ -2450,10 +2458,14 @@
       "title": "$\\#_p$ Subset Sum",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/sharp_p_subset_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.fps998.SubsetSum"
+      ],
+      "solution": "solutions/sharp_p_subset_sum.py",
+      "result": "results/sharp_p_subset_sum.json"
     },
     {
       "name": "shift_of_sampling_points_of_polynomial",

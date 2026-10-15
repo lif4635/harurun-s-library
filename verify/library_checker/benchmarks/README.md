@@ -86,6 +86,8 @@
 | [minimum_steiner_tree](minimum_steiner_tree.json) | 3 / 24 | 5 | 0.441 | 67.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |
 | [multipoint_evaluation_on_geometric_sequence](multipoint_evaluation_on_geometric_sequence.json) | 3 / 25 | 5 | 0.572 | 161.1 | 一致 |
+| [multivariate_convolution](multivariate_convolution.json) | 3 / 17 | 5 | 4.683 | 240.2 | 一致 |
+| [multivariate_convolution_cyclic](multivariate_convolution_cyclic.json) | 3 / 24 | 5 | 4.038 | 177.3 | 一致 |
 | [nim_product_64](nim_product_64.json) | 3 / 10 | 5 | 1.508 | 185.0 | 一致 |
 | [ordered_set](ordered_set.json) | 3 / 37 | 5 | 2.446 | 279.1 | 一致 |
 | [palindromes_in_deque](palindromes_in_deque.json) | 3 / 24 | 5 | 0.742 | 284.9 | 一致 |
@@ -116,6 +118,7 @@
 | [rectangle_sum](rectangle_sum.json) | 3 / 14 | 5 | 2.505 | 175.2 | 一致 |
 | [rooted_tree_topological_order_with_minimum_inversions](rooted_tree_topological_order_with_minimum_inversions.json) | 3 / 30 | 5 | 0.687 | 117.7 | 一致 |
 | [runenumerate](runenumerate.json) | 3 / 24 | 5 | 2.749 | 284.1 | 一致 |
+| [sharp_p_subset_sum](sharp_p_subset_sum.json) | 3 / 24 | 5 | 1.186 | 186.6 | 一致 |
 | [shift_of_sampling_points_of_polynomial](shift_of_sampling_points_of_polynomial.json) | 3 / 32 | 5 | 0.647 | 157.6 | 一致 |
 | [sort_points_by_argument](sort_points_by_argument.json) | 3 / 21 | 5 | 1.240 | 108.3 | 一致 |
 | [sparse_matrix_det](sparse_matrix_det.json) | 3 / 24 | 5 | 2.523 | 93.1 | 一致 |

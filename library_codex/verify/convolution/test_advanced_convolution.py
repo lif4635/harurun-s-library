@@ -8,10 +8,6 @@ sys.path.insert(0, str(ROOT.parent))
 
 from library_codex.convolution.ChirpZ import chirp_z  # noqa: E402
 from library_codex.convolution.MiddleProduct import middle_product  # noqa: E402
-from library_codex.convolution.MultidimensionalDFT import (  # noqa: E402
-    multidimensional_dft,
-    multivariate_circular_convolution,
-)
 from library_codex.arithmetic_convolution.MultiplicativeConvolutionModPrime import (  # noqa: E402
     multiplicative_convolution,
 )
@@ -66,55 +62,6 @@ def test_middle_product_rejects_invalid_lengths():
             pass
         else:
             raise AssertionError((first, second))
-
-
-def _digits(index, base):
-    result = []
-    for radix in base:
-        result.append(index % radix)
-        index //= radix
-    return result
-
-
-def test_multivariate_circular_against_pairs():
-    rng = random.Random(111)
-    bases = [[], [2], [3], [2, 3], [3, 2, 2], [2, 2, 2, 2]]
-    for base in bases:
-        size = 1
-        for radix in base:
-            size *= radix
-        for _ in range(300):
-            first = [rng.randrange(MOD) for _ in range(size)]
-            second = [rng.randrange(MOD) for _ in range(size)]
-            circular = [0] * size
-            for i in range(size):
-                di = _digits(i, base)
-                for j in range(size):
-                    dj = _digits(j, base)
-                    coefficient = first[i] * second[j]
-                    wrapped = [(a + b) % radix
-                               for a, b, radix in zip(di, dj, base)]
-                    index = sum(value * (1 if axis == 0 else
-                                __import__('math').prod(base[:axis]))
-                                for axis, value in enumerate(wrapped))
-                    circular[index] += coefficient
-            circular = [value % MOD for value in circular]
-            if all((MOD - 1) % radix == 0 for radix in base):
-                assert multivariate_circular_convolution(
-                    first, second, base
-                ) == circular
-
-
-def test_multidimensional_dft_inverse():
-    rng = random.Random(112)
-    for base in ([2], [7], [2, 7], [2, 2, 7]):
-        size = 1
-        for radix in base:
-            size *= radix
-        for _ in range(100):
-            values = [rng.randrange(MOD) for _ in range(size)]
-            transformed = multidimensional_dft(values, base)
-            assert multidimensional_dft(transformed, base, True) == values
 
 
 def test_multiplicative_convolution_mod_prime():

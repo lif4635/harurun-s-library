@@ -27,6 +27,7 @@
 
 ## 数論・多項式・線形代数
 
+- [多変数の循環畳み込み](MULTIDIMENSIONAL_CONVOLUTION_BENCHMARK.md)
 - [巨大整数の10進・16進加算](DECIMAL_ADDITION_BENCHMARK.md)
 - [凹列のmin-plus畳み込み](MINPLUS_CONCAVE_BENCHMARK.md)
 - [多項式の評価・補間・累積和](POLYNOMIAL_SAMPLING_BENCHMARK.md)

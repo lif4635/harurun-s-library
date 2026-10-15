@@ -8,8 +8,8 @@
 
 ## できること
 
-- `multidimensional_dft`: 入力列へ指定した変換を適用し、変換後の列を返す。
-- `multivariate_circular_convolution`: multivariate circular convolutionを計算する。
+- `multidimensional_dft`: 各軸の1の累乗根で多項式を評価する。inverse=Trueなら正規化した逆変換を行う。
+- `multivariate_circular_convolution`: 二つの多変数多項式を掛け、各軸の指数をbase[i]で割った余りへ折り返す。
 
 ## Import
 
@@ -27,5 +27,5 @@ from library_codex.convolution.MultidimensionalDFT import multidimensional_dft, 
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L9) | 入力列へ指定した変換を適用し、変換後の列を返す。 | `values`: 初期値のiterable。整数ならsizeを表す場合がある<br>`base`: 底・基準となる値または列<br>`inverse`: 逆元として使う入力。省略時: `False`<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | list[object] — 計算結果 | O(S * sum(log base[i])) modular operations（S=product(base)） |
-| [`multivariate_circular_convolution(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L47) | multivariate circular convolutionを計算する。 | `first`: 第1入力・左側の値<br>`second`: 第2入力・右側の値<br>`base`: 底・基準となる値または列<br>`mod`: 法。Noneの場合は整数上の演算。省略時: `DEFAULT_MOD` | `multidimensional_dft(left, base, True, mod)` | 3回のmultidimensional_dft + O(S) |
+| [`multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L9) | 各軸の1の累乗根で多項式を評価する。inverse=Trueなら正規化した逆変換を行う。 | `values`: 長さproduct(base)の係数列。base[0]の指数が最も速く変化する並び。<br>`base`: 各軸の長さ。すべて正で、mod-1の約数であること。空なら定数1個。<br>`inverse`: Trueなら変換値から係数列へ戻す。省略時: `False`<br>`mod`: 係数の法となる素数。省略時: `DEFAULT_MOD` | list[int] — 入力と同じ長さ・軸順の新しいlist。順変換では各軸の原始base[i]乗根の累乗点での評価値、逆変換では元の係数をmodで割った余り。入力は変更しない。 | O(S * sum(log(base[i]+1)) + sqrt(p) + g*log²(p))時間・O(S+D)領域。S=product(base)、D=len(base)、p=mod、gは最小の原始根。後ろの2項は原始根探索 |
+| [`multivariate_circular_convolution(first, second, base, mod=DEFAULT_MOD)`](../../../convolution/MultidimensionalDFT.py#L72) | 二つの多変数多項式を掛け、各軸の指数をbase[i]で割った余りへ折り返す。 | `first`: 長さproduct(base)の係数列。base[0]の指数が最も速く変化する並び。<br>`second`: firstと同じ長さ・軸順の係数列。<br>`base`: 各軸の長さ。すべて正で、mod-1の約数であること。空なら定数同士の積。<br>`mod`: 係数の法となる素数。省略時: `DEFAULT_MOD` | list[int] — 長さproduct(base)の積の係数列。各軸で指数の和をbase[i]で割った余りが一致する項の積を足し、modで割った余りを入れる。入力と同じ軸順で、入力は変更しない。 | O(S * sum(log(base[i]+1)) + sqrt(p) + g*log²(p))時間・O(S+D)領域。S=product(base)、D=len(base)、p=mod、gは最小の原始根。後ろの2項は原始根探索 |

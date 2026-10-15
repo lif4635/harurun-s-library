@@ -1,0 +1,166 @@
+{
+  "problem": "sharp_p_subset_sum",
+  "status": "local_passed",
+  "verificationKey": "f82c89b96ba3088770c9722d455e3f5b50944a570e0d8f3d426c8460ebc4abf9",
+  "sourceSha256": "733f06036184ad22a55f31655f4f8337fd82048ec8cc4ebe004eddaa168de5e4",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS",
+    "library_codex.fps998.SubsetSum"
+  ],
+  "problemVersion": "42216f30a5bdfba4ce1b1995c4df881592c414ded1459dbbd90eef2e918189dc",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 24,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06874845099810045,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "big_00",
+      "status": "AC",
+      "seconds": 1.1970761320044403,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "big_01",
+      "status": "AC",
+      "seconds": 1.2214377519994741,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "big_02",
+      "status": "AC",
+      "seconds": 1.217247350999969,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "big_03",
+      "status": "AC",
+      "seconds": 1.2279098629951477,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "big_04",
+      "status": "AC",
+      "seconds": 1.2840324200005853,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.09957749699970009,
+      "diagnostic": "ok 1000 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.12601619199995184,
+      "diagnostic": "ok 1000 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.09243565799988573,
+      "diagnostic": "ok 1000 tokens\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.09364197700051591,
+      "diagnostic": "ok 1000 tokens\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.09280528900126228,
+      "diagnostic": "ok 1000 tokens\n"
+    },
+    {
+      "name": "small_N_large_T_00",
+      "status": "AC",
+      "seconds": 0.2836211049943813,
+      "diagnostic": "ok 499942 tokens\n"
+    },
+    {
+      "name": "small_N_large_T_01",
+      "status": "AC",
+      "seconds": 0.35727585299900966,
+      "diagnostic": "ok 499920 tokens\n"
+    },
+    {
+      "name": "small_N_large_T_02",
+      "status": "AC",
+      "seconds": 1.1641293990032864,
+      "diagnostic": "ok 499910 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.1099327230040217,
+      "diagnostic": "ok 410923 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 1.2364505149962497,
+      "diagnostic": "ok 412907 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 1.1720179640033166,
+      "diagnostic": "ok 382347 tokens\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.20230474900017725,
+      "diagnostic": "ok 25839 tokens\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.3961496949996217,
+      "diagnostic": "ok 99117 tokens\n"
+    },
+    {
+      "name": "many_sets_00",
+      "status": "AC",
+      "seconds": 1.1299455369953648,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "many_sets_01",
+      "status": "AC",
+      "seconds": 1.0710026630040375,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "many_sets_02",
+      "status": "AC",
+      "seconds": 1.1745856650013593,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "many_sets_03",
+      "status": "AC",
+      "seconds": 1.1885631719997036,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "many_sets_04",
+      "status": "AC",
+      "seconds": 1.2489478679999593,
+      "diagnostic": "ok 500000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-15T04:09:18.865641+00:00",
+  "onlineSubmission": null
+}

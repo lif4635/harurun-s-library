@@ -46,7 +46,6 @@ combinatorics/RationalBinomial
 combinatorics/SetPartitions
 convolution/ChirpZ
 convolution/MiddleProduct
-convolution/MultidimensionalDFT
 convolution/NTT
 convolution/NTT998
 fenwick_tree/BIT

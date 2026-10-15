@@ -2,14 +2,18 @@
 
 from library_codex.convolution.ChirpZ import chirp_z
 
-from library_codex.convolution.NTT import convolution, get_ntt, primitive_root
+from library_codex.convolution.NTT import primitive_root
 
 DEFAULT_MOD = 998244353
 
 def multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD):
-    """Mixed-radix multidimensional DFT; base[0] is the fastest axis."""
+    """各軸にDFTを適用する。base[0]の添字が最も速く変化する並び。"""
+    if mod < 2:
+        raise ValueError("mod must be prime")
     size = 1
     for radix in base:
+        if radix <= 0:
+            raise ValueError("radices must be positive")
         size *= radix
         if (mod - 1) % radix:
             raise ValueError("each radix must divide mod-1")
@@ -28,6 +32,27 @@ def multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD):
         ratio = pow(root, (mod - 1) // length, mod)
         if inverse:
             ratio = pow(ratio, -1, mod)
+        if length == 1:
+            continue
+        if length == 2:
+            for block_start in range(0, size, block):
+                for position in range(block_start, block_start + step):
+                    a = result[position]
+                    b = result[position + step]
+                    result[position] = (a + b) % mod
+                    result[position + step] = (a - b) % mod
+            continue
+        if length == 3:
+            square = ratio * ratio % mod
+            for block_start in range(0, size, block):
+                for position in range(block_start, block_start + step):
+                    a = result[position]
+                    b = result[position + step]
+                    c = result[position + 2 * step]
+                    result[position] = (a + b + c) % mod
+                    result[position + step] = (a + b * ratio + c * square) % mod
+                    result[position + 2 * step] = (a + b * square + c * ratio) % mod
+            continue
         for block_start in range(0, size, block):
             for offset in range(step):
                 positions = [block_start + offset + step * i
@@ -46,6 +71,7 @@ def multidimensional_dft(values, base, inverse=False, mod=DEFAULT_MOD):
 
 def multivariate_circular_convolution(first, second, base,
                                       mod=DEFAULT_MOD):
+    """各軸の指数をbase[i]で折り返して乗算した係数列を返す。"""
     if len(first) != len(second):
         raise ValueError("input lengths differ")
     left = multidimensional_dft(first, base, False, mod)
