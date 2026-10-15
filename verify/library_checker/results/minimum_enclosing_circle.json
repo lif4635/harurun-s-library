@@ -1,0 +1,170 @@
+{
+  "problem": "minimum_enclosing_circle",
+  "status": "local_passed",
+  "verificationKey": "8c62e5e3fce5be4767a477e08cd589644cbf577394158ed1f40ecefa5ac73f87",
+  "sourceSha256": "a9820e3c2d747aa632c61eae025c983a1c8b5f630b48391bdf10ef118f4a1669",
+  "modules": [
+    "library_codex.geometry.MinimumEnclosingCircle"
+  ],
+  "problemVersion": "b6d0503dc13ad7ea9d87a8f5bbd795b7e678681e4abde05be2066d12cbd84401",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 25,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.060375689005013555,
+      "diagnostic": "ok \"10011001\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.05871358399599558,
+      "diagnostic": "ok \"11\"\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.05955878699751338,
+      "diagnostic": "ok \"110\"\n"
+    },
+    {
+      "name": "small_random_00",
+      "status": "AC",
+      "seconds": 0.07833827599824872,
+      "diagnostic": "ok \"010000000011\"\n"
+    },
+    {
+      "name": "small_random_01",
+      "status": "AC",
+      "seconds": 0.06800311299593886,
+      "diagnostic": "ok \"0011100\"\n"
+    },
+    {
+      "name": "small_random_02",
+      "status": "AC",
+      "seconds": 0.07325446100003319,
+      "diagnostic": "ok \"010000010010\"\n"
+    },
+    {
+      "name": "small_random_03",
+      "status": "AC",
+      "seconds": 0.07495655200182227,
+      "diagnostic": "ok \"11\"\n"
+    },
+    {
+      "name": "small_random_04",
+      "status": "AC",
+      "seconds": 0.07130401500035077,
+      "diagnostic": "ok \"00100000010100\"\n"
+    },
+    {
+      "name": "large_random_00",
+      "status": "AC",
+      "seconds": 0.4432694010029081,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "large_random_01",
+      "status": "AC",
+      "seconds": 0.3639111999946181,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "large_random_02",
+      "status": "AC",
+      "seconds": 0.38086742399900686,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "large_random_03",
+      "status": "AC",
+      "seconds": 0.5829197249986464,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "large_random_04",
+      "status": "AC",
+      "seconds": 0.9754080269995029,
+      "diagnostic": "ok \"000000000000000000000000000000...0001000000000000000000000000000\"\n"
+    },
+    {
+      "name": "near_circle_00",
+      "status": "AC",
+      "seconds": 0.2628373109982931,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "near_circle_01",
+      "status": "AC",
+      "seconds": 0.06379820299480343,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "near_circle_02",
+      "status": "AC",
+      "seconds": 0.2192770039982861,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "max_circle_00",
+      "status": "AC",
+      "seconds": 0.3538590490061324,
+      "diagnostic": "ok \"100000000000000000000000000000...0000000000000000000000000000001\"\n"
+    },
+    {
+      "name": "near_colinear_00",
+      "status": "AC",
+      "seconds": 0.08655052600079216,
+      "diagnostic": "ok \"100000000000000000000000000000...0000000000000000000000000000001\"\n"
+    },
+    {
+      "name": "near_colinear_01",
+      "status": "AC",
+      "seconds": 0.0813703230014653,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "near_colinear_02",
+      "status": "AC",
+      "seconds": 0.08859166200272739,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "near_colinear_03",
+      "status": "AC",
+      "seconds": 0.07513669799664058,
+      "diagnostic": "ok \"100000000000000000000000000000...0000000000000000000000000000001\"\n"
+    },
+    {
+      "name": "large_grid_00",
+      "status": "AC",
+      "seconds": 0.16995699499966577,
+      "diagnostic": "ok \"100000000000000000000000000000...0000000000000000000000000000001\"\n"
+    },
+    {
+      "name": "large_grid_01",
+      "status": "AC",
+      "seconds": 0.20179230099893175,
+      "diagnostic": "ok \"100000000000000000000000000100...0001000000000000000000000000001\"\n"
+    },
+    {
+      "name": "large_grid_02",
+      "status": "AC",
+      "seconds": 0.15088574499532115,
+      "diagnostic": "ok \"000000000000000000000000000000...0000000000000000000000000000000\"\n"
+    },
+    {
+      "name": "megiddo_worst_00",
+      "status": "AC",
+      "seconds": 0.19476135600416455,
+      "diagnostic": "ok \"110000000000000000000000000000...0000000000000000000000000000000\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-15T04:50:25.748742+00:00",
+  "onlineSubmission": null
+}

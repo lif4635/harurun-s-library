@@ -2775,6 +2775,7 @@ MODULE_CAPABILITIES.update({
     "geometry/MinimumEnclosingCircle.py": (
         "2次元点集合をすべて覆う半径最小の円について、中心と半径を求められる。",
         "円を決定する入力点のindexも返すため、結果の根拠を復元・検証できる。",
+        "整数座標では、円周上の点を整数演算だけで厳密に判定できる。",
     ),
     "geometry/FurthestPair.py": (
         "2次元点集合からEuclidean距離が最大の2点を求められる。",
@@ -2851,6 +2852,15 @@ API_DETAILS_BY_SYMBOL.update({
             {"name": "radius", "format": "float", "description": "最小包含円の非負半径。"},
             {"name": "support", "format": "tuple[int, ...]", "description": "円を決定する1個から3個の入力点indexを昇順に並べたtuple。"},
         ),
+    },
+    ("geometry/MinimumEnclosingCircle.py", None, "minimum_enclosing_circle_boundary"): {
+        "description": "整数座標の点集合の最小包含円を求め、各点が円周上にあるかを整数演算だけで判定する。",
+        "argumentDescriptions": {
+            "points": "1個以上の整数座標(x, y)の列。重複点を許す。",
+            "seed": "処理順を並べ替える乱数seed。結果は変わらない。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "入力と同じ長さ・順序のlist。result[i]はpoints[i]が円周上なら1、円の内部なら0。円を決定する少数の点だけでなく、円周上の点をすべて含む。入力は変更しない。",
     },
     ("geometry/FurthestPair.py", None, "furthest_pair"): {
         "description": "入力点集合のEuclidean距離が最大となる2点を凸包とrotating calipersで求める。",
@@ -2975,7 +2985,10 @@ CLASS_DETAILS_BY_SYMBOL[("range_query/StaticRangeGroup.py", "StaticRangeGroup")]
 COMPLEXITY_BY_MODULE.update({
     "geometry/PointInPolygon.py": {"point_location": "O(N) time、O(1) memory"},
     "geometry/MinkowskiSum.py": {"minkowski_sum": "strictな凸入力ではO(N+M) time、O(N+M) memory。向き不整合・共線点を含む入力の正規化fallbackではO(N log N + M log M) time"},
-    "geometry/MinimumEnclosingCircle.py": {"minimum_enclosing_circle": "期待 O(N) time、最悪 O(N^3) time、O(N) memory"},
+    "geometry/MinimumEnclosingCircle.py": {
+        "minimum_enclosing_circle": "期待 O(N) 時間、最悪 O(N^3) 時間、O(N) 領域",
+        "minimum_enclosing_circle_boundary": "期待 O(N) 回、最悪 O(N^3) 回の整数演算、O(N) 個の点を保持。座標がB bitなら各演算はO(B) bit程度の整数上で行う",
+    },
     "geometry/FurthestPair.py": {"furthest_pair": "O(N log N) time、O(N) memory"},
     "graph_matching/StableRoommates.py": {"stable_roommates": "O(N^2) time、O(N^2) memory"},
     "graph_enumeration/MaximalIndependentSets.py": {"maximal_independent_sets": "O(V * 3^(V/3) + E) time、O(V^2/W) working memory（出力を除く）"},

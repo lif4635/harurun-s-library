@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-15T04:22:25+00:00",
+  "generatedAt": "2026-10-15T04:54:13+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "44986d963107a46eb2367d161f7aff6e671b6b9208d632ff814639e295224593",
-  "inputStamp": "0cd41875cf2850f1f15ae081711946dd0f55993315a4e04258f265e52f802302",
+  "sourceFingerprint": "a2f01bd2b6870cb86f7daff2c288d99418de8927e067145dcbc3c37b10b4d8fd",
+  "inputStamp": "3ec1a880ab0e3309bc600e51baaaec4d55955f11f2d8127543185a4f8a3aebe8",
   "generatorFingerprint": "352195430bf6e369885f591759bddcd812c5bfcd99b18c1767fe7dbf15c80ef2",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 379,
-    "articles": 78,
-    "functions": 516,
+    "articles": 79,
+    "functions": 517,
     "classes": 230,
     "methods": 1472,
     "tests": 1029
@@ -362,7 +362,7 @@
       "domain": "geometry",
       "domainLabel": "Geometry",
       "modules": 15,
-      "functions": 23,
+      "functions": 24,
       "classes": 1,
       "methods": 2
     },
@@ -70086,9 +70086,14 @@
       "summary": "点集合を覆う半径最小の円を求める。",
       "capabilities": [
         "2次元点集合をすべて覆う半径最小の円について、中心と半径を求められる。",
-        "円を決定する入力点のindexも返すため、結果の根拠を復元・検証できる。"
+        "円を決定する入力点のindexも返すため、結果の根拠を復元・検証できる。",
+        "整数座標では、円周上の点を整数演算だけで厳密に判定できる。"
       ],
-      "article": null,
+      "article": {
+        "title": "最小包含円",
+        "markdown": "点集合をすべて含む最小の円と、その円周上にある点を求める。\n\n## 主な機能\n\n- `minimum_enclosing_circle(points)` は中心・半径・円を決める点の番号を返す。中心と半径は浮動小数点数。\n- `minimum_enclosing_circle_boundary(points)` は整数座標専用。入力点ごとに、円周上なら1、内部なら0を返す。浮動小数点数や誤差許容幅を使わず、円周の直近にある内点も区別する。\n\nどちらもランダムな順番で点を追加する。演算回数は期待 O(N)、最悪 O(N^3)。境界判定ではPythonの多倍長整数を使うため、座標の桁数にも実行時間が依存する。\n\n## 使い方\n\n```python\npoints = [(5, 0), (0, 5), (-5, 0), (0, -5), (3, 4), (0, 0)]\nflags = minimum_enclosing_circle_boundary(points)\nassert flags == [1, 1, 1, 1, 1, 0]\nboundary = [i for i, flag in enumerate(flags) if flag]\nassert boundary == [0, 1, 2, 3, 4]\ncenter, radius, support = minimum_enclosing_circle(points)\nassert center == (0.0, 0.0)\nassert radius == 5.0\n```\n\n- `center`: 中心の座標。\n- `radius`: 半径。\n- `support`: 円を決定する1〜3個の点の入力番号。円周上の点すべての一覧ではない。\n- `flags[i]`: 入力のi番目の点が円周上にあるか。\n\n## 注意点\n\n- 空の入力は`ValueError`。同じ点が複数あってもよい。全点が同じなら半径0で、全点が円周上になる。\n- 中心・半径を返す関数は近似計算。整数座標での厳密な境界判定には`minimum_enclosing_circle_boundary`を使う。\n- `seed`で点の処理順を変えられる。既定値は再現性のため固定されており、特定の入力に対して最悪計算量を排除するものではない。",
+        "sourcePath": "library_codex/docs/articles/geometry/MinimumEnclosingCircle.md"
+      },
       "searchTerms": [
         "MinimumEnclosingCircle",
         "Minimum Enclosing Circle",
@@ -70102,13 +70107,13 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/geometry/MinimumEnclosingCircle.py",
-      "inputFingerprint": "fdded9f9a7d5b5ca5ffae53f3f271e377559d1c4e6d7dbbeab61ef690304d83e",
-      "importCode": "from library_codex.geometry.MinimumEnclosingCircle import minimum_enclosing_circle",
-      "sourceCode": "\"\"\"点集合を覆う半径最小の円を求める。\"\"\"\n\nfrom math import sqrt\nfrom random import Random\n\n\ndef _diameter(first, second, first_id, second_id):\n    x = (first[0] + second[0]) * 0.5\n    y = (first[1] + second[1]) * 0.5\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, (dx * dx + dy * dy) * 0.25, (first_id, second_id)\n\n\ndef _through_three(first, second, third, ids):\n    ax, ay = first\n    bx, by = second\n    cx, cy = third\n    denominator = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))\n    scale = max(1.0, abs(ax), abs(ay), abs(bx), abs(by), abs(cx), abs(cy))\n    if abs(denominator) <= 1e-15 * scale * scale:\n        pairs = ((first, second, ids[0], ids[1]),\n                 (first, third, ids[0], ids[2]),\n                 (second, third, ids[1], ids[2]))\n        return max(((_diameter(*pair)) for pair in pairs), key=lambda circle: circle[2])\n    aa = ax * ax + ay * ay\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = (aa * (by - cy) + bb * (cy - ay) + cc * (ay - by)) / denominator\n    y = (aa * (cx - bx) + bb * (ax - cx) + cc * (bx - ax)) / denominator\n    dx = x - ax\n    dy = y - ay\n    return x, y, dx * dx + dy * dy, ids\n\n\ndef _contains(circle, point):\n    x, y, radius_squared, _ = circle\n    dx = point[0] - x\n    dy = point[1] - y\n    return dx * dx + dy * dy <= radius_squared + 1e-12 * max(1.0, radius_squared)\n\n\ndef minimum_enclosing_circle(points, seed=0):\n    \"\"\"すべての点を含む最小円を(center, radius, support)で返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _contains(circle, first):\n            continue\n        circle = (float(first[0]), float(first[1]), 0.0, (first_id,))\n        for second_position in range(position):\n            second_id = order[second_position]\n            second = points[second_id]\n            if _contains(circle, second):\n                continue\n            circle = _diameter(first, second, first_id, second_id)\n            for third_position in range(second_position):\n                third_id = order[third_position]\n                third = points[third_id]\n                if not _contains(circle, third):\n                    circle = _through_three(\n                        first, second, third, (first_id, second_id, third_id)\n                    )\n    x, y, radius_squared, support = circle\n    return (x, y), sqrt(max(0.0, radius_squared)), tuple(sorted(support))\n",
-      "standaloneCode": "\"\"\"点集合を覆う半径最小の円を求める。\"\"\"\n\nfrom math import sqrt\nfrom random import Random\n\n\ndef _diameter(first, second, first_id, second_id):\n    x = (first[0] + second[0]) * 0.5\n    y = (first[1] + second[1]) * 0.5\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, (dx * dx + dy * dy) * 0.25, (first_id, second_id)\n\n\ndef _through_three(first, second, third, ids):\n    ax, ay = first\n    bx, by = second\n    cx, cy = third\n    denominator = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))\n    scale = max(1.0, abs(ax), abs(ay), abs(bx), abs(by), abs(cx), abs(cy))\n    if abs(denominator) <= 1e-15 * scale * scale:\n        pairs = ((first, second, ids[0], ids[1]),\n                 (first, third, ids[0], ids[2]),\n                 (second, third, ids[1], ids[2]))\n        return max(((_diameter(*pair)) for pair in pairs), key=lambda circle: circle[2])\n    aa = ax * ax + ay * ay\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = (aa * (by - cy) + bb * (cy - ay) + cc * (ay - by)) / denominator\n    y = (aa * (cx - bx) + bb * (ax - cx) + cc * (bx - ax)) / denominator\n    dx = x - ax\n    dy = y - ay\n    return x, y, dx * dx + dy * dy, ids\n\n\ndef _contains(circle, point):\n    x, y, radius_squared, _ = circle\n    dx = point[0] - x\n    dy = point[1] - y\n    return dx * dx + dy * dy <= radius_squared + 1e-12 * max(1.0, radius_squared)\n\n\ndef minimum_enclosing_circle(points, seed=0):\n    \"\"\"すべての点を含む最小円を(center, radius, support)で返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _contains(circle, first):\n            continue\n        circle = (float(first[0]), float(first[1]), 0.0, (first_id,))\n        for second_position in range(position):\n            second_id = order[second_position]\n            second = points[second_id]\n            if _contains(circle, second):\n                continue\n            circle = _diameter(first, second, first_id, second_id)\n            for third_position in range(second_position):\n                third_id = order[third_position]\n                third = points[third_id]\n                if not _contains(circle, third):\n                    circle = _through_three(\n                        first, second, third, (first_id, second_id, third_id)\n                    )\n    x, y, radius_squared, support = circle\n    return (x, y), sqrt(max(0.0, radius_squared)), tuple(sorted(support))\n",
+      "inputFingerprint": "3d84933c5378d5889a6e57520290b81812c57402370b4f7d5f56a69119277048",
+      "importCode": "from library_codex.geometry.MinimumEnclosingCircle import minimum_enclosing_circle, minimum_enclosing_circle_boundary",
+      "sourceCode": "\"\"\"点集合を覆う半径最小の円を求める。\"\"\"\n\nfrom math import sqrt\nfrom random import Random\n\n\ndef _diameter(first, second, first_id, second_id):\n    x = (first[0] + second[0]) * 0.5\n    y = (first[1] + second[1]) * 0.5\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, (dx * dx + dy * dy) * 0.25, (first_id, second_id)\n\n\ndef _through_three(first, second, third, ids):\n    ax, ay = first\n    bx, by = second\n    cx, cy = third\n    denominator = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))\n    scale = max(1.0, abs(ax), abs(ay), abs(bx), abs(by), abs(cx), abs(cy))\n    if abs(denominator) <= 1e-15 * scale * scale:\n        pairs = ((first, second, ids[0], ids[1]),\n                 (first, third, ids[0], ids[2]),\n                 (second, third, ids[1], ids[2]))\n        return max(((_diameter(*pair)) for pair in pairs), key=lambda circle: circle[2])\n    aa = ax * ax + ay * ay\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = (aa * (by - cy) + bb * (cy - ay) + cc * (ay - by)) / denominator\n    y = (aa * (cx - bx) + bb * (ax - cx) + cc * (bx - ax)) / denominator\n    dx = x - ax\n    dy = y - ay\n    return x, y, dx * dx + dy * dy, ids\n\n\ndef _contains(circle, point):\n    x, y, radius_squared, _ = circle\n    dx = point[0] - x\n    dy = point[1] - y\n    return dx * dx + dy * dy <= radius_squared + 1e-12 * max(1.0, radius_squared)\n\n\ndef minimum_enclosing_circle(points, seed=0):\n    \"\"\"すべての点を含む最小円を(center, radius, support)で返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _contains(circle, first):\n            continue\n        circle = (float(first[0]), float(first[1]), 0.0, (first_id,))\n        for second_position in range(position):\n            second_id = order[second_position]\n            second = points[second_id]\n            if _contains(circle, second):\n                continue\n            circle = _diameter(first, second, first_id, second_id)\n            for third_position in range(second_position):\n                third_id = order[third_position]\n                third = points[third_id]\n                if not _contains(circle, third):\n                    circle = _through_three(\n                        first, second, third, (first_id, second_id, third_id)\n                    )\n    x, y, radius_squared, support = circle\n    return (x, y), sqrt(max(0.0, radius_squared)), tuple(sorted(support))\n\n\ndef _integer_diameter(first, second):\n    x = first[0] + second[0]\n    y = first[1] + second[1]\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, 2, dx * dx + dy * dy\n\n\ndef _integer_three(first, second, third):\n    bx, by = second[0] - first[0], second[1] - first[1]\n    cx, cy = third[0] - first[0], third[1] - first[1]\n    denominator = 2 * (bx * cy - by * cx)\n    if denominator == 0:\n        return max((_integer_diameter(first, second), _integer_diameter(first, third), _integer_diameter(second, third)), key=lambda circle: circle[3])\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = bb * cy - cc * by\n    y = bx * cc - cx * bb\n    return x + first[0] * denominator, y + first[1] * denominator, denominator, x * x + y * y\n\n\ndef _integer_contains(circle, point):\n    x, y, denominator, squared = circle\n    dx = point[0] * denominator - x\n    dy = point[1] * denominator - y\n    return dx * dx + dy * dy <= squared\n\n\ndef minimum_enclosing_circle_boundary(points, seed=0):\n    \"\"\"整数座標の最小包含円について、各点が円周上なら1、内部なら0を返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    if any(not isinstance(value, int) for point in points for value in point):\n        raise TypeError(\"integer coordinates required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _integer_contains(circle, first):\n            continue\n        circle = first[0], first[1], 1, 0\n        for second_position in range(position):\n            second = points[order[second_position]]\n            if _integer_contains(circle, second):\n                continue\n            circle = _integer_diameter(first, second)\n            for third_position in range(second_position):\n                third = points[order[third_position]]\n                if not _integer_contains(circle, third):\n                    circle = _integer_three(first, second, third)\n    x, y, denominator, squared = circle\n    return [int((point[0] * denominator - x) ** 2 + (point[1] * denominator - y) ** 2 == squared) for point in points]\n",
+      "standaloneCode": "\"\"\"点集合を覆う半径最小の円を求める。\"\"\"\n\nfrom math import sqrt\nfrom random import Random\n\n\ndef _diameter(first, second, first_id, second_id):\n    x = (first[0] + second[0]) * 0.5\n    y = (first[1] + second[1]) * 0.5\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, (dx * dx + dy * dy) * 0.25, (first_id, second_id)\n\n\ndef _through_three(first, second, third, ids):\n    ax, ay = first\n    bx, by = second\n    cx, cy = third\n    denominator = 2.0 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))\n    scale = max(1.0, abs(ax), abs(ay), abs(bx), abs(by), abs(cx), abs(cy))\n    if abs(denominator) <= 1e-15 * scale * scale:\n        pairs = ((first, second, ids[0], ids[1]),\n                 (first, third, ids[0], ids[2]),\n                 (second, third, ids[1], ids[2]))\n        return max(((_diameter(*pair)) for pair in pairs), key=lambda circle: circle[2])\n    aa = ax * ax + ay * ay\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = (aa * (by - cy) + bb * (cy - ay) + cc * (ay - by)) / denominator\n    y = (aa * (cx - bx) + bb * (ax - cx) + cc * (bx - ax)) / denominator\n    dx = x - ax\n    dy = y - ay\n    return x, y, dx * dx + dy * dy, ids\n\n\ndef _contains(circle, point):\n    x, y, radius_squared, _ = circle\n    dx = point[0] - x\n    dy = point[1] - y\n    return dx * dx + dy * dy <= radius_squared + 1e-12 * max(1.0, radius_squared)\n\n\ndef minimum_enclosing_circle(points, seed=0):\n    \"\"\"すべての点を含む最小円を(center, radius, support)で返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _contains(circle, first):\n            continue\n        circle = (float(first[0]), float(first[1]), 0.0, (first_id,))\n        for second_position in range(position):\n            second_id = order[second_position]\n            second = points[second_id]\n            if _contains(circle, second):\n                continue\n            circle = _diameter(first, second, first_id, second_id)\n            for third_position in range(second_position):\n                third_id = order[third_position]\n                third = points[third_id]\n                if not _contains(circle, third):\n                    circle = _through_three(\n                        first, second, third, (first_id, second_id, third_id)\n                    )\n    x, y, radius_squared, support = circle\n    return (x, y), sqrt(max(0.0, radius_squared)), tuple(sorted(support))\n\n\ndef _integer_diameter(first, second):\n    x = first[0] + second[0]\n    y = first[1] + second[1]\n    dx = first[0] - second[0]\n    dy = first[1] - second[1]\n    return x, y, 2, dx * dx + dy * dy\n\n\ndef _integer_three(first, second, third):\n    bx, by = second[0] - first[0], second[1] - first[1]\n    cx, cy = third[0] - first[0], third[1] - first[1]\n    denominator = 2 * (bx * cy - by * cx)\n    if denominator == 0:\n        return max((_integer_diameter(first, second), _integer_diameter(first, third), _integer_diameter(second, third)), key=lambda circle: circle[3])\n    bb = bx * bx + by * by\n    cc = cx * cx + cy * cy\n    x = bb * cy - cc * by\n    y = bx * cc - cx * bb\n    return x + first[0] * denominator, y + first[1] * denominator, denominator, x * x + y * y\n\n\ndef _integer_contains(circle, point):\n    x, y, denominator, squared = circle\n    dx = point[0] * denominator - x\n    dy = point[1] * denominator - y\n    return dx * dx + dy * dy <= squared\n\n\ndef minimum_enclosing_circle_boundary(points, seed=0):\n    \"\"\"整数座標の最小包含円について、各点が円周上なら1、内部なら0を返す。\"\"\"\n    points = [tuple(point) for point in points]\n    if not points:\n        raise ValueError(\"at least one point is required\")\n    if any(not isinstance(value, int) for point in points for value in point):\n        raise TypeError(\"integer coordinates required\")\n    order = list(range(len(points)))\n    Random(seed).shuffle(order)\n    circle = None\n    for position, first_id in enumerate(order):\n        first = points[first_id]\n        if circle is not None and _integer_contains(circle, first):\n            continue\n        circle = first[0], first[1], 1, 0\n        for second_position in range(position):\n            second = points[order[second_position]]\n            if _integer_contains(circle, second):\n                continue\n            circle = _integer_diameter(first, second)\n            for third_position in range(second_position):\n                third = points[order[third_position]]\n                if not _integer_contains(circle, third):\n                    circle = _integer_three(first, second, third)\n    x, y, denominator, squared = circle\n    return [int((point[0] * denominator - x) ** 2 + (point[1] * denominator - y) ** 2 == squared) for point in points]\n",
       "bundledDependencies": [],
       "counts": {
-        "functions": 1,
+        "functions": 2,
         "classes": 0,
         "methods": 0
       },
@@ -70138,7 +70143,7 @@
           "returns": "tuple[tuple[float, float], float, tuple[int, ...]] — (center, radius, support)を返す。",
           "returnFormat": "tuple[tuple[float, float], float, tuple[int, ...]]",
           "returnDescription": "(center, radius, support)を返す。",
-          "complexity": "期待 O(N) time、最悪 O(N^3) time、O(N) memory",
+          "complexity": "期待 O(N) 時間、最悪 O(N^3) 時間、O(N) 領域",
           "sourceLine": 43,
           "returnParts": [
             {
@@ -70157,6 +70162,34 @@
               "description": "円を決定する1個から3個の入力点indexを昇順に並べたtuple。"
             }
           ]
+        },
+        {
+          "name": "minimum_enclosing_circle_boundary",
+          "kind": "function",
+          "signature": "minimum_enclosing_circle_boundary(points, seed=0)",
+          "summary": "整数座標の点集合の最小包含円を求め、各点が円周上にあるかを整数演算だけで判定する。",
+          "description": "整数座標の点集合の最小包含円を求め、各点が円周上にあるかを整数演算だけで判定する。",
+          "searchTerms": [
+            "minimum_enclosing_circle_boundary",
+            "minimum enclosing circle boundary",
+            "minimum_enclosing_circle_boundary(points, seed=0)"
+          ],
+          "arguments": "points: 1個以上の整数座標(x, y)の列。重複点を許す。 · seed: 処理順を並べ替える乱数seed。結果は変わらない。",
+          "argumentDetails": [
+            {
+              "name": "points",
+              "description": "1個以上の整数座標(x, y)の列。重複点を許す。"
+            },
+            {
+              "name": "seed",
+              "description": "処理順を並べ替える乱数seed。結果は変わらない。"
+            }
+          ],
+          "returns": "list[int] — 入力と同じ長さ・順序のlist。result[i]はpoints[i]が円周上なら1、円の内部なら0。円を決定する少数の点だけでなく、円周上の点をすべて含む。入力は変更しない。",
+          "returnFormat": "list[int]",
+          "returnDescription": "入力と同じ長さ・順序のlist。result[i]はpoints[i]が円周上なら1、円の内部なら0。円を決定する少数の点だけでなく、円周上の点をすべて含む。入力は変更しない。",
+          "complexity": "期待 O(N) 回、最悪 O(N^3) 回の整数演算、O(N) 個の点を保持。座標がB bitなら各演算はO(B) bit程度の整数上で行う",
+          "sourceLine": 101
         }
       ],
       "classes": []

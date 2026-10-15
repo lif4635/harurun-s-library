@@ -14,7 +14,7 @@
 | [`ConvexPolygon`](ConvexPolygon.md) | Logarithmic point containment for a static convex polygon. | 0 | 1 | 2 |
 | [`FurthestPair`](FurthestPair.md) | 2次元点集合で距離が最大の2点を求める。 | 1 | 0 | 0 |
 | [`LineGeometry`](LineGeometry.md) | Projection, reflection, distance, and intersection for infinite lines. | 4 | 0 | 0 |
-| [`MinimumEnclosingCircle`](MinimumEnclosingCircle.md) | 点集合を覆う半径最小の円を求める。 | 1 | 0 | 0 |
+| [`MinimumEnclosingCircle`](MinimumEnclosingCircle.md) | 点集合を覆う半径最小の円を求める。 | 2 | 0 | 0 |
 | [`MinkowskiSum`](MinkowskiSum.md) | 2つの凸多角形のMinkowski和を構築する。 | 1 | 0 | 0 |
 | [`Orientation`](Orientation.md) | 2次元点の外積と向き判定 | 2 | 0 | 0 |
 | [`PointInPolygon`](PointInPolygon.md) | 多角形に対する点の内外と境界を判定する。 | 1 | 0 | 0 |

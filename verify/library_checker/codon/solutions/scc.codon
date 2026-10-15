@@ -1,0 +1,263 @@
+import sys
+
+@pure
+@llvm
+def _codon_srem(value: int, mod: int) -> int:
+    %result = srem i64 %value, %mod
+    ret i64 %result
+
+@pure
+@llvm
+def _codon_sdiv(value: int, divisor: int) -> int:
+    %result = sdiv i64 %value, %divisor
+    ret i64 %result
+
+@extend
+class File:
+    def readline(self):
+        for line in self:
+            return line
+        return ""
+
+@extend
+class int:
+    @overload
+    def __mod__(self, other: int):
+        return _codon_mod(self, other)
+
+    @overload
+    def __floordiv__(self, other: int):
+        if other == 0:
+            raise ZeroDivisionError("integer division by zero")
+        if self == -9223372036854775807 - 1 and other == -1:
+            raise OverflowError("integer division exceeds signed 64bit")
+        q = _codon_sdiv(self, other)
+        if _codon_srem(self, other) and (self < 0) != (other < 0):
+            q -= 1
+        return q
+
+    @pure
+    @llvm
+    def bit_length(self) -> int:
+        declare i64 @llvm.ctlz.i64(i64, i1)
+        %negative = icmp slt i64 %self, 0
+        %negated = sub i64 0, %self
+        %magnitude = select i1 %negative, i64 %negated, i64 %self
+        %zeros = call i64 @llvm.ctlz.i64(i64 %magnitude, i1 false)
+        %result = sub i64 64, %zeros
+        ret i64 %result
+
+    def bit_count(self):
+        value = UInt[64](self)
+        if self < 0:
+            value = UInt[64](0) - value
+        return value.popcnt()
+
+    @overload
+    def __rshift__(self, other: bool):
+        return self >> int(other)
+
+def _codon_mod(value: int, mod: int):
+    if mod == 0:
+        raise ZeroDivisionError("integer modulo by zero")
+    if mod == -1:
+        return 0
+    result = _codon_srem(value, mod)
+    if result and (result < 0) != (mod < 0):
+        result += mod
+    return result
+
+def _codon_mod_wide(value: Int[128], mod: Int[128]):
+    if mod == Int[128](0):
+        raise ZeroDivisionError("integer modulo by zero")
+    result = value % mod
+    if result and (result < Int[128](0)) != (mod < Int[128](0)):
+        result += mod
+    return int(result)
+
+def _codon_pow(base: int, exponent: int, modulus: int):
+    if modulus == 998244353 or modulus == -998244353:
+        value = base % 998244353
+        power = UInt[64](exponent)
+        if exponent < 0:
+            if value == 0:
+                raise ValueError("base is not invertible for the given modulus")
+            value = _codon_pow_positive(value, UInt[64](998244351))
+            power = UInt[64](0) - power
+        result = _codon_pow_positive(value, power)
+        if modulus < 0 and result:
+            result -= 998244353
+        return result
+    return _codon_pow_wide(base, exponent, modulus)
+
+def _codon_pow_positive(value: int, power: UInt[64]):
+    result = 1
+    while power:
+        if power & UInt[64](1):
+            result = result * value % 998244353
+        value = value * value % 998244353
+        power >>= UInt[64](1)
+    return result
+
+def _codon_pow_wide(base: int, exponent: int, modulus: int):
+    if modulus == 0:
+        raise ValueError("pow() modulus must be nonzero")
+    mod = Int[128](modulus)
+    negative = mod < Int[128](0)
+    if negative:
+        mod = -mod
+    value = Int[128](_codon_mod_wide(Int[128](base), mod))
+    power = Int[128](exponent)
+    if power < Int[128](0):
+        a, b = value, mod
+        x, y = Int[128](1), Int[128](0)
+        while b:
+            q = a // b
+            a, b = b, a - q * b
+            x, y = y, x - q * y
+        if a != Int[128](1):
+            raise ValueError("base is not invertible for the given modulus")
+        value = Int[128](_codon_mod_wide(x, mod))
+        power = -power
+    result = Int[128](1) % mod
+    while power:
+        if power & Int[128](1):
+            result = result * value % mod
+        value = value * value % mod
+        power >>= Int[128](1)
+    if negative and result:
+        result -= mod
+    return int(result)
+
+def _codon_array(code, values):
+    if code != "I":
+        raise ValueError("only unsigned coefficient arrays are supported")
+    return list(values)
+
+def scc_ids(graph):
+    """成分数と各頂点の成分番号を返す。番号は縮約DAGのトポロジカル順。"""
+    n = len(graph)
+    order = [-1] * n
+    low = [0] * n
+    position = [0] * n
+    component = [-1] * n
+    active = []
+    timer = count = 0
+    for root in range(n):
+        if order[root] >= 0:
+            continue
+        order[root] = low[root] = timer
+        timer += 1
+        active.append(root)
+        stack = [root]
+        while stack:
+            vertex = stack[-1]
+            index = position[vertex]
+            row = graph[vertex]
+            if index < len(row):
+                position[vertex] = index + 1
+                entry = row[index]
+                other = entry if isinstance(entry, int) else entry[0]
+                if order[other] < 0:
+                    order[other] = low[other] = timer
+                    timer += 1
+                    active.append(other)
+                    stack.append(other)
+                elif component[other] < 0 and order[other] < low[vertex]:
+                    low[vertex] = order[other]
+            else:
+                stack.pop()
+                if low[vertex] == order[vertex]:
+                    while True:
+                        other = active.pop()
+                        component[other] = count
+                        if other == vertex:
+                            break
+                    count += 1
+                if stack and low[vertex] < low[stack[-1]]:
+                    low[stack[-1]] = low[vertex]
+    for vertex in range(n):
+        component[vertex] = count - 1 - component[vertex]
+    return (count, component)
+
+class SCC:
+
+    def __init__(self, graph):
+        n = len(graph)
+        adjacency = [[] for _ in range(n)]
+        reverse = [[] for _ in range(n)]
+        for (node, row) in enumerate(graph):
+            target = adjacency[node]
+            for entry in row:
+                other = entry if isinstance(entry, int) else entry[0]
+                target.append(other)
+                reverse[other].append(node)
+        seen = [0] * n
+        order = []
+        for start in range(n):
+            if seen[start]:
+                continue
+            seen[start] = 1
+            stack = [(start, 0)]
+            while stack:
+                (node, index) = stack[-1]
+                if index == len(adjacency[node]):
+                    order.append(node)
+                    stack.pop()
+                    continue
+                other = adjacency[node][index]
+                stack[-1] = (node, index + 1)
+                if not seen[other]:
+                    seen[other] = 1
+                    stack.append((other, 0))
+        component = [-1] * n
+        groups = []
+        for start in reversed(order):
+            if component[start] >= 0:
+                continue
+            component[start] = len(groups)
+            group = []
+            _codon_component_stack = [start]
+            while _codon_component_stack:
+                node = _codon_component_stack.pop()
+                group.append(node)
+                for other in reverse[node]:
+                    if component[other] < 0:
+                        component[other] = component[start]
+                        _codon_component_stack.append(other)
+            groups.append(group)
+        dag_sets = [set() for _ in groups]
+        for (node, row) in enumerate(adjacency):
+            first = component[node]
+            for other in row:
+                second = component[other]
+                if first != second:
+                    dag_sets[first].add(second)
+        self.n = n
+        self.graph = adjacency
+        self.component = component
+        self.groups = groups
+        self.dag = [list(row) for row in dag_sets]
+        self.count = len(groups)
+
+    def same(self, first, second):
+        return self.component[first] == self.component[second]
+
+    def __getitem__(self, vertex):
+        return self.component[vertex]
+
+def scc(graph):
+    solver = SCC(graph)
+    return (solver.component, solver.groups)
+
+import sys
+read = sys.stdin.readline
+(n, m) = list(map(int, read().split()))
+graph = [[] for _ in range(n)]
+for _ in range(m):
+    (source, target) = list(map(int, read().split()))
+    graph[source].append(target)
+(_, groups) = scc(graph)
+print(len(groups))
+for group in groups:
+    print(' '.join([str(len(group))] + [str(_codon_item) for _codon_item in group]))

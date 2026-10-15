@@ -1,4 +1,5 @@
 import ast
+import json
 from pathlib import Path
 import shutil
 import subprocess
@@ -11,6 +12,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT.parent))
 
 import build_codon
+import check_codon_library_checker as native_lc
 from build_library_catalog import build_standalone_code
 from library_codex.benchmarks.codon_cases import CASES, REGRESSIONS
 
@@ -63,6 +65,79 @@ def test_constructor_change_fails_closed():
     source = "class SegTree:\n def __init__(self, values):\n  self.n = len(values)\n"
     with pytest.raises(ValueError, match="constructor changed"):
         build_codon.CodonTransformer(False).visit(ast.parse(source))
+    with pytest.raises(ValueError, match="constructor changed"):
+        build_codon.CodonTransformer(False).visit(ast.parse("class SCC:\n def __init__(self, graph):\n  pass\n"))
+
+
+def test_distribution_detects_source_generated_and_module_changes(tmp_path, monkeypatch):
+    root = tmp_path / "source"
+    category = root / "graph"
+    category.mkdir(parents=True)
+    source = category / "First.py"
+    source.write_text("x = 1\n")
+    monkeypatch.setattr(build_codon, "ROOT", root)
+    monkeypatch.setattr(build_codon, "LIBRARY", tmp_path / "generated")
+    monkeypatch.setattr(build_codon, "SUPPORTED", ("graph/First",))
+    monkeypatch.setattr(build_codon, "generate", lambda module: source.read_text())
+    assert not build_codon.sync_library(True)
+    assert build_codon.sync_library()
+    assert build_codon.sync_library(True)
+    generated = build_codon.LIBRARY / "graph/First.codon"
+    stamp = generated.stat().st_mtime_ns
+    assert build_codon.sync_library()
+    assert stamp == generated.stat().st_mtime_ns
+    source.write_text("x = 2\n")
+    assert not build_codon.sync_library(True)
+    build_codon.sync_library()
+    generated.write_text("broken")
+    assert not build_codon.sync_library(True)
+    build_codon.sync_library()
+    (category / "Second.py").write_text("y = 3\n")
+    assert not build_codon.sync_library(True)
+    build_codon.sync_library()
+    manifest = json.loads((build_codon.LIBRARY / "manifest.json").read_text())
+    assert manifest["moduleCount"] == 2
+    assert manifest["supportedCount"] == 1
+    assert manifest["modules"][1]["status"] == "unsupported"
+
+
+def test_distribution_generation_failure_preserves_previous(tmp_path, monkeypatch):
+    monkeypatch.setattr(build_codon, "LIBRARY", tmp_path)
+    previous = tmp_path / "manifest.json"
+    previous.write_text("old")
+
+    def fail():
+        raise ValueError("injected failure")
+
+    monkeypatch.setattr(build_codon, "library_files", fail)
+    with pytest.raises(ValueError, match="injected failure"):
+        build_codon.sync_library()
+    assert previous.read_text() == "old"
+    assert list(tmp_path.iterdir()) == [previous]
+
+
+def test_distribution_inventory_matches_public_catalog():
+    manifest = json.loads(build_codon.library_files()["manifest.json"])
+    catalog = json.loads((ROOT / "library-catalog.json").read_text(encoding="utf-8"))
+    expected = {row["modulePath"].removeprefix("library_codex.").replace(".", "/") for row in catalog["modules"]}
+    assert {row["modulePath"] for row in manifest["modules"]} == expected
+
+
+def test_codon_official_sources_stay_synchronized(tmp_path, monkeypatch):
+    monkeypatch.setattr(native_lc, "OUTPUT", tmp_path)
+    assert not native_lc.build(True)
+    assert native_lc.build()
+    assert native_lc.build(True)
+    path = tmp_path / "solutions/scc.codon"
+    path.write_text("stale")
+    assert not native_lc.build(True)
+
+
+def test_codon_driver_transform_preserves_python_io():
+    source = "a,b = map(int, ['3','4'])\nprint('v', *(i for i in range(a)), b)\n"
+    code = ast.unparse(ast.fix_missing_locations(native_lc.DriverTransformer().visit(ast.parse(source))))
+    expected = subprocess.check_output([sys.executable, "-c", source])
+    assert subprocess.check_output([sys.executable, "-c", code]) == expected
 
 
 def test_output_does_not_replace_canonical_files(tmp_path):
@@ -118,6 +193,14 @@ def test_native_matches_canonical(module, codon, tmp_path):
     expected = subprocess.check_output([sys.executable, str(reference)], input="513\n", text=True, timeout=60)
     actual = compile_run(codon, tmp_path / "native.py", build_codon.generate(module) + "\n" + solver, "513\n")
     assert actual == expected
+
+
+@pytest.mark.parametrize("name,data,expected", [
+    ("scc", "3 3\n0 1\n1 0\n1 2\n", "2\n2 0 1\n1 2\n"),
+    ("two_sat", "p cnf 1 1\n1 1 0\n", "s SATISFIABLE\nv 1 0\n"),
+])
+def test_native_official_driver(name, data, expected, codon, tmp_path):
+    assert compile_run(codon, tmp_path / "main.codon", native_lc.solution(name), data) == expected
 
 
 def test_header_integer_boundaries_and_input(codon, tmp_path):

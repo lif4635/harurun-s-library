@@ -7,12 +7,14 @@
 - コピーして提出する：サイトで使いたいモジュールを開き、依存込みのコードをコピーする。インストールは不要。
 - 手元でimportする：[library_codexの使い方](library_codex/README.md)。
 - 問題の解答を見る：[Library Checker](verify/library_checker/README.md)。単独実行できるコードと検証結果を問題名で探せる。
+- Codonで使う：[生成済みコードの場所・対応範囲](library_codex/docs/CODON.md)。旧Codon実装とは分けている。
 
 ## ファイルの場所
 
 | 場所 | 内容 |
 | --- | --- |
 | [library_codex/](library_codex/) | 現在の実装。PyPy向け |
+| [library_codon/](library_codon/) | Codon向け生成コードと旧実装。対応範囲はdirectory内の案内を参照 |
 | [library/](library/) | 以前の実装。現在の実装とはAPIが異なる |
 | [verify/library_checker/](verify/library_checker/) | 問題別の解答・公式ケースの検証結果・測定値 |
 | [library_codex/docs/](library_codex/docs/) | API、使い方、保守手順 |

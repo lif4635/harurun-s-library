@@ -28,7 +28,8 @@ def test_source_module_key_accepts_only_public_modules():
 
 
 def test_codon_changes_select_native_regression():
-    for path in ("library_codex/templates/codon_header.codon", "library_codex/convolution/NTT998.py"):
+    for path in ("library_codex/templates/codon_header.codon", "library_codex/convolution/NTT998.py",
+                 "library_codex/tools/check_codon_library_checker.py", "library_codon/generated/graph/TwoSAT.codon"):
         assert "verify/test_codon.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
 
 

@@ -68,6 +68,14 @@ def commands(profile, skip_tests, skip_benchmarks):
     executable = sys.executable
     result = [
         (
+            "Codon Library Checker synchronization",
+            [executable, str(TOOLS / "check_codon_library_checker.py"), "check"],
+        ),
+        (
+            "Codon distribution synchronization",
+            [executable, str(TOOLS / "build_codon.py"), "--check"],
+        ),
+        (
             "byte-compile",
             [executable, "-m", "compileall", "-q", str(ROOT)],
         ),

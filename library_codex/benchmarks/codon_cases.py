@@ -1,4 +1,34 @@
 CASES = {
+    "graph_connectivity/StronglyConnectedComponents": '''
+def solve(n):
+    graph = [[] for _ in range(n)]
+    for i in range(n - 1):
+        graph[i].append(i + 1)
+        if i % 7 != 6:
+            graph[i + 1].append(i)
+    count, ids = scc_ids(graph)
+    solver = SCC(graph)
+    assert count == solver.count
+    assert ids == solver.component
+    assert scc(graph) == (solver.component, solver.groups)
+    print(count, sum((i + 1) * ids[i] for i in range(n)), sum(map(len, solver.dag)))
+    print(solver.same(0, n - 1), solver[n - 1])
+solve(int(sys.stdin.readline()))
+''',
+    "graph/TwoSAT": '''
+def solve(n):
+    solver = TwoSAT(n)
+    for i in range(n - 1):
+        solver.add_xor(i, i + 1)
+    solver.set_value(0)
+    answer = solver.solve()
+    assert answer is not None
+    assert all(answer[i] == (i % 2 == 0) for i in range(n))
+    print(sum(answer), len(answer))
+    solver.set_value(n - 1, n % 2 == 0)
+    print(solver.solve() is None)
+solve(int(sys.stdin.readline()))
+''',
     "union_find/UnionFind": '''
 def solve(n):
     uf = UnionFind(n)
@@ -99,6 +129,56 @@ solve(int(sys.stdin.readline()))
 }
 
 REGRESSIONS = {
+    "graph_connectivity/StronglyConnectedComponents": '''
+for n in range(12):
+    for seed in range(20):
+        graph = [[j for j in range(n) if (i * 17 + j * 7 + seed * 13 + i * j) % 19 < 4] for i in range(n)]
+        reach = [[i == j or j in graph[i] for j in range(n)] for i in range(n)]
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    reach[i][j] = reach[i][j] or reach[i][k] and reach[k][j]
+        count, ids = scc_ids(graph)
+        tree = SCC(graph)
+        weighted = [[(j, -7) for j in row] for row in graph]
+        assert scc_ids(weighted) == (count, ids)
+        assert SCC(weighted).component == tree.component
+        assert scc(graph) == (tree.component, tree.groups)
+        assert count == tree.count
+        for i in range(n):
+            assert tree[i] == tree.component[i]
+            for j in range(n):
+                assert (ids[i] == ids[j]) == (reach[i][j] and reach[j][i])
+                assert tree.same(i, j) == (ids[i] == ids[j])
+            for j in graph[i]:
+                assert ids[i] <= ids[j]
+        print(count, ids, tree.groups, [sorted(row) for row in tree.dag])
+''',
+    "graph/TwoSAT": '''
+for n in range(7):
+    for seed in range(30):
+        solver = TwoSAT(n)
+        clauses = [(i, (i + seed) % 2 == 0, j, (j + seed) % 3 == 0) for i in range(n) for j in range(n) if (i * 13 + j * 7 + seed) % 11 < 3]
+        for i, a, j, b in clauses:
+            solver.add_clause(i, a, j, b)
+        valid = [mask for mask in range(1 << n) if all(bool(mask >> i & 1) == a or bool(mask >> j & 1) == b for i, a, j, b in clauses)]
+        answer = solver.solve()
+        assert (answer is not None) == bool(valid)
+        if answer is not None:
+            assert all(answer[i] == a or answer[j] == b for i, a, j, b in clauses)
+        print(answer)
+solver = TwoSAT(3)
+solver.add_at_most_one([solver.literal(i) for i in range(3)])
+solver.set_value(1)
+assert solver.solve() == [False, True, False]
+solver.set_value(2)
+assert solver.satisfiable() is None
+solver = TwoSAT(2)
+solver.add_equal(0, 1)
+solver.add_implication_literal(solver.literal(0, False), solver.literal(1))
+assert solver.solve() == [True, True]
+assert solver.answer == [True, True]
+''',
     "union_find/UnionFind": '''
 for size in range(1, 19):
     uf = UnionFind(size)

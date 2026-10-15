@@ -68,3 +68,59 @@ def minimum_enclosing_circle(points, seed=0):
                     )
     x, y, radius_squared, support = circle
     return (x, y), sqrt(max(0.0, radius_squared)), tuple(sorted(support))
+
+
+def _integer_diameter(first, second):
+    x = first[0] + second[0]
+    y = first[1] + second[1]
+    dx = first[0] - second[0]
+    dy = first[1] - second[1]
+    return x, y, 2, dx * dx + dy * dy
+
+
+def _integer_three(first, second, third):
+    bx, by = second[0] - first[0], second[1] - first[1]
+    cx, cy = third[0] - first[0], third[1] - first[1]
+    denominator = 2 * (bx * cy - by * cx)
+    if denominator == 0:
+        return max((_integer_diameter(first, second), _integer_diameter(first, third), _integer_diameter(second, third)), key=lambda circle: circle[3])
+    bb = bx * bx + by * by
+    cc = cx * cx + cy * cy
+    x = bb * cy - cc * by
+    y = bx * cc - cx * bb
+    return x + first[0] * denominator, y + first[1] * denominator, denominator, x * x + y * y
+
+
+def _integer_contains(circle, point):
+    x, y, denominator, squared = circle
+    dx = point[0] * denominator - x
+    dy = point[1] * denominator - y
+    return dx * dx + dy * dy <= squared
+
+
+def minimum_enclosing_circle_boundary(points, seed=0):
+    """整数座標の最小包含円について、各点が円周上なら1、内部なら0を返す。"""
+    points = [tuple(point) for point in points]
+    if not points:
+        raise ValueError("at least one point is required")
+    if any(not isinstance(value, int) for point in points for value in point):
+        raise TypeError("integer coordinates required")
+    order = list(range(len(points)))
+    Random(seed).shuffle(order)
+    circle = None
+    for position, first_id in enumerate(order):
+        first = points[first_id]
+        if circle is not None and _integer_contains(circle, first):
+            continue
+        circle = first[0], first[1], 1, 0
+        for second_position in range(position):
+            second = points[order[second_position]]
+            if _integer_contains(circle, second):
+                continue
+            circle = _integer_diameter(first, second)
+            for third_position in range(second_position):
+                third = points[order[third_position]]
+                if not _integer_contains(circle, third):
+                    circle = _integer_three(first, second, third)
+    x, y, denominator, squared = circle
+    return [int((point[0] * denominator - x) ** 2 + (point[1] * denominator - y) ** 2 == squared) for point in points]

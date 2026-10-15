@@ -1,0 +1,198 @@
+import sys
+
+@pure
+@llvm
+def _codon_srem(value: int, mod: int) -> int:
+    %result = srem i64 %value, %mod
+    ret i64 %result
+
+@pure
+@llvm
+def _codon_sdiv(value: int, divisor: int) -> int:
+    %result = sdiv i64 %value, %divisor
+    ret i64 %result
+
+@extend
+class File:
+    def readline(self):
+        for line in self:
+            return line
+        return ""
+
+@extend
+class int:
+    @overload
+    def __mod__(self, other: int):
+        return _codon_mod(self, other)
+
+    @overload
+    def __floordiv__(self, other: int):
+        if other == 0:
+            raise ZeroDivisionError("integer division by zero")
+        if self == -9223372036854775807 - 1 and other == -1:
+            raise OverflowError("integer division exceeds signed 64bit")
+        q = _codon_sdiv(self, other)
+        if _codon_srem(self, other) and (self < 0) != (other < 0):
+            q -= 1
+        return q
+
+    @pure
+    @llvm
+    def bit_length(self) -> int:
+        declare i64 @llvm.ctlz.i64(i64, i1)
+        %negative = icmp slt i64 %self, 0
+        %negated = sub i64 0, %self
+        %magnitude = select i1 %negative, i64 %negated, i64 %self
+        %zeros = call i64 @llvm.ctlz.i64(i64 %magnitude, i1 false)
+        %result = sub i64 64, %zeros
+        ret i64 %result
+
+    def bit_count(self):
+        value = UInt[64](self)
+        if self < 0:
+            value = UInt[64](0) - value
+        return value.popcnt()
+
+    @overload
+    def __rshift__(self, other: bool):
+        return self >> int(other)
+
+def _codon_mod(value: int, mod: int):
+    if mod == 0:
+        raise ZeroDivisionError("integer modulo by zero")
+    if mod == -1:
+        return 0
+    result = _codon_srem(value, mod)
+    if result and (result < 0) != (mod < 0):
+        result += mod
+    return result
+
+def _codon_mod_wide(value: Int[128], mod: Int[128]):
+    if mod == Int[128](0):
+        raise ZeroDivisionError("integer modulo by zero")
+    result = value % mod
+    if result and (result < Int[128](0)) != (mod < Int[128](0)):
+        result += mod
+    return int(result)
+
+def _codon_pow(base: int, exponent: int, modulus: int):
+    if modulus == 998244353 or modulus == -998244353:
+        value = base % 998244353
+        power = UInt[64](exponent)
+        if exponent < 0:
+            if value == 0:
+                raise ValueError("base is not invertible for the given modulus")
+            value = _codon_pow_positive(value, UInt[64](998244351))
+            power = UInt[64](0) - power
+        result = _codon_pow_positive(value, power)
+        if modulus < 0 and result:
+            result -= 998244353
+        return result
+    return _codon_pow_wide(base, exponent, modulus)
+
+def _codon_pow_positive(value: int, power: UInt[64]):
+    result = 1
+    while power:
+        if power & UInt[64](1):
+            result = result * value % 998244353
+        value = value * value % 998244353
+        power >>= UInt[64](1)
+    return result
+
+def _codon_pow_wide(base: int, exponent: int, modulus: int):
+    if modulus == 0:
+        raise ValueError("pow() modulus must be nonzero")
+    mod = Int[128](modulus)
+    negative = mod < Int[128](0)
+    if negative:
+        mod = -mod
+    value = Int[128](_codon_mod_wide(Int[128](base), mod))
+    power = Int[128](exponent)
+    if power < Int[128](0):
+        a, b = value, mod
+        x, y = Int[128](1), Int[128](0)
+        while b:
+            q = a // b
+            a, b = b, a - q * b
+            x, y = y, x - q * y
+        if a != Int[128](1):
+            raise ValueError("base is not invertible for the given modulus")
+        value = Int[128](_codon_mod_wide(x, mod))
+        power = -power
+    result = Int[128](1) % mod
+    while power:
+        if power & Int[128](1):
+            result = result * value % mod
+        value = value * value % mod
+        power >>= Int[128](1)
+    if negative and result:
+        result -= mod
+    return int(result)
+
+def _codon_array(code, values):
+    if code != "I":
+        raise ValueError("only unsigned coefficient arrays are supported")
+    return list(values)
+
+"""要素の併合・連結判定・成分サイズを扱う基本Union-Find。"""
+
+class UnionFind:
+
+    def __init__(self, size):
+        self.n = size
+        self.parent = [-1] * size
+        self.component_count = size
+
+    def find(self, node):
+        parent = self.parent
+        root = node
+        while parent[root] >= 0:
+            root = parent[root]
+        while node != root:
+            next_node = parent[node]
+            parent[node] = root
+            node = next_node
+        return root
+
+    def leader(self, node):
+        return self.find(node)
+
+    def root(self, node):
+        return self.find(node)
+
+    def merge(self, first, second):
+        first = self.find(first)
+        second = self.find(second)
+        if first == second:
+            return first
+        parent = self.parent
+        if parent[first] > parent[second]:
+            (first, second) = (second, first)
+        parent[first] += parent[second]
+        parent[second] = first
+        self.component_count -= 1
+        return first
+
+    def unite(self, first, second):
+        return self.merge(first, second)
+
+    def union(self, first, second):
+        return self.merge(first, second)
+
+    def same(self, first, second):
+        return self.find(first) == self.find(second)
+
+    def size(self, node):
+        return -self.parent[self.find(node)]
+
+    def groups(self):
+        result = [[] for _ in range(self.n)]
+        for node in range(self.n):
+            result[self.find(node)].append(node)
+        return [group for group in result if group]
+
+    def __str__(self):
+        return str(self.groups())
+
+    def __repr__(self):
+        return f'UnionFind({self.groups()!r})'

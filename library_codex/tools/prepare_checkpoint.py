@@ -82,6 +82,14 @@ def main():
         [sys.executable, str(TOOLS / "build_library_catalog.py")],
     )
     run_step(
+        "Codon distribution generation",
+        [sys.executable, str(TOOLS / "build_codon.py"), "--build-library"],
+    )
+    run_step(
+        "Codon Library Checker generation",
+        [sys.executable, str(TOOLS / "check_codon_library_checker.py"), "build"],
+    )
+    run_step(
         f"{args.profile} library checks",
         check_command(args.profile, not args.no_benchmarks),
     )

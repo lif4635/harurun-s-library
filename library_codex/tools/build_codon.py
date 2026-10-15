@@ -1,6 +1,8 @@
 import argparse
 import ast
 import copy
+import hashlib
+import json
 import os
 from pathlib import Path
 import sys
@@ -11,6 +13,8 @@ ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
 
 from build_library_catalog import build_standalone_code
+from build_api_reference import COMPATIBILITY_MODULES
+from category_config import SOURCE_CATEGORIES
 
 
 SUPPORTED = (
@@ -19,8 +23,11 @@ SUPPORTED = (
     "segment_tree/SegTree",
     "convolution/NTT998",
     "fps998/FPS",
+    "graph_connectivity/StronglyConnectedComponents",
+    "graph/TwoSAT",
 )
 HEADER = ROOT / "templates" / "codon_header.codon"
+LIBRARY = ROOT.parent / "library_codon" / "generated"
 
 
 def assigns(node, name):
@@ -100,6 +107,28 @@ class CodonTransformer(ast.NodeTransformer):
         return node
 
     def visit_ClassDef(self, node):
+        if node.name == "SCC":
+            initializer = next(item for item in node.body if isinstance(item, ast.FunctionDef) and item.name == "__init__")
+            loops = [item for item in initializer.body if isinstance(item, ast.For) and ast.unparse(item.iter) == "reversed(order)"]
+            if len(loops) != 1:
+                raise ValueError("SCC constructor changed; review Codon conversion")
+            for child in ast.walk(loops[0]):
+                if isinstance(child, ast.Name) and child.id == "stack":
+                    child.id = "_codon_component_stack"
+            for index, item in enumerate(initializer.body):
+                if assigns(item, "seen") and ast.unparse(item.value) == "bytearray(n)":
+                    initializer.body[index].value = ast.parse("[0] * n", mode="eval").body
+        if node.name == "TwoSAT":
+            fields = {"n": "int", "variable_count": "int", "graph": "list[list[int]]", "answer": "Optional[list[bool]]"}
+            node.body[:0] = [ast.AnnAssign(ast.Name(name, ast.Store()), ast.parse(value, mode="eval").body, None, 1) for name, value in fields.items()]
+            method = next(item for item in node.body if isinstance(item, ast.FunctionDef) and item.name == "add_variable")
+            replacements = 0
+            for item in ast.walk(method):
+                if isinstance(item, ast.Call) and ast.unparse(item) == "self.graph.extend(([], []))":
+                    item.args = ast.parse("self.graph.extend((list[int](), list[int]()))", mode="eval").body.args
+                    replacements += 1
+            if replacements != 1:
+                raise ValueError("TwoSAT graph allocation changed; review Codon conversion")
         if node.name == "SegTree":
             initializer = next(item for item in node.body if isinstance(item, ast.FunctionDef) and item.name == "__init__")
             first = initializer.body[0]
@@ -161,6 +190,8 @@ class CodonTransformer(ast.NodeTransformer):
             self.reduced[key] += 1
             return ast.parse(self.reductions[key], mode="eval").body
         node = self.generic_visit(node)
+        if isinstance(node.op, ast.BitOr) and isinstance(node.right, ast.Call) and isinstance(node.right.func, ast.Name) and node.right.func.id == "bool":
+            node.right = ast.Call(ast.Name("int", ast.Load()), [node.right], [])
         if isinstance(node.op, ast.Mod) and isinstance(node.left, ast.Constant) and isinstance(node.left.value, str):
             text = node.left.value
             if text.count("%") == 1 and "%r" in text:
@@ -225,13 +256,61 @@ def validate_output(path, solution=None):
         raise ValueError("output inside library_codex must be under generated/")
 
 
+def library_files():
+    sources = sorted(path for category in SOURCE_CATEGORIES for path in (ROOT / category).glob("*.py")
+                     if not path.name.startswith("_") and path.relative_to(ROOT).as_posix() not in COMPATIBILITY_MODULES)
+    modules = []
+    files = {}
+    for path in sources:
+        module = path.relative_to(ROOT).with_suffix("").as_posix()
+        row = {"modulePath": module, "sourcePath": "library_codex/" + module + ".py",
+               "sourceSha256": hashlib.sha256(path.read_text(encoding="utf-8").encode()).hexdigest(),
+               "status": "supported" if module in SUPPORTED else "unsupported"}
+        if module in SUPPORTED:
+            filename = module + ".codon"
+            files[filename] = generate(module)
+            row["standalonePath"] = filename
+            row["standaloneSha256"] = hashlib.sha256(files[filename].encode()).hexdigest()
+        modules.append(row)
+    missing = set(SUPPORTED) - {row["modulePath"] for row in modules}
+    if missing:
+        raise ValueError("missing Codon source: " + ", ".join(sorted(missing)))
+    manifest = {"schemaVersion": 1, "compilerVersion": "0.19.3", "moduleCount": len(modules),
+                "supportedCount": len(SUPPORTED), "modules": modules}
+    files["manifest.json"] = json.dumps(manifest, ensure_ascii=False, indent=2) + "\n"
+    return files
+
+
+def sync_library(check=False):
+    files = library_files()
+    existing = {path.relative_to(LIBRARY).as_posix() for path in LIBRARY.rglob("*.codon")}
+    unexpected = existing - files.keys()
+    if unexpected:
+        raise ValueError("unexpected generated Codon files: " + ", ".join(sorted(unexpected)))
+    changed = [name for name, source in files.items() if not (LIBRARY / name).is_file() or (LIBRARY / name).read_text(encoding="utf-8") != source]
+    if check:
+        for name in changed:
+            print("stale Codon distribution: " + name)
+        return not changed
+    for name in changed:
+        atomic_write(LIBRARY / name, files[name])
+    print(f"Codon distribution: {len(SUPPORTED)} supported modules, {len(changed)} files updated")
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("module", nargs="?", choices=SUPPORTED)
     parser.add_argument("--solution", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--list", action="store_true")
+    parser.add_argument("--build-library", action="store_true")
+    parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
+    if args.build_library or args.check:
+        if args.module or args.solution or args.output or args.list:
+            parser.error("library generation/check cannot be combined with module options")
+        raise SystemExit(0 if sync_library(args.check) else 1)
     if args.list:
         print("\n".join(SUPPORTED))
         return

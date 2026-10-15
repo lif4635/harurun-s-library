@@ -212,6 +212,8 @@ pypy3 library_codex/tools/prepare_checkpoint.py --profile full --site ../harurun
 
 Codon用の生成処理を変更するときは、[Codonの対象範囲と検証手順](CODON.md)に従います。元のPyPy実装を正本とし、Codonの都合でAPIや通常実装を変更しません。未対応moduleを検証なしに対応扱いにしないでください。
 
+`library_codon/generated/`は`build_codon.py --build-library`で生成します。通常のcheckpointに生成、通常検査に`--check`が含まれます。`manifest.json`は全moduleの対応・未対応をsourceから列挙します。Codonの公式解答も`check_codon_library_checker.py build`で同期します。対応を増やしたときはCodon実機の比較テストを通し、生成済みファイルだけの追加で対応済みにしないでください。
+
 - [ ] module名だけで主目的が分かる。
 - [ ] 新規moduleの記事に、主な機能・使い方・返り値の読み方がある。
 - [ ] よく使うAPI名が短く、冗長なaliasがない。

@@ -80,7 +80,6 @@ geometry/ConvexLayers
 geometry/ConvexPolygon
 geometry/FurthestPair
 geometry/LineGeometry
-geometry/MinimumEnclosingCircle
 geometry/MinkowskiSum
 geometry/Orientation
 geometry/PointInPolygon

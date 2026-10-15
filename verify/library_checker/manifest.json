@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 213,
-    "unimplemented": 40
+    "local_passed": 214,
+    "unimplemented": 39
   },
   "problems": [
     {
@@ -1619,10 +1619,12 @@
       "title": "Minimum Enclosing Circle",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/minimum_enclosing_circle",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.geometry.MinimumEnclosingCircle"
+      ],
+      "solution": "solutions/minimum_enclosing_circle.py",
+      "result": "results/minimum_enclosing_circle.json"
     },
     {
       "name": "minimum_spanning_tree",

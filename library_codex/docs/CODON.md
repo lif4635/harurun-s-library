@@ -4,6 +4,8 @@
 
 ## 使い方
 
+生成済みのコードはリポジトリ直下の`library_codon/generated/`にある。各`.codon`に依存とヘッダーが含まれるので、末尾へ解法を貼って使える。`manifest.json`の`status`が`supported`のモジュールだけが対象。`generated/`以外に残している旧実装とは分けている。
+
 解法だけを`solution.py`へ置き、必要なmoduleを指定します。`solution.py`にはライブラリのimportを書かず、いつもの関数・class名を使います。
 
 ```sh
@@ -43,6 +45,8 @@ $$
 | `segment_tree/SegTree` | 一点更新、区間積、境界探索。整数・文字列・整数tupleのモノイド |
 | `convolution/NTT998` | 整数係数listの畳み込み、二乗、順・逆変換 |
 | `fps998/FPS` | 整数係数listの逆数・除算・log・exp・pow・sqrt・Taylor shiftなど |
+| `graph_connectivity/StronglyConnectedComponents` | `scc_ids`、`scc`、`SCC`。成分番号、頂点群、縮約DAG |
+| `graph/TwoSAT` | 節・含意・等値・排他的論理和・高々1個の制約、補助変数、真偽割当 |
 
 これはライブラリ全体のCodon対応ではありません。合成、二変数FPS、集合冪級数、その他のmoduleは未対応です。未対応のmoduleは生成時にエラーにします。複数moduleを指定してまとめる機能もまだありません。FPSが必要とするNTTなどの内部依存は自動で含まれます。
 
@@ -54,6 +58,7 @@ $$
 - NTT・FPSの係数は`list[int]`です。直接`ntt`・`intt`を呼ぶ際は係数をmodで正規化しておきます。
 - 解法側の整数演算とデータ構造の和は、途中の計算も符号付き64bitに収めます。FPSの次数と指数の積など、係数のmod演算以外にもこの制約があります。
 - NTTの`array("I")`はCodonの整数listへ変換します。係数表の要素あたりの領域は4byteから8byteになります。
+- SCCは隣接listを受け付けます。要素は整数の行き先、または先頭要素が行き先の整数tupleで、同じグラフでは型を揃えます。`SCC`内部の訪問済み配列は`bytearray`から整数listへ変換します。
 - `sys.stdin.readline()`は補助処理で使えます。`sys.stdin.buffer`やPython標準ライブラリ全体の互換性は提供しません。
 - 整数の`//`・`%`はヘッダーで負数もPythonと同じ向きに丸めます。解法側の`pow(a, b, m)`は書き換えません。負の指数や、途中の積が64bitを超えるmodでは補助関数`_codon_pow(a, b, m)`を使います。
 - `(-2**63) // -1`は結果が64bitを超えるため`OverflowError`です。`(-2**63) % -1`は0を返します。
@@ -62,6 +67,15 @@ $$
 対象言語は[AtCoderの言語一覧](https://img.atcoder.jp/file/language-update/2025-10/language-list.html)に合わせています。Codonの制約は[公式ドキュメント](https://docs.exaloop.io/language/overview/)も参照してください。ローカル検証とAtCoderのACは別で、オンラインジャッジへの提出検証はまだ行っていません。
 
 ## 検証と追加
+
+配布物と索引は次で生成・確認する。全モジュールの名前はsourceから取得し、許可一覧にないものは`unsupported`とする。許可一覧は「生成できた」だけでは広げない。
+
+```sh
+pypy3 library_codex/tools/build_codon.py --build-library
+pypy3 library_codex/tools/build_codon.py --check
+```
+
+`prepare_checkpoint.py`はCodon配布物と問題用コードも生成する。`check_changed.py`・`check_library.py`は同期を検査し、source・依存・ヘッダー・変換処理が変わったのに生成物が古ければ失敗する。生成が必要な全コードを準備してから、ファイルごとに一時ファイル経由で置き換える。変更なしなら書き換えない。
 
 ```sh
 pypy3 -m pytest -q library_codex/verify/test_codon.py
@@ -77,6 +91,8 @@ Codon 0.19.3がない環境ではネイティブ実行テストをskipし、そ�
 比較スクリプトは逐次実行し、各処理系の最初の1回を除いた中央値、全測定値、処理系の版、コードと出力のハッシュを記録します。起動・入出力を含み、コンパイル時間は別記します。AtCoderと異なるPyPyの版で測った結果を、AtCoderでの速度として扱わないでください。
 
 対象を増やす場合は、変換処理の許可一覧、module別の比較ケース、必要な変換を追加し、Codon実機で確認します。コンパイル成功だけを理由に許可一覧へ加えません。既存APIやPyPyの高速な実装をCodonの都合で変更しないでください。
+
+SCC・2-SATは[公式ケースの検証](../../verify/library_checker/codon/README.md)も再実行できる。結果はPyPy側の対応数とは別に管理する。
 
 ## 測定記録
 

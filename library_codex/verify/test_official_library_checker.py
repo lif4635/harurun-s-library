@@ -206,6 +206,7 @@ def test_solution_is_standalone(name):
      " ".join(map(str, list(range(1, 62)) + list(range(60, 0, -1))))),
     ("factorial", "5\n0\n1\n10\n998244351\n998244352\n", "1 1 3628800 1 998244352"),
     ("sharp_p_subset_sum", "3 4\n1 1 2\n", "2 2 2 1"),
+    ("minimum_enclosing_circle", "3\n0 0\n1 0\n2 0\n", "101"),
     ("multivariate_convolution", "0\n\n998244352\n998244352\n", "1"),
     ("multivariate_convolution", "2\n2 3\n1 2 3 4 5 6\n0 1 0 0 0 0\n", "0 1 0 3 0 5"),
     ("multivariate_convolution_cyclic", "7 0\n\n3\n5\n", "1"),

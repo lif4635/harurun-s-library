@@ -1,0 +1,2296 @@
+{
+  "schemaVersion": 1,
+  "compilerVersion": "0.19.3",
+  "moduleCount": 379,
+  "supportedCount": 7,
+  "modules": [
+    {
+      "modulePath": "algebra/Affine",
+      "sourcePath": "library_codex/algebra/Affine.py",
+      "sourceSha256": "717ddd8014ea12ed82b330217de08a43dc869899a3745bfb8deee6a765c1a7bc",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algebra/FastPower",
+      "sourcePath": "library_codex/algebra/FastPower.py",
+      "sourceSha256": "b4c5245fe8b8dfdcd154dda30d2427cf84e3d15c3f9436f57f8ef7469a9ad53c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algebra/PowerTable",
+      "sourcePath": "library_codex/algebra/PowerTable.py",
+      "sourceSha256": "551e7dee70b54ea47f62bc1a00cc730c0919fb0b49a7175e14b53a9a1d44a414",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algebra/SATSolver",
+      "sourcePath": "library_codex/algebra/SATSolver.py",
+      "sourceSha256": "0e5144b21139710816bbe0e6bfc8dfc9347b4ab95b92b9ddb9a3ad375b336721",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/AllButOne",
+      "sourcePath": "library_codex/algorithm/AllButOne.py",
+      "sourceSha256": "cc882c07b1b6313196ef8516841eadfcd2049792312cc3f1cc316c9fb0059b86",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/Base64Integers",
+      "sourcePath": "library_codex/algorithm/Base64Integers.py",
+      "sourceSha256": "ec269cd93fe88436530e53a81ea5382648e692c31a5bdcdd7067df0d99df7b40",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/BitAlgorithms",
+      "sourcePath": "library_codex/algorithm/BitAlgorithms.py",
+      "sourceSha256": "3761b40bd6aa9895c73e875b57539398233ad42f15db0420f6e807598146580a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/Doubling",
+      "sourcePath": "library_codex/algorithm/Doubling.py",
+      "sourceSha256": "84a62f17eb11b8c5e7465cac3853a077b7c942c084397dfe31f22ef7249202bd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/DynamicProgramming",
+      "sourcePath": "library_codex/algorithm/DynamicProgramming.py",
+      "sourceSha256": "a845a522a48560168a4799663f22d9729268c2c7f7339f6f79a93d29178481f3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/Fibonacci",
+      "sourcePath": "library_codex/algorithm/Fibonacci.py",
+      "sourceSha256": "2a8aec78d89c8765f1049b35f0a5cc1c9f72104d56b8710f33407909a3174b03",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/IntegerUtilities",
+      "sourcePath": "library_codex/algorithm/IntegerUtilities.py",
+      "sourceSha256": "040c6efd208b5ae5367e9ca446433ffd7e7532a812f690a55459c31b6d68d26d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/ModularProgression",
+      "sourcePath": "library_codex/algorithm/ModularProgression.py",
+      "sourceSha256": "e276d0286a56464f8ad72c2f4f67ddd06c9317967bb0c7af10dfc9778202764f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/OfflineSetIntersection",
+      "sourcePath": "library_codex/algorithm/OfflineSetIntersection.py",
+      "sourceSha256": "2948c52e5ac097c7c7d63e28043354a200e2c9a89b2619233f1827982a932b3b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/ParallelBinarySearch",
+      "sourcePath": "library_codex/algorithm/ParallelBinarySearch.py",
+      "sourceSha256": "eb0f4714e4c6c6a7d6566c41fe48b2a5a8bbb06774d2baf06bbd2912a92847a5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/PermutationGroup",
+      "sourcePath": "library_codex/algorithm/PermutationGroup.py",
+      "sourceSha256": "0a4c33d608e2f60bb0dc3680f0ad05fd031b77a40ec924623de05bcb85bb6f90",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/PermutationTree",
+      "sourcePath": "library_codex/algorithm/PermutationTree.py",
+      "sourceSha256": "95e2e3098d70c3926210dd631e7797131853823a9f4549f8ba2e5c6701d27a1d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/RangeQueries",
+      "sourcePath": "library_codex/algorithm/RangeQueries.py",
+      "sourceSha256": "de740bf6134469512ecc371ad6d1e519da04ec396bf93812a2ee3cd25677c9a3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/Search",
+      "sourcePath": "library_codex/algorithm/Search.py",
+      "sourceSha256": "ceb82084f8aedb6b3ff70a547c302b94cde232d0c7be3100072c3020d4c6671a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/SequenceAlgorithms",
+      "sourcePath": "library_codex/algorithm/SequenceAlgorithms.py",
+      "sourceSha256": "60ff52ccf2b8fb7a01ac95bf9bc2a55fd070f8f051eba27e5690def3a045cd85",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/SequenceOrdering",
+      "sourcePath": "library_codex/algorithm/SequenceOrdering.py",
+      "sourceSha256": "1100ee3c34603b7829d39a4eb2b0328eebe4d9153afc7de98a1c5f71528c1bd2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "algorithm/Sorting",
+      "sourcePath": "library_codex/algorithm/Sorting.py",
+      "sourceSha256": "ae4ad0c9ae188d1ba4a61c7db6b72c1f61e8b61c809631cfffbb6773bc8c15e4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "arithmetic_convolution/ArithmeticConvolution",
+      "sourcePath": "library_codex/arithmetic_convolution/ArithmeticConvolution.py",
+      "sourceSha256": "687b9d2a5c308fd8a2ac4a707e12723b26e166bf3c2a784dd52a0c7294e9c838",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "arithmetic_convolution/MultiplicativeConvolutionModPrime",
+      "sourcePath": "library_codex/arithmetic_convolution/MultiplicativeConvolutionModPrime.py",
+      "sourceSha256": "26f4e7fdde8d29ddd8a0625567695f8b4854613ff37c010d0e60a4b06a3dea0b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "bitwise_convolution/SetFunction",
+      "sourcePath": "library_codex/bitwise_convolution/SetFunction.py",
+      "sourceSha256": "f4e2f3ba1d0b6d38f3efe2aa7d9938394cbacebfb751d43b2207710500dd4eed",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/BellNumbers",
+      "sourcePath": "library_codex/combinatorial_series/BellNumbers.py",
+      "sourceSha256": "94262e43fdb88107507bc6fada92cdc6a8bdfde1721b4e27d64bc8df06392ef5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/BernoulliNumbers",
+      "sourcePath": "library_codex/combinatorial_series/BernoulliNumbers.py",
+      "sourceSha256": "6982220d09c85edf048bc657cda5665159a304d7052d66a9c54cb9863e46244f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/DerangementNumbers",
+      "sourcePath": "library_codex/combinatorial_series/DerangementNumbers.py",
+      "sourceSha256": "603efa1f5341525b1f6e68e3b92d612f7aba5ab48e0ba4b14de5ed23d20116c9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/LinearRecurrence",
+      "sourcePath": "library_codex/combinatorial_series/LinearRecurrence.py",
+      "sourceSha256": "b91d7023cde4646bd6483a70bd2584d5bea7548e033522b50c3d1242b453592b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/PRecursive",
+      "sourcePath": "library_codex/combinatorial_series/PRecursive.py",
+      "sourceSha256": "d68a66b0fb14491ccbe617121d296a6c40396212f0764521db9a2a7cd63891cf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/PartitionNumbers",
+      "sourcePath": "library_codex/combinatorial_series/PartitionNumbers.py",
+      "sourceSha256": "37e42aeb88eec9e7b0e953ca91e025285b2f5b2a36a8e837784984c6fd3b6f73",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/PascalTransform",
+      "sourcePath": "library_codex/combinatorial_series/PascalTransform.py",
+      "sourceSha256": "2aa6c1cff87e75081cc10d067bcf4705c9a69bd01eafb2120bdafb02f487d9f9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/PolynomialMobiusTransform",
+      "sourcePath": "library_codex/combinatorial_series/PolynomialMobiusTransform.py",
+      "sourceSha256": "f467e54033abfde883645668e282c1390f4a81c7cd00338e6f203edf7f116cc1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/PowerSums",
+      "sourcePath": "library_codex/combinatorial_series/PowerSums.py",
+      "sourceSha256": "7038f3cb0de7c842e87aa7ae670706576c3f58cb37640182d2d07a5ebbedcda4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/StirlingMatrix",
+      "sourcePath": "library_codex/combinatorial_series/StirlingMatrix.py",
+      "sourceSha256": "f65648be8122a86cbff90ee3b5c641729003fa1eaab06053d022548be9242145",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorial_series/StirlingNumbers",
+      "sourcePath": "library_codex/combinatorial_series/StirlingNumbers.py",
+      "sourceSha256": "508ebaf2393557033ee6aecc780da3fb8efdadc605778cffd12f5d59647c0f71",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/ArbitraryBinomial",
+      "sourcePath": "library_codex/combinatorics/ArbitraryBinomial.py",
+      "sourceSha256": "f568f94807fed9bcf36a6333e0ca4f977448618fdf7dd92125275b2e42de7b95",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/BinomialQueries",
+      "sourcePath": "library_codex/combinatorics/BinomialQueries.py",
+      "sourceSha256": "2d76014112ca4b7550eb4861d272afe1b981c078c38a207fd245b5f46b6633fe",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/Combination",
+      "sourcePath": "library_codex/combinatorics/Combination.py",
+      "sourceSha256": "857b310c388b4937f382dc7c6d09f7e07a165c42a290775b71e644cfd3fdc7de",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/DeBruijnSequence",
+      "sourcePath": "library_codex/combinatorics/DeBruijnSequence.py",
+      "sourceSha256": "486b969b2f996505eb5029f7b218055b90366f7683bb2941d65b9cac1a2d6a9c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/ErdosGinzburgZiv",
+      "sourcePath": "library_codex/combinatorics/ErdosGinzburgZiv.py",
+      "sourceSha256": "91991260a1c7c126d7bf01ce7276c8cef21f7f27322ecdd2ac780d17740ac5ef",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/FactorialNumberSystem",
+      "sourcePath": "library_codex/combinatorics/FactorialNumberSystem.py",
+      "sourceSha256": "fd47117f9d819ad628786e1982d41cec4614449df6a9e2e36a67b37c5db12080",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/FloatBinomial",
+      "sourcePath": "library_codex/combinatorics/FloatBinomial.py",
+      "sourceSha256": "be75645670df704f3a5e8b862e789a59e13681d67a4a951d8a235168eda9f381",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/GrayCode",
+      "sourcePath": "library_codex/combinatorics/GrayCode.py",
+      "sourceSha256": "37c2f04355e019a6e208cb47387107fa7c46493f32a263da65edf3911c41e1a0",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/IntegerPartitions",
+      "sourcePath": "library_codex/combinatorics/IntegerPartitions.py",
+      "sourceSha256": "eea06cebab92a10c622db99f2eaa14b3ddbc2da5c2d5c70c400510322d62a084",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/Langford",
+      "sourcePath": "library_codex/combinatorics/Langford.py",
+      "sourceSha256": "c327ba9c5a5f8d163e1089562034a8b0a9b9b616a3e217c01d104ff0bd05b1f1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/PisanoPeriod",
+      "sourcePath": "library_codex/combinatorics/PisanoPeriod.py",
+      "sourceSha256": "f99c8be2d3a891176970cc672010fc41b4c68a38751527309d2b7759434a0479",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/QBinomial",
+      "sourcePath": "library_codex/combinatorics/QBinomial.py",
+      "sourceSha256": "7e68150af0f83da554c803afa562271d859f2d3dedc6f62f682c53a8a1b3bbd4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/RationalBinomial",
+      "sourcePath": "library_codex/combinatorics/RationalBinomial.py",
+      "sourceSha256": "1b3989e0ff5feca1bd0000625f53152790855835dfb64f14bf0bd86038933ab6",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/SetPartitions",
+      "sourcePath": "library_codex/combinatorics/SetPartitions.py",
+      "sourceSha256": "89b63c361d2a4c9e4883fc7188bef14ee187030903028f54aa703cb2c917bdf2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/Skolem",
+      "sourcePath": "library_codex/combinatorics/Skolem.py",
+      "sourceSha256": "976e137940c0d346120de01fddc8353d937588da4dbbf43d6b4184cdfbf96131",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "combinatorics/StirlingNumberQuery",
+      "sourcePath": "library_codex/combinatorics/StirlingNumberQuery.py",
+      "sourceSha256": "22acc401a28620ac6d041c2593810a15a33684c1c8ecb82ec3f0d5c9cf20f8e2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/ChirpZ",
+      "sourcePath": "library_codex/convolution/ChirpZ.py",
+      "sourceSha256": "6f5c0e2825694297070aa48d7503571c6d6ce81edd48d888fd709611f05793c2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/MiddleProduct",
+      "sourcePath": "library_codex/convolution/MiddleProduct.py",
+      "sourceSha256": "d92526ba2aeaedcfdbdf022ad132eaa10cdc4a9ff699aa2be46d9da9040ff878",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/MinPlusConvolution",
+      "sourcePath": "library_codex/convolution/MinPlusConvolution.py",
+      "sourceSha256": "02b711ee1c7773a9ffb00ea71dab938451b5984ab09d5bd98ac2e174ca566674",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/MultidimensionalDFT",
+      "sourcePath": "library_codex/convolution/MultidimensionalDFT.py",
+      "sourceSha256": "f259a87d344bed0f1cc761d7d9f0cad4f1e00f460aa1c5a79a6a5ca31e7af643",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/MultivariateMultiplication",
+      "sourcePath": "library_codex/convolution/MultivariateMultiplication.py",
+      "sourceSha256": "c75408c96a805323dc0d9dec13b4e29a91a6dd1bc6bfd0a46e4d70e47e13566f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/NTT",
+      "sourcePath": "library_codex/convolution/NTT.py",
+      "sourceSha256": "bd6b896404170e8fdd5410e613bae8a333214619d95e379225449dfde3dd209e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/NTT998",
+      "sourcePath": "library_codex/convolution/NTT998.py",
+      "sourceSha256": "b48726633a89ab415630b72b31e49aa4be4612392e59aa64b8cdb7342129f0dd",
+      "status": "supported",
+      "standalonePath": "convolution/NTT998.codon",
+      "standaloneSha256": "e016685ab96e9f4e7fd469c9ae6b47890c8a390a87afdde3144009729c92b9f2"
+    },
+    {
+      "modulePath": "debug/DebugView",
+      "sourcePath": "library_codex/debug/DebugView.py",
+      "sourceSha256": "340283fa77054f5cff6b53f38ac04f6a4a64dc4d5c300828feccdb82796583cd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fenwick_tree/BIT",
+      "sourcePath": "library_codex/fenwick_tree/BIT.py",
+      "sourceSha256": "9e99d260e43508292c493a20c78e3f81af50a8d6b0229c0a0a54c84df24b68ef",
+      "status": "supported",
+      "standalonePath": "fenwick_tree/BIT.codon",
+      "standaloneSha256": "432f81619d6879522e6925dcdf0159a8866e55004fe6b9dd92565523d8f10e12"
+    },
+    {
+      "modulePath": "fenwick_tree/DynamicFenwickTree",
+      "sourcePath": "library_codex/fenwick_tree/DynamicFenwickTree.py",
+      "sourceSha256": "3eaa1ad332fa4fb6fd0dbfc6ee46b373c1c0ff7cbb27a761194b7d5fd50b0b08",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fenwick_tree/RangeAddRangeSum",
+      "sourcePath": "library_codex/fenwick_tree/RangeAddRangeSum.py",
+      "sourceSha256": "43c96eff053d73993f343598cb94e2d251363c73cfa0e8aff07e0c0f9f0b0b60",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/CircularSeries",
+      "sourcePath": "library_codex/fps/CircularSeries.py",
+      "sourceSha256": "727bfa954d994723b43daf4301474ded3a17e1a9d62325a3e3c64c43dd5a600c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/CompositeExponential",
+      "sourcePath": "library_codex/fps/CompositeExponential.py",
+      "sourceSha256": "1d60d2a27ec89331d6edbf17ea1e82ccf29af70d02daf79bad9dee631f46fa14",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/DualFormalPowerSeries",
+      "sourcePath": "library_codex/fps/DualFormalPowerSeries.py",
+      "sourceSha256": "4ae039547a627fb15bb36ff0b9bda619587d6b7db5ebf69ebc0a5467f34ad829",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/EulerTransform",
+      "sourcePath": "library_codex/fps/EulerTransform.py",
+      "sourceSha256": "195a66dcef29a5469c2868d5f6b9cdc6beccdd517ab64cac01a0ba8f4fe1c612",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/FPSFraction",
+      "sourcePath": "library_codex/fps/FPSFraction.py",
+      "sourceSha256": "c9a5fbc98477c4dd07e3f895453e47e2df7d7e154bc0a80ba86ec506b3a8e465",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/FormalPowerSeries",
+      "sourcePath": "library_codex/fps/FormalPowerSeries.py",
+      "sourceSha256": "07c41667ad00f09d08d6328bb432c78423b2c7b54af9dd425c4fa80fea43a8f6",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/IncreasingSequences",
+      "sourcePath": "library_codex/fps/IncreasingSequences.py",
+      "sourceSha256": "b76e2343cce46b0681fd0c443647aefdf3c3436fdba546f78ac84af4481800f8",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/MultivariateFPS",
+      "sourcePath": "library_codex/fps/MultivariateFPS.py",
+      "sourceSha256": "a89622aa3f4542e992b58ee2af5894a6b47e8dbbbf801b00638d28000b3ecb14",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/OnlineFormalPowerSeries",
+      "sourcePath": "library_codex/fps/OnlineFormalPowerSeries.py",
+      "sourceSha256": "84ad14d7023df5167b5bde10547162c3ef20c0e006c4dfec6c7481d83a9f92a3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/PolynomialComposition",
+      "sourcePath": "library_codex/fps/PolynomialComposition.py",
+      "sourceSha256": "d4abbfa68228b9f2b94557f867c63fa9260a4433b925ac4bdd5d4ed7eaed1777",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/SparseFormalPowerSeries",
+      "sourcePath": "library_codex/fps/SparseFormalPowerSeries.py",
+      "sourceSha256": "1624ece2bf8b79e2667ea10e9e2d73d8549f254de13f4a7be0c986d763f74cb0",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/SumOfRationals",
+      "sourcePath": "library_codex/fps/SumOfRationals.py",
+      "sourceSha256": "d75622a513c789afd094cea48a9f0b7519ead22865dcb9b3811a5047af40d0c3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps998/Composition",
+      "sourcePath": "library_codex/fps998/Composition.py",
+      "sourceSha256": "d65a4c870cb1856d161f7c0b67fb5b6048d6c4c47b2b1193d6b53747fc450bd1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps998/FPS",
+      "sourcePath": "library_codex/fps998/FPS.py",
+      "sourceSha256": "20fa19484b15a8f198abe0230213e29668442fafba5ba592de19a56d1c275a1c",
+      "status": "supported",
+      "standalonePath": "fps998/FPS.codon",
+      "standaloneSha256": "ab86a5f235d2ff0802f7ed0092f5d8bb6ed3a9f1e103700ec720481e2313428e"
+    },
+    {
+      "modulePath": "fps998/LinearRecurrence",
+      "sourcePath": "library_codex/fps998/LinearRecurrence.py",
+      "sourceSha256": "6d59f2f8d6ad8d0dea95a5a377f6ade881da0839348bc523e60fa7b3a2f926ba",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps998/MultipointEvaluation",
+      "sourcePath": "library_codex/fps998/MultipointEvaluation.py",
+      "sourceSha256": "dc44e7e2f661577965f02fc75bdb0ed9cf9e04b184a4463bb3d9dedb1ee81400",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps998/NTT2D",
+      "sourcePath": "library_codex/fps998/NTT2D.py",
+      "sourceSha256": "8722211e1551d33fe3d7b5041d4e4a343491ffb60691c1fa82ec126d47c10c30",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps998/PowerProjection",
+      "sourcePath": "library_codex/fps998/PowerProjection.py",
+      "sourceSha256": "58b5d726dcf9473f78a899e1cdca8974f4d94183a1f5930ccbd1185e199de303",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps998/SubsetSum",
+      "sourcePath": "library_codex/fps998/SubsetSum.py",
+      "sourceSha256": "86b5c6f071a6714385ddc457ec6bfed2fb196d1d940dafb214f308ea79bdd07f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "game/GrundyNumbers",
+      "sourcePath": "library_codex/game/GrundyNumbers.py",
+      "sourceSha256": "cac3aab4a048a15008109b20e4b0f8acfe8b851e85dc6d0da2c14cae5eb49e40",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "game/ImpartialGameSolver",
+      "sourcePath": "library_codex/game/ImpartialGameSolver.py",
+      "sourceSha256": "ea73fb0a8bd40fa3db0d3258dc15c61a78ee4ccace8a9f73d55b91abe28d3ea7",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "game/Nimber",
+      "sourcePath": "library_codex/game/Nimber.py",
+      "sourceSha256": "ea610ce9a5a41f64f39c49095167303d5a2e4b9ebe48d3bd5382843bb9ba6319",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "game/PartisanGameSolver",
+      "sourcePath": "library_codex/game/PartisanGameSolver.py",
+      "sourceSha256": "1747536834bbba5392795cfba482817baf669d85fa98a36c2364dc3d68be7b13",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "game/PartizanGame",
+      "sourcePath": "library_codex/game/PartizanGame.py",
+      "sourceSha256": "4b7f45ca1e368c4ca548f466d33b88193b080bbfe5ad9695e1bb5a4bea37e7db",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "game/SurrealNumber",
+      "sourcePath": "library_codex/game/SurrealNumber.py",
+      "sourceSha256": "0976db51843988fcb315825bada9b92c60b4baf0ef4e88e3f3e9892bee79ae78",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/ArgumentSort",
+      "sourcePath": "library_codex/geometry/ArgumentSort.py",
+      "sourceSha256": "76d6f13bc2eb5b8a0cb1d3e21008de093d5aae4bb8e168a840986c06df7caafa",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/CircleGeometry",
+      "sourcePath": "library_codex/geometry/CircleGeometry.py",
+      "sourceSha256": "60f6e5fb11c8c295aab9adf8258daa8bdd7e8c1dd7166dbb8669a1a2a4caf0d0",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/ClosestPair",
+      "sourcePath": "library_codex/geometry/ClosestPair.py",
+      "sourceSha256": "e4e4b3526e931fcb4eea195c1dcbdc6fe515b328f9779d6c5a0231d055610e60",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/ConvexFurthest",
+      "sourcePath": "library_codex/geometry/ConvexFurthest.py",
+      "sourceSha256": "e8ff6fe1ed2f402ba5f98381eb80d6df089c46405e11a275a6d60a345855ffaf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/ConvexHull",
+      "sourcePath": "library_codex/geometry/ConvexHull.py",
+      "sourceSha256": "b2d0aabd674b58b078b8452a0521ca908533481fab414f4fc9568bc006f5520c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/ConvexLayers",
+      "sourcePath": "library_codex/geometry/ConvexLayers.py",
+      "sourceSha256": "df6ece71afe25b801fe3cc31a37c3f2c20dc243ebc0ff6380121d3079b38ff60",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/ConvexPolygon",
+      "sourcePath": "library_codex/geometry/ConvexPolygon.py",
+      "sourceSha256": "f3b77376d70865f2dd5e6a375da9a3c3561c11ad1ee35a8e5d115e1a45531e06",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/FurthestPair",
+      "sourcePath": "library_codex/geometry/FurthestPair.py",
+      "sourceSha256": "821f63eb8217b48298f36ddc21c406b0de491e2bbe75ad89dbc41d7dffc17940",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/LineGeometry",
+      "sourcePath": "library_codex/geometry/LineGeometry.py",
+      "sourceSha256": "ba482c407431b530194b7bc53282490a2e3cc75a945b2cd2c8559bd79679e460",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/MinimumEnclosingCircle",
+      "sourcePath": "library_codex/geometry/MinimumEnclosingCircle.py",
+      "sourceSha256": "6e466b843871d16f519d219eb340084f7bc94672402181397dea7717a6e46795",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/MinkowskiSum",
+      "sourcePath": "library_codex/geometry/MinkowskiSum.py",
+      "sourceSha256": "b83547cf81d34515dd751fa5a93785ebc7c08706be538186418d4d6a752aacaf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/Orientation",
+      "sourcePath": "library_codex/geometry/Orientation.py",
+      "sourceSha256": "2a014f5ce07b6458217fc6581fca447f2e1691c10534b1ca2f6421dab754ff55",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/PointInPolygon",
+      "sourcePath": "library_codex/geometry/PointInPolygon.py",
+      "sourceSha256": "b14f4cf97167d39e8f33d9c9a9b63e28e2365399827ef9a4f6b169fc2a67af55",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/PolygonMetrics",
+      "sourcePath": "library_codex/geometry/PolygonMetrics.py",
+      "sourceSha256": "97268eeb45a2d6fcde734c1aa98811cb5241995d4d880c9ad9f8986d8dde48cc",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/SegmentIntersection",
+      "sourcePath": "library_codex/geometry/SegmentIntersection.py",
+      "sourceSha256": "895757b38c66004b643cde1516a8f068ea7a61c99d9089aee5a103a4e78f2140",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/CSRGraph",
+      "sourcePath": "library_codex/graph/CSRGraph.py",
+      "sourceSha256": "9733a2099ab102e166b63b73467c0e2867cc34f795976fb85006bf74a1a37bfc",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/CycleDetection",
+      "sourcePath": "library_codex/graph/CycleDetection.py",
+      "sourceSha256": "ac51af2f868ddd889dfff81a20f50f067d7e5085bb5c2645cc6227b7639a007c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/DAGAntichain",
+      "sourcePath": "library_codex/graph/DAGAntichain.py",
+      "sourceSha256": "ebaa34e0b68535a26474de5f3888348ed0dabb86fae35e7a691d8b0aec793297",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/DFSForest",
+      "sourcePath": "library_codex/graph/DFSForest.py",
+      "sourceSha256": "67c99185a3e724b220c675cff82caddaf5dc81d3601415d7284999fd1b3a45fd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/DegreeSequence",
+      "sourcePath": "library_codex/graph/DegreeSequence.py",
+      "sourceSha256": "5a83ab683b87b1cc2721447ec6e967d283072cba88b2faf62231d16ba97c8238",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/DimensionExpandedGraph",
+      "sourcePath": "library_codex/graph/DimensionExpandedGraph.py",
+      "sourceSha256": "171c1e138fd0a806a0733f4d8bf192507505c702179c2badfeeda570fbf434dc",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/EulerianTrail",
+      "sourcePath": "library_codex/graph/EulerianTrail.py",
+      "sourceSha256": "320dff3a3fbbdbbda609a20d9e1051517e266034cb6b64c2b3fb2d32bff3ea81",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/GraphFromEdges",
+      "sourcePath": "library_codex/graph/GraphFromEdges.py",
+      "sourceSha256": "f429404c75e0dc913e3a2b90e423631c6401c18ca3bf3923b4ee8ffa8812b1ca",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/GridToGraph",
+      "sourcePath": "library_codex/graph/GridToGraph.py",
+      "sourceSha256": "6299d440e44e4990ab41157aaa92cbd729cd364f0d4a29e278e74155c925676c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/RangeEdgeGraph",
+      "sourcePath": "library_codex/graph/RangeEdgeGraph.py",
+      "sourceSha256": "9b325af986e9c35ce6907d6e11b44d37b4d37ace212afe653238870a90c56321",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/RestorePath",
+      "sourcePath": "library_codex/graph/RestorePath.py",
+      "sourceSha256": "c0066bbdf45886b552b7676f7a41b299565c3a4586580fa8665c816fa281a5eb",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/ReverseGraph",
+      "sourcePath": "library_codex/graph/ReverseGraph.py",
+      "sourceSha256": "83d8ae8781b1965d42dd60cef6f666f1d69dc81f643eb2110c4605e915de7261",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/TopologicalSort",
+      "sourcePath": "library_codex/graph/TopologicalSort.py",
+      "sourceSha256": "4afdc4538c14a3d160a44335a77ad47fda345e0cf6e21db12df333bca8cbe268",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/TournamentPath",
+      "sourcePath": "library_codex/graph/TournamentPath.py",
+      "sourceSha256": "459cb48899522d0f5af962eb3825ba2996cf159b8a29998dbcca9b70d94033b4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/TransitiveReduction",
+      "sourcePath": "library_codex/graph/TransitiveReduction.py",
+      "sourceSha256": "5d71fd3a3ce5ed6b922a476fda1093d2e5d3a28d3cf93b71fe03e8c087427e2b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph/TwoSAT",
+      "sourcePath": "library_codex/graph/TwoSAT.py",
+      "sourceSha256": "eaa84a67e09e510589769f9fc36d255ae0c16656310f3cd7377f26fe8547ee12",
+      "status": "supported",
+      "standalonePath": "graph/TwoSAT.codon",
+      "standaloneSha256": "c8719210d0b8451bef4170f19c61319a076aeb18a18dfdf8f2d4fe18a4d961c6"
+    },
+    {
+      "modulePath": "graph_connectivity/AdvancedConnectivity",
+      "sourcePath": "library_codex/graph_connectivity/AdvancedConnectivity.py",
+      "sourceSha256": "92b4fd8b20cdd890126df0589a293845cc8c3e75a5ea843744221e665ff5d9bf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/BiconnectedComponents",
+      "sourcePath": "library_codex/graph_connectivity/BiconnectedComponents.py",
+      "sourceSha256": "54f39715f8aa47eef7b4fed0c01d60be8eaee6e5b8564796b8ee663765322aca",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/BipartiteColoring",
+      "sourcePath": "library_codex/graph_connectivity/BipartiteColoring.py",
+      "sourceSha256": "8117c3c9660bb47ee6656a683b37bdd871a7abaff2ae2c6945357e87496bfe0b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/BridgeForest",
+      "sourcePath": "library_codex/graph_connectivity/BridgeForest.py",
+      "sourceSha256": "05d8e1fc687bb2c1b6715ee9273afc9cc7e44aac149bebe218feed507d8f910b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/Cactus",
+      "sourcePath": "library_codex/graph_connectivity/Cactus.py",
+      "sourceSha256": "58c1127dfb1bd94993465a9a0360f898c35edec4a18a5544f333e9192a7c29e1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/ComplementGraph",
+      "sourcePath": "library_codex/graph_connectivity/ComplementGraph.py",
+      "sourceSha256": "a5728b60fca177392745be545a95a2c75f5cb83705f9586f0b06cfcf603ef55f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/ConnectedComponents",
+      "sourcePath": "library_codex/graph_connectivity/ConnectedComponents.py",
+      "sourceSha256": "504b29e26f66965c68ecb05e64e48bfa6d6fdb046ba090b365827bc3ae3badd1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/DominatorTree",
+      "sourcePath": "library_codex/graph_connectivity/DominatorTree.py",
+      "sourceSha256": "da35f3b92458ce55696c2a6f1eab93517f4f9e3c81d2a858a131e1cf9740f7f6",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/DynamicBipartiteGraph",
+      "sourcePath": "library_codex/graph_connectivity/DynamicBipartiteGraph.py",
+      "sourceSha256": "0f35f67a5937015c1093a008d531b628fd4f36c817ee87f1f4c4f11449861229",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/FunctionalGraph",
+      "sourcePath": "library_codex/graph_connectivity/FunctionalGraph.py",
+      "sourceSha256": "641d7e183ae13bc095e82039414e6144482959a1273553a18ed12c48603af4b9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/LowLink",
+      "sourcePath": "library_codex/graph_connectivity/LowLink.py",
+      "sourceSha256": "373fc78f20eb32342ce6f3317be3d33a42de0793d6278b0509e58c9bb4823b14",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/NamoriDecomposition",
+      "sourcePath": "library_codex/graph_connectivity/NamoriDecomposition.py",
+      "sourceSha256": "158824a76a50ddfce591ae6c3527b80b920c95759e730b0d7cef45fbbdcadc05",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/OfflineDynamicConnectivity",
+      "sourcePath": "library_codex/graph_connectivity/OfflineDynamicConnectivity.py",
+      "sourceSha256": "e3426ccc592052006d88badf10570cbe8646b458467a20e2e2e3d2f4a99e5ab1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/OfflineDynamicSum",
+      "sourcePath": "library_codex/graph_connectivity/OfflineDynamicSum.py",
+      "sourceSha256": "7a169bcac1ef8d21bf68d101a5a46387679310ae1325a8903c5b927827d9270f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/OnlineDynamicConnectivity",
+      "sourcePath": "library_codex/graph_connectivity/OnlineDynamicConnectivity.py",
+      "sourceSha256": "5b37d87ff515ce4bdf58d4ff69d188816d0ef23ab6c62d90f154889c8ed9851c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/Reachability",
+      "sourcePath": "library_codex/graph_connectivity/Reachability.py",
+      "sourceSha256": "ff1c59d54fc087d0ba76ff31e2a6ea9ac499a4e49322d2fd27f6f7b1e9b6893e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/STNumbering",
+      "sourcePath": "library_codex/graph_connectivity/STNumbering.py",
+      "sourceSha256": "0a4be7c6c17bc7d8427668f030a72793bf5ad63453d60266b1a0f197d42ef971",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/StronglyConnectedComponents",
+      "sourcePath": "library_codex/graph_connectivity/StronglyConnectedComponents.py",
+      "sourceSha256": "76e8d13b15ce50dba7273c416e3e438ae074b3ac74ea3a8e7262991555addc27",
+      "status": "supported",
+      "standalonePath": "graph_connectivity/StronglyConnectedComponents.codon",
+      "standaloneSha256": "b1f4213904236988495215d723156ed5a5d937d035add81bae5c847bc0519af6"
+    },
+    {
+      "modulePath": "graph_connectivity/TreeDecompositionWidth2",
+      "sourcePath": "library_codex/graph_connectivity/TreeDecompositionWidth2.py",
+      "sourceSha256": "108ccd724cf6f9ee36a6b31838ad8ce92d22d6160822f73a54d06b1a84f29a4d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_connectivity/TwoEdgeConnectedComponents",
+      "sourcePath": "library_codex/graph_connectivity/TwoEdgeConnectedComponents.py",
+      "sourceSha256": "e4f3e2c89d765634ff60d53c122c51ec6f0d54be896aab0744c7a42943a04803",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/ChromaticNumber",
+      "sourcePath": "library_codex/graph_enumeration/ChromaticNumber.py",
+      "sourceSha256": "a0e25f577a6fbb1f41e7b68dbd6f23aa820c0ebb1a17444d1039f6deb9c6571c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/CountC4PerEdge",
+      "sourcePath": "library_codex/graph_enumeration/CountC4PerEdge.py",
+      "sourceSha256": "3f9c0901b539599bb0e3dec3b71b2d4cf53667537b97adca6fba2462f795e907",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/EnumerateCliques",
+      "sourcePath": "library_codex/graph_enumeration/EnumerateCliques.py",
+      "sourceSha256": "0ca3621c1f39cf5fcc44e62f1544e901034b439f08886159b0a99667205bde41",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/EnumerateTriangles",
+      "sourcePath": "library_codex/graph_enumeration/EnumerateTriangles.py",
+      "sourceSha256": "365707ae6ad2ac4edf64c212b53b53e7056c0c636ec543e59f678146780c18d6",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/EulerianCircuits",
+      "sourcePath": "library_codex/graph_enumeration/EulerianCircuits.py",
+      "sourceSha256": "098e21045f4376982d2c08f773a3310c3e5ba47624e16c8b821455dd391496e3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/GraphCounting",
+      "sourcePath": "library_codex/graph_enumeration/GraphCounting.py",
+      "sourceSha256": "e43cd3868e123ffe92090b43eb9550192a7e51064c7a7f0fe07a059f8734f476",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/GraphProperties",
+      "sourcePath": "library_codex/graph_enumeration/GraphProperties.py",
+      "sourceSha256": "086d8e45daead767d3490ff1e3133f85f94a321aab1ae2e5461e2fb1f35bfa14",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/HeldKarp",
+      "sourcePath": "library_codex/graph_enumeration/HeldKarp.py",
+      "sourceSha256": "9f8e965e388644f6d6bf4d9dffa6f88e6dd6c99555f8ef4be2f8366b8a7da772",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/MaximalIndependentSets",
+      "sourcePath": "library_codex/graph_enumeration/MaximalIndependentSets.py",
+      "sourceSha256": "8b206bfd69f96eaca2a1ef683400d7449deeb9751ad010107e864fe8dc206baa",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/MaximumIndependentSet",
+      "sourcePath": "library_codex/graph_enumeration/MaximumIndependentSet.py",
+      "sourceSha256": "386a504f4187ab64a215466e5dc1953fa93db55b040b9720adccc13aadf1d656",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_enumeration/MinimumCostCycle",
+      "sourcePath": "library_codex/graph_enumeration/MinimumCostCycle.py",
+      "sourceSha256": "1caf429dd56e4aa2debbe1b76a3f925288b4c1b2c176d5a78802d8469beb722e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_flow/AdvancedFlow",
+      "sourcePath": "library_codex/graph_flow/AdvancedFlow.py",
+      "sourceSha256": "1d68079b905d0a0117e3b9a1e2ef78874ebc2d2a269f589f733f034a053859f2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_flow/MaxFlow",
+      "sourcePath": "library_codex/graph_flow/MaxFlow.py",
+      "sourceSha256": "b9e74ac9a6b14e3141ad06dbb4265c718342b200a222e0a6394f6c7e051310df",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_flow/MinCostBFlow",
+      "sourcePath": "library_codex/graph_flow/MinCostBFlow.py",
+      "sourceSha256": "7f0fea1ae71a5475fc471f4970d8fe04260ea24c4abd5b2c7f1f79661c811146",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_flow/MinCostFlow",
+      "sourcePath": "library_codex/graph_flow/MinCostFlow.py",
+      "sourceSha256": "49cfcf7b9c394b16efa915f87cb9f19430298d096399a22d48eb3d502e063bbf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_flow/PushRelabel",
+      "sourcePath": "library_codex/graph_flow/PushRelabel.py",
+      "sourceSha256": "2d8f013f53ac6343349c75a158e5a49f8616a64b06d69f6430eb07c68d17a8a2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/BipartiteEdgeColoring",
+      "sourcePath": "library_codex/graph_matching/BipartiteEdgeColoring.py",
+      "sourceSha256": "47c135f154e9ba628736200b85cb973d7b1c1f7ddee0c3ef0dfa51946b156d4f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/BipartiteMatching",
+      "sourcePath": "library_codex/graph_matching/BipartiteMatching.py",
+      "sourceSha256": "76f91a63316a42562d6b818dadf43667a8000fa01ba606b2879cd7e92a44fc5b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/DAGMinimumPathCover",
+      "sourcePath": "library_codex/graph_matching/DAGMinimumPathCover.py",
+      "sourceSha256": "8c6b42bc0d5db7f8895723f916e9a754e44b462068e8263bbd8bc715aff19e8d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/GeneralMatching",
+      "sourcePath": "library_codex/graph_matching/GeneralMatching.py",
+      "sourceSha256": "4ae81b339af2e1272c9f02b653377c7529f7e58ffcb8d4758b8fc67438c5bccc",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/GeneralWeightedMatching",
+      "sourcePath": "library_codex/graph_matching/GeneralWeightedMatching.py",
+      "sourceSha256": "5427504336bf304becc3b55c10e65487c04b668cc9a99638cb900b5ce2a5b1cb",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/Hungarian",
+      "sourcePath": "library_codex/graph_matching/Hungarian.py",
+      "sourceSha256": "5cbf037f8e098d13baa4cb63d5a26da98c76570f5f767541d237811e302a0013",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/StableMatching",
+      "sourcePath": "library_codex/graph_matching/StableMatching.py",
+      "sourceSha256": "5eacf4fa786627b65657074671bdf4c9a366850837fa2bb739454b07ddf638b5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_matching/StableRoommates",
+      "sourcePath": "library_codex/graph_matching/StableRoommates.py",
+      "sourceSha256": "877679d97e3428221817f7af392cf7dfcc7c9ee29f5cbfa64f12721a44f1fb7a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_spanning/GraphOrdering",
+      "sourcePath": "library_codex/graph_spanning/GraphOrdering.py",
+      "sourceSha256": "1a47679db3566b84ee0d1805610ad5cc246529f018dd14d16bd4a693bd822137",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_spanning/MergeTree",
+      "sourcePath": "library_codex/graph_spanning/MergeTree.py",
+      "sourceSha256": "e452af814544fc90fab282cfe6612a9d846da4889a5759e5dd65dd16abfde946",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_spanning/MinimumCostArborescence",
+      "sourcePath": "library_codex/graph_spanning/MinimumCostArborescence.py",
+      "sourceSha256": "655e1dfb73713c1a3da178758c1aa402fdfbbb49a5f9d4f5d05d09b3013ced2d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_spanning/MinimumSpanningTree",
+      "sourcePath": "library_codex/graph_spanning/MinimumSpanningTree.py",
+      "sourceSha256": "90e8f6f591b45f20c31e457a41e3a2dfaf0c05c95450a3f6bad3d13c6593e91e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_spanning/MinimumSteinerTree",
+      "sourcePath": "library_codex/graph_spanning/MinimumSteinerTree.py",
+      "sourceSha256": "98d5a2b9337f6d91ced77654b5e48109d78375baae08c15eb1b18b574b5a8844",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "heuristic/LogTable",
+      "sourcePath": "library_codex/heuristic/LogTable.py",
+      "sourceSha256": "3efe2366bdd3d9298522d2b44e2c3224280a9e3b7e542bd62edae9f80b435c31",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "heuristic/MultiArmedBandit",
+      "sourcePath": "library_codex/heuristic/MultiArmedBandit.py",
+      "sourceSha256": "a07b46b6be50ff9eed6dcd3255b808a01d1220fa672bd15088515dfd8ee79abc",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "heuristic/SimulatedAnnealing",
+      "sourcePath": "library_codex/heuristic/SimulatedAnnealing.py",
+      "sourceSha256": "5fec1a4f1e7ddb73cc226f934855d3170f578c36f99c9aeead00ef7783c797ab",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "heuristic/TopK",
+      "sourcePath": "library_codex/heuristic/TopK.py",
+      "sourceSha256": "1b7faab77c5deedf10ad9e39094a26bf6ac0ccb84592b6b483d99b5dbad37441",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/Adjugate",
+      "sourcePath": "library_codex/linear_algebra/Adjugate.py",
+      "sourceSha256": "3c9729fc6c3e57daa7c6a3e089366eaf85f378f44b31f59cdfe38093461fce5f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/AdvancedMatrix",
+      "sourcePath": "library_codex/linear_algebra/AdvancedMatrix.py",
+      "sourceSha256": "11683b794ae896595aeb1944c01dfeeaf2d9361853258a45ba02941389d3f73d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/BlackBoxLinearAlgebra",
+      "sourcePath": "library_codex/linear_algebra/BlackBoxLinearAlgebra.py",
+      "sourceSha256": "c7242ac07752465237d094ad8ae688b592237706df12614fd8a3cee6c8a7d547",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/F2Matrix",
+      "sourcePath": "library_codex/linear_algebra/F2Matrix.py",
+      "sourceSha256": "9dfa778905df47c0b3b14f8321386b895255f291de880c9954b178d6bca6f9ca",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/Matrix",
+      "sourcePath": "library_codex/linear_algebra/Matrix.py",
+      "sourceSha256": "080f73dd8ffff1682147547545757aca57d258be9a5bfe035f1fc4af9729b302",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/PolynomialMatrix",
+      "sourcePath": "library_codex/linear_algebra/PolynomialMatrix.py",
+      "sourceSha256": "63cb4041a00df19669efb3c826d2ac6f50157e6839ba6ab9a498845c2b80acc4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/Semiring",
+      "sourcePath": "library_codex/linear_algebra/Semiring.py",
+      "sourceSha256": "6b9af9f092b3214dc68f9d1918aa541b9e5a03d179c706b891e9118086f75cf7",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/Strassen",
+      "sourcePath": "library_codex/linear_algebra/Strassen.py",
+      "sourceSha256": "ce577d9ab6db95c91dbf6c6cec422aed9e2a8ac83ef108977cd1c3dd5bbd2cc0",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/XorBasis",
+      "sourcePath": "library_codex/linear_algebra/XorBasis.py",
+      "sourceSha256": "ae2d4e95f61e1f14ea4a887d1d1fb4590d8ee0e0935534fc2fb887d077598301",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/ChineseRemainder",
+      "sourcePath": "library_codex/number_theory/ChineseRemainder.py",
+      "sourceSha256": "7619798cd768a7c64593cd0d47ebcf1ea23f0f33035bd43066d0d16eaacec4e5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/DecimalAddition",
+      "sourcePath": "library_codex/number_theory/DecimalAddition.py",
+      "sourceSha256": "0bbd030f5ce15b135e225ef61e9d3ed9ac0fef19e8d5d62e8d84391c62813ca6",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/DigitFrequency",
+      "sourcePath": "library_codex/number_theory/DigitFrequency.py",
+      "sourceSha256": "a76dcc4989aac6c02b2a313b68adf197a7ba974199bbb6b92ae79643ba879df9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/DiscreteLog",
+      "sourcePath": "library_codex/number_theory/DiscreteLog.py",
+      "sourceSha256": "3243399ba1ce2686ae6f29895cffc93a8df0fa1d9abd70a0949051c78525829f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/Elementary",
+      "sourcePath": "library_codex/number_theory/Elementary.py",
+      "sourceSha256": "eea25b9d379d54b99fe5ef9ef9b026231e5bdf522c234fd7a22973672381c16d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/EnumerateQuotient",
+      "sourcePath": "library_codex/number_theory/EnumerateQuotient.py",
+      "sourceSha256": "7842a8fd5ab99a6c3730b3765722074b759fc67d9acb0bc2ef4bf3a1d70ed062",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/FloorPolynomialSum",
+      "sourcePath": "library_codex/number_theory/FloorPolynomialSum.py",
+      "sourceSha256": "6fad3c5203c94c13be91904d795a5bf7e0682b7dbdb94c718d2ad58700cbd293",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/FloorSum",
+      "sourcePath": "library_codex/number_theory/FloorSum.py",
+      "sourceSha256": "8904a26abbdde06586b11f0a73f53d41580b30ae99e5984ab2d4154f22c5c662",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/GaussianInteger",
+      "sourcePath": "library_codex/number_theory/GaussianInteger.py",
+      "sourceSha256": "04cfe98cb336d48b6d6db31e4328c4c7f9f4aa0d0fd33493863b7bc0d5b0bca1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/IntegerArithmetic",
+      "sourcePath": "library_codex/number_theory/IntegerArithmetic.py",
+      "sourceSha256": "7634834ceea8a0bd7c0c4d4bce3b42ea6556a9a30e59475ae3f4d069db6a20b8",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/IntegerDivision",
+      "sourcePath": "library_codex/number_theory/IntegerDivision.py",
+      "sourceSha256": "566276b79a7008b0f6be1a2f148032c3bf215107d400f254fc729c9075b33dc2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/MinMod",
+      "sourcePath": "library_codex/number_theory/MinMod.py",
+      "sourceSha256": "abd5f19fa18b01050463040ff7392141ba80c036900ac69174ee622a04bdf8d2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/ModularArithmetic",
+      "sourcePath": "library_codex/number_theory/ModularArithmetic.py",
+      "sourceSha256": "d66e1d45c3045b234fd523134364cff4a102999e0a5b26cd660062c49a089bd2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/ModularRoot",
+      "sourcePath": "library_codex/number_theory/ModularRoot.py",
+      "sourceSha256": "96dbae963d5da6007f6b1ccafa2d084a424557b44bf454d64b201ce5559e610f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/MultiplicativeFunctions",
+      "sourcePath": "library_codex/number_theory/MultiplicativeFunctions.py",
+      "sourceSha256": "1fce2ada4999c730a11bf3ac18c821d7b304f9db522095db34e7a186362d1d1b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/PythagoreanTriples",
+      "sourcePath": "library_codex/number_theory/PythagoreanTriples.py",
+      "sourceSha256": "8a3b5151b25274d3f4370602cab11344da1d0e72f65350faa9cc5c5eef73f34e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/QuadraticEquationMod",
+      "sourcePath": "library_codex/number_theory/QuadraticEquationMod.py",
+      "sourceSha256": "78a60f24917933591a116d80bb13bf45b713dc57e7c95537de92fda5dce91cac",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/TetrationMod",
+      "sourcePath": "library_codex/number_theory/TetrationMod.py",
+      "sourceSha256": "21a167c59cdc740ac837b42186777384fe54478fad3943b857f591e7ca65393b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/TwoSquareRepresentations",
+      "sourcePath": "library_codex/number_theory/TwoSquareRepresentations.py",
+      "sourceSha256": "66faf8987e07902821a2044ec931d92a87d048e9abc48451264dd62b25bc5315",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/AliensTrick",
+      "sourcePath": "library_codex/optimization/AliensTrick.py",
+      "sourceSha256": "3ebe3a1ce817cd0dd278f0b4964f146752f7f38239298fb543d4be8dc10f3cd3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/ConvexConcaveConvolution",
+      "sourcePath": "library_codex/optimization/ConvexConcaveConvolution.py",
+      "sourceSha256": "e2d894129eb708fd6489288b959045785ddc2af85d155b5a62e05eaa9925bcec",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/GoldenSectionSearch",
+      "sourcePath": "library_codex/optimization/GoldenSectionSearch.py",
+      "sourceSha256": "85e5f36941bee832f5c71367834de00f79fb59a841eca832ec245ca7c1dd9c05",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/KnapsackBranchAndBound",
+      "sourcePath": "library_codex/optimization/KnapsackBranchAndBound.py",
+      "sourceSha256": "01875da8e549d8a5da9e8136547f4fe207a6afb73e986ed7cc1f968e9c902776",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/LARSCH",
+      "sourcePath": "library_codex/optimization/LARSCH.py",
+      "sourceSha256": "211f8f1edac1a8bbe12e4f489de233d67b7fa54faddedf9ba9dd55ffcde0595c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/LineContainer",
+      "sourcePath": "library_codex/optimization/LineContainer.py",
+      "sourceSha256": "1ecb606ce793261184293a266193476d6c3eb3b0fc88c3b87e9373f707722719",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/Matroid",
+      "sourcePath": "library_codex/optimization/Matroid.py",
+      "sourceSha256": "a0d3bd320c7c37640a81fcf44b4bc6930938266c62b0f0ce62e9aa6644aa57ec",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/MaximalRectangle",
+      "sourcePath": "library_codex/optimization/MaximalRectangle.py",
+      "sourceSha256": "2bd87060ac2bdb697161d64490fd61afa90feb4be0e2d26849f35a7739ff26e5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/MongeShortestPaths",
+      "sourcePath": "library_codex/optimization/MongeShortestPaths.py",
+      "sourceSha256": "d9405f59ced2af99abd46ec7bda81f7ac17a6dda43082d1a849d981b762514d4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/MonotoneConvexHullTrick",
+      "sourcePath": "library_codex/optimization/MonotoneConvexHullTrick.py",
+      "sourceSha256": "37c7fa1331c56d5f2071d6742c461136eb31ceb187bb74f3418421a04f8963b9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/MonotoneMinima",
+      "sourcePath": "library_codex/optimization/MonotoneMinima.py",
+      "sourceSha256": "3f3d984e4952dd49386dd7c76cb3598c1e0791ab8b1bc3928c3397703438fe70",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/ProjectSelection",
+      "sourcePath": "library_codex/optimization/ProjectSelection.py",
+      "sourceSha256": "28ebd71dcb8b173073d428df81dedb0193996600aff025cf9bf88b7fb807d10d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/RollbackMo",
+      "sourcePath": "library_codex/optimization/RollbackMo.py",
+      "sourceSha256": "03aee2675d708b7a0c28cb118075bd72360e4094fc695b3f662c47ea7e6cb1fb",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/SMAWK",
+      "sourcePath": "library_codex/optimization/SMAWK.py",
+      "sourceSha256": "5dea66f2f137a8873cfb417ee61846c7933e71dedf798b8624871f041aee5e24",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/SlopeTrick",
+      "sourcePath": "library_codex/optimization/SlopeTrick.py",
+      "sourceSha256": "60975d981627a697ff1c9db058a649a3dff35dec9a024fc13ca8e481a9ccfcce",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/SortedListsSelection",
+      "sourcePath": "library_codex/optimization/SortedListsSelection.py",
+      "sourceSha256": "afba13d947c78e15b6a5fd21ce48fa7b0710c5293388312bae726c391ebdaa6f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/SortedMatrixSelection",
+      "sourcePath": "library_codex/optimization/SortedMatrixSelection.py",
+      "sourceSha256": "0f64d46a8783ffd4776cfa5a7ac1accfba81fd1c9d4e631430f4b03c6acb6c64",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/BinaryTrie",
+      "sourcePath": "library_codex/ordered_set/BinaryTrie.py",
+      "sourceSha256": "fc32444eb77f60f1beb958fae29bdcc27763553793f9557f69e0cc6b766da923",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/BinaryTrieMonoid",
+      "sourcePath": "library_codex/ordered_set/BinaryTrieMonoid.py",
+      "sourceSha256": "64433dcd45107b03a00550911b031b6b0b1cf8cb887bacdd80bcdd94482e876b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/BitSet",
+      "sourcePath": "library_codex/ordered_set/BitSet.py",
+      "sourceSha256": "6ddee3cda4a876b2e5ee6fa1565f1105b4e5099ee636b0401b71e8244ac29d13",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/DecrementalSet",
+      "sourcePath": "library_codex/ordered_set/DecrementalSet.py",
+      "sourceSha256": "e29d19ecff2d98b8a76998730e93e3ddea6ccc07d2bfdfa0cff648aed356c541",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/FastSet",
+      "sourcePath": "library_codex/ordered_set/FastSet.py",
+      "sourceSha256": "b1a5a5ff2953ff0e56a0b836da33804d7f865e2e3afb2f47db64d5f6493fb35f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/OrderedMap",
+      "sourcePath": "library_codex/ordered_set/OrderedMap.py",
+      "sourceSha256": "605aee5da63bfa8c514f88a56be3c4f4212c82783208961042edb1455a2bd315",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/PersistentBinaryTrie",
+      "sourcePath": "library_codex/ordered_set/PersistentBinaryTrie.py",
+      "sourceSha256": "9ea052325b032afb13ef7de8970dc3e725fc69f9665167125a56e064a5c60ead",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/PersistentRBSTSet",
+      "sourcePath": "library_codex/ordered_set/PersistentRBSTSet.py",
+      "sourceSha256": "9ddc646cb6b0389d7e79a3b744bb27dba04b030e5a70bcf6154bb7e716aa34cd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/PointSetRangeFrequency",
+      "sourcePath": "library_codex/ordered_set/PointSetRangeFrequency.py",
+      "sourceSha256": "cd0b3c29899287ff1e0b5c421a8eadf3cb54d8d6b0a164a7d24e197a27ebd7b5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/RangeSet",
+      "sourcePath": "library_codex/ordered_set/RangeSet.py",
+      "sourceSha256": "01c95c70c6a1b272b85f22f645d066f24ce1605d3bd57761317974ec4816fd77",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/TopKSum",
+      "sourcePath": "library_codex/ordered_set/TopKSum.py",
+      "sourceSha256": "1315b9075376cb400d9e96ee3d7f930daf525d9d55547a50211dbceae6f66bc9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/TreapSet",
+      "sourcePath": "library_codex/ordered_set/TreapSet.py",
+      "sourceSha256": "87e609afcfae79ad6a1dd9976fab4155a390c2b9ee9f8930199ba121c9d117ad",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/GeometricMultipointEvaluation",
+      "sourcePath": "library_codex/polynomial/GeometricMultipointEvaluation.py",
+      "sourceSha256": "f2980c5e5d497807f5018cf6cf7786e6c05d55e2f4d32c7ce8aa5fd51be499e2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/MultipointEvaluation",
+      "sourcePath": "library_codex/polynomial/MultipointEvaluation.py",
+      "sourceSha256": "8d47ea0b98c1371f72e4987fb99362f23351530b675df4357ff586b35178550a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PartialFractionDistinct",
+      "sourcePath": "library_codex/polynomial/PartialFractionDistinct.py",
+      "sourceSha256": "62d02d9ce33493083e4b1c7583e70ba675b5788a1a1a9e89ef8c771bd702bf69",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialDivision",
+      "sourcePath": "library_codex/polynomial/PolynomialDivision.py",
+      "sourceSha256": "d5b965dad43ff1356c9f3d2fe53d6c409e932e5b18c9aa6f389017c52d3e3c0c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialDivision998",
+      "sourcePath": "library_codex/polynomial/PolynomialDivision998.py",
+      "sourceSha256": "ae736ddc53d780a68c9b7f0ef87fdbcce43efa5995f621c63639186c7285aa61",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialExponentialSum",
+      "sourcePath": "library_codex/polynomial/PolynomialExponentialSum.py",
+      "sourceSha256": "455ecd4c73c9d5737c58cccccbc0da2186518f722be378d055a2c635d00e2512",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialFactorization",
+      "sourcePath": "library_codex/polynomial/PolynomialFactorization.py",
+      "sourceSha256": "24b3a8d228c554bebf0ac33e70ffd6a86bffcb5cac354afe63dbf3cfc3f1117f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialGCD",
+      "sourcePath": "library_codex/polynomial/PolynomialGCD.py",
+      "sourceSha256": "cea1ba8e817d5347378deb48a1749775273e7f8e1224290db551ca039b623623",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialModularPower",
+      "sourcePath": "library_codex/polynomial/PolynomialModularPower.py",
+      "sourceSha256": "a3e00732be9171b5fa9d1311f56fb71f71984f4bea10b3322f2ae9ebda3c57ac",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialPrefixSum",
+      "sourcePath": "library_codex/polynomial/PolynomialPrefixSum.py",
+      "sourceSha256": "a033efeb710661c37c3a859793be99a4e80b5c3238238d01e4530cb97036feb7",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialResultant",
+      "sourcePath": "library_codex/polynomial/PolynomialResultant.py",
+      "sourceSha256": "b1ac3a4c4feb06070daa5803a5d279818cd2bc29bf9f981f58d10af251e880e5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialRoots",
+      "sourcePath": "library_codex/polynomial/PolynomialRoots.py",
+      "sourceSha256": "6391fb5de369f512bdb178ca854958d3bb4c19654be6b3f6f7db58d272856e5f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PowerEnumerate",
+      "sourcePath": "library_codex/polynomial/PowerEnumerate.py",
+      "sourceSha256": "de8526f12fbed6c41e3f8bdceadef8c191f2cfa69ccabd0c8aafb5db9d26ba35",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PrefixSumPolynomial",
+      "sourcePath": "library_codex/polynomial/PrefixSumPolynomial.py",
+      "sourceSha256": "cea8b685708692a31bae88e7410afe28fb32138219938cafd3d12853842e75fd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/ProductGeometricSubstitutions",
+      "sourcePath": "library_codex/polynomial/ProductGeometricSubstitutions.py",
+      "sourceSha256": "22fd43e4e72e01f093ec7d1096d2a237551f8d023c78a83553accd73d5d560d1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "prime/Factorization",
+      "sourcePath": "library_codex/prime/Factorization.py",
+      "sourceSha256": "0fc5c06086d024720ec12f895f2ab671efaf012cb5f6fd5b186d9df9313edb89",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "prime/Sieve",
+      "sourcePath": "library_codex/prime/Sieve.py",
+      "sourceSha256": "17e7bcbc23b92a9456dc617810aee6409340c7500bb5f1fee2d5fed2446c350f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "random/Random",
+      "sourcePath": "library_codex/random/Random.py",
+      "sourceSha256": "24df5b46e257289b780c14920847a120f0bb8dc24847500cde7022cd1714eb15",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "random/RandomGraph",
+      "sourcePath": "library_codex/random/RandomGraph.py",
+      "sourceSha256": "680ec74b804c8ee5731722580158308932913867c303d43be4ff15c8259f6ffd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/DisjointSparseTable",
+      "sourcePath": "library_codex/range_query/DisjointSparseTable.py",
+      "sourceSha256": "0a287b14ea970e0834c956bbd4d0a2807817496b158928513a163b4c50c4612b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/DynamicWaveletMatrix",
+      "sourcePath": "library_codex/range_query/DynamicWaveletMatrix.py",
+      "sourceSha256": "fe7e8d1d2a9b22d023aba1ee30a5c806e8f629c417414325c0bf0e8dd25903cf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/RangeMajority",
+      "sourcePath": "library_codex/range_query/RangeMajority.py",
+      "sourceSha256": "17dbdde69029d76d7a821c3d5255a763e0384e1907e743670753c8c535e90619",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/RangeMex",
+      "sourcePath": "library_codex/range_query/RangeMex.py",
+      "sourceSha256": "9a3a9f38780682e179f04793236b39f51142991eb6f3862da16475831b45e16b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/RangeXorBasis",
+      "sourcePath": "library_codex/range_query/RangeXorBasis.py",
+      "sourceSha256": "888f6339ce23e3d41125bca2a8afa29171a3750e28eee769a6ccd56c1cc0f4f4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/StaticRMQ",
+      "sourcePath": "library_codex/range_query/StaticRMQ.py",
+      "sourceSha256": "cd646b846e7dda98aa24df008469ab0a2576dda0286bff8f21bb027bc8740851",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/StaticRangeDistinct",
+      "sourcePath": "library_codex/range_query/StaticRangeDistinct.py",
+      "sourceSha256": "28026e29285afce06328568d6211be179260776543f64290ad9fb015533ea28e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/StaticRangeFrequency",
+      "sourcePath": "library_codex/range_query/StaticRangeFrequency.py",
+      "sourceSha256": "7c2bdc62130e77c96c5a6e9aa987bb6e5ae1d249df5ecee84fff72f38aa3a4c2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/StaticRangeGroup",
+      "sourcePath": "library_codex/range_query/StaticRangeGroup.py",
+      "sourceSha256": "d8286f1e72e83375cc8954945eb457b880450d8c78f8a16bde349cee33833b20",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/StaticRangeMode",
+      "sourcePath": "library_codex/range_query/StaticRangeMode.py",
+      "sourceSha256": "de7f304db935f6fa4a2bc6b78e4ed608fe2c883bc2a27318d9b68f23640fd59e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/WaveletMatrix",
+      "sourcePath": "library_codex/range_query/WaveletMatrix.py",
+      "sourceSha256": "c85cc12ccdffe02e4c734f89f863973d3b5ed98802d663db99c03a7b2833d1e7",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/WeightedWaveletMatrix",
+      "sourcePath": "library_codex/range_query/WeightedWaveletMatrix.py",
+      "sourceSha256": "73e8e905c1c50f82647d87bf56c2fcbc1cdd7a186439e39bad188b55e6dd8323",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "rational/Digamma",
+      "sourcePath": "library_codex/rational/Digamma.py",
+      "sourceSha256": "bcbede4e1f5012f7c45d17350726b7e6487cdd3601ad0363ebaec785186f97ff",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "rational/FractionSearch",
+      "sourcePath": "library_codex/rational/FractionSearch.py",
+      "sourceSha256": "0c91b00380443fd35414bbadb2f8bcf48df143443361f79699d75aab8430e93f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "rational/InverseSum",
+      "sourcePath": "library_codex/rational/InverseSum.py",
+      "sourceSha256": "5f33b1a1292c0167a9be2ccc0318c1d6cd6d2c21d51c0ddec57d5fa76f0ec9c7",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "rational/RationalFormalPowerSeries",
+      "sourcePath": "library_codex/rational/RationalFormalPowerSeries.py",
+      "sourceSha256": "72ebb591cdd74b2d5e438a4fdee915d481682869626df62cddd7bdf785978ea7",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "rational/RationalNumberSearch",
+      "sourcePath": "library_codex/rational/RationalNumberSearch.py",
+      "sourceSha256": "fc90228ca280da82b54ce1c8e45f95ae70b4c78966c36d89d571285f96211597",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "rational/SternBrocotNode",
+      "sourcePath": "library_codex/rational/SternBrocotNode.py",
+      "sourceSha256": "daf2825abb950b49ab05d39d4f027927fd9aa0864dac376d0bb33faccc0d5e48",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/DualSegTree",
+      "sourcePath": "library_codex/segment_tree/DualSegTree.py",
+      "sourceSha256": "835e12952399f33b0a507ae2173b6a5256beca0bab9d30a349ceb765bf2d8a4f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/DynamicLazySegmentTree",
+      "sourcePath": "library_codex/segment_tree/DynamicLazySegmentTree.py",
+      "sourceSha256": "2644a68d16ae999124b7b07d7add9d3dcb6667f8ea004d2e6f411b8925d78bf8",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/DynamicSegmentTree",
+      "sourcePath": "library_codex/segment_tree/DynamicSegmentTree.py",
+      "sourceSha256": "c717142c0197a34cb245ed9712e2c45b67d3f2bde014c1991bafe55dd79e76df",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/LazySegTree",
+      "sourcePath": "library_codex/segment_tree/LazySegTree.py",
+      "sourceSha256": "7c91d698f0bf562028af977282c4e4d6a1d79d1fd0da24767d0bae4c70f65565",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/MaxInterval",
+      "sourcePath": "library_codex/segment_tree/MaxInterval.py",
+      "sourceSha256": "08ba5e8fbebcf494bf4da34b8bc959d896e376666e6f69ac713b906ceb85994a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/PersistentLazySegmentTree",
+      "sourcePath": "library_codex/segment_tree/PersistentLazySegmentTree.py",
+      "sourceSha256": "f65fb52708aa5e7836f11532c0e1bde850f1d1481bff9b1caff3f858d2afae49",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/PersistentSegmentTree",
+      "sourcePath": "library_codex/segment_tree/PersistentSegmentTree.py",
+      "sourceSha256": "55da8f2488fcc7f0cb1f546ad3c97532efc9cf30ad9012a1447c67c3a205ec0f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/RangeAddAssignRangeStats",
+      "sourcePath": "library_codex/segment_tree/RangeAddAssignRangeStats.py",
+      "sourceSha256": "c27c477834f35e9ee828fd51b98f4599e8fdb456f078c07e2c2037bf21d59c95",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/RangeAddCountTopK",
+      "sourcePath": "library_codex/segment_tree/RangeAddCountTopK.py",
+      "sourceSha256": "8b2c594c4cf6ec8ce7efc820a9bb4d98b4d08a0a01b6f5067f85654a96859f77",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/RangeAffineRangeSum",
+      "sourcePath": "library_codex/segment_tree/RangeAffineRangeSum.py",
+      "sourceSha256": "3332676aeb97f99f0b1acf85f3d20ebdf58733b2c9732fdc2899aedf26df3e90",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/RangeAssignSegTree",
+      "sourcePath": "library_codex/segment_tree/RangeAssignSegTree.py",
+      "sourceSha256": "86d17aa587f79e1890ec1d0c20583701bb6695f14b5f1bfe2dd3fda94881516e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/RangeLIS",
+      "sourcePath": "library_codex/segment_tree/RangeLIS.py",
+      "sourceSha256": "36c68d852dc704c4c1ab39736375857d2501e5bcee4caad98dfccb09db01f720",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/RangeLinearAddRangeMin",
+      "sourcePath": "library_codex/segment_tree/RangeLinearAddRangeMin.py",
+      "sourceSha256": "5aa720e34c5b9de27abdac0c9f0de156e4dfde94b3ec4bca0e0cb30a7efa4660",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/SegTree",
+      "sourcePath": "library_codex/segment_tree/SegTree.py",
+      "sourceSha256": "d21aa94b08d5d78328f36a8d262d054138e6d03aacc259c325afdcfb2560bd70",
+      "status": "supported",
+      "standalonePath": "segment_tree/SegTree.codon",
+      "standaloneSha256": "6547e265d5439888837fdcf4c9162264aad24439c43b85ca5c3c4829a322e732"
+    },
+    {
+      "modulePath": "segment_tree/SegmentTreeBeats",
+      "sourcePath": "library_codex/segment_tree/SegmentTreeBeats.py",
+      "sourceSha256": "f53889d5640d2f658ce6230c2fb8721ba6dac15ffe046f766ba2c840bb2614f1",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/SortableSegmentTree",
+      "sourcePath": "library_codex/segment_tree/SortableSegmentTree.py",
+      "sourceSha256": "d619c8468a16c3856113e77b1349cb1a465ea0730a7009e64fcc38cf4698ef68",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/CartesianTree",
+      "sourcePath": "library_codex/sequence_structure/CartesianTree.py",
+      "sourceSha256": "e93592775d8fe46dfc04f28d0e0a01408d352aa0515e1b8c1a6c3e7addb9f4dd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/Deque",
+      "sourcePath": "library_codex/sequence_structure/Deque.py",
+      "sourceSha256": "6b3fbda625c6d635c7e953ac6f804fd4e734b13e7e2198a1d20f141603e59930",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/ErasableHeap",
+      "sourcePath": "library_codex/sequence_structure/ErasableHeap.py",
+      "sourceSha256": "9f03a48580c3f40a4542f1dc8eecd21222a3459c6cd1a5b18e5a449a172a0f06",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/ImplicitTreap",
+      "sourcePath": "library_codex/sequence_structure/ImplicitTreap.py",
+      "sourceSha256": "7722d1000a1c2ffda2c46892b80ea58919fb05e87d0596d21477b58c46c0abcf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/PersistentArray",
+      "sourcePath": "library_codex/sequence_structure/PersistentArray.py",
+      "sourceSha256": "50601eedfa5b50b59c973170dc1d0d28fd19f46c0adb6d6deb94e3e1b0d0a23c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/PersistentQueue",
+      "sourcePath": "library_codex/sequence_structure/PersistentQueue.py",
+      "sourceSha256": "975cd5ec15c0911f596ee95d58ad8635cc786909332ea00d97b41fbb0a901d9d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/RadixHeap",
+      "sourcePath": "library_codex/sequence_structure/RadixHeap.py",
+      "sourceSha256": "60735bcf165c3bfdbccfb012fa0d6eb3d2ba3a655b9b220a97fa67cfb8b816fd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/RollbackArray",
+      "sourcePath": "library_codex/sequence_structure/RollbackArray.py",
+      "sourceSha256": "341c2515f9ce4e22c034c7c166f98e02fb696e6d9405a3a297004d531425a440",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/SWAGDeque",
+      "sourcePath": "library_codex/sequence_structure/SWAGDeque.py",
+      "sourceSha256": "1ff744fad1fea9ca6c4b1240ac070e12623f0575202d9278057753e2de292a92",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/SWAGQueue",
+      "sourcePath": "library_codex/sequence_structure/SWAGQueue.py",
+      "sourceSha256": "4ef68321f60e18b74e6d0c3daebad55cd535a075eb3f9a60e896a0dc8084231f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/SkewHeap",
+      "sourcePath": "library_codex/sequence_structure/SkewHeap.py",
+      "sourceSha256": "0e0c114a555a0975dac4914521a75b839d7bc9822e45151ed431eacbdc36d915",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/SlidingWindowMinimum",
+      "sourcePath": "library_codex/sequence_structure/SlidingWindowMinimum.py",
+      "sourceSha256": "b04c940edebd00b27080fb8b9f36297d31dab69497e7cdd8dc2796bcde76ac24",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/BFS",
+      "sourcePath": "library_codex/shortest_path/BFS.py",
+      "sourceSha256": "bf59684685e55652bf5f21e38d4d5b25b07e2d3ce00c49a2c2f649baf82c3d9f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/BellmanFord",
+      "sourcePath": "library_codex/shortest_path/BellmanFord.py",
+      "sourceSha256": "5019c810ce97201642d9525835bce66d08a973261f65761e29e0965a26d23cba",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/DialDijkstra",
+      "sourcePath": "library_codex/shortest_path/DialDijkstra.py",
+      "sourceSha256": "5aaafae37c768a19ec73a97c3fee689d654cf6b321a7440a8bb5746d68f03c54",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/Dijkstra",
+      "sourcePath": "library_codex/shortest_path/Dijkstra.py",
+      "sourceSha256": "cdf5ab408413a70c76f428666370550bca130fd06397efa432b8220953d64856",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/DijkstraRadixHeap",
+      "sourcePath": "library_codex/shortest_path/DijkstraRadixHeap.py",
+      "sourceSha256": "780f5d171059deb7335a23e9dacb994d36853cc4feb711cda85025d4d212d927",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/GridBFS",
+      "sourcePath": "library_codex/shortest_path/GridBFS.py",
+      "sourceSha256": "ddf99b929b3512022d9655ba8ebf8d8cc96bd52dc4373bb7069a0c179b542ccd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/KShortestPaths",
+      "sourcePath": "library_codex/shortest_path/KShortestPaths.py",
+      "sourceSha256": "1ff1373aad77efe1c1ce4cf7e97787b5481bc34748facf5a2d47dad1b9699389",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/KShortestWalks",
+      "sourcePath": "library_codex/shortest_path/KShortestWalks.py",
+      "sourceSha256": "629cad77c625e5e68fa167fcf54223cf76a7dfb47959991880e211eabb6ed376",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/Top2Dijkstra",
+      "sourcePath": "library_codex/shortest_path/Top2Dijkstra.py",
+      "sourceSha256": "e0615c8bcff643895b47859320927bb5e77dfa9c64a4c6adca156d75c9eb23bf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/WarshallFloyd",
+      "sourcePath": "library_codex/shortest_path/WarshallFloyd.py",
+      "sourceSha256": "1ce968206e0b2577a0bcb0b713832d7e4a64d45c898dceddae73e12c7369183f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/ZeroOneBFS",
+      "sourcePath": "library_codex/shortest_path/ZeroOneBFS.py",
+      "sourceSha256": "932fde699aa2c5de891a165a8629a2e5a90c0ab87a78c3b0d3d806f4e5545bcf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/CompressedFenwick2D",
+      "sourcePath": "library_codex/spatial_structure/CompressedFenwick2D.py",
+      "sourceSha256": "4b5fef52d65921d8dac4039ac47913a241b5daa16261c9a48890a66a168f00b3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/CumulativeSum2D",
+      "sourcePath": "library_codex/spatial_structure/CumulativeSum2D.py",
+      "sourceSha256": "2862650eec030116978884f69f051f4293f6947a839501f4388ecf0ef38ec523",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/DynamicLiChaoTree",
+      "sourcePath": "library_codex/spatial_structure/DynamicLiChaoTree.py",
+      "sourceSha256": "007abcaec884d846c7df28896e6dbfa01a89584ddd99d07725aad17a70de1bcc",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/DynamicPointAddRectangleSum",
+      "sourcePath": "library_codex/spatial_structure/DynamicPointAddRectangleSum.py",
+      "sourceSha256": "05077829b71f9d7477c6f56d080fffe58a2ef3e66cb528e85f1d28b7961ec25b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/FenwickTree2D",
+      "sourcePath": "library_codex/spatial_structure/FenwickTree2D.py",
+      "sourceSha256": "5a62b420c25014bfe85506780dd5db6078c694a0552cfbbd2a23a6ddd6b9e54b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/LazyKDTree",
+      "sourcePath": "library_codex/spatial_structure/LazyKDTree.py",
+      "sourceSha256": "6584c042dd6cc8f03d9a4f48fa51520059553762db5d510db5f8b13dbf932749",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/LiChaoTree",
+      "sourcePath": "library_codex/spatial_structure/LiChaoTree.py",
+      "sourceSha256": "70203a97b7a0f178fdc828c8dac69221958b08d42fdf69d9dd01e10e77b9a7f3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/LineContainer2D",
+      "sourcePath": "library_codex/spatial_structure/LineContainer2D.py",
+      "sourceSha256": "10ba91427c0461d83403ee4285fb98a4dda90771463f1b0b383a6f90dd17720e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/PointUpdateRangeTree2D",
+      "sourcePath": "library_codex/spatial_structure/PointUpdateRangeTree2D.py",
+      "sourceSha256": "572b05b9df31fff8637598efa8549af55d164a4ba1ee46676761427481f0af01",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/RectangleAddPointGet",
+      "sourcePath": "library_codex/spatial_structure/RectangleAddPointGet.py",
+      "sourceSha256": "35faa6da8791a91901260ab5a99b5fc304be5bb0ed0c4bdb02da8cf452211a6b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/RectangleAddRectangleSum",
+      "sourcePath": "library_codex/spatial_structure/RectangleAddRectangleSum.py",
+      "sourceSha256": "0ccfea15200080d404222e79c6385f2ff19737d4bb12d3eb1208fb78a8137f03",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/SegmentTree2D",
+      "sourcePath": "library_codex/spatial_structure/SegmentTree2D.py",
+      "sourceSha256": "47fa106399a6cca5b267437a862e4da745232a87e83eb65d910e0215d9e7649b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/StaticRectangleSum",
+      "sourcePath": "library_codex/spatial_structure/StaticRectangleSum.py",
+      "sourceSha256": "357a823bf03caf190412d0ca0118577a81d49a911b545afbd2624e3c6d47fd88",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/UnionRectangle",
+      "sourcePath": "library_codex/spatial_structure/UnionRectangle.py",
+      "sourceSha256": "82d107ad54d961a06e0ecf918a0844927fe329d6266cde67952d15b326b825a9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/AhoCorasick",
+      "sourcePath": "library_codex/string/AhoCorasick.py",
+      "sourceSha256": "4f51f43180b1490b8a71054229567c7ea49bcaa5be0d4c721cbf44f14c67ae1e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/CompressedTrie",
+      "sourcePath": "library_codex/string/CompressedTrie.py",
+      "sourceSha256": "7e9b40c66eb7aa44b7320616393c8e7448a9800d334e6919813a624c36e533d3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/DequePalindromicTree",
+      "sourcePath": "library_codex/string/DequePalindromicTree.py",
+      "sourceSha256": "ed722067179e9353b05afc6c41520006927285960d3d13c99c0766c0bbc18108",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/DynamicRollingHash",
+      "sourcePath": "library_codex/string/DynamicRollingHash.py",
+      "sourceSha256": "8d8e650e16f751c7d2867eb6e4127fa9c1efdb6421fe65d5c86a85ba55fd9d1b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/LongestCommonSubsequence",
+      "sourcePath": "library_codex/string/LongestCommonSubsequence.py",
+      "sourceSha256": "def817736ff2a8fa4da8be30eb5f9ba22c11d5395bb804a727d5ecee8d30b4a4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/Manacher",
+      "sourcePath": "library_codex/string/Manacher.py",
+      "sourceSha256": "a0ea4290418d778797c83dfe85f9f5d271cef4473610cd5d70848be38b98a618",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/PalindromicTree",
+      "sourcePath": "library_codex/string/PalindromicTree.py",
+      "sourceSha256": "d46d3db5ab3d3424ba07a6574ab39f6add778a3f2d96795d677e9119ec4acfad",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/PersistentString",
+      "sourcePath": "library_codex/string/PersistentString.py",
+      "sourceSha256": "fcdf349ff2e6694b5455aafaa22765859dbb1cf9091618a937afb3f3272010a8",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/PrefixSubstringLCS",
+      "sourcePath": "library_codex/string/PrefixSubstringLCS.py",
+      "sourceSha256": "80cc170bd13748ab9878a5e27be8716eabca65325cead160d08275a77a07956d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/RollingHash",
+      "sourcePath": "library_codex/string/RollingHash.py",
+      "sourceSha256": "35619b3b24165ffacd4196aa9b9f66480e7959f3ee9786c862a3517c62906352",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/RollingHash2D",
+      "sourcePath": "library_codex/string/RollingHash2D.py",
+      "sourceSha256": "8d2148948f96d790852059878a1118349f6176c154322d907e51a843a3a84fca",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/RunEnumeration",
+      "sourcePath": "library_codex/string/RunEnumeration.py",
+      "sourceSha256": "0528c2fe3957d9f6a6251791f330dd136056960e8203a5f109eb628a969d908f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/RunLengthEncoding",
+      "sourcePath": "library_codex/string/RunLengthEncoding.py",
+      "sourceSha256": "a5c100a14a32cb28637609faa47040501576d26d13121d0696b1fb542ea792b5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/StaticString",
+      "sourcePath": "library_codex/string/StaticString.py",
+      "sourceSha256": "9e8db4605ebbc66262c1a2b42bd23b69f4ceb671de83d76f9052d635613974b4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/StringSearch",
+      "sourcePath": "library_codex/string/StringSearch.py",
+      "sourceSha256": "dbde0f524130edd8d1d600b2fd87ae31b53b936f2d90c1aa6671716c2d6893d4",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/Subsequence",
+      "sourcePath": "library_codex/string/Subsequence.py",
+      "sourceSha256": "917b071ac9d10b56ea6ec55dffedcd52fe5fdd31ff45a2c0bfa151c098f7bf04",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/SuffixArray",
+      "sourcePath": "library_codex/string/SuffixArray.py",
+      "sourceSha256": "3b9bbe50cf3f91d8caf63677fdded131d5046289d59f10ffc38eef5d1bce3be0",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/SuffixAutomaton",
+      "sourcePath": "library_codex/string/SuffixAutomaton.py",
+      "sourceSha256": "a28833389db314c29020569cced4b3e09227dc133dfd7d9cdff852ae26168b5b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/Trie",
+      "sourcePath": "library_codex/string/Trie.py",
+      "sourceSha256": "cff80c68969928a61b632cf0f98f2aa0556bf776c65261c0bc12ef3ee9dee977",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/WildcardPatternMatching",
+      "sourcePath": "library_codex/string/WildcardPatternMatching.py",
+      "sourceSha256": "146424b4594c9be535541804a2bc27d92c66f446b9830bfa818e4b3153610e44",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string/ZAlgorithm",
+      "sourcePath": "library_codex/string/ZAlgorithm.py",
+      "sourceSha256": "b9f2003503b58639ad9ce7b3e833c35eefa7d3bef2a40e048188143bebeba847",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string_sequence/EditDistance",
+      "sourcePath": "library_codex/string_sequence/EditDistance.py",
+      "sourceSha256": "ca395cff41a546cc4fc5f55fbca9bb7b83da1a297bf6b2995e1a16cb28487058",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string_sequence/LongestCommonSubstring",
+      "sourcePath": "library_codex/string_sequence/LongestCommonSubstring.py",
+      "sourceSha256": "bb252e9e98fcd34f6ef587dbfd8fb76ec87db6eeca7684d9b9e5d771f2d6127a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string_sequence/LyndonFactorization",
+      "sourcePath": "library_codex/string_sequence/LyndonFactorization.py",
+      "sourceSha256": "1fc1fc2ea0c83b1b558b04fcd7ce69083798e317486abd209551d688bfc4dc9a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "string_sequence/MinimumCyclicShift",
+      "sourcePath": "library_codex/string_sequence/MinimumCyclicShift.py",
+      "sourceSha256": "01711d3df2a1d99bead00120ce000440883a12bb0bb1281bb886a2ed32386c32",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/AuxiliaryTree",
+      "sourcePath": "library_codex/tree/AuxiliaryTree.py",
+      "sourceSha256": "d95c104cd075ae17bd6d106947f8e8f9b56ff4e637f2d24e61d25731bf71ba7b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/CentroidDecomposition",
+      "sourcePath": "library_codex/tree/CentroidDecomposition.py",
+      "sourceSha256": "a8d559f7dd7855704e3e79b5e75f34dbf46841c49b0dbb1ec4f6b2eb980d5b39",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/CentroidDistanceAdd",
+      "sourcePath": "library_codex/tree/CentroidDistanceAdd.py",
+      "sourceSha256": "6fbec98429fa77c0ba8a14ed8b4a531ac8ed26b744d9a2c7977db3b6de8de138",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/DSUOnTree",
+      "sourcePath": "library_codex/tree/DSUOnTree.py",
+      "sourceSha256": "d5425a8504888a89811523e8ecab14d9a9496b447280412ba4d46d6e521426c3",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/DynamicDiameter",
+      "sourcePath": "library_codex/tree/DynamicDiameter.py",
+      "sourceSha256": "c97e5024176c184d0845f32fb9b8191414fd0b038efb751c711d497ad1e4ca2e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/DynamicRerooting",
+      "sourcePath": "library_codex/tree/DynamicRerooting.py",
+      "sourceSha256": "fc6f05add4e3ab2335a966437b6065ecef3364c57756cd6573e95651e861805b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/EulerTour",
+      "sourcePath": "library_codex/tree/EulerTour.py",
+      "sourceSha256": "1d06cf8866614fd665770c8d70e8c27ee85416523707b9214c820edf28ebdad5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/HeavyLightDecomposition",
+      "sourcePath": "library_codex/tree/HeavyLightDecomposition.py",
+      "sourceSha256": "c2583e8bff205fd6c0ce5f16149bb711642d1436226cff4fa3fdf4514fcac8c8",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/InclusionTree",
+      "sourcePath": "library_codex/tree/InclusionTree.py",
+      "sourceSha256": "7926232781810d94ed1243084c6ed98abac972cdfe934ccd1cfb1299889743eb",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/IncrementalForest",
+      "sourcePath": "library_codex/tree/IncrementalForest.py",
+      "sourceSha256": "7a685bf3b8982e2307df00bfd77b166f1c9196dd4100fb6bb91f5e0161fc6b3d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/LCA",
+      "sourcePath": "library_codex/tree/LCA.py",
+      "sourceSha256": "fe18ca305056b7383a74b417c8f44845e85f82a038cad1b7d0fbf640d0058d5e",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/LinkCutTree",
+      "sourcePath": "library_codex/tree/LinkCutTree.py",
+      "sourceSha256": "d7a26ac1462b014bb58aabb7ebb484eb5a92d90bb0cd621f251209b48eaa56bf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/ProcessOfMergingTree",
+      "sourcePath": "library_codex/tree/ProcessOfMergingTree.py",
+      "sourceSha256": "f81622e52df1166299a07e9d0efa616dca699768ce51694345388991bd8d3dc6",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/PruferCode",
+      "sourcePath": "library_codex/tree/PruferCode.py",
+      "sourceSha256": "bd50b3dd398d12cfde5404939f927300c0e4300a879f2da966ddee4759155ae8",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/Rerooting",
+      "sourcePath": "library_codex/tree/Rerooting.py",
+      "sourceSha256": "3b662ca5546e7b087962ccaabc643af8aed041a78058db1faaf96d29f20038b0",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/RootedTree",
+      "sourcePath": "library_codex/tree/RootedTree.py",
+      "sourceSha256": "916118a60bc02892ce0986e6c0dbda2e18de836d2d90f16331085a9e20aacf0b",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/StaticTopTree",
+      "sourcePath": "library_codex/tree/StaticTopTree.py",
+      "sourceSha256": "6b44911f14d132e1cfb2236e8561a9c063bfce2e5f461c0597b4c0870f94ea90",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/SubtreeDiameter",
+      "sourcePath": "library_codex/tree/SubtreeDiameter.py",
+      "sourceSha256": "bf9389e17e3263f1edf9b2cf5188c8ca2b7be3effe7e044be4338cda0544d9cf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/TreeDiameter",
+      "sourcePath": "library_codex/tree/TreeDiameter.py",
+      "sourceSha256": "a67fd5e62353171c11d8eef84b6f364508ec75c42214d89360c93e96c79579f8",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/TreeDistanceFrequency",
+      "sourcePath": "library_codex/tree/TreeDistanceFrequency.py",
+      "sourceSha256": "6e3b77c4954a1cd060cdeb8c7b7602672b4be802792cc0945cbf1ffb409f008a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/TreeIsomorphism",
+      "sourcePath": "library_codex/tree/TreeIsomorphism.py",
+      "sourceSha256": "190f4306ae790b6b8f9e45469620dde8c31b2ca4b3a365f62baaeb99c932cb30",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/ZeroOneTree",
+      "sourcePath": "library_codex/tree/ZeroOneTree.py",
+      "sourceSha256": "59afbbaeb9c5e1c2a39811e45e8f67d6896c386d9907a4fa168b4e78793da1e9",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree_query/TreeMo",
+      "sourcePath": "library_codex/tree_query/TreeMo.py",
+      "sourceSha256": "62a87cc57ac965d2c93f97d3bcd5091c23e9960e597c931adc9521e80fcadab5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree_query/TreeMonoid",
+      "sourcePath": "library_codex/tree_query/TreeMonoid.py",
+      "sourceSha256": "bd1bc47bf01ca076479f4da079a81486c0b20634595cc8ef1185f65b395b2468",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree_query/TreeWaveletMatrix",
+      "sourcePath": "library_codex/tree_query/TreeWaveletMatrix.py",
+      "sourceSha256": "b1523e8b5c482bbbdbea785ce5c7c2f292fba59542815a83a8d93457bd21a274",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/ContiguousUnionFind",
+      "sourcePath": "library_codex/union_find/ContiguousUnionFind.py",
+      "sourceSha256": "751043f7f24e30067c2dd87ce718f7f7904048bdac73fd4ea59afe020a6b8d22",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/DynamicUnionFind",
+      "sourcePath": "library_codex/union_find/DynamicUnionFind.py",
+      "sourceSha256": "2264c63d82314472919dcbb71577f87efa11d4ae7384a859570323f7cd97a24a",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/EnumerateUnionFind",
+      "sourcePath": "library_codex/union_find/EnumerateUnionFind.py",
+      "sourceSha256": "293d2871ec9e6a63b49722914a8990883fd927d79a464bc77d697268ac6b4bd0",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/MonoidUnionFind",
+      "sourcePath": "library_codex/union_find/MonoidUnionFind.py",
+      "sourceSha256": "fc2e23fa400e996a3d916a4b9ddb0b35b4a76c67b87b136cab2de9307b744432",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/PartialPersistentUnionFind",
+      "sourcePath": "library_codex/union_find/PartialPersistentUnionFind.py",
+      "sourceSha256": "94c4d12cfb5b9d6cc1ef3c2fb0c45e1b23268d2683c4a0dac411ede58edb69f2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/PersistentUnionFind",
+      "sourcePath": "library_codex/union_find/PersistentUnionFind.py",
+      "sourceSha256": "f41d51a395e3cc90678a4139a5f55f54f06b0df6ef2bd5338b0bc124ef6b3cee",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/PotentialUnionFind",
+      "sourcePath": "library_codex/union_find/PotentialUnionFind.py",
+      "sourceSha256": "1d2128e3c4674bf3ccf848f45b91e55f70da32b183d91388abe72052f3015c3f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/RangeParallelUnionFind",
+      "sourcePath": "library_codex/union_find/RangeParallelUnionFind.py",
+      "sourceSha256": "da921ec4701da37e9e7507d7134b502d5d516112bcd296bb55ce0816a7197236",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/RollbackUnionFind",
+      "sourcePath": "library_codex/union_find/RollbackUnionFind.py",
+      "sourceSha256": "22d8fd4bee745e35b90d7846d51e15968fddef42667c6ca1f6264b99762c0fd7",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "union_find/UnionFind",
+      "sourcePath": "library_codex/union_find/UnionFind.py",
+      "sourceSha256": "934dfffe889864bd5a787d8a63bc3ab74245d3bc8920bcbf7484cc3cce5caf74",
+      "status": "supported",
+      "standalonePath": "union_find/UnionFind.codon",
+      "standaloneSha256": "77b81839a14820549ac78102c9d42a0562b8f17bcf2c5e4331c62b5dbc4fd5f4"
+    },
+    {
+      "modulePath": "union_find/WeightedUnionFind",
+      "sourcePath": "library_codex/union_find/WeightedUnionFind.py",
+      "sourceSha256": "7b49e52af23490c67ae99affb1d36498f2b6c3d2c4fbc6ad9752764521b8716d",
+      "status": "unsupported"
+    }
+  ]
+}

@@ -4,21 +4,23 @@
 点集合を覆う半径最小の円を求める。
 
 - source: [`geometry/MinimumEnclosingCircle.py`](../../../geometry/MinimumEnclosingCircle.py)
-- 公開API: function 1、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
 - 2次元点集合をすべて覆う半径最小の円について、中心と半径を求められる。
 - 円を決定する入力点のindexも返すため、結果の根拠を復元・検証できる。
+- 整数座標では、円周上の点を整数演算だけで厳密に判定できる。
 
 ## Import
 
 ```python
-from library_codex.geometry.MinimumEnclosingCircle import minimum_enclosing_circle
+from library_codex.geometry.MinimumEnclosingCircle import minimum_enclosing_circle, minimum_enclosing_circle_boundary
 ```
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`minimum_enclosing_circle(points, seed=0)`](../../../geometry/MinimumEnclosingCircle.py#L43) | 入力点をすべて内部または境界に含む円のうち、半径が最小のものをrandomized incremental法で求める。 | `points`: 1個以上の2次元点(x, y)の列。重複点を許す。<br>`seed`: 処理順をshuffleする乱数seed。同じ入力とseedでは同じsupportを返す。省略時: `0` | tuple[tuple[float, float], float, tuple[int, ...]] — (center, radius, support)を返す。 | 期待 O(N) time、最悪 O(N^3) time、O(N) memory |
+| [`minimum_enclosing_circle(points, seed=0)`](../../../geometry/MinimumEnclosingCircle.py#L43) | 入力点をすべて内部または境界に含む円のうち、半径が最小のものをrandomized incremental法で求める。 | `points`: 1個以上の2次元点(x, y)の列。重複点を許す。<br>`seed`: 処理順をshuffleする乱数seed。同じ入力とseedでは同じsupportを返す。省略時: `0` | tuple[tuple[float, float], float, tuple[int, ...]] — (center, radius, support)を返す。 | 期待 O(N) 時間、最悪 O(N^3) 時間、O(N) 領域 |
+| [`minimum_enclosing_circle_boundary(points, seed=0)`](../../../geometry/MinimumEnclosingCircle.py#L101) | 整数座標の点集合の最小包含円を求め、各点が円周上にあるかを整数演算だけで判定する。 | `points`: 1個以上の整数座標(x, y)の列。重複点を許す。<br>`seed`: 処理順を並べ替える乱数seed。結果は変わらない。省略時: `0` | list[int] — 入力と同じ長さ・順序のlist。result[i]はpoints[i]が円周上なら1、円の内部なら0。円を決定する少数の点だけでなく、円周上の点をすべて含む。入力は変更しない。 | 期待 O(N) 回、最悪 O(N^3) 回の整数演算、O(N) 個の点を保持。座標がB bitなら各演算はO(B) bit程度の整数上で行う |

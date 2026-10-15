@@ -202,8 +202,9 @@ def plan_for(paths):
     if source_changed:
         tests.add(ROOT / "verify" / "test_module_boundaries.py")
     if affected.intersection(CODON_MODULES) or any(
-        relative in {
+        relative.startswith(("library_codon/generated/", "verify/library_checker/codon/")) or relative in {
             "library_codex/tools/build_codon.py",
+            "library_codex/tools/check_codon_library_checker.py",
             "library_codex/templates/codon_header.codon",
             "library_codex/benchmarks/codon_cases.py",
             "library_codex/benchmarks/compare_codon.py",
@@ -303,6 +304,14 @@ def main():
             "API reference synchronization",
             [sys.executable, str(TOOLS / "build_api_reference.py"), "--check"],
         )
+    run_step(
+        "Codon Library Checker synchronization",
+        [sys.executable, str(TOOLS / "check_codon_library_checker.py"), "check"],
+    )
+    run_step(
+        "Codon distribution synchronization",
+        [sys.executable, str(TOOLS / "build_codon.py"), "--check"],
+    )
     run_step(
         "Library Checker standalone synchronization",
         [sys.executable, str(TOOLS / "check_library_checker.py"), "check"],
