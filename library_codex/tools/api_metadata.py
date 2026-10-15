@@ -7620,7 +7620,7 @@ MODULE_OVERVIEWS = {
     "ordered_set/BinaryTrie.py": ("multiset・全体xor・k-th・xor min/max", "$O(B)$"),
     "ordered_set/FastSet.py": ("word-size tree型の固定整数universe ordered set", "$O(\\log_{64}N)$"),
     "polynomial/MultipointEvaluation.py": ("積木による多点評価・多項式補間・連続点補間", "$O(M(N)\\log N)$、連続点は $O(N)$"),
-    "prime/Sieve.py": ("線形sieve・LPF/Möbius/φ・Lucy素数計数・square-free個数", "$O(N)$ / sublinear counting"),
+    "prime/Sieve.py": ("素数列挙・最小素因数・Möbius関数・φ関数", "素数列挙 O(N log log N)、整数の表 O(N)"),
     "random/Random.py": ("再現可能なxoshiro256**乱数・配列・bit列・行列・文字列生成", "各出力サイズに線形"),
     "random/RandomGraph.py": ("edge-list container・木・forest・二部・連結・単純graph生成", "主に $O(N+M)$、密グラフは $O(N^2)$"),
     "range_query/DisjointSparseTable.py": ("静的列の半群区間積", "構築 $O(N\\log N)$、クエリ $O(1)$"),
@@ -7842,4 +7842,85 @@ API_DETAILS_BY_SYMBOL[("polynomial/NewtonBasis998.py", None, "from_newton")] = {
     },
     "returnFormat": "list[int]",
     "returnDescription": "result[i]が通常の多項式のi次の係数。長さはcoefficientsと同じで、末尾の0も保持する。係数は0以上998244353未満。空入力なら[]。",
+}
+
+COMPLEXITY_BY_MODULE["graph_spanning/MinimumCostArborescence.py"] = {
+    "minimum_cost_arborescence": "O((V + E) log(V + E))。Vは頂点数、Eは辺数。追加メモリ O(V + E)",
+}
+API_DETAILS_BY_SYMBOL[("graph_spanning/MinimumCostArborescence.py", None, "minimum_cost_arborescence")] = {
+    "description": "rootから全頂点へ到達する有向全域木を、辺の費用の合計が最小になるように選ぶ。負辺と多重辺も扱える。",
+    "argumentDescriptions": {
+        "n": "頂点数。0なら(0, [])を返す。",
+        "root": "全頂点への出発点にする頂点。非空のグラフでは0以上n未満。",
+        "edges": "(始点, 終点, 費用)のlist。自己ループは選ばない。入力は変更しない。",
+    },
+    "returnFormat": "tuple[int, list[int]] | None",
+    "returnDescription": "(最小費用, 採用した辺番号の昇順list)。辺番号は入力edgesの添字で、非空のグラフではn-1個。rootから到達できない頂点があればNone。",
+    "returnParts": [
+        {"name": "cost", "format": "int", "description": "採用した辺の費用の合計。"},
+        {"name": "edge_ids", "format": "list[int]", "description": "edgesの添字を昇順に並べたもの。親頂点の配列ではない。"},
+    ],
+}
+COMPLEXITY_BY_MODULE.setdefault("prime/Sieve.py", {}).update({
+    "prime_sieve": "O(N log log N)。Nはlimit。追加メモリ O(√N + B + K)、Kは素数の個数、B=max(262144, floor(√N))",
+    "enumerate_primes": "O(N log log N)。Nはlimit。追加メモリ O(√N + B + K)、Kは返す素数の個数、B=max(262144, floor(√N))",
+    "LinearSieve": "O(N)時間・メモリ。Nはlimit",
+    "is_prime": "O(1)",
+    "factor_count": "O(log value)。素因数の個数だけ除算する",
+    "prime_count": "O(N^(3/4))時間、O(√N)メモリ。Nはnumber",
+    "count_square_free": "O(√N)時間・メモリ。Nはnumber",
+    "sum_totient": "O(N)時間・メモリ。Nはlimit",
+})
+API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "prime_sieve")] = {
+    "description": "limit以下の素数をすべて列挙する。最小素因数・Möbius・φの表は作らない。",
+    "argumentDescriptions": {"limit": "含める上限。0以上の整数。"},
+    "returnFormat": "list[int]",
+    "returnDescription": "limit以下の素数を昇順に並べたlist。limitが2未満なら[]。",
+}
+API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "enumerate_primes")] = {
+    "description": "上限以下の素数の総数と、素数列を指定間隔で間引いた値を返す。返さない素数のlistは保持しない。",
+    "argumentDescriptions": {
+        "limit": "含める上限。0以上の整数。",
+        "step": "素数の番号の間隔。正の整数。整数値の間隔ではない。",
+        "offset": "最初に取り出す素数の番号。0以上step未満。素数列は2, 3, 5, ...。",
+    },
+    "returnFormat": "tuple[int, list[int]]",
+    "returnDescription": "(上限以下の素数の総数, selected)。selected[i]はoffset+step*i番目の素数で、limit以下のものだけ昇順に並ぶ。limitが2未満なら(0, [])。",
+    "returnParts": [
+        {"name": "count", "format": "int", "description": "間引く前の素数の総数。"},
+        {"name": "selected", "format": "list[int]", "description": "offset番目からstep個おきに選んだ、limit以下の素数。"},
+    ],
+}
+CLASS_DETAILS_BY_SYMBOL[("prime/Sieve.py", "LinearSieve")] = {
+    "description": "上限以下の整数について、最小素因数・Möbius関数・φ関数を前計算する。",
+    "argumentDescriptions": {"limit": "表に含める上限。0以上の整数。"},
+    "constructorCreates": "primesに素数の昇順list、least_primeに各整数の最小素因数、mobiusとphiに各関数の値を持つ。factor_countで範囲内の整数を素因数分解できる。各表の長さはlimit+1。",
+}
+API_DETAILS_BY_SYMBOL[("prime/Sieve.py", "LinearSieve", "is_prime")] = {
+    "description": "前計算範囲内でvalueが素数か判定する。",
+    "argumentDescriptions": {"value": "調べる整数。2未満またはlimitより大きければFalse。"},
+    "returnFormat": "bool",
+    "returnDescription": "2以上limit以下の素数ならTrue。それ以外はFalse。",
+}
+API_DETAILS_BY_SYMBOL[("prime/Sieve.py", "LinearSieve", "factor_count")].update({
+    "argumentDescriptions": {"value": "1以上limit以下の整数。範囲外ならValueError。"},
+    "returnDescription": "(素因数, 指数)のtupleを、素因数の昇順に並べたlist。value=1なら[]。",
+})
+API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "prime_count")] = {
+    "description": "number以下の素数の個数を、全素数を列挙せずに求める。",
+    "argumentDescriptions": {"number": "含める上限。2未満なら0を返す。"},
+    "returnFormat": "int",
+    "returnDescription": "2以上number以下にある素数の個数。剰余は取らない。",
+}
+API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "count_square_free")] = {
+    "description": "1以上number以下の、1以外の平方数を因子に持たない整数を数える。",
+    "argumentDescriptions": {"number": "含める上限。0以下なら0を返す。"},
+    "returnFormat": "int",
+    "returnDescription": "平方因子を持たない正の整数の個数。number>=1では1も数える。剰余は取らない。",
+}
+API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "sum_totient")] = {
+    "description": "1からlimitまでのφ関数の値を合計する。φ(i)は1以上i以下でiと互いに素な整数の個数。",
+    "argumentDescriptions": {"limit": "含める上限。0以下なら0を返す。"},
+    "returnFormat": "int",
+    "returnDescription": "φ(1)+φ(2)+...+φ(limit)。φ(1)=1とし、剰余は取らない。",
 }

@@ -1,4 +1,4 @@
-"""Linear sieve tables and sublinear prime/square-free counting."""
+"""素数列挙、最小素因数・Möbius・φの表、素数と平方因子を持たない数の個数。"""
 
 from math import isqrt
 
@@ -56,7 +56,54 @@ class LinearSieve:
 
 
 def prime_sieve(limit):
-    return LinearSieve(limit).primes
+    """limit以下の素数を昇順listで返す。時間 O(N log log N)。"""
+    return enumerate_primes(limit)[1]
+
+
+def enumerate_primes(limit, step=1, offset=0):
+    """素数の総数と、素数列のoffset番目からstep個おきの値を返す。"""
+    if limit < 0 or step <= 0 or not 0 <= offset < step:
+        raise ValueError("require limit >= 0 and 0 <= offset < step")
+    if limit < 2:
+        return 0, []
+    root = isqrt(limit)
+    small = bytearray(b"\1") * ((root + 1) // 2)
+    if small:
+        small[0] = 0
+    for i in range(1, (isqrt(root) + 1) // 2):
+        if small[i]:
+            prime = 2 * i + 1
+            start = prime * prime // 2
+            small[start::prime] = b"\0" * ((len(small) - 1 - start) // prime + 1)
+    primes = [2 * i + 1 for i in range(1, len(small)) if small[i]]
+    block = max(1 << 18, root)
+    total = 1
+    result = [2] if offset == 0 else []
+    wanted = offset + step if offset == 0 else offset
+    for low in range(3, limit + 1, 2 * block):
+        size = min(block, (limit - low) // 2 + 1)
+        flags = bytearray(b"\1") * size
+        high = low + 2 * size
+        for prime in primes:
+            square = prime * prime
+            if square >= high:
+                break
+            first = max(square, (low + prime - 1) // prime * prime)
+            if first & 1 == 0:
+                first += prime
+            start = (first - low) // 2
+            flags[start::prime] = b"\0" * ((size - 1 - start) // prime + 1)
+        count = flags.count(1)
+        if wanted < total + count:
+            rank = total
+            for i in range(size):
+                if flags[i]:
+                    if rank == wanted:
+                        result.append(low + 2 * i)
+                        wanted += step
+                    rank += 1
+        total += count
+    return total, result
 
 
 def prime_count(number):

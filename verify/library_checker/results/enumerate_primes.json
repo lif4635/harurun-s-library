@@ -1,0 +1,80 @@
+{
+  "problem": "enumerate_primes",
+  "status": "local_passed",
+  "verificationKey": "59fad45836ac3bae7a71fa938e5f60e95d5117e92475f25d78cb12d9912800eb",
+  "sourceSha256": "fd6a3b53ad7576d4f17d6e89d8d4827391bd2b9819130343e2cb765f7139aec9",
+  "modules": [
+    "library_codex.prime.Sieve"
+  ],
+  "problemVersion": "b6d32d45d088277d7dcf455501fbd9301521f85d0701939779810c7a093ca6c3",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 10,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.12060164200374857,
+      "diagnostic": "ok 10 tokens\n"
+    },
+    {
+      "name": "1_00",
+      "status": "AC",
+      "seconds": 0.12925212699337862,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "2_00",
+      "status": "AC",
+      "seconds": 0.09024381099152379,
+      "diagnostic": "ok 3 tokens\n"
+    },
+    {
+      "name": "499477801_00",
+      "status": "AC",
+      "seconds": 2.1975667609949596,
+      "diagnostic": "ok 263300 tokens\n"
+    },
+    {
+      "name": "499999993_00",
+      "status": "AC",
+      "seconds": 1.9965740229963558,
+      "diagnostic": "ok 263561 tokens\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 1.9730724080000073,
+      "diagnostic": "ok 976146 tokens\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 1.9136251120071393,
+      "diagnostic": "ok 976146 tokens\n"
+    },
+    {
+      "name": "ten_00",
+      "status": "AC",
+      "seconds": 0.5699768899939954,
+      "diagnostic": "ok 960244 tokens\n"
+    },
+    {
+      "name": "ten_01",
+      "status": "AC",
+      "seconds": 0.20456639499752782,
+      "diagnostic": "ok 664581 tokens\n"
+    },
+    {
+      "name": "ten_02",
+      "status": "AC",
+      "seconds": 0.07497086600051261,
+      "diagnostic": "ok 78500 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-15T09:00:03.671768+00:00",
+  "onlineSubmission": null
+}

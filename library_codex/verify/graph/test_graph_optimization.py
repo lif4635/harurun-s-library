@@ -11,7 +11,6 @@ sys.path.insert(0, str(ROOT))
 from shortest_path.DialDijkstra import dial_dijkstra  # noqa: E402
 from graph_enumeration.HeldKarp import held_karp_cycle, held_karp_path  # noqa: E402
 from graph_matching.Hungarian import hungarian, hungarian_max  # noqa: E402
-from graph_spanning.MinimumCostArborescence import minimum_cost_arborescence  # noqa: E402
 
 
 def test_hungarian_rectangular_against_permutations():
@@ -116,53 +115,3 @@ def test_dial_dijkstra_random_and_zero_edges():
                 if parent[v] != -1:
                     assert any(to == v and distance[parent[v]] + weight == distance[v]
                                for to, weight in graph[parent[v]])
-
-
-def _is_arborescence(n, root, edges, selected):
-    if len(selected) != n - 1:
-        return False
-    graph = [[] for _ in range(n)]
-    indegree = [0] * n
-    for edge_id in selected:
-        u, v, _ = edges[edge_id]
-        graph[u].append(v)
-        indegree[v] += 1
-    if indegree[root] or any(indegree[v] != 1 for v in range(n) if v != root):
-        return False
-    seen = {root}
-    stack = [root]
-    while stack:
-        v = stack.pop()
-        for to in graph[v]:
-            if to not in seen:
-                seen.add(to)
-                stack.append(to)
-    return len(seen) == n
-
-
-def test_minimum_cost_arborescence_against_edge_subsets():
-    rng = random.Random(14)
-    for n in range(1, 7):
-        for _ in range(500):
-            root = rng.randrange(n)
-            possible = [(u, v) for u in range(n) for v in range(n) if u != v]
-            rng.shuffle(possible)
-            edge_count = rng.randrange(min(10, len(possible)) + 1)
-            edges = [(u, v, rng.randrange(-8, 12))
-                     for u, v in possible[:edge_count]]
-            # Occasionally add a parallel edge.
-            if edges and rng.randrange(3) == 0:
-                u, v, _ = rng.choice(edges)
-                edges.append((u, v, rng.randrange(-8, 12)))
-            expected = float("inf")
-            for selected in itertools.combinations(range(len(edges)), n - 1):
-                if _is_arborescence(n, root, edges, selected):
-                    expected = min(expected,
-                                   sum(edges[i][2] for i in selected))
-            result = minimum_cost_arborescence(n, root, edges)
-            if expected == float("inf"):
-                assert result is None
-            else:
-                value, selected = result
-                assert value == expected
-                assert _is_arborescence(n, root, edges, selected)

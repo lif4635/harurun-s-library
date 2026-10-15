@@ -64,7 +64,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [linear_algebra](api/linear_algebra/README.md) | 行列・線形方程式・線形基底 | 9 | 33 | 5 | 36 |
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 4 | 3 | 28 |
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
-| [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 12 | 1 | 2 |
+| [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 13 | 1 | 2 |
 | [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 22 | 23 | 26 | 132 |
 | [tree_query](api/tree_query/README.md) | path・部分木上の静的検索 | 3 | 0 | 3 | 15 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 21 | 29 | 22 | 244 |
@@ -75,4 +75,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **380 modules / 519 functions / 230 classes / 1472 methods・properties**。
+合計: **380 modules / 520 functions / 230 classes / 1472 methods・properties**。

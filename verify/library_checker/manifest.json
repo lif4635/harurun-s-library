@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 217,
-    "unimplemented": 36
+    "local_passed": 219,
+    "unimplemented": 34
   },
   "problems": [
     {
@@ -608,10 +608,12 @@
       "title": "Directed MST",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/directedmst",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_spanning.MinimumCostArborescence"
+      ],
+      "solution": "solutions/directedmst.py",
+      "result": "results/directedmst.json"
     },
     {
       "name": "dirichlet_convolution_and_prefix_sums",
@@ -836,10 +838,12 @@
       "title": "Enumerate Primes",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/enumerate_primes",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Sieve"
+      ],
+      "solution": "solutions/enumerate_primes.py",
+      "result": "results/enumerate_primes.json"
     },
     {
       "name": "enumerate_quotients",

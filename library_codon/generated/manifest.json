@@ -1001,7 +1001,7 @@
     {
       "modulePath": "graph_spanning/MinimumCostArborescence",
       "sourcePath": "library_codex/graph_spanning/MinimumCostArborescence.py",
-      "sourceSha256": "655e1dfb73713c1a3da178758c1aa402fdfbbb49a5f9d4f5d05d09b3013ced2d",
+      "sourceSha256": "7ccf2138d06fd3adbf0372c19509d0a57e1d677cee6e128126d9d7e8decfcf31",
       "status": "unsupported"
     },
     {
@@ -1487,7 +1487,7 @@
     {
       "modulePath": "prime/Sieve",
       "sourcePath": "library_codex/prime/Sieve.py",
-      "sourceSha256": "17e7bcbc23b92a9456dc617810aee6409340c7500bb5f1fee2d5fed2446c350f",
+      "sourceSha256": "74e6f0269f777c02e541dc71989bb49aad18526beef842c80992c18ecac64c6d",
       "status": "unsupported"
     },
     {

@@ -1,95 +1,131 @@
-"""指定rootから全頂点へ到達する有向全域木の最小費用を求める。"""
+"""指定rootから全頂点へ到達する有向全域木の最小費用と辺番号を求める。"""
+
 
 def minimum_cost_arborescence(n, root, edges):
-    """Return a minimum directed spanning arborescence rooted at ``root``.
-
-    Edges are ``(source, target, cost)`` and may have negative costs or be
-    parallel.  The result is ``(cost, original_edge_ids)``; ``None`` means some
-    vertex is unreachable from the root.  This iterative Chu--Liu/Edmonds
-    implementation runs in O(VE).
-    """
+    """最小費用と採用した辺番号の昇順listを返す。構築不能ならNone。"""
     if n == 0:
         return 0, []
     if not 0 <= root < n:
         raise IndexError("root out of range")
-    # Each current edge stores source, target, adjusted cost, original edge id.
-    current_edges = [(u, v, cost, i) for i, (u, v, cost) in enumerate(edges)]
-    current_n = n
-    current_root = root
-    # (old edges, old root, chosen incoming edge per old vertex,
-    #  mapping from each next-level edge to its old-level edge)
-    levels = []
-
-    while True:
-        incoming_cost = [float("inf")] * current_n
-        incoming_edge = [-1] * current_n
-        incoming_cost[current_root] = 0
-        for edge_id, (u, v, cost, _) in enumerate(current_edges):
-            if u != v and v != current_root and cost < incoming_cost[v]:
-                incoming_cost[v] = cost
-                incoming_edge[v] = edge_id
-        if any(incoming_edge[v] == -1
-               for v in range(current_n) if v != current_root):
-            return None
-
-        parent = [current_root] * current_n
-        for v in range(current_n):
-            if v != current_root:
-                parent[v] = current_edges[incoming_edge[v]][0]
-        component = [-1] * current_n
-        visited = [-1] * current_n
-        cycle_count = 0
-        for start in range(current_n):
-            v = start
-            while (v != current_root and component[v] == -1
-                   and visited[v] != start):
-                visited[v] = start
-                v = parent[v]
-            if v != current_root and component[v] == -1:
-                component[v] = cycle_count
-                u = parent[v]
-                while u != v:
-                    component[u] = cycle_count
-                    u = parent[u]
-                cycle_count += 1
-
-        if cycle_count == 0:
-            selected = {incoming_edge[v] for v in range(current_n)
-                        if v != current_root}
+    m = len(edges)
+    cost = [edge[2] for edge in edges]
+    best = [-1] * n
+    for edge_id, (source, target, value) in enumerate(edges):
+        if source != target and target != root:
+            previous = best[target]
+            if previous == -1 or value < cost[previous]:
+                best[target] = edge_id
+    if any(best[v] == -1 for v in range(n) if v != root):
+        return None
+    state = [0] * n
+    state[root] = -1
+    cyclic = False
+    for start in range(n):
+        if state[start]:
+            continue
+        vertex = start
+        stamp = start + 1
+        while state[vertex] == 0:
+            state[vertex] = stamp
+            vertex = edges[best[vertex]][0]
+        if state[vertex] == stamp:
+            cyclic = True
             break
+    if not cyclic:
+        selected = sorted(best[v] for v in range(n) if v != root)
+        return sum(cost[i] for i in selected), selected
+    lazy = [0] * m
+    child = [-1] * m
+    sibling = [-1] * m
+    heaps = [-1] * (2 * n)
+    parent = [-1] * (2 * n)
+    contracted = [-1] * (2 * n)
+    chosen = [-1] * (2 * n)
+    used = [0] * (2 * n)
 
-        next_n = cycle_count
-        for v in range(current_n):
-            if component[v] == -1:
-                component[v] = next_n
-                next_n += 1
-        next_edges = []
-        next_to_old = []
-        for old_edge, (u, v, cost, original) in enumerate(current_edges):
-            a = component[u]
-            b = component[v]
-            if a != b:
-                next_edges.append((a, b, cost - incoming_cost[v], original))
-                next_to_old.append(old_edge)
-        levels.append((current_edges, current_root, incoming_edge, next_to_old))
-        current_edges = next_edges
-        current_n = next_n
-        current_root = component[current_root]
+    def find(vertex):
+        while parent[vertex] != -1:
+            above = parent[vertex]
+            if parent[above] == -1:
+                return above
+            parent[vertex] = parent[above]
+            vertex = parent[above]
+        return vertex
 
-    while levels:
-        old_edges, old_root, incoming_edge, next_to_old = levels.pop()
-        selected_old = {incoming_edge[v] for v in range(len(incoming_edge))
-                        if v != old_root}
-        for edge_id in selected:
-            old_edge = next_to_old[edge_id]
-            target = old_edges[old_edge][1]
-            if target != old_root:
-                selected_old.discard(incoming_edge[target])
-            selected_old.add(old_edge)
-        selected = selected_old
-        current_edges = old_edges
+    def meld(a, b):
+        if a == -1:
+            return b
+        if b == -1:
+            return a
+        if cost[a] + lazy[a] > cost[b] + lazy[b]:
+            a, b = b, a
+        lazy[b] -= lazy[a]
+        sibling[b] = child[a]
+        child[a] = b
+        return a
 
-    original_ids = [current_edges[edge_id][3] for edge_id in selected]
-    original_ids.sort()
-    return sum(edges[edge_id][2] for edge_id in original_ids), original_ids
+    def pop(heap):
+        current = child[heap]
+        offset = lazy[heap]
+        pairs = []
+        while current != -1:
+            a = current
+            b = sibling[a]
+            lazy[a] += offset
+            sibling[a] = -1
+            if b == -1:
+                pairs.append(a)
+                break
+            current = sibling[b]
+            lazy[b] += offset
+            sibling[b] = -1
+            pairs.append(meld(a, b))
+        result = -1
+        for a in reversed(pairs):
+            result = meld(a, result)
+        return result
 
+    for edge_id, (source, target, _) in enumerate(edges):
+        if source != target and target != root:
+            heaps[target] = meld(heaps[target], edge_id)
+    used[root] = -1
+    size = n
+    for start in range(n):
+        if used[start]:
+            continue
+        stamp = start + 1
+        vertex = start
+        while not used[vertex] or used[vertex] == stamp:
+            if used[vertex] == stamp:
+                merged = size
+                size += 1
+                while vertex != merged:
+                    heap = heaps[vertex]
+                    lazy[heap] = -cost[chosen[vertex]]
+                    heaps[merged] = meld(heaps[merged], heap)
+                    parent[vertex] = contracted[vertex] = merged
+                    vertex = find(edges[chosen[vertex]][0])
+                vertex = merged
+            used[vertex] = stamp
+            heap = heaps[vertex]
+            while heap != -1 and find(edges[heap][0]) == vertex:
+                heap = pop(heap)
+            heaps[vertex] = heap
+            if heap == -1:
+                return None
+            chosen[vertex] = heap
+            vertex = find(edges[heap][0])
+    done = bytearray(size)
+    done[root] = 1
+    selected = []
+    for vertex in range(size - 1, -1, -1):
+        if done[vertex]:
+            continue
+        edge_id = chosen[vertex]
+        selected.append(edge_id)
+        target = edges[edge_id][1]
+        while target != -1 and not done[target]:
+            done[target] = 1
+            target = contracted[target]
+    selected.sort()
+    return sum(cost[edge_id] for edge_id in selected), selected

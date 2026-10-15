@@ -130,7 +130,6 @@ graph_matching/StableMatching
 graph_matching/StableRoommates
 graph_spanning/GraphOrdering
 graph_spanning/MergeTree
-graph_spanning/MinimumCostArborescence
 heuristic/LogTable
 heuristic/MultiArmedBandit
 heuristic/SimulatedAnnealing
@@ -192,7 +191,6 @@ polynomial/PowerEnumerate
 polynomial/PrefixSumPolynomial
 polynomial/ProductGeometricSubstitutions
 prime/Factorization
-prime/Sieve
 random/Random
 random/RandomGraph
 range_query/DisjointSparseTable
