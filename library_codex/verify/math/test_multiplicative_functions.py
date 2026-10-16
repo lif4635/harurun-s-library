@@ -93,3 +93,10 @@ def test_min25_summatory_and_totient_dp():
         ) == expected
         assert sum_totient_fast(n) == expected
 
+
+def test_totient_sum_moduli():
+    for n in (0, 1, 64, 65, 1000, 10000):
+        expected = sum(LinearSieve(n).phi)
+        for mod in (1, 2, 6, 998244353):
+            assert sum_totient_fast(n, mod) == expected % mod
+

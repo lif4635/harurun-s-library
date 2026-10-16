@@ -1,6 +1,7 @@
 from math import isqrt
 
 from library_codex.prime.Sieve import LinearSieve, prime_sieve
+from library_codex.prime.Sieve import sum_totient as _sum_totient
 
 
 def _floor_two_thirds(number):
@@ -393,25 +394,7 @@ class MultiplicativePrefixSum:
 
 
 def sum_totient_fast(limit, mod=None):
-    if limit < 1:
-        return 0
-    quotients = set()
-    left = 1
-    while left <= limit:
-        quotient = limit // left
-        quotients.add(quotient)
-        left = limit // quotient + 1
-    prefix = {}
-    for value in sorted(quotients):
-        result = value * (value + 1) // 2
-        lower = 2
-        while lower <= value:
-            quotient = value // lower
-            upper = value // quotient + 1
-            result -= (upper - lower) * prefix[quotient]
-            lower = upper
-        prefix[value] = result if mod is None else result % mod
-    return prefix[limit]
+    return _sum_totient(limit, mod)
 
 
 Dir = DirichletQuotientSeries

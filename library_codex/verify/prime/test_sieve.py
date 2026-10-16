@@ -4,6 +4,7 @@ import random
 import pytest
 
 from library_codex.prime.Sieve import LinearSieve, prime_sieve, enumerate_primes, prime_count, count_square_free
+from library_codex.prime.Sieve import sum_totient
 
 
 def _is_prime(value):
@@ -58,3 +59,28 @@ def test_enumeration_sampling_and_boundaries():
     for args in [(-1,), (10, 0), (10, 3, -1), (10, 3, 3)]:
         with pytest.raises(ValueError):
             enumerate_primes(*args)
+
+
+def test_totient_sum_against_linear_sieve():
+    rng = random.Random(222)
+    expected = LinearSieve(200000).phi
+    for i in range(1, len(expected)):
+        expected[i] += expected[i - 1]
+    limits = list(range(300)) + [rng.randrange(len(expected)) for _ in range(60)]
+    limits += [n**3 + offset for n in range(5, 40) for offset in (-1, 0, 1)]
+    for limit in limits:
+        assert sum_totient(limit) == expected[limit]
+        mod = rng.choice([1, 2, 6, 17, 998244353, 10**30 + 7])
+        assert sum_totient(limit, mod) == expected[limit] % mod
+    assert sum_totient(-1) == sum_totient(0) == 0
+    for mod in (0, -1):
+        with pytest.raises(ValueError):
+            sum_totient(10, mod)
+
+
+def test_totient_sum_large_and_coprime_pairs():
+    assert sum_totient(10**6) == 303963552392
+    for limit in range(1, 40):
+        pairs = sum(math.gcd(a, b) == 1 for a in range(1, limit + 1)
+                    for b in range(1, limit + 1))
+        assert 2 * sum_totient(limit) - 1 == pairs

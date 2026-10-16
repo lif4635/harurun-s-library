@@ -1,0 +1,308 @@
+{
+  "problem": "sum_of_totient_function",
+  "status": "local_passed",
+  "verificationKey": "4141a8df1e09aa1311985b51ddb4864c8031c17afc29100f5958f2f6da916b58",
+  "sourceSha256": "bff9ad3c8a159c799a7dda8ce8a202ffe27763ed799cf9edf65f8ab2c15e6f4b",
+  "modules": [
+    "library_codex.prime.Sieve"
+  ],
+  "problemVersion": "d8197161454427d97b4a90d547b42f4180a0504a60a1b31ee0fa70aff8ea7abf",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 48,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06277063500601798,
+      "diagnostic": "ok \"10\"\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.059694674011552706,
+      "diagnostic": "ok \"12\"\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.05909971101209521,
+      "diagnostic": "ok \"22\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.056877494003856555,
+      "diagnostic": "ok \"10\"\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 0.1526812000083737,
+      "diagnostic": "ok \"595148369\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 0.28665963900857605,
+      "diagnostic": "ok \"108136160\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 0.4126200280152261,
+      "diagnostic": "ok \"219811471\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 0.39441685198107734,
+      "diagnostic": "ok \"497731398\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 0.2692205919884145,
+      "diagnostic": "ok \"21909499\"\n"
+    },
+    {
+      "name": "random_05",
+      "status": "AC",
+      "seconds": 0.238808292982867,
+      "diagnostic": "ok \"49759133\"\n"
+    },
+    {
+      "name": "random_06",
+      "status": "AC",
+      "seconds": 0.3966663480096031,
+      "diagnostic": "ok \"655483783\"\n"
+    },
+    {
+      "name": "random_07",
+      "status": "AC",
+      "seconds": 0.46711481901002117,
+      "diagnostic": "ok \"1012904\"\n"
+    },
+    {
+      "name": "random_08",
+      "status": "AC",
+      "seconds": 0.20962991600390524,
+      "diagnostic": "ok \"341735875\"\n"
+    },
+    {
+      "name": "random_09",
+      "status": "AC",
+      "seconds": 0.2617956750036683,
+      "diagnostic": "ok \"669848071\"\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 0.45299779999186285,
+      "diagnostic": "ok \"382924935\"\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 0.4443213269987609,
+      "diagnostic": "ok \"138905471\"\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 0.4469811400049366,
+      "diagnostic": "ok \"246628211\"\n"
+    },
+    {
+      "name": "max_03",
+      "status": "AC",
+      "seconds": 0.4576035990030505,
+      "diagnostic": "ok \"449430081\"\n"
+    },
+    {
+      "name": "max_04",
+      "status": "AC",
+      "seconds": 0.49653691198909655,
+      "diagnostic": "ok \"581295196\"\n"
+    },
+    {
+      "name": "max_05",
+      "status": "AC",
+      "seconds": 0.5104965529753827,
+      "diagnostic": "ok \"859827177\"\n"
+    },
+    {
+      "name": "max_06",
+      "status": "AC",
+      "seconds": 0.46315044100629166,
+      "diagnostic": "ok \"138905471\"\n"
+    },
+    {
+      "name": "max_07",
+      "status": "AC",
+      "seconds": 0.444110690994421,
+      "diagnostic": "ok \"866849765\"\n"
+    },
+    {
+      "name": "max_08",
+      "status": "AC",
+      "seconds": 0.4543050869833678,
+      "diagnostic": "ok \"58172\"\n"
+    },
+    {
+      "name": "max_09",
+      "status": "AC",
+      "seconds": 0.4894156340160407,
+      "diagnostic": "ok \"449430081\"\n"
+    },
+    {
+      "name": "boundaryA_00",
+      "status": "AC",
+      "seconds": 0.13651033901260234,
+      "diagnostic": "ok \"382120419\"\n"
+    },
+    {
+      "name": "boundaryA_01",
+      "status": "AC",
+      "seconds": 0.2890644449798856,
+      "diagnostic": "ok \"847831605\"\n"
+    },
+    {
+      "name": "boundaryA_02",
+      "status": "AC",
+      "seconds": 0.38070177400368266,
+      "diagnostic": "ok \"115469063\"\n"
+    },
+    {
+      "name": "boundaryA_03",
+      "status": "AC",
+      "seconds": 0.44375431298976764,
+      "diagnostic": "ok \"313250148\"\n"
+    },
+    {
+      "name": "boundaryA_04",
+      "status": "AC",
+      "seconds": 0.25998740099021234,
+      "diagnostic": "ok \"490561743\"\n"
+    },
+    {
+      "name": "boundaryA_05",
+      "status": "AC",
+      "seconds": 0.24089288502000272,
+      "diagnostic": "ok \"503776917\"\n"
+    },
+    {
+      "name": "boundaryA_06",
+      "status": "AC",
+      "seconds": 0.40116019200650044,
+      "diagnostic": "ok \"928078745\"\n"
+    },
+    {
+      "name": "boundaryA_07",
+      "status": "AC",
+      "seconds": 0.45598669300670736,
+      "diagnostic": "ok \"301546746\"\n"
+    },
+    {
+      "name": "boundaryA_08",
+      "status": "AC",
+      "seconds": 0.19763318900368176,
+      "diagnostic": "ok \"688827151\"\n"
+    },
+    {
+      "name": "boundaryA_09",
+      "status": "AC",
+      "seconds": 0.27121668099425733,
+      "diagnostic": "ok \"346235890\"\n"
+    },
+    {
+      "name": "boundaryB_00",
+      "status": "AC",
+      "seconds": 0.15007399101159535,
+      "diagnostic": "ok \"841887832\"\n"
+    },
+    {
+      "name": "boundaryB_01",
+      "status": "AC",
+      "seconds": 0.31995484299841337,
+      "diagnostic": "ok \"883181927\"\n"
+    },
+    {
+      "name": "boundaryB_02",
+      "status": "AC",
+      "seconds": 0.40765995800029486,
+      "diagnostic": "ok \"25451433\"\n"
+    },
+    {
+      "name": "boundaryB_03",
+      "status": "AC",
+      "seconds": 0.4334230360109359,
+      "diagnostic": "ok \"137339277\"\n"
+    },
+    {
+      "name": "boundaryB_04",
+      "status": "AC",
+      "seconds": 0.3275744120182935,
+      "diagnostic": "ok \"421358920\"\n"
+    },
+    {
+      "name": "boundaryB_05",
+      "status": "AC",
+      "seconds": 0.32375690899789333,
+      "diagnostic": "ok \"152892353\"\n"
+    },
+    {
+      "name": "boundaryB_06",
+      "status": "AC",
+      "seconds": 0.4404470519802999,
+      "diagnostic": "ok \"913300133\"\n"
+    },
+    {
+      "name": "boundaryB_07",
+      "status": "AC",
+      "seconds": 0.5496394420042634,
+      "diagnostic": "ok \"990543739\"\n"
+    },
+    {
+      "name": "boundaryB_08",
+      "status": "AC",
+      "seconds": 0.22365102500771172,
+      "diagnostic": "ok \"314345619\"\n"
+    },
+    {
+      "name": "boundaryB_09",
+      "status": "AC",
+      "seconds": 0.29849605000345036,
+      "diagnostic": "ok \"72468127\"\n"
+    },
+    {
+      "name": "handmade_00",
+      "status": "AC",
+      "seconds": 0.05785489300615154,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "handmade_01",
+      "status": "AC",
+      "seconds": 0.06417252300889231,
+      "diagnostic": "ok \"2\"\n"
+    },
+    {
+      "name": "handmade_02",
+      "status": "AC",
+      "seconds": 0.0643119559972547,
+      "diagnostic": "ok \"4\"\n"
+    },
+    {
+      "name": "handmade_03",
+      "status": "AC",
+      "seconds": 0.05694289001985453,
+      "diagnostic": "ok \"2736188\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-16T04:07:23.384361+00:00",
+  "onlineSubmission": null
+}

@@ -1181,7 +1181,7 @@
     {
       "modulePath": "number_theory/MultiplicativeFunctions",
       "sourcePath": "library_codex/number_theory/MultiplicativeFunctions.py",
-      "sourceSha256": "1fce2ada4999c730a11bf3ac18c821d7b304f9db522095db34e7a186362d1d1b",
+      "sourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1",
       "status": "unsupported"
     },
     {
@@ -1487,7 +1487,7 @@
     {
       "modulePath": "prime/Sieve",
       "sourcePath": "library_codex/prime/Sieve.py",
-      "sourceSha256": "74e6f0269f777c02e541dc71989bb49aad18526beef842c80992c18ecac64c6d",
+      "sourceSha256": "642090fdba391d9a1121d59c122cec732e399ab24d469fd3443749319fff5564",
       "status": "unsupported"
     },
     {

@@ -42,7 +42,29 @@ $$
 
 - `prime_count(number)`: 素数を列挙せず、その個数を求める。
 - `count_square_free(number)`: 1以上number以下で、1以外の平方数を因子に持たない整数を数える。
-- `sum_totient(limit)`: 1からlimitまでのφ関数の総和。線形ふるいを作るため O(N) 時間・メモリを使う。
+- `sum_totient(limit, mod=None)`: 1からlimitまでのφ関数の総和。O(N^(2/3) log log N) 時間、O(N^(2/3)) メモリ。上限までの表は作らない。
+
+```python
+from library_codex.prime.Sieve import sum_totient
+
+assert sum_totient(10) == 32
+assert sum_totient(10, mod=12) == 8
+assert sum_totient(10**10, mod=998244353) == 866849765
+```
+
+φ(i)は、1以上i以下でiと互いに素な整数の個数。返り値は次の総和で、`mod`を指定した場合だけその余りを返す。素数でない法も使える。
+
+$$
+S(N)=\sum_{i=1}^{N}\varphi(i),\qquad \varphi(1)=1
+$$
+
+たとえば、1以上N以下の整数a, bについて、互いに素な順序付きペアの個数は `2 * sum_totient(N) - 1` で求められる。
+
+総和の計算では、小さい値だけをふるいで前計算し、残りを次の式で求める。同じ商になる項をまとめ、必要な商の総和を小さい順に計算するため、再帰や辞書は使わない。
+
+$$
+S(N)=\frac{N(N+1)}{2}-\sum_{d=2}^{N}S\left(\left\lfloor\frac{N}{d}\right\rfloor\right)
+$$
 
 ## 注意点
 

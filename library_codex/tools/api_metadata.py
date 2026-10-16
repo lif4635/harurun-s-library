@@ -7879,7 +7879,7 @@ COMPLEXITY_BY_MODULE.setdefault("prime/Sieve.py", {}).update({
     "factor_count": "O(log value)。素因数の個数だけ除算する",
     "prime_count": "O(N^(3/4))時間、O(√N)メモリ。Nはnumber",
     "count_square_free": "O(√N)時間・メモリ。Nはnumber",
-    "sum_totient": "O(N)時間・メモリ。Nはlimit",
+    "sum_totient": "O(N^(2/3) log log N)時間、O(N^(2/3))メモリ。Nはlimit。整数演算をO(1)として数える",
 })
 API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "prime_sieve")] = {
     "description": "limit以下の素数をすべて列挙する。最小素因数・Möbius・φの表は作らない。",
@@ -7930,7 +7930,16 @@ API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "count_square_free")] = {
 }
 API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "sum_totient")] = {
     "description": "1からlimitまでのφ関数の値を合計する。φ(i)は1以上i以下でiと互いに素な整数の個数。",
-    "argumentDescriptions": {"limit": "含める上限。0以下なら0を返す。"},
+    "argumentDescriptions": {
+        "limit": "含める上限。0以下なら0を返す。",
+        "mod": "正の整数を指定すると、その余りを返す。Noneなら剰余を取らない。合成数でもよい。",
+    },
     "returnFormat": "int",
-    "returnDescription": "φ(1)+φ(2)+...+φ(limit)。φ(1)=1とし、剰余は取らない。",
+    "returnDescription": "φ(1)+φ(2)+...+φ(limit)。φ(1)=1とする。mod=Noneなら整数の総和、指定時は0以上mod未満の余り。",
 }
+API_DETAILS_BY_SYMBOL[("number_theory/MultiplicativeFunctions.py", None, "sum_totient_fast")] = dict(
+    API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "sum_totient")]
+)
+COMPLEXITY_BY_MODULE.setdefault("number_theory/MultiplicativeFunctions.py", {})["sum_totient_fast"] = (
+    COMPLEXITY_BY_MODULE["prime/Sieve.py"]["sum_totient"]
+)

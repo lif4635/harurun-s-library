@@ -1,0 +1,7 @@
+{
+  "problem": "sum_of_totient_function",
+  "language": "pypy3",
+  "submissions": [],
+  "baselineLibraryRevision": "822fe443b4e3eda8aa978d37cd03817d0de75756",
+  "baselineScope": "Unchanged sum_totient_fast extracted using AST, plus identical problem I/O. This was the faster preexisting implementation, not the linear-space sum_totient."
+}

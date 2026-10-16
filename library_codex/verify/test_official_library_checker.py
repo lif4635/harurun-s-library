@@ -221,6 +221,8 @@ def test_solution_is_standalone(name):
     ("sum_of_exponential_times_polynomial", "1 0 1000000000000000000\n", "716070898"),
     ("sum_of_exponential_times_polynomial_limit", "2 1\n", "2"),
     ("sum_of_exponential_times_polynomial_limit", "0 0\n", "1"),
+    ("sum_of_totient_function", "1\n", "1"),
+    ("sum_of_totient_function", "10\n", "32"),
     ("multivariate_convolution", "0\n\n998244352\n998244352\n", "1"),
     ("multivariate_convolution", "2\n2 3\n1 2 3 4 5 6\n0 1 0 0 0 0\n", "0 1 0 3 0 5"),
     ("multivariate_convolution_cyclic", "7 0\n\n3\n5\n", "1"),

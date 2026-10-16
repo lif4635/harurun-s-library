@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 221,
-    "unimplemented": 32
+    "local_passed": 222,
+    "unimplemented": 31
   },
   "problems": [
     {
@@ -2899,10 +2899,12 @@
       "title": "Sum of Totient Function",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/sum_of_totient_function",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Sieve"
+      ],
+      "solution": "solutions/sum_of_totient_function.py",
+      "result": "results/sum_of_totient_function.json"
     },
     {
       "name": "system_of_linear_equations",

@@ -1,8 +1,8 @@
 {
   "problem": "enumerate_primes",
   "status": "local_passed",
-  "verificationKey": "59fad45836ac3bae7a71fa938e5f60e95d5117e92475f25d78cb12d9912800eb",
-  "sourceSha256": "fd6a3b53ad7576d4f17d6e89d8d4827391bd2b9819130343e2cb765f7139aec9",
+  "verificationKey": "435c699d48c8b5fe5c106756379f931d3eea97072e7ed39e11b6ebb5235f43b8",
+  "sourceSha256": "51f1e49e748aace346b8a9d4639229d796afa7d93185c7b10b3e977736f4a9f6",
   "modules": [
     "library_codex.prime.Sieve"
   ],
@@ -17,64 +17,64 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.12060164200374857,
+      "seconds": 0.05035718300496228,
       "diagnostic": "ok 10 tokens\n"
     },
     {
       "name": "1_00",
       "status": "AC",
-      "seconds": 0.12925212699337862,
+      "seconds": 0.051670609012944624,
       "diagnostic": "ok 2 tokens\n"
     },
     {
       "name": "2_00",
       "status": "AC",
-      "seconds": 0.09024381099152379,
+      "seconds": 0.050677059014560655,
       "diagnostic": "ok 3 tokens\n"
     },
     {
       "name": "499477801_00",
       "status": "AC",
-      "seconds": 2.1975667609949596,
+      "seconds": 1.8647778219892643,
       "diagnostic": "ok 263300 tokens\n"
     },
     {
       "name": "499999993_00",
       "status": "AC",
-      "seconds": 1.9965740229963558,
+      "seconds": 1.8907684609876014,
       "diagnostic": "ok 263561 tokens\n"
     },
     {
       "name": "max_00",
       "status": "AC",
-      "seconds": 1.9730724080000073,
+      "seconds": 1.9838234960043337,
       "diagnostic": "ok 976146 tokens\n"
     },
     {
       "name": "max_01",
       "status": "AC",
-      "seconds": 1.9136251120071393,
+      "seconds": 2.0477451629994903,
       "diagnostic": "ok 976146 tokens\n"
     },
     {
       "name": "ten_00",
       "status": "AC",
-      "seconds": 0.5699768899939954,
+      "seconds": 0.594765941001242,
       "diagnostic": "ok 960244 tokens\n"
     },
     {
       "name": "ten_01",
       "status": "AC",
-      "seconds": 0.20456639499752782,
+      "seconds": 0.1962334929849021,
       "diagnostic": "ok 664581 tokens\n"
     },
     {
       "name": "ten_02",
       "status": "AC",
-      "seconds": 0.07497086600051261,
+      "seconds": 0.07849798898678273,
       "diagnostic": "ok 78500 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-15T09:00:03.671768+00:00",
+  "verifiedAt": "2026-10-16T04:10:57.165143+00:00",
   "onlineSubmission": null
 }

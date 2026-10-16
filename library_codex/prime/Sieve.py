@@ -145,7 +145,44 @@ def count_square_free(number):
                for value in range(1, limit + 1))
 
 
-def sum_totient(limit):
+def sum_totient(limit, mod=None):
+    """1からlimitまでのφの総和を返す。modを指定するとその余りを返す。"""
+    if mod is not None and mod <= 0:
+        raise ValueError("mod must be positive")
     if limit < 1:
         return 0
-    return sum(LinearSieve(limit).phi[1:])
+    if mod == 1:
+        return 0
+    cutoff = min(limit, max(64, int(limit ** (2.0 / 3.0))))
+    prefix = list(range(cutoff + 1))
+    for prime in range(2, cutoff + 1):
+        if prefix[prime] == prime:
+            for multiple in range(prime, cutoff + 1, prime):
+                prefix[multiple] -= prefix[multiple] // prime
+    total = 0
+    if mod is None:
+        for value in range(1, cutoff + 1):
+            total += prefix[value]
+            prefix[value] = total
+    else:
+        for value in range(1, cutoff + 1):
+            total = (total + prefix[value]) % mod
+            prefix[value] = total
+    size = limit // (cutoff + 1)
+    large = [0] * (size + 1)
+    for index in range(size, 0, -1):
+        value = limit // index
+        root = isqrt(value)
+        result = value * (value + 1) // 2
+        boundary = min(root, value // (cutoff + 1))
+        for divisor in range(2, boundary + 1):
+            result -= large[index * divisor]
+        for divisor in range(max(2, boundary + 1), root + 1):
+            result -= prefix[value // divisor]
+        previous = root
+        for quotient in range(value // (root + 1), 0, -1):
+            end = value // quotient
+            result -= (end - previous) * prefix[quotient]
+            previous = end
+        large[index] = result if mod is None else result % mod
+    return large[1] if size else prefix[limit]

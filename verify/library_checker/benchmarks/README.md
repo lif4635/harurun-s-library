@@ -43,7 +43,7 @@
 | [dynamic_tree_vertex_set_path_composite](dynamic_tree_vertex_set_path_composite.json) | 3 / 23 | 5 | 4.693 | 104.3 | 一致 |
 | [eertree](eertree.json) | 3 / 24 | 5 | 1.424 | 721.5 | 一致 |
 | [enumerate_cliques](enumerate_cliques.json) | 3 / 23 | 5 | 0.087 | 59.7 | 一致 |
-| [enumerate_primes](enumerate_primes.json) | 3 / 10 | 5 | 1.935 | 112.4 | 一致 |
+| [enumerate_primes](enumerate_primes.json) | 3 / 10 | 5 | 1.935 | 112.4 | 要再測定 |
 | [enumerate_quotients](enumerate_quotients.json) | 3 / 26 | 5 | 0.296 | 132.4 | 一致 |
 | [enumerate_triangles](enumerate_triangles.json) | 3 / 17 | 5 | 0.246 | 88.1 | 一致 |
 | [exp_of_formal_power_series_sparse](exp_of_formal_power_series_sparse.json) | 3 / 25 | 5 | 0.245 | 122.7 | 一致 |
@@ -145,6 +145,7 @@
 | [subset_convolution](subset_convolution.json) | 3 / 11 | 5 | 2.647 | 575.1 | 一致 |
 | [sum_of_exponential_times_polynomial](sum_of_exponential_times_polynomial.json) | 3 / 20 | 5 | 1.691 | 364.9 | 一致 |
 | [sum_of_exponential_times_polynomial_limit](sum_of_exponential_times_polynomial_limit.json) | 3 / 10 | 5 | 0.917 | 212.3 | 一致 |
+| [sum_of_totient_function](sum_of_totient_function.json) | 3 / 48 | 5 | 0.470 | 96.0 | 一致 |
 | [system_of_linear_equations](system_of_linear_equations.json) | 3 / 27 | 5 | 0.508 | 66.6 | 一致 |
 | [system_of_linear_equations_mod_2](system_of_linear_equations_mod_2.json) | 3 / 36 | 5 | 1.393 | 105.7 | 一致 |
 | [three_edge_connected_components](three_edge_connected_components.json) | 3 / 20 | 5 | 0.833 | 149.2 | 一致 |

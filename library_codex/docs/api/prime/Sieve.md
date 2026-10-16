@@ -36,7 +36,7 @@ from library_codex.prime.Sieve import (
 | [`enumerate_primes(limit, step=1, offset=0)`](../../../prime/Sieve.py#L63) | 上限以下の素数の総数と、素数列を指定間隔で間引いた値を返す。返さない素数のlistは保持しない。 | `limit`: 含める上限。0以上の整数。<br>`step`: 素数の番号の間隔。正の整数。整数値の間隔ではない。省略時: `1`<br>`offset`: 最初に取り出す素数の番号。0以上step未満。素数列は2, 3, 5, ...。省略時: `0` | tuple[int, list[int]] — (上限以下の素数の総数, selected)。selected[i]はoffset+step*i番目の素数で、limit以下のものだけ昇順に並ぶ。limitが2未満なら(0, [])。 | O(N log log N)。Nはlimit。追加メモリ O(√N + B + K)、Kは返す素数の個数、B=max(262144, floor(√N)) |
 | [`prime_count(number)`](../../../prime/Sieve.py#L109) | number以下の素数の個数を、全素数を列挙せずに求める。 | `number`: 含める上限。2未満なら0を返す。 | int — 2以上number以下にある素数の個数。剰余は取らない。 | O(N^(3/4))時間、O(√N)メモリ。Nはnumber |
 | [`count_square_free(number)`](../../../prime/Sieve.py#L138) | 1以上number以下の、1以外の平方数を因子に持たない整数を数える。 | `number`: 含める上限。0以下なら0を返す。 | int — 平方因子を持たない正の整数の個数。number>=1では1も数える。剰余は取らない。 | O(√N)時間・メモリ。Nはnumber |
-| [`sum_totient(limit)`](../../../prime/Sieve.py#L148) | 1からlimitまでのφ関数の値を合計する。φ(i)は1以上i以下でiと互いに素な整数の個数。 | `limit`: 含める上限。0以下なら0を返す。 | int — φ(1)+φ(2)+...+φ(limit)。φ(1)=1とし、剰余は取らない。 | O(N)時間・メモリ。Nはlimit |
+| [`sum_totient(limit, mod=None)`](../../../prime/Sieve.py#L148) | 1からlimitまでのφ関数の値を合計する。φ(i)は1以上i以下でiと互いに素な整数の個数。 | `limit`: 含める上限。0以下なら0を返す。<br>`mod`: 正の整数を指定すると、その余りを返す。Noneなら剰余を取らない。合成数でもよい。省略時: `None` | int — φ(1)+φ(2)+...+φ(limit)。φ(1)=1とする。mod=Noneなら整数の総和、指定時は0以上mod未満の余り。 | O(N^(2/3) log log N)時間、O(N^(2/3))メモリ。Nはlimit。整数演算をO(1)として数える |
 
 ## Class `LinearSieve`
 
