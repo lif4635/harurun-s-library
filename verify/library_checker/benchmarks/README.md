@@ -17,8 +17,9 @@
 | [biconnected_components](biconnected_components.json) | 3 / 22 | 5 | 2.612 | 437.8 | 一致 |
 | [binomial_coefficient](binomial_coefficient.json) | 3 / 30 | 5 | 1.149 | 89.1 | 一致 |
 | [binomial_coefficient_prime_mod](binomial_coefficient_prime_mod.json) | 3 / 20 | 5 | 0.922 | 478.6 | 一致 |
+| [bipartite_edge_coloring](bipartite_edge_coloring.json) | 3 / 26 | 5 | 0.337 | 100.8 | 一致 |
 | [characteristic_polynomial](characteristic_polynomial.json) | 3 / 28 | 5 | 0.970 | 65.8 | 一致 |
-| [chordal_graph_recognition](chordal_graph_recognition.json) | 3 / 22 | 5 | 1.031 | 140.9 | 一致 |
+| [chordal_graph_recognition](chordal_graph_recognition.json) | 3 / 22 | 5 | 0.990 | 130.4 | 一致 |
 | [chromatic_number](chromatic_number.json) | 3 / 26 | 5 | 0.105 | 67.8 | 一致 |
 | [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
 | [common_interval_decomposition_tree](common_interval_decomposition_tree.json) | 3 / 30 | 5 | 1.617 | 316.4 | 一致 |

@@ -6,6 +6,7 @@
 
 ## グラフ・木
 
+- [二部グラフの辺彩色](BIPARTITE_EDGE_COLORING_BENCHMARK.md)
 - [有向最小全域木の速度とメモリ](ARBORESCENCE_BENCHMARK.md)
 - [木の距離分布の速度とメモリ](TREE_DISTANCE_FREQUENCY_BENCHMARK.md)
 - [オイラー閉路の数え上げ](DECIMAL_ADDITION_BENCHMARK.md)

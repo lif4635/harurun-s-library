@@ -881,7 +881,7 @@
     {
       "modulePath": "graph_enumeration/GraphProperties",
       "sourcePath": "library_codex/graph_enumeration/GraphProperties.py",
-      "sourceSha256": "086d8e45daead767d3490ff1e3133f85f94a321aab1ae2e5461e2fb1f35bfa14",
+      "sourceSha256": "661e03901036dadb64a6d884ce2649b1285c843b04e25ee0a7876acf5d87fbed",
       "status": "unsupported"
     },
     {
@@ -941,7 +941,7 @@
     {
       "modulePath": "graph_matching/BipartiteEdgeColoring",
       "sourcePath": "library_codex/graph_matching/BipartiteEdgeColoring.py",
-      "sourceSha256": "47c135f154e9ba628736200b85cb973d7b1c1f7ddee0c3ef0dfa51946b156d4f",
+      "sourceSha256": "a8e942493080736d8123274b496015890917cd180e9ddb86fb5d9bbd4866f3ac",
       "status": "unsupported"
     },
     {

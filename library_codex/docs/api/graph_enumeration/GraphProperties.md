@@ -22,7 +22,7 @@ from library_codex.graph_enumeration.GraphProperties import bipartite_edge_color
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph_enumeration/GraphProperties.py#L148) | 同じ頂点に接する辺が異色になるよう、二部多重グラフの辺を最小色数で塗る。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: (left, right)の辺列。多重辺可。左右の頂点番号は別々に数える。 | tuple[int, list[int]] — (count, colors)。countは最大次数に等しい最小色数、colors[i]は入力辺iの色番号で0以上count未満。辺がなければ(0, [])。 | O(D^2 S sqrt(S))時間、O(DS+M)メモリ。S=max(left_size,right_size)、Dは最大次数。正則化した辺数はDS |
+| [`bipartite_edge_coloring(left_size, right_size, edges)`](../../../graph_enumeration/GraphProperties.py#L148) | 同じ頂点に接する辺が異色になるよう、二部多重グラフの辺を最小色数で塗る。 | `left_size`: 二部グラフ左側の頂点数<br>`right_size`: 二部グラフ右側の頂点数<br>`edges`: (left, right)の辺列。多重辺可。左右の頂点番号は別々に数える。 | tuple[int, list[int]] — (count, colors)。countは最大次数に等しい最小色数、colors[i]は入力辺iの色番号で0以上count未満。辺がなければ(0, [])。 | O(V + E√V log(Δ + 1))時間、追加メモリ O(V + E)。Vは左右の頂点数の合計、Eは入力辺数、Δは最大次数 |
 
 ## Class `ChordalGraphRecognizer`
 

@@ -5,7 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`BipartiteEdgeColoring`](BipartiteEdgeColoring.md) | bipartite multigraphの辺を最小色数で彩色する。 | 1 | 0 | 0 |
+| [`BipartiteEdgeColoring`](BipartiteEdgeColoring.md) | 二部多重グラフの辺を、同じ頂点に接する辺が異色になるよう最小色数で彩色する。 | 1 | 0 | 0 |
 | [`BipartiteMatching`](BipartiteMatching.md) | 自動二部彩色・最大マッチング・頂点被覆・独立集合 | 0 | 1 | 11 |
 | [`DAGMinimumPathCover`](DAGMinimumPathCover.md) | DAGを覆う頂点素なpathの最小本数を求める。 | 1 | 0 | 0 |
 | [`GeneralMatching`](GeneralMatching.md) | 一般無向グラフの最大マッチングを求める。 | 0 | 1 | 2 |

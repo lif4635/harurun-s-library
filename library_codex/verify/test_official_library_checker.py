@@ -224,6 +224,8 @@ def test_solution_is_standalone(name):
     ("sum_of_totient_function", "1\n", "1"),
     ("sum_of_totient_function", "10\n", "32"),
     ("counting_primes", "100\n", "25"),
+    ("bipartite_edge_coloring", "2 2 0\n", "0"),
+    ("bipartite_edge_coloring", "1 1 3\n0 0\n0 0\n0 0\n", "3 0 1 2"),
     ("counting_primes", "1\n", "0"),
     ("minimum_diameter_spanning_tree", "3 3\n0 1 7\n2 1 5\n2 0 4\n", "9 1 2"),
     ("minimum_diameter_spanning_tree", "1 0\n", "0"),

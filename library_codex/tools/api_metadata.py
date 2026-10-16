@@ -2558,8 +2558,8 @@ MODULE_CAPABILITIES.update({
         "block数を指定したStirling数に対応する分割だけを取り出せる。",
     ),
     "graph_matching/BipartiteEdgeColoring.py": (
-        "二部multigraphの辺を、同じ頂点に接する辺が異色になるよう彩色できる。",
-        "最大次数Deltaと同じ最小色数を使い、入力辺ごとの0-indexed色番号を返す。",
+        "二部多重グラフの辺を、同じ頂点に接する辺が異色になるよう彩色する。",
+        "最大次数と同じ最小色数を使い、入力辺と同じ順に色番号を返す。",
     ),
 })
 
@@ -2652,10 +2652,10 @@ API_DETAILS_BY_SYMBOL.update({
         "returnDescription": "集合分割を1件ずつ生成するiterator。各結果はblockのlistで、各blockは元のvalues内の順序を保つ。blockの並びは最初に現れる要素の位置順に正規化される。",
     },
     ("graph_matching/BipartiteEdgeColoring.py", None, "bipartite_edge_coloring"): {
-        "description": "二部multigraphをDelta-regular graphへ補完し、perfect matchingへ分解して最小辺彩色を求める。",
-        "argumentDescriptions": {"left_size": "左側頂点数。左頂点は0以上left_size未満。", "right_size": "右側頂点数。右頂点は0以上right_size未満。", "edges": "(left, right)で並べた辺列。平行辺を許す。"},
+        "description": "同じ頂点に接する辺が異色になるよう、二部多重グラフの辺を最小色数で塗る。同じ色の辺は同時に選んでも端点が重複しない。",
+        "argumentDescriptions": {"left_size": "左側頂点数。0以上。", "right_size": "右側頂点数。0以上。", "edges": "(左頂点, 右頂点)の辺リスト。多重辺可。左右の頂点番号は別々に数える。入力は変更しない。"},
         "returnFormat": "list[int]",
-        "returnDescription": "edgesと同じ長さのcolors。colors[e]は0以上Delta未満で、同じ端点を共有する2辺は異なる色。辺がなければ空list。",
+        "returnDescription": "edgesと同じ長さのcolors。colors[i]は入力辺iの色番号で、0以上最大次数Δ未満。同じ端点を共有する2辺は異なる色。辺がなければ[]。",
     },
     ("graph/TwoSAT.py", "TwoSAT", "add_variable"): {
         "description": "制約表現に使える補助boolean変数を1個追加する。solveの返り値にはconstructorで作った元のn変数だけを含める。",
@@ -2735,7 +2735,7 @@ COMPLEXITY_BY_MODULE.update({
     "sequence_structure/RollbackArray.py": {"RollbackArray": "構築 O(N) time・memory", "get": "O(1)", "set": "O(1)", "snapshot": "O(1)", "undo": "O(1)", "rollback": "取り消す更新数に比例", "tolist": "O(N)", "__len__": "O(1)", "__getitem__": "O(1)", "__str__": "O(N)", "__repr__": "O(N)"},
     "ordered_set/DecrementalSet.py": {"DecrementalSet": "構築 O(N) time・memory", "discard": "償却 O(alpha(N))", "next": "償却 O(alpha(N))", "prev": "償却 O(alpha(N))", "tolist": "O(K alpha(N))（Kは生存要素数）", "__contains__": "O(1)", "__len__": "O(1)", "__str__": "O(K alpha(N))", "__repr__": "O(K alpha(N))"},
     "combinatorics/SetPartitions.py": {"set_partitions": "全分割ではO(B_N * N) time、O(N) working memory（B_NはBell数、出力を除く）"},
-    "graph_matching/BipartiteEdgeColoring.py": {"bipartite_edge_coloring": "O(Delta * E * sqrt(V)) time、O(Delta*V + E) memory"},
+    "graph_matching/BipartiteEdgeColoring.py": {"bipartite_edge_coloring": "O(V + E√V log(Δ + 1))時間、追加メモリ O(V + E)。Vは左右の頂点数の合計、Eは入力辺数、Δは最大次数"},
 })
 
 COMPLEXITY_BY_MODULE.update({
@@ -7286,7 +7286,7 @@ COMPLEXITY_BY_MODULE["graph_enumeration/GraphProperties.py"].update({
     "is_chordal": "初回O(N+M)、判定済みならO(1)",
     "perfect_elimination_order": "未判定ならO(N+M)、判定済みならO(N)。返すlistのコピーを含む",
     "induced_cycle": "初回O(N+M)、計算済みならO(L)。Lは返す閉路長",
-    "bipartite_edge_coloring": "O(D^2 S sqrt(S))時間、O(DS+M)メモリ。S=max(left_size,right_size)、Dは最大次数。正則化した辺数はDS",
+    "bipartite_edge_coloring": "O(V + E√V log(Δ + 1))時間、追加メモリ O(V + E)。Vは左右の頂点数の合計、Eは入力辺数、Δは最大次数",
 })
 API_DETAILS_BY_SYMBOL[("graph_enumeration/GraphProperties.py", None, "bipartite_edge_coloring")] = {
     "description": "同じ頂点に接する辺が異色になるよう、二部多重グラフの辺を最小色数で塗る。",

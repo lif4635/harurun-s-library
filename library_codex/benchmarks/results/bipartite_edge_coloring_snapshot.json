@@ -1,0 +1,7 @@
+{
+  "problem": "bipartite_edge_coloring",
+  "language": "pypy3",
+  "submissions": [],
+  "baselineLibraryRevision": "1d145c9e67d0b6fbbc34a94af780b6f4a9023f25",
+  "baselineScope": "Unchanged BipartiteEdgeColoring.py plus identical problem I/O. Only cases with bounded regularized graph size are compared."
+}

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 224,
-    "unimplemented": 29
+    "local_passed": 225,
+    "unimplemented": 28
   },
   "problems": [
     {
@@ -189,10 +189,12 @@
       "title": "Edge Coloring of Bipartite Graph",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/bipartite_edge_coloring",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_matching.BipartiteEdgeColoring"
+      ],
+      "solution": "solutions/bipartite_edge_coloring.py",
+      "result": "results/bipartite_edge_coloring.json"
     },
     {
       "name": "bipartitematching",
@@ -267,7 +269,7 @@
       "url": "https://judge.yosupo.jp/problem/chordal_graph_recognition",
       "status": "local_passed",
       "modules": [
-        "library_codex.graph_matching.BipartiteMatching",
+        "library_codex.graph_matching.BipartiteEdgeColoring",
         "library_codex.graph_enumeration.GraphProperties"
       ],
       "solution": "solutions/chordal_graph_recognition.py",

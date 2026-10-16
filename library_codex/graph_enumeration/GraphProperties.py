@@ -1,6 +1,6 @@
 """Recognition and coloring algorithms for undirected graphs."""
 
-from library_codex.graph_matching.BipartiteMatching import BipartiteMatching
+from library_codex.graph_matching.BipartiteEdgeColoring import bipartite_edge_coloring as _edge_coloring
 
 
 class ChordalGraphRecognizer:
@@ -146,53 +146,6 @@ class ChordalGraphRecognizer:
         return self._cycle[:]
 
 def bipartite_edge_coloring(left_size, right_size, edges):
-    """Color a bipartite multigraph with exactly its maximum degree colors.
-
-    Returns ``(number_of_colors, color_per_original_edge)``.  Repeated perfect
-    matchings are extracted from a regularized graph; this favors compact,
-    reliable PyPy code while preserving the optimal color count.
-    """
-    degree_left = [0] * left_size
-    degree_right = [0] * right_size
-    for left, right in edges:
-        degree_left[left] += 1
-        degree_right[right] += 1
-    colors = max(max(degree_left, default=0), max(degree_right, default=0))
-    if colors == 0:
-        return 0, []
-    size = max(left_size, right_size)
-    regular_edges = list(edges)
-    left_need = [colors - (degree_left[v] if v < left_size else 0)
-                 for v in range(size)]
-    right_need = [colors - (degree_right[v] if v < right_size else 0)
-                  for v in range(size)]
-    left = right = 0
-    while left < size and right < size:
-        while left < size and left_need[left] == 0:
-            left += 1
-        while right < size and right_need[right] == 0:
-            right += 1
-        if left == size or right == size:
-            break
-        amount = min(left_need[left], right_need[right])
-        regular_edges.extend([(left, right)] * amount)
-        left_need[left] -= amount
-        right_need[right] -= amount
-
-    active = [True] * len(regular_edges)
-    answer = [-1] * len(edges)
-    for color in range(colors):
-        matching = BipartiteMatching(size, size)
-        pair_edges = {}
-        for edge_id, (left, right) in enumerate(regular_edges):
-            if active[edge_id]:
-                matching.add_edge(left, right)
-                pair_edges.setdefault((left, right), []).append(edge_id)
-        if matching.solve() != size:
-            raise RuntimeError("regular bipartite graph lost a perfect matching")
-        for left, right in matching.pairs():
-            edge_id = pair_edges[left, right].pop()
-            active[edge_id] = False
-            if edge_id < len(edges):
-                answer[edge_id] = color
-    return colors, answer
+    """(最小色数, 入力辺と同じ順の色番号list)を返す。"""
+    colors = _edge_coloring(left_size, right_size, edges)
+    return max(colors, default=-1) + 1, colors
