@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-16T07:47:01+00:00",
+  "generatedAt": "2026-10-16T08:09:09+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "85573b5833f4af84dbe2180dc175213c29925ca5d2fe8616f31adb0d087cf6df",
-  "inputStamp": "26ac113431023358087ba080d66f68131798d4acfec850e831ce812746b1a816",
+  "sourceFingerprint": "5f98e4f006ca0feaf0d24a82fd23aa25e7b2ec97563384aa0daf9618ae2dd183",
+  "inputStamp": "8278c156f4328e6adc504720f27a6bcff86b6e2a495b71c82ff0f6a8c64ac3b4",
   "generatorFingerprint": "352195430bf6e369885f591759bddcd812c5bfcd99b18c1767fe7dbf15c80ef2",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 381,
-    "articles": 86,
+    "modules": 382,
+    "articles": 87,
     "functions": 521,
-    "classes": 230,
-    "methods": 1472,
+    "classes": 231,
+    "methods": 1480,
     "tests": 1029
   },
   "categories": [
@@ -111,10 +111,10 @@
       "label": "セグメント木",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 16,
+      "modules": 17,
       "functions": 3,
-      "classes": 17,
-      "methods": 118
+      "classes": 18,
+      "methods": 126
     },
     {
       "slug": "fenwick_tree",
@@ -411,7 +411,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 80
+      "modules": 81
     },
     {
       "slug": "graph",
@@ -13485,6 +13485,293 @@
               "returnDescription": "位置indexにある値 $a_{\\mathrm{index}}$。",
               "complexity": "O(log W)",
               "sourceLine": 145
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "segment_tree",
+      "categoryLabel": "セグメント木",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
+      "name": "PersistentRangeAffineRangeSum",
+      "modulePath": "library_codex.segment_tree.PersistentRangeAffineRangeSum",
+      "summary": "過去の版を保持し、区間のアフィン変換・別の版からの区間コピー・区間和を扱う。",
+      "capabilities": [
+        "PersistentRangeAffineRangeSum: 過去の版を残しながら、整数配列の区間更新・別の版からの区間コピー・区間和を処理する。"
+      ],
+      "article": {
+        "title": "履歴を残す区間更新と区間コピー",
+        "markdown": "配列の過去の状態を残したまま、区間のアフィン変換・別の版からの区間コピー・区間和を処理する。\n\n## 主な機能\n\n`PersistentRangeAffineRangeSum(values, mod=998244353)`は、初期配列を版0として保持するclass。`apply`と`copy`は元の版を変更せず、新しい版番号を返す。どの版からでも分岐できるので、過去の状態から別の更新を試したり、一部分だけ以前の値へ戻したりできる。\n\nアフィン変換は区間内の各値を次の式で置き換える。倍率0なら区間代入、倍率1なら区間加算になる。\n\n$$\na_i \\gets (\\mathrm{multiplier}\\,a_i+\\mathrm{addend})\\bmod\\mathrm{mod}\n$$\n\n配列長をNとすると、構築はO(N)時間・メモリ。更新・区間コピー・区間和はいずれもO(log N)。1回の更新で追加する領域もO(log N)で、配列全体をコピーしない。Nが0または1ならO(1)。\n\n## 使い方\n\n```python\nfrom library_codex.segment_tree.PersistentRangeAffineRangeSum import PersistentRangeAffineRangeSum\n\ntree = PersistentRangeAffineRangeSum([1, 2, 3, 4])\nv1 = tree.apply(1, 4, 2, 1, version=0)\nv2 = tree.copy(2, 4, source=0, version=v1)\nassert tree.tolist(0) == [1, 2, 3, 4]\nassert tree.tolist(v1) == [1, 5, 7, 9]\nassert tree.tolist(v2) == [1, 5, 3, 4]\nassert tree.prod(1, 4, version=v2) == 12\n```\n\n- `v1`: 版0の半開区間`[1, 4)`を2倍して1を足した版の番号。\n- `v2`: 版v1の半開区間`[2, 4)`だけを、版0の同じ位置の値へ戻した版の番号。\n- `prod(1, 4, version=v2)`: 版v2の添字1・2・3の合計。返るのは版番号ではなく、modで割った余り。\n- `tolist(version)`: 指定版の配列のコピー。確認用でO(N)かかる。\n\n## 仕組み\n\n変更した区間の境界にある経路だけを作り直し、変わらない部分は既存の木と共有する。遅延中の変換を子への参照と一緒に持つため、変換を下ろすだけのために子ノードを複製しない。版を読む操作ではノードを追加しない。\n\n## 注意点\n\n- 版番号はこのinstanceの中だけで有効。0が初期状態で、更新のたびに1つ増える。`version`省略時は最後に作った版を使う。\n- `copy`は同じ添字の区間をコピーする。別位置への移動や、別instanceからのコピーは扱わない。\n- `prod`・`get`・`tolist`は新しい版を作らず、最後に作った版も切り替えない。\n- 値と変換係数はmodで正規化する。modは正の整数で、素数でなくてもよい。\n- 履歴を削除する操作はない。更新回数をQとして、保持メモリはO(N + Q log(N+2))。\n\n## 参考\n\n- [maspyの永続遅延セグメント木](https://maspypy.github.io/library/ds/segtree/dynamic_lazy_segtree.hpp)\n- [Library Checkerの問題](https://judge.yosupo.jp/problem/persistent_range_affine_range_sum)",
+        "sourcePath": "library_codex/docs/articles/segment_tree/PersistentRangeAffineRangeSum.md"
+      },
+      "searchTerms": [
+        "PersistentRangeAffineRangeSum",
+        "Persistent Range Affine Range Sum",
+        "library_codex.segment_tree.PersistentRangeAffineRangeSum",
+        "library codex segment tree Persistent Range Affine Range Sum",
+        "segment_tree/PersistentRangeAffineRangeSum.py",
+        "セグメント木",
+        "永続セグ木",
+        "履歴",
+        "区間コピー",
+        "区間代入",
+        "区間加算"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/segment_tree/PersistentRangeAffineRangeSum.py",
+      "inputFingerprint": "1cddf890c6367c8013d138d70344dd63e8b89095943d1038d8ab812794f7d2fd",
+      "importCode": "from library_codex.segment_tree.PersistentRangeAffineRangeSum import PersistentRangeAffineRangeSum",
+      "sourceCode": "\"\"\"過去の版を保持し、区間のアフィン変換・別の版からの区間コピー・区間和を扱う。\"\"\"\n\n\nclass PersistentRangeAffineRangeSum:\n    \"\"\"配列を版番号で管理する。初期状態は版0、更新は新しい版番号を返す。\"\"\"\n\n    __slots__ = (\"n\", \"size\", \"mod\", \"roots\", \"_left\", \"_right\",\n                 \"_lb\", \"_lc\", \"_rb\", \"_rc\", \"_sum\")\n\n    def __init__(self, values, mod=998244353):\n        if mod <= 0:\n            raise ValueError(\"modulus must be positive\")\n        values = [value % mod for value in values]\n        self.n = len(values)\n        self.size = size = 1 << max(0, (len(values) - 1).bit_length()) if values else 1\n        self.mod = mod\n        count = size * 2\n        self._left = [0] * count\n        self._right = [0] * count\n        self._lb = [1] * count\n        self._lc = [0] * count\n        self._rb = [1] * count\n        self._rc = [0] * count\n        self._sum = total = [0] * count\n        total[size:size + len(values)] = values\n        for node in range(size - 1, 0, -1):\n            self._left[node] = node * 2\n            self._right[node] = node * 2 + 1\n            total[node] = (total[node * 2] + total[node * 2 + 1]) % mod\n        self.roots = [(1, 1, 0)]\n\n    def _splice(self, base, source, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        stack = [(base, source, 0, self.size)]\n        results = []\n        lc, rc = self._left, self._right\n        lb, la, rb, ra = self._lb, self._lc, self._rb, self._rc\n        total, mod = self._sum, self.mod\n        while stack:\n            old, new, start, end = stack.pop()\n            if old is None:\n                v, vb, vc = results.pop()\n                u, ub, uc = results.pop()\n                node = len(total)\n                lc.append(u)\n                rc.append(v)\n                lb.append(ub)\n                la.append(uc)\n                rb.append(vb)\n                ra.append(vc)\n                total.append((ub * total[u] + vb * total[v] + (uc + vc) * end) % mod)\n                results.append((node, 1, 0))\n            elif right <= start or end <= left or old == new:\n                results.append(old)\n            elif left <= start and end <= right:\n                results.append(new)\n            else:\n                u, ub, uc = old\n                v, vb, vc = new\n                middle = (start + end) >> 1\n                stack.append((None, None, 0, middle - start))\n                stack.append(((rc[u], ub * rb[u] % mod, (ub * ra[u] + uc) % mod),\n                              (rc[v], vb * rb[v] % mod, (vb * ra[v] + vc) % mod), middle, end))\n                stack.append(((lc[u], ub * lb[u] % mod, (ub * la[u] + uc) % mod),\n                              (lc[v], vb * lb[v] % mod, (vb * la[v] + vc) % mod), start, middle))\n        self.roots.append(results[0])\n        return len(self.roots) - 1\n\n    def apply(self, left, right, multiplier, addend, version=-1):\n        \"\"\"指定版の区間[left, right)を変換した新しい版番号を返す。元の版は変更しない。\"\"\"\n        base = self.roots[version]\n        node, b, c = base\n        mod = self.mod\n        multiplier %= mod\n        addend %= mod\n        source = (node, multiplier * b % mod, (multiplier * c + addend) % mod)\n        return self._splice(base, source, left, right)\n\n    def copy(self, left, right, source, version=-1):\n        \"\"\"指定版の区間[left, right)をsource版の同じ区間で置換した新しい版番号を返す。\"\"\"\n        return self._splice(self.roots[version], self.roots[source], left, right)\n\n    def prod(self, left, right, version=-1):\n        \"\"\"指定版の区間[left, right)の和をmodで割った余りを返す。\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        root, b, c = self.roots[version]\n        stack = [(root, b, c, 0, self.size)]\n        total, mod = self._sum, self.mod\n        lc, rc = self._left, self._right\n        lb, la, rb, ra = self._lb, self._lc, self._rb, self._rc\n        answer = 0\n        while stack:\n            node, b, c, start, end = stack.pop()\n            if right <= start or end <= left:\n                continue\n            if left <= start and end <= right:\n                answer += b * total[node] + c * (end - start)\n                continue\n            middle = (start + end) >> 1\n            if middle < right:\n                stack.append((rc[node], b * rb[node] % mod, (b * ra[node] + c) % mod, middle, end))\n            if left < middle:\n                stack.append((lc[node], b * lb[node] % mod, (b * la[node] + c) % mod, start, middle))\n        return answer % mod\n\n    def get(self, index, version=-1):\n        \"\"\"指定版のindex番目の値を返す。\"\"\"\n        return self.prod(index, index + 1, version)\n\n    def tolist(self, version=-1):\n        \"\"\"指定版の全要素を添字順の新しいlistとして返す。\"\"\"\n        root, b, c = self.roots[version]\n        stack = [(root, b, c, 0, self.size)]\n        result = [0] * self.n\n        mod = self.mod\n        while stack:\n            node, b, c, start, end = stack.pop()\n            if start >= self.n:\n                continue\n            if end - start == 1:\n                result[start] = (b * self._sum[node] + c) % mod\n                continue\n            middle = (start + end) >> 1\n            stack.append((self._right[node], b * self._rb[node] % mod,\n                          (b * self._rc[node] + c) % mod, middle, end))\n            stack.append((self._left[node], b * self._lb[node] % mod,\n                          (b * self._lc[node] + c) % mod, start, middle))\n        return result\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return f\"PersistentRangeAffineRangeSum({self.tolist()}, mod={self.mod})\"\n",
+      "standaloneCode": "\"\"\"過去の版を保持し、区間のアフィン変換・別の版からの区間コピー・区間和を扱う。\"\"\"\n\n\nclass PersistentRangeAffineRangeSum:\n    \"\"\"配列を版番号で管理する。初期状態は版0、更新は新しい版番号を返す。\"\"\"\n\n    __slots__ = (\"n\", \"size\", \"mod\", \"roots\", \"_left\", \"_right\",\n                 \"_lb\", \"_lc\", \"_rb\", \"_rc\", \"_sum\")\n\n    def __init__(self, values, mod=998244353):\n        if mod <= 0:\n            raise ValueError(\"modulus must be positive\")\n        values = [value % mod for value in values]\n        self.n = len(values)\n        self.size = size = 1 << max(0, (len(values) - 1).bit_length()) if values else 1\n        self.mod = mod\n        count = size * 2\n        self._left = [0] * count\n        self._right = [0] * count\n        self._lb = [1] * count\n        self._lc = [0] * count\n        self._rb = [1] * count\n        self._rc = [0] * count\n        self._sum = total = [0] * count\n        total[size:size + len(values)] = values\n        for node in range(size - 1, 0, -1):\n            self._left[node] = node * 2\n            self._right[node] = node * 2 + 1\n            total[node] = (total[node * 2] + total[node * 2 + 1]) % mod\n        self.roots = [(1, 1, 0)]\n\n    def _splice(self, base, source, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        stack = [(base, source, 0, self.size)]\n        results = []\n        lc, rc = self._left, self._right\n        lb, la, rb, ra = self._lb, self._lc, self._rb, self._rc\n        total, mod = self._sum, self.mod\n        while stack:\n            old, new, start, end = stack.pop()\n            if old is None:\n                v, vb, vc = results.pop()\n                u, ub, uc = results.pop()\n                node = len(total)\n                lc.append(u)\n                rc.append(v)\n                lb.append(ub)\n                la.append(uc)\n                rb.append(vb)\n                ra.append(vc)\n                total.append((ub * total[u] + vb * total[v] + (uc + vc) * end) % mod)\n                results.append((node, 1, 0))\n            elif right <= start or end <= left or old == new:\n                results.append(old)\n            elif left <= start and end <= right:\n                results.append(new)\n            else:\n                u, ub, uc = old\n                v, vb, vc = new\n                middle = (start + end) >> 1\n                stack.append((None, None, 0, middle - start))\n                stack.append(((rc[u], ub * rb[u] % mod, (ub * ra[u] + uc) % mod),\n                              (rc[v], vb * rb[v] % mod, (vb * ra[v] + vc) % mod), middle, end))\n                stack.append(((lc[u], ub * lb[u] % mod, (ub * la[u] + uc) % mod),\n                              (lc[v], vb * lb[v] % mod, (vb * la[v] + vc) % mod), start, middle))\n        self.roots.append(results[0])\n        return len(self.roots) - 1\n\n    def apply(self, left, right, multiplier, addend, version=-1):\n        \"\"\"指定版の区間[left, right)を変換した新しい版番号を返す。元の版は変更しない。\"\"\"\n        base = self.roots[version]\n        node, b, c = base\n        mod = self.mod\n        multiplier %= mod\n        addend %= mod\n        source = (node, multiplier * b % mod, (multiplier * c + addend) % mod)\n        return self._splice(base, source, left, right)\n\n    def copy(self, left, right, source, version=-1):\n        \"\"\"指定版の区間[left, right)をsource版の同じ区間で置換した新しい版番号を返す。\"\"\"\n        return self._splice(self.roots[version], self.roots[source], left, right)\n\n    def prod(self, left, right, version=-1):\n        \"\"\"指定版の区間[left, right)の和をmodで割った余りを返す。\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        root, b, c = self.roots[version]\n        stack = [(root, b, c, 0, self.size)]\n        total, mod = self._sum, self.mod\n        lc, rc = self._left, self._right\n        lb, la, rb, ra = self._lb, self._lc, self._rb, self._rc\n        answer = 0\n        while stack:\n            node, b, c, start, end = stack.pop()\n            if right <= start or end <= left:\n                continue\n            if left <= start and end <= right:\n                answer += b * total[node] + c * (end - start)\n                continue\n            middle = (start + end) >> 1\n            if middle < right:\n                stack.append((rc[node], b * rb[node] % mod, (b * ra[node] + c) % mod, middle, end))\n            if left < middle:\n                stack.append((lc[node], b * lb[node] % mod, (b * la[node] + c) % mod, start, middle))\n        return answer % mod\n\n    def get(self, index, version=-1):\n        \"\"\"指定版のindex番目の値を返す。\"\"\"\n        return self.prod(index, index + 1, version)\n\n    def tolist(self, version=-1):\n        \"\"\"指定版の全要素を添字順の新しいlistとして返す。\"\"\"\n        root, b, c = self.roots[version]\n        stack = [(root, b, c, 0, self.size)]\n        result = [0] * self.n\n        mod = self.mod\n        while stack:\n            node, b, c, start, end = stack.pop()\n            if start >= self.n:\n                continue\n            if end - start == 1:\n                result[start] = (b * self._sum[node] + c) % mod\n                continue\n            middle = (start + end) >> 1\n            stack.append((self._right[node], b * self._rb[node] % mod,\n                          (b * self._rc[node] + c) % mod, middle, end))\n            stack.append((self._left[node], b * self._lb[node] % mod,\n                          (b * self._lc[node] + c) % mod, start, middle))\n        return result\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return f\"PersistentRangeAffineRangeSum({self.tolist()}, mod={self.mod})\"\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 8
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "PersistentRangeAffineRangeSum",
+          "summary": "過去の版を残しながら、整数配列の区間更新・別の版からの区間コピー・区間和を処理する。",
+          "description": "過去の版を残しながら、整数配列の区間更新・別の版からの区間コピー・区間和を処理する。",
+          "searchTerms": [
+            "PersistentRangeAffineRangeSum",
+            "Persistent Range Affine Range Sum",
+            "PersistentRangeAffineRangeSum(values, mod=998244353)"
+          ],
+          "constructor": "PersistentRangeAffineRangeSum(values, mod=998244353)",
+          "constructorArguments": "values: 初期値のiterable。コピーして各値をmodで正規化する。空でもよい。 · mod: 正の整数。すべての値と区間和はこの剰余で扱う。合成数でもよい。省略時: 998244353",
+          "constructorArgumentDetails": [
+            {
+              "name": "values",
+              "description": "初期値の反復可能オブジェクト。コピーして各値をmodで正規化する。空でもよい"
+            },
+            {
+              "name": "mod",
+              "description": "正の整数。すべての値と区間和はこの剰余で扱う。合成数でもよい。省略時は 998244353"
+            }
+          ],
+          "constructorReturns": "PersistentRangeAffineRangeSum instance",
+          "constructorReturnFormat": "PersistentRangeAffineRangeSum",
+          "constructorReturnDescription": "valuesを版0として保持する。apply・copyで新しい版を作り、prod・get・tolistで任意の版の内容を取得できる。",
+          "constructorCreates": "valuesを版0として保持する。apply・copyで新しい版を作り、prod・get・tolistで任意の版の内容を取得できる。",
+          "constructorComplexity": "O(N+1)時間・メモリ。Nはvaluesの長さ",
+          "constructorSourceLine": 10,
+          "methods": [
+            {
+              "name": "apply",
+              "kind": "method",
+              "signature": "apply(left, right, multiplier, addend, version=-1)",
+              "summary": "指定版の半開区間[left, right)の各値xをmultiplier*x+addendへ変換し、新しい版を作る。元の版は変更しない。",
+              "description": "指定版の半開区間[left, right)の各値xをmultiplier*x+addendへ変換し、新しい版を作る。元の版は変更しない。",
+              "searchTerms": [
+                "apply",
+                "apply(left, right, multiplier, addend, version=-1)"
+              ],
+              "arguments": "left: 対象の半開区間[left, right)の左端。 · right: 対象の半開区間[left, right)の右端。0≤left≤right≤配列長。 · multiplier: 各要素に掛ける整数。0なら区間代入になる。 · addend: 掛け算のあとに各要素へ足す整数。 · version: 更新元の版番号。0が初期状態。省略または-1なら最後に作った版。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "対象の半開区間[left, right)の左端。"
+                },
+                {
+                  "name": "right",
+                  "description": "対象の半開区間[left, right)の右端。0≤left≤right≤配列長。"
+                },
+                {
+                  "name": "multiplier",
+                  "description": "各要素に掛ける整数。0なら区間代入になる。"
+                },
+                {
+                  "name": "addend",
+                  "description": "掛け算のあとに各要素へ足す整数。"
+                },
+                {
+                  "name": "version",
+                  "description": "更新元の版番号。0が初期状態。省略または-1なら最後に作った版。"
+                }
+              ],
+              "returns": "int — 作成した版の番号。prod・get・tolistのversionへ渡せる。空区間や同じ値への更新でも新しい版番号を返す。",
+              "returnFormat": "int",
+              "returnDescription": "作成した版の番号。prod・get・tolistのversionへ渡せる。空区間や同じ値への更新でも新しい版番号を返す。",
+              "complexity": "O(log(N+2))時間・追加メモリ。Nは配列長",
+              "sourceLine": 70
+            },
+            {
+              "name": "copy",
+              "kind": "method",
+              "signature": "copy(left, right, source, version=-1)",
+              "summary": "指定版の半開区間[left, right)をsource版の同じ位置の値で置き換え、新しい版を作る。両方の元の版は変更しない。",
+              "description": "指定版の半開区間[left, right)をsource版の同じ位置の値で置き換え、新しい版を作る。両方の元の版は変更しない。",
+              "searchTerms": [
+                "copy",
+                "copy(left, right, source, version=-1)"
+              ],
+              "arguments": "left: 対象の半開区間[left, right)の左端。 · right: 対象の半開区間[left, right)の右端。0≤left≤right≤配列長。 · source: コピー元の版番号。同じinstanceの版を指定する。 · version: 更新元の版番号。0が初期状態。省略または-1なら最後に作った版。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "対象の半開区間[left, right)の左端。"
+                },
+                {
+                  "name": "right",
+                  "description": "対象の半開区間[left, right)の右端。0≤left≤right≤配列長。"
+                },
+                {
+                  "name": "source",
+                  "description": "コピー元の版番号。同じinstanceの版を指定する。"
+                },
+                {
+                  "name": "version",
+                  "description": "更新元の版番号。0が初期状態。省略または-1なら最後に作った版。"
+                }
+              ],
+              "returns": "int — 作成した版の番号。prod・get・tolistのversionへ渡せる。空区間や同じ値への更新でも新しい版番号を返す。",
+              "returnFormat": "int",
+              "returnDescription": "作成した版の番号。prod・get・tolistのversionへ渡せる。空区間や同じ値への更新でも新しい版番号を返す。",
+              "complexity": "O(log(N+2))時間・追加メモリ。Nは配列長",
+              "sourceLine": 80
+            },
+            {
+              "name": "prod",
+              "kind": "method",
+              "signature": "prod(left, right, version=-1)",
+              "summary": "指定版の半開区間[left, right)の要素を合計する。履歴や値は変更しない。",
+              "description": "指定版の半開区間[left, right)の要素を合計する。履歴や値は変更しない。",
+              "searchTerms": [
+                "prod",
+                "prod(left, right, version=-1)"
+              ],
+              "arguments": "left: 対象の半開区間[left, right)の左端。 · right: 対象の半開区間[left, right)の右端。0≤left≤right≤配列長。 · version: 読む版番号。0が初期状態。省略または-1なら最後に作った版。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "対象の半開区間[left, right)の左端。"
+                },
+                {
+                  "name": "right",
+                  "description": "対象の半開区間[left, right)の右端。0≤left≤right≤配列長。"
+                },
+                {
+                  "name": "version",
+                  "description": "読む版番号。0が初期状態。省略または-1なら最後に作った版。"
+                }
+              ],
+              "returns": "int — 指定版のa[left]+...+a[right-1]をmodで割った余り。空区間なら0。版番号ではない。",
+              "returnFormat": "int",
+              "returnDescription": "指定版のa[left]+...+a[right-1]をmodで割った余り。空区間なら0。版番号ではない。",
+              "complexity": "O(log(N+2))時間・作業メモリ。ノードを追加しない",
+              "sourceLine": 84
+            },
+            {
+              "name": "get",
+              "kind": "method",
+              "signature": "get(index, version=-1)",
+              "summary": "指定版のindex番目の値を取得する。",
+              "description": "指定版のindex番目の値を取得する。",
+              "searchTerms": [
+                "get",
+                "get(index, version=-1)"
+              ],
+              "arguments": "index: 位置 · version: 読む版番号。省略または-1なら最後に作った版。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "位置"
+                },
+                {
+                  "name": "version",
+                  "description": "読む版番号。省略または-1なら最後に作った版。"
+                }
+              ],
+              "returns": "int — 指定版のa[index]。0以上mod未満。履歴や値は変更しない。",
+              "returnFormat": "int",
+              "returnDescription": "指定版のa[index]。0以上mod未満。履歴や値は変更しない。",
+              "complexity": "O(log(N+2))時間・作業メモリ。ノードを追加しない",
+              "sourceLine": 108
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist(version=-1)",
+              "summary": "指定版の配列を添字順に列挙する。",
+              "description": "指定版の配列を添字順に列挙する。",
+              "searchTerms": [
+                "tolist",
+                "tolist(version=-1)"
+              ],
+              "arguments": "version: 読む版番号。省略または-1なら最後に作った版。",
+              "argumentDetails": [
+                {
+                  "name": "version",
+                  "description": "読む版番号。省略または-1なら最後に作った版。"
+                }
+              ],
+              "returns": "list[int] — 長さNの新しいlist。result[i]は指定版のa[i]で、0以上mod未満。返したlistを変更しても木には影響しない。",
+              "returnFormat": "list[int]",
+              "returnDescription": "長さNの新しいlist。result[i]は指定版のa[i]で、0以上mod未満。返したlistを変更しても木には影響しない。",
+              "complexity": "O(N+1)時間・追加メモリ。Nは配列長",
+              "sourceLine": 112
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "要素数を返す。",
+              "description": "要素数を返す。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 要素数。",
+              "returnFormat": "int",
+              "returnDescription": "要素数。",
+              "complexity": "O(1)",
+              "sourceLine": 132
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "文字列表現を返す。",
+              "description": "文字列表現を返す。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — str のインスタンス。",
+              "returnFormat": "str",
+              "returnDescription": "str のインスタンス。",
+              "complexity": "O(N+1)時間・追加メモリ。Nは配列長",
+              "sourceLine": 135
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "デバッグ表示用の文字列を返す。",
+              "description": "デバッグ表示用の文字列を返す。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[object] — デバッグ表示用の文字列。",
+              "returnFormat": "list[object]",
+              "returnDescription": "デバッグ表示用の文字列。",
+              "complexity": "O(N+1)時間・追加メモリ。Nは配列長",
+              "sourceLine": 138
             }
           ]
         }

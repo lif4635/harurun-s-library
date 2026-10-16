@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 225,
-    "unimplemented": 28
+    "local_passed": 226,
+    "unimplemented": 27
   },
   "problems": [
     {
@@ -1888,10 +1888,12 @@
       "title": "Persistent Range Affine Range Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/persistent_range_affine_range_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.segment_tree.PersistentRangeAffineRangeSum"
+      ],
+      "solution": "solutions/persistent_range_affine_range_sum.py",
+      "result": "results/persistent_range_affine_range_sum.json"
     },
     {
       "name": "persistent_unionfind",

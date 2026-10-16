@@ -77,3 +77,7 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 ## Permutation Tree
 
 `PermutationTree.tolist()`は、内部の平坦な配列から各nodeの`kind`、`left`、`right`、`minimum`、`maximum`、`parent`、`children`を読み出し、node index順のdict listで返します。`children`はcopyなので、返り値を変更しても木の親子関係は変わりません。`repr(obj)`は`PermutationTree([...])`の形です。
+
+## 永続区間アフィン変換
+
+`PersistentRangeAffineRangeSum.tolist(version)`は指定版の配列を添字順の新しいlistで返す。省略時と`str`は最後に作った版を使い、`repr`は`PersistentRangeAffineRangeSum([...], mod=...)`。O(N+1)時間・追加メモリで、ノード・版の追加や遅延状態の書き換えは行わない。

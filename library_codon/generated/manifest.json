@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 381,
+  "moduleCount": 382,
   "supportedCount": 7,
   "modules": [
     {
@@ -1650,6 +1650,12 @@
       "modulePath": "segment_tree/PersistentLazySegmentTree",
       "sourcePath": "library_codex/segment_tree/PersistentLazySegmentTree.py",
       "sourceSha256": "f65fb52708aa5e7836f11532c0e1bde850f1d1481bff9b1caff3f858d2afae49",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "segment_tree/PersistentRangeAffineRangeSum",
+      "sourcePath": "library_codex/segment_tree/PersistentRangeAffineRangeSum.py",
+      "sourceSha256": "9d86a43ebf1bbefeb0d7aadd1e2a65a5b2f9bbf364c1811e172c5ee9b29abbc3",
       "status": "unsupported"
     },
     {

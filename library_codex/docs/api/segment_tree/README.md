@@ -11,6 +11,7 @@
 | [`LazySegTree`](LazySegTree.md) | 区間作用と区間集約を行うLazySegTree | 0 | 1 | 11 |
 | [`MaxInterval`](MaxInterval.md) | 一点更新しながら最大・最小部分配列和を求めるSegment Tree用monoid | 2 | 1 | 1 |
 | [`PersistentLazySegmentTree`](PersistentLazySegmentTree.md) | 巨大な疎な座標で履歴を保持するPersistent Lazy Segment Tree | 0 | 1 | 3 |
+| [`PersistentRangeAffineRangeSum`](PersistentRangeAffineRangeSum.md) | 過去の版を保持し、区間のアフィン変換・別の版からの区間コピー・区間和を扱う。 | 0 | 1 | 8 |
 | [`PersistentSegmentTree`](PersistentSegmentTree.md) | 汎用演算の永続セグメント木（非再帰） | 0 | 1 | 14 |
 | [`RangeAddAssignRangeStats`](RangeAddAssignRangeStats.md) | 整数列の区間加算・代入と区間sum/min/maxを扱う専用lazy tree。 | 0 | 1 | 13 |
 | [`RangeAddCountTopK`](RangeAddCountTopK.md) | 区間一括加算後の値を大きい順に個数付きで上位k件集約する構造。 | 0 | 2 | 3 |

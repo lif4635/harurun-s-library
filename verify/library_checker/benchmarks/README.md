@@ -101,6 +101,7 @@
 | [ordered_set](ordered_set.json) | 3 / 37 | 5 | 2.446 | 279.1 | 一致 |
 | [palindromes_in_deque](palindromes_in_deque.json) | 3 / 24 | 5 | 0.742 | 284.9 | 一致 |
 | [partition_function](partition_function.json) | 3 / 11 | 5 | 0.677 | 98.6 | 一致 |
+| [persistent_range_affine_range_sum](persistent_range_affine_range_sum.json) | 3 / 26 | 5 | 2.271 | 379.1 | 一致 |
 | [persistent_unionfind](persistent_unionfind.json) | 3 / 14 | 5 | 0.869 | 180.4 | 一致 |
 | [pfaffian_of_matrix](pfaffian_of_matrix.json) | 3 / 27 | 5 | 0.424 | 66.5 | 一致 |
 | [point_add_rectangle_sum](point_add_rectangle_sum.json) | 3 / 18 | 5 | 2.774 | 196.0 | 一致 |

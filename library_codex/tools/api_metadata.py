@@ -7944,6 +7944,67 @@ COMPLEXITY_BY_MODULE.setdefault("number_theory/MultiplicativeFunctions.py", {})[
     COMPLEXITY_BY_MODULE["prime/Sieve.py"]["sum_totient"]
 )
 
+COMPLEXITY_BY_MODULE["segment_tree/PersistentRangeAffineRangeSum.py"] = {
+    "PersistentRangeAffineRangeSum": "O(N+1)時間・メモリ。Nはvaluesの長さ",
+    "apply": "O(log(N+2))時間・追加メモリ。Nは配列長",
+    "copy": "O(log(N+2))時間・追加メモリ。Nは配列長",
+    "prod": "O(log(N+2))時間・作業メモリ。ノードを追加しない",
+    "get": "O(log(N+2))時間・作業メモリ。ノードを追加しない",
+    "tolist": "O(N+1)時間・追加メモリ。Nは配列長",
+    "__len__": "O(1)",
+    "__str__": "O(N+1)時間・追加メモリ。Nは配列長",
+    "__repr__": "O(N+1)時間・追加メモリ。Nは配列長",
+}
+SEARCH_TERMS_BY_MODULE["segment_tree/PersistentRangeAffineRangeSum.py"] = (
+    "永続セグ木", "履歴", "区間コピー", "区間代入", "区間加算",
+)
+CLASS_DETAILS_BY_SYMBOL[("segment_tree/PersistentRangeAffineRangeSum.py", "PersistentRangeAffineRangeSum")] = {
+    "description": "過去の版を残しながら、整数配列の区間更新・別の版からの区間コピー・区間和を処理する。",
+    "argumentDescriptions": {
+        "values": "初期値のiterable。コピーして各値をmodで正規化する。空でもよい。",
+        "mod": "正の整数。すべての値と区間和はこの剰余で扱う。合成数でもよい。",
+    },
+    "constructorCreates": "valuesを版0として保持する。apply・copyで新しい版を作り、prod・get・tolistで任意の版の内容を取得できる。",
+}
+for _method, _description in (
+    ("apply", "指定版の半開区間[left, right)の各値xをmultiplier*x+addendへ変換し、新しい版を作る。元の版は変更しない。"),
+    ("copy", "指定版の半開区間[left, right)をsource版の同じ位置の値で置き換え、新しい版を作る。両方の元の版は変更しない。"),
+):
+    API_DETAILS_BY_SYMBOL[("segment_tree/PersistentRangeAffineRangeSum.py", "PersistentRangeAffineRangeSum", _method)] = {
+        "description": _description,
+        "argumentDescriptions": {
+            "left": "対象の半開区間[left, right)の左端。",
+            "right": "対象の半開区間[left, right)の右端。0≤left≤right≤配列長。",
+            "version": "更新元の版番号。0が初期状態。省略または-1なら最後に作った版。",
+            **({"multiplier": "各要素に掛ける整数。0なら区間代入になる。", "addend": "掛け算のあとに各要素へ足す整数。"}
+               if _method == "apply" else {"source": "コピー元の版番号。同じinstanceの版を指定する。"}),
+        },
+        "returnFormat": "int",
+        "returnDescription": "作成した版の番号。prod・get・tolistのversionへ渡せる。空区間や同じ値への更新でも新しい版番号を返す。",
+    }
+API_DETAILS_BY_SYMBOL[("segment_tree/PersistentRangeAffineRangeSum.py", "PersistentRangeAffineRangeSum", "prod")] = {
+    "description": "指定版の半開区間[left, right)の要素を合計する。履歴や値は変更しない。",
+    "argumentDescriptions": {
+        "left": "対象の半開区間[left, right)の左端。",
+        "right": "対象の半開区間[left, right)の右端。0≤left≤right≤配列長。",
+        "version": "読む版番号。0が初期状態。省略または-1なら最後に作った版。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "指定版のa[left]+...+a[right-1]をmodで割った余り。空区間なら0。版番号ではない。",
+}
+API_DETAILS_BY_SYMBOL[("segment_tree/PersistentRangeAffineRangeSum.py", "PersistentRangeAffineRangeSum", "get")] = {
+    "description": "指定版のindex番目の値を取得する。",
+    "argumentDescriptions": {"version": "読む版番号。省略または-1なら最後に作った版。"},
+    "returnFormat": "int",
+    "returnDescription": "指定版のa[index]。0以上mod未満。履歴や値は変更しない。",
+}
+API_DETAILS_BY_SYMBOL[("segment_tree/PersistentRangeAffineRangeSum.py", "PersistentRangeAffineRangeSum", "tolist")] = {
+    "description": "指定版の配列を添字順に列挙する。",
+    "argumentDescriptions": {"version": "読む版番号。省略または-1なら最後に作った版。"},
+    "returnFormat": "list[int]",
+    "returnDescription": "長さNの新しいlist。result[i]は指定版のa[i]で、0以上mod未満。返したlistを変更しても木には影響しない。",
+}
+
 COMPLEXITY_BY_MODULE["graph_spanning/MinimumDiameterSpanningTree.py"] = {
     "minimum_diameter_spanning_tree": "O(V(V + E) log(V + E))時間、追加メモリ O(V² + E)。Vは頂点数、Eは辺数。整数演算をO(1)として数える",
 }
