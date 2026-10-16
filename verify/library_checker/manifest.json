@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 222,
-    "unimplemented": 31
+    "local_passed": 224,
+    "unimplemented": 29
   },
   "problems": [
     {
@@ -514,10 +514,12 @@
       "title": "Counting Primes",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/counting_primes",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Sieve"
+      ],
+      "solution": "solutions/counting_primes.py",
+      "result": "results/counting_primes.json"
     },
     {
       "name": "counting_spanning_tree_directed",
@@ -1622,10 +1624,12 @@
       "title": "Minimum Diameter Spanning Tree",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/minimum_diameter_spanning_tree",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_spanning.MinimumDiameterSpanningTree"
+      ],
+      "solution": "solutions/minimum_diameter_spanning_tree.py",
+      "result": "results/minimum_diameter_spanning_tree.json"
     },
     {
       "name": "minimum_enclosing_circle",

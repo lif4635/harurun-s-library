@@ -102,32 +102,32 @@ def enumerate_primes(limit, step=1, offset=0):
     return (total, result)
 
 def prime_count(number):
-    """Lucy-DP prime counting in about O(n^(3/4)/log n)."""
+    """number以下の素数の個数を返す。時間 O(N^(3/4)/log N)、メモリ O(√N)。"""
     if number < 2:
         return 0
-    quotients = []
-    left = 1
-    while left <= number:
-        quotient = number // left
-        quotients.append(quotient)
-        left = number // quotient + 1
-    index = {value: i for (i, value) in enumerate(quotients)}
-    count = [value - 1 for value in quotients]
-    limit = isqrt(number)
-    composite = bytearray(limit + 1)
-    for prime in range(2, limit + 1):
-        if composite[prime]:
+    root = isqrt(number)
+    size = (root + 1) // 2
+    small = list(range(size))
+    large = [(number // (2 * i + 1) - 1) // 2 for i in range(size)]
+    for position in range(1, size):
+        previous = small[position - 1]
+        if small[position] == previous:
             continue
-        previous = count[index[prime - 1]]
+        prime = 2 * position + 1
         square = prime * prime
-        for (i, value) in enumerate(quotients):
-            if value < square:
-                break
-            count[i] -= count[index[value // prime]] - previous
-        start = square
-        for multiple in range(start, limit + 1, prime):
-            composite[multiple] = 1
-    return count[0]
+        stop = min(size, (number // square + 1) // 2)
+        split = min(stop, ((2 * size - 1) // prime + 1) // 2)
+        source = position
+        for i in range(split):
+            large[i] -= large[source] - previous
+            source += prime
+        divisor = prime * (2 * split + 1)
+        for i in range(split, stop):
+            large[i] -= small[(number // divisor - 1) // 2] - previous
+            divisor += 2 * prime
+        for i in range(size - 1, square // 2 - 1, -1):
+            small[i] -= small[((2 * i + 1) // prime - 1) // 2] - previous
+    return large[0] + 1
 
 def count_square_free(number):
     """Count positive square-free integers <= number in O(sqrt(number))."""

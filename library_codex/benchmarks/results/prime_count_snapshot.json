@@ -1,0 +1,7 @@
+{
+  "problem": "counting_primes",
+  "language": "pypy3",
+  "submissions": [],
+  "baselineLibraryRevision": "1e10e3a79dc07ac646a3ef4efb3f1a7bdf6942aa",
+  "baselineScope": "Unchanged prime_count function plus identical problem I/O. No comparison against external submissions."
+}

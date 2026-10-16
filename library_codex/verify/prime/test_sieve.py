@@ -61,6 +61,19 @@ def test_enumeration_sampling_and_boundaries():
             enumerate_primes(*args)
 
 
+def test_prime_count_square_boundaries_and_large_values():
+    primes = prime_sieve(1_000_000)
+    rng = random.Random(224)
+    values = [k * k + delta for k in range(100, 1000, 13) for delta in (-1, 0, 1)]
+    values += [rng.randrange(1_000_000) for _ in range(100)]
+    for value in values:
+        assert prime_count(value) == bisect_right(primes, value)
+    assert prime_count(-10) == 0
+    assert prime_count(10**9) == 50847534
+    assert prime_count(10**10) == 455052511
+    assert prime_count(10**11) == 4118054813
+
+
 def test_totient_sum_against_linear_sieve():
     rng = random.Random(222)
     expected = LinearSieve(200000).phi

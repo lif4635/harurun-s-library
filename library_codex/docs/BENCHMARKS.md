@@ -30,6 +30,7 @@
 
 ## 数論・多項式・線形代数
 
+- [素数の個数](PRIME_COUNT_BENCHMARK.md)
 - [φ関数の総和](TOTIENT_SUM_BENCHMARK.md)
 - [等比重み付き多項式和の速度とメモリ](POLYNOMIAL_EXPONENTIAL_SUM_BENCHMARK.md)
 - [多変数の循環畳み込み](MULTIDIMENSIONAL_CONVOLUTION_BENCHMARK.md)

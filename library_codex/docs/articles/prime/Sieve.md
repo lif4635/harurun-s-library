@@ -40,13 +40,14 @@ $$
 
 ## 個数や総和だけ欲しい場合
 
-- `prime_count(number)`: 素数を列挙せず、その個数を求める。
+- `prime_count(number)`: 素数を列挙せず、その個数を求める。O(N^(3/4) / log N) 時間、O(√N) メモリ。
 - `count_square_free(number)`: 1以上number以下で、1以外の平方数を因子に持たない整数を数える。
 - `sum_totient(limit, mod=None)`: 1からlimitまでのφ関数の総和。O(N^(2/3) log log N) 時間、O(N^(2/3)) メモリ。上限までの表は作らない。
 
 ```python
-from library_codex.prime.Sieve import sum_totient
+from library_codex.prime.Sieve import prime_count, sum_totient
 
+assert prime_count(10**11) == 4118054813
 assert sum_totient(10) == 32
 assert sum_totient(10, mod=12) == 8
 assert sum_totient(10**10, mod=998244353) == 866849765

@@ -7877,7 +7877,7 @@ COMPLEXITY_BY_MODULE.setdefault("prime/Sieve.py", {}).update({
     "LinearSieve": "O(N)時間・メモリ。Nはlimit",
     "is_prime": "O(1)",
     "factor_count": "O(log value)。素因数の個数だけ除算する",
-    "prime_count": "O(N^(3/4))時間、O(√N)メモリ。Nはnumber",
+    "prime_count": "O(N^(3/4) / log N)時間、O(√N)メモリ。Nはnumber。整数演算をO(1)として数える",
     "count_square_free": "O(√N)時間・メモリ。Nはnumber",
     "sum_totient": "O(N^(2/3) log log N)時間、O(N^(2/3))メモリ。Nはlimit。整数演算をO(1)として数える",
 })
@@ -7943,3 +7943,21 @@ API_DETAILS_BY_SYMBOL[("number_theory/MultiplicativeFunctions.py", None, "sum_to
 COMPLEXITY_BY_MODULE.setdefault("number_theory/MultiplicativeFunctions.py", {})["sum_totient_fast"] = (
     COMPLEXITY_BY_MODULE["prime/Sieve.py"]["sum_totient"]
 )
+
+COMPLEXITY_BY_MODULE["graph_spanning/MinimumDiameterSpanningTree.py"] = {
+    "minimum_diameter_spanning_tree": "O(V(V + E) log(V + E))時間、追加メモリ O(V² + E)。Vは頂点数、Eは辺数。整数演算をO(1)として数える",
+}
+SEARCH_TERMS_BY_MODULE["graph_spanning/MinimumDiameterSpanningTree.py"] = ("最小直径全域木", "絶対中心")
+API_DETAILS_BY_SYMBOL[("graph_spanning/MinimumDiameterSpanningTree.py", None, "minimum_diameter_spanning_tree")] = {
+    "description": "非負重みの無向グラフから、頂点間距離の最大値が最小になる全域木を選ぶ。辺の重みの合計を最小にする最小全域木とは異なる。",
+    "argumentDescriptions": {
+        "n": "頂点数。0以上。",
+        "edges": "(u, v, weight)の辺リスト。weightは0以上の整数。多重辺可、自己ループは選ばない。入力は変更しない。",
+    },
+    "returnFormat": "tuple[int, list[int]] | None",
+    "returnDescription": "(最小直径, 採用した入力辺番号の昇順list)。辺番号はedgesの添字。非連結ならNone。頂点数0または1なら(0, [])。",
+    "returnParts": [
+        {"name": "diameter", "format": "int", "description": "選んだ木で最も遠い2頂点の距離。距離は経路上の辺の重みの合計。"},
+        {"name": "edge_ids", "format": "list[int]", "description": "採用したedgesの添字を昇順に並べたもの。非空のグラフではn-1個。親頂点の配列ではない。"},
+    ],
+}

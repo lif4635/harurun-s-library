@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 380,
+  "moduleCount": 381,
   "supportedCount": 7,
   "modules": [
     {
@@ -1005,6 +1005,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "graph_spanning/MinimumDiameterSpanningTree",
+      "sourcePath": "library_codex/graph_spanning/MinimumDiameterSpanningTree.py",
+      "sourceSha256": "3f68762208fd5c06a623a79eedb2a179ba93b4b534ce2e738b38d567141144e4",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "graph_spanning/MinimumSpanningTree",
       "sourcePath": "library_codex/graph_spanning/MinimumSpanningTree.py",
       "sourceSha256": "90e8f6f591b45f20c31e457a41e3a2dfaf0c05c95450a3f6bad3d13c6593e91e",
@@ -1487,7 +1493,7 @@
     {
       "modulePath": "prime/Sieve",
       "sourcePath": "library_codex/prime/Sieve.py",
-      "sourceSha256": "642090fdba391d9a1121d59c122cec732e399ab24d469fd3443749319fff5564",
+      "sourceSha256": "cd1d6ad112f9e5617ad93f4bc4744147b7d7f7e5cc08a60a33e86f4666e4e1f4",
       "status": "unsupported"
     },
     {
