@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 383,
+  "moduleCount": 385,
   "supportedCount": 7,
   "modules": [
     {
@@ -134,6 +134,12 @@
       "modulePath": "arithmetic_convolution/ArithmeticConvolution",
       "sourcePath": "library_codex/arithmetic_convolution/ArithmeticConvolution.py",
       "sourceSha256": "687b9d2a5c308fd8a2ac4a707e12723b26e166bf3c2a784dd52a0c7294e9c838",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "arithmetic_convolution/MultiplicativeConvolutionModPowerOfTwo",
+      "sourcePath": "library_codex/arithmetic_convolution/MultiplicativeConvolutionModPowerOfTwo.py",
+      "sourceSha256": "608a50f3fc69619631a57e5c09b8f9670ad1359302e8826ad244d79ace327c68",
       "status": "unsupported"
     },
     {
@@ -620,6 +626,12 @@
       "modulePath": "geometry/SegmentIntersection",
       "sourcePath": "library_codex/geometry/SegmentIntersection.py",
       "sourceSha256": "895757b38c66004b643cde1516a8f068ea7a61c99d9089aee5a103a4e78f2140",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/TrianglePointCounter",
+      "sourcePath": "library_codex/geometry/TrianglePointCounter.py",
+      "sourceSha256": "aa3132cff24f26db453921e449c2c6ee7e0010d7aa2207d220fc9c999a8401c3",
       "status": "unsupported"
     },
     {

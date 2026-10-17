@@ -1,0 +1,80 @@
+{
+  "problem": "count_points_in_triangle",
+  "status": "local_passed",
+  "verificationKey": "3899a08d532b46d455f09102c1a37f193be860784d8aa5beec8bd541af88100f",
+  "sourceSha256": "1928b0b02e605977aee86a852160c9be9c240f62139bc4235805408ecf44e132",
+  "modules": [
+    "library_codex.geometry.TrianglePointCounter"
+  ],
+  "problemVersion": "e8014265af27873f8898c0356817253aba6a3a16ae0cf89dd00aa46f44f1c1f1",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 10,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06540156598202884,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "middle_random_00",
+      "status": "AC",
+      "seconds": 1.0429754490032792,
+      "diagnostic": "ok 80000 tokens\n"
+    },
+    {
+      "name": "middle_random_01",
+      "status": "AC",
+      "seconds": 1.0533276020141784,
+      "diagnostic": "ok 80000 tokens\n"
+    },
+    {
+      "name": "middle_random_02",
+      "status": "AC",
+      "seconds": 1.0352552400145214,
+      "diagnostic": "ok 80000 tokens\n"
+    },
+    {
+      "name": "middle_random_03",
+      "status": "AC",
+      "seconds": 1.0380354020162486,
+      "diagnostic": "ok 80000 tokens\n"
+    },
+    {
+      "name": "middle_random_04",
+      "status": "AC",
+      "seconds": 1.108197780995397,
+      "diagnostic": "ok 80000 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 1.5830532030086033,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.6300083109817933,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "dense_00",
+      "status": "AC",
+      "seconds": 1.70372235000832,
+      "diagnostic": "ok 1000000 tokens\n"
+    },
+    {
+      "name": "dense_01",
+      "status": "AC",
+      "seconds": 1.724133707000874,
+      "diagnostic": "ok 1000000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-17T10:56:15.474690+00:00",
+  "onlineSubmission": null
+}

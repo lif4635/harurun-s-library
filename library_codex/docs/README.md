@@ -39,7 +39,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [debug](api/debug/README.md) | ローカル実行時の状態の可視化 | 1 | 3 | 0 | 0 |
 | [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 17 | 36 | 4 | 16 |
 | [convolution](api/convolution/README.md) | 係数畳み込み・min-plus・DFT・NTT | 7 | 19 | 1 | 4 |
-| [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 2 | 7 | 0 | 0 |
+| [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 3 | 8 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
 | [fps998](api/fps998/README.md) | 998244353固定の高速NTT・FPS・母関数 | 7 | 31 | 0 | 0 |
 | [fps](api/fps/README.md) | modを指定できる形式的冪級数と母関数の演算 | 12 | 34 | 8 | 56 |
@@ -70,9 +70,9 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [string](api/string/README.md) | 文字列アルゴリズム | 21 | 29 | 22 | 244 |
 | [string_sequence](api/string_sequence/README.md) | 編集距離・巡回shift・Lyndon分解・共通substring | 4 | 5 | 0 | 0 |
 | [optimization](api/optimization/README.md) | 最適化・DP高速化 | 17 | 16 | 10 | 51 |
-| [geometry](api/geometry/README.md) | 幾何・2次元点 | 15 | 24 | 1 | 2 |
+| [geometry](api/geometry/README.md) | 幾何・2次元点 | 16 | 24 | 2 | 3 |
 | [game](api/game/README.md) | 組合せゲーム | 6 | 8 | 7 | 43 |
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **383 modules / 524 functions / 231 classes / 1480 methods・properties**。
+合計: **385 modules / 525 functions / 232 classes / 1481 methods・properties**。

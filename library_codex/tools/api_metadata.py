@@ -7770,6 +7770,42 @@ API_DETAILS_BY_SYMBOL.update({
     },
 })
 SEARCH_TERMS_BY_MODULE["number_theory/DecimalAddition.py"] = ("多倍長整数", "巨大整数", "筆算")
+SEARCH_TERMS_BY_MODULE["geometry/TrianglePointCounter.py"] = ("三角形内の点数", "三角形の内部", "点数え上げ")
+CLASS_DETAILS_BY_SYMBOL[("geometry/TrianglePointCounter.py", "TrianglePointCounter")] = {
+    "description": "固定した点集合について、候補点から選んだ3点で作る三角形の内部にある点数を答える。辺上・頂点上の点は含めない。",
+    "argumentDescriptions": {
+        "vertices": "三角形の頂点候補の(x, y)列。座標は整数。各要素をコピーする。重複可。",
+        "points": "数える対象の(x, y)列。座標は整数。同じ座標が複数回現れたら、その個数分数える。",
+    },
+    "constructorCreates": "頂点候補と点数の前計算表を保持する。count(a, b, c)へ候補点の添字3つを渡すと、三角形の内部にあるpointsの要素数を取得できる。構築後の点の追加・移動には対応しない。",
+}
+API_DETAILS_BY_SYMBOL[("geometry/TrianglePointCounter.py", "TrianglePointCounter", "count")] = {
+    "description": "vertices[a]・vertices[b]・vertices[c]を頂点とする三角形の内部にあるpointsの要素を数える。",
+    "argumentDescriptions": {
+        "a": "verticesの添字。3頂点の順序は任意で、同じ添字を複数回指定してもよい。",
+        "b": "verticesの添字。",
+        "c": "verticesの添字。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "三角形の内部にある点の個数。辺上・頂点上の点は除く。同じ座標の対象点は重複回数分数える。3頂点が一直線上なら0。存在しない候補点の添字はIndexError。",
+}
+COMPLEXITY_BY_MODULE["geometry/TrianglePointCounter.py"] = {
+    "TrianglePointCounter": "O((N+1)(N+M) log(N+M+2))時間、O(N²+M)追加メモリ。Nは頂点候補数、Mは対象点数。座標の四則演算・比較をO(1)とする",
+    "count": "O(1)時間・追加メモリ。座標の四則演算・比較をO(1)とする",
+}
+SEARCH_TERMS_BY_MODULE["arithmetic_convolution/MultiplicativeConvolutionModPowerOfTwo.py"] = ("2冪法の乗法畳み込み", "2進付値", "積の剰余ごとの集計")
+API_DETAILS_BY_SYMBOL[("arithmetic_convolution/MultiplicativeConvolutionModPowerOfTwo.py", None, "multiplicative_convolution_pow2")] = {
+    "description": "添字の積をLで割った余りごとに係数の積を集計する。Lは入力列の長さで2の冪。係数の法は998244353固定。",
+    "argumentDescriptions": {
+        "first": "長さL=2^Nの整数列。1≤L≤2^25。first[i]は剰余iの重み・出現回数。負数も998244353で正規化する。",
+        "second": "firstと同じ長さの整数列。入力2列は変更しない。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "長さLの新しいlist。result[k]は添字i*jの余りがkとなる組についてfirst[i]*second[j]を合計し、998244353で割った余り。各要素は0以上998244353未満。k=0への寄与も含む。",
+}
+COMPLEXITY_BY_MODULE["arithmetic_convolution/MultiplicativeConvolutionModPowerOfTwo.py"] = {
+    "multiplicative_convolution_pow2": "O(L log(L+1))時間、O(L)追加メモリ。Lは入力列の長さ",
+}
 SEARCH_TERMS_BY_MODULE["number_theory/BigIntegerMultiplication.py"] = ("多倍長整数", "巨大整数", "筆算")
 COMPLEXITY_BY_MODULE["number_theory/BigIntegerMultiplication.py"] = {
     "multiply_decimal": "O(N log(N+1))時間、O(N)追加メモリ。Nは入力2文字列の長さの合計",

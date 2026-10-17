@@ -30,6 +30,7 @@
 | [consecutive_terms_of_linear_recurrent_sequence](consecutive_terms_of_linear_recurrent_sequence.json) | 3 / 43 | 5 | 5.075 | 233.1 | 一致 |
 | [conversion_from_monomial_basis_to_newton_basis](conversion_from_monomial_basis_to_newton_basis.json) | 3 / 15 | 5 | 1.134 | 148.2 | 一致 |
 | [convolution_mod_1000000007](convolution_mod_1000000007.json) | 3 / 48 | 5 | 1.260 | 187.1 | 一致 |
+| [count_points_in_triangle](count_points_in_triangle.json) | 3 / 10 | 5 | 1.723 | 143.4 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
 | [counting_eulerian_circuits](counting_eulerian_circuits.json) | 3 / 16 | 5 | 0.435 | 95.1 | 一致 |
 | [counting_primes](counting_primes.json) | 3 / 31 | 5 | 0.274 | 62.7 | 一致 |
@@ -94,6 +95,7 @@
 | [minimum_spanning_tree](minimum_spanning_tree.json) | 3 / 31 | 5 | 1.637 | 200.0 | 一致 |
 | [minimum_steiner_tree](minimum_steiner_tree.json) | 3 / 24 | 5 | 0.441 | 67.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |
+| [mul_mod2n_convolution](mul_mod2n_convolution.json) | 3 / 47 | 5 | 0.874 | 237.2 | 一致 |
 | [mul_modp_convolution](mul_modp_convolution.json) | 3 / 40 | 5 | 0.578 | 165.6 | 一致 |
 | [multiplication_of_big_integers](multiplication_of_big_integers.json) | 3 / 20 | 5 | 0.830 | 123.5 | 一致 |
 | [multiplication_of_hex_big_integers](multiplication_of_hex_big_integers.json) | 3 / 22 | 5 | 0.979 | 128.9 | 一致 |

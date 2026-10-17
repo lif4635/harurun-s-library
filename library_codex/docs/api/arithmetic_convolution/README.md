@@ -6,4 +6,5 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`ArithmeticConvolution`](ArithmeticConvolution.md) | 約数/倍数zeta--Möbius・GCD/LCM畳み込み | 6 | 0 | 0 |
+| [`MultiplicativeConvolutionModPowerOfTwo`](MultiplicativeConvolutionModPowerOfTwo.md) | 添字の積を2の冪で割った余りごとに、係数の積を998244353で集計する。 | 1 | 0 | 0 |
 | [`MultiplicativeConvolutionModPrime`](MultiplicativeConvolutionModPrime.md) | 素数法の乗法群上で畳み込みを計算する。 | 1 | 0 | 0 |

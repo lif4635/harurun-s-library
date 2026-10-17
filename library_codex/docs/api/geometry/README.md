@@ -20,3 +20,4 @@
 | [`PointInPolygon`](PointInPolygon.md) | 多角形に対する点の内外と境界を判定する。 | 1 | 0 | 0 |
 | [`PolygonMetrics`](PolygonMetrics.md) | 多角形の符号付き面積・重心・格子点数を求める。 | 3 | 0 | 0 |
 | [`SegmentIntersection`](SegmentIntersection.md) | 2次元線分の交差判定 | 1 | 0 | 0 |
+| [`TrianglePointCounter`](TrianglePointCounter.md) | 固定した点集合について、指定した三角形の内部にある点をO(1)で数える。 | 0 | 1 | 1 |

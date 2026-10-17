@@ -32,6 +32,7 @@
 
 ## 数論・多項式・線形代数
 
+- [2冪法の乗法畳み込み](MULTIPLICATIVE_CONVOLUTION_POW2_BENCHMARK.md)
 - [巨大整数の10進・16進乗算](BIG_INTEGER_MULTIPLICATION_BENCHMARK.md)
 - [線形漸化式の遠くの連続項](CONSECUTIVE_RECURRENCE_BENCHMARK.md)
 - [素数の個数](PRIME_COUNT_BENCHMARK.md)
@@ -50,5 +51,6 @@
 
 ## 文字列・幾何
 
+- [三角形内の点数え上げ](TRIANGLE_POINT_COUNT_BENCHMARK.md)
 - [文字列・両端回文木](STRING_ALGORITHMS_BENCHMARK.md)
 - [最近点対](CLOSEST_PAIR_BENCHMARK.md)

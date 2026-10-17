@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 229,
-    "unimplemented": 24
+    "local_passed": 231,
+    "unimplemented": 22
   },
   "problems": [
     {
@@ -487,10 +487,12 @@
       "title": "Count Points in Triangles",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/count_points_in_triangle",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.geometry.TrianglePointCounter"
+      ],
+      "solution": "solutions/count_points_in_triangle.py",
+      "result": "results/count_points_in_triangle.json"
     },
     {
       "name": "counting_c4",
@@ -1694,10 +1696,13 @@
       "title": "Convolution on the Multiplicative Monoid of $\\mathbb{Z} / 2^N\\mathbb{Z}$",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/mul_mod2n_convolution",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.arithmetic_convolution.MultiplicativeConvolutionModPowerOfTwo"
+      ],
+      "solution": "solutions/mul_mod2n_convolution.py",
+      "result": "results/mul_mod2n_convolution.json"
     },
     {
       "name": "mul_modp_convolution",
