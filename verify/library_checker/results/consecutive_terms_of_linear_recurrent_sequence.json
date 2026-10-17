@@ -1,0 +1,281 @@
+{
+  "problem": "consecutive_terms_of_linear_recurrent_sequence",
+  "status": "local_passed",
+  "verificationKey": "4c9472b74c36c000e85c9b2252df8dde72dc87dfdbdbfabb0c89fc1e845e1d3a",
+  "sourceSha256": "29a25b2d76ede95c80a2863b84362294b4c656102e548b1967c1bac173a634b4",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.fps998.FPS",
+    "library_codex.polynomial.PolynomialDivision998",
+    "library_codex.fps998.LinearRecurrence"
+  ],
+  "problemVersion": "a8bd47d1e68c4abfe416fa3d841adae0e07c19a1819b5741316432ceec87192d",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 43,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.07282573098200373,
+      "diagnostic": "ok 10 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.07162496299133636,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.06508332799421623,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.10050499800127,
+      "diagnostic": "ok 737 tokens\n"
+    },
+    {
+      "name": "small_01",
+      "status": "AC",
+      "seconds": 0.10235872599878348,
+      "diagnostic": "ok 277 tokens\n"
+    },
+    {
+      "name": "small_02",
+      "status": "AC",
+      "seconds": 0.09191986301448196,
+      "diagnostic": "ok 518 tokens\n"
+    },
+    {
+      "name": "small_03",
+      "status": "AC",
+      "seconds": 0.11607373200240545,
+      "diagnostic": "ok 338 tokens\n"
+    },
+    {
+      "name": "small_04",
+      "status": "AC",
+      "seconds": 0.1382056639995426,
+      "diagnostic": "ok 639 tokens\n"
+    },
+    {
+      "name": "small_05",
+      "status": "AC",
+      "seconds": 0.13506278101704083,
+      "diagnostic": "ok 943 tokens\n"
+    },
+    {
+      "name": "small_06",
+      "status": "AC",
+      "seconds": 0.06819199401070364,
+      "diagnostic": "ok 73 tokens\n"
+    },
+    {
+      "name": "small_07",
+      "status": "AC",
+      "seconds": 0.10732979999738745,
+      "diagnostic": "ok 407 tokens\n"
+    },
+    {
+      "name": "small_08",
+      "status": "AC",
+      "seconds": 0.07030455800122581,
+      "diagnostic": "ok 7 tokens\n"
+    },
+    {
+      "name": "small_09",
+      "status": "AC",
+      "seconds": 0.09100540200597607,
+      "diagnostic": "ok 77 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 5.041066814999795,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 4.994031745009124,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 4.853162911982508,
+      "diagnostic": "ok 500000 tokens\n"
+    },
+    {
+      "name": "near_65536_00",
+      "status": "AC",
+      "seconds": 2.844240279024234,
+      "diagnostic": "ok 410923 tokens\n"
+    },
+    {
+      "name": "near_65536_01",
+      "status": "AC",
+      "seconds": 4.343367736990331,
+      "diagnostic": "ok 412907 tokens\n"
+    },
+    {
+      "name": "near_65536_02",
+      "status": "AC",
+      "seconds": 4.788211237988435,
+      "diagnostic": "ok 382347 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 1.7018517930118833,
+      "diagnostic": "ok 339245 tokens\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 5.165698875003727,
+      "diagnostic": "ok 148757 tokens\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 3.4826750619977247,
+      "diagnostic": "ok 455174 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_00",
+      "status": "AC",
+      "seconds": 0.1515679000003729,
+      "diagnostic": "ok 301 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_01",
+      "status": "AC",
+      "seconds": 0.10341418400639668,
+      "diagnostic": "ok 628 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_02",
+      "status": "AC",
+      "seconds": 0.10346667998237535,
+      "diagnostic": "ok 62 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_03",
+      "status": "AC",
+      "seconds": 0.06576291000237688,
+      "diagnostic": "ok 132 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_04",
+      "status": "AC",
+      "seconds": 0.17127482799696736,
+      "diagnostic": "ok 515 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_05",
+      "status": "AC",
+      "seconds": 0.13032423797994852,
+      "diagnostic": "ok 966 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_06",
+      "status": "AC",
+      "seconds": 0.10245857300469652,
+      "diagnostic": "ok 148 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_07",
+      "status": "AC",
+      "seconds": 0.1290309730102308,
+      "diagnostic": "ok 577 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_08",
+      "status": "AC",
+      "seconds": 0.11250136801390909,
+      "diagnostic": "ok 520 tokens\n"
+    },
+    {
+      "name": "trailing_zeros_09",
+      "status": "AC",
+      "seconds": 0.13327498998842202,
+      "diagnostic": "ok 358 tokens\n"
+    },
+    {
+      "name": "zero_00",
+      "status": "AC",
+      "seconds": 0.085360622004373,
+      "diagnostic": "ok 737 tokens\n"
+    },
+    {
+      "name": "zero_01",
+      "status": "AC",
+      "seconds": 0.07366913100122474,
+      "diagnostic": "ok 277 tokens\n"
+    },
+    {
+      "name": "zero_02",
+      "status": "AC",
+      "seconds": 0.08168915199348703,
+      "diagnostic": "ok 518 tokens\n"
+    },
+    {
+      "name": "some_param_minimum_00",
+      "status": "AC",
+      "seconds": 0.07374973301193677,
+      "diagnostic": "ok \"528756313\"\n"
+    },
+    {
+      "name": "some_param_minimum_01",
+      "status": "AC",
+      "seconds": 0.10829739100881852,
+      "diagnostic": "ok \"40280999\"\n"
+    },
+    {
+      "name": "some_param_minimum_02",
+      "status": "AC",
+      "seconds": 0.10249005499645136,
+      "diagnostic": "ok \"186191188\"\n"
+    },
+    {
+      "name": "some_param_minimum_03",
+      "status": "AC",
+      "seconds": 2.1374618579866365,
+      "diagnostic": "ok \"775328268\"\n"
+    },
+    {
+      "name": "some_param_minimum_04",
+      "status": "AC",
+      "seconds": 0.14503663501818664,
+      "diagnostic": "ok 287359 tokens\n"
+    },
+    {
+      "name": "some_param_minimum_05",
+      "status": "AC",
+      "seconds": 0.6541884379985277,
+      "diagnostic": "ok 244655 tokens\n"
+    },
+    {
+      "name": "some_param_minimum_06",
+      "status": "AC",
+      "seconds": 0.1454120660200715,
+      "diagnostic": "ok 370761 tokens\n"
+    },
+    {
+      "name": "issue_1203_00",
+      "status": "AC",
+      "seconds": 0.06864781698095612,
+      "diagnostic": "ok \"0\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-17T02:05:24.442163+00:00",
+  "onlineSubmission": null
+}

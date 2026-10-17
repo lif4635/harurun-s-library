@@ -547,7 +547,7 @@ def test_fps998_family_is_complete_and_isolated_from_generic_ntt():
         },
         "library_codex.fps998.LinearRecurrence": {
             "berlekamp_massey", "bostan_mori",
-            "linear_recurrence_nth", "nth_term",
+            "linear_recurrence_nth", "linear_recurrence_slice", "nth_term",
         },
         "library_codex.fps998.SubsetSum": {
             "subset_sum", "multiset_sum",

@@ -1,8 +1,8 @@
 {
   "problem": "find_linear_recurrence",
   "status": "local_passed",
-  "verificationKey": "7857b5878ad28590b148c8d0777f201f320dbaaa2a8f1c28c8dac0956a4dbf7d",
-  "sourceSha256": "8c9d751cd8b90d90c27cdd1e3b74cd742ff598ab4b1f8798d0a426c815ff6de0",
+  "verificationKey": "9330e2b91cae67d0d5b923ccf116294a0a763759d0ad21d3afe40e54a5c4b9a4",
+  "sourceSha256": "b1017a4b07c51836463ec3745104370bf1a56e0926cfd6b6ed9bd757fec0c0a7",
   "modules": [
     "library_codex.convolution.NTT998",
     "library_codex.fps998.FPS",
@@ -11,8 +11,8 @@
   ],
   "problemVersion": "fcfe9e933841580a48388cf799aa6500e1cd93a3b0ec8fd5a36ba2b3e5a8fa60",
   "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
-  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
-  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "timeLimitSeconds": 5.0,
   "expectedCases": 18,
@@ -20,112 +20,112 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.06384472800709773,
+      "seconds": 0.08079662898671813,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.0647933090076549,
+      "seconds": 0.08463654899969697,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "example_02",
       "status": "AC",
-      "seconds": 0.0678215759980958,
+      "seconds": 0.072356767981546,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "example_03",
       "status": "AC",
-      "seconds": 0.06275606701092329,
+      "seconds": 0.07578168800682761,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.1849471729947254,
+      "seconds": 0.21448027400765568,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.1923218150041066,
+      "seconds": 0.20573486902867444,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.1006695830001263,
+      "seconds": 0.12742076002177782,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.14307703399390448,
+      "seconds": 0.14052616799017414,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "long_00",
       "status": "AC",
-      "seconds": 0.07698178899590857,
+      "seconds": 0.0754936579905916,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "long_01",
       "status": "AC",
-      "seconds": 0.12560760400083382,
+      "seconds": 0.13080610099132173,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "long_02",
       "status": "AC",
-      "seconds": 0.1232418029976543,
+      "seconds": 0.15028421700117178,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "zero_00",
       "status": "AC",
-      "seconds": 0.06682392398943193,
+      "seconds": 0.066489476012066,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "zero_01",
       "status": "AC",
-      "seconds": 0.07025008200434968,
+      "seconds": 0.07375393999973312,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_00",
       "status": "AC",
-      "seconds": 0.19227035601215903,
+      "seconds": 0.1997358649969101,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_01",
       "status": "AC",
-      "seconds": 0.18019526499847416,
+      "seconds": 0.19915612202021293,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_02",
       "status": "AC",
-      "seconds": 0.11229023800115101,
+      "seconds": 0.11978033199557103,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_03",
       "status": "AC",
-      "seconds": 0.12384962300711777,
+      "seconds": 0.12993671299773268,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "issue_1253_00",
       "status": "AC",
-      "seconds": 0.06537022300472017,
+      "seconds": 0.07307571099954657,
       "diagnostic": "ok OK\n"
     }
   ],
-  "verifiedAt": "2026-10-03T18:10:54.384165+00:00",
+  "verifiedAt": "2026-10-17T02:09:59.655434+00:00",
   "onlineSubmission": null
 }

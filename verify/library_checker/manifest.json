@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 226,
-    "unimplemented": 27
+    "local_passed": 227,
+    "unimplemented": 26
   },
   "problems": [
     {
@@ -393,10 +393,15 @@
       "title": "Consecutive Terms of Linear Recurrent Sequence",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps998.FPS",
+        "library_codex.polynomial.PolynomialDivision998",
+        "library_codex.fps998.LinearRecurrence"
+      ],
+      "solution": "solutions/consecutive_terms_of_linear_recurrent_sequence.py",
+      "result": "results/consecutive_terms_of_linear_recurrent_sequence.json"
     },
     {
       "name": "conversion_from_monomial_basis_to_newton_basis",

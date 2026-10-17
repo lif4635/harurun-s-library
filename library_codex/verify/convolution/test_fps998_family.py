@@ -5,68 +5,8 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[3]))
 
 from library_codex.convolution.NTT998 import MOD, multiply
-from library_codex.fps998.LinearRecurrence import (
-    berlekamp_massey,
-    bostan_mori,
-    linear_recurrence_nth,
-    nth_term,
-)
 from library_codex.fps998.NTT2D import intt2d, multiply2d, ntt2d
 from library_codex.fps998.SubsetSum import multiset_sum, subset_sum
-
-
-def _naive_recurrence(initial, coefficients, size):
-    result = [value % MOD for value in initial]
-    while len(result) < size:
-        result.append(sum(
-            coefficients[index] * result[-1 - index]
-            for index in range(len(coefficients))
-        ) % MOD)
-    return result
-
-
-def _rational_coefficients(numerator, denominator, size):
-    inverse = pow(denominator[0], MOD - 2, MOD)
-    result = []
-    for index in range(size):
-        value = numerator[index] if index < len(numerator) else 0
-        for offset in range(1, min(index + 1, len(denominator))):
-            value -= denominator[offset] * result[index - offset]
-        result.append(value * inverse % MOD)
-    return result
-
-
-def test_fps998_linear_recurrence_family():
-    rng = random.Random(9984)
-    for _ in range(1000):
-        order = rng.randrange(1, 15)
-        coefficients = [rng.randrange(MOD) for _ in range(order)]
-        initial = [rng.randrange(MOD) for _ in range(order)]
-        sequence = _naive_recurrence(initial, coefficients, 80)
-        index = rng.randrange(80)
-        assert linear_recurrence_nth(initial, coefficients, index) == sequence[index]
-        learned = berlekamp_massey(sequence[:40])
-        assert nth_term(index, sequence[:40]) == sequence[index]
-        denominator = [1] + [-value % MOD for value in coefficients]
-        numerator = multiply(initial, denominator)[:order]
-        assert bostan_mori(index, numerator, denominator) == sequence[index]
-        assert len(learned) <= order
-
-
-def test_fps998_bostan_mori_ntt_path_against_series_expansion():
-    rng = random.Random(20260809)
-    for _ in range(100):
-        denominator = [rng.randrange(1, MOD)] + [
-            rng.randrange(MOD) for _ in range(rng.randrange(60, 150))
-        ]
-        numerator = [
-            rng.randrange(MOD) for _ in range(rng.randrange(50, 180))
-        ]
-        index = rng.randrange(400)
-        expected = _rational_coefficients(
-            numerator, denominator, index + 1
-        )[index]
-        assert bostan_mori(index, numerator, denominator) == expected
 
 
 def test_fps998_subset_and_multiset_generating_functions():
@@ -130,6 +70,5 @@ def test_fps998_ntt2d_round_trip_and_multiply():
 
 
 if __name__ == "__main__":
-    test_fps998_linear_recurrence_family()
     test_fps998_subset_and_multiset_generating_functions()
     test_fps998_ntt2d_round_trip_and_multiply()

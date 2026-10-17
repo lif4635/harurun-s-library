@@ -4,24 +4,32 @@
 998244353上で線形漸化式の推定と巨大添字の項を計算する。
 
 - source: [`fps998/LinearRecurrence.py`](../../../fps998/LinearRecurrence.py)
-- 公開API: function 4、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 5、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
 - Berlekamp--Masseyで列から最短線形漸化式を推定できる。
 - Bostan--Moriで有理FPSの巨大添字係数や線形漸化式の第n項を求められる。
+- 指定した添字から連続する複数項を、第n項計算の繰り返しをせず一括取得できる。
 
 ## Import
 
 ```python
-from library_codex.fps998.LinearRecurrence import berlekamp_massey, bostan_mori, linear_recurrence_nth, nth_term
+from library_codex.fps998.LinearRecurrence import (
+    berlekamp_massey,
+    bostan_mori,
+    linear_recurrence_nth,
+    nth_term,
+    linear_recurrence_slice,
+)
 ```
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`berlekamp_massey(sequence)`](../../../fps998/LinearRecurrence.py#L60) | 先頭から与えた列を生成する最短線形漸化式の係数を返す。O(N^2)。 | `sequence`: 入力列 | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(N^2) |
-| [`bostan_mori(index, numerator, denominator)`](../../../fps998/LinearRecurrence.py#L99) | 有理FPS`numerator/denominator`の`x^index`係数を返す。O(K log K log N)。 | `index`: 求める0以上の係数番号。<br>`numerator`: 分子 $P(x)$ の昇べき順係数列。<br>`denominator`: 定数項が非0の分母 $Q(x)$ の昇べき順係数列。 | int — $[x^{\mathrm{index}}]P(x)/Q(x)\bmod998244353$。 | O(K log K log N) |
-| [`linear_recurrence_nth(initial, coefficients, index)`](../../../fps998/LinearRecurrence.py#L130) | `a[n]=sum(coefficients[i]*a[n-1-i])`で定まる`a[index]`を返す。O(K log K log N)。 | `initial`: 漸化式の次数以上の初期値。<br>`coefficients`: $a_n=\sum_i\mathrm{coefficients}[i]a_{n-1-i}$の係数。<br>`index`: 求める0以上の添字。 | int — 指定した線形漸化式で定まるindex番目の値を998244353で割った余り。 | O(K log K log N) |
-| [`nth_term(index, sequence)`](../../../fps998/LinearRecurrence.py#L147) | 与えた列から漸化式を推定し、`index`番目の値を返す。O(N^2+K log K log index)。 | `index`: 位置<br>`sequence`: 入力列 | 数値または入力要素型 `sequence[index] % MOD` / `0` / `linear_recurrence_nth(sequence, coefficients, index)` | O(N^2+K log K log index) |
+| [`berlekamp_massey(sequence)`](../../../fps998/LinearRecurrence.py#L60) | 先頭から与えた列を生成する最短線形漸化式の係数を返す。O(N^2)。 | `sequence`: 先頭から順に並べた観測値。998244353上で扱う。 | list[int] — 観測列を生成する最短の係数列c。長さDとして、$a_n=\sum_{j=0}^{D-1}c[j]a_{n-1-j}$。空列または全項0なら空list。未知の将来の項まで一致する保証ではない。 | O(N^2)。Nは観測列の長さ。追加領域O(N)。 |
+| [`bostan_mori(index, numerator, denominator)`](../../../fps998/LinearRecurrence.py#L99) | 有理FPS`numerator/denominator`の`x^index`係数を返す。O(K log K log N)。 | `index`: 求める0以上の係数番号。<br>`numerator`: 分子 $P(x)$ の昇べき順係数列。<br>`denominator`: 定数項が非0の分母 $Q(x)$ の昇べき順係数列。 | int — $[x^{\mathrm{index}}]P(x)/Q(x)\bmod998244353$。 | O(L log(L+1) log(index+2))。Lは分子・分母の長さの最大値。追加領域O(L)。 |
+| [`linear_recurrence_nth(initial, coefficients, index)`](../../../fps998/LinearRecurrence.py#L130) | `a[n]=sum(coefficients[i]*a[n-1-i])`で定まる`a[index]`を返す。O(K log K log N)。 | `initial`: 漸化式の次数以上の初期値。<br>`coefficients`: $a_n=\sum_i\mathrm{coefficients}[i]a_{n-1-i}$の係数。<br>`index`: 求める0以上の添字。 | int — 指定した線形漸化式で定まるindex番目の値を998244353で割った余り。 | O(D log(D+1) log(index+2))。Dは漸化式の次数。既知の初期値を返す場合はO(1)。追加領域O(D)。 |
+| [`nth_term(index, sequence)`](../../../fps998/LinearRecurrence.py#L147) | 与えた列から漸化式を推定し、`index`番目の値を返す。O(N^2+K log K log index)。 | `index`: 求める0以上の添字。<br>`sequence`: 先頭から順に並べた観測値。漸化式の推定に使う。 | int — 観測列内ならその項、範囲外なら推定した最短線形漸化式で延長したindex番目の項。998244353で割った余り。空列は0。 | O(N^2+D log(D+1) log(index+2))。Nは観測列の長さ、Dは推定した次数。観測列内ならO(1)。 |
+| [`linear_recurrence_slice(initial, coefficients, start, count)`](../../../fps998/LinearRecurrence.py#L188) | 指定した添字から連続するcount項を、途中の全項を生成せず一括で求める。 | `initial`: 先頭D項。coefficientsと同じ長さの係数列。<br>`coefficients`: 長さDの列。$n\ge D$で$a_n=\sum_{j=0}^{D-1}\mathrm{coefficients}[j]a_{n-1-j}$。末尾が0でもよい。<br>`start`: 取得する先頭の添字。0以上。<br>`count`: 取得する項数。0なら空listを返す。 | list[int] — 長さcountのlist。result[i]はa[start+i]を998244353で割った余り。両入力が空なら全項0として扱う。入力は変更しない。 | O(D log(D+1) log(start+2)+(D+count) log(D+count+1))。Dは漸化式の次数。追加領域O(D log(start+2)+count)。 |

@@ -939,6 +939,62 @@ def nth_term(index, sequence):
     if not coefficients:
         return 0
     return linear_recurrence_nth(sequence, coefficients, index)
+
+def _fps998_linear_recurrence_reciprocal_slice(denominator, index):
+    degree = len(denominator) - 1
+    size = 1 << (2 * degree).bit_length()
+    levels = []
+    while index > degree:
+        frequency = denominator + [0] * (size - degree - 1)
+        _convolution_ntt998_butterfly(frequency)
+        reduced = [frequency[i] * frequency[i + 1] % MOD for i in range(0, size, 2)]
+        _convolution_ntt998__intt(reduced)
+        parity = index - degree & 1
+        levels.append((frequency, degree - parity))
+        denominator = reduced[:degree + 1]
+        index = index - degree + parity >> 1
+    values = fps_inv(denominator, index + degree)[index:]
+    while levels:
+        (frequency, offset) = levels.pop()
+        expanded = [0] * size
+        expanded[:2 * degree:2] = values
+        _convolution_ntt998_butterfly(expanded)
+        for i in range(0, size, 2):
+            expanded[i] = expanded[i] * frequency[i + 1] % MOD
+            expanded[i + 1] = expanded[i + 1] * frequency[i] % MOD
+        _convolution_ntt998__intt(expanded)
+        values = expanded[offset:offset + degree]
+    return values
+
+def linear_recurrence_slice(initial, coefficients, start, count):
+    """線形漸化式のa[start]からcount項を返す。O(D log(D+1) log(start+2)+(D+count) log(D+count+1))。"""
+    if start < 0 or count < 0:
+        raise ValueError('start and count must be nonnegative')
+    order = len(coefficients)
+    if len(initial) != order:
+        raise ValueError('initial and coefficients must have equal lengths')
+    if not count:
+        return []
+    if not order:
+        return [0] * count
+    if start + count <= order:
+        return [value % MOD for value in initial[start:start + count]]
+    denominator = shrink([1] + [-value % MOD for value in coefficients])
+    numerator = multiply(initial, denominator)[:order]
+    (polynomial, numerator) = poly_divmod(numerator, denominator)
+    result = polynomial[start:start + count]
+    result.extend([0] * (count - len(result)))
+    if not numerator:
+        return result
+    degree = len(denominator) - 1
+    if start:
+        window = _fps998_linear_recurrence_reciprocal_slice(denominator, start)
+        inverse_power = multiply(denominator, window)[:degree]
+        numerator = poly_divmod(multiply(inverse_power, numerator), denominator)[1]
+    tail = multiply(numerator, fps_inv(denominator, count))[:count]
+    for (i, value) in enumerate(tail):
+        result[i] = (result[i] + value) % MOD
+    return result
 import sys
 read = sys.stdin.buffer.readline
 (d, k) = map(int, read().split())

@@ -159,6 +159,7 @@ MODULE_CAPABILITIES = {
     "fps998/LinearRecurrence.py": (
         "Berlekamp--Masseyで列から最短線形漸化式を推定できる。",
         "Bostan--Moriで有理FPSの巨大添字係数や線形漸化式の第n項を求められる。",
+        "指定した添字から連続する複数項を、第n項計算の繰り返しをせず一括取得できる。",
     ),
     "fps998/SubsetSum.py": (
         "重さごとの種類数から、部分集合または多重集合の総重さ別の選び方を生成できる。",
@@ -1878,6 +1879,16 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[int]",
         "returnDescription": r"$n=\deg f$として、長さcountの列result。$\mathrm{result}[i]=[x^n]f(x)^i g(x)\bmod998244353$。",
     },
+    ("fps998/LinearRecurrence.py", None, "berlekamp_massey"): {
+        "argumentDescriptions": {"sequence": "先頭から順に並べた観測値。998244353上で扱う。"},
+        "returnFormat": "list[int]",
+        "returnDescription": r"観測列を生成する最短の係数列c。長さDとして、$a_n=\sum_{j=0}^{D-1}c[j]a_{n-1-j}$。空列または全項0なら空list。未知の将来の項まで一致する保証ではない。",
+    },
+    ("fps998/LinearRecurrence.py", None, "nth_term"): {
+        "argumentDescriptions": {"index": "求める0以上の添字。", "sequence": "先頭から順に並べた観測値。漸化式の推定に使う。"},
+        "returnFormat": "int",
+        "returnDescription": "観測列内ならその項、範囲外なら推定した最短線形漸化式で延長したindex番目の項。998244353で割った余り。空列は0。",
+    },
     ("fps998/LinearRecurrence.py", None, "bostan_mori"): {
         "argumentDescriptions": {"index": "求める0以上の係数番号。", "numerator": r"分子 $P(x)$ の昇べき順係数列。", "denominator": r"定数項が非0の分母 $Q(x)$ の昇べき順係数列。"},
         "returnFormat": "int",
@@ -1887,6 +1898,17 @@ API_DETAILS_BY_SYMBOL.update({
         "argumentDescriptions": {"initial": "漸化式の次数以上の初期値。", "coefficients": r"$a_n=\sum_i\mathrm{coefficients}[i]a_{n-1-i}$の係数。", "index": "求める0以上の添字。"},
         "returnFormat": "int",
         "returnDescription": "指定した線形漸化式で定まるindex番目の値を998244353で割った余り。",
+    },
+    ("fps998/LinearRecurrence.py", None, "linear_recurrence_slice"): {
+        "description": "指定した添字から連続するcount項を、途中の全項を生成せず一括で求める。",
+        "argumentDescriptions": {
+            "initial": "先頭D項。coefficientsと同じ長さの係数列。",
+            "coefficients": r"長さDの列。$n\ge D$で$a_n=\sum_{j=0}^{D-1}\mathrm{coefficients}[j]a_{n-1-j}$。末尾が0でもよい。",
+            "start": "取得する先頭の添字。0以上。",
+            "count": "取得する項数。0なら空listを返す。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さcountのlist。result[i]はa[start+i]を998244353で割った余り。両入力が空なら全項0として扱う。入力は変更しない。",
     },
     ("fps998/SubsetSum.py", None, "subset_sum"): {
         "argumentDescriptions": {"counts": "counts[w]が重さwの品物の種類数を表すlist。各種類は0個または1個選ぶ。"},
@@ -2107,6 +2129,13 @@ CLASS_DETAILS_BY_SYMBOL = {
 # Big-O is kept separate from descriptive algorithm names.  These entries are
 # used when the source alone cannot provide a useful per-API estimate.
 COMPLEXITY_BY_MODULE = {
+    "fps998/LinearRecurrence.py": {
+        "berlekamp_massey": "O(N^2)。Nは観測列の長さ。追加領域O(N)。",
+        "bostan_mori": "O(L log(L+1) log(index+2))。Lは分子・分母の長さの最大値。追加領域O(L)。",
+        "linear_recurrence_nth": "O(D log(D+1) log(index+2))。Dは漸化式の次数。既知の初期値を返す場合はO(1)。追加領域O(D)。",
+        "nth_term": "O(N^2+D log(D+1) log(index+2))。Nは観測列の長さ、Dは推定した次数。観測列内ならO(1)。",
+        "linear_recurrence_slice": "O(D log(D+1) log(start+2)+(D+count) log(D+count+1))。Dは漸化式の次数。追加領域O(D log(start+2)+count)。",
+    },
     "sequence_structure/ImplicitTreap.py": {
         "ImplicitTreap": "O(N) と O(N) 回のop呼び出し",
         **{name: "期待 O(log(N+1)) と同数程度のop・mapping・composition呼び出し。Nは現在の要素数"

@@ -27,6 +27,7 @@
 | [composition_of_formal_power_series_large](composition_of_formal_power_series_large.json) | 3 / 32 | 5 | 2.046 | 140.7 | 一致 |
 | [compositional_inverse_of_formal_power_series](compositional_inverse_of_formal_power_series.json) | 3 / 23 | 5 | 0.235 | 77.3 | 一致 |
 | [compositional_inverse_of_formal_power_series_large](compositional_inverse_of_formal_power_series_large.json) | 3 / 28 | 5 | 2.392 | 114.5 | 一致 |
+| [consecutive_terms_of_linear_recurrent_sequence](consecutive_terms_of_linear_recurrent_sequence.json) | 3 / 43 | 5 | 5.075 | 233.1 | 一致 |
 | [conversion_from_monomial_basis_to_newton_basis](conversion_from_monomial_basis_to_newton_basis.json) | 3 / 15 | 5 | 1.134 | 148.2 | 一致 |
 | [convolution_mod_1000000007](convolution_mod_1000000007.json) | 3 / 48 | 5 | 1.260 | 187.1 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
