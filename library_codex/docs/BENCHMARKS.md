@@ -32,6 +32,7 @@
 
 ## 数論・多項式・線形代数
 
+- [巨大整数の10進・16進乗算](BIG_INTEGER_MULTIPLICATION_BENCHMARK.md)
 - [線形漸化式の遠くの連続項](CONSECUTIVE_RECURRENCE_BENCHMARK.md)
 - [素数の個数](PRIME_COUNT_BENCHMARK.md)
 - [φ関数の総和](TOTIENT_SUM_BENCHMARK.md)

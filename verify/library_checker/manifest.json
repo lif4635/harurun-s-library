@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 227,
-    "unimplemented": 26
+    "local_passed": 229,
+    "unimplemented": 24
   },
   "problems": [
     {
@@ -1717,20 +1717,28 @@
       "title": "Multiplication of Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/multiplication_of_big_integers",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.BigIntegerMultiplication"
+      ],
+      "solution": "solutions/multiplication_of_big_integers.py",
+      "result": "results/multiplication_of_big_integers.json"
     },
     {
       "name": "multiplication_of_hex_big_integers",
       "title": "Multiplication of Hex Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/multiplication_of_hex_big_integers",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.BigIntegerMultiplication"
+      ],
+      "solution": "solutions/multiplication_of_hex_big_integers.py",
+      "result": "results/multiplication_of_hex_big_integers.json"
     },
     {
       "name": "multipoint_evaluation",

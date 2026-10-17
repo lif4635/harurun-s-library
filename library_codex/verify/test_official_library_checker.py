@@ -227,6 +227,8 @@ def test_solution_is_standalone(name):
     ("bipartite_edge_coloring", "2 2 0\n", "0"),
     ("persistent_range_affine_range_sum", "4 6\n1 2 3 4\n0 -1 1 4 2 1\n1 0 -1 2 4\n2 1 1 4\n2 0 0 4\n2 -1 0 4\n2 1 0 4\n", "12 22 10 13"),
     ("consecutive_terms_of_linear_recurrent_sequence", "2 10 5\n0 1\n1 1\n", "55 89 144 233 377"),
+    ("multiplication_of_big_integers", "3\n-123 456\n0 -9\n99 99\n", "-56088 0 9801"),
+    ("multiplication_of_hex_big_integers", "3\n-AB 10\n0 -F\nFF FF\n", "-AB0 0 FE01"),
     ("bipartite_edge_coloring", "1 1 3\n0 0\n0 0\n0 0\n", "3 0 1 2"),
     ("counting_primes", "1\n", "0"),
     ("minimum_diameter_spanning_tree", "3 3\n0 1 7\n2 1 5\n2 0 4\n", "9 1 2"),

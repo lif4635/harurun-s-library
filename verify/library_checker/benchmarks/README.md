@@ -95,6 +95,8 @@
 | [minimum_steiner_tree](minimum_steiner_tree.json) | 3 / 24 | 5 | 0.441 | 67.4 | 一致 |
 | [montmort_number_mod](montmort_number_mod.json) | 3 / 10 | 5 | 0.149 | 90.1 | 一致 |
 | [mul_modp_convolution](mul_modp_convolution.json) | 3 / 40 | 5 | 0.578 | 165.6 | 一致 |
+| [multiplication_of_big_integers](multiplication_of_big_integers.json) | 3 / 20 | 5 | 0.830 | 123.5 | 一致 |
+| [multiplication_of_hex_big_integers](multiplication_of_hex_big_integers.json) | 3 / 22 | 5 | 0.979 | 128.9 | 一致 |
 | [multipoint_evaluation_on_geometric_sequence](multipoint_evaluation_on_geometric_sequence.json) | 3 / 25 | 5 | 0.572 | 161.1 | 一致 |
 | [multivariate_convolution](multivariate_convolution.json) | 3 / 17 | 5 | 4.683 | 240.2 | 一致 |
 | [multivariate_convolution_cyclic](multivariate_convolution_cyclic.json) | 3 / 24 | 5 | 4.038 | 177.3 | 一致 |

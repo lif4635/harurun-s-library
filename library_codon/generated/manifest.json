@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 382,
+  "moduleCount": 383,
   "supportedCount": 7,
   "modules": [
     {
@@ -1098,6 +1098,12 @@
       "modulePath": "linear_algebra/XorBasis",
       "sourcePath": "library_codex/linear_algebra/XorBasis.py",
       "sourceSha256": "ae2d4e95f61e1f14ea4a887d1d1fb4590d8ee0e0935534fc2fb887d077598301",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/BigIntegerMultiplication",
+      "sourcePath": "library_codex/number_theory/BigIntegerMultiplication.py",
+      "sourceSha256": "7cb2070971db923c0520a675c1820a868593949c02c911144a8ea167892fd6df",
       "status": "unsupported"
     },
     {

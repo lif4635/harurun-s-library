@@ -7770,6 +7770,24 @@ API_DETAILS_BY_SYMBOL.update({
     },
 })
 SEARCH_TERMS_BY_MODULE["number_theory/DecimalAddition.py"] = ("多倍長整数", "巨大整数", "筆算")
+SEARCH_TERMS_BY_MODULE["number_theory/BigIntegerMultiplication.py"] = ("多倍長整数", "巨大整数", "筆算")
+COMPLEXITY_BY_MODULE["number_theory/BigIntegerMultiplication.py"] = {
+    "multiply_decimal": "O(N log(N+1))時間、O(N)追加メモリ。Nは入力2文字列の長さの合計",
+    "multiply_hex": "O(N log(N+1))時間、O(N)追加メモリ。Nは入力2文字列の長さの合計",
+}
+for _name, _base, _digits, _output in (
+    ("multiply_decimal", "10進", "0〜9", "10進"),
+    ("multiply_hex", "16進", "0〜9・a〜f・A〜F", "大文字の16進"),
+):
+    API_DETAILS_BY_SYMBOL[("number_theory/BigIntegerMultiplication.py", None, _name)] = {
+        "description": f"符号付き{_base}文字列同士を乗算する。大きな入力は桁を分割して整数の畳み込みで処理し、浮動小数点は使わない。",
+        "argumentDescriptions": {
+            "first": f"整数を表すstr。使用できる数字は{_digits}。先頭の+・-と先頭0を許す。空文字列・空白・桁区切り・0x接頭辞は不可。",
+            "second": "firstと同じ形式のstr。入力文字列は変更しない。",
+        },
+        "returnFormat": "str",
+        "returnDescription": f"2整数の積を表す{_output}文字列。先頭0と+は付けず、負の積だけ先頭に-を付ける。積が0なら必ず'0'。入力の形式が不正ならValueError。",
+    }
 SEARCH_TERMS_BY_MODULE["graph_enumeration/EulerianCircuits.py"] = ("オイラー閉路", "BEST定理")
 COMPLEXITY_BY_MODULE["number_theory/DecimalAddition.py"] = {
     "add_decimal": "O(L)時間・追加領域。Lは2入力の総文字数。",
