@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 244,
-    "unimplemented": 9
+    "local_passed": 245,
+    "unimplemented": 8
   },
   "problems": [
     {
@@ -1120,10 +1120,14 @@
       "title": "Global Minimum Cut of Dynamic Star Augmented Graph",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/global_minimum_cut_of_dynamic_star_augmented_graph",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_flow.ExtremeVertexSet",
+        "library_codex.tree.HeavyLightDecomposition",
+        "library_codex.graph_flow.DynamicStarMinCut"
+      ],
+      "solution": "solutions/global_minimum_cut_of_dynamic_star_augmented_graph.py",
+      "result": "results/global_minimum_cut_of_dynamic_star_augmented_graph.json"
     },
     {
       "name": "hafnian_of_matrix",

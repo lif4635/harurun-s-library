@@ -55,7 +55,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 16 | 24 | 6 | 32 |
 | [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 11 | 15 | 2 | 4 |
 | [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 20 | 16 | 14 | 81 |
-| [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 5 | 4 | 4 | 30 |
+| [graph_flow](api/graph_flow/README.md) | 最大流・最小費用流・b-flow | 7 | 5 | 5 | 36 |
 | [graph_matching](api/graph_matching/README.md) | 二部・一般・重み付きマッチング | 8 | 6 | 3 | 15 |
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 7 | 12 | 2 | 10 |
 | [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 12 | 20 | 1 | 4 |
@@ -75,4 +75,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **396 modules / 531 functions / 238 classes / 1515 methods・properties**。
+合計: **398 modules / 532 functions / 239 classes / 1521 methods・properties**。

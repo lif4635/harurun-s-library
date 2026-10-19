@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 396,
+  "moduleCount": 398,
   "supportedCount": 7,
   "modules": [
     {
@@ -942,6 +942,18 @@
       "modulePath": "graph_flow/AdvancedFlow",
       "sourcePath": "library_codex/graph_flow/AdvancedFlow.py",
       "sourceSha256": "1d68079b905d0a0117e3b9a1e2ef78874ebc2d2a269f589f733f034a053859f2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_flow/DynamicStarMinCut",
+      "sourcePath": "library_codex/graph_flow/DynamicStarMinCut.py",
+      "sourceSha256": "0ec98baa7167f968a5016a42f7d455d36b91e2a3054eab88eec2b7d0f2fd6d9d",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_flow/ExtremeVertexSet",
+      "sourcePath": "library_codex/graph_flow/ExtremeVertexSet.py",
+      "sourceSha256": "17efe328368c0768d76f3a03e1a37c55ea03a0f552c79d3200d30f3026169f2e",
       "status": "unsupported"
     },
     {

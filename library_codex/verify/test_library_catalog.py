@@ -1169,6 +1169,32 @@ def test_increasing_sequences_article_and_standalone():
     assert count([0] * 65, [67] * 65) == math.comb(131, 65) % 998244353
 
 
+def test_dynamic_star_cut_articles_and_standalone():
+    catalog = load_catalog()
+    module = module_by_path(catalog, "library_codex.graph_flow.DynamicStarMinCut")
+    assert "## 主な機能" in module["article"]["markdown"]
+    assert "## 使い方" in module["article"]["markdown"]
+    cls = next(item for item in module["classes"] if item["name"] == "DynamicStarMinCut")
+    methods = {method["name"]: method for method in cls["methods"]}
+    assert methods["set"]["returnFormat"] == "int"
+    assert "中心" in methods["cut"]["returnDescription"]
+    assert methods["min_cut"]["complexity"] == "O(1)時間"
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    graph = namespace["DynamicStarMinCut"](2, [(0, 1, 5)], [2, 3])
+    assert graph.min_cut() == 5
+    assert graph.cut() == [0, 1]
+    assert graph.set(0, 10) == 8
+    assert graph.cut() == [1]
+    assert graph.tolist() == [10, 3]
+    extreme = module_by_path(catalog, "library_codex.graph_flow.ExtremeVertexSet")
+    function = next(item for item in extreme["functions"] if item["name"] == "extreme_vertex_tree")
+    assert len(function["returnParts"]) == 2
+    namespace = {}
+    exec(extreme["standaloneCode"], namespace)
+    assert namespace["extreme_vertex_tree"](2, [(0, 1, 5)]) == ([(), (), (0, 1)], [5, 5, 0])
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")

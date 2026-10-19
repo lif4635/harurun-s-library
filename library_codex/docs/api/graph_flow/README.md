@@ -6,6 +6,8 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`AdvancedFlow`](AdvancedFlow.md) | 全頂点対の最小カット木・無向グラフの大域最小カット | 2 | 0 | 0 |
+| [`DynamicStarMinCut`](DynamicStarMinCut.md) | 固定の無向グラフに中心を加え、中心の辺重みを更新しながら全域最小カットを求める。 | 0 | 1 | 6 |
+| [`ExtremeVertexSet`](ExtremeVertexSet.md) | 非負重み無向グラフの極小なカット候補を含む二分木を作る。 | 1 | 0 | 0 |
 | [`MaxFlow`](MaxFlow.md) | 容量付き有向グラフの最大流・最小カット・辺ごとの流量 | 2 | 1 | 11 |
 | [`MinCostBFlow`](MinCostBFlow.md) | 頂点の供給・需要と辺の流量上下限を守る最小費用流 | 0 | 1 | 7 |
 | [`MinCostFlow`](MinCostFlow.md) | 非負費用のポテンシャル付き最小費用流・slope | 0 | 1 | 5 |

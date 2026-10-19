@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T14:57:44+00:00",
+  "generatedAt": "2026-10-19T15:26:54+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "d47dec05ea5caf10e8de5a8075e62cd5921208919009d94368690d6932a121fe",
-  "inputStamp": "2f9d3d6f3a6c723a8d09608e5637e8d5e9a742bf5c49a294ebe181148f95742b",
+  "sourceFingerprint": "1b742954b072bfef91a43cb15fc7ea2183d51fc582f9555a4061b01210dc6ced",
+  "inputStamp": "aa5ac83db7bf0c7c0616d81a6620c2ce057ad12fcf08dc19a48feced278a454d",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 396,
-    "articles": 103,
-    "functions": 531,
-    "classes": 238,
-    "methods": 1515,
+    "modules": 398,
+    "articles": 105,
+    "functions": 532,
+    "classes": 239,
+    "methods": 1521,
     "tests": 1029
   },
   "categories": [
@@ -211,10 +211,10 @@
       "label": "フロー",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 5,
-      "functions": 4,
-      "classes": 4,
-      "methods": 30
+      "modules": 7,
+      "functions": 5,
+      "classes": 5,
+      "methods": 36
     },
     {
       "slug": "graph_matching",
@@ -416,7 +416,7 @@
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 79
+      "modules": 81
     },
     {
       "slug": "math",
@@ -39860,6 +39860,289 @@
           "returnDescription": "(cut_value, one_side)。cut_valueは最小カットの重みで、整数重みならint、小数重みならその加算結果の型。one_sideは分割の片側の頂点番号リスト。非連結なら重み0。n=0では(0, [])、n=1では(0, [0])。",
           "complexity": "O(V^3+E) time・O(V^2) memory",
           "sourceLine": 48
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "graph_flow",
+      "categoryLabel": "フロー",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "DynamicStarMinCut",
+      "modulePath": "library_codex.graph_flow.DynamicStarMinCut",
+      "summary": "固定の無向グラフに中心を加え、中心の辺重みを更新しながら全域最小カットを求める。",
+      "capabilities": [
+        "DynamicStarMinCut: 固定された非負重み無向グラフに1個の中心を追加し、中心と各元頂点の辺だけを更新しながら全域最小カットを管理する。"
+      ],
+      "article": {
+        "title": "中心の辺重みを更新する全域最小カット",
+        "markdown": "## 主な機能\n\n元の無向グラフに新しい中心を1頂点加え、中心と各元頂点を結ぶ辺の重みだけを変更する。変更するたびに、グラフ全体を空でない2つの側へ分ける最小カットを求められる。\n\n元頂点同士の辺は固定で、すべての重みは非負整数。特定の始点・終点を分離する最大流ではなく、分ける位置も自由な全域最小カットを扱う。\n\n構築は `O(N(N+M) log(N+2))`、中心の辺1本の置換は `O(log²(N+2))`。構築後は最小重みを `O(1)`、カットの頂点集合を `O(N)` で取得できる。Nは中心を除く頂点数、Mは固定辺数。\n\n## 使い方\n\n```python\nfrom library_codex.graph_flow.DynamicStarMinCut import DynamicStarMinCut\n\ngraph = DynamicStarMinCut(2, [(0, 1, 5)], [2, 3])\nweight = graph.min_cut()\nvertices = graph.cut()\nupdated = graph.set(0, 10)\nafter = graph.cut()\n```\n\n- `weight` は `5`。元頂点0と1をまとめて中心から切り離す。\n- `vertices` は `[0, 1]`。中心を含まない側の元頂点番号を返す。\n- `updated` は `8`。中心と0の辺を10へ置換した後、頂点1だけを切り離すのが最小になる。\n- `after` は `[1]`。固定辺の重み5と、中心から1への重み3がカットを横切る。\n\n`tolist()` は現在の中心の辺重みを元頂点順に返す。この例では `[10, 3]`。`str` と `repr` でも確認できる。\n\n## 仕組み\n\n中心を含まない側をSとすると、そのカットの重みは次になる。\n\n$$\n\\operatorname{cut}(S)=\\operatorname{boundary}_G(S)+\\sum_{v\\in S}a_v.\n$$\n\n固定グラフのextreme setを含む二分木を前計算し、部分木ごとのカット重みを保持する。中心の辺重みが非負なので、この候補のどれかが最適解になる。1頂点の重み変更は、対応する葉から根までの候補への加算に変換できる。\n\n## 注意点\n\n- 元頂点同士の辺を変更する場合は作り直す。任意の辺を高速更新する構造ではない。\n- 元グラフは非連結でもよい。中心の辺重み0も許す。\n- `set` は差分加算ではなく置換で、更新後の最小重みも返す。\n- 同じ最小重みを実現する集合が複数ある場合、`cut()` はそのうち1つだけを返す。\n\n## 参考\n\n- [Library Checkerの問題と公式実装](https://github.com/yosupo06/library-checker-problems/tree/1814c4e5205517e368bb57a8d1127eb961cfeaae/graph/global_minimum_cut_of_dynamic_star_augmented_graph)",
+        "sourcePath": "library_codex/docs/articles/graph_flow/DynamicStarMinCut.md"
+      },
+      "searchTerms": [
+        "DynamicStarMinCut",
+        "Dynamic Star Min Cut",
+        "library_codex.graph_flow.DynamicStarMinCut",
+        "library codex graph flow Dynamic Star Min Cut",
+        "graph_flow/DynamicStarMinCut.py",
+        "フロー",
+        "動的全域最小カット",
+        "星型辺更新",
+        "中心の辺更新"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_flow/DynamicStarMinCut.py",
+      "inputFingerprint": "bfd65dae50b29f7fbfa2f035839518962c23db1f6aec5dd4171c7c1d8a3e3844",
+      "importCode": "from library_codex.graph_flow.DynamicStarMinCut import DynamicStarMinCut",
+      "sourceCode": "\"\"\"固定の無向グラフに中心を加え、中心の辺重みを更新しながら全域最小カットを求める。\"\"\"\n\nfrom library_codex.graph_flow.ExtremeVertexSet import extreme_vertex_tree\nfrom library_codex.tree.HeavyLightDecomposition import HeavyLightDecomposition\n\n\nclass DynamicStarMinCut:\n    __slots__ = (\"n\", \"values\", \"children\", \"hld\", \"size\", \"data\", \"lazy\")\n\n    def __init__(self, n, edges, values=None):\n        values = [0] * n if values is None else list(values)\n        if len(values) != n or any(value < 0 for value in values):\n            raise ValueError(\"expected n nonnegative star weights\")\n        children, boundary = extreme_vertex_tree(n, edges)\n        hld = HeavyLightDecomposition(children, 2 * n - 2)\n        total = values + [0] * (n - 1)\n        for v in range(n, 2 * n - 1):\n            u, w = children[v]\n            total[v] = total[u] + total[w]\n        size = 1 << (2 * n - 2).bit_length()\n        data = [float(\"inf\")] * (size * 2)\n        for v in range(2 * n - 1):\n            data[size + hld.tin[v]] = boundary[v] + total[v]\n        for v in range(size - 1, 0, -1):\n            data[v] = min(data[v * 2], data[v * 2 + 1])\n        self.n = n\n        self.values = values\n        self.children = children\n        self.hld = hld\n        self.size = size\n        self.data = data\n        self.lazy = [0] * size\n\n    def _add(self, left, right, delta):\n        size = self.size\n        data = self.data\n        lazy = self.lazy\n        left += size\n        right += size\n        start, end = left, right - 1\n        while left < right:\n            if left & 1:\n                data[left] += delta\n                if left < size:\n                    lazy[left] += delta\n                left += 1\n            if right & 1:\n                right -= 1\n                data[right] += delta\n                if right < size:\n                    lazy[right] += delta\n            left >>= 1\n            right >>= 1\n        start >>= 1\n        end >>= 1\n        while start:\n            data[start] = min(data[start * 2], data[start * 2 + 1]) + lazy[start]\n            if end != start:\n                data[end] = min(data[end * 2], data[end * 2 + 1]) + lazy[end]\n            start >>= 1\n            end >>= 1\n\n    def set(self, vertex, weight):\n        \"\"\"中心とvertexの辺重みを置き換え、更新後の全域最小カット重みを返す。\"\"\"\n        if not 0 <= vertex < self.n:\n            raise IndexError(\"invalid vertex\")\n        if weight < 0:\n            raise ValueError(\"weight must be nonnegative\")\n        delta = weight - self.values[vertex]\n        self.values[vertex] = weight\n        if delta:\n            head = self.hld.head\n            tin = self.hld.tin\n            parent = self.hld.parent\n            while vertex != -1:\n                top = head[vertex]\n                self._add(tin[top], tin[vertex] + 1, delta)\n                vertex = parent[top]\n        return self.data[1]\n\n    def min_cut(self):\n        \"\"\"現在の全域最小カット重みを整数で返す。O(1)。\"\"\"\n        return self.data[1]\n\n    def cut(self):\n        \"\"\"最小カットのうち中心を含まない側の元頂点を昇順listで返す。O(N)。\"\"\"\n        v = 1\n        while v < self.size:\n            v *= 2\n            if self.data[v] > self.data[v + 1]:\n                v += 1\n        stack = [self.hld.rev[v - self.size]]\n        included = bytearray(self.n)\n        while stack:\n            vertex = stack.pop()\n            if vertex < self.n:\n                included[vertex] = 1\n            else:\n                stack.extend(self.children[vertex])\n        return [v for v in range(self.n) if included[v]]\n\n    def tolist(self):\n        \"\"\"中心から各元頂点への辺重みを頂点順のlistで返す。O(N)。\"\"\"\n        return self.values[:]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"DynamicStarMinCut(\" + str(self.tolist()) + \")\"\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: graph_flow/ExtremeVertexSet.py\n\"\"\"非負重み無向グラフの極小なカット候補を含む二分木を作る。\"\"\"\nfrom heapq import heapify, heappop, heappush\n\ndef extreme_vertex_tree(n, edges):\n    \"\"\"全extreme setを部分木として含むchildrenと各部分木の境界重みを返す。\"\"\"\n    if n < 1:\n        raise ValueError('n must be positive')\n    graph = [{} for _ in range(n)]\n    for (u, v, weight) in edges:\n        if not 0 <= u < n or not 0 <= v < n:\n            raise ValueError('invalid vertex')\n        if weight < 0:\n            raise ValueError('weights must be nonnegative')\n        if u != v and weight:\n            graph[u][v] = graph[u].get(v, 0) + weight\n            graph[v][u] = graph[v].get(u, 0) + weight\n    degree = [sum(row.values()) for row in graph]\n    boundary = degree[:]\n    children = [()] * n\n    if not any(degree):\n        children.extend(((2 * i, 2 * i + 1) for i in range(n - 1)))\n        return (children, [0] * (2 * n - 1))\n    representative = list(range(n))\n    active = list(range(n))\n    visited = [0] * n\n    for phase in range(1, n):\n        costs = degree[:]\n        heap = [(degree[v], v) for v in active]\n        heapify(heap)\n        last = -1\n        for _ in range(len(active)):\n            while True:\n                (_, vertex) = heappop(heap)\n                if visited[vertex] != phase:\n                    break\n            visited[vertex] = phase\n            (previous, last) = (last, vertex)\n            for (other, weight) in graph[vertex].items():\n                if visited[other] != phase:\n                    costs[other] -= weight\n                    heappush(heap, (costs[other], other))\n        (u, v) = (previous, last)\n        if len(graph[u]) > len(graph[v]):\n            (u, v) = (v, u)\n        children.append((representative[u], representative[v]))\n        degree[v] += degree[u] - 2 * graph[u].get(v, 0)\n        boundary.append(degree[v])\n        for (other, weight) in graph[u].items():\n            del graph[other][u]\n            if other != v:\n                graph[other][v] = graph[other].get(v, 0) + weight\n                graph[v][other] = graph[v].get(other, 0) + weight\n        graph[u] = {}\n        representative[v] = n + phase - 1\n        active.remove(u)\n    return (children, boundary)\n\n# 依存: tree/HeavyLightDecomposition.py\nclass HeavyLightDecomposition:\n    __slots__ = ('n', 'parent', 'depth', 'size', 'head', 'tin', 'tout', 'rev')\n\n    def __init__(self, edge, root=0):\n        n = len(edge)\n        assert 0 <= root < n\n        parent = [-1] * n\n        depth = [0] * n\n        order = [root]\n        for u in order:\n            for v in edge[u]:\n                if v != parent[u]:\n                    parent[v] = u\n                    depth[v] = depth[u] + 1\n                    order.append(v)\n        size = [1] * n\n        heavy = [-1] * n\n        for u in reversed(order):\n            best = 0\n            for v in edge[u]:\n                if parent[v] == u:\n                    sv = size[v]\n                    size[u] += sv\n                    if sv > best:\n                        best = sv\n                        heavy[u] = v\n        head = [0] * n\n        tin = [0] * n\n        rev = [0] * n\n        stack = [(root, root)]\n        timer = 0\n        while stack:\n            (u, h) = stack.pop()\n            while u != -1:\n                head[u] = h\n                tin[u] = timer\n                rev[timer] = u\n                timer += 1\n                hu = heavy[u]\n                for v in edge[u]:\n                    if parent[v] == u and v != hu:\n                        stack.append((v, v))\n                u = hu\n        self.n = n\n        self.parent = parent\n        self.depth = depth\n        self.size = size\n        self.head = head\n        self.tin = tin\n        self.tout = [tin[v] + size[v] for v in range(n)]\n        self.rev = rev\n\n    def lca(self, u, v):\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                u = parent[head[u]]\n            else:\n                v = parent[head[v]]\n        return u if depth[u] < depth[v] else v\n\n    def dist(self, u, v):\n        w = self.lca(u, v)\n        return self.depth[u] + self.depth[v] - (self.depth[w] << 1)\n\n    def kth_ancestor(self, v, k):\n        if k < 0 or self.depth[v] < k:\n            return -1\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while depth[v] - depth[head[v]] < k:\n            k -= depth[v] - depth[head[v]] + 1\n            v = parent[head[v]]\n        return self.rev[tin[v] - k]\n\n    def jump(self, u, v, k):\n        w = self.lca(u, v)\n        up = self.depth[u] - self.depth[w]\n        distance = up + self.depth[v] - self.depth[w]\n        if k < 0 or distance < k:\n            return -1\n        if k <= up:\n            return self.kth_ancestor(u, k)\n        return self.kth_ancestor(v, distance - k)\n\n    def next_on_path(self, u, v):\n        if u == v:\n            return -1\n        return self.jump(u, v, 1)\n    nxt = next_on_path\n\n    def vertices_on_path(self, u, v):\n        distance = self.dist(u, v)\n        return [self.jump(u, v, k) for k in range(distance + 1)]\n\n    def subtree(self, v, edge=False):\n        return (self.tin[v] + edge, self.tout[v])\n\n    def path(self, u, v, edge=False):\n        res = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                res.append((tin[head[u]], tin[u] + 1))\n                u = parent[head[u]]\n            else:\n                res.append((tin[head[v]], tin[v] + 1))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            (l, r) = (tin[v] + edge, tin[u] + 1)\n        else:\n            (l, r) = (tin[u] + edge, tin[v] + 1)\n        if l < r:\n            res.append((l, r))\n        return res\n\n    def path_ordered(self, u, v, edge=False):\n        up = []\n        down = []\n        parent = self.parent\n        depth = self.depth\n        head = self.head\n        tin = self.tin\n        while head[u] != head[v]:\n            if depth[head[u]] > depth[head[v]]:\n                up.append((tin[head[u]], tin[u] + 1, True))\n                u = parent[head[u]]\n            else:\n                down.append((tin[head[v]], tin[v] + 1, False))\n                v = parent[head[v]]\n        if depth[u] > depth[v]:\n            (l, r) = (tin[v] + edge, tin[u] + 1)\n            if l < r:\n                up.append((l, r, True))\n        else:\n            (l, r) = (tin[u] + edge, tin[v] + 1)\n            if l < r:\n                down.append((l, r, False))\n        up.extend(reversed(down))\n        return up\n\n    def index(self, v):\n        return self.tin[v]\n\n    def vertex(self, i):\n        return self.rev[i]\nHLD = HeavyLightDecomposition\n\n# 本体\n\"\"\"固定の無向グラフに中心を加え、中心の辺重みを更新しながら全域最小カットを求める。\"\"\"\n\nclass DynamicStarMinCut:\n    __slots__ = ('n', 'values', 'children', 'hld', 'size', 'data', 'lazy')\n\n    def __init__(self, n, edges, values=None):\n        values = [0] * n if values is None else list(values)\n        if len(values) != n or any((value < 0 for value in values)):\n            raise ValueError('expected n nonnegative star weights')\n        (children, boundary) = extreme_vertex_tree(n, edges)\n        hld = HeavyLightDecomposition(children, 2 * n - 2)\n        total = values + [0] * (n - 1)\n        for v in range(n, 2 * n - 1):\n            (u, w) = children[v]\n            total[v] = total[u] + total[w]\n        size = 1 << (2 * n - 2).bit_length()\n        data = [float('inf')] * (size * 2)\n        for v in range(2 * n - 1):\n            data[size + hld.tin[v]] = boundary[v] + total[v]\n        for v in range(size - 1, 0, -1):\n            data[v] = min(data[v * 2], data[v * 2 + 1])\n        self.n = n\n        self.values = values\n        self.children = children\n        self.hld = hld\n        self.size = size\n        self.data = data\n        self.lazy = [0] * size\n\n    def _add(self, left, right, delta):\n        size = self.size\n        data = self.data\n        lazy = self.lazy\n        left += size\n        right += size\n        (start, end) = (left, right - 1)\n        while left < right:\n            if left & 1:\n                data[left] += delta\n                if left < size:\n                    lazy[left] += delta\n                left += 1\n            if right & 1:\n                right -= 1\n                data[right] += delta\n                if right < size:\n                    lazy[right] += delta\n            left >>= 1\n            right >>= 1\n        start >>= 1\n        end >>= 1\n        while start:\n            data[start] = min(data[start * 2], data[start * 2 + 1]) + lazy[start]\n            if end != start:\n                data[end] = min(data[end * 2], data[end * 2 + 1]) + lazy[end]\n            start >>= 1\n            end >>= 1\n\n    def set(self, vertex, weight):\n        \"\"\"中心とvertexの辺重みを置き換え、更新後の全域最小カット重みを返す。\"\"\"\n        if not 0 <= vertex < self.n:\n            raise IndexError('invalid vertex')\n        if weight < 0:\n            raise ValueError('weight must be nonnegative')\n        delta = weight - self.values[vertex]\n        self.values[vertex] = weight\n        if delta:\n            head = self.hld.head\n            tin = self.hld.tin\n            parent = self.hld.parent\n            while vertex != -1:\n                top = head[vertex]\n                self._add(tin[top], tin[vertex] + 1, delta)\n                vertex = parent[top]\n        return self.data[1]\n\n    def min_cut(self):\n        \"\"\"現在の全域最小カット重みを整数で返す。O(1)。\"\"\"\n        return self.data[1]\n\n    def cut(self):\n        \"\"\"最小カットのうち中心を含まない側の元頂点を昇順listで返す。O(N)。\"\"\"\n        v = 1\n        while v < self.size:\n            v *= 2\n            if self.data[v] > self.data[v + 1]:\n                v += 1\n        stack = [self.hld.rev[v - self.size]]\n        included = bytearray(self.n)\n        while stack:\n            vertex = stack.pop()\n            if vertex < self.n:\n                included[vertex] = 1\n            else:\n                stack.extend(self.children[vertex])\n        return [v for v in range(self.n) if included[v]]\n\n    def tolist(self):\n        \"\"\"中心から各元頂点への辺重みを頂点順のlistで返す。O(N)。\"\"\"\n        return self.values[:]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'DynamicStarMinCut(' + str(self.tolist()) + ')'\n",
+      "bundledDependencies": [
+        "library_codex.graph_flow.ExtremeVertexSet",
+        "library_codex.tree.HeavyLightDecomposition"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 6
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "DynamicStarMinCut",
+          "summary": "固定された非負重み無向グラフに1個の中心を追加し、中心と各元頂点の辺だけを更新しながら全域最小カットを管理する。",
+          "description": "固定された非負重み無向グラフに1個の中心を追加し、中心と各元頂点の辺だけを更新しながら全域最小カットを管理する。",
+          "searchTerms": [
+            "DynamicStarMinCut",
+            "Dynamic Star Min Cut",
+            "DynamicStarMinCut(n, edges, values=None)"
+          ],
+          "constructor": "DynamicStarMinCut(n, edges, values=None)",
+          "constructorArguments": "n: 中心を除く元頂点数。1以上。 · edges: 元頂点同士の(u, v, weight)のiterable。無向辺でweightは非負整数。多重辺可、自己ループは無視する。これらの辺は構築後に変更できない。 · values: 中心から元頂点iへの辺重みをvalues[i]に入れた長さnの非負整数列。省略時はすべて0。入力をコピーする。省略時: None",
+          "constructorArgumentDetails": [
+            {
+              "name": "n",
+              "description": "中心を除く元頂点数。1以上"
+            },
+            {
+              "name": "edges",
+              "description": "元頂点同士の(u, v, weight)の反復可能オブジェクト。無向辺でweightは非負整数。多重辺可、自己ループは無視する。これらの辺は構築後に変更できない"
+            },
+            {
+              "name": "values",
+              "description": "中心から元頂点iへの辺重みをvalues[i]に入れた長さnの非負整数列。省略時はすべて0。入力をコピーする。省略時は None"
+            }
+          ],
+          "constructorReturns": "DynamicStarMinCut instance",
+          "constructorReturnFormat": "DynamicStarMinCut",
+          "constructorReturnDescription": "中心を含むn+1頂点のグラフのカット候補を保持する。setで中心の辺を置換し、min_cutで最小重み、cutで切り離す元頂点のlistを取得できる。",
+          "constructorCreates": "中心を含むn+1頂点のグラフのカット候補を保持する。setで中心の辺を置換し、min_cutで最小重み、cutで切り離す元頂点のlistを取得できる。",
+          "constructorComplexity": "O(N(N+M) log(N+2))時間・O(N+M)構築時メモリ、構築後はO(N)メモリ。Nは中心を除く頂点数、Mは固定辺数。整数演算をO(1)とする",
+          "constructorSourceLine": 10,
+          "methods": [
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(vertex, weight)",
+              "summary": "中心とvertexの間の辺をweightへ置換し、全域最小カットの重みを返す。",
+              "description": "中心とvertexの間の辺をweightへ置換し、全域最小カットの重みを返す。",
+              "searchTerms": [
+                "set",
+                "set(vertex, weight)"
+              ],
+              "arguments": "vertex: 中心に接続する元頂点。0≤vertex<N。 · weight: 置換後の非負整数重み。差分加算ではない。",
+              "argumentDetails": [
+                {
+                  "name": "vertex",
+                  "description": "中心に接続する元頂点。0≤vertex<N。"
+                },
+                {
+                  "name": "weight",
+                  "description": "置換後の非負整数重み。差分加算ではない。"
+                }
+              ],
+              "returns": "int — 更新後の最小カット重み。中心を含まない側は1個以上の元頂点からなり、元頂点すべてを選ぶ場合も含む。",
+              "returnFormat": "int",
+              "returnDescription": "更新後の最小カット重み。中心を含まない側は1個以上の元頂点からなり、元頂点すべてを選ぶ場合も含む。",
+              "complexity": "O(log²(N+2))時間",
+              "sourceLine": 63
+            },
+            {
+              "name": "min_cut",
+              "kind": "method",
+              "signature": "min_cut()",
+              "summary": "現在の全域最小カットの重みを取得する。",
+              "description": "現在の全域最小カットの重みを取得する。",
+              "searchTerms": [
+                "min_cut",
+                "min cut",
+                "min_cut()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — グラフを空でない2集合へ分けるとき、集合間を横切る辺重みの最小合計。",
+              "returnFormat": "int",
+              "returnDescription": "グラフを空でない2集合へ分けるとき、集合間を横切る辺重みの最小合計。",
+              "complexity": "O(1)時間",
+              "sourceLine": 81
+            },
+            {
+              "name": "cut",
+              "kind": "method",
+              "signature": "cut()",
+              "summary": "現在の最小カットを実現する、中心を含まない側の元頂点を取得する。",
+              "description": "現在の最小カットを実現する、中心を含まない側の元頂点を取得する。",
+              "searchTerms": [
+                "cut",
+                "cut()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[int] — 空でない昇順の頂点番号list。このlistと、その補集合に中心を加えた側との境界重みがmin_cut()に一致する。最適解が複数なら1つを返す。",
+              "returnFormat": "list[int]",
+              "returnDescription": "空でない昇順の頂点番号list。このlistと、その補集合に中心を加えた側との境界重みがmin_cut()に一致する。最適解が複数なら1つを返す。",
+              "complexity": "O(N)時間・O(N)追加メモリ",
+              "sourceLine": 85
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "中心から元頂点への現在の辺重みを列挙する。",
+              "description": "中心から元頂点への現在の辺重みを列挙する。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[int] — 長さNの新しいlist。result[i]は中心と元頂点iの辺重み。固定辺やカット候補の重みは含まない。",
+              "returnFormat": "list[int]",
+              "returnDescription": "長さNの新しいlist。result[i]は中心と元頂点iの辺重み。固定辺やカット候補の重みは含まない。",
+              "complexity": "O(N)時間・O(N)追加メモリ",
+              "sourceLine": 102
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "中心から元頂点への現在の辺重みを表示する。",
+              "description": "中心から元頂点への現在の辺重みを表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じ内容のlist表記。状態は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じ内容のlist表記。状態は変更しない。",
+              "complexity": "O(N+S)時間。Sは重みの文字列長の合計",
+              "sourceLine": 106
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "中心から元頂点への現在の辺重みを型名付きで表示する。",
+              "description": "中心から元頂点への現在の辺重みを型名付きで表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — DynamicStarMinCut([...])の形式。[...]は元頂点順の中心の辺重み。固定グラフを復元する表記ではない。",
+              "returnFormat": "str",
+              "returnDescription": "DynamicStarMinCut([...])の形式。[...]は元頂点順の中心の辺重み。固定グラフを復元する表記ではない。",
+              "complexity": "O(N+S)時間。Sは重みの文字列長の合計",
+              "sourceLine": 109
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "graph_flow",
+      "categoryLabel": "フロー",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "ExtremeVertexSet",
+      "modulePath": "library_codex.graph_flow.ExtremeVertexSet",
+      "summary": "非負重み無向グラフの極小なカット候補を含む二分木を作る。",
+      "capabilities": [
+        "extreme_vertex_tree: 非空の真部分集合より境界重みが必ず小さい頂点集合を、すべて部分木として含む二分木を作る。返る部分木には、この条件を満たさない集合も含む。"
+      ],
+      "article": {
+        "title": "全域カットの候補をまとめる木",
+        "markdown": "## 主な機能\n\n非負重みの無向グラフから、全extreme setを部分木として含む二分木を作る。各部分木の葉が元グラフの頂点集合を表し、その集合の内外を結ぶ辺の重みも同時に得られる。\n\nextreme setとは、その中のどの非空な真部分集合を選んでも、元の集合より境界重みが大きくなる集合のこと。\n\n$$\n\\varnothing\\ne T\\subsetneq S\n\\quad\\Longrightarrow\\quad\n\\operatorname{boundary}(T)>\\operatorname{boundary}(S).\n$$\n\n返る木には条件を満たさない候補も含まれる。条件を満たす集合だけを抽出する関数ではない。構築は `O(N(N+M) log(N+2))` 時間、追加メモリは `O(N+M)`。\n\n中心の辺更新と全域最小カットを処理したい場合は、これを内部で使う `DynamicStarMinCut` を利用する。\n\n## 使い方\n\n```python\nfrom library_codex.graph_flow.ExtremeVertexSet import extreme_vertex_tree\n\nchildren, boundary = extreme_vertex_tree(2, [(0, 1, 5)])\n```\n\n- `children` は `[(), (), (0, 1)]`。葉0と1が元頂点、ノード2が両方を含む根。\n- `boundary` は `[5, 5, 0]`。1頂点だけの側は重み5の辺を切り、元頂点すべての側は固定グラフの辺を切らない。\n- どちらの配列も長さは `2*N-1`。根IDは `2*N-2`。\n- 内部ノードの子IDは必ず親IDより小さい。小さいIDから処理すれば部分木の集計を計算できる。\n\n## 注意点\n\n- 葉は元頂点の番号をそのまま使う。ノードごとのobjectは作らない。\n- 負の辺重みは使えない。多重辺は重みを合算し、自己ループは無視する。\n- 非連結グラフと頂点1個も扱える。頂点0個は `ValueError`。\n- これはGomory–Hu木ではない。2頂点間の最小カットを木の経路の最小辺から求める用途には使わない。\n\n## 参考\n\n- [Library Checkerの公式実装](https://github.com/yosupo06/library-checker-problems/blob/1814c4e5205517e368bb57a8d1127eb961cfeaae/graph/global_minimum_cut_of_dynamic_star_augmented_graph/sol/correct.cpp)",
+        "sourcePath": "library_codex/docs/articles/graph_flow/ExtremeVertexSet.md"
+      },
+      "searchTerms": [
+        "ExtremeVertexSet",
+        "Extreme Vertex Set",
+        "library_codex.graph_flow.ExtremeVertexSet",
+        "library codex graph flow Extreme Vertex Set",
+        "graph_flow/ExtremeVertexSet.py",
+        "フロー",
+        "極集合",
+        "極小カット候補",
+        "extreme set"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/graph_flow/ExtremeVertexSet.py",
+      "inputFingerprint": "1e33aec2fda4d73227400d712db34e286ebc01e5ba010872305ffbedbaad58cc",
+      "importCode": "from library_codex.graph_flow.ExtremeVertexSet import extreme_vertex_tree",
+      "sourceCode": "\"\"\"非負重み無向グラフの極小なカット候補を含む二分木を作る。\"\"\"\n\nfrom heapq import heapify, heappop, heappush\n\n\ndef extreme_vertex_tree(n, edges):\n    \"\"\"全extreme setを部分木として含むchildrenと各部分木の境界重みを返す。\"\"\"\n    if n < 1:\n        raise ValueError(\"n must be positive\")\n    graph = [{} for _ in range(n)]\n    for u, v, weight in edges:\n        if not 0 <= u < n or not 0 <= v < n:\n            raise ValueError(\"invalid vertex\")\n        if weight < 0:\n            raise ValueError(\"weights must be nonnegative\")\n        if u != v and weight:\n            graph[u][v] = graph[u].get(v, 0) + weight\n            graph[v][u] = graph[v].get(u, 0) + weight\n    degree = [sum(row.values()) for row in graph]\n    boundary = degree[:]\n    children = [()] * n\n    if not any(degree):\n        children.extend((2 * i, 2 * i + 1) for i in range(n - 1))\n        return children, [0] * (2 * n - 1)\n    representative = list(range(n))\n    active = list(range(n))\n    visited = [0] * n\n    for phase in range(1, n):\n        costs = degree[:]\n        heap = [(degree[v], v) for v in active]\n        heapify(heap)\n        last = -1\n        for _ in range(len(active)):\n            while True:\n                _, vertex = heappop(heap)\n                if visited[vertex] != phase:\n                    break\n            visited[vertex] = phase\n            previous, last = last, vertex\n            for other, weight in graph[vertex].items():\n                if visited[other] != phase:\n                    costs[other] -= weight\n                    heappush(heap, (costs[other], other))\n        u, v = previous, last\n        if len(graph[u]) > len(graph[v]):\n            u, v = v, u\n        children.append((representative[u], representative[v]))\n        degree[v] += degree[u] - 2 * graph[u].get(v, 0)\n        boundary.append(degree[v])\n        for other, weight in graph[u].items():\n            del graph[other][u]\n            if other != v:\n                graph[other][v] = graph[other].get(v, 0) + weight\n                graph[v][other] = graph[v].get(other, 0) + weight\n        graph[u] = {}\n        representative[v] = n + phase - 1\n        active.remove(u)\n    return children, boundary\n",
+      "standaloneCode": "\"\"\"非負重み無向グラフの極小なカット候補を含む二分木を作る。\"\"\"\n\nfrom heapq import heapify, heappop, heappush\n\n\ndef extreme_vertex_tree(n, edges):\n    \"\"\"全extreme setを部分木として含むchildrenと各部分木の境界重みを返す。\"\"\"\n    if n < 1:\n        raise ValueError(\"n must be positive\")\n    graph = [{} for _ in range(n)]\n    for u, v, weight in edges:\n        if not 0 <= u < n or not 0 <= v < n:\n            raise ValueError(\"invalid vertex\")\n        if weight < 0:\n            raise ValueError(\"weights must be nonnegative\")\n        if u != v and weight:\n            graph[u][v] = graph[u].get(v, 0) + weight\n            graph[v][u] = graph[v].get(u, 0) + weight\n    degree = [sum(row.values()) for row in graph]\n    boundary = degree[:]\n    children = [()] * n\n    if not any(degree):\n        children.extend((2 * i, 2 * i + 1) for i in range(n - 1))\n        return children, [0] * (2 * n - 1)\n    representative = list(range(n))\n    active = list(range(n))\n    visited = [0] * n\n    for phase in range(1, n):\n        costs = degree[:]\n        heap = [(degree[v], v) for v in active]\n        heapify(heap)\n        last = -1\n        for _ in range(len(active)):\n            while True:\n                _, vertex = heappop(heap)\n                if visited[vertex] != phase:\n                    break\n            visited[vertex] = phase\n            previous, last = last, vertex\n            for other, weight in graph[vertex].items():\n                if visited[other] != phase:\n                    costs[other] -= weight\n                    heappush(heap, (costs[other], other))\n        u, v = previous, last\n        if len(graph[u]) > len(graph[v]):\n            u, v = v, u\n        children.append((representative[u], representative[v]))\n        degree[v] += degree[u] - 2 * graph[u].get(v, 0)\n        boundary.append(degree[v])\n        for other, weight in graph[u].items():\n            del graph[other][u]\n            if other != v:\n                graph[other][v] = graph[other].get(v, 0) + weight\n                graph[v][other] = graph[v].get(other, 0) + weight\n        graph[u] = {}\n        representative[v] = n + phase - 1\n        active.remove(u)\n    return children, boundary\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "extreme_vertex_tree",
+          "kind": "function",
+          "signature": "extreme_vertex_tree(n, edges)",
+          "summary": "非空の真部分集合より境界重みが必ず小さい頂点集合を、すべて部分木として含む二分木を作る。返る部分木には、この条件を満たさない集合も含む。",
+          "description": "非空の真部分集合より境界重みが必ず小さい頂点集合を、すべて部分木として含む二分木を作る。返る部分木には、この条件を満たさない集合も含む。",
+          "searchTerms": [
+            "extreme_vertex_tree",
+            "extreme vertex tree",
+            "extreme_vertex_tree(n, edges)"
+          ],
+          "arguments": "n: 元グラフの頂点数。1以上。 · edges: (u, v, weight)のiterable。無向辺でweightは非負整数。多重辺は重みを足し、自己ループは無視する。非連結でもよい。入力は変更しない。",
+          "argumentDetails": [
+            {
+              "name": "n",
+              "description": "元グラフの頂点数。1以上。"
+            },
+            {
+              "name": "edges",
+              "description": "(u, v, weight)のiterable。無向辺でweightは非負整数。多重辺は重みを足し、自己ループは無視する。非連結でもよい。入力は変更しない。"
+            }
+          ],
+          "returns": "tuple[list[tuple[int, ...]], list[int]] — (children, boundary)。どちらも長さ2*N-1。葉0..N-1が元頂点で、根は2*N-2。各部分木の葉集合をカットの片側とみなす。",
+          "returnFormat": "tuple[list[tuple[int, ...]], list[int]]",
+          "returnDescription": "(children, boundary)。どちらも長さ2*N-1。葉0..N-1が元頂点で、根は2*N-2。各部分木の葉集合をカットの片側とみなす。",
+          "complexity": "O(N(N+M) log(N+2))時間・O(N+M)追加メモリ。Nは頂点数、Mは入力辺数。整数演算をO(1)とする",
+          "sourceLine": 6,
+          "returnParts": [
+            {
+              "name": "children",
+              "format": "list[tuple[int, ...]]",
+              "description": "children[v]は子ノードIDのtuple。葉は()、内部ノードは2要素。子IDは親IDより小さい。"
+            },
+            {
+              "name": "boundary",
+              "format": "list[int]",
+              "description": "boundary[v]は、vの部分木に属する元頂点と属さない元頂点を結ぶ辺重みの合計。根は0。"
+            }
+          ]
         }
       ],
       "classes": []

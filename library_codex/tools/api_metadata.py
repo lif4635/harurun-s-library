@@ -8351,6 +8351,58 @@ for _method, _description, _format, _returns, _arguments in (
         "argumentDescriptions": _arguments,
     }
 
+_extreme_module = "graph_flow/ExtremeVertexSet.py"
+SEARCH_TERMS_BY_MODULE[_extreme_module] = ("極集合", "極小カット候補", "extreme set")
+COMPLEXITY_BY_MODULE[_extreme_module] = {
+    "extreme_vertex_tree": "O(N(N+M) log(N+2))時間・O(N+M)追加メモリ。Nは頂点数、Mは入力辺数。整数演算をO(1)とする",
+}
+API_DETAILS_BY_SYMBOL[(_extreme_module, None, "extreme_vertex_tree")] = {
+    "description": "非空の真部分集合より境界重みが必ず小さい頂点集合を、すべて部分木として含む二分木を作る。返る部分木には、この条件を満たさない集合も含む。",
+    "argumentDescriptions": {
+        "n": "元グラフの頂点数。1以上。",
+        "edges": "(u, v, weight)のiterable。無向辺でweightは非負整数。多重辺は重みを足し、自己ループは無視する。非連結でもよい。入力は変更しない。",
+    },
+    "returnFormat": "tuple[list[tuple[int, ...]], list[int]]",
+    "returnDescription": "(children, boundary)。どちらも長さ2*N-1。葉0..N-1が元頂点で、根は2*N-2。各部分木の葉集合をカットの片側とみなす。",
+    "returnParts": [
+        {"name": "children", "format": "list[tuple[int, ...]]", "description": "children[v]は子ノードIDのtuple。葉は()、内部ノードは2要素。子IDは親IDより小さい。"},
+        {"name": "boundary", "format": "list[int]", "description": "boundary[v]は、vの部分木に属する元頂点と属さない元頂点を結ぶ辺重みの合計。根は0。"},
+    ],
+}
+
+_star_cut_module = "graph_flow/DynamicStarMinCut.py"
+SEARCH_TERMS_BY_MODULE[_star_cut_module] = ("動的全域最小カット", "星型辺更新", "中心の辺更新")
+CLASS_DETAILS_BY_SYMBOL[(_star_cut_module, "DynamicStarMinCut")] = {
+    "description": "固定された非負重み無向グラフに1個の中心を追加し、中心と各元頂点の辺だけを更新しながら全域最小カットを管理する。",
+    "argumentDescriptions": {
+        "n": "中心を除く元頂点数。1以上。",
+        "edges": "元頂点同士の(u, v, weight)のiterable。無向辺でweightは非負整数。多重辺可、自己ループは無視する。これらの辺は構築後に変更できない。",
+        "values": "中心から元頂点iへの辺重みをvalues[i]に入れた長さnの非負整数列。省略時はすべて0。入力をコピーする。",
+    },
+    "constructorCreates": "中心を含むn+1頂点のグラフのカット候補を保持する。setで中心の辺を置換し、min_cutで最小重み、cutで切り離す元頂点のlistを取得できる。",
+}
+COMPLEXITY_BY_MODULE[_star_cut_module] = {
+    "DynamicStarMinCut": "O(N(N+M) log(N+2))時間・O(N+M)構築時メモリ、構築後はO(N)メモリ。Nは中心を除く頂点数、Mは固定辺数。整数演算をO(1)とする",
+    "set": "O(log²(N+2))時間",
+    "min_cut": "O(1)時間",
+    "cut": "O(N)時間・O(N)追加メモリ",
+    "tolist": "O(N)時間・O(N)追加メモリ",
+    "__str__": "O(N+S)時間。Sは重みの文字列長の合計",
+    "__repr__": "O(N+S)時間。Sは重みの文字列長の合計",
+}
+for _method, _description, _format, _returns in (
+    ("set", "中心とvertexの間の辺をweightへ置換し、全域最小カットの重みを返す。", "int", "更新後の最小カット重み。中心を含まない側は1個以上の元頂点からなり、元頂点すべてを選ぶ場合も含む。"),
+    ("min_cut", "現在の全域最小カットの重みを取得する。", "int", "グラフを空でない2集合へ分けるとき、集合間を横切る辺重みの最小合計。"),
+    ("cut", "現在の最小カットを実現する、中心を含まない側の元頂点を取得する。", "list[int]", "空でない昇順の頂点番号list。このlistと、その補集合に中心を加えた側との境界重みがmin_cut()に一致する。最適解が複数なら1つを返す。"),
+    ("tolist", "中心から元頂点への現在の辺重みを列挙する。", "list[int]", "長さNの新しいlist。result[i]は中心と元頂点iの辺重み。固定辺やカット候補の重みは含まない。"),
+    ("__str__", "中心から元頂点への現在の辺重みを表示する。", "str", "tolist()と同じ内容のlist表記。状態は変更しない。"),
+    ("__repr__", "中心から元頂点への現在の辺重みを型名付きで表示する。", "str", "DynamicStarMinCut([...])の形式。[...]は元頂点順の中心の辺重み。固定グラフを復元する表記ではない。"),
+):
+    API_DETAILS_BY_SYMBOL[(_star_cut_module, "DynamicStarMinCut", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+        "argumentDescriptions": {"vertex": "中心に接続する元頂点。0≤vertex<N。", "weight": "置換後の非負整数重み。差分加算ではない。"} if _method == "set" else {},
+    }
+
 _rect_affine_module = "spatial_structure/RectangleAffineSum.py"
 SEARCH_TERMS_BY_MODULE[_rect_affine_module] = ("矩形和", "矩形アフィン変換", "点の有効化", "KD tree", "二次元区間更新")
 CLASS_DETAILS_BY_SYMBOL[(_rect_affine_module, "RectangleAffineSum")] = {

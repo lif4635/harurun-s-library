@@ -93,3 +93,7 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 `TreePathCompositeSum.tolist()`は頂点番号順の値、`edges()`は入力順の現在の`(u, v, b, c)`を返す。`str`は両者の組、`repr`は型名と法を加えた表記。列挙はO(N)時間・追加メモリ。
 
 `RectangleAffineSum.tolist()`は入力順の現在の重みで、無効な点は`None`。`str`は同じlist、`repr`は座標・重み・法を型名付きで表示する。列挙はO(N+1)時間・追加メモリ。保留中の作用を反映するが、論理的な値は変わらず、その後も更新・集計を続けられる。
+
+## 中心の辺更新と最小カット
+
+`DynamicStarMinCut.tolist()`は中心から元頂点への辺重みを元頂点順に返す新しいlist。`str`は同じlist、`repr`は`DynamicStarMinCut([...])`。列挙はO(N)時間・追加メモリで、固定辺やカット候補の内部状態は含まない。`cut()`では最小カットを実現する、中心を含まない側の元頂点を昇順listで確認できる。いずれも更新状態は変更しない。

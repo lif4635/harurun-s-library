@@ -6,6 +6,7 @@
 
 ## グラフ・木
 
+- [中心の辺更新と全域最小カット](DYNAMIC_STAR_MIN_CUT_BENCHMARK.md)
 - [木の経路に沿った一次関数の合成和](TREE_PATH_COMPOSITE_SUM_BENCHMARK.md)
 - [辺追加最小全域森](INCREMENTAL_MSF_BENCHMARK.md)
 - [彩色多項式](CHROMATIC_POLYNOMIAL_BENCHMARK.md)
