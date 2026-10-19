@@ -7772,6 +7772,60 @@ API_DETAILS_BY_SYMBOL.update({
 SEARCH_TERMS_BY_MODULE["number_theory/DecimalAddition.py"] = ("多倍長整数", "巨大整数", "筆算")
 SEARCH_TERMS_BY_MODULE["number_theory/FixedDiscreteLog.py"] = ("固定法の離散対数", "原始根", "Farey近似")
 SEARCH_TERMS_BY_MODULE["graph_spanning/IncrementalMinimumSpanningForest.py"] = ("辺追加最小全域森", "動的MST", "incremental MST", "MSF")
+SEARCH_TERMS_BY_MODULE["range_query/StaticRangeInversions.py"] = ("区間転倒数", "平方分割", "バブルソートの交換回数")
+SEARCH_TERMS_BY_MODULE["range_query/OfflineRangeInversions.py"] = ("区間転倒数", "Mo", "バブルソートの交換回数")
+API_DETAILS_BY_SYMBOL[("range_query/OfflineRangeInversions.py", None, "range_inversions")] = {
+    "description": "配列と複数の半開区間をまとめて受け取り、各区間の転倒数を計算する。入力の配列や問い合わせ順は変更しない。",
+    "argumentDescriptions": {
+        "values": "大小比較とhashが可能な要素のiterable。通常は整数列。負数・重複・空配列も可。",
+        "queries": "各要素が整数の組(left, right)のiterable。区間は半開の[left, right)で、0≤left≤right≤N。順不同・重複・空区間も可。範囲外はIndexError。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "問い合わせ数と同じ長さのlist。result[k]はqueriesのk番目の半開区間内にある$i<j$かつ$a_i>a_j$の組数。等しい値は数えず、剰余を取らない。入力した問い合わせ順で返し、空区間の答えは0。queriesが空なら[]。",
+}
+COMPLEXITY_BY_MODULE["range_query/OfflineRangeInversions.py"] = {
+    "range_inversions": "期待O((N sqrt(Q+1)+Q) log(N+2) + Q log(Q+2))時間、O(N+Q+1)メモリ。Nは配列長、Qは問い合わせ数。要素の比較・hashをO(1)とする",
+}
+CLASS_DETAILS_BY_SYMBOL[("range_query/StaticRangeInversions.py", "StaticRangeInversions")] = {
+    "description": "更新のない配列を前計算し、任意の半開区間の転倒数を答える。同じ値の組は数えない。",
+    "argumentDescriptions": {
+        "values": "互いに大小比較できる要素のiterable。入力をコピーし、並び順を保つ。負数・重複・空配列も可。",
+        "block_size": "平方分割の幅。正の整数。Noneならisqrt(N)+1で、Nを超える指定はmax(1, N)に縮める。大きくすると表のメモリは減るがqueryが遅くなる。",
+    },
+    "constructorCreates": "query(left, right)でその区間の転倒数を整数として取得できる。問い合わせの事前登録や並べ替えは不要。tolist()で元の配列のコピーを取り出せる。n・block_size属性は読み取り用。",
+}
+API_DETAILS_BY_SYMBOL[("range_query/StaticRangeInversions.py", "StaticRangeInversions", "query")] = {
+    "description": "半開区間[left, right)にある、左の要素のほうが大きい組を数える。",
+    "argumentDescriptions": {
+        "left": "対象の半開区間[left, right)の左端。",
+        "right": "右端は含まない。0≤left≤right≤N。範囲外はIndexError。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "$\\mathrm{left}\\le i<j<\\mathrm{right}$かつ$a_i>a_j$となる添字の組数。等しい値は数えず、剰余を取らない。長さ0または1なら0。この区間だけを昇順にするのに必要な隣接交換の最小回数でもある。",
+}
+API_DETAILS_BY_SYMBOL[("range_query/StaticRangeInversions.py", "StaticRangeInversions", "tolist")] = {
+    "description": "前計算した元の配列を、元の添字順でコピーする。",
+    "returnFormat": "list[object]",
+    "returnDescription": "長さNの新しいlist。result[i]は構築時のvalues[i]。listの要素を置き換えても前計算には影響しない。要素自体は浅いコピー。",
+}
+API_DETAILS_BY_SYMBOL[("range_query/StaticRangeInversions.py", "StaticRangeInversions", "__str__")] = {
+    "description": "構築時の配列を、元の添字順で文字列として表示する。",
+    "returnFormat": "str",
+    "returnDescription": "元の配列のlist表現を表す文字列。内部の順位や頻度表は表示せず、queryの答えも変更しない。",
+}
+API_DETAILS_BY_SYMBOL[("range_query/StaticRangeInversions.py", "StaticRangeInversions", "__repr__")] = {
+    "description": "構築時の配列を型名付きの文字列で表示する。",
+    "returnFormat": "str",
+    "returnDescription": "型名と元の配列を含むStaticRangeInversions([...])という文字列。queryの答えは変更しない。",
+}
+COMPLEXITY_BY_MODULE["range_query/StaticRangeInversions.py"] = {
+    "StaticRangeInversions": "O(N log(N+1) + NB + N²/B + 1)時間、O(N + N²/B + 1)メモリ。Nは配列長、Bは実際のblock_size。既定値ではO(N sqrt(N)+1)時間・メモリ。要素比較をO(1)とする",
+    "query": "O(B)時間、O(1)追加メモリ。Bはblock_size。既定値ではO(sqrt(N)+1)",
+    "tolist": "O(N+1)時間・追加メモリ。Nは配列長",
+    "__len__": "O(1)",
+    "__str__": "O(N+L)時間・追加メモリ。Lは要素の文字列表現の合計長",
+    "__repr__": "O(N+L)時間・追加メモリ。Lは要素の文字列表現の合計長",
+}
 CLASS_DETAILS_BY_SYMBOL[("graph_spanning/IncrementalMinimumSpanningForest.py", "IncrementalMSF")] = {
     "description": "無向グラフへ辺を1本ずつ追加し、現在の最小全域森を維持する。",
     "argumentDescriptions": {"n": "固定する頂点数。0以上。初期状態は辺なし。"},

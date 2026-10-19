@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T07:57:01+00:00",
+  "generatedAt": "2026-10-19T08:59:42+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "d047b350cd59cc6cb46ccc7c162ca5fa5b9b1465a1fd70ec601e5f8b0e602f56",
-  "inputStamp": "62cee4ecaf71c489935ffeb5b85b51a1ac52302ce1c72ad48e84ed2a11e77f1e",
+  "sourceFingerprint": "211af1203257f7e3bc0e63d11521f2c5dad1f074a46bcf7fb137081ba5d807ec",
+  "inputStamp": "298367eb394ca6f08d6db55153e6bf4db0be5e51146620ab2e71af6332407013",
   "generatorFingerprint": "352195430bf6e369885f591759bddcd812c5bfcd99b18c1767fe7dbf15c80ef2",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 388,
-    "articles": 94,
-    "functions": 526,
-    "classes": 234,
-    "methods": 1487,
+    "modules": 390,
+    "articles": 96,
+    "functions": 527,
+    "classes": 235,
+    "methods": 1492,
     "tests": 1029
   },
   "categories": [
@@ -161,10 +161,10 @@
       "label": "静的区間クエリ",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 12,
-      "functions": 4,
-      "classes": 12,
-      "methods": 76
+      "modules": 14,
+      "functions": 5,
+      "classes": 13,
+      "methods": 81
     },
     {
       "slug": "spatial_structure",
@@ -411,7 +411,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 81
+      "modules": 83
     },
     {
       "slug": "graph",
@@ -27544,6 +27544,77 @@
       "categoryLabel": "静的区間クエリ",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
+      "name": "OfflineRangeInversions",
+      "modulePath": "library_codex.range_query.OfflineRangeInversions",
+      "summary": "複数の半開区間をまとめて受け取り、それぞれの転倒数を求める。",
+      "capabilities": [
+        "range_inversions: 配列と複数の半開区間をまとめて受け取り、各区間の転倒数を計算する。入力の配列や問い合わせ順は変更しない。"
+      ],
+      "article": {
+        "title": "区間転倒数の一括計算",
+        "markdown": "## 主な機能\n\n配列と問い合わせ区間をまとめて渡し、それぞれの転倒数を求める。転倒とは、区間内の左側の要素が右側の要素より大きい組のこと。同じ値の組は数えない。\n\nすべての区間が先に分かるなら、この`range_inversions`を使う。内部で問い合わせをMo順に並べ替えて処理するが、返り値は渡した順に戻す。配列長N・問い合わせ数Qに対してメモリはO(N+Q)。\n\n前の答えを見て次の区間を決める場合は、別モジュールの`StaticRangeInversions`を使う。そちらは都度問い合わせできる一方、O(N sqrt(N))の前計算メモリが必要になる。\n\n## 使い方\n\n```python\nfrom library_codex.range_query.OfflineRangeInversions import range_inversions\n\na = [3, 1, 2, 2, 0]\nqueries = [(0, 5), (1, 4), (2, 5), (2, 2)]\nanswers = range_inversions(a, queries)\n```\n\n`answers`は`[7, 0, 2, 0]`。\n\n- `answers[0]`は配列全体の転倒数7。\n- `answers[1]`は半開区間 `[1, 4)` の`[1, 2, 2]`に対する0。同じ値の2同士は数えない。\n- `answers[2]`は半開区間 `[2, 5)` の`[2, 2, 0]`に対する2。\n- `answers[3]`は空区間に対する0。\n\n各答えは、対象区間だけを昇順にするための隣接交換の最小回数でもある。問い合わせkの両端をleft、rightとすると、返り値の定義は次のとおり。\n\n$$\n\\mathrm{answers}[k]=\\#\\{(i,j)\\mid \\mathrm{left}\\le i<j<\\mathrm{right},\\ a_i>a_j\\}.\n$$\n\n## 仕組みと計算量\n\n値を座標圧縮し、現在の区間の頻度をBITで管理する。区間の左端・右端を一つ動かすとき、追加・削除する値より小さい要素または大きい要素の個数を数え、転倒数を更新する。左右の端では足す組の向きが違い、同じ値は含めない。\n\nMoの分割幅は問い合わせ数に合わせて選ぶ。時間は期待O((N sqrt(Q+1)+Q) log(N+2) + Q log(Q+2))、メモリはO(N+Q)。比較・hashをO(1)とした計算量で、前者のlogはBIT操作、後者は問い合わせの整列に由来する。\n\n## 注意点\n\n- 入力の配列・問い合わせのlistは変更しない。\n- 配列更新を挟むことはできない。更新後に呼び直すと、前計算もやり直す。\n- 範囲は常に半開区間。空区間は0、問い合わせが空なら`[]`を返す。\n- 値は互いに大小比較でき、hashできるものを渡す。比較結果が変わるオブジェクトやNaNは対象外。\n- 一つの区間しか調べない場合、配列全体の転倒数だけを求める既存の`inversion_count`も使える。",
+        "sourcePath": "library_codex/docs/articles/range_query/OfflineRangeInversions.md"
+      },
+      "searchTerms": [
+        "OfflineRangeInversions",
+        "Offline Range Inversions",
+        "library_codex.range_query.OfflineRangeInversions",
+        "library codex range query Offline Range Inversions",
+        "range_query/OfflineRangeInversions.py",
+        "静的区間クエリ",
+        "区間転倒数",
+        "Mo",
+        "バブルソートの交換回数"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/range_query/OfflineRangeInversions.py",
+      "inputFingerprint": "44d8e89b33d710bcb9b0f5ec596fb648078d6eff1d1f3cba591197be7f78a798",
+      "importCode": "from library_codex.range_query.OfflineRangeInversions import range_inversions",
+      "sourceCode": "\"\"\"複数の半開区間をまとめて受け取り、それぞれの転倒数を求める。\"\"\"\n\nfrom math import isqrt\n\n\ndef range_inversions(values, queries):\n    \"\"\"queriesの各[left, right)内の転倒数を、問い合わせ順のlistで返す。\"\"\"\n    values = list(values)\n    queries = list(queries)\n    n = len(values)\n    q = len(queries)\n    for left, right in queries:\n        if not 0 <= left <= right <= n:\n            raise IndexError(\"invalid half-open range\")\n    if not q:\n        return []\n    mapping = {value: i + 1 for i, value in enumerate(sorted(set(values)))}\n    ranks = [mapping[value] for value in values]\n    m = len(mapping)\n    bit = [0] * (m + 1)\n    width = max(1, n // max(1, isqrt(q)))\n    order = sorted(range(q), key=lambda i: (queries[i][0] // width,\n                   -queries[i][1] if queries[i][0] // width & 1 else queries[i][1]))\n    answers = [0] * q\n    left = right = inv = 0\n    for index in order:\n        l, r = queries[index]\n        while left > l:\n            left -= 1\n            value = ranks[left]\n            j = value - 1\n            while j:\n                inv += bit[j]\n                j &= j - 1\n            j = value\n            while j <= m:\n                bit[j] += 1\n                j += j & -j\n        while right < r:\n            value = ranks[right]\n            inv += right - left\n            j = value\n            while j:\n                inv -= bit[j]\n                j &= j - 1\n            j = value\n            while j <= m:\n                bit[j] += 1\n                j += j & -j\n            right += 1\n        while left < l:\n            value = ranks[left]\n            j = value - 1\n            while j:\n                inv -= bit[j]\n                j &= j - 1\n            j = value\n            while j <= m:\n                bit[j] -= 1\n                j += j & -j\n            left += 1\n        while right > r:\n            right -= 1\n            value = ranks[right]\n            j = value\n            while j <= m:\n                bit[j] -= 1\n                j += j & -j\n            inv -= right - left\n            j = value\n            while j:\n                inv += bit[j]\n                j &= j - 1\n        answers[index] = inv\n    return answers\n",
+      "standaloneCode": "\"\"\"複数の半開区間をまとめて受け取り、それぞれの転倒数を求める。\"\"\"\n\nfrom math import isqrt\n\n\ndef range_inversions(values, queries):\n    \"\"\"queriesの各[left, right)内の転倒数を、問い合わせ順のlistで返す。\"\"\"\n    values = list(values)\n    queries = list(queries)\n    n = len(values)\n    q = len(queries)\n    for left, right in queries:\n        if not 0 <= left <= right <= n:\n            raise IndexError(\"invalid half-open range\")\n    if not q:\n        return []\n    mapping = {value: i + 1 for i, value in enumerate(sorted(set(values)))}\n    ranks = [mapping[value] for value in values]\n    m = len(mapping)\n    bit = [0] * (m + 1)\n    width = max(1, n // max(1, isqrt(q)))\n    order = sorted(range(q), key=lambda i: (queries[i][0] // width,\n                   -queries[i][1] if queries[i][0] // width & 1 else queries[i][1]))\n    answers = [0] * q\n    left = right = inv = 0\n    for index in order:\n        l, r = queries[index]\n        while left > l:\n            left -= 1\n            value = ranks[left]\n            j = value - 1\n            while j:\n                inv += bit[j]\n                j &= j - 1\n            j = value\n            while j <= m:\n                bit[j] += 1\n                j += j & -j\n        while right < r:\n            value = ranks[right]\n            inv += right - left\n            j = value\n            while j:\n                inv -= bit[j]\n                j &= j - 1\n            j = value\n            while j <= m:\n                bit[j] += 1\n                j += j & -j\n            right += 1\n        while left < l:\n            value = ranks[left]\n            j = value - 1\n            while j:\n                inv -= bit[j]\n                j &= j - 1\n            j = value\n            while j <= m:\n                bit[j] -= 1\n                j += j & -j\n            left += 1\n        while right > r:\n            right -= 1\n            value = ranks[right]\n            j = value\n            while j <= m:\n                bit[j] -= 1\n                j += j & -j\n            inv -= right - left\n            j = value\n            while j:\n                inv += bit[j]\n                j &= j - 1\n        answers[index] = inv\n    return answers\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "range_inversions",
+          "kind": "function",
+          "signature": "range_inversions(values, queries)",
+          "summary": "配列と複数の半開区間をまとめて受け取り、各区間の転倒数を計算する。入力の配列や問い合わせ順は変更しない。",
+          "description": "配列と複数の半開区間をまとめて受け取り、各区間の転倒数を計算する。入力の配列や問い合わせ順は変更しない。",
+          "searchTerms": [
+            "range_inversions",
+            "range inversions",
+            "range_inversions(values, queries)"
+          ],
+          "arguments": "values: 大小比較とhashが可能な要素のiterable。通常は整数列。負数・重複・空配列も可。 · queries: 各要素が整数の組(left, right)のiterable。区間は半開の[left, right)で、0≤left≤right≤N。順不同・重複・空区間も可。範囲外はIndexError。",
+          "argumentDetails": [
+            {
+              "name": "values",
+              "description": "大小比較とhashが可能な要素のiterable。通常は整数列。負数・重複・空配列も可。"
+            },
+            {
+              "name": "queries",
+              "description": "各要素が整数の組(left, right)のiterable。区間は半開の[left, right)で、0≤left≤right≤N。順不同・重複・空区間も可。範囲外はIndexError。"
+            }
+          ],
+          "returns": "list[int] — 問い合わせ数と同じ長さのlist。result[k]はqueriesのk番目の半開区間内にある$i<j$かつ$a_i>a_j$の組数。等しい値は数えず、剰余を取らない。入力した問い合わせ順で返し、空区間の答えは0。queriesが空なら[]。",
+          "returnFormat": "list[int]",
+          "returnDescription": "問い合わせ数と同じ長さのlist。result[k]はqueriesのk番目の半開区間内にある$i<j$かつ$a_i>a_j$の組数。等しい値は数えず、剰余を取らない。入力した問い合わせ順で返し、空区間の答えは0。queriesが空なら[]。",
+          "complexity": "期待O((N sqrt(Q+1)+Q) log(N+2) + Q log(Q+2))時間、O(N+Q+1)メモリ。Nは配列長、Qは問い合わせ数。要素の比較・hashをO(1)とする",
+          "sourceLine": 6
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "range_query",
+      "categoryLabel": "静的区間クエリ",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
       "name": "RangeMajority",
       "modulePath": "library_codex.range_query.RangeMajority",
       "summary": "区間の過半数を占める値と出現回数。点更新にも対応する。",
@@ -28461,6 +28532,181 @@
               "returnDescription": "values[0]からvalues[right-1]までをopで左から順に結合したgroup要素。right=0ではidentity。",
               "complexity": "O(1)",
               "sourceLine": 28
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "range_query",
+      "categoryLabel": "静的区間クエリ",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
+      "name": "StaticRangeInversions",
+      "modulePath": "library_codex.range_query.StaticRangeInversions",
+      "summary": "更新のない配列の半開区間ごとに、順序が逆になった要素の組数を求める。",
+      "capabilities": [
+        "StaticRangeInversions: 更新のない配列を前計算し、任意の半開区間の転倒数を答える。同じ値の組は数えない。"
+      ],
+      "article": {
+        "title": "区間内の転倒数",
+        "markdown": "## 主な機能\n\n更新のない配列に対して、指定区間の転倒数を繰り返し求める。転倒とは、左側の要素が右側の要素より大きい組のこと。同じ値の組は数えない。\n\n`StaticRangeInversions(values)`で前計算し、`query(left, right)`で半開区間 `[left, right)` の答えを取得する。問い合わせを先にまとめる必要はなく、直前の答えで次の区間を決めてもよい。\n\n配列長をNとすると、既定の分割幅では構築にO(N sqrt(N))時間・メモリ、queryにO(sqrt(N))時間。区間内だけを昇順に並べるための、隣接要素の最小交換回数もこの値になる。\n\n問い合わせ区間がすべて先に分かるなら、別モジュール`OfflineRangeInversions`の`range_inversions(values, queries)`も選べる。そちらは区間を一括処理し、O(N+Q)メモリで済む。Qは問い合わせ数。\n\n## 使い方\n\n```python\nfrom library_codex.range_query.StaticRangeInversions import StaticRangeInversions\n\ntable = StaticRangeInversions([3, 1, 2, 2, 0])\ntable.query(0, 5)\ntable.query(1, 4)\ntable.query(2, 5)\ntable.query(2, 2)\n```\n\n- `query(0, 5)`は`7`。3より小さい後続要素が4個、1より小さい後続要素が1個、二つの2それぞれに0が1個ある。\n- `query(1, 4)`は`0`。対象は`[1, 2, 2]`で、同じ値の2同士は転倒しない。\n- `query(2, 5)`は`2`。対象は`[2, 2, 0]`。\n- `query(2, 2)`は`0`。空区間も指定できる。\n\n返るのは組数を表す整数で、要素や添字の組のlistではない。定義は次のとおり。\n\n$$\n\\#\\{(i,j)\\mid \\mathrm{left}\\le i<j<\\mathrm{right},\\ a_i>a_j\\}.\n$$\n\n## メモリと分割幅\n\n大きな頻度表は通常のPython整数listではなく整数配列に詰めて保持する。それでもメモリは線形ではない。N=100,000、既定の幅317の場合、この表だけで約121 MiBを使い、元の配列・補助表・PyPy本体は別途必要になる。\n\n`block_size`を大きくすると頻度表は小さくなり、問い合わせとブロック内の前計算は重くなる。幅Bに対して、構築はO(N log(N+1) + NB + N²/B)時間、メモリはO(N + N²/B)、queryはO(B)。\n\n## 注意点\n\n- 要素の更新には対応しない。元の入力listを書き換えても、構築済みの答えは変わらない。\n- `tolist()`と`str(table)`は元の配列を添字順に示す。圧縮後の順位や内部の頻度表は表示しない。\n- 要素は互いに大小比較できるものを渡す。比較結果が後から変化するオブジェクトやNaNは対象外。\n- 転倒数は32bitを超えることがある。返り値は剰余を取らないPython整数。\n\n## 仕組み\n\n配列を連続したブロックに分け、ブロック境界どうしの転倒数と、各境界までに現れた値の順位別累積個数を前計算する。問い合わせでは両端の不完全なブロックだけを補正する。\n\n重複値には元の出現順に異なる順位を与える。この順序では等しい値の前後関係が反転しないため、元の転倒数を保ったまま順位を一意にできる。\n\n[Library Checkerの公式解法](https://github.com/yosupo06/library-checker-problems/blob/1814c4e5205517e368bb57a8d1127eb961cfeaae/data_structure/static_range_inversions_query/sol/correct.cpp)の平方分割を基に、PyPy用の配列構成で実装している。",
+        "sourcePath": "library_codex/docs/articles/range_query/StaticRangeInversions.md"
+      },
+      "searchTerms": [
+        "StaticRangeInversions",
+        "Static Range Inversions",
+        "library_codex.range_query.StaticRangeInversions",
+        "library codex range query Static Range Inversions",
+        "range_query/StaticRangeInversions.py",
+        "静的区間クエリ",
+        "区間転倒数",
+        "平方分割",
+        "バブルソートの交換回数"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/range_query/StaticRangeInversions.py",
+      "inputFingerprint": "c26ea62801ced9cf907f4c0f2702172d246e174a2abf6e917b56b6e4891e0979",
+      "importCode": "from library_codex.range_query.StaticRangeInversions import StaticRangeInversions",
+      "sourceCode": "\"\"\"更新のない配列の半開区間ごとに、順序が逆になった要素の組数を求める。\n\nAdapted from yosupo06/library-checker-problems, revision\n1814c4e5205517e368bb57a8d1127eb961cfeaae,\ndata_structure/static_range_inversions_query/sol/correct.cpp.\nChanges: Python implementation, packed counts, configurable block width,\nrange validation, empty input support and logical debug output.\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy at https://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\"\"\"\n\nfrom array import array\nfrom math import isqrt\n\n\nclass StaticRangeInversions:\n    \"\"\"前計算した配列に対して、区間内の転倒数をO(sqrt(N))で答える。\"\"\"\n\n    __slots__ = (\"n\", \"block_size\", \"_values\", \"_ranks\", \"_order\", \"_prefix\", \"_blocks\", \"_freq\")\n\n    def __init__(self, values, block_size=None):\n        values = list(values)\n        n = len(values)\n        if block_size is None:\n            block_size = isqrt(n) + 1\n        if block_size <= 0:\n            raise ValueError(\"block_size must be positive\")\n        width = min(block_size, max(1, n))\n        rank = [0] * n\n        for value, index in enumerate(sorted(range(n), key=values.__getitem__)):\n            rank[index] = value\n        count = n // width + 1\n        ranks = [rank[i * width:(i + 1) * width] for i in range(count)]\n        order = [sorted(range(len(row)), key=row.__getitem__) for row in ranks]\n        sorted_rows = [[row[i] for i in indices] for row, indices in zip(ranks, order)]\n        prefix = []\n        blocks = [[] for _ in range(count)]\n        frequencies = []\n        seen = [0] * n\n        typecode = \"I\" if n <= 0xffffffff else \"Q\"\n        for r in range(count):\n            row = ranks[r]\n            freq = array(typecode, [0]) * (n + 1)\n            total = 0\n            for i in range(n):\n                total += seen[i]\n                freq[i + 1] = total\n            frequencies.append(freq)\n            for value in row:\n                seen[value] = 1\n            inv = 0\n            local = [0]\n            for i in range(len(row)):\n                value = row[i]\n                for j in range(i):\n                    inv += row[j] > value\n                local.append(inv)\n            prefix.append(local)\n            if r + 1 == count:\n                continue\n            whole = [0] * (r + 1)\n            whole[r] = inv\n            current = sorted_rows[r]\n            size = len(current)\n            previous = blocks[r]\n            for l in range(r - 1, -1, -1):\n                j = 0\n                for value in sorted_rows[l]:\n                    while j < size and current[j] < value:\n                        j += 1\n                    inv += j\n                whole[l] = previous[l] + inv\n            blocks[r + 1] = whole\n        self.n = n\n        self.block_size = width\n        self._values = values\n        self._ranks = ranks\n        self._order = order\n        self._prefix = prefix\n        self._blocks = blocks\n        self._freq = frequencies\n\n    def query(self, left, right):\n        \"\"\"半開区間[left, right)のi<jかつa[i]>a[j]となる組数を返す。\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if right - left < 2:\n            return 0\n        width = self.block_size\n        fq, fr = divmod(left, width)\n        lq, lr = divmod(right, width)\n        fp = self._prefix[fq]\n        fo = self._order[fq]\n        if fq == lq:\n            result = fp[lr] - fp[fr]\n            total = 0\n            for index in fo:\n                if index < fr:\n                    result -= total\n                elif index < lr:\n                    total += 1\n            return result\n        fa = self._ranks[fq]\n        la = self._ranks[lq]\n        ff = self._freq[fq]\n        lf = self._freq[lq]\n        result = self._blocks[lq][fq] + fr * (fr - 1) // 2 - fp[fr]\n        for i in range(fr):\n            value = fa[i]\n            result -= lf[value] - ff[value]\n        result += self._prefix[lq][lr] + (lq - fq) * width * lr\n        for i in range(lr):\n            value = la[i]\n            result -= lf[value] - ff[value]\n        lo = self._order[lq]\n        j = 0\n        total = 0\n        size = len(lo)\n        for i in fo:\n            value = fa[i]\n            while j < size and la[lo[j]] < value:\n                total += lo[j] < lr\n                j += 1\n            if i < fr:\n                result -= total\n        return result\n\n    def tolist(self):\n        \"\"\"前計算した元の配列を添字順の新しいlistで返す。\"\"\"\n        return self._values[:]\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self._values)\n\n    def __repr__(self):\n        return \"StaticRangeInversions(%r)\" % self._values\n",
+      "standaloneCode": "\"\"\"更新のない配列の半開区間ごとに、順序が逆になった要素の組数を求める。\n\nAdapted from yosupo06/library-checker-problems, revision\n1814c4e5205517e368bb57a8d1127eb961cfeaae,\ndata_structure/static_range_inversions_query/sol/correct.cpp.\nChanges: Python implementation, packed counts, configurable block width,\nrange validation, empty input support and logical debug output.\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy at https://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\"\"\"\n\nfrom array import array\nfrom math import isqrt\n\n\nclass StaticRangeInversions:\n    \"\"\"前計算した配列に対して、区間内の転倒数をO(sqrt(N))で答える。\"\"\"\n\n    __slots__ = (\"n\", \"block_size\", \"_values\", \"_ranks\", \"_order\", \"_prefix\", \"_blocks\", \"_freq\")\n\n    def __init__(self, values, block_size=None):\n        values = list(values)\n        n = len(values)\n        if block_size is None:\n            block_size = isqrt(n) + 1\n        if block_size <= 0:\n            raise ValueError(\"block_size must be positive\")\n        width = min(block_size, max(1, n))\n        rank = [0] * n\n        for value, index in enumerate(sorted(range(n), key=values.__getitem__)):\n            rank[index] = value\n        count = n // width + 1\n        ranks = [rank[i * width:(i + 1) * width] for i in range(count)]\n        order = [sorted(range(len(row)), key=row.__getitem__) for row in ranks]\n        sorted_rows = [[row[i] for i in indices] for row, indices in zip(ranks, order)]\n        prefix = []\n        blocks = [[] for _ in range(count)]\n        frequencies = []\n        seen = [0] * n\n        typecode = \"I\" if n <= 0xffffffff else \"Q\"\n        for r in range(count):\n            row = ranks[r]\n            freq = array(typecode, [0]) * (n + 1)\n            total = 0\n            for i in range(n):\n                total += seen[i]\n                freq[i + 1] = total\n            frequencies.append(freq)\n            for value in row:\n                seen[value] = 1\n            inv = 0\n            local = [0]\n            for i in range(len(row)):\n                value = row[i]\n                for j in range(i):\n                    inv += row[j] > value\n                local.append(inv)\n            prefix.append(local)\n            if r + 1 == count:\n                continue\n            whole = [0] * (r + 1)\n            whole[r] = inv\n            current = sorted_rows[r]\n            size = len(current)\n            previous = blocks[r]\n            for l in range(r - 1, -1, -1):\n                j = 0\n                for value in sorted_rows[l]:\n                    while j < size and current[j] < value:\n                        j += 1\n                    inv += j\n                whole[l] = previous[l] + inv\n            blocks[r + 1] = whole\n        self.n = n\n        self.block_size = width\n        self._values = values\n        self._ranks = ranks\n        self._order = order\n        self._prefix = prefix\n        self._blocks = blocks\n        self._freq = frequencies\n\n    def query(self, left, right):\n        \"\"\"半開区間[left, right)のi<jかつa[i]>a[j]となる組数を返す。\"\"\"\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        if right - left < 2:\n            return 0\n        width = self.block_size\n        fq, fr = divmod(left, width)\n        lq, lr = divmod(right, width)\n        fp = self._prefix[fq]\n        fo = self._order[fq]\n        if fq == lq:\n            result = fp[lr] - fp[fr]\n            total = 0\n            for index in fo:\n                if index < fr:\n                    result -= total\n                elif index < lr:\n                    total += 1\n            return result\n        fa = self._ranks[fq]\n        la = self._ranks[lq]\n        ff = self._freq[fq]\n        lf = self._freq[lq]\n        result = self._blocks[lq][fq] + fr * (fr - 1) // 2 - fp[fr]\n        for i in range(fr):\n            value = fa[i]\n            result -= lf[value] - ff[value]\n        result += self._prefix[lq][lr] + (lq - fq) * width * lr\n        for i in range(lr):\n            value = la[i]\n            result -= lf[value] - ff[value]\n        lo = self._order[lq]\n        j = 0\n        total = 0\n        size = len(lo)\n        for i in fo:\n            value = fa[i]\n            while j < size and la[lo[j]] < value:\n                total += lo[j] < lr\n                j += 1\n            if i < fr:\n                result -= total\n        return result\n\n    def tolist(self):\n        \"\"\"前計算した元の配列を添字順の新しいlistで返す。\"\"\"\n        return self._values[:]\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self._values)\n\n    def __repr__(self):\n        return \"StaticRangeInversions(%r)\" % self._values\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 5
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "StaticRangeInversions",
+          "summary": "更新のない配列を前計算し、任意の半開区間の転倒数を答える。同じ値の組は数えない。",
+          "description": "更新のない配列を前計算し、任意の半開区間の転倒数を答える。同じ値の組は数えない。",
+          "searchTerms": [
+            "StaticRangeInversions",
+            "Static Range Inversions",
+            "StaticRangeInversions(values, block_size=None)"
+          ],
+          "constructor": "StaticRangeInversions(values, block_size=None)",
+          "constructorArguments": "values: 互いに大小比較できる要素のiterable。入力をコピーし、並び順を保つ。負数・重複・空配列も可。 · block_size: 平方分割の幅。正の整数。Noneならisqrt(N)+1で、Nを超える指定はmax(1, N)に縮める。大きくすると表のメモリは減るがqueryが遅くなる。省略時: None",
+          "constructorArgumentDetails": [
+            {
+              "name": "values",
+              "description": "互いに大小比較できる要素の反復可能オブジェクト。入力をコピーし、並び順を保つ。負数・重複・空配列も可"
+            },
+            {
+              "name": "block_size",
+              "description": "平方分割の幅。正の整数。Noneならisqrt(N)+1で、Nを超える指定はmax(1, N)に縮める。大きくすると表のメモリは減るがクエリが遅くなる。省略時は None"
+            }
+          ],
+          "constructorReturns": "StaticRangeInversions instance",
+          "constructorReturnFormat": "StaticRangeInversions",
+          "constructorReturnDescription": "query(left, right)でその区間の転倒数を整数として取得できる。問い合わせの事前登録や並べ替えは不要。tolist()で元の配列のコピーを取り出せる。n・block_size属性は読み取り用。",
+          "constructorCreates": "query(left, right)でその区間の転倒数を整数として取得できる。問い合わせの事前登録や並べ替えは不要。tolist()で元の配列のコピーを取り出せる。n・block_size属性は読み取り用。",
+          "constructorComplexity": "O(N log(N+1) + NB + N²/B + 1)時間、O(N + N²/B + 1)メモリ。Nは配列長、Bは実際のblock_size。既定値ではO(N sqrt(N)+1)時間・メモリ。要素比較をO(1)とする",
+          "constructorSourceLine": 27,
+          "methods": [
+            {
+              "name": "query",
+              "kind": "method",
+              "signature": "query(left, right)",
+              "summary": "半開区間[left, right)にある、左の要素のほうが大きい組を数える。",
+              "description": "半開区間[left, right)にある、左の要素のほうが大きい組を数える。",
+              "searchTerms": [
+                "query",
+                "query(left, right)"
+              ],
+              "arguments": "left: 対象の半開区間[left, right)の左端。 · right: 右端は含まない。0≤left≤right≤N。範囲外はIndexError。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "対象の半開区間[left, right)の左端。"
+                },
+                {
+                  "name": "right",
+                  "description": "右端は含まない。0≤left≤right≤N。範囲外はIndexError。"
+                }
+              ],
+              "returns": "int — $\\mathrm{left}\\le i<j<\\mathrm{right}$かつ$a_i>a_j$となる添字の組数。等しい値は数えず、剰余を取らない。長さ0または1なら0。この区間だけを昇順にするのに必要な隣接交換の最小回数でもある。",
+              "returnFormat": "int",
+              "returnDescription": "$\\mathrm{left}\\le i<j<\\mathrm{right}$かつ$a_i>a_j$となる添字の組数。等しい値は数えず、剰余を取らない。長さ0または1なら0。この区間だけを昇順にするのに必要な隣接交換の最小回数でもある。",
+              "complexity": "O(B)時間、O(1)追加メモリ。Bはblock_size。既定値ではO(sqrt(N)+1)",
+              "sourceLine": 89
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "前計算した元の配列を、元の添字順でコピーする。",
+              "description": "前計算した元の配列を、元の添字順でコピーする。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[object] — 長さNの新しいlist。result[i]は構築時のvalues[i]。listの要素を置き換えても前計算には影響しない。要素自体は浅いコピー。",
+              "returnFormat": "list[object]",
+              "returnDescription": "長さNの新しいlist。result[i]は構築時のvalues[i]。listの要素を置き換えても前計算には影響しない。要素自体は浅いコピー。",
+              "complexity": "O(N+1)時間・追加メモリ。Nは配列長",
+              "sourceLine": 134
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "要素数を返す。",
+              "description": "要素数を返す。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 要素数。",
+              "returnFormat": "int",
+              "returnDescription": "要素数。",
+              "complexity": "O(1)",
+              "sourceLine": 138
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "構築時の配列を、元の添字順で文字列として表示する。",
+              "description": "構築時の配列を、元の添字順で文字列として表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — 元の配列のlist表現を表す文字列。内部の順位や頻度表は表示せず、queryの答えも変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "元の配列のlist表現を表す文字列。内部の順位や頻度表は表示せず、queryの答えも変更しない。",
+              "complexity": "O(N+L)時間・追加メモリ。Lは要素の文字列表現の合計長",
+              "sourceLine": 141
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "構築時の配列を型名付きの文字列で表示する。",
+              "description": "構築時の配列を型名付きの文字列で表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — 型名と元の配列を含むStaticRangeInversions([...])という文字列。queryの答えは変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "型名と元の配列を含むStaticRangeInversions([...])という文字列。queryの答えは変更しない。",
+              "complexity": "O(N+L)時間・追加メモリ。Lは要素の文字列表現の合計長",
+              "sourceLine": 144
             }
           ]
         }

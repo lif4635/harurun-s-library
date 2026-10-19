@@ -23,6 +23,7 @@
 
 ## データ構造・範囲クエリ
 
+- [区間転倒数の一括処理と都度問い合わせ](RANGE_INVERSIONS_BENCHMARK.md)
 - [永続区間アフィン変換・版間の区間コピー](PERSISTENT_AFFINE_BENCHMARK.md)
 - [動的列・区間頻度](DATA_STRUCTURE_BENCHMARK.md)
 - [BinaryTrie・Stern–Brocot木](BINARY_TRIE_PERFORMANCE.md)

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 235,
-    "unimplemented": 18
+    "local_passed": 236,
+    "unimplemented": 17
   },
   "problems": [
     {
@@ -2674,10 +2674,12 @@
       "title": "Static Range Inversions Query",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/static_range_inversions_query",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.range_query.OfflineRangeInversions"
+      ],
+      "solution": "solutions/static_range_inversions_query.py",
+      "result": "results/static_range_inversions_query.json"
     },
     {
       "name": "static_range_lis_query",

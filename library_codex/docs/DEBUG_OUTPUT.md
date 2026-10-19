@@ -82,3 +82,7 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 ## 永続区間アフィン変換
 
 `PersistentRangeAffineRangeSum.tolist(version)`は指定版の配列を添字順の新しいlistで返す。省略時と`str`は最後に作った版を使い、`repr`は`PersistentRangeAffineRangeSum([...], mod=...)`。O(N+1)時間・追加メモリで、ノード・版の追加や遅延状態の書き換えは行わない。
+
+## 静的区間転倒数
+
+`StaticRangeInversions.tolist()`は構築時の配列を添字順に返す浅いコピー。`str`は同じlist、`repr`は`StaticRangeInversions([...])`。`tolist()`はO(N+1)時間・追加メモリで、前計算した表やqueryの答えを変更しない。

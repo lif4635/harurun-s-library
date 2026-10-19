@@ -144,6 +144,7 @@
 | [sqrt_of_formal_power_series_sparse](sqrt_of_formal_power_series_sparse.json) | 3 / 45 | 5 | 0.277 | 142.3 | 一致 |
 | [st_numbering](st_numbering.json) | 3 / 28 | 5 | 0.545 | 110.5 | 一致 |
 | [static_convex_hull](static_convex_hull.json) | 3 / 25 | 5 | 2.111 | 196.6 | 一致 |
+| [static_range_inversions_query](static_range_inversions_query.json) | 3 / 13 | 5 | 1.525 | 95.1 | 一致 |
 | [static_range_lis_query](static_range_lis_query.json) | 3 / 15 | 5 | 3.512 | 129.7 | 一致 |
 | [static_range_mode_query](static_range_mode_query.json) | 3 / 11 | 5 | 1.286 | 113.7 | 一致 |
 | [static_range_sum_with_upper_bound](static_range_sum_with_upper_bound.json) | 3 / 10 | 5 | 3.087 | 343.0 | 一致 |

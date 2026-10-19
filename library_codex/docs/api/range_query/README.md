@@ -7,6 +7,7 @@
 | --- | --- | ---: | ---: | ---: |
 | [`DisjointSparseTable`](DisjointSparseTable.md) | 静的列の半群区間積 | 0 | 1 | 1 |
 | [`DynamicWaveletMatrix`](DynamicWaveletMatrix.md) | 完全オンライン動的Wavelet Matrix・候補圧縮版・高速offline batch版 | 1 | 3 | 37 |
+| [`OfflineRangeInversions`](OfflineRangeInversions.md) | 複数の半開区間をまとめて受け取り、それぞれの転倒数を求める。 | 1 | 0 | 0 |
 | [`RangeMajority`](RangeMajority.md) | 区間の過半数を占める値と出現回数。点更新にも対応する。 | 0 | 1 | 7 |
 | [`RangeMex`](RangeMex.md) | 静的な列の複数の半開区間についてmexをまとめて求める。 | 1 | 0 | 0 |
 | [`RangeXorBasis`](RangeXorBasis.md) | 静的整数列の複数の半開区間について、XOR線形基底を一括計算する。 | 2 | 0 | 0 |
@@ -14,6 +15,7 @@
 | [`StaticRangeDistinct`](StaticRangeDistinct.md) | 変更されない列の半開区間に含まれる異なる値の個数を求める。 | 0 | 1 | 1 |
 | [`StaticRangeFrequency`](StaticRangeFrequency.md) | Frequency queries on an immutable sequence. | 0 | 1 | 3 |
 | [`StaticRangeGroup`](StaticRangeGroup.md) | groupの静的列で半開区間積をO(1)取得する。 | 0 | 1 | 2 |
+| [`StaticRangeInversions`](StaticRangeInversions.md) | 更新のない配列の半開区間ごとに、順序が逆になった要素の組数を求める。 | 0 | 1 | 5 |
 | [`StaticRangeMode`](StaticRangeMode.md) | Mode queries on an immutable sequence. | 0 | 1 | 5 |
 | [`WaveletMatrix`](WaveletMatrix.md) | 非負整数列のrank・k-th・range frequency | 0 | 1 | 11 |
 | [`WeightedWaveletMatrix`](WeightedWaveletMatrix.md) | 静的な列で値域を絞った重み和とk個の最小・最大要素の重み和を求める。 | 0 | 1 | 6 |

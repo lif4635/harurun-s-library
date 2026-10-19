@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 388,
+  "moduleCount": 390,
   "supportedCount": 7,
   "modules": [
     {
@@ -1557,6 +1557,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "range_query/OfflineRangeInversions",
+      "sourcePath": "library_codex/range_query/OfflineRangeInversions.py",
+      "sourceSha256": "3415dd7f548f4a76fbb00aee081ad8aee7d3aef1cdc8242b8c4f87e664b4025c",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "range_query/RangeMajority",
       "sourcePath": "library_codex/range_query/RangeMajority.py",
       "sourceSha256": "17dbdde69029d76d7a821c3d5255a763e0384e1907e743670753c8c535e90619",
@@ -1596,6 +1602,12 @@
       "modulePath": "range_query/StaticRangeGroup",
       "sourcePath": "library_codex/range_query/StaticRangeGroup.py",
       "sourceSha256": "d8286f1e72e83375cc8954945eb457b880450d8c78f8a16bde349cee33833b20",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "range_query/StaticRangeInversions",
+      "sourcePath": "library_codex/range_query/StaticRangeInversions.py",
+      "sourceSha256": "f8dc24292e5a898c4bfd0398afae324f55917a41e2edeeb0793645c5123d8b75",
       "status": "unsupported"
     },
     {
