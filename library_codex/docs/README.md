@@ -38,7 +38,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | --- | --- | ---: | ---: | ---: | ---: |
 | [debug](api/debug/README.md) | ローカル実行時の状態の可視化 | 1 | 3 | 0 | 0 |
 | [algorithm](api/algorithm/README.md) | 汎用アルゴリズム・列・順列 | 17 | 36 | 4 | 16 |
-| [convolution](api/convolution/README.md) | 係数畳み込み・min-plus・DFT・NTT | 7 | 19 | 1 | 4 |
+| [convolution](api/convolution/README.md) | 係数畳み込み・min-plus・DFT・NTT | 8 | 20 | 1 | 4 |
 | [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 3 | 8 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
 | [fps998](api/fps998/README.md) | 998244353固定の高速NTT・FPS・母関数 | 7 | 31 | 0 | 0 |
@@ -60,7 +60,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [graph_spanning](api/graph_spanning/README.md) | 全域木・Steiner木・merge tree | 7 | 12 | 2 | 10 |
 | [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 12 | 20 | 1 | 4 |
 | [number_theory](api/number_theory/README.md) | 整数演算・合同式・乗法的関数 | 22 | 46 | 5 | 27 |
-| [combinatorics](api/combinatorics/README.md) | 二項係数・組合せ構成 | 16 | 18 | 9 | 30 |
+| [combinatorics](api/combinatorics/README.md) | 二項係数・組合せ構成 | 17 | 19 | 9 | 30 |
 | [linear_algebra](api/linear_algebra/README.md) | 行列・線形方程式・線形基底 | 9 | 33 | 5 | 36 |
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 4 | 3 | 28 |
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
@@ -75,4 +75,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **394 modules / 529 functions / 238 classes / 1515 methods・properties**。
+合計: **396 modules / 531 functions / 238 classes / 1515 methods・properties**。

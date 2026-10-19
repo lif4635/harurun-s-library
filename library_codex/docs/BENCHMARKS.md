@@ -38,6 +38,8 @@
 
 ## 数論・多項式・線形代数
 
+- [64bit整数の畳み込み](CONVOLUTION64_BENCHMARK.md)
+- [大量の階乗問い合わせ](FACTORIAL_QUERIES_BENCHMARK.md)
 - [平方因子を持たない整数の計数](SQUARE_FREE_BENCHMARK.md)
 - [固定法の離散対数](FIXED_DISCRETE_LOG_BENCHMARK.md)
 - [2冪法の乗法畳み込み](MULTIPLICATIVE_CONVOLUTION_POW2_BENCHMARK.md)

@@ -1118,6 +1118,36 @@ def test_weighted_matching_article_and_mate_contract():
     assert matching.run() == [1, 0, 3, 2]
 
 
+def test_convolution64_article_and_standalone():
+    module = module_by_path(load_catalog(), "library_codex.convolution.Convolution64")
+    assert "## 主な機能" in module["article"]["markdown"]
+    assert "## 使い方" in module["article"]["markdown"]
+    assert "$$" in module["article"]["markdown"]
+    function = next(item for item in module["functions"] if item["name"] == "convolution_u64")
+    assert function["returnFormat"] == "list[int]"
+    assert "末尾の0" in function["returnDescription"]
+    assert "log" in function["complexity"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    assert namespace["convolution_u64"]([-1, 1], [1, 1]) == [(1 << 64) - 1, 0, 1]
+    assert namespace["convolution_u64"]([-1] * 33, [-1] * 33) == list(range(1, 34)) + list(range(32, 0, -1))
+
+
+def test_factorial_queries_article_and_standalone():
+    module = module_by_path(load_catalog(), "library_codex.combinatorics.FactorialQueries")
+    assert "## 主な機能" in module["article"]["markdown"]
+    assert "## 使い方" in module["article"]["markdown"]
+    assert "$$" in module["article"]["markdown"]
+    function = next(item for item in module["functions"] if item["name"] == "factorials")
+    assert function["returnFormat"] == "list[int]"
+    assert "同じ長さ・順番" in function["returnDescription"]
+    assert "Q B" in function["complexity"]
+    assert "階乗" in module["searchTerms"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    assert namespace["factorials"]([5, 0, 5, 998244352, 998244353]) == [120, 1, 120, 998244352, 0]
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")

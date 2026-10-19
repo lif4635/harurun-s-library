@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 241,
-    "unimplemented": 12
+    "local_passed": 243,
+    "unimplemented": 10
   },
   "problems": [
     {
@@ -473,10 +473,14 @@
       "title": "Convolution (Mod 2^64)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/convolution_mod_2_64",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.convolution.NTT998",
+        "library_codex.convolution.Convolution64"
+      ],
+      "solution": "solutions/convolution_mod_2_64.py",
+      "result": "results/convolution_mod_2_64.json"
     },
     {
       "name": "convolution_mod_large",
@@ -1480,10 +1484,13 @@
       "title": "Many Factorials",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/many_factorials",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.combinatorics.FactorialQueries"
+      ],
+      "solution": "solutions/many_factorials.py",
+      "result": "results/many_factorials.json"
     },
     {
       "name": "matrix_det",

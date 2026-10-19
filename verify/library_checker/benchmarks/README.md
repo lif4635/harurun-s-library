@@ -31,6 +31,7 @@
 | [consecutive_terms_of_linear_recurrent_sequence](consecutive_terms_of_linear_recurrent_sequence.json) | 3 / 43 | 5 | 5.075 | 233.1 | 一致 |
 | [conversion_from_monomial_basis_to_newton_basis](conversion_from_monomial_basis_to_newton_basis.json) | 3 / 15 | 5 | 1.134 | 148.2 | 一致 |
 | [convolution_mod_1000000007](convolution_mod_1000000007.json) | 3 / 48 | 5 | 1.260 | 187.1 | 一致 |
+| [convolution_mod_2_64](convolution_mod_2_64.json) | 3 / 44 | 5 | 3.639 | 561.8 | 一致 |
 | [count_points_in_triangle](count_points_in_triangle.json) | 3 / 10 | 5 | 1.723 | 143.4 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
 | [counting_eulerian_circuits](counting_eulerian_circuits.json) | 3 / 16 | 5 | 0.435 | 95.1 | 一致 |
@@ -84,6 +85,7 @@
 | [manhattanmst](manhattanmst.json) | 3 / 16 | 5 | 3.376 | 232.9 | 一致 |
 | [many_aplusb](many_aplusb.json) | 3 / 9 | 5 | 0.472 | 89.3 | 一致 |
 | [many_aplusb_128bit](many_aplusb_128bit.json) | 3 / 10 | 5 | 0.691 | 88.9 | 一致 |
+| [many_factorials](many_factorials.json) | 3 / 12 | 5 | 0.709 | 110.3 | 一致 |
 | [matrix_det](matrix_det.json) | 3 / 25 | 5 | 0.345 | 64.3 | 一致 |
 | [matrix_det_arbitrary_mod](matrix_det_arbitrary_mod.json) | 3 / 20 | 5 | 0.646 | 64.7 | 一致 |
 | [matrix_det_mod_2](matrix_det_mod_2.json) | 3 / 36 | 5 | 0.449 | 66.0 | 一致 |

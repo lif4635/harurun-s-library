@@ -8283,6 +8283,33 @@ for _method, _description, _format, _returns in (
                                 | ({"reverse": "Falseならキー昇順、Trueなら降順。"} if _method == "sort" else {}),
     }
 
+_convolution64_module = "convolution/Convolution64.py"
+SEARCH_TERMS_BY_MODULE[_convolution64_module] = ("64bit畳み込み", "unsigned long long", "mod 2^64", "整数畳み込み")
+COMPLEXITY_BY_MODULE[_convolution64_module] = {
+    "convolution_u64": "O(L log(L+2))時間・O(L)追加メモリ。L=len(first)+len(second)-1。短い側が32要素以下ならO(len(first)*len(second))時間。空入力はO(1)",
+}
+API_DETAILS_BY_SYMBOL[(_convolution64_module, None, "convolution_u64")] = {
+    "description": "整数係数列2本を通常の積和で畳み込み、各係数の下位64bitを返す。",
+    "argumentDescriptions": {
+        "first": "昇べき順の整数係数列。負数や64bitを超える整数も2**64で正規化する。結果の長さが2**21を超えるとValueError。",
+        "second": "もう一方の昇べき順の整数係数列。firstと同じ配列を渡す平方にも対応する。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "長さlen(first)+len(second)-1の新しいlist。result[k]はi+j=kとなるfirst[i]*second[j]の総和を2**64で割った余り。各要素は0以上2**64未満。片方でも空なら空list。末尾の0も残す。",
+}
+
+_factorial_queries_module = "combinatorics/FactorialQueries.py"
+SEARCH_TERMS_BY_MODULE[_factorial_queries_module] = ("階乗", "大量階乗", "many factorials", "Wilsonの定理")
+COMPLEXITY_BY_MODULE[_factorial_queries_module] = {
+    "factorials": "O(K log(K+2)+Q log(Q+2)+min(A,Q B))時間・O(K+Q)メモリ。Qは問い合わせ数、AはWilson変換後の最大添字、Bは内部の区切り幅、K=max(B,floor(A/B))。小さいAはO(A+Q log(Q+2))時間・O(Q)メモリ",
+}
+API_DETAILS_BY_SYMBOL[(_factorial_queries_module, None, "factorials")] = {
+    "description": "離れた添字の階乗を、区切りごとの積を共有してまとめて計算する。法は998244353固定。",
+    "argumentDescriptions": {"indices": "非負整数のiterable。重複・未ソート・空の入力もよい。負の添字はValueError。法以上の添字には0を返す。"},
+    "returnFormat": "list[int]",
+    "returnDescription": "入力と同じ長さ・順番の新しいlist。result[i]はindices[i]!を998244353で割った余り。0!は1、法以上の添字は0。重複は残し、入力は変更しない。",
+}
+
 _path_sum_module = "tree/TreePathCompositeSum.py"
 SEARCH_TERMS_BY_MODULE[_path_sum_module] = ("全方位合成和", "動的全方位DP", "一次関数", "dynamic rerooting")
 CLASS_DETAILS_BY_SYMBOL[(_path_sum_module, "TreePathCompositeSum")] = {

@@ -6,6 +6,7 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`ChirpZ`](ChirpZ.md) | 等比数列上の多項式評価をchirp-z変換でまとめて求める。 | 1 | 0 | 0 |
+| [`Convolution64`](Convolution64.md) | 64bit整数の積和を、2**64を法として畳み込む。 | 1 | 0 | 0 |
 | [`MiddleProduct`](MiddleProduct.md) | 長い列と短い列のずらし内積を求める高速middle product | 1 | 0 | 0 |
 | [`MinPlusConvolution`](MinPlusConvolution.md) | 凸列・凹列を含むmin-plus畳み込み | 3 | 0 | 0 |
 | [`MultidimensionalDFT`](MultidimensionalDFT.md) | 多次元DFTと多変数循環畳み込みを計算する。 | 2 | 0 | 0 |

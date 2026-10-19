@@ -11,6 +11,7 @@
 | [`DeBruijnSequence`](DeBruijnSequence.md) | 指定alphabetの全長order列を1回ずつ含む巡回列を作る。 | 1 | 0 | 0 |
 | [`ErdosGinzburgZiv`](ErdosGinzburgZiv.md) | Erdős–Ginzburg–Ziv定理の部分列構成 | 1 | 0 | 0 |
 | [`FactorialNumberSystem`](FactorialNumberSystem.md) | 置換とLehmer code・辞書順順位を相互変換する。 | 4 | 0 | 0 |
+| [`FactorialQueries`](FactorialQueries.md) | 998244353を法とする、離れた添字の階乗をまとめて求める。 | 1 | 0 | 0 |
 | [`FloatBinomial`](FloatBinomial.md) | 浮動小数点数で二項係数を逐次計算する。 | 0 | 1 | 4 |
 | [`GrayCode`](GrayCode.md) | 整数とGray codeを相互変換する。 | 3 | 0 | 0 |
 | [`IntegerPartitions`](IntegerPartitions.md) | 加法的整数分割の列挙 | 2 | 0 | 0 |

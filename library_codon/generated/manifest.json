@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 394,
+  "moduleCount": 396,
   "supportedCount": 7,
   "modules": [
     {
@@ -257,6 +257,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "combinatorics/FactorialQueries",
+      "sourcePath": "library_codex/combinatorics/FactorialQueries.py",
+      "sourceSha256": "dfe9196301f8a8f0d3f195a5e8e5be3a34a03058a37099403bc915694fb41694",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "combinatorics/FloatBinomial",
       "sourcePath": "library_codex/combinatorics/FloatBinomial.py",
       "sourceSha256": "be75645670df704f3a5e8b862e789a59e13681d67a4a951d8a235168eda9f381",
@@ -320,6 +326,12 @@
       "modulePath": "convolution/ChirpZ",
       "sourcePath": "library_codex/convolution/ChirpZ.py",
       "sourceSha256": "6f5c0e2825694297070aa48d7503571c6d6ce81edd48d888fd709611f05793c2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/Convolution64",
+      "sourcePath": "library_codex/convolution/Convolution64.py",
+      "sourceSha256": "1695d9bda4be0ca8d2f0fab656751cc72db3eb4bf995e6dcb2dee8369824d6b2",
       "status": "unsupported"
     },
     {
