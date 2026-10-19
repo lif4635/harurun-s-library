@@ -87,3 +87,9 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 ## 静的区間転倒数
 
 `StaticRangeInversions.tolist()`は構築時の配列を添字順に返す浅いコピー。`str`は同じlist、`repr`は`StaticRangeInversions([...])`。`tolist()`はO(N+1)時間・追加メモリで、前計算した表やqueryの答えを変更しない。
+
+## 木上の合成和と矩形アフィン変換
+
+`TreePathCompositeSum.tolist()`は頂点番号順の値、`edges()`は入力順の現在の`(u, v, b, c)`を返す。`str`は両者の組、`repr`は型名と法を加えた表記。列挙はO(N)時間・追加メモリ。
+
+`RectangleAffineSum.tolist()`は入力順の現在の重みで、無効な点は`None`。`str`は同じlist、`repr`は座標・重み・法を型名付きで表示する。列挙はO(N+1)時間・追加メモリ。保留中の作用を反映するが、論理的な値は変わらず、その後も更新・集計を続けられる。

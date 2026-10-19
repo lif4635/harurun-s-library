@@ -6,6 +6,7 @@
 
 ## グラフ・木
 
+- [木の経路に沿った一次関数の合成和](TREE_PATH_COMPOSITE_SUM_BENCHMARK.md)
 - [辺追加最小全域森](INCREMENTAL_MSF_BENCHMARK.md)
 - [彩色多項式](CHROMATIC_POLYNOMIAL_BENCHMARK.md)
 - [二部グラフの辺彩色](BIPARTITE_EDGE_COLORING_BENCHMARK.md)
@@ -23,6 +24,7 @@
 
 ## データ構造・範囲クエリ
 
+- [二次元点の矩形アフィン変換と矩形和](RECTANGLE_AFFINE_SUM_BENCHMARK.md)
 - [区間ソートと非可換な区間積](SORTABLE_ARRAY_BENCHMARK.md)
 - [区間転倒数の一括処理と都度問い合わせ](RANGE_INVERSIONS_BENCHMARK.md)
 - [永続区間アフィン変換・版間の区間コピー](PERSISTENT_AFFINE_BENCHMARK.md)

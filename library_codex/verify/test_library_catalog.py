@@ -157,6 +157,40 @@ assert data.all_prod() == 'BDC'
     assert result.returncode == 0, result.stderr
 
 
+@pytest.mark.parametrize("module_path,class_name,code", [
+    ("tree.TreePathCompositeSum", "TreePathCompositeSum", """
+tree = TreePathCompositeSum([1,2,3], [(0,1,2,1),(1,2,3,4)])
+assert tree.query(0) == 33
+assert tree.query(1) == 18
+tree.set(2,5)
+assert tree.query(0) == 45
+tree.set_edge(0,1,0)
+assert tree.query(0) == 22
+"""),
+    ("spatial_structure.RectangleAffineSum", "RectangleAffineSum", """
+tree = RectangleAffineSum([(0,0,2),(1,0,3),(0,1,None)])
+tree.apply(0,2,0,2,2,1)
+assert tree.sum(0,2,0,2) == 12
+tree.set(2,4)
+assert tree.sum(0,1,0,2) == 9
+tree.set(0,None)
+assert tree.tolist() == [None,7,4]
+"""),
+])
+def test_tree_sum_and_rectangle_affine_catalog_bundles(tmp_path, module_path, class_name, code):
+    module = module_by_path(load_catalog(), "library_codex." + module_path)
+    cls = next(item for item in module["classes"] if item["name"] == class_name)
+    methods = {item["name"]: item for item in cls["methods"]}
+    assert methods["set"]["returnFormat"] == "None"
+    assert methods["tolist"]["returnFormat"].startswith("list[")
+    assert methods["__repr__"]["returnFormat"] == "str"
+    assert "## 使い方" in module["article"]["markdown"]
+    assert "from library_codex" not in module["standaloneCode"]
+    result = subprocess.run([sys.executable, "-I", "-c", module["standaloneCode"] + code],
+                            cwd=tmp_path, text=True, capture_output=True, timeout=20)
+    assert result.returncode == 0, result.stderr
+
+
 def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
     data = load_catalog()
     assert data["schemaVersion"] == 2

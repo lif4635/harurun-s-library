@@ -45,6 +45,7 @@
 | [division_of_hex_big_integers](division_of_hex_big_integers.json) | 3 / 27 | 5 | 1.095 | 97.6 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
 | [dynamic_graph_vertex_add_component_sum](dynamic_graph_vertex_add_component_sum.json) | 3 / 19 | 5 | 0.528 | 125.9 | 一致 |
+| [dynamic_point_set_rectangle_affine_rectangle_sum](dynamic_point_set_rectangle_affine_rectangle_sum.json) | 3 / 25 | 5 | 7.890 | 138.2 | 一致 |
 | [dynamic_sequence_range_affine_range_sum](dynamic_sequence_range_affine_range_sum.json) | 3 / 33 | 5 | 7.624 | 180.2 | 一致 |
 | [dynamic_tree_subtree_add_subtree_sum](dynamic_tree_subtree_add_subtree_sum.json) | 3 / 18 | 5 | 1.449 | 230.5 | 一致 |
 | [dynamic_tree_vertex_add_path_sum](dynamic_tree_vertex_add_path_sum.json) | 3 / 15 | 5 | 4.380 | 104.4 | 一致 |
@@ -119,6 +120,7 @@
 | [point_set_range_composite_large_array](point_set_range_composite_large_array.json) | 3 / 25 | 5 | 0.960 | 147.6 | 一致 |
 | [point_set_range_frequency](point_set_range_frequency.json) | 3 / 25 | 5 | 0.683 | 178.8 | 一致 |
 | [point_set_range_sort_range_composite](point_set_range_sort_range_composite.json) | 3 / 23 | 5 | 4.363 | 98.6 | 一致 |
+| [point_set_tree_path_composite_sum](point_set_tree_path_composite_sum.json) | 3 / 26 | 5 | 2.701 | 245.4 | 一致 |
 | [point_set_tree_path_composite_sum_fixed_root](point_set_tree_path_composite_sum_fixed_root.json) | 3 / 26 | 5 | 1.975 | 249.0 | 一致 |
 | [polynomial_composite_set_power_series](polynomial_composite_set_power_series.json) | 3 / 18 | 5 | 5.367 | 359.6 | 一致 |
 | [polynomial_interpolation_on_geometric_sequence](polynomial_interpolation_on_geometric_sequence.json) | 3 / 28 | 5 | 0.953 | 176.8 | 一致 |

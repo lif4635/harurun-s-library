@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 392,
+  "moduleCount": 394,
   "supportedCount": 7,
   "modules": [
     {
@@ -1985,6 +1985,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "spatial_structure/RectangleAffineSum",
+      "sourcePath": "library_codex/spatial_structure/RectangleAffineSum.py",
+      "sourceSha256": "253b934d0ca4b02558a3788ff7707cbffb0d6aa7801e9339f7bff972ca7793d5",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "spatial_structure/SegmentTree2D",
       "sourcePath": "library_codex/spatial_structure/SegmentTree2D.py",
       "sourceSha256": "47fa106399a6cca5b267437a862e4da745232a87e83eb65d910e0215d9e7649b",
@@ -2276,6 +2282,12 @@
       "modulePath": "tree/TreeIsomorphism",
       "sourcePath": "library_codex/tree/TreeIsomorphism.py",
       "sourceSha256": "190f4306ae790b6b8f9e45469620dde8c31b2ca4b3a365f62baaeb99c932cb30",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/TreePathCompositeSum",
+      "sourcePath": "library_codex/tree/TreePathCompositeSum.py",
+      "sourceSha256": "d3bca625ee103a83b5afe1b3fbfcadf68a2e698d5c018ebc1f74cc6501ebb826",
       "status": "unsupported"
     },
     {

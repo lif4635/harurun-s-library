@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T10:58:43+00:00",
+  "generatedAt": "2026-10-19T13:36:54+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "0ba3592ee6a27d2cda2772a40c9ee42f5f843ee031d7372cf429723a033be34f",
-  "inputStamp": "284dba5c2ea6a09a8579f84178f08de0615feb0660584f07753c7abe45b62eb6",
+  "sourceFingerprint": "42c1002fe494815a4b36edb23984a4e0026059bef20bec892c3a7a504e8426d3",
+  "inputStamp": "59a6fe1769117b0ded31ebd8bcfbfa927593ffc5029bbe6c17e5d193eaf4a4c1",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 392,
-    "articles": 98,
+    "modules": 394,
+    "articles": 100,
     "functions": 529,
-    "classes": 236,
-    "methods": 1501,
+    "classes": 238,
+    "methods": 1515,
     "tests": 1029
   },
   "categories": [
@@ -171,10 +171,10 @@
       "label": "2次元・直線",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 14,
+      "modules": 15,
       "functions": 1,
-      "classes": 14,
-      "methods": 51
+      "classes": 15,
+      "methods": 58
     },
     {
       "slug": "graph",
@@ -311,10 +311,10 @@
       "label": "木",
       "domain": "tree",
       "domainLabel": "Tree",
-      "modules": 22,
+      "modules": 23,
       "functions": 23,
-      "classes": 26,
-      "methods": 132
+      "classes": 27,
+      "methods": 139
     },
     {
       "slug": "tree_query",
@@ -411,7 +411,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 84
+      "modules": 85
     },
     {
       "slug": "graph",
@@ -426,7 +426,7 @@
     {
       "slug": "tree",
       "label": "Tree",
-      "modules": 25
+      "modules": 26
     },
     {
       "slug": "string",
@@ -31731,6 +31731,265 @@
       "categoryLabel": "2次元・直線",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
+      "name": "RectangleAffineSum",
+      "modulePath": "library_codex.spatial_structure.RectangleAffineSum",
+      "summary": "登録済みの二次元点に、矩形内の一次変換・矩形和・点ごとの有効化と置換を行う。",
+      "capabilities": [
+        "RectangleAffineSum: 登録済みの二次元点の重みを管理し、矩形への一次変換と矩形和、各点の有効化・無効化・置換を行う。"
+      ],
+      "article": {
+        "title": "二次元点の矩形アフィン変換と矩形和",
+        "markdown": "二次元点の重みを持ち、矩形内の重みへの一次変換と、矩形内の重みの和を処理する。点ごとの置換、有効化、無効化にも対応する。\n\n## 主な機能\n\n- 構築時に`(x, y, weight)`を登録する。同じ座標に複数の点を置ける。\n- `apply`で矩形内の有効な重みを`a*weight+b`へ変更し、`sum`で矩形和を求める。\n- `set(i, value)`で入力順のi番目の重みを置き換える。`None`は無効な点を表し、後から数値を設定すれば有効になる。\n- 構築O(N log N)、点の取得・置換O(log N)、保持する整数O(N)。矩形操作は訪問する部分に依存し、最悪O(N)。通常の二次元KD-treeではO(sqrt N)程度が目安になるが、保証ではない。\n\n矩形は左右・上下とも半開区間で、次の点が対象になる。\n\n$$\n\\mathrm{left}\\le x<\\mathrm{right},\\qquad\n\\mathrm{down}\\le y<\\mathrm{up}.\n$$\n\n## 使い方\n\n```python\nfrom library_codex.spatial_structure.RectangleAffineSum import RectangleAffineSum\n\npoints = RectangleAffineSum([(0, 0, 2), (1, 0, 3), (0, 1, None)])\npoints.apply(0, 2, 0, 2, 2, 1)\nfirst = points.sum(0, 2, 0, 2)\npoints.set(2, 4)\nsecond = points.sum(0, 1, 0, 2)\npoints.set(0, None)\nweights = points.tolist()\n```\n\n- `first`は12。2と3をそれぞれ5と7へ変更した和。無効な点には何も加えない。\n- `second`は9。右端のx=1を含まず、x=0の5と4だけを足す。\n- `weights`は`[None, 7, 4]`。`None`は重み0とは異なり、加算や一次変換の対象にならない。\n- `get(i)`は現在の重みの整数、無効なら`None`を返す。\n\n計算は既定ではmod 998244353。別の法は構築時の`mod`へ渡せる。\n\n## 点を後から追加する場合\n\n追加予定の座標を最初から`weight=None`で登録し、追加する時点で`set`する。座標だけ先読みできれば、重みの更新と問い合わせはその後に与えられる順で処理できる。\n\n- 追加前に行った矩形更新は、後から有効化した点に反映されない。\n- 一度無効化した点を再び有効化すると、`set`で指定した新しい重みになる。\n- 未登録の座標を処理途中で追加する操作はない。\n\n## 仕組み\n\n点群をKD-treeで分割し、各部分に重みの和、有効な点の数、保留中の一次変換を持つ。矩形が部分全体を含めば、個々の点を触らずに更新・集計する。\n\n末端では少数の点を配列へまとめ、境界にかかる部分だけ点を直接調べる。片方の座標の種類が極端に少ない場合は、その座標で先に分ける。点やノードごとのclass instance、再帰、逆元計算は使わない。\n\n## 注意点\n\n- `apply(left, right, down, up, a, b)`と`sum(left, right, down, up)`は、xの両端を先に渡す。Library Checkerの入力順`left, down, right, up`とは異なる。\n- 矩形の幅や高さが0なら更新は何もせず、和は0。左端が右端を超える場合などは`ValueError`。\n- 重み・係数は負数でもよい。係数0や合成数の法でも動作する。\n- `tolist()`と`str`は現在の重みを入力順で表示する。`repr`は座標・重み・法を型名付きで表示する。表示後も更新や問い合わせを続けられる。\n- 任意の集約や作用を渡したい場合は`LazyKDTree`を使う。このmoduleは法付き一次変換と和に特化している。",
+        "sourcePath": "library_codex/docs/articles/spatial_structure/RectangleAffineSum.md"
+      },
+      "searchTerms": [
+        "RectangleAffineSum",
+        "Rectangle Affine Sum",
+        "library_codex.spatial_structure.RectangleAffineSum",
+        "library codex spatial structure Rectangle Affine Sum",
+        "spatial_structure/RectangleAffineSum.py",
+        "2次元・直線",
+        "矩形和",
+        "矩形アフィン変換",
+        "点の有効化",
+        "KD tree",
+        "二次元区間更新"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/spatial_structure/RectangleAffineSum.py",
+      "inputFingerprint": "e8c3616c9533f342e66553678b9c66c397bc623c82f13771864ef3c3c5a58707",
+      "importCode": "from library_codex.spatial_structure.RectangleAffineSum import RectangleAffineSum",
+      "sourceCode": "\"\"\"登録済みの二次元点に、矩形内の一次変換・矩形和・点ごとの有効化と置換を行う。\"\"\"\n\n\n_BUCKET_SIZE = 16\n_ADAPTIVE_AXES = True\n\n\nclass RectangleAffineSum:\n    \"\"\"固定座標の点の重みを法付きで管理する。Noneの重みはまだ有効でない点を表す。\"\"\"\n\n    __slots__ = (\"n\", \"mod\", \"_position\", \"_xmin\", \"_xmax\", \"_ymin\", \"_ymax\",\n                 \"_count\", \"_sum\", \"_a\", \"_b\", \"_lo\", \"_hi\", \"_xs\", \"_ys\", \"_values\", \"_order\")\n\n    def __init__(self, points, mod=998244353):\n        if mod < 1:\n            raise ValueError(\"mod must be positive\")\n        points = list(points)\n        self.n = n = len(points)\n        self.mod = mod\n        size = 2 << (max(1, (n + _BUCKET_SIZE - 1) // _BUCKET_SIZE) - 1).bit_length()\n        self._position = [0] * n\n        self._xmin = [0] * size\n        self._xmax = [0] * size\n        self._ymin = [0] * size\n        self._ymax = [0] * size\n        self._count = [0] * size\n        self._sum = [0] * size\n        self._a = [1] * size\n        self._b = [0] * size\n        self._lo = [-1] * size\n        self._hi = [0] * size\n        self._xs = []\n        self._ys = []\n        self._values = []\n        self._order = [0] * n\n        if not n:\n            return\n        x_order = sorted(range(n), key=lambda i: points[i][0])\n        y_order = sorted(range(n), key=lambda i: points[i][1])\n        tasks = [(1, x_order, y_order, 0)]\n        marks = [0] * n\n        generation = 0\n        order = []\n        while tasks:\n            node, x_order, y_order, axis = tasks.pop()\n            indices = x_order if axis == 0 else y_order\n            order.append(node)\n            if len(indices) <= _BUCKET_SIZE:\n                self._lo[node] = len(self._xs)\n                for i in indices:\n                    x, y, value = points[i]\n                    self._position[i] = node\n                    self._order[i] = len(self._xs)\n                    self._xs.append(x)\n                    self._ys.append(y)\n                    self._values.append(-1 if value is None else value % mod)\n                    if value is not None:\n                        self._count[node] += 1\n                        self._sum[node] += value\n                self._sum[node] %= mod\n                self._hi[node] = len(self._xs)\n                self._xmin[node] = min(points[i][0] for i in indices)\n                self._xmax[node] = max(points[i][0] for i in indices)\n                self._ymin[node] = min(points[i][1] for i in indices)\n                self._ymax[node] = max(points[i][1] for i in indices)\n            else:\n                if _ADAPTIVE_AXES:\n                    nx = len({points[i][0] for i in x_order})\n                    ny = len({points[i][1] for i in y_order})\n                    if nx == 1 or ny > 1 and ny * 4 < nx:\n                        axis = 1\n                    elif ny == 1 or nx > 1 and nx * 4 < ny:\n                        axis = 0\n                    indices = x_order if axis == 0 else y_order\n                middle = len(indices) >> 1\n                first, second = indices[:middle], indices[middle:]\n                generation += 1\n                for i in first:\n                    marks[i] = generation\n                other = y_order if axis == 0 else x_order\n                low = [i for i in other if marks[i] == generation]\n                high = [i for i in other if marks[i] != generation]\n                if axis == 0:\n                    tasks.append((node * 2 + 1, second, high, 1))\n                    tasks.append((node * 2, first, low, 1))\n                else:\n                    tasks.append((node * 2 + 1, high, second, 0))\n                    tasks.append((node * 2, low, first, 0))\n        for node in reversed(order):\n            if self._lo[node] < 0:\n                left, right = node * 2, node * 2 + 1\n                self._xmin[node] = min(self._xmin[left], self._xmin[right])\n                self._xmax[node] = max(self._xmax[left], self._xmax[right])\n                self._ymin[node] = min(self._ymin[left], self._ymin[right])\n                self._ymax[node] = max(self._ymax[left], self._ymax[right])\n                self._count[node] = self._count[left] + self._count[right]\n                self._sum[node] = (self._sum[left] + self._sum[right]) % mod\n\n    def _apply(self, node, a, b):\n        if not self._count[node]:\n            return\n        self._sum[node] = (a * self._sum[node] + b * self._count[node]) % self.mod\n        self._a[node] = a * self._a[node] % self.mod\n        self._b[node] = (a * self._b[node] + b) % self.mod\n\n    def _push(self, node):\n        a, b = self._a[node], self._b[node]\n        if a != 1 or b:\n            if self._lo[node] < 0:\n                self._apply(node * 2, a, b)\n                self._apply(node * 2 + 1, a, b)\n            else:\n                values = self._values\n                mod = self.mod\n                for i in range(self._lo[node], self._hi[node]):\n                    if values[i] >= 0:\n                        values[i] = (a * values[i] + b) % mod\n            self._a[node], self._b[node] = 1, 0\n\n    def _point(self, index):\n        if not 0 <= index < self.n:\n            raise IndexError(\"point index out of range\")\n        node = self._position[index]\n        for shift in range(node.bit_length() - 1, 0, -1):\n            self._push(node >> shift)\n        return node\n\n    def set(self, index, value):\n        \"\"\"入力順のindex番目の点をvalueへ置換する。Noneなら無効化する。\"\"\"\n        node = self._point(index)\n        self._push(node)\n        i = self._order[index]\n        old = self._values[i]\n        self._count[node] += (value is not None) - (old >= 0)\n        value = -1 if value is None else value % self.mod\n        self._values[i] = value\n        self._sum[node] = (self._sum[node] - max(0, old) + max(0, value)) % self.mod\n        node >>= 1\n        while node:\n            self._sum[node] = (self._sum[node * 2] + self._sum[node * 2 + 1]) % self.mod\n            self._count[node] = self._count[node * 2] + self._count[node * 2 + 1]\n            node >>= 1\n\n    def get(self, index):\n        \"\"\"現在の重みを返す。無効な点はNoneを返す。\"\"\"\n        node = self._point(index)\n        value = self._values[self._order[index]]\n        return None if value < 0 else (self._a[node] * value + self._b[node]) % self.mod\n\n    def apply(self, left, right, down, up, a, b):\n        \"\"\"半開矩形[left, right)×[down, up)内の有効な重みをa*w+bへ変更する。\"\"\"\n        if left > right or down > up:\n            raise ValueError(\"invalid half-open rectangle\")\n        if left == right or down == up or not self.n:\n            return\n        a, b = a % self.mod, b % self.mod\n        xmin, xmax, ymin, ymax = self._xmin, self._xmax, self._ymin, self._ymax\n        values, count = self._sum, self._count\n        mod = self.mod\n        stack = [1]\n        parents = []\n        while stack:\n            node = stack.pop()\n            if count[node] and not (xmax[node] < left or right <= xmin[node] or ymax[node] < down or up <= ymin[node]):\n                if left <= xmin[node] and xmax[node] < right and down <= ymin[node] and ymax[node] < up:\n                    self._apply(node, a, b)\n                elif self._lo[node] >= 0:\n                    xs, ys, weights = self._xs, self._ys, self._values\n                    old_a, old_b = self._a[node], self._b[node]\n                    new_a, new_b = a * old_a % mod, (a * old_b + b) % mod\n                    total = 0\n                    for i in range(self._lo[node], self._hi[node]):\n                        weight = weights[i]\n                        if weight >= 0:\n                            if left <= xs[i] < right and down <= ys[i] < up:\n                                weight = (new_a * weight + new_b) % mod\n                            elif old_a != 1 or old_b:\n                                weight = (old_a * weight + old_b) % mod\n                            weights[i] = weight\n                            total += weight\n                    values[node] = total % mod\n                    self._a[node], self._b[node] = 1, 0\n                else:\n                    self._push(node)\n                    parents.append(node)\n                    stack.append(node * 2 + 1)\n                    stack.append(node * 2)\n        for node in reversed(parents):\n            values[node] = (values[node * 2] + values[node * 2 + 1]) % mod\n\n    def sum(self, left, right, down, up):\n        \"\"\"半開矩形[left, right)×[down, up)内の有効な重みの和を返す。\"\"\"\n        if left > right or down > up:\n            raise ValueError(\"invalid half-open rectangle\")\n        if left == right or down == up or not self.n:\n            return 0\n        xmin, xmax, ymin, ymax = self._xmin, self._xmax, self._ymin, self._ymax\n        values, count = self._sum, self._count\n        total = 0\n        stack = [1]\n        while stack:\n            node = stack.pop()\n            if count[node] and not (xmax[node] < left or right <= xmin[node] or ymax[node] < down or up <= ymin[node]):\n                if left <= xmin[node] and xmax[node] < right and down <= ymin[node] and ymax[node] < up:\n                    total += values[node]\n                elif self._lo[node] >= 0:\n                    xs, ys, weights = self._xs, self._ys, self._values\n                    value = length = 0\n                    for i in range(self._lo[node], self._hi[node]):\n                        weight = weights[i]\n                        if weight >= 0 and left <= xs[i] < right and down <= ys[i] < up:\n                            value += weight\n                            length += 1\n                    total += (self._a[node] * value + self._b[node] * length) % self.mod\n                else:\n                    self._push(node)\n                    stack.append(node * 2 + 1)\n                    stack.append(node * 2)\n        return total % self.mod\n\n    def tolist(self):\n        \"\"\"入力順の現在の重みを新しいlistで返す。無効な点の要素はNone。\"\"\"\n        if not self.n:\n            return []\n        stack = [1]\n        while stack:\n            node = stack.pop()\n            self._push(node)\n            if self._lo[node] < 0:\n                stack.append(node * 2 + 1)\n                stack.append(node * 2)\n        return [None if self._values[i] < 0 else self._values[i] for i in self._order]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        if not self.n:\n            return \"RectangleAffineSum([], mod=%r)\" % self.mod\n        values = self.tolist()\n        points = [(self._xs[j], self._ys[j], values[i]) for i, j in enumerate(self._order)]\n        return \"RectangleAffineSum(%r, mod=%r)\" % (points, self.mod)\n",
+      "standaloneCode": "\"\"\"登録済みの二次元点に、矩形内の一次変換・矩形和・点ごとの有効化と置換を行う。\"\"\"\n\n\n_BUCKET_SIZE = 16\n_ADAPTIVE_AXES = True\n\n\nclass RectangleAffineSum:\n    \"\"\"固定座標の点の重みを法付きで管理する。Noneの重みはまだ有効でない点を表す。\"\"\"\n\n    __slots__ = (\"n\", \"mod\", \"_position\", \"_xmin\", \"_xmax\", \"_ymin\", \"_ymax\",\n                 \"_count\", \"_sum\", \"_a\", \"_b\", \"_lo\", \"_hi\", \"_xs\", \"_ys\", \"_values\", \"_order\")\n\n    def __init__(self, points, mod=998244353):\n        if mod < 1:\n            raise ValueError(\"mod must be positive\")\n        points = list(points)\n        self.n = n = len(points)\n        self.mod = mod\n        size = 2 << (max(1, (n + _BUCKET_SIZE - 1) // _BUCKET_SIZE) - 1).bit_length()\n        self._position = [0] * n\n        self._xmin = [0] * size\n        self._xmax = [0] * size\n        self._ymin = [0] * size\n        self._ymax = [0] * size\n        self._count = [0] * size\n        self._sum = [0] * size\n        self._a = [1] * size\n        self._b = [0] * size\n        self._lo = [-1] * size\n        self._hi = [0] * size\n        self._xs = []\n        self._ys = []\n        self._values = []\n        self._order = [0] * n\n        if not n:\n            return\n        x_order = sorted(range(n), key=lambda i: points[i][0])\n        y_order = sorted(range(n), key=lambda i: points[i][1])\n        tasks = [(1, x_order, y_order, 0)]\n        marks = [0] * n\n        generation = 0\n        order = []\n        while tasks:\n            node, x_order, y_order, axis = tasks.pop()\n            indices = x_order if axis == 0 else y_order\n            order.append(node)\n            if len(indices) <= _BUCKET_SIZE:\n                self._lo[node] = len(self._xs)\n                for i in indices:\n                    x, y, value = points[i]\n                    self._position[i] = node\n                    self._order[i] = len(self._xs)\n                    self._xs.append(x)\n                    self._ys.append(y)\n                    self._values.append(-1 if value is None else value % mod)\n                    if value is not None:\n                        self._count[node] += 1\n                        self._sum[node] += value\n                self._sum[node] %= mod\n                self._hi[node] = len(self._xs)\n                self._xmin[node] = min(points[i][0] for i in indices)\n                self._xmax[node] = max(points[i][0] for i in indices)\n                self._ymin[node] = min(points[i][1] for i in indices)\n                self._ymax[node] = max(points[i][1] for i in indices)\n            else:\n                if _ADAPTIVE_AXES:\n                    nx = len({points[i][0] for i in x_order})\n                    ny = len({points[i][1] for i in y_order})\n                    if nx == 1 or ny > 1 and ny * 4 < nx:\n                        axis = 1\n                    elif ny == 1 or nx > 1 and nx * 4 < ny:\n                        axis = 0\n                    indices = x_order if axis == 0 else y_order\n                middle = len(indices) >> 1\n                first, second = indices[:middle], indices[middle:]\n                generation += 1\n                for i in first:\n                    marks[i] = generation\n                other = y_order if axis == 0 else x_order\n                low = [i for i in other if marks[i] == generation]\n                high = [i for i in other if marks[i] != generation]\n                if axis == 0:\n                    tasks.append((node * 2 + 1, second, high, 1))\n                    tasks.append((node * 2, first, low, 1))\n                else:\n                    tasks.append((node * 2 + 1, high, second, 0))\n                    tasks.append((node * 2, low, first, 0))\n        for node in reversed(order):\n            if self._lo[node] < 0:\n                left, right = node * 2, node * 2 + 1\n                self._xmin[node] = min(self._xmin[left], self._xmin[right])\n                self._xmax[node] = max(self._xmax[left], self._xmax[right])\n                self._ymin[node] = min(self._ymin[left], self._ymin[right])\n                self._ymax[node] = max(self._ymax[left], self._ymax[right])\n                self._count[node] = self._count[left] + self._count[right]\n                self._sum[node] = (self._sum[left] + self._sum[right]) % mod\n\n    def _apply(self, node, a, b):\n        if not self._count[node]:\n            return\n        self._sum[node] = (a * self._sum[node] + b * self._count[node]) % self.mod\n        self._a[node] = a * self._a[node] % self.mod\n        self._b[node] = (a * self._b[node] + b) % self.mod\n\n    def _push(self, node):\n        a, b = self._a[node], self._b[node]\n        if a != 1 or b:\n            if self._lo[node] < 0:\n                self._apply(node * 2, a, b)\n                self._apply(node * 2 + 1, a, b)\n            else:\n                values = self._values\n                mod = self.mod\n                for i in range(self._lo[node], self._hi[node]):\n                    if values[i] >= 0:\n                        values[i] = (a * values[i] + b) % mod\n            self._a[node], self._b[node] = 1, 0\n\n    def _point(self, index):\n        if not 0 <= index < self.n:\n            raise IndexError(\"point index out of range\")\n        node = self._position[index]\n        for shift in range(node.bit_length() - 1, 0, -1):\n            self._push(node >> shift)\n        return node\n\n    def set(self, index, value):\n        \"\"\"入力順のindex番目の点をvalueへ置換する。Noneなら無効化する。\"\"\"\n        node = self._point(index)\n        self._push(node)\n        i = self._order[index]\n        old = self._values[i]\n        self._count[node] += (value is not None) - (old >= 0)\n        value = -1 if value is None else value % self.mod\n        self._values[i] = value\n        self._sum[node] = (self._sum[node] - max(0, old) + max(0, value)) % self.mod\n        node >>= 1\n        while node:\n            self._sum[node] = (self._sum[node * 2] + self._sum[node * 2 + 1]) % self.mod\n            self._count[node] = self._count[node * 2] + self._count[node * 2 + 1]\n            node >>= 1\n\n    def get(self, index):\n        \"\"\"現在の重みを返す。無効な点はNoneを返す。\"\"\"\n        node = self._point(index)\n        value = self._values[self._order[index]]\n        return None if value < 0 else (self._a[node] * value + self._b[node]) % self.mod\n\n    def apply(self, left, right, down, up, a, b):\n        \"\"\"半開矩形[left, right)×[down, up)内の有効な重みをa*w+bへ変更する。\"\"\"\n        if left > right or down > up:\n            raise ValueError(\"invalid half-open rectangle\")\n        if left == right or down == up or not self.n:\n            return\n        a, b = a % self.mod, b % self.mod\n        xmin, xmax, ymin, ymax = self._xmin, self._xmax, self._ymin, self._ymax\n        values, count = self._sum, self._count\n        mod = self.mod\n        stack = [1]\n        parents = []\n        while stack:\n            node = stack.pop()\n            if count[node] and not (xmax[node] < left or right <= xmin[node] or ymax[node] < down or up <= ymin[node]):\n                if left <= xmin[node] and xmax[node] < right and down <= ymin[node] and ymax[node] < up:\n                    self._apply(node, a, b)\n                elif self._lo[node] >= 0:\n                    xs, ys, weights = self._xs, self._ys, self._values\n                    old_a, old_b = self._a[node], self._b[node]\n                    new_a, new_b = a * old_a % mod, (a * old_b + b) % mod\n                    total = 0\n                    for i in range(self._lo[node], self._hi[node]):\n                        weight = weights[i]\n                        if weight >= 0:\n                            if left <= xs[i] < right and down <= ys[i] < up:\n                                weight = (new_a * weight + new_b) % mod\n                            elif old_a != 1 or old_b:\n                                weight = (old_a * weight + old_b) % mod\n                            weights[i] = weight\n                            total += weight\n                    values[node] = total % mod\n                    self._a[node], self._b[node] = 1, 0\n                else:\n                    self._push(node)\n                    parents.append(node)\n                    stack.append(node * 2 + 1)\n                    stack.append(node * 2)\n        for node in reversed(parents):\n            values[node] = (values[node * 2] + values[node * 2 + 1]) % mod\n\n    def sum(self, left, right, down, up):\n        \"\"\"半開矩形[left, right)×[down, up)内の有効な重みの和を返す。\"\"\"\n        if left > right or down > up:\n            raise ValueError(\"invalid half-open rectangle\")\n        if left == right or down == up or not self.n:\n            return 0\n        xmin, xmax, ymin, ymax = self._xmin, self._xmax, self._ymin, self._ymax\n        values, count = self._sum, self._count\n        total = 0\n        stack = [1]\n        while stack:\n            node = stack.pop()\n            if count[node] and not (xmax[node] < left or right <= xmin[node] or ymax[node] < down or up <= ymin[node]):\n                if left <= xmin[node] and xmax[node] < right and down <= ymin[node] and ymax[node] < up:\n                    total += values[node]\n                elif self._lo[node] >= 0:\n                    xs, ys, weights = self._xs, self._ys, self._values\n                    value = length = 0\n                    for i in range(self._lo[node], self._hi[node]):\n                        weight = weights[i]\n                        if weight >= 0 and left <= xs[i] < right and down <= ys[i] < up:\n                            value += weight\n                            length += 1\n                    total += (self._a[node] * value + self._b[node] * length) % self.mod\n                else:\n                    self._push(node)\n                    stack.append(node * 2 + 1)\n                    stack.append(node * 2)\n        return total % self.mod\n\n    def tolist(self):\n        \"\"\"入力順の現在の重みを新しいlistで返す。無効な点の要素はNone。\"\"\"\n        if not self.n:\n            return []\n        stack = [1]\n        while stack:\n            node = stack.pop()\n            self._push(node)\n            if self._lo[node] < 0:\n                stack.append(node * 2 + 1)\n                stack.append(node * 2)\n        return [None if self._values[i] < 0 else self._values[i] for i in self._order]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        if not self.n:\n            return \"RectangleAffineSum([], mod=%r)\" % self.mod\n        values = self.tolist()\n        points = [(self._xs[j], self._ys[j], values[i]) for i, j in enumerate(self._order)]\n        return \"RectangleAffineSum(%r, mod=%r)\" % (points, self.mod)\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 7
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "RectangleAffineSum",
+          "summary": "登録済みの二次元点の重みを管理し、矩形への一次変換と矩形和、各点の有効化・無効化・置換を行う。",
+          "description": "登録済みの二次元点の重みを管理し、矩形への一次変換と矩形和、各点の有効化・無効化・置換を行う。",
+          "searchTerms": [
+            "RectangleAffineSum",
+            "Rectangle Affine Sum",
+            "RectangleAffineSum(points, mod=998244353)"
+          ],
+          "constructor": "RectangleAffineSum(points, mod=998244353)",
+          "constructorArguments": "points: 入力順の(x, y, weight)のiterable。x・yは整数座標。weightは整数またはNone。Noneの点は無効で、同じ座標の点も別々に扱う。空でもよい。 · mod: 1以上の整数。重みと係数と集計結果をこの法で扱う。素数でなくてもよい。省略時: 998244353",
+          "constructorArgumentDetails": [
+            {
+              "name": "points",
+              "description": "入力順の(x, y, weight)の反復可能オブジェクト。x・yは整数座標。weightは整数またはNone。Noneの点は無効で、同じ座標の点も別々に扱う。空でもよい"
+            },
+            {
+              "name": "mod",
+              "description": "1以上の整数。重みと係数と集計結果をこの法で扱う。素数でなくてもよい。省略時は 998244353"
+            }
+          ],
+          "constructorReturns": "RectangleAffineSum instance",
+          "constructorReturnFormat": "RectangleAffineSum",
+          "constructorReturnDescription": "全座標を固定して保持する。setで点の重みや有効状態を変え、applyで矩形内へ一次変換、sumで矩形和、getで1点の値を取得できる。",
+          "constructorCreates": "全座標を固定して保持する。setで点の重みや有効状態を変え、applyで矩形内へ一次変換、sumで矩形和、getで1点の値を取得できる。",
+          "constructorComplexity": "O(N log(N+2))時間・O(N+1)個の整数。法での整数演算をO(1)とする",
+          "constructorSourceLine": 14,
+          "methods": [
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(index, value)",
+              "summary": "入力順の1点の重みと有効状態を置き換える。",
+              "description": "入力順の1点の重みと有効状態を置き換える。",
+              "searchTerms": [
+                "set",
+                "set(index, value)"
+              ],
+              "arguments": "index: 構築時に渡したpointsの添字。 · value: 新しい整数重み。Noneなら無効化する。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "構築時に渡したpointsの添字。"
+                },
+                {
+                  "name": "value",
+                  "description": "新しい整数重み。Noneなら無効化する。"
+                }
+              ],
+              "returns": "None — 値を返さない。valueが整数ならその余りを持つ有効な点、Noneなら更新・集計の対象外になる。有効化以前の作用は反映しない。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。valueが整数ならその余りを持つ有効な点、Noneなら更新・集計の対象外になる。有効化以前の作用は反映しない。",
+              "complexity": "O(log(N+2))時間。末端の定数個の点の更新を含む",
+              "sourceLine": 128
+            },
+            {
+              "name": "get",
+              "kind": "method",
+              "signature": "get(index)",
+              "summary": "入力順の1点の現在の重みを取得する。",
+              "description": "入力順の1点の現在の重みを取得する。",
+              "searchTerms": [
+                "get",
+                "get(index)"
+              ],
+              "arguments": "index: 構築時に渡したpointsの添字。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "構築時に渡したpointsの添字。"
+                }
+              ],
+              "returns": "int | None — 有効な点ならmodで割った余りの整数。無効な点ならNone。",
+              "returnFormat": "int | None",
+              "returnDescription": "有効な点ならmodで割った余りの整数。無効な点ならNone。",
+              "complexity": "O(log(N+2))時間",
+              "sourceLine": 144
+            },
+            {
+              "name": "apply",
+              "kind": "method",
+              "signature": "apply(left, right, down, up, a, b)",
+              "summary": "半開矩形[left, right)×[down, up)内の有効な点の重みをa*w+bへ変更する。",
+              "description": "半開矩形[left, right)×[down, up)内の有効な点の重みをa*w+bへ変更する。",
+              "searchTerms": [
+                "apply",
+                "apply(left, right, down, up, a, b)"
+              ],
+              "arguments": "left: x方向の左端を含む。 · right: x方向の右端は含まない。left≤right。 · down: y方向の下端を含む。 · up: y方向の上端は含まない。down≤up。 · a: 既存の重みへ掛ける係数。0ならbへの置換になる。 · b: 掛けた後に加える定数。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "x方向の左端を含む。"
+                },
+                {
+                  "name": "right",
+                  "description": "x方向の右端は含まない。left≤right。"
+                },
+                {
+                  "name": "down",
+                  "description": "y方向の下端を含む。"
+                },
+                {
+                  "name": "up",
+                  "description": "y方向の上端は含まない。down≤up。"
+                },
+                {
+                  "name": "a",
+                  "description": "既存の重みへ掛ける係数。0ならbへの置換になる。"
+                },
+                {
+                  "name": "b",
+                  "description": "掛けた後に加える定数。"
+                }
+              ],
+              "returns": "None — 値を返さない。矩形内の有効な点だけが変化し、無効な点と矩形外の点は変わらない。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。矩形内の有効な点だけが変化し、無効な点と矩形外の点は変わらない。",
+              "complexity": "O(V+K)時間。Vは訪問ノード数、Kは境界にかかる末端で調べる点数。最悪O(N)、通常はO(sqrt N)程度が目安",
+              "sourceLine": 150
+            },
+            {
+              "name": "sum",
+              "kind": "method",
+              "signature": "sum(left, right, down, up)",
+              "summary": "半開矩形[left, right)×[down, up)内の有効な点の重みを合計する。",
+              "description": "半開矩形[left, right)×[down, up)内の有効な点の重みを合計する。",
+              "searchTerms": [
+                "sum",
+                "sum(left, right, down, up)"
+              ],
+              "arguments": "left: x方向の左端を含む。 · right: x方向の右端は含まない。left≤right。 · down: y方向の下端を含む。 · up: y方向の上端は含まない。down≤up。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "x方向の左端を含む。"
+                },
+                {
+                  "name": "right",
+                  "description": "x方向の右端は含まない。left≤right。"
+                },
+                {
+                  "name": "down",
+                  "description": "y方向の下端を含む。"
+                },
+                {
+                  "name": "up",
+                  "description": "y方向の上端は含まない。down≤up。"
+                }
+              ],
+              "returns": "int — 対象の重みの和をmodで割った余り。対象の点がなければ0。重複座標の点も1点ずつ含める。",
+              "returnFormat": "int",
+              "returnDescription": "対象の重みの和をmodで割った余り。対象の点がなければ0。重複座標の点も1点ずつ含める。",
+              "complexity": "O(V+K)時間。Vは訪問ノード数、Kは境界にかかる末端で調べる点数。最悪O(N)、通常はO(sqrt N)程度が目安",
+              "sourceLine": 191
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "現在の重みと有効状態を入力順で一覧にする。",
+              "description": "現在の重みと有効状態を入力順で一覧にする。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[int | None] — 長さNの新しいlist。result[i]は入力順の点iの重みの余り、無効ならNone。座標や矩形和のlistではない。",
+              "returnFormat": "list[int | None]",
+              "returnDescription": "長さNの新しいlist。result[i]は入力順の点iの重みの余り、無効ならNone。座標や矩形和のlistではない。",
+              "complexity": "O(N+1)時間・追加O(N+1)メモリ",
+              "sourceLine": 221
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の重みを入力順のlistとして表示する。",
+              "description": "現在の重みを入力順のlistとして表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()の内容の文字列。遅延更新を反映した値で、無効な点はNone。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()の内容の文字列。遅延更新を反映した値で、無効な点はNone。",
+              "complexity": "O(N+S)時間。Sは重みを文字列化する合計時間",
+              "sourceLine": 234
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "座標・現在の重み・法を型名付きで表示する。",
+              "description": "座標・現在の重み・法を型名付きで表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — RectangleAffineSum([(x, y, weight), ...], mod=...)の形式の文字列。点は入力順。",
+              "returnFormat": "str",
+              "returnDescription": "RectangleAffineSum([(x, y, weight), ...], mod=...)の形式の文字列。点は入力順。",
+              "complexity": "O(N+S)時間。Sは座標と重みを文字列化する合計時間",
+              "sourceLine": 237
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "spatial_structure",
+      "categoryLabel": "2次元・直線",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
       "name": "SegmentTree2D",
       "modulePath": "library_codex.spatial_structure.SegmentTree2D",
       "summary": "二次元グリッドの一点更新と半開矩形モノイド積を扱うセグメント木。",
@@ -59151,6 +59410,242 @@
               "returnDescription": "bool",
               "complexity": "O(Nlog N)",
               "sourceLine": 118
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "tree",
+      "categoryLabel": "木",
+      "domain": "tree",
+      "domainLabel": "Tree",
+      "name": "TreePathCompositeSum",
+      "modulePath": "library_codex.tree.TreePathCompositeSum",
+      "summary": "辺の一次関数を通して各頂点の値を集めた総和を、更新と根の変更に対応して求める。",
+      "capabilities": [
+        "TreePathCompositeSum: 固定された木で頂点値と辺の一次関数を管理し、指定頂点へ全頂点の値を集めた総和を求める。"
+      ],
+      "article": {
+        "title": "木の経路に沿った一次関数の合成和",
+        "markdown": "各頂点に整数値、各辺に一次関数を持つ木を管理する。頂点や辺を更新しながら、指定した頂点へ全頂点の値を集めた総和を求める。\n\n## 主な機能\n\n- `set`で頂点値、`set_edge`で辺の一次関数を置換する。\n- `query(root)`で、各頂点から`root`へ向かう経路の順に一次関数を適用し、その結果を全頂点について足す。`root`自身の値も1回含む。\n- 木の形は固定。問い合わせごとに集める先を変えられる。\n- 構築O(N log N)、更新・問い合わせはそれぞれO(log N)、保持する整数はO(N)個。法での整数演算をO(1)とする。\n\n辺の一次関数は両方向で同じ。辺を逆向きに通っても逆関数にはしない。\n\n## 使い方\n\n```python\nfrom library_codex.tree.TreePathCompositeSum import TreePathCompositeSum\n\ntree = TreePathCompositeSum([1, 2, 3], [(0, 1, 2, 1), (1, 2, 3, 4)])\nat_zero = tree.query(0)\nat_one = tree.query(1)\ntree.set(2, 5)\nafter_value = tree.query(0)\ntree.set_edge(0, 1, 0)\nafter_edge = tree.query(0)\n```\n\n- 辺の組は`(u, v, b, c)`で、`u`と`v`を結び、通過する値を`b*x+c`へ写す。\n- `at_zero`は33。頂点0の1、頂点1からの5、頂点2からの27を足す。\n- 頂点2から0へは、先に`3*x+4`、次に`2*x+1`を適用する。\n- `at_one`は18。頂点0からの3、頂点1の2、頂点2からの13を足す。\n- `after_value`は45。頂点2の値だけを5へ置き換えた結果。\n- `after_edge`は22。入力の0番目の辺を恒等関数へ置き換えた結果。\n\n返り値は既定の法998244353で割った余りの整数。法を変える場合は構築時に`mod`を指定する。\n\n## 合成の順番\n\n頂点vからrootまでの辺を通過順に並べ、対応する一次関数をfの添字0からk−1で表す。vが総和へ寄与する値は次のとおり。\n\n$$\nf_{k-1}(f_{k-2}(\\cdots f_0(a_v)\\cdots)).\n$$\n\n経路が空なら元の頂点値をそのまま足す。途中で求めるのは経路上の頂点値の和ではなく、始点の値に辺の関数を合成した結果。\n\n## 仕組み\n\nStatic Top Treeで木を小さな部分へ分け、順方向・逆方向の合成と総和を保持する。更新時は影響する部分だけを計算し直し、問い合わせ時は指定頂点へ向かう向きで合流させる。\n\n内部の各部分は整数IDと平坦な配列で管理する。再帰や逆元計算は使わない。\n\n## 注意点\n\n- `values`の長さは1以上。`edges`は閉路のない連結な木で、長さはN−1。\n- `set_edge`の添字は構築時に渡した辺の順番。辺の両端や木の形は変更できない。\n- 係数0・負数・合成数の法にも対応する。頂点値と係数は常に`mod`で割った余りとして保持する。\n- `tolist()`は現在の頂点値、`edges()`は現在の`(u, v, b, c)`を入力順に並べた新しいlist。各根への問い合わせ結果を並べる関数ではない。\n\n## 参考\n\n[maspyのStatic Top Treeによる全方位合成和の解説](https://maspypy.com/library-checker-point-set-tree-path-composite-sum)を参照した。既存のStatic Top Treeを使い、一次関数用の集約を配列へ分けて実装している。",
+        "sourcePath": "library_codex/docs/articles/tree/TreePathCompositeSum.md"
+      },
+      "searchTerms": [
+        "TreePathCompositeSum",
+        "Tree Path Composite Sum",
+        "library_codex.tree.TreePathCompositeSum",
+        "library codex tree Tree Path Composite Sum",
+        "tree/TreePathCompositeSum.py",
+        "木",
+        "全方位合成和",
+        "動的全方位DP",
+        "一次関数",
+        "dynamic rerooting"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/tree/TreePathCompositeSum.py",
+      "inputFingerprint": "0eabea22b7fd78a0604f7b7a3fb10606c8de376dd75b6ec94278f2625e28642e",
+      "importCode": "from library_codex.tree.TreePathCompositeSum import TreePathCompositeSum",
+      "sourceCode": "\"\"\"辺の一次関数を通して各頂点の値を集めた総和を、更新と根の変更に対応して求める。\"\"\"\n\nfrom library_codex.tree.StaticTopTree import StaticTopTree\n\n\nclass TreePathCompositeSum:\n    \"\"\"固定された木で、頂点値・辺の一次関数を置換し、任意の頂点への合成和を求める。\"\"\"\n\n    __slots__ = (\"n\", \"mod\", \"_tree\", \"_values\", \"_edges\", \"_child\",\n                 \"_a\", \"_bf\", \"_br\", \"_sf\", \"_sr\", \"_count\")\n\n    def __init__(self, values, edges, mod=998244353):\n        if mod < 1:\n            raise ValueError(\"mod must be positive\")\n        self.n = n = len(values)\n        if n == 0:\n            raise ValueError(\"tree must be nonempty\")\n        edges = list(edges)\n        if len(edges) != n - 1:\n            raise ValueError(\"a tree must have n - 1 edges\")\n        graph = [[] for _ in range(n)]\n        for u, v, b, c in edges:\n            if not (0 <= u < n and 0 <= v < n):\n                raise IndexError(\"vertex out of range\")\n            graph[u].append(v)\n            graph[v].append(u)\n        self.mod = mod\n        self._tree = tree = StaticTopTree(graph)\n        self._values = [value % mod for value in values]\n        self._edges = [(u, v, b % mod, c % mod) for u, v, b, c in edges]\n        self._child = [v if tree.tree_parent[v] == u else u for u, v, b, c in edges]\n        size = len(tree.parent)\n        self._a = [1 % mod] * size\n        self._bf = [0] * size\n        self._br = [0] * size\n        self._sf = self._values + [0] * (size - n)\n        self._sr = self._sf[:]\n        self._count = [1] * size\n        for i, node in enumerate(self._child):\n            _, _, b, c = self._edges[i]\n            self._a[node] = b\n            self._bf[node] = self._br[node] = c\n            self._sf[node] = (b * self._values[node] + c) % mod\n        for node in range(n, size):\n            self._pull(node)\n\n    def _pull(self, node):\n        tree = self._tree\n        left, right = tree.left[node], tree.right[node]\n        a, bf, br, sf, sr, count = self._a, self._bf, self._br, self._sf, self._sr, self._count\n        mod = self.mod\n        count[node] = count[left] + count[right]\n        if tree.type[node] == 1:\n            a[node] = a[left] * a[right] % mod\n            bf[node] = (a[left] * bf[right] + bf[left]) % mod\n            br[node] = (a[right] * br[left] + br[right]) % mod\n            sf[node] = (sf[left] + a[left] * sf[right] + bf[left] * count[right]) % mod\n            sr[node] = (sr[right] + a[right] * sr[left] + br[right] * count[left]) % mod\n        else:\n            a[node], bf[node], br[node] = a[left], bf[left], br[left]\n            sf[node] = (sf[left] + sf[right]) % mod\n            sr[node] = (sr[left] + a[left] * sf[right] + br[left] * count[right]) % mod\n\n    def _update(self, node):\n        self._sr[node] = self._values[node]\n        self._sf[node] = (self._a[node] * self._values[node] + self._bf[node]) % self.mod\n        parent = self._tree.parent\n        node = parent[node]\n        while node >= 0:\n            self._pull(node)\n            node = parent[node]\n\n    def set(self, vertex, value):\n        \"\"\"vertexの値をvalueへ置き換える。\"\"\"\n        if not 0 <= vertex < self.n:\n            raise IndexError(\"vertex out of range\")\n        self._values[vertex] = value % self.mod\n        self._update(vertex)\n\n    def set_edge(self, edge, b, c):\n        \"\"\"入力順のedge番目の辺を、両方向ともxをb*x+cへ写す一次関数に置き換える。\"\"\"\n        if not 0 <= edge < self.n - 1:\n            raise IndexError(\"edge out of range\")\n        u, v, _, _ = self._edges[edge]\n        b, c = b % self.mod, c % self.mod\n        self._edges[edge] = u, v, b, c\n        node = self._child[edge]\n        self._a[node] = b\n        self._bf[node] = self._br[node] = c\n        self._update(node)\n\n    def query(self, root):\n        \"\"\"各頂点からrootへ向かう経路の順に辺の一次関数を適用し、その結果を合計する。\"\"\"\n        if not 0 <= root < self.n:\n            raise IndexError(\"vertex out of range\")\n        tree = self._tree\n        a, bf, br, sf, sr, count = self._a, self._bf, self._br, self._sf, self._sr, self._count\n        mod = self.mod\n        current = root\n        fa, fb, fs, fc = a[root], br[root], sr[root], 1\n        sa, sb, ss, sc = 1, 0, 0, 0\n        ta, tb, ts = 1, 0, 0\n        while tree.parent[current] >= 0:\n            parent = tree.parent[current]\n            left, right = tree.left[parent], tree.right[parent]\n            if tree.type[parent] == 1:\n                if current == left:\n                    ss = (ss + sa * sf[right] + sb * count[right]) % mod\n                    sb = (sa * bf[right] + sb) % mod\n                    sa = sa * a[right] % mod\n                    sc += count[right]\n                else:\n                    fs = (fs + fa * sr[left] + fb * count[left]) % mod\n                    fb = (fa * br[left] + fb) % mod\n                    fa = fa * a[left] % mod\n                    fc += count[left]\n            elif current == left:\n                fs = (fs + fa * sf[right] + fb * count[right]) % mod\n                fc += count[right]\n            else:\n                ts = (ts + ta * (fs + ss) + tb * (fc + sc)) % mod\n                tb = (ta * fb + tb) % mod\n                ta = ta * fa % mod\n                fa, fb, fs, fc = 1, 0, 0, 0\n                sa, sb, ss, sc = a[left], bf[left], sf[left], count[left]\n            current = parent\n        return (ts + ta * (fs + ss) + tb * (fc + sc)) % mod\n\n    def tolist(self):\n        \"\"\"現在の頂点値を頂点番号順の新しいlistで返す。\"\"\"\n        return self._values[:]\n\n    def edges(self):\n        \"\"\"入力順の(u, v, b, c)を並べた新しいlistを返す。\"\"\"\n        return self._edges[:]\n\n    def __str__(self):\n        return str((self.tolist(), self.edges()))\n\n    def __repr__(self):\n        return \"TreePathCompositeSum(%r, %r, mod=%r)\" % (self.tolist(), self.edges(), self.mod)\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: tree/StaticTopTree.py\nVERTEX = 0\nEDGE = 0\nCOMPRESS = 1\nRAKE = 2\nADD_EDGE = 3\nADD_VERTEX = 4\n\ndef _tree_static_top_tree_root_tree(graph, root):\n    n = len(graph)\n    if n == 0:\n        raise ValueError('tree must be nonempty')\n    if not 0 <= root < n:\n        raise IndexError('root is out of range')\n    parent = [-2] * n\n    parent[root] = -1\n    order = [root]\n    for node in order:\n        for other in graph[node]:\n            if other == parent[node]:\n                continue\n            if not 0 <= other < n:\n                raise IndexError('vertex is out of range')\n            if parent[other] != -2:\n                raise ValueError('graph is not a tree')\n            parent[other] = node\n            order.append(other)\n    if len(order) != n:\n        raise ValueError('graph is not connected')\n    size = [1] * n\n    for node in reversed(order[1:]):\n        size[parent[node]] += size[node]\n    children = [[] for _ in range(n)]\n    heavy = [-1] * n\n    for node in order:\n        best_size = 0\n        for other in graph[node]:\n            if parent[other] == node:\n                children[node].append(other)\n                if size[other] > best_size:\n                    best_size = size[other]\n                    heavy[node] = other\n        best = heavy[node]\n        if best >= 0 and children[node][0] != best:\n            index = children[node].index(best)\n            (children[node][0], children[node][index]) = (children[node][index], children[node][0])\n    return (parent, order, size, children, heavy)\n\nclass StaticTopTree:\n    \"\"\"Balanced edge-cluster static top tree.\n\n    Original node ``v`` is the leaf for the edge ``parent[v] -> v``.  The\n    root leaf is a dummy edge, which is useful as an identity cluster.\n    \"\"\"\n    __slots__ = ('n', 'graph', 'root', 'top_tree_root', 'parent', 'left', 'right', 'type', 'tree_parent', 'subtree_size', 'children', 'heavy', 'built')\n\n    def __init__(self, tree, root=0):\n        if isinstance(tree, int):\n            if tree <= 0:\n                raise ValueError('size must be positive')\n            self.n = tree\n            self.graph = [[] for _ in range(tree)]\n            self.root = root\n            self.parent = []\n            self.left = []\n            self.right = []\n            self.type = []\n            self.tree_parent = []\n            self.subtree_size = []\n            self.children = []\n            self.heavy = []\n            self.top_tree_root = -1\n            self.built = False\n        else:\n            graph = [list(row) for row in tree]\n            self.n = len(graph)\n            self.graph = graph\n            self.root = root\n            self.parent = []\n            self.left = []\n            self.right = []\n            self.type = []\n            self.tree_parent = []\n            self.subtree_size = []\n            self.children = []\n            self.heavy = []\n            self.top_tree_root = -1\n            self.built = False\n            self.build(root)\n\n    @classmethod\n    def from_edges(cls, size, edges, root=0):\n        result = cls(size, root)\n        for (first, second) in edges:\n            result.add_edge(first, second)\n        result.build(root)\n        return result\n\n    def add_edge(self, first, second):\n        if self.built:\n            raise RuntimeError('top tree is already built')\n        if not (0 <= first < self.n and 0 <= second < self.n):\n            raise IndexError('vertex is out of range')\n        self.graph[first].append(second)\n        self.graph[second].append(first)\n\n    def _add_cluster(self, left, right, cluster_type):\n        node = len(self.parent)\n        self.parent.append(-1)\n        self.left.append(left)\n        self.right.append(right)\n        self.type.append(cluster_type)\n        self.parent[left] = node\n        self.parent[right] = node\n        return node\n\n    def _merge(self, items, cluster_type):\n        if len(items) == 1:\n            return items[0]\n        prefix = [0]\n        for (_, size) in items:\n            prefix.append(prefix[-1] + size)\n        result = []\n        tasks = [(0, len(items), 0, 0)]\n        while tasks:\n            (left, right, state, middle) = tasks.pop()\n            if right - left == 1:\n                result.append(items[left])\n                continue\n            if state == 0:\n                total = prefix[right] - prefix[left]\n                low = left\n                high = right - 1\n                while low < high:\n                    mid = low + high >> 1\n                    before = prefix[mid] - prefix[left]\n                    weight = prefix[mid + 1] - prefix[mid]\n                    if total > (before << 1) + weight:\n                        low = mid + 1\n                    else:\n                        high = mid\n                middle = low\n                tasks.append((left, right, 1, middle))\n                tasks.append((middle, right, 0, 0))\n                tasks.append((left, middle, 0, 0))\n            else:\n                second = result.pop()\n                first = result.pop()\n                node = self._add_cluster(first[0], second[0], cluster_type)\n                result.append((node, first[1] + second[1]))\n        return result[0]\n\n    def build(self, root=None):\n        if self.built:\n            return self.top_tree_root\n        if root is not None:\n            self.root = root\n        (tree_parent, order, size, children, heavy) = _tree_static_top_tree_root_tree(self.graph, self.root)\n        n = self.n\n        self.parent = [-1] * n\n        self.left = [-1] * n\n        self.right = [-1] * n\n        self.type = [EDGE] * n\n        self.tree_parent = tree_parent\n        self.subtree_size = size\n        self.children = children\n        self.heavy = heavy\n        starts = [node for node in order if tree_parent[node] < 0 or heavy[tree_parent[node]] != node]\n        chain_root = [-1] * n\n        for start in reversed(starts):\n            path = []\n            node = start\n            while node >= 0:\n                path.append(node)\n                node = heavy[node]\n            clusters = [(path[0], 1)]\n            for index in range(1, len(path)):\n                previous = path[index - 1]\n                node = path[index]\n                rake_items = [(node, 1)]\n                for child in children[previous][1:]:\n                    rake_items.append((chain_root[child], size[child]))\n                clusters.append(self._merge(rake_items, RAKE))\n            (root_cluster, total) = self._merge(clusters, COMPRESS)\n            if total != size[start]:\n                raise AssertionError('invalid top tree cluster size')\n            chain_root[start] = root_cluster\n        self.top_tree_root = chain_root[self.root]\n        self.built = True\n        return self.top_tree_root\n    run = build\n\n    def height(self):\n        depth = [(self.top_tree_root, 1)]\n        answer = 0\n        while depth:\n            (node, value) = depth.pop()\n            if value > answer:\n                answer = value\n            left = self.left[node]\n            if left >= 0:\n                depth.append((left, value + 1))\n                depth.append((self.right[node], value + 1))\n        return answer\n\nclass StaticTopTreeEdgeBased(StaticTopTree):\n    __slots__ = ()\n\nclass DynamicTreeDP:\n    __slots__ = ('top_tree', 'data', 'compress', 'rake')\n\n    def __init__(self, top_tree, vertex, rake, compress):\n        if not top_tree.built:\n            top_tree.build()\n        self.top_tree = top_tree\n        self.compress = compress\n        self.rake = rake\n        n = top_tree.n\n        data = [None] * len(top_tree.parent)\n        for node in range(n):\n            data[node] = vertex(node)\n        self.data = data\n        for node in range(n, len(data)):\n            self._update(node)\n\n    def _update(self, node):\n        tree = self.top_tree\n        left = self.data[tree.left[node]]\n        right = self.data[tree.right[node]]\n        if tree.type[node] == COMPRESS:\n            self.data[node] = self.compress(left, right)\n        else:\n            self.data[node] = self.rake(left, right)\n\n    def set(self, node, value):\n        self.data[node] = value\n        node = self.top_tree.parent[node]\n        while node >= 0:\n            self._update(node)\n            node = self.top_tree.parent[node]\n\n    def update(self, node):\n        node = self.top_tree.parent[node]\n        while node >= 0:\n            self._update(node)\n            node = self.top_tree.parent[node]\n\n    def get(self):\n        return self.data[self.top_tree.top_tree_root]\n\nclass EdgeTopTreeDP:\n    __slots__ = ('top_tree', 'data', 'edge', 'compress', 'rake')\n\n    def __init__(self, top_tree, edge, compress, rake):\n        if not top_tree.built:\n            top_tree.build()\n        self.top_tree = top_tree\n        self.edge = edge\n        self.compress = compress\n        self.rake = rake\n        data = [None] * len(top_tree.parent)\n        self.data = data\n        order = []\n        stack = [top_tree.top_tree_root]\n        while stack:\n            node = stack.pop()\n            order.append(node)\n            left = top_tree.left[node]\n            if left >= 0:\n                stack.append(left)\n                stack.append(top_tree.right[node])\n        for node in reversed(order):\n            self._update(node)\n\n    def _update(self, node):\n        tree = self.top_tree\n        cluster_type = tree.type[node]\n        if cluster_type == EDGE:\n            self.data[node] = self.edge(node)\n        elif cluster_type == COMPRESS:\n            self.data[node] = self.compress(self.data[tree.left[node]], self.data[tree.right[node]])\n        else:\n            self.data[node] = self.rake(self.data[tree.left[node]], self.data[tree.right[node]])\n\n    def update(self, edge_leaf):\n        node = edge_leaf\n        while node >= 0:\n            self._update(node)\n            node = self.top_tree.parent[node]\n\n    def get(self):\n        return self.data[self.top_tree.top_tree_root]\nDPonStaticTopTree = EdgeTopTreeDP\n\nclass DynamicRerootingDP:\n    __slots__ = ('top_tree', 'data', 'rake_forward', 'rake_backward', 'compress', 'identity')\n\n    def __init__(self, top_tree, vertex, rake_forward, rake_backward, compress, identity):\n        if not top_tree.built:\n            top_tree.build()\n        self.top_tree = top_tree\n        self.rake_forward = rake_forward\n        self.rake_backward = rake_backward\n        self.compress = compress\n        self.identity = identity\n        n = top_tree.n\n        data = [None] * len(top_tree.parent)\n        empty = identity()\n        for node in range(n):\n            data[node] = (empty, empty) if node == top_tree.root else vertex(node)\n        self.data = data\n        for node in range(n, len(data)):\n            self._update(node)\n\n    def _update(self, node):\n        tree = self.top_tree\n        left = self.data[tree.left[node]]\n        right = self.data[tree.right[node]]\n        if tree.type[node] == COMPRESS:\n            self.data[node] = (self.compress(left[0], right[0]), self.compress(right[1], left[1]))\n        else:\n            self.data[node] = (self.rake_forward(left[0], right[0]), self.rake_backward(left[1], right[0]))\n\n    def set(self, node, value):\n        self.data[node] = value\n        node = self.top_tree.parent[node]\n        while node >= 0:\n            self._update(node)\n            node = self.top_tree.parent[node]\n\n    def get(self, vertex):\n        tree = self.top_tree\n        current = vertex\n        first = self.data[current][1]\n        second = self.identity()\n        third = self.identity()\n        while True:\n            parent = tree.parent[current]\n            if parent < 0:\n                break\n            left = tree.left[parent]\n            right = tree.right[parent]\n            if tree.type[parent] == COMPRESS:\n                if left == current:\n                    second = self.compress(second, self.data[right][0])\n                else:\n                    first = self.compress(first, self.data[left][1])\n            elif left == current:\n                first = self.rake_backward(first, self.data[right][0])\n            else:\n                third = self.compress(third, self.rake_forward(first, second))\n                first = self.identity()\n                second = self.data[left][0]\n            current = parent\n        return self.compress(third, self.rake_forward(first, second))\n\nclass StaticTopTreeVertexBased:\n    __slots__ = ('n', 'graph', 'root', 'top_tree_root', 'parent', 'left', 'right', 'type', 'tree_parent', 'subtree_size', 'children', 'heavy')\n\n    def __init__(self, tree, root=0):\n        graph = [list(row) for row in tree]\n        self.n = len(graph)\n        self.graph = graph\n        self.root = root\n        (tree_parent, order, size, children, heavy) = _tree_static_top_tree_root_tree(graph, root)\n        n = self.n\n        self.parent = [-1] * n\n        self.left = [-1] * n\n        self.right = [-1] * n\n        self.type = [VERTEX] * n\n        self.tree_parent = tree_parent\n        self.subtree_size = size\n        self.children = children\n        self.heavy = heavy\n        starts = [node for node in order if tree_parent[node] < 0 or heavy[tree_parent[node]] != node]\n        chain_root = [-1] * n\n        for start in reversed(starts):\n            path_items = []\n            node = start\n            while node >= 0:\n                light_items = []\n                for child in children[node][1:]:\n                    edge_cluster = self._add_unary(chain_root[child], ADD_EDGE)\n                    light_items.append((edge_cluster, size[child]))\n                if light_items:\n                    (rake_root, rake_size) = self._merge(light_items, RAKE)\n                    self.left[node] = rake_root\n                    self.type[node] = ADD_VERTEX\n                    self.parent[rake_root] = node\n                    path_items.append((node, rake_size + 1))\n                else:\n                    path_items.append((node, 1))\n                node = heavy[node]\n            (root_cluster, total) = self._merge(path_items, COMPRESS)\n            if total != size[start]:\n                raise AssertionError('invalid top tree cluster size')\n            chain_root[start] = root_cluster\n        self.top_tree_root = chain_root[root]\n\n    def _add_unary(self, child, cluster_type):\n        node = len(self.parent)\n        self.parent.append(-1)\n        self.left.append(child)\n        self.right.append(-1)\n        self.type.append(cluster_type)\n        self.parent[child] = node\n        return node\n\n    def _add_binary(self, left, right, cluster_type):\n        node = len(self.parent)\n        self.parent.append(-1)\n        self.left.append(left)\n        self.right.append(right)\n        self.type.append(cluster_type)\n        self.parent[left] = node\n        self.parent[right] = node\n        return node\n\n    def _merge(self, items, cluster_type):\n        if len(items) == 1:\n            return items[0]\n        prefix = [0]\n        for (_, size) in items:\n            prefix.append(prefix[-1] + size)\n        result = []\n        tasks = [(0, len(items), 0, 0)]\n        while tasks:\n            (left, right, state, middle) = tasks.pop()\n            if right - left == 1:\n                result.append(items[left])\n                continue\n            if state == 0:\n                total = prefix[right] - prefix[left]\n                low = left\n                high = right - 1\n                while low < high:\n                    mid = low + high >> 1\n                    before = prefix[mid] - prefix[left]\n                    weight = prefix[mid + 1] - prefix[mid]\n                    if total > (before << 1) + weight:\n                        low = mid + 1\n                    else:\n                        high = mid\n                middle = low\n                tasks.append((left, right, 1, middle))\n                tasks.append((middle, right, 0, 0))\n                tasks.append((left, middle, 0, 0))\n            else:\n                second = result.pop()\n                first = result.pop()\n                node = self._add_binary(first[0], second[0], cluster_type)\n                result.append((node, first[1] + second[1]))\n        return result[0]\n\n    def height(self):\n        stack = [(self.top_tree_root, 1)]\n        answer = 0\n        while stack:\n            (node, depth) = stack.pop()\n            if depth > answer:\n                answer = depth\n            left = self.left[node]\n            right = self.right[node]\n            if left >= 0:\n                stack.append((left, depth + 1))\n            if right >= 0:\n                stack.append((right, depth + 1))\n        return answer\n\nclass VertexTopTreeDP:\n    __slots__ = ('top_tree', 'path', 'point', 'vertex', 'compress', 'rake', 'add_edge', 'add_vertex')\n\n    def __init__(self, top_tree, vertex, compress, rake, add_edge, add_vertex):\n        self.top_tree = top_tree\n        self.vertex = vertex\n        self.compress = compress\n        self.rake = rake\n        self.add_edge = add_edge\n        self.add_vertex = add_vertex\n        size = len(top_tree.parent)\n        self.path = [None] * size\n        self.point = [None] * size\n        order = []\n        stack = [top_tree.top_tree_root]\n        while stack:\n            node = stack.pop()\n            order.append(node)\n            left = top_tree.left[node]\n            right = top_tree.right[node]\n            if left >= 0:\n                stack.append(left)\n            if right >= 0:\n                stack.append(right)\n        for node in reversed(order):\n            self._update(node)\n\n    def _update(self, node):\n        tree = self.top_tree\n        cluster_type = tree.type[node]\n        if cluster_type == VERTEX:\n            self.path[node] = self.vertex(node)\n        elif cluster_type == COMPRESS:\n            self.path[node] = self.compress(self.path[tree.left[node]], self.path[tree.right[node]])\n        elif cluster_type == RAKE:\n            self.point[node] = self.rake(self.point[tree.left[node]], self.point[tree.right[node]])\n        elif cluster_type == ADD_EDGE:\n            self.point[node] = self.add_edge(self.path[tree.left[node]])\n        else:\n            self.path[node] = self.add_vertex(self.point[tree.left[node]], node)\n\n    def update(self, vertex):\n        node = vertex\n        while node >= 0:\n            self._update(node)\n            node = self.top_tree.parent[node]\n\n    def get(self):\n        return self.path[self.top_tree.top_tree_root]\nDPonStaticTopTreeVertexBased = VertexTopTreeDP\n\n# 本体\n\"\"\"辺の一次関数を通して各頂点の値を集めた総和を、更新と根の変更に対応して求める。\"\"\"\n\nclass TreePathCompositeSum:\n    \"\"\"固定された木で、頂点値・辺の一次関数を置換し、任意の頂点への合成和を求める。\"\"\"\n    __slots__ = ('n', 'mod', '_tree', '_values', '_edges', '_child', '_a', '_bf', '_br', '_sf', '_sr', '_count')\n\n    def __init__(self, values, edges, mod=998244353):\n        if mod < 1:\n            raise ValueError('mod must be positive')\n        self.n = n = len(values)\n        if n == 0:\n            raise ValueError('tree must be nonempty')\n        edges = list(edges)\n        if len(edges) != n - 1:\n            raise ValueError('a tree must have n - 1 edges')\n        graph = [[] for _ in range(n)]\n        for (u, v, b, c) in edges:\n            if not (0 <= u < n and 0 <= v < n):\n                raise IndexError('vertex out of range')\n            graph[u].append(v)\n            graph[v].append(u)\n        self.mod = mod\n        self._tree = tree = StaticTopTree(graph)\n        self._values = [value % mod for value in values]\n        self._edges = [(u, v, b % mod, c % mod) for (u, v, b, c) in edges]\n        self._child = [v if tree.tree_parent[v] == u else u for (u, v, b, c) in edges]\n        size = len(tree.parent)\n        self._a = [1 % mod] * size\n        self._bf = [0] * size\n        self._br = [0] * size\n        self._sf = self._values + [0] * (size - n)\n        self._sr = self._sf[:]\n        self._count = [1] * size\n        for (i, node) in enumerate(self._child):\n            (_, _, b, c) = self._edges[i]\n            self._a[node] = b\n            self._bf[node] = self._br[node] = c\n            self._sf[node] = (b * self._values[node] + c) % mod\n        for node in range(n, size):\n            self._pull(node)\n\n    def _pull(self, node):\n        tree = self._tree\n        (left, right) = (tree.left[node], tree.right[node])\n        (a, bf, br, sf, sr, count) = (self._a, self._bf, self._br, self._sf, self._sr, self._count)\n        mod = self.mod\n        count[node] = count[left] + count[right]\n        if tree.type[node] == 1:\n            a[node] = a[left] * a[right] % mod\n            bf[node] = (a[left] * bf[right] + bf[left]) % mod\n            br[node] = (a[right] * br[left] + br[right]) % mod\n            sf[node] = (sf[left] + a[left] * sf[right] + bf[left] * count[right]) % mod\n            sr[node] = (sr[right] + a[right] * sr[left] + br[right] * count[left]) % mod\n        else:\n            (a[node], bf[node], br[node]) = (a[left], bf[left], br[left])\n            sf[node] = (sf[left] + sf[right]) % mod\n            sr[node] = (sr[left] + a[left] * sf[right] + br[left] * count[right]) % mod\n\n    def _update(self, node):\n        self._sr[node] = self._values[node]\n        self._sf[node] = (self._a[node] * self._values[node] + self._bf[node]) % self.mod\n        parent = self._tree.parent\n        node = parent[node]\n        while node >= 0:\n            self._pull(node)\n            node = parent[node]\n\n    def set(self, vertex, value):\n        \"\"\"vertexの値をvalueへ置き換える。\"\"\"\n        if not 0 <= vertex < self.n:\n            raise IndexError('vertex out of range')\n        self._values[vertex] = value % self.mod\n        self._update(vertex)\n\n    def set_edge(self, edge, b, c):\n        \"\"\"入力順のedge番目の辺を、両方向ともxをb*x+cへ写す一次関数に置き換える。\"\"\"\n        if not 0 <= edge < self.n - 1:\n            raise IndexError('edge out of range')\n        (u, v, _, _) = self._edges[edge]\n        (b, c) = (b % self.mod, c % self.mod)\n        self._edges[edge] = (u, v, b, c)\n        node = self._child[edge]\n        self._a[node] = b\n        self._bf[node] = self._br[node] = c\n        self._update(node)\n\n    def query(self, root):\n        \"\"\"各頂点からrootへ向かう経路の順に辺の一次関数を適用し、その結果を合計する。\"\"\"\n        if not 0 <= root < self.n:\n            raise IndexError('vertex out of range')\n        tree = self._tree\n        (a, bf, br, sf, sr, count) = (self._a, self._bf, self._br, self._sf, self._sr, self._count)\n        mod = self.mod\n        current = root\n        (fa, fb, fs, fc) = (a[root], br[root], sr[root], 1)\n        (sa, sb, ss, sc) = (1, 0, 0, 0)\n        (ta, tb, ts) = (1, 0, 0)\n        while tree.parent[current] >= 0:\n            parent = tree.parent[current]\n            (left, right) = (tree.left[parent], tree.right[parent])\n            if tree.type[parent] == 1:\n                if current == left:\n                    ss = (ss + sa * sf[right] + sb * count[right]) % mod\n                    sb = (sa * bf[right] + sb) % mod\n                    sa = sa * a[right] % mod\n                    sc += count[right]\n                else:\n                    fs = (fs + fa * sr[left] + fb * count[left]) % mod\n                    fb = (fa * br[left] + fb) % mod\n                    fa = fa * a[left] % mod\n                    fc += count[left]\n            elif current == left:\n                fs = (fs + fa * sf[right] + fb * count[right]) % mod\n                fc += count[right]\n            else:\n                ts = (ts + ta * (fs + ss) + tb * (fc + sc)) % mod\n                tb = (ta * fb + tb) % mod\n                ta = ta * fa % mod\n                (fa, fb, fs, fc) = (1, 0, 0, 0)\n                (sa, sb, ss, sc) = (a[left], bf[left], sf[left], count[left])\n            current = parent\n        return (ts + ta * (fs + ss) + tb * (fc + sc)) % mod\n\n    def tolist(self):\n        \"\"\"現在の頂点値を頂点番号順の新しいlistで返す。\"\"\"\n        return self._values[:]\n\n    def edges(self):\n        \"\"\"入力順の(u, v, b, c)を並べた新しいlistを返す。\"\"\"\n        return self._edges[:]\n\n    def __str__(self):\n        return str((self.tolist(), self.edges()))\n\n    def __repr__(self):\n        return 'TreePathCompositeSum(%r, %r, mod=%r)' % (self.tolist(), self.edges(), self.mod)\n",
+      "bundledDependencies": [
+        "library_codex.tree.StaticTopTree"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 7
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "TreePathCompositeSum",
+          "summary": "固定された木で頂点値と辺の一次関数を管理し、指定頂点へ全頂点の値を集めた総和を求める。",
+          "description": "固定された木で頂点値と辺の一次関数を管理し、指定頂点へ全頂点の値を集めた総和を求める。",
+          "searchTerms": [
+            "TreePathCompositeSum",
+            "Tree Path Composite Sum",
+            "TreePathCompositeSum(values, edges, mod=998244353)"
+          ],
+          "constructor": "TreePathCompositeSum(values, edges, mod=998244353)",
+          "constructorArguments": "values: 頂点番号順の整数値。長さNは1以上。 · edges: 入力順の(u, v, b, c)のiterable。両方向にxをb*x+cへ写す辺。N−1本で連結な木を作る。 · mod: 1以上の整数。頂点値・係数・集計結果をこの法で扱う。素数でなくてもよい。省略時: 998244353",
+          "constructorArgumentDetails": [
+            {
+              "name": "values",
+              "description": "頂点番号順の整数値。長さNは1以上"
+            },
+            {
+              "name": "edges",
+              "description": "入力順の(u, v, b, c)の反復可能オブジェクト。両方向にxをb*x+cへ写す辺。N−1本で連結な木を作る"
+            },
+            {
+              "name": "mod",
+              "description": "1以上の整数。頂点値・係数・集計結果をこの法で扱う。素数でなくてもよい。省略時は 998244353"
+            }
+          ],
+          "constructorReturns": "TreePathCompositeSum instance",
+          "constructorReturnFormat": "TreePathCompositeSum",
+          "constructorReturnDescription": "頂点値と辺の一次関数を保持する。set・set_edgeで置換し、query(root)で任意のrootへの合成和を取得できる。",
+          "constructorCreates": "頂点値と辺の一次関数を保持する。set・set_edgeで置換し、query(root)で任意のrootへの合成和を取得できる。",
+          "constructorComplexity": "O(N log N)時間・O(N)個の整数。法での整数演算をO(1)とする",
+          "constructorSourceLine": 12,
+          "methods": [
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(vertex, value)",
+              "summary": "1頂点の値を置き換える。",
+              "description": "1頂点の値を置き換える。",
+              "searchTerms": [
+                "set",
+                "set(vertex, value)"
+              ],
+              "arguments": "vertex: 更新する頂点。 · value: 置換後の整数値。負数も指定できる。",
+              "argumentDetails": [
+                {
+                  "name": "vertex",
+                  "description": "更新する頂点。"
+                },
+                {
+                  "name": "value",
+                  "description": "置換後の整数値。負数も指定できる。"
+                }
+              ],
+              "returns": "None — 値を返さない。vertexの値だけをvalueをmodで割った余りへ変更する。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。vertexの値だけをvalueをmodで割った余りへ変更する。",
+              "complexity": "O(log N)時間",
+              "sourceLine": 73
+            },
+            {
+              "name": "set_edge",
+              "kind": "method",
+              "signature": "set_edge(edge, b, c)",
+              "summary": "1辺の一次関数を両方向とも置き換える。",
+              "description": "1辺の一次関数を両方向とも置き換える。",
+              "searchTerms": [
+                "set_edge",
+                "set edge",
+                "set_edge(edge, b, c)"
+              ],
+              "arguments": "edge: 構築時に渡したedgesの添字。 · b: 一次関数の乗算係数。0も指定できる。 · c: 一次関数の加算定数。",
+              "argumentDetails": [
+                {
+                  "name": "edge",
+                  "description": "構築時に渡したedgesの添字。"
+                },
+                {
+                  "name": "b",
+                  "description": "一次関数の乗算係数。0も指定できる。"
+                },
+                {
+                  "name": "c",
+                  "description": "一次関数の加算定数。"
+                }
+              ],
+              "returns": "None — 値を返さない。指定辺を通過する値の変換がb*x+cになる。辺の両端は変わらない。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。指定辺を通過する値の変換がb*x+cになる。辺の両端は変わらない。",
+              "complexity": "O(log N)時間",
+              "sourceLine": 80
+            },
+            {
+              "name": "query",
+              "kind": "method",
+              "signature": "query(root)",
+              "summary": "各頂点からrootへ向かう通過順に辺の一次関数を適用し、得られた値を全頂点について足す。",
+              "description": "各頂点からrootへ向かう通過順に辺の一次関数を適用し、得られた値を全頂点について足す。",
+              "searchTerms": [
+                "query",
+                "query(root)"
+              ],
+              "arguments": "root: 全頂点の値を集める先。問い合わせごとに変更できる。",
+              "argumentDetails": [
+                {
+                  "name": "root",
+                  "description": "全頂点の値を集める先。問い合わせごとに変更できる。"
+                }
+              ],
+              "returns": "int — 合成後の値の総和をmodで割った余り。root自身の元の頂点値も1回含む。逆向きの辺でも逆関数は使わない。",
+              "returnFormat": "int",
+              "returnDescription": "合成後の値の総和をmodで割った余り。root自身の元の頂点値も1回含む。逆向きの辺でも逆関数は使わない。",
+              "complexity": "O(log N)時間",
+              "sourceLine": 92
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "現在の頂点値を一覧にする。",
+              "description": "現在の頂点値を一覧にする。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[int] — 長さNの新しいlist。result[v]は現在の頂点vの値で、modで割った余り。",
+              "returnFormat": "list[int]",
+              "returnDescription": "長さNの新しいlist。result[v]は現在の頂点vの値で、modで割った余り。",
+              "complexity": "O(N)時間・追加O(N)個の要素",
+              "sourceLine": 129
+            },
+            {
+              "name": "edges",
+              "kind": "method",
+              "signature": "edges()",
+              "summary": "現在の辺と一次関数を一覧にする。",
+              "description": "現在の辺と一次関数を一覧にする。",
+              "searchTerms": [
+                "edges",
+                "edges()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[tuple[int, int, int, int]] — 構築時の辺の順番の新しいlist。各組は(u, v, b, c)。u・vは両端、b・cは現在の一次関数b*x+cの係数。",
+              "returnFormat": "list[tuple[int, int, int, int]]",
+              "returnDescription": "構築時の辺の順番の新しいlist。各組は(u, v, b, c)。u・vは両端、b・cは現在の一次関数b*x+cの係数。",
+              "complexity": "O(N)時間・追加O(N)個の組への参照",
+              "sourceLine": 133
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の頂点値と辺を文字列で表示する。",
+              "description": "現在の頂点値と辺を文字列で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — (values, edges)のtuple表記。頂点値は頂点番号順、辺は入力順。内部の状態は変わらない。",
+              "returnFormat": "str",
+              "returnDescription": "(values, edges)のtuple表記。頂点値は頂点番号順、辺は入力順。内部の状態は変わらない。",
+              "complexity": "O(N+S)時間。Sは値と辺を文字列化する合計時間",
+              "sourceLine": 137
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "現在の頂点値・辺・法を型名付きで表示する。",
+              "description": "現在の頂点値・辺・法を型名付きで表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — TreePathCompositeSum(values, edges, mod=...)の形式の文字列。",
+              "returnFormat": "str",
+              "returnDescription": "TreePathCompositeSum(values, edges, mod=...)の形式の文字列。",
+              "complexity": "O(N+S)時間。Sは値と辺を文字列化する合計時間",
+              "sourceLine": 140
             }
           ]
         }

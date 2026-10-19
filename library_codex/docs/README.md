@@ -51,7 +51,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 12 | 0 | 12 | 126 |
 | [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 13 | 3 | 11 | 95 |
 | [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 14 | 5 | 13 | 81 |
-| [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 14 | 1 | 14 | 51 |
+| [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 15 | 1 | 15 | 58 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 16 | 24 | 6 | 32 |
 | [shortest_path](api/shortest_path/README.md) | 単一始点・全点対・k本の最短路 | 11 | 15 | 2 | 4 |
 | [graph_connectivity](api/graph_connectivity/README.md) | 連結成分・lowlink・SCC・動的連結性 | 20 | 16 | 14 | 81 |
@@ -65,7 +65,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 4 | 3 | 28 |
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 13 | 1 | 2 |
-| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 22 | 23 | 26 | 132 |
+| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 23 | 23 | 27 | 139 |
 | [tree_query](api/tree_query/README.md) | path・部分木上の静的検索 | 3 | 0 | 3 | 15 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 21 | 29 | 22 | 244 |
 | [string_sequence](api/string_sequence/README.md) | 編集距離・巡回shift・Lyndon分解・共通substring | 4 | 5 | 0 | 0 |
@@ -75,4 +75,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **392 modules / 529 functions / 236 classes / 1501 methods・properties**。
+合計: **394 modules / 529 functions / 238 classes / 1515 methods・properties**。

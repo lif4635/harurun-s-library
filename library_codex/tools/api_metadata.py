@@ -8282,3 +8282,75 @@ for _method, _description, _format, _returns in (
                                 | ({"key": "置換後の整数キー。他の要素と重複するとValueError。", "value": "キーと一緒に保持し、opで集約する値。"} if _method == "set" else {})
                                 | ({"reverse": "Falseならキー昇順、Trueなら降順。"} if _method == "sort" else {}),
     }
+
+_path_sum_module = "tree/TreePathCompositeSum.py"
+SEARCH_TERMS_BY_MODULE[_path_sum_module] = ("全方位合成和", "動的全方位DP", "一次関数", "dynamic rerooting")
+CLASS_DETAILS_BY_SYMBOL[(_path_sum_module, "TreePathCompositeSum")] = {
+    "description": "固定された木で頂点値と辺の一次関数を管理し、指定頂点へ全頂点の値を集めた総和を求める。",
+    "argumentDescriptions": {
+        "values": "頂点番号順の整数値。長さNは1以上。",
+        "edges": "入力順の(u, v, b, c)のiterable。両方向にxをb*x+cへ写す辺。N−1本で連結な木を作る。",
+        "mod": "1以上の整数。頂点値・係数・集計結果をこの法で扱う。素数でなくてもよい。",
+    },
+    "constructorCreates": "頂点値と辺の一次関数を保持する。set・set_edgeで置換し、query(root)で任意のrootへの合成和を取得できる。",
+}
+COMPLEXITY_BY_MODULE[_path_sum_module] = {
+    "TreePathCompositeSum": "O(N log N)時間・O(N)個の整数。法での整数演算をO(1)とする",
+    "set": "O(log N)時間",
+    "set_edge": "O(log N)時間",
+    "query": "O(log N)時間",
+    "tolist": "O(N)時間・追加O(N)個の要素",
+    "edges": "O(N)時間・追加O(N)個の組への参照",
+    "__str__": "O(N+S)時間。Sは値と辺を文字列化する合計時間",
+    "__repr__": "O(N+S)時間。Sは値と辺を文字列化する合計時間",
+}
+for _method, _description, _format, _returns, _arguments in (
+    ("set", "1頂点の値を置き換える。", "None", "値を返さない。vertexの値だけをvalueをmodで割った余りへ変更する。", {"vertex": "更新する頂点。", "value": "置換後の整数値。負数も指定できる。"}),
+    ("set_edge", "1辺の一次関数を両方向とも置き換える。", "None", "値を返さない。指定辺を通過する値の変換がb*x+cになる。辺の両端は変わらない。", {"edge": "構築時に渡したedgesの添字。", "b": "一次関数の乗算係数。0も指定できる。", "c": "一次関数の加算定数。"}),
+    ("query", "各頂点からrootへ向かう通過順に辺の一次関数を適用し、得られた値を全頂点について足す。", "int", "合成後の値の総和をmodで割った余り。root自身の元の頂点値も1回含む。逆向きの辺でも逆関数は使わない。", {"root": "全頂点の値を集める先。問い合わせごとに変更できる。"}),
+    ("tolist", "現在の頂点値を一覧にする。", "list[int]", "長さNの新しいlist。result[v]は現在の頂点vの値で、modで割った余り。", {}),
+    ("edges", "現在の辺と一次関数を一覧にする。", "list[tuple[int, int, int, int]]", "構築時の辺の順番の新しいlist。各組は(u, v, b, c)。u・vは両端、b・cは現在の一次関数b*x+cの係数。", {}),
+    ("__str__", "現在の頂点値と辺を文字列で表示する。", "str", "(values, edges)のtuple表記。頂点値は頂点番号順、辺は入力順。内部の状態は変わらない。", {}),
+    ("__repr__", "現在の頂点値・辺・法を型名付きで表示する。", "str", "TreePathCompositeSum(values, edges, mod=...)の形式の文字列。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_path_sum_module, "TreePathCompositeSum", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+        "argumentDescriptions": _arguments,
+    }
+
+_rect_affine_module = "spatial_structure/RectangleAffineSum.py"
+SEARCH_TERMS_BY_MODULE[_rect_affine_module] = ("矩形和", "矩形アフィン変換", "点の有効化", "KD tree", "二次元区間更新")
+CLASS_DETAILS_BY_SYMBOL[(_rect_affine_module, "RectangleAffineSum")] = {
+    "description": "登録済みの二次元点の重みを管理し、矩形への一次変換と矩形和、各点の有効化・無効化・置換を行う。",
+    "argumentDescriptions": {
+        "points": "入力順の(x, y, weight)のiterable。x・yは整数座標。weightは整数またはNone。Noneの点は無効で、同じ座標の点も別々に扱う。空でもよい。",
+        "mod": "1以上の整数。重みと係数と集計結果をこの法で扱う。素数でなくてもよい。",
+    },
+    "constructorCreates": "全座標を固定して保持する。setで点の重みや有効状態を変え、applyで矩形内へ一次変換、sumで矩形和、getで1点の値を取得できる。",
+}
+COMPLEXITY_BY_MODULE[_rect_affine_module] = {
+    "RectangleAffineSum": "O(N log(N+2))時間・O(N+1)個の整数。法での整数演算をO(1)とする",
+    "get": "O(log(N+2))時間",
+    "set": "O(log(N+2))時間。末端の定数個の点の更新を含む",
+    "apply": "O(V+K)時間。Vは訪問ノード数、Kは境界にかかる末端で調べる点数。最悪O(N)、通常はO(sqrt N)程度が目安",
+    "sum": "O(V+K)時間。Vは訪問ノード数、Kは境界にかかる末端で調べる点数。最悪O(N)、通常はO(sqrt N)程度が目安",
+    "tolist": "O(N+1)時間・追加O(N+1)メモリ",
+    "__str__": "O(N+S)時間。Sは重みを文字列化する合計時間",
+    "__repr__": "O(N+S)時間。Sは座標と重みを文字列化する合計時間",
+}
+for _method, _description, _format, _returns, _arguments in (
+    ("set", "入力順の1点の重みと有効状態を置き換える。", "None", "値を返さない。valueが整数ならその余りを持つ有効な点、Noneなら更新・集計の対象外になる。有効化以前の作用は反映しない。", {"index": "構築時に渡したpointsの添字。", "value": "新しい整数重み。Noneなら無効化する。"}),
+    ("get", "入力順の1点の現在の重みを取得する。", "int | None", "有効な点ならmodで割った余りの整数。無効な点ならNone。", {"index": "構築時に渡したpointsの添字。"}),
+    ("apply", "半開矩形[left, right)×[down, up)内の有効な点の重みをa*w+bへ変更する。", "None", "値を返さない。矩形内の有効な点だけが変化し、無効な点と矩形外の点は変わらない。", {"a": "既存の重みへ掛ける係数。0ならbへの置換になる。", "b": "掛けた後に加える定数。"}),
+    ("sum", "半開矩形[left, right)×[down, up)内の有効な点の重みを合計する。", "int", "対象の重みの和をmodで割った余り。対象の点がなければ0。重複座標の点も1点ずつ含める。", {}),
+    ("tolist", "現在の重みと有効状態を入力順で一覧にする。", "list[int | None]", "長さNの新しいlist。result[i]は入力順の点iの重みの余り、無効ならNone。座標や矩形和のlistではない。", {}),
+    ("__str__", "現在の重みを入力順のlistとして表示する。", "str", "tolist()の内容の文字列。遅延更新を反映した値で、無効な点はNone。", {}),
+    ("__repr__", "座標・現在の重み・法を型名付きで表示する。", "str", "RectangleAffineSum([(x, y, weight), ...], mod=...)の形式の文字列。点は入力順。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_rect_affine_module, "RectangleAffineSum", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+        "argumentDescriptions": _arguments | ({
+            "left": "x方向の左端を含む。", "right": "x方向の右端は含まない。left≤right。",
+            "down": "y方向の下端を含む。", "up": "y方向の上端は含まない。down≤up。",
+        } if _method in ("apply", "sum") else {}),
+    }

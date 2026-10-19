@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 239,
-    "unimplemented": 14
+    "local_passed": 241,
+    "unimplemented": 12
   },
   "problems": [
     {
@@ -757,10 +757,12 @@
       "title": "Dynamic Point Rectangle Affine Rectangle Sum",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/dynamic_point_set_rectangle_affine_rectangle_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.spatial_structure.RectangleAffineSum"
+      ],
+      "solution": "solutions/dynamic_point_set_rectangle_affine_rectangle_sum.py",
+      "result": "results/dynamic_point_set_rectangle_affine_rectangle_sum.json"
     },
     {
       "name": "dynamic_sequence_range_affine_range_sum",
@@ -2035,10 +2037,13 @@
       "title": "Point Set Tree Path Composite Sum",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.tree.StaticTopTree",
+        "library_codex.tree.TreePathCompositeSum"
+      ],
+      "solution": "solutions/point_set_tree_path_composite_sum.py",
+      "result": "results/point_set_tree_path_composite_sum.json"
     },
     {
       "name": "point_set_tree_path_composite_sum_fixed_root",

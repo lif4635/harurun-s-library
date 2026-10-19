@@ -1,0 +1,177 @@
+{
+  "problem": "point_set_tree_path_composite_sum",
+  "status": "local_passed",
+  "verificationKey": "44ba4bdd2759ffb7e842a69da49a5fee5762c30ca533a3d951661a30ee8af965",
+  "sourceSha256": "fcef7870ac84b005643cb596f2d3cb32695a48610f7faa90f9b26d62981fff20",
+  "modules": [
+    "library_codex.tree.StaticTopTree",
+    "library_codex.tree.TreePathCompositeSum"
+  ],
+  "problemVersion": "5ccbb2d8dbbb964a9b217748429e9425c922b728ff477d0d8e901c585d0f8260",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 26,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06032196000160184,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0607132820005063,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "n_hundreds_00",
+      "status": "AC",
+      "seconds": 0.07087739299822715,
+      "diagnostic": "ok 142 tokens\n"
+    },
+    {
+      "name": "n_hundreds_01",
+      "status": "AC",
+      "seconds": 0.07092709499920602,
+      "diagnostic": "ok 120 tokens\n"
+    },
+    {
+      "name": "tiny_00",
+      "status": "AC",
+      "seconds": 0.059645283999998355,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "tiny_01",
+      "status": "AC",
+      "seconds": 0.05560527899797307,
+      "diagnostic": "ok 9 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_00",
+      "status": "AC",
+      "seconds": 2.391290447998472,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_01",
+      "status": "AC",
+      "seconds": 1.8559711410016462,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_02",
+      "status": "AC",
+      "seconds": 2.801987151000503,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_03",
+      "status": "AC",
+      "seconds": 2.1913797139968665,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_04",
+      "status": "AC",
+      "seconds": 2.0550576530004037,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_05",
+      "status": "AC",
+      "seconds": 2.2262576359971717,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_06",
+      "status": "AC",
+      "seconds": 2.168337671999325,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_07",
+      "status": "AC",
+      "seconds": 2.1744910659981542,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_08",
+      "status": "AC",
+      "seconds": 2.399018692001846,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_09",
+      "status": "AC",
+      "seconds": 2.209184577000997,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_00",
+      "status": "AC",
+      "seconds": 2.110834270999476,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_01",
+      "status": "AC",
+      "seconds": 1.5251985210015846,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_02",
+      "status": "AC",
+      "seconds": 2.5979661470009887,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_03",
+      "status": "AC",
+      "seconds": 2.1964004629990086,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_04",
+      "status": "AC",
+      "seconds": 2.159796300002199,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_05",
+      "status": "AC",
+      "seconds": 1.932403514001635,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_06",
+      "status": "AC",
+      "seconds": 2.118811591000849,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_07",
+      "status": "AC",
+      "seconds": 2.131340537998767,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_08",
+      "status": "AC",
+      "seconds": 2.532951162000245,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "typical_tree_max_degree_09",
+      "status": "AC",
+      "seconds": 2.132538071000454,
+      "diagnostic": "ok 200000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-19T12:47:40.241960+00:00",
+  "onlineSubmission": null
+}

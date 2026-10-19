@@ -16,6 +16,7 @@
 | [`PointUpdateRangeTree2D`](PointUpdateRangeTree2D.md) | 登録済み二次元点の重みを更新し、半開矩形和をonlineで求めるrange tree。 | 0 | 1 | 5 |
 | [`RectangleAddPointGet`](RectangleAddPointGet.md) | 長方形へ加算し、事前登録した点の現在値を求める。 | 0 | 1 | 5 |
 | [`RectangleAddRectangleSum`](RectangleAddRectangleSum.md) | 矩形への一括加算後に別の矩形和をofflineで求める。 | 0 | 1 | 3 |
+| [`RectangleAffineSum`](RectangleAffineSum.md) | 登録済みの二次元点に、矩形内の一次変換・矩形和・点ごとの有効化と置換を行う。 | 0 | 1 | 7 |
 | [`SegmentTree2D`](SegmentTree2D.md) | 二次元gridの一点更新と半開矩形monoid積を扱うSegment Tree。 | 0 | 1 | 6 |
 | [`StaticRectangleSum`](StaticRectangleSum.md) | 重み付き点集合に対する静的なoffline矩形和queryを処理する。 | 0 | 1 | 3 |
 | [`UnionRectangle`](UnionRectangle.md) | 軸平行矩形の和集合面積をsweep lineで求める。 | 1 | 1 | 5 |
