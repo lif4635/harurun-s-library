@@ -20,4 +20,4 @@ from library_codex.convolution.Convolution64 import convolution_u64
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`convolution_u64(first, second)`](../../../convolution/Convolution64.py#L7) | 整数係数列2本を通常の積和で畳み込み、各係数の下位64bitを返す。 | `first`: 昇べき順の整数係数列。負数や64bitを超える整数も2**64で正規化する。結果の長さが2**21を超えるとValueError。<br>`second`: もう一方の昇べき順の整数係数列。firstと同じ配列を渡す平方にも対応する。 | list[int] — 長さlen(first)+len(second)-1の新しいlist。result[k]はi+j=kとなるfirst[i]*second[j]の総和を2**64で割った余り。各要素は0以上2**64未満。片方でも空なら空list。末尾の0も残す。 | O(L log(L+2))時間・O(L)追加メモリ。L=len(first)+len(second)-1。短い側が32要素以下ならO(len(first)*len(second))時間。空入力はO(1) |
+| [`convolution_u64(first, second)`](../../../convolution/Convolution64.py#L7) | 整数係数列2本を通常の積和で畳み込み、各係数の下位64bitを返す。 | `first`: 昇べき順の整数係数列。負数や64bitを超える整数も2の64乗で正規化する。結果の長さが2の21乗を超えるとValueError。<br>`second`: もう一方の昇べき順の整数係数列。firstと同じ配列を渡す平方にも対応する。 | list[int] — 長さlen(first)+len(second)-1の新しいlist。result[k]はi+j=kとなるfirst[i]*second[j]の総和を2の64乗で割った余り。各要素は0以上2の64乗未満。片方でも空なら空list。末尾の0も残す。 | O(L log(L+2))時間・O(L)追加メモリ。L=len(first)+len(second)-1。短い側が32要素以下ならO(len(first)*len(second))時間。空入力はO(1) |
