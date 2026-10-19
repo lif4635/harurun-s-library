@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 390,
+  "moduleCount": 391,
   "supportedCount": 7,
   "modules": [
     {
@@ -1122,6 +1122,12 @@
       "modulePath": "linear_algebra/XorBasis",
       "sourcePath": "library_codex/linear_algebra/XorBasis.py",
       "sourceSha256": "ae2d4e95f61e1f14ea4a887d1d1fb4590d8ee0e0935534fc2fb887d077598301",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/BigIntegerDivision",
+      "sourcePath": "library_codex/number_theory/BigIntegerDivision.py",
+      "sourceSha256": "293ae7f19ed34ddfa64a30f29042db35043dc346abea62f115b1c5d450e05f00",
       "status": "unsupported"
     },
     {

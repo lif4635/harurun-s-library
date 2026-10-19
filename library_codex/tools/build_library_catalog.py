@@ -1603,7 +1603,8 @@ def infer_complexity(
 
 def clarify_complexity(value, module_key):
     notes = []
-    if re.search(r"\bM\([A-Z][A-Za-z]*\)", value) and "多項式乗算cost" not in value:
+    if (re.search(r"\bM\([A-Z][A-Za-z]*\)", value)
+            and "多項式乗算cost" not in value and "整数乗算" not in value):
         notes.append("M(L)は長さLの多項式乗算cost")
     if "alpha(N)" in value and "逆Ackermann" not in value:
         notes.append("alphaは逆Ackermann関数")
@@ -3054,7 +3055,7 @@ def main():
         data["sourceFingerprint"],
         data["generatorFingerprint"],
     )
-    if previous_fingerprints != current_fingerprints:
+    if args.full or previous_fingerprints != current_fingerprints:
         write_catalog_atomic(args.output, data, ROOT)
         print(f"updated {reparsed} of {len(data['modules'])} modules in {args.output}")
     else:

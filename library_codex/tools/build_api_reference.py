@@ -1455,7 +1455,8 @@ def symbol_complexity(module_key, node, owner=None):
     value = configured.get(qualified) or configured.get(node.name)
     if value:
         notes = []
-        if re.search(r"\bM\([A-Z][A-Za-z]*\)", value) and "多項式乗算cost" not in value:
+        if (re.search(r"\bM\([A-Z][A-Za-z]*\)", value)
+                and "多項式乗算cost" not in value and "整数乗算" not in value):
             notes.append("M(L)は長さLの多項式乗算cost")
         if "alpha(N)" in value and "逆Ackermann" not in value:
             notes.append("alphaは逆Ackermann関数")

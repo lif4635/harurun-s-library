@@ -1,3 +1,4 @@
+import ast
 import json
 import re
 import runpy
@@ -7,6 +8,15 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_integer_multiplication_complexity_is_not_polynomial(monkeypatch):
+    monkeypatch.syspath_prepend(str(ROOT / "tools"))
+    namespace = runpy.run_path(str(ROOT / "tools" / "build_api_reference.py"))
+    node = ast.parse("def divide_decimal(first, second): pass").body[0]
+    result = namespace["symbol_complexity"]("number_theory/BigIntegerDivision.py", node)
+    assert "整数乗算時間" in result
+    assert "多項式" not in result
 
 
 def test_module_overviews_do_not_depend_on_readme(tmp_path, monkeypatch):

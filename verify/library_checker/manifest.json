@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 236,
-    "unimplemented": 17
+    "local_passed": 238,
+    "unimplemented": 15
   },
   "problems": [
     {
@@ -683,20 +683,24 @@
       "title": "Division of Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/division_of_big_integers",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.BigIntegerDivision"
+      ],
+      "solution": "solutions/division_of_big_integers.py",
+      "result": "results/division_of_big_integers.json"
     },
     {
       "name": "division_of_hex_big_integers",
       "title": "Division of Hex Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/division_of_hex_big_integers",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.BigIntegerDivision"
+      ],
+      "solution": "solutions/division_of_hex_big_integers.py",
+      "result": "results/division_of_hex_big_integers.json"
     },
     {
       "name": "division_of_polynomials",

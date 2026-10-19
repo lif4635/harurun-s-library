@@ -5,6 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`BigIntegerDivision`](BigIntegerDivision.md) | 巨大な10進・16進文字列の商と余りを、同じ進数の文字列で返す。 | 2 | 0 | 0 |
 | [`BigIntegerMultiplication`](BigIntegerMultiplication.md) | 符号付き10進・16進文字列を、浮動小数点を使わず高速に乗算する。 | 2 | 0 | 0 |
 | [`ChineseRemainder`](ChineseRemainder.md) | 非互いに素な法のCRT・balanced bigint CRT・法付きGarner | 4 | 0 | 0 |
 | [`DecimalAddition`](DecimalAddition.md) | 符号付き10進文字列を、桁数に比例する時間で加算する。 | 1 | 0 | 0 |

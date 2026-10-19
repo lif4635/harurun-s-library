@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T08:59:42+00:00",
+  "generatedAt": "2026-10-19T09:50:23+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "211af1203257f7e3bc0e63d11521f2c5dad1f074a46bcf7fb137081ba5d807ec",
-  "inputStamp": "298367eb394ca6f08d6db55153e6bf4db0be5e51146620ab2e71af6332407013",
-  "generatorFingerprint": "352195430bf6e369885f591759bddcd812c5bfcd99b18c1767fe7dbf15c80ef2",
+  "sourceFingerprint": "e7e3d1f9b40bbb460f5a1103847f87c365c138dcd9d9f352b1172be2b0aa50c2",
+  "inputStamp": "5c557f5d3f0ffeaddf6a18c2abc35c149b27102d5662227b85f6e8d92f12fe14",
+  "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 390,
-    "articles": 96,
-    "functions": 527,
+    "modules": 391,
+    "articles": 97,
+    "functions": 529,
     "classes": 235,
     "methods": 1492,
     "tests": 1029
@@ -251,8 +251,8 @@
       "label": "整数・数論",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 21,
-      "functions": 44,
+      "modules": 22,
+      "functions": 46,
       "classes": 5,
       "methods": 27
     },
@@ -421,7 +421,7 @@
     {
       "slug": "math",
       "label": "Math",
-      "modules": 58
+      "modules": 59
     },
     {
       "slug": "tree",
@@ -43590,6 +43590,131 @@
           "returnDescription": "閉路がなければ None。あれば (cost, vertices, edge_ids) で、vertices[0] == vertices[-1]、edge_ids[i] は vertices[i] から vertices[i+1] への入力辺番号。",
           "complexity": "O(V E log V) time、O(V+E) memory",
           "sourceLine": 6
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "number_theory",
+      "categoryLabel": "整数・数論",
+      "domain": "math",
+      "domainLabel": "Math",
+      "name": "BigIntegerDivision",
+      "modulePath": "library_codex.number_theory.BigIntegerDivision",
+      "summary": "巨大な10進・16進文字列の商と余りを、同じ進数の文字列で返す。",
+      "capabilities": [
+        "divide_decimal: 10進文字列2つから商と余りを求める。Pythonのdivmodと同じ切り下げ除算で、余りが0でなければ除数と同じ符号になる。",
+        "divide_hex: 16進文字列2つから商と余りを求める。Pythonのdivmodと同じ切り下げ除算で、余りが0でなければ除数と同じ符号になる。"
+      ],
+      "article": {
+        "title": "巨大整数の除算",
+        "markdown": "10進・16進の文字列から商と余りを求め、同じ進数の文字列で返す。負数を含め、Pythonの`divmod`と同じ切り下げ除算を行う。\n\n## 主な機能\n\n- `divide_decimal`と`divide_hex`は文字列を受け取り、商と余りも同じ進数の文字列で返す。\n- 巨大な10進文字列を分割して処理するため、Pythonの整数文字列変換の上限設定を変えずに使える。\n- Nを2入力の合計bit数、D(N)を標準の整数除算時間、M(N)を整数乗算時間とする。16進版はO(D(N)+N)時間、10進版はO((D(N)+M(N)+N) log(N+1))時間が上界。追加領域はO(N) bit。\n- すでに`int`になっている入力には、標準の`divmod`を使う。\n\n## 使い方\n\n```python\nfrom library_codex.number_theory.BigIntegerDivision import divide_decimal, divide_hex\n\nq, r = divide_decimal(\"-17\", \"5\")\ndecimal = divide_decimal(\"100000000000000000001\", \"3\")\nhexadecimal = divide_hex(\"ff\", \"10\")\n```\n\n- `q`は`\"-4\"`、`r`は`\"3\"`。商を0方向へ丸めた`\"-3\"`ではない。\n- `decimal`は`(\"33333333333333333333\", \"2\")`。\n- `hexadecimal`は`(\"F\", \"F\")`。16進の返り値は大文字。\n\n商qと余りrは次の関係を満たす。\n\n$$\nA=qB+r,\\qquad q=\\left\\lfloor\\frac{A}{B}\\right\\rfloor.\n$$\n\n- Bが正なら、余りは0以上B未満。\n- Bが負なら、余りはBより大きく0以下。たとえば`divide_decimal(\"17\", \"-5\")`は`(\"-4\", \"-3\")`。\n\n## 仕組み\n\n整数の除算には標準の`divmod`を使う。PyPyで比較した公式入力では、自前の逆数近似方式より速かった。16進は文字列との変換も標準機能で処理する。\n\n10進の入力は512桁ずつ読み、平衡な順序で結合する。出力は10の冪で二分する。この除算は2の冪によるbitシフトと5の冪による除算に分ける。全桁を一度に`int`や`str`へ渡さず、再帰も使わない。浮動小数点や外部packageは不要。\n\n## 注意点\n\n- 除数が0なら`ZeroDivisionError`。\n- 文字列はASCII数字と先頭の`+`・`-`だけを許す。16進は`a`〜`f`・`A`〜`F`も使える。先頭0は許す。\n- 空白、`_`、`0x`、全角数字、空文字列は`ValueError`。\n- 出力には先頭の余分な0や`+`を付けない。ゼロは`\"0\"`。\n- 10進200万桁・16進160万桁を含むLibrary Checker公式ケースでPyPy検証を行う。測定条件と結果は[比較記録](https://github.com/lif4635/harurun-s-library/blob/main/library_codex/docs/BIG_INTEGER_DIVISION_BENCHMARK.md)にまとめる。",
+        "sourcePath": "library_codex/docs/articles/number_theory/BigIntegerDivision.md"
+      },
+      "searchTerms": [
+        "BigIntegerDivision",
+        "Big Integer Division",
+        "library_codex.number_theory.BigIntegerDivision",
+        "library codex number theory Big Integer Division",
+        "number_theory/BigIntegerDivision.py",
+        "整数・数論",
+        "多倍長整数",
+        "巨大整数",
+        "商と余り",
+        "筆算"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/number_theory/BigIntegerDivision.py",
+      "inputFingerprint": "284b4860360771eec54e68f2d2281d87c8472b65d0bd310062d8ee604178790e",
+      "importCode": "from library_codex.number_theory.BigIntegerDivision import divide_decimal, divide_hex",
+      "sourceCode": "\"\"\"巨大な10進・16進文字列の商と余りを、同じ進数の文字列で返す。\"\"\"\n\n\ndef _parse(value, radix, powers):\n    negative = value.startswith(\"-\")\n    if value[:1] in (\"+\", \"-\"):\n        value = value[1:]\n    if not value or not value.isascii():\n        raise ValueError(\"expected a signed integer string\")\n    if radix == 16:\n        if value.strip(\"0123456789abcdefABCDEF\"):\n            raise ValueError(\"invalid hexadecimal digit\")\n        result = int(value, 16)\n    else:\n        if not value.isdecimal():\n            raise ValueError(\"invalid decimal digit\")\n        value = value.lstrip(\"0\") or \"0\"\n        chunks = [int(value[max(0, i - 512):i]) for i in range(len(value), 0, -512)]\n        level = 0\n        while len(chunks) > 1:\n            if level == len(powers):\n                powers.append(powers[-1] * powers[-1])\n            base = powers[level]\n            count = len(chunks)\n            chunks = [chunks[i] + chunks[i + 1] * base for i in range(0, count - 1, 2)] + (\n                [chunks[-1]] if count & 1 else []\n            )\n            level += 1\n        result = chunks[0]\n    return -result if negative else result\n\n\ndef _decimal(value, powers):\n    if not value:\n        return \"0\"\n    negative = value < 0\n    value = abs(value)\n    while powers[-1] <= value:\n        powers.append(powers[-1] * powers[-1])\n    level = len(powers) - 2\n    while level >= 0 and powers[level] > value:\n        level -= 1\n    stack = [(value, level)]\n    output = []\n    while stack:\n        current, level = stack.pop()\n        if not current and not output:\n            continue\n        if level < 0:\n            output.append(str(current).zfill(512) if output else str(current))\n        else:\n            shift = 512 << level\n            reduced = current >> shift\n            high, low = divmod(reduced, powers[level] >> shift)\n            low = (low << shift) + current - (reduced << shift)\n            stack.append((low, level - 1))\n            stack.append((high, level - 1))\n    return (\"-\" if negative else \"\") + \"\".join(output)\n\n\ndef divide_decimal(first, second):\n    \"\"\"符号付き10進文字列の商・余りを、10進文字列2つで返す。\"\"\"\n    if max(len(first), len(second)) <= 512:\n        quotient, remainder = divmod(_parse(first, 10, []), _parse(second, 10, []))\n        return str(quotient), str(remainder)\n    powers = [10 ** 512]\n    quotient, remainder = divmod(_parse(first, 10, powers), _parse(second, 10, powers))\n    return _decimal(quotient, powers), _decimal(remainder, powers)\n\n\ndef divide_hex(first, second):\n    \"\"\"符号付き16進文字列の商・余りを、大文字の16進文字列2つで返す。\"\"\"\n    quotient, remainder = divmod(_parse(first, 16, None), _parse(second, 16, None))\n    return format(quotient, \"X\"), format(remainder, \"X\")\n",
+      "standaloneCode": "\"\"\"巨大な10進・16進文字列の商と余りを、同じ進数の文字列で返す。\"\"\"\n\n\ndef _parse(value, radix, powers):\n    negative = value.startswith(\"-\")\n    if value[:1] in (\"+\", \"-\"):\n        value = value[1:]\n    if not value or not value.isascii():\n        raise ValueError(\"expected a signed integer string\")\n    if radix == 16:\n        if value.strip(\"0123456789abcdefABCDEF\"):\n            raise ValueError(\"invalid hexadecimal digit\")\n        result = int(value, 16)\n    else:\n        if not value.isdecimal():\n            raise ValueError(\"invalid decimal digit\")\n        value = value.lstrip(\"0\") or \"0\"\n        chunks = [int(value[max(0, i - 512):i]) for i in range(len(value), 0, -512)]\n        level = 0\n        while len(chunks) > 1:\n            if level == len(powers):\n                powers.append(powers[-1] * powers[-1])\n            base = powers[level]\n            count = len(chunks)\n            chunks = [chunks[i] + chunks[i + 1] * base for i in range(0, count - 1, 2)] + (\n                [chunks[-1]] if count & 1 else []\n            )\n            level += 1\n        result = chunks[0]\n    return -result if negative else result\n\n\ndef _decimal(value, powers):\n    if not value:\n        return \"0\"\n    negative = value < 0\n    value = abs(value)\n    while powers[-1] <= value:\n        powers.append(powers[-1] * powers[-1])\n    level = len(powers) - 2\n    while level >= 0 and powers[level] > value:\n        level -= 1\n    stack = [(value, level)]\n    output = []\n    while stack:\n        current, level = stack.pop()\n        if not current and not output:\n            continue\n        if level < 0:\n            output.append(str(current).zfill(512) if output else str(current))\n        else:\n            shift = 512 << level\n            reduced = current >> shift\n            high, low = divmod(reduced, powers[level] >> shift)\n            low = (low << shift) + current - (reduced << shift)\n            stack.append((low, level - 1))\n            stack.append((high, level - 1))\n    return (\"-\" if negative else \"\") + \"\".join(output)\n\n\ndef divide_decimal(first, second):\n    \"\"\"符号付き10進文字列の商・余りを、10進文字列2つで返す。\"\"\"\n    if max(len(first), len(second)) <= 512:\n        quotient, remainder = divmod(_parse(first, 10, []), _parse(second, 10, []))\n        return str(quotient), str(remainder)\n    powers = [10 ** 512]\n    quotient, remainder = divmod(_parse(first, 10, powers), _parse(second, 10, powers))\n    return _decimal(quotient, powers), _decimal(remainder, powers)\n\n\ndef divide_hex(first, second):\n    \"\"\"符号付き16進文字列の商・余りを、大文字の16進文字列2つで返す。\"\"\"\n    quotient, remainder = divmod(_parse(first, 16, None), _parse(second, 16, None))\n    return format(quotient, \"X\"), format(remainder, \"X\")\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "divide_decimal",
+          "kind": "function",
+          "signature": "divide_decimal(first, second)",
+          "summary": "10進文字列2つから商と余りを求める。Pythonのdivmodと同じ切り下げ除算で、余りが0でなければ除数と同じ符号になる。",
+          "description": "10進文字列2つから商と余りを求める。Pythonのdivmodと同じ切り下げ除算で、余りが0でなければ除数と同じ符号になる。",
+          "searchTerms": [
+            "divide_decimal",
+            "divide decimal",
+            "divide_decimal(first, second)"
+          ],
+          "arguments": "first: 被除数を表す10進のstr。ASCII数字と先頭の+・-を許す。先頭0は許すが、空白・_・0x・全角数字は不可。 · second: 0でない除数。firstと同じ型・形式。0ならZeroDivisionError。",
+          "argumentDetails": [
+            {
+              "name": "first",
+              "description": "被除数を表す10進のstr。ASCII数字と先頭の+・-を許す。先頭0は許すが、空白・_・0x・全角数字は不可。"
+            },
+            {
+              "name": "second",
+              "description": "0でない除数。firstと同じ型・形式。0ならZeroDivisionError。"
+            }
+          ],
+          "returns": "tuple[str, str] — (商, 余り)。入力が表す整数について、被除数 = 商 * 除数 + 余りを満たす。商は被除数 / 除数を負の無限大方向へ丸めた整数。各要素は10進文字列で、先頭の余分な0や+を除く。ゼロは'0'。",
+          "returnFormat": "tuple[str, str]",
+          "returnDescription": "(商, 余り)。入力が表す整数について、被除数 = 商 * 除数 + 余りを満たす。商は被除数 / 除数を負の無限大方向へ丸めた整数。各要素は10進文字列で、先頭の余分な0や+を除く。ゼロは'0'。",
+          "complexity": "O((D(N)+M(N)+N) log(N+1))時間、O(N) bit追加領域。Nは入力の合計bit数、D(N)はPython標準のN-bit整数除算時間、M(N)はN-bit整数乗算時間。",
+          "sourceLine": 61,
+          "returnParts": [
+            {
+              "name": "商",
+              "format": "str",
+              "description": "被除数 / 除数を切り下げた整数を表す文字列。-17を5で割った商は-4。"
+            },
+            {
+              "name": "余り",
+              "format": "str",
+              "description": "被除数 - 商 * 除数を表す文字列。絶対値は除数の絶対値未満で、0でなければ除数と同じ符号。"
+            }
+          ]
+        },
+        {
+          "name": "divide_hex",
+          "kind": "function",
+          "signature": "divide_hex(first, second)",
+          "summary": "16進文字列2つから商と余りを求める。Pythonのdivmodと同じ切り下げ除算で、余りが0でなければ除数と同じ符号になる。",
+          "description": "16進文字列2つから商と余りを求める。Pythonのdivmodと同じ切り下げ除算で、余りが0でなければ除数と同じ符号になる。",
+          "searchTerms": [
+            "divide_hex",
+            "divide hex",
+            "divide_hex(first, second)"
+          ],
+          "arguments": "first: 被除数を表す16進のstr。ASCII数字と先頭の+・-を許す。a〜f・A〜Fも可。先頭0は許すが、空白・_・0x・全角数字は不可。 · second: 0でない除数。firstと同じ型・形式。0ならZeroDivisionError。",
+          "argumentDetails": [
+            {
+              "name": "first",
+              "description": "被除数を表す16進のstr。ASCII数字と先頭の+・-を許す。a〜f・A〜Fも可。先頭0は許すが、空白・_・0x・全角数字は不可。"
+            },
+            {
+              "name": "second",
+              "description": "0でない除数。firstと同じ型・形式。0ならZeroDivisionError。"
+            }
+          ],
+          "returns": "tuple[str, str] — (商, 余り)。入力が表す整数について、被除数 = 商 * 除数 + 余りを満たす。商は被除数 / 除数を負の無限大方向へ丸めた整数。各要素は16進文字列で、先頭の余分な0や+を除く。ゼロは'0'。英字は大文字。",
+          "returnFormat": "tuple[str, str]",
+          "returnDescription": "(商, 余り)。入力が表す整数について、被除数 = 商 * 除数 + 余りを満たす。商は被除数 / 除数を負の無限大方向へ丸めた整数。各要素は16進文字列で、先頭の余分な0や+を除く。ゼロは'0'。英字は大文字。",
+          "complexity": "O(D(N)+N)時間、O(N) bit追加領域。Nは入力の合計bit数、D(N)はPython標準のN-bit整数除算時間。",
+          "sourceLine": 71,
+          "returnParts": [
+            {
+              "name": "商",
+              "format": "str",
+              "description": "被除数 / 除数を切り下げた整数を表す文字列。-17を5で割った商は-4。"
+            },
+            {
+              "name": "余り",
+              "format": "str",
+              "description": "被除数 - 商 * 除数を表す文字列。絶対値は除数の絶対値未満で、0でなければ除数と同じ符号。"
+            }
+          ]
         }
       ],
       "classes": []

@@ -7922,6 +7922,25 @@ COMPLEXITY_BY_MODULE["arithmetic_convolution/MultiplicativeConvolutionModPowerOf
     "multiplicative_convolution_pow2": "O(L log(L+1))時間、O(L)追加メモリ。Lは入力列の長さ",
 }
 SEARCH_TERMS_BY_MODULE["number_theory/BigIntegerMultiplication.py"] = ("多倍長整数", "巨大整数", "筆算")
+SEARCH_TERMS_BY_MODULE["number_theory/BigIntegerDivision.py"] = ("多倍長整数", "巨大整数", "商と余り", "筆算")
+COMPLEXITY_BY_MODULE["number_theory/BigIntegerDivision.py"] = {
+    "divide_hex": "O(D(N)+N)時間、O(N) bit追加領域。Nは入力の合計bit数、D(N)はPython標準のN-bit整数除算時間。",
+    "divide_decimal": "O((D(N)+M(N)+N) log(N+1))時間、O(N) bit追加領域。Nは入力の合計bit数、D(N)はPython標準のN-bit整数除算時間、M(N)はN-bit整数乗算時間。",
+}
+for _name, _radix in (("divide_decimal", "10進"), ("divide_hex", "16進")):
+    API_DETAILS_BY_SYMBOL[("number_theory/BigIntegerDivision.py", None, _name)] = {
+        "description": f"{_radix}文字列2つから商と余りを求める。Pythonのdivmodと同じ切り下げ除算で、余りが0でなければ除数と同じ符号になる。",
+        "argumentDescriptions": {
+            "first": f"被除数を表す{_radix}のstr。ASCII数字と先頭の+・-を許す。" + ("a〜f・A〜Fも可。" if _radix == "16進" else "") + "先頭0は許すが、空白・_・0x・全角数字は不可。",
+            "second": "0でない除数。firstと同じ型・形式。0ならZeroDivisionError。",
+        },
+        "returnFormat": "tuple[str, str]",
+        "returnDescription": f"(商, 余り)。入力が表す整数について、被除数 = 商 * 除数 + 余りを満たす。商は被除数 / 除数を負の無限大方向へ丸めた整数。各要素は{_radix}文字列で、先頭の余分な0や+を除く。ゼロは'0'。" + ("英字は大文字。" if _radix == "16進" else ""),
+        "returnParts": [
+            {"name": "商", "format": "str", "description": "被除数 / 除数を切り下げた整数を表す文字列。-17を5で割った商は-4。"},
+            {"name": "余り", "format": "str", "description": "被除数 - 商 * 除数を表す文字列。絶対値は除数の絶対値未満で、0でなければ除数と同じ符号。"},
+        ],
+    }
 COMPLEXITY_BY_MODULE["number_theory/BigIntegerMultiplication.py"] = {
     "multiply_decimal": "O(N log(N+1))時間、O(N)追加メモリ。Nは入力2文字列の長さの合計",
     "multiply_hex": "O(N log(N+1))時間、O(N)追加メモリ。Nは入力2文字列の長さの合計",

@@ -20,6 +20,19 @@ def load_catalog():
     return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
 
 
+@pytest.mark.parametrize("force", [False, True])
+def test_full_regeneration_writes_even_with_unchanged_fingerprints(tmp_path, monkeypatch, force):
+    output = tmp_path / "catalog.json"
+    data = {"sourceFingerprint": "source", "generatorFingerprint": "generator", "modules": []}
+    output.write_text(json.dumps(data), encoding="utf-8")
+    written = []
+    monkeypatch.setattr(CATALOG, "build_catalog", lambda *args, **kwargs: (data, 0))
+    monkeypatch.setattr(CATALOG, "write_catalog_atomic", lambda path, value, root: written.append(value))
+    monkeypatch.setattr(sys, "argv", [str(SCRIPT), "--output", str(output)] + (["--full"] if force else []))
+    CATALOG.main()
+    assert written == ([data] if force else [])
+
+
 def test_input_hash_ignores_platform_line_endings(tmp_path):
     path = tmp_path / "source.py"
     path.write_bytes(b"value = 1\nother = 2\n")
@@ -94,6 +107,27 @@ def test_library_catalog_is_current():
         stderr=subprocess.STDOUT,
     )
     assert result.returncode == 0, result.stdout
+
+
+def test_big_integer_division_catalog_and_standalone(tmp_path):
+    module = module_by_path(load_catalog(), "library_codex.number_theory.BigIntegerDivision")
+    assert [item["name"] for item in module["functions"]] == ["divide_decimal", "divide_hex"]
+    assert module["bundledDependencies"] == []
+    for symbol in module["functions"]:
+        assert "整数除算時間" in symbol["complexity"]
+        assert "多項式" not in symbol["complexity"]
+        assert [part["name"] for part in symbol["returnParts"]] == ["商", "余り"]
+    code = module["standaloneCode"] + """
+import sys
+sys.set_int_max_str_digits(640)
+assert divide_decimal('-17', '5') == ('-4', '3')
+assert divide_hex('ff', '10') == ('F', 'F')
+assert divide_decimal('1' + '0' * 10000, '1' + '0' * 5000) == ('1' + '0' * 5000, '0')
+assert sys.get_int_max_str_digits() == 640
+"""
+    result = subprocess.run([sys.executable, "-I", "-c", code], cwd=tmp_path,
+                            text=True, capture_output=True, timeout=20)
+    assert result.returncode == 0, result.stderr
 
 
 def test_catalog_schema_has_explicit_symbol_names_and_live_counts():

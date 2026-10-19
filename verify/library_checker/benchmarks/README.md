@@ -41,6 +41,8 @@
 | [deque](deque.json) | 3 / 36 | 5 | 0.175 | 85.0 | 一致 |
 | [directedmst](directedmst.json) | 3 / 12 | 5 | 0.358 | 150.0 | 一致 |
 | [discrete_logarithm_fixed_mod](discrete_logarithm_fixed_mod.json) | 3 / 24 | 5 | 1.115 | 233.8 | 一致 |
+| [division_of_big_integers](division_of_big_integers.json) | 3 / 26 | 5 | 5.852 | 110.4 | 一致 |
+| [division_of_hex_big_integers](division_of_hex_big_integers.json) | 3 / 27 | 5 | 1.095 | 97.6 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
 | [dynamic_graph_vertex_add_component_sum](dynamic_graph_vertex_add_component_sum.json) | 3 / 19 | 5 | 0.528 | 125.9 | 一致 |
 | [dynamic_sequence_range_affine_range_sum](dynamic_sequence_range_affine_range_sum.json) | 3 / 33 | 5 | 7.624 | 180.2 | 一致 |
