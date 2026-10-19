@@ -21,6 +21,7 @@
 | [characteristic_polynomial](characteristic_polynomial.json) | 3 / 28 | 5 | 0.970 | 65.8 | 一致 |
 | [chordal_graph_recognition](chordal_graph_recognition.json) | 3 / 22 | 5 | 0.990 | 130.4 | 一致 |
 | [chromatic_number](chromatic_number.json) | 3 / 26 | 5 | 0.105 | 67.8 | 一致 |
+| [chromatic_polynomial](chromatic_polynomial.json) | 3 / 34 | 5 | 3.440 | 317.4 | 一致 |
 | [closest_pair](closest_pair.json) | 3 / 29 | 5 | 2.139 | 179.7 | 一致 |
 | [common_interval_decomposition_tree](common_interval_decomposition_tree.json) | 3 / 30 | 5 | 1.617 | 316.4 | 一致 |
 | [composition_of_formal_power_series](composition_of_formal_power_series.json) | 3 / 27 | 5 | 0.176 | 78.8 | 一致 |
@@ -38,6 +39,7 @@
 | [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.524 | 110.4 | 一致 |
 | [deque](deque.json) | 3 / 36 | 5 | 0.175 | 85.0 | 一致 |
 | [directedmst](directedmst.json) | 3 / 12 | 5 | 0.358 | 150.0 | 一致 |
+| [discrete_logarithm_fixed_mod](discrete_logarithm_fixed_mod.json) | 3 / 24 | 5 | 1.115 | 233.8 | 一致 |
 | [double_ended_priority_queue](double_ended_priority_queue.json) | 3 / 18 | 5 | 0.619 | 130.1 | 一致 |
 | [dynamic_graph_vertex_add_component_sum](dynamic_graph_vertex_add_component_sum.json) | 3 / 19 | 5 | 0.528 | 125.9 | 一致 |
 | [dynamic_sequence_range_affine_range_sum](dynamic_sequence_range_affine_range_sum.json) | 3 / 33 | 5 | 7.624 | 180.2 | 一致 |

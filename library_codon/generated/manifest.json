@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 385,
+  "moduleCount": 387,
   "supportedCount": 7,
   "modules": [
     {
@@ -861,6 +861,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "graph_enumeration/ChromaticPolynomial",
+      "sourcePath": "library_codex/graph_enumeration/ChromaticPolynomial.py",
+      "sourceSha256": "a76b1619f6441f8962516d14ebf41291c8976fe869cc1bf088f1491363651cfb",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "graph_enumeration/CountC4PerEdge",
       "sourcePath": "library_codex/graph_enumeration/CountC4PerEdge.py",
       "sourceSha256": "3f9c0901b539599bb0e3dec3b71b2d4cf53667537b97adca6fba2462f795e907",
@@ -1152,6 +1158,12 @@
       "modulePath": "number_theory/EnumerateQuotient",
       "sourcePath": "library_codex/number_theory/EnumerateQuotient.py",
       "sourceSha256": "7842a8fd5ab99a6c3730b3765722074b759fc67d9acb0bc2ef4bf3a1d70ed062",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "number_theory/FixedDiscreteLog",
+      "sourcePath": "library_codex/number_theory/FixedDiscreteLog.py",
+      "sourceSha256": "8160122eb69c0d65440d3f56d9bfbfbf479f23641d6b359147c27932fe392684",
       "status": "unsupported"
     },
     {

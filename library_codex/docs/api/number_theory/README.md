@@ -12,6 +12,7 @@
 | [`DiscreteLog`](DiscreteLog.md) | 合成数modulusにも対応する離散対数を求める。 | 1 | 0 | 0 |
 | [`Elementary`](Elementary.md) | gcd・lcm・整数根など初等数学関数 | 2 | 0 | 0 |
 | [`EnumerateQuotient`](EnumerateQuotient.md) | nを整数で割った商が等しい添字区間を列挙する。 | 1 | 0 | 0 |
+| [`FixedDiscreteLog`](FixedDiscreteLog.md) | 素数と原始根を固定して前計算し、離散対数を1回O(1)で求める。 | 0 | 1 | 2 |
 | [`FloorPolynomialSum`](FloorPolynomialSum.md) | floorを含む多項式和 | 1 | 0 | 0 |
 | [`FloorSum`](FloorSum.md) | 一次式の床和と合同条件を満たす整数の個数を高速に数える。 | 2 | 0 | 0 |
 | [`GaussianInteger`](GaussianInteger.md) | Gaussian整数の四則演算と最大公約数を扱う。 | 1 | 1 | 13 |

@@ -7770,6 +7770,39 @@ API_DETAILS_BY_SYMBOL.update({
     },
 })
 SEARCH_TERMS_BY_MODULE["number_theory/DecimalAddition.py"] = ("多倍長整数", "巨大整数", "筆算")
+SEARCH_TERMS_BY_MODULE["number_theory/FixedDiscreteLog.py"] = ("固定法の離散対数", "原始根", "Farey近似")
+CLASS_DETAILS_BY_SYMBOL[("number_theory/FixedDiscreteLog.py", "FixedDiscreteLog")] = {
+    "description": "素数primeと原始根rootを固定し、rootの何乗が各剰余になるかを繰り返し求める。",
+    "argumentDescriptions": {
+        "prime": "2以上10^9以下の素数。合成数や範囲外ならValueError。",
+        "root": "1以上prime未満の原始根。原始根でなければValueError。",
+    },
+    "constructorCreates": "小さい剰余の離散対数表と有理近似の表を保持する。log = FixedDiscreteLog(prime, root)の後、log(value)で離散対数を取得できる。primeとrootは構築後に変更しない。",
+}
+API_DETAILS_BY_SYMBOL[("number_theory/FixedDiscreteLog.py", "FixedDiscreteLog", "__call__")] = {
+    "description": "root**x % prime == value % primeを満たす最小の非負整数xを求める。",
+    "argumentDescriptions": {"value": "対数を求める整数。負数やprime以上の値もprimeで正規化する。"},
+    "returnFormat": "int",
+    "returnDescription": "0以上prime−2以下の指数。valueがprimeの倍数なら解がないので−1。valueの剰余が1なら0。",
+}
+COMPLEXITY_BY_MODULE["number_theory/FixedDiscreteLog.py"] = {
+    "FixedDiscreteLog": "期待O(P^(2/3) + √(P R))時間・構築中の追加メモリ。構築後はO(P^(2/3))メモリ。Pはprime、Rは√P以下の素数の個数。整数演算をO(1)、dict操作を期待O(1)とする",
+    "__call__": "O(1)時間・追加メモリ。整数演算をO(1)とする",
+    "__repr__": "O(1)時間・追加メモリ。primeは10^9以下",
+}
+SEARCH_TERMS_BY_MODULE["graph_enumeration/ChromaticPolynomial.py"] = ("彩色多項式", "適正彩色", "塗り分け", "独立集合への分割")
+API_DETAILS_BY_SYMBOL[("graph_enumeration/ChromaticPolynomial.py", None, "chromatic_polynomial")] = {
+    "description": "無向グラフをk色で、隣接頂点が異なる色になるよう塗る方法の個数を、kの多項式として求める。色は区別する。",
+    "argumentDescriptions": {
+        "graph": "隣接頂点の整数を並べた隣接リスト。片方向だけの記載でも無向辺として扱う。重複辺は1本と同じで、自己ループがあれば全係数0。入力は変更しない。",
+        "mod": "係数の法。2以上の整数で、合成数も可。",
+    },
+    "returnFormat": "list[int]",
+    "returnDescription": "長さN+1の係数列。result[i]はk^iの係数をmodで割った余り。sum(result[i]*k**i) % modがk色での適正彩色数になる。空グラフは[1]。",
+}
+COMPLEXITY_BY_MODULE["graph_enumeration/ChromaticPolynomial.py"] = {
+    "chromatic_polynomial": "O(M + N² + Σ c²2^c)時間、O(N + max(c2^c))追加メモリ。Nは頂点数、Mは入力の隣接要素数、cは各連結成分の頂点数。木・完全グラフの成分はO(c²)時間。整数演算をO(1)とする",
+}
 SEARCH_TERMS_BY_MODULE["geometry/TrianglePointCounter.py"] = ("三角形内の点数", "三角形の内部", "点数え上げ")
 CLASS_DETAILS_BY_SYMBOL[("geometry/TrianglePointCounter.py", "TrianglePointCounter")] = {
     "description": "固定した点集合について、候補点から選んだ3点で作る三角形の内部にある点数を答える。辺上・頂点上の点は含めない。",

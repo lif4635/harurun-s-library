@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 231,
-    "unimplemented": 22
+    "local_passed": 233,
+    "unimplemented": 20
   },
   "problems": [
     {
@@ -293,10 +293,16 @@
       "title": "Chromatic Polynomial",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/chromatic_polynomial",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT",
+        "library_codex.number_theory.ModularArithmetic",
+        "library_codex.fps.FormalPowerSeries",
+        "library_codex.bitwise_convolution.SetFunction",
+        "library_codex.graph_enumeration.ChromaticPolynomial"
+      ],
+      "solution": "solutions/chromatic_polynomial.py",
+      "result": "results/chromatic_polynomial.json"
     },
     {
       "name": "closest_pair",
@@ -651,10 +657,12 @@
       "title": "Discrete Logarithm (Fixed Mod)",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/discrete_logarithm_fixed_mod",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.number_theory.FixedDiscreteLog"
+      ],
+      "solution": "solutions/discrete_logarithm_fixed_mod.py",
+      "result": "results/discrete_logarithm_fixed_mod.json"
     },
     {
       "name": "discrete_logarithm_mod",

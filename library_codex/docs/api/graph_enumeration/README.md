@@ -6,6 +6,7 @@ clique・cycle・彩色・部分集合DPのAPI一覧です。
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`ChromaticNumber`](ChromaticNumber.md) | 小規模グラフの彩色数をbit DPで求める。 | 2 | 0 | 0 |
+| [`ChromaticPolynomial`](ChromaticPolynomial.md) | 無向グラフをk色で正しく塗り分ける方法の個数を、kの多項式として返す。 | 1 | 0 | 0 |
 | [`CountC4PerEdge`](CountC4PerEdge.md) | 各辺が含まれる長さ4のcycle数を数える。 | 1 | 0 | 0 |
 | [`EnumerateCliques`](EnumerateCliques.md) | 小規模無向グラフのcliqueを列挙する。 | 1 | 0 | 0 |
 | [`EnumerateTriangles`](EnumerateTriangles.md) | 無向グラフに含まれる三角形を重複なく列挙する。 | 1 | 0 | 0 |
