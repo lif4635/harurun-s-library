@@ -7771,6 +7771,34 @@ API_DETAILS_BY_SYMBOL.update({
 })
 SEARCH_TERMS_BY_MODULE["number_theory/DecimalAddition.py"] = ("多倍長整数", "巨大整数", "筆算")
 SEARCH_TERMS_BY_MODULE["number_theory/FixedDiscreteLog.py"] = ("固定法の離散対数", "原始根", "Farey近似")
+SEARCH_TERMS_BY_MODULE["graph_spanning/IncrementalMinimumSpanningForest.py"] = ("辺追加最小全域森", "動的MST", "incremental MST", "MSF")
+CLASS_DETAILS_BY_SYMBOL[("graph_spanning/IncrementalMinimumSpanningForest.py", "IncrementalMSF")] = {
+    "description": "無向グラフへ辺を1本ずつ追加し、現在の最小全域森を維持する。",
+    "argumentDescriptions": {"n": "固定する頂点数。0以上。初期状態は辺なし。"},
+    "constructorCreates": "add(u, v, weight)で辺を追加できる。weight属性で採用辺の重みの合計、components属性で連結成分数、edges()で採用辺を取得する。これらの属性は読み取り用。保持領域は頂点数に比例し、不採用辺は保存しない。",
+}
+API_DETAILS_BY_SYMBOL[("graph_spanning/IncrementalMinimumSpanningForest.py", "IncrementalMSF", "add")] = {
+    "description": "無向辺を追加し、必要なら閉路上の最大重みの辺と交換して最小全域森を更新する。",
+    "argumentDescriptions": {
+        "u": "辺の端点。0以上n未満。自己ループ・平行辺も可。",
+        "v": "もう一方の端点。0以上n未満。範囲外ならValueErrorで、辺IDは消費しない。",
+        "weight": "整数の重み。負数・重複を許す。同じ重みの交換では既存辺を残す。",
+    },
+    "returnFormat": "int",
+    "returnDescription": "今回の追加後に外れた辺のID。IDは正常なaddの呼出し順に0から付く。成分を新たにつなげた場合は−1、今回の辺が不採用なら今回のID、既存辺との交換ならその既存辺のID。weight・components属性も更新する。",
+}
+API_DETAILS_BY_SYMBOL[("graph_spanning/IncrementalMinimumSpanningForest.py", "IncrementalMSF", "edges")] = {
+    "description": "現在の最小全域森に採用されている辺を取得する。",
+    "returnFormat": "list[tuple[int, int, int, int]]",
+    "returnDescription": "(追加順ID, u, v, 重み)のtupleをIDの昇順に並べた新しいlist。端点の順はaddに渡した順。長さはn−components。listを変更しても森には影響しない。",
+}
+COMPLEXITY_BY_MODULE["graph_spanning/IncrementalMinimumSpanningForest.py"] = {
+    "IncrementalMSF": "O(N)時間・メモリ。Nは頂点数",
+    "add": "償却O(log(N+1))時間。構造全体でO(N)メモリ。整数演算をO(1)とする",
+    "edges": "O(N + K log(K+1))時間、O(K)追加メモリ。Nは頂点数、Kは採用辺数",
+    "__repr__": "O(N + K log(K+1) + B)時間、O(K+B)追加メモリ。Nは頂点数、Kは採用辺数、Bは出力文字数",
+    "__str__": "O(N + K log(K+1) + B)時間、O(K+B)追加メモリ。Nは頂点数、Kは採用辺数、Bは出力文字数",
+}
 CLASS_DETAILS_BY_SYMBOL[("number_theory/FixedDiscreteLog.py", "FixedDiscreteLog")] = {
     "description": "素数primeと原始根rootを固定し、rootの何乗が各剰余になるかを繰り返し求める。",
     "argumentDescriptions": {

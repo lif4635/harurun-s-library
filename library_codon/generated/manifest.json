@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 387,
+  "moduleCount": 388,
   "supportedCount": 7,
   "modules": [
     {
@@ -1008,6 +1008,12 @@
       "modulePath": "graph_spanning/GraphOrdering",
       "sourcePath": "library_codex/graph_spanning/GraphOrdering.py",
       "sourceSha256": "1a47679db3566b84ee0d1805610ad5cc246529f018dd14d16bd4a693bd822137",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "graph_spanning/IncrementalMinimumSpanningForest",
+      "sourcePath": "library_codex/graph_spanning/IncrementalMinimumSpanningForest.py",
+      "sourceSha256": "e90387e12beeb239831801d4b92d94afc2628d7c616647d17992342a9c7c01b5",
       "status": "unsupported"
     },
     {

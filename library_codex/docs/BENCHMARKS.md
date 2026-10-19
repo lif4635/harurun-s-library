@@ -6,6 +6,7 @@
 
 ## グラフ・木
 
+- [辺追加最小全域森](INCREMENTAL_MSF_BENCHMARK.md)
 - [彩色多項式](CHROMATIC_POLYNOMIAL_BENCHMARK.md)
 - [二部グラフの辺彩色](BIPARTITE_EDGE_COLORING_BENCHMARK.md)
 - [有向最小全域木の速度とメモリ](ARBORESCENCE_BENCHMARK.md)

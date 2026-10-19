@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 233,
-    "unimplemented": 20
+    "local_passed": 234,
+    "unimplemented": 19
   },
   "problems": [
     {
@@ -1131,10 +1131,12 @@
       "title": "Incremental Minimum Spanning Forest",
       "category": "graph",
       "url": "https://judge.yosupo.jp/problem/incremental_minimum_spanning_forest",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.graph_spanning.IncrementalMinimumSpanningForest"
+      ],
+      "solution": "solutions/incremental_minimum_spanning_forest.py",
+      "result": "results/incremental_minimum_spanning_forest.json"
     },
     {
       "name": "incremental_scc",

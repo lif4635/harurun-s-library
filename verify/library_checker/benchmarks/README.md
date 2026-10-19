@@ -62,6 +62,7 @@
 | [gcd_of_gaussian_integers](gcd_of_gaussian_integers.json) | 3 / 12 | 5 | 0.239 | 74.5 | 一致 |
 | [general_weighted_matching](general_weighted_matching.json) | 3 / 24 | 5 | 2.578 | 126.5 | 一致 |
 | [hafnian_of_matrix](hafnian_of_matrix.json) | 3 / 11 | 5 | 3.946 | 91.0 | 一致 |
+| [incremental_minimum_spanning_forest](incremental_minimum_spanning_forest.json) | 3 / 17 | 5 | 2.467 | 153.7 | 一致 |
 | [incremental_scc](incremental_scc.json) | 3 / 23 | 5 | 1.913 | 370.2 | 一致 |
 | [intersection_of_f2_vector_spaces](intersection_of_f2_vector_spaces.json) | 3 / 17 | 5 | 2.225 | 120.9 | 一致 |
 | [inv_of_formal_power_series_2d](inv_of_formal_power_series_2d.json) | 3 / 28 | 5 | 1.476 | 139.9 | 一致 |

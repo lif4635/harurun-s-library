@@ -6,6 +6,7 @@
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
 | [`GraphOrdering`](GraphOrdering.md) | 木制約最適順序・st-numbering・全辺replacement shortest path | 3 | 0 | 0 |
+| [`IncrementalMinimumSpanningForest`](IncrementalMinimumSpanningForest.md) | 辺を1本ずつ追加し、最小全域森の重みと採用辺を保つ。 | 0 | 1 | 4 |
 | [`MergeTree`](MergeTree.md) | 先読みunion tree・現在成分の連続葉区間 | 0 | 1 | 6 |
 | [`MinimumCostArborescence`](MinimumCostArborescence.md) | 指定rootから全頂点へ到達する有向全域木の最小費用と辺番号を求める。 | 1 | 0 | 0 |
 | [`MinimumDiameterSpanningTree`](MinimumDiameterSpanningTree.md) | 非負重みの無向グラフから、頂点間距離の最大値が最小の全域木を選ぶ。 | 1 | 0 | 0 |

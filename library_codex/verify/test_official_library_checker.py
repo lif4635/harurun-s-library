@@ -232,6 +232,7 @@ def test_solution_is_standalone(name):
     ("mul_mod2n_convolution", "2\n0 1 1 0\n0 0 1 1\n", "1 0 2 1"),
     ("discrete_logarithm_fixed_mod", "17 3 4\n13\n1\n16\n3\n", "4 0 8 1"),
     ("chromatic_polynomial", "3 3\n0 1\n1 2\n2 0\n", "0 2 998244350 1"),
+    ("incremental_minimum_spanning_forest", "3 4\n0 1 5\n1 2 8\n0 2 3\n0 1 9\n", "-1 -1 1 3"),
     ("multiplication_of_hex_big_integers", "3\n-AB 10\n0 -F\nFF FF\n", "-AB0 0 FE01"),
     ("bipartite_edge_coloring", "1 1 3\n0 0\n0 0\n0 0\n", "3 0 1 2"),
     ("counting_primes", "1\n", "0"),
