@@ -43,7 +43,39 @@ prefix = [(a * x + b * y) % mod for x, y in zip(counts, sums)]
 answer = engine.run(prefix, lambda p, e: (a * e + b * p) % mod)
 ```
 
-## 表と返り値
+## Dirichlet積と逆算
+
+`DirichletQuotientSeries`は乗法的とは限らない数列を扱う。各商までの累積和だけを渡すと、次の積の累積和を計算できる。
+
+$$
+h(n)=\sum_{ab=n}f(a)g(b),\qquad H(x)=\sum_{ab\le x}f(a)g(b).
+$$
+
+```python
+from library_codex.number_theory.MultiplicativeFunctions import (
+    DirichletQuotientSeries, dirichlet_multiply, dirichlet_divide,
+)
+
+n, mod = 10, 998244353
+ones = DirichletQuotientSeries(n, mod=mod)
+ones.data = [ones.value(i) for i in range(ones.size)]
+divisors = dirichlet_multiply(ones, ones)
+answer = divisors.data[divisors.index(10)]
+recovered = dirichlet_divide(divisors, ones)
+unit = DirichletQuotientSeries(n, [0] + [1] * (ones.size - 1), mod)
+mobius = dirichlet_divide(unit, ones)
+```
+
+- `ones.data`: `[0, 1, 2, 3, 5, 10]`。定数列f(n)=1の累積和を、0と商の昇順に格納する。
+- `divisors.data`: `[0, 1, 3, 5, 10, 27]`。各商までの約数個数の和。`answer`は27。
+- `recovered.data`: `ones.data`と同じ。Dirichlet積を片方の数列で割って復元した累積和。
+- `mobius.data`: `[0, 1, 0, -1, -2, -1]`を法で減らした列。各商までのMöbius関数の和。
+
+`data`は各整数の値そのものではなく累積和。先頭に0を置き、残りを異なる商の昇順にする。積・除算は新しいseriesを返し、入力の表は変更しない。`result[i]`は表の添字iへのアクセスであり、整数iまでの累積和が欲しいときは`result[result.index(i)]`を使う。ただしiは商集合の要素に限る。
+
+積・除算はともに`O(N^(2/3))`回の算術演算と`O(sqrt(N))`追加メモリ。除算には、除数の1番目の値の逆元計算が1回加わる。法を指定する場合はその値と法が互いに素でなければならない。法なしで厳密な除算が必要なら`Fraction`を使う。
+
+## 総和用の表と返り値
 
 - `counts[engine.index(x)]`: x以下にある素数の個数。
 - `sums[engine.index(x)]`: x以下にある素数の和。法を指定した場合はその余り。
@@ -80,3 +112,4 @@ $$
 
 - [Library CheckerのMin 25実装](https://github.com/yosupo06/library-checker-problems/blob/1814c4e5205517e368bb57a8d1127eb961cfeaae/number_theory/sum_of_multiplicative_function/sol/min_25_sieve.cpp)
 - [Nyaan's Libraryの乗法的関数の総和](https://nyaannyaan.github.io/library/multiplicative-function/sum-of-multiplicative-function.hpp.html)
+- [Library CheckerのDirichlet積の区間分割](https://github.com/yosupo06/library-checker-problems/blob/1814c4e5205517e368bb57a8d1127eb961cfeaae/number_theory/dirichlet_convolution_and_prefix_sums/sol/correct.cpp)

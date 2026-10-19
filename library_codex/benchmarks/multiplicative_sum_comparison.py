@@ -44,7 +44,7 @@ def main():
     parser.add_argument("--sizes", type=int, nargs="+", default=[10**8, 10**9])
     parser.add_argument("--repeat", type=int, default=5)
     parser.add_argument("--worker", choices=["baseline", "current"])
-    parser.add_argument("--output", type=Path, default=ROOT / "verify/library_checker/benchmarks/multiplicative_sum_comparison.json")
+    parser.add_argument("--output", type=Path, default=ROOT / "verify/library_checker/benchmarks/comparisons/multiplicative_sum.json")
     args = parser.parse_args()
     if args.worker:
         print(json.dumps(measure(args.sizes[0], args.worker, args.revision)))

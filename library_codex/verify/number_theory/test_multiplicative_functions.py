@@ -63,6 +63,54 @@ def test_multiplicative_value_enumerators():
             assert divisor_sum[value] == sum(divisors)
 
 
+def test_dirichlet_random_modular_and_sparse():
+    rng = Random(62891)
+    bounds = [1, 2, 3, 7, 8, 9, 26, 27, 28, 63, 64, 65, 999, 1000, 1001, 4096]
+    bounds += [rng.randrange(1, 500) for _ in range(30)]
+    for mod in (1, 6, 998244353, 2**70 + 33):
+        for n in bounds:
+            a = [0] + [rng.randrange(-20, 21) if rng.randrange(3) else 0 for _ in range(n)]
+            b = [0] + [rng.randrange(-20, 21) if rng.randrange(3) else 0 for _ in range(n)]
+            a[1] = -1
+            c = [0] * (n + 1)
+            for x in range(1, n + 1):
+                for y in range(1, n // x + 1):
+                    c[x * y] += a[x] * b[y]
+            tables = []
+            for values in (a, b, c):
+                prefix = [0]
+                for value in values[1:]:
+                    prefix.append((prefix[-1] + value) % mod)
+                series = DirichletQuotientSeries(n, mod=mod)
+                series.data = [prefix[series.value(i)] for i in range(series.size)]
+                tables.append(series)
+            first, second, expected = tables
+            snapshots = [s.data[:] for s in tables]
+            assert dirichlet_multiply(first, second).data == expected.data
+            assert dirichlet_multiply(second, first).data == expected.data
+            assert dirichlet_divide(expected, first).data == second.data
+            assert [s.data for s in tables] == snapshots
+
+
+def test_dirichlet_identity_and_invalid_parameters():
+    n = 10000
+    a = DirichletQuotientSeries(n, mod=998244353)
+    a.data = [0] + [i * 711 for i in range(1, a.size)]
+    unit = DirichletQuotientSeries(n, [0] + [1] * (a.size - 1), a.mod)
+    zero = DirichletQuotientSeries(n, mod=a.mod)
+    assert dirichlet_multiply(a, unit).data == a.data
+    assert dirichlet_multiply(a, zero).data == zero.data
+    assert dirichlet_divide(a, unit).data == a.data
+    assert dirichlet_divide(a, a).data == unit.data
+    for function in (dirichlet_multiply, dirichlet_divide):
+        with pytest.raises(ValueError, match="parameters"):
+            function(a, DirichletQuotientSeries(n - 1, mod=a.mod))
+        with pytest.raises(ValueError, match="parameters"):
+            function(a, DirichletQuotientSeries(n, mod=6))
+    with pytest.raises(ValueError):
+        dirichlet_divide(DirichletQuotientSeries(1, [0, 1], 6), DirichletQuotientSeries(1, [0, 2], 6))
+
+
 def test_enumerate_prefix_sum_deconvolution():
     for n in range(1, 1000):
         prefix_divisors = [0] * (n + 1)

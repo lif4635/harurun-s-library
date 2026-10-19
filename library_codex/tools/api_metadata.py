@@ -3347,10 +3347,6 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "number",
         "returnDescription": "昇冪係数で与えた多項式をpointへ代入した値。",
     },
-    ("number_theory/MultiplicativeFunctions.py", None, "dirichlet_multiply"): {
-        "returnFormat": "DirichletQuotientSeries",
-        "returnDescription": "firstとsecondのDirichlet畳み込みのprefix値を保持する新しいseries。",
-    },
     ("linear_algebra/BlackBoxLinearAlgebra.py", None, "black_box_power"): {
         "returnFormat": "list[int]",
         "returnDescription": "operator^exponentをvectorへ作用させた、元と同じ長さのベクトル。",
@@ -8426,8 +8422,8 @@ COMPLEXITY_BY_MODULE.setdefault(_mf_module, {}).update({
     "DirichletQuotientSeries.__setitem__": "O(1)回の算術演算",
     "DirichletQuotientSeries.prefix": "O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n",
     "DirichletQuotientSeries.difference": "O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n",
-    "dirichlet_multiply": "O(N^(2/3) log(N+2))回の算術演算・O(sqrt(N))追加メモリ。N=first.n",
-    "dirichlet_divide": "O(N^(2/3) log(N+2))回の算術演算と逆元計算1回・O(sqrt(N))追加メモリ。N=divisor.n",
+    "dirichlet_multiply": "O(N^(2/3))回の算術演算・O(sqrt(N))追加メモリ。N=first.n",
+    "dirichlet_divide": "O(N^(2/3))回の算術演算と逆元計算1回・O(sqrt(N))追加メモリ。N=divisor.n",
     "mobius_values": "O(N)時間・メモリ。N=limit",
     "divisor_count_values": "O(N)回の算術演算・O(N)個の整数。N=limit",
     "divisor_sum_values": "O(N)回の算術演算・O(N)個の整数。N=limit",
@@ -8448,6 +8444,34 @@ for _method, _description, _returns in (
     API_DETAILS_BY_SYMBOL[(_mf_module, "MultiplicativePrefixSum", _method)] = {
         "description": _description, "returnFormat": "list[int]", "returnDescription": _returns,
     }
+
+CLASS_DETAILS_BY_SYMBOL[(_mf_module, "DirichletQuotientSeries")] = {
+    "description": "正整数Nを割って得られる異なる商の位置に、数列の累積和を保持する。数列は乗法的でなくてもよい。",
+    "argumentDescriptions": {
+        "n": "上限となる正整数N。",
+        "values": "長さsizeの累積和の列。0番は0、残りは異なる商を昇順に並べた位置までの累積和。Noneなら全要素0。コピーして保持する。",
+        "mod": "正の法。Noneなら通常の算術演算。除算を厳密に行うならFractionなどを使う。",
+    },
+    "constructorCreates": "dataに商ごとの累積和を保持する。value(i)で対応する商、index(x)でその添字を取得する。dirichlet_multiply・dirichlet_divideに渡せる。",
+}
+API_DETAILS_BY_SYMBOL[(_mf_module, None, "dirichlet_multiply")] = {
+    "description": "2数列のDirichlet積について、各商の位置までの累積和を求める。入力は変更しない。",
+    "argumentDescriptions": {
+        "first": "fの累積和を持つDirichletQuotientSeries。data[0]=0。",
+        "second": "gの累積和を持つDirichletQuotientSeries。firstと同じn・modを使い、data[0]=0とする。",
+    },
+    "returnFormat": "DirichletQuotientSeries",
+    "returnDescription": r"新しいseries。`result.data[result.index(x)]`は$\sum_{ab\le x}f(a)g(b)$。0番は0、残りは商の昇順。法指定時はその余り。各整数での積の値ではなく累積和を返す。",
+}
+API_DETAILS_BY_SYMBOL[(_mf_module, None, "dirichlet_divide")] = {
+    "description": "Dirichlet積h=f*gとfの累積和から、gの累積和を復元する。入力は変更しない。",
+    "argumentDescriptions": {
+        "convolution": "hの累積和を持つDirichletQuotientSeries。data[0]=0。",
+        "divisor": "fの累積和を持つDirichletQuotientSeries。同じn・modを使う。f(1)=data[1]は逆数を取れる値。法指定時は法と互いに素である必要がある。",
+    },
+    "returnFormat": "DirichletQuotientSeries",
+    "returnDescription": r"新しいseries。$h(n)=\sum_{ab=n}f(a)g(b)$を満たすgについて、`result.data[result.index(x)]`に$\sum_{i=1}^xg(i)$を持つ。0番は0、残りは商の昇順。法指定時はその余り。",
+}
 
 _rect_affine_module = "spatial_structure/RectangleAffineSum.py"
 SEARCH_TERMS_BY_MODULE[_rect_affine_module] = ("矩形和", "矩形アフィン変換", "点の有効化", "KD tree", "二次元区間更新")

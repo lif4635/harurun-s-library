@@ -1,0 +1,282 @@
+{
+  "runtime": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "baselineRevision": "1c37897b35ed108a1dd406ebd2c994a53dcafdf8",
+  "sourceSha256": "9808528b3bb101283d08ff19bd8c9abb4c4544905de0d8dff7983bb0044dcbb8",
+  "scope": "operation only; seeded quotient prefix tables prepared before timing; fresh process; same inputs; modulo 998244353",
+  "timeoutScope": "whole worker including input preparation; stop repeating a timed-out configuration",
+  "repeat": 3,
+  "timeoutSeconds": 30,
+  "complete": true,
+  "runs": [
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "seconds": 12.869935150999481,
+      "resultSha256": "7ecd0d3831cf0edc1904d353942eddff9f4296f9773dbef95a51a9653c34658e",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "baseline",
+      "seconds": 2.0274550450003517,
+      "resultSha256": "ddd6d3ab07f151232b8c6fbdcba741feb72037621195d6e59960b38d6f66d3b2",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "seconds": 0.4804713389994504,
+      "resultSha256": "ddd6d3ab07f151232b8c6fbdcba741feb72037621195d6e59960b38d6f66d3b2",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "seconds": 10.539156906999779,
+      "resultSha256": "7ecd0d3831cf0edc1904d353942eddff9f4296f9773dbef95a51a9653c34658e",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "baseline",
+      "seconds": 2.0123092530002396,
+      "resultSha256": "ddd6d3ab07f151232b8c6fbdcba741feb72037621195d6e59960b38d6f66d3b2",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "baseline",
+      "seconds": 2.0329597339996326,
+      "resultSha256": "ddd6d3ab07f151232b8c6fbdcba741feb72037621195d6e59960b38d6f66d3b2",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "seconds": 12.844213330999992,
+      "resultSha256": "4429f25e533654319b059c593d3d72fb137ccc91a7e4abbe972123c00499d5c3",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "seconds": 0.5265450079996299,
+      "resultSha256": "0600e22662cc5fbe268bfa881c23e21317232fbf4cf2e71e4fb326bdf89ed351",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "seconds": 13.069380722999995,
+      "resultSha256": "4429f25e533654319b059c593d3d72fb137ccc91a7e4abbe972123c00499d5c3",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "seconds": 0.4370513710000523,
+      "resultSha256": "0600e22662cc5fbe268bfa881c23e21317232fbf4cf2e71e4fb326bdf89ed351",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "seconds": 10.664379857000313,
+      "resultSha256": "7ecd0d3831cf0edc1904d353942eddff9f4296f9773dbef95a51a9653c34658e",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "seconds": 0.4740395939998052,
+      "resultSha256": "ddd6d3ab07f151232b8c6fbdcba741feb72037621195d6e59960b38d6f66d3b2",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "seconds": 12.942254182000397,
+      "resultSha256": "4429f25e533654319b059c593d3d72fb137ccc91a7e4abbe972123c00499d5c3",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "baseline",
+      "outcome": "timeout",
+      "timeoutSeconds": 30
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "seconds": 0.43767282699991483,
+      "resultSha256": "0600e22662cc5fbe268bfa881c23e21317232fbf4cf2e71e4fb326bdf89ed351",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "seconds": 0.49281797500043467,
+      "resultSha256": "ddd6d3ab07f151232b8c6fbdcba741feb72037621195d6e59960b38d6f66d3b2",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "seconds": 10.63137688200004,
+      "resultSha256": "7ecd0d3831cf0edc1904d353942eddff9f4296f9773dbef95a51a9653c34658e",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "seconds": 0.42434995399980835,
+      "resultSha256": "0600e22662cc5fbe268bfa881c23e21317232fbf4cf2e71e4fb326bdf89ed351",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "seconds": 0.5282358510003178,
+      "resultSha256": "0600e22662cc5fbe268bfa881c23e21317232fbf4cf2e71e4fb326bdf89ed351",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "seconds": 12.781862511999861,
+      "resultSha256": "7ecd0d3831cf0edc1904d353942eddff9f4296f9773dbef95a51a9653c34658e",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "seconds": 0.5203362320007727,
+      "resultSha256": "0600e22662cc5fbe268bfa881c23e21317232fbf4cf2e71e4fb326bdf89ed351",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "seconds": 12.541775335999773,
+      "resultSha256": "7ecd0d3831cf0edc1904d353942eddff9f4296f9773dbef95a51a9653c34658e",
+      "baselineSourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+      "outcome": "completed"
+    }
+  ],
+  "summary": [
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "baseline",
+      "medianSeconds": 2.0274550450003517,
+      "completedRuns": 3,
+      "timedOut": false,
+      "crossImplementationCompared": true
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "medianSeconds": 0.4804713389994504,
+      "completedRuns": 3,
+      "timedOut": false,
+      "crossImplementationCompared": true
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "medianSeconds": 0.5265450079996299,
+      "completedRuns": 3,
+      "timedOut": false,
+      "crossImplementationCompared": true
+    },
+    {
+      "n": 10000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "medianSeconds": 0.4370513710000523,
+      "completedRuns": 3,
+      "timedOut": false,
+      "crossImplementationCompared": true
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "baseline",
+      "medianSeconds": null,
+      "completedRuns": 0,
+      "timedOut": true,
+      "crossImplementationCompared": false
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_multiply",
+      "mode": "current",
+      "medianSeconds": 12.942254182000397,
+      "completedRuns": 3,
+      "timedOut": false,
+      "crossImplementationCompared": false
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "baseline",
+      "medianSeconds": 12.781862511999861,
+      "completedRuns": 3,
+      "timedOut": false,
+      "crossImplementationCompared": true
+    },
+    {
+      "n": 1000000000000,
+      "operation": "dirichlet_divide",
+      "mode": "current",
+      "medianSeconds": 10.63137688200004,
+      "completedRuns": 3,
+      "timedOut": false,
+      "crossImplementationCompared": true
+    }
+  ]
+}

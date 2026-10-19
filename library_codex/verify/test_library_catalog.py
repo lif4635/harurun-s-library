@@ -1208,6 +1208,15 @@ def test_multiplicative_sum_article_and_standalone():
     exec(module["standaloneCode"], namespace)
     engine = namespace["MultiplicativePrefixSum"](10)
     assert engine.run([2 * x for x in engine.prime_count_table()], lambda p, e: e + 1) == 27
+    functions = {item["name"]: item for item in module["functions"]}
+    for name in ("dirichlet_multiply", "dirichlet_divide"):
+        assert "O(N^(2/3))" in functions[name]["complexity"]
+        assert "商の昇順" in functions[name]["returnDescription"]
+    assert "## Dirichlet積と逆算" in module["article"]["markdown"]
+    ones = namespace["DirichletQuotientSeries"](10, [0, 1, 2, 3, 5, 10], 998244353)
+    product = namespace["dirichlet_multiply"](ones, ones)
+    assert product.data == [0, 1, 3, 5, 10, 27]
+    assert namespace["dirichlet_divide"](product, ones).data == ones.data
 
 
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 246,
-    "unimplemented": 7
+    "local_passed": 248,
+    "unimplemented": 5
   },
   "problems": [
     {
@@ -643,20 +643,26 @@
       "title": "Dirichlet Convolution and Prefix Sums",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/dirichlet_convolution_and_prefix_sums",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Sieve",
+        "library_codex.number_theory.MultiplicativeFunctions"
+      ],
+      "solution": "solutions/dirichlet_convolution_and_prefix_sums.py",
+      "result": "results/dirichlet_convolution_and_prefix_sums.json"
     },
     {
       "name": "dirichlet_inverse_and_prefix_sums",
       "title": "Dirichlet Inverse and Prefix Sums",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/dirichlet_inverse_and_prefix_sums",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Sieve",
+        "library_codex.number_theory.MultiplicativeFunctions"
+      ],
+      "solution": "solutions/dirichlet_inverse_and_prefix_sums.py",
+      "result": "results/dirichlet_inverse_and_prefix_sums.json"
     },
     {
       "name": "discrete_logarithm_fixed_mod",

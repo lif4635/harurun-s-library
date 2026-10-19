@@ -22,11 +22,11 @@
 
 | ケース | 時間の中央値 | 最大RSS |
 | --- | ---: | ---: |
-| random_00 | 3.189秒 | 191204 KiB |
-| boundaryB_00 | 3.175秒 | 191236 KiB |
-| max_00 | 3.171秒 | 195180 KiB |
+| max_04 | 2.947秒 | 179804 KiB |
+| hack_wrong_zky_method_03 | 2.941秒 | 197712 KiB |
+| max_01 | 2.952秒 | 179812 KiB |
 
-15回すべて公式checkerで通過。最大RSSは約191 MiBで、メモリ制限は強制していない。上限10¹³の`sum_of_multiplicative_function_large`は、この結果の検証範囲に含めない。
+15回すべて公式checkerで通過。最大RSSは約193 MiBで、メモリ制限は強制していない。上限10¹³の`sum_of_multiplicative_function_large`は、この結果の検証範囲に含めない。
 
 - [公式全件の判定](../../verify/library_checker/results/sum_of_multiplicative_function.json)
 - [各回の時間・RSS・入力とsourceのhash](../../verify/library_checker/benchmarks/sum_of_multiplicative_function.json)
@@ -42,11 +42,11 @@
 
 全回で新旧の答えが一致した。この表は総和探索部分だけで、素数表作成・起動・入出力を含まない。提出全体が同じ倍率で速くなるという意味ではない。C++上位提出との速度比較でもない。
 
-[比較の各回の記録とsourceのhash](../../verify/library_checker/benchmarks/multiplicative_sum_comparison.json)を保存している。
+[比較の各回の記録とsourceのhash](../../verify/library_checker/benchmarks/comparisons/multiplicative_sum.json)を保存している。
 
 ## 独立した正しさの検査
 
-専用テスト7件で、全整数の素因数分解から求めた値との照合、φ関数・約数関数、ランダムな素数冪の値、負値、法1・合成数の法、Fraction、N=0・1、素数冪境界、繰り返し呼出し、入力表の非破壊を検査する。既存のDirichlet積・除算・累積和復元のテストも同じファイルで維持した。
+専用テストで、全整数の素因数分解から求めた値との照合、φ関数・約数関数、ランダムな素数冪の値、負値、法1・合成数の法、Fraction、N=0・1、素数冪境界、繰り返し呼出し、入力表の非破壊を検査する。Dirichlet積・除算・累積和復元のテストも同じファイルで検査する。
 
 ## 再実行
 

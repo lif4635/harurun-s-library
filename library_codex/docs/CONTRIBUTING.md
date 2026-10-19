@@ -166,6 +166,8 @@ Library Checkerの上位提出と速度を比べる場合は、[比較手順と�
 
 Library Checkerの追加・高速化では、オンライン提出は行わず、公式全件検証とPyPyの反復ベンチマークを残します。`benchmarks/official_benchmark.py`で既定は遅かった公式3ケースを各5回測定し、`verify/library_checker/benchmarks/`へ各回の時間・RSS・CPU/OS/PyPy・sourceと入力のhashを保存します。全件を反復した場合以外は、全ケースを複数回測定済みとは扱いません。
 
+新旧実装など独自形式の比較JSONは`verify/library_checker/benchmarks/comparisons/`へ置きます。親directoryのJSONは公式ベンチマーク一覧の生成対象なので、異なるschemaの記録を混ぜません。
+
 bundleは選択moduleのsourceから、実際にimportする`library_codex`内依存だけを再帰的に展開します。生成物はpackage wrapperや動的な`bundle`関数ではなく、貼り付けて実行できる通常のPythonコードにします。
 
 公開するときは次を同期します。細かい試行ごとに公開せず、確認しやすい変更のまとまりをcheckpointとして一度だけ公開して構いません。サイトのAPI dataは、既存JSONの`sourceRevision`から変更moduleとbundle依存先だけを差分更新します。

@@ -223,15 +223,6 @@ def sum_totient(limit, mod=None):
     return large[1] if size else prefix[limit]
 from math import isqrt as _number_theory_multiplicative_functions_isqrt
 
-def _number_theory_multiplicative_functions_floor_two_thirds(number):
-    value = max(1, int(number ** (2.0 / 3.0)))
-    square = number * number
-    while (value + 1) ** 3 <= square:
-        value += 1
-    while value ** 3 > square:
-        value -= 1
-    return max(1, value)
-
 class DirichletQuotientSeries:
     """Prefix sums stored at all distinct values floor(N/i)."""
     __slots__ = ('n', 'square', 'size', 'data', 'mod')
@@ -281,42 +272,59 @@ def dirichlet_multiply(first, second):
     if first.n != second.n or first.mod != second.mod:
         raise ValueError('series parameters differ')
     n = first.n
-    result = DirichletQuotientSeries(n, mod=first.mod)
-    threshold = first.index(_number_theory_multiplicative_functions_floor_two_thirds(n))
     square = first.square
-
-    def collect(source, other):
-        entries = []
-        for index in range(1, square + 1):
-            difference = source[index] - source[index - 1]
-            if difference:
-                entries.append((index, difference))
-                for target in range(result.size - 1, threshold, -1):
-                    value = result.value(target)
-                    destination = other.index(value // index)
-                    if destination < index:
-                        break
-                    result.data[target] += difference * other[destination]
-        for index in range(square + 1, threshold + 1):
-            difference = source[index] - source[index - 1]
-            if difference:
-                entries.append((source.value(index), difference))
-        return entries
-    left_entries = collect(first, second)
-    right_entries = collect(second, first)
-    for (left_value, left_weight) in left_entries:
-        for (right_value, right_weight) in right_entries:
-            destination = result.index(left_value * right_value)
-            if destination > threshold:
-                break
-            result.data[destination] += left_weight * right_weight
-    for index in range(1, threshold + 1):
-        result.data[index] += result.data[index - 1]
-    for index in range(result.size - 1, threshold, -1):
-        root = _number_theory_multiplicative_functions_isqrt(result.value(index))
-        result.data[index] -= first[root] * second[root]
-    if result.mod is not None:
-        result.data = [value % result.mod for value in result.data]
+    size = first.size
+    mod = first.mod
+    (a, b) = (first.data, second.data)
+    if mod is not None:
+        a = [x % mod for x in a]
+        b = [x % mod for x in b]
+    da = [a[i] - a[i - 1] for i in range(1, square + 1)]
+    db = [b[i] - b[i - 1] for i in range(1, square + 1)]
+    da.insert(0, 0)
+    db.insert(0, 0)
+    result = DirichletQuotientSeries(n, mod=mod)
+    c = result.data
+    for x in range(2, square + 1):
+        (ax, bx) = (da[x], db[x])
+        if not ax and (not bx):
+            continue
+        stop = min(x - 1, n // (x * x))
+        total = 0
+        for y in range(2, stop + 1):
+            value = x * y
+            target = value if value <= square else size - n // value
+            weight = ax * db[y] + bx * da[y]
+            c[target] += weight
+            total += weight
+            if mod is not None:
+                c[target] %= mod
+                total %= mod
+        c[size - x + 1] -= total
+        value = x * x
+        target = value if value <= square else size - n // value
+        c[target] += ax * bx
+        if mod is not None:
+            c[target] %= mod
+    running = 0
+    for i in range(1, size):
+        running += c[i]
+        c[i] = running + a[1] * b[i] + b[1] * a[i] - a[1] * b[1]
+        if mod is not None:
+            running %= mod
+            c[i] %= mod
+    for z in range(1, n // (square + 1) + 1):
+        value = n // z
+        stop = min((_number_theory_multiplicative_functions_isqrt(4 * value + 1) - 1) // 2, value // (z + 1))
+        total = c[size - z]
+        for x in range(2, stop + 1):
+            upper = value // x
+            upper = upper if upper <= square else size - n // upper
+            lower = max(x, z)
+            total += da[x] * (b[upper] - b[lower]) + db[x] * (a[upper] - a[lower])
+            if mod is not None:
+                total %= mod
+        c[size - z] = total
     return result
 
 def dirichlet_divide(convolution, divisor):
@@ -327,39 +335,64 @@ def dirichlet_divide(convolution, divisor):
         inverse = 1 / divisor[1]
     else:
         inverse = pow(divisor[1], -1, mod)
-    normalized = DirichletQuotientSeries(divisor.n, [value * inverse for value in divisor.data], mod)
     n = divisor.n
     square = divisor.square
-    threshold = divisor.index(_number_theory_multiplicative_functions_floor_two_thirds(n))
-    dc = DirichletQuotientSeries(n, convolution.data, mod).difference()
-    da = DirichletQuotientSeries(n, normalized.data, mod).difference()
-    db = DirichletQuotientSeries(n, mod=mod)
+    size = divisor.size
+    a = [value * inverse for value in divisor.data]
+    h = convolution.data
+    if mod is not None:
+        a = [value % mod for value in a]
+        h = [value % mod for value in h]
+    da = [0] + [a[i] - a[i - 1] for i in range(1, square + 1)]
+    db = [0] * (square + 1)
+    delta = [0] * size
     result = DirichletQuotientSeries(n, mod=mod)
-    db[1] = convolution[1]
-    for index in range(2, threshold + 1):
-        db[index] = dc[index] - da[index] * db[1]
-        value = normalized.value(index)
-        destination = normalized.index(value * value)
-        if destination <= threshold:
-            dc[destination] = dc[destination] - da[index] * db[index]
-        for other in range(2, index):
-            destination = normalized.index(value * normalized.value(other))
-            if destination > threshold:
-                break
-            dc[destination] = dc[destination] - da[index] * db[other] - da[other] * db[index]
-    for index in range(1, threshold + 1):
-        result[index] = db[index] + result[index - 1]
-    for index in range(threshold + 1, normalized.size):
-        result[index] = convolution[index] - normalized[index] * result[1]
-        value = normalized.value(index)
-        root_index = normalized.index(_number_theory_multiplicative_functions_isqrt(value))
-        result[index] = result[index] + normalized[root_index] * result[root_index]
-        for other in range(2, index + 1):
-            destination = normalized.index(value // other)
-            if other > destination:
-                break
-            result[index] = result[index] - da[other] * result[destination] - normalized[destination] * db[other]
-    result.data = [value * inverse for value in result.data]
+    b = result.data
+    running = 0
+    for i in range(1, size):
+        running += delta[i]
+        if mod is not None:
+            running %= mod
+        total = h[i] - h[1] * a[i] + h[1] - running
+        if mod is not None:
+            total %= mod
+        if i > square:
+            z = size - i
+            value = n // z
+            stop = min((_number_theory_multiplicative_functions_isqrt(4 * value + 1) - 1) // 2, value // (z + 1))
+            for x in range(2, stop + 1):
+                upper = value // x
+                upper = upper if upper <= square else size - n // upper
+                lower = max(x, z)
+                total -= da[x] * (b[upper] - b[lower]) + db[x] * (a[upper] - a[lower])
+                if mod is not None:
+                    total %= mod
+        b[i] = total
+        if i <= square:
+            db[i] = b[i] - b[i - 1]
+        if i < 2 or i > square:
+            continue
+        (ax, bx) = (da[i], db[i])
+        if not ax and (not bx):
+            continue
+        stop = min(i - 1, n // (i * i))
+        weight_sum = 0
+        for y in range(2, stop + 1):
+            value = i * y
+            target = value if value <= square else size - n // value
+            weight = ax * db[y] + bx * da[y]
+            delta[target] += weight
+            weight_sum += weight
+            if mod is not None:
+                delta[target] %= mod
+                weight_sum %= mod
+        delta[size - i + 1] -= weight_sum
+        value = i * i
+        target = value if value <= square else size - n // value
+        delta[target] += ax * bx
+        if mod is not None:
+            delta[target] %= mod
+    result.data = [value * inverse for value in b]
     if mod is not None:
         result.data = [value % mod for value in result.data]
     return result
