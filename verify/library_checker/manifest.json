@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 238,
-    "unimplemented": 15
+    "local_passed": 239,
+    "unimplemented": 14
   },
   "problems": [
     {
@@ -2021,10 +2021,14 @@
       "title": "Point Set Range Sort Range Composite",
       "category": "data_structure",
       "url": "https://judge.yosupo.jp/problem/point_set_range_sort_range_composite",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.ordered_set.FastSet",
+        "library_codex.segment_tree.SegTree",
+        "library_codex.sequence_structure.SortableArray"
+      ],
+      "solution": "solutions/point_set_range_sort_range_composite.py",
+      "result": "results/point_set_range_sort_range_composite.json"
     },
     {
       "name": "point_set_tree_path_composite_sum",

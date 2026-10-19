@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 391,
+  "moduleCount": 392,
   "supportedCount": 7,
   "modules": [
     {
@@ -1844,6 +1844,12 @@
       "modulePath": "sequence_structure/SlidingWindowMinimum",
       "sourcePath": "library_codex/sequence_structure/SlidingWindowMinimum.py",
       "sourceSha256": "b04c940edebd00b27080fb8b9f36297d31dab69497e7cdd8dc2796bcde76ac24",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/SortableArray",
+      "sourcePath": "library_codex/sequence_structure/SortableArray.py",
+      "sourceSha256": "7cb308b9ca89a4ca40ada9c13cc96c00f7b2289d91131ed46775ffcfd322c999",
       "status": "unsupported"
     },
     {

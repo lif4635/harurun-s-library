@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T09:50:23+00:00",
+  "generatedAt": "2026-10-19T10:58:43+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "e7e3d1f9b40bbb460f5a1103847f87c365c138dcd9d9f352b1172be2b0aa50c2",
-  "inputStamp": "5c557f5d3f0ffeaddf6a18c2abc35c149b27102d5662227b85f6e8d92f12fe14",
+  "sourceFingerprint": "0ba3592ee6a27d2cda2772a40c9ee42f5f843ee031d7372cf429723a033be34f",
+  "inputStamp": "284dba5c2ea6a09a8579f84178f08de0615feb0660584f07753c7abe45b62eb6",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 391,
-    "articles": 97,
+    "modules": 392,
+    "articles": 98,
     "functions": 529,
-    "classes": 235,
-    "methods": 1492,
+    "classes": 236,
+    "methods": 1501,
     "tests": 1029
   },
   "categories": [
@@ -151,10 +151,10 @@
       "label": "列・queue・heap",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 12,
+      "modules": 13,
       "functions": 3,
-      "classes": 10,
-      "methods": 86
+      "classes": 11,
+      "methods": 95
     },
     {
       "slug": "range_query",
@@ -411,7 +411,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 83
+      "modules": 84
     },
     {
       "slug": "graph",
@@ -26353,6 +26353,293 @@
         }
       ],
       "classes": []
+    },
+    {
+      "category": "sequence_structure",
+      "categoryLabel": "列・queue・heap",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
+      "name": "SortableArray",
+      "modulePath": "library_codex.sequence_structure.SortableArray",
+      "summary": "区間をキーで並べ替えながら、値の更新と非可換な区間積を扱う。",
+      "capabilities": [
+        "SortableArray: 相異なる整数キーと値の配列を保持し、区間ソート・1要素の置換・現在の配列順での区間積を処理する。"
+      ],
+      "article": {
+        "title": "区間ソートと区間積",
+        "markdown": "キーと値の組を並べた配列に対し、区間の昇順・降順ソート、1要素の置換、区間内の値の集約を行う。ソートすると値もキーと一緒に移動する。\n\n## 主な機能\n\n- 区間を何度も並べ替え、その途中で和・最小値・関数合成などを求められる。\n- `prod(left, right)`は、半開区間`[left, right)`を現在の左から右への順序で集約する。演算は結合則と単位元を満たせばよく、交換則は不要。\n- キーは互いに異なる整数。構築はO(N)、取得・置換・区間積は期待O(log N)。ソートを含むQ操作全体は期待O((N+Q) log²(N+2))、保持する要素・集約値の個数はO(N)。ここでは演算`op`と値の保持をO(1)とする。\n- ソート1回が必ずO(log N)で終わるわけではない。まだ統合していない区間をまとめる呼出しでは、その分の処理が発生する。\n\n## 使い方\n\n```python\nfrom library_codex.sequence_structure.SortableArray import SortableArray\n\ndata = SortableArray(lambda a, b: a + b, \"\", [(3, \"C\"), (1, \"A\"), (2, \"B\")])\ndata.sort(0, 3)\nascending = data.tolist()\ndata.sort(0, 2, reverse=True)\nword = data.prod(0, 3)\ndata.set(1, 4, \"D\")\nitem = data.get(1)\n```\n\n- `ascending`は`[(1, \"A\"), (2, \"B\"), (3, \"C\")]`。\n- `word`は`\"BAC\"`。降順ソートした区間内では、値を集約する順も逆になる。\n- `item`は`(4, \"D\")`。`set`は現在位置1の要素を置換するだけで、配列全体を自動ソートしない。\n- `get`は`(key, value)`、`prod`はキーを除いた値の集約結果を返す。\n\n関数合成なら`op(f, g)`を「fを適用してからgを適用する合成」として渡す。たとえば一次関数を`(a, b)`で持つ場合は次のように書ける。\n\n```python\nmod = 998244353\n\ndef compose(f, g):\n    a, b = f\n    c, d = g\n    return a * c % mod, (b * c + d) % mod\n\ndata = SortableArray(compose, (1, 0), [(5, (2, 1)), (2, (3, 4))])\na, b = data.prod(0, 2)\nanswer = (a * 10 + b) % mod\n```\n\n`answer`は67。2倍して1を足し、その結果を3倍して4を足す。\n\n## 仕組み\n\n配列をソート済みの区間に分け、各区間のキーをtreapで持つ。ソートでは対象の区間を統合し、昇順・降順の向きだけを切り替える。各木には順方向と逆方向の集約値を保持し、区間の境界と区間間の積はFastSetとSegTreeで管理する。\n\n各要素には整数IDを1つ割り当て、子・部分木サイズ・集約値を平坦な配列へ置く。分割や再ソートで要素用ノードを増やさず、`set`も同じ領域を再利用する。再帰は使わない。\n\n## 注意点\n\n- `get`・`set`の添字はキーではなく、ソート後の現在位置。\n- 重複キーは`ValueError`。`set`で同じ要素のキーをそのまま使うことはできる。\n- 空区間の積は単位元。空配列も構築できる。\n- `op`は引数を書き換えない関数を渡す。値のコピーは浅いコピーで、格納した可変オブジェクトを外から変更しない。\n- treapの疑似乱数による平衡化に依存する期待計算量で、最悪時間の保証ではない。`op`がT時間なら、集約を伴う計算量にTを掛ける。文字列連結の例は順序の説明用で、長い文字列ではO(1)演算にならない。\n\n## 参考\n\nソート済み区間を分割・統合する設計は[maspyのSortable Array](https://maspypy.github.io/library/ds/sortable_array.hpp)を参照した。この実装では動的セグメント木ではなく、配列で保持するtreapを使う。",
+        "sourcePath": "library_codex/docs/articles/sequence_structure/SortableArray.md"
+      },
+      "searchTerms": [
+        "SortableArray",
+        "Sortable Array",
+        "library_codex.sequence_structure.SortableArray",
+        "library codex sequence structure Sortable Array",
+        "sequence_structure/SortableArray.py",
+        "列・queue・heap",
+        "区間ソート",
+        "区間合成",
+        "range sort",
+        "sortable segment tree"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/sequence_structure/SortableArray.py",
+      "inputFingerprint": "f8970b94515a02b466ea1feabbfd57804928e01f564629579bc23cfefb0f99fe",
+      "importCode": "from library_codex.sequence_structure.SortableArray import SortableArray",
+      "sourceCode": "\"\"\"区間をキーで並べ替えながら、値の更新と非可換な区間積を扱う。\"\"\"\n\nfrom library_codex.ordered_set.FastSet import FastSet\nfrom library_codex.segment_tree.SegTree import SegTree\n\n\nclass SortableArray:\n    \"\"\"相異なる整数キーと値の組を、現在の配列順で管理する。\"\"\"\n\n    __slots__ = (\"n\", \"op\", \"identity\", \"_keys\", \"_values\", \"_used\", \"_left\",\n                 \"_right\", \"_size\", \"_priority\", \"_forward\", \"_backward\",\n                 \"_roots\", \"_reverse\", \"_starts\", \"_seg\")\n\n    def __init__(self, op, identity, items):\n        items = list(items)\n        keys = [key for key, value in items]\n        used = set(keys)\n        if len(used) != len(keys):\n            raise ValueError(\"keys must be distinct\")\n        self.n = n = len(items)\n        self.op = op\n        self.identity = identity\n        self._keys = [0] + keys\n        self._values = [identity] + [value for key, value in items]\n        self._used = used\n        self._left = [0] * (n + 1)\n        self._right = [0] * (n + 1)\n        self._size = [0] + [1] * n\n        self._priority = [0]\n        state = 712367821\n        for _ in items:\n            state ^= (state << 13) & 0xffffffff\n            state ^= state >> 17\n            state ^= (state << 5) & 0xffffffff\n            self._priority.append(state)\n        self._forward = self._values[:]\n        self._backward = self._values[:]\n        self._roots = list(range(1, n + 1))\n        self._reverse = bytearray(n)\n        self._starts = FastSet(n + 1, range(n + 1))\n        self._seg = SegTree(op, identity, self._values[1:])\n\n    def _pull(self, node):\n        left = self._left[node]\n        right = self._right[node]\n        self._size[node] = self._size[left] + self._size[right] + 1\n        op = self.op\n        value = self._values[node]\n        self._forward[node] = op(op(self._forward[left], value), self._forward[right])\n        self._backward[node] = op(op(self._backward[right], value), self._backward[left])\n\n    def _split(self, root, key, by_key=False):\n        path = []\n        left = self._left\n        right = self._right\n        sizes = self._size\n        keys = self._keys\n        while root:\n            take = keys[root] < key if by_key else sizes[left[root]] < key\n            if take:\n                if not by_key:\n                    key -= sizes[left[root]] + 1\n                path.append(root)\n                root = right[root]\n            else:\n                path.append(-root)\n                root = left[root]\n        first = second = 0\n        for node in reversed(path):\n            if node > 0:\n                right[node] = first\n                self._pull(node)\n                first = node\n            else:\n                node = -node\n                left[node] = second\n                self._pull(node)\n                second = node\n        return first, second\n\n    def _union(self, first, second):\n        stack = [(first, second, False)]\n        results = []\n        left = self._left\n        right = self._right\n        priorities = self._priority\n        while stack:\n            a, b, finish = stack.pop()\n            if finish:\n                right[a] = results.pop()\n                left[a] = results.pop()\n                self._pull(a)\n                results.append(a)\n            elif not a or not b:\n                results.append(a or b)\n            else:\n                if priorities[a] < priorities[b]:\n                    a, b = b, a\n                low, high = self._split(b, self._keys[a], True)\n                stack.append((a, 0, True))\n                stack.append((right[a], high, False))\n                stack.append((left[a], low, False))\n        return results[0]\n\n    def _cut(self, index):\n        if index in self._starts:\n            return\n        start = self._starts.prev(index)\n        root = self._roots[start]\n        reverse = self._reverse[start]\n        count = index - start\n        if reverse:\n            count = self._size[root] - count\n        first, second = self._split(root, count)\n        if reverse:\n            first, second = second, first\n        self._roots[start] = first\n        self._roots[index] = second\n        self._reverse[index] = reverse\n        self._starts.add(index)\n        values = self._backward if reverse else self._forward\n        self._seg.set(start, values[first])\n        self._seg.set(index, values[second])\n\n    def _range(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n\n    def get(self, index):\n        \"\"\"現在のindex番目にある(key, value)を返す。\"\"\"\n        if not 0 <= index < self.n:\n            raise IndexError(\"index out of range\")\n        start = self._starts.prev(index)\n        root = self._roots[start]\n        rank = index - start\n        if self._reverse[start]:\n            rank = self._size[root] - 1 - rank\n        while True:\n            count = self._size[self._left[root]]\n            if rank == count:\n                return self._keys[root], self._values[root]\n            if rank < count:\n                root = self._left[root]\n            else:\n                rank -= count + 1\n                root = self._right[root]\n\n    def set(self, index, key, value):\n        \"\"\"現在のindex番目のキーと値を置き換える。\"\"\"\n        old, _ = self.get(index)\n        if key != old and key in self._used:\n            raise ValueError(\"key is already present\")\n        self._cut(index)\n        self._cut(index + 1)\n        node = self._roots[index]\n        self._used.remove(old)\n        self._used.add(key)\n        self._keys[node] = key\n        self._values[node] = value\n        self._forward[node] = self._backward[node] = value\n        self._seg.set(index, value)\n\n    def sort(self, left, right, reverse=False):\n        \"\"\"半開区間[left, right)をキーの昇順、reverse=Trueなら降順にする。\"\"\"\n        self._range(left, right)\n        if right - left <= 1:\n            return\n        self._cut(left)\n        self._cut(right)\n        root = self._roots[left]\n        index = self._starts.next(left + 1)\n        while index < right:\n            root = self._union(root, self._roots[index])\n            self._roots[index] = 0\n            self._starts.discard(index)\n            self._seg.set(index, self.identity)\n            index = self._starts.next(index + 1)\n        self._roots[left] = root\n        self._reverse[left] = bool(reverse)\n        self._seg.set(left, self._backward[root] if reverse else self._forward[root])\n\n    def prod(self, left, right):\n        \"\"\"半開区間[left, right)の値を、現在の左から右への順でopで畳み込む。\"\"\"\n        self._range(left, right)\n        if left == right:\n            return self.identity\n        self._cut(left)\n        self._cut(right)\n        return self._seg.prod(left, right)\n\n    def all_prod(self):\n        \"\"\"現在の配列全体の値を、左から右への順でopで畳み込んだ値を返す。\"\"\"\n        return self._seg.all_prod()\n\n    def tolist(self):\n        \"\"\"現在の配列順の(key, value)を並べたlistを返す。\"\"\"\n        result = []\n        start = self._starts.next(0)\n        while start < self.n:\n            root = self._roots[start]\n            left, right = self._left, self._right\n            if self._reverse[start]:\n                left, right = right, left\n            stack = []\n            while root or stack:\n                while root:\n                    stack.append(root)\n                    root = left[root]\n                root = stack.pop()\n                result.append((self._keys[root], self._values[root]))\n                root = right[root]\n            start = self._starts.next(start + 1)\n        return result\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"SortableArray(%r)\" % self.tolist()\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: ordered_set/FastSet.py\nclass FastSet:\n    __slots__ = ('n', 'level', 'size')\n\n    def __init__(self, size, values=()):\n        if size < 0:\n            raise ValueError('size must be nonnegative')\n        level = []\n        length = size\n        while True:\n            level.append([0] * (length + 63 >> 6))\n            if length <= 64:\n                break\n            length = length + 63 >> 6\n        self.n = size\n        self.level = level\n        self.size = 0\n        for value in values:\n            self.add(value)\n\n    def add(self, value):\n        if not 0 <= value < self.n:\n            raise IndexError('value is out of range')\n        level = self.level\n        index = value\n        word_index = index >> 6\n        mask = 1 << (index & 63)\n        if level[0][word_index] & mask:\n            return False\n        self.size += 1\n        for words in level:\n            word_index = index >> 6\n            mask = 1 << (index & 63)\n            old = words[word_index]\n            words[word_index] = old | mask\n            if old:\n                break\n            index = word_index\n        return True\n    insert = add\n\n    def discard(self, value):\n        if not 0 <= value < self.n:\n            return False\n        level = self.level\n        index = value\n        word_index = index >> 6\n        mask = 1 << (index & 63)\n        if not level[0][word_index] & mask:\n            return False\n        self.size -= 1\n        for words in level:\n            word_index = index >> 6\n            words[word_index] &= ~(1 << (index & 63))\n            if words[word_index]:\n                break\n            index = word_index\n        return True\n    erase = discard\n\n    def next(self, value):\n        if value < 0:\n            value = 0\n        if value >= self.n:\n            return -1\n        index = value\n        found_level = -1\n        for (height, words) in enumerate(self.level):\n            word_index = index >> 6\n            if word_index >= len(words):\n                return -1\n            shifted = words[word_index] >> (index & 63)\n            if shifted:\n                index += (shifted & -shifted).bit_length() - 1\n                found_level = height\n                break\n            index = word_index + 1\n        if found_level < 0:\n            return -1\n        for height in range(found_level - 1, -1, -1):\n            index <<= 6\n            word = self.level[height][index >> 6]\n            index += (word & -word).bit_length() - 1\n        return index if index < self.n else -1\n    ge = next\n\n    def prev(self, value):\n        if value >= self.n:\n            value = self.n - 1\n        if value < 0:\n            return -1\n        index = value\n        found_level = -1\n        for (height, words) in enumerate(self.level):\n            word_index = index >> 6\n            mask = words[word_index] & (1 << (index & 63) + 1) - 1\n            if mask:\n                index = (word_index << 6) + mask.bit_length() - 1\n                found_level = height\n                break\n            if word_index == 0:\n                return -1\n            index = word_index - 1\n        if found_level < 0:\n            return -1\n        for height in range(found_level - 1, -1, -1):\n            index = index << 6 | 63\n            words = self.level[height]\n            word_index = index >> 6\n            if word_index >= len(words):\n                word_index = len(words) - 1\n            word = words[word_index]\n            index = (word_index << 6) + word.bit_length() - 1\n        return index\n    le = prev\n\n    def min(self):\n        value = self.next(0)\n        if value < 0:\n            raise ValueError('min of empty FastSet')\n        return value\n\n    def max(self):\n        value = self.prev(self.n - 1)\n        if value < 0:\n            raise ValueError('max of empty FastSet')\n        return value\n\n    def __contains__(self, value):\n        return 0 <= value < self.n and bool(self.level[0][value >> 6] >> (value & 63) & 1)\n\n    def __len__(self):\n        return self.size\n\n    def tolist(self):\n        \"\"\"保持する整数を昇順listで返す。O(K log_64 N)。\"\"\"\n        result = []\n        value = self.next(0)\n        while value >= 0:\n            result.append(value)\n            value = self.next(value + 1)\n        return result\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'FastSet(%r)' % self.tolist()\n\n# 依存: segment_tree/SegTree.py\n\"\"\"Point updates and range products for an arbitrary monoid.\n\nUse this when values change one position at a time and a half-open interval\nmust be folded with an associative operation.  ``max_right`` and ``min_left``\nalso find the first boundary where a monotone predicate stops holding.\n\"\"\"\n\nclass SegTree:\n    __slots__ = ('n', 'size', 'log', 'data', 'op', 'identity')\n\n    def __init__(self, op, identity, values):\n        if isinstance(values, int):\n            n = values\n            values = [identity] * n\n        else:\n            values = list(values)\n            n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1)\n        data[size:size + n] = values\n        for node in range(size - 1, 0, -1):\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.log = size.bit_length() - 1\n        self.data = data\n        self.op = op\n        self.identity = identity\n\n    def set(self, index, value):\n        node = index + self.size\n        data = self.data\n        data[node] = value\n        op = self.op\n        node >>= 1\n        while node:\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            node >>= 1\n\n    def add(self, index, value):\n        \"\"\"indexの現在値をop(value, current)で置き換える。O(log N)。\"\"\"\n        node = index + self.size\n        data = self.data\n        op = self.op\n        data[node] = op(value, data[node])\n        node >>= 1\n        while node:\n            data[node] = op(data[node << 1], data[node << 1 | 1])\n            node >>= 1\n\n    def get(self, index):\n        return self.data[index + self.size]\n\n    def tolist(self):\n        \"\"\"現在の要素列をlistで返す。O(N)。\"\"\"\n        return self.data[self.size:self.size + self.n]\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'SegTree(%r)' % self.tolist()\n\n    def prod(self, left, right):\n        left += self.size\n        right += self.size\n        first = self.identity\n        second = self.identity\n        data = self.data\n        op = self.op\n        while left < right:\n            if left & 1:\n                first = op(first, data[left])\n                left += 1\n            if right & 1:\n                right -= 1\n                second = op(data[right], second)\n            left >>= 1\n            right >>= 1\n        return op(first, second)\n    query = prod\n\n    def all_prod(self):\n        return self.data[1]\n\n    def max_right(self, left, predicate):\n        if left == self.n:\n            return self.n\n        left += self.size\n        value = self.identity\n        data = self.data\n        op = self.op\n        while True:\n            while not left & 1:\n                left >>= 1\n            merged = op(value, data[left])\n            if not predicate(merged):\n                while left < self.size:\n                    left <<= 1\n                    merged = op(value, data[left])\n                    if predicate(merged):\n                        value = merged\n                        left += 1\n                return min(left - self.size, self.n)\n            value = merged\n            left += 1\n            if left & -left == left:\n                break\n        return self.n\n\n    def min_left(self, right, predicate):\n        if right == 0:\n            return 0\n        right += self.size\n        value = self.identity\n        data = self.data\n        op = self.op\n        while True:\n            right -= 1\n            while right > 1 and right & 1:\n                right >>= 1\n            merged = op(data[right], value)\n            if not predicate(merged):\n                while right < self.size:\n                    right = right << 1 | 1\n                    merged = op(data[right], value)\n                    if predicate(merged):\n                        value = merged\n                        right -= 1\n                return max(0, right + 1 - self.size)\n            value = merged\n            if right & -right == right:\n                break\n        return 0\n\n    def __getitem__(self, index):\n        return self.get(index)\n\n# 本体\n\"\"\"区間をキーで並べ替えながら、値の更新と非可換な区間積を扱う。\"\"\"\n\nclass SortableArray:\n    \"\"\"相異なる整数キーと値の組を、現在の配列順で管理する。\"\"\"\n    __slots__ = ('n', 'op', 'identity', '_keys', '_values', '_used', '_left', '_right', '_size', '_priority', '_forward', '_backward', '_roots', '_reverse', '_starts', '_seg')\n\n    def __init__(self, op, identity, items):\n        items = list(items)\n        keys = [key for (key, value) in items]\n        used = set(keys)\n        if len(used) != len(keys):\n            raise ValueError('keys must be distinct')\n        self.n = n = len(items)\n        self.op = op\n        self.identity = identity\n        self._keys = [0] + keys\n        self._values = [identity] + [value for (key, value) in items]\n        self._used = used\n        self._left = [0] * (n + 1)\n        self._right = [0] * (n + 1)\n        self._size = [0] + [1] * n\n        self._priority = [0]\n        state = 712367821\n        for _ in items:\n            state ^= state << 13 & 4294967295\n            state ^= state >> 17\n            state ^= state << 5 & 4294967295\n            self._priority.append(state)\n        self._forward = self._values[:]\n        self._backward = self._values[:]\n        self._roots = list(range(1, n + 1))\n        self._reverse = bytearray(n)\n        self._starts = FastSet(n + 1, range(n + 1))\n        self._seg = SegTree(op, identity, self._values[1:])\n\n    def _pull(self, node):\n        left = self._left[node]\n        right = self._right[node]\n        self._size[node] = self._size[left] + self._size[right] + 1\n        op = self.op\n        value = self._values[node]\n        self._forward[node] = op(op(self._forward[left], value), self._forward[right])\n        self._backward[node] = op(op(self._backward[right], value), self._backward[left])\n\n    def _split(self, root, key, by_key=False):\n        path = []\n        left = self._left\n        right = self._right\n        sizes = self._size\n        keys = self._keys\n        while root:\n            take = keys[root] < key if by_key else sizes[left[root]] < key\n            if take:\n                if not by_key:\n                    key -= sizes[left[root]] + 1\n                path.append(root)\n                root = right[root]\n            else:\n                path.append(-root)\n                root = left[root]\n        first = second = 0\n        for node in reversed(path):\n            if node > 0:\n                right[node] = first\n                self._pull(node)\n                first = node\n            else:\n                node = -node\n                left[node] = second\n                self._pull(node)\n                second = node\n        return (first, second)\n\n    def _union(self, first, second):\n        stack = [(first, second, False)]\n        results = []\n        left = self._left\n        right = self._right\n        priorities = self._priority\n        while stack:\n            (a, b, finish) = stack.pop()\n            if finish:\n                right[a] = results.pop()\n                left[a] = results.pop()\n                self._pull(a)\n                results.append(a)\n            elif not a or not b:\n                results.append(a or b)\n            else:\n                if priorities[a] < priorities[b]:\n                    (a, b) = (b, a)\n                (low, high) = self._split(b, self._keys[a], True)\n                stack.append((a, 0, True))\n                stack.append((right[a], high, False))\n                stack.append((left[a], low, False))\n        return results[0]\n\n    def _cut(self, index):\n        if index in self._starts:\n            return\n        start = self._starts.prev(index)\n        root = self._roots[start]\n        reverse = self._reverse[start]\n        count = index - start\n        if reverse:\n            count = self._size[root] - count\n        (first, second) = self._split(root, count)\n        if reverse:\n            (first, second) = (second, first)\n        self._roots[start] = first\n        self._roots[index] = second\n        self._reverse[index] = reverse\n        self._starts.add(index)\n        values = self._backward if reverse else self._forward\n        self._seg.set(start, values[first])\n        self._seg.set(index, values[second])\n\n    def _range(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError('invalid half-open range')\n\n    def get(self, index):\n        \"\"\"現在のindex番目にある(key, value)を返す。\"\"\"\n        if not 0 <= index < self.n:\n            raise IndexError('index out of range')\n        start = self._starts.prev(index)\n        root = self._roots[start]\n        rank = index - start\n        if self._reverse[start]:\n            rank = self._size[root] - 1 - rank\n        while True:\n            count = self._size[self._left[root]]\n            if rank == count:\n                return (self._keys[root], self._values[root])\n            if rank < count:\n                root = self._left[root]\n            else:\n                rank -= count + 1\n                root = self._right[root]\n\n    def set(self, index, key, value):\n        \"\"\"現在のindex番目のキーと値を置き換える。\"\"\"\n        (old, _) = self.get(index)\n        if key != old and key in self._used:\n            raise ValueError('key is already present')\n        self._cut(index)\n        self._cut(index + 1)\n        node = self._roots[index]\n        self._used.remove(old)\n        self._used.add(key)\n        self._keys[node] = key\n        self._values[node] = value\n        self._forward[node] = self._backward[node] = value\n        self._seg.set(index, value)\n\n    def sort(self, left, right, reverse=False):\n        \"\"\"半開区間[left, right)をキーの昇順、reverse=Trueなら降順にする。\"\"\"\n        self._range(left, right)\n        if right - left <= 1:\n            return\n        self._cut(left)\n        self._cut(right)\n        root = self._roots[left]\n        index = self._starts.next(left + 1)\n        while index < right:\n            root = self._union(root, self._roots[index])\n            self._roots[index] = 0\n            self._starts.discard(index)\n            self._seg.set(index, self.identity)\n            index = self._starts.next(index + 1)\n        self._roots[left] = root\n        self._reverse[left] = bool(reverse)\n        self._seg.set(left, self._backward[root] if reverse else self._forward[root])\n\n    def prod(self, left, right):\n        \"\"\"半開区間[left, right)の値を、現在の左から右への順でopで畳み込む。\"\"\"\n        self._range(left, right)\n        if left == right:\n            return self.identity\n        self._cut(left)\n        self._cut(right)\n        return self._seg.prod(left, right)\n\n    def all_prod(self):\n        \"\"\"現在の配列全体の値を、左から右への順でopで畳み込んだ値を返す。\"\"\"\n        return self._seg.all_prod()\n\n    def tolist(self):\n        \"\"\"現在の配列順の(key, value)を並べたlistを返す。\"\"\"\n        result = []\n        start = self._starts.next(0)\n        while start < self.n:\n            root = self._roots[start]\n            (left, right) = (self._left, self._right)\n            if self._reverse[start]:\n                (left, right) = (right, left)\n            stack = []\n            while root or stack:\n                while root:\n                    stack.append(root)\n                    root = left[root]\n                root = stack.pop()\n                result.append((self._keys[root], self._values[root]))\n                root = right[root]\n            start = self._starts.next(start + 1)\n        return result\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'SortableArray(%r)' % self.tolist()\n",
+      "bundledDependencies": [
+        "library_codex.ordered_set.FastSet",
+        "library_codex.segment_tree.SegTree"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 9
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "SortableArray",
+          "summary": "相異なる整数キーと値の配列を保持し、区間ソート・1要素の置換・現在の配列順での区間積を処理する。",
+          "description": "相異なる整数キーと値の配列を保持し、区間ソート・1要素の置換・現在の配列順での区間積を処理する。",
+          "searchTerms": [
+            "SortableArray",
+            "Sortable Array",
+            "SortableArray(op, identity, items)"
+          ],
+          "constructor": "SortableArray(op, identity, items)",
+          "constructorArguments": "op: 結合則を満たすop(left_value, right_value)。現在の配列で左にある値を先に渡す。引数を変更しないこと。交換則は不要。 · identity: opの左右の単位元。空区間の積にも使う。 · items: 現在の配列順の(key, value)のiterable。keyは相異なる整数。空でもよい。値は浅くコピーする。",
+          "constructorArgumentDetails": [
+            {
+              "name": "op",
+              "description": "結合則を満たすop(left_value, right_value)。現在の配列で左にある値を先に渡す。引数を変更しないこと。交換則は不要"
+            },
+            {
+              "name": "identity",
+              "description": "opの左右の単位元。空区間の積にも使う"
+            },
+            {
+              "name": "items",
+              "description": "現在の配列順の(key, value)の反復可能オブジェクト。keyは相異なる整数。空でもよい。値は浅くコピーする"
+            }
+          ],
+          "constructorReturns": "SortableArray instance",
+          "constructorReturnFormat": "SortableArray",
+          "constructorReturnDescription": "itemsの順序を保持する。sortでキー順に並べ替え、setで現在位置の要素を置換し、get・prod・tolistで内容を取得できる。",
+          "constructorCreates": "itemsの順序を保持する。sortでキー順に並べ替え、setで現在位置の要素を置換し、get・prod・tolistで内容を取得できる。",
+          "constructorComplexity": "O(N)時間・O(N)個の要素と集約値。opと値の保持をO(1)とする",
+          "constructorSourceLine": 14,
+          "methods": [
+            {
+              "name": "get",
+              "kind": "method",
+              "signature": "get(index)",
+              "summary": "現在位置indexのキーと値を取得する。",
+              "description": "現在位置indexのキーと値を取得する。",
+              "searchTerms": [
+                "get",
+                "get(index)"
+              ],
+              "arguments": "index: ソート後の現在位置。0≤index<N。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "ソート後の現在位置。0≤index<N。"
+                }
+              ],
+              "returns": "tuple[int, object] — (key, value)。現在のindex番目にある整数キーと対応する値。ソート前の添字ではない。",
+              "returnFormat": "tuple[int, object]",
+              "returnDescription": "(key, value)。現在のindex番目にある整数キーと対応する値。ソート前の添字ではない。",
+              "complexity": "期待O(log(N+2))時間",
+              "sourceLine": 129
+            },
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(index, key, value)",
+              "summary": "現在位置indexのキーと値を置き換える。他の要素とキーを重複させない。",
+              "description": "現在位置indexのキーと値を置き換える。他の要素とキーを重複させない。",
+              "searchTerms": [
+                "set",
+                "set(index, key, value)"
+              ],
+              "arguments": "index: ソート後の現在位置。0≤index<N。 · key: 置換後の整数キー。他の要素と重複するとValueError。 · value: キーと一緒に保持し、opで集約する値。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "ソート後の現在位置。0≤index<N。"
+                },
+                {
+                  "name": "key",
+                  "description": "置換後の整数キー。他の要素と重複するとValueError。"
+                },
+                {
+                  "name": "value",
+                  "description": "キーと一緒に保持し、opで集約する値。"
+                }
+              ],
+              "returns": "None — 値を返さない。index番目だけが(key, value)になる。自動で配列全体をソートしない。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。index番目だけが(key, value)になる。自動で配列全体をソートしない。",
+              "complexity": "期待O(T log(N+2))時間。Tはopの1回の時間",
+              "sourceLine": 148
+            },
+            {
+              "name": "sort",
+              "kind": "method",
+              "signature": "sort(left, right, reverse=False)",
+              "summary": "半開区間[left, right)をキーの昇順、reverse=Trueなら降順に並べ替える。値もキーと一緒に移動する。",
+              "description": "半開区間[left, right)をキーの昇順、reverse=Trueなら降順に並べ替える。値もキーと一緒に移動する。",
+              "searchTerms": [
+                "sort",
+                "sort(left, right, reverse=False)"
+              ],
+              "arguments": "left: 半開区間[left, right)の左端。 · right: 右端を含まない。0≤left≤right≤N。 · reverse: Falseならキー昇順、Trueなら降順。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "半開区間[left, right)の左端。"
+                },
+                {
+                  "name": "right",
+                  "description": "右端を含まない。0≤left≤right≤N。"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Falseならキー昇順、Trueなら降順。"
+                }
+              ],
+              "returns": "None — 値を返さない。指定区間の要素の順序を変更する。区間外は変わらない。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。指定区間の要素の順序を変更する。区間外は変わらない。",
+              "complexity": "1回は期待O(T(L log(L+2)+K log(N+2)))。Lは区間長、Kは統合するソート済み区間数。構築後Q操作全体では期待O(T(N+Q) log²(N+2))。Tはopの1回の時間",
+              "sourceLine": 163
+            },
+            {
+              "name": "prod",
+              "kind": "method",
+              "signature": "prod(left, right)",
+              "summary": "半開区間[left, right)の値を現在の左から右への順序で集約する。",
+              "description": "半開区間[left, right)の値を現在の左から右への順序で集約する。",
+              "searchTerms": [
+                "prod",
+                "prod(left, right)"
+              ],
+              "arguments": "left: 半開区間[left, right)の左端。 · right: 右端を含まない。0≤left≤right≤N。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "半開区間[left, right)の左端。"
+                },
+                {
+                  "name": "right",
+                  "description": "右端を含まない。0≤left≤right≤N。"
+                }
+              ],
+              "returns": "object — 値だけをopで左から順に畳み込んだ結果。キーは集約しない。空区間ならidentity。",
+              "returnFormat": "object",
+              "returnDescription": "値だけをopで左から順に畳み込んだ結果。キーは集約しない。空区間ならidentity。",
+              "complexity": "期待O(T log(N+2))時間。Tはopの1回の時間",
+              "sourceLine": 182
+            },
+            {
+              "name": "all_prod",
+              "kind": "method",
+              "signature": "all_prod()",
+              "summary": "現在の配列全体の値を左から右への順序で集約した結果を取得する。",
+              "description": "現在の配列全体の値を左から右への順序で集約した結果を取得する。",
+              "searchTerms": [
+                "all_prod",
+                "all prod",
+                "all_prod()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — prod(0, N)と同じ値。空配列ならidentity。",
+              "returnFormat": "object",
+              "returnDescription": "prod(0, N)と同じ値。空配列ならidentity。",
+              "complexity": "O(1)時間",
+              "sourceLine": 191
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "現在の配列順でキーと値を列挙する。",
+              "description": "現在の配列順でキーと値を列挙する。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[tuple[int, object]] — 長さNの新しいlist。result[i]は現在位置iの(key, value)。要素の値そのものは複製しない。",
+              "returnFormat": "list[tuple[int, object]]",
+              "returnDescription": "長さNの新しいlist。result[i]は現在位置iの(key, value)。要素の値そのものは複製しない。",
+              "complexity": "O(N)時間・追加O(N)個の組",
+              "sourceLine": 195
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "配列の要素数を返す。",
+              "description": "配列の要素数を返す。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 構築時の要素数N。ソートと置換では変わらない。",
+              "returnFormat": "int",
+              "returnDescription": "構築時の要素数N。ソートと置換では変わらない。",
+              "complexity": "O(1)時間",
+              "sourceLine": 215
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の配列順でキーと値を文字列にする。",
+              "description": "現在の配列順でキーと値を文字列にする。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じ内容のlist表記。内部の木や配列は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じ内容のlist表記。内部の木や配列は変更しない。",
+              "complexity": "O(N+S)時間。Sは各キーと値を文字列化する合計時間",
+              "sourceLine": 218
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "現在の配列順の内容を型名付きで文字列にする。",
+              "description": "現在の配列順の内容を型名付きで文字列にする。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — SortableArray([...])の形式の文字列。[...]は現在順の(key, value)のlist。",
+              "returnFormat": "str",
+              "returnDescription": "SortableArray([...])の形式の文字列。[...]は現在順の(key, value)のlist。",
+              "complexity": "O(N+S)時間。Sは各キーと値を文字列化する合計時間",
+              "sourceLine": 221
+            }
+          ]
+        }
+      ]
     },
     {
       "category": "range_query",

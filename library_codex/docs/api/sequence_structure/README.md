@@ -17,3 +17,4 @@
 | [`SWAGQueue`](SWAGQueue.md) | queue全体のmonoid積をpush・popと同じ償却計算量で保つSWAG。 | 0 | 1 | 7 |
 | [`SkewHeap`](SkewHeap.md) | heap同士のmeldと全要素へのlazy加算に対応するSkew Heap。 | 0 | 1 | 6 |
 | [`SlidingWindowMinimum`](SlidingWindowMinimum.md) | 固定幅の各連続部分列の最小値を線形時間で列挙する。 | 1 | 0 | 0 |
+| [`SortableArray`](SortableArray.md) | 区間をキーで並べ替えながら、値の更新と非可換な区間積を扱う。 | 0 | 1 | 9 |

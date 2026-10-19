@@ -8239,3 +8239,46 @@ API_DETAILS_BY_SYMBOL[("graph_spanning/MinimumDiameterSpanningTree.py", None, "m
         {"name": "edge_ids", "format": "list[int]", "description": "採用したedgesの添字を昇順に並べたもの。非空のグラフではn-1個。親頂点の配列ではない。"},
     ],
 }
+
+_sortable_module = "sequence_structure/SortableArray.py"
+SEARCH_TERMS_BY_MODULE[_sortable_module] = ("区間ソート", "区間合成", "range sort", "sortable segment tree")
+CLASS_DETAILS_BY_SYMBOL[(_sortable_module, "SortableArray")] = {
+    "description": "相異なる整数キーと値の配列を保持し、区間ソート・1要素の置換・現在の配列順での区間積を処理する。",
+    "argumentDescriptions": {
+        "op": "結合則を満たすop(left_value, right_value)。現在の配列で左にある値を先に渡す。引数を変更しないこと。交換則は不要。",
+        "identity": "opの左右の単位元。空区間の積にも使う。",
+        "items": "現在の配列順の(key, value)のiterable。keyは相異なる整数。空でもよい。値は浅くコピーする。",
+    },
+    "constructorCreates": "itemsの順序を保持する。sortでキー順に並べ替え、setで現在位置の要素を置換し、get・prod・tolistで内容を取得できる。",
+}
+COMPLEXITY_BY_MODULE[_sortable_module] = {
+    "SortableArray": "O(N)時間・O(N)個の要素と集約値。opと値の保持をO(1)とする",
+    "get": "期待O(log(N+2))時間",
+    "set": "期待O(T log(N+2))時間。Tはopの1回の時間",
+    "prod": "期待O(T log(N+2))時間。Tはopの1回の時間",
+    "sort": "1回は期待O(T(L log(L+2)+K log(N+2)))。Lは区間長、Kは統合するソート済み区間数。構築後Q操作全体では期待O(T(N+Q) log²(N+2))。Tはopの1回の時間",
+    "all_prod": "O(1)時間",
+    "tolist": "O(N)時間・追加O(N)個の組",
+    "__len__": "O(1)時間",
+    "__str__": "O(N+S)時間。Sは各キーと値を文字列化する合計時間",
+    "__repr__": "O(N+S)時間。Sは各キーと値を文字列化する合計時間",
+}
+for _method, _description, _format, _returns in (
+    ("get", "現在位置indexのキーと値を取得する。", "tuple[int, object]", "(key, value)。現在のindex番目にある整数キーと対応する値。ソート前の添字ではない。"),
+    ("set", "現在位置indexのキーと値を置き換える。他の要素とキーを重複させない。", "None", "値を返さない。index番目だけが(key, value)になる。自動で配列全体をソートしない。"),
+    ("sort", "半開区間[left, right)をキーの昇順、reverse=Trueなら降順に並べ替える。値もキーと一緒に移動する。", "None", "値を返さない。指定区間の要素の順序を変更する。区間外は変わらない。"),
+    ("prod", "半開区間[left, right)の値を現在の左から右への順序で集約する。", "object", "値だけをopで左から順に畳み込んだ結果。キーは集約しない。空区間ならidentity。"),
+    ("all_prod", "現在の配列全体の値を左から右への順序で集約した結果を取得する。", "object", "prod(0, N)と同じ値。空配列ならidentity。"),
+    ("tolist", "現在の配列順でキーと値を列挙する。", "list[tuple[int, object]]", "長さNの新しいlist。result[i]は現在位置iの(key, value)。要素の値そのものは複製しない。"),
+    ("__len__", "配列の要素数を返す。", "int", "構築時の要素数N。ソートと置換では変わらない。"),
+    ("__str__", "現在の配列順でキーと値を文字列にする。", "str", "tolist()と同じ内容のlist表記。内部の木や配列は変更しない。"),
+    ("__repr__", "現在の配列順の内容を型名付きで文字列にする。", "str", "SortableArray([...])の形式の文字列。[...]は現在順の(key, value)のlist。"),
+):
+    API_DETAILS_BY_SYMBOL[(_sortable_module, "SortableArray", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+        "argumentDescriptions": ({"left": "半開区間[left, right)の左端。", "right": "右端を含まない。0≤left≤right≤N。"}
+                                 if _method in ("prod", "sort") else {})
+                                | ({"index": "ソート後の現在位置。0≤index<N。"} if _method in ("get", "set") else {})
+                                | ({"key": "置換後の整数キー。他の要素と重複するとValueError。", "value": "キーと一緒に保持し、opで集約する値。"} if _method == "set" else {})
+                                | ({"reverse": "Falseならキー昇順、Trueなら降順。"} if _method == "sort" else {}),
+    }

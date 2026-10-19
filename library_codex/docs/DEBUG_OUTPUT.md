@@ -26,6 +26,7 @@ segment         # SegTree([1, 2, 3])
 | Union-Find | 連結成分ごとの2次元list | `groups()` |
 | IncrementalMSF | `(追加順ID, u, v, 重み)`をID順に並べたlist | `edges()` |
 | Implicit Treap・Dynamic Wavelet Matrix | 現在の列 | `tolist()` |
+| SortableArray | 現在の配列順の`(key, value)`のlist。O(N)時間で状態を変えない | `tolist()` |
 | TreapSet | keyの昇順list | `tolist()` |
 | PointSetRangeFrequency | 更新後の列を添字順に並べたlist | `tolist()` |
 | RangeMajority | 更新後の列を添字順に並べたlist。O(N)時間・追加領域 | `tolist()` |

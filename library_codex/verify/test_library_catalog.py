@@ -130,6 +130,33 @@ assert sys.get_int_max_str_digits() == 640
     assert result.returncode == 0, result.stderr
 
 
+def test_sortable_array_catalog_and_standalone(tmp_path):
+    module = module_by_path(load_catalog(), "library_codex.sequence_structure.SortableArray")
+    cls = module["classes"][0]
+    assert cls["name"] == "SortableArray"
+    methods = {item["name"]: item for item in cls["methods"]}
+    assert {"get", "set", "sort", "prod", "all_prod", "tolist"} <= methods.keys()
+    assert methods["get"]["returnFormat"] == "tuple[int, object]"
+    assert methods["__repr__"]["returnFormat"] == "str"
+    assert methods["__len__"]["returnFormat"] == "int"
+    assert "半開区間" in methods["sort"]["description"]
+    assert "期待" in methods["sort"]["complexity"]
+    assert "再帰は使わない" in module["article"]["markdown"]
+    code = module["standaloneCode"] + """
+data = SortableArray(lambda a,b:a+b, '', [(3,'C'), (1,'A'), (2,'B')])
+data.sort(0,3)
+assert data.prod(0,3) == 'ABC'
+data.sort(0,2,True)
+assert data.tolist() == [(2,'B'), (1,'A'), (3,'C')]
+data.set(1,4,'D')
+assert data.get(1) == (4,'D')
+assert data.all_prod() == 'BDC'
+"""
+    result = subprocess.run([sys.executable, "-I", "-c", code], cwd=tmp_path,
+                            text=True, capture_output=True, timeout=20)
+    assert result.returncode == 0, result.stderr
+
+
 def test_catalog_schema_has_explicit_symbol_names_and_live_counts():
     data = load_catalog()
     assert data["schemaVersion"] == 2
