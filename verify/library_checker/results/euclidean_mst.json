@@ -1,0 +1,195 @@
+{
+  "problem": "euclidean_mst",
+  "status": "local_passed",
+  "verificationKey": "e308ad4f43b17abe82e5d8078bd2c178cf1b4e4cc5a5054b632cf88830b4154d",
+  "sourceSha256": "6353412ef0e1302dba2eac0be7ddbae766f4417a9c60c868b63da1892385b184",
+  "modules": [
+    "library_codex.geometry.Delaunay",
+    "library_codex.geometry.EuclideanMST"
+  ],
+  "problemVersion": "4b15d32d3f50201019b8a762459d1547db5159ef7233184bb598dd5ee7c28409",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 29,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06001735300014843,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "all_same_00",
+      "status": "AC",
+      "seconds": 0.21800678399813478,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_00",
+      "status": "AC",
+      "seconds": 0.08495798199874116,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_01",
+      "status": "AC",
+      "seconds": 0.08780475799721899,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_02",
+      "status": "AC",
+      "seconds": 0.06841451699801837,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "mid_random_03",
+      "status": "AC",
+      "seconds": 0.08427651100282674,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "min_00",
+      "status": "AC",
+      "seconds": 0.0569498780023423,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "min_01",
+      "status": "AC",
+      "seconds": 0.05623444299999392,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "min_02",
+      "status": "AC",
+      "seconds": 0.05884868399880361,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 0.5619607510016067,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 1.827964628002519,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 2.4861715539991565,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 2.414774479002517,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 0.5582797589995607,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_05",
+      "status": "AC",
+      "seconds": 1.7816097569993872,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_06",
+      "status": "AC",
+      "seconds": 2.3018780019992846,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_random_07",
+      "status": "AC",
+      "seconds": 2.4208403430020553,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_colinear_00",
+      "status": "AC",
+      "seconds": 0.6064034749979328,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_colinear_01",
+      "status": "AC",
+      "seconds": 0.617916797997168,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_slender_00",
+      "status": "AC",
+      "seconds": 2.0171168750021025,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_slender_01",
+      "status": "AC",
+      "seconds": 1.7386839560022054,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_slender_02",
+      "status": "AC",
+      "seconds": 1.882796870002494,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "max_slender_03",
+      "status": "AC",
+      "seconds": 2.087270117997832,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_circle_00",
+      "status": "AC",
+      "seconds": 1.4642824420006946,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_circle_01",
+      "status": "AC",
+      "seconds": 1.4725239370018244,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_grid_00",
+      "status": "AC",
+      "seconds": 2.10205297200082,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "near_grid_01",
+      "status": "AC",
+      "seconds": 2.474180585002614,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_chunks_00",
+      "status": "AC",
+      "seconds": 1.4627949050009192,
+      "diagnostic": "ok OK\n"
+    },
+    {
+      "name": "small_chunks_01",
+      "status": "AC",
+      "seconds": 1.761924051999813,
+      "diagnostic": "ok OK\n"
+    }
+  ],
+  "verifiedAt": "2026-10-19T22:54:22.290986+00:00",
+  "onlineSubmission": null
+}

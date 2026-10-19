@@ -4734,6 +4734,8 @@ SEARCH_TERMS_BY_MODULE.update({
     "geometry/ConvexLayers.py": (
         "凸包レイヤー", "onion decomposition", "玉ねぎ分解",
     ),
+    "geometry/Delaunay.py": ("ドロネー三角形分割", "ドロネー分割", "平面三角形分割"),
+    "geometry/EuclideanMST.py": ("ユークリッド最小全域木", "平面点最小全域木", "EMST"),
     "graph_enumeration/MinimumCostCycle.py": (
         "最小重み閉路", "minimum weight cycle", "有向閉路",
     ),
@@ -4904,6 +4906,18 @@ API_DETAILS_BY_SYMBOL.update({
         "returnFormat": "list[list[tuple[number, number]]]",
         "returnDescription": "外側から内側の順に並ぶ層の list。各層は辞書順最小の点から反時計回りに並び、始点は末尾に重複しない。全点が共線の層は辞書順。空入力なら []。",
     },
+    ("geometry/Delaunay.py", None, "delaunay_edges"): {
+        "description": "整数座標の点をドロネー三角形分割し、その無向辺を返す。重複点は代表点へ長さ0の辺で接続する。",
+        "argumentDescriptions": {"points": "整数座標 (x, y) の列。重複・共線を許す。入力の並びは変更しない。"},
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "各 (u, v) は入力の points[u] と points[v] を結ぶ無向辺。順序と向きは未規定。共線なら座標順に隣り合う点の鎖、空入力や一点なら []。重複点は同じ座標の最初の入力番号へ接続する。",
+    },
+    ("geometry/EuclideanMST.py", None, "euclidean_mst"): {
+        "description": "全点を結ぶ線分の長さの合計が最小になる木を求める。ドロネー分割の候補辺だけを調べ、距離の二乗で厳密に比較する。",
+        "argumentDescriptions": {"points": "整数座標 (x, y) の列。同じ座標も別の入力点として数える。入力の並びは変更しない。"},
+        "returnFormat": "list[tuple[int, int]]",
+        "returnDescription": "長さ max(0, len(points) - 1) の list。各 (u, v) は points[u] と points[v] を結ぶ木の無向辺で、短い順に並ぶ。同じ長さの順序と辺の向きは未規定。距離の合計は含まない。空入力や一点なら []。",
+    },
     ("geometry/ConvexLayers.py", None, "onion_depth"): {
         "description": "各入力点が外側から何層目の凸包で除かれるかを求める。",
         "argumentDescriptions": {"points": "(x, y) の入力列。重複点も元の個数を保つ。整数座標なら幾何判定に丸め誤差を生じない。", "keep_collinear": "True なら辺の途中の点も同じ層で除く。False なら凸包の頂点だけを除く。"},
@@ -4928,6 +4942,8 @@ COMPLEXITY_BY_MODULE.update({
     "tree_query/TreeMonoid.py": {"TreeMonoid": "構築 O(V)", "set": "O(log V)", "get": "O(1)", "path_prod": "O(log^2 V)", "subtree_prod": "O(log V)"},
     "tree/SubtreeDiameter.py": {"subtree_diameters": "O(V) time、O(V) memory"},
     "geometry/ConvexLayers.py": {"convex_layers": "O(N log² N)。keep_collinear=False は最悪 O(N² log N)。追加空間 O(N)。N は入力点数。", "onion_depth": "O(N log² N)。keep_collinear=False は最悪 O(N² log N)。追加空間 O(N)。N は入力点数。"},
+    "geometry/Delaunay.py": {"delaunay_edges": "O(N log N)、追加空間 O(N)。N は入力点数。整数演算を定数時間とする。"},
+    "geometry/EuclideanMST.py": {"euclidean_mst": "O(N log N)、追加空間 O(N)。N は入力点数。整数演算を定数時間とする。"},
     "geometry/LineGeometry.py": {"projection": "O(1)", "reflection": "O(1)", "distance_to_line": "O(1)", "line_intersection": "O(1)"},
     "graph_enumeration/MinimumCostCycle.py": {"minimum_cost_cycle": "O(V E log V) time、O(V+E) memory"},
 })

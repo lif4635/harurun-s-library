@@ -1243,6 +1243,26 @@ def test_convex_layers_article_and_standalone():
         [(0, 0), (2, 0), (4, 0), (4, 4), (0, 4)], [(2, 2)]]
 
 
+def test_euclidean_mst_and_delaunay_article_and_standalone():
+    data = load_catalog()
+    for name, symbol in (("Delaunay", "delaunay_edges"), ("EuclideanMST", "euclidean_mst")):
+        module = module_by_path(data, "library_codex.geometry." + name)
+        assert module["classes"] == []
+        assert [item["name"] for item in module["functions"]] == [symbol]
+        function = module["functions"][0]
+        assert function["returnFormat"] == "list[tuple[int, int]]"
+        assert "points[u]" in function["returnDescription"]
+        assert "O(N log N)" in function["complexity"]
+        assert "## 使い方" in module["article"]["markdown"]
+        assert "Apache License, Version 2.0" in module["standaloneCode"]
+        assert "geo/euclidean_mst/sol/correct.cpp" in module["standaloneCode"]
+        assert "from library_codex" not in module["standaloneCode"]
+        namespace = {}
+        exec(module["standaloneCode"], namespace)
+        result = {tuple(sorted(edge)) for edge in namespace[symbol]([(0, 0), (3, 0), (0, 4)])}
+        assert result == ({(0, 1), (0, 2), (1, 2)} if name == "Delaunay" else {(0, 1), (0, 2)})
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")

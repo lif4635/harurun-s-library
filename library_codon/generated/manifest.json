@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 398,
+  "moduleCount": 400,
   "supportedCount": 7,
   "modules": [
     {
@@ -590,6 +590,18 @@
       "modulePath": "geometry/ConvexPolygon",
       "sourcePath": "library_codex/geometry/ConvexPolygon.py",
       "sourceSha256": "f3b77376d70865f2dd5e6a375da9a3c3561c11ad1ee35a8e5d115e1a45531e06",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/Delaunay",
+      "sourcePath": "library_codex/geometry/Delaunay.py",
+      "sourceSha256": "2c884dd351e65308cce0d9b38ab3f9c4e52271ce29d7992cda11faad6207f160",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "geometry/EuclideanMST",
+      "sourcePath": "library_codex/geometry/EuclideanMST.py",
+      "sourceSha256": "e5d2a8cbcdd3fd2b28bca8906fae2ea53392ba54f1953963fde2b21512ee4a56",
       "status": "unsupported"
     },
     {

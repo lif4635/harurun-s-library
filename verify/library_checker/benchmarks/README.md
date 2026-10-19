@@ -60,6 +60,7 @@
 | [enumerate_primes](enumerate_primes.json) | 3 / 10 | 5 | 1.893 | 112.7 | 一致 |
 | [enumerate_quotients](enumerate_quotients.json) | 3 / 26 | 5 | 0.296 | 132.4 | 一致 |
 | [enumerate_triangles](enumerate_triangles.json) | 3 / 17 | 5 | 0.246 | 88.1 | 一致 |
+| [euclidean_mst](euclidean_mst.json) | 3 / 29 | 5 | 2.485 | 223.9 | 一致 |
 | [exp_of_formal_power_series_sparse](exp_of_formal_power_series_sparse.json) | 3 / 25 | 5 | 0.245 | 122.7 | 一致 |
 | [exp_of_set_power_series](exp_of_set_power_series.json) | 3 / 13 | 5 | 2.261 | 345.6 | 一致 |
 | [factorial](factorial.json) | 3 / 7 | 5 | 3.433 | 99.9 | 一致 |

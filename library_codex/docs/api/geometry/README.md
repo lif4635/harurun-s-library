@@ -12,6 +12,8 @@
 | [`ConvexHull`](ConvexHull.md) | Andrewの単調鎖法による2次元凸包 | 1 | 0 | 0 |
 | [`ConvexLayers`](ConvexLayers.md) | 平面の点集合を凸包の境界ごとに剥がし、各層や各点の深さを求める。 | 2 | 0 | 0 |
 | [`ConvexPolygon`](ConvexPolygon.md) | Logarithmic point containment for a static convex polygon. | 0 | 1 | 2 |
+| [`Delaunay`](Delaunay.md) | 平面の整数座標からドロネー三角形分割の辺を求める。 | 1 | 0 | 0 |
+| [`EuclideanMST`](EuclideanMST.md) | 平面上の点をユークリッド距離の合計が最小になる木で結ぶ。 | 1 | 0 | 0 |
 | [`FurthestPair`](FurthestPair.md) | 2次元点集合で距離が最大の2点を求める。 | 1 | 0 | 0 |
 | [`LineGeometry`](LineGeometry.md) | Projection, reflection, distance, and intersection for infinite lines. | 4 | 0 | 0 |
 | [`MinimumEnclosingCircle`](MinimumEnclosingCircle.md) | 点集合を覆う半径最小の円を求める。 | 2 | 0 | 0 |

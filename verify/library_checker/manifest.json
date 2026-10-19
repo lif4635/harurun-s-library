@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 249,
-    "unimplemented": 4
+    "local_passed": 250,
+    "unimplemented": 3
   },
   "problems": [
     {
@@ -915,10 +915,13 @@
       "title": "Euclidean MST",
       "category": "geo",
       "url": "https://judge.yosupo.jp/problem/euclidean_mst",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.geometry.Delaunay",
+        "library_codex.geometry.EuclideanMST"
+      ],
+      "solution": "solutions/euclidean_mst.py",
+      "result": "results/euclidean_mst.json"
     },
     {
       "name": "eulerian_trail_directed",

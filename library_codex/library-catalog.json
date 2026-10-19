@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-19T18:26:47+00:00",
+  "generatedAt": "2026-10-19T23:01:41+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "9a29f12e0f57b6c445c40d84ef6689a0ed9755345fcf038b976184ade1a7cbd3",
-  "inputStamp": "4d4e61c9ad87e6d39b899657013707f52bef19cde9f795c3fff8f018fb0686dd",
+  "sourceFingerprint": "2075a525572f2ea4b3ede97afc0b429ac49cd4190bb0f5e1e2b9dd2bd23dcb7e",
+  "inputStamp": "2de9b1698685a86d295fd15bb2cb6ed45baec1b558681eeb54618dab3cfac34b",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 398,
-    "articles": 107,
-    "functions": 532,
+    "modules": 400,
+    "articles": 109,
+    "functions": 534,
     "classes": 239,
     "methods": 1521,
     "tests": 1029
@@ -361,8 +361,8 @@
       "label": "幾何",
       "domain": "geometry",
       "domainLabel": "Geometry",
-      "modules": 16,
-      "functions": 24,
+      "modules": 18,
+      "functions": 26,
       "classes": 2,
       "methods": 3
     },
@@ -441,7 +441,7 @@
     {
       "slug": "geometry",
       "label": "Geometry",
-      "modules": 16
+      "modules": 18
     },
     {
       "slug": "game",
@@ -72522,6 +72522,141 @@
           ]
         }
       ]
+    },
+    {
+      "category": "geometry",
+      "categoryLabel": "幾何",
+      "domain": "geometry",
+      "domainLabel": "Geometry",
+      "name": "Delaunay",
+      "modulePath": "library_codex.geometry.Delaunay",
+      "summary": "平面の整数座標からドロネー三角形分割の辺を求める。",
+      "capabilities": [
+        "delaunay_edges: 整数座標の点をドロネー三角形分割し、その無向辺を返す。重複点は代表点へ長さ0の辺で接続する。"
+      ],
+      "article": {
+        "title": "ドロネー三角形分割",
+        "markdown": "平面上の整数座標を結び、どの三角形の外接円の内部にも他の点がない三角形分割の辺を返す。\n\n## 主な機能\n\n`delaunay_edges(points)`は、全点対を列挙せずに`O(N)`本の候補辺を作る。ユークリッド最小全域木を作るのに十分な辺が含まれるため、距離で結ぶ完全グラフを小さくして扱いたいときに使える。最小全域木だけが必要なら、`geometry/EuclideanMST`の`euclidean_mst`を直接使う。\n\n構築は`O(N log N)`時間、追加空間は`O(N)`。整数の算術演算を定数時間と数えた計算量で、巨大整数では桁数に応じた費用もかかる。\n\n## 使い方\n\n```python\nfrom library_codex.geometry.Delaunay import delaunay_edges\n\npoints = [(0, 0), (3, 0), (0, 4)]\nedges = delaunay_edges(points)\nassert sorted(tuple(sorted(edge)) for edge in edges) == [(0, 1), (0, 2), (1, 2)]\n```\n\n- `edges`: 無向辺のlist。各`(u, v)`は`points[u]`と`points[v]`を結ぶ。\n- 辺の順序と向きは未規定。三角形のlistや、頂点を巡る順序ではない。\n- 全点が一直線上なら、座標順に隣り合う点を結ぶ鎖を返す。空入力や一点では`[]`。\n\n## 重複点と同一円周上の点\n\n- 同じ座標は一つの代表点で三角形分割し、残りの入力点は代表点へ長さ0の辺で結ぶ。返る番号は重複を除く前の入力番号で、代表点にはその座標が最初に現れた番号を使う。\n- 4点以上が同じ円周上にある場合、対角線の選び方は一意ではない。そのうち一つの三角形分割を返す。取り得る全対角線を列挙するAPIではない。\n- 浮動小数点座標は対象外。向きと外接円の判定には整数演算だけを使う。\n\n## 参考\n\n[Library Checkerの公式実装](https://github.com/yosupo06/library-checker-problems/blob/1814c4e5205517e368bb57a8d1127eb961cfeaae/geo/euclidean_mst/sol/correct.cpp)の分割統治法を基にしている。standalone codeにもApache License 2.0の表記を含む。",
+        "sourcePath": "library_codex/docs/articles/geometry/Delaunay.md"
+      },
+      "searchTerms": [
+        "Delaunay",
+        "library_codex.geometry.Delaunay",
+        "library codex geometry Delaunay",
+        "geometry/Delaunay.py",
+        "幾何",
+        "ドロネー三角形分割",
+        "ドロネー分割",
+        "平面三角形分割"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/geometry/Delaunay.py",
+      "inputFingerprint": "e0f5821f940fabedab2025089b01826dc24c0043bcb043d53768d2929fb87d1f",
+      "importCode": "from library_codex.geometry.Delaunay import delaunay_edges",
+      "sourceCode": "\"\"\"平面の整数座標からドロネー三角形分割の辺を求める。\n\nAdapted from yosupo06/library-checker-problems, revision\n1814c4e5205517e368bb57a8d1127eb961cfeaae,\ngeo/euclidean_mst/sol/correct.cpp.\nChanges: iterative Python implementation, flat half-edge arrays, paired edge\nreuse, empty input support and original-index duplicate connections.\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy at https://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\"\"\"\n\n\nclass _Triangulation:\n    def __init__(self, points):\n        self.x = [p[0] for p in points]\n        self.y = [p[1] for p in points]\n        self.to = []\n        self.cw = []\n        self.ccw = []\n        self.alive = bytearray()\n        self.free = []\n\n    def _new(self, u, v):\n        if self.free:\n            e = self.free.pop()\n            self.to[e], self.to[e ^ 1] = v, u\n            self.cw[e] = self.ccw[e] = e\n            self.cw[e ^ 1] = self.ccw[e ^ 1] = e ^ 1\n            self.alive[e >> 1] = 1\n        else:\n            e = len(self.to)\n            self.to.extend((v, u))\n            self.cw.extend((e, e + 1))\n            self.ccw.extend((e, e + 1))\n            self.alive.append(1)\n        return e, e ^ 1\n\n    def _erase(self, e):\n        cw, ccw = self.cw, self.ccw\n        for edge in (e, e ^ 1):\n            cw[ccw[edge]] = cw[edge]\n            ccw[cw[edge]] = ccw[edge]\n        self.alive[e >> 1] = 0\n        self.free.append(e & -2)\n\n    def _after_ccw(self, e, at):\n        cw, ccw = self.cw, self.ccw\n        ccw[e] = ccw[at]\n        cw[ccw[at]] = e\n        cw[e] = at\n        ccw[at] = e\n\n    def _after_cw(self, e, at):\n        cw, ccw = self.cw, self.ccw\n        cw[e] = cw[at]\n        ccw[cw[at]] = e\n        ccw[e] = at\n        cw[at] = e\n\n    def _cross(self, a, b, c):\n        x, y = self.x, self.y\n        return (x[b] - x[a]) * (y[c] - y[a]) - (y[b] - y[a]) * (x[c] - x[a])\n\n    def _inside(self, a, b, c, d):\n        x, y = self.x, self.y\n        ax, ay = x[a] - x[d], y[a] - y[d]\n        bx, by = x[b] - x[d], y[b] - y[d]\n        cx, cy = x[c] - x[d], y[c] - y[d]\n        return ((bx * cy - by * cx) * (ax * ax + ay * ay)\n                + (cx * ay - cy * ax) * (bx * bx + by * by)\n                + (ax * by - ay * bx) * (cx * cx + cy * cy)) > 0\n\n    def _extreme(self, a, ea, minimum):\n        best, edge = a, ea\n        p, ep = self.to[ea], self.ccw[ea ^ 1]\n        while ep != ea:\n            if (p < best) if minimum else (p > best):\n                best, edge = p, ep\n            p, ep = self.to[ep], self.ccw[ep ^ 1]\n        return best, edge\n\n    def _bottom(self, a, ea, b, eb):\n        to, cw, ccw = self.to, self.cw, self.ccw\n        while True:\n            ap = to[cw[ea]]\n            if self._cross(b, a, ap) > 0:\n                a, ea = ap, cw[ea] ^ 1\n                continue\n            bp = to[eb]\n            if self._cross(a, b, bp) < 0:\n                b, eb = bp, ccw[eb ^ 1]\n                continue\n            return a, ea, b, eb\n\n    def _merge(self, a, ea, b, eb):\n        to, cw, ccw = self.to, self.cw, self.ccw\n        a, ea = self._extreme(a, ea, False)\n        b, eb = self._extreme(b, eb, True)\n        al, eal, bl, ebl = self._bottom(a, ea, b, eb)\n        bu, ebu, au, eau = self._bottom(b, eb, a, ea)\n        ebl, ebu = cw[ebl], cw[ebu]\n        abl, bal = self._new(al, bl)\n        self._after_cw(abl, eal)\n        self._after_ccw(bal, ebl)\n        if al == au:\n            eau = abl\n        if bl == bu:\n            ebu = bal\n        ap, eap, bp, ebp = al, eal, bl, ebl\n        while ap != au or bp != bu:\n            a2, b2 = to[eap], to[ebp]\n            na, nb = ccw[eap], cw[ebp]\n            if eap != eau and na != abl and self._inside(ap, bp, a2, to[na]):\n                self._erase(eap)\n                eap = na\n                continue\n            if ebp != ebu and nb != bal and self._inside(b2, ap, bp, to[nb]):\n                self._erase(ebp)\n                ebp = nb\n                continue\n            choose_a = ebp == ebu\n            if eap != eau and ebp != ebu:\n                if self._cross(ap, bp, b2) < 0:\n                    choose_a = True\n                elif self._cross(a2, ap, bp) < 0:\n                    choose_a = False\n                else:\n                    choose_a = self._inside(ap, bp, b2, a2)\n            if choose_a:\n                na = ccw[eap ^ 1]\n                ab, ba = self._new(a2, bp)\n                self._after_cw(ab, na)\n                self._after_ccw(ba, ebp)\n                ap, eap = a2, na\n            else:\n                nb = cw[ebp ^ 1]\n                ba, ab = self._new(b2, ap)\n                self._after_ccw(ba, nb)\n                self._after_cw(ab, eap)\n                bp, ebp = b2, nb\n        return al, abl\n\n    def build(self):\n        tasks = [(0, len(self.x), False)]\n        results = []\n        while tasks:\n            l, r, merge = tasks.pop()\n            if merge:\n                b, eb = results.pop()\n                a, ea = results.pop()\n                results.append(self._merge(a, ea, b, eb))\n            elif r - l <= 3:\n                uv, vu = self._new(l, l + 1)\n                if r - l == 2:\n                    results.append((l, uv))\n                    continue\n                vw, wv = self._new(l + 1, l + 2)\n                cross = self._cross(l, l + 1, l + 2)\n                if cross == 0:\n                    self._after_ccw(vu, vw)\n                else:\n                    uw, wu = self._new(l, l + 2)\n                    insert = self._after_cw if cross > 0 else self._after_ccw\n                    insert(uv, uw)\n                    insert(vw, vu)\n                    insert(wu, wv)\n                results.append((l + 1, vu) if cross < 0 else (l, uv))\n            else:\n                m = (l + r) >> 1\n                tasks.extend(((l, r, True), (m, r, False), (l, m, False)))\n\n\ndef delaunay_edges(points):\n    \"\"\"整数座標のドロネー分割の辺を入力点の番号の組で返す。時間O(N log N)、空間O(N)。\"\"\"\n    order = sorted(range(len(points)), key=points.__getitem__)\n    unique, ids, result = [], [], []\n    for i in order:\n        point = points[i]\n        if unique and point == unique[-1]:\n            result.append((ids[-1], i))\n        else:\n            unique.append(point)\n            ids.append(i)\n    if len(unique) >= 2:\n        tree = _Triangulation(unique)\n        tree.build()\n        to = tree.to\n        result.extend((ids[to[e]], ids[to[e ^ 1]]) for e in range(0, len(to), 2) if tree.alive[e >> 1])\n    return result\n",
+      "standaloneCode": "\"\"\"平面の整数座標からドロネー三角形分割の辺を求める。\n\nAdapted from yosupo06/library-checker-problems, revision\n1814c4e5205517e368bb57a8d1127eb961cfeaae,\ngeo/euclidean_mst/sol/correct.cpp.\nChanges: iterative Python implementation, flat half-edge arrays, paired edge\nreuse, empty input support and original-index duplicate connections.\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy at https://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\"\"\"\n\n\nclass _Triangulation:\n    def __init__(self, points):\n        self.x = [p[0] for p in points]\n        self.y = [p[1] for p in points]\n        self.to = []\n        self.cw = []\n        self.ccw = []\n        self.alive = bytearray()\n        self.free = []\n\n    def _new(self, u, v):\n        if self.free:\n            e = self.free.pop()\n            self.to[e], self.to[e ^ 1] = v, u\n            self.cw[e] = self.ccw[e] = e\n            self.cw[e ^ 1] = self.ccw[e ^ 1] = e ^ 1\n            self.alive[e >> 1] = 1\n        else:\n            e = len(self.to)\n            self.to.extend((v, u))\n            self.cw.extend((e, e + 1))\n            self.ccw.extend((e, e + 1))\n            self.alive.append(1)\n        return e, e ^ 1\n\n    def _erase(self, e):\n        cw, ccw = self.cw, self.ccw\n        for edge in (e, e ^ 1):\n            cw[ccw[edge]] = cw[edge]\n            ccw[cw[edge]] = ccw[edge]\n        self.alive[e >> 1] = 0\n        self.free.append(e & -2)\n\n    def _after_ccw(self, e, at):\n        cw, ccw = self.cw, self.ccw\n        ccw[e] = ccw[at]\n        cw[ccw[at]] = e\n        cw[e] = at\n        ccw[at] = e\n\n    def _after_cw(self, e, at):\n        cw, ccw = self.cw, self.ccw\n        cw[e] = cw[at]\n        ccw[cw[at]] = e\n        ccw[e] = at\n        cw[at] = e\n\n    def _cross(self, a, b, c):\n        x, y = self.x, self.y\n        return (x[b] - x[a]) * (y[c] - y[a]) - (y[b] - y[a]) * (x[c] - x[a])\n\n    def _inside(self, a, b, c, d):\n        x, y = self.x, self.y\n        ax, ay = x[a] - x[d], y[a] - y[d]\n        bx, by = x[b] - x[d], y[b] - y[d]\n        cx, cy = x[c] - x[d], y[c] - y[d]\n        return ((bx * cy - by * cx) * (ax * ax + ay * ay)\n                + (cx * ay - cy * ax) * (bx * bx + by * by)\n                + (ax * by - ay * bx) * (cx * cx + cy * cy)) > 0\n\n    def _extreme(self, a, ea, minimum):\n        best, edge = a, ea\n        p, ep = self.to[ea], self.ccw[ea ^ 1]\n        while ep != ea:\n            if (p < best) if minimum else (p > best):\n                best, edge = p, ep\n            p, ep = self.to[ep], self.ccw[ep ^ 1]\n        return best, edge\n\n    def _bottom(self, a, ea, b, eb):\n        to, cw, ccw = self.to, self.cw, self.ccw\n        while True:\n            ap = to[cw[ea]]\n            if self._cross(b, a, ap) > 0:\n                a, ea = ap, cw[ea] ^ 1\n                continue\n            bp = to[eb]\n            if self._cross(a, b, bp) < 0:\n                b, eb = bp, ccw[eb ^ 1]\n                continue\n            return a, ea, b, eb\n\n    def _merge(self, a, ea, b, eb):\n        to, cw, ccw = self.to, self.cw, self.ccw\n        a, ea = self._extreme(a, ea, False)\n        b, eb = self._extreme(b, eb, True)\n        al, eal, bl, ebl = self._bottom(a, ea, b, eb)\n        bu, ebu, au, eau = self._bottom(b, eb, a, ea)\n        ebl, ebu = cw[ebl], cw[ebu]\n        abl, bal = self._new(al, bl)\n        self._after_cw(abl, eal)\n        self._after_ccw(bal, ebl)\n        if al == au:\n            eau = abl\n        if bl == bu:\n            ebu = bal\n        ap, eap, bp, ebp = al, eal, bl, ebl\n        while ap != au or bp != bu:\n            a2, b2 = to[eap], to[ebp]\n            na, nb = ccw[eap], cw[ebp]\n            if eap != eau and na != abl and self._inside(ap, bp, a2, to[na]):\n                self._erase(eap)\n                eap = na\n                continue\n            if ebp != ebu and nb != bal and self._inside(b2, ap, bp, to[nb]):\n                self._erase(ebp)\n                ebp = nb\n                continue\n            choose_a = ebp == ebu\n            if eap != eau and ebp != ebu:\n                if self._cross(ap, bp, b2) < 0:\n                    choose_a = True\n                elif self._cross(a2, ap, bp) < 0:\n                    choose_a = False\n                else:\n                    choose_a = self._inside(ap, bp, b2, a2)\n            if choose_a:\n                na = ccw[eap ^ 1]\n                ab, ba = self._new(a2, bp)\n                self._after_cw(ab, na)\n                self._after_ccw(ba, ebp)\n                ap, eap = a2, na\n            else:\n                nb = cw[ebp ^ 1]\n                ba, ab = self._new(b2, ap)\n                self._after_ccw(ba, nb)\n                self._after_cw(ab, eap)\n                bp, ebp = b2, nb\n        return al, abl\n\n    def build(self):\n        tasks = [(0, len(self.x), False)]\n        results = []\n        while tasks:\n            l, r, merge = tasks.pop()\n            if merge:\n                b, eb = results.pop()\n                a, ea = results.pop()\n                results.append(self._merge(a, ea, b, eb))\n            elif r - l <= 3:\n                uv, vu = self._new(l, l + 1)\n                if r - l == 2:\n                    results.append((l, uv))\n                    continue\n                vw, wv = self._new(l + 1, l + 2)\n                cross = self._cross(l, l + 1, l + 2)\n                if cross == 0:\n                    self._after_ccw(vu, vw)\n                else:\n                    uw, wu = self._new(l, l + 2)\n                    insert = self._after_cw if cross > 0 else self._after_ccw\n                    insert(uv, uw)\n                    insert(vw, vu)\n                    insert(wu, wv)\n                results.append((l + 1, vu) if cross < 0 else (l, uv))\n            else:\n                m = (l + r) >> 1\n                tasks.extend(((l, r, True), (m, r, False), (l, m, False)))\n\n\ndef delaunay_edges(points):\n    \"\"\"整数座標のドロネー分割の辺を入力点の番号の組で返す。時間O(N log N)、空間O(N)。\"\"\"\n    order = sorted(range(len(points)), key=points.__getitem__)\n    unique, ids, result = [], [], []\n    for i in order:\n        point = points[i]\n        if unique and point == unique[-1]:\n            result.append((ids[-1], i))\n        else:\n            unique.append(point)\n            ids.append(i)\n    if len(unique) >= 2:\n        tree = _Triangulation(unique)\n        tree.build()\n        to = tree.to\n        result.extend((ids[to[e]], ids[to[e ^ 1]]) for e in range(0, len(to), 2) if tree.alive[e >> 1])\n    return result\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "delaunay_edges",
+          "kind": "function",
+          "signature": "delaunay_edges(points)",
+          "summary": "整数座標の点をドロネー三角形分割し、その無向辺を返す。重複点は代表点へ長さ0の辺で接続する。",
+          "description": "整数座標の点をドロネー三角形分割し、その無向辺を返す。重複点は代表点へ長さ0の辺で接続する。",
+          "searchTerms": [
+            "delaunay_edges",
+            "delaunay edges",
+            "delaunay_edges(points)"
+          ],
+          "arguments": "points: 整数座標 (x, y) の列。重複・共線を許す。入力の並びは変更しない。",
+          "argumentDetails": [
+            {
+              "name": "points",
+              "description": "整数座標 (x, y) の列。重複・共線を許す。入力の並びは変更しない。"
+            }
+          ],
+          "returns": "list[tuple[int, int]] — 各 (u, v) は入力の points[u] と points[v] を結ぶ無向辺。順序と向きは未規定。共線なら座標順に隣り合う点の鎖、空入力や一点なら []。重複点は同じ座標の最初の入力番号へ接続する。",
+          "returnFormat": "list[tuple[int, int]]",
+          "returnDescription": "各 (u, v) は入力の points[u] と points[v] を結ぶ無向辺。順序と向きは未規定。共線なら座標順に隣り合う点の鎖、空入力や一点なら []。重複点は同じ座標の最初の入力番号へ接続する。",
+          "complexity": "O(N log N)、追加空間 O(N)。N は入力点数。整数演算を定数時間とする。",
+          "sourceLine": 179
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "geometry",
+      "categoryLabel": "幾何",
+      "domain": "geometry",
+      "domainLabel": "Geometry",
+      "name": "EuclideanMST",
+      "modulePath": "library_codex.geometry.EuclideanMST",
+      "summary": "平面上の点をユークリッド距離の合計が最小になる木で結ぶ。",
+      "capabilities": [
+        "euclidean_mst: 全点を結ぶ線分の長さの合計が最小になる木を求める。ドロネー分割の候補辺だけを調べ、距離の二乗で厳密に比較する。"
+      ],
+      "article": {
+        "title": "ユークリッド最小全域木",
+        "markdown": "平面上の全点を、線分の長さの合計が最小になる木で結ぶ。\n\n## 主な機能\n\n`euclidean_mst(points)`へ整数座標の列を渡すと、選んだ辺を入力点の番号で返す。`N`点間の全辺を作らず、ドロネー三角形分割の辺だけを候補にしてKruskal法を行う。構築は`O(N log N)`時間、追加空間は`O(N)`。\n\n距離の大小は距離の二乗で比較し、平方根や丸め誤差を使わずに辺を選ぶ。計算量は整数の算術演算を定数時間と数えたもので、巨大整数では桁数に応じた費用もかかる。\n\n## 使い方\n\n```python\nfrom math import hypot\nfrom library_codex.geometry.EuclideanMST import euclidean_mst\n\npoints = [(0, 0), (3, 0), (0, 4)]\nedges = euclidean_mst(points)\nlength = sum(hypot(points[u][0] - points[v][0], points[u][1] - points[v][1]) for u, v in edges)\nassert length == 7.0\n```\n\n- `edges`: 長さ`max(0, len(points) - 1)`のlist。各`(u, v)`は`points[u]`と`points[v]`を結ぶ無向辺。\n- 辺は長さの短い順。同じ長さの辺の順序・向き・どの最小全域木を選ぶかは未規定。\n- `length`: 使用例で別に計算した長さの合計。関数自体は合計値を返さない。\n\n## 注意点\n\n- 同じ座標も別の入力点として扱い、長さ0の辺で接続する。全点が一直線上でも使える。\n- 空入力や一点なら`[]`を返す。入力の並びは変更しない。\n- 距離の二乗で辺を選んでも同じ最小全域木になるが、二乗を足した値は元の距離の合計ではない。\n- 浮動小数点座標は対象外。辺の選択は整数で厳密に行い、長さの表示に必要な平方根だけを呼出し側で計算する。",
+        "sourcePath": "library_codex/docs/articles/geometry/EuclideanMST.md"
+      },
+      "searchTerms": [
+        "EuclideanMST",
+        "Euclidean MST",
+        "library_codex.geometry.EuclideanMST",
+        "library codex geometry Euclidean MST",
+        "geometry/EuclideanMST.py",
+        "幾何",
+        "ユークリッド最小全域木",
+        "平面点最小全域木",
+        "EMST"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/geometry/EuclideanMST.py",
+      "inputFingerprint": "e3e4eecd6b2589a683bb261d294ca5712d1411e16925a39a5091c74ec6422103",
+      "importCode": "from library_codex.geometry.EuclideanMST import euclidean_mst",
+      "sourceCode": "\"\"\"平面上の点をユークリッド距離の合計が最小になる木で結ぶ。\"\"\"\n\nfrom library_codex.geometry.Delaunay import delaunay_edges\n\n\ndef euclidean_mst(points):\n    \"\"\"最小全域木の辺を入力点の番号の組で返す。時間O(N log N)、追加空間O(N)。\"\"\"\n    edges = delaunay_edges(points)\n    x, y = [p[0] for p in points], [p[1] for p in points]\n    edges.sort(key=lambda e: (x[e[0]] - x[e[1]]) ** 2 + (y[e[0]] - y[e[1]]) ** 2)\n    parent = [-1] * len(points)\n    result = []\n    for u, v in edges:\n        a, b = u, v\n        while parent[a] >= 0:\n            if parent[parent[a]] >= 0:\n                parent[a] = parent[parent[a]]\n            a = parent[a]\n        while parent[b] >= 0:\n            if parent[parent[b]] >= 0:\n                parent[b] = parent[parent[b]]\n            b = parent[b]\n        if a == b:\n            continue\n        if parent[a] > parent[b]:\n            a, b = b, a\n        parent[a] += parent[b]\n        parent[b] = a\n        result.append((u, v))\n        if len(result) == len(points) - 1:\n            break\n    return result\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: geometry/Delaunay.py\n\"\"\"平面の整数座標からドロネー三角形分割の辺を求める。\n\nAdapted from yosupo06/library-checker-problems, revision\n1814c4e5205517e368bb57a8d1127eb961cfeaae,\ngeo/euclidean_mst/sol/correct.cpp.\nChanges: iterative Python implementation, flat half-edge arrays, paired edge\nreuse, empty input support and original-index duplicate connections.\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy at https://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\"\"\"\n\nclass _geometry_delaunay_Triangulation:\n\n    def __init__(self, points):\n        self.x = [p[0] for p in points]\n        self.y = [p[1] for p in points]\n        self.to = []\n        self.cw = []\n        self.ccw = []\n        self.alive = bytearray()\n        self.free = []\n\n    def _new(self, u, v):\n        if self.free:\n            e = self.free.pop()\n            (self.to[e], self.to[e ^ 1]) = (v, u)\n            self.cw[e] = self.ccw[e] = e\n            self.cw[e ^ 1] = self.ccw[e ^ 1] = e ^ 1\n            self.alive[e >> 1] = 1\n        else:\n            e = len(self.to)\n            self.to.extend((v, u))\n            self.cw.extend((e, e + 1))\n            self.ccw.extend((e, e + 1))\n            self.alive.append(1)\n        return (e, e ^ 1)\n\n    def _erase(self, e):\n        (cw, ccw) = (self.cw, self.ccw)\n        for edge in (e, e ^ 1):\n            cw[ccw[edge]] = cw[edge]\n            ccw[cw[edge]] = ccw[edge]\n        self.alive[e >> 1] = 0\n        self.free.append(e & -2)\n\n    def _after_ccw(self, e, at):\n        (cw, ccw) = (self.cw, self.ccw)\n        ccw[e] = ccw[at]\n        cw[ccw[at]] = e\n        cw[e] = at\n        ccw[at] = e\n\n    def _after_cw(self, e, at):\n        (cw, ccw) = (self.cw, self.ccw)\n        cw[e] = cw[at]\n        ccw[cw[at]] = e\n        ccw[e] = at\n        cw[at] = e\n\n    def _cross(self, a, b, c):\n        (x, y) = (self.x, self.y)\n        return (x[b] - x[a]) * (y[c] - y[a]) - (y[b] - y[a]) * (x[c] - x[a])\n\n    def _inside(self, a, b, c, d):\n        (x, y) = (self.x, self.y)\n        (ax, ay) = (x[a] - x[d], y[a] - y[d])\n        (bx, by) = (x[b] - x[d], y[b] - y[d])\n        (cx, cy) = (x[c] - x[d], y[c] - y[d])\n        return (bx * cy - by * cx) * (ax * ax + ay * ay) + (cx * ay - cy * ax) * (bx * bx + by * by) + (ax * by - ay * bx) * (cx * cx + cy * cy) > 0\n\n    def _extreme(self, a, ea, minimum):\n        (best, edge) = (a, ea)\n        (p, ep) = (self.to[ea], self.ccw[ea ^ 1])\n        while ep != ea:\n            if p < best if minimum else p > best:\n                (best, edge) = (p, ep)\n            (p, ep) = (self.to[ep], self.ccw[ep ^ 1])\n        return (best, edge)\n\n    def _bottom(self, a, ea, b, eb):\n        (to, cw, ccw) = (self.to, self.cw, self.ccw)\n        while True:\n            ap = to[cw[ea]]\n            if self._cross(b, a, ap) > 0:\n                (a, ea) = (ap, cw[ea] ^ 1)\n                continue\n            bp = to[eb]\n            if self._cross(a, b, bp) < 0:\n                (b, eb) = (bp, ccw[eb ^ 1])\n                continue\n            return (a, ea, b, eb)\n\n    def _merge(self, a, ea, b, eb):\n        (to, cw, ccw) = (self.to, self.cw, self.ccw)\n        (a, ea) = self._extreme(a, ea, False)\n        (b, eb) = self._extreme(b, eb, True)\n        (al, eal, bl, ebl) = self._bottom(a, ea, b, eb)\n        (bu, ebu, au, eau) = self._bottom(b, eb, a, ea)\n        (ebl, ebu) = (cw[ebl], cw[ebu])\n        (abl, bal) = self._new(al, bl)\n        self._after_cw(abl, eal)\n        self._after_ccw(bal, ebl)\n        if al == au:\n            eau = abl\n        if bl == bu:\n            ebu = bal\n        (ap, eap, bp, ebp) = (al, eal, bl, ebl)\n        while ap != au or bp != bu:\n            (a2, b2) = (to[eap], to[ebp])\n            (na, nb) = (ccw[eap], cw[ebp])\n            if eap != eau and na != abl and self._inside(ap, bp, a2, to[na]):\n                self._erase(eap)\n                eap = na\n                continue\n            if ebp != ebu and nb != bal and self._inside(b2, ap, bp, to[nb]):\n                self._erase(ebp)\n                ebp = nb\n                continue\n            choose_a = ebp == ebu\n            if eap != eau and ebp != ebu:\n                if self._cross(ap, bp, b2) < 0:\n                    choose_a = True\n                elif self._cross(a2, ap, bp) < 0:\n                    choose_a = False\n                else:\n                    choose_a = self._inside(ap, bp, b2, a2)\n            if choose_a:\n                na = ccw[eap ^ 1]\n                (ab, ba) = self._new(a2, bp)\n                self._after_cw(ab, na)\n                self._after_ccw(ba, ebp)\n                (ap, eap) = (a2, na)\n            else:\n                nb = cw[ebp ^ 1]\n                (ba, ab) = self._new(b2, ap)\n                self._after_ccw(ba, nb)\n                self._after_cw(ab, eap)\n                (bp, ebp) = (b2, nb)\n        return (al, abl)\n\n    def build(self):\n        tasks = [(0, len(self.x), False)]\n        results = []\n        while tasks:\n            (l, r, merge) = tasks.pop()\n            if merge:\n                (b, eb) = results.pop()\n                (a, ea) = results.pop()\n                results.append(self._merge(a, ea, b, eb))\n            elif r - l <= 3:\n                (uv, vu) = self._new(l, l + 1)\n                if r - l == 2:\n                    results.append((l, uv))\n                    continue\n                (vw, wv) = self._new(l + 1, l + 2)\n                cross = self._cross(l, l + 1, l + 2)\n                if cross == 0:\n                    self._after_ccw(vu, vw)\n                else:\n                    (uw, wu) = self._new(l, l + 2)\n                    insert = self._after_cw if cross > 0 else self._after_ccw\n                    insert(uv, uw)\n                    insert(vw, vu)\n                    insert(wu, wv)\n                results.append((l + 1, vu) if cross < 0 else (l, uv))\n            else:\n                m = l + r >> 1\n                tasks.extend(((l, r, True), (m, r, False), (l, m, False)))\n\ndef delaunay_edges(points):\n    \"\"\"整数座標のドロネー分割の辺を入力点の番号の組で返す。時間O(N log N)、空間O(N)。\"\"\"\n    order = sorted(range(len(points)), key=points.__getitem__)\n    (unique, ids, result) = ([], [], [])\n    for i in order:\n        point = points[i]\n        if unique and point == unique[-1]:\n            result.append((ids[-1], i))\n        else:\n            unique.append(point)\n            ids.append(i)\n    if len(unique) >= 2:\n        tree = _geometry_delaunay_Triangulation(unique)\n        tree.build()\n        to = tree.to\n        result.extend(((ids[to[e]], ids[to[e ^ 1]]) for e in range(0, len(to), 2) if tree.alive[e >> 1]))\n    return result\n\n# 本体\n\"\"\"平面上の点をユークリッド距離の合計が最小になる木で結ぶ。\"\"\"\n\ndef euclidean_mst(points):\n    \"\"\"最小全域木の辺を入力点の番号の組で返す。時間O(N log N)、追加空間O(N)。\"\"\"\n    edges = delaunay_edges(points)\n    (x, y) = ([p[0] for p in points], [p[1] for p in points])\n    edges.sort(key=lambda e: (x[e[0]] - x[e[1]]) ** 2 + (y[e[0]] - y[e[1]]) ** 2)\n    parent = [-1] * len(points)\n    result = []\n    for (u, v) in edges:\n        (a, b) = (u, v)\n        while parent[a] >= 0:\n            if parent[parent[a]] >= 0:\n                parent[a] = parent[parent[a]]\n            a = parent[a]\n        while parent[b] >= 0:\n            if parent[parent[b]] >= 0:\n                parent[b] = parent[parent[b]]\n            b = parent[b]\n        if a == b:\n            continue\n        if parent[a] > parent[b]:\n            (a, b) = (b, a)\n        parent[a] += parent[b]\n        parent[b] = a\n        result.append((u, v))\n        if len(result) == len(points) - 1:\n            break\n    return result\n",
+      "bundledDependencies": [
+        "library_codex.geometry.Delaunay"
+      ],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "euclidean_mst",
+          "kind": "function",
+          "signature": "euclidean_mst(points)",
+          "summary": "全点を結ぶ線分の長さの合計が最小になる木を求める。ドロネー分割の候補辺だけを調べ、距離の二乗で厳密に比較する。",
+          "description": "全点を結ぶ線分の長さの合計が最小になる木を求める。ドロネー分割の候補辺だけを調べ、距離の二乗で厳密に比較する。",
+          "searchTerms": [
+            "euclidean_mst",
+            "euclidean mst",
+            "euclidean_mst(points)"
+          ],
+          "arguments": "points: 整数座標 (x, y) の列。同じ座標も別の入力点として数える。入力の並びは変更しない。",
+          "argumentDetails": [
+            {
+              "name": "points",
+              "description": "整数座標 (x, y) の列。同じ座標も別の入力点として数える。入力の並びは変更しない。"
+            }
+          ],
+          "returns": "list[tuple[int, int]] — 長さ max(0, len(points) - 1) の list。各 (u, v) は points[u] と points[v] を結ぶ木の無向辺で、短い順に並ぶ。同じ長さの順序と辺の向きは未規定。距離の合計は含まない。空入力や一点なら []。",
+          "returnFormat": "list[tuple[int, int]]",
+          "returnDescription": "長さ max(0, len(points) - 1) の list。各 (u, v) は points[u] と points[v] を結ぶ木の無向辺で、短い順に並ぶ。同じ長さの順序と辺の向きは未規定。距離の合計は含まない。空入力や一点なら []。",
+          "complexity": "O(N log N)、追加空間 O(N)。N は入力点数。整数演算を定数時間とする。",
+          "sourceLine": 6
+        }
+      ],
+      "classes": []
     },
     {
       "category": "geometry",

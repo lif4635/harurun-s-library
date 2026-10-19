@@ -24,6 +24,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <https://unlicense.org>
 
 Exception: library_codex/range_query/StaticRangeInversions.py,
-library_codex/geometry/ConvexLayers.py, and their
+library_codex/geometry/ConvexLayers.py, library_codex/geometry/Delaunay.py, and their
 generated copies are distributed under the Apache License, Version 2.0.
 See library_codex/licenses/README.md and library_codex/licenses/Apache-2.0.txt.
