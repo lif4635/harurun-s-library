@@ -1,0 +1,171 @@
+{
+  "runtime": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "baselineRevision": "ccc0335adba8522f9f66e0a351a6a5e1cd9d7c54",
+  "sourceSha256": "16726d853d818d37938c72464e4589dab9bdd6448ec492e36d6619f4ed466442",
+  "scope": "run only; tables prepared before timing; fresh process; same input and callback",
+  "repeat": 5,
+  "runs": [
+    {
+      "n": 1000000000,
+      "mode": "current",
+      "seconds": 0.049015221999979985,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "baseline",
+      "seconds": 25.680701414000055,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "current",
+      "seconds": 0.044070029000067734,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "current",
+      "seconds": 0.02941263299999264,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "baseline",
+      "seconds": 25.230368704000057,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "current",
+      "seconds": 0.03399485700003879,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "current",
+      "seconds": 0.03512102100000902,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "baseline",
+      "seconds": 25.044656739999937,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "baseline",
+      "seconds": 24.793029745000013,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "current",
+      "seconds": 0.04832468600000084,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "current",
+      "seconds": 0.031070755999962785,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "baseline",
+      "seconds": 1.7250479980000364,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "baseline",
+      "seconds": 1.7394815249999738,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "baseline",
+      "seconds": 24.758000756,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "baseline",
+      "seconds": 1.8087901800000736,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "baseline",
+      "seconds": 1.7376527949999172,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "current",
+      "seconds": 0.050203157999931136,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 1000000000,
+      "mode": "current",
+      "seconds": 0.04589421200000743,
+      "result": 13223420,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "baseline",
+      "seconds": 1.8174805979999746,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    },
+    {
+      "n": 100000000,
+      "mode": "current",
+      "seconds": 0.03174236900008509,
+      "result": 53692297,
+      "baselineSourceSha256": "1ae1d7abcc3e79d0821736b226f205ee9aaf8c6efef9a7d5dd3be6c4b51ad6e1"
+    }
+  ],
+  "summary": [
+    {
+      "n": 100000000,
+      "mode": "baseline",
+      "medianSeconds": 1.7394815249999738
+    },
+    {
+      "n": 100000000,
+      "mode": "current",
+      "medianSeconds": 0.03174236900008509
+    },
+    {
+      "n": 1000000000,
+      "mode": "baseline",
+      "medianSeconds": 25.044656739999937
+    },
+    {
+      "n": 1000000000,
+      "mode": "current",
+      "medianSeconds": 0.04832468600000084
+    }
+  ]
+}

@@ -39,6 +39,7 @@
 
 ## 数論・多項式・線形代数
 
+- [乗法的関数の総和](MULTIPLICATIVE_SUM_BENCHMARK.md)
 - [上下限付き単調増加列の数え上げ](INCREASING_SEQUENCES_BENCHMARK.md)
 - [64bit整数の畳み込み](CONVOLUTION64_BENCHMARK.md)
 - [大量の階乗問い合わせ](FACTORIAL_QUERIES_BENCHMARK.md)

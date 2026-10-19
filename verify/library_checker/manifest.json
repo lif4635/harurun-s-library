@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 245,
-    "unimplemented": 8
+    "local_passed": 246,
+    "unimplemented": 7
   },
   "problems": [
     {
@@ -2946,10 +2946,13 @@
       "title": "Sum of Multiplicative Function",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/sum_of_multiplicative_function",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Sieve",
+        "library_codex.number_theory.MultiplicativeFunctions"
+      ],
+      "solution": "solutions/sum_of_multiplicative_function.py",
+      "result": "results/sum_of_multiplicative_function.json"
     },
     {
       "name": "sum_of_multiplicative_function_large",

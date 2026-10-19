@@ -1226,7 +1226,10 @@ API_DETAILS_BY_SYMBOL.update({
         "description": "valueに対応する商列tableのindexを返す。",
     },
     ("number_theory/MultiplicativeFunctions.py", "MultiplicativePrefixSum", "index"): {
-        "description": "valueに対応するprefix tableのindexを返す。",
+        "description": "商集合の値に対応する集計表の添字を返す。",
+        "argumentDescriptions": {"value": "limit//iとして現れる正の値。範囲外や商集合にない値は検査しない。"},
+        "returnFormat": "int",
+        "returnDescription": "prime_count_table・prime_sum_table・runに渡す表の添字。表の0番は未使用で、正の商は降順に並ぶ。",
     },
     ("tree/DSUOnTree.py", "DSUOnTree", "index"): {
         "description": "頂点がEuler順の配列のどこにあるかを求める。",
@@ -1265,7 +1268,13 @@ API_DETAILS_BY_SYMBOL.update({
         "description": "initializeとupdateを使って焼きなましを進め、最良の状態と評価を返す。",
     },
     ("number_theory/MultiplicativeFunctions.py", "MultiplicativePrefixSum", "run"): {
-        "description": "素数上のprefix値と素数冪の値から、乗法的関数のprefix和を求める。",
+        "description": "素数に対する累積和と素数冪の値から、1からlimitまでの乗法的関数の総和を求める。",
+        "argumentDescriptions": {
+            "prime_prefix": "長さengine.sizeの列。各商xについてprime_prefix[engine.index(x)]に、x以下の素数pのf(p)の合計を入れる。0番は未使用。入力は変更しない。",
+            "prime_power": "prime_power(p, e)でf(p**e)を返す関数。pは素数、eは1以上。同じ引数には同じ値を返す。呼出し回数や順序に依存させない。",
+        },
+        "returnFormat": "number",
+        "returnDescription": "f(1)+…+f(limit)の1個の値。f(1)=1とする。mod指定時はその余り、limit=0なら0。各商ごとの総和を並べたlistではない。",
     },
     ("optimization/RollbackMo.py", "RollbackMo", "run"): {
         "description": "登録した区間queryをrollback Moで処理し、query ID順に結果を返す。",
@@ -8401,6 +8410,43 @@ for _method, _description, _format, _returns in (
     API_DETAILS_BY_SYMBOL[(_star_cut_module, "DynamicStarMinCut", _method)] = {
         "description": _description, "returnFormat": _format, "returnDescription": _returns,
         "argumentDescriptions": {"vertex": "中心に接続する元頂点。0≤vertex<N。", "weight": "置換後の非負整数重み。差分加算ではない。"} if _method == "set" else {},
+    }
+
+_mf_module = "number_theory/MultiplicativeFunctions.py"
+CLASS_DETAILS_BY_SYMBOL[(_mf_module, "MultiplicativePrefixSum")] = {
+    "description": "素数と素数冪の情報を使い、全整数を列挙せずに乗法的関数の総和を計算する。",
+    "argumentDescriptions": {"limit": "総和の上限N。0以上。", "mod": "法を指定するとrunとprime_sum_tableの結果を余りにする。Noneなら整数・Fractionなどの通常の算術で計算する。正の法を使う。"},
+    "constructorCreates": "sqrt(N)以下の素数と商集合の添字を保持する。prime_count_table・prime_sum_tableで素数の情報を作り、runで総和を求められる。構築だけでは集計表を計算しない。",
+}
+COMPLEXITY_BY_MODULE.setdefault(_mf_module, {}).update({
+    "DirichletQuotientSeries": "O(sqrt(N))時間・メモリ。N=n",
+    "DirichletQuotientSeries.index": "O(1)時間",
+    "DirichletQuotientSeries.value": "O(1)時間",
+    "DirichletQuotientSeries.__getitem__": "O(1)時間",
+    "DirichletQuotientSeries.__setitem__": "O(1)回の算術演算",
+    "DirichletQuotientSeries.prefix": "O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n",
+    "DirichletQuotientSeries.difference": "O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n",
+    "dirichlet_multiply": "O(N^(2/3) log(N+2))回の算術演算・O(sqrt(N))追加メモリ。N=first.n",
+    "dirichlet_divide": "O(N^(2/3) log(N+2))回の算術演算と逆元計算1回・O(sqrt(N))追加メモリ。N=divisor.n",
+    "mobius_values": "O(N)時間・メモリ。N=limit",
+    "divisor_count_values": "O(N)回の算術演算・O(N)個の整数。N=limit",
+    "divisor_sum_values": "O(N)回の算術演算・O(N)個の整数。N=limit",
+    "totient_values": "O(N)時間・メモリ。N=limit",
+    "EnumerateMultiplicativePrefixSum": "O(N^(3/4)(1+Tg)+sqrt(N)Th)時間・O(sqrt(N))メモリ。N=n、Tg・Thはprefix_g・prefix_hの1回の時間。算術演算をO(1)とする",
+    "EnumerateMultiplicativePrefixSum.get": "O(1)時間",
+    "MultiplicativePrefixSum": "O(sqrt(N) log log(N+3))時間・O(sqrt(N))メモリ。N=limit。整数演算をO(1)とする",
+    "MultiplicativePrefixSum.index": "O(1)時間",
+    "MultiplicativePrefixSum.prime_count_table": "O(N^(3/4)/log(N+2))時間・O(sqrt(N))追加メモリ。整数演算をO(1)とする",
+    "MultiplicativePrefixSum.prime_sum_table": "O(N^(3/4)/log(N+2))回の整数演算・O(sqrt(N))個の整数。mod指定時も途中の素数和は整数で保持する",
+    "MultiplicativePrefixSum.run": "O((D+1)(T+1))時間・O(sqrt(N))追加メモリ。Dは2≤x≤Nのうちx×最大素因数(x)≤Nを満たす整数の個数、Tはprime_powerの1回の時間。算術演算をO(1)とする。素数の集計表の作成時間は含まない",
+    "MultiplicativePrefixSum.min_25_sieve": "O(N^(3/4)(T+1)/log(N+2))時間・O(sqrt(N))追加メモリ。N=limit、Tはprime_powerの1回の時間。算術演算をO(1)とする",
+})
+for _method, _description, _returns in (
+    ("prime_count_table", "商集合の各値以下にある素数の個数を集計する。", "長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数の個数。mod指定時も個数をそのまま返す。0番は未使用、limit=0なら空list。"),
+    ("prime_sum_table", "商集合の各値以下にある素数の和を集計する。", "長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数の和。mod指定時はその余り。0番は未使用、limit=0なら空list。"),
+):
+    API_DETAILS_BY_SYMBOL[(_mf_module, "MultiplicativePrefixSum", _method)] = {
+        "description": _description, "returnFormat": "list[int]", "returnDescription": _returns,
     }
 
 _rect_affine_module = "spatial_structure/RectangleAffineSum.py"

@@ -148,7 +148,6 @@ number_theory/IntegerArithmetic
 number_theory/IntegerDivision
 number_theory/ModularArithmetic
 number_theory/ModularRoot
-number_theory/MultiplicativeFunctions
 number_theory/PythagoreanTriples
 number_theory/QuadraticEquationMod
 number_theory/TetrationMod

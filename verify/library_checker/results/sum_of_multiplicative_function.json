@@ -1,0 +1,201 @@
+{
+  "problem": "sum_of_multiplicative_function",
+  "status": "local_passed",
+  "verificationKey": "5ca5e00988ff717d904382941ed7341fcef86eee8956d1c9619cc638ae42dcc2",
+  "sourceSha256": "c8575685e8fb9663d7ef6235fe35d851043da72acc83e742d502d20b76ccb3d8",
+  "modules": [
+    "library_codex.prime.Sieve",
+    "library_codex.number_theory.MultiplicativeFunctions"
+  ],
+  "problemVersion": "19a86ffdf3d393eef4c2a728fe151a640a381d9f184d78ab1580f67df789328c",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 10.0,
+  "expectedCases": 30,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.08529663699999901,
+      "diagnostic": "ok 10 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.0769911749999892,
+      "diagnostic": "ok \"181804\"\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 3.0965231029999813,
+      "diagnostic": "ok \"22268225\"\n"
+    },
+    {
+      "name": "small_00",
+      "status": "AC",
+      "seconds": 0.07706299199998057,
+      "diagnostic": "ok 100 tokens\n"
+    },
+    {
+      "name": "random_00",
+      "status": "AC",
+      "seconds": 3.6141668739999773,
+      "diagnostic": "ok \"37160554\"\n"
+    },
+    {
+      "name": "random_01",
+      "status": "AC",
+      "seconds": 2.2753152899999805,
+      "diagnostic": "ok \"368662478\"\n"
+    },
+    {
+      "name": "random_02",
+      "status": "AC",
+      "seconds": 2.263471594000066,
+      "diagnostic": "ok \"285258056\"\n"
+    },
+    {
+      "name": "random_03",
+      "status": "AC",
+      "seconds": 1.852546512999993,
+      "diagnostic": "ok \"444487482\"\n"
+    },
+    {
+      "name": "random_04",
+      "status": "AC",
+      "seconds": 1.0470207310000887,
+      "diagnostic": "ok \"200130335\"\n"
+    },
+    {
+      "name": "max_00",
+      "status": "AC",
+      "seconds": 3.5167778349999708,
+      "diagnostic": "ok \"71142723\"\n"
+    },
+    {
+      "name": "max_01",
+      "status": "AC",
+      "seconds": 3.237701637999976,
+      "diagnostic": "ok \"449038428\"\n"
+    },
+    {
+      "name": "max_02",
+      "status": "AC",
+      "seconds": 3.348855748999995,
+      "diagnostic": "ok \"398349607\"\n"
+    },
+    {
+      "name": "max_03",
+      "status": "AC",
+      "seconds": 3.3039257629999383,
+      "diagnostic": "ok \"212298023\"\n"
+    },
+    {
+      "name": "max_04",
+      "status": "AC",
+      "seconds": 3.339541549000046,
+      "diagnostic": "ok \"302328137\"\n"
+    },
+    {
+      "name": "boundaryA_00",
+      "status": "AC",
+      "seconds": 3.4924023759999727,
+      "diagnostic": "ok \"102067564\"\n"
+    },
+    {
+      "name": "boundaryA_01",
+      "status": "AC",
+      "seconds": 2.5799031689999765,
+      "diagnostic": "ok \"319462901\"\n"
+    },
+    {
+      "name": "boundaryA_02",
+      "status": "AC",
+      "seconds": 2.4308981780000067,
+      "diagnostic": "ok \"356611026\"\n"
+    },
+    {
+      "name": "boundaryA_03",
+      "status": "AC",
+      "seconds": 2.0659504999999854,
+      "diagnostic": "ok \"379412766\"\n"
+    },
+    {
+      "name": "boundaryA_04",
+      "status": "AC",
+      "seconds": 1.196563079999919,
+      "diagnostic": "ok \"167543079\"\n"
+    },
+    {
+      "name": "boundaryB_00",
+      "status": "AC",
+      "seconds": 3.5465058390000195,
+      "diagnostic": "ok \"137345549\"\n"
+    },
+    {
+      "name": "boundaryB_01",
+      "status": "AC",
+      "seconds": 2.1189799180000364,
+      "diagnostic": "ok \"87238699\"\n"
+    },
+    {
+      "name": "boundaryB_02",
+      "status": "AC",
+      "seconds": 2.140295474000027,
+      "diagnostic": "ok \"15297832\"\n"
+    },
+    {
+      "name": "boundaryB_03",
+      "status": "AC",
+      "seconds": 1.7396230909999986,
+      "diagnostic": "ok \"44294883\"\n"
+    },
+    {
+      "name": "boundaryB_04",
+      "status": "AC",
+      "seconds": 1.1413842550000481,
+      "diagnostic": "ok \"179707459\"\n"
+    },
+    {
+      "name": "hack_wrong_zky_method_00",
+      "status": "AC",
+      "seconds": 0.16549358600002506,
+      "diagnostic": "ok 162 tokens\n"
+    },
+    {
+      "name": "hack_wrong_zky_method_01",
+      "status": "AC",
+      "seconds": 0.17943858499995713,
+      "diagnostic": "ok 126 tokens\n"
+    },
+    {
+      "name": "hack_wrong_zky_method_02",
+      "status": "AC",
+      "seconds": 0.18419792899999266,
+      "diagnostic": "ok 108 tokens\n"
+    },
+    {
+      "name": "hack_wrong_zky_method_03",
+      "status": "AC",
+      "seconds": 3.46165173899999,
+      "diagnostic": "ok \"122279554\"\n"
+    },
+    {
+      "name": "hack_wrong_zky_method_04",
+      "status": "AC",
+      "seconds": 3.1305038689999947,
+      "diagnostic": "ok \"148344380\"\n"
+    },
+    {
+      "name": "hack_wrong_zky_method_05",
+      "status": "AC",
+      "seconds": 2.842764142000078,
+      "diagnostic": "ok \"458631641\"\n"
+    }
+  ],
+  "verifiedAt": "2026-10-19T15:51:51.813865+00:00",
+  "onlineSubmission": null
+}

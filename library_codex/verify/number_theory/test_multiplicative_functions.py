@@ -1,5 +1,8 @@
 from fractions import Fraction
 from math import isqrt
+from random import Random
+
+import pytest
 
 from library_codex.number_theory.MultiplicativeFunctions import (
     DirichletQuotientSeries,
@@ -62,7 +65,6 @@ def test_multiplicative_value_enumerators():
 
 def test_enumerate_prefix_sum_deconvolution():
     for n in range(1, 1000):
-        # h = 1 * 1 is divisor count, g = 1; recover prefix of f = 1.
         prefix_divisors = [0] * (n + 1)
         for divisor in range(1, n + 1):
             for multiple in range(divisor, n + 1, divisor):
@@ -99,4 +101,58 @@ def test_totient_sum_moduli():
         expected = sum(LinearSieve(n).phi)
         for mod in (1, 2, 6, 998244353):
             assert sum_totient_fast(n, mod) == expected % mod
+
+
+def test_summatory_random_prime_powers():
+    rng = Random(39172)
+    for n in [0, 1, 2, 8, 9, 27, 64, 125, 729] + [rng.randrange(2, 3000) for _ in range(30)]:
+        sieve = LinearSieve(n)
+        values = {}
+        for p in sieve.primes:
+            power, exponent = p, 1
+            while power <= n:
+                values[p, exponent] = rng.randrange(-20, 21)
+                power *= p
+                exponent += 1
+        expected = 0
+        for x in range(1, n + 1):
+            y, value = x, 1
+            for p in sieve.primes:
+                if p * p > y:
+                    break
+                exponent = 0
+                while y % p == 0:
+                    y //= p
+                    exponent += 1
+                if exponent:
+                    value *= values[p, exponent]
+            if y > 1:
+                value *= values[y, 1]
+            expected += value
+        for mod in (None, 1, 6, 469762049):
+            engine = MultiplicativePrefixSum(n, mod)
+            prefix = [0] * engine.size
+            cumulative = [0] * (n + 1)
+            for p in sieve.primes:
+                cumulative[p] = values[p, 1]
+            for x in range(1, n + 1):
+                cumulative[x] += cumulative[x - 1]
+            for x in range(1, n + 1):
+                if n // (n // x) == x:
+                    prefix[engine.index(x)] = cumulative[x]
+            before = prefix[:]
+            result = expected if mod is None else expected % mod
+            assert engine.run(prefix, lambda p, e: values[p, e]) == result
+            assert engine.run(prefix, lambda p, e: values[p, e]) == result
+            assert prefix == before
+
+
+def test_summatory_fraction_and_invalid_table():
+    engine = MultiplicativePrefixSum(100)
+    prefix = [Fraction(x, 2) for x in engine.prime_count_table()]
+    primes = LinearSieve(100).primes
+    expected = sum(Fraction(1, 2) ** sum(x % p == 0 for p in primes) for x in range(1, 101))
+    assert engine.run(prefix, lambda p, e: Fraction(1, 2)) == expected
+    with pytest.raises(ValueError, match="wrong size"):
+        engine.run([], lambda p, e: 1)
 

@@ -1195,6 +1195,21 @@ def test_dynamic_star_cut_articles_and_standalone():
     assert namespace["extreme_vertex_tree"](2, [(0, 1, 5)]) == ([(), (), (0, 1)], [5, 5, 0])
 
 
+def test_multiplicative_sum_article_and_standalone():
+    module = module_by_path(load_catalog(), "library_codex.number_theory.MultiplicativeFunctions")
+    assert "## 主な機能" in module["article"]["markdown"]
+    assert "0番は未使用" in module["article"]["markdown"]
+    cls = next(item for item in module["classes"] if item["name"] == "MultiplicativePrefixSum")
+    methods = {method["name"]: method for method in cls["methods"]}
+    assert "最大素因数" in methods["run"]["complexity"]
+    assert "1個の値" in methods["run"]["returnDescription"]
+    assert "そのまま" in methods["prime_count_table"]["returnDescription"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    engine = namespace["MultiplicativePrefixSum"](10)
+    assert engine.run([2 * x for x in engine.prime_count_table()], lambda p, e: e + 1) == 27
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")

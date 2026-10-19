@@ -335,28 +335,52 @@ class MultiplicativePrefixSum:
             return 0
         if len(prime_prefix) != self.size:
             raise ValueError("prime prefix table has the wrong size")
-        answer = prime_prefix[self.index(self.limit)] + 1
-        stack = []
-        for index in range(len(self.primes) - 1, -1, -1):
-            stack.append((index, 1, self.primes[index], 1))
+        limit, square, size, mod = self.limit, self.square, self.size, self.mod
+        primes = self.primes
+        count = len(primes)
+        first = [prime_power(p, 1) for p in primes]
+        second = [prime_power(p, 2) for p in primes]
+        base = [prime_prefix[size - p] for p in primes]
+        answer = prime_prefix[self.index(limit)] + 1
+        stack = [(i, 1, limit // primes[i], 1) for i in range(count)]
         while stack:
-            index, exponent, product, coefficient = stack.pop()
-            prime = self.primes[index]
-            answer += coefficient * prime_power(prime, exponent + 1)
-            remaining = self.limit // product
+            index, exponent, remaining, coefficient = stack.pop()
+            prime = primes[index]
+            if exponent == 1:
+                value, next_value = first[index], second[index]
+            else:
+                value = prime_power(prime, exponent)
+                next_value = prime_power(prime, exponent + 1)
+            answer += coefficient * next_value
             if remaining >= prime * prime:
                 stack.append((index, exponent + 1,
-                              product * prime, coefficient))
-            coefficient *= prime_power(prime, exponent)
+                              remaining // prime, coefficient))
+            coefficient *= value
+            if mod is not None:
+                coefficient %= mod
+            position = size - remaining if remaining <= square else limit // remaining
             answer += coefficient * (
-                prime_prefix[self.index(remaining)]
-                - prime_prefix[self.index(prime)]
+                prime_prefix[position] - base[index]
             )
-            for next_index in range(len(self.primes) - 1, index, -1):
-                next_prime = self.primes[next_index]
-                if next_prime * next_prime <= remaining:
+            for next_index in range(index + 1, count):
+                next_prime = primes[next_index]
+                next_square = next_prime * next_prime
+                if next_square > remaining:
+                    break
+                quotient = remaining // next_prime
+                if next_square <= quotient:
                     stack.append((next_index, 1,
-                                  product * next_prime, coefficient))
+                                  quotient, coefficient))
+                else:
+                    position = size - quotient if quotient <= square else limit // quotient
+                    value = second[next_index] + first[next_index] * (
+                        prime_prefix[position] - base[next_index]
+                    )
+                    if mod is not None:
+                        value %= mod
+                    answer += coefficient * value
+            if mod is not None:
+                answer %= mod
         return self._normalize(answer)
 
     def min_25_sieve(self, prime_prefix, prime_power):
