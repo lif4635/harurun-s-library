@@ -34,6 +34,7 @@
 
 ## 数論・多項式・線形代数
 
+- [平方因子を持たない整数の計数](SQUARE_FREE_BENCHMARK.md)
 - [固定法の離散対数](FIXED_DISCRETE_LOG_BENCHMARK.md)
 - [2冪法の乗法畳み込み](MULTIPLICATIVE_CONVOLUTION_POW2_BENCHMARK.md)
 - [巨大整数の10進・16進乗算](BIG_INTEGER_MULTIPLICATION_BENCHMARK.md)

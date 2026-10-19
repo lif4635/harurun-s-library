@@ -130,12 +130,55 @@ def prime_count(number):
     return large[0] + 1
 
 def count_square_free(number):
-    """Count positive square-free integers <= number in O(sqrt(number))."""
+    """1以上number以下で、1以外の平方数を因子に持たない整数を数える。"""
     if number <= 0:
         return 0
-    limit = isqrt(number)
-    mobius = LinearSieve(limit).mobius
-    return sum((mobius[value] * (number // (value * value)) for value in range(1, limit + 1)))
+    count = max(1, int(number ** 0.2))
+    while (count + 1) ** 5 <= number:
+        count += 1
+    while count ** 5 > number:
+        count -= 1
+    limit = isqrt(number // count)
+    prefix = [1] * (limit + 1)
+    composite = bytearray(limit + 1)
+    for prime in range(2, limit + 1):
+        if not composite[prime]:
+            prefix[prime] = -1
+            for multiple in range(2 * prime, limit + 1, prime):
+                composite[multiple] = 1
+                prefix[multiple] = -prefix[multiple]
+            square = prime * prime
+            for multiple in range(square, limit + 1, square):
+                prefix[multiple] = 0
+    del composite
+    prefix[0] = 0
+    total = 0
+    running = 0
+    for value in range(1, limit + 1):
+        mu = prefix[value]
+        if mu:
+            total += mu * (number // (value * value))
+        running += mu
+        prefix[value] = running
+    large = [0] * count
+    total -= (count - 1) * running
+    for index in range(count - 1, 0, -1):
+        value = isqrt(number // index)
+        root = isqrt(value)
+        boundary = min(root, value // (limit + 1))
+        mertens = 1
+        for divisor in range(2, boundary + 1):
+            mertens -= large[index * divisor * divisor]
+        for divisor in range(max(2, boundary + 1), root + 1):
+            mertens -= prefix[value // divisor]
+        previous = value
+        for quotient in range(1, value // (root + 1) + 1):
+            end = value // (quotient + 1)
+            mertens -= (previous - end) * prefix[quotient]
+            previous = end
+        large[index] = mertens
+        total += mertens
+    return total
 
 def sum_totient(limit, mod=None):
     """1からlimitまでのφの総和を返す。modを指定するとその余りを返す。"""

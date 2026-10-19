@@ -8022,7 +8022,7 @@ COMPLEXITY_BY_MODULE.setdefault("prime/Sieve.py", {}).update({
     "is_prime": "O(1)",
     "factor_count": "O(log value)。素因数の個数だけ除算する",
     "prime_count": "O(N^(3/4) / log N)時間、O(√N)メモリ。Nはnumber。整数演算をO(1)として数える",
-    "count_square_free": "O(√N)時間・メモリ。Nはnumber",
+    "count_square_free": "O(N^(2/5) log log N)時間、O(N^(2/5))メモリ。Nはnumber。整数演算をO(1)として数える",
     "sum_totient": "O(N^(2/3) log log N)時間、O(N^(2/3))メモリ。Nはlimit。整数演算をO(1)として数える",
 })
 API_DETAILS_BY_SYMBOL[("prime/Sieve.py", None, "prime_sieve")] = {

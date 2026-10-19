@@ -1,8 +1,8 @@
 {
   "problem": "counting_primes",
   "status": "local_passed",
-  "verificationKey": "3ed40fdc786fd46784bbd6d10331dcde6eb0bd74a35d469a41365ee461c810e9",
-  "sourceSha256": "26251509d3539c001dea914a41c06d40e09d10a3387b62f33514c3deb90b48c0",
+  "verificationKey": "7249e61135f32105dfbc227ee642b63f13340e0fd1716af7d0052b090e6cbcf2",
+  "sourceSha256": "09fc64bc5029dacd3eb1e68cde46121221067220b64d0acc4f70009c5113da30",
   "modules": [
     "library_codex.prime.Sieve"
   ],
@@ -17,190 +17,190 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.05713363198447041,
+      "seconds": 0.04737993599883339,
       "diagnostic": "ok \"4\"\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.0552822130266577,
+      "seconds": 0.0461263470006088,
       "diagnostic": "ok \"25\"\n"
     },
     {
       "name": "max_00",
       "status": "AC",
-      "seconds": 0.2684675889904611,
+      "seconds": 0.2492895609993866,
       "diagnostic": "ok \"4118054812\"\n"
     },
     {
       "name": "max_01",
       "status": "AC",
-      "seconds": 0.3716554359998554,
+      "seconds": 0.2453958080004668,
       "diagnostic": "ok \"4118054812\"\n"
     },
     {
       "name": "max_02",
       "status": "AC",
-      "seconds": 0.31030448799720034,
+      "seconds": 0.24515179300033196,
       "diagnostic": "ok \"4118054813\"\n"
     },
     {
       "name": "max_03",
       "status": "AC",
-      "seconds": 0.26345383198349737,
+      "seconds": 0.25000544100112165,
       "diagnostic": "ok \"4118054812\"\n"
     },
     {
       "name": "max_04",
       "status": "AC",
-      "seconds": 0.267631690017879,
+      "seconds": 0.2451774809997005,
       "diagnostic": "ok \"4118054810\"\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.06486367300385609,
+      "seconds": 0.05816348300140817,
       "diagnostic": "ok \"522784\"\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.05737086298177019,
+      "seconds": 0.055016305999743054,
       "diagnostic": "ok \"253982\"\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.0710012580093462,
+      "seconds": 0.05219888899955549,
       "diagnostic": "ok \"150879\"\n"
     },
     {
       "name": "small_03",
       "status": "AC",
-      "seconds": 0.0677297989896033,
+      "seconds": 0.06126332799976808,
       "diagnostic": "ok \"458833\"\n"
     },
     {
       "name": "small_04",
       "status": "AC",
-      "seconds": 0.059808051999425516,
+      "seconds": 0.055589912000868935,
       "diagnostic": "ok \"548612\"\n"
     },
     {
       "name": "very_small_00",
       "status": "AC",
-      "seconds": 0.050785144994733855,
+      "seconds": 0.04897268199965765,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "very_small_01",
       "status": "AC",
-      "seconds": 0.054299034003634006,
+      "seconds": 0.04701768100130721,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "very_small_02",
       "status": "AC",
-      "seconds": 0.055905444984091446,
+      "seconds": 0.04799963700133958,
       "diagnostic": "ok \"2\"\n"
     },
     {
       "name": "very_small_03",
       "status": "AC",
-      "seconds": 0.049038040975574404,
+      "seconds": 0.04942491400106519,
       "diagnostic": "ok \"2\"\n"
     },
     {
       "name": "very_small_04",
       "status": "AC",
-      "seconds": 0.054471609997563064,
+      "seconds": 0.05242005299987795,
       "diagnostic": "ok \"3\"\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.26323879399569705,
+      "seconds": 0.2438489420001133,
       "diagnostic": "ok \"4035219313\"\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.1914136540144682,
+      "seconds": 0.18749250899963954,
       "diagnostic": "ok \"2366654471\"\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.19810633899760433,
+      "seconds": 0.1893941319995065,
       "diagnostic": "ok \"2470187681\"\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.18623151100473478,
+      "seconds": 0.16420626800027094,
       "diagnostic": "ok \"1897035502\"\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 0.13822911199531518,
+      "seconds": 0.12696254500042414,
       "diagnostic": "ok \"929822030\"\n"
     },
     {
       "name": "Grothendieck_prime_00",
       "status": "AC",
-      "seconds": 0.053762797004310414,
+      "seconds": 0.04779807900013111,
       "diagnostic": "ok \"16\"\n"
     },
     {
       "name": "small_prime_00",
       "status": "AC",
-      "seconds": 0.05595874399296008,
+      "seconds": 0.04614182299883396,
       "diagnostic": "ok \"26\"\n"
     },
     {
       "name": "small_prime_01",
       "status": "AC",
-      "seconds": 0.05546492402208969,
+      "seconds": 0.04698899699906178,
       "diagnostic": "ok \"46\"\n"
     },
     {
       "name": "boundaryA_00",
       "status": "AC",
-      "seconds": 0.2792209289909806,
+      "seconds": 0.24438703899977554,
       "diagnostic": "ok \"4035214182\"\n"
     },
     {
       "name": "boundaryA_01",
       "status": "AC",
-      "seconds": 0.19420531700598076,
+      "seconds": 0.18128694000006362,
       "diagnostic": "ok \"2366637909\"\n"
     },
     {
       "name": "boundaryA_02",
       "status": "AC",
-      "seconds": 0.2048854060121812,
+      "seconds": 0.1913051860010455,
       "diagnostic": "ok \"2470168890\"\n"
     },
     {
       "name": "boundaryB_00",
       "status": "AC",
-      "seconds": 0.26074065000284463,
+      "seconds": 0.24195975799921143,
       "diagnostic": "ok \"4035201714\"\n"
     },
     {
       "name": "boundaryB_01",
       "status": "AC",
-      "seconds": 0.19049145199824125,
+      "seconds": 0.1888347670010262,
       "diagnostic": "ok \"2366647497\"\n"
     },
     {
       "name": "boundaryB_02",
       "status": "AC",
-      "seconds": 0.20129817799897864,
+      "seconds": 0.18464994200076035,
       "diagnostic": "ok \"2470178746\"\n"
     }
   ],
-  "verifiedAt": "2026-10-16T05:42:04.259039+00:00",
+  "verifiedAt": "2026-10-19T07:51:55.809823+00:00",
   "onlineSubmission": null
 }

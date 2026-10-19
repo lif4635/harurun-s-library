@@ -224,6 +224,7 @@ def test_solution_is_standalone(name):
     ("sum_of_totient_function", "1\n", "1"),
     ("sum_of_totient_function", "10\n", "32"),
     ("counting_primes", "100\n", "25"),
+    ("counting_squarefrees", "100\n", "61"),
     ("bipartite_edge_coloring", "2 2 0\n", "0"),
     ("persistent_range_affine_range_sum", "4 6\n1 2 3 4\n0 -1 1 4 2 1\n1 0 -1 2 4\n2 1 1 4\n2 0 0 4\n2 -1 0 4\n2 1 0 4\n", "12 22 10 13"),
     ("consecutive_terms_of_linear_recurrent_sequence", "2 10 5\n0 1\n1 1\n", "55 89 144 233 377"),

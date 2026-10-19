@@ -61,6 +61,19 @@ def test_enumeration_sampling_and_boundaries():
             enumerate_primes(*args)
 
 
+def test_square_free_grouped_boundaries():
+    rng = random.Random(728941)
+    values = list(range(-3, 150))
+    values += [k ** 5 + delta for k in range(2, 30) for delta in (-1, 0, 1)]
+    values += [k * k + delta for k in range(10, 2000, 17) for delta in (-1, 0, 1)]
+    values += [rng.randrange(10**9) for _ in range(120)]
+    mu = LinearSieve(math.isqrt(max(values))).mobius
+    for value in values:
+        expected = sum(mu[d] * (value // (d * d)) for d in range(1, math.isqrt(max(0, value)) + 1))
+        assert count_square_free(value) == expected
+    assert count_square_free(10**12) == 607927102274
+
+
 def test_prime_count_square_boundaries_and_large_values():
     primes = prime_sieve(1_000_000)
     rng = random.Random(224)

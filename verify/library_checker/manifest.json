@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 234,
-    "unimplemented": 19
+    "local_passed": 235,
+    "unimplemented": 18
   },
   "problems": [
     {
@@ -567,10 +567,12 @@
       "title": "Counting Square-free Integers",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/counting_squarefrees",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.prime.Sieve"
+      ],
+      "solution": "solutions/counting_squarefrees.py",
+      "result": "results/counting_squarefrees.json"
     },
     {
       "name": "cycle_detection",

@@ -34,9 +34,10 @@
 | [count_points_in_triangle](count_points_in_triangle.json) | 3 / 10 | 5 | 1.723 | 143.4 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
 | [counting_eulerian_circuits](counting_eulerian_circuits.json) | 3 / 16 | 5 | 0.435 | 95.1 | 一致 |
-| [counting_primes](counting_primes.json) | 3 / 31 | 5 | 0.274 | 62.7 | 一致 |
+| [counting_primes](counting_primes.json) | 3 / 31 | 5 | 0.247 | 62.5 | 一致 |
 | [counting_spanning_tree_directed](counting_spanning_tree_directed.json) | 3 / 22 | 5 | 0.546 | 124.1 | 一致 |
 | [counting_spanning_tree_undirected](counting_spanning_tree_undirected.json) | 3 / 22 | 5 | 0.524 | 110.4 | 一致 |
+| [counting_squarefrees](counting_squarefrees.json) | 3 / 25 | 5 | 1.056 | 226.0 | 一致 |
 | [deque](deque.json) | 3 / 36 | 5 | 0.175 | 85.0 | 一致 |
 | [directedmst](directedmst.json) | 3 / 12 | 5 | 0.358 | 150.0 | 一致 |
 | [discrete_logarithm_fixed_mod](discrete_logarithm_fixed_mod.json) | 3 / 24 | 5 | 1.115 | 233.8 | 一致 |
@@ -49,7 +50,7 @@
 | [dynamic_tree_vertex_set_path_composite](dynamic_tree_vertex_set_path_composite.json) | 3 / 23 | 5 | 4.693 | 104.3 | 一致 |
 | [eertree](eertree.json) | 3 / 24 | 5 | 1.424 | 721.5 | 一致 |
 | [enumerate_cliques](enumerate_cliques.json) | 3 / 23 | 5 | 0.087 | 59.7 | 一致 |
-| [enumerate_primes](enumerate_primes.json) | 3 / 10 | 5 | 2.007 | 120.9 | 一致 |
+| [enumerate_primes](enumerate_primes.json) | 3 / 10 | 5 | 1.893 | 112.7 | 一致 |
 | [enumerate_quotients](enumerate_quotients.json) | 3 / 26 | 5 | 0.296 | 132.4 | 一致 |
 | [enumerate_triangles](enumerate_triangles.json) | 3 / 17 | 5 | 0.246 | 88.1 | 一致 |
 | [exp_of_formal_power_series_sparse](exp_of_formal_power_series_sparse.json) | 3 / 25 | 5 | 0.245 | 122.7 | 一致 |
@@ -157,7 +158,7 @@
 | [subset_convolution](subset_convolution.json) | 3 / 11 | 5 | 2.647 | 575.1 | 一致 |
 | [sum_of_exponential_times_polynomial](sum_of_exponential_times_polynomial.json) | 3 / 20 | 5 | 1.691 | 364.9 | 一致 |
 | [sum_of_exponential_times_polynomial_limit](sum_of_exponential_times_polynomial_limit.json) | 3 / 10 | 5 | 0.917 | 212.3 | 一致 |
-| [sum_of_totient_function](sum_of_totient_function.json) | 3 / 48 | 5 | 0.458 | 96.0 | 一致 |
+| [sum_of_totient_function](sum_of_totient_function.json) | 3 / 48 | 5 | 0.402 | 96.0 | 一致 |
 | [system_of_linear_equations](system_of_linear_equations.json) | 3 / 27 | 5 | 0.508 | 66.6 | 一致 |
 | [system_of_linear_equations_mod_2](system_of_linear_equations_mod_2.json) | 3 / 36 | 5 | 1.393 | 105.7 | 一致 |
 | [three_edge_connected_components](three_edge_connected_components.json) | 3 / 20 | 5 | 0.833 | 149.2 | 一致 |

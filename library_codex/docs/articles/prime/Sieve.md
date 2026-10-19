@@ -41,13 +41,15 @@ $$
 ## 個数や総和だけ欲しい場合
 
 - `prime_count(number)`: 素数を列挙せず、その個数を求める。O(N^(3/4) / log N) 時間、O(√N) メモリ。
-- `count_square_free(number)`: 1以上number以下で、1以外の平方数を因子に持たない整数を数える。
+- `count_square_free(number)`: 1以上number以下で、1以外の平方数を因子に持たない整数を数える。O(N^(2/5) log log N) 時間、O(N^(2/5)) メモリ。
 - `sum_totient(limit, mod=None)`: 1からlimitまでのφ関数の総和。O(N^(2/3) log log N) 時間、O(N^(2/3)) メモリ。上限までの表は作らない。
 
 ```python
-from library_codex.prime.Sieve import prime_count, sum_totient
+from library_codex.prime.Sieve import prime_count, count_square_free, sum_totient
 
 assert prime_count(10**11) == 4118054813
+assert count_square_free(10) == 7
+assert count_square_free(10**12) == 607927102274
 assert sum_totient(10) == 32
 assert sum_totient(10, mod=12) == 8
 assert sum_totient(10**10, mod=998244353) == 866849765
@@ -66,6 +68,20 @@ $$
 $$
 S(N)=\frac{N(N+1)}{2}-\sum_{d=2}^{N}S\left(\left\lfloor\frac{N}{d}\right\rfloor\right)
 $$
+
+## 平方因子を持たない整数の個数
+
+`count_square_free(10)`が数えるのは`1, 2, 3, 5, 6, 7, 10`。`4, 8, 9`は4または9で割り切れるため含めない。上限は含み、0以下なら0を返す。返り値は剰余を取らない整数。
+
+Möbius関数を使うと、求める個数は次の式になる。
+
+$$
+Q(N)=\sum_{d=1}^{\lfloor\sqrt N\rfloor}\mu(d)\left\lfloor\frac{N}{d^2}\right\rfloor
+$$
+
+平方根までの表は作らず、小さいdだけをふるう。残りは同じ商になる範囲をMöbius関数の累積和でまとめる。[Pawlewiczの計数法](https://arxiv.org/abs/1107.4890)の基本版を用いており、論文後半のブロック分割による省メモリ版ではない。
+
+たとえば上限が10^18でも、作る表は約1585万要素。0から上限までの判定表や、対象の整数一覧を返す関数ではない。
 
 ## 注意点
 
