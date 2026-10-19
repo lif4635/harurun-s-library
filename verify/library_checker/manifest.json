@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "local_passed": 243,
-    "unimplemented": 10
+    "local_passed": 244,
+    "unimplemented": 9
   },
   "problems": [
     {
@@ -1845,10 +1845,13 @@
       "title": "Number of Increasing Sequences Between Two Sequences",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/number_of_increasing_sequences_between_two_sequences",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
-      "result": null
+      "status": "local_passed",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.fps.IncreasingSequences"
+      ],
+      "solution": "solutions/number_of_increasing_sequences_between_two_sequences.py",
+      "result": "results/number_of_increasing_sequences_between_two_sequences.json"
     },
     {
       "name": "number_of_subsequences",

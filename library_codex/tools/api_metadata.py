@@ -677,13 +677,15 @@ API_DETAILS_BY_SYMBOL = {
             ),
             "upper": (
                 r"各位置の上限を並べた列 $\mathrm{upper}$。位置 $i$ では "
-                r"$\mathrm{upper}_i$ を含まない。"
+                r"$\mathrm{upper}_i$ を含まない。lowerと同じ長さ。両列は未整列でもよく、負数も使える。"
             ),
+            "mod": "正の法。998244353では分割統治とNTT、それ以外では値域を走査するDPを使う。",
         },
         "returnFormat": "int",
         "returnDescription": (
             r"条件を満たす列の個数を $\mathrm{mod}$ で割った余り。"
-            r"$0 \le \mathrm{answer} < \mathrm{mod}$。"
+            r"$0 \le \mathrm{answer} < \mathrm{mod}$。同じ値が続く列も数える。"
+            "条件を満たす列がなければ0、空列は1通りとして数える。入力列は変更しない。"
         ),
     },
     ("combinatorial_series/StirlingNumbers.py", None, "stirling_first_row"): {
@@ -2173,7 +2175,7 @@ COMPLEXITY_BY_MODULE = {
         "berlekamp_massey_poly": "O(ND)（Dは最短漸化式の次数）",
     },
     "fps/IncreasingSequences.py": {
-        "count_increasing_sequences": "O(NW)（Wは正規化後の値域幅）",
+        "count_increasing_sequences": "mod=998244353: O((N+W) log²(N+W+2))時間・O(N+W)メモリ。それ以外: O(NW)時間・O(N+W)メモリ。Wは上限の最大値−下限の最小値（単調性を補正後）。",
     },
     "arithmetic_convolution/MultiplicativeConvolutionModPrime.py": {
         "multiplicative_convolution": "O(prime log prime)",
@@ -7599,6 +7601,10 @@ MODULE_CAPABILITIES["linear_algebra/Adjugate.py"] = (
     "階数N−1の行列では、非零の列から同次方程式の非零解を取り出せる。",
 )
 MODULE_OVERVIEWS = {
+    "fps/IncreasingSequences.py": (
+        "上下限を満たす広義単調増加列の個数を求める。",
+        "998244353では O((N+W) log²(N+W+2))、それ以外は O(NW)。Nは列の長さ、Wは補正後の値域幅。",
+    ),
     "linear_algebra/Adjugate.py": ("素数法の正方行列の余因子行列を、特異な場合も含めて求める。", "O(N³ + N log mod)時間、O(N²)領域"),
     "algebra/SATSolver.py": ("watched literal型の反復SAT solver", "問題依存"),
     "algorithm/BitAlgorithms.py": ("set bit・部分mask・上位maskの列挙", "set bit数または出力数に線形"),

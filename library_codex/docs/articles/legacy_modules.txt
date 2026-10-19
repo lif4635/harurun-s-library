@@ -56,7 +56,6 @@ fps/DualFormalPowerSeries
 fps/EulerTransform
 fps/FormalPowerSeries
 fps/FPSFraction
-fps/IncreasingSequences
 fps/OnlineFormalPowerSeries
 fps/PolynomialComposition
 fps/SparseFormalPowerSeries

@@ -112,6 +112,7 @@
 | [multivariate_convolution](multivariate_convolution.json) | 3 / 17 | 5 | 4.683 | 240.2 | 一致 |
 | [multivariate_convolution_cyclic](multivariate_convolution_cyclic.json) | 3 / 24 | 5 | 4.038 | 177.3 | 一致 |
 | [nim_product_64](nim_product_64.json) | 3 / 10 | 5 | 1.508 | 185.0 | 一致 |
+| [number_of_increasing_sequences_between_two_sequences](number_of_increasing_sequences_between_two_sequences.json) | 3 / 17 | 5 | 3.831 | 110.2 | 一致 |
 | [ordered_set](ordered_set.json) | 3 / 37 | 5 | 2.446 | 279.1 | 一致 |
 | [palindromes_in_deque](palindromes_in_deque.json) | 3 / 24 | 5 | 0.742 | 284.9 | 一致 |
 | [partition_function](partition_function.json) | 3 / 11 | 5 | 0.677 | 98.6 | 一致 |

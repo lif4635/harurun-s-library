@@ -11,7 +11,7 @@ modを指定できる形式的冪級数と母関数の演算のAPI一覧です�
 | [`EulerTransform`](EulerTransform.md) | 列へEuler変換または逆変換を適用する。 | 1 | 0 | 0 |
 | [`FPSFraction`](FPSFraction.md) | 形式的冪級数の分子と分母を保ったまま四則演算する。 | 0 | 1 | 8 |
 | [`FormalPowerSeries`](FormalPowerSeries.md) | FPS四則演算・inv/log/exp/pow・Taylor shift・一括積 | 17 | 0 | 0 |
-| [`IncreasingSequences`](IncreasingSequences.md) | 単調増加列に関する母関数計算 | 1 | 0 | 0 |
+| [`IncreasingSequences`](IncreasingSequences.md) | 上下限を満たす広義単調増加列の個数を求める。 | 1 | 0 | 0 |
 | [`MultivariateFPS`](MultivariateFPS.md) | 各変数の次数を打ち切った冪級数の積・逆数・log・exp・整数冪 | 0 | 1 | 15 |
 | [`OnlineFormalPowerSeries`](OnlineFormalPowerSeries.md) | 係数を逐次確定するオンラインFPS演算 | 2 | 5 | 25 |
 | [`PolynomialComposition`](PolynomialComposition.md) | 高速FPS合成・Brent--Kung fallback・合成逆関数 | 3 | 0 | 0 |

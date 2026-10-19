@@ -68,7 +68,6 @@ MODULE_OVERRIDES = {
     "algorithm/SequenceOrdering.py": ("点更新される列の辞書順比較・版圧縮", "更新・比較 O(log N)"),
     "convolution/AdvancedSeries.py": ("指数合成・等比点評価など高度なFPS変換", "主に高速多項式演算依存"),
     "convolution/FPSWrappers.py": ("有理FPSと双対FPSの演算ラッパー", "各FPS演算依存"),
-    "fps/IncreasingSequences.py": ("単調増加列に関する母関数計算", "高速多項式演算依存"),
     "fps/MultivariateFPS.py": ("各変数の次数を打ち切った冪級数の積・逆数・log・exp・整数冪", "2変数の積・逆数・log・expはO(N log(N+1))。Nは係数数"),
     "fps/OnlineFormalPowerSeries.py": ("係数を逐次確定するオンラインFPS演算", "償却 O(N log N) 系"),
     "combinatorial_series/PRecursive.py": ("P再帰列の推定・列挙・巨大添字項", "多項式行列積依存"),

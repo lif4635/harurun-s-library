@@ -1148,6 +1148,27 @@ def test_factorial_queries_article_and_standalone():
     assert namespace["factorials"]([5, 0, 5, 998244352, 998244353]) == [120, 1, 120, 998244352, 0]
 
 
+def test_increasing_sequences_article_and_standalone():
+    import math
+
+    module = module_by_path(load_catalog(), "library_codex.fps.IncreasingSequences")
+    assert "上下限" in module["summary"]
+    assert "## 主な機能" in module["article"]["markdown"]
+    assert "## 使い方" in module["article"]["markdown"]
+    assert "$$" in module["article"]["markdown"]
+    function = next(item for item in module["functions"] if item["name"] == "count_increasing_sequences")
+    assert function["returnFormat"] == "int"
+    assert "同じ値" in function["returnDescription"]
+    assert "log²" in function["complexity"]
+    assert "それ以外" in function["complexity"]
+    assert "FormalPowerSeries" not in module["standaloneCode"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    count = namespace["count_increasing_sequences"]
+    assert count([0, 1], [2, 3]) == 4
+    assert count([0] * 65, [67] * 65) == math.comb(131, 65) % 998244353
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")
