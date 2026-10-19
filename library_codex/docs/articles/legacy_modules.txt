@@ -73,7 +73,6 @@ game/SurrealNumber
 geometry/ArgumentSort
 geometry/CircleGeometry
 geometry/ConvexHull
-geometry/ConvexLayers
 geometry/ConvexPolygon
 geometry/FurthestPair
 geometry/LineGeometry

@@ -1219,6 +1219,30 @@ def test_multiplicative_sum_article_and_standalone():
     assert namespace["dirichlet_divide"](product, ones).data == ones.data
 
 
+def test_convex_layers_article_and_standalone():
+    module = module_by_path(load_catalog(), "library_codex.geometry.ConvexLayers")
+    for field in ("sourceCode", "standaloneCode"):
+        assert "Apache License, Version 2.0" in module[field]
+        assert "geo/convex_layers/sol/correct.cpp" in module[field]
+    assert "## 主な機能" in module["article"]["markdown"]
+    assert "## 辺の途中の点を残す場合" in module["article"]["markdown"]
+    assert module["classes"] == []
+    functions = {item["name"]: item for item in module["functions"]}
+    assert set(functions) == {"convex_layers", "onion_depth"}
+    for function in functions.values():
+        assert "O(N log² N)" in function["complexity"]
+        assert "keep_collinear=False" in function["complexity"]
+    assert "反時計回り" in functions["convex_layers"]["returnDescription"]
+    assert "最外層が 0" in functions["onion_depth"]["returnDescription"]
+    namespace = {}
+    exec(module["standaloneCode"], namespace)
+    points = [(0, 0), (4, 0), (4, 4), (0, 4), (2, 2), (2, 0)]
+    assert namespace["onion_depth"](points) == [0, 0, 0, 0, 1, 0]
+    assert namespace["onion_depth"](points, False) == [0, 0, 0, 0, 1, 1]
+    assert namespace["convex_layers"](points) == [
+        [(0, 0), (2, 0), (4, 0), (4, 4), (0, 4)], [(2, 2)]]
+
+
 def test_atomic_write_preserves_previous_catalog_on_validation_failure(tmp_path):
     output = tmp_path / "library-catalog.json"
     output.write_text('{"known": "good"}\n', encoding="utf-8")

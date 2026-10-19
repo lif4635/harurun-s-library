@@ -66,6 +66,7 @@
 
 ## 文字列・幾何
 
+- [凸包の層分解](CONVEX_LAYERS_BENCHMARK.md)
 - [三角形内の点数え上げ](TRIANGLE_POINT_COUNT_BENCHMARK.md)
 - [文字列・両端回文木](STRING_ALGORITHMS_BENCHMARK.md)
 - [最近点対](CLOSEST_PAIR_BENCHMARK.md)

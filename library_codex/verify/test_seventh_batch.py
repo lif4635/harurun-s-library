@@ -1,6 +1,5 @@
 import random
 
-from library_codex.geometry.ConvexLayers import convex_layers, onion_depth
 from library_codex.geometry.LineGeometry import (
     distance_to_line,
     line_intersection,
@@ -157,12 +156,6 @@ def ancestors(parent, vertex):
 
 
 def test_geometry_helpers():
-    points = [(0, 0), (4, 0), (4, 4), (0, 4), (1, 1), (3, 1), (3, 3), (1, 3), (2, 2)]
-    layers = convex_layers(points)
-    assert set(layers[0]) == {(0, 0), (4, 0), (4, 4), (0, 4)}
-    assert set(layers[1]) == {(1, 1), (3, 1), (3, 3), (1, 3)}
-    assert layers[2] == [(2, 2)]
-    assert onion_depth([(0, 0), (2, 2), (1, 1)]) == [0, 0, 0]
     assert projection((2, 3), (0, 0), (4, 0)) == (2.0, 0.0)
     assert reflection((2, 3), (0, 0), (4, 0)) == (2.0, -3.0)
     assert distance_to_line((2, 3), (0, 0), (4, 0)) == 3

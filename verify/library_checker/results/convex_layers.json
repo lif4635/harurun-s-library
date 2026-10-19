@@ -1,0 +1,148 @@
+{
+  "problem": "convex_layers",
+  "status": "local_passed",
+  "verificationKey": "90b88ad009950452ec5961113cd30fd624291cbef9b33373424e1d728725570a",
+  "sourceSha256": "1976547af17271cc7a0be738df37e6f48ece283ade1a13c91624d3e683cb612b",
+  "modules": [
+    "library_codex.geometry.Orientation",
+    "library_codex.geometry.ConvexHull",
+    "library_codex.geometry.ConvexLayers"
+  ],
+  "problemVersion": "c8ddaea40a7d36ce6c550e5ba733d409187cfb5f280dd51bf0817bef946f30af",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "timeLimitSeconds": 5.0,
+  "expectedCases": 21,
+  "cases": [
+    {
+      "name": "example_00",
+      "status": "AC",
+      "seconds": 0.06548658900101145,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "example_01",
+      "status": "AC",
+      "seconds": 0.05566385400015861,
+      "diagnostic": "ok \"1\"\n"
+    },
+    {
+      "name": "example_02",
+      "status": "AC",
+      "seconds": 0.06483015899902966,
+      "diagnostic": "ok 2 tokens\n"
+    },
+    {
+      "name": "example_03",
+      "status": "AC",
+      "seconds": 0.06113447999996424,
+      "diagnostic": "ok 4 tokens\n"
+    },
+    {
+      "name": "example_04",
+      "status": "AC",
+      "seconds": 0.06333656800052267,
+      "diagnostic": "ok 5 tokens\n"
+    },
+    {
+      "name": "example_05",
+      "status": "AC",
+      "seconds": 0.05600561500068579,
+      "diagnostic": "ok 6 tokens\n"
+    },
+    {
+      "name": "line_00",
+      "status": "AC",
+      "seconds": 0.21050066000134393,
+      "diagnostic": "ok 127669 tokens\n"
+    },
+    {
+      "name": "line_01",
+      "status": "AC",
+      "seconds": 0.25382605499908095,
+      "diagnostic": "ok 150763 tokens\n"
+    },
+    {
+      "name": "line_02",
+      "status": "AC",
+      "seconds": 0.10671048000040173,
+      "diagnostic": "ok 53336 tokens\n"
+    },
+    {
+      "name": "line_03",
+      "status": "AC",
+      "seconds": 0.25684025999908044,
+      "diagnostic": "ok 167105 tokens\n"
+    },
+    {
+      "name": "line_04",
+      "status": "AC",
+      "seconds": 0.08711813099944266,
+      "diagnostic": "ok 14868 tokens\n"
+    },
+    {
+      "name": "max_random_00",
+      "status": "AC",
+      "seconds": 3.3579543480009306,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "max_random_01",
+      "status": "AC",
+      "seconds": 3.252941645998362,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "max_random_02",
+      "status": "AC",
+      "seconds": 3.565971351999906,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "max_random_03",
+      "status": "AC",
+      "seconds": 4.063803417999225,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "max_random_04",
+      "status": "AC",
+      "seconds": 3.892957177999051,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "max_square_grid_00",
+      "status": "AC",
+      "seconds": 1.153689429998849,
+      "diagnostic": "ok 199809 tokens\n"
+    },
+    {
+      "name": "max_x_00",
+      "status": "AC",
+      "seconds": 0.7710594370000763,
+      "diagnostic": "ok 200000 tokens\n"
+    },
+    {
+      "name": "max_y_00",
+      "status": "AC",
+      "seconds": 0.9433006109993585,
+      "diagnostic": "ok 199998 tokens\n"
+    },
+    {
+      "name": "max_t_00",
+      "status": "AC",
+      "seconds": 0.6444290310009819,
+      "diagnostic": "ok 199998 tokens\n"
+    },
+    {
+      "name": "max_l_00",
+      "status": "AC",
+      "seconds": 0.5469697720000113,
+      "diagnostic": "ok 200000 tokens\n"
+    }
+  ],
+  "verifiedAt": "2026-10-19T18:21:11.414398+00:00",
+  "onlineSubmission": null
+}
