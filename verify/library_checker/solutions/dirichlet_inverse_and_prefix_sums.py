@@ -221,7 +221,6 @@ def sum_totient(limit, mod=None):
             previous = end
         large[index] = result if mod is None else result % mod
     return large[1] if size else prefix[limit]
-from bisect import bisect_right
 from math import isqrt as _number_theory_multiplicative_functions_isqrt
 
 def _number_theory_multiplicative_functions_small_quotient(value, divisor):
@@ -530,11 +529,21 @@ class MultiplicativePrefixSum:
         return high + [small[(value - 1) // 2] + (value >= 2) for value in range(self.square, 0, -1)]
     pi_table = prime_count_table
 
-    def prime_sum_table(self):
+    def prime_sum_table(self, linear=1, constant=0):
         if self.limit == 0:
             return []
+        if self.mod == 1 or linear == constant == 0:
+            return [0] * self.size
+        if linear == 0:
+            table = [constant * x for x in self.prime_count_table()]
+            return table if self.mod is None else [x % self.mod for x in table]
         if self.mod is not None:
-            return self._prime_sum_table_mod()
+            linear %= self.mod
+            constant %= self.mod
+            if constant:
+                return self._prime_affine_table_mod(linear, constant)
+            table = self._prime_sum_table_mod()
+            return table if linear == 1 else [linear * x % self.mod for x in table]
         table = [0] * self.size
         for index in range(1, self.split):
             value = self.limit // index
@@ -552,8 +561,11 @@ class MultiplicativePrefixSum:
                 multiple += prime
             for value in range(self.square, square - 1, -1):
                 table[self.size - value] -= (table[self.size - value // prime] - previous) * prime
-        if self.mod is not None:
-            table = [value % self.mod for value in table]
+        if constant:
+            counts = self.prime_count_table()
+            return [linear * x + constant * y for (x, y) in zip(table, counts)]
+        if linear != 1:
+            table = [linear * x for x in table]
         return table
 
     def _prime_sum_table_mod(self):
@@ -581,6 +593,60 @@ class MultiplicativePrefixSum:
             high[i] = (high[i] + 2) % mod
         return high + [(small[(x - 1) // 2] + 2 * (x >= 2)) % mod for x in range(root, 0, -1)]
 
+    def _prime_affine_table_mod(self, linear, constant):
+        (limit, split, root, mod) = (self.limit, self.split, self.square, self.mod)
+        count = [0] * split
+        high = [0] * split
+        for i in range(1, split):
+            x = (limit // i + 1) // 2
+            count[i] = x - 1
+            high[i] = (x * x - 1) % mod
+        small_count = list(range((root + 1) // 2))
+        small = [((i + 1) ** 2 - 1) % mod for i in range(len(small_count))]
+        for (pi, p) in enumerate(self.primes[1:]):
+            previous = small[(p - 3) // 2]
+            stop = min(split, limit // (p * p) + 1)
+            boundary = min(stop, (split - 1) // p + 1)
+            source = p
+            for i in range(1, boundary):
+                high[i] = (high[i] - p * (high[source] - previous)) % mod
+                count[i] -= count[source] - pi
+                source += p
+            reduced = limit // p
+            middle = max(boundary, min(stop, 4 * _number_theory_multiplicative_functions_isqrt(reduced) + 1))
+            for i in range(boundary, middle):
+                j = (_number_theory_multiplicative_functions_small_quotient(reduced, i) - 1) // 2
+                high[i] = (high[i] - p * (small[j] - previous)) % mod
+                count[i] -= small_count[j] - pi
+            i = middle
+            while i < stop:
+                q = _number_theory_multiplicative_functions_small_quotient(reduced, i)
+                j = (q - 1) // 2
+                end = min(stop, _number_theory_multiplicative_functions_small_quotient(reduced, 2 * j + 1) + 1)
+                dc = small_count[j] - pi
+                ds = p * (small[j] - previous) % mod
+                while i < end:
+                    value = high[i] - ds
+                    high[i] = value + (value < 0) * mod
+                    count[i] -= dc
+                    i += 1
+            half = p // 2
+            end = p * p // 2
+            x = len(small) - 1
+            while x >= end:
+                j = _number_theory_multiplicative_functions_small_quotient(x - half, p)
+                left = max(end, j * p + half)
+                dc = small_count[j] - pi
+                ds = p * (small[j] - previous) % mod
+                while x >= left:
+                    value = small[x] - ds
+                    small[x] = value + (value < 0) * mod
+                    small_count[x] -= dc
+                    x -= 1
+        for i in range(1, split):
+            high[i] = (constant * (count[i] + 1) + linear * (high[i] + 2)) % mod
+        return high + [(constant * (small_count[(x - 1) // 2] + (x >= 2)) + linear * (small[(x - 1) // 2] + 2 * (x >= 2))) % mod for x in range(root, 0, -1)]
+
     def run(self, prime_prefix, prime_power):
         if self.limit == 0:
             return 0
@@ -589,6 +655,14 @@ class MultiplicativePrefixSum:
         (limit, square, size, mod) = (self.limit, self.square, self.size, self.mod)
         primes = self.primes
         count = len(primes)
+        pi = [0] * (square + 1)
+        start = 2
+        for (rank, prime) in enumerate(primes):
+            for x in range(start, prime):
+                pi[x] = rank
+            start = prime
+        for x in range(start, square + 1):
+            pi[x] = count
         first = [prime_power(p, 1) for p in primes]
         second = [prime_power(p, 2) for p in primes]
         base = [prime_prefix[size - p] for p in primes]
@@ -611,7 +685,7 @@ class MultiplicativePrefixSum:
             position = size - remaining if remaining <= square else limit // remaining
             answer += coefficient * (prime_prefix[position] - base[index])
             subtotal = 0
-            stop = bisect_right(primes, _number_theory_multiplicative_functions_isqrt(remaining), index + 1)
+            stop = pi[_number_theory_multiplicative_functions_isqrt(remaining)]
             next_index = index + 1
             while next_index < stop:
                 next_prime = primes[next_index]
@@ -619,10 +693,9 @@ class MultiplicativePrefixSum:
                     break
                 stack.append((next_index, 1, remaining // next_prime, coefficient))
                 next_index += 1
-            boundary = bisect_right(primes, remaining // (square + 1), next_index, stop)
+            boundary = max(next_index, min(stop, pi[remaining // (square + 1)]))
             for j in range(next_index, boundary):
-                quotient = _number_theory_multiplicative_functions_small_quotient(remaining, primes[j])
-                subtotal += second[j] + first[j] * (prime_prefix[_number_theory_multiplicative_functions_small_quotient(limit, quotient)] - base[j])
+                subtotal += second[j] + first[j] * (prime_prefix[position * primes[j]] - base[j])
                 if mod is not None and (subtotal > 4611686018427387904 or subtotal < -4611686018427387904):
                     subtotal %= mod
             for j in range(boundary, stop):

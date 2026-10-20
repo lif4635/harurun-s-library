@@ -2,8 +2,7 @@
   "schemaVersion": 1,
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
-    "failed": 1,
-    "local_passed": 250,
+    "local_passed": 251,
     "unimplemented": 2
   },
   "problems": [
@@ -2973,7 +2972,7 @@
       "title": "Sum of Multiplicative Function(Large)",
       "category": "number_theory",
       "url": "https://judge.yosupo.jp/problem/sum_of_multiplicative_function_large",
-      "status": "failed",
+      "status": "local_passed",
       "modules": [
         "library_codex.prime.Sieve",
         "library_codex.number_theory.MultiplicativeFunctions"

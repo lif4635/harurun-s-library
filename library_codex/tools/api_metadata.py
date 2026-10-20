@@ -8455,11 +8455,15 @@ COMPLEXITY_BY_MODULE.setdefault(_mf_module, {}).update({
 })
 for _method, _description, _returns in (
     ("prime_count_table", "商集合の各値以下にある素数の個数を集計する。", "長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数の個数。mod指定時も個数をそのまま返す。0番は未使用、limit=0なら空list。"),
-    ("prime_sum_table", "商集合の各値以下にある素数の和を集計する。", "長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数の和。mod指定時はその余り。0番は未使用、limit=0なら空list。"),
+    ("prime_sum_table", "各商以下の素数pについてlinear*p+constantを合計する。引数なしなら素数の和。", "長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数pに対するlinear*p+constantの合計。mod指定時はその余り。0番は未使用、limit=0なら空list。"),
 ):
     API_DETAILS_BY_SYMBOL[(_mf_module, "MultiplicativePrefixSum", _method)] = {
         "description": _description, "returnFormat": "list[int]", "returnDescription": _returns,
     }
+API_DETAILS_BY_SYMBOL[(_mf_module, "MultiplicativePrefixSum", "prime_sum_table")]["argumentDescriptions"] = {
+    "linear": "素数pに掛ける整数係数。0なら素数の個数にconstantを掛けた表を作る。",
+    "constant": "各素数に対して加える整数。法指定時は個数と素数和の篩を共有して集計する。",
+}
 
 CLASS_DETAILS_BY_SYMBOL[(_mf_module, "DirichletQuotientSeries")] = {
     "description": "正整数Nを割って得られる異なる商の位置に、数列の累積和を保持する。数列は乗法的でなくてもよい。",

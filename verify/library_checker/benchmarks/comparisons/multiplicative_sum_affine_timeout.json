@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "baselineRevision": "c577fd91641238230e4af0d094f4b9f6477d889b",
+  "sourcePatch": "multiplicative_sum_affine_timeout.patch",
+  "problem": "sum_of_multiplicative_function_large",
+  "sourceSha256": "d97980c6149735c874586498370d509d5e75432b4372884ccdc82007a3a34928",
+  "sourceHashScope": "library_codex/number_theory/MultiplicativeFunctions.py",
+  "runtime": "PyPy 3.10.14 / 7.3.16",
+  "timeLimitSeconds": 30,
+  "protocol": "official_benchmark.py; slowest 3 cases; 5 sequential fresh processes per case; attempt aborted on timeout",
+  "status": "timeout",
+  "case": null,
+  "completedSamples": null,
+  "note": "The previous runner did not persist the case name or completed samples when a timeout occurred. This failure is not a successful 15-run benchmark. The separate one-pass official verification passed all 20 cases."
+}

@@ -1,8 +1,8 @@
 {
   "problem": "sum_of_multiplicative_function_large",
-  "status": "failed",
-  "verificationKey": "f33eb094c5650deb2f13f7afcaf398f2843e42ce1d721e982da30631a1a841da",
-  "sourceSha256": "ddd03ce059b91cc80a53d81705bcba22a5672f0346ac3eeb2e15e7753608ee46",
+  "status": "local_passed",
+  "verificationKey": "ee805ad87f1cc166e8997c66f59427af0077094b1ea8c81931153379636c2a69",
+  "sourceSha256": "ee1588941da8fb70b1e2bb6da3a1e949e6f792c8ca28deb453dac627ecee3bca",
   "modules": [
     "library_codex.prime.Sieve",
     "library_codex.number_theory.MultiplicativeFunctions"
@@ -18,116 +18,124 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.060471639000752475,
+      "seconds": 0.05680797400418669,
       "diagnostic": "ok 10 tokens\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.06462172400279087,
+      "seconds": 0.059902488996158354,
       "diagnostic": "ok \"181804\"\n"
     },
     {
       "name": "example_02",
-      "status": "TLE",
-      "seconds": 30.056357522000326
+      "status": "AC",
+      "seconds": 24.88878847200249,
+      "diagnostic": "ok \"314120757\"\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.8449509080019197,
+      "seconds": 0.6174403209952288,
       "diagnostic": "ok 10000 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 23.544590831999813,
+      "seconds": 16.353898590998142,
       "diagnostic": "ok \"257458315\"\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 27.079310047000035,
+      "seconds": 18.68578347300354,
       "diagnostic": "ok \"185427793\"\n"
     },
     {
       "name": "max_00",
-      "status": "TLE",
-      "seconds": 30.051747886998783
+      "status": "AC",
+      "seconds": 25.515699220995884,
+      "diagnostic": "ok \"114263957\"\n"
     },
     {
       "name": "max_01",
-      "status": "TLE",
-      "seconds": 30.058593298999767
+      "status": "AC",
+      "seconds": 25.475026756997977,
+      "diagnostic": "ok \"77456073\"\n"
     },
     {
       "name": "boundaryA_00",
       "status": "AC",
-      "seconds": 23.72175256600167,
+      "seconds": 16.680956317999517,
       "diagnostic": "ok \"248571660\"\n"
     },
     {
       "name": "boundaryA_01",
       "status": "AC",
-      "seconds": 26.85174650800036,
+      "seconds": 18.16067082900554,
       "diagnostic": "ok \"29211178\"\n"
     },
     {
       "name": "boundaryA_02",
-      "status": "TLE",
-      "seconds": 30.058629125000152
+      "status": "AC",
+      "seconds": 25.427576764996047,
+      "diagnostic": "ok \"467108298\"\n"
     },
     {
       "name": "boundaryB_00",
       "status": "AC",
-      "seconds": 23.51926173800166,
+      "seconds": 15.942439240003296,
       "diagnostic": "ok \"163232091\"\n"
     },
     {
       "name": "boundaryB_01",
       "status": "AC",
-      "seconds": 26.741651312000613,
+      "seconds": 18.48538156900031,
       "diagnostic": "ok \"187211590\"\n"
     },
     {
       "name": "boundaryB_02",
-      "status": "TLE",
-      "seconds": 30.04757982799856
+      "status": "AC",
+      "seconds": 25.583407371996145,
+      "diagnostic": "ok \"443896959\"\n"
     },
     {
       "name": "hack_wrong_zky_method_00",
       "status": "AC",
-      "seconds": 0.7122361910005566,
+      "seconds": 0.5055187420002767,
       "diagnostic": "ok 486 tokens\n"
     },
     {
       "name": "hack_wrong_zky_method_01",
       "status": "AC",
-      "seconds": 0.7199763040007383,
+      "seconds": 0.4914004520032904,
       "diagnostic": "ok 351 tokens\n"
     },
     {
       "name": "hack_wrong_zky_method_02",
       "status": "AC",
-      "seconds": 0.6215828799977317,
+      "seconds": 0.4578388109948719,
       "diagnostic": "ok 333 tokens\n"
     },
     {
       "name": "hack_wrong_zky_method_03",
-      "status": "TLE",
-      "seconds": 30.055415290000383
+      "status": "AC",
+      "seconds": 26.797995009997976,
+      "diagnostic": "ok \"406399572\"\n"
     },
     {
       "name": "hack_wrong_zky_method_04",
-      "status": "TLE",
-      "seconds": 30.05305115599913
+      "status": "AC",
+      "seconds": 26.105378683001618,
+      "diagnostic": "ok \"358464329\"\n"
     },
     {
       "name": "hack_wrong_zky_method_05",
-      "status": "TLE",
-      "seconds": 30.056731338001555
+      "status": "AC",
+      "seconds": 26.034473668005376,
+      "diagnostic": "ok \"110636056\"\n"
     }
   ],
-  "verifiedAt": "2026-10-19T23:53:11.060003+00:00",
+  "verifiedAt": "2026-10-20T04:51:49.549359+00:00",
   "onlineSubmission": null
 }

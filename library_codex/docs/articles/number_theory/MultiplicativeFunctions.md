@@ -31,17 +31,24 @@ print(answer)
 
 `answer`は27。1から10までの約数個数を足した整数で、各整数の約数個数のlistではない。
 
-素数冪の値が`a*e+b*p`の場合は、個数と素数和の表を組み合わせる。
+素数冪の値が`a*e+b*p`の場合、素数での値は`a+b*p`。係数を渡して、その累積和を直接作れる。
 
 ```python
 mod = 469762049
 engine = MultiplicativePrefixSum(10**11, mod)
 a, b = 123, 456
-counts = engine.prime_count_table()
-sums = engine.prime_sum_table()
-prefix = [(a * x + b * y) % mod for x, y in zip(counts, sums)]
+prefix = engine.prime_sum_table(linear=b, constant=a)
 answer = engine.run(prefix, lambda p, e: (a * e + b * p) % mod)
 ```
+
+`prime_sum_table()`は通常の素数和。`linear`と`constant`を渡した場合は、素数pについて次の和を各商xで求めたlistを返す。法指定時は、個数と和の篩を共有して計算する。
+
+$$
+\mathrm{prefix}[\mathrm{engine.index}(x)]
+=\sum_{p\le x}(\mathrm{linear}\,p+\mathrm{constant})\pmod{\mathrm{mod}}.
+$$
+
+法を省略した場合は、剰余を取らずに正確な整数を返す。
 
 ## Dirichlet積と逆算
 

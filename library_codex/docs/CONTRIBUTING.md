@@ -164,6 +164,8 @@ Library Checker の公式全ケースは[問題別解答と検査手順](../../v
 
 Library Checkerの上位提出と速度を比べる場合は、[比較手順と測定記録](LIBRARY_CHECKER_COMPARISON.md)を使います。外部sourceは取得後に確認してから実行し、同じ入力・実行環境で答え、時間、メモリを比較します。ランキングの確認だけで「最速実装との比較済み」とはしません。
 
+PyPyの新旧比較では、sourceの読み込み方も揃えます。単独コードを別processで起動する方式を優先し、旧関数を取り出して`exec`する場合は通常のdictではなく`types.ModuleType`の名前空間を使います。通常のimportと最適化条件が違う測定から、アルゴリズムの速度比を主張しません。比較用scriptの時間・RSSと、単独提出コードの測定値は区別します。
+
 Library Checkerの追加・高速化では、オンライン提出は行わず、公式全件検証とPyPyの反復ベンチマークを残します。`benchmarks/official_benchmark.py`で既定は遅かった公式3ケースを各5回測定し、`verify/library_checker/benchmarks/`へ各回の時間・RSS・CPU/OS/PyPy・sourceと入力のhashを保存します。全件を反復した場合以外は、全ケースを複数回測定済みとは扱いません。
 
 新旧実装など独自形式の比較JSONは`verify/library_checker/benchmarks/comparisons/`へ置きます。親directoryのJSONは公式ベンチマーク一覧の生成対象なので、異なるschemaの記録を混ぜません。

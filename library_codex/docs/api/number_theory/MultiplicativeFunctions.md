@@ -36,20 +36,20 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`dirichlet_multiply(first, second)`](../../../number_theory/MultiplicativeFunctions.py#L65) | 2数列のDirichlet積について、各商の位置までの累積和を求める。入力は変更しない。 | `first`: fの累積和を持つDirichletQuotientSeries。data[0]=0。<br>`second`: gの累積和を持つDirichletQuotientSeries。firstと同じn・modを使い、data[0]=0とする。 | DirichletQuotientSeries — 新しいseries。`result.data[result.index(x)]`は$\sum_{ab\le x}f(a)g(b)$。0番は0、残りは商の昇順。法指定時はその余り。各整数での積の値ではなく累積和を返す。 | O(N^(2/3))回の算術演算・O(sqrt(N))追加メモリ。N=first.n |
-| [`dirichlet_divide(convolution, divisor)`](../../../number_theory/MultiplicativeFunctions.py#L125) | Dirichlet積h=f*gとfの累積和から、gの累積和を復元する。入力は変更しない。 | `convolution`: hの累積和を持つDirichletQuotientSeries。data[0]=0。<br>`divisor`: fの累積和を持つDirichletQuotientSeries。同じn・modを使う。f(1)=data[1]は逆数を取れる値。法指定時は法と互いに素である必要がある。 | DirichletQuotientSeries — 新しいseries。$h(n)=\sum_{ab=n}f(a)g(b)$を満たすgについて、`result.data[result.index(x)]`に$\sum_{i=1}^xg(i)$を持つ。0番は0、残りは商の昇順。法指定時はその余り。 | O(N^(2/3))回の算術演算と逆元計算1回・O(sqrt(N))追加メモリ。N=divisor.n |
-| [`enumerate_multiplicative_function(limit, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L196) | multiplicative functionを列挙する。 | `limit`: 上限。NoneならAPI既定の上限<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） | — |
-| [`mobius_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L218) | Möbius値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).mobius` | O(N)時間・メモリ。N=limit |
-| [`divisor_count_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L222) | 約数個数値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `enumerate_multiplicative_function(limit, lambda power, prime, ...` | O(N)回の算術演算・O(N)個の整数。N=limit |
-| [`divisor_sum_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L228) | 約数和値列を計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `enumerate_multiplicative_function(limit, lambda power, prime, ...` | O(N)回の算術演算・O(N)個の整数。N=limit |
-| [`totient_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L235) | totient valuesを求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` | O(N)時間・メモリ。N=limit |
-| [`sum_totient_fast(limit, mod=None)`](../../../number_theory/MultiplicativeFunctions.py#L487) | 1からlimitまでのφ関数の値を合計する。φ(i)は1以上i以下でiと互いに素な整数の個数。 | `limit`: 含める上限。0以下なら0を返す。<br>`mod`: 正の整数を指定すると、その余りを返す。Noneなら剰余を取らない。合成数でもよい。省略時: `None` | int — φ(1)+φ(2)+...+φ(limit)。φ(1)=1とする。mod=Noneなら整数の総和、指定時は0以上mod未満の余り。 | O(N^(2/3) log log N)時間、O(N^(2/3))メモリ。Nはlimit。整数演算をO(1)として数える |
+| [`dirichlet_multiply(first, second)`](../../../number_theory/MultiplicativeFunctions.py#L64) | 2数列のDirichlet積について、各商の位置までの累積和を求める。入力は変更しない。 | `first`: fの累積和を持つDirichletQuotientSeries。data[0]=0。<br>`second`: gの累積和を持つDirichletQuotientSeries。firstと同じn・modを使い、data[0]=0とする。 | DirichletQuotientSeries — 新しいseries。`result.data[result.index(x)]`は$\sum_{ab\le x}f(a)g(b)$。0番は0、残りは商の昇順。法指定時はその余り。各整数での積の値ではなく累積和を返す。 | O(N^(2/3))回の算術演算・O(sqrt(N))追加メモリ。N=first.n |
+| [`dirichlet_divide(convolution, divisor)`](../../../number_theory/MultiplicativeFunctions.py#L124) | Dirichlet積h=f*gとfの累積和から、gの累積和を復元する。入力は変更しない。 | `convolution`: hの累積和を持つDirichletQuotientSeries。data[0]=0。<br>`divisor`: fの累積和を持つDirichletQuotientSeries。同じn・modを使う。f(1)=data[1]は逆数を取れる値。法指定時は法と互いに素である必要がある。 | DirichletQuotientSeries — 新しいseries。$h(n)=\sum_{ab=n}f(a)g(b)$を満たすgについて、`result.data[result.index(x)]`に$\sum_{i=1}^xg(i)$を持つ。0番は0、残りは商の昇順。法指定時はその余り。 | O(N^(2/3))回の算術演算と逆元計算1回・O(sqrt(N))追加メモリ。N=divisor.n |
+| [`enumerate_multiplicative_function(limit, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L195) | multiplicative functionを列挙する。 | `limit`: 上限。NoneならAPI既定の上限<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 / 計算結果（数値または入力要素型） | — |
+| [`mobius_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L217) | Möbius値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).mobius` | O(N)時間・メモリ。N=limit |
+| [`divisor_count_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L221) | 約数個数値列を求める。 | `limit`: 上限。NoneならAPI既定の上限 | `enumerate_multiplicative_function(limit, lambda power, prime, ...` | O(N)回の算術演算・O(N)個の整数。N=limit |
+| [`divisor_sum_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L227) | 約数和値列を計算する。 | `limit`: 上限。NoneならAPI既定の上限 | `enumerate_multiplicative_function(limit, lambda power, prime, ...` | O(N)回の算術演算・O(N)個の整数。N=limit |
+| [`totient_values(limit)`](../../../number_theory/MultiplicativeFunctions.py#L234) | totient valuesを求める。 | `limit`: 上限。NoneならAPI既定の上限 | `LinearSieve(limit).phi` | O(N)時間・メモリ。N=limit |
+| [`sum_totient_fast(limit, mod=None)`](../../../number_theory/MultiplicativeFunctions.py#L564) | 1からlimitまでのφ関数の値を合計する。φ(i)は1以上i以下でiと互いに素な整数の個数。 | `limit`: 含める上限。0以下なら0を返す。<br>`mod`: 正の整数を指定すると、その余りを返す。Noneなら剰余を取らない。合成数でもよい。省略時: `None` | int — φ(1)+φ(2)+...+φ(limit)。φ(1)=1とする。mod=Noneなら整数の総和、指定時は0以上mod未満の余り。 | O(N^(2/3) log log N)時間、O(N^(2/3))メモリ。Nはlimit。整数演算をO(1)として数える |
 
 ## Class `DirichletQuotientSeries`
 
 正整数Nを割って得られる異なる商の位置に、数列の累積和を保持する。数列は乗法的でなくてもよい。
 
-- constructor: [`DirichletQuotientSeries(n, values=None, mod=None)`](../../../number_theory/MultiplicativeFunctions.py#L19)
+- constructor: [`DirichletQuotientSeries(n, values=None, mod=None)`](../../../number_theory/MultiplicativeFunctions.py#L18)
 - 引数: `n`: 上限となる正整数N。<br>`values`: 長さsizeの累積和の列。0番は0、残りは異なる商を昇順に並べた位置までの累積和。Noneなら全要素0。コピーして保持する。省略時: `None`<br>`mod`: 正の法。Noneなら通常の算術演算。除算を厳密に行うならFractionなどを使う。省略時: `None`
 - 返り値: `DirichletQuotientSeries` instance
 - 計算量: O(sqrt(N))時間・メモリ。N=n
@@ -57,31 +57,31 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L30) | method | valueに対応する商列tableのindexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` | O(1)時間 |
-| [`value(index)`](../../../number_theory/MultiplicativeFunctions.py#L35) | method | 値を求める。 | `index`: 位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` | O(1)時間 |
-| [`__getitem__(key)`](../../../number_theory/MultiplicativeFunctions.py#L40) | method | quotient-seriesの内部indexに保存されたprefix値を返す。 | `key`: 比較・格納に使うkey | number — data[key]。実際の引数xに対応する値はseries[series.index(x)]で取得する。 | O(1)時間 |
-| [`__setitem__(key, value)`](../../../number_theory/MultiplicativeFunctions.py#L43) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | O(1)回の算術演算 |
-| [`prefix()`](../../../number_theory/MultiplicativeFunctions.py#L46) | method | prefixを求める。 | なし | `self` | O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n |
-| [`difference()`](../../../number_theory/MultiplicativeFunctions.py#L55) | method | 差を求める。 | なし | `self` | O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n |
+| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L29) | method | valueに対応する商列tableのindexを返す。 | `value`: 追加・設定・問い合わせる値 | 数値または入力要素型 `value if value <= self.square else self.size - self.n // value` | O(1)時間 |
+| [`value(index)`](../../../number_theory/MultiplicativeFunctions.py#L34) | method | 値を求める。 | `index`: 位置 | 数値または入力要素型 `index if index <= self.square else self.n // (self.size - index)` | O(1)時間 |
+| [`__getitem__(key)`](../../../number_theory/MultiplicativeFunctions.py#L39) | method | quotient-seriesの内部indexに保存されたprefix値を返す。 | `key`: 比較・格納に使うkey | number — data[key]。実際の引数xに対応する値はseries[series.index(x)]で取得する。 | O(1)時間 |
+| [`__setitem__(key, value)`](../../../number_theory/MultiplicativeFunctions.py#L42) | method | obj[key] = value で更新する。 | `key`: 比較・格納に使うkey<br>`value`: 追加・設定・問い合わせる値 | `None` | O(1)回の算術演算 |
+| [`prefix()`](../../../number_theory/MultiplicativeFunctions.py#L45) | method | prefixを求める。 | なし | `self` | O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n |
+| [`difference()`](../../../number_theory/MultiplicativeFunctions.py#L54) | method | 差を求める。 | なし | `self` | O(sqrt(N))回の算術演算・O(1)追加メモリ。N=n |
 
 ## Class `EnumerateMultiplicativePrefixSum`
 
 乗法的関数の列挙・総和と商集合上のDirichlet積を扱う `EnumerateMultiplicativePrefixSum`。
 
-- constructor: [`EnumerateMultiplicativePrefixSum(n, prefix_g, prefix_h)`](../../../number_theory/MultiplicativeFunctions.py#L244)
+- constructor: [`EnumerateMultiplicativePrefixSum(n, prefix_g, prefix_h)`](../../../number_theory/MultiplicativeFunctions.py#L243)
 - 引数: `n`: 要素数・頂点数・次数<br>`prefix_g`: prefix gとして使う入力<br>`prefix_h`: prefix hとして使う入力
 - 返り値: `EnumerateMultiplicativePrefixSum` instance
 - 計算量: O(N^(3/4)(1+Tg)+sqrt(N)Th)時間・O(sqrt(N))メモリ。N=n、Tg・Thはprefix_g・prefix_hの1回の時間。算術演算をO(1)とする
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`get(value)`](../../../number_theory/MultiplicativeFunctions.py#L274) | method | 構築時に復元した乗法的関数fのprefix和をvalueで取得する。 | `value`: 追加・設定・問い合わせる値 | number — S_f(value)=sum(1<=i<=value) f(i)。valueはN//iとして現れる商、またはsqrt(N)以下の整数。 | O(1)時間 |
+| [`get(value)`](../../../number_theory/MultiplicativeFunctions.py#L273) | method | 構築時に復元した乗法的関数fのprefix和をvalueで取得する。 | `value`: 追加・設定・問い合わせる値 | number — S_f(value)=sum(1<=i<=value) f(i)。valueはN//iとして現れる商、またはsqrt(N)以下の整数。 | O(1)時間 |
 
 ## Class `MultiplicativePrefixSum`
 
 素数と素数冪の情報を使い、全整数を列挙せずに乗法的関数の総和を計算する。
 
-- constructor: [`MultiplicativePrefixSum(limit, mod=None)`](../../../number_theory/MultiplicativeFunctions.py#L287)
+- constructor: [`MultiplicativePrefixSum(limit, mod=None)`](../../../number_theory/MultiplicativeFunctions.py#L286)
 - 引数: `limit`: 総和の上限N。0以上。<br>`mod`: 法を指定するとrunとprime_sum_tableの結果を余りにする。Noneなら整数・Fractionなどの通常の算術で計算する。正の法を使う。省略時: `None`
 - 返り値: `MultiplicativePrefixSum` instance
 - 計算量: O(sqrt(N) log log(N+3))時間・O(sqrt(N))メモリ。N=limit。整数演算をO(1)とする
@@ -89,8 +89,8 @@ from library_codex.number_theory.MultiplicativeFunctions import (
 
 | method / property | 種別 | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- | --- |
-| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L304) | method | 商集合の値に対応する集計表の添字を返す。 | `value`: limit//iとして現れる正の値。範囲外や商集合にない値は検査しない。 | int — prime_count_table・prime_sum_table・runに渡す表の添字。表の0番は未使用で、正の商は降順に並ぶ。 | O(1)時間 |
-| [`prime_count_table()`](../../../number_theory/MultiplicativeFunctions.py#L312) | method | 商集合の各値以下にある素数の個数を集計する。 | なし | list[int] — 長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数の個数。mod指定時も個数をそのまま返す。0番は未使用、limit=0なら空list。 | O(N^(3/4)/log(N+2))時間・O(sqrt(N))追加メモリ。整数演算をO(1)とする |
-| [`prime_sum_table()`](../../../number_theory/MultiplicativeFunctions.py#L342) | method | 商集合の各値以下にある素数の和を集計する。 | なし | list[int] — 長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数の和。mod指定時はその余り。0番は未使用、limit=0なら空list。 | O(N^(3/4)/log(N+2))回の算術演算・O(sqrt(N))追加メモリ。mod指定時は途中の集計値も法で減らす。mod=Noneでは整数の桁数にも依存する |
-| [`run(prime_prefix, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L397) | method | 素数に対する累積和と素数冪の値から、1からlimitまでの乗法的関数の総和を求める。 | `prime_prefix`: 長さengine.sizeの列。各商xについてprime_prefix[engine.index(x)]に、x以下の素数pのf(p)の合計を入れる。0番は未使用。入力は変更しない。<br>`prime_power`: prime_power(p, e)でf(p**e)を返す関数。pは素数、eは1以上。同じ引数には同じ値を返す。呼出し回数や順序に依存させない。 | number — f(1)+…+f(limit)の1個の値。f(1)=1とする。mod指定時はその余り、limit=0なら0。各商ごとの総和を並べたlistではない。 | O((D+1)(T+1))時間・O(sqrt(N))追加メモリ。Dは2≤x≤Nのうちx×最大素因数(x)≤Nを満たす整数の個数、Tはprime_powerの1回の時間。算術演算をO(1)とする。素数の集計表の作成時間は含まない |
-| [`min_25_sieve(prime_prefix, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L453) | method | min 25 sieveを求める。 | `prime_prefix`: 素数prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(N^(3/4)(T+1)/log(N+2))時間・O(sqrt(N))追加メモリ。N=limit、Tはprime_powerの1回の時間。算術演算をO(1)とする |
+| [`index(value)`](../../../number_theory/MultiplicativeFunctions.py#L303) | method | 商集合の値に対応する集計表の添字を返す。 | `value`: limit//iとして現れる正の値。範囲外や商集合にない値は検査しない。 | int — prime_count_table・prime_sum_table・runに渡す表の添字。表の0番は未使用で、正の商は降順に並ぶ。 | O(1)時間 |
+| [`prime_count_table()`](../../../number_theory/MultiplicativeFunctions.py#L311) | method | 商集合の各値以下にある素数の個数を集計する。 | なし | list[int] — 長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数の個数。mod指定時も個数をそのまま返す。0番は未使用、limit=0なら空list。 | O(N^(3/4)/log(N+2))時間・O(sqrt(N))追加メモリ。整数演算をO(1)とする |
+| [`prime_sum_table(linear=1, constant=0)`](../../../number_theory/MultiplicativeFunctions.py#L341) | method | 各商以下の素数pについてlinear*p+constantを合計する。引数なしなら素数の和。 | `linear`: 素数pに掛ける整数係数。0なら素数の個数にconstantを掛けた表を作る。省略時: `1`<br>`constant`: 各素数に対して加える整数。法指定時は個数と素数和の篩を共有して集計する。省略時: `0` | list[int] — 長さengine.sizeの新しいlist。result[engine.index(x)]はx以下の素数pに対するlinear*p+constantの合計。mod指定時はその余り。0番は未使用、limit=0なら空list。 | O(N^(3/4)/log(N+2))回の算術演算・O(sqrt(N))追加メモリ。mod指定時は途中の集計値も法で減らす。mod=Noneでは整数の桁数にも依存する |
+| [`run(prime_prefix, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L467) | method | 素数に対する累積和と素数冪の値から、1からlimitまでの乗法的関数の総和を求める。 | `prime_prefix`: 長さengine.sizeの列。各商xについてprime_prefix[engine.index(x)]に、x以下の素数pのf(p)の合計を入れる。0番は未使用。入力は変更しない。<br>`prime_power`: prime_power(p, e)でf(p**e)を返す関数。pは素数、eは1以上。同じ引数には同じ値を返す。呼出し回数や順序に依存させない。 | number — f(1)+…+f(limit)の1個の値。f(1)=1とする。mod指定時はその余り、limit=0なら0。各商ごとの総和を並べたlistではない。 | O((D+1)(T+1))時間・O(sqrt(N))追加メモリ。Dは2≤x≤Nのうちx×最大素因数(x)≤Nを満たす整数の個数、Tはprime_powerの1回の時間。算術演算をO(1)とする。素数の集計表の作成時間は含まない |
+| [`min_25_sieve(prime_prefix, prime_power)`](../../../number_theory/MultiplicativeFunctions.py#L530) | method | min 25 sieveを求める。 | `prime_prefix`: 素数prefixとして使う入力<br>`prime_power`: 素数冪における値を返すcallback | list[object] — 用途欄に示した結果を1要素ずつ並べた列 | O(N^(3/4)(T+1)/log(N+2))時間・O(sqrt(N))追加メモリ。N=limit、Tはprime_powerの1回の時間。算術演算をO(1)とする |

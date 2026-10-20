@@ -45,6 +45,12 @@ def test_library_checker_changes_select_runner_tests():
         assert "verify/test_official_library_checker.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
 
 
+def test_multiplicative_benchmarks_select_loader_tests():
+    for name in ("multiplicative_sum_comparison", "multiplicative_sum_large_comparison"):
+        selected = relative_tests(CHECK_CHANGED.plan_for(["library_codex/benchmarks/" + name + ".py"]))
+        assert "verify/test_multiplicative_sum_large_comparison.py" in selected
+
+
 def test_segment_tree_change_selects_dependents_and_relevant_tests():
     plan = CHECK_CHANGED.plan_for(
         ["library_codex/segment_tree/SegTree.py"]

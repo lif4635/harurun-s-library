@@ -172,7 +172,8 @@
 | [subset_convolution](subset_convolution.json) | 3 / 11 | 5 | 2.647 | 575.1 | 一致 |
 | [sum_of_exponential_times_polynomial](sum_of_exponential_times_polynomial.json) | 3 / 20 | 5 | 1.691 | 364.9 | 一致 |
 | [sum_of_exponential_times_polynomial_limit](sum_of_exponential_times_polynomial_limit.json) | 3 / 10 | 5 | 0.917 | 212.3 | 一致 |
-| [sum_of_multiplicative_function](sum_of_multiplicative_function.json) | 3 / 30 | 5 | 1.723 | 103.8 | 一致 |
+| [sum_of_multiplicative_function](sum_of_multiplicative_function.json) | 3 / 30 | 5 | 1.274 | 86.1 | 一致 |
+| [sum_of_multiplicative_function_large](sum_of_multiplicative_function_large.json) | 3 / 20 | 5 | 26.580 | 259.3 | 一致 |
 | [sum_of_totient_function](sum_of_totient_function.json) | 3 / 48 | 5 | 0.402 | 96.0 | 一致 |
 | [system_of_linear_equations](system_of_linear_equations.json) | 3 / 27 | 5 | 0.508 | 66.6 | 一致 |
 | [system_of_linear_equations_mod_2](system_of_linear_equations_mod_2.json) | 3 / 36 | 5 | 1.393 | 105.7 | 一致 |

@@ -1,5 +1,6 @@
 import argparse
 import ast
+from bisect import bisect_right
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -11,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 from time import perf_counter
+from types import ModuleType
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -27,9 +29,12 @@ def baseline(revision):
         ["git", "-c", "safe.directory=*", "show", revision + ":library_codex/number_theory/MultiplicativeFunctions.py"],
         cwd=ROOT, text=True,
     )
-    cls = next(node for node in ast.parse(source).body if isinstance(node, ast.ClassDef) and node.name == "MultiplicativePrefixSum")
-    namespace = dict(isqrt=isqrt, prime_sieve=prime_sieve)
-    exec(compile(ast.Module(body=[cls], type_ignores=[]), "baseline", "exec"), namespace)
+    nodes = [node for node in ast.parse(source).body
+             if isinstance(node, (ast.ClassDef, ast.FunctionDef))
+             and node.name in ("MultiplicativePrefixSum", "_small_quotient")]
+    namespace = ModuleType("multiplicative_baseline").__dict__
+    namespace.update(isqrt=isqrt, prime_sieve=prime_sieve, bisect_right=bisect_right)
+    exec(compile(ast.Module(body=nodes, type_ignores=[]), "baseline", "exec"), namespace)
     return namespace["MultiplicativePrefixSum"], hashlib.sha256(source.encode()).hexdigest()
 
 
@@ -44,27 +49,28 @@ def worker(mode, revision):
         start = perf_counter()
         engine = cls(n, mod)
         constructed = perf_counter()
-        counts = engine.prime_count_table() if a else [0] * engine.size
-        counted = perf_counter()
-        sums = engine.prime_sum_table() if b else [0] * engine.size
-        summed = perf_counter()
-        prefix = [(a * x + b * y) % mod for x, y in zip(counts, sums)]
+        if mode == "baseline":
+            counts = engine.prime_count_table() if a else [0] * engine.size
+            sums = engine.prime_sum_table() if b else [0] * engine.size
+            prefix = [(a * x + b * y) % mod for x, y in zip(counts, sums)]
+        else:
+            prefix = engine.prime_sum_table(linear=b, constant=a)
         combined = perf_counter()
         answers.append(engine.run(prefix, lambda p, e: (a * e + b * p) % mod))
-        phases.append(dict(n=n, constructor=constructed-start, counts=counted-constructed,
-                           sums=summed-counted, prefix=combined-summed, run=perf_counter()-combined))
+        phases.append(dict(n=n, constructor=constructed-start,
+                           primeTables=combined-constructed, run=perf_counter()-combined))
     print(json.dumps(dict(answers=answers, phases=phases, baselineSourceSha256=source_hash)))
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--official", type=Path)
-    parser.add_argument("--revision", default="23457b9c61f00cd404df9fc1a1c95ebaacbb92d5")
+    parser.add_argument("--revision", default="c577fd91641238230e4af0d094f4b9f6477d889b")
     parser.add_argument("--cases", nargs="+", default=["max_00"])
     parser.add_argument("--repeat", type=int, default=3)
     parser.add_argument("--timeout", type=float, default=180)
     parser.add_argument("--worker", choices=["baseline", "current"])
-    parser.add_argument("--output", type=Path, default=ROOT / "verify/library_checker/benchmarks/comparisons/multiplicative_sum_large.json")
+    parser.add_argument("--output", type=Path, default=ROOT / "verify/library_checker/benchmarks/comparisons/multiplicative_sum_affine_table.json")
     args = parser.parse_args()
     if args.worker:
         worker(args.worker, args.revision)
@@ -78,7 +84,7 @@ def main():
                   sourceSha256=file_digest(ROOT / "library_codex/number_theory/MultiplicativeFunctions.py"),
                   checkerSha256=file_digest(problem / "checker"), officialHashSha256=file_digest(problem / "hash.json"),
                   repeat=args.repeat, timeLimitSeconds=30, measurementTimeoutSeconds=args.timeout,
-                  protocol="sequential fresh PyPy processes; shuffled order; official checker; wall time includes startup, baseline extraction, JIT and I/O; memory limit not enforced; extended measurement timeout is not an AC result",
+                  protocol="sequential fresh PyPy processes; shuffled order; official checker; baseline functions use a ModuleType namespace, not an ordinary dict; wall time includes startup, baseline extraction, JIT and I/O; memory limit not enforced; extended measurement timeout is not an AC result",
                   results=[])
     jobs = [(case, mode) for case in args.cases for mode in ("baseline", "current") for _ in range(args.repeat)]
     random.Random(281731).shuffle(jobs)

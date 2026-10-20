@@ -256,5 +256,30 @@ def test_summatory_large_residues_and_exact_arithmetic():
                     values[x] = values[x] * (a * e + b * p) % mod
             engine = MultiplicativePrefixSum(n, mod)
             prefix = [(a * x + b * y) % mod for x, y in zip(engine.prime_count_table(), engine.prime_sum_table())]
+            assert engine.prime_sum_table(linear=b, constant=a) == prefix
             assert engine.run(prefix, lambda p, e: (a * e + b * p) % mod) == sum(values[1:]) % mod
+
+
+def test_prime_affine_tables():
+    rng = Random(20261020)
+    limits = list(range(100)) + [9999, 10000, 10001, 99999, 100000]
+    limits += [rng.randrange(100, 10000) for _ in range(12)]
+    weights = [(0, 0), (0, 3), (1, 0), (2, -7), (-3, 5), (2**70, -2**80)]
+    for n in limits:
+        sieve = LinearSieve(n)
+        for linear, constant in weights:
+            expected = [0] * (n + 1)
+            for p in sieve.primes:
+                expected[p] = linear * p + constant
+            for x in range(1, n + 1):
+                expected[x] += expected[x - 1]
+            for mod in (None, 1, 2, 6, 469762049, 2**70 + 33):
+                engine = MultiplicativePrefixSum(n, mod)
+                actual = engine.prime_sum_table(linear, constant)
+                assert len(actual) == engine.size
+                for x in {n // i for i in range(1, n + 1)}:
+                    assert actual[engine.index(x)] == (expected[x] if mod is None else expected[x] % mod)
+                if actual:
+                    actual[0] = 123
+                assert engine.prime_sum_table(linear, constant) == ([0] + actual[1:] if actual else [])
 

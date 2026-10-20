@@ -72,6 +72,27 @@ def test_benchmark_records_samples_and_preserves_report_on_failure(tmp_path, mon
     with pytest.raises(ValueError, match="wrong answer"):
         bench.benchmark("problem", problem, "pypy3", 3, 3, output)
     assert (output / "problem.json").read_bytes() == saved
+    failed = json.loads((output / "comparisons/problem-failed-run.json").read_text())
+    assert failed["failedCase"] == "example_00"
+    assert failed["failedIteration"] == 1
+    assert failed["results"] == []
+    monkeypatch.setattr(bench.subprocess, "run", lambda *a, **k: SimpleNamespace(returncode=0, stderr=b""))
+    completed = []
+
+    def one_sample_then_timeout(command, input_path, output_path, rss_path, timeout):
+        if completed:
+            raise bench.subprocess.TimeoutExpired(command, timeout)
+        completed.append(True)
+        return measure(command, input_path, output_path, rss_path, timeout)
+
+    monkeypatch.setattr(bench, "measure", one_sample_then_timeout)
+    with pytest.raises(bench.subprocess.TimeoutExpired):
+        bench.benchmark("problem", problem, "pypy3", 3, 3, output)
+    assert (output / "problem.json").read_bytes() == saved
+    failed = json.loads((output / "comparisons/problem-failed-run.json").read_text())
+    assert failed["failedIteration"] == 2
+    assert failed["failure"]["type"] == "TimeoutExpired"
+    assert len(failed["results"][0]["samples"]) == 1
     (root / "in" / "example_00.in").write_text("tampered")
     with pytest.raises(ValueError, match="hash mismatch"):
         bench.benchmark("problem", problem, "pypy3", 3, 3, output)

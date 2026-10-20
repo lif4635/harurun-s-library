@@ -155,6 +155,11 @@ def plan_for(paths):
     } for relative in paths):
         tests.add(ROOT / "verify" / "test_official_benchmark.py")
         tests.add(ROOT / "verify" / "test_official_comparison.py")
+    if any(relative in {
+        "library_codex/benchmarks/multiplicative_sum_comparison.py",
+        "library_codex/benchmarks/multiplicative_sum_large_comparison.py",
+    } for relative in paths):
+        tests.add(ROOT / "verify" / "test_multiplicative_sum_large_comparison.py")
     if source_changed or any(
         relative.startswith("verify/library_checker/")
         or relative.startswith("library_codex/benchmarks/lc_problems/")

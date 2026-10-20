@@ -8,6 +8,7 @@ import statistics
 import subprocess
 import sys
 from time import perf_counter
+from types import ModuleType
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -23,7 +24,7 @@ def baseline(revision):
     )
     cls = next(node for node in ast.parse(source).body if isinstance(node, ast.ClassDef) and node.name == "MultiplicativePrefixSum")
     method = next(node for node in cls.body if isinstance(node, ast.FunctionDef) and node.name == "run")
-    namespace = {}
+    namespace = ModuleType("multiplicative_run_baseline").__dict__
     exec(compile(ast.Module(body=[method], type_ignores=[]), "baseline", "exec"), namespace)
     return namespace["run"], hashlib.sha256(source.encode()).hexdigest()
 
@@ -62,7 +63,7 @@ def main():
     for n in args.sizes:
         assert len({row["result"] for row in rows if row["n"] == n}) == 1
     summary = [{"n": n, "mode": mode, "medianSeconds": statistics.median(row["seconds"] for row in rows if row["n"] == n and row["mode"] == mode)} for n in args.sizes for mode in ("baseline", "current")]
-    result = dict(runtime=sys.version, baselineRevision=args.revision, sourceSha256=hashlib.sha256((ROOT / "library_codex/number_theory/MultiplicativeFunctions.py").read_bytes()).hexdigest(), scope="run only; tables prepared before timing; fresh process; same input and callback", repeat=args.repeat, runs=rows, summary=summary)
+    result = dict(runtime=sys.version, baselineRevision=args.revision, sourceSha256=hashlib.sha256((ROOT / "library_codex/number_theory/MultiplicativeFunctions.py").read_bytes()).hexdigest(), scope="run only; tables prepared before timing; fresh process; same input and callback; ModuleType namespace for baseline", repeat=args.repeat, runs=rows, summary=summary)
     atomic_write(args.output, json.dumps(result, indent=2) + "\n")
     print(json.dumps(summary))
 

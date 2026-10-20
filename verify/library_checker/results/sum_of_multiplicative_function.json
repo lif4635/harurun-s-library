@@ -1,8 +1,8 @@
 {
   "problem": "sum_of_multiplicative_function",
   "status": "local_passed",
-  "verificationKey": "0f72cb8a32d4802a7a487cd907c9c85bba373b2c2e21ff699670c61a2b97c7ad",
-  "sourceSha256": "ddd03ce059b91cc80a53d81705bcba22a5672f0346ac3eeb2e15e7753608ee46",
+  "verificationKey": "a29114a0c44e97677a6c8843cbb4e760c6d9b7d15ccf63e68ab80452c9e86b3f",
+  "sourceSha256": "ee1588941da8fb70b1e2bb6da3a1e949e6f792c8ca28deb453dac627ecee3bca",
   "modules": [
     "library_codex.prime.Sieve",
     "library_codex.number_theory.MultiplicativeFunctions"
@@ -18,184 +18,184 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.07363931800136925,
+      "seconds": 0.062386107005295344,
       "diagnostic": "ok 10 tokens\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.06948862799981725,
+      "seconds": 0.06236526699649403,
       "diagnostic": "ok \"181804\"\n"
     },
     {
       "name": "example_02",
       "status": "AC",
-      "seconds": 2.1142839759995695,
+      "seconds": 1.0279092400014633,
       "diagnostic": "ok \"22268225\"\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.09152270300182863,
+      "seconds": 0.07459938900137786,
       "diagnostic": "ok 100 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 1.7503329749997647,
+      "seconds": 1.2939068499981659,
       "diagnostic": "ok \"37160554\"\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 1.2275071160001971,
+      "seconds": 0.9404184929953772,
       "diagnostic": "ok \"368662478\"\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 1.27903254299963,
+      "seconds": 0.8969106509975973,
       "diagnostic": "ok \"285258056\"\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.9734979919994657,
+      "seconds": 0.6833372390028671,
       "diagnostic": "ok \"444487482\"\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 0.6524167610004952,
+      "seconds": 0.4215276639952208,
       "diagnostic": "ok \"200130335\"\n"
     },
     {
       "name": "max_00",
       "status": "AC",
-      "seconds": 1.8154620630011777,
+      "seconds": 0.9924792079982581,
       "diagnostic": "ok \"71142723\"\n"
     },
     {
       "name": "max_01",
       "status": "AC",
-      "seconds": 1.9386559490012587,
+      "seconds": 1.014047706994461,
       "diagnostic": "ok \"449038428\"\n"
     },
     {
       "name": "max_02",
       "status": "AC",
-      "seconds": 1.7596026669998537,
+      "seconds": 1.0519156320006005,
       "diagnostic": "ok \"398349607\"\n"
     },
     {
       "name": "max_03",
       "status": "AC",
-      "seconds": 2.0591190359991742,
+      "seconds": 1.0849530220002634,
       "diagnostic": "ok \"212298023\"\n"
     },
     {
       "name": "max_04",
       "status": "AC",
-      "seconds": 1.7902734749986848,
+      "seconds": 1.1417921710017254,
       "diagnostic": "ok \"302328137\"\n"
     },
     {
       "name": "boundaryA_00",
       "status": "AC",
-      "seconds": 1.7659891490002337,
+      "seconds": 1.284213696999359,
       "diagnostic": "ok \"102067564\"\n"
     },
     {
       "name": "boundaryA_01",
       "status": "AC",
-      "seconds": 1.174423068001488,
+      "seconds": 0.8839012250027736,
       "diagnostic": "ok \"319462901\"\n"
     },
     {
       "name": "boundaryA_02",
       "status": "AC",
-      "seconds": 1.1973481890017865,
+      "seconds": 0.8250048289992264,
       "diagnostic": "ok \"356611026\"\n"
     },
     {
       "name": "boundaryA_03",
       "status": "AC",
-      "seconds": 1.045998049001355,
+      "seconds": 0.6837542859939276,
       "diagnostic": "ok \"379412766\"\n"
     },
     {
       "name": "boundaryA_04",
       "status": "AC",
-      "seconds": 0.7319606800010661,
+      "seconds": 0.4274487590009812,
       "diagnostic": "ok \"167543079\"\n"
     },
     {
       "name": "boundaryB_00",
       "status": "AC",
-      "seconds": 1.784750131002511,
+      "seconds": 1.2463839659976657,
       "diagnostic": "ok \"137345549\"\n"
     },
     {
       "name": "boundaryB_01",
       "status": "AC",
-      "seconds": 1.2622233220026828,
+      "seconds": 0.9404955429999973,
       "diagnostic": "ok \"87238699\"\n"
     },
     {
       "name": "boundaryB_02",
       "status": "AC",
-      "seconds": 1.180792436000047,
+      "seconds": 0.9313660350017017,
       "diagnostic": "ok \"15297832\"\n"
     },
     {
       "name": "boundaryB_03",
       "status": "AC",
-      "seconds": 1.0258461390003504,
+      "seconds": 0.7187699470014195,
       "diagnostic": "ok \"44294883\"\n"
     },
     {
       "name": "boundaryB_04",
       "status": "AC",
-      "seconds": 0.6870430609997129,
+      "seconds": 0.4596711080012028,
       "diagnostic": "ok \"179707459\"\n"
     },
     {
       "name": "hack_wrong_zky_method_00",
       "status": "AC",
-      "seconds": 0.27955704600026365,
+      "seconds": 0.23917042699758895,
       "diagnostic": "ok 162 tokens\n"
     },
     {
       "name": "hack_wrong_zky_method_01",
       "status": "AC",
-      "seconds": 0.2676975169997604,
+      "seconds": 0.22782610099966405,
       "diagnostic": "ok 126 tokens\n"
     },
     {
       "name": "hack_wrong_zky_method_02",
       "status": "AC",
-      "seconds": 0.2731301519997942,
+      "seconds": 0.22576887799368706,
       "diagnostic": "ok 108 tokens\n"
     },
     {
       "name": "hack_wrong_zky_method_03",
       "status": "AC",
-      "seconds": 1.644962646998465,
+      "seconds": 1.1221048340012203,
       "diagnostic": "ok \"122279554\"\n"
     },
     {
       "name": "hack_wrong_zky_method_04",
       "status": "AC",
-      "seconds": 1.6408127559989225,
+      "seconds": 1.0998123899989878,
       "diagnostic": "ok \"148344380\"\n"
     },
     {
       "name": "hack_wrong_zky_method_05",
       "status": "AC",
-      "seconds": 1.4344144200003939,
+      "seconds": 0.9642308769980446,
       "diagnostic": "ok \"458631641\"\n"
     }
   ],
-  "verifiedAt": "2026-10-20T00:00:02.000542+00:00",
+  "verifiedAt": "2026-10-20T04:57:13.027984+00:00",
   "onlineSubmission": null
 }

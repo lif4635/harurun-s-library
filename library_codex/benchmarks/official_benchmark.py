@@ -86,14 +86,29 @@ def benchmark(name, problem, runtime, repeat, slowest, output_dir, seed=92471):
                 input_path = problem.basedir / "in" / (case + ".in")
                 expected_path = problem.basedir / "out" / (case + ".out")
                 output_path = temporary / "actual.out"
-                elapsed, rss = measure([runtime, str(script)], input_path, output_path,
-                                       temporary / "rss.txt", max(30, report["timeLimitSeconds"]))
-                checked = subprocess.run([str(checker), str(input_path), str(output_path), str(expected_path)],
-                                         capture_output=True, timeout=30)
-                if checked.returncode:
-                    raise ValueError(name + "/" + case + ": " + checked.stderr.decode(errors="replace"))
+                try:
+                    elapsed, rss = measure([runtime, str(script)], input_path, output_path,
+                                           temporary / "rss.txt", max(30, report["timeLimitSeconds"]))
+                    checked = subprocess.run([str(checker), str(input_path), str(output_path), str(expected_path)],
+                                             capture_output=True, timeout=30)
+                    if checked.returncode:
+                        raise ValueError(name + "/" + case + ": " + checked.stderr.decode(errors="replace"))
+                except (subprocess.TimeoutExpired, RuntimeError, ValueError) as error:
+                    failed = dict(report, status="failed", failedCase=case,
+                                  failedIteration=iteration + 1,
+                                  failure=dict(type=type(error).__name__, message=str(error)),
+                                  results=[dict(case=k, samples=v,
+                                      inputSha256=hashes[k + ".in"],
+                                      expectedSha256=hashes[k + ".out"])
+                                      for k, v in samples.items() if v])
+                    save_json(output_dir / "comparisons" / (name + "-failed-run.json"), failed)
+                    print(f"{name}/{case} {iteration + 1}/{repeat}: {type(error).__name__}",
+                          file=sys.stderr, flush=True)
+                    raise
                 samples[case].append(dict(seconds=elapsed, peakRssKiB=rss,
                                           outputSha256=file_digest(output_path)))
+                print(f"{name}/{case} {iteration + 1}/{repeat}: {elapsed:.3f}s, {rss} KiB",
+                      file=sys.stderr, flush=True)
         for case in names:
             values = samples[case]
             times = [row["seconds"] for row in values]

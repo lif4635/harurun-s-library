@@ -87,6 +87,7 @@ pypy3 library_codex/benchmarks/official_benchmark.py scc --official /home/haruru
 - 各回は新しいPyPyプロセスで、起動・JIT・入出力を含む。ケース順を入れ替え、他の重い検査と同時に走らせない。
 - 出力は毎回公式checkerで検査する。現在のsourceで公式全件検証が済んでいなければ測定しない。
 - 時間・最大RSS・入力とsourceのhash・実行環境をJSONへ保存し、[一覧](benchmarks/README.md)を更新する。失敗時に以前の正常な測定結果を上書きしない。
+- timeoutや不正解で止まった場合は、ケース名・何回目か・そこまでの測定値を`benchmarks/comparisons/<問題名>-failed-run.json`へ保存する。
 - 測定用timeoutは最低30秒。公式時間制限の判定は`results/`で確認する。環境の異なる記録をそのまま速度比較しない。
 
 実装方式や他の提出との比較は[比較記録の索引](../../library_codex/docs/BENCHMARKS.md)から探せる。
