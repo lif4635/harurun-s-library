@@ -3,7 +3,8 @@
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
     "local_passed": 251,
-    "unimplemented": 2
+    "unimplemented": 1,
+    "unverified": 1
   },
   "problems": [
     {
@@ -491,9 +492,12 @@
       "title": "Convolution (Large)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/convolution_mod_large",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
+      "status": "unverified",
+      "modules": [
+        "library_codex.convolution.NTT998",
+        "library_codex.convolution.LargeConvolution"
+      ],
+      "solution": "solutions/convolution_mod_large.py",
       "result": null
     },
     {

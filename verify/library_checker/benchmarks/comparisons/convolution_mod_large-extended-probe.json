@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "kind": "selected-official-case-probe",
+  "problem": "convolution_mod_large",
+  "measuredAt": "2026-10-20T08:18:11.050534+00:00",
+  "environment": {
+    "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "cpu": "AMD Ryzen 7 3700X 8-Core Processor",
+    "machine": "x86_64"
+  },
+  "sourceSha256": "07219d297e88040752b1cbf9d6989d93097bf82a338547fbd59bc55823fdf7a8",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.convolution.LargeConvolution"
+  ],
+  "problemVersion": "2f070ba331b4bd0800a87b6fca1517ecca820f3f9a0c6d755df594f56f7123d1",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "officialCases": 54,
+  "selectedCases": [
+    "max_random_00"
+  ],
+  "timeLimitSeconds": 10.0,
+  "timeoutSeconds": 300.0,
+  "repeat": 1,
+  "checkerSha256": "ff0f0a6805be4ed055c1bc2460fd0403adb718ab284550a00d69385a25d3571d",
+  "officialHashSha256": "5650684e5e6203be78ce1daa59171a63b3f65f1cdf9c4dad2429ce5e786eb7e8",
+  "status": "selected_cases_failed",
+  "onlineSubmission": null,
+  "results": [
+    {
+      "case": "max_random_00",
+      "iteration": 1,
+      "inputSha256": "a90a1d4737effb3caaf72184a18cb3e76d28f86e91cb0a0a76dee43a54aa6092",
+      "expectedSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee",
+      "seconds": 17.583785392998834,
+      "peakRssKiB": 1156148,
+      "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee",
+      "status": "AC",
+      "withinOfficialTimeLimit": false
+    }
+  ],
+  "protocol": "selected official hash-verified cases only; sequential fresh PyPy processes; startup, JIT and I/O included; official checker; GNU time RSS; no memory limit enforcement; does not update full verification"
+}

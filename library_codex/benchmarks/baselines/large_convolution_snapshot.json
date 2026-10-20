@@ -1,0 +1,6 @@
+{
+  "problem": "convolution_mod_large",
+  "language": "pypy3",
+  "submissions": [],
+  "description": "Local block convolution variants only; no external submission ranking comparison."
+}

@@ -53,6 +53,16 @@ pypy3 library_codex/tools/check_library_checker.py test scc --official /home/har
 - `--reuse-tests <既存キャッシュ>`で、公式hashが一致する入力・正解だけをコピーして再利用できる。コピー元は変更しない。
 - 実行は逐次。大きな入力・正解ファイルはGitへ入れない。
 
+巨大な問題で、まず少数の公式ケースだけを調べたい場合：
+
+```sh
+pypy3 library_codex/benchmarks/official_probe.py convolution_mod_large --official /home/harurun/.cache/harurun-library-checker/problems --cases example_00 medium_00 max_random_00 --repeat 3
+```
+
+選択ケースだけを生成し、公式hash・checkerを使って測る。既存キャッシュは削除しない。結果は`benchmarks/comparisons/<問題名>-probe.json`へ保存し、`results/`と全件通過の状態は更新しない。
+
+`--timeout 60`などで診断用の待ち時間を延ばせるが、公式制限内かどうかは別fieldに記録する。答えが一致しても時間を超えたものは通過扱いにせず、終了codeは非0になる。生成する入出力・checker・公式正解コードは、指定した公式checkoutのものを使う。選択測定から全件通過へ進める場合は、上の通常の`test`を実行する。
+
 検査せず対応状況だけを更新する：
 
 ```sh

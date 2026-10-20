@@ -55,6 +55,7 @@ PROTOCOL_METHODS = {
 
 
 SEARCH_TERMS_BY_MODULE = {
+    "convolution/LargeConvolution.py": ("大規模畳み込み", "長い畳み込み", "overlap add"),
     "fps998/MultipointEvaluation.py": (
         "高速多点評価",
         "multipoint evaluation",
@@ -1169,6 +1170,15 @@ API_DETAILS_BY_SYMBOL = {
 
 
 API_DETAILS_BY_SYMBOL.update({
+    ("convolution/LargeConvolution.py", None, "multiply"): {
+        "description": "出力が2^23項を超える場合も、2つの多項式の積をmod 998244353で計算する。入力は変更しない。",
+        "argumentDescriptions": {
+            "first": "第1の昇べき順整数係数列。list・tuple・arrayを使える。",
+            "second": "第2の昇べき順整数係数列。同じobjectを渡す二乗では変換を共有する。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": r"長さN+M-1の列c。$c[k]=\sum_{i+j=k}\mathrm{first}[i]\mathrm{second}[j]\bmod 998244353$。各要素は0以上998244353未満。片方が空なら空list。",
+    },
     ("fps/FormalPowerSeries.py", None, "fps_add"): {
         "description": "2つの形式的冪級数を係数ごとに加算する。",
         "returnFormat": "list[number]",
@@ -2140,6 +2150,9 @@ CLASS_DETAILS_BY_SYMBOL = {
 # Big-O is kept separate from descriptive algorithm names.  These entries are
 # used when the source alone cannot provide a useful per-API estimate.
 COMPLEXITY_BY_MODULE = {
+    "convolution/LargeConvolution.py": {
+        "multiply": "O((P+Q) B log B + P Q B)時間・O((P+Q) B)追加メモリ。N,Mは入力長、Bは短い入力を覆う2の冪と2^22の小さい方、P=ceil(N/B)、Q=ceil(M/B)。通常サイズはO((N+M) log(N+M))、片方60項以下はO(NM)",
+    },
     "fps998/LinearRecurrence.py": {
         "berlekamp_massey": "O(N^2)。Nは観測列の長さ。追加領域O(N)。",
         "bostan_mori": "O(L log(L+1) log(index+2))。Lは分子・分母の長さの最大値。追加領域O(L)。",

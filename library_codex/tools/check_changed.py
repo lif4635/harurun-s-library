@@ -156,6 +156,14 @@ def plan_for(paths):
         tests.add(ROOT / "verify" / "test_official_benchmark.py")
         tests.add(ROOT / "verify" / "test_official_comparison.py")
     if any(relative in {
+        "library_codex/benchmarks/official_probe.py",
+        "library_codex/benchmarks/official_comparison.py",
+        "library_codex/tools/check_library_checker.py",
+    } for relative in paths):
+        tests.add(ROOT / "verify" / "test_official_probe.py")
+    if "library_codex/benchmarks/large_convolution_profile.py" in paths:
+        tests.add(ROOT / "verify" / "convolution" / "test_large_convolution.py")
+    if any(relative in {
         "library_codex/benchmarks/multiplicative_sum_comparison.py",
         "library_codex/benchmarks/multiplicative_sum_large_comparison.py",
     } for relative in paths):

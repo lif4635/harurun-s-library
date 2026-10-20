@@ -1,0 +1,19 @@
+{
+  "protocol": "instrumented import execution; nested phase wall times, not standalone submission benchmark",
+  "driverSha256": "d7b06c95477f2f6fa44849c0e36c0dc3e7cbfa14f22942ce1d760d89ca0b7773",
+  "moduleSha256": "01ffa36b03da4252607cc710ba53da9c3a303ec536ec78eea0de2b96e20a84e5",
+  "totalSeconds": 18.02541717999702,
+  "phaseSeconds": {
+    "read": 2.006150206005259,
+    "forward": 6.856963243000791,
+    "inverse": 5.948171874981199,
+    "multiply_including_transforms": 15.020983049005736
+  },
+  "phaseCalls": {
+    "read": 1,
+    "forward": 8,
+    "inverse": 7,
+    "multiply_including_transforms": 1
+  },
+  "allocationAndOutputSeconds": 0.9982839249860262
+}

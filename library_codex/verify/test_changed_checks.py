@@ -45,6 +45,15 @@ def test_library_checker_changes_select_runner_tests():
         assert "verify/test_official_library_checker.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
 
 
+def test_selected_case_probe_changes_select_own_tests():
+    for path in ("library_codex/benchmarks/official_probe.py",
+                 "library_codex/benchmarks/official_comparison.py",
+                 "library_codex/tools/check_library_checker.py"):
+        assert "verify/test_official_probe.py" in relative_tests(CHECK_CHANGED.plan_for([path]))
+    selected = relative_tests(CHECK_CHANGED.plan_for(["library_codex/benchmarks/large_convolution_profile.py"]))
+    assert "verify/convolution/test_large_convolution.py" in selected
+
+
 def test_multiplicative_benchmarks_select_loader_tests():
     for name in ("multiplicative_sum_comparison", "multiplicative_sum_large_comparison"):
         selected = relative_tests(CHECK_CHANGED.plan_for(["library_codex/benchmarks/" + name + ".py"]))

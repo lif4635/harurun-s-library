@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 400,
+  "moduleCount": 401,
   "supportedCount": 7,
   "modules": [
     {
@@ -332,6 +332,12 @@
       "modulePath": "convolution/Convolution64",
       "sourcePath": "library_codex/convolution/Convolution64.py",
       "sourceSha256": "1695d9bda4be0ca8d2f0fab656751cc72db3eb4bf995e6dcb2dee8369824d6b2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/LargeConvolution",
+      "sourcePath": "library_codex/convolution/LargeConvolution.py",
+      "sourceSha256": "572d5e41fb40a992ad7ff08dea559078171eaa806a5832f1efa22a6d443568ed",
       "status": "unsupported"
     },
     {
