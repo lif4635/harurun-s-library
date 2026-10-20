@@ -3,8 +3,7 @@
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
     "local_passed": 251,
-    "unimplemented": 1,
-    "unverified": 1
+    "unverified": 2
   },
   "problems": [
     {
@@ -444,9 +443,11 @@
       "title": "Convolution ($\\mathbb{F}_{2^{64}}$)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/convolution_F_2_64",
-      "status": "unimplemented",
-      "modules": [],
-      "solution": null,
+      "status": "unverified",
+      "modules": [
+        "library_codex.convolution.BinaryFieldConvolution"
+      ],
+      "solution": "solutions/convolution_F_2_64.py",
       "result": null
     },
     {

@@ -1,0 +1,6 @@
+{
+  "problem": "convolution_F_2_64",
+  "language": "pypy3",
+  "submissions": [],
+  "description": "Local additive FFT variants only; no external submission ranking comparison."
+}

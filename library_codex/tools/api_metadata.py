@@ -56,6 +56,7 @@ PROTOCOL_METHODS = {
 
 SEARCH_TERMS_BY_MODULE = {
     "convolution/LargeConvolution.py": ("大規模畳み込み", "長い畳み込み", "overlap add"),
+    "convolution/BinaryFieldConvolution.py": ("GF(2^64)", "F_2_64", "二元拡大体", "加法FFT", "additive FFT"),
     "fps998/MultipointEvaluation.py": (
         "高速多点評価",
         "multipoint evaluation",
@@ -1170,6 +1171,15 @@ API_DETAILS_BY_SYMBOL = {
 
 
 API_DETAILS_BY_SYMBOL.update({
+    ("convolution/BinaryFieldConvolution.py", None, "multiply"): {
+        "description": "GF(2^64)を係数とする2つの多項式を掛ける。係数の加算はXOR、乗算はt^64+t^4+t^3+t+1による剰余体の積。入力は変更しない。",
+        "argumentDescriptions": {
+            "first": "第1の昇べき順係数列。各要素は0以上2^64未満の整数で、bit iがt^iの係数を表す。",
+            "second": "第2の昇べき順係数列。同じobjectを渡す二乗は線形時間で処理する。",
+        },
+        "returnFormat": "list[int]",
+        "returnDescription": "長さN+M-1の列c。c[k]はi+j=kを満たすfirst[i]とsecond[j]の体の積をすべてXORした値。各要素は0以上2^64未満で入力と同じbit表現。末尾の0を保持し、片方が空なら空list。",
+    },
     ("convolution/LargeConvolution.py", None, "multiply"): {
         "description": "出力が2^23項を超える場合も、2つの多項式の積をmod 998244353で計算する。入力は変更しない。",
         "argumentDescriptions": {
@@ -2150,6 +2160,9 @@ CLASS_DETAILS_BY_SYMBOL = {
 # Big-O is kept separate from descriptive algorithm names.  These entries are
 # used when the source alone cannot provide a useful per-API estimate.
 COMPLEXITY_BY_MODULE = {
+    "convolution/BinaryFieldConvolution.py": {
+        "multiply": "O(S log^2(S+1))時間・O(S)追加メモリ。SはN+M-1以上の最小の2の冪。体の乗算はO(S log(S+1))回。片方が4倍以上長ければO((N+M) log^2(min(N,M)+1))時間、短い方が8項以下ならO(NM)、同じobjectの二乗はO(N)。64bitの体演算を定数時間として数える。",
+    },
     "convolution/LargeConvolution.py": {
         "multiply": "O((P+Q) B log B + P Q B)時間・O((P+Q) B)追加メモリ。N,Mは入力長、Bは短い入力を覆う2の冪と2^22の小さい方、P=ceil(N/B)、Q=ceil(M/B)。通常サイズはO((N+M) log(N+M))、片方60項以下はO(NM)",
     },

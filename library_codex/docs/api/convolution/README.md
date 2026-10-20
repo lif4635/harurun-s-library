@@ -5,6 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
+| [`BinaryFieldConvolution`](BinaryFieldConvolution.md) | GF(2^64)を係数とする多項式の積を、昇べき順の整数列で返す。 | 1 | 0 | 0 |
 | [`ChirpZ`](ChirpZ.md) | 等比数列上の多項式評価をchirp-z変換でまとめて求める。 | 1 | 0 | 0 |
 | [`Convolution64`](Convolution64.md) | 64bit整数の積和を、2**64を法として畳み込む。 | 1 | 0 | 0 |
 | [`LargeConvolution`](LargeConvolution.md) | 出力が2^23項を超える係数列も、998244353で畳み込む。 | 1 | 0 | 0 |

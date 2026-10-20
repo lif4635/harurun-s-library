@@ -63,7 +63,7 @@ pypy3 library_codex/benchmarks/official_probe.py convolution_mod_large --officia
 ## 残る問題
 
 - 大規模畳み込みの全公式ケース検証と、最大ケースの10秒制限。
-- `convolution_F_2_64`は別の問題。整数を2^64で割った余りの畳み込みでもnim積でもなく、二元体上の既約多項式による剰余体を使う。公式実装は加法FFTとcarryless乗算命令を使っている。PyPy版への移植・性能検証はまだ行っていない。
+- `convolution_F_2_64`は別の問題。整数を2^64で割った余りの畳み込みでもnim積でもなく、二元体上の既約多項式による剰余体を使う。加法FFTを使うPyPy版は`BinaryFieldConvolution`へ追加した。[検証と未達の範囲](BINARY_FIELD_CONVOLUTION_BENCHMARK.md)を参照。
 
 ## 参照
 

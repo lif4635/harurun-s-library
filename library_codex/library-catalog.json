@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-20T08:40:22+00:00",
+  "generatedAt": "2026-10-20T10:04:19+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "ff6dd3ec2a23bf76c321ecfcb28ca213d9789e315b98a8abfb0a6327c3d6d9b6",
-  "inputStamp": "80429764aa869acb34aa617f903178b330f4d4e1a11d724cd956ec7e17127145",
+  "sourceFingerprint": "7daff121762a48bbbf89e421d2448b35414996c6d95da898a2419d9de93730c4",
+  "inputStamp": "fe1fc707838bef84b4e89c6ed39da77389bbad17d8d4fd889c1d0c5671dcbeae",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 401,
-    "articles": 110,
-    "functions": 535,
+    "modules": 402,
+    "articles": 111,
+    "functions": 536,
     "classes": 239,
     "methods": 1521,
     "tests": 1029
@@ -41,8 +41,8 @@
       "label": "畳み込み",
       "domain": "convolution",
       "domainLabel": "Convolution / FPS",
-      "modules": 9,
-      "functions": 21,
+      "modules": 10,
+      "functions": 22,
       "classes": 1,
       "methods": 4
     },
@@ -406,7 +406,7 @@
     {
       "slug": "convolution",
       "label": "Convolution / FPS",
-      "modules": 59
+      "modules": 60
     },
     {
       "slug": "data_structure",
@@ -2771,6 +2771,78 @@
           "returnDescription": "各頂点へ permutation を exponent 回適用した先を並べた置換。負なら逆向きに適用する。",
           "complexity": "O(N)",
           "sourceLine": 128
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "convolution",
+      "categoryLabel": "畳み込み",
+      "domain": "convolution",
+      "domainLabel": "Convolution / FPS",
+      "name": "BinaryFieldConvolution",
+      "modulePath": "library_codex.convolution.BinaryFieldConvolution",
+      "summary": "GF(2^64)を係数とする多項式の積を、昇べき順の整数列で返す。",
+      "capabilities": [
+        "multiply: GF(2^64)を係数とする2つの多項式を掛ける。係数の加算はXOR、乗算はt^64+t^4+t^3+t+1による剰余体の積。入力は変更しない。"
+      ],
+      "article": {
+        "title": "GF(2^64)係数の畳み込み",
+        "markdown": "64bit整数で表した二元拡大体の係数列を掛ける。Library Checkerの`convolution_F_2_64`と同じ体・同じbit表現を使う。\n\n## 主な機能\n\n- `multiply(first, second)` — 昇べき順の係数列を受け取り、積の全係数を返す。入力は変更しない。\n- 加法FFTで計算する。時間は`O(S log^2(S+1))`、追加メモリは`O(S)`。Sは出力長以上の最小の2の冪。\n- 同じobjectを両方へ渡す二乗は`O(N)`。片方が短い場合は短い側に合わせたブロック分割を使う。\n\n## 使い方\n\n```python\nfrom library_codex.convolution.BinaryFieldConvolution import multiply\n\nc = multiply([1, 2], [3, 4])\nprint(c)\nprint(multiply([1 << 63], [2]))\n```\n\n- `c`は`[3, 2, 8]`。中央の係数は`4 XOR 6 = 2`になる。\n- 2つ目は`[27]`。体の中ではtの64乗をtの4乗+tの3乗+t+1へ置き換えるので、対応するbitは`11011`になる。\n\n## 係数の表現\n\n各整数のbit iを、体の生成元tのi乗の係数とする。たとえば`3`は1+tを表す。係数の加算はXORで、積は次の既約多項式で割った余りを取る。\n\n$$\nt^{64}+t^4+t^3+t+1\n$$\n\nそのため`multiply([3], [3])`は`[5]`になる。通常の整数積の9でも、nim積でもない。\n\n## 注意点\n\n- 入力の各要素は0以上2^64未満の整数。範囲外は`ValueError`。\n- 出力は長さ`len(first)+len(second)-1`のlist。末尾の0も残す。片方が空なら空list。\n- 加法FFTの定数倍は大きい。最大524,288項ずつの公式ケースは、現時点のPyPy測定で10秒制限に未達。[測定範囲と結果](https://github.com/lif4635/harurun-s-library/blob/main/library_codex/docs/BINARY_FIELD_CONVOLUTION_BENCHMARK.md)を確認して使う。\n\n## 仕組み\n\nCantor基底に沿った加法FFTを使う。通常の次数順とFFT用の基底との変換はXORで行う。体の乗算ではbit間へ6bitの隙間を入れ、整数乗算の結果から各桁の偶奇を取り出す。この展開表現をFFTの途中でも保ち、毎回の展開・圧縮を避ける。\n\n## 参考\n\n- [Library Checkerの問題定義](https://judge.yosupo.jp/problem/convolution_F_2_64)\n- [Lin・Chung・Hanによる多項式基底と加法FFT](https://arxiv.org/abs/1404.3458)",
+        "sourcePath": "library_codex/docs/articles/convolution/BinaryFieldConvolution.md"
+      },
+      "searchTerms": [
+        "BinaryFieldConvolution",
+        "Binary Field Convolution",
+        "library_codex.convolution.BinaryFieldConvolution",
+        "library codex convolution Binary Field Convolution",
+        "convolution/BinaryFieldConvolution.py",
+        "畳み込み",
+        "GF(2^64)",
+        "F_2_64",
+        "二元拡大体",
+        "加法FFT",
+        "additive FFT"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/convolution/BinaryFieldConvolution.py",
+      "inputFingerprint": "1b7269854240e6d3cfc03503e30f844ac9a47a244ba54e53e41f33e93af90674",
+      "importCode": "from library_codex.convolution.BinaryFieldConvolution import multiply",
+      "sourceCode": "\"\"\"GF(2^64)を係数とする多項式の積を、昇べき順の整数列で返す。\n\n整数のbit iを体の生成元tのi乗の係数とし、t^64+t^4+t^3+t+1で割る。\n係数の加算はXOR。整数mod 2^64やnim積の畳み込みではない。\n\"\"\"\n\n_SPREAD = tuple(\n    (6 * width, sum(((1 << width) - 1) << (7 * start)\n                    for start in range(0, 64, width)))\n    for width in (32, 16, 8, 4, 2, 1)\n)\n_PARITY = sum(1 << (7 * i) for i in range(128))\n_COMPRESS = tuple(\n    (6 * width, sum(((1 << (2 * width)) - 1) << (7 * start)\n                    for start in range(0, 64, 2 * width)))\n    for width in (1, 2, 4, 8, 16, 32)\n)\n_LOW = (1 << 448) - 1\n_REDUCER = 1 | 1 << 7 | 1 << 21 | 1 << 28\n_BASIS = []\n\n\ndef _expand(value):\n    if not 0 <= value < 1 << 64:\n        raise ValueError(\"coefficients must be unsigned 64-bit integers\")\n    for shift, mask in _SPREAD:\n        value = (value | value << shift) & mask\n    return value\n\n\ndef _compress(value):\n    for shift, mask in _COMPRESS:\n        value = (value | value >> shift) & mask\n    return value\n\n\ndef _mul(a, b):\n    value = a * b & _PARITY\n    high = value >> 448\n    value = (value & _LOW) ^ (high * _REDUCER & _PARITY)\n    high = value >> 448\n    return (value & _LOW) ^ high ^ high << 7 ^ high << 21 ^ high << 28\n\n\ndef _basis():\n    if not _BASIS:\n        value = _expand(1 << 61)\n        values = [value]\n        for _ in range(63):\n            value = _mul(value, value) ^ value\n            values.append(value)\n        _BASIS.extend(reversed(values))\n    return _BASIS\n\n\ndef _convert(values, inverse=False):\n    height = (len(values) - 1).bit_length()\n    levels = range(1, height) if inverse else range(height - 1, 0, -1)\n    for level in levels:\n        half = 1 << level\n        offsets = []\n        subset = (level - 1) & level\n        while True:\n            offsets.append(half - (1 << subset))\n            if subset == 0:\n                break\n            subset = (subset - 1) & level\n        for start in range(0, len(values), half << 1):\n            positions = (range(start + half, start + 2 * half) if inverse\n                         else range(start + 2 * half - 1, start + half - 1, -1))\n            for pos in positions:\n                value = values[pos]\n                for offset in offsets:\n                    values[pos - offset] ^= value\n\n\ndef _transform(values, constants, inverse=False):\n    height = (len(values) - 1).bit_length()\n    levels = range(height) if inverse else range(height - 1, -1, -1)\n    for level in levels:\n        half = 1 << level\n        for pos in range(half):\n            values[pos + half] ^= values[pos]\n        for start in range(half << 1, len(values), half << 1):\n            scalar = constants[start >> (level + 1)]\n            if inverse:\n                for pos in range(start, start + half):\n                    right = values[pos + half] ^ values[pos]\n                    values[pos + half] = right\n                    values[pos] ^= _mul(scalar, right)\n            else:\n                for pos in range(start, start + half):\n                    left = values[pos] ^ _mul(scalar, values[pos + half])\n                    values[pos + half] ^= left\n                    values[pos] = left\n\n\ndef _constants(size):\n    basis = _basis()\n    constants = [0] * (size >> 1)\n    for i in range(1, len(constants)):\n        bit = i & -i\n        constants[i] = constants[i ^ bit] ^ basis[bit.bit_length()]\n    return constants\n\n\ndef _short_blocks(a, b):\n    if len(a) > len(b):\n        a, b = b, a\n    n = len(a)\n    block = 1 << (n - 1).bit_length()\n    size = block << 1\n    constants = _constants(size)\n    a.extend([0] * (size - n))\n    _convert(a)\n    _transform(a, constants)\n    result = [0] * (n + len(b) - 1)\n    for start in range(0, len(b), block):\n        count = min(block, len(b) - start)\n        work = b[start:start + count] + [0] * (size - count)\n        _convert(work)\n        _transform(work, constants)\n        for i in range(size):\n            work[i] = _mul(work[i], a[i])\n        _transform(work, constants, True)\n        _convert(work, True)\n        for i in range(n + count - 1):\n            result[start + i] ^= work[i]\n    return [_compress(value) for value in result]\n\n\ndef multiply(first, second):\n    \"\"\"GF(2^64)係数列の積を返す。入力は変更せず、末尾の0も保持する。\"\"\"\n\n    if not first or not second:\n        return []\n    a = [_expand(value) for value in first]\n    b = a if first is second else [_expand(value) for value in second]\n    output_size = len(a) + len(b) - 1\n    if a is b:\n        result = [0] * output_size\n        for i, value in enumerate(a):\n            result[2 * i] = _compress(_mul(value, value))\n        return result\n    if min(len(a), len(b)) <= 8:\n        if len(a) > len(b):\n            a, b = b, a\n        result = [0] * output_size\n        for i, value in enumerate(a):\n            if value:\n                for j, other in enumerate(b):\n                    result[i + j] ^= _mul(value, other)\n        return [_compress(value) for value in result]\n    if min(len(a), len(b)) * 4 <= max(len(a), len(b)):\n        return _short_blocks(a, b)\n    size = 1 << (output_size - 1).bit_length()\n    if size > 1 << 64:\n        raise ValueError(\"transform length exceeds the field size\")\n    constants = _constants(size)\n    a.extend([0] * (size - len(a)))\n    b.extend([0] * (size - len(b)))\n    _convert(a)\n    _convert(b)\n    _transform(a, constants)\n    _transform(b, constants)\n    for i in range(size):\n        a[i] = _mul(a[i], b[i])\n    del b\n    _transform(a, constants, True)\n    _convert(a, True)\n    del a[output_size:]\n    return [_compress(value) for value in a]\n",
+      "standaloneCode": "\"\"\"GF(2^64)を係数とする多項式の積を、昇べき順の整数列で返す。\n\n整数のbit iを体の生成元tのi乗の係数とし、t^64+t^4+t^3+t+1で割る。\n係数の加算はXOR。整数mod 2^64やnim積の畳み込みではない。\n\"\"\"\n\n_SPREAD = tuple(\n    (6 * width, sum(((1 << width) - 1) << (7 * start)\n                    for start in range(0, 64, width)))\n    for width in (32, 16, 8, 4, 2, 1)\n)\n_PARITY = sum(1 << (7 * i) for i in range(128))\n_COMPRESS = tuple(\n    (6 * width, sum(((1 << (2 * width)) - 1) << (7 * start)\n                    for start in range(0, 64, 2 * width)))\n    for width in (1, 2, 4, 8, 16, 32)\n)\n_LOW = (1 << 448) - 1\n_REDUCER = 1 | 1 << 7 | 1 << 21 | 1 << 28\n_BASIS = []\n\n\ndef _expand(value):\n    if not 0 <= value < 1 << 64:\n        raise ValueError(\"coefficients must be unsigned 64-bit integers\")\n    for shift, mask in _SPREAD:\n        value = (value | value << shift) & mask\n    return value\n\n\ndef _compress(value):\n    for shift, mask in _COMPRESS:\n        value = (value | value >> shift) & mask\n    return value\n\n\ndef _mul(a, b):\n    value = a * b & _PARITY\n    high = value >> 448\n    value = (value & _LOW) ^ (high * _REDUCER & _PARITY)\n    high = value >> 448\n    return (value & _LOW) ^ high ^ high << 7 ^ high << 21 ^ high << 28\n\n\ndef _basis():\n    if not _BASIS:\n        value = _expand(1 << 61)\n        values = [value]\n        for _ in range(63):\n            value = _mul(value, value) ^ value\n            values.append(value)\n        _BASIS.extend(reversed(values))\n    return _BASIS\n\n\ndef _convert(values, inverse=False):\n    height = (len(values) - 1).bit_length()\n    levels = range(1, height) if inverse else range(height - 1, 0, -1)\n    for level in levels:\n        half = 1 << level\n        offsets = []\n        subset = (level - 1) & level\n        while True:\n            offsets.append(half - (1 << subset))\n            if subset == 0:\n                break\n            subset = (subset - 1) & level\n        for start in range(0, len(values), half << 1):\n            positions = (range(start + half, start + 2 * half) if inverse\n                         else range(start + 2 * half - 1, start + half - 1, -1))\n            for pos in positions:\n                value = values[pos]\n                for offset in offsets:\n                    values[pos - offset] ^= value\n\n\ndef _transform(values, constants, inverse=False):\n    height = (len(values) - 1).bit_length()\n    levels = range(height) if inverse else range(height - 1, -1, -1)\n    for level in levels:\n        half = 1 << level\n        for pos in range(half):\n            values[pos + half] ^= values[pos]\n        for start in range(half << 1, len(values), half << 1):\n            scalar = constants[start >> (level + 1)]\n            if inverse:\n                for pos in range(start, start + half):\n                    right = values[pos + half] ^ values[pos]\n                    values[pos + half] = right\n                    values[pos] ^= _mul(scalar, right)\n            else:\n                for pos in range(start, start + half):\n                    left = values[pos] ^ _mul(scalar, values[pos + half])\n                    values[pos + half] ^= left\n                    values[pos] = left\n\n\ndef _constants(size):\n    basis = _basis()\n    constants = [0] * (size >> 1)\n    for i in range(1, len(constants)):\n        bit = i & -i\n        constants[i] = constants[i ^ bit] ^ basis[bit.bit_length()]\n    return constants\n\n\ndef _short_blocks(a, b):\n    if len(a) > len(b):\n        a, b = b, a\n    n = len(a)\n    block = 1 << (n - 1).bit_length()\n    size = block << 1\n    constants = _constants(size)\n    a.extend([0] * (size - n))\n    _convert(a)\n    _transform(a, constants)\n    result = [0] * (n + len(b) - 1)\n    for start in range(0, len(b), block):\n        count = min(block, len(b) - start)\n        work = b[start:start + count] + [0] * (size - count)\n        _convert(work)\n        _transform(work, constants)\n        for i in range(size):\n            work[i] = _mul(work[i], a[i])\n        _transform(work, constants, True)\n        _convert(work, True)\n        for i in range(n + count - 1):\n            result[start + i] ^= work[i]\n    return [_compress(value) for value in result]\n\n\ndef multiply(first, second):\n    \"\"\"GF(2^64)係数列の積を返す。入力は変更せず、末尾の0も保持する。\"\"\"\n\n    if not first or not second:\n        return []\n    a = [_expand(value) for value in first]\n    b = a if first is second else [_expand(value) for value in second]\n    output_size = len(a) + len(b) - 1\n    if a is b:\n        result = [0] * output_size\n        for i, value in enumerate(a):\n            result[2 * i] = _compress(_mul(value, value))\n        return result\n    if min(len(a), len(b)) <= 8:\n        if len(a) > len(b):\n            a, b = b, a\n        result = [0] * output_size\n        for i, value in enumerate(a):\n            if value:\n                for j, other in enumerate(b):\n                    result[i + j] ^= _mul(value, other)\n        return [_compress(value) for value in result]\n    if min(len(a), len(b)) * 4 <= max(len(a), len(b)):\n        return _short_blocks(a, b)\n    size = 1 << (output_size - 1).bit_length()\n    if size > 1 << 64:\n        raise ValueError(\"transform length exceeds the field size\")\n    constants = _constants(size)\n    a.extend([0] * (size - len(a)))\n    b.extend([0] * (size - len(b)))\n    _convert(a)\n    _convert(b)\n    _transform(a, constants)\n    _transform(b, constants)\n    for i in range(size):\n        a[i] = _mul(a[i], b[i])\n    del b\n    _transform(a, constants, True)\n    _convert(a, True)\n    del a[output_size:]\n    return [_compress(value) for value in a]\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "multiply",
+          "kind": "function",
+          "signature": "multiply(first, second)",
+          "summary": "GF(2^64)を係数とする2つの多項式を掛ける。係数の加算はXOR、乗算はt^64+t^4+t^3+t+1による剰余体の積。入力は変更しない。",
+          "description": "GF(2^64)を係数とする2つの多項式を掛ける。係数の加算はXOR、乗算はt^64+t^4+t^3+t+1による剰余体の積。入力は変更しない。",
+          "searchTerms": [
+            "multiply",
+            "multiply(first, second)"
+          ],
+          "arguments": "first: 第1の昇べき順係数列。各要素は0以上2^64未満の整数で、bit iがt^iの係数を表す。 · second: 第2の昇べき順係数列。同じobjectを渡す二乗は線形時間で処理する。",
+          "argumentDetails": [
+            {
+              "name": "first",
+              "description": "第1の昇べき順係数列。各要素は0以上2^64未満の整数で、bit iがt^iの係数を表す。"
+            },
+            {
+              "name": "second",
+              "description": "第2の昇べき順係数列。同じobjectを渡す二乗は線形時間で処理する。"
+            }
+          ],
+          "returns": "list[int] — 長さN+M-1の列c。c[k]はi+j=kを満たすfirst[i]とsecond[j]の体の積をすべてXORした値。各要素は0以上2^64未満で入力と同じbit表現。末尾の0を保持し、片方が空なら空list。",
+          "returnFormat": "list[int]",
+          "returnDescription": "長さN+M-1の列c。c[k]はi+j=kを満たすfirst[i]とsecond[j]の体の積をすべてXORした値。各要素は0以上2^64未満で入力と同じbit表現。末尾の0を保持し、片方が空なら空list。",
+          "complexity": "O(S log^2(S+1))時間・O(S)追加メモリ。SはN+M-1以上の最小の2の冪。体の乗算はO(S log(S+1))回。片方が4倍以上長ければO((N+M) log^2(min(N,M)+1))時間、短い方が8項以下ならO(NM)、同じobjectの二乗はO(N)。64bitの体演算を定数時間として数える。",
+          "sourceLine": 132
         }
       ],
       "classes": []

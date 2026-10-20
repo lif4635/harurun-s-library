@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 401,
+  "moduleCount": 402,
   "supportedCount": 7,
   "modules": [
     {
@@ -320,6 +320,12 @@
       "modulePath": "combinatorics/StirlingNumberQuery",
       "sourcePath": "library_codex/combinatorics/StirlingNumberQuery.py",
       "sourceSha256": "22acc401a28620ac6d041c2593810a15a33684c1c8ecb82ec3f0d5c9cf20f8e2",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "convolution/BinaryFieldConvolution",
+      "sourcePath": "library_codex/convolution/BinaryFieldConvolution.py",
+      "sourceSha256": "01b286b20335e49025f78f1ba2479fbf67336fd894b862a023bac5b93e4b23ef",
       "status": "unsupported"
     },
     {

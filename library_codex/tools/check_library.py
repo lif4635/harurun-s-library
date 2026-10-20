@@ -20,6 +20,7 @@ QUICK_TESTS = (
     ROOT / "verify" / "spatial_structure" / "test_rectangle_add_point_get.py",
     ROOT / "verify" / "convolution" / "test_min_plus_convolution.py",
     ROOT / "verify" / "convolution" / "test_large_convolution.py",
+    ROOT / "verify" / "convolution" / "test_binary_field_convolution.py",
     ROOT / "verify" / "graph_connectivity" / "test_tree_decomposition_width2.py",
     ROOT / "verify" / "graph_connectivity" / "test_st_numbering.py",
     ROOT / "verify" / "graph_spanning" / "test_minimum_spanning_tree.py",
