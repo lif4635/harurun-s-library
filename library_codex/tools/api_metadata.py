@@ -8449,7 +8449,7 @@ COMPLEXITY_BY_MODULE.setdefault(_mf_module, {}).update({
     "MultiplicativePrefixSum": "O(sqrt(N) log log(N+3))時間・O(sqrt(N))メモリ。N=limit。整数演算をO(1)とする",
     "MultiplicativePrefixSum.index": "O(1)時間",
     "MultiplicativePrefixSum.prime_count_table": "O(N^(3/4)/log(N+2))時間・O(sqrt(N))追加メモリ。整数演算をO(1)とする",
-    "MultiplicativePrefixSum.prime_sum_table": "O(N^(3/4)/log(N+2))回の整数演算・O(sqrt(N))個の整数。mod指定時も途中の素数和は整数で保持する",
+    "MultiplicativePrefixSum.prime_sum_table": "O(N^(3/4)/log(N+2))回の算術演算・O(sqrt(N))追加メモリ。mod指定時は途中の集計値も法で減らす。mod=Noneでは整数の桁数にも依存する",
     "MultiplicativePrefixSum.run": "O((D+1)(T+1))時間・O(sqrt(N))追加メモリ。Dは2≤x≤Nのうちx×最大素因数(x)≤Nを満たす整数の個数、Tはprime_powerの1回の時間。算術演算をO(1)とする。素数の集計表の作成時間は含まない",
     "MultiplicativePrefixSum.min_25_sieve": "O(N^(3/4)(T+1)/log(N+2))時間・O(sqrt(N))追加メモリ。N=limit、Tはprime_powerの1回の時間。算術演算をO(1)とする",
 })

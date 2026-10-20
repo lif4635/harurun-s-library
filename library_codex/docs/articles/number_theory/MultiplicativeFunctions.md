@@ -98,14 +98,14 @@ $$
 D=\#\{x:2\le x\le N,\ xP^+(x)\le N\},
 $$
 
-ここでP⁺(x)はxの最大素因数。Dは高々Nであり、実際には素数の集計で多くの整数をまとめられる。[公式入力でのPyPy測定](https://github.com/lif4635/harurun-s-library/blob/main/library_codex/docs/MULTIPLICATIVE_SUM_BENCHMARK.md)に上限10¹¹での時間を残している。
+ここでP⁺(x)はxの最大素因数。Dは高々Nであり、実際には素数の集計で多くの整数をまとめられる。[公式入力でのPyPy測定](https://github.com/lif4635/harurun-s-library/blob/main/library_codex/docs/MULTIPLICATIVE_SUM_BENCHMARK.md)で、上限10¹¹と10¹³の検証範囲・時間を確認できる。
 
 ## 注意点
 
 - `prime_power(p, e)`は同じ引数に同じ値を返す関数にする。呼出し回数や順序は保証しない。
 - `mod=None`では剰余を取らない。巨大整数の計算時間は、値の桁数にも依存する。
 - `prime_count_table`は法を指定していても個数をそのまま返す。
-- `prime_sum_table`は途中の計算を整数で行い、最後に法で割った余りへ変換する。
+- `prime_sum_table`は法を指定すると途中の集計値も余りで保持する。法を省略した場合は正確な整数の和を返す。
 - `DirichletQuotientSeries`の表は昇順、`MultiplicativePrefixSum`の表は降順。両者の配列をそのまま交換しない。
 
 ## 参考

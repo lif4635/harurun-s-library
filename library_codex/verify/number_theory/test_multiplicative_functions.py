@@ -204,3 +204,57 @@ def test_summatory_fraction_and_invalid_table():
     with pytest.raises(ValueError, match="wrong size"):
         engine.run([], lambda p, e: 1)
 
+
+def test_prime_tables_all_quotients():
+    rng = Random(683219)
+    limits = list(range(50)) + [9999, 10000, 10001, 49999, 50000]
+    limits += [rng.randrange(50, 5000) for _ in range(20)]
+    for n in limits:
+        sieve = LinearSieve(n)
+        counts, sums = [0] * (n + 1), [0] * (n + 1)
+        for p in sieve.primes:
+            counts[p], sums[p] = 1, p
+        for x in range(1, n + 1):
+            counts[x] += counts[x - 1]
+            sums[x] += sums[x - 1]
+        for mod in (None, 1, 2, 6, 469762049, 2**70 + 33):
+            engine = MultiplicativePrefixSum(n, mod)
+            actual_counts = engine.prime_count_table()
+            actual_sums = engine.prime_sum_table()
+            assert len(actual_counts) == len(actual_sums) == engine.size
+            for x in {n // i for i in range(1, n + 1)}:
+                assert actual_counts[engine.index(x)] == counts[x]
+                assert actual_sums[engine.index(x)] == (sums[x] if mod is None else sums[x] % mod)
+            assert engine.prime_sum_table() == actual_sums
+
+
+def test_bounded_integer_division():
+    from library_codex.number_theory.MultiplicativeFunctions import _small_quotient
+
+    rng = Random(7312)
+    bound = 2**50
+    for d in [1, 2, 3, 5, 7, 998244353, bound - 1, bound, bound + 1, 2**80] + [rng.randrange(1, bound) for _ in range(10000)]:
+        for n in (0, 1, bound - 1, bound, bound + 1, 2**80 + 3):
+            assert _small_quotient(n, d) == n // d
+        q = rng.randrange(bound // d + 1)
+        for n in (max(0, q * d - 1), q * d, q * d + 1):
+            assert _small_quotient(n, d) == n // d
+
+
+def test_summatory_large_residues_and_exact_arithmetic():
+    for n in (100, 999, 10000):
+        sieve = LinearSieve(n)
+        for mod in (469762049, 2**70 + 33):
+            a, b = mod - 3, mod - 7
+            values = [1] * (n + 1)
+            for p in sieve.primes:
+                for x in range(p, n + 1, p):
+                    y, e = x, 0
+                    while y % p == 0:
+                        y //= p
+                        e += 1
+                    values[x] = values[x] * (a * e + b * p) % mod
+            engine = MultiplicativePrefixSum(n, mod)
+            prefix = [(a * x + b * y) % mod for x, y in zip(engine.prime_count_table(), engine.prime_sum_table())]
+            assert engine.run(prefix, lambda p, e: (a * e + b * p) % mod) == sum(values[1:]) % mod
+

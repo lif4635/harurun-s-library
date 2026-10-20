@@ -1,7 +1,14 @@
+from bisect import bisect_right
 from math import isqrt
 
 from library_codex.prime.Sieve import LinearSieve, prime_sieve
 from library_codex.prime.Sieve import sum_totient as _sum_totient
+
+
+def _small_quotient(value, divisor):
+    if value <= 1125899906842624:
+        return int(value / divisor)
+    return value // divisor
 
 
 class DirichletQuotientSeries:
@@ -307,28 +314,36 @@ class MultiplicativePrefixSum:
             return []
         high = [0] * self.split
         for index in range(1, self.split):
-            high[index] = self.limit // index - 1
-        small = [index - 1 for index in range(self.square + 1)]
+            high[index] = (self.limit // index - 1) // 2
+        small = list(range((self.square + 1) // 2))
         counted = 0
-        for prime in self.primes:
+        for prime in self.primes[1:]:
             square = prime * prime
             maximum = min(self.split, self.limit // square + 1)
+            boundary = min(maximum, (self.split - 1) // prime + 1)
             multiple = prime
-            for index in range(1, maximum):
-                source = (high[multiple] if multiple < self.split
-                          else small[self.limit // multiple])
-                high[index] -= source - counted
+            for index in range(1, boundary):
+                high[index] -= high[multiple] - counted
                 multiple += prime
-            for value in range(self.square, square - 1, -1):
-                small[value] -= small[value // prime] - counted
+            for index in range(boundary, maximum):
+                high[index] -= small[(_small_quotient(self.limit, multiple) - 1) // 2] - counted
+                multiple += prime
+            half = prime // 2
+            for value in range(len(small) - 1, square // 2 - 1, -1):
+                small[value] -= small[_small_quotient(value - half, prime)] - counted
             counted += 1
-        return high + [small[value] for value in range(self.square, 0, -1)]
+        for index in range(1, self.split):
+            high[index] += 1
+        return high + [small[(value - 1) // 2] + (value >= 2)
+                       for value in range(self.square, 0, -1)]
 
     pi_table = prime_count_table
 
     def prime_sum_table(self):
         if self.limit == 0:
             return []
+        if self.mod is not None:
+            return self._prime_sum_table_mod()
         table = [0] * self.size
         for index in range(1, self.split):
             value = self.limit // index
@@ -352,6 +367,32 @@ class MultiplicativePrefixSum:
         if self.mod is not None:
             table = [value % self.mod for value in table]
         return table
+
+    def _prime_sum_table_mod(self):
+        limit, split, root, mod = self.limit, self.split, self.square, self.mod
+        high = [0] * split
+        for i in range(1, split):
+            x = (limit // i + 1) // 2
+            high[i] = (x * x - 1) % mod
+        small = [((i + 1) ** 2 - 1) % mod for i in range((root + 1) // 2)]
+        for p in self.primes[1:]:
+            previous = small[(p - 3) // 2]
+            stop = min(split, limit // (p * p) + 1)
+            boundary = min(stop, (split - 1) // p + 1)
+            source = p
+            for i in range(1, boundary):
+                high[i] = (high[i] - p * (high[source] - previous)) % mod
+                source += p
+            for i in range(boundary, stop):
+                high[i] = (high[i] - p * (small[(_small_quotient(limit, source) - 1) // 2] - previous)) % mod
+                source += p
+            half = p // 2
+            for x in range(len(small) - 1, p * p // 2 - 1, -1):
+                small[x] = (small[x] - p * (small[_small_quotient(x - half, p)] - previous)) % mod
+        for i in range(1, split):
+            high[i] = (high[i] + 2) % mod
+        return high + [(small[(x - 1) // 2] + 2 * (x >= 2)) % mod
+                       for x in range(root, 0, -1)]
 
     def run(self, prime_prefix, prime_power):
         if self.limit == 0:
@@ -385,23 +426,26 @@ class MultiplicativePrefixSum:
             answer += coefficient * (
                 prime_prefix[position] - base[index]
             )
-            for next_index in range(index + 1, count):
+            subtotal = 0
+            stop = bisect_right(primes, isqrt(remaining), index + 1)
+            next_index = index + 1
+            while next_index < stop:
                 next_prime = primes[next_index]
-                next_square = next_prime * next_prime
-                if next_square > remaining:
+                if next_prime * next_prime * next_prime > remaining:
                     break
-                quotient = remaining // next_prime
-                if next_square <= quotient:
-                    stack.append((next_index, 1,
-                                  quotient, coefficient))
-                else:
-                    position = size - quotient if quotient <= square else limit // quotient
-                    value = second[next_index] + first[next_index] * (
-                        prime_prefix[position] - base[next_index]
-                    )
-                    if mod is not None:
-                        value %= mod
-                    answer += coefficient * value
+                stack.append((next_index, 1, remaining // next_prime, coefficient))
+                next_index += 1
+            boundary = bisect_right(primes, remaining // (square + 1), next_index, stop)
+            for j in range(next_index, boundary):
+                quotient = _small_quotient(remaining, primes[j])
+                subtotal += second[j] + first[j] * (prime_prefix[_small_quotient(limit, quotient)] - base[j])
+                if mod is not None and (subtotal > 4611686018427387904 or subtotal < -4611686018427387904):
+                    subtotal %= mod
+            for j in range(boundary, stop):
+                subtotal += second[j] + first[j] * (prime_prefix[size - _small_quotient(remaining, primes[j])] - base[j])
+                if mod is not None and (subtotal > 4611686018427387904 or subtotal < -4611686018427387904):
+                    subtotal %= mod
+            answer += coefficient * subtotal
             if mod is not None:
                 answer %= mod
         return self._normalize(answer)
