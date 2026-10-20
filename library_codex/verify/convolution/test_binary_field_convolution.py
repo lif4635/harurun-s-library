@@ -129,26 +129,30 @@ def test_high_level_basis_conversion_roundtrip():
 
 
 def test_conversion_and_fused_stages_match_scalar():
+    from library_codex.convolution.BinaryFieldConvolution import _constants
     from library_codex.benchmarks.baselines.binary_field_scalar import (
-        _constants, _convert as scalar_convert, _transform as scalar_transform,
+        _constants as scalar_constants, _convert as scalar_convert, _transform as scalar_transform,
+        _expand as scalar_expand, _compress as scalar_compress,
     )
 
     rng = random.Random(8135)
     for height in range(13):
-        a = [_expand(rng.getrandbits(64)) for _ in range(1 << height)]
-        b = a[:]
+        source = [rng.getrandbits(64) for _ in range(1 << height)]
+        a = [scalar_expand(x) for x in source]
+        b = [_expand(x) for x in source]
         scalar_convert(a)
         _convert(b)
-        assert a == b
+        assert [scalar_compress(x) for x in a] == [_compress(x) for x in b]
         constants = _constants(len(a))
-        scalar_transform(a, constants)
+        old_constants = scalar_constants(len(a))
+        scalar_transform(a, old_constants)
         _transform(b, constants)
-        assert a == b
+        assert [scalar_compress(x) for x in a] == [_compress(x) for x in b]
         _transform(b, constants, True)
         _convert(b, True)
-        scalar_transform(a, constants, True)
+        scalar_transform(a, old_constants, True)
         scalar_convert(a, True)
-        assert a == b
+        assert [scalar_compress(x) for x in a] == [_compress(x) for x in b] == source
 
 
 def test_equal_distinct_inputs_use_square(monkeypatch):
@@ -186,6 +190,22 @@ def test_signed_basis_conversion_preserves_unsigned_bits():
         assert [x & ((1 << 64) - 1) for x in signed] == values
 
 
+def test_sixbit_multiplication_carry_boundary():
+    from library_codex.benchmarks.baselines import binary_field_signed as reference
+
+    mask = (1 << 64) - 1
+    values = [0, 1, mask] + [mask ^ (1 << i) for i in range(64)]
+    rng = random.Random(1695)
+    pairs = [(a, b) for a in values for b in values]
+    pairs.extend((rng.getrandbits(64), rng.getrandbits(64)) for _ in range(1000))
+    for a, b in pairs:
+        assert _compress(_mul(_expand(a), _expand(b))) == product(a, b)
+    for n, m in ((9, 9), (17, 31), (65, 63), (257, 129)):
+        a = [rng.choice(values) for _ in range(n)]
+        b = [rng.choice(values) for _ in range(m)]
+        assert multiply(a, b) == reference.multiply(a, b)
+
+
 def test_standalone(tmp_path):
     from library_codex.tools.build_library_catalog import ROOT, build_standalone_code
 
@@ -195,3 +215,32 @@ def test_standalone(tmp_path):
     a, b = list(range(17)), list(range(19))
     script.write_text(source + f"\nassert multiply({a}, {b}) == {naive(a, b)}\n", encoding="utf-8")
     subprocess.run([sys.executable, "-I", str(script)], cwd=tmp_path, check=True, timeout=30)
+
+
+def test_tiled_transform_and_product():
+    import importlib
+    from library_codex.benchmarks.experiments import binary_field_sixbit as reference
+
+    trial = importlib.import_module("library_codex.convolution.BinaryFieldConvolution")
+
+    rng = random.Random(84512)
+    for height in range(2, 13):
+        size = 1 << height
+        constants = trial._constants(size)
+        source = [trial._expand(rng.getrandbits(64)) for _ in range(size)]
+        expected = source[:]
+        reference._transform(expected, constants)
+        for low in sorted({0, 1, height // 2, height - 1, height}):
+            values = source[:]
+            trial._transform(values, constants, low=low)
+            for begin in range(0, size, 1 << low):
+                trial._transform(values, constants, high=low, begin=begin, end=begin + (1 << low))
+            assert values == expected
+            for begin in range(0, size, 1 << low):
+                trial._transform(values, constants, True, high=low, begin=begin, end=begin + (1 << low))
+            trial._transform(values, constants, True, low=low)
+            assert values == source
+    for n, m in ((9, 11), (1024, 1025), (2049, 257)):
+        a = [rng.getrandbits(64) for _ in range(n)]
+        b = [rng.getrandbits(64) for _ in range(m)]
+        assert trial.multiply(a, b) == reference.multiply(a, b)

@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "kind": "selected-official-case-probe",
+  "problem": "convolution_F_2_64",
+  "measuredAt": "2026-10-20T18:49:52.387079+00:00",
+  "environment": {
+    "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "cpu": "AMD Ryzen 7 3700X 8-Core Processor",
+    "machine": "x86_64"
+  },
+  "sourceSha256": "eaad136fb02213d099e0e903ea42e5564ce271cb43d8bd13bb441effbfdcc7dc",
+  "modules": [
+    "library_codex.convolution.BinaryFieldConvolution"
+  ],
+  "problemVersion": "3e6f85d2815e8b451745d1415f02f0a0fc9f7e5dadfcaf31a5df06b08109f8a6",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "officialCases": 51,
+  "selectedCases": [
+    "example_00",
+    "example_01",
+    "small_16",
+    "medium_02",
+    "small_and_large_01",
+    "gen_2_x_3_11_01"
+  ],
+  "timeLimitSeconds": 10.0,
+  "timeoutSeconds": 120.0,
+  "repeat": 1,
+  "checkerSha256": "9141417f9200aa8cd1ddcb4cf20607f975d65fc9001a99099af0ac03f969f70b",
+  "officialHashSha256": "1ccd624069615d43add01eed0bc98ac1b6f9ca191045d5e5894a9576756563e3",
+  "status": "selected_cases_failed",
+  "onlineSubmission": null,
+  "results": [
+    {
+      "case": "example_00",
+      "iteration": 1,
+      "inputSha256": "390f49fb052eb0d4e6427c246bb948424de9386dc446f37d381b8429ba55956b",
+      "expectedSha256": "dc48e6b4bf97434a18003c141d084578038cbe06c92113cb423896f55cd392ac",
+      "seconds": 0.062093487998936325,
+      "peakRssKiB": 59736,
+      "outputSha256": "dc48e6b4bf97434a18003c141d084578038cbe06c92113cb423896f55cd392ac",
+      "status": "AC",
+      "withinOfficialTimeLimit": true
+    },
+    {
+      "case": "small_16",
+      "iteration": 1,
+      "inputSha256": "ef77adc5f9a1c3fa9ccebaba90cc35c0e865104cbaffcccbfa99b365631ee390",
+      "expectedSha256": "1d2d2a449f042914bf3c60f0682c8ab1af6d14a3e66d1695ada4f59cdf72ac97",
+      "seconds": 0.06300391400873195,
+      "peakRssKiB": 59880,
+      "outputSha256": "1d2d2a449f042914bf3c60f0682c8ab1af6d14a3e66d1695ada4f59cdf72ac97",
+      "status": "AC",
+      "withinOfficialTimeLimit": true
+    },
+    {
+      "case": "example_01",
+      "iteration": 1,
+      "inputSha256": "1966eaa3bd181ae4763a3a0141b0655f1081397102a687da89204c994c017302",
+      "expectedSha256": "652a1c1b97a28c0a106496d4a13630c6374e289581e9f46f0e9d3b0fe4ed6696",
+      "seconds": 0.05759099700662773,
+      "peakRssKiB": 59824,
+      "outputSha256": "652a1c1b97a28c0a106496d4a13630c6374e289581e9f46f0e9d3b0fe4ed6696",
+      "status": "AC",
+      "withinOfficialTimeLimit": true
+    },
+    {
+      "case": "small_and_large_01",
+      "iteration": 1,
+      "inputSha256": "4891ff2bbb2137907958f3af95b40926d9fa29afc14eff158a6e89cf2f92c704",
+      "expectedSha256": "7cdfe24ecd4a7f3caeb2e49f8e85f57d45ee37fbb3150c3009d4596c3a949ab3",
+      "seconds": 8.489999875004287,
+      "peakRssKiB": 346472,
+      "outputSha256": "7cdfe24ecd4a7f3caeb2e49f8e85f57d45ee37fbb3150c3009d4596c3a949ab3",
+      "status": "AC",
+      "withinOfficialTimeLimit": true
+    },
+    {
+      "case": "gen_2_x_3_11_01",
+      "iteration": 1,
+      "inputSha256": "020e18715d8a276275057172c1d946768d8970893d56cbc6fd466ab0ef7398e7",
+      "expectedSha256": "9050db9d40d5458e10f3379edb4b3e2fe33fb4b7b7828e77cad8ec824e52ccb4",
+      "seconds": 20.071725556001184,
+      "peakRssKiB": 740988,
+      "outputSha256": "9050db9d40d5458e10f3379edb4b3e2fe33fb4b7b7828e77cad8ec824e52ccb4",
+      "status": "AC",
+      "withinOfficialTimeLimit": false
+    },
+    {
+      "case": "medium_02",
+      "iteration": 1,
+      "inputSha256": "2c401e6991715c2dcfc696765a02da6bd30c6bfa5ea94b2d1051dec8b3b49ec3",
+      "expectedSha256": "3b00b09ee1b119bfced68147b88e45c1062caa3362a73266b23631f297af1d16",
+      "seconds": 0.3179097240063129,
+      "peakRssKiB": 91504,
+      "outputSha256": "3b00b09ee1b119bfced68147b88e45c1062caa3362a73266b23631f297af1d16",
+      "status": "AC",
+      "withinOfficialTimeLimit": true
+    }
+  ],
+  "protocol": "selected official hash-verified cases only; sequential fresh PyPy processes; startup, JIT and I/O included; official checker; GNU time RSS; no memory limit enforcement; does not update full verification"
+}

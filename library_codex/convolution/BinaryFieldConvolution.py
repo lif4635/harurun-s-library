@@ -5,19 +5,21 @@
 """
 
 _SPREAD = tuple(
-    (6 * width, sum(((1 << width) - 1) << (7 * start)
+    (5 * width, sum(((1 << width) - 1) << (6 * start)
                     for start in range(0, 64, width)))
     for width in (32, 16, 8, 4, 2, 1)
 )
-_PARITY = sum(1 << (7 * i) for i in range(128))
+_PARITY = sum(1 << (6 * i) for i in range(128))
 _COMPRESS = tuple(
-    (6 * width, sum(((1 << (2 * width)) - 1) << (7 * start)
+    (5 * width, sum(((1 << (2 * width)) - 1) << (6 * start)
                     for start in range(0, 64, 2 * width)))
     for width in (1, 2, 4, 8, 16, 32)
 )
-_LOW = (1 << 448) - 1
-_REDUCER = 1 | 1 << 7 | 1 << 21 | 1 << 28
+_LOW = (1 << 384) - 1
+_REDUCER = 1 | 1 << 6 | 1 << 18 | 1 << 24
 _BASIS = []
+_ONES = sum(1 << (6 * i) for i in range(64))
+_SQUARE = sum(1 << (12 * i) for i in range(64))
 
 
 def _expand(value):
@@ -35,11 +37,11 @@ def _compress(value):
 
 
 def _mul(a, b):
-    value = a * b & _PARITY
-    high = value >> 448
+    value = _SQUARE if a == _ONES and b == _ONES else a * b & _PARITY
+    high = value >> 384
     value = (value & _LOW) ^ (high * _REDUCER & _PARITY)
-    high = value >> 448
-    return (value & _LOW) ^ high ^ high << 7 ^ high << 21 ^ high << 28
+    high = value >> 384
+    return (value & _LOW) ^ high ^ high << 6 ^ high << 18 ^ high << 24
 
 
 def _basis():
@@ -75,18 +77,25 @@ def _convert(values, inverse=False):
                         values[pos - offset] ^= values[pos]
 
 
-def _transform(values, constants, inverse=False):
-    height = (len(values) - 1).bit_length()
-    levels = range(height & 1, height, 2) if inverse else range(height - 2, -1, -2)
-    if inverse and height & 1:
-        for start in range(0, len(values), 2):
-            right = values[start + 1] ^ values[start]
-            values[start + 1] = right
-            values[start] ^= _mul(constants[start >> 1], right)
+def _transform(values, constants, inverse=False, low=0, high=None, begin=0, end=None):
+    if high is None:
+        high = (len(values) - 1).bit_length()
+    if end is None:
+        end = len(values)
+    odd = (high - low) & 1
+    levels = range(low + odd, high, 2) if inverse else range(high - 2, low - 1, -2)
+    if inverse and odd:
+        half = 1 << low
+        for start in range(begin, end, half << 1):
+            constant = constants[start >> (low + 1)]
+            for pos in range(start, start + half):
+                right = values[pos + half] ^ values[pos]
+                values[pos + half] = right
+                values[pos] ^= _mul(constant, right)
     for level in levels:
         half = 1 << level
         hi = constants[1]
-        for pos in range(half):
+        for pos in range(half if begin == 0 else 0):
             x0, x1 = values[pos], values[pos + half]
             x2, x3 = values[pos + 2 * half], values[pos + 3 * half]
             if inverse:
@@ -103,7 +112,7 @@ def _transform(values, constants, inverse=False):
                 x3 ^= x2
             values[pos], values[pos + half] = x0, x1
             values[pos + 2 * half], values[pos + 3 * half] = x2, x3
-        for start in range(half << 2, len(values), half << 2):
+        for start in range(begin or half << 2, end, half << 2):
             outer = constants[start >> (level + 2)]
             lo = constants[start >> (level + 1)]
             hi = constants[(start >> (level + 1)) + 1]
@@ -130,11 +139,14 @@ def _transform(values, constants, inverse=False):
                     x3 ^= x2
                 values[pos], values[pos + half] = x0, x1
                 values[pos + 2 * half], values[pos + 3 * half] = x2, x3
-    if not inverse and height & 1:
-        for start in range(0, len(values), 2):
-            left = values[start] ^ _mul(constants[start >> 1], values[start + 1])
-            values[start + 1] ^= left
-            values[start] = left
+    if not inverse and odd:
+        half = 1 << low
+        for start in range(begin, end, half << 1):
+            constant = constants[start >> (low + 1)]
+            for pos in range(start, start + half):
+                left = values[pos] ^ _mul(constant, values[pos + half])
+                values[pos + half] ^= left
+                values[pos] = left
 
 
 def _constants(size):
@@ -222,12 +234,19 @@ def multiply(first, second):
     b = [_expand(value & ((1 << 64) - 1)) for value in b]
     a.extend([0] * (size - len(a)))
     b.extend([0] * (size - len(b)))
-    _transform(a, constants)
-    _transform(b, constants)
-    for i in range(size):
-        a[i] = _mul(a[i], b[i])
+    height = size.bit_length() - 1
+    low = min(10, height)
+    _transform(a, constants, low=low)
+    _transform(b, constants, low=low)
+    for begin in range(0, size, 1 << low):
+        end = begin + (1 << low)
+        _transform(a, constants, high=low, begin=begin, end=end)
+        _transform(b, constants, high=low, begin=begin, end=end)
+        for i in range(begin, end):
+            a[i] = _mul(a[i], b[i])
+        _transform(a, constants, True, high=low, begin=begin, end=end)
     del b
-    _transform(a, constants, True)
+    _transform(a, constants, True, low=low)
     a = _signed([_compress(value) for value in a])
     _convert(a, True)
     del a[output_size:]

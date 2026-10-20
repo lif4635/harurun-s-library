@@ -1,0 +1,71 @@
+{
+  "measuredAt": "2026-10-20T18:41:58.507126+00:00",
+  "problem": "convolution_mod_large",
+  "snapshot": {
+    "problem": "convolution_mod_large",
+    "language": "pypy3",
+    "submissions": [],
+    "description": "Local block convolution variants only; no external submission ranking comparison."
+  },
+  "officialHashSha256": "5650684e5e6203be78ce1daa59171a63b3f65f1cdf9c4dad2429ce5e786eb7e8",
+  "checkerSha256": "ff0f0a6805be4ed055c1bc2460fd0403adb718ab284550a00d69385a25d3571d",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 3,
+  "seed": 92471,
+  "sourceSha256": {
+    "baseline": "3ef59d90c3307ea7b572808a32b58adca5d7b0d4f0ac1d7caa8315aa68537c11",
+    "contiguous": "952864a0e334cda5725e8e62b0b014fbb4cfb2ac2f7dc8b518b0c485e0862f21"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "a90a1d4737effb3caaf72184a18cb3e76d28f86e91cb0a0a76dee43a54aa6092",
+      "implementations": {
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 16.687501742999302,
+              "peakRssKiB": 1025836,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 17.013193674007198,
+              "peakRssKiB": 1022444,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 16.53858378798759,
+              "peakRssKiB": 1025704,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 16.687501742999302,
+          "peakRssKiB": 1025836
+        },
+        "contiguous": {
+          "samples": [
+            {
+              "seconds": 17.280345924998983,
+              "peakRssKiB": 763424,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 16.28951541800052,
+              "peakRssKiB": 763576,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 16.074664272993687,
+              "peakRssKiB": 758132,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 16.28951541800052,
+          "peakRssKiB": 763576
+        }
+      }
+    }
+  ]
+}

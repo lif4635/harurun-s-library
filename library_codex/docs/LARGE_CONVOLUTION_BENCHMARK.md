@@ -1,6 +1,6 @@
 # 大規模畳み込みの検証
 
-`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。最大公式入力のPyPy中央値は、4列への分割によって19.216秒から15.713秒になった。出力は一致するが、公式10秒制限には届いていない。
+`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。4列分割に加え、逆NTT後の保存方法を変えて最大公式入力のRSSを約1002MiBから746MiBへ減らした。最新の比較では中央値16.29秒で、公式10秒制限には届いていない。
 
 ## 条件
 
@@ -38,12 +38,31 @@ $$
 | max_random_00 | 19.216秒 | 15.713秒 | 1,015,912 KiB | 1,025,648 KiB |
 | small_and_large_00 | 5.167秒 | 5.304秒 | 461,228 KiB | 461,076 KiB |
 
-最大ケースは約18.2%短縮。片方100項の経路は変更しておらず、この比較でも改善はない。最大RSSは約1002 MiBで、メモリには余裕が少ない。
+この段階の最大ケースは約18.2%短縮。片方100項の経路は変更しておらず、この比較でも改善はない。最大RSSは約1002 MiBだった。現在は次節の保存方法へ変更している。
 
 [各回の値とhash](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-interleaved-comparison.json)・[変更前の単独コード](../benchmarks/baselines/large_convolution_before_interleaving.py)・[4列分割の試作](../benchmarks/experiments/large_convolution_interleaved.py)を保存した。
 
 ```sh
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 small_and_large_00 --variant baseline=library_codex/benchmarks/baselines/large_convolution_before_interleaving.py --variant candidate=verify/library_checker/solutions/convolution_mod_large.py --repeat 3 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-interleaved-comparison.json
+```
+
+## 逆変換後のメモリ削減
+
+2026-10-21、Git `498a2ce`を基準に最大公式入力`max_random_00`で各3回比較した。逆NTTの結果を既存の`array("I")`へ戻し、一時listを解放してから返却listを作る。4列の値は出力の隣接する4要素へまとめて書く。返り値の型・順序・値とNTT回数は変えない。
+
+| 実装 | 中央値 | 最大RSS |
+| --- | ---: | ---: |
+| 変更前 | 16.688秒 | 1,025,836 KiB |
+| 保存方法変更後 | 16.290秒 | 763,576 KiB |
+
+最大RSSは約25.6%減少。速度差は約2.4%で、初回は変更後の方が遅かったため、速度の大幅改善とは扱わない。メモリ制限ぎりぎりの状態を改善する目的で採用した。全6回答が公式checkerに一致した。前節とは別の測定であり、日をまたいだ絶対時間の差を速度比には使わない。
+
+[各回の時間・RSS・hash](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-contiguous-comparison.json)、[変更前の単独コード](../benchmarks/baselines/large_four_lanes_standalone.py)、[比較した単独コード](../benchmarks/experiments/large_contiguous_standalone.py)を保存している。
+
+採用版の提出コードでも`example_00`、`example_01`、`small_15`、`medium_00`、`small_and_large_00`、`small_and_large_01`を各1回検査し、全6回答が一致して10秒以内だった。[選択検査の記録](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-contiguous-probe.json)。最大入力との比較を含め7/54ケースの確認で、全件通過ではない。
+
+```sh
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 --variant baseline=library_codex/benchmarks/baselines/large_four_lanes_standalone.py --variant contiguous=library_codex/benchmarks/experiments/large_contiguous_standalone.py --repeat 3 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-contiguous-comparison.json
 ```
 
 ## 初期実装

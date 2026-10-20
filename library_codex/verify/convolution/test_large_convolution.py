@@ -128,6 +128,23 @@ def test_four_lanes_transform_counts(monkeypatch):
     assert counts == [4, 4]
 
 
+def test_contiguous_output_random_boundaries():
+    from library_codex.benchmarks.experiments.large_contiguous_standalone import (
+        _convolution_large_convolution_multiply_four_lanes as trial,
+    )
+
+    rng = random.Random(72941)
+    for size in (1, 2, 4, 8, 16, 64):
+        for _ in range(30):
+            n = rng.randrange(1, 4 * size + 1)
+            m = rng.randrange(1, 4 * size - n + 2)
+            a = [rng.randrange(-MOD, 2 * MOD) for _ in range(n)]
+            b = [rng.randrange(-MOD, 2 * MOD) for _ in range(m)]
+            saved = a[:], b[:]
+            assert trial(a, b, size) == naive(a, b)
+            assert (a, b) == saved
+
+
 def test_standalone(tmp_path):
     from library_codex.tools.build_library_catalog import ROOT, build_standalone_code
 

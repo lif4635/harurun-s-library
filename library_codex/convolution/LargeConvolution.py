@@ -130,13 +130,23 @@ def _multiply_four_lanes(first, second, size):
         weight = weight * rates[((i + 1) & -(i + 1)).bit_length() - 1] % MOD
     del left, right, a0, a1, a2, a3, b0, b1, b2, b3, work, c0, c1, c2, c3
     inverse = pow(size, MOD - 2, MOD)
-    result = [0] * count
     for lane in range(4):
-        work = list(out[lane])
-        out[lane] = None
+        target = out[lane]
+        work = list(target)
         _butterfly_inv(work)
         for j in range((count - lane + 3) // 4):
-            result[j * 4 + lane] = work[j] * inverse % MOD
+            target[j] = work[j] * inverse % MOD
+    del work, target
+    a0, a1, a2, a3 = out
+    result = [0] * count
+    for j in range(count >> 2):
+        pos = j << 2
+        result[pos] = a0[j]
+        result[pos + 1] = a1[j]
+        result[pos + 2] = a2[j]
+        result[pos + 3] = a3[j]
+    for pos in range(count & ~3, count):
+        result[pos] = out[pos & 3][pos >> 2]
     return result
 
 

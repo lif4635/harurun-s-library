@@ -1,6 +1,6 @@
 # GF(2^64)畳み込みの検証
 
-`BinaryFieldConvolution.multiply`はLibrary Checkerの`convolution_F_2_64`と同じ体・bit表現で畳み込む。段融合と64bit基底変換により、最大公式入力のPyPy中央値は31.245秒から20.027秒になった。出力は一致するが、公式10秒制限は未達で、全件通過ではない。
+`BinaryFieldConvolution.multiply`はLibrary Checkerの`convolution_F_2_64`と同じ体・bit表現で畳み込む。最新の同時比較では、6bit幅の乗算と区画ごとのFFT処理により最大公式入力のPyPy中央値が21.666秒から20.083秒へ短縮した。出力は一致するが、公式10秒制限は未達で、全件通過ではない。
 
 ## 条件
 
@@ -14,7 +14,7 @@
 
 Cantor基底による加法FFTを使う。FFT自体は`O(S log S)`回の体演算、今回の通常基底との変換は`O(S log^2 S)`時間が上界。Sは出力長以上の最小の2の冪。
 
-体の係数を7bit間隔へ展開し、整数乗算後の各桁の偶奇からcarryless積を取り出す。1桁に加わる積は最大64個で、7bit以内に収まる。t^64+t^4+t^3+t+1による剰余を取り、展開表現のままFFTを続ける。整数mod 2^64やnim積へ置き換えていない。
+体の係数を6bit間隔へ展開し、整数乗算後の各桁の偶奇からcarryless積を取り出す。桁上がりが起きる唯一の入力対は別処理する。t^64+t^4+t^3+t+1による剰余を取り、展開表現のままFFTを続ける。整数mod 2^64やnim積へ置き換えていない。
 
 基底生成の初期値`1 << 61`は、この体でtraceが1になるtの61乗。二乗して元の値とXORする操作を63回たどると1になり、逆順に並べた64要素がCantor基底になる。この関係と線形独立性は専用testで確認する。
 
@@ -33,7 +33,44 @@ Cantor基底による加法FFTを使う。FFT自体は`O(S log S)`回の体演�
 
 符号付き表現は同じ64個のbitの読み方を変えるだけであり、別の体への変換や64bitを超えた切り捨てではない。最上位bitを含む境界値、変換の往復、旧基底変換との一致をtestする。
 
-## 採用版の比較
+## 乗算の6bit幅への圧縮
+
+従来の7bit幅を6bit幅へ縮め、乗算する整数を最大448bitから384bitへ減らす。整数積の各桁に加わる項数は、中央の63次だけ最大64、それ以外は最大63。63次で64になるのは、入力2個がともに64bitすべて1のときだけである。
+
+この1組だけは標数2の二乗として偶数次に1を並べてから剰余を取る。それ以外では各桁が64未満なので、隣の桁へのcarryはない。剰余計算の乗算は最大4項の和なので6bit幅で収まる。確率的に桁上がりを無視する方法ではない。
+
+全bitが1の値、そこから1bitを落とした64種類、0、1のすべての組とランダム1,000組をcarryless積の単純解と比較する。これらを係数に含む畳み込みも7bit版と照合する。
+
+## 区画ごとのFFT処理と最新比較
+
+2026-10-21、Git `498a2ce`の7bit版、6bit版、6bit化と区画分割を加えた版を、最大公式入力`gen_max_00`で各3回比較した。
+
+全体の上位段を変換した後、1024要素以下の区画ごとに2列の下位段、係数ごとの積、積の下位逆変換を済ませる。最後に上位逆変換を行う。C++上位提出のキャッシュ内で処理をまとめる方式を参考にしたが、機械語のcarryless乗算やSIMDは使わない。新たな再帰や要素ごとのobjectは追加しない。
+
+| 実装 | 中央値 | 最大RSS |
+| --- | ---: | ---: |
+| 7bit版 | 21.666秒 | 826,840 KiB |
+| 6bit版 | 20.662秒 | 785,824 KiB |
+| 6bit化と区画分割 | 20.083秒 | 775,124 KiB |
+
+最後の版を採用。時間は約7.3%、最大RSSは約6.3%減少した。全9回答が公式checkerに一致した。[各回の値とhash](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-tiled-comparison.json)、[7bit版](../benchmarks/baselines/binary_field_signed.py)、[6bit版](../benchmarks/experiments/binary_field_sixbit.py)、[区画分割版](../benchmarks/experiments/binary_field_tiled.py)を保存する。
+
+その前の6bit単独比較では25.387秒から22.428秒だったが、両実装の初回が遅かった。初回も削除せず[元の測定](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-sixbit-comparison.json)へ残し、採用判断は上表の追加比較でも改善が出たことに基づく。日をまたいだ過去の20.027秒とは直接比べない。
+
+同じ7bit版と採用版の提出コードを、形の異なる公式2ケースでも各3回比較した。全12回答が一致した。[測定記録](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-sixbit-regression-comparison.json)。
+
+| ケース | 7bit版の中央値 | 採用版の中央値 | 7bit版の最大RSS | 採用版の最大RSS |
+| --- | ---: | ---: | ---: | ---: |
+| all_ones_00 | 1.488秒 | 1.215秒 | 260,540 KiB | 259,640 KiB |
+| small_and_large_00 | 5.640秒 | 5.288秒 | 350,196 KiB | 334,808 KiB |
+
+さらに採用版の提出コードで`example_00`、`example_01`、`small_16`、`medium_02`、`small_and_large_01`、`gen_2_x_3_11_01`を各1回確認した。6回答とも一致し、最後のケースだけ20.072秒で公式10秒制限を超過した。[選択検査](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-sixbit-probe.json)。最大入力の比較と合わせて9/51ケースの確認であり、全件通過ではない。
+
+```sh
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/binary_field_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_F_2_64 --cases gen_max_00 --variant baseline=library_codex/benchmarks/baselines/binary_field_signed.py --variant sixbit=library_codex/benchmarks/experiments/binary_field_sixbit.py --variant tiled=library_codex/benchmarks/experiments/binary_field_tiled.py --repeat 3 --seed 21957 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_F_2_64-tiled-comparison.json
+```
+
+## 7bit段融合版の比較
 
 Git `120cdb8`と採用版を、同じ公式入力・別processで各3回比較した。
 
