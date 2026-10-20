@@ -95,6 +95,51 @@ def _multiply_blocks(first, second, block):
     return result
 
 
+def _multiply_four_lanes(first, second, size):
+    count = len(first) + len(second) - 1
+    left = []
+    for lane in range(4):
+        work = [x % MOD for x in first[lane::4]]
+        work.extend([0] * (size - len(work)))
+        _butterfly(work)
+        left.append(array("I", work))
+    if first is second:
+        right = left
+    else:
+        right = []
+        for lane in range(4):
+            work = [x % MOD for x in second[lane::4]]
+            work.extend([0] * (size - len(work)))
+            _butterfly(work)
+            right.append(array("I", work))
+    a0, a1, a2, a3 = left
+    b0, b1, b2, b3 = right
+    out = [array("I", [0]) * size for _ in range(4)]
+    c0, c1, c2, c3 = out
+    root = pow(3, (MOD - 1) // size, MOD)
+    rates = [pow(root, (size >> (j + 1)) - (size - (size >> j)), MOD)
+             for j in range(size.bit_length())]
+    weight = 1
+    for i in range(size):
+        x0, x1, x2, x3 = a0[i], a1[i], a2[i], a3[i]
+        y0, y1, y2, y3 = b0[i], b1[i], b2[i], b3[i]
+        c0[i] = (x0 * y0 + weight * ((x1 * y3 + x2 * y2 + x3 * y1) % MOD)) % MOD
+        c1[i] = (x0 * y1 + x1 * y0 + weight * ((x2 * y3 + x3 * y2) % MOD)) % MOD
+        c2[i] = (x0 * y2 + x1 * y1 + x2 * y0 + weight * (x3 * y3 % MOD)) % MOD
+        c3[i] = (x0 * y3 + x1 * y2 + x2 * y1 + x3 * y0) % MOD
+        weight = weight * rates[((i + 1) & -(i + 1)).bit_length() - 1] % MOD
+    del left, right, a0, a1, a2, a3, b0, b1, b2, b3, work, c0, c1, c2, c3
+    inverse = pow(size, MOD - 2, MOD)
+    result = [0] * count
+    for lane in range(4):
+        work = list(out[lane])
+        out[lane] = None
+        _butterfly_inv(work)
+        for j in range((count - lane + 3) // 4):
+            result[j * 4 + lane] = work[j] * inverse % MOD
+    return result
+
+
 def multiply(first, second):
     """昇べき係数列の積をmod 998244353で返す。入力は変更しない。"""
 
@@ -103,5 +148,10 @@ def multiply(first, second):
     shorter = min(len(first), len(second))
     if len(first) + len(second) - 1 <= 1 << 23 or shorter <= 60:
         return _multiply(first, second)
+    if (len(first) + len(second) - 2).bit_length() == 25:
+        blocks = (len(first) + (1 << 22) - 1) // (1 << 22)
+        blocks += (len(second) + (1 << 22) - 1) // (1 << 22)
+        if blocks >= 7:
+            return _multiply_four_lanes(first, second, 1 << 23)
     block = min(1 << 22, 1 << (shorter - 1).bit_length())
     return _multiply_blocks(first, second, block)

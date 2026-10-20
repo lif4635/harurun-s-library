@@ -1,0 +1,149 @@
+{
+  "retrievedAt": "2026-10-20T10:27:01.245634+00:00",
+  "api": "https://v3.api.judge.yosupo.jp",
+  "problem": "convolution_F_2_64",
+  "problemInfo": {
+    "overall_version": "ca9fb6ce522d8b776261cf4977f4179b22e287675d9159dd60087e4f14e72b54",
+    "source_url": "https://github.com/yosupo06/library-checker-problems/tree/master/convolution/convolution_F_2_64",
+    "testcases_version": "e10d71aaa0fd4128c3a5c63685ae3bda66254cc6e3499c33627a4f454208b3bf",
+    "time_limit": 10,
+    "title": "Convolution ($\\mathbb{F}_{2^{64}}$)",
+    "version": "96e6c9757a026fbeea4449d29ede387ad3c6f5a38c78686177f526b66c373e8f"
+  },
+  "language": "cpp",
+  "languages": [
+    {
+      "id": "cpp",
+      "name": "C++23",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp20",
+      "name": "C++20",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp17",
+      "name": "C++17",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "cpp-func",
+      "name": "C++23(Function)",
+      "version": "GCC 15.2 + AC Library(1.6)"
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "version": "rustc(1.94.1 edition 2024)"
+    },
+    {
+      "id": "d",
+      "name": "LDC2",
+      "version": "ldc2 1.36.0"
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "version": "openjdk 17"
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "version": "Deno 2.7.14"
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "version": "Deno 2.7.14"
+    },
+    {
+      "id": "python3",
+      "name": "Python3",
+      "version": "python3.10 + numpy + scipy"
+    },
+    {
+      "id": "pypy3",
+      "name": "PyPy3",
+      "version": "pypy3.9-7.3.9"
+    },
+    {
+      "id": "haskell",
+      "name": "GHC",
+      "version": "ghc 9.6.7"
+    },
+    {
+      "id": "haskell-llvm",
+      "name": "GHC (LLVM)",
+      "version": "ghc 9.6.7 + LLVM 11"
+    },
+    {
+      "id": "nim",
+      "name": "Nim",
+      "version": "Nim 2.2.4"
+    },
+    {
+      "id": "csharp",
+      "name": "C#",
+      "version": "dotnet 10.0"
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "version": "go 1.18.2"
+    },
+    {
+      "id": "lisp",
+      "name": "Common Lisp",
+      "version": "sbcl 2.1.5"
+    },
+    {
+      "id": "crystal",
+      "name": "Crystal",
+      "version": "crystal 1.9.1"
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "version": "ruby 2.7.1"
+    },
+    {
+      "id": "swift",
+      "name": "Swift",
+      "version": "swift 6.1.2"
+    }
+  ],
+  "selection": "AC, is_latest, ascending judge time; ties may vary",
+  "submissions": [
+    {
+      "id": 409339,
+      "is_latest": true,
+      "lang": "cpp",
+      "memory": 39993344,
+      "problem_name": "convolution_F_2_64",
+      "problem_title": "Convolution ($\\mathbb{F}_{2^{64}}$)",
+      "status": "AC",
+      "submission_time": "2026-10-10T01:46:47.805502Z",
+      "time": 0.042,
+      "user_name": "Aiyiyi",
+      "sourceFile": "409339.cpp",
+      "sourceSha256": "c3d826175b629642ef25795f634e9da23be8eb26fefddcbe058fe35aa97842d4",
+      "url": "https://judge.yosupo.jp/submission/409339"
+    },
+    {
+      "id": 409295,
+      "is_latest": true,
+      "lang": "cpp",
+      "memory": 39890944,
+      "problem_name": "convolution_F_2_64",
+      "problem_title": "Convolution ($\\mathbb{F}_{2^{64}}$)",
+      "status": "AC",
+      "submission_time": "2026-10-09T22:37:37.451489Z",
+      "time": 0.044,
+      "user_name": "Aiyiyi",
+      "sourceFile": "409295.cpp",
+      "sourceSha256": "c1d0c7438365407282344db17584e638637ad08df94c93725b4bb44f56fa1c0c",
+      "url": "https://judge.yosupo.jp/submission/409295"
+    }
+  ]
+}

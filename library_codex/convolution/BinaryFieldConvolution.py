@@ -66,33 +66,75 @@ def _convert(values, inverse=False):
                 break
             subset = (subset - 1) & level
         for start in range(0, len(values), half << 1):
-            positions = (range(start + half, start + 2 * half) if inverse
-                         else range(start + 2 * half - 1, start + half - 1, -1))
-            for pos in positions:
-                value = values[pos]
+            middle = start + half + (half >> 1)
+            ranges = ((start + half, middle), (middle, start + 2 * half)) if inverse else (
+                (middle, start + 2 * half), (start + half, middle))
+            for begin, end in ranges:
                 for offset in offsets:
-                    values[pos - offset] ^= value
+                    for pos in range(begin, end):
+                        values[pos - offset] ^= values[pos]
 
 
 def _transform(values, constants, inverse=False):
     height = (len(values) - 1).bit_length()
-    levels = range(height) if inverse else range(height - 1, -1, -1)
+    levels = range(height & 1, height, 2) if inverse else range(height - 2, -1, -2)
+    if inverse and height & 1:
+        for start in range(0, len(values), 2):
+            right = values[start + 1] ^ values[start]
+            values[start + 1] = right
+            values[start] ^= _mul(constants[start >> 1], right)
     for level in levels:
         half = 1 << level
+        hi = constants[1]
         for pos in range(half):
-            values[pos + half] ^= values[pos]
-        for start in range(half << 1, len(values), half << 1):
-            scalar = constants[start >> (level + 1)]
+            x0, x1 = values[pos], values[pos + half]
+            x2, x3 = values[pos + 2 * half], values[pos + 3 * half]
             if inverse:
-                for pos in range(start, start + half):
-                    right = values[pos + half] ^ values[pos]
-                    values[pos + half] = right
-                    values[pos] ^= _mul(scalar, right)
+                x1 ^= x0
+                x3 ^= x2
+                x2 ^= _mul(hi, x3)
+                x2 ^= x0
+                x3 ^= x1
             else:
-                for pos in range(start, start + half):
-                    left = values[pos] ^ _mul(scalar, values[pos + half])
-                    values[pos + half] ^= left
-                    values[pos] = left
+                x2 ^= x0
+                x3 ^= x1
+                x1 ^= x0
+                x2 ^= _mul(hi, x3)
+                x3 ^= x2
+            values[pos], values[pos + half] = x0, x1
+            values[pos + 2 * half], values[pos + 3 * half] = x2, x3
+        for start in range(half << 2, len(values), half << 2):
+            outer = constants[start >> (level + 2)]
+            lo = constants[start >> (level + 1)]
+            hi = constants[(start >> (level + 1)) + 1]
+            for pos in range(start, start + half):
+                x0, x1 = values[pos], values[pos + half]
+                x2, x3 = values[pos + 2 * half], values[pos + 3 * half]
+                if inverse:
+                    x1 ^= x0
+                    x3 ^= x2
+                    x0 ^= _mul(lo, x1)
+                    x2 ^= _mul(hi, x3)
+                    x2 ^= x0
+                    x3 ^= x1
+                    x0 ^= _mul(outer, x2)
+                    x1 ^= _mul(outer, x3)
+                else:
+                    x0 ^= _mul(outer, x2)
+                    x1 ^= _mul(outer, x3)
+                    x2 ^= x0
+                    x3 ^= x1
+                    x0 ^= _mul(lo, x1)
+                    x2 ^= _mul(hi, x3)
+                    x1 ^= x0
+                    x3 ^= x2
+                values[pos], values[pos + half] = x0, x1
+                values[pos + 2 * half], values[pos + 3 * half] = x2, x3
+    if not inverse and height & 1:
+        for start in range(0, len(values), 2):
+            left = values[start] ^ _mul(constants[start >> 1], values[start + 1])
+            values[start + 1] ^= left
+            values[start] = left
 
 
 def _constants(size):
@@ -129,20 +171,35 @@ def _short_blocks(a, b):
     return [_compress(value) for value in result]
 
 
+def _signed(values):
+    result = []
+    for value in values:
+        if not 0 <= value < 1 << 64:
+            raise ValueError("coefficients must be unsigned 64-bit integers")
+        result.append(value if value < 1 << 63 else value - (1 << 64))
+    return result
+
+
 def multiply(first, second):
     """GF(2^64)係数列の積を返す。入力は変更せず、末尾の0も保持する。"""
 
     if not first or not second:
         return []
-    a = [_expand(value) for value in first]
-    b = a if first is second else [_expand(value) for value in second]
+    a = _signed(first)
+    b = a if first is second else _signed(second)
     output_size = len(a) + len(b) - 1
-    if a is b:
+    if a is b or a == b:
         result = [0] * output_size
         for i, value in enumerate(a):
+            value = _expand(value & ((1 << 64) - 1))
             result[2 * i] = _compress(_mul(value, value))
         return result
-    if min(len(a), len(b)) <= 8:
+    short = min(len(a), len(b)) <= 8
+    blocked = min(len(a), len(b)) * 4 <= max(len(a), len(b))
+    if short or blocked:
+        a = [_expand(value & ((1 << 64) - 1)) for value in a]
+        b = [_expand(value & ((1 << 64) - 1)) for value in b]
+    if short:
         if len(a) > len(b):
             a, b = b, a
         result = [0] * output_size
@@ -151,22 +208,27 @@ def multiply(first, second):
                 for j, other in enumerate(b):
                     result[i + j] ^= _mul(value, other)
         return [_compress(value) for value in result]
-    if min(len(a), len(b)) * 4 <= max(len(a), len(b)):
+    if blocked:
         return _short_blocks(a, b)
     size = 1 << (output_size - 1).bit_length()
     if size > 1 << 64:
         raise ValueError("transform length exceeds the field size")
     constants = _constants(size)
-    a.extend([0] * (size - len(a)))
-    b.extend([0] * (size - len(b)))
+    a.extend([0] * ((1 << (len(a) - 1).bit_length()) - len(a)))
+    b.extend([0] * ((1 << (len(b) - 1).bit_length()) - len(b)))
     _convert(a)
     _convert(b)
+    a = [_expand(value & ((1 << 64) - 1)) for value in a]
+    b = [_expand(value & ((1 << 64) - 1)) for value in b]
+    a.extend([0] * (size - len(a)))
+    b.extend([0] * (size - len(b)))
     _transform(a, constants)
     _transform(b, constants)
     for i in range(size):
         a[i] = _mul(a[i], b[i])
     del b
     _transform(a, constants, True)
+    a = _signed([_compress(value) for value in a])
     _convert(a, True)
     del a[output_size:]
-    return [_compress(value) for value in a]
+    return [value & ((1 << 64) - 1) for value in a]

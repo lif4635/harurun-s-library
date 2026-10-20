@@ -128,6 +128,64 @@ def test_high_level_basis_conversion_roundtrip():
         assert values == before
 
 
+def test_conversion_and_fused_stages_match_scalar():
+    from library_codex.benchmarks.baselines.binary_field_scalar import (
+        _constants, _convert as scalar_convert, _transform as scalar_transform,
+    )
+
+    rng = random.Random(8135)
+    for height in range(13):
+        a = [_expand(rng.getrandbits(64)) for _ in range(1 << height)]
+        b = a[:]
+        scalar_convert(a)
+        _convert(b)
+        assert a == b
+        constants = _constants(len(a))
+        scalar_transform(a, constants)
+        _transform(b, constants)
+        assert a == b
+        _transform(b, constants, True)
+        _convert(b, True)
+        scalar_transform(a, constants, True)
+        scalar_convert(a, True)
+        assert a == b
+
+
+def test_equal_distinct_inputs_use_square(monkeypatch):
+    import importlib
+    module = importlib.import_module("library_codex.convolution.BinaryFieldConvolution")
+
+    def unexpected(*args):
+        raise AssertionError("equal inputs should not require FFT")
+
+    monkeypatch.setattr(module, "_transform", unexpected)
+    rng = random.Random(7103)
+    for size in (9, 17, 1024):
+        a = [rng.getrandbits(64) for _ in range(size)]
+        expected = [0] * (2 * size - 1)
+        expected[::2] = [product(x, x) for x in a]
+        assert multiply(a, tuple(a)) == expected
+        assert multiply(a, a[:]) == expected
+
+
+def test_signed_basis_conversion_preserves_unsigned_bits():
+    from library_codex.convolution.BinaryFieldConvolution import _signed
+    from library_codex.benchmarks.baselines.binary_field_scalar import _convert as reference
+
+    rng = random.Random(18945)
+    for height in (2, 3, 8, 12):
+        values = [0, (1 << 63) - 1, 1 << 63, (1 << 64) - 1]
+        values.extend(rng.getrandbits(64) for _ in range((1 << height) - 4))
+        signed = _signed(values)
+        expected = values[:]
+        assert all(-(1 << 63) <= x < 1 << 63 for x in signed)
+        _convert(signed)
+        reference(expected)
+        assert [x & ((1 << 64) - 1) for x in signed] == expected
+        _convert(signed, True)
+        assert [x & ((1 << 64) - 1) for x in signed] == values
+
+
 def test_standalone(tmp_path):
     from library_codex.tools.build_library_catalog import ROOT, build_standalone_code
 

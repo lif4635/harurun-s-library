@@ -195,6 +195,7 @@ def plan_for(paths):
     policy_changed = any(
         relative in {
             "AGENTS.md",
+            "pytest.ini",
             ".github/pull_request_template.md",
             "library_codex/README.md",
             "library_codex/docs/CONTRIBUTING.md",

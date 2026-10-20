@@ -116,6 +116,8 @@ Lazy構造では保留中の作用を反映した現在値を返します。表�
 
 test fileはsourceのcategoryとmoduleに対応させます。たとえば`graph_flow/MaxFlow.py`は`verify/graph_flow/test_max_flow.py`、`optimization/ProjectSelection.py`は`verify/optimization/test_project_selection.py`で検査します。追加した時期だけを表す`test_ninth_batch.py`のようなfileへ新しいtestを足しません。
 
+リポジトリ直下の`pytest.ini`は`importlib`方式でtestを読み込みます。別categoryの同名fileを区別し、`math`・`random`などのcategory名が標準moduleと衝突しないよう、設定を`verify`内へ移さないでください。
+
 - 原則として1 implementation moduleにつき1 test fileを使う。
 - 単純解との比較器と入力生成器は専用test fileへ残し、API追加時に再利用する。
 - 別実装をoracleとして比較する場合も、主に検査するmoduleのtest fileへ置く。

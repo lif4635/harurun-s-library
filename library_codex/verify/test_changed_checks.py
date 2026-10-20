@@ -1,5 +1,6 @@
 import importlib.util
 import subprocess
+import sys
 from pathlib import Path
 
 
@@ -8,6 +9,21 @@ SCRIPT = ROOT / "tools" / "check_changed.py"
 SPEC = importlib.util.spec_from_file_location("check_changed", SCRIPT)
 CHECK_CHANGED = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(CHECK_CHANGED)
+
+
+def test_same_named_modules_collect_together():
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", "--collect-only", "-q",
+         str(ROOT / "verify/convolution/test_linear_recurrence.py"),
+         str(ROOT / "verify/fps998/test_linear_recurrence.py"),
+         str(ROOT / "verify/math/test_chinese_remainder.py"),
+         str(ROOT / "verify/random/test_random_graph.py"),
+         str(ROOT / "verify/tree/test_tree_wavelet_matrix.py")],
+        cwd=ROOT.parent, capture_output=True, text=True, timeout=60,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "convolution/test_linear_recurrence.py" in result.stdout
+    assert "fps998/test_linear_recurrence.py" in result.stdout
 
 
 def relative_tests(plan):
@@ -99,6 +115,12 @@ def test_policy_change_does_not_select_the_full_suite():
     }
     assert not plan["affected"]
     assert not plan["api_changed"]
+
+
+def test_pytest_config_selects_collection_regression():
+    assert "verify/test_changed_checks.py" in relative_tests(
+        CHECK_CHANGED.plan_for(["pytest.ini"])
+    )
 
 
 def test_changed_paths_ignores_line_ending_only_differences(monkeypatch, tmp_path):
