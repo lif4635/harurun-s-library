@@ -1,16 +1,16 @@
 {
   "problem": "pow_of_formal_power_series_sparse",
   "status": "local_passed",
-  "verificationKey": "64019fe620267c0184b791e92e998939e04d1b623f72b60927dfe4b17294858d",
-  "sourceSha256": "7e138f8be54e446fb8b4772ee53a1d7531b283a07c1d0af5a977bfd2a36d5639",
+  "verificationKey": "db0cb422287ba46ad2f35ceab9ad16791b70f2280319a0b1b11ef0e3903d1d9c",
+  "sourceSha256": "3ccbaea400ec7844fe47edce0b3ab80c2ea11dd2891290eb8bc7451d4b1721ae",
   "modules": [
     "library_codex.convolution.NTT998",
     "library_codex.fps998.FPS"
   ],
   "problemVersion": "ba85967249160020bfd26f17e0590de28b25d959b972e74e31f823f2da201702",
   "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
-  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
-  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "timeLimitSeconds": 10.0,
   "expectedCases": 35,
@@ -18,214 +18,214 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.06465151801239699,
+      "seconds": 0.09206966601777822,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.056012518994975835,
+      "seconds": 0.09770934999687597,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "example_02",
       "status": "AC",
-      "seconds": 0.05820699001196772,
+      "seconds": 0.09070137899834663,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "example_03",
       "status": "AC",
-      "seconds": 0.06034693701076321,
+      "seconds": 0.09344657498877496,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.11340790099347942,
+      "seconds": 0.201116804004414,
       "diagnostic": "ok 389813 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.13398989499546587,
+      "seconds": 0.19645080299233086,
       "diagnostic": "ok 463046 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.1368532269843854,
+      "seconds": 0.22643692101701163,
       "diagnostic": "ok 577624 tokens\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.10155439900700003,
+      "seconds": 0.15612801001407206,
       "diagnostic": "ok 429249 tokens\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 0.1566516250022687,
+      "seconds": 0.19607604498742148,
       "diagnostic": "ok 801300 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 0.24232459801714867,
+      "seconds": 0.29193873298936523,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 0.2287655209947843,
+      "seconds": 0.2980870860046707,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 0.20536379198892973,
+      "seconds": 0.28587213798891753,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "max_random_03",
       "status": "AC",
-      "seconds": 0.21014288399601355,
+      "seconds": 0.2880139669869095,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "max_random_04",
       "status": "AC",
-      "seconds": 0.21098711399827152,
+      "seconds": 0.35486354801105335,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "small_dense_00",
       "status": "AC",
-      "seconds": 0.21513553202385083,
+      "seconds": 0.314142791001359,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "small_dense_01",
       "status": "AC",
-      "seconds": 0.24834628001553938,
+      "seconds": 0.31778929199208505,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "small_dense_02",
       "status": "AC",
-      "seconds": 0.25024822499835864,
+      "seconds": 0.32973864499945194,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "small_dense_03",
       "status": "AC",
-      "seconds": 0.0985065360146109,
+      "seconds": 0.13973474301747046,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "small_dense_04",
       "status": "AC",
-      "seconds": 0.22062133200233802,
+      "seconds": 0.30707475799135864,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "small_N_00",
       "status": "AC",
-      "seconds": 0.05916928799706511,
+      "seconds": 0.10286197098321281,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "small_N_01",
       "status": "AC",
-      "seconds": 0.06433727100375108,
+      "seconds": 0.09592887299368158,
       "diagnostic": "ok 6 tokens\n"
     },
     {
       "name": "small_N_02",
       "status": "AC",
-      "seconds": 0.08047009599977173,
+      "seconds": 0.09910415101330727,
       "diagnostic": "ok 8 tokens\n"
     },
     {
       "name": "small_N_03",
       "status": "AC",
-      "seconds": 0.07025086501380429,
+      "seconds": 0.09830916501232423,
       "diagnostic": "ok \"0\"\n"
     },
     {
       "name": "small_N_04",
       "status": "AC",
-      "seconds": 0.06355099097709171,
+      "seconds": 0.09478019701782614,
       "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "min_K_00",
       "status": "AC",
-      "seconds": 0.07903864100808278,
+      "seconds": 0.11623729299753904,
       "diagnostic": "ok 389813 tokens\n"
     },
     {
       "name": "min_K_01",
       "status": "AC",
-      "seconds": 0.07385174199589528,
+      "seconds": 0.11790173800545745,
       "diagnostic": "ok 463046 tokens\n"
     },
     {
       "name": "low_deg_zero_00",
       "status": "AC",
-      "seconds": 0.08736007398692891,
+      "seconds": 0.13399003699305467,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "low_deg_zero_01",
       "status": "AC",
-      "seconds": 0.09145164000801742,
+      "seconds": 0.13366189500084147,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "low_deg_zero2_00",
       "status": "AC",
-      "seconds": 0.18959055599407293,
+      "seconds": 0.31411777500761673,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "low_deg_zero2_01",
       "status": "AC",
-      "seconds": 0.20210394100286067,
+      "seconds": 0.3020178989972919,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "low_deg_zero2_02",
       "status": "AC",
-      "seconds": 0.1956954289926216,
+      "seconds": 0.3127178080030717,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "low_deg_zero2_03",
       "status": "AC",
-      "seconds": 0.19394126799306832,
+      "seconds": 0.2982671119971201,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "low_deg_zero2_04",
       "status": "AC",
-      "seconds": 0.19488652399741113,
+      "seconds": 0.28032347399857827,
       "diagnostic": "ok 1000000 tokens\n"
     },
     {
       "name": "overflow_killer_00",
       "status": "AC",
-      "seconds": 0.06360948199289851,
+      "seconds": 0.10279310299665667,
       "diagnostic": "ok 10 tokens\n"
     },
     {
       "name": "overflow_killer_01",
       "status": "AC",
-      "seconds": 0.06165744797908701,
+      "seconds": 0.0985308239760343,
       "diagnostic": "ok 100 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-04T09:38:54.236696+00:00",
+  "verifiedAt": "2026-10-21T13:27:50.110890+00:00",
   "onlineSubmission": null
 }

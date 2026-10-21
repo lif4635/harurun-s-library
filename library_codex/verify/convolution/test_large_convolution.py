@@ -84,7 +84,11 @@ def test_public_large_dispatch(monkeypatch):
     monkeypatch.setattr(module, "_multiply_sixteen_lanes", record)
     assert multiply(Sized(1 << 23), Sized(65)) == (1 << 23, 65, 128)
     assert multiply(Sized(1 << 24), Sized(1 << 24)) == (1 << 24, 1 << 24, 1 << 21)
-    assert multiply(Sized(1 << 23), Sized((1 << 23) + 1)) == (1 << 23, (1 << 23) + 1, 1 << 22)
+    assert multiply(Sized(1 << 23), Sized((1 << 23) + 1)) == (1 << 23, (1 << 23) + 1, 1 << 20)
+    assert multiply(Sized((1 << 22) + 1), Sized((1 << 22) + 1)) == ((1 << 22) + 1, (1 << 22) + 1, 1 << 20)
+    assert multiply(Sized((1 << 23) + 1), Sized(1 << 21)) == ((1 << 23) + 1, 1 << 21, 1 << 21)
+    assert multiply(Sized((1 << 23) + 1), Sized((1 << 21) + 1)) == ((1 << 23) + 1, (1 << 21) + 1, 1 << 20)
+    assert multiply(Sized(3 << 21), Sized(3 << 20)) == (3 << 21, 3 << 20, 1 << 22)
     assert multiply(Sized((1 << 24) + 1), Sized(1 << 24)) == ((1 << 24) + 1, 1 << 24, 1 << 21)
     assert multiply(Sized((1 << 24) + 1), Sized((1 << 24) + 1)) == ((1 << 24) + 1, (1 << 24) + 1, 1 << 22)
 
@@ -107,7 +111,7 @@ def test_sixteen_lanes_random_boundaries():
 
 def test_sixteen_lanes_transform_counts(monkeypatch):
     module = importlib.import_module("library_codex.convolution.LargeConvolution")
-    forward, inverse = module._butterfly, module._butterfly_inv
+    forward, inverse = module._butterfly8, module._butterfly8_inv
     counts = [0, 0]
 
     def count_forward(values, **kwargs):
@@ -118,8 +122,8 @@ def test_sixteen_lanes_transform_counts(monkeypatch):
         counts[1] += 1
         return inverse(values, **kwargs)
 
-    monkeypatch.setattr(module, "_butterfly", count_forward)
-    monkeypatch.setattr(module, "_butterfly_inv", count_inverse)
+    monkeypatch.setattr(module, "_butterfly8", count_forward)
+    monkeypatch.setattr(module, "_butterfly8_inv", count_inverse)
     a, b = list(range(15)), list(range(17))
     assert _multiply_sixteen_lanes(a, b, 8) == naive(a, b)
     assert counts == [2, 1]
@@ -134,6 +138,24 @@ def test_sixteen_lanes_extreme_products():
         for a, b in (([MOD - 1] * n, [MOD - 1] * m),
                      ([0, MOD - 1] * (n // 2) + [0] * (n % 2), [MOD - 2] * m)):
             assert _multiply_sixteen_lanes(a, b, size) == naive(a, b)
+
+
+def test_radix8_matches_shared_transform():
+    from library_codex.convolution import LargeConvolution as large
+    from library_codex.convolution import NTT998 as ntt
+
+    rng = random.Random(58214)
+    for height in range(13):
+        for stride in (1, 4, 16):
+            for pattern in range(3):
+                values = ([rng.randrange(MOD) for _ in range(stride << height)] if pattern == 0
+                          else [MOD - 1 if pattern == 1 or i & 1 else 0 for i in range(stride << height)])
+                actual, expected = values[:], values[:]
+                large._butterfly8(actual, stride)
+                ntt._butterfly(expected, stride=stride)
+                assert actual == expected, (height, stride, pattern)
+                large._butterfly8_inv(actual, stride)
+                assert actual == [x * (1 << height) % MOD for x in values]
 
 
 def test_contiguous_output_random_boundaries():

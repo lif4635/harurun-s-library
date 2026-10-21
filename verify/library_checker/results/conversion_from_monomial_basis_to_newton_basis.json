@@ -1,8 +1,8 @@
 {
   "problem": "conversion_from_monomial_basis_to_newton_basis",
   "status": "local_passed",
-  "verificationKey": "511b722307d3604ef63a00db844accdaebed1ae8e1db8e4abab07dea0bf339be",
-  "sourceSha256": "06e42320c2335ffc3b8aa8f2cbc5c73167a0c12604503bcd210b85f6b2a31f90",
+  "verificationKey": "5a3def9d54c355dc5bed5699a66c756c340f5db1e6aed382857ee43bc9ff6a89",
+  "sourceSha256": "d00e86aa6e93d1dd387fb04510d64299ad58e1acfdc114c1777ba24c439d76e0",
   "modules": [
     "library_codex.convolution.NTT998",
     "library_codex.fps998.FPS",
@@ -20,94 +20,94 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.056934558000648394,
+      "seconds": 0.07954559099744074,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.05831835500430316,
+      "seconds": 0.07440530601888895,
       "diagnostic": "ok 0 tokens\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.06479409500025213,
+      "seconds": 0.07907766400603577,
       "diagnostic": "ok \"119551422\"\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.06133131899696309,
+      "seconds": 0.07646312902215868,
       "diagnostic": "ok 2 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.9444509930035565,
+      "seconds": 1.1833726440090686,
       "diagnostic": "ok 94808 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.9636189419979928,
+      "seconds": 1.1814795740065165,
       "diagnostic": "ok 101656 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.2589472580002621,
+      "seconds": 0.32969832900562324,
       "diagnostic": "ok 9817 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 1.0340051300008781,
+      "seconds": 1.2314102929958608,
       "diagnostic": "ok 131072 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 1.0347261520073516,
+      "seconds": 1.2445770040212665,
       "diagnostic": "ok 131072 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 1.0739682170096785,
+      "seconds": 1.2072861860215198,
       "diagnostic": "ok 131072 tokens\n"
     },
     {
       "name": "near_65536_00",
       "status": "AC",
-      "seconds": 0.5894021059939405,
+      "seconds": 0.6846505360153969,
       "diagnostic": "ok 65534 tokens\n"
     },
     {
       "name": "near_65536_01",
       "status": "AC",
-      "seconds": 0.6032558000006247,
+      "seconds": 0.6626076949760318,
       "diagnostic": "ok 65535 tokens\n"
     },
     {
       "name": "near_65536_02",
       "status": "AC",
-      "seconds": 0.670912154004327,
+      "seconds": 0.6831094340013806,
       "diagnostic": "ok 65536 tokens\n"
     },
     {
       "name": "near_65536_03",
       "status": "AC",
-      "seconds": 0.9459249569918029,
+      "seconds": 1.0373134609835688,
       "diagnostic": "ok 65537 tokens\n"
     },
     {
       "name": "near_65536_04",
       "status": "AC",
-      "seconds": 0.8998768500023289,
+      "seconds": 1.0739452659909148,
       "diagnostic": "ok 65538 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-15T07:29:22.677240+00:00",
+  "verifiedAt": "2026-10-21T13:18:23.107693+00:00",
   "onlineSubmission": null
 }

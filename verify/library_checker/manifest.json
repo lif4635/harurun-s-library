@@ -3,8 +3,7 @@
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "counts": {
     "failed": 1,
-    "local_passed": 218,
-    "stale": 34
+    "local_passed": 252
   },
   "problems": [
     {
@@ -334,7 +333,7 @@
       "title": "Composition of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/composition_of_formal_power_series",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "fps998/Composition.py"
       ],
@@ -346,7 +345,7 @@
       "title": "Composition of Formal Power Series (Large)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/composition_of_formal_power_series_large",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "fps998/Composition.py"
       ],
@@ -358,7 +357,7 @@
       "title": "Compositional Inverse of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -373,7 +372,7 @@
       "title": "Compositional Inverse of Formal Power Series (Large)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/compositional_inverse_of_formal_power_series_large",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -400,7 +399,7 @@
       "title": "Consecutive Terms of Linear Recurrent Sequence",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -415,7 +414,7 @@
       "title": "Conversion from Monomial Basis to Newton Basis",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/conversion_from_monomial_basis_to_newton_basis",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -456,7 +455,7 @@
       "title": "Convolution",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/convolution_mod",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "convolution/NTT998.py"
       ],
@@ -480,7 +479,7 @@
       "title": "Convolution (Mod 2^64)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/convolution_mod_2_64",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT",
         "library_codex.convolution.NTT998",
@@ -727,7 +726,7 @@
       "title": "Division of Polynomials",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/division_of_polynomials",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -958,7 +957,7 @@
       "title": "Exp of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/exp_of_formal_power_series",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "fps998/FPS.py"
       ],
@@ -970,7 +969,7 @@
       "title": "Exp of Formal Power Series (Sparse)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -1048,7 +1047,7 @@
       "title": "Find Linear Recurrence",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/find_linear_recurrence",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -1063,7 +1062,7 @@
       "title": "Frequency Table of Tree Distance",
       "category": "tree",
       "url": "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT",
         "library_codex.convolution.NTT998",
@@ -1203,7 +1202,7 @@
       "title": "Inv of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/inv_of_formal_power_series",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "fps998/FPS.py"
       ],
@@ -1215,7 +1214,7 @@
       "title": "Inv of Bivariate Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/inv_of_formal_power_series_2d",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT",
         "library_codex.convolution.NTT998",
@@ -1230,7 +1229,7 @@
       "title": "Inv of Formal Power Series (Sparse)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/inv_of_formal_power_series_sparse",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -1335,7 +1334,7 @@
       "title": "Kth term of Linearly Recurrent Sequence",
       "category": "other",
       "url": "https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -1386,7 +1385,7 @@
       "title": "Log of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/log_of_formal_power_series",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -1399,7 +1398,7 @@
       "title": "Log of Formal Power Series (Sparse)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/log_of_formal_power_series_sparse",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -1507,7 +1506,7 @@
       "title": "Many Factorials",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/many_factorials",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.combinatorics.FactorialQueries"
@@ -1744,7 +1743,7 @@
       "title": "Convolution on the Multiplicative Monoid of $\\mathbb{Z} / 2^N\\mathbb{Z}$",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/mul_mod2n_convolution",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.arithmetic_convolution.MultiplicativeConvolutionModPowerOfTwo"
@@ -1770,7 +1769,7 @@
       "title": "Multiplication of Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/multiplication_of_big_integers",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.convolution.NTT",
@@ -1784,7 +1783,7 @@
       "title": "Multiplication of Hex Big Integers",
       "category": "big_integer",
       "url": "https://judge.yosupo.jp/problem/multiplication_of_hex_big_integers",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.convolution.NTT",
@@ -1798,7 +1797,7 @@
       "title": "Multipoint Evaluation",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/multipoint_evaluation",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -1828,7 +1827,7 @@
       "title": "Multidimensional Convolution (Truncated)",
       "category": "convolution",
       "url": "https://judge.yosupo.jp/problem/multivariate_convolution",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT",
         "library_codex.convolution.NTT998",
@@ -1868,7 +1867,7 @@
       "title": "Number of Increasing Sequences Between Two Sequences",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/number_of_increasing_sequences_between_two_sequences",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps.IncreasingSequences"
@@ -2110,7 +2109,7 @@
       "title": "Polynomial Interpolation",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/polynomial_interpolation",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -2159,7 +2158,7 @@
       "title": "Polynomial Taylor Shift",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/polynomial_taylor_shift",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -2172,7 +2171,7 @@
       "title": "Pow of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/pow_of_formal_power_series",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -2185,7 +2184,7 @@
       "title": "Pow of Formal Power Series (Sparse)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -2289,7 +2288,7 @@
       "title": "Product of Polynomial Sequence",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/product_of_polynomial_sequence",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -2560,7 +2559,7 @@
       "title": "$\\#_p$ Subset Sum",
       "category": "enumerative_combinatorics",
       "url": "https://judge.yosupo.jp/problem/sharp_p_subset_sum",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS",
@@ -2645,7 +2644,7 @@
       "title": "Sqrt of Formal Power Series",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/sqrt_of_formal_power_series",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"
@@ -2658,7 +2657,7 @@
       "title": "Sqrt of Formal Power Series (Sparse)",
       "category": "polynomial",
       "url": "https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse",
-      "status": "stale",
+      "status": "local_passed",
       "modules": [
         "library_codex.convolution.NTT998",
         "library_codex.fps998.FPS"

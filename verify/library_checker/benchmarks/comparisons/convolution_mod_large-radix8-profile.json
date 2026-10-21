@@ -1,0 +1,22 @@
+{
+  "protocol": "instrumented import execution; nested phase wall times, not standalone submission benchmark",
+  "driverSha256": "d7b06c95477f2f6fa44849c0e36c0dc3e7cbfa14f22942ce1d760d89ca0b7773",
+  "moduleSha256": "a084d283d808b270f81debf6ab7bad00efe40fc188ce78d8194d900715ffd7c1",
+  "nttSha256": "cbea63e1750b9966e99d513bffe92d9ef8d7fb3a7ce11b1f8e2f53bbe620246c",
+  "runtime": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "totalSeconds": 13.855007798993029,
+  "phaseSeconds": {
+    "read": 3.3080795099958777,
+    "forward": 4.486633920983877,
+    "inverse": 3.3219874179922044,
+    "multiply_including_transforms": 8.94905114901485
+  },
+  "phaseCalls": {
+    "read": 1,
+    "forward": 2,
+    "inverse": 1,
+    "multiply_including_transforms": 1
+  },
+  "allocationAndOutputSeconds": 1.5978771399823017
+}

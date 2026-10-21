@@ -1,8 +1,8 @@
 {
   "problem": "find_linear_recurrence",
   "status": "local_passed",
-  "verificationKey": "9330e2b91cae67d0d5b923ccf116294a0a763759d0ad21d3afe40e54a5c4b9a4",
-  "sourceSha256": "b1017a4b07c51836463ec3745104370bf1a56e0926cfd6b6ed9bd757fec0c0a7",
+  "verificationKey": "43e45db1c2dd721161e2d984de68d093cce156ed3393daca654fb25f89275975",
+  "sourceSha256": "f01c380e4c331bb08629de1dd6f23f2cfb1f9033fa2cab9c982011d283f96697",
   "modules": [
     "library_codex.convolution.NTT998",
     "library_codex.fps998.FPS",
@@ -20,112 +20,112 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.08079662898671813,
+      "seconds": 0.10398609802359715,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.08463654899969697,
+      "seconds": 0.1013973880035337,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "example_02",
       "status": "AC",
-      "seconds": 0.072356767981546,
+      "seconds": 0.0970623989996966,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "example_03",
       "status": "AC",
-      "seconds": 0.07578168800682761,
+      "seconds": 0.10326851301942952,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 0.21448027400765568,
+      "seconds": 0.26651327998843044,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 0.20573486902867444,
+      "seconds": 0.2701967089960817,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.12742076002177782,
+      "seconds": 0.15136023701052181,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 0.14052616799017414,
+      "seconds": 0.1915349659975618,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "long_00",
       "status": "AC",
-      "seconds": 0.0754936579905916,
+      "seconds": 0.12095708801643923,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "long_01",
       "status": "AC",
-      "seconds": 0.13080610099132173,
+      "seconds": 0.19614963998901658,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "long_02",
       "status": "AC",
-      "seconds": 0.15028421700117178,
+      "seconds": 0.19698148700990714,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "zero_00",
       "status": "AC",
-      "seconds": 0.066489476012066,
+      "seconds": 0.09388655799557455,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "zero_01",
       "status": "AC",
-      "seconds": 0.07375393999973312,
+      "seconds": 0.10121806201641448,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_00",
       "status": "AC",
-      "seconds": 0.1997358649969101,
+      "seconds": 0.26252079001278616,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_01",
       "status": "AC",
-      "seconds": 0.19915612202021293,
+      "seconds": 0.2653507759969216,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_02",
       "status": "AC",
-      "seconds": 0.11978033199557103,
+      "seconds": 0.14570235001156107,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "suffix_zero_03",
       "status": "AC",
-      "seconds": 0.12993671299773268,
+      "seconds": 0.19158536900067702,
       "diagnostic": "ok OK\n"
     },
     {
       "name": "issue_1253_00",
       "status": "AC",
-      "seconds": 0.07307571099954657,
+      "seconds": 0.10069374801241793,
       "diagnostic": "ok OK\n"
     }
   ],
-  "verifiedAt": "2026-10-17T02:09:59.655434+00:00",
+  "verifiedAt": "2026-10-21T13:21:09.410682+00:00",
   "onlineSubmission": null
 }

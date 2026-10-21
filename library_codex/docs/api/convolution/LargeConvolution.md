@@ -20,4 +20,4 @@ from library_codex.convolution.LargeConvolution import multiply
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`multiply(first, second)`](../../../convolution/LargeConvolution.py#L190) | 出力が2^23項を超える場合も、2つの多項式の積をmod 998244353で計算する。入力は変更しない。 | `first`: 第1の昇べき順整数係数列。list・tuple・arrayを使える。<br>`second`: 第2の昇べき順整数係数列。同じobjectを渡す二乗では変換を共有する。 | list[int] — 長さN+M-1の列c。$c[k]=\sum_{i+j=k}\mathrm{first}[i]\mathrm{second}[j]\bmod 998244353$。各要素は0以上998244353未満。片方が空なら空list。 | O((P+Q) B log B + P Q B)時間・O((P+Q) B)追加メモリ。N,Mは入力長、Bは短い入力を覆う2の冪と2^22の小さい方、P=ceil(N/B)、Q=ceil(M/B)。16列へ分ける経路と通常サイズはO((N+M) log(N+M))時間・O(N+M)追加メモリ。片方60項以下はO(NM) |
+| [`multiply(first, second)`](../../../convolution/LargeConvolution.py#L363) | 出力が2^23項を超える場合も、2つの多項式の積をmod 998244353で計算する。入力は変更しない。 | `first`: 第1の昇べき順整数係数列。list・tuple・arrayを使える。<br>`second`: 第2の昇べき順整数係数列。同じobjectを渡す二乗では変換を共有する。 | list[int] — 長さN+M-1の列c。$c[k]=\sum_{i+j=k}\mathrm{first}[i]\mathrm{second}[j]\bmod 998244353$。各要素は0以上998244353未満。片方が空なら空list。 | O((P+Q) B log B + P Q B)時間・O((P+Q) B)追加メモリ。N,Mは入力長、Bは短い入力を覆う2の冪と2^22の小さい方、P=ceil(N/B)、Q=ceil(M/B)。16列へ分ける経路と通常サイズはO((N+M) log(N+M))時間・O(N+M)追加メモリ。片方60項以下はO(NM) |

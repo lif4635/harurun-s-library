@@ -29,11 +29,15 @@ pypy3 verify/library_checker/solutions/scc.py < input.txt
 
 結果JSONにはケース別の判定と時間、実行環境、source hash、公式問題versionを記録する。保存済みの対応状況は、下の`list`で現在のsourceと公式checkoutに照らして更新できる。
 
+同じ処理を表す括弧・空白の違いだけなら、生成時に既存の提出コードを維持する。Pythonの版による整形差で検証済みのhashを変えないためで、処理・定数・依存先が変われば通常どおり再生成と再検証が必要になる。
+
 オンライン提出は行っていない。公式checkerと時間制限を使うが、CPU・OS・PyPyの違いがあり、メモリ制限も強制していないため、オンラインACを保証するものではない。
 
 ## 手元で検証する
 
 WSLのPyPy、g++、Gitを使う。以下はすべてリポジトリ直下で実行する。
+
+開始前に`pypy3 --version`を確認する。複数のPyPyがある場合は実行ファイルを絶対パスで指定し、新旧比較では同じものを使う。全件検証の`runtime`と、反復測定の`environment.runtime`に実際の版を記録する。
 
 初回だけ[公式問題リポジトリ](https://github.com/yosupo06/library-checker-problems)を取得する。取得先は任意で、以降の`--official`へ同じパスを渡す。
 

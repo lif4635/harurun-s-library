@@ -1,8 +1,8 @@
 {
   "problem": "consecutive_terms_of_linear_recurrent_sequence",
   "status": "local_passed",
-  "verificationKey": "4c9472b74c36c000e85c9b2252df8dde72dc87dfdbdbfabb0c89fc1e845e1d3a",
-  "sourceSha256": "29a25b2d76ede95c80a2863b84362294b4c656102e548b1967c1bac173a634b4",
+  "verificationKey": "f3ad023b91c58fbcb378665007190c4110685109c0c2f068e531552f10943cc7",
+  "sourceSha256": "c5addb85b61fde4e4e4d03e821678f93c827f1d5067273fcf9657cadbc034121",
   "modules": [
     "library_codex.convolution.NTT998",
     "library_codex.fps998.FPS",
@@ -20,262 +20,262 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.07282573098200373,
+      "seconds": 0.08711020700866356,
       "diagnostic": "ok 10 tokens\n"
     },
     {
       "name": "example_01",
       "status": "AC",
-      "seconds": 0.07162496299133636,
+      "seconds": 0.0807722800236661,
       "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "example_02",
       "status": "AC",
-      "seconds": 0.06508332799421623,
+      "seconds": 0.08576244401047006,
       "diagnostic": "ok 7 tokens\n"
     },
     {
       "name": "small_00",
       "status": "AC",
-      "seconds": 0.10050499800127,
+      "seconds": 0.1143437230202835,
       "diagnostic": "ok 737 tokens\n"
     },
     {
       "name": "small_01",
       "status": "AC",
-      "seconds": 0.10235872599878348,
+      "seconds": 0.10523871498298831,
       "diagnostic": "ok 277 tokens\n"
     },
     {
       "name": "small_02",
       "status": "AC",
-      "seconds": 0.09191986301448196,
+      "seconds": 0.0948324280034285,
       "diagnostic": "ok 518 tokens\n"
     },
     {
       "name": "small_03",
       "status": "AC",
-      "seconds": 0.11607373200240545,
+      "seconds": 0.12399765997543,
       "diagnostic": "ok 338 tokens\n"
     },
     {
       "name": "small_04",
       "status": "AC",
-      "seconds": 0.1382056639995426,
+      "seconds": 0.11163381801452488,
       "diagnostic": "ok 639 tokens\n"
     },
     {
       "name": "small_05",
       "status": "AC",
-      "seconds": 0.13506278101704083,
+      "seconds": 0.1270583409932442,
       "diagnostic": "ok 943 tokens\n"
     },
     {
       "name": "small_06",
       "status": "AC",
-      "seconds": 0.06819199401070364,
+      "seconds": 0.08539321101852693,
       "diagnostic": "ok 73 tokens\n"
     },
     {
       "name": "small_07",
       "status": "AC",
-      "seconds": 0.10732979999738745,
+      "seconds": 0.11816923599690199,
       "diagnostic": "ok 407 tokens\n"
     },
     {
       "name": "small_08",
       "status": "AC",
-      "seconds": 0.07030455800122581,
+      "seconds": 0.0700228690111544,
       "diagnostic": "ok 7 tokens\n"
     },
     {
       "name": "small_09",
       "status": "AC",
-      "seconds": 0.09100540200597607,
+      "seconds": 0.09072141899378039,
       "diagnostic": "ok 77 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 5.041066814999795,
+      "seconds": 5.446735950012226,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 4.994031745009124,
+      "seconds": 5.428501122019952,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 4.853162911982508,
+      "seconds": 5.4507912319968455,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "near_65536_00",
       "status": "AC",
-      "seconds": 2.844240279024234,
+      "seconds": 3.0073443460278213,
       "diagnostic": "ok 410923 tokens\n"
     },
     {
       "name": "near_65536_01",
       "status": "AC",
-      "seconds": 4.343367736990331,
+      "seconds": 4.675390375021379,
       "diagnostic": "ok 412907 tokens\n"
     },
     {
       "name": "near_65536_02",
       "status": "AC",
-      "seconds": 4.788211237988435,
+      "seconds": 4.949012878001668,
       "diagnostic": "ok 382347 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 1.7018517930118833,
+      "seconds": 1.887719572026981,
       "diagnostic": "ok 339245 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 5.165698875003727,
+      "seconds": 4.762520930002211,
       "diagnostic": "ok 148757 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 3.4826750619977247,
+      "seconds": 2.9427266310085543,
       "diagnostic": "ok 455174 tokens\n"
     },
     {
       "name": "trailing_zeros_00",
       "status": "AC",
-      "seconds": 0.1515679000003729,
+      "seconds": 0.11791703299968503,
       "diagnostic": "ok 301 tokens\n"
     },
     {
       "name": "trailing_zeros_01",
       "status": "AC",
-      "seconds": 0.10341418400639668,
+      "seconds": 0.1099402139952872,
       "diagnostic": "ok 628 tokens\n"
     },
     {
       "name": "trailing_zeros_02",
       "status": "AC",
-      "seconds": 0.10346667998237535,
+      "seconds": 0.08845089899841696,
       "diagnostic": "ok 62 tokens\n"
     },
     {
       "name": "trailing_zeros_03",
       "status": "AC",
-      "seconds": 0.06576291000237688,
+      "seconds": 0.07100117599475197,
       "diagnostic": "ok 132 tokens\n"
     },
     {
       "name": "trailing_zeros_04",
       "status": "AC",
-      "seconds": 0.17127482799696736,
+      "seconds": 0.11544293598853983,
       "diagnostic": "ok 515 tokens\n"
     },
     {
       "name": "trailing_zeros_05",
       "status": "AC",
-      "seconds": 0.13032423797994852,
+      "seconds": 0.1169609600037802,
       "diagnostic": "ok 966 tokens\n"
     },
     {
       "name": "trailing_zeros_06",
       "status": "AC",
-      "seconds": 0.10245857300469652,
+      "seconds": 0.07492110799648799,
       "diagnostic": "ok 148 tokens\n"
     },
     {
       "name": "trailing_zeros_07",
       "status": "AC",
-      "seconds": 0.1290309730102308,
+      "seconds": 0.1154957149992697,
       "diagnostic": "ok 577 tokens\n"
     },
     {
       "name": "trailing_zeros_08",
       "status": "AC",
-      "seconds": 0.11250136801390909,
+      "seconds": 0.07631675200536847,
       "diagnostic": "ok 520 tokens\n"
     },
     {
       "name": "trailing_zeros_09",
       "status": "AC",
-      "seconds": 0.13327498998842202,
+      "seconds": 0.09456539200618863,
       "diagnostic": "ok 358 tokens\n"
     },
     {
       "name": "zero_00",
       "status": "AC",
-      "seconds": 0.085360622004373,
+      "seconds": 0.08171764100552537,
       "diagnostic": "ok 737 tokens\n"
     },
     {
       "name": "zero_01",
       "status": "AC",
-      "seconds": 0.07366913100122474,
+      "seconds": 0.07423322898102924,
       "diagnostic": "ok 277 tokens\n"
     },
     {
       "name": "zero_02",
       "status": "AC",
-      "seconds": 0.08168915199348703,
+      "seconds": 0.0762893809878733,
       "diagnostic": "ok 518 tokens\n"
     },
     {
       "name": "some_param_minimum_00",
       "status": "AC",
-      "seconds": 0.07374973301193677,
+      "seconds": 0.07493266899837181,
       "diagnostic": "ok \"528756313\"\n"
     },
     {
       "name": "some_param_minimum_01",
       "status": "AC",
-      "seconds": 0.10829739100881852,
+      "seconds": 0.09578449701075442,
       "diagnostic": "ok \"40280999\"\n"
     },
     {
       "name": "some_param_minimum_02",
       "status": "AC",
-      "seconds": 0.10249005499645136,
+      "seconds": 0.0737813719897531,
       "diagnostic": "ok \"186191188\"\n"
     },
     {
       "name": "some_param_minimum_03",
       "status": "AC",
-      "seconds": 2.1374618579866365,
+      "seconds": 2.097212208987912,
       "diagnostic": "ok \"775328268\"\n"
     },
     {
       "name": "some_param_minimum_04",
       "status": "AC",
-      "seconds": 0.14503663501818664,
+      "seconds": 0.13139293401036412,
       "diagnostic": "ok 287359 tokens\n"
     },
     {
       "name": "some_param_minimum_05",
       "status": "AC",
-      "seconds": 0.6541884379985277,
+      "seconds": 0.60580919199856,
       "diagnostic": "ok 244655 tokens\n"
     },
     {
       "name": "some_param_minimum_06",
       "status": "AC",
-      "seconds": 0.1454120660200715,
+      "seconds": 0.16738841001642868,
       "diagnostic": "ok 370761 tokens\n"
     },
     {
       "name": "issue_1203_00",
       "status": "AC",
-      "seconds": 0.06864781698095612,
+      "seconds": 0.07597466598963365,
       "diagnostic": "ok \"0\"\n"
     }
   ],
-  "verifiedAt": "2026-10-17T02:05:24.442163+00:00",
+  "verifiedAt": "2026-10-21T13:17:35.618369+00:00",
   "onlineSubmission": null
 }

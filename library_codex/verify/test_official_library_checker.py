@@ -83,6 +83,25 @@ def test_atomic_json_failure_preserves_previous_result(tmp_path, monkeypatch):
     assert list(tmp_path.iterdir()) == [target]
 
 
+def test_equivalent_export_preserves_verified_source_bytes(tmp_path, monkeypatch):
+    monkeypatch.setattr(lc, "SUITE", tmp_path)
+    monkeypatch.setattr(lc, "solution_source", lambda name: ("a, b = (1, 2)\nprint(a + b)\n", []))
+    (tmp_path / "solutions").mkdir()
+    path = tmp_path / "solutions" / "sample.py"
+    previous = "(a, b) = (1, 2)\nprint(a + b)\n"
+    path.write_text(previous)
+    assert lc.solution("sample")[0] == previous
+    lc.build_solution("sample")
+    assert path.read_text() == previous
+    path.write_text("(a, b) = (1, 3)\nprint(a + b)\n")
+    assert lc.solution("sample")[0] != path.read_text()
+    lc.build_solution("sample")
+    assert "1, 2" in path.read_text()
+    path.write_text("def broken(\n")
+    lc.build_solution("sample")
+    compile(path.read_text(), "sample", "exec")
+
+
 def test_associative_array_integer_keys_and_overwrite(tmp_path):
     source, _ = lc.solution("associative_array")
     path = tmp_path / "main.py"

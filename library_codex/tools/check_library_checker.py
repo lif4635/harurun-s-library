@@ -76,7 +76,19 @@ def solution_source(name):
 
 def solution(name):
     source, modules = solution_source(name)
-    return (ast.unparse(ast.parse(source)) + "\n" if source is not None else None), modules
+    if source is None:
+        return None, modules
+    tree = ast.parse(source)
+    path = SUITE / "solutions" / (name + ".py")
+    if path.is_file():
+        previous = path.read_text(encoding="utf-8")
+        try:
+            previous_tree = ast.parse(previous)
+        except SyntaxError:
+            previous_tree = None
+        if previous_tree is not None and ast.dump(previous_tree) == ast.dump(tree):
+            return previous, modules
+    return ast.unparse(tree) + "\n", modules
 
 
 def build_solution(name):

@@ -1,15 +1,15 @@
 {
   "problem": "exp_of_formal_power_series",
   "status": "local_passed",
-  "verificationKey": "84a23f77b5d9e9d349e180b669f8179a54c58fe953fb7d2310202e7f24470aed",
-  "sourceSha256": "c65d13969a5d199a8cb2519c2898516d578de49cdc3835e81d8e1208c40f7f99",
+  "verificationKey": "fdaa94d2e1e171707e62c8969fa7b9b08dcc72bf7cff245ac00546275aeb03b4",
+  "sourceSha256": "1934e8188452becb40552275a2b33d197f21862f7a4c100df7c98ebdd24266fb",
   "modules": [
     "fps998/FPS.py"
   ],
   "problemVersion": "e2d8380e77ad1a756451b57d813e79df0066f4d88b4864595f138e41de3e0ddd",
   "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
-  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
-  "environmentFingerprint": "36259aa0820313b1dbba57db0679a51e81e01a4060d424a6f485431b12ce6f7e",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "environmentFingerprint": "0ac76cf68f3de9bb83ca065c9a68bdb3ef646151255529a207dfa3f7bc107ae2",
   "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
   "timeLimitSeconds": 10.0,
   "expectedCases": 26,
@@ -17,160 +17,160 @@
     {
       "name": "example_00",
       "status": "AC",
-      "seconds": 0.14226350499666296,
+      "seconds": 0.10867460799636319,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "random_00",
       "status": "AC",
-      "seconds": 1.356658532997244,
+      "seconds": 1.5305850020085927,
       "diagnostic": "ok 389813 tokens\n"
     },
     {
       "name": "random_01",
       "status": "AC",
-      "seconds": 1.3175759309960995,
+      "seconds": 1.6436833429906983,
       "diagnostic": "ok 463046 tokens\n"
     },
     {
       "name": "random_02",
       "status": "AC",
-      "seconds": 0.2543962039926555,
+      "seconds": 0.2972536719753407,
       "diagnostic": "ok 53336 tokens\n"
     },
     {
       "name": "random_03",
       "status": "AC",
-      "seconds": 1.395649609999964,
+      "seconds": 1.4202488220180385,
       "diagnostic": "ok 429249 tokens\n"
     },
     {
       "name": "random_04",
       "status": "AC",
-      "seconds": 1.4555865430011181,
+      "seconds": 1.3699816789885517,
       "diagnostic": "ok 277012 tokens\n"
     },
     {
       "name": "max_random_00",
       "status": "AC",
-      "seconds": 1.2956978519941913,
+      "seconds": 1.4219249300076626,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_random_01",
       "status": "AC",
-      "seconds": 1.2723318799980916,
+      "seconds": 1.3827861759928055,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_random_02",
       "status": "AC",
-      "seconds": 1.3961893600062467,
+      "seconds": 1.4022280859935563,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_random_03",
       "status": "AC",
-      "seconds": 1.3291881369950715,
+      "seconds": 1.419199922005646,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_random_04",
       "status": "AC",
-      "seconds": 1.3260855400003493,
+      "seconds": 1.3726983899832703,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_all_zero_00",
       "status": "AC",
-      "seconds": 0.2975348330073757,
+      "seconds": 0.23793954099528491,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "max_ans_zero_00",
       "status": "AC",
-      "seconds": 1.3682227920071455,
+      "seconds": 1.5004066900000907,
       "diagnostic": "ok 500000 tokens\n"
     },
     {
       "name": "near_262144_00",
       "status": "AC",
-      "seconds": 0.6750868740055012,
+      "seconds": 0.8570732359949034,
       "diagnostic": "ok 262143 tokens\n"
     },
     {
       "name": "near_262144_01",
       "status": "AC",
-      "seconds": 0.694399093001266,
+      "seconds": 0.7649729690165259,
       "diagnostic": "ok 262144 tokens\n"
     },
     {
       "name": "near_262144_02",
       "status": "AC",
-      "seconds": 1.2065945689973887,
+      "seconds": 1.472800882998854,
       "diagnostic": "ok 262145 tokens\n"
     },
     {
       "name": "small_degree_00",
       "status": "AC",
-      "seconds": 0.08210063799924683,
+      "seconds": 0.10275109900976531,
       "diagnostic": "ok \"1\"\n"
     },
     {
       "name": "small_degree_01",
       "status": "AC",
-      "seconds": 0.09081184900423978,
+      "seconds": 0.10386904099141248,
       "diagnostic": "ok 2 tokens\n"
     },
     {
       "name": "small_degree_02",
       "status": "AC",
-      "seconds": 0.08920541699626483,
+      "seconds": 0.1042973090079613,
       "diagnostic": "ok 3 tokens\n"
     },
     {
       "name": "small_degree_03",
       "status": "AC",
-      "seconds": 0.08497633899969514,
+      "seconds": 0.11194044799776748,
       "diagnostic": "ok 4 tokens\n"
     },
     {
       "name": "small_degree_04",
       "status": "AC",
-      "seconds": 0.08540323199122213,
+      "seconds": 0.13093394998577423,
       "diagnostic": "ok 5 tokens\n"
     },
     {
       "name": "small_degree_05",
       "status": "AC",
-      "seconds": 0.09328212999389507,
+      "seconds": 0.1326243039802648,
       "diagnostic": "ok 6 tokens\n"
     },
     {
       "name": "small_degree_06",
       "status": "AC",
-      "seconds": 0.08076930500101298,
+      "seconds": 0.11273902200628072,
       "diagnostic": "ok 7 tokens\n"
     },
     {
       "name": "small_degree_07",
       "status": "AC",
-      "seconds": 0.08637925999937579,
+      "seconds": 0.11591878399485722,
       "diagnostic": "ok 8 tokens\n"
     },
     {
       "name": "small_degree_08",
       "status": "AC",
-      "seconds": 0.0939043859980302,
+      "seconds": 0.10390550701413304,
       "diagnostic": "ok 9 tokens\n"
     },
     {
       "name": "small_degree_09",
       "status": "AC",
-      "seconds": 0.08817134700075258,
+      "seconds": 0.0898648040019907,
       "diagnostic": "ok 10 tokens\n"
     }
   ],
-  "verifiedAt": "2026-10-03T17:32:42.424336+00:00",
+  "verifiedAt": "2026-10-21T13:20:37.095764+00:00",
   "onlineSubmission": null
 }

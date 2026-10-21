@@ -3,6 +3,7 @@ import importlib
 import importlib.util
 import json
 from pathlib import Path
+import platform
 import sys
 from time import perf_counter
 
@@ -26,9 +27,9 @@ def main():
     def track(owner, name, label):
         original = getattr(owner, name)
 
-        def timed(*args):
+        def timed(*args, **kwargs):
             started = perf_counter()
-            result = original(*args)
+            result = original(*args, **kwargs)
             timings[label] = timings.get(label, 0.0) + perf_counter() - started
             calls[label] = calls.get(label, 0) + 1
             return result
@@ -39,6 +40,8 @@ def main():
     track(driver, "multiply", "multiply_including_transforms")
     track(module, "_butterfly", "forward")
     track(module, "_butterfly_inv", "inverse")
+    track(module, "_butterfly8", "forward")
+    track(module, "_butterfly8_inv", "inverse")
     started = perf_counter()
     driver.main()
     sys.stdout.flush()
@@ -47,6 +50,8 @@ def main():
         protocol="instrumented import execution; nested phase wall times, not standalone submission benchmark",
         driverSha256=file_digest(path),
         moduleSha256=file_digest(Path(module.__file__)),
+        nttSha256=file_digest(Path(importlib.import_module("library_codex.convolution.NTT998").__file__)),
+        runtime=sys.version, platform=platform.platform(),
         totalSeconds=total, phaseSeconds=timings, phaseCalls=calls,
         allocationAndOutputSeconds=total - timings["read"] - timings["multiply_including_transforms"],
     )

@@ -8,6 +8,10 @@ from array import array
 
 from library_codex.convolution.NTT998 import (
     MOD,
+    _IMAG,
+    _IIMAG,
+    _RATE2,
+    _IRATE2,
     _butterfly,
     _butterfly_inv,
     multiply as _multiply,
@@ -95,20 +99,189 @@ def _multiply_blocks(first, second, block):
     return result
 
 
+def _butterfly8(values, stride=16):
+    size = len(values) // stride
+    if size == 1:
+        for i in range(len(values)):
+            values[i] %= MOD
+        return values
+    height = size.bit_length() - 1
+    mod = MOD
+    imag = _IMAG
+    eighth = pow(3, (mod - 1) // 8, mod)
+    third = pow(eighth, 3, mod)
+    rates = [pow(3, (3 * ((mod - 1) >> (t + 4)) - (mod - 1) // 8) % (mod - 1), mod) for t in range(max(0, height - 3))]
+    level = 0
+    while level < height:
+        if height - level < 3:
+            width = stride << (height - level - 1)
+            rotation = 1
+            for block in range(1 << level):
+                offset = (block << (height - level)) * stride
+                for index in range(width):
+                    pos = offset + index
+                    x = values[pos]
+                    y = values[pos + width] * rotation
+                    values[pos] = (x + y) % mod
+                    values[pos + width] = (x - y) % mod
+                rotation = rotation * _RATE2[(~block & -~block).bit_length()] % mod
+            level += 1
+        else:
+            width = stride << (height - level - 3)
+            rotation = 1
+            for block in range(1 << level):
+                r2 = rotation * rotation % mod
+                r3 = r2 * rotation % mod
+                r4 = r2 * r2 % mod
+                r5 = r4 * rotation % mod
+                r6 = r4 * r2 % mod
+                r7 = r4 * r3 % mod
+                s1 = rotation * imag % mod
+                s2 = r2 * imag % mod
+                s3 = r3 * imag % mod
+                s5 = r5 * imag % mod
+                s6 = r6 * imag % mod
+                s7 = r7 * imag % mod
+                e1 = rotation * eighth % mod
+                e3 = r3 * eighth % mod
+                e5 = r5 * eighth % mod
+                e7 = r7 * eighth % mod
+                t1 = rotation * third % mod
+                t3 = r3 * third % mod
+                t5 = r5 * third % mod
+                t7 = r7 * third % mod
+                offset = (block << (height - level)) * stride
+                for index in range(width):
+                    pos = offset + index
+                    x0 = values[pos]
+                    x1 = values[pos + 1 * width]
+                    x2 = values[pos + 2 * width]
+                    x3 = values[pos + 3 * width]
+                    x4 = values[pos + 4 * width]
+                    x5 = values[pos + 5 * width]
+                    x6 = values[pos + 6 * width]
+                    x7 = values[pos + 7 * width]
+                    u0 = x0 + x4 * r4
+                    u1 = x1 * rotation + x5 * r5
+                    u2 = x2 * r2 + x6 * r6
+                    u3 = x3 * r3 + x7 * r7
+                    v0 = x0 - x4 * r4
+                    v1 = x1 * e1 - x5 * e5
+                    v2 = x2 * s2 - x6 * s6
+                    v3 = x3 * t3 - x7 * t7
+                    d0 = x1 * s1 + x5 * s5 - x3 * s3 - x7 * s7
+                    d1 = x1 * t1 - x5 * t5 + x3 * e3 - x7 * e7
+                    values[pos] = (u0 + u2 + u1 + u3) % mod
+                    values[pos + width] = (u0 + u2 - u1 - u3) % mod
+                    values[pos + 2 * width] = (u0 - u2 + d0) % mod
+                    values[pos + 3 * width] = (u0 - u2 - d0) % mod
+                    values[pos + 4 * width] = (v0 + v2 + v1 + v3) % mod
+                    values[pos + 5 * width] = (v0 + v2 - v1 - v3) % mod
+                    values[pos + 6 * width] = (v0 - v2 + d1) % mod
+                    values[pos + 7 * width] = (v0 - v2 - d1) % mod
+                if block + 1 < 1 << level:
+                    rotation = rotation * rates[(~block & -~block).bit_length() - 1] % mod
+            level += 3
+    return values
+
+def _butterfly8_inv(values, stride=16):
+    size = len(values) // stride
+    if size == 1:
+        for i in range(len(values)):
+            values[i] %= MOD
+        return values
+    height = size.bit_length() - 1
+    mod = MOD
+    imag = _IIMAG
+    eighth = pow(3, mod - 1 - (mod - 1) // 8, mod)
+    third = pow(eighth, 3, mod)
+    rates = [pow(3, (-3 * ((mod - 1) >> (t + 4)) + (mod - 1) // 8) % (mod - 1), mod) for t in range(max(0, height - 3))]
+    level = height
+    while level:
+        if level < 3:
+            width = stride << (height - level)
+            rotation = 1
+            for block in range(1 << (level - 1)):
+                offset = (block << (height - level + 1)) * stride
+                for index in range(width):
+                    pos = offset + index
+                    x = values[pos]
+                    y = values[pos + width]
+                    values[pos] = (x + y) % mod
+                    values[pos + width] = (x - y) * rotation % mod
+                rotation = rotation * _IRATE2[(~block & -~block).bit_length()] % mod
+            level -= 1
+        else:
+            width = stride << (height - level)
+            rotation = 1
+            for block in range(1 << (level - 3)):
+                r2 = rotation * rotation % mod
+                r3 = r2 * rotation % mod
+                r4 = r2 * r2 % mod
+                r5 = r4 * rotation % mod
+                r6 = r4 * r2 % mod
+                r7 = r4 * r3 % mod
+                s1 = rotation * imag % mod
+                s2 = r2 * imag % mod
+                s3 = r3 * imag % mod
+                s5 = r5 * imag % mod
+                s6 = r6 * imag % mod
+                s7 = r7 * imag % mod
+                e1 = rotation * eighth % mod
+                e3 = r3 * eighth % mod
+                e5 = r5 * eighth % mod
+                e7 = r7 * eighth % mod
+                t1 = rotation * third % mod
+                t3 = r3 * third % mod
+                t5 = r5 * third % mod
+                t7 = r7 * third % mod
+                offset = (block << (height - level + 3)) * stride
+                for index in range(width):
+                    pos = offset + index
+                    x0 = values[pos]
+                    x1 = values[pos + width]
+                    x2 = values[pos + 2 * width]
+                    x3 = values[pos + 3 * width]
+                    x4 = values[pos + 4 * width]
+                    x5 = values[pos + 5 * width]
+                    x6 = values[pos + 6 * width]
+                    x7 = values[pos + 7 * width]
+                    u0 = x0 + x1 + x2 + x3
+                    u1 = x0 - x1
+                    u2 = x0 + x1 - x2 - x3
+                    u3 = x2 - x3
+                    v0 = x4 + x5 + x6 + x7
+                    v1 = x4 - x5
+                    v2 = x4 + x5 - x6 - x7
+                    v3 = x6 - x7
+                    values[pos] = (u0 + v0) % mod
+                    values[pos + width] = (u1 * rotation + u3 * s1 + v1 * e1 + v3 * t1) % mod
+                    values[pos + 2 * width] = (u2 * r2 + v2 * s2) % mod
+                    values[pos + 3 * width] = (u1 * r3 - u3 * s3 + v1 * t3 + v3 * e3) % mod
+                    values[pos + 4 * width] = (u0 - v0) * r4 % mod
+                    values[pos + 5 * width] = (u1 * r5 + u3 * s5 - v1 * e5 - v3 * t5) % mod
+                    values[pos + 6 * width] = (u2 * r6 - v2 * s6) % mod
+                    values[pos + 7 * width] = (u1 * r7 - u3 * s7 - v1 * t7 - v3 * e7) % mod
+                if block + 1 < 1 << (level - 3):
+                    rotation = rotation * rates[(~block & -~block).bit_length() - 1] % mod
+            level -= 3
+    return values
+
+
 def _multiply_sixteen_lanes(first, second, size):
     count = len(first) + len(second) - 1
     inverse = pow(size, MOD - 2, MOD)
     a = [0] * (16 * size)
     for i in range(len(first)):
         a[i] = first[i] % MOD
-    _butterfly(a, stride=16)
+    _butterfly8(a)
     if first is second:
         b = a
     else:
         b = [0] * (16 * size)
         for i in range(len(second)):
             b[i] = second[i] * inverse % MOD
-        _butterfly(b, stride=16)
+        _butterfly8(b)
     root = pow(3, (MOD - 1) // size, MOD)
     rates = [pow(root, (size >> j + 1) - (size - (size >> j)), MOD) for j in range(size.bit_length())]
     weight = 1
@@ -179,7 +352,7 @@ def _multiply_sixteen_lanes(first, second, size):
         a[pos + 15] = (c15) % MOD
         weight = weight * rates[(i + 1 & -(i + 1)).bit_length() - 1] % MOD
     del b
-    _butterfly_inv(a, stride=16)
+    _butterfly8_inv(a)
     if first is second:
         for i in range(count):
             a[i] = a[i] * inverse % MOD
@@ -195,6 +368,11 @@ def multiply(first, second):
     shorter = min(len(first), len(second))
     if len(first) + len(second) - 1 <= 1 << 23 or shorter <= 60:
         return _multiply(first, second)
+    if (len(first) + len(second) - 2).bit_length() == 24 and shorter > 1 << 21:
+        blocks = (len(first) + (1 << 22) - 1) // (1 << 22)
+        blocks += (len(second) + (1 << 22) - 1) // (1 << 22)
+        if blocks >= 4:
+            return _multiply_sixteen_lanes(first, second, 1 << 20)
     if (len(first) + len(second) - 2).bit_length() == 25:
         blocks = (len(first) + (1 << 22) - 1) // (1 << 22)
         blocks += (len(second) + (1 << 22) - 1) // (1 << 22)
