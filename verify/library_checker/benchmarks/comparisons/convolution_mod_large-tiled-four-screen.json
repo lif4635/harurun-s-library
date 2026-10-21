@@ -1,0 +1,63 @@
+{
+  "measuredAt": "2026-10-21T17:55:02.342092+00:00",
+  "problem": "convolution_mod_large",
+  "snapshot": {
+    "problem": "convolution_mod_large",
+    "language": "pypy3",
+    "submissions": [],
+    "description": "Local block convolution variants only; no external submission ranking comparison."
+  },
+  "officialHashSha256": "5650684e5e6203be78ce1daa59171a63b3f65f1cdf9c4dad2429ce5e786eb7e8",
+  "checkerSha256": "ff0f0a6805be4ed055c1bc2460fd0403adb718ab284550a00d69385a25d3571d",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 1,
+  "seed": 22105,
+  "sourceSha256": {
+    "baseline": "f4426d361647f3f7da95398646f5d0b811bfe9d6f293e0d30d0fffc222d01e9e",
+    "four_binary": "69c5611e2cdfd4b266ff370a65230b2e1f141c14f91176b4f6cbb6e9d9e9223b",
+    "four_radix4": "493e7a2a5c9675c23d4fc77d52989552ac26414fc712f2b600148d0c679f7415"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "a90a1d4737effb3caaf72184a18cb3e76d28f86e91cb0a0a76dee43a54aa6092",
+      "implementations": {
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 9.019584636000218,
+              "peakRssKiB": 832856,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 9.019584636000218,
+          "peakRssKiB": 832856
+        },
+        "four_binary": {
+          "samples": [
+            {
+              "seconds": 10.76368129401817,
+              "peakRssKiB": 865748,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 10.76368129401817,
+          "peakRssKiB": 865748
+        },
+        "four_radix4": {
+          "samples": [
+            {
+              "seconds": 10.138903612009017,
+              "peakRssKiB": 866196,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 10.138903612009017,
+          "peakRssKiB": 866196
+        }
+      }
+    }
+  ]
+}

@@ -36,7 +36,7 @@ print(c)
 
 - 出力は長さ`len(first)+len(second)-1`のlist。末尾の0も省略しない。
 - 長さ上限を超えられることと、時間・メモリ制限に収まることは別。数千万項では入力・出力だけでも大きくなる。
-- Library Checkerの最大ケースはPyPyで公式10秒制限に未達。[測定範囲と時間](https://github.com/lif4635/harurun-s-library/blob/main/library_codex/docs/LARGE_CONVOLUTION_BENCHMARK.md)を確認して使う。
+- PyPyで公式54ケースを10秒以内で通過した記録はあるが、同じコードで時間超過した測定もあり、余裕は小さい。[測定条件と時間](https://github.com/lif4635/harurun-s-library/blob/main/library_codex/docs/LARGE_CONVOLUTION_BENCHMARK.md)を確認して使う。
 - ブロック分割では変換結果を32bit整数配列で保持する。16列方式では整数listを使い、別の出力配列は作らず入力の作業配列を再利用する。ピークメモリは項数とPython処理系に依存する。
 
 ## 参考

@@ -42,6 +42,7 @@ def main():
     track(module, "_butterfly_inv", "inverse")
     track(module, "_butterfly8", "forward")
     track(module, "_butterfly8_inv", "inverse")
+    track(module, "_pad_forward", "padded_forward_including_transforms")
     started = perf_counter()
     driver.main()
     sys.stdout.flush()

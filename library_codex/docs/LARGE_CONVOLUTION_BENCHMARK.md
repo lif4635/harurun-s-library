@@ -1,6 +1,80 @@
 # 大規模畳み込みの検証
 
-`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。16列を1本の配列で処理し、8点単位の変換を領域ごとに進める。入力後半がゼロになる場合は、入力コピーと最初の変換をまとめる。公式10秒制限には届いていない。
+`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。16列を1本の配列で処理し、8点単位の変換を領域ごとに進める。入力後半がゼロになる場合は、入力コピーと最初の変換をまとめる。最新のローカル検証では公式54ケースを10秒以内で通過したが、同じコードで制限を超えた以前の測定もある。
+
+## 現行コードの公式全ケース再検証
+
+2026-10-22、配布コードを変更せず、PyPy 3.10 / 7.3.16で公式54ケースを再検証した。全件が公式checkerに一致し、10秒制限内だった。最長は`fft_killer_07`の9.894秒、最大ランダム2件は9.674秒・9.829秒。[全54ケースの記録](../../verify/library_checker/results/convolution_mod_large.json)を参照。
+
+固定した公式revision `1814c4e5205517e368bb57a8d1127eb961cfeaae`の253問題すべてについて、現在の解答と一致するローカル全件通過記録が揃った。今回実行したのは大規模畳み込みだけで、残る252問題を今回まとめて再実行したわけではない。オンライン提出は行わず、メモリ制限も強制していない。
+
+全件検査で遅かった3入力を、順序を入れ替えて各5回測った。全15回答が公式checkerに一致したが、3回は10秒を超えた。**安定した10秒切りは未達**で、全件通過した1回の結果だけから保証しない。
+
+| 入力 | 中央値（秒） | 最小〜最大（秒） | 最大RSS（KiB） |
+| --- | ---: | ---: | ---: |
+| fft_killer_07 | 9.303 | 8.951〜9.576 | 833,192 |
+| max_random_01 | 9.700 | 9.376〜10.538 | 833,120 |
+| max_random_00 | 9.536 | 9.402〜10.662 | 832,972 |
+
+[各回の時間・RSS・hash](../../verify/library_checker/benchmarks/convolution_mod_large.json)を保存した。以下で全件検査と遅い3入力の反復を再実行できる。PyPyの版は上記へ揃える。
+
+```sh
+pypy3 library_codex/tools/check_library_checker.py test convolution_mod_large --official /home/harurun/.cache/harurun-library-checker/problems --force
+pypy3 library_codex/benchmarks/official_benchmark.py convolution_mod_large --official /home/harurun/.cache/harurun-library-checker/problems --repeat 5 --slowest 3
+```
+
+## 領域分割版からの追加試作
+
+2026-10-22、Git `1182679`の配布コードを基準に11案を追加比較した。採用する変更はない。通常の`NTT998`、`LargeConvolution`、提出用driver・standalone codeは変更していない。
+
+同じ公式最大入力`max_random_00`を使った各1回の予備比較では、全8回答が公式checkerに一致した。
+
+| 案 | 秒 | 最大RSS（KiB） |
+| --- | ---: | ---: |
+| 基準の16列版 | 9.219 | 832,780 |
+| 回転係数が1の逆変換を専用処理 | 9.407 | 833,572 |
+| 積の片側を正負に分散させる | 56.633 | 1,289,496 |
+| 積を8項ごとに剰余で減らす | 9.300 | 833,060 |
+| 浮動小数点で商を近似し整数で補正 | 13.132 | 890,656 |
+| 9桁の入力を展開して読む | 9.205 | 834,868 |
+| 入力bufferを64KiBから1MiBへ増やす | 11.018 | 833,524 |
+| 専用逆変換と8項ごとの剰余を併用 | 9.445 | 832,972 |
+
+正負への分散は整数の値域だけを小さくしても高速化にならず、時間・メモリとも大幅に悪化した。浮動小数点の案は整数補正を含めても遅く、通常実装へ入れない。予備比較で僅差だった入力変換に、2入力の順変換を同じloopで進める案・入力正規化の一部を省く案を加えて各3回測り直した。全12回答が公式checkerに一致した。
+
+| 案 | 中央値（秒） | 最小〜最大（秒） | 最大RSS（KiB） |
+| --- | ---: | ---: | ---: |
+| 基準の16列版 | 9.171 | 9.078〜9.334 | 832,952 |
+| 2入力の順変換を同時に処理 | 9.292 | 9.213〜9.806 | 833,324 |
+| scale=1の入力正規化を省略 | 9.460 | 9.278〜9.757 | 833,044 |
+| 9桁の入力を展開して読む | 9.555 | 9.045〜9.775 | 834,800 |
+
+4列構成も、領域分割・ゼロ部分の省略を保ったまま再比較した。変換長の末尾に残る2段をradix-4でまとめると改善したが、現行16列版には届かなかった。各1回で、全3回答が公式checkerに一致した。
+
+| 案 | 秒 | 最大RSS（KiB） |
+| --- | ---: | ---: |
+| 基準の16列版 | 9.020 | 832,856 |
+| 4列・末尾の2段を個別処理 | 10.764 | 865,748 |
+| 4列・末尾の2段をradix-4へ統合 | 10.139 | 866,196 |
+
+基準ソースは前回の採用版と同じ`f4426d361647f3f7da95398646f5d0b811bfe9d6f293e0d30d0fffc222d01e9e`。以前の12秒台から今回9秒台になった原因は特定しておらず、新しい高速化の成果とはしない。測定は同じPyPy 3.10 / 7.3.16・新しいprocess・入出力とJIT込み・逐次実行で揃えたが、ホスト全体の負荷や周波数は固定していない。最大ランダム1ケースが10秒以内でも、全ケースの安定した制限内動作とは区別する。
+
+関数を計時した別実行では、入力2.372秒、入力コピー・最初の変換0.610秒、残りの順変換2回3.205秒、逆変換1.655秒、積とその周辺0.340秒、その他の配列処理・出力1.131秒だった。合計9.313秒。これは計時wrapper付きのimport実行で、上表のstandalone比較とは別の測定。積の部分だけを改善しても縮められる時間は限られる。
+
+追加した試作の差分・境界・入力形式testと既存の大規模畳み込みtestは、同じPyPyで25 passed。小規模の全結果比較と、長さ2^24・2^25に切り上げる分岐を検査した。通常実装は変更しておらず、今回は全ライブラリのtestを再実行していない。
+
+- [8案の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-tiled-arithmetic-screen.json)
+- [4案の各3回比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-tiled-pair-comparison.json)
+- [4列・radix-4末尾の比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-tiled-four-screen.json)
+- [処理時間の内訳](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-tiled-profile.json)
+- [固定したGit revisionから試作を再生成するscript](../benchmarks/experiments/build_large_arithmetic_variants.py)
+- [試作の差分・境界・入力形式test](../benchmarks/experiments/test_large_arithmetic_variants.py)
+
+```sh
+pypy3 library_codex/benchmarks/experiments/build_large_arithmetic_variants.py
+pypy3 -m pytest library_codex/benchmarks/experiments/test_large_arithmetic_variants.py -q
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 --variant baseline=.cache/large-arithmetic-variants/baseline.py --variant pair_forward=.cache/large-arithmetic-variants/pair_forward.py --variant unscaled_pad=.cache/large-arithmetic-variants/unscaled_pad.py --variant input_digits=.cache/large-arithmetic-variants/input_digits.py --repeat 3 --seed 22104 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-tiled-pair-comparison.json
+```
 
 ## 領域ごとの変換とゼロ部分の省略
 
@@ -46,9 +120,9 @@ pypy3 -m pytest library_codex/benchmarks/experiments/test_large_transform_layout
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 random_00 --variant baseline=.cache/large-transform-variants/baseline.py --variant fused9=.cache/large-transform-variants/fused9.py --variant cached_zero9=.cache/large-transform-variants/cached_zero9.py --repeat 3 --seed 22004 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-radix8-combined-comparison.json
 ```
 
-## 領域分割版の公式全ケース
+## 領域分割導入時の公式全ケース
 
-配布用の同じ単独コードを、公式10秒制限で全54ケースに実行した。37件が制限内で通過し、17件が時間超過。[公式検査の記録](../../verify/library_checker/results/convolution_mod_large.json)には`failed`を残す。
+配布用の同じ単独コードを、公式10秒制限で全54ケースに実行した。37件が制限内で通過し、17件が時間超過。[当時の公式検査の記録](https://github.com/lif4635/harurun-s-library/blob/1182679615027a260b0889a02eeafe53274792c1/verify/library_checker/results/convolution_mod_large.json)には`failed`を残す。
 
 時間超過した17件は診断上限120秒で各1回実行し、全回答が公式checkerに一致した。先の37件と合わせて全54入力の正答を確認した。診断では`all_same_00`と`random_02`が10秒未満だったが、全ケース検査の判定を書き換えたり、安定して10秒以内と扱ったりはしない。
 
@@ -57,7 +131,7 @@ pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/b
 - [17件の診断記録と測定上の注記](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-cache-diagnostic.json)
 - [冒頭3件の単独再検査](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-cache-isolated-diagnostic.json)
 
-## 配布前の検査
+## 領域分割導入時の配布前検査
 
 PyPy全体testは1292 passed・10 skipped、試作と畳み込みの専用testは39 passed。10件はCodon実機用の検査で、今回の高速化をCodon対応と扱わない。両test集合には重複があるため件数を合算しない。
 
@@ -323,8 +397,8 @@ pypy3 library_codex/benchmarks/official_probe.py convolution_mod_large --officia
 
 ## 残る問題
 
-- 大規模畳み込みは全54ケースを公式10秒制限で検査済みだが、17件の時間超過が残る。
-- 最大入力を関数別に計測した1回の内訳は、入力3.308秒、順変換2回で4.487秒、逆変換1回で3.322秒、変換以外の積処理1.140秒、その他の配列処理・出力1.598秒。[計測記録](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-radix8-profile.json)はimport経由の計測用実行で、提出用standaloneの速度比較とは区別する。
+- 大規模畳み込みの最新検証は全54ケースを10秒以内で通過したが、直後の反復15回では3回が10秒を超えた。同じ配布コードの過去の測定では17件が時間超過しており、安定した10秒切りは未達。
+- 最新の関数別計測では順・逆変換に約4.86秒、入力に約2.37秒を使った。積だけの改善では余地が小さい。さらに検討するなら、変換全体の演算数とメモリアクセス、入力処理を優先する。
 - `convolution_F_2_64`は別の問題。整数を2^64で割った余りの畳み込みでもnim積でもなく、二元体上の既約多項式による剰余体を使う。加法FFTを使うPyPy版は`BinaryFieldConvolution`へ追加し、全51ケースがローカルの公式制限内で通過した。[検証記録](BINARY_FIELD_CONVOLUTION_BENCHMARK.md)を参照。
 
 ## 参照

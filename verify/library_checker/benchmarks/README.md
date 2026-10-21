@@ -35,6 +35,7 @@
 | [convolution_mod](convolution_mod.json) | 3 / 53 | 5 | 0.778 | 169.3 | 一致 |
 | [convolution_mod_1000000007](convolution_mod_1000000007.json) | 3 / 48 | 5 | 1.260 | 187.1 | 一致 |
 | [convolution_mod_2_64](convolution_mod_2_64.json) | 3 / 44 | 5 | 4.691 | 563.3 | 一致 |
+| [convolution_mod_large](convolution_mod_large.json) | 3 / 54 | 5 | 9.700 | 813.7 | 一致 |
 | [count_points_in_triangle](count_points_in_triangle.json) | 3 / 10 | 5 | 1.723 | 143.4 | 一致 |
 | [counting_c4](counting_c4.json) | 3 / 29 | 5 | 4.943 | 169.0 | 一致 |
 | [counting_eulerian_circuits](counting_eulerian_circuits.json) | 3 / 16 | 5 | 0.435 | 95.1 | 一致 |
