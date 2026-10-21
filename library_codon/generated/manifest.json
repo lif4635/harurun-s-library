@@ -325,7 +325,7 @@
     {
       "modulePath": "convolution/BinaryFieldConvolution",
       "sourcePath": "library_codex/convolution/BinaryFieldConvolution.py",
-      "sourceSha256": "17afe9eb027c10640461fd0f695071a0413758f250b7bdac85b8dba939b185ac",
+      "sourceSha256": "4806cb3668c81ab6a20140215a7a53913a3641681a8591180c1ccb21ee1e7d51",
       "status": "unsupported"
     },
     {
@@ -343,7 +343,7 @@
     {
       "modulePath": "convolution/LargeConvolution",
       "sourcePath": "library_codex/convolution/LargeConvolution.py",
-      "sourceSha256": "4db406728cd9cf64f4f24bf8dc762959adac94a4a15d12082ad2df354c72efbc",
+      "sourceSha256": "0612cd99957e18a0622666ac8f2ca13988cdc91af3cf2e62f6d2ac5787547b5d",
       "status": "unsupported"
     },
     {
@@ -379,10 +379,10 @@
     {
       "modulePath": "convolution/NTT998",
       "sourcePath": "library_codex/convolution/NTT998.py",
-      "sourceSha256": "b48726633a89ab415630b72b31e49aa4be4612392e59aa64b8cdb7342129f0dd",
+      "sourceSha256": "5a382bbd2f0cf825f6712d7e5571dfcee83d703b1846e722c166d17bb83d49e7",
       "status": "supported",
       "standalonePath": "convolution/NTT998.codon",
-      "standaloneSha256": "e016685ab96e9f4e7fd469c9ae6b47890c8a390a87afdde3144009729c92b9f2"
+      "standaloneSha256": "0904fbf587fe91a406e6c499f9d2dd7ec4a11b922695226a0b553f6016e92ddc"
     },
     {
       "modulePath": "debug/DebugView",
@@ -494,7 +494,7 @@
       "sourceSha256": "20fa19484b15a8f198abe0230213e29668442fafba5ba592de19a56d1c275a1c",
       "status": "supported",
       "standalonePath": "fps998/FPS.codon",
-      "standaloneSha256": "ab86a5f235d2ff0802f7ed0092f5d8bb6ed3a9f1e103700ec720481e2313428e"
+      "standaloneSha256": "1c4f962015199d076a83e38cf955981dfc8db6eb6a5954a1b5df27811b7d8b0b"
     },
     {
       "modulePath": "fps998/LinearRecurrence",

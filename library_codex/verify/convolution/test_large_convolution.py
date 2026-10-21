@@ -110,22 +110,30 @@ def test_four_lanes_transform_counts(monkeypatch):
     forward, inverse = module._butterfly, module._butterfly_inv
     counts = [0, 0]
 
-    def count_forward(values):
+    def count_forward(values, **kwargs):
         counts[0] += 1
-        return forward(values)
+        return forward(values, **kwargs)
 
-    def count_inverse(values):
+    def count_inverse(values, **kwargs):
         counts[1] += 1
-        return inverse(values)
+        return inverse(values, **kwargs)
 
     monkeypatch.setattr(module, "_butterfly", count_forward)
     monkeypatch.setattr(module, "_butterfly_inv", count_inverse)
     a, b = list(range(15)), list(range(17))
     assert _multiply_four_lanes(a, b, 8) == naive(a, b)
-    assert counts == [8, 4]
+    assert counts == [2, 1]
     counts[:] = [0, 0]
     assert _multiply_four_lanes(a, a, 8) == naive(a, a)
-    assert counts == [4, 4]
+    assert counts == [1, 1]
+
+
+def test_four_lanes_extreme_products():
+    for n, m in ((15, 17), (31, 33), (64, 64), (65, 63)):
+        size = 1 << ((n + m - 2).bit_length() - 2)
+        for a, b in (([MOD - 1] * n, [MOD - 1] * m),
+                     ([0, MOD - 1] * (n // 2) + [0] * (n % 2), [MOD - 2] * m)):
+            assert _multiply_four_lanes(a, b, size) == naive(a, b)
 
 
 def test_contiguous_output_random_boundaries():

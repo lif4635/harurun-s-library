@@ -26,6 +26,50 @@ def test_ntt998_round_trip():
         assert values == expected
 
 
+def test_interleaved_transform_matches_separate_lanes():
+    from library_codex.convolution.NTT998 import _butterfly, _butterfly_inv, _ntt_plan
+    from library_codex.benchmarks.experiments import large_contiguous_standalone as reference
+
+    rng = random.Random(98781)
+    for stride in (1, 2, 4, 8):
+        for height in range(13):
+            size = 1 << height
+            values = [rng.randrange(-MOD, 2 * MOD) for _ in range(size * stride)]
+            expected = values[:]
+            for lane in range(stride):
+                work = values[lane::stride]
+                reference._convolution_ntt998_butterfly(work)
+                expected[lane::stride] = work
+            for planned in (False, True):
+                actual = values[:]
+                _butterfly(actual, _ntt_plan(size) if planned else None, stride=stride)
+                assert actual == expected
+                _butterfly_inv(actual, _ntt_plan(size, True) if planned else None, stride=stride)
+                assert actual == [x * size % MOD for x in values]
+
+
+def test_interleaved_partial_inverse_and_invalid_lanes():
+    from library_codex.convolution.NTT998 import _butterfly, _butterfly_inv
+    from library_codex.benchmarks.experiments import large_contiguous_standalone as reference
+
+    rng = random.Random(4718)
+    for stride in (1, 2, 4, 8):
+        for size in (8, 16, 32, 64):
+            for keep_bit in (1, 2, 4):
+                values = [rng.randrange(MOD) for _ in range(size * stride)]
+                expected = values[:]
+                for lane in range(stride):
+                    work = values[lane::stride]
+                    reference._convolution_ntt998_butterfly_inv(work, keep_bit=keep_bit)
+                    expected[lane::stride] = work
+                _butterfly_inv(values, keep_bit=keep_bit, stride=stride)
+                assert values == expected
+    for function in (_butterfly, _butterfly_inv):
+        for stride in (0, -1, 3, 16):
+            with pytest.raises(ValueError):
+                function([0] * 8, stride=stride)
+
+
 def test_ntt998_multiply_and_square_against_naive():
     rng = random.Random(999)
     for _ in range(5000):

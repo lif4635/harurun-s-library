@@ -11,6 +11,7 @@ _convolution_binary_field_convolution_REDUCER = 1 | 1 << 6 | 1 << 18 | 1 << 24
 _convolution_binary_field_convolution_BASIS = []
 _convolution_binary_field_convolution_ONES = sum((1 << 6 * i for i in range(64)))
 _convolution_binary_field_convolution_SQUARE = sum((1 << 12 * i for i in range(64)))
+_convolution_binary_field_convolution_FOLD = tuple((i ^ i << 6 ^ i << 18 ^ i << 24 for i in range(4162)))
 
 def _convolution_binary_field_convolution_expand(value):
     if not 0 <= value < 1 << 64:
@@ -29,7 +30,7 @@ def _convolution_binary_field_convolution_mul(a, b):
     high = value >> 384
     value = value & _convolution_binary_field_convolution_LOW ^ high * _convolution_binary_field_convolution_REDUCER & _convolution_binary_field_convolution_PARITY
     high = value >> 384
-    return value & _convolution_binary_field_convolution_LOW ^ high ^ high << 6 ^ high << 18 ^ high << 24
+    return value & _convolution_binary_field_convolution_LOW ^ _convolution_binary_field_convolution_FOLD[high]
 
 def _convolution_binary_field_convolution_basis():
     if not _convolution_binary_field_convolution_BASIS:
@@ -214,7 +215,7 @@ def multiply(first, second):
     a.extend([0] * (size - len(a)))
     b.extend([0] * (size - len(b)))
     height = size.bit_length() - 1
-    low = min(10, height)
+    low = min(8, height)
     _convolution_binary_field_convolution_transform(a, constants, low=low)
     _convolution_binary_field_convolution_transform(b, constants, low=low)
     for begin in range(0, size, 1 << low):

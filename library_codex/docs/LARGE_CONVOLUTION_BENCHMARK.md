@@ -1,8 +1,49 @@
 # 大規模畳み込みの検証
 
-`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。4列分割に加え、逆NTT後の保存方法を変えて最大公式入力のRSSを約1002MiBから746MiBへ減らした。最新の比較では中央値16.29秒で、公式10秒制限には届いていない。
+`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。4列を1本の配列で処理する変更により、最大公式入力の同時比較では中央値15.666秒から13.964秒へ短縮した。公式10秒制限には届いていない。
 
-## 条件
+## 4列を同じ配列で処理する変更
+
+2026-10-21、Git `767e374`の実装と公式最大入力`max_random_00`を各3回、新しいPyPyプロセスで比較した。
+
+| 実装 | 中央値 | 最大RSS |
+| --- | ---: | ---: |
+| 変更前 | 15.666秒 | 763,748 KiB |
+| 4列を交互に保持し通常の積を使用 | 13.964秒 | 834,904 KiB |
+| 4列を交互に保持し積を共有 | 14.088秒 | 834,332 KiB |
+
+通常の積を使う版を採用する。時間は約10.9%短縮し、最大RSSは約9.3%増加して約815MiBになった。全9回答が公式checkerに一致した。メモリ制限を実際に強制した測定ではない。
+
+4列を別々に切り出さず、同じ評価点の4係数を隣接させる。共通NTTの内部処理に列数を渡し、同じ回転係数で4列を続けて処理する。列の変換後に32bit配列へ移す処理、逆変換前のlist化、最後の並べ替えをなくした。積は左の作業配列へ書き戻し、右の作業配列を解放してから逆変換する。公開APIは変えていない。
+
+積の共有案は、通常の16回の係数乗算を10回へ減らすが、一時値と加減算が増える。同じ共通NTTで比較すると改善がなく、採用しない。変換だけを区画化する案、変換・積・逆変換を区画ごとにまとめる案、ゼロの最上段を省く案、手書きの入力解析も試し、採用版への上積みは確認できなかった。
+
+- [通常積と積共有の3回比較とhash](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-interleaved-product-comparison.json)
+- [採用版の単独コード](../benchmarks/experiments/large_interleaved_ntt.py)
+- [配列配置の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-layout-screen.json)
+- [配列確保とゼロ部分省略の3回比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-joint-comparison.json)
+- [区画処理と入力解析の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-fused-screen.json)
+- [共通NTTへの統合時の比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-interleaved-ntt-comparison.json)
+
+最初の配列統合案は約1018MiBまで増えたため採用せず、必要な長さを一度に確保する形へ直した。予備比較は各1回で、上表の反復比較とは区別する。
+
+```sh
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 --variant baseline=library_codex/benchmarks/experiments/large_contiguous_standalone.py --variant karatsuba=library_codex/benchmarks/experiments/large_interleaved_karatsuba.py --variant candidate=library_codex/benchmarks/experiments/large_interleaved_ntt.py --repeat 3 --seed 21964 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-interleaved-product-comparison.json
+```
+
+## 最大入力以外の比較
+
+通常のNTT・片方が短い経路も旧版と各3回比較し、18回答すべてが一致した。これらの経路に実質的な高速化はない。今回の公式比較は最大入力を含め4/54ケースで、全件通過ではない。
+
+| ケース | 変更前 | 採用版 |
+| --- | ---: | ---: |
+| medium_00 | 0.086秒 | 0.082秒 |
+| small_and_large_00 | 5.376秒 | 5.442秒 |
+| small_and_large_01 | 6.395秒 | 6.423秒 |
+
+[回帰比較の時間・RSS・hash](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-interleaved-regression.json)。
+
+## 測定環境
 
 - 公式問題revision: `1814c4e5205517e368bb57a8d1127eb961cfeaae`。
 - WSL2・AMD Ryzen 7 3700X・PyPy 3.10.14 / 7.3.16。

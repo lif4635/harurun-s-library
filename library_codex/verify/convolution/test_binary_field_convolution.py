@@ -206,6 +206,18 @@ def test_sixbit_multiplication_carry_boundary():
         assert multiply(a, b) == reference.multiply(a, b)
 
 
+def test_final_reduction_table():
+    from library_codex.convolution.BinaryFieldConvolution import _FOLD
+
+    assert len(_FOLD) == 4162
+    for bits in range(8):
+        high = (bits & 1) | ((bits & 2) << 5) | ((bits & 4) << 10)
+        assert _FOLD[high] == high ^ high << 6 ^ high << 18 ^ high << 24
+    for a in range(1 << 61, 1 << 64, 1 << 61):
+        for b in range(1 << 61, 1 << 64, 1 << 61):
+            assert _compress(_mul(_expand(a), _expand(b))) == product(a, b)
+
+
 def test_standalone(tmp_path):
     from library_codex.tools.build_library_catalog import ROOT, build_standalone_code
 

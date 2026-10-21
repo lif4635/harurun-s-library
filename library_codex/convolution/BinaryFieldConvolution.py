@@ -20,6 +20,7 @@ _REDUCER = 1 | 1 << 6 | 1 << 18 | 1 << 24
 _BASIS = []
 _ONES = sum(1 << (6 * i) for i in range(64))
 _SQUARE = sum(1 << (12 * i) for i in range(64))
+_FOLD = tuple(i ^ i << 6 ^ i << 18 ^ i << 24 for i in range(4162))
 
 
 def _expand(value):
@@ -41,7 +42,7 @@ def _mul(a, b):
     high = value >> 384
     value = (value & _LOW) ^ (high * _REDUCER & _PARITY)
     high = value >> 384
-    return (value & _LOW) ^ high ^ high << 6 ^ high << 18 ^ high << 24
+    return (value & _LOW) ^ _FOLD[high]
 
 
 def _basis():
@@ -235,7 +236,7 @@ def multiply(first, second):
     a.extend([0] * (size - len(a)))
     b.extend([0] * (size - len(b)))
     height = size.bit_length() - 1
-    low = min(10, height)
+    low = min(8, height)
     _transform(a, constants, low=low)
     _transform(b, constants, low=low)
     for begin in range(0, size, 1 << low):

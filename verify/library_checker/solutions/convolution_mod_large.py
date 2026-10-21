@@ -44,12 +44,15 @@ def _convolution_ntt998_ntt_plan(size, inverse=False):
         rotation = rotation * rate2[(~block & -~block).bit_length()] % MOD
     return (binary, first, second, third)
 
-def _convolution_ntt998_butterfly(values, tables=None):
+def _convolution_ntt998_butterfly(values, tables=None, stride=1):
     """In-place forward radix-4 NTT without coefficient normalization."""
-    size = len(values)
+    if stride < 1 or stride & stride - 1 or len(values) % stride:
+        raise ValueError('incomplete interleaved NTT lanes')
+    size = len(values) // stride
     _convolution_ntt998_check_length(size)
     if size == 1:
-        values[0] %= MOD
+        for i in range(stride):
+            values[i] %= MOD
         return values
     if tables is not None:
         (binary, first, second, third) = tables
@@ -61,12 +64,12 @@ def _convolution_ntt998_butterfly(values, tables=None):
     rate3 = _convolution_ntt998_RATE3
     while level < height:
         if height - level == 1:
-            width = 1 << height - level - 1
+            width = stride << height - level - 1
             rotation = 1
             for block in range(1 << level):
                 if tables is not None:
                     rotation = binary[block]
-                offset = block << height - level
+                offset = (block << height - level) * stride
                 for index in range(width):
                     left = values[offset + index]
                     right = values[offset + index + width] * rotation
@@ -76,7 +79,7 @@ def _convolution_ntt998_butterfly(values, tables=None):
                     rotation = rotation * rate2[(~block & -~block).bit_length()] % mod
             level += 1
         else:
-            width = 1 << height - level - 2
+            width = stride << height - level - 2
             rotation = 1
             for block in range(1 << level):
                 if tables is None:
@@ -86,7 +89,7 @@ def _convolution_ntt998_butterfly(values, tables=None):
                     rotation = first[block]
                     rotation2 = second[block]
                     rotation3 = third[block]
-                offset = block << height - level
+                offset = (block << height - level) * stride
                 for index in range(width):
                     value0 = values[offset + index]
                     value1 = values[offset + index + width] * rotation
@@ -102,24 +105,28 @@ def _convolution_ntt998_butterfly(values, tables=None):
             level += 2
     return values
 
-def _convolution_ntt998_butterfly_inv(values, tables=None, keep_bit=0):
+def _convolution_ntt998_butterfly_inv(values, tables=None, keep_bit=0, stride=1):
     """In-place inverse radix-4 transform without division by the length."""
-    size = len(values)
+    if stride < 1 or stride & stride - 1 or len(values) % stride:
+        raise ValueError('incomplete interleaved NTT lanes')
+    size = len(values) // stride
     _convolution_ntt998_check_length(size)
     if size == 1:
-        values[0] %= MOD
+        for i in range(stride):
+            values[i] %= MOD
         return values
     if tables is not None:
         (binary, first, second, third) = tables
     height = (size - 1).bit_length()
     level = height
+    keep_bit *= stride
     mod = MOD
     inverse_imag = _convolution_ntt998_IIMAG
     irate2 = _convolution_ntt998_IRATE2
     irate3 = _convolution_ntt998_IRATE3
     while level:
         if level == 1:
-            width = 1 << height - level
+            width = stride << height - level
             limited = keep_bit and width > keep_bit
             mask = -keep_bit if limited else 0
             count = width >> bool(limited)
@@ -127,7 +134,7 @@ def _convolution_ntt998_butterfly_inv(values, tables=None, keep_bit=0):
             for block in range(1 << level - 1):
                 if tables is not None:
                     rotation = binary[block]
-                offset = block << height - level + 1
+                offset = (block << height - level + 1) * stride
                 for position in range(count):
                     index = position + (position & mask)
                     left = values[offset + index]
@@ -138,7 +145,7 @@ def _convolution_ntt998_butterfly_inv(values, tables=None, keep_bit=0):
                     rotation = rotation * irate2[(~block & -~block).bit_length()] % mod
             level -= 1
         else:
-            width = 1 << height - level
+            width = stride << height - level
             limited = keep_bit and width > keep_bit
             mask = -keep_bit if limited else 0
             count = width >> bool(limited)
@@ -151,7 +158,7 @@ def _convolution_ntt998_butterfly_inv(values, tables=None, keep_bit=0):
                     rotation = first[block]
                     rotation2 = second[block]
                     rotation3 = third[block]
-                offset = block << height - level + 2
+                offset = (block << height - level + 2) * stride
                 for position in range(count):
                     index = position + (position & mask)
                     value0 = values[offset + index]
@@ -363,56 +370,36 @@ def _convolution_large_convolution_multiply_blocks(first, second, block):
 
 def _convolution_large_convolution_multiply_four_lanes(first, second, size):
     count = len(first) + len(second) - 1
-    left = []
-    for lane in range(4):
-        work = [x % MOD for x in first[lane::4]]
-        work.extend([0] * (size - len(work)))
-        _convolution_ntt998_butterfly(work)
-        left.append(_convolution_large_convolution_array('I', work))
+    a = [0] * (4 * size)
+    for i in range(len(first)):
+        a[i] = first[i] % MOD
+    _convolution_ntt998_butterfly(a, stride=4)
     if first is second:
-        right = left
+        b = a
     else:
-        right = []
-        for lane in range(4):
-            work = [x % MOD for x in second[lane::4]]
-            work.extend([0] * (size - len(work)))
-            _convolution_ntt998_butterfly(work)
-            right.append(_convolution_large_convolution_array('I', work))
-    (a0, a1, a2, a3) = left
-    (b0, b1, b2, b3) = right
-    out = [_convolution_large_convolution_array('I', [0]) * size for _ in range(4)]
-    (c0, c1, c2, c3) = out
+        b = [0] * (4 * size)
+        for i in range(len(second)):
+            b[i] = second[i] % MOD
+        _convolution_ntt998_butterfly(b, stride=4)
     root = pow(3, (MOD - 1) // size, MOD)
     rates = [pow(root, (size >> j + 1) - (size - (size >> j)), MOD) for j in range(size.bit_length())]
     weight = 1
     for i in range(size):
-        (x0, x1, x2, x3) = (a0[i], a1[i], a2[i], a3[i])
-        (y0, y1, y2, y3) = (b0[i], b1[i], b2[i], b3[i])
-        c0[i] = (x0 * y0 + weight * ((x1 * y3 + x2 * y2 + x3 * y1) % MOD)) % MOD
-        c1[i] = (x0 * y1 + x1 * y0 + weight * ((x2 * y3 + x3 * y2) % MOD)) % MOD
-        c2[i] = (x0 * y2 + x1 * y1 + x2 * y0 + weight * (x3 * y3 % MOD)) % MOD
-        c3[i] = (x0 * y3 + x1 * y2 + x2 * y1 + x3 * y0) % MOD
+        pos = i << 2
+        (x0, x1, x2, x3) = (a[pos], a[pos + 1], a[pos + 2], a[pos + 3])
+        (y0, y1, y2, y3) = (b[pos], b[pos + 1], b[pos + 2], b[pos + 3])
+        a[pos] = (x0 * y0 + weight * ((x1 * y3 + x2 * y2 + x3 * y1) % MOD)) % MOD
+        a[pos + 1] = (x0 * y1 + x1 * y0 + weight * ((x2 * y3 + x3 * y2) % MOD)) % MOD
+        a[pos + 2] = (x0 * y2 + x1 * y1 + x2 * y0 + weight * (x3 * y3 % MOD)) % MOD
+        a[pos + 3] = (x0 * y3 + x1 * y2 + x2 * y1 + x3 * y0) % MOD
         weight = weight * rates[(i + 1 & -(i + 1)).bit_length() - 1] % MOD
-    del left, right, a0, a1, a2, a3, b0, b1, b2, b3, work, c0, c1, c2, c3
+    del b
+    _convolution_ntt998_butterfly_inv(a, stride=4)
     inverse = pow(size, MOD - 2, MOD)
-    for lane in range(4):
-        target = out[lane]
-        work = list(target)
-        _convolution_ntt998_butterfly_inv(work)
-        for j in range((count - lane + 3) // 4):
-            target[j] = work[j] * inverse % MOD
-    del work, target
-    (a0, a1, a2, a3) = out
-    result = [0] * count
-    for j in range(count >> 2):
-        pos = j << 2
-        result[pos] = a0[j]
-        result[pos + 1] = a1[j]
-        result[pos + 2] = a2[j]
-        result[pos + 3] = a3[j]
-    for pos in range(count & ~3, count):
-        result[pos] = out[pos & 3][pos >> 2]
-    return result
+    for i in range(count):
+        a[i] = a[i] * inverse % MOD
+    del a[count:]
+    return a
 
 def _convolution_large_convolution_multiply(first, second):
     """昇べき係数列の積をmod 998244353で返す。入力は変更しない。"""

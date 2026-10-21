@@ -1,8 +1,47 @@
 # GF(2^64)畳み込みの検証
 
-`BinaryFieldConvolution.multiply`はLibrary Checkerの`convolution_F_2_64`と同じ体・bit表現で畳み込む。最新の同時比較では、6bit幅の乗算と区画ごとのFFT処理により最大公式入力のPyPy中央値が21.666秒から20.083秒へ短縮した。出力は一致するが、公式10秒制限は未達で、全件通過ではない。
+`BinaryFieldConvolution.multiply`はLibrary Checkerの`convolution_F_2_64`と同じ体・bit表現で畳み込む。最新の同時比較では、還元の表引きと256要素の区画処理により、最大公式入力のPyPy中央値が18.787秒から15.299秒へ短縮した。出力は一致するが、公式10秒制限は未達で、全件通過ではない。
 
-## 条件
+## 還元の表引き
+
+2026-10-21、Git `767e374`の実装と最大公式入力`gen_max_00`で各3回比較した。順序を入れ替え、新しいPyPyプロセスで起動・JIT・入出力を含めて測定した。
+
+| 実装 | 中央値 | 最大RSS |
+| --- | ---: | ---: |
+| 変更前 1024要素区画 | 18.787秒 | 775,300 KiB |
+| 256要素区画のみ | 17.953秒 | 781,876 KiB |
+| 還元表のみ | 16.246秒 | 788,752 KiB |
+| 還元表と256要素区画 | 15.299秒 | 796,108 KiB |
+
+最後の組合せを採用する。中央値は約18.6%短縮、最大RSSは約2.7%増加した。12回答すべてが公式checkerに一致した。過去の別測定の絶対時間とは速度比を取らない。
+
+64次未満の多項式同士の積は高々126次。最初の還元後に64次以上へ残る部分は高々2次であり、6bit間隔の表現では添字0〜4161に収まる。最後のシフトとXORを4162項の固定表へ置き換えた。可能な8通りをすべて検査し、高位bitの積とcarryless積の独立実装でも照合する。
+
+- [3回ずつの時間・RSS・hash](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-fold-comparison.json)
+- [採用した単独コード](../benchmarks/experiments/binary_field_fold_tile256.py)
+- [初回の候補比較](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-layout-screen.json)
+
+初回比較では、還元の整数乗算をシフトとXORへ置き換える案は18.803秒から21.880秒へ悪化した。ゼロの最上段を複製で省く案は18.619秒で差が小さく、RSSが増えた。4096要素区画も19.546秒だった。これらは採用しない。試作コードと入力・出力のhashは比較記録に残す。
+
+5bit間隔へ縮めて上位・下位32bitの2回に分けて掛ける案も試した。32bitすべて1の部分がある場合はcarryless積を直接計算し、桁上がりを無視しない。境界値と公式最大入力の回答は一致したが、1回の予備比較では採用版15.322秒に対して19.045秒だった。RSSは796,028 KiBから738,864 KiBへ減ったものの、今回は速度優先で採用しない。[測定記録](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-fivebit-screen.json)と[試作](../benchmarks/experiments/binary_field_fivebit_split.py)を保存する。
+
+```sh
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/binary_field_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_F_2_64 --cases gen_max_00 --variant baseline=library_codex/benchmarks/experiments/binary_field_tiled.py --variant tile256=library_codex/benchmarks/experiments/binary_field_tile256.py --variant fold=library_codex/benchmarks/experiments/binary_field_fold_table.py --variant fold256=library_codex/benchmarks/experiments/binary_field_fold_tile256.py --repeat 3 --seed 21961 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_F_2_64-fold-comparison.json
+```
+
+## 最大入力以外の比較
+
+最大ランダム以外の公式3ケースも、旧版と配布用コードで各3回比較した。全18回答が一致した。全要素が等しいケースでは中央値が約0.048秒増えており、すべての入力で高速化したわけではない。
+
+| ケース | 変更前 | 採用版 |
+| --- | ---: | ---: |
+| gen_2_x_3_11_01 | 18.016秒 | 15.011秒 |
+| small_and_large_00 | 5.156秒 | 4.501秒 |
+| all_ones_00 | 1.159秒 | 1.207秒 |
+
+[各回の値とhash](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-fold-regression.json)。今回の反復比較の対象は計4/51ケースであり、全件通過の検査ではない。
+
+## 測定環境
 
 - 公式問題revision: `1814c4e5205517e368bb57a8d1127eb961cfeaae`。
 - WSL2・AMD Ryzen 7 3700X・PyPy 3.10.14 / 7.3.16。
@@ -41,7 +80,7 @@ Cantor基底による加法FFTを使う。FFT自体は`O(S log S)`回の体演�
 
 全bitが1の値、そこから1bitを落とした64種類、0、1のすべての組とランダム1,000組をcarryless積の単純解と比較する。これらを係数に含む畳み込みも7bit版と照合する。
 
-## 区画ごとのFFT処理と最新比較
+## 1024要素区画を採用した時点の比較
 
 2026-10-21、Git `498a2ce`の7bit版、6bit版、6bit化と区画分割を加えた版を、最大公式入力`gen_max_00`で各3回比較した。
 
