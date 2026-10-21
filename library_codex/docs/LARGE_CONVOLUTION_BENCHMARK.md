@@ -1,8 +1,72 @@
 # 大規模畳み込みの検証
 
-`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。16列を1本の配列で処理し、その変換を8点単位へまとめて高速化する。公式10秒制限には届いていない。
+`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。16列を1本の配列で処理し、8点単位の変換を領域ごとに進める。入力後半がゼロになる場合は、入力コピーと最初の変換をまとめる。公式10秒制限には届いていない。
 
-## 採用版の比較
+## 領域ごとの変換とゼロ部分の省略
+
+2026-10-22、8点変換を導入した後の実装を基準に、分割数・処理順・入力時の変換を比較し直した。基準はGit `c6e9e59`の単独提出コードで、保存済みの`large_radix8_medium.py`と同一。通常の`NTT998`と公開APIは変えない。
+
+最大入力では、各列の変換長を2^21のまま維持し、下位9段を8192要素の領域ごとに処理する。64bit整数の配列部分は1領域64KiB。回転係数の表は順・逆それぞれ21項だけ共有する。入力長が作業配列の半分以下なら、後半のゼロを読む計算を省き、入力を格納しながら最初の8点変換を済ませる。
+
+ゼロ部分の省略は最初の1段に特化した処理で、任意長を扱う一般的なtruncated Fourier transform（TFT）は今回実装・比較していない。
+
+試作の同条件3回比較は次のとおり。各回は新しいPyPy 3.10プロセスを起動し、順序を入れ替え、全18回答を公式checkerで検査した。起動・JIT・入出力を含む中央値。
+
+| 入力 | 基準 | 変換・積・逆変換を領域ごとにまとめる | 領域ごとの変換＋ゼロ部分省略 |
+| --- | ---: | ---: | ---: |
+| max_random_00 | 13.461秒 | 12.510秒 | 12.312秒 |
+| random_00 | 6.508秒 | 6.191秒 | 6.047秒 |
+
+最後の案を本体へ移した。最大入力で約8.5%、中間サイズで約7.1%短縮し、最大RSSはほぼ同じ。変換・積・逆変換をまとめる案は、今回の比較ではさらに速くならなかったため採用しない。これは試作の比較であり、配布コードの測定と全件検証は別に記録する。
+
+本体から生成した配布用の単独コードでも、4入力を基準と各3回比較した。全24回答が公式checkerに一致した。source hashは`f4426d361647f3f7da95398646f5d0b811bfe9d6f293e0d30d0fffc222d01e9e`。
+
+| 入力 | 基準の中央値 | 採用版の中央値 | 基準の最大RSS | 採用版の最大RSS |
+| --- | ---: | ---: | ---: | ---: |
+| max_random_00 | 13.640秒 | 12.091秒 | 833,172 KiB | 833,032 KiB |
+| random_00 | 6.752秒 | 6.156秒 | 439,616 KiB | 439,576 KiB |
+| random_01 | 7.006秒 | 6.445秒 | 452,232 KiB | 452,120 KiB |
+| small_and_large_01 | 8.728秒 | 8.718秒 | 462,524 KiB | 461,972 KiB |
+
+最大入力は約11.4%、中間サイズは約8.8%・8.0%短縮した。片方が短い経路は変更しておらず、ほぼ同じ。最大入力は11.808〜12.280秒で3回とも10秒を超えている。以前の日付の測定と絶対時間を直接比較して、達成・悪化を判断しない。
+
+- [配布コードと基準の4入力・各3回比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-cache-production-comparison.json)
+- [組み合わせの3回比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-radix8-combined-comparison.json)
+- [領域分割とゼロ省略を個別に比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-radix8-layout-comparison.json)
+- [係数共有・変換と積の統合の比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-radix8-tiled-comparison.json)
+- [分割数と領域サイズの予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-radix8-layout-screen.json)
+- [試作を再生成するscript](../benchmarks/experiments/build_large_transform_variants.py)
+- [試作の差分・境界値test](../benchmarks/experiments/test_large_transform_layouts.py)
+
+予備比較は各1回。8列は14.627秒、32列は26.136秒で、同じ回の基準13.709秒を上回れなかった。32列は最大RSSも1,108,996KiBへ増えた。初回の8列試作には未測定の中間サイズ経路で作業配列を余分に確保する設定があり、後続の試作では修正した。測定した最大入力の経路は同じで、初回sourceは生成scriptの`lanes8_initial_screen.py`でhashを含め再現できる。
+
+```sh
+pypy3 library_codex/benchmarks/experiments/build_large_transform_variants.py
+pypy3 -m pytest library_codex/benchmarks/experiments/test_large_transform_layouts.py library_codex/verify/convolution/test_large_convolution.py -q
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 random_00 --variant baseline=.cache/large-transform-variants/baseline.py --variant fused9=.cache/large-transform-variants/fused9.py --variant cached_zero9=.cache/large-transform-variants/cached_zero9.py --repeat 3 --seed 22004 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-radix8-combined-comparison.json
+```
+
+## 領域分割版の公式全ケース
+
+配布用の同じ単独コードを、公式10秒制限で全54ケースに実行した。37件が制限内で通過し、17件が時間超過。[公式検査の記録](../../verify/library_checker/results/convolution_mod_large.json)には`failed`を残す。
+
+時間超過した17件は診断上限120秒で各1回実行し、全回答が公式checkerに一致した。先の37件と合わせて全54入力の正答を確認した。診断では`all_same_00`と`random_02`が10秒未満だったが、全ケース検査の判定を書き換えたり、安定して10秒以内と扱ったりはしない。
+
+診断開始時に前の一覧更新が残っており、冒頭の`fft_killer_02`・`fft_killer_08`はその処理と重なった。正答確認には使えるが、速度比較には使わない。境界にあたる`fft_killer_00`も含む3件を単独で再確認し、全回答が一致した。再検査は12.075〜12.399秒で3件とも公式制限を超えた。速度向上の根拠は前節の新旧同条件・各3回比較とする。
+
+- [17件の診断記録と測定上の注記](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-cache-diagnostic.json)
+- [冒頭3件の単独再検査](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-cache-isolated-diagnostic.json)
+
+## 配布前の検査
+
+PyPy全体testは1292 passed・10 skipped、試作と畳み込みの専用testは39 passed。10件はCodon実機用の検査で、今回の高速化をCodon対応と扱わない。両test集合には重複があるため件数を合算しない。
+
+全体性能検査の初回は、未変更の区間集計が速度比2.446倍となり基準2.5倍を下回った。実装・基準を変えず性能検査だけ再実行し、区間集計3.862倍を含む全基準を通過した。測定には揺れがあり、初回の失敗も残す。
+
+- [初回検査の要約](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-release-regression-initial.json)
+- [性能検査の再実行結果](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-release-regression.json)
+
+## 8点変換導入時の比較
 
 2026-10-21、変更前のGit `0d89f8f`と採用版を公式4入力で各3回比較した。各回は新しいPyPy 3.10プロセスを起動し、実行順序を入れ替える。全24回答が公式checkerに一致し、測定した候補と生成済み提出コードのSHA-256も一致した。
 
@@ -19,7 +83,7 @@
 
 - [各回の時間・RSS・入力とsourceのhash](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-production-comparison.json)
 - [測定した採用版](../benchmarks/experiments/large_radix8_medium.py)
-- [単独提出コード](../../verify/library_checker/solutions/convolution_mod_large.py)
+- [当時の単独提出コード](https://github.com/lif4635/harurun-s-library/blob/c6e9e598a9e3d2fb4328d4a395ce403fd99ee143/verify/library_checker/solutions/convolution_mod_large.py)
 
 ## 8点単位の変換と回転係数の共有
 
@@ -48,9 +112,9 @@
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 random_00 random_01 small_and_large_01 --variant baseline=library_codex/benchmarks/baselines/large_convolution_before_radix8.py --variant candidate=verify/library_checker/solutions/convolution_mod_large.py --repeat 3 --seed 21993 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-production-comparison.json
 ```
 
-## 採用版の公式全ケース
+## 8点変換導入時の公式全ケース
 
-8点単位の変換と中間サイズの切り替えを組み込んだ提出コードを、PyPy 3.10・公式10秒制限で全54ケースに実行した。37件が制限内で通過、17件が時間超過。[ケース別の判定とsource hash](../../verify/library_checker/results/convolution_mod_large.json)に記録する。
+8点単位の変換と中間サイズの切り替えを組み込んだ提出コードを、PyPy 3.10・公式10秒制限で全54ケースに実行した。37件が制限内で通過、17件が時間超過。[当時のケース別判定とsource hash](https://github.com/lif4635/harurun-s-library/blob/c6e9e598a9e3d2fb4328d4a395ce403fd99ee143/verify/library_checker/results/convolution_mod_large.json)に記録する。
 
 時間超過は`random_02`、`max_random_00`・`max_random_01`、`fft_killer_00`〜`fft_killer_09`、`max_ans_zero_00`、`all_same_00`〜`all_same_02`。時間超過した回の出力は検査していないため、この結果だけで全54入力の正答を確認したとはしない。
 

@@ -1,0 +1,162 @@
+{
+  "measuredAt": "2026-10-21T16:04:43.853771+00:00",
+  "problem": "convolution_mod_large",
+  "snapshot": {
+    "problem": "convolution_mod_large",
+    "language": "pypy3",
+    "submissions": [],
+    "description": "Local block convolution variants only; no external submission ranking comparison."
+  },
+  "officialHashSha256": "5650684e5e6203be78ce1daa59171a63b3f65f1cdf9c4dad2429ce5e786eb7e8",
+  "checkerSha256": "ff0f0a6805be4ed055c1bc2460fd0403adb718ab284550a00d69385a25d3571d",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 3,
+  "seed": 22004,
+  "sourceSha256": {
+    "baseline": "48fe02ac5b36b8958052e50a83b2e5a4011fb1e956c28e2a28d0f8713b498687",
+    "fused9": "c7fb8283c5be9f6e794673d6ffd5762b35b7c2b51d0c845fa0526d864c298e99",
+    "cached_zero9": "f3b302d9a00df2ad721a81affc80019da2d2ea4d6df0f76b1d6e1b964a2d8411"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "a90a1d4737effb3caaf72184a18cb3e76d28f86e91cb0a0a76dee43a54aa6092",
+      "implementations": {
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 13.19483987800777,
+              "peakRssKiB": 833044,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 13.461195994983427,
+              "peakRssKiB": 833172,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 14.10264105600072,
+              "peakRssKiB": 833116,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 13.461195994983427,
+          "peakRssKiB": 833172
+        },
+        "fused9": {
+          "samples": [
+            {
+              "seconds": 12.509928863990353,
+              "peakRssKiB": 832888,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 12.38237961800769,
+              "peakRssKiB": 832896,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 13.027463535021525,
+              "peakRssKiB": 832644,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 12.509928863990353,
+          "peakRssKiB": 832896
+        },
+        "cached_zero9": {
+          "samples": [
+            {
+              "seconds": 12.312324288999662,
+              "peakRssKiB": 833028,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 12.331905902014114,
+              "peakRssKiB": 833000,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 11.905628006992629,
+              "peakRssKiB": 832820,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 12.312324288999662,
+          "peakRssKiB": 833028
+        }
+      }
+    },
+    {
+      "case": "random_00",
+      "inputSha256": "ae898bd1117defc8c6f1b733beaaa2391c4af614bddda2a62ace30ee8dcba394",
+      "implementations": {
+        "baseline": {
+          "samples": [
+            {
+              "seconds": 6.507736394007225,
+              "peakRssKiB": 439432,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            },
+            {
+              "seconds": 6.9369553760043345,
+              "peakRssKiB": 439580,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            },
+            {
+              "seconds": 6.476947351009585,
+              "peakRssKiB": 439516,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            }
+          ],
+          "medianSeconds": 6.507736394007225,
+          "peakRssKiB": 439580
+        },
+        "fused9": {
+          "samples": [
+            {
+              "seconds": 6.060175399004947,
+              "peakRssKiB": 439364,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            },
+            {
+              "seconds": 6.190524302975973,
+              "peakRssKiB": 439400,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            },
+            {
+              "seconds": 6.3160808559914585,
+              "peakRssKiB": 439264,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            }
+          ],
+          "medianSeconds": 6.190524302975973,
+          "peakRssKiB": 439400
+        },
+        "cached_zero9": {
+          "samples": [
+            {
+              "seconds": 6.047342299018055,
+              "peakRssKiB": 439276,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            },
+            {
+              "seconds": 5.88830591601436,
+              "peakRssKiB": 439600,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            },
+            {
+              "seconds": 6.118185761995846,
+              "peakRssKiB": 439484,
+              "outputSha256": "87955ba0b2c231589ba298c98546b8bb5bcecf1d873107fea24dea6cb6bb0ed2"
+            }
+          ],
+          "medianSeconds": 6.047342299018055,
+          "peakRssKiB": 439600
+        }
+      }
+    }
+  ]
+}

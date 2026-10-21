@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "selected-official-case-probe",
+  "problem": "convolution_mod_large",
+  "measuredAt": "2026-10-21T16:29:03.365023+00:00",
+  "environment": {
+    "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "cpu": "AMD Ryzen 7 3700X 8-Core Processor",
+    "machine": "x86_64"
+  },
+  "sourceSha256": "f4426d361647f3f7da95398646f5d0b811bfe9d6f293e0d30d0fffc222d01e9e",
+  "modules": [
+    "library_codex.convolution.NTT998",
+    "library_codex.convolution.LargeConvolution"
+  ],
+  "problemVersion": "2f070ba331b4bd0800a87b6fca1517ecca820f3f9a0c6d755df594f56f7123d1",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "officialCases": 54,
+  "selectedCases": [
+    "fft_killer_02",
+    "fft_killer_08",
+    "fft_killer_00"
+  ],
+  "timeLimitSeconds": 10.0,
+  "timeoutSeconds": 120.0,
+  "repeat": 1,
+  "checkerSha256": "ff0f0a6805be4ed055c1bc2460fd0403adb718ab284550a00d69385a25d3571d",
+  "officialHashSha256": "5650684e5e6203be78ce1daa59171a63b3f65f1cdf9c4dad2429ce5e786eb7e8",
+  "status": "selected_cases_failed",
+  "onlineSubmission": null,
+  "results": [
+    {
+      "case": "fft_killer_02",
+      "iteration": 1,
+      "inputSha256": "5f60cbb1ac1676d9d82e52b2a26574a7abbcaeeec5d0577286e3e55e98581c62",
+      "expectedSha256": "a965fff14b8f759a2632cd82d56575110881a60a2bf94b2e0288279ae1979650",
+      "seconds": 12.075059665017761,
+      "peakRssKiB": 833028,
+      "outputSha256": "a965fff14b8f759a2632cd82d56575110881a60a2bf94b2e0288279ae1979650",
+      "status": "AC",
+      "withinOfficialTimeLimit": false
+    },
+    {
+      "case": "fft_killer_00",
+      "iteration": 1,
+      "inputSha256": "4333044d23cafb4ec5a9035f5141d9d819bfb3a78a86c26c67672b557de7937f",
+      "expectedSha256": "6c29f0319436ff58f76a7bde6309feb1888e8efc549cf30239aa78b39c0b3831",
+      "seconds": 12.139289630984422,
+      "peakRssKiB": 832820,
+      "outputSha256": "6c29f0319436ff58f76a7bde6309feb1888e8efc549cf30239aa78b39c0b3831",
+      "status": "AC",
+      "withinOfficialTimeLimit": false
+    },
+    {
+      "case": "fft_killer_08",
+      "iteration": 1,
+      "inputSha256": "df148fc9c91211104cae7c210682e468b4c57fda6b63d39e1d1cf0b7cbd7e197",
+      "expectedSha256": "2ac63ceabfb2e4699cf4799f0754b4f334331e10b23a92230d70631a36749d52",
+      "seconds": 12.399081576993922,
+      "peakRssKiB": 833048,
+      "outputSha256": "2ac63ceabfb2e4699cf4799f0754b4f334331e10b23a92230d70631a36749d52",
+      "status": "AC",
+      "withinOfficialTimeLimit": false
+    }
+  ],
+  "protocol": "selected official hash-verified cases only; sequential fresh PyPy processes; startup, JIT and I/O included; official checker; GNU time RSS; no memory limit enforcement; does not update full verification"
+}

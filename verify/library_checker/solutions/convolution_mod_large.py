@@ -290,6 +290,52 @@ def square(series):
     return multiply(series, series)
 '出力が2^23項を超える係数列も、998244353で畳み込む。\n\n各入力を分割して順NTTを再利用し、同じ出力位置へ寄与する積を\n周波数表現でまとめてから逆変換する。通常サイズはNTT998を使う。\n'
 from array import array as _convolution_large_convolution_array
+_convolution_large_convolution_TILE_FORWARD_EIGHTH = pow(3, (MOD - 1) // 8, MOD)
+_convolution_large_convolution_TILE_FORWARD_THIRD = pow(_convolution_large_convolution_TILE_FORWARD_EIGHTH, 3, MOD)
+_convolution_large_convolution_TILE_FORWARD_RATES = [pow(3, (3 * (MOD - 1 >> t + 4) - (MOD - 1) // 8) % (MOD - 1), MOD) for t in range(21)]
+_convolution_large_convolution_TILE_INVERSE_EIGHTH = pow(3, MOD - 1 - (MOD - 1) // 8, MOD)
+_convolution_large_convolution_TILE_INVERSE_THIRD = pow(_convolution_large_convolution_TILE_INVERSE_EIGHTH, 3, MOD)
+_convolution_large_convolution_TILE_INVERSE_RATES = [pow(3, (-3 * (MOD - 1 >> t + 4) + (MOD - 1) // 8) % (MOD - 1), MOD) for t in range(21)]
+
+def _convolution_large_convolution_tile_rotation(block, bits, extra, inverse):
+    exponent = 0
+    for _ in range(bits):
+        exponent = exponent << 1 | block & 1
+        block >>= 1
+    exponent *= MOD - 1 >> bits + extra
+    return pow(3, -exponent % (MOD - 1) if inverse else exponent, MOD)
+
+def _convolution_large_convolution_pad_forward(values, scale, stride, size):
+    total = stride * size
+    result = [0] * total
+    n = len(values)
+    if size < 8 or n > total // 2:
+        for i in range(n):
+            result[i] = values[i] * scale % MOD
+        return _convolution_large_convolution_butterfly8(result, stride)
+    width = total // 8
+    imag = _convolution_ntt998_IMAG
+    eighth = pow(3, (MOD - 1) // 8, MOD)
+    third = pow(eighth, 3, MOD)
+    for i in range(width):
+        x0 = values[i] * scale % MOD if i < n else 0
+        x1 = values[i + width] * scale % MOD if i + width < n else 0
+        x2 = values[i + 2 * width] * scale % MOD if i + 2 * width < n else 0
+        x3 = values[i + 3 * width] * scale % MOD if i + 3 * width < n else 0
+        v1 = x1 * eighth
+        v2 = x2 * imag
+        v3 = x3 * third
+        d0 = (x1 - x3) * imag
+        d1 = x1 * third + x3 * eighth
+        result[i] = (x0 + x2 + x1 + x3) % MOD
+        result[i + width] = (x0 + x2 - x1 - x3) % MOD
+        result[i + 2 * width] = (x0 - x2 + d0) % MOD
+        result[i + 3 * width] = (x0 - x2 - d0) % MOD
+        result[i + 4 * width] = (x0 + v2 + v1 + v3) % MOD
+        result[i + 5 * width] = (x0 + v2 - v1 - v3) % MOD
+        result[i + 6 * width] = (x0 - v2 + d1) % MOD
+        result[i + 7 * width] = (x0 - v2 - d1) % MOD
+    return _convolution_large_convolution_butterfly8(result, stride, 3)
 
 def _convolution_large_convolution_append_block(result, work, start, output_size, inverse_size):
     overlap = len(result) - start
@@ -368,7 +414,7 @@ def _convolution_large_convolution_multiply_blocks(first, second, block):
             right[expired] = None
     return result
 
-def _convolution_large_convolution_butterfly8(values, stride=16):
+def _convolution_large_convolution_butterfly8_range(values, stride, start, stop, begin, end):
     size = len(values) // stride
     if size == 1:
         for i in range(len(values)):
@@ -377,15 +423,17 @@ def _convolution_large_convolution_butterfly8(values, stride=16):
     height = size.bit_length() - 1
     mod = MOD
     imag = _convolution_ntt998_IMAG
-    eighth = pow(3, (mod - 1) // 8, mod)
-    third = pow(eighth, 3, mod)
-    rates = [pow(3, (3 * (mod - 1 >> t + 4) - (mod - 1) // 8) % (mod - 1), mod) for t in range(max(0, height - 3))]
-    level = 0
-    while level < height:
+    eighth = _convolution_large_convolution_TILE_FORWARD_EIGHTH
+    third = _convolution_large_convolution_TILE_FORWARD_THIRD
+    rates = _convolution_large_convolution_TILE_FORWARD_RATES
+    level = start
+    while level < stop:
         if height - level < 3:
             width = stride << height - level - 1
-            rotation = 1
-            for block in range(1 << level):
+            first = begin // (width << 1)
+            last = end // (width << 1)
+            rotation = _convolution_large_convolution_tile_rotation(first, level, 1, False)
+            for block in range(first, last):
                 offset = (block << height - level) * stride
                 for index in range(width):
                     pos = offset + index
@@ -397,8 +445,10 @@ def _convolution_large_convolution_butterfly8(values, stride=16):
             level += 1
         else:
             width = stride << height - level - 3
-            rotation = 1
-            for block in range(1 << level):
+            first = begin // (width << 3)
+            last = end // (width << 3)
+            rotation = _convolution_large_convolution_tile_rotation(first, level, 3, False)
+            for block in range(first, last):
                 r2 = rotation * rotation % mod
                 r3 = r2 * rotation % mod
                 r4 = r2 * r2 % mod
@@ -453,7 +503,18 @@ def _convolution_large_convolution_butterfly8(values, stride=16):
             level += 3
     return values
 
-def _convolution_large_convolution_butterfly8_inv(values, stride=16):
+def _convolution_large_convolution_butterfly8(values, stride=16, start=0):
+    height = (len(values) // stride).bit_length() - 1
+    cut = max(start, (height - 9) // 3 * 3)
+    if cut == 0:
+        return _convolution_large_convolution_butterfly8_range(values, stride, start, height, 0, len(values))
+    span = stride << height - cut
+    _convolution_large_convolution_butterfly8_range(values, stride, start, cut, 0, len(values))
+    for begin in range(0, len(values), span):
+        _convolution_large_convolution_butterfly8_range(values, stride, cut, height, begin, begin + span)
+    return values
+
+def _convolution_large_convolution_butterfly8_inv_range(values, stride, start, stop, begin, end):
     size = len(values) // stride
     if size == 1:
         for i in range(len(values)):
@@ -462,15 +523,17 @@ def _convolution_large_convolution_butterfly8_inv(values, stride=16):
     height = size.bit_length() - 1
     mod = MOD
     imag = _convolution_ntt998_IIMAG
-    eighth = pow(3, mod - 1 - (mod - 1) // 8, mod)
-    third = pow(eighth, 3, mod)
-    rates = [pow(3, (-3 * (mod - 1 >> t + 4) + (mod - 1) // 8) % (mod - 1), mod) for t in range(max(0, height - 3))]
-    level = height
-    while level:
+    eighth = _convolution_large_convolution_TILE_INVERSE_EIGHTH
+    third = _convolution_large_convolution_TILE_INVERSE_THIRD
+    rates = _convolution_large_convolution_TILE_INVERSE_RATES
+    level = start
+    while level > stop:
         if level < 3:
             width = stride << height - level
-            rotation = 1
-            for block in range(1 << level - 1):
+            first = begin // (width << 1)
+            last = end // (width << 1)
+            rotation = _convolution_large_convolution_tile_rotation(first, level - 1, 1, True)
+            for block in range(first, last):
                 offset = (block << height - level + 1) * stride
                 for index in range(width):
                     pos = offset + index
@@ -482,8 +545,10 @@ def _convolution_large_convolution_butterfly8_inv(values, stride=16):
             level -= 1
         else:
             width = stride << height - level
-            rotation = 1
-            for block in range(1 << level - 3):
+            first = begin // (width << 3)
+            last = end // (width << 3)
+            rotation = _convolution_large_convolution_tile_rotation(first, level - 3, 3, True)
+            for block in range(first, last):
                 r2 = rotation * rotation % mod
                 r3 = r2 * rotation % mod
                 r4 = r2 * r2 % mod
@@ -536,20 +601,25 @@ def _convolution_large_convolution_butterfly8_inv(values, stride=16):
             level -= 3
     return values
 
+def _convolution_large_convolution_butterfly8_inv(values, stride=16):
+    height = (len(values) // stride).bit_length() - 1
+    cut = max(0, height - 9)
+    if cut == 0:
+        return _convolution_large_convolution_butterfly8_inv_range(values, stride, height, 0, 0, len(values))
+    span = stride << height - cut
+    for begin in range(0, len(values), span):
+        _convolution_large_convolution_butterfly8_inv_range(values, stride, height, cut, begin, begin + span)
+    _convolution_large_convolution_butterfly8_inv_range(values, stride, cut, 0, 0, len(values))
+    return values
+
 def _convolution_large_convolution_multiply_sixteen_lanes(first, second, size):
     count = len(first) + len(second) - 1
     inverse = pow(size, MOD - 2, MOD)
-    a = [0] * (16 * size)
-    for i in range(len(first)):
-        a[i] = first[i] % MOD
-    _convolution_large_convolution_butterfly8(a)
+    a = _convolution_large_convolution_pad_forward(first, 1, 16, size)
     if first is second:
         b = a
     else:
-        b = [0] * (16 * size)
-        for i in range(len(second)):
-            b[i] = second[i] * inverse % MOD
-        _convolution_large_convolution_butterfly8(b)
+        b = _convolution_large_convolution_pad_forward(second, inverse, 16, size)
     root = pow(3, (MOD - 1) // size, MOD)
     rates = [pow(root, (size >> j + 1) - (size - (size >> j)), MOD) for j in range(size.bit_length())]
     weight = 1
@@ -620,7 +690,7 @@ def _convolution_large_convolution_multiply_sixteen_lanes(first, second, size):
         a[pos + 15] = c15 % MOD
         weight = weight * rates[(i + 1 & -(i + 1)).bit_length() - 1] % MOD
     del b
-    _convolution_large_convolution_butterfly8_inv(a)
+    _convolution_large_convolution_butterfly8_inv(a, 16)
     if first is second:
         for i in range(count):
             a[i] = a[i] * inverse % MOD

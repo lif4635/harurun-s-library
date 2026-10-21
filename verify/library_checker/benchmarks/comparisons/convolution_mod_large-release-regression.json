@@ -1,0 +1,318 @@
+{
+  "profile": "full",
+  "advanced_flow": {
+    "command": [
+      "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_advanced_flow.py",
+      "--vertices",
+      "300",
+      "--density",
+      "0.12",
+      "--repeat",
+      "3"
+    ],
+    "output": "case V E Dinic_ms Highest_ms\nrandom 300 10811 6.565 9.715\nDinic:       0.006565s\nPushRelabel: 0.009715s\nratio:       0.676x",
+    "total_seconds": null,
+    "checksum": null,
+    "dinic_seconds": 0.006565,
+    "push_relabel_seconds": 0.009715
+  },
+  "csr": {
+    "dijkstra": {
+      "list": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_csr_graph.py",
+          "--algorithm",
+          "dijkstra",
+          "--backend",
+          "list",
+          "--vertices",
+          "100000",
+          "--edges",
+          "500000"
+        ],
+        "output": "algorithm=dijkstra backend=list vertices=100000 edges=500000\nbuild=0.268668s solve=0.525853s total=0.794521s\nchecksum=301249599",
+        "total_seconds": 0.794521,
+        "checksum": "301249599",
+        "measurements_seconds": [
+          0.812326,
+          0.76098,
+          0.794521
+        ]
+      },
+      "csr": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_csr_graph.py",
+          "--algorithm",
+          "dijkstra",
+          "--backend",
+          "csr",
+          "--vertices",
+          "100000",
+          "--edges",
+          "500000"
+        ],
+        "output": "algorithm=dijkstra backend=csr vertices=100000 edges=500000\nbuild=0.067778s solve=0.330663s total=0.398441s\nchecksum=301249599",
+        "total_seconds": 0.398441,
+        "checksum": "301249599",
+        "measurements_seconds": [
+          0.383081,
+          0.398441,
+          0.414619
+        ]
+      },
+      "speedup": 1.9940744049934622
+    },
+    "scc": {
+      "list": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_csr_graph.py",
+          "--algorithm",
+          "scc",
+          "--backend",
+          "list",
+          "--vertices",
+          "100000",
+          "--edges",
+          "500000"
+        ],
+        "output": "algorithm=scc backend=list vertices=100000 edges=500000\nbuild=0.342795s solve=0.561546s total=0.904341s\nchecksum=1",
+        "total_seconds": 0.904341,
+        "checksum": "1",
+        "measurements_seconds": [
+          0.876026,
+          0.908501,
+          0.904341
+        ]
+      },
+      "csr": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_csr_graph.py",
+          "--algorithm",
+          "scc",
+          "--backend",
+          "csr",
+          "--vertices",
+          "100000",
+          "--edges",
+          "500000"
+        ],
+        "output": "algorithm=scc backend=csr vertices=100000 edges=500000\nbuild=0.113463s solve=0.166287s total=0.279750s\nchecksum=1",
+        "total_seconds": 0.27975,
+        "checksum": "1",
+        "measurements_seconds": [
+          0.27975,
+          0.31328,
+          0.265258
+        ]
+      },
+      "speedup": 3.232675603217158
+    },
+    "lowlink": {
+      "list": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_csr_graph.py",
+          "--algorithm",
+          "lowlink",
+          "--backend",
+          "list",
+          "--vertices",
+          "100000",
+          "--edges",
+          "500000"
+        ],
+        "output": "algorithm=lowlink backend=list vertices=100000 edges=500000\nbuild=0.000000s solve=0.792169s total=0.792169s\nchecksum=0",
+        "total_seconds": 0.792169,
+        "checksum": "0",
+        "measurements_seconds": [
+          0.759994,
+          0.792169,
+          0.830929
+        ]
+      },
+      "csr": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_csr_graph.py",
+          "--algorithm",
+          "lowlink",
+          "--backend",
+          "csr",
+          "--vertices",
+          "100000",
+          "--edges",
+          "500000"
+        ],
+        "output": "algorithm=lowlink backend=csr vertices=100000 edges=500000\nbuild=0.000000s solve=0.246467s total=0.246467s\nchecksum=0",
+        "total_seconds": 0.246467,
+        "checksum": "0",
+        "measurements_seconds": [
+          0.246467,
+          0.272188,
+          0.236269
+        ]
+      },
+      "speedup": 3.214097627674293
+    }
+  },
+  "range_tree": {
+    "stats": {
+      "generic": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_int_range_tree.py",
+          "--backend",
+          "generic",
+          "--size",
+          "200000",
+          "--queries",
+          "200000"
+        ],
+        "output": "workload=stats backend=generic size=200000 queries=200000\nbuild=0.167433s solve=6.887526s total=7.054959s\nchecksum=-244286571",
+        "total_seconds": 7.054959,
+        "checksum": "-244286571"
+      },
+      "beats": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_int_range_tree.py",
+          "--backend",
+          "beats",
+          "--size",
+          "200000",
+          "--queries",
+          "200000"
+        ],
+        "output": "workload=stats backend=beats size=200000 queries=200000\nbuild=0.167085s solve=6.895123s total=7.062208s\nchecksum=-244286571",
+        "total_seconds": 7.062208,
+        "checksum": "-244286571"
+      },
+      "specialized": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_int_range_tree.py",
+          "--backend",
+          "specialized",
+          "--size",
+          "200000",
+          "--queries",
+          "200000"
+        ],
+        "output": "workload=stats backend=specialized size=200000 queries=200000\nbuild=0.065925s solve=1.760681s total=1.826606s\nchecksum=-244286571",
+        "total_seconds": 1.826606,
+        "checksum": "-244286571"
+      },
+      "generic_speedup": 3.8623321066502574,
+      "beats_speedup": 3.8663006691098136
+    },
+    "affine": {
+      "generic": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_int_range_tree.py",
+          "--workload",
+          "affine",
+          "--backend",
+          "generic",
+          "--size",
+          "200000",
+          "--queries",
+          "200000"
+        ],
+        "output": "workload=affine backend=generic size=200000 queries=200000\nbuild=0.029704s solve=2.233800s total=2.263505s\nchecksum=762504894",
+        "total_seconds": 2.263505,
+        "checksum": "762504894"
+      },
+      "specialized": {
+        "command": [
+          "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_int_range_tree.py",
+          "--workload",
+          "affine",
+          "--backend",
+          "specialized",
+          "--size",
+          "200000",
+          "--queries",
+          "200000"
+        ],
+        "output": "workload=affine backend=specialized size=200000 queries=200000\nbuild=0.042142s solve=1.237868s total=1.280010s\nchecksum=762504894",
+        "total_seconds": 1.28001,
+        "checksum": "762504894"
+      },
+      "speedup": 1.7683494660197965
+    }
+  },
+  "fps998": {
+    "generic": {
+      "command": [
+        "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_fps998.py",
+        "--backend",
+        "generic",
+        "--size",
+        "65536",
+        "--composition-size",
+        "16384",
+        "--repeat",
+        "5"
+      ],
+      "output": "generic: multiply=0.030499s inverse=0.067835s exp=0.130298s composition_inv=1.392984s total=1.621616s checksum=194373156",
+      "total_seconds": 1.621616,
+      "checksum": "194373156",
+      "multiply_seconds": 0.030499,
+      "inverse_seconds": 0.067835,
+      "exp_seconds": 0.130298,
+      "composition_inv_seconds": 1.392984
+    },
+    "specialized": {
+      "command": [
+        "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_fps998.py",
+        "--backend",
+        "specialized",
+        "--size",
+        "65536",
+        "--composition-size",
+        "16384",
+        "--repeat",
+        "5"
+      ],
+      "output": "specialized: multiply=0.028984s inverse=0.069678s exp=0.128968s composition_inv=0.323466s total=0.551095s checksum=194373156",
+      "total_seconds": 0.551095,
+      "checksum": "194373156",
+      "multiply_seconds": 0.028984,
+      "inverse_seconds": 0.069678,
+      "exp_seconds": 0.128968,
+      "composition_inv_seconds": 0.323466
+    },
+    "speedup": 2.9425344087679983
+  },
+  "polynomial_gcd": {
+    "command": [
+      "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_polynomial_gcd.py",
+      "--degree",
+      "8192"
+    ],
+    "output": "degree=8192\neuclid=3.872625s\nhalf_gcd=1.645463s\nratio=2.354x\ntotal=1.645463s\nchecksum=791909424",
+    "total_seconds": 1.645463,
+    "checksum": "791909424",
+    "speedup": 2.354
+  },
+  "sortable_segment_tree": {
+    "command": [
+      "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/library-reorg/library_codex/tools/benchmark_sortable_segment_tree.py",
+      "--size",
+      "200000",
+      "--queries",
+      "200000"
+    ],
+    "output": "size=200000 queries=200000\nsquare=0.439084s\nsegment_tree=0.192760s\nratio=2.278x\ntotal=0.192760s\nchecksum=4001292480372752",
+    "total_seconds": 0.19276,
+    "checksum": "4001292480372752",
+    "speedup": 2.278
+  },
+  "speedups": {
+    "csr_dijkstra": 1.9940744049934622,
+    "csr_scc": 3.232675603217158,
+    "csr_lowlink": 3.214097627674293,
+    "range_stats_generic": 3.8623321066502574,
+    "range_stats_beats": 3.8663006691098136,
+    "range_affine": 1.7683494660197965,
+    "fps998_total": 2.9425344087679983,
+    "polynomial_half_gcd": 2.354,
+    "sortable_segment_tree": 2.278
+  },
+  "threshold_failures": []
+}

@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-22",
+  "profile": "full",
+  "command": "library_codex/tools/prepare_checkpoint.py --profile full",
+  "runtime": "PyPy 3.10 / 7.3.16",
+  "tests": {"passed": 1292, "skipped": 10},
+  "performanceStatus": "failed",
+  "thresholdFailures": [{
+    "name": "range_stats_generic",
+    "genericSeconds": 6.890528,
+    "specializedSeconds": 2.816898,
+    "minimumSpeedup": 2.5
+  }],
+  "note": "Summary transcribed from the completed checkpoint output; not a complete raw benchmark report. The range-tree implementation and benchmark threshold were not modified. A complete rerun is recorded separately in convolution_mod_large-release-regression.json."
+}

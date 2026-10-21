@@ -114,13 +114,13 @@ def test_sixteen_lanes_transform_counts(monkeypatch):
     forward, inverse = module._butterfly8, module._butterfly8_inv
     counts = [0, 0]
 
-    def count_forward(values, **kwargs):
+    def count_forward(values, *args, **kwargs):
         counts[0] += 1
-        return forward(values, **kwargs)
+        return forward(values, *args, **kwargs)
 
-    def count_inverse(values, **kwargs):
+    def count_inverse(values, *args, **kwargs):
         counts[1] += 1
-        return inverse(values, **kwargs)
+        return inverse(values, *args, **kwargs)
 
     monkeypatch.setattr(module, "_butterfly8", count_forward)
     monkeypatch.setattr(module, "_butterfly8_inv", count_inverse)
@@ -156,6 +156,30 @@ def test_radix8_matches_shared_transform():
                 assert actual == expected, (height, stride, pattern)
                 large._butterfly8_inv(actual, stride)
                 assert actual == [x * (1 << height) % MOD for x in values]
+
+
+def test_padded_forward_and_tiled_products():
+    from library_codex.convolution import LargeConvolution as large
+    from library_codex.convolution import NTT998 as ntt
+
+    rng = random.Random(22005)
+    for height in (0, 2, 3, 8, 9, 10, 11, 12):
+        size = 1 << height
+        capacity = size * 16
+        for n in (1, capacity // 2 - 1, capacity // 2, capacity // 2 + 1, capacity):
+            a = [rng.randrange(-MOD, 2 * MOD) for _ in range(n)]
+            saved = a[:]
+            for scale in (1, pow(size, MOD - 2, MOD)):
+                expected = [x * scale % MOD for x in a] + [0] * (capacity - n)
+                ntt._butterfly(expected, stride=16)
+                assert large._pad_forward(a, scale, 16, size) == expected
+                assert a == saved
+        for n, m in ((capacity // 2, capacity // 2), (capacity // 2 + 1, capacity // 4), (1, capacity)):
+            a = [rng.randrange(MOD) for _ in range(n)]
+            b = [rng.randrange(MOD) for _ in range(m)]
+            assert large._multiply_sixteen_lanes(a, b, size) == ntt.multiply(a, b)
+        a = [MOD - 1] * (capacity // 2)
+        assert large._multiply_sixteen_lanes(a, a, size) == ntt.multiply(a, a)
 
 
 def test_contiguous_output_random_boundaries():
