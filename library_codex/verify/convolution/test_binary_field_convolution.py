@@ -218,6 +218,56 @@ def test_final_reduction_table():
             assert _compress(_mul(_expand(a), _expand(b))) == product(a, b)
 
 
+def test_linear_tables_against_field_product():
+    from library_codex.convolution.BinaryFieldConvolution import _constants, _linear, _linear_tables, _signed
+
+    rng = random.Random(21980)
+    constants = _constants(1 << 13)
+    tables = _linear_tables(constants, len(constants))
+    mask = (1 << 64) - 1
+    values = [0, mask, 1 << 63] + [rng.getrandbits(64) for _ in range(3)]
+    for i, row in enumerate(tables):
+        constant = _compress(constants[i])
+        for value in values:
+            signed = _signed([value])[0]
+            assert _linear(row, signed) & mask == product(constant, value)
+    for i in (1, 2, 3, 31, 1024, 4095):
+        for bit in range(64):
+            value = 1 << bit
+            assert _linear(tables[i], _signed([value])[0]) & mask == product(_compress(constants[i]), value)
+
+
+def test_linear_transform_matches_expanded_transform():
+    from library_codex.convolution.BinaryFieldConvolution import _constants, _linear_tables, _signed
+
+    rng = random.Random(21981)
+    mask = (1 << 64) - 1
+    for height in range(2, 13):
+        size = 1 << height
+        constants = _constants(size)
+        tables = _linear_tables(constants, len(constants))
+        source = [rng.getrandbits(64) for _ in range(size)]
+        for low in (0, height // 2, height):
+            expected = [_expand(x) for x in source]
+            actual = _signed(source)
+            _transform(expected, constants, low=low)
+            _transform(actual, tables, low=low, linear=True)
+            assert [x & mask for x in actual] == [_compress(x) for x in expected]
+            _transform(actual, tables, True, low=low, linear=True)
+            assert [x & mask for x in actual] == source
+
+
+def test_linear_top_large_non_power_lengths():
+    from library_codex.benchmarks.experiments.binary_field_fold_tile256 import multiply as reference
+
+    rng = random.Random(21982)
+    for n, m in ((32768, 32769), (16385, 32768), (2048, 16385), (2049, 16385),
+                 (16385, 2049), (2049, 65567), (2049, 65568)):
+        a = [rng.getrandbits(64) for _ in range(n)]
+        b = [rng.getrandbits(64) for _ in range(m)]
+        assert multiply(a, b) == reference(a, b)
+
+
 def test_standalone(tmp_path):
     from library_codex.tools.build_library_catalog import ROOT, build_standalone_code
 

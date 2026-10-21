@@ -2164,7 +2164,7 @@ COMPLEXITY_BY_MODULE = {
         "multiply": "O(S log^2(S+1))時間・O(S)追加メモリ。SはN+M-1以上の最小の2の冪。体の乗算はO(S log(S+1))回。片方が4倍以上長ければO((N+M) log^2(min(N,M)+1))時間、短い方が8項以下ならO(NM)、係数列が等しい二乗はO(N)。64bitの体演算を定数時間として数える。",
     },
     "convolution/LargeConvolution.py": {
-        "multiply": "O((P+Q) B log B + P Q B)時間・O((P+Q) B)追加メモリ。N,Mは入力長、Bは短い入力を覆う2の冪と2^22の小さい方、P=ceil(N/B)、Q=ceil(M/B)。4列へ分ける経路と通常サイズはO((N+M) log(N+M))時間・O(N+M)追加メモリ。片方60項以下はO(NM)",
+        "multiply": "O((P+Q) B log B + P Q B)時間・O((P+Q) B)追加メモリ。N,Mは入力長、Bは短い入力を覆う2の冪と2^22の小さい方、P=ceil(N/B)、Q=ceil(M/B)。16列へ分ける経路と通常サイズはO((N+M) log(N+M))時間・O(N+M)追加メモリ。片方60項以下はO(NM)",
     },
     "fps998/LinearRecurrence.py": {
         "berlekamp_massey": "O(N^2)。Nは観測列の長さ。追加領域O(N)。",

@@ -5,7 +5,7 @@ import random
 import subprocess
 import sys
 
-from library_codex.convolution.LargeConvolution import _multiply_blocks, _multiply_four_lanes, multiply
+from library_codex.convolution.LargeConvolution import _multiply_blocks, _multiply_sixteen_lanes, multiply
 from library_codex.convolution.NTT998 import MOD
 
 
@@ -81,31 +81,31 @@ def test_public_large_dispatch(monkeypatch):
         return calls[-1]
 
     monkeypatch.setattr(module, "_multiply_blocks", record)
-    monkeypatch.setattr(module, "_multiply_four_lanes", record)
+    monkeypatch.setattr(module, "_multiply_sixteen_lanes", record)
     assert multiply(Sized(1 << 23), Sized(65)) == (1 << 23, 65, 128)
-    assert multiply(Sized(1 << 24), Sized(1 << 24)) == (1 << 24, 1 << 24, 1 << 23)
+    assert multiply(Sized(1 << 24), Sized(1 << 24)) == (1 << 24, 1 << 24, 1 << 21)
     assert multiply(Sized(1 << 23), Sized((1 << 23) + 1)) == (1 << 23, (1 << 23) + 1, 1 << 22)
-    assert multiply(Sized((1 << 24) + 1), Sized(1 << 24)) == ((1 << 24) + 1, 1 << 24, 1 << 23)
+    assert multiply(Sized((1 << 24) + 1), Sized(1 << 24)) == ((1 << 24) + 1, 1 << 24, 1 << 21)
     assert multiply(Sized((1 << 24) + 1), Sized((1 << 24) + 1)) == ((1 << 24) + 1, (1 << 24) + 1, 1 << 22)
 
 
-def test_four_lanes_random_boundaries():
+def test_sixteen_lanes_random_boundaries():
     rng = random.Random(57291)
     for size in (1, 2, 4, 8, 16, 64):
         for _ in range(30):
-            n = rng.randrange(1, 4 * size + 1)
-            m = rng.randrange(1, 4 * size - n + 2)
+            n = rng.randrange(1, 16 * size + 1)
+            m = rng.randrange(1, 16 * size - n + 2)
             a = [rng.randrange(-MOD, 2 * MOD) for _ in range(n)]
             b = [rng.randrange(-MOD, 2 * MOD) for _ in range(m)]
             saved = a[:], b[:]
-            assert _multiply_four_lanes(a, b, size) == naive(a, b)
+            assert _multiply_sixteen_lanes(a, b, size) == naive(a, b)
             assert (a, b) == saved
-        a = [rng.randrange(MOD) for _ in range(2 * size)]
-        assert _multiply_four_lanes(a, a, size) == naive(a, a)
-        assert _multiply_four_lanes([0] * len(a), a, size) == [0] * (2 * len(a) - 1)
+        a = [rng.randrange(MOD) for _ in range(8 * size)]
+        assert _multiply_sixteen_lanes(a, a, size) == naive(a, a)
+        assert _multiply_sixteen_lanes([0] * len(a), a, size) == [0] * (2 * len(a) - 1)
 
 
-def test_four_lanes_transform_counts(monkeypatch):
+def test_sixteen_lanes_transform_counts(monkeypatch):
     module = importlib.import_module("library_codex.convolution.LargeConvolution")
     forward, inverse = module._butterfly, module._butterfly_inv
     counts = [0, 0]
@@ -121,19 +121,19 @@ def test_four_lanes_transform_counts(monkeypatch):
     monkeypatch.setattr(module, "_butterfly", count_forward)
     monkeypatch.setattr(module, "_butterfly_inv", count_inverse)
     a, b = list(range(15)), list(range(17))
-    assert _multiply_four_lanes(a, b, 8) == naive(a, b)
+    assert _multiply_sixteen_lanes(a, b, 8) == naive(a, b)
     assert counts == [2, 1]
     counts[:] = [0, 0]
-    assert _multiply_four_lanes(a, a, 8) == naive(a, a)
+    assert _multiply_sixteen_lanes(a, a, 8) == naive(a, a)
     assert counts == [1, 1]
 
 
-def test_four_lanes_extreme_products():
+def test_sixteen_lanes_extreme_products():
     for n, m in ((15, 17), (31, 33), (64, 64), (65, 63)):
-        size = 1 << ((n + m - 2).bit_length() - 2)
+        size = 1 << ((n + m - 2).bit_length() - 4)
         for a, b in (([MOD - 1] * n, [MOD - 1] * m),
                      ([0, MOD - 1] * (n // 2) + [0] * (n % 2), [MOD - 2] * m)):
-            assert _multiply_four_lanes(a, b, size) == naive(a, b)
+            assert _multiply_sixteen_lanes(a, b, size) == naive(a, b)
 
 
 def test_contiguous_output_random_boundaries():
@@ -160,7 +160,7 @@ def test_standalone(tmp_path):
     block_name = next(node.name for node in ast.parse(source).body
                       if isinstance(node, ast.FunctionDef) and node.name.endswith("multiply_blocks"))
     lane_name = next(node.name for node in ast.parse(source).body
-                     if isinstance(node, ast.FunctionDef) and node.name.endswith("multiply_four_lanes"))
+                     if isinstance(node, ast.FunctionDef) and node.name.endswith("multiply_sixteen_lanes"))
     script = tmp_path / "main.py"
     script.write_text(source + "\nassert multiply([1, 2], [3, 4]) == [3, 10, 8]\n"
                       f"assert {block_name}([1] * 25, [1] * 19, 8) == "

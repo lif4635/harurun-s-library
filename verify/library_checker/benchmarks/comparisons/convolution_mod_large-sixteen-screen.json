@@ -1,0 +1,75 @@
+{
+  "measuredAt": "2026-10-21T07:38:37.371654+00:00",
+  "problem": "convolution_mod_large",
+  "snapshot": {
+    "problem": "convolution_mod_large",
+    "language": "pypy3",
+    "submissions": [],
+    "description": "Local block convolution variants only; no external submission ranking comparison."
+  },
+  "officialHashSha256": "5650684e5e6203be78ce1daa59171a63b3f65f1cdf9c4dad2429ce5e786eb7e8",
+  "checkerSha256": "ff0f0a6805be4ed055c1bc2460fd0403adb718ab284550a00d69385a25d3571d",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 1,
+  "seed": 21978,
+  "sourceSha256": {
+    "eight": "8f8b31db4ce80966cd00314609918164c96ac7e4cc131671515427043bd27eb6",
+    "sixteen": "49d5c4ff7b2f0ca4a169706e508326d3ef7b4a96fa96a38937a638ff3300fb05",
+    "split": "193f6c4af328a61e78926d1de23ec6742c6616a3b3e7fd0be0b23069998ffb4a",
+    "twice": "44fa404223eb5c5005528e76a45f8503e513fb56b8ed2928456090a16b3f708b"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "a90a1d4737effb3caaf72184a18cb3e76d28f86e91cb0a0a76dee43a54aa6092",
+      "implementations": {
+        "eight": {
+          "samples": [
+            {
+              "seconds": 13.342823154001962,
+              "peakRssKiB": 834124,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 13.342823154001962,
+          "peakRssKiB": 834124
+        },
+        "sixteen": {
+          "samples": [
+            {
+              "seconds": 12.607551611989038,
+              "peakRssKiB": 833960,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 12.607551611989038,
+          "peakRssKiB": 833960
+        },
+        "split": {
+          "samples": [
+            {
+              "seconds": 12.827974139014259,
+              "peakRssKiB": 834340,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 12.827974139014259,
+          "peakRssKiB": 834340
+        },
+        "twice": {
+          "samples": [
+            {
+              "seconds": 13.398169965017587,
+              "peakRssKiB": 833632,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 13.398169965017587,
+          "peakRssKiB": 833632
+        }
+      }
+    }
+  ]
+}

@@ -78,7 +78,8 @@ def _convert(values, inverse=False):
                         values[pos - offset] ^= values[pos]
 
 
-def _transform(values, constants, inverse=False, low=0, high=None, begin=0, end=None):
+def _transform(values, constants, inverse=False, low=0, high=None, begin=0, end=None, linear=False):
+    mul = _linear if linear else _mul
     if high is None:
         high = (len(values) - 1).bit_length()
     if end is None:
@@ -92,7 +93,7 @@ def _transform(values, constants, inverse=False, low=0, high=None, begin=0, end=
             for pos in range(start, start + half):
                 right = values[pos + half] ^ values[pos]
                 values[pos + half] = right
-                values[pos] ^= _mul(constant, right)
+                values[pos] ^= mul(constant, right)
     for level in levels:
         half = 1 << level
         hi = constants[1]
@@ -102,14 +103,14 @@ def _transform(values, constants, inverse=False, low=0, high=None, begin=0, end=
             if inverse:
                 x1 ^= x0
                 x3 ^= x2
-                x2 ^= _mul(hi, x3)
+                x2 ^= mul(hi, x3)
                 x2 ^= x0
                 x3 ^= x1
             else:
                 x2 ^= x0
                 x3 ^= x1
                 x1 ^= x0
-                x2 ^= _mul(hi, x3)
+                x2 ^= mul(hi, x3)
                 x3 ^= x2
             values[pos], values[pos + half] = x0, x1
             values[pos + 2 * half], values[pos + 3 * half] = x2, x3
@@ -123,19 +124,19 @@ def _transform(values, constants, inverse=False, low=0, high=None, begin=0, end=
                 if inverse:
                     x1 ^= x0
                     x3 ^= x2
-                    x0 ^= _mul(lo, x1)
-                    x2 ^= _mul(hi, x3)
+                    x0 ^= mul(lo, x1)
+                    x2 ^= mul(hi, x3)
                     x2 ^= x0
                     x3 ^= x1
-                    x0 ^= _mul(outer, x2)
-                    x1 ^= _mul(outer, x3)
+                    x0 ^= mul(outer, x2)
+                    x1 ^= mul(outer, x3)
                 else:
-                    x0 ^= _mul(outer, x2)
-                    x1 ^= _mul(outer, x3)
+                    x0 ^= mul(outer, x2)
+                    x1 ^= mul(outer, x3)
                     x2 ^= x0
                     x3 ^= x1
-                    x0 ^= _mul(lo, x1)
-                    x2 ^= _mul(hi, x3)
+                    x0 ^= mul(lo, x1)
+                    x2 ^= mul(hi, x3)
                     x1 ^= x0
                     x3 ^= x2
                 values[pos], values[pos + half] = x0, x1
@@ -145,9 +146,51 @@ def _transform(values, constants, inverse=False, low=0, high=None, begin=0, end=
         for start in range(begin, end, half << 1):
             constant = constants[start >> (low + 1)]
             for pos in range(start, start + half):
-                left = values[pos] ^ _mul(constant, values[pos + half])
+                left = values[pos] ^ mul(constant, values[pos + half])
                 values[pos + half] ^= left
                 values[pos] = left
+
+
+def _linear(tables, value):
+    if tables is None:
+        return 0
+    return (tables[0][(value >> 0) & 15]
+            ^ tables[1][(value >> 4) & 15]
+            ^ tables[2][(value >> 8) & 15]
+            ^ tables[3][(value >> 12) & 15]
+            ^ tables[4][(value >> 16) & 15]
+            ^ tables[5][(value >> 20) & 15]
+            ^ tables[6][(value >> 24) & 15]
+            ^ tables[7][(value >> 28) & 15]
+            ^ tables[8][(value >> 32) & 15]
+            ^ tables[9][(value >> 36) & 15]
+            ^ tables[10][(value >> 40) & 15]
+            ^ tables[11][(value >> 44) & 15]
+            ^ tables[12][(value >> 48) & 15]
+            ^ tables[13][(value >> 52) & 15]
+            ^ tables[14][(value >> 56) & 15]
+            ^ tables[15][(value >> 60) & 15])
+
+
+def _linear_tables(constants, count):
+    result = [None]
+    for index in range(1, count):
+        bit = index & -index
+        if index != bit:
+            result.append([[x ^ y for x, y in zip(a, b)]
+                           for a, b in zip(result[index ^ bit], result[bit])])
+            continue
+        constant = constants[index]
+        columns = []
+        for shift in range(0, 64, 4):
+            vectors = _signed([_compress(_mul(constant, _expand(1 << (shift + bit)))) for bit in range(min(4, 64 - shift))])
+            table = [0] * (1 << len(vectors))
+            for i in range(1, len(table)):
+                bit = i & -i
+                table[i] = table[i ^ bit] ^ vectors[bit.bit_length() - 1]
+            columns.append(table)
+        result.append(columns)
+    return result
 
 
 def _constants(size):
@@ -208,7 +251,8 @@ def multiply(first, second):
             result[2 * i] = _compress(_mul(value, value))
         return result
     short = min(len(a), len(b)) <= 8
-    blocked = min(len(a), len(b)) * 4 <= max(len(a), len(b))
+    smaller, larger = min(len(a), len(b)), max(len(a), len(b))
+    blocked = smaller * 4 <= larger and (smaller <= 2048 or smaller * 32 <= larger)
     if short or blocked:
         a = [_expand(value & ((1 << 64) - 1)) for value in a]
         b = [_expand(value & ((1 << 64) - 1)) for value in b]
@@ -231,14 +275,18 @@ def multiply(first, second):
     b.extend([0] * ((1 << (len(b) - 1).bit_length()) - len(b)))
     _convert(a)
     _convert(b)
-    a = [_expand(value & ((1 << 64) - 1)) for value in a]
-    b = [_expand(value & ((1 << 64) - 1)) for value in b]
     a.extend([0] * (size - len(a)))
     b.extend([0] * (size - len(b)))
     height = size.bit_length() - 1
-    low = min(8, height)
-    _transform(a, constants, low=low)
-    _transform(b, constants, low=low)
+    low = min(5, height)
+    top = min(15, height - low)
+    tables = _linear_tables(constants, 1 << max(0, top - 1))
+    _transform(a, tables, low=height-top, high=height, linear=True)
+    _transform(b, tables, low=height-top, high=height, linear=True)
+    a = [_expand(value & ((1 << 64) - 1)) for value in a]
+    b = [_expand(value & ((1 << 64) - 1)) for value in b]
+    _transform(a, constants, low=low, high=height-top)
+    _transform(b, constants, low=low, high=height-top)
     for begin in range(0, size, 1 << low):
         end = begin + (1 << low)
         _transform(a, constants, high=low, begin=begin, end=end)
@@ -247,8 +295,9 @@ def multiply(first, second):
             a[i] = _mul(a[i], b[i])
         _transform(a, constants, True, high=low, begin=begin, end=end)
     del b
-    _transform(a, constants, True, low=low)
+    _transform(a, constants, True, low=low, high=height-top)
     a = _signed([_compress(value) for value in a])
+    _transform(a, tables, True, low=height-top, high=height, linear=True)
     _convert(a, True)
     del a[output_size:]
     return [value & ((1 << 64) - 1) for value in a]

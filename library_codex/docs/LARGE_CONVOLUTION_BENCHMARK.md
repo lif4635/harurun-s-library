@@ -1,6 +1,43 @@
 # 大規模畳み込みの検証
 
-`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。4列を1本の配列で処理する変更により、最大公式入力の同時比較では中央値15.666秒から13.964秒へ短縮した。公式10秒制限には届いていない。
+`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。16列を1本の配列で処理する変更により、最大公式入力の同時比較では中央値14.288秒から13.064秒へ短縮した。公式10秒制限には届いていない。
+
+## 16列への変更と正規化の前倒し
+
+2026-10-21、直前の4列版と8列版、採用した16列版を公式最大入力`max_random_00`で各3回比較した。各回は新しいPyPyプロセスで、実行順序を入れ替えた。採用版は実際に配布する提出用standaloneを測っている。
+
+| 実装 | 中央値 | 最大RSS |
+| --- | ---: | ---: |
+| 変更前の4列版 | 14.288秒 | 835,504 KiB |
+| 8列・入力時に正規化 | 13.340秒 | 834,200 KiB |
+| 採用した16列・入力時に正規化 | 13.064秒 | 833,356 KiB |
+
+変更前より約8.6%短縮した。採用版の範囲は12.694〜13.289秒で、3回とも10秒を超えた。全9回答は公式checkerに一致した。最大RSSは約814MiBでほぼ変わらない。診断用の時間上限を120秒としており、公式制限内の通過を意味しない。
+
+列数を16、各列のNTT長を2^21にする。評価点ごとに15次以下の多項式を掛け、16次以上の項を折り返す。通常の係数乗算を展開した方が、この環境ではKaratsubaで乗算を共有する版より速かった。逆NTTの正規化は片方の入力を格納する際に済ませ、出力全体の走査を一つ減らした。同じobjectを二乗する場合は順変換の共有を優先し、正規化を逆変換後に行う。短い入力・通常のNTT・従来のブロック経路と公開APIは変更していない。
+
+- [採用版・8列・変更前の3回比較とhash](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-sixteen-comparison.json)
+- [16列と積共有の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-sixteen-screen.json)
+- [8列とKaratsubaの予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-eight-product-screen.json)
+- [入力時の正規化の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-eight-prescaled-screen.json)
+- [剰余回数・逆変換の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-arithmetic-screen.json)
+
+予備比較は各1回。剰余の省略、逆変換への正規化の統合、Karatsubaの再帰的な展開は採用版を上回らなかった。下の各節は、それ以前の変更を測った記録として残す。
+
+```sh
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 --variant baseline=library_codex/benchmarks/experiments/large_interleaved_ntt.py --variant eight=library_codex/benchmarks/experiments/large_eight_lanes_prescaled.py --variant candidate=verify/library_checker/solutions/convolution_mod_large.py --repeat 3 --seed 21984 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-sixteen-comparison.json
+```
+
+## 公式全ケースの確認
+
+採用した16列版を公式10秒制限で全54ケースに実行し、36件が制限内で通過、18件が時間超過だった。時間超過した入力は`random_01`、`random_02`、`max_random_00`、`max_random_01`、`fft_killer_00`〜`fft_killer_09`、`max_ans_zero_00`、`all_same_00`〜`all_same_02`。[ケース別の結果とsource hash](../../verify/library_checker/results/convolution_mod_large.json)に記録する。時間超過した回は出力を検査していないため、この記録だけで全54ケースの正答は確認できない。
+
+続けて同じsourceの18件を診断上限120秒で各1回実行したところ、全回答が公式checkerに一致した。時間は10.534〜12.878秒で、18件とも公式10秒制限を超えている。先の36件と合わせて全54入力の正答は確認できたが、制限内通過は36件のままとする。[診断記録](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-sixteen-diagnostic.json)には`withinOfficialTimeLimit: false`を残し、全件検証の`failed`状態を上書きしない。
+
+```sh
+pypy3 library_codex/tools/check_library_checker.py test convolution_mod_large --official /home/harurun/.cache/harurun-library-checker/problems
+pypy3 library_codex/benchmarks/official_probe.py convolution_mod_large --official /home/harurun/.cache/harurun-library-checker/problems --cases random_01 random_02 max_random_00 max_random_01 fft_killer_00 fft_killer_01 fft_killer_02 fft_killer_03 fft_killer_04 fft_killer_05 fft_killer_06 fft_killer_07 fft_killer_08 fft_killer_09 max_ans_zero_00 all_same_00 all_same_01 all_same_02 --repeat 1 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-sixteen-diagnostic.json
+```
 
 ## 4列を同じ配列で処理する変更
 
@@ -31,7 +68,7 @@
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/large_convolution_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --cases max_random_00 --variant baseline=library_codex/benchmarks/experiments/large_contiguous_standalone.py --variant karatsuba=library_codex/benchmarks/experiments/large_interleaved_karatsuba.py --variant candidate=library_codex/benchmarks/experiments/large_interleaved_ntt.py --repeat 3 --seed 21964 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-interleaved-product-comparison.json
 ```
 
-## 最大入力以外の比較
+## 4列版の最大入力以外の比較
 
 通常のNTT・片方が短い経路も旧版と各3回比較し、18回答すべてが一致した。これらの経路に実質的な高速化はない。今回の公式比較は最大入力を含め4/54ケースで、全件通過ではない。
 
@@ -49,7 +86,7 @@ pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/b
 - WSL2・AMD Ryzen 7 3700X・PyPy 3.10.14 / 7.3.16。
 - 入出力は公式hashと照合。提出用standaloneを新しいPyPyプロセスで起動し、出力は公式checkerで検査する。
 - 壁時計時間には起動・JIT・入出力を含む。RSSはGNU timeで測る。メモリ制限の強制、オンライン提出は行っていない。C++上位提出は方式の参照であり、同じ環境での速度比較ではない。
-- 公式全54ケースのうち、選択したケースだけを生成・測定する。診断用の時間上限と公式制限を区別する。
+- 反復比較は選択したケースだけを測り、全件検査は54ケースを対象とする。診断用の時間上限と公式制限を区別する。
 
 ## C++上位提出を参考にした4列分割
 
@@ -150,7 +187,7 @@ pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/b
 
 この段階では通常のquick検査339件と性能回帰検査を通過した。
 
-## 採用版の選択検査
+## 2026-10-20の選択検査
 
 最大ランダムと`small_and_large_00`の反復比較に加え、`example_00`、`example_01`、`small_15`、`medium_00`、`small_and_large_01`を各1回検査した。5回答とも公式checkerに一致し、10秒以内。`small_and_large_01`は6.166秒・462,304 KiBだった。[選択検査の記録](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-optimized-probe.json)。
 
@@ -168,8 +205,8 @@ pypy3 library_codex/benchmarks/official_probe.py convolution_mod_large --officia
 
 ## 残る問題
 
-- 大規模畳み込みの全公式ケース検証と、最大ケースの10秒制限。
-- `convolution_F_2_64`は別の問題。整数を2^64で割った余りの畳み込みでもnim積でもなく、二元体上の既約多項式による剰余体を使う。加法FFTを使うPyPy版は`BinaryFieldConvolution`へ追加した。[検証と未達の範囲](BINARY_FIELD_CONVOLUTION_BENCHMARK.md)を参照。
+- 大規模畳み込みは全54ケースを公式10秒制限で検査済みだが、18件の時間超過が残る。
+- `convolution_F_2_64`は別の問題。整数を2^64で割った余りの畳み込みでもnim積でもなく、二元体上の既約多項式による剰余体を使う。加法FFTを使うPyPy版は`BinaryFieldConvolution`へ追加し、全51ケースがローカルの公式制限内で通過した。[検証記録](BINARY_FIELD_CONVOLUTION_BENCHMARK.md)を参照。
 
 ## 参照
 

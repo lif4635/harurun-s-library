@@ -62,7 +62,8 @@ def _convolution_binary_field_convolution_convert(values, inverse=False):
                     for pos in range(begin, end):
                         values[pos - offset] ^= values[pos]
 
-def _convolution_binary_field_convolution_transform(values, constants, inverse=False, low=0, high=None, begin=0, end=None):
+def _convolution_binary_field_convolution_transform(values, constants, inverse=False, low=0, high=None, begin=0, end=None, linear=False):
+    mul = _convolution_binary_field_convolution_linear if linear else _convolution_binary_field_convolution_mul
     if high is None:
         high = (len(values) - 1).bit_length()
     if end is None:
@@ -76,7 +77,7 @@ def _convolution_binary_field_convolution_transform(values, constants, inverse=F
             for pos in range(start, start + half):
                 right = values[pos + half] ^ values[pos]
                 values[pos + half] = right
-                values[pos] ^= _convolution_binary_field_convolution_mul(constant, right)
+                values[pos] ^= mul(constant, right)
     for level in levels:
         half = 1 << level
         hi = constants[1]
@@ -86,14 +87,14 @@ def _convolution_binary_field_convolution_transform(values, constants, inverse=F
             if inverse:
                 x1 ^= x0
                 x3 ^= x2
-                x2 ^= _convolution_binary_field_convolution_mul(hi, x3)
+                x2 ^= mul(hi, x3)
                 x2 ^= x0
                 x3 ^= x1
             else:
                 x2 ^= x0
                 x3 ^= x1
                 x1 ^= x0
-                x2 ^= _convolution_binary_field_convolution_mul(hi, x3)
+                x2 ^= mul(hi, x3)
                 x3 ^= x2
             (values[pos], values[pos + half]) = (x0, x1)
             (values[pos + 2 * half], values[pos + 3 * half]) = (x2, x3)
@@ -107,19 +108,19 @@ def _convolution_binary_field_convolution_transform(values, constants, inverse=F
                 if inverse:
                     x1 ^= x0
                     x3 ^= x2
-                    x0 ^= _convolution_binary_field_convolution_mul(lo, x1)
-                    x2 ^= _convolution_binary_field_convolution_mul(hi, x3)
+                    x0 ^= mul(lo, x1)
+                    x2 ^= mul(hi, x3)
                     x2 ^= x0
                     x3 ^= x1
-                    x0 ^= _convolution_binary_field_convolution_mul(outer, x2)
-                    x1 ^= _convolution_binary_field_convolution_mul(outer, x3)
+                    x0 ^= mul(outer, x2)
+                    x1 ^= mul(outer, x3)
                 else:
-                    x0 ^= _convolution_binary_field_convolution_mul(outer, x2)
-                    x1 ^= _convolution_binary_field_convolution_mul(outer, x3)
+                    x0 ^= mul(outer, x2)
+                    x1 ^= mul(outer, x3)
                     x2 ^= x0
                     x3 ^= x1
-                    x0 ^= _convolution_binary_field_convolution_mul(lo, x1)
-                    x2 ^= _convolution_binary_field_convolution_mul(hi, x3)
+                    x0 ^= mul(lo, x1)
+                    x2 ^= mul(hi, x3)
                     x1 ^= x0
                     x3 ^= x2
                 (values[pos], values[pos + half]) = (x0, x1)
@@ -129,9 +130,33 @@ def _convolution_binary_field_convolution_transform(values, constants, inverse=F
         for start in range(begin, end, half << 1):
             constant = constants[start >> low + 1]
             for pos in range(start, start + half):
-                left = values[pos] ^ _convolution_binary_field_convolution_mul(constant, values[pos + half])
+                left = values[pos] ^ mul(constant, values[pos + half])
                 values[pos + half] ^= left
                 values[pos] = left
+
+def _convolution_binary_field_convolution_linear(tables, value):
+    if tables is None:
+        return 0
+    return tables[0][value >> 0 & 15] ^ tables[1][value >> 4 & 15] ^ tables[2][value >> 8 & 15] ^ tables[3][value >> 12 & 15] ^ tables[4][value >> 16 & 15] ^ tables[5][value >> 20 & 15] ^ tables[6][value >> 24 & 15] ^ tables[7][value >> 28 & 15] ^ tables[8][value >> 32 & 15] ^ tables[9][value >> 36 & 15] ^ tables[10][value >> 40 & 15] ^ tables[11][value >> 44 & 15] ^ tables[12][value >> 48 & 15] ^ tables[13][value >> 52 & 15] ^ tables[14][value >> 56 & 15] ^ tables[15][value >> 60 & 15]
+
+def _convolution_binary_field_convolution_linear_tables(constants, count):
+    result = [None]
+    for index in range(1, count):
+        bit = index & -index
+        if index != bit:
+            result.append([[x ^ y for (x, y) in zip(a, b)] for (a, b) in zip(result[index ^ bit], result[bit])])
+            continue
+        constant = constants[index]
+        columns = []
+        for shift in range(0, 64, 4):
+            vectors = _convolution_binary_field_convolution_signed([_convolution_binary_field_convolution_compress(_convolution_binary_field_convolution_mul(constant, _convolution_binary_field_convolution_expand(1 << shift + bit))) for bit in range(min(4, 64 - shift))])
+            table = [0] * (1 << len(vectors))
+            for i in range(1, len(table)):
+                bit = i & -i
+                table[i] = table[i ^ bit] ^ vectors[bit.bit_length() - 1]
+            columns.append(table)
+        result.append(columns)
+    return result
 
 def _convolution_binary_field_convolution_constants(size):
     basis = _convolution_binary_field_convolution_basis()
@@ -187,7 +212,8 @@ def multiply(first, second):
             result[2 * i] = _convolution_binary_field_convolution_compress(_convolution_binary_field_convolution_mul(value, value))
         return result
     short = min(len(a), len(b)) <= 8
-    blocked = min(len(a), len(b)) * 4 <= max(len(a), len(b))
+    (smaller, larger) = (min(len(a), len(b)), max(len(a), len(b)))
+    blocked = smaller * 4 <= larger and (smaller <= 2048 or smaller * 32 <= larger)
     if short or blocked:
         a = [_convolution_binary_field_convolution_expand(value & (1 << 64) - 1) for value in a]
         b = [_convolution_binary_field_convolution_expand(value & (1 << 64) - 1) for value in b]
@@ -210,14 +236,18 @@ def multiply(first, second):
     b.extend([0] * ((1 << (len(b) - 1).bit_length()) - len(b)))
     _convolution_binary_field_convolution_convert(a)
     _convolution_binary_field_convolution_convert(b)
-    a = [_convolution_binary_field_convolution_expand(value & (1 << 64) - 1) for value in a]
-    b = [_convolution_binary_field_convolution_expand(value & (1 << 64) - 1) for value in b]
     a.extend([0] * (size - len(a)))
     b.extend([0] * (size - len(b)))
     height = size.bit_length() - 1
-    low = min(8, height)
-    _convolution_binary_field_convolution_transform(a, constants, low=low)
-    _convolution_binary_field_convolution_transform(b, constants, low=low)
+    low = min(5, height)
+    top = min(15, height - low)
+    tables = _convolution_binary_field_convolution_linear_tables(constants, 1 << max(0, top - 1))
+    _convolution_binary_field_convolution_transform(a, tables, low=height - top, high=height, linear=True)
+    _convolution_binary_field_convolution_transform(b, tables, low=height - top, high=height, linear=True)
+    a = [_convolution_binary_field_convolution_expand(value & (1 << 64) - 1) for value in a]
+    b = [_convolution_binary_field_convolution_expand(value & (1 << 64) - 1) for value in b]
+    _convolution_binary_field_convolution_transform(a, constants, low=low, high=height - top)
+    _convolution_binary_field_convolution_transform(b, constants, low=low, high=height - top)
     for begin in range(0, size, 1 << low):
         end = begin + (1 << low)
         _convolution_binary_field_convolution_transform(a, constants, high=low, begin=begin, end=end)
@@ -226,8 +256,9 @@ def multiply(first, second):
             a[i] = _convolution_binary_field_convolution_mul(a[i], b[i])
         _convolution_binary_field_convolution_transform(a, constants, True, high=low, begin=begin, end=end)
     del b
-    _convolution_binary_field_convolution_transform(a, constants, True, low=low)
+    _convolution_binary_field_convolution_transform(a, constants, True, low=low, high=height - top)
     a = _convolution_binary_field_convolution_signed([_convolution_binary_field_convolution_compress(value) for value in a])
+    _convolution_binary_field_convolution_transform(a, tables, True, low=height - top, high=height, linear=True)
     _convolution_binary_field_convolution_convert(a, True)
     del a[output_size:]
     return [value & (1 << 64) - 1 for value in a]

@@ -1,6 +1,68 @@
 # GF(2^64)畳み込みの検証
 
-`BinaryFieldConvolution.multiply`はLibrary Checkerの`convolution_F_2_64`と同じ体・bit表現で畳み込む。最新の同時比較では、還元の表引きと256要素の区画処理により、最大公式入力のPyPy中央値が18.787秒から15.299秒へ短縮した。出力は一致するが、公式10秒制限は未達で、全件通過ではない。
+`BinaryFieldConvolution.multiply`はLibrary Checkerの`convolution_F_2_64`と同じ体・bit表現で畳み込む。上位段の定数乗算を4bit単位の表引きへ置き換え、最大公式入力のPyPy中央値を16.068秒から8.208秒へ短縮した。配布用コードの3回測定はすべて10秒以内で、公式checkerに一致した。
+
+切り替え条件も調整した最終コードは、公式全51ケースをローカルの10秒制限内で通過した。全件検査で遅かった3ケースを各5回測り直しても、15回すべて10秒以内だった。オンライン提出とメモリ制限の強制は行っていない。
+
+## 最新コードの全件検証と反復測定
+
+2026-10-21、[全51ケースの検証](../../verify/library_checker/results/convolution_F_2_64.json)は最長7.899秒。ここで遅かった`gen_max_00`、`many_ones_01`、`random_01`を各5回、新しいPyPyプロセスで測り直した。
+
+3ケースの中央値の最大は7.648秒、15回の最長は7.906秒、最大RSSは850,460 KiB（約831MiB）だった。すべて公式checkerに一致した。[各回の時間・RSS・hash](../../verify/library_checker/benchmarks/convolution_F_2_64.json)に、最終source、公式入力・出力、checker、実行環境と全件検証のhashを記録している。
+
+```sh
+pypy3 library_codex/tools/check_library_checker.py test convolution_F_2_64 --official /home/harurun/.cache/harurun-library-checker/problems
+pypy3 library_codex/benchmarks/official_benchmark.py convolution_F_2_64 --official /home/harurun/.cache/harurun-library-checker/problems --repeat 5 --slowest 3
+```
+
+## 定数乗算の線形変換表
+
+2026-10-21、Git `a5d2d17`と同じ処理の保存済み単独コードと、新しい配布用コードを同一環境・同一入力で比較した。各3回、新しいPyPyプロセスで起動・JIT・入出力を含め、実行順を入れ替えている。
+
+| 最大入力 gen_max_00 | 中央値 | 最大RSS |
+| --- | ---: | ---: |
+| 変更前 | 16.068秒 | 795,900 KiB |
+| 4bit表を上位15段に適用 | 8.208秒 | 778,300 KiB |
+
+時間は約48.9%短縮し、最大RSSも約2.2%減少した。採用版の3回は8.048〜8.239秒だった。過去の測定日との絶対時間の差から速度比を求めてはいない。
+
+もう一つの大きいケース`gen_2_x_3_11_01`は15.925秒から8.138秒へ短縮した。採用版は7.977〜8.505秒、最大RSSは757,016 KiBから744,396 KiB。2ケースの新旧各3回、計12回答が公式checkerに一致し、採用版6回はすべて10秒以内だった。
+
+体の定数cとの乗算は、64bit列上の線形変換になる。入力を4bitずつに分け、各位置の16通りの積を表から読み、XORで足せば同じ積になる。符号付き64bit整数で保持するが、各部分はシフト後に15でマスクするため、符号によってbit列は変わらない。
+
+定数もCantor基底のXORで構成される。基底定数の表だけ体の乗算で作り、残りの表は既存の2表をXORして構築する。大きな整数の乗算と展開・圧縮は下位段と係数同士の積に限る。FFT本体は共通化し、上位段だけこの乗算を選ぶ。近似や確率的な判定は使わない。
+
+表は上位15段までに制限し、各呼出し内で生成する。64bitの数値データだけなら最大約32MiBで、別途listの管理領域が必要になる。下位段は32要素以下の区画で処理する。公開API、扱う体、返り値の長さは変更しない。
+
+- [配布用コードの反復比較とhash](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-linear-production-comparison.json)
+- [14・15・16段の3回比較](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-nibble-comparison.json)
+- [表の幅の比較](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-linear-width-screen.json)
+- [8bit表の適用段数の比較](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-linear-depth-screen.json)
+
+16段まで表にする試作は中央値8.177秒・最大875,948 KiB、15段は8.132秒・782,280 KiBだった。速度の上積みがなくメモリが増えたため、15段を選んだ。これらはFFT処理を共通化する前の試作であり、配布用コードの測定とは区別する。
+
+5bit間隔の整数を条件に応じて分割する案は23.060秒で、同時比較の変更前17.267秒より遅かった。8bit間隔に広げ、整数乗算の桁数を保ったまま還元する案も16.712秒で、変更前15.554秒より遅かった。3段融合だけの改善は小さく、採用しない。[演算方式の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-arithmetic-screen.json)、[整数還元の比較](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-integer-fold-screen.json)、[最初の表引き比較](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-linear-screen.json)と各候補のコードを保存している。これらの予備比較は各1回。
+
+```sh
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/binary_field_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_F_2_64 --cases gen_max_00 gen_2_x_3_11_01 --variant baseline=library_codex/benchmarks/experiments/binary_field_fold_tile256.py --variant candidate=verify/library_checker/solutions/convolution_F_2_64.py --repeat 3 --seed 21983 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_F_2_64-linear-production-comparison.json
+```
+
+## 長さが偏った入力の切り替え
+
+上位段を高速化した直後の全51ケース検査では49件が10秒以内、`random_02`と`random_03`が時間超過になった。長さの比が4以上なら従来のブロック処理を選んでいたため、これらは新しい上位段の表を使っていなかった。
+
+短い側が2,048項を超え、長い側がその32倍未満の場合も、新しい変換を使うようにした。短い側が小さい場合や32倍以上に偏る場合はブロック処理を残す。境界の2,048／2,049項、長さの比32の前後、引数を逆にした場合を独立した旧実装と比較する。
+
+| 公式ケース | 配列長 | 切り替え前の中央値 | 切り替え後の中央値 | 前／後の最大RSS |
+| --- | --- | ---: | ---: | ---: |
+| random_02 | 53,336・382,347 | 10.736秒 | 3.855秒 | 452,336／402,336 KiB |
+| random_03 | 429,249・25,839 | 11.548秒 | 3.826秒 | 431,716／415,012 KiB |
+
+各3回、計12回答が公式checkerに一致した。[比較記録とhash](../../verify/library_checker/benchmarks/comparisons/convolution_F_2_64-unbalanced-comparison.json)。上の最大入力の比較はこの切り替えを加える前の記録であり、最新の配布コードのhashと全件検証は[公式検証結果](../../verify/library_checker/results/convolution_F_2_64.json)を参照する。
+
+```sh
+pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/binary_field_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_F_2_64 --cases random_02 random_03 --variant baseline=library_codex/benchmarks/experiments/binary_field_nibble_shared.py --variant candidate=library_codex/benchmarks/experiments/binary_field_linear_unbalanced.py --repeat 3 --seed 21985 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_F_2_64-unbalanced-comparison.json
+```
 
 ## 還元の表引き
 
@@ -29,7 +91,7 @@
 pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/benchmarks/baselines/binary_field_snapshot.json --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_F_2_64 --cases gen_max_00 --variant baseline=library_codex/benchmarks/experiments/binary_field_tiled.py --variant tile256=library_codex/benchmarks/experiments/binary_field_tile256.py --variant fold=library_codex/benchmarks/experiments/binary_field_fold_table.py --variant fold256=library_codex/benchmarks/experiments/binary_field_fold_tile256.py --repeat 3 --seed 21961 --timeout 120 --output verify/library_checker/benchmarks/comparisons/convolution_F_2_64-fold-comparison.json
 ```
 
-## 最大入力以外の比較
+## 還元表を追加した時点の最大入力以外の比較
 
 最大ランダム以外の公式3ケースも、旧版と配布用コードで各3回比較した。全18回答が一致した。全要素が等しいケースでは中央値が約0.048秒増えており、すべての入力で高速化したわけではない。
 
@@ -196,7 +258,7 @@ pypy3 library_codex/benchmarks/official_comparison.py --snapshot library_codex/b
 
 `official_probe.py`は、診断timeout内に正しい出力が得られても、公式制限を超えれば終了code 1を返す。
 
-## 検証内容
+## 2026-10-20の検証内容
 
 専用testでは、carryless積の単純解、64個の基底の独立性と関係式、FFT値と直接の多項式評価、基底変換の往復、畳み込みの単純解、双線形性、非破壊、空列、二乗、不正な係数、末尾0、単独bundleを検査する。
 

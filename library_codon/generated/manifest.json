@@ -325,7 +325,7 @@
     {
       "modulePath": "convolution/BinaryFieldConvolution",
       "sourcePath": "library_codex/convolution/BinaryFieldConvolution.py",
-      "sourceSha256": "4806cb3668c81ab6a20140215a7a53913a3641681a8591180c1ccb21ee1e7d51",
+      "sourceSha256": "1c8e9d542bf064a168262a748fced466fb9ca6f5f7e5d106dfaddf85739dcb50",
       "status": "unsupported"
     },
     {
@@ -343,7 +343,7 @@
     {
       "modulePath": "convolution/LargeConvolution",
       "sourcePath": "library_codex/convolution/LargeConvolution.py",
-      "sourceSha256": "0612cd99957e18a0622666ac8f2ca13988cdc91af3cf2e62f6d2ac5787547b5d",
+      "sourceSha256": "f8ca9272ff0d642999aa0357907eb2c003df554f492d276e2ec2facea639805f",
       "status": "unsupported"
     },
     {
