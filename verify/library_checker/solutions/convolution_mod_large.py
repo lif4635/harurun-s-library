@@ -305,9 +305,9 @@ def _convolution_large_convolution_tile_rotation(block, bits, extra, inverse):
     exponent *= MOD - 1 >> bits + extra
     return pow(3, -exponent % (MOD - 1) if inverse else exponent, MOD)
 
-def _convolution_large_convolution_pad_forward(values, scale, stride, size):
+def _convolution_large_convolution_pad_forward(values, scale, stride, size, packed=False):
     total = stride * size
-    result = [0] * total
+    result = _convolution_large_convolution_array('I', [0]) * total if packed else [0] * total
     n = len(values)
     if size < 8 or n > total // 2:
         for i in range(n):
@@ -612,14 +612,16 @@ def _convolution_large_convolution_butterfly8_inv(values, stride=16):
     _convolution_large_convolution_butterfly8_inv_range(values, stride, cut, 0, 0, len(values))
     return values
 
-def _convolution_large_convolution_multiply_sixteen_lanes(first, second, size):
+def _convolution_large_convolution_multiply_sixteen_lanes(first, second, size, packed=None):
     count = len(first) + len(second) - 1
     inverse = pow(size, MOD - 2, MOD)
-    a = _convolution_large_convolution_pad_forward(first, 1, 16, size)
+    if packed is None:
+        packed = size == 1 << 20
+    a = _convolution_large_convolution_pad_forward(first, 1, 16, size, packed)
     if first is second:
         b = a
     else:
-        b = _convolution_large_convolution_pad_forward(second, inverse, 16, size)
+        b = _convolution_large_convolution_pad_forward(second, inverse, 16, size, packed)
     root = pow(3, (MOD - 1) // size, MOD)
     rates = [pow(root, (size >> j + 1) - (size - (size >> j)), MOD) for j in range(size.bit_length())]
     weight = 1
@@ -695,7 +697,7 @@ def _convolution_large_convolution_multiply_sixteen_lanes(first, second, size):
         for i in range(count):
             a[i] = a[i] * inverse % MOD
     del a[count:]
-    return a
+    return list(a) if packed else a
 
 def _convolution_large_convolution_multiply(first, second):
     """昇べき係数列の積をmod 998244353で返す。入力は変更しない。"""

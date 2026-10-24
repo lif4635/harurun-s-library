@@ -93,6 +93,23 @@ def test_public_large_dispatch(monkeypatch):
     assert multiply(Sized((1 << 24) + 1), Sized((1 << 24) + 1)) == ((1 << 24) + 1, (1 << 24) + 1, 1 << 22)
 
 
+def test_packed_size_policy(monkeypatch):
+    import pytest
+
+    module = importlib.import_module("library_codex.convolution.LargeConvolution")
+    calls = []
+
+    def record(values, scale, stride, size, packed):
+        calls.append((size, packed))
+        raise LookupError
+
+    monkeypatch.setattr(module, "_pad_forward", record)
+    for size in (1 << 19, 1 << 20, 1 << 21):
+        with pytest.raises(LookupError):
+            module._multiply_sixteen_lanes([1], [2], size)
+    assert calls == [(1 << 19, False), (1 << 20, True), (1 << 21, False)]
+
+
 def test_sixteen_lanes_random_boundaries():
     rng = random.Random(57291)
     for size in (1, 2, 4, 8, 16, 64):
@@ -173,13 +190,22 @@ def test_padded_forward_and_tiled_products():
                 expected = [x * scale % MOD for x in a] + [0] * (capacity - n)
                 ntt._butterfly(expected, stride=16)
                 assert large._pad_forward(a, scale, 16, size) == expected
+                packed = large._pad_forward(a, scale, 16, size, True)
+                assert isinstance(packed, array)
+                assert list(packed) == expected
                 assert a == saved
         for n, m in ((capacity // 2, capacity // 2), (capacity // 2 + 1, capacity // 4), (1, capacity)):
-            a = [rng.randrange(MOD) for _ in range(n)]
-            b = [rng.randrange(MOD) for _ in range(m)]
+            a = [rng.randrange(-MOD, 2 * MOD) for _ in range(n)]
+            b = [rng.randrange(-MOD, 2 * MOD) for _ in range(m)]
             assert large._multiply_sixteen_lanes(a, b, size) == ntt.multiply(a, b)
+            saved = a[:], b[:]
+            packed = large._multiply_sixteen_lanes(a, b, size, True)
+            assert type(packed) is list
+            assert packed == ntt.multiply(a, b)
+            assert (a, b) == saved
         a = [MOD - 1] * (capacity // 2)
         assert large._multiply_sixteen_lanes(a, a, size) == ntt.multiply(a, a)
+        assert large._multiply_sixteen_lanes(a, a, size, True) == ntt.multiply(a, a)
 
 
 def test_contiguous_output_random_boundaries():
@@ -212,6 +238,8 @@ def test_standalone(tmp_path):
                       f"assert {block_name}([1] * 25, [1] * 19, 8) == "
                       "[min(i + 1, 19, 43 - i) for i in range(43)]\n"
                       f"assert {lane_name}([1] * 25, [1] * 19, 16) == "
+                      "[min(i + 1, 19, 43 - i) for i in range(43)]\n"
+                      f"assert {lane_name}([1] * 25, [1] * 19, 16, True) == "
                       "[min(i + 1, 19, 43 - i) for i in range(43)]\n", encoding="utf-8")
     subprocess.run([sys.executable, "-I", str(script)], cwd=tmp_path, check=True, timeout=30)
 

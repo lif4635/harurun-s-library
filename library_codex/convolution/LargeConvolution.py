@@ -35,9 +35,9 @@ def _tile_rotation(block, bits, extra, inverse):
     return pow(3, -exponent % (MOD - 1) if inverse else exponent, MOD)
 
 
-def _pad_forward(values, scale, stride, size):
+def _pad_forward(values, scale, stride, size, packed=False):
     total = stride * size
-    result = [0] * total
+    result = array("I", [0]) * total if packed else [0] * total
     n = len(values)
     if size < 8 or n > total // 2:
         for i in range(n):
@@ -351,14 +351,16 @@ def _butterfly8_inv(values, stride=16):
     return values
 
 
-def _multiply_sixteen_lanes(first, second, size):
+def _multiply_sixteen_lanes(first, second, size, packed=None):
     count = len(first) + len(second) - 1
     inverse = pow(size, MOD - 2, MOD)
-    a = _pad_forward(first, 1, 16, size)
+    if packed is None:
+        packed = size == 1 << 20
+    a = _pad_forward(first, 1, 16, size, packed)
     if first is second:
         b = a
     else:
-        b = _pad_forward(second, inverse, 16, size)
+        b = _pad_forward(second, inverse, 16, size, packed)
     root = pow(3, (MOD - 1) // size, MOD)
     rates = [pow(root, (size >> j + 1) - (size - (size >> j)), MOD) for j in range(size.bit_length())]
     weight = 1
@@ -434,7 +436,7 @@ def _multiply_sixteen_lanes(first, second, size):
         for i in range(count):
             a[i] = a[i] * inverse % MOD
     del a[count:]
-    return a
+    return list(a) if packed else a
 
 
 def multiply(first, second):
