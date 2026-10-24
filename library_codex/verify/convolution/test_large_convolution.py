@@ -256,12 +256,21 @@ def test_driver_chunked_input():
     spec.loader.exec_module(driver)
 
     class Chunked(io.BytesIO):
+        size = 7
+
         def read(self, n):
-            return super().read(min(n, 7))
+            return super().read(min(n, self.size))
 
     values = [0, 998244352, 123456789, 1, 42] * 11
-    for ending in (b"", b"\n", b" \r\n"):
-        data = b" \t".join(str(x).encode() for x in values) + ending
-        assert list(driver.read_coefficients(Chunked(data), len(values))) == values
-    with pytest.raises(ValueError):
-        driver.read_coefficients(Chunked(b"1 2"), 3)
+    for size in (1, 2, 7, 16, 65536):
+        Chunked.size = size
+        for ending in (b"", b"\n", b" \r\n"):
+            data = b" \t".join(str(x).encode() for x in values) + ending
+            assert list(driver.read_coefficients(Chunked(data), len(values))) == values
+    for data in (b"1 2", b"1 2 3 4", b"1 2 3 4\n", b"1 a 3", b"1 -2 3"):
+        with pytest.raises(ValueError):
+            driver.read_coefficients(Chunked(data), 3)
+    values *= 1500
+    data = b" ".join(str(x).encode() for x in values)
+    assert list(driver.read_coefficients(io.BytesIO(data), len(values))) == values
+    assert list(driver.read_coefficients(io.BytesIO(b" \n"), 0)) == []

@@ -722,22 +722,35 @@ import sys
 from array import array
 
 def read_coefficients(stream, n):
-    result = array('I')
-    carry = b''
-    while len(result) < n:
+    result = array('I', [0]) * n
+    count = 0
+    value = 0
+    active = False
+    while True:
         chunk = stream.read(1 << 16)
         if not chunk:
-            result.extend(map(int, carry.split()))
-            break
-        chunk = carry + chunk
-        end = len(chunk)
-        while end and chunk[end - 1] > 32:
-            end -= 1
-        result.extend(map(int, chunk[:end].split()))
-        carry = chunk[end:]
-    if len(result) != n:
-        raise ValueError('unexpected number of coefficients')
-    return result
+            if active:
+                if count >= n:
+                    raise ValueError('unexpected number of coefficients')
+                result[count] = value
+                count += 1
+            if count != n:
+                raise ValueError('unexpected number of coefficients')
+            return result
+        for digit in chunk:
+            if 48 <= digit <= 57:
+                value = value * 10 + digit - 48
+                active = True
+            elif digit <= 32:
+                if active:
+                    if count >= n:
+                        raise ValueError('unexpected number of coefficients')
+                    result[count] = value
+                    count += 1
+                    value = 0
+                    active = False
+            else:
+                raise ValueError('invalid coefficient')
 
 def main():
     stream = sys.stdin.buffer

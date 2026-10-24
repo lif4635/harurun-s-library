@@ -1,0 +1,183 @@
+{
+  "measuredAt": "2026-10-24T16:44:18.175989+00:00",
+  "problem": "convolution_mod_large",
+  "snapshot": {
+    "problem": "convolution_mod_large",
+    "language": "pypy3",
+    "submissions": [],
+    "description": "Local block convolution variants only; no external submission ranking comparison."
+  },
+  "officialHashSha256": "5650684e5e6203be78ce1daa59171a63b3f65f1cdf9c4dad2429ce5e786eb7e8",
+  "checkerSha256": "ff0f0a6805be4ed055c1bc2460fd0403adb718ab284550a00d69385a25d3571d",
+  "upstreamRevision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "runtime": "Python 3.9.12 (05fbe3aa5b0845e6c37239768aa455451aa5faba, Mar 29 2022, 08:15:34)\n[PyPy 7.3.9 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "repeat": 3,
+  "seed": 92471,
+  "sourceSha256": {
+    "current": "d1c770590dafcdfc8538784b6f05b986f2a313cf89d35bba6a3510ab0ed04a52",
+    "adopted": "8c75de7f72048d07c86de8471d31699c00d2e1adaa494e689ec572aecb1c3cfd"
+  },
+  "protocol": "fresh processes, shuffled order, official checker, wall time including I/O and JIT",
+  "results": [
+    {
+      "case": "max_random_00",
+      "inputSha256": "a90a1d4737effb3caaf72184a18cb3e76d28f86e91cb0a0a76dee43a54aa6092",
+      "implementations": {
+        "current": {
+          "samples": [
+            {
+              "seconds": 10.278616352000427,
+              "peakRssKiB": 931192,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 10.405534637000528,
+              "peakRssKiB": 931220,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 10.45013064900013,
+              "peakRssKiB": 931116,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 10.405534637000528,
+          "peakRssKiB": 931220
+        },
+        "adopted": {
+          "samples": [
+            {
+              "seconds": 8.639382470999408,
+              "peakRssKiB": 931020,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 8.886941775000196,
+              "peakRssKiB": 931000,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            },
+            {
+              "seconds": 8.993597038999724,
+              "peakRssKiB": 930932,
+              "outputSha256": "30b21a255de2a081e8685d0fdef77e4cfe65373b8028317bb90d78dfee2348ee"
+            }
+          ],
+          "medianSeconds": 8.886941775000196,
+          "peakRssKiB": 931020
+        }
+      }
+    },
+    {
+      "case": "fft_killer_04",
+      "inputSha256": "575efee222b868c2675added9e4abe3a4cd37e38a3024d7563ac11fb9adba57d",
+      "implementations": {
+        "current": {
+          "samples": [
+            {
+              "seconds": 10.574726441999701,
+              "peakRssKiB": 931380,
+              "outputSha256": "64da632994e02913a6dd9b859cabc6842ebab9e20266dc43bc8faf40c935bfbb"
+            },
+            {
+              "seconds": 10.608738961999734,
+              "peakRssKiB": 931420,
+              "outputSha256": "64da632994e02913a6dd9b859cabc6842ebab9e20266dc43bc8faf40c935bfbb"
+            },
+            {
+              "seconds": 10.972818245999406,
+              "peakRssKiB": 931468,
+              "outputSha256": "64da632994e02913a6dd9b859cabc6842ebab9e20266dc43bc8faf40c935bfbb"
+            }
+          ],
+          "medianSeconds": 10.608738961999734,
+          "peakRssKiB": 931468
+        },
+        "adopted": {
+          "samples": [
+            {
+              "seconds": 8.82438405999983,
+              "peakRssKiB": 930936,
+              "outputSha256": "64da632994e02913a6dd9b859cabc6842ebab9e20266dc43bc8faf40c935bfbb"
+            },
+            {
+              "seconds": 9.053057695000462,
+              "peakRssKiB": 930984,
+              "outputSha256": "64da632994e02913a6dd9b859cabc6842ebab9e20266dc43bc8faf40c935bfbb"
+            },
+            {
+              "seconds": 8.857219463000547,
+              "peakRssKiB": 930888,
+              "outputSha256": "64da632994e02913a6dd9b859cabc6842ebab9e20266dc43bc8faf40c935bfbb"
+            }
+          ],
+          "medianSeconds": 8.857219463000547,
+          "peakRssKiB": 930984
+        }
+      }
+    },
+    {
+      "case": "small_and_large_01",
+      "inputSha256": "099c2fcd017be13f3e9b9a8690e42df113764883cb1d0ba90934d63795baf9c7",
+      "implementations": {
+        "current": {
+          "samples": [
+            {
+              "seconds": 7.831149404999451,
+              "peakRssKiB": 490216,
+              "outputSha256": "ab3629ec79ef80852083d4ec0c89659c0578de45385463e1880cbfc046ce215d"
+            },
+            {
+              "seconds": 8.107010221000564,
+              "peakRssKiB": 490864,
+              "outputSha256": "ab3629ec79ef80852083d4ec0c89659c0578de45385463e1880cbfc046ce215d"
+            },
+            {
+              "seconds": 7.703737225000623,
+              "peakRssKiB": 490588,
+              "outputSha256": "ab3629ec79ef80852083d4ec0c89659c0578de45385463e1880cbfc046ce215d"
+            }
+          ],
+          "medianSeconds": 7.831149404999451,
+          "peakRssKiB": 490864
+        },
+        "adopted": {
+          "samples": [
+            {
+              "seconds": 7.085053826999683,
+              "peakRssKiB": 490072,
+              "outputSha256": "ab3629ec79ef80852083d4ec0c89659c0578de45385463e1880cbfc046ce215d"
+            },
+            {
+              "seconds": 7.149586000999989,
+              "peakRssKiB": 489924,
+              "outputSha256": "ab3629ec79ef80852083d4ec0c89659c0578de45385463e1880cbfc046ce215d"
+            },
+            {
+              "seconds": 7.26693648499986,
+              "peakRssKiB": 489940,
+              "outputSha256": "ab3629ec79ef80852083d4ec0c89659c0578de45385463e1880cbfc046ce215d"
+            }
+          ],
+          "medianSeconds": 7.149586000999989,
+          "peakRssKiB": 490072
+        }
+      }
+    }
+  ],
+  "environment": {
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "libc": [
+      "glibc",
+      "2.39"
+    ],
+    "affinity": [
+      2
+    ],
+    "stackLimit": "unlimited",
+    "lscpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           48 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  16\nOn-line CPU(s) list:                     0-15\nVendor ID:                               AuthenticAMD\nModel name:                              AMD Ryzen 7 3700X 8-Core Processor\nCPU family:                              23\nModel:                                   113\nThread(s) per core:                      2\nCore(s) per socket:                      8\nSocket(s):                               1\nStepping:                                0\nBogoMIPS:                                7186.51\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 clzero xsaveerptr arat umip rdpid\nHypervisor vendor:                       Microsoft\nVirtualization type:                     full\nL1d cache:                               256 KiB (8 instances)\nL1i cache:                               256 KiB (8 instances)\nL2 cache:                                4 MiB (8 instances)\nL3 cache:                                16 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-15\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Mitigation; untrained return thunk; SMT enabled with STIBP protection\nVulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Retpolines; IBPB conditional; STIBP always-on; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+    "runtimePath": "/mnt/c/Users/starm/Documents/Codex/2026-08-01/referenced-chatgpt-conversation-this-is-an/work/references/large-convolution/pypy3.9-v7.3.9-linux64/bin/pypy3.9",
+    "runtimeSha256": "acf3c7e80e2fddd87d30833d80ff5147200af250d9c3281eccc93d5f515f0ba7",
+    "memoryLimitEnforced": false,
+    "notes": "Same-host comparison; host load is not isolated; judge Docker and CPU are not reproduced"
+  }
+}

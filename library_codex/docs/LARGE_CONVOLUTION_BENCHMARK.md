@@ -1,6 +1,67 @@
 # 大規模畳み込みの検証
 
-`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。16列を1本の配列で処理し、8点単位の変換を領域ごとに進める。入力後半がゼロになる場合は、入力コピーと最初の変換をまとめる。16列版の変換長が2^20のときは作業配列を32ビット整数で持ち、返り値は従来どおりlistにする。最大入力で使う変換長2^21はlistのまま。安定した10秒切りは未達。
+`LargeConvolution.multiply`は998244353上で、出力が2^23項を超える積を求める。16列を1本の配列で処理し、8点単位の変換を領域ごとに進める。入力後半がゼロになる場合は、入力コピーと最初の変換をまとめる。16列版の変換長が2^20のときは作業配列を32ビット整数で持ち、返り値は従来どおりlistにする。最大入力で使う変換長2^21はlistのまま。
+
+## 2026-10-25の分割方式と入力処理の比較
+
+Git `de26b0e2d356a372123fba93e0f2d961acafd076`を基準に16案を比較した。以前の4・8・32列案の現行版での再比較を含む。外部提出のコードは配布せず、自前の変換処理から試作を生成した。
+
+- 積の単位を4・8・32項に変更する案と、8項版の32bit配列化。
+- 4分割・8項単位の積。listと32bit配列、局所的な変換・積・逆変換、処理領域の幅を比較。
+- 4分割時の正規化を最後へ移す案、係数補正の専用化、4点単位の変換、中間剰余の位置変更。
+- 入力を文字列へ変換してから整数化する案と、数字を直接読み取って事前確保した32bit配列へ書く案。
+
+変換方式は採用しない。最大ランダム入力で、4分割版の最良の予備測定は10.245秒、同じ比較の現行版は9.029秒だった。4点変換版も10.969秒で、さらに中間剰余を追加すると13.481秒になった。4分割版の最大RSSは約603MiBに減るが、速度を優先して現行の16列・8点変換を維持する。32列版は最大RSSが1GiBを超えた。これらは各入力1回の予備比較で、反復中央値とは区別する。
+
+採用したのはLibrary Checker用driverの入力処理だけ。64KiBずつ読み、数字から直接係数を組み立てる。各整数の一時bytesと`int`変換、配列の動的拡張を避ける。対象は公式入力の非負整数で、汎用の数値parserではない。`LargeConvolution.multiply`本体、公開API、サイトのmodule用bundleは変更しない。
+
+PyPy 7.3.16、各3回の中央値。実行順序を入れ替え、起動・JIT・入出力を含めた。全18回答が公式checkerに一致した。
+
+| 公式入力 | 変更前（秒） | 直接読み取り（秒） | 短縮率 |
+| --- | ---: | ---: | ---: |
+| max_random_00 | 9.688 | 8.460 | 12.7% |
+| fft_killer_04 | 9.403 | 8.209 | 12.7% |
+| small_and_large_01 | 6.977 | 6.270 | 10.1% |
+
+PyPy 7.3.9でも、実際に生成した採用版の提出コードを各3回測定した。全18回答が公式checkerに一致した。試作と採用版のAST一致も確認した。source hashが異なるのは整形の違いによる。
+
+| 公式入力 | 変更前（秒） | 採用版（秒） | 短縮率 |
+| --- | ---: | ---: | ---: |
+| max_random_00 | 10.406 | 8.887 | 14.6% |
+| fft_killer_04 | 10.609 | 8.857 | 16.5% |
+| small_and_large_01 | 7.831 | 7.150 | 8.7% |
+
+採用版の提出コードSHA256は`8c75de7f72048d07c86de8471d31699c00d2e1adaa494e689ec572aecb1c3cfd`。既存の大規模畳み込みテストと今回の試作テストは計34件成功した。数字が読み込み区切りをまたぐ入力、改行なしの終端、係数の不足・過剰、不正な文字も検査した。
+
+同じCPU・同じruntime・同じ公式入力を使用し、各回答を公式checkerで検査した。CPU 2へ固定し、stackを無制限にした。ホストの負荷は隔離せず、公式CPU・Docker・1GiBのメモリ制限は再現していない。以前の単発測定やjudge表示の秒数と直接比較しない。
+
+- [分割方式の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-quarter-layout-screen.json)
+- [係数補正と入力処理の予備比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-quarter-refined-screen.json)
+- [4点変換の中間剰余の比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-quarter-mod-screen.json)
+- [PyPy 7.3.16の反復比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-input-direct-pypy7316.json)
+- [PyPy 7.3.9の採用版の反復比較](../../verify/library_checker/benchmarks/comparisons/convolution_mod_large-input-direct-pypy739.json)
+
+再生成・小規模の差分テスト・反復比較は次で行える。測定制御にはLinux CPythonを使い、候補は`--python`で指定したPyPyで実行する。`--variant 名前=path`で実際の配布コードも同じ条件で比較できる。
+
+```sh
+pypy3 -m library_codex.benchmarks.experiments.build_large_layout_variants
+pypy3 -m pytest library_codex/benchmarks/experiments/test_large_layout_variants.py -q
+/usr/bin/python3 -m library_codex.benchmarks.experiments.compare_large_locality --python /home/harurun/.pyenv/versions/pypy3.10-7.3.16/bin/pypy3 --problem /home/harurun/.cache/harurun-library-checker/problems/convolution/convolution_mod_large --variants-dir .cache/large-layout-variants --modes current input_digits --cases max_random_00 fft_killer_04 small_and_large_01 --repeat 3 --output verify/library_checker/benchmarks/comparisons/convolution_mod_large-input-direct-pypy7316.json
+```
+
+採用版をPyPy 7.3.16、CPU 2、stack無制限、公式10秒制限で全54ケースに実行し、全件が公式checkerに一致した。最長は`fft_killer_06`の8.508秒。最大ランダム2件は8.315秒・8.414秒。オンライン提出は行わず、メモリ制限は強制していない。[公式54ケースの判定・時間・source hash](../../verify/library_checker/results/convolution_mod_large.json)を参照。
+
+全件検査で遅かった3ケースを各5回測定し、全15回答が公式checkerに一致した。時間は7.509〜9.212秒で、全回が10秒未満。これはローカルの測定結果であり、公式実行環境での時間保証ではない。
+
+| 入力 | 中央値（秒） | 最小〜最大（秒） | 最大RSS（KiB） |
+| --- | ---: | ---: | ---: |
+| fft_killer_06 | 7.639 | 7.509〜8.443 | 832,880 |
+| fft_killer_03 | 7.948 | 7.675〜8.969 | 832,980 |
+| max_random_01 | 7.648 | 7.559〜9.212 | 833,012 |
+
+[採用版の15回の時間・RSS・hash](../../verify/library_checker/benchmarks/convolution_mod_large.json)を保存した。新旧比較とは測定時刻が異なるため、この中央値と別の測定の旧版の秒数を組み合わせて短縮率を計算しない。
+
+通常検査`check_library.py`も成功した。quickテスト367件、性能回帰、API・catalog・提出コード・Codonの同期、説明品質、再帰監査を確認した。全体テスト1,303件の再実行はしていない。
 
 ## 32ビット作業配列と局所的な変換の比較
 
@@ -45,7 +106,7 @@ python3 -m library_codex.benchmarks.experiments.compare_large_locality --python 
 
 PyPy 3.10 / 7.3.16、CPU 2、stack無制限で公式54ケースを検証し、全件が公式checkerに一致して10秒制限内だった。最長は`fft_killer_08`の9.190秒。最大ランダム2件は8.876秒・8.842秒。メモリ制限は強制せず、オンライン提出も行っていない。
 
-- [公式54ケースの判定と時間](../../verify/library_checker/results/convolution_mod_large.json)
+- [2026-10-24の公式54ケースの判定と時間](https://github.com/lif4635/harurun-s-library/blob/de26b0e2d356a372123fba93e0f2d961acafd076/verify/library_checker/results/convolution_mod_large.json)
 - 配布用提出コードのSHA256: `d1c770590dafcdfc8538784b6f05b986f2a313cf89d35bba6a3510ab0ed04a52`
 - ライブラリ全体の回帰テストは1,303件成功。全体の性能回帰検査、API・catalog・配布コードの同期検査も通過した。
 - 試作9案と基準コードは、独立したNTTによる正解比較・負係数・平方・入力非破壊を含む10件のテストを通過した。
@@ -58,7 +119,7 @@ PyPy 3.10 / 7.3.16、CPU 2、stack無制限で公式54ケースを検証し、�
 | fft_killer_07 | 8.782 | 8.778〜8.975 | 833,160 |
 | fft_killer_06 | 8.768 | 8.637〜8.994 | 833,204 |
 
-[15回の時間・RSS・入力hash](../../verify/library_checker/benchmarks/convolution_mod_large.json)を保存した。
+[2026-10-24の15回の時間・RSS・入力hash](https://github.com/lif4635/harurun-s-library/blob/de26b0e2d356a372123fba93e0f2d961acafd076/verify/library_checker/benchmarks/convolution_mod_large.json)を保存した。
 
 ## 2026-10-22の公式全ケース再検証
 
@@ -455,8 +516,8 @@ pypy3 library_codex/benchmarks/official_probe.py convolution_mod_large --officia
 
 ## 残る問題
 
-- 2026-10-22の旧版は全54ケースを10秒以内で通過したが、直後の反復15回では3回が10秒を超えた。今回も最大入力の計算方式は変更していないため、単発の全件通過だけで安定した10秒切りとは判断しない。
-- 最新の関数別計測では順・逆変換に約4.86秒、入力に約2.37秒を使った。積だけの改善では余地が小さい。さらに検討するなら、変換全体の演算数とメモリアクセス、入力処理を優先する。
+- 公式CPU・Docker・メモリ制限は未再現。2026-10-22の旧版では全件通過の直後に時間超過が出たため、全件検査と遅いケースの反復測定を分けて記録する。入力処理変更後の記録と旧版の記録を混同しない。
+- 2026-10-22の関数別計測では順・逆変換に約4.86秒、入力に約2.37秒を使った。2026-10-25に入力処理を改善したため、これは変更前の内訳である。今回の4分割・8項単位の積は現行版より遅く、変換本体の新しい高速化は採用していない。
 - `convolution_F_2_64`は別の問題。整数を2^64で割った余りの畳み込みでもnim積でもなく、二元体上の既約多項式による剰余体を使う。加法FFTを使うPyPy版は`BinaryFieldConvolution`へ追加し、全51ケースがローカルの公式制限内で通過した。[検証記録](BINARY_FIELD_CONVOLUTION_BENCHMARK.md)を参照。
 
 ## 参照

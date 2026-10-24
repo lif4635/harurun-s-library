@@ -21,6 +21,8 @@ def main():
     parser.add_argument("--cases", nargs="+", default=["fft_killer_04", "max_random_00"])
     parser.add_argument("--modes", nargs="+", default=["baseline", "fused_both"])
     parser.add_argument("--current", action="store_true")
+    parser.add_argument("--variants-dir", type=Path, default=Path(".cache/large-locality-variants"))
+    parser.add_argument("--variant", action="append", default=[])
     args = parser.parse_args()
     if args.repeat < 1:
         parser.error("repeat must be positive")
@@ -41,11 +43,12 @@ def main():
     arguments = SimpleNamespace(
         snapshot=Path("library_codex/benchmarks/baselines/large_convolution_snapshot.json"),
         reviewed=[], problem=args.problem, cases=args.cases,
-        variant=[mode + "=.cache/large-locality-variants/" + mode + ".py" for mode in args.modes],
+        variant=[mode + "=" + str(args.variants_dir / (mode + ".py")) for mode in args.modes],
         python=str(runtime), repeat=args.repeat, seed=92471, timeout=120, output=args.output,
     )
     if args.current:
         arguments.variant.append("current=verify/library_checker/solutions/convolution_mod_large.py")
+    arguments.variant.extend(args.variant)
     save_json(args.output.with_suffix(".environment.json"), environment)
     compare(arguments)
     report = json.loads(args.output.read_text())
