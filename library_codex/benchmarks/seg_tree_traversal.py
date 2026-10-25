@@ -11,7 +11,8 @@ import subprocess
 import sys
 from time import perf_counter
 
-from verify.atcoder import abc434_g as example
+from library_codex.benchmarks.experiments import keyboard_functions as example
+from verify.atcoder import abc434_g as current
 
 
 def stack_fold(size, left, right, prepend, initial):
@@ -75,7 +76,7 @@ def worker(args):
         example.fold = stack_fold
     if args.variant == "lists":
         example.array = lambda code, values: list(values)
-    cls = InlineKeyboard if args.variant == "inline" else example.Keyboard
+    cls = current.Keyboard if args.variant == "class" else InlineKeyboard if args.variant == "inline" else example.Keyboard
     text, operations = inputs(args.n, args.q, args.case)
     input_hash = hashlib.sha256(text + repr(operations).encode()).hexdigest()
     start = perf_counter()
@@ -104,10 +105,10 @@ def main():
     parser.add_argument("--q", type=int, default=30000)
     parser.add_argument("--repeat", type=int, default=3)
     parser.add_argument("--cpu", type=int, default=2)
-    parser.add_argument("--variant", choices=["shared", "inline", "stack", "lists"])
+    parser.add_argument("--variant", choices=["shared", "inline", "stack", "lists", "class"])
     parser.add_argument("--case", choices=["mixed", "digits", "cancellation"])
     parser.add_argument("--cases", nargs="+", default=["mixed", "digits", "cancellation"], choices=["mixed", "digits", "cancellation"])
-    parser.add_argument("--variants", nargs="+", default=["shared", "inline", "stack", "lists"], choices=["shared", "inline", "stack", "lists"])
+    parser.add_argument("--variants", nargs="+", default=["shared", "class"], choices=["shared", "inline", "stack", "lists", "class"])
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     if args.variant:
@@ -116,12 +117,12 @@ def main():
     if hasattr(os, "sched_setaffinity"):
         os.sched_setaffinity(0, {args.cpu})
     root = Path(__file__).resolve().parents[2]
-    sources = [root / "library_codex/segment_tree/SegTreeTraversal.py", root / "verify/atcoder/abc434_g.py", Path(__file__)]
+    sources = [root / "library_codex/segment_tree/SegTreeTraversal.py", root / "verify/atcoder/abc434_g.py", Path(__file__), Path(example.__file__)]
     records = []
     expected = {}
     for case in args.cases:
         for repeat in range(args.repeat):
-            for variant in args.variants:
+            for variant in (args.variants if repeat % 2 == 0 else args.variants[::-1]):
                 command = [sys.executable, "-m", "library_codex.benchmarks.seg_tree_traversal", "--variant", variant, "--case", case, "--n", str(args.n), "--q", str(args.q)]
                 run = subprocess.run(command, cwd=root, capture_output=True, text=True, check=True, timeout=180)
                 record = json.loads(run.stdout)

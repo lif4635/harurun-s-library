@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-25T02:39:00+00:00",
+  "generatedAt": "2026-10-25T11:41:15+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "5b2ea24e747d8ffcf5f867836ed5dac934efb4f9114fd9a3818bca38054bb2a5",
-  "inputStamp": "3f12b6279bcc322ea3fedf1e4dc8791416b65995e1ec32bce3b1c2d2866964dd",
+  "sourceFingerprint": "ee442f7a77b572fc4e99a3f3c6a39f8a3749ef81e38ee050ec2b61e37d6e580b",
+  "inputStamp": "96c4cd255051bf9260d507e96f914ee1b5554ff0ac6de92fd6ed3620efae21f8",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
     "modules": 403,
     "articles": 112,
-    "functions": 539,
-    "classes": 239,
-    "methods": 1521,
+    "functions": 536,
+    "classes": 240,
+    "methods": 1529,
     "tests": 1303
   },
   "categories": [
@@ -112,9 +112,9 @@
       "domain": "data_structure",
       "domainLabel": "Data Structures",
       "modules": 18,
-      "functions": 6,
-      "classes": 18,
-      "methods": 126
+      "functions": 3,
+      "classes": 19,
+      "methods": 134
     },
     {
       "slug": "fenwick_tree",
@@ -16404,15 +16404,13 @@
       "domainLabel": "Data Structures",
       "name": "SegTreeTraversal",
       "modulePath": "library_codex.segment_tree.SegTreeTraversal",
-      "summary": "子孫を参照するマージ用に、構築・一点更新・右からの区間結合を行う。",
+      "summary": "左の子孫を参照する結合処理で、一点更新と半開区間の集約を行う。",
       "capabilities": [
-        "build: 配置済みの葉から全内部ノードを子から親の順に再計算する。",
-        "update: 変更済みの1枚の葉について、その祖先だけを下から再計算する。",
-        "fold: 半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。"
+        "SegTreeTraversal: 左の部分木へ降りられる結合処理で配列を管理する。葉の配置・構築・更新・区間分割はclassが行い、利用側はmergeを1つ渡す。"
       ],
       "article": {
         "title": "子孫を参照しながらマージするセグメント木",
-        "markdown": "## 主な機能\n\n左右の集約値だけでは結合できず、片方の部分木へ降りて追加情報を調べたいときの、構築・一点更新・区間取得を共通化する。\n\n通常の`SegTree`とは別の、3つの関数からなる部品。データ配列は利用側で持ち、ノードは整数添字で扱う。`list`でも複数の`array`でもよく、ノードごとのclass instanceは作らない。\n\n高さhの部分木の再計算・結合がO(h+1)なら、構築はO(N)、一点更新と区間取得はO(log² N)。通常のO(1)マージなら更新・取得はO(log N)になる。\n\n## 使い方\n\n```python\nfrom library_codex.segment_tree.SegTreeTraversal import build, fold, update\n\nvalues = [\"a\", \"b\", \"c\", \"d\", \"e\"]\nsize = 1 << (len(values) - 1).bit_length()\ndata = [\"\"] * (2 * size)\ndata[size:size + len(values)] = values\n\ndef pull(node):\n    data[node] = data[node * 2] + data[node * 2 + 1]\n\ndef prepend(node, result):\n    return data[node] + result\n\nbuild(size, pull)\nanswer = fold(size, 1, 4, prepend, \"\")\ndata[size + 2] = \"X\"\nupdate(size, 2, pull)\nchanged = fold(size, 1, 4, prepend, \"\")\n```\n\n- `answer`は`\"bcd\"`、`changed`は`\"bXd\"`。\n- `pull(node)`は、子が正しい状態になった後に呼ばれる。左右の子は`2*node`と`2*node+1`。必要ならさらに子孫へ降り、親の保存値を書き換える。返り値は使わない。\n- `prepend(node, result)`は、実在する部分木を`result`の左へつなげた集約値を返す。木の保存値を変更しない。\n- `update`は葉を書き換えない。葉の変更を済ませてから呼ぶ。\n\n文字列連結は呼出し方を示す小さい例。長い文字列そのものを結合すると、その文字数に比例する時間がかかる。\n\n## Keyboardでの利用\n\n[ABC434 Gの実装例](https://github.com/lif4635/harurun-s-library/blob/main/verify/atcoder/abc434_g.py)では、数字の入力と`B`による末尾削除を管理する。文字列の一点変更と、任意の半開区間を入力した後に残る数字列の取得ができる。\n\n```python\nfrom verify.atcoder.abc434_g import Keyboard\n\ntree = Keyboard(\"123B45\")\nbefore = tree.prod(0, 6)\ntree.set(1, \"B\")\nafter = tree.prod(0, 6)\n```\n\nこの例のimportはリポジトリ内で実行する場合のもの。提出時は[依存込みコード](https://github.com/lif4635/harurun-s-library/blob/main/verify/atcoder/abc434_g_standalone.py)を使える。\n\n- `before`は`(0, 4, 1245)`、`after`は`(0, 2, 45)`。\n- 第1要素は、区間内の数字だけでは消化できず、左側へ持ち越す`B`の個数。\n- 第2要素は、残る数字列の長さ。\n- 第3要素は、残る数字列を整数とみなした998244353での余り。数字が残らなければ0。\n\n右の区間の`B`が左の数字を消すとき、左の集約値だけからは残る先頭の数字を復元できない。左の部分木を降りて必要な桁数だけ取り出す。左右のうち次に調べる子は一つなので、降下は木の高さに比例する。\n\n実装例は個数・長さ・値を32-bit整数配列へ保存し、左右の境界で残った左側の値も内部ノードに保存する。これにより降下時の逆元計算と再帰を避ける。tupleを作るのは区間取得の途中結果で、各ノードには置かない。\n\n## 仕組み\n\n`fold`は区間を覆うノードを右から左へ処理する。途中結果同士は結合せず、左側が必ず実在するノードなので、その子孫を参照できる。途中結果に元の木の添字があるとは限らない点に注意する。\n\n構築では高さhのノードが高々N/2^h個ある。各再計算がO(h+1)なら、合計は次のようにO(N)になる。\n\n$$\\sum_{h=1}^{\\lceil\\log_2 N\\rceil}\\frac{N}{2^h}O(h+1)=O(N)$$\n\n## 注意点\n\n- `size`は葉の容量で、正の2の冪。根は1、葉は`size`から`2*size-1`。0番は使わない。\n- 要素数が`size`未満なら、残りの葉には空区間に相当する値を配置する。要素数0でも`size=1`を使う。\n- 各関数が検査する添字の範囲は`size`まで。実際の要素数を超えた操作の防止は利用側で行う。\n- `initial`は右端の後ろにつなぐ初期状態。普通の区間取得では空区間を表す値を渡す。空区間ならそのまま返る。\n- `pull`と`prepend`は同じ列の意味を表すように書く。何を渡してもO(log² N)になるわけではなく、子孫を調べる計算量にも依存する。\n- 通常のモノイド演算だけで済む場合は`SegTree`を使う。境界探索や遅延伝播はこの部品には含めていない。\n\n## 参考\n\n- [ABC434 G Keyboard](https://atcoder.jp/contests/abc434/tasks/abc434_g)\n- [Nyaanによる公式解説](https://atcoder.jp/contests/abc434/editorial/14660)\n- [よすぽ「ちょっと重いSegTree」](https://yosupo.hatenablog.com/entry/2015/12/02/235855)",
+        "markdown": "## 主な機能\n\n配列の一点置換と、半開区間の集約を行うclass。左の集約値だけでは結合できず、左の部分木へ降りて追加情報を調べたい場合に使う。\n\n利用側は結合処理`merge`を1つ書く。配列の確保、葉の配置、構築、更新する祖先の選択、問い合わせ区間の分割はclassが担当する。\n\n高さhの部分木に対する結合がO(h+1)なら、構築はO(N)、一点更新と区間取得はO(log² N)。結合がO(1)なら更新・取得はO(log N)。ノードごとのclassは作らない。\n\n## 使い方\n\n```python\nfrom library_codex.segment_tree.SegTreeTraversal import SegTreeTraversal\n\ndef merge(data, left_node, right_value):\n    return data[left_node] + right_value\n\ntree = SegTreeTraversal(merge, \"\", [\"a\", \"b\", \"c\", \"d\", \"e\"])\nanswer = tree.prod(1, 4)\ntree.set(2, \"X\")\nchanged = tree.prod(1, 4)\nwhole = tree.all_prod()\n```\n\n- `answer`は`\"bcd\"`、`changed`は`\"bXd\"`、`whole`は`\"abXde\"`。\n- 第2引数の`\"\"`は空区間を表す値。空区間の`prod`はこの値を返す。\n- `set`に渡すのは元の配列の添字。内部の葉番号への変換や、変更後の再構築は不要。\n- `get(i)`は現在の1要素、`tolist()`は現在の要素列を返す。\n\nこの文字列連結は呼出し方だけの小さい例。文字列の長さに比例する時間がかかるので、大きな文字列を各ノードに保存する用途には向かない。\n\n## mergeに書くこと\n\n`merge(data, left_node, right_value)`には、左のノード番号と右の集約値が渡される。\n\n- `data[left_node]`は左の区間の集約値。\n- `left_node`が内部ノードなら、左右の子は`2*left_node`と`2*left_node+1`。必要な側の子へ降り、保存値を参照できる。葉は`len(data)//2`番以降。\n- `right_value`は右の区間の集約値。ノード番号ではない。\n- 左の区間の後ろに右の区間をつないだ、新しい集約値を返す。親への保存はclassが行う。\n\n構築・一点更新・区間取得のすべてで、この同じ`merge`を使う。`data`や引数の値は書き換えない。返す値の表現は自由だが、同じ列をどのように分割しても、集約結果の意味が一致する必要がある。\n\n`right_value`は、問い合わせ中に複数区間を結合した途中結果の場合もある。そのため、子孫を参照できるのは左側だけ。右側の子孫が必要な処理には、そのまま使えない。\n\n## Keyboardでの利用\n\n[ABC434 Gの実装例](https://github.com/lif4635/harurun-s-library/blob/main/verify/atcoder/abc434_g.py)は、数字の入力と`B`による末尾削除を管理する。`Keyboard`が文字と集約値の変換を受け持ち、内部の`SegTreeTraversal`へ更新と取得を渡す。\n\n```python\nfrom verify.atcoder.abc434_g import Keyboard\n\ntree = Keyboard(\"123B45\")\nbefore = tree.prod(0, 6)\ntree.set(1, \"B\")\nafter = tree.prod(0, 6)\n```\n\nこのimportはリポジトリ内で使う場合のもの。提出時は[依存込みコード](https://github.com/lif4635/harurun-s-library/blob/main/verify/atcoder/abc434_g_standalone.py)をコピーできる。\n\n- `before`は`(0, 4, 1245)`、`after`は`(0, 2, 45)`。\n- 第1要素: 区間内の数字だけでは消化できず、左側へ持ち越す`B`の個数。\n- 第2要素: 残る数字列の長さ。\n- 第3要素: 残る数字列を整数とみなした998244353での余り。数字が残らなければ0。\n\n結合処理`_merge`は、右側の`B`が左側の何桁を消すかを調べる。左側を途中まで残すときだけ、左の部分木を降りて先頭の値を取り出す。各段で調べる子は一つなので、降下は木の高さに比例する。\n\n内部の集約値は、上の3要素に「左の子から残った先頭部分の値」を加えた4要素。この第4要素を保存すると、子孫への降下で逆元計算が不要になる。利用側へ返す`prod`では先頭3要素だけを取り出す。\n\n最大800万文字の保存量を抑えるため、この例だけ`storage`で32bit整数配列の保存先を渡している。`_KeyboardData`は木全体で1個の保存先であり、ノードごとのobjectではない。読み書きの際に集約値をtupleとして受け渡すが、tupleを各ノードに保持しない。普通の使い方では`storage`を指定せず、最初の例のようにlistでよい。\n\n## 仕組み\n\n構築と更新では、左の子を`left_node`、右の子の保存値を`right_value`として結合する。\n\n`prod`は区間を覆うノードを右から左へ処理する。途中結果を右側の値として受け渡すので、結合の左側は常に実在するノードになり、子孫を参照できる。再帰や問い合わせ用のノードobjectは作らない。\n\n空でない木の葉数を2の冪Mへ切り上げると、高さhのノードはM/2^h個ある。各結合がO(h+1)なら、M<2Nなので合計はO(N)になる。\n\n$$\\sum_{h=1}^{\\log_2 M}\\frac{M}{2^h}O(h+1)=O(M)=O(N)$$\n\n## 注意点\n\n- `identity`は空区間を表す値。余った葉はclassがこれで埋める。どちらかが空でも`merge`が正しく結合できること。\n- `identity`や保存値は共有される場合がある。取得した可変objectを直接書き換えず、`set`で置き換える。\n- 時間は結合処理に依存する。子孫をすべて走査する処理を書けば、O(log² N)にはならない。\n- `storage`を指定する場合は、`storage(capacity, identity)`で初期化済みの保存先を返す。整数添字の読書きと`len`をO(1)で行え、例外となる書き込みでは内容を変えないこと。\n- 通常のモノイド演算だけで済む場合は`SegTree`を使う。境界探索や遅延伝播はこのclassには含めていない。\n\n## 参考\n\n- [ABC434 G Keyboard](https://atcoder.jp/contests/abc434/tasks/abc434_g)\n- [Nyaanによる公式解説](https://atcoder.jp/contests/abc434/editorial/14660)\n- [よすぽ「ちょっと重いSegTree」](https://yosupo.hatenablog.com/entry/2015/12/02/235855)",
         "sourcePath": "library_codex/docs/articles/segment_tree/SegTreeTraversal.md"
       },
       "searchTerms": [
@@ -16428,116 +16426,228 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/segment_tree/SegTreeTraversal.py",
-      "inputFingerprint": "ba8cd448f9b1ea0535daa2685bf5da2971faecf34f1d52cb48b49a920725dfed",
-      "importCode": "from library_codex.segment_tree.SegTreeTraversal import build, update, fold",
-      "sourceCode": "\"\"\"子孫を参照するマージ用に、構築・一点更新・右からの区間結合を行う。\"\"\"\n\n\ndef build(size, pull):\n    \"\"\"葉を配置済みの木を、子から親の順にpull(node)で構築する。\"\"\"\n    if size < 1 or size & (size - 1):\n        raise ValueError(\"size must be a positive power of two\")\n    for node in range(size - 1, 0, -1):\n        pull(node)\n\n\ndef update(size, index, pull):\n    \"\"\"変更済みの葉indexから根まで、親の情報をpull(node)で再計算する。\"\"\"\n    if not 0 <= index < size:\n        raise IndexError(\"index outside leaves\")\n    node = (size + index) >> 1\n    while node:\n        pull(node)\n        node >>= 1\n\n\ndef fold(size, left, right, prepend, initial):\n    \"\"\"半開区間[left, right)を右から結合し、prepend(node, result)の累積値を返す。\"\"\"\n    if not 0 <= left <= right <= size:\n        raise IndexError(\"invalid half-open range\")\n    left += size\n    right += size\n    result = initial\n    while left < right:\n        height = min((right & -right).bit_length(), (right - left).bit_length()) - 1\n        result = prepend((right >> height) - 1, result)\n        right -= 1 << height\n    return result\n",
-      "standaloneCode": "\"\"\"子孫を参照するマージ用に、構築・一点更新・右からの区間結合を行う。\"\"\"\n\n\ndef build(size, pull):\n    \"\"\"葉を配置済みの木を、子から親の順にpull(node)で構築する。\"\"\"\n    if size < 1 or size & (size - 1):\n        raise ValueError(\"size must be a positive power of two\")\n    for node in range(size - 1, 0, -1):\n        pull(node)\n\n\ndef update(size, index, pull):\n    \"\"\"変更済みの葉indexから根まで、親の情報をpull(node)で再計算する。\"\"\"\n    if not 0 <= index < size:\n        raise IndexError(\"index outside leaves\")\n    node = (size + index) >> 1\n    while node:\n        pull(node)\n        node >>= 1\n\n\ndef fold(size, left, right, prepend, initial):\n    \"\"\"半開区間[left, right)を右から結合し、prepend(node, result)の累積値を返す。\"\"\"\n    if not 0 <= left <= right <= size:\n        raise IndexError(\"invalid half-open range\")\n    left += size\n    right += size\n    result = initial\n    while left < right:\n        height = min((right & -right).bit_length(), (right - left).bit_length()) - 1\n        result = prepend((right >> height) - 1, result)\n        right -= 1 << height\n    return result\n",
+      "inputFingerprint": "09a1f35de038f2158d452601a969b176907b0cdd04ba9326b549c1af032c7327",
+      "importCode": "from library_codex.segment_tree.SegTreeTraversal import SegTreeTraversal",
+      "sourceCode": "\"\"\"左の子孫を参照する結合処理で、一点更新と半開区間の集約を行う。\"\"\"\n\n\nclass SegTreeTraversal:\n    __slots__ = (\"n\", \"size\", \"data\", \"merge\", \"identity\")\n\n    def __init__(self, merge, identity, values, *, storage=None):\n        if isinstance(values, int):\n            n = values\n            if n < 0:\n                raise ValueError(\"negative length\")\n            values = None\n        else:\n            if not hasattr(values, \"__len__\"):\n                values = list(values)\n            n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1) if storage is None else storage(size << 1, identity)\n        if len(data) != size << 1:\n            raise ValueError(\"storage has incorrect length\")\n        if values is not None:\n            for index, value in enumerate(values):\n                data[size + index] = value\n        for node in range(size - 1, 0, -1):\n            data[node] = merge(data, node << 1, data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.data = data\n        self.merge = merge\n        self.identity = identity\n\n    def set(self, index, value):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index outside array\")\n        data = self.data\n        merge = self.merge\n        node = self.size + index\n        data[node] = value\n        node >>= 1\n        while node:\n            data[node] = merge(data, node << 1, data[node << 1 | 1])\n            node >>= 1\n\n    def get(self, index):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index outside array\")\n        return self.data[self.size + index]\n\n    def prod(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        left += self.size\n        right += self.size\n        data = self.data\n        merge = self.merge\n        result = self.identity\n        while left < right:\n            height = min((right & -right).bit_length(), (right - left).bit_length()) - 1\n            result = merge(data, (right >> height) - 1, result)\n            right -= 1 << height\n        return result\n\n    def all_prod(self):\n        return self.data[1]\n\n    def tolist(self):\n        data = self.data\n        size = self.size\n        return [data[size + index] for index in range(self.n)]\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"SegTreeTraversal(%r)\" % self.tolist()\n",
+      "standaloneCode": "\"\"\"左の子孫を参照する結合処理で、一点更新と半開区間の集約を行う。\"\"\"\n\n\nclass SegTreeTraversal:\n    __slots__ = (\"n\", \"size\", \"data\", \"merge\", \"identity\")\n\n    def __init__(self, merge, identity, values, *, storage=None):\n        if isinstance(values, int):\n            n = values\n            if n < 0:\n                raise ValueError(\"negative length\")\n            values = None\n        else:\n            if not hasattr(values, \"__len__\"):\n                values = list(values)\n            n = len(values)\n        size = 1 << (n - 1).bit_length() if n else 1\n        data = [identity] * (size << 1) if storage is None else storage(size << 1, identity)\n        if len(data) != size << 1:\n            raise ValueError(\"storage has incorrect length\")\n        if values is not None:\n            for index, value in enumerate(values):\n                data[size + index] = value\n        for node in range(size - 1, 0, -1):\n            data[node] = merge(data, node << 1, data[node << 1 | 1])\n        self.n = n\n        self.size = size\n        self.data = data\n        self.merge = merge\n        self.identity = identity\n\n    def set(self, index, value):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index outside array\")\n        data = self.data\n        merge = self.merge\n        node = self.size + index\n        data[node] = value\n        node >>= 1\n        while node:\n            data[node] = merge(data, node << 1, data[node << 1 | 1])\n            node >>= 1\n\n    def get(self, index):\n        if not 0 <= index < self.n:\n            raise IndexError(\"index outside array\")\n        return self.data[self.size + index]\n\n    def prod(self, left, right):\n        if not 0 <= left <= right <= self.n:\n            raise IndexError(\"invalid half-open range\")\n        left += self.size\n        right += self.size\n        data = self.data\n        merge = self.merge\n        result = self.identity\n        while left < right:\n            height = min((right & -right).bit_length(), (right - left).bit_length()) - 1\n            result = merge(data, (right >> height) - 1, result)\n            right -= 1 << height\n        return result\n\n    def all_prod(self):\n        return self.data[1]\n\n    def tolist(self):\n        data = self.data\n        size = self.size\n        return [data[size + index] for index in range(self.n)]\n\n    def __len__(self):\n        return self.n\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return \"SegTreeTraversal(%r)\" % self.tolist()\n",
       "bundledDependencies": [],
       "counts": {
-        "functions": 3,
-        "classes": 0,
-        "methods": 0
+        "functions": 0,
+        "classes": 1,
+        "methods": 8
       },
-      "functions": [
+      "functions": [],
+      "classes": [
         {
-          "name": "build",
-          "kind": "function",
-          "signature": "build(size, pull)",
-          "summary": "配置済みの葉から全内部ノードを子から親の順に再計算する。",
-          "description": "配置済みの葉から全内部ノードを子から親の順に再計算する。",
+          "name": "SegTreeTraversal",
+          "summary": "左の部分木へ降りられる結合処理で配列を管理する。葉の配置・構築・更新・区間分割はclassが行い、利用側はmergeを1つ渡す。",
+          "description": "左の部分木へ降りられる結合処理で配列を管理する。葉の配置・構築・更新・区間分割はclassが行い、利用側はmergeを1つ渡す。",
           "searchTerms": [
-            "build",
-            "build(size, pull)"
+            "SegTreeTraversal",
+            "Seg Tree Traversal",
+            "SegTreeTraversal(merge, identity, values, *, storage=None)"
           ],
-          "arguments": "size: 葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。 · pull: pull(node)として内部ノード番号を渡す。更新済みの子2*node・2*node+1と必要な子孫を参照し、親nodeへ結果を保存する。返り値は無視する。",
-          "argumentDetails": [
+          "constructor": "SegTreeTraversal(merge, identity, values, *, storage=None)",
+          "constructorArguments": "merge: merge(data, left_node, right_value)で左の区間と右の集約値を結合し、新しい集約値を返す。data[left_node]は左の集約値。左の子の番号はleft_nodeの2倍、右の子はその次の番号。right_valueはノード番号ではなく、子孫を参照できない値。dataと入力値を変更しない。 · identity: 空区間の集約値。余った葉と空区間のprodにも使う。同じobjectを共有するため、変更しない。 · values: 葉に置く初期値のiterable、またはidentityで埋める要素数。空でもよい。長さを持たないiterableだけ一度listへ変換する。 · storage: 省略するとlist。storage(capacity, identity)はidentityで初期化した長さcapacityの保存先を返す。整数添字による読書きとlenをO(1)で行えること。通常は指定不要。圧縮配列などを使いたい場合に指定する。省略時: None",
+          "constructorArgumentDetails": [
             {
-              "name": "size",
-              "description": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。"
+              "name": "merge",
+              "description": "merge(data, left_node, right_value)で左の区間と右の集約値を結合し、新しい集約値を返す。data[left_node]は左の集約値。左の子の番号はleft_nodeの2倍、右の子はその次の番号。right_valueはノード番号ではなく、子孫を参照できない値。dataと入力値を変更しない"
             },
             {
-              "name": "pull",
-              "description": "pull(node)として内部ノード番号を渡す。更新済みの子2*node・2*node+1と必要な子孫を参照し、親nodeへ結果を保存する。返り値は無視する。"
+              "name": "identity",
+              "description": "空区間の集約値。余った葉と空区間のprodにも使う。同じオブジェクトを共有するため、変更しない"
+            },
+            {
+              "name": "values",
+              "description": "葉に置く初期値の反復可能オブジェクト、またはidentityで埋める要素数。空でもよい。長さを持たない反復可能オブジェクトだけ一度listへ変換する"
+            },
+            {
+              "name": "storage",
+              "description": "省略するとlist。storage(capacity, identity)はidentityで初期化した長さcapacityの保存先を返す。整数添字による読書きとlenをO(1)で行えること。通常は指定不要。圧縮配列などを使いたい場合に指定する。省略時は None"
             }
           ],
-          "returns": "None — 値は返さない。pullが利用側の配列へ書き込み、根までの集約情報が構築される。",
-          "returnFormat": "None",
-          "returnDescription": "値は返さない。pullが利用側の配列へ書き込み、根までの集約情報が構築される。",
-          "complexity": "O(S*T)時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)なら全体O(S)",
-          "sourceLine": 4
-        },
-        {
-          "name": "update",
-          "kind": "function",
-          "signature": "update(size, index, pull)",
-          "summary": "変更済みの1枚の葉について、その祖先だけを下から再計算する。",
-          "description": "変更済みの1枚の葉について、その祖先だけを下から再計算する。",
-          "searchTerms": [
-            "update",
-            "update(size, index, pull)"
-          ],
-          "arguments": "size: 葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。 · index: 変更した葉の配列添字。0≤index<size。木のノード番号はsize+index。 · pull: pull(node)で親の保存値を書き換える。子とその子孫は更新済み。返り値は無視する。",
-          "argumentDetails": [
+          "constructorReturns": "SegTreeTraversal instance",
+          "constructorReturnFormat": "SegTreeTraversal",
+          "constructorReturnDescription": "入力順の葉と内部の集約値を持つ。setで一点置換、getで現在値、prodで半開区間の集約、all_prodで全体の集約を取得できる。配列確保・構築・祖先の再計算を利用側で書く必要はない。",
+          "constructorCreates": "入力順の葉と内部の集約値を持つ。setで一点置換、getで現在値、prodで半開区間の集約、all_prodで全体の集約を取得できる。配列確保・構築・祖先の再計算を利用側で書く必要はない。",
+          "constructorComplexity": "O((N+1)(T+1))時間・O(N+1)個の保存値。Tはmergeの1回の最大時間。高さhでO(h+1)なら構築O(N+1)。保存値自体の大きさは別",
+          "constructorSourceLine": 7,
+          "methods": [
             {
-              "name": "size",
-              "description": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。"
+              "name": "set",
+              "kind": "method",
+              "signature": "set(index, value)",
+              "summary": "葉を新しい値へ置き換え、祖先の集約値を更新する。",
+              "description": "葉を新しい値へ置き換え、祖先の集約値を更新する。",
+              "searchTerms": [
+                "set",
+                "set(index, value)"
+              ],
+              "arguments": "index: 変更する配列添字。0≤index<N。 · value: その葉へ保存する新しい値。mergeで扱える形式。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "変更する配列添字。0≤index<N。"
+                },
+                {
+                  "name": "value",
+                  "description": "その葉へ保存する新しい値。mergeで扱える形式。"
+                }
+              ],
+              "returns": "None — 値は返さない。indexの葉と、それを含む内部ノードの値が変わる。",
+              "returnFormat": "None",
+              "returnDescription": "値は返さない。indexの葉と、それを含む内部ノードの値が変わる。",
+              "complexity": "O((T+1) log(N+1)+1)時間・O(1)追加領域。Tはmergeの1回の最大時間。高さhでO(h+1)ならO(log²(N+1)+1)。merge内を除く",
+              "sourceLine": 32
             },
             {
-              "name": "index",
-              "description": "変更した葉の配列添字。0≤index<size。木のノード番号はsize+index。"
+              "name": "get",
+              "kind": "method",
+              "signature": "get(index)",
+              "summary": "1要素の現在値を取得する。",
+              "description": "1要素の現在値を取得する。",
+              "searchTerms": [
+                "get",
+                "get(index)"
+              ],
+              "arguments": "index: 取得する配列添字。0≤index<N。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "取得する配列添字。0≤index<N。"
+                }
+              ],
+              "returns": "object — index番の葉に保存された値。list保存時は深いコピーではない。",
+              "returnFormat": "object",
+              "returnDescription": "index番の葉に保存された値。list保存時は深いコピーではない。",
+              "complexity": "O(1)",
+              "sourceLine": 44
             },
             {
-              "name": "pull",
-              "description": "pull(node)で親の保存値を書き換える。子とその子孫は更新済み。返り値は無視する。"
+              "name": "prod",
+              "kind": "method",
+              "signature": "prod(left, right)",
+              "summary": "半開区間[left, right)を元の並び順で結合する。",
+              "description": "半開区間[left, right)を元の並び順で結合する。",
+              "searchTerms": [
+                "prod",
+                "prod(left, right)"
+              ],
+              "arguments": "left: 区間の左端を含む。0≤left≤right≤N。 · right: 区間の右端は含まない。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "区間の左端を含む。0≤left≤right≤N。"
+                },
+                {
+                  "name": "right",
+                  "description": "区間の右端は含まない。"
+                }
+              ],
+              "returns": "object — mergeが定める区間の集約値。区間を覆うノードを右から左へ結合する。空区間ではidentityそのもの。",
+              "returnFormat": "object",
+              "returnDescription": "mergeが定める区間の集約値。区間を覆うノードを右から左へ結合する。空区間ではidentityそのもの。",
+              "complexity": "O((T+1) log(N+1)+1)時間・O(1)追加領域。Tはmergeの1回の最大時間。高さhでO(h+1)ならO(log²(N+1)+1)。merge内と返り値を除く",
+              "sourceLine": 49
+            },
+            {
+              "name": "all_prod",
+              "kind": "method",
+              "signature": "all_prod()",
+              "summary": "配列全体の集約値を取得する。",
+              "description": "配列全体の集約値を取得する。",
+              "searchTerms": [
+                "all_prod",
+                "all prod",
+                "all_prod()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "object — 根に保存された全要素の集約値。空の木ではidentity。",
+              "returnFormat": "object",
+              "returnDescription": "根に保存された全要素の集約値。空の木ではidentity。",
+              "complexity": "O(1)",
+              "sourceLine": 63
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "現在の葉の値を入力順に一覧にする。",
+              "description": "現在の葉の値を入力順に一覧にする。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[object] — 長さNの新しいlist。result[i]はget(i)と同じ現在値。内部ノードや余った葉は含まない。要素自体は深いコピーではない。",
+              "returnFormat": "list[object]",
+              "returnDescription": "長さNの新しいlist。result[i]はget(i)と同じ現在値。内部ノードや余った葉は含まない。要素自体は深いコピーではない。",
+              "complexity": "O(N+1)時間・追加メモリ",
+              "sourceLine": 66
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "配列の要素数を返す。",
+              "description": "配列の要素数を返す。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — 構築時の要素数N。余った葉は数えない。",
+              "returnFormat": "int",
+              "returnDescription": "構築時の要素数N。余った葉は数えない。",
+              "complexity": "O(1)",
+              "sourceLine": 71
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の要素列を表示する。",
+              "description": "現在の要素列を表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()の内容を文字列化したもの。木の状態は変えない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()の内容を文字列化したもの。木の状態は変えない。",
+              "complexity": "O(N+L)時間・追加メモリ。Lは値を文字列化した長さ",
+              "sourceLine": 74
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "型名付きで現在の要素列を表示する。",
+              "description": "型名付きで現在の要素列を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — SegTreeTraversal([...])の形式の文字列。内部ノードは表示しない。",
+              "returnFormat": "str",
+              "returnDescription": "SegTreeTraversal([...])の形式の文字列。内部ノードは表示しない。",
+              "complexity": "O(N+L)時間・追加メモリ。Lは値を文字列化した長さ",
+              "sourceLine": 77
             }
-          ],
-          "returns": "None — 値は返さない。pullによって対象の葉の親から根までが更新される。葉自体はこの関数を呼ぶ前に変更する。",
-          "returnFormat": "None",
-          "returnDescription": "値は返さない。pullによって対象の葉の親から根までが更新される。葉自体はこの関数を呼ぶ前に変更する。",
-          "complexity": "O((T+1) log(S+1))時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)ならO(log²(S+1))",
-          "sourceLine": 12
-        },
-        {
-          "name": "fold",
-          "kind": "function",
-          "signature": "fold(size, left, right, prepend, initial)",
-          "summary": "半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。",
-          "description": "半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。",
-          "searchTerms": [
-            "fold",
-            "fold(size, left, right, prepend, initial)"
-          ],
-          "arguments": "size: 葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。 · left: 半開区間の左端を含む。0≤left≤right≤size。 · right: 半開区間の右端は含まない。 · prepend: prepend(node, result)で、ノードnodeの区間をresultの左へつなげた集約値を返す。nodeの子孫を参照できる。木の保存値を変更しない。 · initial: 区間の右側へつなぐ初期状態。普通の区間取得には空区間の集約値を渡す。空区間ならcallbackを呼ばない。",
-          "argumentDetails": [
-            {
-              "name": "size",
-              "description": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。"
-            },
-            {
-              "name": "left",
-              "description": "半開区間の左端を含む。0≤left≤right≤size。"
-            },
-            {
-              "name": "right",
-              "description": "半開区間の右端は含まない。"
-            },
-            {
-              "name": "prepend",
-              "description": "prepend(node, result)で、ノードnodeの区間をresultの左へつなげた集約値を返す。nodeの子孫を参照できる。木の保存値を変更しない。"
-            },
-            {
-              "name": "initial",
-              "description": "区間の右側へつなぐ初期状態。普通の区間取得には空区間の集約値を渡す。空区間ならcallbackを呼ばない。"
-            }
-          ],
-          "returns": "object — prepend(node, result)を右から左へ適用した累積値。型・内容はcallbackが定義する。空区間ではinitialそのもの。途中結果同士は結合しない。",
-          "returnFormat": "object",
-          "returnDescription": "prepend(node, result)を右から左へ適用した累積値。型・内容はcallbackが定義する。空区間ではinitialそのもの。途中結果同士は結合しない。",
-          "complexity": "O((T+1) log(S+1))時間・O(1)追加メモリ（callback内と返り値を除く）。S=size、Tはprependの1回の最大時間。高さhでO(h+1)ならO(log²(S+1))",
-          "sourceLine": 22
+          ]
         }
-      ],
-      "classes": []
+      ]
     },
     {
       "category": "segment_tree",

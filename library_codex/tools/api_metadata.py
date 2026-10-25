@@ -8521,32 +8521,40 @@ API_DETAILS_BY_SYMBOL[(_mf_module, None, "dirichlet_divide")] = {
 
 _traversal_module = "segment_tree/SegTreeTraversal.py"
 SEARCH_TERMS_BY_MODULE[_traversal_module] = ("Keyboard", "ちょっと重いセグ木", "子孫参照マージ")
+CLASS_DETAILS_BY_SYMBOL[(_traversal_module, "SegTreeTraversal")] = {
+    "description": "左の部分木へ降りられる結合処理で配列を管理する。葉の配置・構築・更新・区間分割はclassが行い、利用側はmergeを1つ渡す。",
+    "argumentDescriptions": {
+        "merge": "`merge(data, left_node, right_value)`で左の区間と右の集約値を結合し、新しい集約値を返す。`data[left_node]`は左の集約値。左の子の番号はleft_nodeの2倍、右の子はその次の番号。right_valueはノード番号ではなく、子孫を参照できない値。dataと入力値を変更しない。",
+        "identity": "空区間の集約値。余った葉と空区間のprodにも使う。同じobjectを共有するため、変更しない。",
+        "values": "葉に置く初期値のiterable、またはidentityで埋める要素数。空でもよい。長さを持たないiterableだけ一度listへ変換する。",
+        "storage": "省略するとlist。`storage(capacity, identity)`はidentityで初期化した長さcapacityの保存先を返す。整数添字による読書きとlenをO(1)で行えること。通常は指定不要。圧縮配列などを使いたい場合に指定する。",
+    },
+    "constructorCreates": "入力順の葉と内部の集約値を持つ。setで一点置換、getで現在値、prodで半開区間の集約、all_prodで全体の集約を取得できる。配列確保・構築・祖先の再計算を利用側で書く必要はない。",
+}
 COMPLEXITY_BY_MODULE[_traversal_module] = {
-    "build": "O(S*T)時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)なら全体O(S)",
-    "update": "O((T+1) log(S+1))時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)ならO(log²(S+1))",
-    "fold": "O((T+1) log(S+1))時間・O(1)追加メモリ（callback内と返り値を除く）。S=size、Tはprependの1回の最大時間。高さhでO(h+1)ならO(log²(S+1))",
+    "SegTreeTraversal": "O((N+1)(T+1))時間・O(N+1)個の保存値。Tはmergeの1回の最大時間。高さhでO(h+1)なら構築O(N+1)。保存値自体の大きさは別",
+    "set": "O((T+1) log(N+1)+1)時間・O(1)追加領域。Tはmergeの1回の最大時間。高さhでO(h+1)ならO(log²(N+1)+1)。merge内を除く",
+    "prod": "O((T+1) log(N+1)+1)時間・O(1)追加領域。Tはmergeの1回の最大時間。高さhでO(h+1)ならO(log²(N+1)+1)。merge内と返り値を除く",
+    "get": "O(1)",
+    "all_prod": "O(1)",
+    "tolist": "O(N+1)時間・追加メモリ",
+    "__len__": "O(1)",
+    "__str__": "O(N+L)時間・追加メモリ。Lは値を文字列化した長さ",
+    "__repr__": "O(N+L)時間・追加メモリ。Lは値を文字列化した長さ",
 }
 for _name, _description, _format, _returns, _arguments in (
-    ("build", "配置済みの葉から全内部ノードを子から親の順に再計算する。", "None", "値は返さない。pullが利用側の配列へ書き込み、根までの集約情報が構築される。", {
-        "pull": "pull(node)として内部ノード番号を渡す。更新済みの子2*node・2*node+1と必要な子孫を参照し、親nodeへ結果を保存する。返り値は無視する。",
-    }),
-    ("update", "変更済みの1枚の葉について、その祖先だけを下から再計算する。", "None", "値は返さない。pullによって対象の葉の親から根までが更新される。葉自体はこの関数を呼ぶ前に変更する。", {
-        "index": "変更した葉の配列添字。0≤index<size。木のノード番号はsize+index。",
-        "pull": "pull(node)で親の保存値を書き換える。子とその子孫は更新済み。返り値は無視する。",
-    }),
-    ("fold", "半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。", "object", "prepend(node, result)を右から左へ適用した累積値。型・内容はcallbackが定義する。空区間ではinitialそのもの。途中結果同士は結合しない。", {
-        "left": "半開区間の左端を含む。0≤left≤right≤size。",
-        "right": "半開区間の右端は含まない。",
-        "prepend": "prepend(node, result)で、ノードnodeの区間をresultの左へつなげた集約値を返す。nodeの子孫を参照できる。木の保存値を変更しない。",
-        "initial": "区間の右側へつなぐ初期状態。普通の区間取得には空区間の集約値を渡す。空区間ならcallbackを呼ばない。",
-    }),
+    ("set", "葉を新しい値へ置き換え、祖先の集約値を更新する。", "None", "値は返さない。indexの葉と、それを含む内部ノードの値が変わる。", {"index": "変更する配列添字。0≤index<N。", "value": "その葉へ保存する新しい値。mergeで扱える形式。"}),
+    ("get", "1要素の現在値を取得する。", "object", "index番の葉に保存された値。list保存時は深いコピーではない。", {"index": "取得する配列添字。0≤index<N。"}),
+    ("prod", "半開区間[left, right)を元の並び順で結合する。", "object", "mergeが定める区間の集約値。区間を覆うノードを右から左へ結合する。空区間ではidentityそのもの。", {"left": "区間の左端を含む。0≤left≤right≤N。", "right": "区間の右端は含まない。"}),
+    ("all_prod", "配列全体の集約値を取得する。", "object", "根に保存された全要素の集約値。空の木ではidentity。", {}),
+    ("tolist", "現在の葉の値を入力順に一覧にする。", "list[object]", "長さNの新しいlist。result[i]はget(i)と同じ現在値。内部ノードや余った葉は含まない。要素自体は深いコピーではない。", {}),
+    ("__len__", "配列の要素数を返す。", "int", "構築時の要素数N。余った葉は数えない。", {}),
+    ("__str__", "現在の要素列を表示する。", "str", "tolist()の内容を文字列化したもの。木の状態は変えない。", {}),
+    ("__repr__", "型名付きで現在の要素列を表示する。", "str", "SegTreeTraversal([...])の形式の文字列。内部ノードは表示しない。", {}),
 ):
-    API_DETAILS_BY_SYMBOL[(_traversal_module, None, _name)] = {
+    API_DETAILS_BY_SYMBOL[(_traversal_module, "SegTreeTraversal", _name)] = {
         "description": _description, "returnFormat": _format, "returnDescription": _returns,
-        "argumentDescriptions": {
-            "size": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。",
-            **_arguments,
-        },
+        "argumentDescriptions": _arguments,
     }
 
 _rect_affine_module = "spatial_structure/RectangleAffineSum.py"

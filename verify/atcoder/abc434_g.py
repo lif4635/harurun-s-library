@@ -1,105 +1,94 @@
 from array import array
 import sys
 
-from library_codex.segment_tree.SegTreeTraversal import build, fold, update
+from library_codex.segment_tree.SegTreeTraversal import SegTreeTraversal
+
+
+class _KeyboardData:
+    __slots__ = ("back", "length", "value", "head", "power")
+
+    def __init__(self, capacity, n):
+        self.back = array("I", [0]) * capacity
+        self.length = array("I", [0]) * capacity
+        self.value = array("I", [0]) * capacity
+        self.head = array("I", [0]) * (capacity >> 1)
+        self.power = power = array("I", [1]) * (n + 1)
+        p = 1
+        for i in range(n):
+            p = p * 10 % 998244353
+            power[i + 1] = p
+
+    def __len__(self):
+        return len(self.back)
+
+    def __getitem__(self, node):
+        return self.back[node], self.length[node], self.value[node], self.head[node] if node < len(self.head) else 0
+
+    def __setitem__(self, node, value):
+        if isinstance(value, int):
+            if value != 66 and not 49 <= value <= 57:
+                raise ValueError("expected digits 1..9 or B")
+            back, length, value, head = (1, 0, 0, 0) if value == 66 else (0, 1, value - 48, 0)
+        else:
+            back, length, value, head = value
+        self.back[node] = back
+        self.length[node] = length
+        self.value[node] = value
+        if node < len(self.head):
+            self.head[node] = head
+
+
+def _merge(data, node, right):
+    back, length, value, _ = right
+    kept = data.length[node] - back
+    if kept <= 0:
+        return data.back[node] - kept, length, value, 0
+    back = data.back[node]
+    power = data.power
+    prefix = data.value[node]
+    if kept != data.length[node]:
+        count = kept
+        prefix = 0
+        lengths = data.length
+        values = data.value
+        head = data.head
+        while count and count != lengths[node]:
+            child = node << 1 | 1
+            first = lengths[node] - lengths[child]
+            if count <= first:
+                node <<= 1
+            else:
+                prefix = (prefix * power[first] + head[node]) % 998244353
+                count -= first
+                node = child
+        if count:
+            prefix = (prefix * power[count] + values[node]) % 998244353
+    return back, kept + length, (prefix * power[length] + value) % 998244353, prefix
 
 
 class Keyboard:
-    __slots__ = ("n", "size", "back", "length", "value", "head", "power")
+    __slots__ = ("tree", "n")
 
     def __init__(self, text):
         if isinstance(text, str):
             text = text.encode()
-        n = len(text)
-        size = 1 << (n - 1).bit_length() if n else 1
-        self.n = n
-        self.size = size
-        self.back = back = array("I", [0]) * (size << 1)
-        self.length = length = array("I", [0]) * (size << 1)
-        self.value = value = array("I", [0]) * (size << 1)
-        self.head = array("I", [0]) * size
-        self.power = power = array("I", [1]) * (n + 1)
-        p = 1
-        for i in range(n):
-            c = text[i]
-            if c == 66:
-                back[size + i] = 1
-            elif 49 <= c <= 57:
-                length[size + i] = 1
-                value[size + i] = c - 48
-            else:
-                raise ValueError("expected digits 1..9 or B")
-            p = p * 10 % 998244353
-            power[i + 1] = p
-        build(size, self._pull)
-
-    def _prefix(self, node, count):
-        length = self.length
-        value = self.value
-        head = self.head
-        power = self.power
-        result = 0
-        while count and count != length[node]:
-            right = node << 1 | 1
-            kept = length[node] - length[right]
-            if count <= kept:
-                node <<= 1
-            else:
-                result = (result * power[kept] + head[node]) % 998244353
-                count -= kept
-                node = right
-        if count:
-            result = (result * power[count] + value[node]) % 998244353
-        return result
-
-    def _pull(self, node):
-        left = node << 1
-        right = left | 1
-        back = self.back
-        length = self.length
-        value = self.value
-        kept = length[left] - back[right]
-        if kept <= 0:
-            back[node] = back[left] - kept
-            length[node] = length[right]
-            value[node] = value[right]
-            self.head[node] = 0
-        else:
-            prefix = value[left] if kept == length[left] else self._prefix(left, kept)
-            back[node] = back[left]
-            length[node] = kept + length[right]
-            self.head[node] = prefix
-            value[node] = (prefix * self.power[length[right]] + value[right]) % 998244353
-
-    def _prepend(self, node, result):
-        back, length, value = result
-        kept = self.length[node] - back
-        if kept <= 0:
-            return self.back[node] - kept, length, value
-        prefix = self.value[node] if kept == self.length[node] else self._prefix(node, kept)
-        return self.back[node], kept + length, (prefix * self.power[length] + value) % 998244353
+        self.n = n = len(text)
+        self.tree = SegTreeTraversal(_merge, (0, 0, 0, 0), text,
+                                     storage=lambda capacity, identity: _KeyboardData(capacity, n))
 
     def set(self, index, char):
-        if not 0 <= index < self.n:
-            raise IndexError("index outside string")
         if isinstance(char, (str, bytes)):
             char = ord(char)
-        if char != 66 and not 49 <= char <= 57:
-            raise ValueError("expected a digit 1..9 or B")
-        node = self.size + index
-        self.back[node] = int(char == 66)
-        self.length[node] = int(char != 66)
-        self.value[node] = 0 if char == 66 else char - 48
-        update(self.size, index, self._pull)
+        self.tree.set(index, char)
 
     def prod(self, left, right):
-        if not 0 <= left <= right <= self.n:
-            raise IndexError("invalid half-open range")
-        return fold(self.size, left, right, self._prepend, (0, 0, 0))
+        back, length, value, _ = self.tree.prod(left, right)
+        return back, length, value
 
     def tolist(self):
-        size = self.size
-        return ["B" if self.back[size + i] else str(self.value[size + i]) for i in range(self.n)]
+        data = self.tree.data
+        size = self.tree.size
+        return ["B" if data.back[size + i] else str(data.value[size + i]) for i in range(self.n)]
 
     def __str__(self):
         return "".join(self.tolist())

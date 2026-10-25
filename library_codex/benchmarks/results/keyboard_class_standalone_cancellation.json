@@ -1,0 +1,102 @@
+{
+  "n": 8000000,
+  "q": 200000,
+  "case": "cancellation",
+  "python": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "affinity": null,
+  "timing": "fresh isolated standalone process; includes startup, JIT, stdin/stdout, excludes fixture generation; no warmup",
+  "validation": "all stdout compared with imported implementation; independent naive oracle covered by unit tests, not this maximum-size fixture; not official judge data or online AC",
+  "inputSha256": "792477c450c5ae7b94fa2ad87bfb709f654e2710765fd8fd9d049bb9d8c3e6cc",
+  "sourceHashes": {
+    "verify/atcoder/abc434_g_standalone.py": "df506b54b730489d4e902dbc6ca0a95b641a7b13b76760cfa2ac4e5dde2d9726",
+    "verify/atcoder/benchmark_keyboard.py": "40340d35950024c3dd82adf68512fea1a67f813ae6a381860f20a5ed43e2c10f",
+    "verify/atcoder/abc434_g.py": "ef4e57326511ed4896223b0e13455e2765f22fc7c5da54b5a386ee8286988ef9",
+    "library_codex/segment_tree/SegTreeTraversal.py": "d4e74d76fb4738f665380f7713769667a3989e096cd68e9cc9d7af74c2a2819f",
+    "library_codex/benchmarks/experiments/keyboard_functions.py": "cef7f5bdbb48567b30be3e421ef35a6cc9cc0d20e0d0360b66eb6733cd39c517"
+  },
+  "records": [
+    {
+      "variant": "functions",
+      "repeat": 0,
+      "seconds": 2.12859454700083,
+      "peakRssKiB": 343424,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "class",
+      "repeat": 0,
+      "seconds": 1.9899025060003623,
+      "peakRssKiB": 345224,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "class",
+      "repeat": 1,
+      "seconds": 2.2408452469971962,
+      "peakRssKiB": 345000,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "functions",
+      "repeat": 1,
+      "seconds": 2.0026005639956566,
+      "peakRssKiB": 343544,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "functions",
+      "repeat": 2,
+      "seconds": 2.0558703689894173,
+      "peakRssKiB": 343736,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "class",
+      "repeat": 2,
+      "seconds": 2.05976410000585,
+      "peakRssKiB": 345112,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "class",
+      "repeat": 3,
+      "seconds": 2.2583362360019237,
+      "peakRssKiB": 345196,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "functions",
+      "repeat": 3,
+      "seconds": 2.2604654260067036,
+      "peakRssKiB": 343620,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "functions",
+      "repeat": 4,
+      "seconds": 2.0157842640037416,
+      "peakRssKiB": 343732,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "variant": "class",
+      "repeat": 4,
+      "seconds": 2.1749316079949494,
+      "peakRssKiB": 345204,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    }
+  ],
+  "medians": [
+    {
+      "variant": "functions",
+      "seconds": 2.0558703689894173,
+      "peakRssKiB": 343620
+    },
+    {
+      "variant": "class",
+      "seconds": 2.1749316079949494,
+      "peakRssKiB": 345196
+    }
+  ]
+}

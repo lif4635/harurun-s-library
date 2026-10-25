@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-from library_codex.segment_tree.SegTreeTraversal import build, fold, update
+from library_codex.segment_tree.SegTreeTraversal import SegTreeTraversal
 from verify.atcoder.abc434_g import Keyboard
 
 
@@ -26,48 +26,72 @@ def normalize(text):
     return back, len(digits), value
 
 
-@pytest.mark.parametrize("size", [1, 2, 4, 8, 32, 128])
-def test_noncommutative_order(size):
-    data = [""] * (size * 2)
-    data[size:] = [chr(33 + i % 80) for i in range(size)]
+@pytest.mark.parametrize("n", [0, 1, 2, 3, 7, 32, 65, 128])
+def test_noncommutative_order(n):
+    values = [chr(33 + i % 80) for i in range(n)]
     calls = []
 
-    def pull(node):
+    def merge(data, node, right):
         calls.append(node)
-        data[node] = data[node * 2] + data[node * 2 + 1]
+        assert node > 0
+        return data[node] + right
 
-    build(size, pull)
-    assert calls == list(range(size - 1, 0, -1))
-    for left in range(size + 1):
-        for right in range(left, size + 1):
-            nodes = []
-
-            def prepend(node, result):
-                nodes.append(node)
-                return data[node] + result
-
-            assert fold(size, left, right, prepend, "!") == "".join(data[size + left:size + right]) + "!"
-            assert len(nodes) <= 2 * size.bit_length()
-    for index in range(size):
-        data[size + index] = "x"
+    tree = SegTreeTraversal(merge, "", values)
+    assert len(calls) == tree.size - 1
+    for left in range(n + 1):
+        for right in range(left, n + 1):
+            calls.clear()
+            assert tree.prod(left, right) == "".join(values[left:right])
+            assert len(calls) <= 2 * tree.size.bit_length()
+    for index in range(n):
         calls.clear()
-        update(size, index, pull)
-        assert len(calls) == size.bit_length() - 1
-        assert data[1] == "".join(data[size:])
+        tree.set(index, "x")
+        values[index] = "x"
+        assert len(calls) == tree.size.bit_length() - 1
+        assert tree.get(index) == "x"
+        assert tree.all_prod() == "".join(values)
+    assert len(tree) == n
+    assert tree.tolist() == values
+    assert str(tree) == str(values)
+    assert repr(tree) == "SegTreeTraversal(%r)" % values
+    assert tree.prod(0, n) == "".join(values)
 
 
 def test_validation():
-    for size in [0, -1, 3, 6]:
-        with pytest.raises(ValueError):
-            build(size, lambda node: None)
-    for index in [-1, 8]:
+    merge = lambda data, node, right: data[node] + right
+    with pytest.raises(ValueError):
+        SegTreeTraversal(merge, 0, -1)
+    with pytest.raises(ValueError):
+        SegTreeTraversal(merge, 0, [1], storage=lambda n, e: [])
+    tree = SegTreeTraversal(merge, 0, [1, 2, 3])
+    for index in [-1, 3, 4]:
         with pytest.raises(IndexError):
-            update(8, index, lambda node: None)
-    for left, right in [(-1, 1), (3, 2), (0, 9)]:
+            tree.set(index, 99)
         with pytest.raises(IndexError):
-            fold(8, left, right, lambda node, result: result, None)
+            tree.get(index)
+    for left, right in [(-1, 1), (3, 2), (0, 4)]:
+        with pytest.raises(IndexError):
+            tree.prod(left, right)
+    assert tree.tolist() == [1, 2, 3]
     token = object()
-    assert fold(1, 0, 0, lambda *args: pytest.fail("empty interval"), token) is token
+    empty = SegTreeTraversal(lambda *args: pytest.fail("empty interval"), token, [])
+    assert empty.prod(0, 0) is token
+    assert empty.all_prod() is token
+
+
+def test_storage_and_iterable():
+    from array import array
+
+    merge = lambda data, node, right: data[node] + right
+    tree = SegTreeTraversal(merge, 0, (i for i in range(5)))
+    assert tree.tolist() == list(range(5))
+    assert tree.all_prod() == 10
+    tree = SegTreeTraversal(merge, 0, 5, storage=lambda n, e: array("q", [e]) * n)
+    assert isinstance(tree.data, array)
+    tree.set(3, 7)
+    assert tree.get(3) == 7
+    assert tree.prod(1, 5) == 7
+    assert tree.tolist() == [0, 0, 0, 7, 0]
 
 
 @pytest.mark.parametrize("n", [0, 1, 2, 3, 7, 16, 31, 65, 129])
@@ -94,9 +118,9 @@ def test_keyboard_random(n):
 def test_keyboard_prefix_and_boundaries():
     for text in ["B" * 35, "1" * 35, "1234567891BBBBBBB456", "9B" * 80, "B23567", "1" * 70 + "B" * 40 + "23456789"]:
         tree = Keyboard(text)
-        for node in range(1, tree.size * 2):
-            height = tree.size.bit_length() - node.bit_length()
-            left = (node << height) - tree.size
+        for node in range(1, tree.tree.size * 2):
+            height = tree.tree.size.bit_length() - node.bit_length()
+            left = (node << height) - tree.tree.size
             right = left + (1 << height)
             digits = []
             for c in text[left:right]:
@@ -105,7 +129,7 @@ def test_keyboard_prefix_and_boundaries():
                 elif digits:
                     digits.pop()
             for count in range(len(digits) + 1):
-                assert tree._prefix(node, count) == normalize(digits[:count])[2]
+                assert tree.tree.merge(tree.tree.data, node, (len(digits) - count, 0, 0, 0))[2] == normalize(digits[:count])[2]
         for left in range(len(text) + 1):
             for right in range(left, len(text) + 1):
                 assert tree.prod(left, right) == normalize(text[left:right])
@@ -147,14 +171,19 @@ def test_standalone(tmp_path):
     assert run.stdout.split() == ["567", "2345678", "236323538", "-1", "5678", "567891", "589", "125891"]
 
 
-def test_variants():
-    from library_codex.benchmarks.seg_tree_traversal import stack_fold
+def test_default_storage_supports_descendant_merge():
+    def merge(data, node, right):
+        text, removed = right
+        left_text, left_removed = data[node]
+        keep = len(left_text) - removed
+        if keep <= 0:
+            return text, left_removed - keep
+        while node * 2 < len(data) and len(data[node * 2][0]) >= keep:
+            node *= 2
+        return data[node][0][:keep] + text, left_removed
 
-    size = 128
-    data = [""] * (size * 2)
-    data[size:] = [chr(33 + i % 80) for i in range(size)]
-    build(size, lambda node: data.__setitem__(node, data[node * 2] + data[node * 2 + 1]))
-    prepend = lambda node, value: data[node] + value
-    for left in range(size + 1):
-        for right in range(left, size + 1):
-            assert fold(size, left, right, prepend, "") == stack_fold(size, left, right, prepend, "")
+    values = [("a", 0), ("b", 0), ("c", 0), ("", 2)]
+    tree = SegTreeTraversal(merge, ("", 0), values)
+    assert tree.prod(0, 4) == ("a", 0)
+    tree.set(1, ("", 1))
+    assert tree.prod(0, 4) == ("", 1)

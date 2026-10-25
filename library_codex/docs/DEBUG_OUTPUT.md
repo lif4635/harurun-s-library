@@ -94,6 +94,10 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 
 `RectangleAffineSum.tolist()`は入力順の現在の重みで、無効な点は`None`。`str`は同じlist、`repr`は座標・重み・法を型名付きで表示する。列挙はO(N+1)時間・追加メモリ。保留中の作用を反映するが、論理的な値は変わらず、その後も更新・集計を続けられる。
 
+## 子孫参照マージのセグメント木
+
+`SegTreeTraversal.tolist()`は現在の葉を配列添字順の新しいlistとして返す。内部ノード・余った葉は含めない。`str`は同じlist、`repr`は`SegTreeTraversal([...])`。O(N+1)時間・追加メモリで、要素自体は深いコピーではない。表示で木の状態は変えない。
+
 ## 中心の辺更新と最小カット
 
 `DynamicStarMinCut.tolist()`は中心から元頂点への辺重みを元頂点順に返す新しいlist。`str`は同じlist、`repr`は`DynamicStarMinCut([...])`。列挙はO(N)時間・追加メモリで、固定辺やカット候補の内部状態は含まない。`cut()`では最小カットを実現する、中心を含まない側の元頂点を昇順listで確認できる。いずれも更新状態は変更しない。

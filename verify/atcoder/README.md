@@ -8,7 +8,7 @@
 - [共通部品の使い方](../../library_codex/docs/articles/segment_tree/SegTreeTraversal.md)
 - [PyPyの比較条件・結果](../../library_codex/docs/SEG_TREE_TRAVERSAL_BENCHMARK.md)
 
-`Keyboard`は文字列の一点変更と、半開区間へ数字入力・末尾削除を適用した結果を扱う。`SegTreeTraversal`が木の構築・祖先の再計算・右からの区間結合を担当し、文字列固有のマージはこの実装例に置く。
+`Keyboard`は文字列の一点変更と、半開区間へ数字入力・末尾削除を適用した結果を扱う。`SegTreeTraversal` classへ結合処理を1つ渡し、構築・set・prodを共通利用する。最大規模の保存量を抑えるため、この例ではstorageに32bit整数配列の保存先を指定する。
 
 リポジトリ直下から実行する場合：
 
