@@ -20,5 +20,6 @@
 | [`RangeLIS`](RangeLIS.md) | Seaweed monoidによる静的区間LIS | 1 | 1 | 1 |
 | [`RangeLinearAddRangeMin`](RangeLinearAddRangeMin.md) | indexの一次式を区間加算し、区間最小値を求める構造。 | 0 | 1 | 5 |
 | [`SegTree`](SegTree.md) | 一点更新・区間集約・境界探索を行う汎用SegTree | 0 | 1 | 11 |
+| [`SegTreeTraversal`](SegTreeTraversal.md) | 子孫を参照するマージ用に、構築・一点更新・右からの区間結合を行う。 | 3 | 0 | 0 |
 | [`SegmentTreeBeats`](SegmentTreeBeats.md) | range chmin/chmax/add/update・range sum/min/max（非再帰） | 0 | 1 | 15 |
 | [`SortableSegmentTree`](SortableSegmentTree.md) | 部分列の昇順・降順sortと区間monoid積を処理する列構造。 | 0 | 1 | 3 |

@@ -1,0 +1,100 @@
+{
+  "python": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "affinity": null,
+  "cpuInfo": ": AMD Ryzen 7 3700X 8-Core Processor",
+  "timing": "fresh process; no warmup; build and operations include JIT, exclude input generation and interpreter startup; peak RSS includes input generation",
+  "sourceHashes": {
+    "library_codex/segment_tree/SegTreeTraversal.py": "66d08c71e380d349a84a03ebd3d5634cbece4f6ea631cecf2baa4493c6cae21a",
+    "verify/atcoder/abc434_g.py": "1e7c83c4fd825775f5852357591f7f3d68919c617b4677a31069a34b9cf3954c",
+    "library_codex/benchmarks/seg_tree_traversal.py": "2ec4158561bc95768eec689d6024a4624dac24abbefecdd3553171b658c53e28"
+  },
+  "records": [
+    {
+      "variant": "shared",
+      "case": "cancellation",
+      "n": 8000000,
+      "q": 200000,
+      "inputHash": "774ec722b86aaa4f4f775c73140b6699958b499da9a610292737501e2e2c3eed",
+      "checksum": 677075293,
+      "buildSeconds": 0.459128251997754,
+      "operationsSeconds": 1.624872635002248,
+      "totalSeconds": 2.084000887000002,
+      "peakRssKiB": 374808,
+      "repeat": 0
+    },
+    {
+      "variant": "inline",
+      "case": "cancellation",
+      "n": 8000000,
+      "q": 200000,
+      "inputHash": "774ec722b86aaa4f4f775c73140b6699958b499da9a610292737501e2e2c3eed",
+      "checksum": 677075293,
+      "buildSeconds": 0.3324237339984393,
+      "operationsSeconds": 1.6540540860005422,
+      "totalSeconds": 1.9864778199989814,
+      "peakRssKiB": 374320,
+      "repeat": 0
+    },
+    {
+      "variant": "shared",
+      "case": "digits",
+      "n": 8000000,
+      "q": 200000,
+      "inputHash": "4c2466b7db4a59abc7be01596c5cd778d67a5c50e85f197a051b69c6107cc975",
+      "checksum": 401817449,
+      "buildSeconds": 0.3101517859977321,
+      "operationsSeconds": 0.7555507790020783,
+      "totalSeconds": 1.0657025649998104,
+      "peakRssKiB": 376444,
+      "repeat": 0
+    },
+    {
+      "variant": "inline",
+      "case": "digits",
+      "n": 8000000,
+      "q": 200000,
+      "inputHash": "4c2466b7db4a59abc7be01596c5cd778d67a5c50e85f197a051b69c6107cc975",
+      "checksum": 401817449,
+      "buildSeconds": 0.2783815310031059,
+      "operationsSeconds": 0.8077522379971924,
+      "totalSeconds": 1.0861337690002983,
+      "peakRssKiB": 376460,
+      "repeat": 0
+    }
+  ],
+  "medians": [
+    {
+      "case": "cancellation",
+      "variant": "shared",
+      "buildSeconds": 0.459128251997754,
+      "operationsSeconds": 1.624872635002248,
+      "totalSeconds": 2.084000887000002,
+      "peakRssKiB": 374808
+    },
+    {
+      "case": "cancellation",
+      "variant": "inline",
+      "buildSeconds": 0.3324237339984393,
+      "operationsSeconds": 1.6540540860005422,
+      "totalSeconds": 1.9864778199989814,
+      "peakRssKiB": 374320
+    },
+    {
+      "case": "digits",
+      "variant": "shared",
+      "buildSeconds": 0.3101517859977321,
+      "operationsSeconds": 0.7555507790020783,
+      "totalSeconds": 1.0657025649998104,
+      "peakRssKiB": 376444
+    },
+    {
+      "case": "digits",
+      "variant": "inline",
+      "buildSeconds": 0.2783815310031059,
+      "operationsSeconds": 0.8077522379971924,
+      "totalSeconds": 1.0861337690002983,
+      "peakRssKiB": 376460
+    }
+  ]
+}

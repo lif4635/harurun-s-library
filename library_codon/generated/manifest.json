@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 402,
+  "moduleCount": 403,
   "supportedCount": 7,
   "modules": [
     {
@@ -1809,6 +1809,12 @@
       "status": "supported",
       "standalonePath": "segment_tree/SegTree.codon",
       "standaloneSha256": "6547e265d5439888837fdcf4c9162264aad24439c43b85ca5c3c4829a322e732"
+    },
+    {
+      "modulePath": "segment_tree/SegTreeTraversal",
+      "sourcePath": "library_codex/segment_tree/SegTreeTraversal.py",
+      "sourceSha256": "66d08c71e380d349a84a03ebd3d5634cbece4f6ea631cecf2baa4493c6cae21a",
+      "status": "unsupported"
     },
     {
       "modulePath": "segment_tree/SegmentTreeBeats",

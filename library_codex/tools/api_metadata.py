@@ -8519,6 +8519,36 @@ API_DETAILS_BY_SYMBOL[(_mf_module, None, "dirichlet_divide")] = {
     "returnDescription": r"新しいseries。$h(n)=\sum_{ab=n}f(a)g(b)$を満たすgについて、`result.data[result.index(x)]`に$\sum_{i=1}^xg(i)$を持つ。0番は0、残りは商の昇順。法指定時はその余り。",
 }
 
+_traversal_module = "segment_tree/SegTreeTraversal.py"
+SEARCH_TERMS_BY_MODULE[_traversal_module] = ("Keyboard", "ちょっと重いセグ木", "子孫参照マージ")
+COMPLEXITY_BY_MODULE[_traversal_module] = {
+    "build": "O(S*T)時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)なら全体O(S)",
+    "update": "O((T+1) log(S+1))時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)ならO(log²(S+1))",
+    "fold": "O((T+1) log(S+1))時間・O(1)追加メモリ（callback内と返り値を除く）。S=size、Tはprependの1回の最大時間。高さhでO(h+1)ならO(log²(S+1))",
+}
+for _name, _description, _format, _returns, _arguments in (
+    ("build", "配置済みの葉から全内部ノードを子から親の順に再計算する。", "None", "値は返さない。pullが利用側の配列へ書き込み、根までの集約情報が構築される。", {
+        "pull": "pull(node)として内部ノード番号を渡す。更新済みの子2*node・2*node+1と必要な子孫を参照し、親nodeへ結果を保存する。返り値は無視する。",
+    }),
+    ("update", "変更済みの1枚の葉について、その祖先だけを下から再計算する。", "None", "値は返さない。pullによって対象の葉の親から根までが更新される。葉自体はこの関数を呼ぶ前に変更する。", {
+        "index": "変更した葉の配列添字。0≤index<size。木のノード番号はsize+index。",
+        "pull": "pull(node)で親の保存値を書き換える。子とその子孫は更新済み。返り値は無視する。",
+    }),
+    ("fold", "半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。", "object", "prepend(node, result)を右から左へ適用した累積値。型・内容はcallbackが定義する。空区間ではinitialそのもの。途中結果同士は結合しない。", {
+        "left": "半開区間の左端を含む。0≤left≤right≤size。",
+        "right": "半開区間の右端は含まない。",
+        "prepend": "prepend(node, result)で、ノードnodeの区間をresultの左へつなげた集約値を返す。nodeの子孫を参照できる。木の保存値を変更しない。",
+        "initial": "区間の右側へつなぐ初期状態。普通の区間取得には空区間の集約値を渡す。空区間ならcallbackを呼ばない。",
+    }),
+):
+    API_DETAILS_BY_SYMBOL[(_traversal_module, None, _name)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns,
+        "argumentDescriptions": {
+            "size": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。",
+            **_arguments,
+        },
+    }
+
 _rect_affine_module = "spatial_structure/RectangleAffineSum.py"
 SEARCH_TERMS_BY_MODULE[_rect_affine_module] = ("矩形和", "矩形アフィン変換", "点の有効化", "KD tree", "二次元区間更新")
 CLASS_DETAILS_BY_SYMBOL[(_rect_affine_module, "RectangleAffineSum")] = {

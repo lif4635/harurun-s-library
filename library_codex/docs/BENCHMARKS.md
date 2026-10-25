@@ -25,6 +25,7 @@
 
 ## データ構造・範囲クエリ
 
+- [子孫参照マージのセグメント木・Keyboard](SEG_TREE_TRAVERSAL_BENCHMARK.md)
 - [二次元点の矩形アフィン変換と矩形和](RECTANGLE_AFFINE_SUM_BENCHMARK.md)
 - [区間ソートと非可換な区間積](SORTABLE_ARRAY_BENCHMARK.md)
 - [区間転倒数の一括処理と都度問い合わせ](RANGE_INVERSIONS_BENCHMARK.md)

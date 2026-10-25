@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T02:31:12+00:00",
+  "generatedAt": "2026-10-25T02:39:00+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "a01049b60f2d3dac11ec7d767f9bba61713aa9816b9ccc094d1240ea2721cc1a",
-  "inputStamp": "8c85940491ece66523524e7243a982859ef0c235f7ded98b8994e2024be5b644",
+  "sourceFingerprint": "5b2ea24e747d8ffcf5f867836ed5dac934efb4f9114fd9a3818bca38054bb2a5",
+  "inputStamp": "3f12b6279bcc322ea3fedf1e4dc8791416b65995e1ec32bce3b1c2d2866964dd",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 402,
-    "articles": 111,
-    "functions": 536,
+    "modules": 403,
+    "articles": 112,
+    "functions": 539,
     "classes": 239,
     "methods": 1521,
     "tests": 1303
@@ -111,8 +111,8 @@
       "label": "セグメント木",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 17,
-      "functions": 3,
+      "modules": 18,
+      "functions": 6,
       "classes": 18,
       "methods": 126
     },
@@ -411,7 +411,7 @@
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 85
+      "modules": 86
     },
     {
       "slug": "graph",
@@ -16396,6 +16396,148 @@
           ]
         }
       ]
+    },
+    {
+      "category": "segment_tree",
+      "categoryLabel": "セグメント木",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
+      "name": "SegTreeTraversal",
+      "modulePath": "library_codex.segment_tree.SegTreeTraversal",
+      "summary": "子孫を参照するマージ用に、構築・一点更新・右からの区間結合を行う。",
+      "capabilities": [
+        "build: 配置済みの葉から全内部ノードを子から親の順に再計算する。",
+        "update: 変更済みの1枚の葉について、その祖先だけを下から再計算する。",
+        "fold: 半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。"
+      ],
+      "article": {
+        "title": "子孫を参照しながらマージするセグメント木",
+        "markdown": "## 主な機能\n\n左右の集約値だけでは結合できず、片方の部分木へ降りて追加情報を調べたいときの、構築・一点更新・区間取得を共通化する。\n\n通常の`SegTree`とは別の、3つの関数からなる部品。データ配列は利用側で持ち、ノードは整数添字で扱う。`list`でも複数の`array`でもよく、ノードごとのclass instanceは作らない。\n\n高さhの部分木の再計算・結合がO(h+1)なら、構築はO(N)、一点更新と区間取得はO(log² N)。通常のO(1)マージなら更新・取得はO(log N)になる。\n\n## 使い方\n\n```python\nfrom library_codex.segment_tree.SegTreeTraversal import build, fold, update\n\nvalues = [\"a\", \"b\", \"c\", \"d\", \"e\"]\nsize = 1 << (len(values) - 1).bit_length()\ndata = [\"\"] * (2 * size)\ndata[size:size + len(values)] = values\n\ndef pull(node):\n    data[node] = data[node * 2] + data[node * 2 + 1]\n\ndef prepend(node, result):\n    return data[node] + result\n\nbuild(size, pull)\nanswer = fold(size, 1, 4, prepend, \"\")\ndata[size + 2] = \"X\"\nupdate(size, 2, pull)\nchanged = fold(size, 1, 4, prepend, \"\")\n```\n\n- `answer`は`\"bcd\"`、`changed`は`\"bXd\"`。\n- `pull(node)`は、子が正しい状態になった後に呼ばれる。左右の子は`2*node`と`2*node+1`。必要ならさらに子孫へ降り、親の保存値を書き換える。返り値は使わない。\n- `prepend(node, result)`は、実在する部分木を`result`の左へつなげた集約値を返す。木の保存値を変更しない。\n- `update`は葉を書き換えない。葉の変更を済ませてから呼ぶ。\n\n文字列連結は呼出し方を示す小さい例。長い文字列そのものを結合すると、その文字数に比例する時間がかかる。\n\n## Keyboardでの利用\n\n[ABC434 Gの実装例](https://github.com/lif4635/harurun-s-library/blob/main/verify/atcoder/abc434_g.py)では、数字の入力と`B`による末尾削除を管理する。文字列の一点変更と、任意の半開区間を入力した後に残る数字列の取得ができる。\n\n```python\nfrom verify.atcoder.abc434_g import Keyboard\n\ntree = Keyboard(\"123B45\")\nbefore = tree.prod(0, 6)\ntree.set(1, \"B\")\nafter = tree.prod(0, 6)\n```\n\nこの例のimportはリポジトリ内で実行する場合のもの。提出時は[依存込みコード](https://github.com/lif4635/harurun-s-library/blob/main/verify/atcoder/abc434_g_standalone.py)を使える。\n\n- `before`は`(0, 4, 1245)`、`after`は`(0, 2, 45)`。\n- 第1要素は、区間内の数字だけでは消化できず、左側へ持ち越す`B`の個数。\n- 第2要素は、残る数字列の長さ。\n- 第3要素は、残る数字列を整数とみなした998244353での余り。数字が残らなければ0。\n\n右の区間の`B`が左の数字を消すとき、左の集約値だけからは残る先頭の数字を復元できない。左の部分木を降りて必要な桁数だけ取り出す。左右のうち次に調べる子は一つなので、降下は木の高さに比例する。\n\n実装例は個数・長さ・値を32-bit整数配列へ保存し、左右の境界で残った左側の値も内部ノードに保存する。これにより降下時の逆元計算と再帰を避ける。tupleを作るのは区間取得の途中結果で、各ノードには置かない。\n\n## 仕組み\n\n`fold`は区間を覆うノードを右から左へ処理する。途中結果同士は結合せず、左側が必ず実在するノードなので、その子孫を参照できる。途中結果に元の木の添字があるとは限らない点に注意する。\n\n構築では高さhのノードが高々N/2^h個ある。各再計算がO(h+1)なら、合計は次のようにO(N)になる。\n\n$$\\sum_{h=1}^{\\lceil\\log_2 N\\rceil}\\frac{N}{2^h}O(h+1)=O(N)$$\n\n## 注意点\n\n- `size`は葉の容量で、正の2の冪。根は1、葉は`size`から`2*size-1`。0番は使わない。\n- 要素数が`size`未満なら、残りの葉には空区間に相当する値を配置する。要素数0でも`size=1`を使う。\n- 各関数が検査する添字の範囲は`size`まで。実際の要素数を超えた操作の防止は利用側で行う。\n- `initial`は右端の後ろにつなぐ初期状態。普通の区間取得では空区間を表す値を渡す。空区間ならそのまま返る。\n- `pull`と`prepend`は同じ列の意味を表すように書く。何を渡してもO(log² N)になるわけではなく、子孫を調べる計算量にも依存する。\n- 通常のモノイド演算だけで済む場合は`SegTree`を使う。境界探索や遅延伝播はこの部品には含めていない。\n\n## 参考\n\n- [ABC434 G Keyboard](https://atcoder.jp/contests/abc434/tasks/abc434_g)\n- [Nyaanによる公式解説](https://atcoder.jp/contests/abc434/editorial/14660)\n- [よすぽ「ちょっと重いSegTree」](https://yosupo.hatenablog.com/entry/2015/12/02/235855)",
+        "sourcePath": "library_codex/docs/articles/segment_tree/SegTreeTraversal.md"
+      },
+      "searchTerms": [
+        "SegTreeTraversal",
+        "Seg Tree Traversal",
+        "library_codex.segment_tree.SegTreeTraversal",
+        "library codex segment tree Seg Tree Traversal",
+        "segment_tree/SegTreeTraversal.py",
+        "セグメント木",
+        "Keyboard",
+        "ちょっと重いセグ木",
+        "子孫参照マージ"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/segment_tree/SegTreeTraversal.py",
+      "inputFingerprint": "ba8cd448f9b1ea0535daa2685bf5da2971faecf34f1d52cb48b49a920725dfed",
+      "importCode": "from library_codex.segment_tree.SegTreeTraversal import build, update, fold",
+      "sourceCode": "\"\"\"子孫を参照するマージ用に、構築・一点更新・右からの区間結合を行う。\"\"\"\n\n\ndef build(size, pull):\n    \"\"\"葉を配置済みの木を、子から親の順にpull(node)で構築する。\"\"\"\n    if size < 1 or size & (size - 1):\n        raise ValueError(\"size must be a positive power of two\")\n    for node in range(size - 1, 0, -1):\n        pull(node)\n\n\ndef update(size, index, pull):\n    \"\"\"変更済みの葉indexから根まで、親の情報をpull(node)で再計算する。\"\"\"\n    if not 0 <= index < size:\n        raise IndexError(\"index outside leaves\")\n    node = (size + index) >> 1\n    while node:\n        pull(node)\n        node >>= 1\n\n\ndef fold(size, left, right, prepend, initial):\n    \"\"\"半開区間[left, right)を右から結合し、prepend(node, result)の累積値を返す。\"\"\"\n    if not 0 <= left <= right <= size:\n        raise IndexError(\"invalid half-open range\")\n    left += size\n    right += size\n    result = initial\n    while left < right:\n        height = min((right & -right).bit_length(), (right - left).bit_length()) - 1\n        result = prepend((right >> height) - 1, result)\n        right -= 1 << height\n    return result\n",
+      "standaloneCode": "\"\"\"子孫を参照するマージ用に、構築・一点更新・右からの区間結合を行う。\"\"\"\n\n\ndef build(size, pull):\n    \"\"\"葉を配置済みの木を、子から親の順にpull(node)で構築する。\"\"\"\n    if size < 1 or size & (size - 1):\n        raise ValueError(\"size must be a positive power of two\")\n    for node in range(size - 1, 0, -1):\n        pull(node)\n\n\ndef update(size, index, pull):\n    \"\"\"変更済みの葉indexから根まで、親の情報をpull(node)で再計算する。\"\"\"\n    if not 0 <= index < size:\n        raise IndexError(\"index outside leaves\")\n    node = (size + index) >> 1\n    while node:\n        pull(node)\n        node >>= 1\n\n\ndef fold(size, left, right, prepend, initial):\n    \"\"\"半開区間[left, right)を右から結合し、prepend(node, result)の累積値を返す。\"\"\"\n    if not 0 <= left <= right <= size:\n        raise IndexError(\"invalid half-open range\")\n    left += size\n    right += size\n    result = initial\n    while left < right:\n        height = min((right & -right).bit_length(), (right - left).bit_length()) - 1\n        result = prepend((right >> height) - 1, result)\n        right -= 1 << height\n    return result\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "build",
+          "kind": "function",
+          "signature": "build(size, pull)",
+          "summary": "配置済みの葉から全内部ノードを子から親の順に再計算する。",
+          "description": "配置済みの葉から全内部ノードを子から親の順に再計算する。",
+          "searchTerms": [
+            "build",
+            "build(size, pull)"
+          ],
+          "arguments": "size: 葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。 · pull: pull(node)として内部ノード番号を渡す。更新済みの子2*node・2*node+1と必要な子孫を参照し、親nodeへ結果を保存する。返り値は無視する。",
+          "argumentDetails": [
+            {
+              "name": "size",
+              "description": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。"
+            },
+            {
+              "name": "pull",
+              "description": "pull(node)として内部ノード番号を渡す。更新済みの子2*node・2*node+1と必要な子孫を参照し、親nodeへ結果を保存する。返り値は無視する。"
+            }
+          ],
+          "returns": "None — 値は返さない。pullが利用側の配列へ書き込み、根までの集約情報が構築される。",
+          "returnFormat": "None",
+          "returnDescription": "値は返さない。pullが利用側の配列へ書き込み、根までの集約情報が構築される。",
+          "complexity": "O(S*T)時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)なら全体O(S)",
+          "sourceLine": 4
+        },
+        {
+          "name": "update",
+          "kind": "function",
+          "signature": "update(size, index, pull)",
+          "summary": "変更済みの1枚の葉について、その祖先だけを下から再計算する。",
+          "description": "変更済みの1枚の葉について、その祖先だけを下から再計算する。",
+          "searchTerms": [
+            "update",
+            "update(size, index, pull)"
+          ],
+          "arguments": "size: 葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。 · index: 変更した葉の配列添字。0≤index<size。木のノード番号はsize+index。 · pull: pull(node)で親の保存値を書き換える。子とその子孫は更新済み。返り値は無視する。",
+          "argumentDetails": [
+            {
+              "name": "size",
+              "description": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。"
+            },
+            {
+              "name": "index",
+              "description": "変更した葉の配列添字。0≤index<size。木のノード番号はsize+index。"
+            },
+            {
+              "name": "pull",
+              "description": "pull(node)で親の保存値を書き換える。子とその子孫は更新済み。返り値は無視する。"
+            }
+          ],
+          "returns": "None — 値は返さない。pullによって対象の葉の親から根までが更新される。葉自体はこの関数を呼ぶ前に変更する。",
+          "returnFormat": "None",
+          "returnDescription": "値は返さない。pullによって対象の葉の親から根までが更新される。葉自体はこの関数を呼ぶ前に変更する。",
+          "complexity": "O((T+1) log(S+1))時間・O(1)追加メモリ。S=size、Tはpullの1回の最大時間。高さhのpullがO(h+1)ならO(log²(S+1))",
+          "sourceLine": 12
+        },
+        {
+          "name": "fold",
+          "kind": "function",
+          "signature": "fold(size, left, right, prepend, initial)",
+          "summary": "半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。",
+          "description": "半開区間を覆う実在ノードを右から順に処理し、子孫参照が可能な左側から結合する。",
+          "searchTerms": [
+            "fold",
+            "fold(size, left, right, prepend, initial)"
+          ],
+          "arguments": "size: 葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。 · left: 半開区間の左端を含む。0≤left≤right≤size。 · right: 半開区間の右端は含まない。 · prepend: prepend(node, result)で、ノードnodeの区間をresultの左へつなげた集約値を返す。nodeの子孫を参照できる。木の保存値を変更しない。 · initial: 区間の右側へつなぐ初期状態。普通の区間取得には空区間の集約値を渡す。空区間ならcallbackを呼ばない。",
+          "argumentDetails": [
+            {
+              "name": "size",
+              "description": "葉の容量。正の2の冪。根は1、葉はsizeから2*size-1。余った葉は空区間の状態に初期化しておく。実要素数ではない。"
+            },
+            {
+              "name": "left",
+              "description": "半開区間の左端を含む。0≤left≤right≤size。"
+            },
+            {
+              "name": "right",
+              "description": "半開区間の右端は含まない。"
+            },
+            {
+              "name": "prepend",
+              "description": "prepend(node, result)で、ノードnodeの区間をresultの左へつなげた集約値を返す。nodeの子孫を参照できる。木の保存値を変更しない。"
+            },
+            {
+              "name": "initial",
+              "description": "区間の右側へつなぐ初期状態。普通の区間取得には空区間の集約値を渡す。空区間ならcallbackを呼ばない。"
+            }
+          ],
+          "returns": "object — prepend(node, result)を右から左へ適用した累積値。型・内容はcallbackが定義する。空区間ではinitialそのもの。途中結果同士は結合しない。",
+          "returnFormat": "object",
+          "returnDescription": "prepend(node, result)を右から左へ適用した累積値。型・内容はcallbackが定義する。空区間ではinitialそのもの。途中結果同士は結合しない。",
+          "complexity": "O((T+1) log(S+1))時間・O(1)追加メモリ（callback内と返り値を除く）。S=size、Tはprependの1回の最大時間。高さhでO(h+1)ならO(log²(S+1))",
+          "sourceLine": 22
+        }
+      ],
+      "classes": []
     },
     {
       "category": "segment_tree",

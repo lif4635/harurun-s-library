@@ -1,0 +1,38 @@
+{
+  "n": 8000000,
+  "q": 200000,
+  "case": "cancellation",
+  "python": "3.10.14 (75b3de9d9035, Apr 21 2024, 10:54:48)\n[PyPy 7.3.16 with GCC 10.2.1 20210130 (Red Hat 10.2.1-11)]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "affinity": null,
+  "timing": "fresh isolated standalone process; includes startup, JIT, stdin/stdout, excludes fixture generation; no warmup",
+  "validation": "all stdout compared with imported implementation; independent naive oracle covered by unit tests, not this maximum-size fixture; not official judge data or online AC",
+  "inputSha256": "792477c450c5ae7b94fa2ad87bfb709f654e2710765fd8fd9d049bb9d8c3e6cc",
+  "sourceHashes": {
+    "verify/atcoder/abc434_g_standalone.py": "cef7f5bdbb48567b30be3e421ef35a6cc9cc0d20e0d0360b66eb6733cd39c517",
+    "verify/atcoder/benchmark_keyboard.py": "a43b4ed2d1961b922eee3f7c897c6a3d96b6c0e306208da3657e0b3341a4cfe6",
+    "verify/atcoder/abc434_g.py": "1e7c83c4fd825775f5852357591f7f3d68919c617b4677a31069a34b9cf3954c",
+    "library_codex/segment_tree/SegTreeTraversal.py": "66d08c71e380d349a84a03ebd3d5634cbece4f6ea631cecf2baa4493c6cae21a"
+  },
+  "records": [
+    {
+      "repeat": 0,
+      "seconds": 2.450756108002679,
+      "peakRssKiB": 343628,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "repeat": 1,
+      "seconds": 2.3391141100000823,
+      "peakRssKiB": 343696,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    },
+    {
+      "repeat": 2,
+      "seconds": 2.4653378590010107,
+      "peakRssKiB": 343604,
+      "outputSha256": "de9ee52e99697e4cd711cdc40862c5e557607d9bd93a583a06fd2646a7a43c73"
+    }
+  ],
+  "medianSeconds": 2.450756108002679
+}
