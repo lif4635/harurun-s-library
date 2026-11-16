@@ -1,18 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-25T11:41:15+00:00",
+  "generatedAt": "2026-11-16T05:21:44+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "ee442f7a77b572fc4e99a3f3c6a39f8a3749ef81e38ee050ec2b61e37d6e580b",
-  "inputStamp": "96c4cd255051bf9260d507e96f914ee1b5554ff0ac6de92fd6ed3620efae21f8",
+  "sourceFingerprint": "451717e63b84ff79bc54ba0e23f93afb548111fa0de3f54507494629ac271cd5",
+  "inputStamp": "703559960e5e41bde7db82a2ff726a4fd625a0283c443571dacb6620151f96d8",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 403,
-    "articles": 112,
-    "functions": 536,
-    "classes": 240,
-    "methods": 1529,
+    "modules": 406,
+    "articles": 117,
+    "functions": 538,
+    "classes": 243,
+    "methods": 1541,
     "tests": 1303
   },
   "categories": [
@@ -82,7 +82,7 @@
       "domain": "convolution",
       "domainLabel": "Convolution / FPS",
       "modules": 12,
-      "functions": 34,
+      "functions": 35,
       "classes": 8,
       "methods": 56
     },
@@ -191,10 +191,10 @@
       "label": "最短路",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 11,
+      "modules": 12,
       "functions": 15,
-      "classes": 2,
-      "methods": 4
+      "classes": 3,
+      "methods": 11
     },
     {
       "slug": "graph_connectivity",
@@ -251,10 +251,10 @@
       "label": "整数・数論",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 22,
+      "modules": 23,
       "functions": 46,
-      "classes": 5,
-      "methods": 27
+      "classes": 6,
+      "methods": 29
     },
     {
       "slug": "combinatorics",
@@ -342,7 +342,7 @@
       "domain": "string",
       "domainLabel": "String",
       "modules": 4,
-      "functions": 5,
+      "functions": 6,
       "classes": 0,
       "methods": 0
     },
@@ -351,10 +351,10 @@
       "label": "最適化・DP",
       "domain": "optimization",
       "domainLabel": "Optimization",
-      "modules": 17,
+      "modules": 18,
       "functions": 16,
-      "classes": 10,
-      "methods": 51
+      "classes": 11,
+      "methods": 54
     },
     {
       "slug": "geometry",
@@ -416,12 +416,12 @@
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 81
+      "modules": 82
     },
     {
       "slug": "math",
       "label": "Math",
-      "modules": 60
+      "modules": 61
     },
     {
       "slug": "tree",
@@ -436,7 +436,7 @@
     {
       "slug": "optimization",
       "label": "Optimization",
-      "modules": 17
+      "modules": 18
     },
     {
       "slug": "geometry",
@@ -9108,12 +9108,16 @@
       "modulePath": "library_codex.fps.SparseFormalPowerSeries",
       "summary": "非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。",
       "capabilities": [
+        "sparse_differential: B(x)F'(x)=A(x)F(x)を係数比較で解く。Fが密でも、AとBの非零項が少ないときに適する。",
         "sparse_inverse: 入力の非零項だけを使い、形式的冪級数の逆数を求める。定数項は法に対して逆元を持つ必要がある。",
         "sparse_divide: 分母の非零項だけを使い、形式的冪級数として除算する。分子は密でもよい。",
-        "sparse_exponential: 非零項の少ない入力から形式的冪級数の指数関数expを求める。入力の定数項は0とする。",
-        "sparse_logarithm: 非零項の少ない入力から形式的冪級数の対数logを求める。入力の定数項は1とする。"
+        "sparse_exponential: 非零項の少ない入力から形式的冪級数の指数関数expを求める。入力の定数項は0とする。"
       ],
-      "article": null,
+      "article": {
+        "title": "非零項が少ない形式的冪級数",
+        "markdown": "## 主な機能\n\n非零係数の少ない列について、逆数・除算・exp・log・整数冪を求めます。打ち切り次数をN、入力の非零項数をKとして、基本演算はO(NK)時間で計算します。入力自体は次数順の通常の係数listです。\n\n`sparse_differential(A, B, degree, constant=1)` は次の微分方程式を満たす係数列を求めます。\n\n$$B(x)F'(x)=A(x)F(x),\\qquad F(0)=\\mathrm{constant}.$$\n\nA、Bの非零項数をそれぞれKa、Kbとすると、打ち切り後の入力走査を含めO(N(Ka+Kb+1))時間、O(N)追加空間です。F自体が密でも、AとBが疎なら使えます。\n\n## 使い方\n\n```python\nfrom library_codex.fps.SparseFormalPowerSeries import sparse_differential, sparse_inverse\n\nassert sparse_inverse([1, -1], 6) == [1, 1, 1, 1, 1, 1]\nassert sparse_differential([1], [1, -1], 6) == [1, 1, 1, 1, 1, 1]\nassert sparse_differential([3], [1, -1], 6) == [1, 3, 6, 10, 15, 21]\n```\n\n3つ目は `(1-x)^(-3)` の展開です。返り値は長さdegreeのlistで、`result[i]` がxのi乗の係数です。全係数はmodの余りです。\n\n## 仕組み\n\n微分方程式の係数を比較すると、既に求めた係数だけから次の係数を計算できます。\n\n$$nB_0 F_n=\\sum_{j=0}^{n-1} A_jF_{n-1-j}-\\sum_{j=1}^{n-1}B_j(n-j)F_{n-j}.$$\n\n例えば `F=exp(P/Q)` なら、Aに `P'Q-PQ'`、Bに `Q^2` を与えます。これらが疎でなくなる場合は、通常のFPS演算の方が適しています。\n\n## 注意点\n\n- differential版ではmodを素数とし、`degree <= mod`、`B[0] != 0 mod mod` を満たしてください。素数判定は行いません。\n- `constant=0` なら全係数が0になります。\n- 入力を疎辞書にするAPIではありません。長い係数listの不要な末尾は渡さなくて構いません。\n- 密な入力でこの方法を使うとO(N^2)になります。mod 998244353の密な演算は `fps998/FPS.py` を使います。",
+        "sourcePath": "library_codex/docs/articles/fps/SparseFormalPowerSeries.md"
+      },
       "searchTerms": [
         "SparseFormalPowerSeries",
         "Sparse Formal Power Series",
@@ -9124,17 +9128,57 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/fps/SparseFormalPowerSeries.py",
-      "inputFingerprint": "6e76366535876ec1a6e28065d5bfcf00e8c9448cc0841184f85d6a6ee83b880f",
-      "importCode": "from library_codex.fps.SparseFormalPowerSeries import (\n    sparse_inverse,\n    sparse_divide,\n    sparse_exponential,\n    sparse_logarithm,\n    sparse_power,\n)",
-      "sourceCode": "\"\"\"非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。\"\"\"\n\nDEFAULT_MOD = 998244353\n\n\ndef _inverses(degree, mod):\n    values = [1] * degree\n    for index in range(2, degree):\n        values[index] = values[index - 1] * index % mod\n    inverse = pow(values[-1], -1, mod)\n    for index in range(degree - 1, 0, -1):\n        values[index], inverse = inverse * values[index - 1] % mod, inverse * index % mod\n    values[0] = 0\n    return values\n\ndef sparse_inverse(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(series[0] % mod, -1, mod)\n    terms = [(index, value % mod) for index, value in enumerate(series[1:], 1)\n             if value % mod]\n    result = [0] * degree\n    result[0] = inverse_constant\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = -value * inverse_constant % mod\n    return result\n\ndef sparse_divide(numerator, denominator, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(numerator)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if not denominator or denominator[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(denominator[0] % mod, -1, mod)\n    terms = [(index, value * inverse_constant % mod)\n             for index, value in enumerate(denominator[1:], 1) if value % mod]\n    result = [0] * degree\n    for index in range(degree):\n        value = numerator[index] % mod if index < len(numerator) else 0\n        value = value * inverse_constant % mod\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value -= result[index - offset] * coefficient\n        result[index] = value % mod\n    return result\n\ndef sparse_exponential(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if series and series[0] % mod:\n        raise ValueError(\"constant coefficient must be zero\")\n    terms = [(index, index * value % mod) for index, value in enumerate(series[1:degree], 1)\n             if value % mod]\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    result[0] = 1\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return result\n\ndef sparse_logarithm(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod != 1:\n        raise ValueError(\"constant coefficient must be one\")\n    derivative = [index * value % mod for index, value in enumerate(series[:degree])][1:]\n    quotient = sparse_divide(derivative, series, max(0, degree - 1), mod)\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    for index, value in enumerate(quotient, 1):\n        result[index] = value * inverses[index] % mod\n    return result\n\ndef sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if exponent == 0:\n        return [1] + [0] * (degree - 1)\n    if exponent < 0 and (not series or series[0] % mod == 0):\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    leading = 0\n    while leading < len(series) and series[leading] % mod == 0:\n        leading += 1\n    shift = leading * exponent\n    if leading == len(series) or shift >= degree:\n        return [0] * degree\n    constant = series[leading] % mod\n    inverse_constant = pow(constant, -1, mod)\n    needed = degree - shift\n    terms = []\n    factor = (exponent + 1) % mod\n    for offset in range(1, min(len(series) - leading, needed)):\n        coefficient = series[leading + offset] * inverse_constant % mod\n        if coefficient:\n            terms.append((offset, coefficient, factor * offset * coefficient % mod))\n    inverses = _inverses(needed, mod)\n    result = [0] * needed\n    result[0] = pow(constant, exponent, mod)\n    for index in range(1, needed):\n        value = 0\n        for offset, coefficient, weighted in terms:\n            if offset > index:\n                break\n            value += (weighted - index * coefficient) % mod * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return [0] * shift + result\n",
-      "standaloneCode": "\"\"\"非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。\"\"\"\n\nDEFAULT_MOD = 998244353\n\n\ndef _inverses(degree, mod):\n    values = [1] * degree\n    for index in range(2, degree):\n        values[index] = values[index - 1] * index % mod\n    inverse = pow(values[-1], -1, mod)\n    for index in range(degree - 1, 0, -1):\n        values[index], inverse = inverse * values[index - 1] % mod, inverse * index % mod\n    values[0] = 0\n    return values\n\ndef sparse_inverse(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(series[0] % mod, -1, mod)\n    terms = [(index, value % mod) for index, value in enumerate(series[1:], 1)\n             if value % mod]\n    result = [0] * degree\n    result[0] = inverse_constant\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = -value * inverse_constant % mod\n    return result\n\ndef sparse_divide(numerator, denominator, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(numerator)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if not denominator or denominator[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(denominator[0] % mod, -1, mod)\n    terms = [(index, value * inverse_constant % mod)\n             for index, value in enumerate(denominator[1:], 1) if value % mod]\n    result = [0] * degree\n    for index in range(degree):\n        value = numerator[index] % mod if index < len(numerator) else 0\n        value = value * inverse_constant % mod\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value -= result[index - offset] * coefficient\n        result[index] = value % mod\n    return result\n\ndef sparse_exponential(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if series and series[0] % mod:\n        raise ValueError(\"constant coefficient must be zero\")\n    terms = [(index, index * value % mod) for index, value in enumerate(series[1:degree], 1)\n             if value % mod]\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    result[0] = 1\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return result\n\ndef sparse_logarithm(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod != 1:\n        raise ValueError(\"constant coefficient must be one\")\n    derivative = [index * value % mod for index, value in enumerate(series[:degree])][1:]\n    quotient = sparse_divide(derivative, series, max(0, degree - 1), mod)\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    for index, value in enumerate(quotient, 1):\n        result[index] = value * inverses[index] % mod\n    return result\n\ndef sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if exponent == 0:\n        return [1] + [0] * (degree - 1)\n    if exponent < 0 and (not series or series[0] % mod == 0):\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    leading = 0\n    while leading < len(series) and series[leading] % mod == 0:\n        leading += 1\n    shift = leading * exponent\n    if leading == len(series) or shift >= degree:\n        return [0] * degree\n    constant = series[leading] % mod\n    inverse_constant = pow(constant, -1, mod)\n    needed = degree - shift\n    terms = []\n    factor = (exponent + 1) % mod\n    for offset in range(1, min(len(series) - leading, needed)):\n        coefficient = series[leading + offset] * inverse_constant % mod\n        if coefficient:\n            terms.append((offset, coefficient, factor * offset * coefficient % mod))\n    inverses = _inverses(needed, mod)\n    result = [0] * needed\n    result[0] = pow(constant, exponent, mod)\n    for index in range(1, needed):\n        value = 0\n        for offset, coefficient, weighted in terms:\n            if offset > index:\n                break\n            value += (weighted - index * coefficient) % mod * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return [0] * shift + result\n",
+      "inputFingerprint": "0799454bfe42f42e79389f893848aa7997cdb088d4ca6ecb3e30c2cc1e553097",
+      "importCode": "from library_codex.fps.SparseFormalPowerSeries import (\n    sparse_differential,\n    sparse_inverse,\n    sparse_divide,\n    sparse_exponential,\n    sparse_logarithm,\n    sparse_power,\n)",
+      "sourceCode": "\"\"\"非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。\"\"\"\n\nDEFAULT_MOD = 998244353\n\n\ndef sparse_differential(numerator, denominator, degree, constant=1, mod=DEFAULT_MOD):\n    \"\"\"B(x)F'(x)=A(x)F(x)、F(0)=constantを満たす係数をdegree項返す。\"\"\"\n    if degree < 0 or mod < 2 or degree > mod:\n        raise ValueError(\"require 0 <= degree <= mod and mod >= 2\")\n    if not denominator or denominator[0] % mod == 0:\n        raise ZeroDivisionError(\"denominator constant must be invertible\")\n    if degree == 0:\n        return []\n    scale = pow(denominator[0], -1, mod)\n    a = [(i + 1, value * scale % mod) for i, value in enumerate(numerator[:degree - 1]) if value % mod]\n    b = [(i, value * scale % mod) for i, value in enumerate(denominator[1:degree], 1) if value % mod]\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    result[0] = constant % mod\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in a:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        for offset, coefficient in b:\n            if offset >= index:\n                break\n            value -= coefficient * (index - offset) * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return result\n\n\ndef _inverses(degree, mod):\n    values = [1] * degree\n    for index in range(2, degree):\n        values[index] = values[index - 1] * index % mod\n    inverse = pow(values[-1], -1, mod)\n    for index in range(degree - 1, 0, -1):\n        values[index], inverse = inverse * values[index - 1] % mod, inverse * index % mod\n    values[0] = 0\n    return values\n\ndef sparse_inverse(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(series[0] % mod, -1, mod)\n    terms = [(index, value % mod) for index, value in enumerate(series[1:], 1)\n             if value % mod]\n    result = [0] * degree\n    result[0] = inverse_constant\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = -value * inverse_constant % mod\n    return result\n\ndef sparse_divide(numerator, denominator, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(numerator)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if not denominator or denominator[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(denominator[0] % mod, -1, mod)\n    terms = [(index, value * inverse_constant % mod)\n             for index, value in enumerate(denominator[1:], 1) if value % mod]\n    result = [0] * degree\n    for index in range(degree):\n        value = numerator[index] % mod if index < len(numerator) else 0\n        value = value * inverse_constant % mod\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value -= result[index - offset] * coefficient\n        result[index] = value % mod\n    return result\n\ndef sparse_exponential(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if series and series[0] % mod:\n        raise ValueError(\"constant coefficient must be zero\")\n    terms = [(index, index * value % mod) for index, value in enumerate(series[1:degree], 1)\n             if value % mod]\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    result[0] = 1\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return result\n\ndef sparse_logarithm(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod != 1:\n        raise ValueError(\"constant coefficient must be one\")\n    derivative = [index * value % mod for index, value in enumerate(series[:degree])][1:]\n    quotient = sparse_divide(derivative, series, max(0, degree - 1), mod)\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    for index, value in enumerate(quotient, 1):\n        result[index] = value * inverses[index] % mod\n    return result\n\ndef sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if exponent == 0:\n        return [1] + [0] * (degree - 1)\n    if exponent < 0 and (not series or series[0] % mod == 0):\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    leading = 0\n    while leading < len(series) and series[leading] % mod == 0:\n        leading += 1\n    shift = leading * exponent\n    if leading == len(series) or shift >= degree:\n        return [0] * degree\n    constant = series[leading] % mod\n    inverse_constant = pow(constant, -1, mod)\n    needed = degree - shift\n    terms = []\n    factor = (exponent + 1) % mod\n    for offset in range(1, min(len(series) - leading, needed)):\n        coefficient = series[leading + offset] * inverse_constant % mod\n        if coefficient:\n            terms.append((offset, coefficient, factor * offset * coefficient % mod))\n    inverses = _inverses(needed, mod)\n    result = [0] * needed\n    result[0] = pow(constant, exponent, mod)\n    for index in range(1, needed):\n        value = 0\n        for offset, coefficient, weighted in terms:\n            if offset > index:\n                break\n            value += (weighted - index * coefficient) % mod * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return [0] * shift + result\n",
+      "standaloneCode": "\"\"\"非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。\"\"\"\n\nDEFAULT_MOD = 998244353\n\n\ndef sparse_differential(numerator, denominator, degree, constant=1, mod=DEFAULT_MOD):\n    \"\"\"B(x)F'(x)=A(x)F(x)、F(0)=constantを満たす係数をdegree項返す。\"\"\"\n    if degree < 0 or mod < 2 or degree > mod:\n        raise ValueError(\"require 0 <= degree <= mod and mod >= 2\")\n    if not denominator or denominator[0] % mod == 0:\n        raise ZeroDivisionError(\"denominator constant must be invertible\")\n    if degree == 0:\n        return []\n    scale = pow(denominator[0], -1, mod)\n    a = [(i + 1, value * scale % mod) for i, value in enumerate(numerator[:degree - 1]) if value % mod]\n    b = [(i, value * scale % mod) for i, value in enumerate(denominator[1:degree], 1) if value % mod]\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    result[0] = constant % mod\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in a:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        for offset, coefficient in b:\n            if offset >= index:\n                break\n            value -= coefficient * (index - offset) * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return result\n\n\ndef _inverses(degree, mod):\n    values = [1] * degree\n    for index in range(2, degree):\n        values[index] = values[index - 1] * index % mod\n    inverse = pow(values[-1], -1, mod)\n    for index in range(degree - 1, 0, -1):\n        values[index], inverse = inverse * values[index - 1] % mod, inverse * index % mod\n    values[0] = 0\n    return values\n\ndef sparse_inverse(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(series[0] % mod, -1, mod)\n    terms = [(index, value % mod) for index, value in enumerate(series[1:], 1)\n             if value % mod]\n    result = [0] * degree\n    result[0] = inverse_constant\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = -value * inverse_constant % mod\n    return result\n\ndef sparse_divide(numerator, denominator, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(numerator)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if not denominator or denominator[0] % mod == 0:\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    inverse_constant = pow(denominator[0] % mod, -1, mod)\n    terms = [(index, value * inverse_constant % mod)\n             for index, value in enumerate(denominator[1:], 1) if value % mod]\n    result = [0] * degree\n    for index in range(degree):\n        value = numerator[index] % mod if index < len(numerator) else 0\n        value = value * inverse_constant % mod\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value -= result[index - offset] * coefficient\n        result[index] = value % mod\n    return result\n\ndef sparse_exponential(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if series and series[0] % mod:\n        raise ValueError(\"constant coefficient must be zero\")\n    terms = [(index, index * value % mod) for index, value in enumerate(series[1:degree], 1)\n             if value % mod]\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    result[0] = 1\n    for index in range(1, degree):\n        value = 0\n        for offset, coefficient in terms:\n            if offset > index:\n                break\n            value += coefficient * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return result\n\ndef sparse_logarithm(series, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if not series or series[0] % mod != 1:\n        raise ValueError(\"constant coefficient must be one\")\n    derivative = [index * value % mod for index, value in enumerate(series[:degree])][1:]\n    quotient = sparse_divide(derivative, series, max(0, degree - 1), mod)\n    inverses = _inverses(degree, mod)\n    result = [0] * degree\n    for index, value in enumerate(quotient, 1):\n        result[index] = value * inverses[index] % mod\n    return result\n\ndef sparse_power(series, exponent, degree=None, mod=DEFAULT_MOD):\n    if degree is None:\n        degree = len(series)\n    if degree < 0:\n        raise ValueError(\"degree must be nonnegative\")\n    if degree == 0:\n        return []\n    if exponent == 0:\n        return [1] + [0] * (degree - 1)\n    if exponent < 0 and (not series or series[0] % mod == 0):\n        raise ZeroDivisionError(\"constant coefficient must be invertible\")\n    leading = 0\n    while leading < len(series) and series[leading] % mod == 0:\n        leading += 1\n    shift = leading * exponent\n    if leading == len(series) or shift >= degree:\n        return [0] * degree\n    constant = series[leading] % mod\n    inverse_constant = pow(constant, -1, mod)\n    needed = degree - shift\n    terms = []\n    factor = (exponent + 1) % mod\n    for offset in range(1, min(len(series) - leading, needed)):\n        coefficient = series[leading + offset] * inverse_constant % mod\n        if coefficient:\n            terms.append((offset, coefficient, factor * offset * coefficient % mod))\n    inverses = _inverses(needed, mod)\n    result = [0] * needed\n    result[0] = pow(constant, exponent, mod)\n    for index in range(1, needed):\n        value = 0\n        for offset, coefficient, weighted in terms:\n            if offset > index:\n                break\n            value += (weighted - index * coefficient) % mod * result[index - offset]\n        result[index] = value % mod * inverses[index] % mod\n    return [0] * shift + result\n",
       "bundledDependencies": [],
       "counts": {
-        "functions": 5,
+        "functions": 6,
         "classes": 0,
         "methods": 0
       },
       "functions": [
+        {
+          "name": "sparse_differential",
+          "kind": "function",
+          "signature": "sparse_differential(numerator, denominator, degree, constant=1, mod=DEFAULT_MOD)",
+          "summary": "B(x)F'(x)=A(x)F(x)を係数比較で解く。Fが密でも、AとBの非零項が少ないときに適する。",
+          "description": "B(x)F'(x)=A(x)F(x)を係数比較で解く。Fが密でも、AとBの非零項が少ないときに適する。",
+          "searchTerms": [
+            "sparse_differential",
+            "sparse differential",
+            "sparse_differential(numerator, denominator, degree, constant=1, mod=DEFAULT_MOD)"
+          ],
+          "arguments": "numerator: A(x)の次数順の係数list。 · denominator: B(x)の次数順の係数list。定数項は法で0でないこと。 · degree: 返す係数の個数。0以上mod以下。 · constant: F(0)の値。 · mod: 素数の法。素数判定は省略する。",
+          "argumentDetails": [
+            {
+              "name": "numerator",
+              "description": "A(x)の次数順の係数list。"
+            },
+            {
+              "name": "denominator",
+              "description": "B(x)の次数順の係数list。定数項は法で0でないこと。"
+            },
+            {
+              "name": "degree",
+              "description": "返す係数の個数。0以上mod以下。"
+            },
+            {
+              "name": "constant",
+              "description": "F(0)の値。"
+            },
+            {
+              "name": "mod",
+              "description": "素数の法。素数判定は省略する。"
+            }
+          ],
+          "returns": "list[int] — 長さdegree。result[i]はF(x)のxのi乗の係数をmodで割った余り。",
+          "returnFormat": "list[int]",
+          "returnDescription": "長さdegree。result[i]はF(x)のxのi乗の係数をmodで割った余り。",
+          "complexity": "O(N(Ka+Kb+1))時間・O(N)追加空間。N=degree、Ka・Kbは打ち切り後の分子・分母の非零項数",
+          "sourceLine": 6
+        },
         {
           "name": "sparse_inverse",
           "kind": "function",
@@ -9165,7 +9209,7 @@
           "returnFormat": "list[int]",
           "returnDescription": "1/series mod x^degreeの昇冪係数をdegree個並べたlist。",
           "complexity": "O(L + N(K+1) + log mod)（Lは入力長、Nは出力長、Kは非零項数）",
-          "sourceLine": 16
+          "sourceLine": 44
         },
         {
           "name": "sparse_divide",
@@ -9201,7 +9245,7 @@
           "returnFormat": "list[int]",
           "returnDescription": "numerator/denominator mod x^degreeの昇冪係数をdegree個並べたlist。多項式除算の商・余りではない。",
           "complexity": "O(L + N(K+1) + log mod)（Lは分母の長さ、Nは出力長、Kは分母の非零項数）",
-          "sourceLine": 39
+          "sourceLine": 67
         },
         {
           "name": "sparse_exponential",
@@ -9233,7 +9277,7 @@
           "returnFormat": "list[int]",
           "returnDescription": "exp(series) mod x^degreeの昇冪係数をdegree個並べたlist。",
           "complexity": "O(L + N(K+1) + log mod)（Lは入力長、Nは出力長、Kは非零項数）",
-          "sourceLine": 60
+          "sourceLine": 88
         },
         {
           "name": "sparse_logarithm",
@@ -9265,7 +9309,7 @@
           "returnFormat": "list[int]",
           "returnDescription": "log(series) mod x^degreeの昇冪係数をdegree個並べたlist。",
           "complexity": "O(L + N(K+1) + log mod)（Lは入力長、Nは出力長、Kは非零項数）",
-          "sourceLine": 83
+          "sourceLine": 111
         },
         {
           "name": "sparse_power",
@@ -9301,7 +9345,7 @@
           "returnFormat": "list[int]",
           "returnDescription": "長さdegreeの係数列result。$\\mathrm{result}[i]=[x^i]f(x)^{\\mathrm{exponent}}\\bmod\\mathrm{mod}$。",
           "complexity": "O(L + N(K+1) + log mod + log(|exponent|+1))（Lは入力長、Nは出力長、Kは入力の非零項数）",
-          "sourceLine": 100
+          "sourceLine": 128
         }
       ],
       "classes": []
@@ -35530,6 +35574,235 @@
       "categoryLabel": "最短路",
       "domain": "graph",
       "domainLabel": "Graph",
+      "name": "DifferenceConstraints",
+      "modulePath": "library_codex.shortest_path.DifferenceConstraints",
+      "summary": "変数間の差の上下限から、整数解の復元と取り得る差の範囲を求める。",
+      "capabilities": [
+        "DifferenceConstraints: 変数間の差の制約と固定値を登録し、整数解と取り得る差の上下限を求める。"
+      ],
+      "article": {
+        "title": "差分制約の解と上下限",
+        "markdown": "## 主な機能\n\n変数間の差について「2以上5以下」のような条件を登録し、全条件を満たす整数値を求めます。条件が矛盾するときは `None` になります。\n\n`add(u, v, upper, lower=lower)` が表す条件は次です。\n\n$$\\mathrm{lower}\\le x_v-x_u\\le\\mathrm{upper}.$$\n\n`None` の上限・下限は制限なしです。頂点に `None` を渡すと定数0を表し、1変数だけへの上下限にも使えます。\n\n解が存在する場合、`bounds(source)` で全変数とsourceとの差の最小値・最大値を調べられます。負辺を含む系は最初にBellman–Ford法で解を求め、その解で辺を非負に変換して以後の上下限をDijkstra法で求めます。\n\n## 使い方\n\n```python\nfrom library_codex.shortest_path.DifferenceConstraints import DifferenceConstraints\n\nsystem = DifferenceConstraints(3)\nsystem.add(0, 1, 5, lower=2)\nsystem.add(1, 2, 3)\nsystem.fix(0, 10)\n\nvalues = system.solve()\nassert values[0] == 10\nassert 2 <= values[1] - values[0] <= 5\nassert values[2] - values[1] <= 3\nassert system.bounds() == [(10, 10), (12, 15), (None, 18)]\nassert system.bounds(0) == [(0, 0), (2, 5), (None, 8)]\n```\n\n- `solve()`: 長さNの整数list。添字vに変数vの値が入ります。解の一つであって、全変数を最大化した値ではありません。\n- `bounds()`: 長さNの `(lower, upper)` のlist。各変数自身の取り得る限界です。\n- `bounds(source)`: 同じ形式で、各変数からsourceを引いた差の限界です。\n- 限界の `None` は、その方向にいくらでも大きく／小さくできることを表します。有限な両端は含みます。\n\n## 注意点\n\n- N変数・M制約辺として、初回の `solve` は最悪O(N+NM)、全辺が非負ならO(N+M)です。\n- 解が計算済みなら `bounds` はO(N+M log(N+M+2))です。未計算なら先に `solve` 相当の処理を行います。\n- `add` と `fix` は計算済みの解を無効にします。上下限を両方指定すると2辺になります。\n- 矛盾した系の `bounds` は `ValueError` になります。\n- 整数の係数を渡してください。厳密な不等式は、たとえば差が5未満なら上限4として登録します。\n\n## 参考\n\n[qandori/cp-library: 差分制約](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/graph/difference_constraints.hpp)。差の範囲取得を参考にし、解専用objectを増やさず同じclassで扱います。",
+        "sourcePath": "library_codex/docs/articles/shortest_path/DifferenceConstraints.md"
+      },
+      "searchTerms": [
+        "DifferenceConstraints",
+        "Difference Constraints",
+        "library_codex.shortest_path.DifferenceConstraints",
+        "library codex shortest path Difference Constraints",
+        "shortest_path/DifferenceConstraints.py",
+        "最短路",
+        "差分制約",
+        "牛ゲー",
+        "不等式",
+        "実行可能解"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/shortest_path/DifferenceConstraints.py",
+      "inputFingerprint": "f3b0a9cf50aa1dcb7090816105e4fba908725a5ef0fd0bf332e9e46461155dca",
+      "importCode": "from library_codex.shortest_path.DifferenceConstraints import DifferenceConstraints",
+      "sourceCode": "\"\"\"変数間の差の上下限から、整数解の復元と取り得る差の範囲を求める。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\nclass DifferenceConstraints:\n    \"\"\"差分制約を辺として保持し、実現可能な値と各変数の限界を求める。\"\"\"\n\n    __slots__ = (\"n\", \"_edges\", \"_potential\", \"_graph\", \"_reverse\", \"_solved\")\n\n    def __init__(self, n):\n        if n < 0:\n            raise ValueError(\"n must be nonnegative\")\n        self.n = n\n        self._edges = []\n        self._potential = self._graph = self._reverse = None\n        self._solved = False\n\n    def add(self, u, v, upper=None, *, lower=None):\n        \"\"\"lower <= x[v]-x[u] <= upperを追加する。Noneの側は制限しない。\"\"\"\n        n = self.n\n        if u is None:\n            u = n\n        if v is None:\n            v = n\n        if not 0 <= u <= n or not 0 <= v <= n:\n            raise IndexError(\"vertex out of range\")\n        if upper is not None:\n            self._edges.append((u, v, upper))\n        if lower is not None:\n            self._edges.append((v, u, -lower))\n        self._solved = False\n        self._potential = self._graph = self._reverse = None\n\n    def fix(self, vertex, value):\n        \"\"\"1変数の値をvalueに固定する制約を追加する。\"\"\"\n        if not 0 <= vertex < self.n:\n            raise IndexError(\"vertex out of range\")\n        self.add(None, vertex, value, lower=value)\n\n    def solve(self):\n        \"\"\"全制約を満たす整数値のlistを返す。矛盾する場合はNone。\"\"\"\n        if not self._solved:\n            n = self.n + 1\n            distance = [0] * n\n            edges = self._edges\n            for _ in range(n):\n                changed = False\n                for u, v, weight in edges:\n                    candidate = distance[u] + weight\n                    if candidate < distance[v]:\n                        distance[v] = candidate\n                        changed = True\n                if not changed:\n                    break\n            else:\n                self._solved = True\n                return None\n            graph = [[] for _ in range(n)]\n            reverse = [[] for _ in range(n)]\n            for u, v, weight in edges:\n                cost = weight + distance[u] - distance[v]\n                graph[u].append((v, cost))\n                reverse[v].append((u, cost))\n            self._potential, self._graph, self._reverse = distance, graph, reverse\n            self._solved = True\n        if self._potential is None:\n            return None\n        origin = self._potential[self.n]\n        return [value - origin for value in self._potential[:self.n]]\n\n    def bounds(self, source=None):\n        \"\"\"全変数のx[v]-x[source]の最小値・最大値を返す。source=Noneは定数0。\"\"\"\n        if source is None:\n            source = self.n\n        if not 0 <= source <= self.n:\n            raise IndexError(\"source out of range\")\n        if not self._solved:\n            self.solve()\n        potential = self._potential\n        if potential is None:\n            raise ValueError(\"constraints are infeasible\")\n        upper = self._distances(self._graph, source)\n        lower = self._distances(self._reverse, source)\n        base = potential[source]\n        return [(None if lower[v] is None else potential[v] - base - lower[v],\n                 None if upper[v] is None else potential[v] - base + upper[v])\n                for v in range(self.n)]\n\n    @staticmethod\n    def _distances(graph, source):\n        distance = [None] * len(graph)\n        distance[source] = 0\n        queue = [(0, source)]\n        while queue:\n            cost, u = heappop(queue)\n            if cost != distance[u]:\n                continue\n            for v, weight in graph[u]:\n                candidate = cost + weight\n                if distance[v] is None or candidate < distance[v]:\n                    distance[v] = candidate\n                    heappush(queue, (candidate, v))\n        return distance\n\n    def items(self):\n        \"\"\"各制約を(u, v, upper)で返す。None頂点は定数0を表す。\"\"\"\n        n = self.n\n        return [(None if u == n else u, None if v == n else v, w) for u, v, w in self._edges]\n\n    def __repr__(self):\n        return \"DifferenceConstraints(n=\" + str(self.n) + \", constraints=\" + repr(self.items()) + \")\"\n\n    def __str__(self):\n        return str(self.items())\n",
+      "standaloneCode": "\"\"\"変数間の差の上下限から、整数解の復元と取り得る差の範囲を求める。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\nclass DifferenceConstraints:\n    \"\"\"差分制約を辺として保持し、実現可能な値と各変数の限界を求める。\"\"\"\n\n    __slots__ = (\"n\", \"_edges\", \"_potential\", \"_graph\", \"_reverse\", \"_solved\")\n\n    def __init__(self, n):\n        if n < 0:\n            raise ValueError(\"n must be nonnegative\")\n        self.n = n\n        self._edges = []\n        self._potential = self._graph = self._reverse = None\n        self._solved = False\n\n    def add(self, u, v, upper=None, *, lower=None):\n        \"\"\"lower <= x[v]-x[u] <= upperを追加する。Noneの側は制限しない。\"\"\"\n        n = self.n\n        if u is None:\n            u = n\n        if v is None:\n            v = n\n        if not 0 <= u <= n or not 0 <= v <= n:\n            raise IndexError(\"vertex out of range\")\n        if upper is not None:\n            self._edges.append((u, v, upper))\n        if lower is not None:\n            self._edges.append((v, u, -lower))\n        self._solved = False\n        self._potential = self._graph = self._reverse = None\n\n    def fix(self, vertex, value):\n        \"\"\"1変数の値をvalueに固定する制約を追加する。\"\"\"\n        if not 0 <= vertex < self.n:\n            raise IndexError(\"vertex out of range\")\n        self.add(None, vertex, value, lower=value)\n\n    def solve(self):\n        \"\"\"全制約を満たす整数値のlistを返す。矛盾する場合はNone。\"\"\"\n        if not self._solved:\n            n = self.n + 1\n            distance = [0] * n\n            edges = self._edges\n            for _ in range(n):\n                changed = False\n                for u, v, weight in edges:\n                    candidate = distance[u] + weight\n                    if candidate < distance[v]:\n                        distance[v] = candidate\n                        changed = True\n                if not changed:\n                    break\n            else:\n                self._solved = True\n                return None\n            graph = [[] for _ in range(n)]\n            reverse = [[] for _ in range(n)]\n            for u, v, weight in edges:\n                cost = weight + distance[u] - distance[v]\n                graph[u].append((v, cost))\n                reverse[v].append((u, cost))\n            self._potential, self._graph, self._reverse = distance, graph, reverse\n            self._solved = True\n        if self._potential is None:\n            return None\n        origin = self._potential[self.n]\n        return [value - origin for value in self._potential[:self.n]]\n\n    def bounds(self, source=None):\n        \"\"\"全変数のx[v]-x[source]の最小値・最大値を返す。source=Noneは定数0。\"\"\"\n        if source is None:\n            source = self.n\n        if not 0 <= source <= self.n:\n            raise IndexError(\"source out of range\")\n        if not self._solved:\n            self.solve()\n        potential = self._potential\n        if potential is None:\n            raise ValueError(\"constraints are infeasible\")\n        upper = self._distances(self._graph, source)\n        lower = self._distances(self._reverse, source)\n        base = potential[source]\n        return [(None if lower[v] is None else potential[v] - base - lower[v],\n                 None if upper[v] is None else potential[v] - base + upper[v])\n                for v in range(self.n)]\n\n    @staticmethod\n    def _distances(graph, source):\n        distance = [None] * len(graph)\n        distance[source] = 0\n        queue = [(0, source)]\n        while queue:\n            cost, u = heappop(queue)\n            if cost != distance[u]:\n                continue\n            for v, weight in graph[u]:\n                candidate = cost + weight\n                if distance[v] is None or candidate < distance[v]:\n                    distance[v] = candidate\n                    heappush(queue, (candidate, v))\n        return distance\n\n    def items(self):\n        \"\"\"各制約を(u, v, upper)で返す。None頂点は定数0を表す。\"\"\"\n        n = self.n\n        return [(None if u == n else u, None if v == n else v, w) for u, v, w in self._edges]\n\n    def __repr__(self):\n        return \"DifferenceConstraints(n=\" + str(self.n) + \", constraints=\" + repr(self.items()) + \")\"\n\n    def __str__(self):\n        return str(self.items())\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 7
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "DifferenceConstraints",
+          "summary": "変数間の差の制約と固定値を登録し、整数解と取り得る差の上下限を求める。",
+          "description": "変数間の差の制約と固定値を登録し、整数解と取り得る差の上下限を求める。",
+          "searchTerms": [
+            "DifferenceConstraints",
+            "Difference Constraints",
+            "DifferenceConstraints(n)"
+          ],
+          "constructor": "DifferenceConstraints(n)",
+          "constructorArguments": "n: 整数変数の個数。",
+          "constructorArgumentDetails": [
+            {
+              "name": "n",
+              "description": "整数変数の個数"
+            }
+          ],
+          "constructorReturns": "DifferenceConstraints instance",
+          "constructorReturnFormat": "DifferenceConstraints",
+          "constructorReturnDescription": "add・fixで制約を登録し、solveで解、boundsで各変数の差の範囲を取得する。",
+          "constructorCreates": "add・fixで制約を登録し、solveで解、boundsで各変数の差の範囲を取得する。",
+          "constructorComplexity": "O(1)時間・空間",
+          "constructorSourceLine": 11,
+          "methods": [
+            {
+              "name": "add",
+              "kind": "method",
+              "signature": "add(u, v, upper=None, *, lower=None)",
+              "summary": "lower <= x[v]-x[u] <= upperを制約へ追加する。",
+              "description": "lower <= x[v]-x[u] <= upperを制約へ追加する。",
+              "searchTerms": [
+                "add",
+                "add(u, v, upper=None, *, lower=None)"
+              ],
+              "arguments": "u: 引く側の変数。Noneは定数0。 · v: 引かれる側の変数。Noneは定数0。 · upper: 差の上限の整数。上限を含む。Noneなら上限なし。 · lower: 差の下限の整数。下限を含む。Noneなら下限なし。",
+              "argumentDetails": [
+                {
+                  "name": "u",
+                  "description": "引く側の変数。Noneは定数0。"
+                },
+                {
+                  "name": "v",
+                  "description": "引かれる側の変数。Noneは定数0。"
+                },
+                {
+                  "name": "upper",
+                  "description": "差の上限の整数。上限を含む。Noneなら上限なし。"
+                },
+                {
+                  "name": "lower",
+                  "description": "差の下限の整数。下限を含む。Noneなら下限なし。"
+                }
+              ],
+              "returns": "None — 値を返さない。計算済みの解を無効にする。上下限が矛盾していても登録でき、solveで解なしとなる。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。計算済みの解を無効にする。上下限が矛盾していても登録でき、solveで解なしとなる。",
+              "complexity": "償却O(1)時間・最大2辺の追加空間。計算済みのO(N+M)領域を解放する場合はその解放コストを含む",
+              "sourceLine": 19
+            },
+            {
+              "name": "fix",
+              "kind": "method",
+              "signature": "fix(vertex, value)",
+              "summary": "1変数を指定した整数へ固定する制約を加える。",
+              "description": "1変数を指定した整数へ固定する制約を加える。",
+              "searchTerms": [
+                "fix",
+                "fix(vertex, value)"
+              ],
+              "arguments": "vertex: 固定する変数。 · value: 固定値の整数。",
+              "argumentDetails": [
+                {
+                  "name": "vertex",
+                  "description": "固定する変数。"
+                },
+                {
+                  "name": "value",
+                  "description": "固定値の整数。"
+                }
+              ],
+              "returns": "None — 値を返さない。等式の両側を2辺として追加し、計算済みの解を無効にする。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。等式の両側を2辺として追加し、計算済みの解を無効にする。",
+              "complexity": "償却O(1)時間・2辺の追加空間。計算済みのO(N+M)領域を解放する場合はその解放コストを含む",
+              "sourceLine": 35
+            },
+            {
+              "name": "solve",
+              "kind": "method",
+              "signature": "solve()",
+              "summary": "全ての制約を同時に満たす整数値を復元する。",
+              "description": "全ての制約を同時に満たす整数値を復元する。",
+              "searchTerms": [
+                "solve",
+                "solve()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[int] | None — 解があれば長さNの新しいlistでresult[v]が変数vの値。全変数の最大化ではない。矛盾すればNone。",
+              "returnFormat": "list[int] | None",
+              "returnDescription": "解があれば長さNの新しいlistでresult[v]が変数vの値。全変数の最大化ではない。矛盾すればNone。",
+              "complexity": "初回・制約追加後は最悪O(N+NM)時間・O(N+M)空間。全辺非負ならO(N+M)。計算済みならO(N)時間で解のコピーを返す",
+              "sourceLine": 41
+            },
+            {
+              "name": "bounds",
+              "kind": "method",
+              "signature": "bounds(source=None)",
+              "summary": "各変数とsourceとの差が取り得る最小値・最大値を求める。",
+              "description": "各変数とsourceとの差が取り得る最小値・最大値を求める。",
+              "searchTerms": [
+                "bounds",
+                "bounds(source=None)"
+              ],
+              "arguments": "source: 差の基準にする変数。Noneなら定数0、すなわち各変数自体の上下限。",
+              "argumentDetails": [
+                {
+                  "name": "source",
+                  "description": "差の基準にする変数。Noneなら定数0、すなわち各変数自体の上下限。"
+                }
+              ],
+              "returns": "list[tuple[int | None, int | None]] — 長さN。result[v]=(lower, upper)がx[v]-x[source]の範囲で、有限な端点は含む。Noneの側は非有界。矛盾した系ではValueError。",
+              "returnFormat": "list[tuple[int | None, int | None]]",
+              "returnDescription": "長さN。result[v]=(lower, upper)がx[v]-x[source]の範囲で、有限な端点は含む。Noneの側は非有界。矛盾した系ではValueError。",
+              "complexity": "計算済みならO(N+M log(N+M+2))時間・O(N+M)追加空間。未計算ならsolveのコストが別途必要",
+              "sourceLine": 72
+            },
+            {
+              "name": "items",
+              "kind": "method",
+              "signature": "items()",
+              "summary": "登録された上限制約の辺を取得する。",
+              "description": "登録された上限制約の辺を取得する。",
+              "searchTerms": [
+                "items",
+                "items()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[tuple[int | None, int | None, int]] — (u, v, upper)を登録順で並べた新しいlist。各辺はx[v]-x[u] <= upper。None頂点は定数0。",
+              "returnFormat": "list[tuple[int | None, int | None, int]]",
+              "returnDescription": "(u, v, upper)を登録順で並べた新しいlist。各辺はx[v]-x[u] <= upper。None頂点は定数0。",
+              "complexity": "O(M)時間・追加空間",
+              "sourceLine": 106
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "変数数と制約辺を型名付きで表示する。",
+              "description": "変数数と制約辺を型名付きで表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — DifferenceConstraints(n=..., constraints=[...])の形式。",
+              "returnFormat": "str",
+              "returnDescription": "DifferenceConstraints(n=..., constraints=[...])の形式。",
+              "complexity": "O(M+S)時間。Sは出力文字数",
+              "sourceLine": 111
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "上限制約の辺listを文字列にする。",
+              "description": "上限制約の辺listを文字列にする。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — items()の内容の文字列。解の計算や状態変更はしない。",
+              "returnFormat": "str",
+              "returnDescription": "items()の内容の文字列。解の計算や状態変更はしない。",
+              "complexity": "O(M+S)時間。Sは出力文字数",
+              "sourceLine": 114
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "shortest_path",
+      "categoryLabel": "最短路",
+      "domain": "graph",
+      "domainLabel": "Graph",
       "name": "Dijkstra",
       "modulePath": "library_codex.shortest_path.Dijkstra",
       "summary": "非負重みグラフの単一始点最短距離と直前頂点を求める。",
@@ -46658,6 +46931,143 @@
         }
       ],
       "classes": []
+    },
+    {
+      "category": "number_theory",
+      "categoryLabel": "整数・数論",
+      "domain": "math",
+      "domainLabel": "Math",
+      "name": "LinearDiophantine",
+      "modulePath": "library_codex.number_theory.LinearDiophantine",
+      "summary": "長方形内の整数解ax+by=cを、列挙せずに数え、辞書順に取得する。",
+      "capabilities": [
+        "LinearDiophantine: ax+by=cを満たす長方形内の整数解を、個数と等差数列で保持する。"
+      ],
+      "article": {
+        "title": "範囲内の一次不定方程式",
+        "markdown": "## 主な機能\n\n次を満たす整数の組を、全列挙せずに数えます。\n\n$$ax+by=c,\\qquad x_l\\le x<x_r,\\qquad y_l\\le y<y_r.$$\n\n`count` で個数、`kth(k)` でx、次にyの昇順でk番目の組を取得できます。係数や範囲は負でも構いません。整数演算をO(1)とすると構築はO(log(max(|a|, |b|)+2))、取得はO(1)、保持空間はO(1)です。\n\n## 使い方\n\n```python\nfrom library_codex.number_theory.LinearDiophantine import LinearDiophantine\n\nsolutions = LinearDiophantine(2, 3, 12, 0, 7, 0, 5)\nassert solutions.count == 3\nassert solutions.kth(0) == (0, 4)\nassert solutions.kth(1) == (3, 2)\nassert solutions.kth(2) == (6, 0)\n```\n\n- `kth(k)` の返り値は `(x, y)` の2整数です。\n- 解がなければ `count == 0` です。\n- `a == b == c == 0` なら長方形内の全点が解です。巨大な個数でも点の配列は作りません。\n\n## 注意点\n\n- `xl, xr` と `yl, yr` はいずれも半開区間の端点です。\n- `count` はPythonの整数です。巨大な解集合でも `len` の上限に制限されません。\n- 範囲外の順位は `IndexError`、左右が逆転した範囲は `ValueError` になります。\n\n## 参考\n\n[qandori/cp-library: 一次不定方程式](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/math/linear_diophantine.hpp)の、半開区間と辞書順取得の仕様を参照しています。",
+        "sourcePath": "library_codex/docs/articles/number_theory/LinearDiophantine.md"
+      },
+      "searchTerms": [
+        "LinearDiophantine",
+        "Linear Diophantine",
+        "library_codex.number_theory.LinearDiophantine",
+        "library codex number theory Linear Diophantine",
+        "number_theory/LinearDiophantine.py",
+        "整数・数論",
+        "一次不定方程式",
+        "整数解",
+        "拡張ユークリッド"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/number_theory/LinearDiophantine.py",
+      "inputFingerprint": "fc6720de1a4edd9a14047ee70c686e864d74d233c3572b2aa847356256b63207",
+      "importCode": "from library_codex.number_theory.LinearDiophantine import LinearDiophantine",
+      "sourceCode": "\"\"\"長方形内の整数解ax+by=cを、列挙せずに数え、辞書順に取得する。\"\"\"\n\nfrom library_codex.number_theory.IntegerArithmetic import extended_gcd\n\n\nclass LinearDiophantine:\n    \"\"\"半開区間内の整数解を個数と等差数列で保持する。\"\"\"\n\n    __slots__ = (\"count\", \"_x\", \"_y\", \"_dx\", \"_dy\", \"_height\")\n\n    def __init__(self, a, b, c, xl, xr, yl, yr):\n        if xl > xr or yl > yr:\n            raise ValueError(\"invalid half-open range\")\n        self.count = 0\n        self._x = self._y = self._dx = self._dy = self._height = 0\n        if xl == xr or yl == yr:\n            return\n        if a == b == 0:\n            if c == 0:\n                self.count = (xr - xl) * (yr - yl)\n                self._x, self._y, self._height = xl, yl, yr - yl\n            return\n        g, x, y = extended_gcd(a, b)\n        if c % g:\n            return\n        x *= c // g\n        y *= c // g\n        dx, dy = b // g, -a // g\n        if dx < 0 or dx == 0 and dy < 0:\n            dx, dy = -dx, -dy\n        lower = upper = None\n        for base, step, lo, hi in ((x, dx, xl, xr), (y, dy, yl, yr)):\n            if step == 0:\n                if not lo <= base < hi:\n                    return\n                continue\n            if step > 0:\n                low, high = -((base - lo) // step), (hi - 1 - base) // step\n            else:\n                low, high = -((base - hi + 1) // step), (lo - base) // step\n            lower = low if lower is None else max(lower, low)\n            upper = high if upper is None else min(upper, high)\n        if lower > upper:\n            return\n        self.count = upper - lower + 1\n        self._x, self._y = x + dx * lower, y + dy * lower\n        self._dx, self._dy = dx, dy\n\n    def kth(self, k):\n        \"\"\"x、次にyの昇順でk番目の整数解(x, y)を返す。\"\"\"\n        if not 0 <= k < self.count:\n            raise IndexError(\"solution index out of range\")\n        if self._height:\n            return self._x + k // self._height, self._y + k % self._height\n        return self._x + k * self._dx, self._y + k * self._dy\n\n    def __repr__(self):\n        return \"LinearDiophantine(count=\" + str(self.count) + \", first=\" + str(self.kth(0) if self.count else None) + \")\"\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: number_theory/IntegerArithmetic.py\n\"\"\"整数のgcd・lcm・拡張gcdと法逆元を計算する。\"\"\"\nDEFAULT_MOD = 998244353\n\ndef gcd(first, second):\n    first = abs(first)\n    second = abs(second)\n    while second:\n        (first, second) = (second, first % second)\n    return first\n\ndef lcm(first, second):\n    return 0 if not first or not second else abs(first // gcd(first, second) * second)\n\ndef extended_gcd(first, second):\n    \"\"\"Return (g,x,y) with first*x + second*y = g = gcd(first,second).\"\"\"\n    (old_r, r) = (first, second)\n    (old_x, x) = (1, 0)\n    (old_y, y) = (0, 1)\n    while r:\n        quotient = old_r // r\n        (old_r, r) = (r, old_r - quotient * r)\n        (old_x, x) = (x, old_x - quotient * x)\n        (old_y, y) = (y, old_y - quotient * y)\n    if old_r < 0:\n        (old_r, old_x, old_y) = (-old_r, -old_x, -old_y)\n    return (old_r, old_x, old_y)\n\ndef inverse_mod(value, modulus):\n    (gcd, inverse, _) = extended_gcd(value, modulus)\n    if gcd != 1:\n        raise ValueError('inverse does not exist')\n    return inverse % modulus\n\ndef inverse_table(size, mod=DEFAULT_MOD):\n    if size >= mod:\n        raise ValueError('table entries must be invertible')\n    inverse = [0] * (size + 1)\n    if size:\n        inverse[1] = 1\n    for value in range(2, size + 1):\n        inverse[value] = mod - mod // value * inverse[mod % value] % mod\n    return inverse\n\n# 本体\n\"\"\"長方形内の整数解ax+by=cを、列挙せずに数え、辞書順に取得する。\"\"\"\n\nclass LinearDiophantine:\n    \"\"\"半開区間内の整数解を個数と等差数列で保持する。\"\"\"\n    __slots__ = ('count', '_x', '_y', '_dx', '_dy', '_height')\n\n    def __init__(self, a, b, c, xl, xr, yl, yr):\n        if xl > xr or yl > yr:\n            raise ValueError('invalid half-open range')\n        self.count = 0\n        self._x = self._y = self._dx = self._dy = self._height = 0\n        if xl == xr or yl == yr:\n            return\n        if a == b == 0:\n            if c == 0:\n                self.count = (xr - xl) * (yr - yl)\n                (self._x, self._y, self._height) = (xl, yl, yr - yl)\n            return\n        (g, x, y) = extended_gcd(a, b)\n        if c % g:\n            return\n        x *= c // g\n        y *= c // g\n        (dx, dy) = (b // g, -a // g)\n        if dx < 0 or (dx == 0 and dy < 0):\n            (dx, dy) = (-dx, -dy)\n        lower = upper = None\n        for (base, step, lo, hi) in ((x, dx, xl, xr), (y, dy, yl, yr)):\n            if step == 0:\n                if not lo <= base < hi:\n                    return\n                continue\n            if step > 0:\n                (low, high) = (-((base - lo) // step), (hi - 1 - base) // step)\n            else:\n                (low, high) = (-((base - hi + 1) // step), (lo - base) // step)\n            lower = low if lower is None else max(lower, low)\n            upper = high if upper is None else min(upper, high)\n        if lower > upper:\n            return\n        self.count = upper - lower + 1\n        (self._x, self._y) = (x + dx * lower, y + dy * lower)\n        (self._dx, self._dy) = (dx, dy)\n\n    def kth(self, k):\n        \"\"\"x、次にyの昇順でk番目の整数解(x, y)を返す。\"\"\"\n        if not 0 <= k < self.count:\n            raise IndexError('solution index out of range')\n        if self._height:\n            return (self._x + k // self._height, self._y + k % self._height)\n        return (self._x + k * self._dx, self._y + k * self._dy)\n\n    def __repr__(self):\n        return 'LinearDiophantine(count=' + str(self.count) + ', first=' + str(self.kth(0) if self.count else None) + ')'\n",
+      "bundledDependencies": [
+        "library_codex.number_theory.IntegerArithmetic"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 2
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "LinearDiophantine",
+          "summary": "ax+by=cを満たす長方形内の整数解を、個数と等差数列で保持する。",
+          "description": "ax+by=cを満たす長方形内の整数解を、個数と等差数列で保持する。",
+          "searchTerms": [
+            "LinearDiophantine",
+            "Linear Diophantine",
+            "LinearDiophantine(a, b, c, xl, xr, yl, yr)"
+          ],
+          "constructor": "LinearDiophantine(a, b, c, xl, xr, yl, yr)",
+          "constructorArguments": "a: xの整数係数。0や負数も可。 · b: yの整数係数。0や負数も可。 · c: 方程式の右辺の整数。 · xl: xの下限を含む。 · xr: xの上限は含まない。 · yl: yの下限を含む。 · yr: yの上限は含まない。",
+          "constructorArgumentDetails": [
+            {
+              "name": "a",
+              "description": "xの整数係数。0や負数も可"
+            },
+            {
+              "name": "b",
+              "description": "yの整数係数。0や負数も可"
+            },
+            {
+              "name": "c",
+              "description": "方程式の右辺の整数"
+            },
+            {
+              "name": "xl",
+              "description": "xの下限を含む"
+            },
+            {
+              "name": "xr",
+              "description": "xの上限は含まない"
+            },
+            {
+              "name": "yl",
+              "description": "yの下限を含む"
+            },
+            {
+              "name": "yr",
+              "description": "yの上限は含まない"
+            }
+          ],
+          "constructorReturns": "LinearDiophantine instance",
+          "constructorReturnFormat": "LinearDiophantine",
+          "constructorReturnDescription": "countが解の個数。kth(k)でx、次にyの昇順のk番目の解を得る。解がない場合もobjectを返し、count=0となる。",
+          "constructorCreates": "countが解の個数。kth(k)でx、次にyの昇順のk番目の解を得る。解がない場合もobjectを返し、count=0となる。",
+          "constructorComplexity": "O(log(max(abs(a),abs(b))+2))時間・O(1)空間。整数演算をO(1)とする",
+          "constructorSourceLine": 11,
+          "methods": [
+            {
+              "name": "kth",
+              "kind": "method",
+              "signature": "kth(k)",
+              "summary": "x、次にyの昇順でk番目の解を取得する。",
+              "description": "x、次にyの昇順でk番目の解を取得する。",
+              "searchTerms": [
+                "kth",
+                "kth(k)"
+              ],
+              "arguments": "k: 0以上count未満の順位。範囲外はIndexError。",
+              "argumentDetails": [
+                {
+                  "name": "k",
+                  "description": "0以上count未満の順位。範囲外はIndexError。"
+                }
+              ],
+              "returns": "tuple[int, int] — (x, y)。指定した半開長方形に含まれ、ax+by=cを満たす整数の組。",
+              "returnFormat": "tuple[int, int]",
+              "returnDescription": "(x, y)。指定した半開長方形に含まれ、ax+by=cを満たす整数の組。",
+              "complexity": "O(1)回の整数演算",
+              "sourceLine": 49
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "解の個数と最初の解を表示する。",
+              "description": "解の個数と最初の解を表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — LinearDiophantine(count=..., first=...)。解がなければfirst=None。全解は列挙しない。",
+              "returnFormat": "str",
+              "returnDescription": "LinearDiophantine(count=..., first=...)。解がなければfirst=None。全解は列挙しない。",
+              "complexity": "O(S)時間。Sは出力文字数",
+              "sourceLine": 57
+            }
+          ]
+        }
+      ]
     },
     {
       "category": "number_theory",
@@ -69183,7 +69593,11 @@
         "2列を一致させるための挿入・削除・置換の最小回数を求められる。",
         "距離だけでなく、元の2列のindexに対応した最短編集手順も復元できる。"
       ],
-      "article": null,
+      "article": {
+        "title": "編集距離と編集手順",
+        "markdown": "## 主な機能\n\n文字の挿入・削除・置換をそれぞれ1回として、2つの列を一致させる最小回数を求めます。\n\n- `edit_distance`: 距離だけをビット並列DPで計算します。\n- `edit_distance_bounded`: 許す距離が小さいとき、対角線の近くだけを調べます。\n- `edit_distance_with_path`: 距離と最短編集手順を通常のDPで復元します。\n\n長い方をN、短い方をM、整数の内部1桁のbit数をwとすると、ビット並列版はO(N ceil(M/w))です。Pythonの多倍長整数の演算を使い、AVX命令や追加packageは必要ありません。\n\n## 使い方\n\n```python\nfrom library_codex.string_sequence.EditDistance import edit_distance, edit_distance_bounded, edit_distance_with_path\n\nassert edit_distance(\"kitten\", \"sitting\") == 3\nassert edit_distance_bounded(\"kitten\", \"sitting\", 2) == 3\nassert edit_distance_bounded(\"kitten\", \"sitting\", 5) == 3\ndistance, steps = edit_distance_with_path(\"ab\", \"acb\")\nassert distance == 1\nassert steps == [(\"match\", 0, 0), (\"insert\", 1, 1), (\"match\", 1, 2)]\n```\n\n- bounded版の返り値が `limit + 1` なら「距離はlimitを超える」ことだけが分かります。正確な距離とは限りません。\n- 手順は `(operation, first_index, second_index)` のlistです。添字は編集中の文字列ではなく元の2列を指します。\n- `match` は一致、`replace` は置換、`delete` はfirst側の削除、`insert` はsecond側の文字の挿入です。\n\n## 注意点\n\n- strはUnicodeの文字単位、bytesはbyte単位で比較します。\n- hash可能な要素の列ではビット並列版を使います。listのlistなどhash不能な要素では、等値比較を使うO(NM)時間・O(M)空間のDPに切り替えます。\n- bounded版はO(N min(M+1, limit+1))時間・O(min(M+1, limit+1))空間です。\n- 編集手順の復元にはO(NM)時間・空間を使います。\n\n## 参考\n\n[kemuniku/cplib: ビット並列編集距離](https://github.com/kemuniku/cplib/blob/f835598fec8e14039cf654a67f0244e0a654d035/src/cplib/str/edit_distance_bitset.nim)と[qandori/cp-library](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/string/edit_distance.hpp)を参照しています。",
+        "sourcePath": "library_codex/docs/articles/string_sequence/EditDistance.md"
+      },
       "searchTerms": [
         "EditDistance",
         "Edit Distance",
@@ -69197,13 +69611,13 @@
       ],
       "complexity": "実装依存",
       "sourcePath": "library_codex/string_sequence/EditDistance.py",
-      "inputFingerprint": "b14e8f1e0579802e5ddad72ccc7e3084cacd63ea625b62a6466e603b6695f6ab",
-      "importCode": "from library_codex.string_sequence.EditDistance import edit_distance, edit_distance_with_path",
-      "sourceCode": "\"\"\"2列間のLevenshtein距離を計算し、最短編集列を復元する。\"\"\"\n\n\ndef edit_distance(first, second):\n    \"\"\"挿入・削除・置換の最小回数を省memoryで求める。\"\"\"\n    if len(first) < len(second):\n        first, second = second, first\n    previous = list(range(len(second) + 1))\n    for i, left in enumerate(first, 1):\n        current = [i] + [0] * len(second)\n        for j, right in enumerate(second, 1):\n            current[j] = min(\n                previous[j] + 1,\n                current[j - 1] + 1,\n                previous[j - 1] + (left != right),\n            )\n        previous = current\n    return previous[-1]\n\n\ndef edit_distance_with_path(first, second):\n    \"\"\"Levenshtein距離と、その値を達成する編集手順を返す。\"\"\"\n    n = len(first)\n    m = len(second)\n    table = [list(range(m + 1))]\n    for i in range(1, n + 1):\n        row = [i] + [0] * m\n        previous = table[-1]\n        for j in range(1, m + 1):\n            row[j] = min(\n                previous[j] + 1,\n                row[j - 1] + 1,\n                previous[j - 1] + (first[i - 1] != second[j - 1]),\n            )\n        table.append(row)\n\n    steps = []\n    i, j = n, m\n    while i or j:\n        if i and j:\n            cost = first[i - 1] != second[j - 1]\n            if table[i][j] == table[i - 1][j - 1] + cost:\n                steps.append((\"replace\" if cost else \"match\", i - 1, j - 1))\n                i -= 1\n                j -= 1\n                continue\n        if i and table[i][j] == table[i - 1][j] + 1:\n            steps.append((\"delete\", i - 1, j))\n            i -= 1\n        else:\n            steps.append((\"insert\", i, j - 1))\n            j -= 1\n    steps.reverse()\n    return table[n][m], steps\n",
-      "standaloneCode": "\"\"\"2列間のLevenshtein距離を計算し、最短編集列を復元する。\"\"\"\n\n\ndef edit_distance(first, second):\n    \"\"\"挿入・削除・置換の最小回数を省memoryで求める。\"\"\"\n    if len(first) < len(second):\n        first, second = second, first\n    previous = list(range(len(second) + 1))\n    for i, left in enumerate(first, 1):\n        current = [i] + [0] * len(second)\n        for j, right in enumerate(second, 1):\n            current[j] = min(\n                previous[j] + 1,\n                current[j - 1] + 1,\n                previous[j - 1] + (left != right),\n            )\n        previous = current\n    return previous[-1]\n\n\ndef edit_distance_with_path(first, second):\n    \"\"\"Levenshtein距離と、その値を達成する編集手順を返す。\"\"\"\n    n = len(first)\n    m = len(second)\n    table = [list(range(m + 1))]\n    for i in range(1, n + 1):\n        row = [i] + [0] * m\n        previous = table[-1]\n        for j in range(1, m + 1):\n            row[j] = min(\n                previous[j] + 1,\n                row[j - 1] + 1,\n                previous[j - 1] + (first[i - 1] != second[j - 1]),\n            )\n        table.append(row)\n\n    steps = []\n    i, j = n, m\n    while i or j:\n        if i and j:\n            cost = first[i - 1] != second[j - 1]\n            if table[i][j] == table[i - 1][j - 1] + cost:\n                steps.append((\"replace\" if cost else \"match\", i - 1, j - 1))\n                i -= 1\n                j -= 1\n                continue\n        if i and table[i][j] == table[i - 1][j] + 1:\n            steps.append((\"delete\", i - 1, j))\n            i -= 1\n        else:\n            steps.append((\"insert\", i, j - 1))\n            j -= 1\n    steps.reverse()\n    return table[n][m], steps\n",
+      "inputFingerprint": "d8a972797fb52fb61f68915900f87403cea470c56ca03e48aff630f19cc20a35",
+      "importCode": "from library_codex.string_sequence.EditDistance import edit_distance, edit_distance_bounded, edit_distance_with_path",
+      "sourceCode": "\"\"\"2列間のLevenshtein距離を計算し、最短編集列を復元する。\"\"\"\n\n\ndef edit_distance(first, second):\n    \"\"\"挿入・削除・置換の最小回数をビット並列DPで求める。\"\"\"\n    if len(first) < len(second):\n        first, second = second, first\n    size = len(second)\n    if not size:\n        return len(first)\n    masks = {}\n    try:\n        for index, value in enumerate(second):\n            masks[value] = masks.get(value, 0) | (1 << index)\n        for value in first:\n            hash(value)\n    except TypeError:\n        return _edit_distance_dp(first, second)\n    full = (1 << size) - 1\n    high = 1 << (size - 1)\n    positive = full\n    negative = 0\n    distance = size\n    for value in first:\n        equal = masks.get(value, 0)\n        vertical = equal | negative\n        horizontal = (((equal & positive) + positive) ^ positive) | equal\n        plus = negative | ~(horizontal | positive)\n        minus = positive & horizontal\n        distance += bool(plus & high) - bool(minus & high)\n        plus = (plus << 1) | 1\n        positive = ((minus << 1) | ~(vertical | plus)) & full\n        negative = plus & vertical\n    return distance\n\n\ndef _edit_distance_dp(first, second):\n    previous = list(range(len(second) + 1))\n    for i, left in enumerate(first, 1):\n        current = [i] + [0] * len(second)\n        for j, right in enumerate(second, 1):\n            current[j] = min(\n                previous[j] + 1,\n                current[j - 1] + 1,\n                previous[j - 1] + (left != right),\n            )\n        previous = current\n    return previous[-1]\n\n\ndef edit_distance_bounded(first, second, limit):\n    \"\"\"距離がlimit以下なら正確な距離、それより大きければlimit+1を返す。\"\"\"\n    if limit < 0:\n        raise ValueError(\"limit must be nonnegative\")\n    if len(first) < len(second):\n        first, second = second, first\n    n, m = len(first), len(second)\n    cutoff = limit + 1\n    if n - m > limit:\n        return cutoff\n    previous = list(range(min(m, limit) + 1))\n    start = 0\n    for i in range(1, n + 1):\n        lo, hi = max(0, i - limit), min(m, i + limit)\n        current = [cutoff] * (hi - lo + 1)\n        if lo == 0:\n            current[0] = i\n        for j in range(max(1, lo), hi + 1):\n            p = j - start\n            above = previous[p] + 1 if 0 <= p < len(previous) else cutoff\n            diagonal = previous[p - 1] + (first[i - 1] != second[j - 1]) if 0 <= p - 1 < len(previous) else cutoff\n            left = current[j - lo - 1] + 1 if j > lo else cutoff\n            current[j - lo] = min(above, diagonal, left)\n        if min(current) > limit:\n            return cutoff\n        previous, start = current, lo\n    return min(previous[-1], cutoff)\n\n\ndef edit_distance_with_path(first, second):\n    \"\"\"Levenshtein距離と、その値を達成する編集手順を返す。\"\"\"\n    n = len(first)\n    m = len(second)\n    table = [list(range(m + 1))]\n    for i in range(1, n + 1):\n        row = [i] + [0] * m\n        previous = table[-1]\n        for j in range(1, m + 1):\n            row[j] = min(\n                previous[j] + 1,\n                row[j - 1] + 1,\n                previous[j - 1] + (first[i - 1] != second[j - 1]),\n            )\n        table.append(row)\n\n    steps = []\n    i, j = n, m\n    while i or j:\n        if i and j:\n            cost = first[i - 1] != second[j - 1]\n            if table[i][j] == table[i - 1][j - 1] + cost:\n                steps.append((\"replace\" if cost else \"match\", i - 1, j - 1))\n                i -= 1\n                j -= 1\n                continue\n        if i and table[i][j] == table[i - 1][j] + 1:\n            steps.append((\"delete\", i - 1, j))\n            i -= 1\n        else:\n            steps.append((\"insert\", i, j - 1))\n            j -= 1\n    steps.reverse()\n    return table[n][m], steps\n",
+      "standaloneCode": "\"\"\"2列間のLevenshtein距離を計算し、最短編集列を復元する。\"\"\"\n\n\ndef edit_distance(first, second):\n    \"\"\"挿入・削除・置換の最小回数をビット並列DPで求める。\"\"\"\n    if len(first) < len(second):\n        first, second = second, first\n    size = len(second)\n    if not size:\n        return len(first)\n    masks = {}\n    try:\n        for index, value in enumerate(second):\n            masks[value] = masks.get(value, 0) | (1 << index)\n        for value in first:\n            hash(value)\n    except TypeError:\n        return _edit_distance_dp(first, second)\n    full = (1 << size) - 1\n    high = 1 << (size - 1)\n    positive = full\n    negative = 0\n    distance = size\n    for value in first:\n        equal = masks.get(value, 0)\n        vertical = equal | negative\n        horizontal = (((equal & positive) + positive) ^ positive) | equal\n        plus = negative | ~(horizontal | positive)\n        minus = positive & horizontal\n        distance += bool(plus & high) - bool(minus & high)\n        plus = (plus << 1) | 1\n        positive = ((minus << 1) | ~(vertical | plus)) & full\n        negative = plus & vertical\n    return distance\n\n\ndef _edit_distance_dp(first, second):\n    previous = list(range(len(second) + 1))\n    for i, left in enumerate(first, 1):\n        current = [i] + [0] * len(second)\n        for j, right in enumerate(second, 1):\n            current[j] = min(\n                previous[j] + 1,\n                current[j - 1] + 1,\n                previous[j - 1] + (left != right),\n            )\n        previous = current\n    return previous[-1]\n\n\ndef edit_distance_bounded(first, second, limit):\n    \"\"\"距離がlimit以下なら正確な距離、それより大きければlimit+1を返す。\"\"\"\n    if limit < 0:\n        raise ValueError(\"limit must be nonnegative\")\n    if len(first) < len(second):\n        first, second = second, first\n    n, m = len(first), len(second)\n    cutoff = limit + 1\n    if n - m > limit:\n        return cutoff\n    previous = list(range(min(m, limit) + 1))\n    start = 0\n    for i in range(1, n + 1):\n        lo, hi = max(0, i - limit), min(m, i + limit)\n        current = [cutoff] * (hi - lo + 1)\n        if lo == 0:\n            current[0] = i\n        for j in range(max(1, lo), hi + 1):\n            p = j - start\n            above = previous[p] + 1 if 0 <= p < len(previous) else cutoff\n            diagonal = previous[p - 1] + (first[i - 1] != second[j - 1]) if 0 <= p - 1 < len(previous) else cutoff\n            left = current[j - lo - 1] + 1 if j > lo else cutoff\n            current[j - lo] = min(above, diagonal, left)\n        if min(current) > limit:\n            return cutoff\n        previous, start = current, lo\n    return min(previous[-1], cutoff)\n\n\ndef edit_distance_with_path(first, second):\n    \"\"\"Levenshtein距離と、その値を達成する編集手順を返す。\"\"\"\n    n = len(first)\n    m = len(second)\n    table = [list(range(m + 1))]\n    for i in range(1, n + 1):\n        row = [i] + [0] * m\n        previous = table[-1]\n        for j in range(1, m + 1):\n            row[j] = min(\n                previous[j] + 1,\n                row[j - 1] + 1,\n                previous[j - 1] + (first[i - 1] != second[j - 1]),\n            )\n        table.append(row)\n\n    steps = []\n    i, j = n, m\n    while i or j:\n        if i and j:\n            cost = first[i - 1] != second[j - 1]\n            if table[i][j] == table[i - 1][j - 1] + cost:\n                steps.append((\"replace\" if cost else \"match\", i - 1, j - 1))\n                i -= 1\n                j -= 1\n                continue\n        if i and table[i][j] == table[i - 1][j] + 1:\n            steps.append((\"delete\", i - 1, j))\n            i -= 1\n        else:\n            steps.append((\"insert\", i, j - 1))\n            j -= 1\n    steps.reverse()\n    return table[n][m], steps\n",
       "bundledDependencies": [],
       "counts": {
-        "functions": 2,
+        "functions": 3,
         "classes": 0,
         "methods": 0
       },
@@ -69233,8 +69647,40 @@
           "returns": "int — Levenshtein距離。非負整数で、同じ列では0。",
           "returnFormat": "int",
           "returnDescription": "Levenshtein距離。非負整数で、同じ列では0。",
-          "complexity": "O(NM) time、O(min(N,M)) memory",
+          "complexity": "O(N ceil(M/w))時間・O(D ceil(M/w))空間。Nは長い方、Mは短い方、Dは短い列の異なる要素数、wは多倍長整数の内部桁のbit数。hash不能な要素ではO(NM)時間・O(M)空間",
           "sourceLine": 4
+        },
+        {
+          "name": "edit_distance_bounded",
+          "kind": "function",
+          "signature": "edit_distance_bounded(first, second, limit)",
+          "summary": "編集距離がlimit以下かを対角帯DPで調べ、範囲内なら正確な距離を返す。",
+          "description": "編集距離がlimit以下かを対角帯DPで調べ、範囲内なら正確な距離を返す。",
+          "searchTerms": [
+            "edit_distance_bounded",
+            "edit distance bounded",
+            "edit_distance_bounded(first, second, limit)"
+          ],
+          "arguments": "first: 変換元の列。 · second: 変換先の列。 · limit: 許す編集回数の非負整数。",
+          "argumentDetails": [
+            {
+              "name": "first",
+              "description": "変換元の列。"
+            },
+            {
+              "name": "second",
+              "description": "変換先の列。"
+            },
+            {
+              "name": "limit",
+              "description": "許す編集回数の非負整数。"
+            }
+          ],
+          "returns": "int — 距離がlimit以下ならその距離。超える場合はlimit+1で、正確な距離とは限らない。",
+          "returnFormat": "int",
+          "returnDescription": "距離がlimit以下ならその距離。超える場合はlimit+1で、正確な距離とは限らない。",
+          "complexity": "O(N min(M+1,K+1))時間・O(min(M+1,K+1))空間。K=limit、Nは長い方、Mは短い方",
+          "sourceLine": 51
         },
         {
           "name": "edit_distance_with_path",
@@ -69261,8 +69707,8 @@
           "returns": "tuple[int, list[tuple[str, int, int]]] — (distance, steps)。各stepは(operation, first_index, second_index)で、operationはmatch・replace・delete・insertのいずれか。deleteのsecond_indexとinsertのfirst_indexは、その時点での境界位置を表す。",
           "returnFormat": "tuple[int, list[tuple[str, int, int]]]",
           "returnDescription": "(distance, steps)。各stepは(operation, first_index, second_index)で、operationはmatch・replace・delete・insertのいずれか。deleteのsecond_indexとinsertのfirst_indexは、その時点での境界位置を表す。",
-          "complexity": "O(NM) time、O(NM) memory",
-          "sourceLine": 21
+          "complexity": "O(NM)時間・O(NM)空間",
+          "sourceLine": 80
         }
       ],
       "classes": []
@@ -70382,6 +70828,164 @@
         }
       ],
       "classes": []
+    },
+    {
+      "category": "optimization",
+      "categoryLabel": "最適化・DP",
+      "domain": "optimization",
+      "domainLabel": "Optimization",
+      "name": "MoWithUpdates",
+      "modulePath": "library_codex.optimization.MoWithUpdates",
+      "summary": "一点代入と区間クエリを時系列で登録し、更新付きMoでまとめて答える。",
+      "capabilities": [
+        "MoWithUpdates: 一点代入と半開区間の問い合わせを発生順に登録し、区間内の値の追加・削除だけでまとめて処理する。"
+      ],
+      "article": {
+        "title": "一点代入を含む区間クエリ",
+        "markdown": "## 主な機能\n\n配列への一点代入と半開区間 `[left, right)` の問い合わせを、発生順に登録してまとめて答えます。利用者が用意するのは `add(value)`、`remove(value)`、`get()` の3つです。更新の巻き戻しや、更新位置が区間内かの判定はclassが担当します。\n\n要素の順序によらない集計に使います。区間内の異なる値の個数、値ごとの頻度、和などが対象です。順序を区別する文字列連結には使えません。\n\n長さ・更新数・クエリ数がそれぞれO(N)なら、callbackをO(1)としてO(N^(5/3))時間、O(N)空間が目安です。更新のない通常のMoは `algorithm/RangeQueries.py` から選べます。\n\n## 使い方\n\n```python\nfrom library_codex.optimization.MoWithUpdates import MoWithUpdates\n\nmo = MoWithUpdates([1, 2, 1])\nmo.query(0, 3)\nmo.set(1, 1)\nmo.query(0, 3)\nmo.query(1, 1)\n\nfrequency = {}\ndistinct = 0\n\ndef add(value):\n    global distinct\n    count = frequency.get(value, 0)\n    distinct += count == 0\n    frequency[value] = count + 1\n\ndef remove(value):\n    global distinct\n    frequency[value] -= 1\n    distinct -= frequency[value] == 0\n\nanswers = mo.run(add, remove, lambda: distinct)\nassert answers == [2, 1, 0]\nassert distinct == 0\n```\n\n- `query` が返す整数は、`answers` の添字です。\n- `set` はその後に登録するクエリだけに影響します。\n- `run` の終了時には集計対象を空に戻します。空の状態から再実行できます。\n\n## 注意点\n\n- `get()` が可変listやdictを返す場合は、そのコピーを返してください。\n- 値そのものを後から変更しないでください。一点代入は `set` で登録します。\n- callbackが例外を投げた場合、集計状態の復元は保証しません。\n\n## 参考\n\n[qandori/cp-library: 更新付きMo](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/data_structure/mo_with_updates.hpp)。3方向の蛇行順序を参照し、値の保存と更新の巻き戻しをclass内へまとめています。",
+        "sourcePath": "library_codex/docs/articles/optimization/MoWithUpdates.md"
+      },
+      "searchTerms": [
+        "MoWithUpdates",
+        "Mo With Updates",
+        "library_codex.optimization.MoWithUpdates",
+        "library codex optimization Mo With Updates",
+        "optimization/MoWithUpdates.py",
+        "最適化・DP",
+        "更新付きMo",
+        "時間軸Mo",
+        "区間頻度"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/optimization/MoWithUpdates.py",
+      "inputFingerprint": "320a70202da412b4cd806fc35596bc96b5113192cc77474181dce07e576e570c",
+      "importCode": "from library_codex.optimization.MoWithUpdates import MoWithUpdates",
+      "sourceCode": "\"\"\"一点代入と区間クエリを時系列で登録し、更新付きMoでまとめて答える。\"\"\"\n\n\nclass MoWithUpdates:\n    \"\"\"値の追加・削除・答え取得だけを指定して更新付き区間集計を行う。\"\"\"\n\n    __slots__ = (\"values\", \"updates\", \"queries\", \"_latest\", \"block_size\")\n\n    def __init__(self, values, block_size=None):\n        if block_size is not None and block_size < 1:\n            raise ValueError(\"block_size must be positive\")\n        self.values = list(values)\n        self._latest = self.values.copy()\n        self.updates = []\n        self.queries = []\n        self.block_size = block_size\n\n    def set(self, index, value):\n        \"\"\"この時点以降のクエリに適用する一点代入を登録する。\"\"\"\n        if not 0 <= index < len(self.values):\n            raise IndexError(\"index out of range\")\n        self.updates.append((index, self._latest[index], value))\n        self._latest[index] = value\n\n    def query(self, left, right):\n        \"\"\"現在までの代入を反映した半開区間[left, right)を登録する。\"\"\"\n        if not 0 <= left <= right <= len(self.values):\n            raise IndexError(\"invalid half-open range\")\n        index = len(self.queries)\n        self.queries.append((left, right, len(self.updates), index))\n        return index\n\n    def run(self, add, remove, get):\n        \"\"\"add(value)・remove(value)・get()で全クエリの答えを登録順に返す。\"\"\"\n        queries = self.queries\n        if not queries:\n            return []\n        n, count, changes = len(self.values), len(queries), len(self.updates)\n        width = self.block_size\n        if width is None:\n            width = max(1, min(n, round((n * n * changes / count) ** (1 / 3)))) if changes else max(1, int(n / count ** 0.5))\n        if changes:\n            def key(query):\n                left, right = query[0] // width, query[1] // width\n                return left, -right if left & 1 else right, -query[2] if (left ^ right) & 1 else query[2]\n\n            ordered = sorted(queries, key=key)\n        else:\n            ordered = sorted(queries, key=lambda q: (q[0] // width, -q[1] if q[0] // width & 1 else q[1]))\n        values = self.values.copy()\n        updates = self.updates\n        answers = [None] * count\n        left = right = time = 0\n        for lo, hi, target, index in ordered:\n            while time < target:\n                position, old, new = updates[time]\n                if left <= position < right:\n                    remove(old)\n                    add(new)\n                values[position] = new\n                time += 1\n            while time > target:\n                time -= 1\n                position, old, new = updates[time]\n                if left <= position < right:\n                    remove(new)\n                    add(old)\n                values[position] = old\n            while left > lo:\n                left -= 1\n                add(values[left])\n            while right < hi:\n                add(values[right])\n                right += 1\n            while left < lo:\n                remove(values[left])\n                left += 1\n            while right > hi:\n                right -= 1\n                remove(values[right])\n            answers[index] = get()\n        while left < right:\n            remove(values[left])\n            left += 1\n        return answers\n",
+      "standaloneCode": "\"\"\"一点代入と区間クエリを時系列で登録し、更新付きMoでまとめて答える。\"\"\"\n\n\nclass MoWithUpdates:\n    \"\"\"値の追加・削除・答え取得だけを指定して更新付き区間集計を行う。\"\"\"\n\n    __slots__ = (\"values\", \"updates\", \"queries\", \"_latest\", \"block_size\")\n\n    def __init__(self, values, block_size=None):\n        if block_size is not None and block_size < 1:\n            raise ValueError(\"block_size must be positive\")\n        self.values = list(values)\n        self._latest = self.values.copy()\n        self.updates = []\n        self.queries = []\n        self.block_size = block_size\n\n    def set(self, index, value):\n        \"\"\"この時点以降のクエリに適用する一点代入を登録する。\"\"\"\n        if not 0 <= index < len(self.values):\n            raise IndexError(\"index out of range\")\n        self.updates.append((index, self._latest[index], value))\n        self._latest[index] = value\n\n    def query(self, left, right):\n        \"\"\"現在までの代入を反映した半開区間[left, right)を登録する。\"\"\"\n        if not 0 <= left <= right <= len(self.values):\n            raise IndexError(\"invalid half-open range\")\n        index = len(self.queries)\n        self.queries.append((left, right, len(self.updates), index))\n        return index\n\n    def run(self, add, remove, get):\n        \"\"\"add(value)・remove(value)・get()で全クエリの答えを登録順に返す。\"\"\"\n        queries = self.queries\n        if not queries:\n            return []\n        n, count, changes = len(self.values), len(queries), len(self.updates)\n        width = self.block_size\n        if width is None:\n            width = max(1, min(n, round((n * n * changes / count) ** (1 / 3)))) if changes else max(1, int(n / count ** 0.5))\n        if changes:\n            def key(query):\n                left, right = query[0] // width, query[1] // width\n                return left, -right if left & 1 else right, -query[2] if (left ^ right) & 1 else query[2]\n\n            ordered = sorted(queries, key=key)\n        else:\n            ordered = sorted(queries, key=lambda q: (q[0] // width, -q[1] if q[0] // width & 1 else q[1]))\n        values = self.values.copy()\n        updates = self.updates\n        answers = [None] * count\n        left = right = time = 0\n        for lo, hi, target, index in ordered:\n            while time < target:\n                position, old, new = updates[time]\n                if left <= position < right:\n                    remove(old)\n                    add(new)\n                values[position] = new\n                time += 1\n            while time > target:\n                time -= 1\n                position, old, new = updates[time]\n                if left <= position < right:\n                    remove(new)\n                    add(old)\n                values[position] = old\n            while left > lo:\n                left -= 1\n                add(values[left])\n            while right < hi:\n                add(values[right])\n                right += 1\n            while left < lo:\n                remove(values[left])\n                left += 1\n            while right > hi:\n                right -= 1\n                remove(values[right])\n            answers[index] = get()\n        while left < right:\n            remove(values[left])\n            left += 1\n        return answers\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 3
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "MoWithUpdates",
+          "summary": "一点代入と半開区間の問い合わせを発生順に登録し、区間内の値の追加・削除だけでまとめて処理する。",
+          "description": "一点代入と半開区間の問い合わせを発生順に登録し、区間内の値の追加・削除だけでまとめて処理する。",
+          "searchTerms": [
+            "MoWithUpdates",
+            "Mo With Updates",
+            "MoWithUpdates(values, block_size=None)"
+          ],
+          "constructor": "MoWithUpdates(values, block_size=None)",
+          "constructorArguments": "values: 初期配列。要素自体は後から変更せず、setで代入する。 · block_size: 正のブロック幅。Noneなら配列長・更新数・クエリ数から選ぶ。省略時: None",
+          "constructorArgumentDetails": [
+            {
+              "name": "values",
+              "description": "初期配列。要素自体は後から変更せず、setで代入する"
+            },
+            {
+              "name": "block_size",
+              "description": "正のブロック幅。Noneなら配列長・更新数・クエリ数から選ぶ。省略時は None"
+            }
+          ],
+          "constructorReturns": "MoWithUpdates instance",
+          "constructorReturnFormat": "MoWithUpdates",
+          "constructorReturnDescription": "初期配列と操作履歴を保持する。setで代入、queryで区間を登録し、runで登録順の答えを得る。",
+          "constructorCreates": "初期配列と操作履歴を保持する。setで代入、queryで区間を登録し、runで登録順の答えを得る。",
+          "constructorComplexity": "O(N)時間・空間",
+          "constructorSourceLine": 9,
+          "methods": [
+            {
+              "name": "set",
+              "kind": "method",
+              "signature": "set(index, value)",
+              "summary": "これ以降の問い合わせに反映する一点代入を登録する。",
+              "description": "これ以降の問い合わせに反映する一点代入を登録する。",
+              "searchTerms": [
+                "set",
+                "set(index, value)"
+              ],
+              "arguments": "index: 代入先の添字。 · value: 新しい要素。",
+              "argumentDetails": [
+                {
+                  "name": "index",
+                  "description": "代入先の添字。"
+                },
+                {
+                  "name": "value",
+                  "description": "新しい要素。"
+                }
+              ],
+              "returns": "None — 値を返さない。以前のqueryの意味は変えない。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。以前のqueryの意味は変えない。",
+              "complexity": "償却O(1)時間・1件O(1)空間",
+              "sourceLine": 18
+            },
+            {
+              "name": "query",
+              "kind": "method",
+              "signature": "query(left, right)",
+              "summary": "現在までの代入を反映した半開区間[left, right)の問い合わせを登録する。",
+              "description": "現在までの代入を反映した半開区間[left, right)の問い合わせを登録する。",
+              "searchTerms": [
+                "query",
+                "query(left, right)"
+              ],
+              "arguments": "left: 区間の左端を含む。 · right: 区間の右端は含まない。空区間も可。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "区間の左端を含む。"
+                },
+                {
+                  "name": "right",
+                  "description": "区間の右端は含まない。空区間も可。"
+                }
+              ],
+              "returns": "int — runが返すlistの添字。queryを呼んだ順に割り当てる。",
+              "returnFormat": "int",
+              "returnDescription": "runが返すlistの添字。queryを呼んだ順に割り当てる。",
+              "complexity": "償却O(1)時間・1件O(1)空間",
+              "sourceLine": 25
+            },
+            {
+              "name": "run",
+              "kind": "method",
+              "signature": "run(add, remove, get)",
+              "summary": "時刻と区間を動かし、各問い合わせの答えをまとめて求める。",
+              "description": "時刻と区間を動かし、各問い合わせの答えをまとめて求める。",
+              "searchTerms": [
+                "run",
+                "run(add, remove, get)"
+              ],
+              "arguments": "add: add(value): 対象へ1個加える。順序に依存しない集計に限る。 · remove: remove(value): 対象から1個除く。addの逆操作。 · get: get(): 現在の答えを返す。可変objectならコピーを返す。最初の集計状態は空にする。",
+              "argumentDetails": [
+                {
+                  "name": "add",
+                  "description": "add(value): 対象へ1個加える。順序に依存しない集計に限る。"
+                },
+                {
+                  "name": "remove",
+                  "description": "remove(value): 対象から1個除く。addの逆操作。"
+                },
+                {
+                  "name": "get",
+                  "description": "get(): 現在の答えを返す。可変objectならコピーを返す。最初の集計状態は空にする。"
+                }
+              ],
+              "returns": "list[object] — queryの登録順の答え。result[i]はi番目のqueryでget()が返した値。正常終了時はcallbackが管理する対象を空に戻す。",
+              "returnFormat": "list[object]",
+              "returnDescription": "queryの登録順の答え。result[i]はi番目のqueryでget()が返した値。正常終了時はcallbackが管理する対象を空に戻す。",
+              "complexity": "O(Q log(Q+1)+N+U+P*C+Q*G)時間・O(N+Q)追加空間。P=O(QB+N^2/B+U*min(Q,(N/B+1)^2)+N)。Bはブロック幅、Qはクエリ数、Uは更新数、Cはadd/remove、Gはgetの1回のコスト",
+              "sourceLine": 33
+            }
+          ]
+        }
+      ]
     },
     {
       "category": "optimization",

@@ -20,6 +20,30 @@ def load_catalog():
     return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
 
 
+@pytest.mark.parametrize("name", [
+    "string_sequence.EditDistance",
+    "fps.SparseFormalPowerSeries",
+    "number_theory.LinearDiophantine",
+    "optimization.MoWithUpdates",
+    "shortest_path.DifferenceConstraints",
+])
+def test_reference_expansion_article_and_bundle(name, tmp_path):
+    module = module_by_path(load_catalog(), "library_codex." + name)
+    article = module["article"]["markdown"]
+    examples = re.findall(r"```python\n(.*?)```", article, re.S)
+    assert examples
+    for index, example in enumerate(examples):
+        code = "\n".join(line for line in example.splitlines() if not line.startswith("from library_codex."))
+        path = tmp_path / (str(index) + ".py")
+        path.write_text(module["standaloneCode"] + "\n" + code, encoding="utf-8")
+        result = subprocess.run([sys.executable, "-I", str(path)], cwd=tmp_path, capture_output=True, text=True)
+        assert result.returncode == 0, result.stderr
+    for symbol in module["functions"]:
+        assert symbol["name"] and symbol["returnDescription"] and "O(" in symbol["complexity"]
+    symbols = module["functions"] + [method for cls in module["classes"] for method in cls["methods"]]
+    assert all(symbol["returnFormat"] not in {"list", "dict", "tuple", "set", "iterator"} for symbol in symbols)
+
+
 @pytest.mark.parametrize("force", [False, True])
 def test_full_regeneration_writes_even_with_unchanged_fingerprints(tmp_path, monkeypatch, force):
     output = tmp_path / "catalog.json"

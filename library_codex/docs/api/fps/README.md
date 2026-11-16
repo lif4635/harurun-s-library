@@ -15,5 +15,5 @@ modを指定できる形式的冪級数と母関数の演算のAPI一覧です�
 | [`MultivariateFPS`](MultivariateFPS.md) | 各変数の次数を打ち切った冪級数の積・逆数・log・exp・整数冪 | 0 | 1 | 15 |
 | [`OnlineFormalPowerSeries`](OnlineFormalPowerSeries.md) | 係数を逐次確定するオンラインFPS演算 | 2 | 5 | 25 |
 | [`PolynomialComposition`](PolynomialComposition.md) | 高速FPS合成・Brent--Kung fallback・合成逆関数 | 3 | 0 | 0 |
-| [`SparseFormalPowerSeries`](SparseFormalPowerSeries.md) | 非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。 | 5 | 0 | 0 |
+| [`SparseFormalPowerSeries`](SparseFormalPowerSeries.md) | 非零項が少ない形式的冪級数の逆数・除算・exp・log・冪を計算する。 | 6 | 0 | 0 |
 | [`SumOfRationals`](SumOfRationals.md) | 複数の有理形式的冪級数を1つの分子・分母へまとめる。 | 1 | 0 | 0 |

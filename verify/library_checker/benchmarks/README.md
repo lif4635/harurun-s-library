@@ -45,8 +45,8 @@
 | [counting_squarefrees](counting_squarefrees.json) | 3 / 25 | 5 | 1.056 | 226.0 | 一致 |
 | [deque](deque.json) | 3 / 36 | 5 | 0.175 | 85.0 | 一致 |
 | [directedmst](directedmst.json) | 3 / 12 | 5 | 0.358 | 150.0 | 一致 |
-| [dirichlet_convolution_and_prefix_sums](dirichlet_convolution_and_prefix_sums.json) | 3 / 24 | 5 | 13.340 | 461.3 | 要再測定 |
-| [dirichlet_inverse_and_prefix_sums](dirichlet_inverse_and_prefix_sums.json) | 3 / 25 | 5 | 10.786 | 335.9 | 要再測定 |
+| [dirichlet_convolution_and_prefix_sums](dirichlet_convolution_and_prefix_sums.json) | 3 / 24 | 5 | 22.076 | 447.7 | 一致 |
+| [dirichlet_inverse_and_prefix_sums](dirichlet_inverse_and_prefix_sums.json) | 3 / 25 | 5 | 16.870 | 327.8 | 一致 |
 | [discrete_logarithm_fixed_mod](discrete_logarithm_fixed_mod.json) | 3 / 24 | 5 | 1.115 | 233.8 | 一致 |
 | [division_of_big_integers](division_of_big_integers.json) | 3 / 26 | 5 | 5.852 | 110.4 | 一致 |
 | [division_of_hex_big_integers](division_of_hex_big_integers.json) | 3 / 27 | 5 | 1.095 | 97.6 | 一致 |

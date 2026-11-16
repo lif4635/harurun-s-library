@@ -4,7 +4,7 @@
 2列間のLevenshtein距離を計算し、最短編集列を復元する。
 
 - source: [`string_sequence/EditDistance.py`](../../../string_sequence/EditDistance.py)
-- 公開API: function 2、class 0、method/property 0（Python protocol 0を含む）
+- 公開API: function 3、class 0、method/property 0（Python protocol 0を含む）
 
 ## できること
 
@@ -14,12 +14,13 @@
 ## Import
 
 ```python
-from library_codex.string_sequence.EditDistance import edit_distance, edit_distance_with_path
+from library_codex.string_sequence.EditDistance import edit_distance, edit_distance_bounded, edit_distance_with_path
 ```
 
 ## Functions
 
 | signature | 用途 | 引数 | 返り値 | 計算量 |
 | --- | --- | --- | --- | --- |
-| [`edit_distance(first, second)`](../../../string_sequence/EditDistance.py#L4) | firstをsecondへ変える挿入・削除・置換の最小回数を求める。各操作のcostは1。 | `first`: 変換元のindex可能な列。<br>`second`: 変換先のindex可能な列。 | int — Levenshtein距離。非負整数で、同じ列では0。 | O(NM) time、O(min(N,M)) memory |
-| [`edit_distance_with_path(first, second)`](../../../string_sequence/EditDistance.py#L21) | Levenshtein距離と、その距離を達成する編集手順を復元する。 | `first`: 変換元のindex可能な列。<br>`second`: 変換先のindex可能な列。 | tuple[int, list[tuple[str, int, int]]] — (distance, steps)。各stepは(operation, first_index, second_index)で、operationはmatch・replace・delete・insertのいずれか。deleteのsecond_indexとinsertのfirst_indexは、その時点での境界位置を表す。 | O(NM) time、O(NM) memory |
+| [`edit_distance(first, second)`](../../../string_sequence/EditDistance.py#L4) | firstをsecondへ変える挿入・削除・置換の最小回数を求める。各操作のcostは1。 | `first`: 変換元のindex可能な列。<br>`second`: 変換先のindex可能な列。 | int — Levenshtein距離。非負整数で、同じ列では0。 | O(N ceil(M/w))時間・O(D ceil(M/w))空間。Nは長い方、Mは短い方、Dは短い列の異なる要素数、wは多倍長整数の内部桁のbit数。hash不能な要素ではO(NM)時間・O(M)空間 |
+| [`edit_distance_bounded(first, second, limit)`](../../../string_sequence/EditDistance.py#L51) | 編集距離がlimit以下かを対角帯DPで調べ、範囲内なら正確な距離を返す。 | `first`: 変換元の列。<br>`second`: 変換先の列。<br>`limit`: 許す編集回数の非負整数。 | int — 距離がlimit以下ならその距離。超える場合はlimit+1で、正確な距離とは限らない。 | O(N min(M+1,K+1))時間・O(min(M+1,K+1))空間。K=limit、Nは長い方、Mは短い方 |
+| [`edit_distance_with_path(first, second)`](../../../string_sequence/EditDistance.py#L80) | Levenshtein距離と、その距離を達成する編集手順を復元する。 | `first`: 変換元のindex可能な列。<br>`second`: 変換先のindex可能な列。 | tuple[int, list[tuple[str, int, int]]] — (distance, steps)。各stepは(operation, first_index, second_index)で、operationはmatch・replace・delete・insertのいずれか。deleteのsecond_indexとinsertのfirst_indexは、その時点での境界位置を表す。 | O(NM)時間・O(NM)空間 |

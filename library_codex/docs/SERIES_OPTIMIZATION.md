@@ -297,7 +297,7 @@ pypy3 library_codex/benchmarks/compare_multivariate_fps.py --baseline ../lc-comp
 
 maspypyのソースは比較用mirrorのrevision `ede5df59c235e19937893bff5fc59c6f94aa06d4`（2026-08-10）で確認した。最新版の全実装を比較し終えたという記録ではない。
 
-- [maspypyの対数微分からの復元](https://github.com/maspypy/library/blob/main/poly/from_log_differentiation.hpp): F'/F=a/bでa,bが疎な場合、O(N(K_a+K_b))でFを復元する。exp(f/g)など、単にfを疎として扱うより広い用途を持つ。専用APIの追加は未実施。
+- [maspypyの対数微分からの復元](https://github.com/maspypy/library/blob/main/poly/from_log_differentiation.hpp): F'/F=a/bでa,bが疎な場合の復元。2026-11-16に既存のSparseFormalPowerSeriesへsparse_differentialを追加した。仕様は[記事](articles/fps/SparseFormalPowerSeries.md)、検証・測定状況は[比較記録](REFERENCE_EXPANSION_BENCHMARK.md)を参照。
 - [maspypyのSPS合成](https://github.com/maspypy/library/blob/main/setfunc/sps_composition.hpp): 入力の次数付きzeta変換を段ごとに保存し再利用する。現行合成も O(n²2^n) なので、これは定数倍と追加メモリの比較になる。
 - [NachiaのSPS power projection](https://github.com/NachiaVivias/cp-library/blob/main/Cpp/Include/nachia/bit-convolution/set-power-series-power-projection.hpp): 入力側の変換を保存し、転置側の反復で使い回す。既存のpower projectionに対する候補。今回そのcacheは追加していない。
 - [NyaanのSPS合成](https://nyaannyaan.github.io/library/set-function/polynomial-composite-set-power-series.hpp): 入力の変換結果を保存する構成を確認した。

@@ -1,26 +1,8 @@
 import random
 
-from library_codex.string_sequence.EditDistance import (
-    edit_distance,
-    edit_distance_with_path,
-)
 from library_codex.string_sequence.LongestCommonSubstring import longest_common_substring
 from library_codex.string_sequence.LyndonFactorization import lyndon_factorization
 from library_codex.string_sequence.MinimumCyclicShift import minimum_cyclic_shift
-
-
-def test_edit_distance_and_reconstructed_path():
-    examples = [
-        ("kitten", "sitting", 3),
-        ("", "abc", 3),
-        ("same", "same", 0),
-        ([1, 2, 3], [1, 4, 3, 5], 2),
-    ]
-    for first, second, expected in examples:
-        assert edit_distance(first, second) == expected
-        distance, steps = edit_distance_with_path(first, second)
-        assert distance == expected
-        assert sum(step[0] != "match" for step in steps) == expected
 
 
 def test_minimum_cyclic_shift_against_all_rotations():

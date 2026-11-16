@@ -58,7 +58,6 @@ fps/FormalPowerSeries
 fps/FPSFraction
 fps/OnlineFormalPowerSeries
 fps/PolynomialComposition
-fps/SparseFormalPowerSeries
 fps/SumOfRationals
 fps998/Composition
 fps998/FPS
@@ -260,7 +259,6 @@ string/SuffixAutomaton
 string/Trie
 string/WildcardPatternMatching
 string/ZAlgorithm
-string_sequence/EditDistance
 string_sequence/LongestCommonSubstring
 string_sequence/LyndonFactorization
 string_sequence/MinimumCyclicShift

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 403,
+  "moduleCount": 406,
   "supportedCount": 7,
   "modules": [
     {
@@ -473,7 +473,7 @@
     {
       "modulePath": "fps/SparseFormalPowerSeries",
       "sourcePath": "library_codex/fps/SparseFormalPowerSeries.py",
-      "sourceSha256": "1624ece2bf8b79e2667ea10e9e2d73d8549f254de13f4a7be0c986d763f74cb0",
+      "sourceSha256": "060e9b2e2ae80e3125d06a14389051ec9f046c649bc8b07635cd2a1262e532b9",
       "status": "unsupported"
     },
     {
@@ -1257,6 +1257,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "number_theory/LinearDiophantine",
+      "sourcePath": "library_codex/number_theory/LinearDiophantine.py",
+      "sourceSha256": "116a630545688ce6f9a009d0ad29486921b46bd6c0741fcf83489ccdbf21335c",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "number_theory/MinMod",
       "sourcePath": "library_codex/number_theory/MinMod.py",
       "sourceSha256": "abd5f19fa18b01050463040ff7392141ba80c036900ac69174ee622a04bdf8d2",
@@ -1350,6 +1356,12 @@
       "modulePath": "optimization/MaximalRectangle",
       "sourcePath": "library_codex/optimization/MaximalRectangle.py",
       "sourceSha256": "2bd87060ac2bdb697161d64490fd61afa90feb4be0e2d26849f35a7739ff26e5",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "optimization/MoWithUpdates",
+      "sourcePath": "library_codex/optimization/MoWithUpdates.py",
+      "sourceSha256": "76d1600f3e94ae8fee0a738bd3f068002caee1aafbe86d90644fceb28afb1541",
       "status": "unsupported"
     },
     {
@@ -1925,6 +1937,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "shortest_path/DifferenceConstraints",
+      "sourcePath": "library_codex/shortest_path/DifferenceConstraints.py",
+      "sourceSha256": "acccf8ebdbb271c8d4a0b936fa36b7828497235bfc09f66b8aa4875cbf3d8abf",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "shortest_path/Dijkstra",
       "sourcePath": "library_codex/shortest_path/Dijkstra.py",
       "sourceSha256": "cdf5ab408413a70c76f428666370550bca130fd06397efa432b8220953d64856",
@@ -2191,7 +2209,7 @@
     {
       "modulePath": "string_sequence/EditDistance",
       "sourcePath": "library_codex/string_sequence/EditDistance.py",
-      "sourceSha256": "ca395cff41a546cc4fc5f55fbca9bb7b83da1a297bf6b2995e1a16cb28487058",
+      "sourceSha256": "4e6cd1a79134498148e0d98a1a1d1d33f2a4fcfa60509066e3b149c1aee751c1",
       "status": "unsupported"
     },
     {

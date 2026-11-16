@@ -2792,7 +2792,11 @@ API_DETAILS_BY_SYMBOL.update({
 COMPLEXITY_BY_MODULE.update({
     "geometry/ClosestPair.py": {"closest_pair": "O(N log N) time、O(N) memory"},
     "geometry/PolygonMetrics.py": {"signed_doubled_area": "O(N) time、O(N) memory", "polygon_centroid": "O(N) time、O(N) memory", "pick_lattice_points": "O(N log C) time、O(N) memory（Cは辺の座標差の最大値）"},
-    "string_sequence/EditDistance.py": {"edit_distance": "O(NM) time、O(min(N,M)) memory", "edit_distance_with_path": "O(NM) time、O(NM) memory"},
+    "string_sequence/EditDistance.py": {
+        "edit_distance": "O(N ceil(M/w))時間・O(D ceil(M/w))空間。Nは長い方、Mは短い方、Dは短い列の異なる要素数、wは多倍長整数の内部桁のbit数。hash不能な要素ではO(NM)時間・O(M)空間",
+        "edit_distance_bounded": "O(N min(M+1,K+1))時間・O(min(M+1,K+1))空間。K=limit、Nは長い方、Mは短い方",
+        "edit_distance_with_path": "O(NM)時間・O(NM)空間",
+    },
     "string_sequence/MinimumCyclicShift.py": {"minimum_cyclic_shift": "O(N) time、O(1) memory"},
     "string_sequence/LyndonFactorization.py": {"lyndon_factorization": "O(N) time、O(K) output memory（Kは因子数）"},
     "string_sequence/LongestCommonSubstring.py": {"longest_common_substring": "期待 O(N+M) time、O(N) memory（hash table操作を期待O(1)とする）"},
@@ -8592,4 +8596,87 @@ for _method, _description, _format, _returns, _arguments in (
             "left": "x方向の左端を含む。", "right": "x方向の右端は含まない。left≤right。",
             "down": "y方向の下端を含む。", "up": "y方向の上端は含まない。down≤up。",
         } if _method in ("apply", "sum") else {}),
+    }
+
+_edit_module = "string_sequence/EditDistance.py"
+API_DETAILS_BY_SYMBOL[(_edit_module, None, "edit_distance_bounded")] = {
+    "description": "編集距離がlimit以下かを対角帯DPで調べ、範囲内なら正確な距離を返す。",
+    "argumentDescriptions": {"first": "変換元の列。", "second": "変換先の列。", "limit": "許す編集回数の非負整数。"},
+    "returnFormat": "int", "returnDescription": "距離がlimit以下ならその距離。超える場合はlimit+1で、正確な距離とは限らない。",
+}
+COMPLEXITY_BY_MODULE["fps/SparseFormalPowerSeries.py"]["sparse_differential"] = "O(N(Ka+Kb+1))時間・O(N)追加空間。N=degree、Ka・Kbは打ち切り後の分子・分母の非零項数"
+API_DETAILS_BY_SYMBOL[("fps/SparseFormalPowerSeries.py", None, "sparse_differential")] = {
+    "description": "B(x)F'(x)=A(x)F(x)を係数比較で解く。Fが密でも、AとBの非零項が少ないときに適する。",
+    "argumentDescriptions": {"numerator": "A(x)の次数順の係数list。", "denominator": "B(x)の次数順の係数list。定数項は法で0でないこと。", "degree": "返す係数の個数。0以上mod以下。", "constant": "F(0)の値。", "mod": "素数の法。素数判定は省略する。"},
+    "returnFormat": "list[int]", "returnDescription": "長さdegree。result[i]はF(x)のxのi乗の係数をmodで割った余り。",
+}
+_mo_update_module = "optimization/MoWithUpdates.py"
+SEARCH_TERMS_BY_MODULE[_mo_update_module] = ("更新付きMo", "時間軸Mo", "区間頻度")
+CLASS_DETAILS_BY_SYMBOL[(_mo_update_module, "MoWithUpdates")] = {
+    "description": "一点代入と半開区間の問い合わせを発生順に登録し、区間内の値の追加・削除だけでまとめて処理する。",
+    "argumentDescriptions": {"values": "初期配列。要素自体は後から変更せず、setで代入する。", "block_size": "正のブロック幅。Noneなら配列長・更新数・クエリ数から選ぶ。"},
+    "constructorCreates": "初期配列と操作履歴を保持する。setで代入、queryで区間を登録し、runで登録順の答えを得る。",
+}
+COMPLEXITY_BY_MODULE[_mo_update_module] = {
+    "MoWithUpdates": "O(N)時間・空間",
+    "set": "償却O(1)時間・1件O(1)空間",
+    "query": "償却O(1)時間・1件O(1)空間",
+    "run": "O(Q log(Q+1)+N+U+P*C+Q*G)時間・O(N+Q)追加空間。P=O(QB+N^2/B+U*min(Q,(N/B+1)^2)+N)。Bはブロック幅、Qはクエリ数、Uは更新数、Cはadd/remove、Gはgetの1回のコスト",
+}
+for _method, _description, _format, _returns, _arguments in (
+    ("set", "これ以降の問い合わせに反映する一点代入を登録する。", "None", "値を返さない。以前のqueryの意味は変えない。", {"index": "代入先の添字。", "value": "新しい要素。"}),
+    ("query", "現在までの代入を反映した半開区間[left, right)の問い合わせを登録する。", "int", "runが返すlistの添字。queryを呼んだ順に割り当てる。", {"left": "区間の左端を含む。", "right": "区間の右端は含まない。空区間も可。"}),
+    ("run", "時刻と区間を動かし、各問い合わせの答えをまとめて求める。", "list[object]", "queryの登録順の答え。result[i]はi番目のqueryでget()が返した値。正常終了時はcallbackが管理する対象を空に戻す。", {"add": "add(value): 対象へ1個加える。順序に依存しない集計に限る。", "remove": "remove(value): 対象から1個除く。addの逆操作。", "get": "get(): 現在の答えを返す。可変objectならコピーを返す。最初の集計状態は空にする。"}),
+):
+    API_DETAILS_BY_SYMBOL[(_mo_update_module, "MoWithUpdates", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns, "argumentDescriptions": _arguments,
+    }
+_dioph_module = "number_theory/LinearDiophantine.py"
+SEARCH_TERMS_BY_MODULE[_dioph_module] = ("一次不定方程式", "整数解", "拡張ユークリッド")
+CLASS_DETAILS_BY_SYMBOL[(_dioph_module, "LinearDiophantine")] = {
+    "description": "ax+by=cを満たす長方形内の整数解を、個数と等差数列で保持する。",
+    "argumentDescriptions": {"a": "xの整数係数。0や負数も可。", "b": "yの整数係数。0や負数も可。", "c": "方程式の右辺の整数。", "xl": "xの下限を含む。", "xr": "xの上限は含まない。", "yl": "yの下限を含む。", "yr": "yの上限は含まない。"},
+    "constructorCreates": "countが解の個数。kth(k)でx、次にyの昇順のk番目の解を得る。解がない場合もobjectを返し、count=0となる。",
+}
+COMPLEXITY_BY_MODULE[_dioph_module] = {
+    "LinearDiophantine": "O(log(max(abs(a),abs(b))+2))時間・O(1)空間。整数演算をO(1)とする",
+    "kth": "O(1)回の整数演算",
+    "__repr__": "O(S)時間。Sは出力文字数",
+}
+API_DETAILS_BY_SYMBOL[(_dioph_module, "LinearDiophantine", "kth")] = {
+    "description": "x、次にyの昇順でk番目の解を取得する。",
+    "argumentDescriptions": {"k": "0以上count未満の順位。範囲外はIndexError。"},
+    "returnFormat": "tuple[int, int]", "returnDescription": "(x, y)。指定した半開長方形に含まれ、ax+by=cを満たす整数の組。",
+}
+API_DETAILS_BY_SYMBOL[(_dioph_module, "LinearDiophantine", "__repr__")] = {
+    "description": "解の個数と最初の解を表示する。", "returnFormat": "str", "returnDescription": "LinearDiophantine(count=..., first=...)。解がなければfirst=None。全解は列挙しない。",
+}
+_diff_module = "shortest_path/DifferenceConstraints.py"
+SEARCH_TERMS_BY_MODULE[_diff_module] = ("差分制約", "牛ゲー", "不等式", "実行可能解")
+CLASS_DETAILS_BY_SYMBOL[(_diff_module, "DifferenceConstraints")] = {
+    "description": "変数間の差の制約と固定値を登録し、整数解と取り得る差の上下限を求める。",
+    "argumentDescriptions": {"n": "整数変数の個数。"},
+    "constructorCreates": "add・fixで制約を登録し、solveで解、boundsで各変数の差の範囲を取得する。",
+}
+COMPLEXITY_BY_MODULE[_diff_module] = {
+    "DifferenceConstraints": "O(1)時間・空間",
+    "add": "償却O(1)時間・最大2辺の追加空間。計算済みのO(N+M)領域を解放する場合はその解放コストを含む",
+    "fix": "償却O(1)時間・2辺の追加空間。計算済みのO(N+M)領域を解放する場合はその解放コストを含む",
+    "solve": "初回・制約追加後は最悪O(N+NM)時間・O(N+M)空間。全辺非負ならO(N+M)。計算済みならO(N)時間で解のコピーを返す",
+    "bounds": "計算済みならO(N+M log(N+M+2))時間・O(N+M)追加空間。未計算ならsolveのコストが別途必要",
+    "items": "O(M)時間・追加空間",
+    "__str__": "O(M+S)時間。Sは出力文字数",
+    "__repr__": "O(M+S)時間。Sは出力文字数",
+}
+for _method, _description, _format, _returns, _arguments in (
+    ("add", "lower <= x[v]-x[u] <= upperを制約へ追加する。", "None", "値を返さない。計算済みの解を無効にする。上下限が矛盾していても登録でき、solveで解なしとなる。", {"u": "引く側の変数。Noneは定数0。", "v": "引かれる側の変数。Noneは定数0。", "upper": "差の上限の整数。上限を含む。Noneなら上限なし。", "lower": "差の下限の整数。下限を含む。Noneなら下限なし。"}),
+    ("fix", "1変数を指定した整数へ固定する制約を加える。", "None", "値を返さない。等式の両側を2辺として追加し、計算済みの解を無効にする。", {"vertex": "固定する変数。", "value": "固定値の整数。"}),
+    ("solve", "全ての制約を同時に満たす整数値を復元する。", "list[int] | None", "解があれば長さNの新しいlistでresult[v]が変数vの値。全変数の最大化ではない。矛盾すればNone。", {}),
+    ("bounds", "各変数とsourceとの差が取り得る最小値・最大値を求める。", "list[tuple[int | None, int | None]]", "長さN。result[v]=(lower, upper)がx[v]-x[source]の範囲で、有限な端点は含む。Noneの側は非有界。矛盾した系ではValueError。", {"source": "差の基準にする変数。Noneなら定数0、すなわち各変数自体の上下限。"}),
+    ("items", "登録された上限制約の辺を取得する。", "list[tuple[int | None, int | None, int]]", "(u, v, upper)を登録順で並べた新しいlist。各辺はx[v]-x[u] <= upper。None頂点は定数0。", {}),
+    ("__str__", "上限制約の辺listを文字列にする。", "str", "items()の内容の文字列。解の計算や状態変更はしない。", {}),
+    ("__repr__", "変数数と制約辺を型名付きで表示する。", "str", "DifferenceConstraints(n=..., constraints=[...])の形式。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_diff_module, "DifferenceConstraints", _method)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns, "argumentDescriptions": _arguments,
     }

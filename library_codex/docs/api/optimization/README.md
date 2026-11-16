@@ -13,6 +13,7 @@
 | [`LineContainer`](LineContainer.md) | 直線を追加し、任意のxで最小値または最大値を求める。 | 0 | 1 | 2 |
 | [`Matroid`](Matroid.md) | グラフィック・分割・横断マトロイドの共通独立集合を求める | 1 | 3 | 6 |
 | [`MaximalRectangle`](MaximalRectangle.md) | histogramまたは0/1行列に含まれる最大長方形を求める。 | 2 | 0 | 0 |
+| [`MoWithUpdates`](MoWithUpdates.md) | 一点代入と区間クエリを時系列で登録し、更新付きMoでまとめて答える。 | 0 | 1 | 3 |
 | [`MongeShortestPaths`](MongeShortestPaths.md) | Monge重みを持つDAGの最短路を辺数制約付きで計算する。 | 3 | 0 | 0 |
 | [`MonotoneConvexHullTrick`](MonotoneConvexHullTrick.md) | 傾きとquery位置が単調な直線集合の最適値を求める。 | 0 | 1 | 2 |
 | [`MonotoneMinima`](MonotoneMinima.md) | Monge性を持つ行列の各行最小位置を高速に求める。 | 1 | 0 | 0 |

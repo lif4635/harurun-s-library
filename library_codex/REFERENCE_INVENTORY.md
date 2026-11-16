@@ -1,5 +1,7 @@
 # Reference source inventory
 
+この一覧は過去の参照版に対する記録で、対応先の旧pathやGeometryの保留表示は現行状態と一致しない箇所があります。現行版の未実装数や完了判定には使用しません。追加調査は[機能比較](docs/REFERENCE_EXPANSION.md)で管理します。
+
 4ライブラリの機能和集合を完了判定するための全ソース目録です。
 `[ ]` は未監査、`[x]` は `library` または `library_codex` の対応先と検証を確認済み、
 `[-]` は言語固有support、`[~]` はユーザー指定で保留中の Geometry を表します。

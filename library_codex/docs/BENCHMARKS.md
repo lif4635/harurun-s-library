@@ -4,6 +4,8 @@
 
 以下は測定時点の記録。比較には各文書の入力、実行環境、source revisionを使い、現在の実装の速度と混同しない。
 
+- [編集距離・疎な微分方程式とDirichlet再測定](REFERENCE_EXPANSION_BENCHMARK.md)
+
 ## グラフ・木
 
 - [中心の辺更新と全域最小カット](DYNAMIC_STAR_MIN_CUT_BENCHMARK.md)

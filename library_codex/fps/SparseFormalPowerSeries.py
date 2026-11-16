@@ -3,6 +3,34 @@
 DEFAULT_MOD = 998244353
 
 
+def sparse_differential(numerator, denominator, degree, constant=1, mod=DEFAULT_MOD):
+    """B(x)F'(x)=A(x)F(x)、F(0)=constantを満たす係数をdegree項返す。"""
+    if degree < 0 or mod < 2 or degree > mod:
+        raise ValueError("require 0 <= degree <= mod and mod >= 2")
+    if not denominator or denominator[0] % mod == 0:
+        raise ZeroDivisionError("denominator constant must be invertible")
+    if degree == 0:
+        return []
+    scale = pow(denominator[0], -1, mod)
+    a = [(i + 1, value * scale % mod) for i, value in enumerate(numerator[:degree - 1]) if value % mod]
+    b = [(i, value * scale % mod) for i, value in enumerate(denominator[1:degree], 1) if value % mod]
+    inverses = _inverses(degree, mod)
+    result = [0] * degree
+    result[0] = constant % mod
+    for index in range(1, degree):
+        value = 0
+        for offset, coefficient in a:
+            if offset > index:
+                break
+            value += coefficient * result[index - offset]
+        for offset, coefficient in b:
+            if offset >= index:
+                break
+            value -= coefficient * (index - offset) * result[index - offset]
+        result[index] = value % mod * inverses[index] % mod
+    return result
+
+
 def _inverses(degree, mod):
     values = [1] * degree
     for index in range(2, degree):

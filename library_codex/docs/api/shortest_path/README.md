@@ -8,6 +8,7 @@
 | [`BFS`](BFS.md) | 重みなしグラフの単一始点最短距離と直前頂点を求める。 | 1 | 0 | 0 |
 | [`BellmanFord`](BellmanFord.md) | 負辺を含むグラフの最短路と負閉路の影響を求める。 | 1 | 0 | 0 |
 | [`DialDijkstra`](DialDijkstra.md) | 非負整数重みが小さいグラフの最短路をbucketで求める。 | 1 | 0 | 0 |
+| [`DifferenceConstraints`](DifferenceConstraints.md) | 変数間の差の上下限から、整数解の復元と取り得る差の範囲を求める。 | 0 | 1 | 7 |
 | [`Dijkstra`](Dijkstra.md) | 非負重みグラフの単一始点最短距離と直前頂点を求める。 | 1 | 0 | 0 |
 | [`DijkstraRadixHeap`](DijkstraRadixHeap.md) | 非負整数重み用Radix Heap Dijkstra・経路復元 | 3 | 0 | 0 |
 | [`GridBFS`](GridBFS.md) | 障害物付きgridのBFS最短距離 | 2 | 0 | 0 |

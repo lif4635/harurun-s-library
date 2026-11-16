@@ -5,7 +5,7 @@
 
 | module | 概要 | functions | classes | methods |
 | --- | --- | ---: | ---: | ---: |
-| [`EditDistance`](EditDistance.md) | 2列間のLevenshtein距離を計算し、最短編集列を復元する。 | 2 | 0 | 0 |
+| [`EditDistance`](EditDistance.md) | 2列間のLevenshtein距離を計算し、最短編集列を復元する。 | 3 | 0 | 0 |
 | [`LongestCommonSubstring`](LongestCommonSubstring.md) | 2列の最長共通substringをsuffix automatonで求める。 | 1 | 0 | 0 |
 | [`LyndonFactorization`](LyndonFactorization.md) | 列を辞書順が非増加になるLyndon語へ分解する。 | 1 | 0 | 0 |
 | [`MinimumCyclicShift`](MinimumCyclicShift.md) | 列の辞書順最小な巡回shiftをBooth法で求める。 | 1 | 0 | 0 |
