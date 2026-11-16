@@ -12,6 +12,7 @@
 | [`Dijkstra`](Dijkstra.md) | 非負重みグラフの単一始点最短距離と直前頂点を求める。 | 1 | 0 | 0 |
 | [`DijkstraRadixHeap`](DijkstraRadixHeap.md) | 非負整数重み用Radix Heap Dijkstra・経路復元 | 3 | 0 | 0 |
 | [`GridBFS`](GridBFS.md) | 障害物付きgridのBFS最短距離 | 2 | 0 | 0 |
+| [`ImplicitDijkstra`](ImplicitDijkstra.md) | 必要な辺だけを生成し、整数IDを振っていない状態間の最短路を求める。 | 2 | 0 | 0 |
 | [`KShortestPaths`](KShortestPaths.md) | 有向/無向k-shortest loopless path（辺ID・平行辺対応） | 2 | 2 | 4 |
 | [`KShortestWalks`](KShortestWalks.md) | 非負辺重みの有向グラフで、頂点や辺を再訪できるwalkの長さを昇順に求める。 | 1 | 0 | 0 |
 | [`Top2Dijkstra`](Top2Dijkstra.md) | 各頂点に最も近い異なる2個のsourceと距離を求める。 | 1 | 0 | 0 |

@@ -5,6 +5,7 @@
 以下は測定時点の記録。比較には各文書の入力、実行環境、source revisionを使い、現在の実装の速度と混同しない。
 
 - [編集距離・疎な微分方程式とDirichlet再測定](REFERENCE_EXPANSION_BENCHMARK.md)
+- [区間map・暗黙最短路・制約付き畳み込み](REFERENCE_ALGORITHMS_BENCHMARK.md)
 
 ## グラフ・木
 

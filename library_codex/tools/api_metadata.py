@@ -8598,6 +8598,86 @@ for _method, _description, _format, _returns, _arguments in (
         } if _method in ("apply", "sum") else {}),
     }
 
+_implicit_module = "shortest_path/ImplicitDijkstra.py"
+SEARCH_TERMS_BY_MODULE[_implicit_module] = ("暗黙グラフ", "状態空間", "遅延辺生成", "多始点最短路")
+for _name in ("implicit_dijkstra", "implicit_shortest_path"):
+    API_DETAILS_BY_SYMBOL[(_implicit_module, None, _name)] = {
+        "description": "到達した状態だけ隣接辺を生成し、複数始点からの最短路を探索する。" if _name == "implicit_dijkstra" else "finishを満たす状態の最短距離が確定した時点で探索を終了する。",
+        "argumentDescriptions": {
+            "starts": "始点のiterable。各始点の距離は0。単一のtuple状態なら[tuple状態]と渡す。状態はhash可能で、探索中にhashや等値性が変わらないこと。大小比較は不要。",
+            "adjacent": "adjacent(state)が(次の状態, 非負の重み)のiterableを返す。探索中は同じグラフを表すこと。",
+        } | ({"finish": "finish(state)が真となる状態を終点とする。始点も判定する。全探索または終了までの探索が有限であること。"} if _name == "implicit_shortest_path" else {}),
+        "returnFormat": "tuple[dict[object, number], dict[object, object]]" if _name == "implicit_dijkstra" else "tuple[number, list[object]]",
+        "returnDescription": "(distance, previous)。distance[state]は最短距離、previous[state]は経路上の直前の状態。始点はpreviousに含めず、到達不能な状態はどちらにも含めない。" if _name == "implicit_dijkstra" else "(distance, path)。距離と始点から終点までの状態listで、両端を含む。到達不能なら(inf, [])。同距離の経路の選択は保証しない。",
+        "returnParts": (
+            {"name": "distance", "format": "dict[object, number]", "description": "到達状態をkey、最短距離をvalueとするdict。"},
+            {"name": "previous", "format": "dict[object, object]", "description": "始点以外の到達状態をkey、直前の状態をvalueとするdict。"},
+        ) if _name == "implicit_dijkstra" else (
+            {"name": "distance", "format": "number", "description": "最も近い終点への最短距離。到達不能ならinf。"},
+            {"name": "path", "format": "list[object]", "description": "始点から終点までの状態列。両端を含み、到達不能なら空list。"},
+        ),
+    }
+COMPLEXITY_BY_MODULE[_implicit_module] = {
+    _name: "期待O(S+(V+E)log(V+E+2)+G)時間・O(V+E)空間。Sは始点数、Vは発見状態数、Eは列挙辺数、Gはcallbackの合計時間。hash・比較・距離演算をO(1)とする"
+    for _name in ("implicit_dijkstra", "implicit_shortest_path")
+}
+_ordered_module = "convolution/OrderedConvolution.py"
+SEARCH_TERMS_BY_MODULE[_ordered_module] = ("添字制約", "順序付き畳み込み", "上三角畳み込み")
+COMPLEXITY_BY_MODULE[_ordered_module] = {"ordered_conv": "O(L log²(L+2))時間・O(L)追加空間。L=max(len(a),len(b))。法は998244353固定"}
+API_DETAILS_BY_SYMBOL[(_ordered_module, None, "ordered_conv")] = {
+    "description": "i<jを満たす係数対だけを足して畳み込む。i=jは含めない。",
+    "argumentDescriptions": {"a": "昇べき順の整数係数列。", "b": "昇べき順の整数係数列。aと長さが違ってもよい。"},
+    "returnFormat": "list[int]", "returnDescription": r"長さlen(a)+len(b)-1。$$result[k]=\sum_{i+j=k,\ i<j}a_i b_j\pmod{998244353}$$ 空列を含めば[]、該当する組がない係数は0。",
+}
+_maxmin_module = "convolution/MaxMinConvolution.py"
+SEARCH_TERMS_BY_MODULE[_maxmin_module] = ("ボトルネック畳み込み", "max-min", "min-max")
+COMPLEXITY_BY_MODULE[_maxmin_module] = {
+    _name: "O(L log(L+2)+L ceil(L/w))時間・O(L)空間。L=len(a)+len(b)、wは多倍長整数の内部桁のbit数。値の比較をO(1)とする"
+    for _name in ("max_min_conv", "min_max_conv")
+}
+for _name, _outside, _inside in (("max_min_conv", "max", "min"), ("min_max_conv", "min", "max")):
+    API_DETAILS_BY_SYMBOL[(_maxmin_module, None, _name)] = {
+        "description": f"i+jが同じ組の{_inside}(a[i],b[j])から{_outside}を選ぶ。剰余演算は行わない。",
+        "argumentDescriptions": {"a": "全要素を相互に比較できる列。負数・重複可。NaNは不可。", "b": "aと同じ比較規則で順序を付けられる列。長さは異なってもよい。"},
+        "returnFormat": "list[object]", "returnDescription": rf"長さlen(a)+len(b)-1。$$result[k]=\{_outside}_{{i+j=k}}\{_inside}(a_i,b_j)$$ 空列を含めば[]。各要素は入力のいずれかの値。",
+    }
+_fixed_module = "optimization/FixedSizeSubsetSum.py"
+SEARCH_TERMS_BY_MODULE[_fixed_module] = ("個数指定部分和", "k個の和", "固定サイズ部分集合")
+COMPLEXITY_BY_MODULE[_fixed_module] = {"fixed_size_subset_sums": "期待O(M+N log(N+1))で重複除去・整列。C=binom(N,k')≤32768ならO(Ck'+C log(C+1))、等差数列ならO(N+R)、それ以外はO(Nk' ceil((H+1)/w)+H+R)時間・O(k' ceil((H+1)/w)+N+R)空間。Mは入力数、Nは異なる値数、k'=min(k,N-k)、Hは平行移動・gcd圧縮後の大きいk'個の和、Rは出力数、wは多倍長整数の内部桁のbit数。通常の整数算術・hashをO(1)とする"}
+API_DETAILS_BY_SYMBOL[(_fixed_module, None, "fixed_size_subset_sums")] = {
+    "description": "異なる値をちょうどk個選んで作れる和を、同じ和を1回だけ列挙する。",
+    "argumentDescriptions": {"values": "整数のiterable。重複は先に除く。負数も可。同値の別要素を複数選ぶ多重集合の問題ではない。", "k": "選ぶ異なる値の個数。非負整数。"},
+    "returnFormat": "list[int]", "returnDescription": "作れる和を重複なく昇順に並べたlist。k=0なら[0]、異なる値数よりkが大きければ[]。個数を法で数えるAPIではない。",
+}
+_interval_module = "ordered_set/IntervalMap.py"
+SEARCH_TERMS_BY_MODULE[_interval_module] = ("区間代入", "区間塗り替え", "区間map", "ランレングス")
+CLASS_DETAILS_BY_SYMBOL[(_interval_module, "IntervalMap")] = {
+    "description": "整数座標への値の割当てを、同値が連続する半開区間へ圧縮して管理する。",
+    "constructorCreates": "空のmapを作る。assignで区間を上書きし、eraseで未登録に戻す。getで1点、itemsで区間列、covered_lengthで登録された整数座標の総数を得る。",
+}
+COMPLEXITY_BY_MODULE[_interval_module] = {
+    "IntervalMap": "O(1)時間・空間",
+    "assign": "期待償却O((K+1)log(I+2))時間。Iは登録区間数、Kは変更で消す区間数。領域回収時は単発O(I log(I+2))。値の比較をO(1)とする",
+    "erase": "期待償却O((K+1)log(I+2))時間。Iは登録区間数、Kは消す区間数。領域回収時は単発O(I log(I+2))",
+    "get": "期待O(log(I+2))時間",
+    "items": "全件ならO(I)、範囲指定なら期待O((K+1)log(I+2))時間・O(K)追加空間。Kは返す区間数",
+    "__len__": "O(1)時間",
+    "__str__": "O(I+S)時間・空間。Sは文字列化の合計サイズ",
+    "__repr__": "O(I+S)時間・空間。Sは文字列化の合計サイズ",
+}
+for _name, _description, _format, _returns, _arguments in (
+    ("assign", "半開区間[left, right)の値を上書きし、隣接する同値区間を結合する。", "None", "値を返さない。区間外は変えない。空区間は何もしない。", {"left": "含む整数の左端。left≤right。", "right": "含まない整数の右端。", "value": "割り当てる値。Noneやhash不能な値も可。等値比較が必要。登録後は値自体を変更しない。"}),
+    ("erase", "半開区間[left, right)を未登録に戻す。", "int", "実際に登録を消した整数座標の個数。削除区間数ではない。空区間は0。", {"left": "含む整数の左端。left≤right。", "right": "含まない整数の右端。"}),
+    ("get", "1つの整数座標に割り当てた値を取得する。", "object", "登録済みならその値、未登録ならdefault。登録値Noneと未登録を区別したい場合は、defaultに専用のobjectを渡す。値はコピーしない。", {"point": "調べる整数座標。", "default": "未登録の場合の返り値。"}),
+    ("items", "登録済み区間を左端順に列挙する。範囲指定時は交差部分だけ返す。", "list[tuple[int, int, object]]", "(left, right, value)を並べた新しいlist。各組は半開区間[left, right)への割当てを表す。隙間は含めず、隣接同値区間は結合済み。値自体はコピーしない。", {"left": "切り出す範囲の左端を含む。Noneなら左側の制限なし。", "right": "切り出す範囲の右端は含まない。Noneなら右側の制限なし。"}),
+    ("__len__", "保持する区間の個数を取得する。", "int", "items()の長さ。登録された整数座標数はcovered_lengthで取得する。", {}),
+    ("__str__", "現在の区間と値を表示する。", "str", "items()の内容の文字列。状態を変更しない。", {}),
+    ("__repr__", "現在の区間と値を型名付きで表示する。", "str", "IntervalMap([...])の形式の文字列。状態を変更しない。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_interval_module, "IntervalMap", _name)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns, "argumentDescriptions": _arguments,
+    }
+
 _edit_module = "string_sequence/EditDistance.py"
 API_DETAILS_BY_SYMBOL[(_edit_module, None, "edit_distance_bounded")] = {
     "description": "編集距離がlimit以下かを対角帯DPで調べ、範囲内なら正確な距離を返す。",

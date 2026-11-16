@@ -7,6 +7,7 @@
 | --- | --- | ---: | ---: | ---: |
 | [`AliensTrick`](AliensTrick.md) | 個数penalty付き最適化から個数固定の最適値を復元する。 | 1 | 0 | 0 |
 | [`ConvexConcaveConvolution`](ConvexConcaveConvolution.md) | 凹列を含むmax-plus畳み込み | 1 | 0 | 0 |
+| [`FixedSizeSubsetSum`](FixedSizeSubsetSum.md) | 異なる整数をちょうどk個選んで作れる和を、重複なく昇順に列挙する。 | 1 | 0 | 0 |
 | [`GoldenSectionSearch`](GoldenSectionSearch.md) | 単峰関数の最小値または最大値を黄金分割探索する。 | 1 | 0 | 0 |
 | [`KnapsackBranchAndBound`](KnapsackBranchAndBound.md) | 0/1 knapsackを分枝限定法で解く。 | 1 | 0 | 0 |
 | [`LARSCH`](LARSCH.md) | Monge 型の下三角行列について、行を順に受け取って最小列を求める。 | 0 | 1 | 2 |

@@ -10,6 +10,7 @@
 | [`BitSet`](BitSet.md) | 固定長bit列の更新・個数・前後のset bit探索を行う集合。 | 0 | 1 | 18 |
 | [`DecrementalSet`](DecrementalSet.md) | 削除と前後の生存要素検索に特化した整数集合。 | 0 | 1 | 8 |
 | [`FastSet`](FastSet.md) | word-size tree型の固定整数universe ordered set | 0 | 1 | 11 |
+| [`IntervalMap`](IntervalMap.md) | 整数の半開区間へ値を代入し、隣接する同値区間をまとめて保持する。 | 0 | 1 | 7 |
 | [`OrderedMap`](OrderedMap.md) | key順の探索・k番目・lower/upper boundを扱う順序付きmap。 | 0 | 1 | 15 |
 | [`PersistentBinaryTrie`](PersistentBinaryTrie.md) | 過去versionの整数multisetでk番目・xor最小を扱う永続binary trie。 | 0 | 1 | 6 |
 | [`PersistentRBSTSet`](PersistentRBSTSet.md) | 更新ごとに過去のrootを残す永続randomized BST集合。 | 0 | 1 | 12 |

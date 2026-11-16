@@ -18,6 +18,11 @@
 | qand `graph/difference_constraints.hpp` | `shortest_path/DifferenceConstraints.py` | 解復元と差の上下限。負辺を扱い、解のpotentialでDijkstra用の非負辺へ変換 |
 | qand `math/linear_diophantine.hpp` | `number_theory/LinearDiophantine.py` | 半開長方形内の解の個数とk番目。全解listを保持しない |
 | 既存の対数微分復元の未採用メモ | `fps/SparseFormalPowerSeries.py` | B F'=A Fの係数比較を既存moduleへ追加 |
+| qand `data_structure/interval_map.hpp` | `ordered_set/IntervalMap.py` | 半開区間への値の代入、削除、取得、同値結合。既存TreapSetを使い、削除済み領域を定期回収 |
+| qand `math/fixed_size_subset_sum.hpp` | `optimization/FixedSizeSubsetSum.py` | 異なる値をk個選んだ和の集合。補集合・gcd圧縮・等差数列を利用。一般部分は多法NTTではなくbitset DP |
+| qand `convolution/ordered_convolution.hpp` | `convolution/OrderedConvolution.py` | i<jの寄与のみ。既存NTT998による分割統治を再帰なしで実装 |
+| qand `convolution/max_min_convolution.hpp` | `convolution/MaxMinConvolution.py` | 値順の有効化をPython整数bit集合へ置換。参照先方式のPython移植と同一入力で比較 |
+| kemuniku `utils/implicit_dijkstra.nim` | `shortest_path/ImplicitDijkstra.py` | hash可能な状態、多始点、条件付き早期終了、経路復元。通常Dijkstraは変更しない |
 
 ## 続く調査候補
 
@@ -26,17 +31,16 @@
 | 参照先 | 比較する機能 | 既存との確認点 |
 | --- | --- | --- |
 | qand `data_structure/persistent_deque.hpp` | 永続deque・分割連結 | PersistentQueue/Arrayとは異なる操作。PyPyでnode objectを増やさない表現を比較 |
-| qand `data_structure/interval_map.hpp` | 区間への値の代入 | RangeSetは集合。区間ごとの値と分割・統合が必要か確認 |
-| qand `data_structure/priority_search_tree.hpp` | 三辺矩形内の列挙と点更新 | 既存KDTreeとの列挙量依存計算量・定数倍を比較 |
-| qand `tree/persistent_link_cut_tree.hpp` | 過去版から分岐する動的木 | 通常LinkCutTreeを遅くせず、別moduleとしての有用性を確認 |
-| qand `data_structure/offline_range_kth_smallest.hpp` | 更新付きオフラインk番目 | 既存DynamicWaveletMatrixと同じ入力で時間・メモリを比較 |
-| qand `math/fixed_size_subset_sum.hpp` | 個数を指定した部分和の集合 | 既存subset sumに追加するか、専用アルゴリズムとして分けるか検討 |
-| qand `convolution/ordered_convolution.hpp` | i<j制約付き畳み込み | 通常畳み込みと結果の意味を分け、既存機能との重複を確認 |
-| qand `convolution/max_min_convolution.hpp` | max-min/min-max畳み込み | 単純二重ループではない実装をPyPyへ移せるか比較 |
+| qand `data_structure/priority_search_tree.hpp` | 三辺矩形内の列挙と点更新 | x座標を先に固定し、yの変更・有効化を行う。O(log N+K)列挙と既存KDTreeの定数倍を比較 |
+| qand `tree/persistent_link_cut_tree.hpp` | 過去版から分岐する動的木 | 参照文書の償却O(log² N)は直前の返却版を引き継ぐ場合のみ。任意分岐には適用できず、1操作最悪O(N log N)。同じ古い版からの反復照会を測る |
+| qand `data_structure/offline_range_kth_smallest.hpp` | 静的オフラインk番目 | 初期配列と(l,r,k)のquery列を受ける。更新付きという旧メモは誤り。静的WaveletMatrixとのメモリ・時間比較が必要 |
 | kemuniku `collections/compressed_retroactive_priority_queue.nim` | 過去時刻への操作挿入 | 通常heapとの違い、完全/部分遡及の保証を確認 |
-| kemuniku `str/hamming_distance.nim` | 全位置とのHamming距離 | WildcardPatternMatchingとの共有部分と文字種依存の計算量を確認 |
-| kemuniku `utils/implicit_dijkstra.nim` | 暗黙グラフの最短路 | 既存Dijkstraへ隣接生成callbackを足す価値と通常版への影響を確認 |
-| kemuniku `fps/sparse_formal_power_series.nim` | 疎FPSの遠い1係数 | 先頭N項生成とは別の用途。既存Bostan–Moriとの適用条件を照合 |
+| kemuniku `fps/sparse_formal_power_series.nim` | 疎FPSの遠い1係数 | inv/logはBostan–Mori、exp/powは多項式係数漸化式の平方分割。最大次数dに対してd³の依存があり、非零項数だけで速くなるわけではない |
+
+## 調査メモの訂正・非採用
+
+- kemuniku `str/hamming_distance.nim`は同じ長さの2つのbyte列の距離をSIMDで求める実装。全位置とのHamming距離という旧メモは誤り。標準PythonだけではSIMD部分をそのまま移せず、単純ループのAPIを増やすだけにはしないため今回の追加対象から外した。
+- 上の静的k番目も、名前だけで更新付きの候補へ分類していた点を訂正した。既存APIとの重複を確認する前に新規moduleは増やさない。
 
 ## 前からの残件
 
@@ -47,4 +51,4 @@
 - 旧 `REFERENCE_INVENTORY.md` の過去のpath・Geometry保留表示を現行sourceへ照合する。新しい参照版の完了判定には使わない。
 - CodonとユーザーのWSL内コピーの同期は後回しという指定を維持する。
 
-検証結果と速度・RSSは [今回の比較記録](REFERENCE_EXPANSION_BENCHMARK.md) に記録する。新しい候補を見つけたことと、実装・検証・公開の完了を分けて管理する。
+検証結果と速度・RSSは [編集距離・疎FPS](REFERENCE_EXPANSION_BENCHMARK.md)、[区間map・暗黙最短路・畳み込み](REFERENCE_ALGORITHMS_BENCHMARK.md) に記録する。新しい候補を見つけたことと、実装・検証・公開の完了を分けて管理する。

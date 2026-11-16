@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-16T05:21:44+00:00",
+  "generatedAt": "2026-11-16T06:16:49+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "451717e63b84ff79bc54ba0e23f93afb548111fa0de3f54507494629ac271cd5",
-  "inputStamp": "703559960e5e41bde7db82a2ff726a4fd625a0283c443571dacb6620151f96d8",
+  "sourceFingerprint": "a5e991729dfd9172a5246289d16a50132d47007035dd52995cddd25ccf20a5b3",
+  "inputStamp": "978e643d736707bdee1e08ccaec352984058cbd17f152029981d30b53fb836a8",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 406,
-    "articles": 117,
-    "functions": 538,
-    "classes": 243,
-    "methods": 1541,
-    "tests": 1303
+    "modules": 411,
+    "articles": 122,
+    "functions": 544,
+    "classes": 244,
+    "methods": 1548,
+    "tests": 1364
   },
   "categories": [
     {
@@ -41,8 +41,8 @@
       "label": "畳み込み",
       "domain": "convolution",
       "domainLabel": "Convolution / FPS",
-      "modules": 10,
-      "functions": 22,
+      "modules": 12,
+      "functions": 25,
       "classes": 1,
       "methods": 4
     },
@@ -141,10 +141,10 @@
       "label": "順序集合・rank",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
-      "modules": 12,
+      "modules": 13,
       "functions": 0,
-      "classes": 12,
-      "methods": 126
+      "classes": 13,
+      "methods": 133
     },
     {
       "slug": "sequence_structure",
@@ -191,8 +191,8 @@
       "label": "最短路",
       "domain": "graph",
       "domainLabel": "Graph",
-      "modules": 12,
-      "functions": 15,
+      "modules": 13,
+      "functions": 17,
       "classes": 3,
       "methods": 11
     },
@@ -351,8 +351,8 @@
       "label": "最適化・DP",
       "domain": "optimization",
       "domainLabel": "Optimization",
-      "modules": 18,
-      "functions": 16,
+      "modules": 19,
+      "functions": 17,
       "classes": 11,
       "methods": 54
     },
@@ -406,17 +406,17 @@
     {
       "slug": "convolution",
       "label": "Convolution / FPS",
-      "modules": 60
+      "modules": 62
     },
     {
       "slug": "data_structure",
       "label": "Data Structures",
-      "modules": 86
+      "modules": 87
     },
     {
       "slug": "graph",
       "label": "Graph",
-      "modules": 82
+      "modules": 83
     },
     {
       "slug": "math",
@@ -436,7 +436,7 @@
     {
       "slug": "optimization",
       "label": "Optimization",
-      "modules": 18
+      "modules": 19
     },
     {
       "slug": "geometry",
@@ -3076,6 +3076,106 @@
       "categoryLabel": "畳み込み",
       "domain": "convolution",
       "domainLabel": "Convolution / FPS",
+      "name": "MaxMinConvolution",
+      "modulePath": "library_codex.convolution.MaxMinConvolution",
+      "summary": "係数の積の代わりにmin、総和の代わりにmaxを使う畳み込みと、その逆を求める。",
+      "capabilities": [
+        "max_min_conv: i+jが同じ組のmin(a[i],b[j])からmaxを選ぶ。剰余演算は行わない。",
+        "min_max_conv: i+jが同じ組のmax(a[i],b[j])からminを選ぶ。剰余演算は行わない。"
+      ],
+      "article": {
+        "title": "max-min・min-max畳み込み",
+        "markdown": "## 主な機能\n\n2つを組み合わせた品質が「弱い側」で決まるとき、添字の和ごとに最も良い組合せを求めます。aとbが使用量別の性能なら、合計使用量ごとの最大のボトルネック性能が得られます。\n\n$$c_k=\\max_{i+j=k}\\min(a_i,b_j).$$\n\n逆に、組合せの負担が「大きい側」で決まるときには次を使います。\n\n$$d_k=\\min_{i+j=k}\\max(a_i,b_j).$$\n\n入力長の合計をL、多倍長整数の内部桁のbit数をwとして、O(L log(L+2)+L ceil(L/w))時間・O(L)空間です。NTTを使ったO(L sqrt(L log L))方式と同じ計算量ではありません。\n\n## 使い方\n\n```python\nfrom library_codex.convolution.MaxMinConvolution import max_min_conv, min_max_conv\n\nassert max_min_conv([3, 1], [2, 4]) == [2, 3, 1]\nassert min_max_conv([3, 1], [2, 4]) == [3, 2, 4]\nassert max_min_conv([], [1]) == []\n```\n\n- 長さ`len(a)+len(b)-1`のlistです。空列を含めば空listです。\n- 各要素は入力の値のいずれかです。負数や重複も扱え、剰余を取りません。\n- min-plus畳み込みとは異なり、組合せの値に加算を使いません。\n\n## 仕組み\n\nmax-min版は値の大きい順に添字を有効にします。新しい添字iに対し、反対側の有効添字のbit集合をiだけshiftすると、作れる添字の和が分かります。初めて作れた和に現在の値を入れると、それが最適値です。min-max版は小さい順で同じ処理を行います。\n\n## 注意点\n\n- 値は相互に比較でき、順序が一貫している必要があります。NaNは使えません。\n- 最大規模でNTT方式より速いことは保証しません。測定条件は比較記録へ残します。\n\n## 参考\n\n[qandori/cp-libraryのmax-min畳み込み](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/convolution/max_min_convolution.hpp)を仕様と比較候補として参照しています。こちらは多倍長整数による実装です。",
+        "sourcePath": "library_codex/docs/articles/convolution/MaxMinConvolution.md"
+      },
+      "searchTerms": [
+        "MaxMinConvolution",
+        "Max Min Convolution",
+        "library_codex.convolution.MaxMinConvolution",
+        "library codex convolution Max Min Convolution",
+        "convolution/MaxMinConvolution.py",
+        "畳み込み",
+        "ボトルネック畳み込み",
+        "max-min",
+        "min-max"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/convolution/MaxMinConvolution.py",
+      "inputFingerprint": "319c2b3208b56d101a2594ba470e5a26c77350ce0a26d39f0ff2d3153169e864",
+      "importCode": "from library_codex.convolution.MaxMinConvolution import max_min_conv, min_max_conv",
+      "sourceCode": "\"\"\"係数の積の代わりにmin、総和の代わりにmaxを使う畳み込みと、その逆を求める。\"\"\"\n\n\ndef _extreme_conv(a, b, reverse):\n    n, m = len(a), len(b)\n    if not n or not m:\n        return []\n    order = [(value, index, 0) for index, value in enumerate(a)]\n    order.extend((value, index, 1) for index, value in enumerate(b))\n    order.sort(reverse=reverse)\n    remaining = (1 << (n + m - 1)) - 1\n    active_a = active_b = 0\n    result = [None] * (n + m - 1)\n    for value, index, side in order:\n        if side:\n            fresh = (active_a << index) & remaining\n            active_b |= 1 << index\n        else:\n            fresh = (active_b << index) & remaining\n            active_a |= 1 << index\n        remaining ^= fresh\n        while fresh:\n            bit = fresh & -fresh\n            result[bit.bit_length() - 1] = value\n            fresh ^= bit\n        if not remaining:\n            break\n    return result\n\n\ndef max_min_conv(a, b):\n    \"\"\"result[k] = max(min(a[i], b[j]) for i+j=k)を返す。\"\"\"\n    return _extreme_conv(a, b, True)\n\n\ndef min_max_conv(a, b):\n    \"\"\"result[k] = min(max(a[i], b[j]) for i+j=k)を返す。\"\"\"\n    return _extreme_conv(a, b, False)\n",
+      "standaloneCode": "\"\"\"係数の積の代わりにmin、総和の代わりにmaxを使う畳み込みと、その逆を求める。\"\"\"\n\n\ndef _extreme_conv(a, b, reverse):\n    n, m = len(a), len(b)\n    if not n or not m:\n        return []\n    order = [(value, index, 0) for index, value in enumerate(a)]\n    order.extend((value, index, 1) for index, value in enumerate(b))\n    order.sort(reverse=reverse)\n    remaining = (1 << (n + m - 1)) - 1\n    active_a = active_b = 0\n    result = [None] * (n + m - 1)\n    for value, index, side in order:\n        if side:\n            fresh = (active_a << index) & remaining\n            active_b |= 1 << index\n        else:\n            fresh = (active_b << index) & remaining\n            active_a |= 1 << index\n        remaining ^= fresh\n        while fresh:\n            bit = fresh & -fresh\n            result[bit.bit_length() - 1] = value\n            fresh ^= bit\n        if not remaining:\n            break\n    return result\n\n\ndef max_min_conv(a, b):\n    \"\"\"result[k] = max(min(a[i], b[j]) for i+j=k)を返す。\"\"\"\n    return _extreme_conv(a, b, True)\n\n\ndef min_max_conv(a, b):\n    \"\"\"result[k] = min(max(a[i], b[j]) for i+j=k)を返す。\"\"\"\n    return _extreme_conv(a, b, False)\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "max_min_conv",
+          "kind": "function",
+          "signature": "max_min_conv(a, b)",
+          "summary": "i+jが同じ組のmin(a[i],b[j])からmaxを選ぶ。剰余演算は行わない。",
+          "description": "i+jが同じ組のmin(a[i],b[j])からmaxを選ぶ。剰余演算は行わない。",
+          "searchTerms": [
+            "max_min_conv",
+            "max min conv",
+            "max_min_conv(a, b)"
+          ],
+          "arguments": "a: 全要素を相互に比較できる列。負数・重複可。NaNは不可。 · b: aと同じ比較規則で順序を付けられる列。長さは異なってもよい。",
+          "argumentDetails": [
+            {
+              "name": "a",
+              "description": "全要素を相互に比較できる列。負数・重複可。NaNは不可。"
+            },
+            {
+              "name": "b",
+              "description": "aと同じ比較規則で順序を付けられる列。長さは異なってもよい。"
+            }
+          ],
+          "returns": "list[object] — 長さlen(a)+len(b)-1。$$result[k]=\\max_{i+j=k}\\min(a_i,b_j)$$ 空列を含めば[]。各要素は入力のいずれかの値。",
+          "returnFormat": "list[object]",
+          "returnDescription": "長さlen(a)+len(b)-1。$$result[k]=\\max_{i+j=k}\\min(a_i,b_j)$$ 空列を含めば[]。各要素は入力のいずれかの値。",
+          "complexity": "O(L log(L+2)+L ceil(L/w))時間・O(L)空間。L=len(a)+len(b)、wは多倍長整数の内部桁のbit数。値の比較をO(1)とする",
+          "sourceLine": 31
+        },
+        {
+          "name": "min_max_conv",
+          "kind": "function",
+          "signature": "min_max_conv(a, b)",
+          "summary": "i+jが同じ組のmax(a[i],b[j])からminを選ぶ。剰余演算は行わない。",
+          "description": "i+jが同じ組のmax(a[i],b[j])からminを選ぶ。剰余演算は行わない。",
+          "searchTerms": [
+            "min_max_conv",
+            "min max conv",
+            "min_max_conv(a, b)"
+          ],
+          "arguments": "a: 全要素を相互に比較できる列。負数・重複可。NaNは不可。 · b: aと同じ比較規則で順序を付けられる列。長さは異なってもよい。",
+          "argumentDetails": [
+            {
+              "name": "a",
+              "description": "全要素を相互に比較できる列。負数・重複可。NaNは不可。"
+            },
+            {
+              "name": "b",
+              "description": "aと同じ比較規則で順序を付けられる列。長さは異なってもよい。"
+            }
+          ],
+          "returns": "list[object] — 長さlen(a)+len(b)-1。$$result[k]=\\min_{i+j=k}\\max(a_i,b_j)$$ 空列を含めば[]。各要素は入力のいずれかの値。",
+          "returnFormat": "list[object]",
+          "returnDescription": "長さlen(a)+len(b)-1。$$result[k]=\\min_{i+j=k}\\max(a_i,b_j)$$ 空列を含めば[]。各要素は入力のいずれかの値。",
+          "complexity": "O(L log(L+2)+L ceil(L/w))時間・O(L)空間。L=len(a)+len(b)、wは多倍長整数の内部桁のbit数。値の比較をO(1)とする",
+          "sourceLine": 36
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "convolution",
+      "categoryLabel": "畳み込み",
+      "domain": "convolution",
+      "domainLabel": "Convolution / FPS",
       "name": "MiddleProduct",
       "modulePath": "library_codex.convolution.MiddleProduct",
       "summary": "長い列と短い列のずらし内積を求める高速middle product。",
@@ -4026,6 +4126,79 @@
           "returnDescription": "空でなければ長さ $2\\lvert\\mathrm{series}\\rvert-1$ の $\\mathrm{series}(x)^2$ の係数列。入力が空なら空list。",
           "complexity": "O(N log N)",
           "sourceLine": 349
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "convolution",
+      "categoryLabel": "畳み込み",
+      "domain": "convolution",
+      "domainLabel": "Convolution / FPS",
+      "name": "OrderedConvolution",
+      "modulePath": "library_codex.convolution.OrderedConvolution",
+      "summary": "i < jを満たす組だけを足す係数畳み込みを998244353上で求める。",
+      "capabilities": [
+        "ordered_conv: i<jを満たす係数対だけを足して畳み込む。i=jは含めない。"
+      ],
+      "article": {
+        "title": "添字の大小を制限する畳み込み",
+        "markdown": "## 主な機能\n\n左の添字が右の添字より小さい係数対だけを足します。\n\n$$c_k=\\sum_{i+j=k,\\ i<j}a_i b_j\\pmod{998244353}.$$\n\n時間順の2列で「前の位置と後の位置」の寄与だけが必要な場合に使えます。通常の畳み込みから対角項を引くだけでは、向きの異なる寄与を区別できません。\n\n最大列長をLとしてO(L log²(L+2))時間・O(L)追加空間です。添字区間を二分し、左半分のaと右半分のbを既存NTTで畳み込みます。再帰は使いません。\n\n## 使い方\n\n```python\nfrom library_codex.convolution.OrderedConvolution import ordered_conv\n\nassert ordered_conv([1, 2, 3], [4, 5, 6]) == [0, 5, 6, 12, 0]\nassert ordered_conv([1], [4, 5, 6]) == [0, 5, 6]\nassert ordered_conv([], [4, 5]) == []\n```\n\n- 長さ`len(a)+len(b)-1`のlistです。どちらかが空なら空listです。\n- 添字の和がkになる寄与が`result[k]`へ入り、該当する組がなければ0です。\n- 同じ添字の積は含みません。入力は変更しません。\n\n## 注意点\n\n- 法は998244353固定です。整数としての正確な係数畳み込みではありません。\n- 内部の各NTT長は2の23乗以下である必要があります。超過時はエラーになります。\n\n## 参考\n\n[qandori/cp-libraryのordered convolution](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/convolution/ordered_convolution.hpp)の分割方法を参照しています。",
+        "sourcePath": "library_codex/docs/articles/convolution/OrderedConvolution.md"
+      },
+      "searchTerms": [
+        "OrderedConvolution",
+        "Ordered Convolution",
+        "library_codex.convolution.OrderedConvolution",
+        "library codex convolution Ordered Convolution",
+        "convolution/OrderedConvolution.py",
+        "畳み込み",
+        "添字制約",
+        "順序付き畳み込み",
+        "上三角畳み込み"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/convolution/OrderedConvolution.py",
+      "inputFingerprint": "adcc223a27266da01056be2ab027fd48e407106a19e6a9a55b1c6326400a3c1e",
+      "importCode": "from library_codex.convolution.OrderedConvolution import ordered_conv",
+      "sourceCode": "\"\"\"i < jを満たす組だけを足す係数畳み込みを998244353上で求める。\"\"\"\n\nfrom library_codex.convolution.NTT998 import MOD, multiply\n\n\ndef ordered_conv(a, b):\n    \"\"\"result[k] = sum(a[i]*b[j] for i+j=k and i<j)を返す。\"\"\"\n    n, m = len(a), len(b)\n    if not n or not m:\n        return []\n    a = [value % MOD for value in a]\n    b = [value % MOD for value in b]\n    result = [0] * (n + m - 1)\n    count = min(n, m - 1)\n    pairs = count * (m - 1) - count * (count - 1) // 2\n    cutoff = max(n, m) if pairs <= 8388608 or min(n, m) <= 32 else 512\n    stack = [(0, max(n, m))]\n    while stack:\n        left, right = stack.pop()\n        if left >= n or left >= m or right - left <= 1:\n            continue\n        if right - left <= cutoff:\n            for i in range(left, min(n, right)):\n                value = a[i]\n                for j in range(i + 1, min(m, right)):\n                    result[i + j] = (result[i + j] + value * b[j]) % MOD\n            continue\n        middle = (left + right) >> 1\n        if middle < m:\n            product = multiply(a[left:min(middle, n)], b[middle:min(right, m)])\n            offset = left + middle\n            for index, value in enumerate(product):\n                result[offset + index] += value\n        stack.append((middle, right))\n        stack.append((left, middle))\n    return [value % MOD for value in result]\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: convolution/NTT998.py\n\"\"\"998244353 固定の高速NTTと係数畳み込み。\n\n`multiply(first, second)` は2つの昇べき順係数列を畳み込み、長さ\n`len(first) + len(second) - 1` の係数列を返す。汎用mod判定、原始根探索、\nCRTを通らず、固定したradix-4の変換表だけを使う。\n\"\"\"\nfrom array import array\nMOD = 998244353\nPRIMITIVE_ROOT = 3\nMAX_LOG = 23\n_convolution_ntt998_IMAG = 911660635\n_convolution_ntt998_IIMAG = 86583718\n_convolution_ntt998_RATE2 = [0, 911660635, 509520358, 369330050, 332049552, 983190778, 123842337, 238493703, 975955924, 603855026, 856644456, 131300601, 842657263, 730768835, 942482514, 806263778, 151565301, 510815449, 503497456, 743006876, 741047443, 56250497, 867605899, 0]\n_convolution_ntt998_IRATE2 = [0, 86583718, 372528824, 373294451, 645684063, 112220581, 692852209, 155456985, 797128860, 90816748, 860285882, 927414960, 354738543, 109331171, 293255632, 535113200, 308540755, 121186627, 608385704, 438932459, 359477183, 824071951, 103369235, 0]\n_convolution_ntt998_RATE3 = [0, 372528824, 337190230, 454590761, 816400692, 578227951, 180142363, 83780245, 6597683, 70046822, 623238099, 183021267, 402682409, 631680428, 344509872, 689220186, 365017329, 774342554, 729444058, 102986190, 128751033, 395565204, 0]\n_convolution_ntt998_IRATE3 = [0, 509520358, 929031873, 170256584, 839780419, 282974284, 395914482, 444904435, 72135471, 638914820, 66769500, 771127074, 985925487, 262319669, 262341272, 625870173, 768022760, 859816005, 914661783, 430819711, 272774365, 530924681, 0]\n_convolution_ntt998_INVERSE_SIZE = {1: 1}\n\ndef _convolution_ntt998_check_length(size):\n    if size < 1 or size & size - 1:\n        raise ValueError('NTT length must be a positive power of two')\n    if size > 1 << MAX_LOG:\n        raise ValueError('NTT length exceeds 2^23')\n\ndef _convolution_ntt998_ntt_plan(size, inverse=False):\n    _convolution_ntt998_check_length(size)\n    rate2 = _convolution_ntt998_IRATE2 if inverse else _convolution_ntt998_RATE2\n    rate3 = _convolution_ntt998_IRATE3 if inverse else _convolution_ntt998_RATE3\n    count = max(1, size >> 2)\n    first = array('I', [1]) * count\n    second = array('I', [1]) * count\n    third = array('I', [1]) * count\n    rotation = 1\n    for block in range(count):\n        first[block] = rotation\n        second[block] = rotation * rotation % MOD\n        third[block] = second[block] * rotation % MOD\n        rotation = rotation * rate3[(~block & -~block).bit_length()] % MOD\n    count = max(1, size >> 1)\n    binary = array('I', [1]) * count\n    rotation = 1\n    for block in range(count):\n        binary[block] = rotation\n        rotation = rotation * rate2[(~block & -~block).bit_length()] % MOD\n    return (binary, first, second, third)\n\ndef _convolution_ntt998_butterfly(values, tables=None, stride=1):\n    \"\"\"In-place forward radix-4 NTT without coefficient normalization.\"\"\"\n    if stride < 1 or stride & stride - 1 or len(values) % stride:\n        raise ValueError('incomplete interleaved NTT lanes')\n    size = len(values) // stride\n    _convolution_ntt998_check_length(size)\n    if size == 1:\n        for i in range(stride):\n            values[i] %= MOD\n        return values\n    if tables is not None:\n        (binary, first, second, third) = tables\n    height = (size - 1).bit_length()\n    level = 0\n    mod = MOD\n    imag = _convolution_ntt998_IMAG\n    rate2 = _convolution_ntt998_RATE2\n    rate3 = _convolution_ntt998_RATE3\n    while level < height:\n        if height - level == 1:\n            width = stride << height - level - 1\n            rotation = 1\n            for block in range(1 << level):\n                if tables is not None:\n                    rotation = binary[block]\n                offset = (block << height - level) * stride\n                for index in range(width):\n                    left = values[offset + index]\n                    right = values[offset + index + width] * rotation\n                    values[offset + index] = (left + right) % mod\n                    values[offset + index + width] = (left - right) % mod\n                if tables is None:\n                    rotation = rotation * rate2[(~block & -~block).bit_length()] % mod\n            level += 1\n        else:\n            width = stride << height - level - 2\n            rotation = 1\n            for block in range(1 << level):\n                if tables is None:\n                    rotation2 = rotation * rotation % mod\n                    rotation3 = rotation2 * rotation % mod\n                else:\n                    rotation = first[block]\n                    rotation2 = second[block]\n                    rotation3 = third[block]\n                offset = (block << height - level) * stride\n                for index in range(width):\n                    value0 = values[offset + index]\n                    value1 = values[offset + index + width] * rotation\n                    value2 = values[offset + index + 2 * width] * rotation2\n                    value3 = values[offset + index + 3 * width] * rotation3\n                    difference = (value1 - value3) % mod * imag\n                    values[offset + index] = (value0 + value2 + value1 + value3) % mod\n                    values[offset + index + width] = (value0 + value2 - value1 - value3) % mod\n                    values[offset + index + 2 * width] = (value0 - value2 + difference) % mod\n                    values[offset + index + 3 * width] = (value0 - value2 - difference) % mod\n                if tables is None:\n                    rotation = rotation * rate3[(~block & -~block).bit_length()] % mod\n            level += 2\n    return values\n\ndef _convolution_ntt998_butterfly_inv(values, tables=None, keep_bit=0, stride=1):\n    \"\"\"In-place inverse radix-4 transform without division by the length.\"\"\"\n    if stride < 1 or stride & stride - 1 or len(values) % stride:\n        raise ValueError('incomplete interleaved NTT lanes')\n    size = len(values) // stride\n    _convolution_ntt998_check_length(size)\n    if size == 1:\n        for i in range(stride):\n            values[i] %= MOD\n        return values\n    if tables is not None:\n        (binary, first, second, third) = tables\n    height = (size - 1).bit_length()\n    level = height\n    keep_bit *= stride\n    mod = MOD\n    inverse_imag = _convolution_ntt998_IIMAG\n    irate2 = _convolution_ntt998_IRATE2\n    irate3 = _convolution_ntt998_IRATE3\n    while level:\n        if level == 1:\n            width = stride << height - level\n            limited = keep_bit and width > keep_bit\n            mask = -keep_bit if limited else 0\n            count = width >> bool(limited)\n            rotation = 1\n            for block in range(1 << level - 1):\n                if tables is not None:\n                    rotation = binary[block]\n                offset = (block << height - level + 1) * stride\n                for position in range(count):\n                    index = position + (position & mask)\n                    left = values[offset + index]\n                    right = values[offset + index + width]\n                    values[offset + index] = (left + right) % mod\n                    values[offset + index + width] = (left - right) * rotation % mod\n                if tables is None:\n                    rotation = rotation * irate2[(~block & -~block).bit_length()] % mod\n            level -= 1\n        else:\n            width = stride << height - level\n            limited = keep_bit and width > keep_bit\n            mask = -keep_bit if limited else 0\n            count = width >> bool(limited)\n            rotation = 1\n            for block in range(1 << level - 2):\n                if tables is None:\n                    rotation2 = rotation * rotation % mod\n                    rotation3 = rotation2 * rotation % mod\n                else:\n                    rotation = first[block]\n                    rotation2 = second[block]\n                    rotation3 = third[block]\n                offset = (block << height - level + 2) * stride\n                for position in range(count):\n                    index = position + (position & mask)\n                    value0 = values[offset + index]\n                    value1 = values[offset + index + width]\n                    value2 = values[offset + index + 2 * width]\n                    value3 = values[offset + index + 3 * width]\n                    difference = (value2 - value3) * inverse_imag % mod\n                    values[offset + index] = (value0 + value1 + value2 + value3) % mod\n                    values[offset + index + width] = (value0 - value1 + difference) * rotation % mod\n                    values[offset + index + 2 * width] = (value0 + value1 - value2 - value3) * rotation2 % mod\n                    values[offset + index + 3 * width] = (value0 - value1 - difference) * rotation3 % mod\n                if tables is None:\n                    rotation = rotation * irate3[(~block & -~block).bit_length()] % mod\n            level -= 2\n    return values\n\ndef ntt(values):\n    \"\"\"`values`を破壊的に順変換し、同じlistを返す。O(N log N)。\"\"\"\n    return _convolution_ntt998_butterfly(values)\n\ndef _convolution_ntt998__intt(values):\n    size = len(values)\n    _convolution_ntt998_butterfly_inv(values)\n    inverse_size = _convolution_ntt998_INVERSE_SIZE.get(size)\n    if inverse_size is None:\n        inverse_size = pow(size, MOD - 2, MOD)\n        _convolution_ntt998_INVERSE_SIZE[size] = inverse_size\n    for index in range(size):\n        values[index] = values[index] * inverse_size % MOD\n    return values\n\ndef intt(values):\n    \"\"\"`values`を破壊的に正規化済み逆変換し、同じlistを返す。O(N log N)。\"\"\"\n    return _convolution_ntt998__intt(values)\n\ndef _convolution_ntt998_multiply_naive(first, second):\n    first_size = len(first)\n    second_size = len(second)\n    if first_size == 0 or second_size == 0:\n        return []\n    if first_size < second_size:\n        (first, second) = (second, first)\n        (first_size, second_size) = (second_size, first_size)\n    result = [0] * (first_size + second_size - 1)\n    mod = MOD\n    for (index, left) in enumerate(first):\n        left %= mod\n        if left:\n            for (offset, right) in enumerate(second):\n                result[index + offset] += left * right\n        if index & 7 == 7:\n            start = index\n            stop = min(index + second_size, len(result))\n            for position in range(start, stop):\n                result[position] %= mod\n    return [value % mod for value in result]\n\ndef _convolution_ntt998_multiply_without_boundary(first, second):\n    if min(len(first), len(second)) <= 60:\n        return _convolution_ntt998_multiply_naive(first, second)\n    first_size = len(first)\n    second_size = len(second)\n    output_size = first_size + second_size - 1\n    size = 1 << (output_size - 1).bit_length()\n    _convolution_ntt998_check_length(size)\n    left = [value % MOD for value in first]\n    left.extend([0] * (size - first_size))\n    _convolution_ntt998_butterfly(left)\n    if first is second:\n        for index in range(size):\n            left[index] = left[index] * left[index] % MOD\n    else:\n        right = [value % MOD for value in second]\n        right.extend([0] * (size - second_size))\n        _convolution_ntt998_butterfly(right)\n        for index in range(size):\n            left[index] = left[index] * right[index] % MOD\n    _convolution_ntt998_butterfly_inv(left)\n    inverse_size = _convolution_ntt998_INVERSE_SIZE.get(size)\n    if inverse_size is None:\n        inverse_size = pow(size, MOD - 2, MOD)\n        _convolution_ntt998_INVERSE_SIZE[size] = inverse_size\n    for index in range(output_size):\n        left[index] = left[index] * inverse_size % MOD\n    del left[output_size:]\n    return left\n\ndef multiply(first, second):\n    \"\"\"2つの係数列の積を長さ`len(first)+len(second)-1`で返す。O(N log N)。\"\"\"\n    first_size = len(first)\n    second_size = len(second)\n    if first_size == 0 or second_size == 0:\n        return []\n    if min(first_size, second_size) <= 60:\n        return _convolution_ntt998_multiply_naive(first, second)\n    if first_size < second_size:\n        (first, second) = (second, first)\n        (first_size, second_size) = (second_size, first_size)\n    output_size = first_size + second_size - 1\n    lower_power = 1 << output_size.bit_length() - 1\n    boundary_excess = output_size - lower_power\n    if 0 < boundary_excess <= 128 and (boundary_excess * second_size <= 2 * lower_power or lower_power == 1 << 23):\n        prefix = _convolution_ntt998_multiply_without_boundary(first[:-boundary_excess], second)\n        prefix.extend([0] * boundary_excess)\n        tail_start = first_size - boundary_excess\n        for index in range(tail_start, first_size):\n            left = first[index] % MOD\n            if left:\n                for (offset, right) in enumerate(second):\n                    prefix[index + offset] += left * right\n        for index in range(tail_start, output_size):\n            prefix[index] %= MOD\n        return prefix\n    return _convolution_ntt998_multiply_without_boundary(first, second)\n\ndef square(series):\n    \"\"\"係数列の二乗を長さ`2*len(series)-1`で返す。O(N log N)。\"\"\"\n    size = len(series)\n    if size == 0:\n        return []\n    if size <= 60:\n        result = [0] * (2 * size - 1)\n        for (index, left) in enumerate(series):\n            left %= MOD\n            result[index << 1] += left * left\n            for offset in range(index + 1, size):\n                result[index + offset] += 2 * left * series[offset]\n        return [value % MOD for value in result]\n    return multiply(series, series)\n\n# 本体\n\"\"\"i < jを満たす組だけを足す係数畳み込みを998244353上で求める。\"\"\"\n\ndef ordered_conv(a, b):\n    \"\"\"result[k] = sum(a[i]*b[j] for i+j=k and i<j)を返す。\"\"\"\n    (n, m) = (len(a), len(b))\n    if not n or not m:\n        return []\n    a = [value % MOD for value in a]\n    b = [value % MOD for value in b]\n    result = [0] * (n + m - 1)\n    count = min(n, m - 1)\n    pairs = count * (m - 1) - count * (count - 1) // 2\n    cutoff = max(n, m) if pairs <= 8388608 or min(n, m) <= 32 else 512\n    stack = [(0, max(n, m))]\n    while stack:\n        (left, right) = stack.pop()\n        if left >= n or left >= m or right - left <= 1:\n            continue\n        if right - left <= cutoff:\n            for i in range(left, min(n, right)):\n                value = a[i]\n                for j in range(i + 1, min(m, right)):\n                    result[i + j] = (result[i + j] + value * b[j]) % MOD\n            continue\n        middle = left + right >> 1\n        if middle < m:\n            product = multiply(a[left:min(middle, n)], b[middle:min(right, m)])\n            offset = left + middle\n            for (index, value) in enumerate(product):\n                result[offset + index] += value\n        stack.append((middle, right))\n        stack.append((left, middle))\n    return [value % MOD for value in result]\n",
+      "bundledDependencies": [
+        "library_codex.convolution.NTT998"
+      ],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "ordered_conv",
+          "kind": "function",
+          "signature": "ordered_conv(a, b)",
+          "summary": "i<jを満たす係数対だけを足して畳み込む。i=jは含めない。",
+          "description": "i<jを満たす係数対だけを足して畳み込む。i=jは含めない。",
+          "searchTerms": [
+            "ordered_conv",
+            "ordered conv",
+            "ordered_conv(a, b)"
+          ],
+          "arguments": "a: 昇べき順の整数係数列。 · b: 昇べき順の整数係数列。aと長さが違ってもよい。",
+          "argumentDetails": [
+            {
+              "name": "a",
+              "description": "昇べき順の整数係数列。"
+            },
+            {
+              "name": "b",
+              "description": "昇べき順の整数係数列。aと長さが違ってもよい。"
+            }
+          ],
+          "returns": "list[int] — 長さlen(a)+len(b)-1。$$result[k]=\\sum_{i+j=k,\\ i<j}a_i b_j\\pmod{998244353}$$ 空列を含めば[]、該当する組がない係数は0。",
+          "returnFormat": "list[int]",
+          "returnDescription": "長さlen(a)+len(b)-1。$$result[k]=\\sum_{i+j=k,\\ i<j}a_i b_j\\pmod{998244353}$$ 空列を含めば[]、該当する組がない係数は0。",
+          "complexity": "O(L log²(L+2))時間・O(L)追加空間。L=max(len(a),len(b))。法は998244353固定",
+          "sourceLine": 6
         }
       ],
       "classes": []
@@ -22207,6 +22380,242 @@
       "categoryLabel": "順序集合・rank",
       "domain": "data_structure",
       "domainLabel": "Data Structures",
+      "name": "IntervalMap",
+      "modulePath": "library_codex.ordered_set.IntervalMap",
+      "summary": "整数の半開区間へ値を代入し、隣接する同値区間をまとめて保持する。",
+      "capabilities": [
+        "IntervalMap: 整数座標への値の割当てを、同値が連続する半開区間へ圧縮して管理する。"
+      ],
+      "article": {
+        "title": "区間への値の代入",
+        "markdown": "## 主な機能\n\n整数座標の半開区間へ値を割り当て、同じ値が続く部分を1区間として保持します。座標が大きくても、その長さの配列は作りません。登録の有無だけを扱う`RangeSet`と異なり、区間ごとに色・所属・状態などを持てます。\n\n区間数Iに対して1点取得は期待O(log(I+2))、K区間を置き換える代入・削除は期待償却O((K+1) log(I+2))です。削除済み領域を定期的に回収する回はO(I log(I+2))かかります。\n\n## 使い方\n\n```python\nfrom library_codex.ordered_set.IntervalMap import IntervalMap\n\ncolors = IntervalMap()\ncolors.assign(0, 10, \"red\")\ncolors.assign(3, 7, \"blue\")\nassert colors.get(4) == \"blue\"\nassert colors.items() == [(0, 3, \"red\"), (3, 7, \"blue\"), (7, 10, \"red\")]\nassert colors.items(2, 5) == [(2, 3, \"red\"), (3, 5, \"blue\")]\nassert colors.erase(4, 8) == 4\nassert colors.covered_length == 6\nassert colors.get(5, \"missing\") == \"missing\"\n```\n\n- `items()`は`(left, right, value)`のlistです。各組は半開区間`[left, right)`を表し、左端順に並びます。\n- `erase`は実際に消した整数座標の個数を返します。区間数ではありません。\n- `covered_length`は登録された整数座標の総数、`len(colors)`は圧縮した区間数です。\n- 同じ値の隣接区間は結合します。`str`・`repr`で現在の区間を確認できます。\n\n## 注意点\n\n- 未登録の隙間は保持しません。登録値`None`と未登録を区別したい場合は、`get`のdefaultに専用の`object()`を渡してください。\n- 値は等値比較できればよく、hash可能でなくても構いません。登録後に値自体を変更しないでください。\n- 値は深いコピーをしません。取得した可変値を書き換えるとmap内の値も変わります。\n- 範囲の逆転はエラー、空区間の代入・削除は何もしません。\n\n## 参考\n\n[qandori/cp-libraryのIntervalMap](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/data_structure/interval_map.hpp)の隙間・上書き・同値結合の仕様を参照しています。",
+        "sourcePath": "library_codex/docs/articles/ordered_set/IntervalMap.md"
+      },
+      "searchTerms": [
+        "IntervalMap",
+        "Interval Map",
+        "library_codex.ordered_set.IntervalMap",
+        "library codex ordered set Interval Map",
+        "ordered_set/IntervalMap.py",
+        "順序集合・rank",
+        "区間代入",
+        "区間塗り替え",
+        "区間map",
+        "ランレングス"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/ordered_set/IntervalMap.py",
+      "inputFingerprint": "9a7adc64198eb37ca23ba620e1801f86120457ede3a7dd8435c1e4610011cead",
+      "importCode": "from library_codex.ordered_set.IntervalMap import IntervalMap",
+      "sourceCode": "\"\"\"整数の半開区間へ値を代入し、隣接する同値区間をまとめて保持する。\"\"\"\n\nfrom library_codex.ordered_set.TreapSet import TreapSet\n\n\nclass IntervalMap:\n    \"\"\"未登録の隙間を残せる区間map。座標の大きさに比例する配列は作らない。\"\"\"\n\n    __slots__ = (\"_starts\", \"_segments\", \"covered_length\")\n\n    def __init__(self):\n        self._starts = TreapSet()\n        self._segments = {}\n        self.covered_length = 0\n\n    def _split(self, point):\n        start = self._starts.le(point)\n        if start is not None and start < point:\n            end, value = self._segments[start]\n            if point < end:\n                self._segments[start] = point, value\n                self._segments[point] = end, value\n                self._starts.add(point)\n\n    def _erase(self, left, right):\n        self._split(left)\n        self._split(right)\n        removed = 0\n        start = self._starts.ge(left)\n        while start is not None and start < right:\n            end, _ = self._segments.pop(start)\n            removed += end - start\n            self._starts.discard(start)\n            start = self._starts.ge(left)\n        self.covered_length -= removed\n        return removed\n\n    def _compact(self):\n        if len(self._starts.key) > 2 * len(self._segments) + 64:\n            self._starts = TreapSet(self._starts)\n\n    def assign(self, left, right, value):\n        \"\"\"半開区間[left, right)をvalueで上書きし、隣接する同値区間を結合する。\"\"\"\n        if left > right:\n            raise ValueError(\"left must not exceed right\")\n        if left == right:\n            return\n        start = self._starts.le(left)\n        if start is not None:\n            end, old = self._segments[start]\n            if right <= end and old == value:\n                return\n        self._erase(left, right)\n        self.covered_length += right - left\n        start = self._starts.lt(left)\n        if start is not None:\n            end, old = self._segments[start]\n            if end == left and old == value:\n                left = start\n                self._starts.discard(start)\n                del self._segments[start]\n        if right in self._segments:\n            end, old = self._segments[right]\n            if old == value:\n                self._starts.discard(right)\n                del self._segments[right]\n                right = end\n        self._starts.add(left)\n        self._segments[left] = right, value\n        self._compact()\n\n    def erase(self, left, right):\n        \"\"\"半開区間[left, right)の登録を消し、実際に消した整数座標の個数を返す。\"\"\"\n        if left > right:\n            raise ValueError(\"left must not exceed right\")\n        if left == right:\n            return 0\n        removed = self._erase(left, right)\n        self._compact()\n        return removed\n\n    def get(self, point, default=None):\n        \"\"\"pointに割り当てた値を返す。未登録ならdefaultを返す。\"\"\"\n        start = self._starts.le(point)\n        if start is not None:\n            end, value = self._segments[start]\n            if point < end:\n                return value\n        return default\n\n    def items(self, left=None, right=None):\n        \"\"\"登録された半開区間と値を左端順に返す。指定範囲があれば交差部分に切る。\"\"\"\n        if left is not None and right is not None:\n            if left > right:\n                raise ValueError(\"left must not exceed right\")\n            if left == right:\n                return []\n        result = []\n        if left is None and right is None:\n            return [(start, *self._segments[start]) for start in self._starts]\n        if left is None:\n            start = self._starts.kth(0) if self._segments else None\n        else:\n            start = self._starts.le(left)\n            if start is None or self._segments[start][0] <= left:\n                start = self._starts.ge(left)\n        while start is not None and (right is None or start < right):\n            end, value = self._segments[start]\n            result.append((start if left is None else max(left, start), end if right is None else min(right, end), value))\n            start = self._starts.gt(start)\n        return result\n\n    def __len__(self):\n        return len(self._segments)\n\n    def __str__(self):\n        return str(self.items())\n\n    def __repr__(self):\n        return \"IntervalMap(%r)\" % self.items()\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: ordered_set/TreapSet.py\n\"\"\"順序・k番目・前後要素を対数時間で扱う乱択平衡二分探索木。\"\"\"\nfrom operator import add\n\nclass TreapSet:\n    __slots__ = ('root', 'key', 'priority', 'left', 'right', 'parent', 'size', 'state')\n\n    def __init__(self, values=()):\n        self.root = -1\n        self.key = []\n        self.priority = []\n        self.left = []\n        self.right = []\n        self.parent = []\n        self.size = []\n        self.state = 11400714819323198485\n        for value in values:\n            self.add(value)\n\n    def _random(self):\n        value = self.state\n        value ^= value << 7 & (1 << 64) - 1\n        value ^= value >> 9\n        self.state = value\n        return value\n\n    def _new(self, key):\n        node = len(self.key)\n        self.key.append(key)\n        self.priority.append(self._random())\n        self.left.append(-1)\n        self.right.append(-1)\n        self.parent.append(-1)\n        self.size.append(1)\n        return node\n\n    def _update(self, node):\n        left = self.left[node]\n        right = self.right[node]\n        self.size[node] = 1 + (self.size[left] if left >= 0 else 0) + (self.size[right] if right >= 0 else 0)\n\n    def _update_up(self, node):\n        while node >= 0:\n            self._update(node)\n            node = self.parent[node]\n\n    def _rotate(self, node):\n        parent = self.parent[node]\n        grandparent = self.parent[parent]\n        if self.left[parent] == node:\n            middle = self.right[node]\n            self.right[node] = parent\n            self.left[parent] = middle\n        else:\n            middle = self.left[node]\n            self.left[node] = parent\n            self.right[parent] = middle\n        if middle >= 0:\n            self.parent[middle] = parent\n        self.parent[parent] = node\n        self.parent[node] = grandparent\n        if grandparent < 0:\n            self.root = node\n        elif self.left[grandparent] == parent:\n            self.left[grandparent] = node\n        else:\n            self.right[grandparent] = node\n        self._update(parent)\n        self._update(node)\n\n    def _find(self, key):\n        node = self.root\n        while node >= 0:\n            current = self.key[node]\n            if key == current:\n                return node\n            node = self.left[node] if key < current else self.right[node]\n        return -1\n\n    def add(self, key):\n        if self.root < 0:\n            self.root = self._new(key)\n            return True\n        node = self.root\n        while True:\n            current = self.key[node]\n            if key == current:\n                return False\n            if key < current:\n                child = self.left[node]\n                if child < 0:\n                    child = self._new(key)\n                    self.left[node] = child\n                    self.parent[child] = node\n                    break\n            else:\n                child = self.right[node]\n                if child < 0:\n                    child = self._new(key)\n                    self.right[node] = child\n                    self.parent[child] = node\n                    break\n            node = child\n        self._update_up(node)\n        while self.parent[child] >= 0 and self.priority[child] < self.priority[self.parent[child]]:\n            self._rotate(child)\n        self._update_up(self.parent[child])\n        return True\n    insert = add\n\n    def discard(self, key):\n        node = self._find(key)\n        if node < 0:\n            return False\n        while self.left[node] >= 0 or self.right[node] >= 0:\n            left = self.left[node]\n            right = self.right[node]\n            if right < 0 or (left >= 0 and self.priority[left] < self.priority[right]):\n                self._rotate(left)\n            else:\n                self._rotate(right)\n        parent = self.parent[node]\n        if parent < 0:\n            self.root = -1\n        elif self.left[parent] == node:\n            self.left[parent] = -1\n        else:\n            self.right[parent] = -1\n        self._update_up(parent)\n        return True\n    erase = discard\n\n    def bisect_left(self, key):\n        node = self.root\n        result = 0\n        while node >= 0:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if self.key[node] < key:\n                result += left_size + 1\n                node = self.right[node]\n            else:\n                node = left\n        return result\n    lower_bound = bisect_left\n\n    def bisect_right(self, key):\n        node = self.root\n        result = 0\n        while node >= 0:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if self.key[node] <= key:\n                result += left_size + 1\n                node = self.right[node]\n            else:\n                node = left\n        return result\n    upper_bound = bisect_right\n\n    def kth(self, index):\n        if index < 0 or index >= len(self):\n            raise IndexError('kth index out of range')\n        node = self.root\n        while True:\n            left = self.left[node]\n            left_size = self.size[left] if left >= 0 else 0\n            if index < left_size:\n                node = left\n            elif index == left_size:\n                return self.key[node]\n            else:\n                index -= left_size + 1\n                node = self.right[node]\n\n    def ge(self, key, default=None):\n        index = self.bisect_left(key)\n        return self.kth(index) if index < len(self) else default\n\n    def gt(self, key, default=None):\n        index = self.bisect_right(key)\n        return self.kth(index) if index < len(self) else default\n\n    def le(self, key, default=None):\n        index = self.bisect_right(key) - 1\n        return self.kth(index) if index >= 0 else default\n\n    def lt(self, key, default=None):\n        index = self.bisect_left(key) - 1\n        return self.kth(index) if index >= 0 else default\n\n    def min(self):\n        return self.kth(0)\n\n    def max(self):\n        return self.kth(len(self) - 1)\n\n    def __contains__(self, key):\n        return self._find(key) >= 0\n\n    def __len__(self):\n        root = self.root\n        return self.size[root] if root >= 0 else 0\n\n    def __iter__(self):\n        stack = []\n        node = self.root\n        while stack or node >= 0:\n            while node >= 0:\n                stack.append(node)\n                node = self.left[node]\n            node = stack.pop()\n            yield self.key[node]\n            node = self.right[node]\n\n    def tolist(self):\n        \"\"\"保持するkeyを昇順listで返す。O(N)。\"\"\"\n        return list(self)\n\n    def __str__(self):\n        return str(self.tolist())\n\n    def __repr__(self):\n        return 'TreapSet(%r)' % self.tolist()\n\n# 本体\n\"\"\"整数の半開区間へ値を代入し、隣接する同値区間をまとめて保持する。\"\"\"\n\nclass IntervalMap:\n    \"\"\"未登録の隙間を残せる区間map。座標の大きさに比例する配列は作らない。\"\"\"\n    __slots__ = ('_starts', '_segments', 'covered_length')\n\n    def __init__(self):\n        self._starts = TreapSet()\n        self._segments = {}\n        self.covered_length = 0\n\n    def _split(self, point):\n        start = self._starts.le(point)\n        if start is not None and start < point:\n            (end, value) = self._segments[start]\n            if point < end:\n                self._segments[start] = (point, value)\n                self._segments[point] = (end, value)\n                self._starts.add(point)\n\n    def _erase(self, left, right):\n        self._split(left)\n        self._split(right)\n        removed = 0\n        start = self._starts.ge(left)\n        while start is not None and start < right:\n            (end, _) = self._segments.pop(start)\n            removed += end - start\n            self._starts.discard(start)\n            start = self._starts.ge(left)\n        self.covered_length -= removed\n        return removed\n\n    def _compact(self):\n        if len(self._starts.key) > 2 * len(self._segments) + 64:\n            self._starts = TreapSet(self._starts)\n\n    def assign(self, left, right, value):\n        \"\"\"半開区間[left, right)をvalueで上書きし、隣接する同値区間を結合する。\"\"\"\n        if left > right:\n            raise ValueError('left must not exceed right')\n        if left == right:\n            return\n        start = self._starts.le(left)\n        if start is not None:\n            (end, old) = self._segments[start]\n            if right <= end and old == value:\n                return\n        self._erase(left, right)\n        self.covered_length += right - left\n        start = self._starts.lt(left)\n        if start is not None:\n            (end, old) = self._segments[start]\n            if end == left and old == value:\n                left = start\n                self._starts.discard(start)\n                del self._segments[start]\n        if right in self._segments:\n            (end, old) = self._segments[right]\n            if old == value:\n                self._starts.discard(right)\n                del self._segments[right]\n                right = end\n        self._starts.add(left)\n        self._segments[left] = (right, value)\n        self._compact()\n\n    def erase(self, left, right):\n        \"\"\"半開区間[left, right)の登録を消し、実際に消した整数座標の個数を返す。\"\"\"\n        if left > right:\n            raise ValueError('left must not exceed right')\n        if left == right:\n            return 0\n        removed = self._erase(left, right)\n        self._compact()\n        return removed\n\n    def get(self, point, default=None):\n        \"\"\"pointに割り当てた値を返す。未登録ならdefaultを返す。\"\"\"\n        start = self._starts.le(point)\n        if start is not None:\n            (end, value) = self._segments[start]\n            if point < end:\n                return value\n        return default\n\n    def items(self, left=None, right=None):\n        \"\"\"登録された半開区間と値を左端順に返す。指定範囲があれば交差部分に切る。\"\"\"\n        if left is not None and right is not None:\n            if left > right:\n                raise ValueError('left must not exceed right')\n            if left == right:\n                return []\n        result = []\n        if left is None and right is None:\n            return [(start, *self._segments[start]) for start in self._starts]\n        if left is None:\n            start = self._starts.kth(0) if self._segments else None\n        else:\n            start = self._starts.le(left)\n            if start is None or self._segments[start][0] <= left:\n                start = self._starts.ge(left)\n        while start is not None and (right is None or start < right):\n            (end, value) = self._segments[start]\n            result.append((start if left is None else max(left, start), end if right is None else min(right, end), value))\n            start = self._starts.gt(start)\n        return result\n\n    def __len__(self):\n        return len(self._segments)\n\n    def __str__(self):\n        return str(self.items())\n\n    def __repr__(self):\n        return 'IntervalMap(%r)' % self.items()\n",
+      "bundledDependencies": [
+        "library_codex.ordered_set.TreapSet"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 7
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "IntervalMap",
+          "summary": "整数座標への値の割当てを、同値が連続する半開区間へ圧縮して管理する。",
+          "description": "整数座標への値の割当てを、同値が連続する半開区間へ圧縮して管理する。",
+          "searchTerms": [
+            "IntervalMap",
+            "Interval Map",
+            "IntervalMap()"
+          ],
+          "constructor": "IntervalMap()",
+          "constructorArguments": "なし",
+          "constructorArgumentDetails": [],
+          "constructorReturns": "IntervalMap instance",
+          "constructorReturnFormat": "IntervalMap",
+          "constructorReturnDescription": "空のmapを作る。assignで区間を上書きし、eraseで未登録に戻す。getで1点、itemsで区間列、covered_lengthで登録された整数座標の総数を得る。",
+          "constructorCreates": "空のmapを作る。assignで区間を上書きし、eraseで未登録に戻す。getで1点、itemsで区間列、covered_lengthで登録された整数座標の総数を得る。",
+          "constructorComplexity": "O(1)時間・空間",
+          "constructorSourceLine": 11,
+          "methods": [
+            {
+              "name": "assign",
+              "kind": "method",
+              "signature": "assign(left, right, value)",
+              "summary": "半開区間[left, right)の値を上書きし、隣接する同値区間を結合する。",
+              "description": "半開区間[left, right)の値を上書きし、隣接する同値区間を結合する。",
+              "searchTerms": [
+                "assign",
+                "assign(left, right, value)"
+              ],
+              "arguments": "left: 含む整数の左端。left≤right。 · right: 含まない整数の右端。 · value: 割り当てる値。Noneやhash不能な値も可。等値比較が必要。登録後は値自体を変更しない。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "含む整数の左端。left≤right。"
+                },
+                {
+                  "name": "right",
+                  "description": "含まない整数の右端。"
+                },
+                {
+                  "name": "value",
+                  "description": "割り当てる値。Noneやhash不能な値も可。等値比較が必要。登録後は値自体を変更しない。"
+                }
+              ],
+              "returns": "None — 値を返さない。区間外は変えない。空区間は何もしない。",
+              "returnFormat": "None",
+              "returnDescription": "値を返さない。区間外は変えない。空区間は何もしない。",
+              "complexity": "期待償却O((K+1)log(I+2))時間。Iは登録区間数、Kは変更で消す区間数。領域回収時は単発O(I log(I+2))。値の比較をO(1)とする",
+              "sourceLine": 42
+            },
+            {
+              "name": "erase",
+              "kind": "method",
+              "signature": "erase(left, right)",
+              "summary": "半開区間[left, right)を未登録に戻す。",
+              "description": "半開区間[left, right)を未登録に戻す。",
+              "searchTerms": [
+                "erase",
+                "erase(left, right)"
+              ],
+              "arguments": "left: 含む整数の左端。left≤right。 · right: 含まない整数の右端。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "含む整数の左端。left≤right。"
+                },
+                {
+                  "name": "right",
+                  "description": "含まない整数の右端。"
+                }
+              ],
+              "returns": "int — 実際に登録を消した整数座標の個数。削除区間数ではない。空区間は0。",
+              "returnFormat": "int",
+              "returnDescription": "実際に登録を消した整数座標の個数。削除区間数ではない。空区間は0。",
+              "complexity": "期待償却O((K+1)log(I+2))時間。Iは登録区間数、Kは消す区間数。領域回収時は単発O(I log(I+2))",
+              "sourceLine": 72
+            },
+            {
+              "name": "get",
+              "kind": "method",
+              "signature": "get(point, default=None)",
+              "summary": "1つの整数座標に割り当てた値を取得する。",
+              "description": "1つの整数座標に割り当てた値を取得する。",
+              "searchTerms": [
+                "get",
+                "get(point, default=None)"
+              ],
+              "arguments": "point: 調べる整数座標。 · default: 未登録の場合の返り値。",
+              "argumentDetails": [
+                {
+                  "name": "point",
+                  "description": "調べる整数座標。"
+                },
+                {
+                  "name": "default",
+                  "description": "未登録の場合の返り値。"
+                }
+              ],
+              "returns": "object — 登録済みならその値、未登録ならdefault。登録値Noneと未登録を区別したい場合は、defaultに専用のobjectを渡す。値はコピーしない。",
+              "returnFormat": "object",
+              "returnDescription": "登録済みならその値、未登録ならdefault。登録値Noneと未登録を区別したい場合は、defaultに専用のobjectを渡す。値はコピーしない。",
+              "complexity": "期待O(log(I+2))時間",
+              "sourceLine": 82
+            },
+            {
+              "name": "items",
+              "kind": "method",
+              "signature": "items(left=None, right=None)",
+              "summary": "登録済み区間を左端順に列挙する。範囲指定時は交差部分だけ返す。",
+              "description": "登録済み区間を左端順に列挙する。範囲指定時は交差部分だけ返す。",
+              "searchTerms": [
+                "items",
+                "items(left=None, right=None)"
+              ],
+              "arguments": "left: 切り出す範囲の左端を含む。Noneなら左側の制限なし。 · right: 切り出す範囲の右端は含まない。Noneなら右側の制限なし。",
+              "argumentDetails": [
+                {
+                  "name": "left",
+                  "description": "切り出す範囲の左端を含む。Noneなら左側の制限なし。"
+                },
+                {
+                  "name": "right",
+                  "description": "切り出す範囲の右端は含まない。Noneなら右側の制限なし。"
+                }
+              ],
+              "returns": "list[tuple[int, int, object]] — (left, right, value)を並べた新しいlist。各組は半開区間[left, right)への割当てを表す。隙間は含めず、隣接同値区間は結合済み。値自体はコピーしない。",
+              "returnFormat": "list[tuple[int, int, object]]",
+              "returnDescription": "(left, right, value)を並べた新しいlist。各組は半開区間[left, right)への割当てを表す。隙間は含めず、隣接同値区間は結合済み。値自体はコピーしない。",
+              "complexity": "全件ならO(I)、範囲指定なら期待O((K+1)log(I+2))時間・O(K)追加空間。Kは返す区間数",
+              "sourceLine": 91
+            },
+            {
+              "name": "__len__",
+              "kind": "method",
+              "signature": "__len__()",
+              "summary": "保持する区間の個数を取得する。",
+              "description": "保持する区間の個数を取得する。",
+              "searchTerms": [
+                "__len__",
+                "len",
+                "__len__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "int — items()の長さ。登録された整数座標数はcovered_lengthで取得する。",
+              "returnFormat": "int",
+              "returnDescription": "items()の長さ。登録された整数座標数はcovered_lengthで取得する。",
+              "complexity": "O(1)時間",
+              "sourceLine": 113
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "現在の区間と値を表示する。",
+              "description": "現在の区間と値を表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — items()の内容の文字列。状態を変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "items()の内容の文字列。状態を変更しない。",
+              "complexity": "O(I+S)時間・空間。Sは文字列化の合計サイズ",
+              "sourceLine": 116
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "現在の区間と値を型名付きで表示する。",
+              "description": "現在の区間と値を型名付きで表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — IntervalMap([...])の形式の文字列。状態を変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "IntervalMap([...])の形式の文字列。状態を変更しない。",
+              "complexity": "O(I+S)時間・空間。Sは文字列化の合計サイズ",
+              "sourceLine": 119
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "ordered_set",
+      "categoryLabel": "順序集合・rank",
+      "domain": "data_structure",
+      "domainLabel": "Data Structures",
       "name": "OrderedMap",
       "modulePath": "library_codex.ordered_set.OrderedMap",
       "summary": "key順の探索・k番目・下限・上限探索を扱う順序付きmap。",
@@ -36102,6 +36511,135 @@
           "returnDescription": "goalまでの最短移動回数。到達不能は-1",
           "complexity": "O(HW)",
           "sourceLine": 40
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "shortest_path",
+      "categoryLabel": "最短路",
+      "domain": "graph",
+      "domainLabel": "Graph",
+      "name": "ImplicitDijkstra",
+      "modulePath": "library_codex.shortest_path.ImplicitDijkstra",
+      "summary": "必要な辺だけを生成し、整数IDを振っていない状態間の最短路を求める。",
+      "capabilities": [
+        "implicit_dijkstra: 到達した状態だけ隣接辺を生成し、複数始点からの最短路を探索する。",
+        "implicit_shortest_path: finishを満たす状態の最短距離が確定した時点で探索を終了する。"
+      ],
+      "article": {
+        "title": "辺をその場で作る最短路",
+        "markdown": "## 主な機能\n\n盤面の位置や「頂点・残り資源」の組を状態にし、到達した状態からの移動だけを生成して最短路を求めます。全状態の隣接listや、整数IDへの変換は不要です。\n\n- `implicit_dijkstra(starts, adjacent)` は全到達状態の距離と経路復元用の親を返します。\n- `implicit_shortest_path(starts, adjacent, finish)` は条件を満たす終点で終了し、距離と経路を返します。\n\n発見状態数V、生成辺数E、始点数S、callbackの合計時間Gに対し、期待O(S+(V+E) log(V+E+2)+G)時間・O(V+E)空間です。整数IDと隣接listが既にある場合は通常の`Dijkstra`を使えます。\n\n## 使い方\n\n```python\nfrom library_codex.shortest_path.ImplicitDijkstra import implicit_shortest_path\n\ndef adjacent(position):\n    row, column = position\n    if row < 2:\n        yield (row + 1, column), 1\n    if column < 2:\n        yield (row, column + 1), 1\n\ncost, path = implicit_shortest_path([(0, 0)], adjacent, lambda p: p == (2, 2))\nassert cost == 4\nassert path[0] == (0, 0) and path[-1] == (2, 2)\nassert len(path) == 5\n```\n\n- `cost`: 最も近い始点からの距離。到達不能なら`float(\"inf\")`です。\n- `path`: 両端を含む状態list。到達不能なら空listです。\n- 全探索版の`distance[state]`は最短距離、`previous[state]`は直前の状態です。始点は`previous`に含めません。\n\n## 注意点\n\n- 状態はhash可能である必要があります。tuple・文字列・`None`も使え、大小比較は不要です。\n- 単一のtuple状態も`[(row, column)]`と始点列に入れます。\n- 重みは非負、callbackは探索中に同じグラフを表す必要があります。調べた負辺はエラーにします。\n- 全探索版は到達範囲が有限、早期終了版も終了までの探索が有限である必要があります。\n\n## 参考\n\n[kemuniku/cplibの暗黙Dijkstra](https://github.com/kemuniku/cplib/blob/f835598fec8e14039cf654a67f0244e0a654d035/src/cplib/utils/implicit_dijkstra.nim)の状態表現と終了条件を参照しています。",
+        "sourcePath": "library_codex/docs/articles/shortest_path/ImplicitDijkstra.md"
+      },
+      "searchTerms": [
+        "ImplicitDijkstra",
+        "Implicit Dijkstra",
+        "library_codex.shortest_path.ImplicitDijkstra",
+        "library codex shortest path Implicit Dijkstra",
+        "shortest_path/ImplicitDijkstra.py",
+        "最短路",
+        "暗黙グラフ",
+        "状態空間",
+        "遅延辺生成",
+        "多始点最短路"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/shortest_path/ImplicitDijkstra.py",
+      "inputFingerprint": "314d651548e93fd22484e54012000d9c4cca3c6cfcffecab789d3524e6155985",
+      "importCode": "from library_codex.shortest_path.ImplicitDijkstra import implicit_dijkstra, implicit_shortest_path",
+      "sourceCode": "\"\"\"必要な辺だけを生成し、整数IDを振っていない状態間の最短路を求める。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef _search(starts, adjacent, finish):\n    distance = dict.fromkeys(starts, 0)\n    previous = {}\n    heap = [(0, index, state) for index, state in enumerate(distance)]\n    serial = len(heap)\n    while heap:\n        cost, _, state = heappop(heap)\n        if cost != distance[state]:\n            continue\n        if finish is not None and finish(state):\n            return distance, previous, state, True\n        for other, weight in adjacent(state):\n            if weight < 0:\n                raise ValueError(\"Dijkstra requires nonnegative weights\")\n            candidate = cost + weight\n            if other not in distance or candidate < distance[other]:\n                distance[other] = candidate\n                previous[other] = state\n                heappush(heap, (candidate, serial, other))\n                serial += 1\n    return distance, previous, None, False\n\n\ndef implicit_dijkstra(starts, adjacent):\n    \"\"\"複数始点から到達できる全状態の最短距離と直前の状態を返す。\"\"\"\n    distance, previous, _, _ = _search(starts, adjacent, None)\n    return distance, previous\n\n\ndef implicit_shortest_path(starts, adjacent, finish):\n    \"\"\"finish(state)を満たす状態までの最短距離と経路を返す。\"\"\"\n    distance, previous, state, found = _search(starts, adjacent, finish)\n    if not found:\n        return float(\"inf\"), []\n    cost = distance[state]\n    path = [state]\n    while state in previous:\n        state = previous[state]\n        path.append(state)\n    path.reverse()\n    return cost, path\n",
+      "standaloneCode": "\"\"\"必要な辺だけを生成し、整数IDを振っていない状態間の最短路を求める。\"\"\"\n\nfrom heapq import heappop, heappush\n\n\ndef _search(starts, adjacent, finish):\n    distance = dict.fromkeys(starts, 0)\n    previous = {}\n    heap = [(0, index, state) for index, state in enumerate(distance)]\n    serial = len(heap)\n    while heap:\n        cost, _, state = heappop(heap)\n        if cost != distance[state]:\n            continue\n        if finish is not None and finish(state):\n            return distance, previous, state, True\n        for other, weight in adjacent(state):\n            if weight < 0:\n                raise ValueError(\"Dijkstra requires nonnegative weights\")\n            candidate = cost + weight\n            if other not in distance or candidate < distance[other]:\n                distance[other] = candidate\n                previous[other] = state\n                heappush(heap, (candidate, serial, other))\n                serial += 1\n    return distance, previous, None, False\n\n\ndef implicit_dijkstra(starts, adjacent):\n    \"\"\"複数始点から到達できる全状態の最短距離と直前の状態を返す。\"\"\"\n    distance, previous, _, _ = _search(starts, adjacent, None)\n    return distance, previous\n\n\ndef implicit_shortest_path(starts, adjacent, finish):\n    \"\"\"finish(state)を満たす状態までの最短距離と経路を返す。\"\"\"\n    distance, previous, state, found = _search(starts, adjacent, finish)\n    if not found:\n        return float(\"inf\"), []\n    cost = distance[state]\n    path = [state]\n    while state in previous:\n        state = previous[state]\n        path.append(state)\n    path.reverse()\n    return cost, path\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "implicit_dijkstra",
+          "kind": "function",
+          "signature": "implicit_dijkstra(starts, adjacent)",
+          "summary": "到達した状態だけ隣接辺を生成し、複数始点からの最短路を探索する。",
+          "description": "到達した状態だけ隣接辺を生成し、複数始点からの最短路を探索する。",
+          "searchTerms": [
+            "implicit_dijkstra",
+            "implicit dijkstra",
+            "implicit_dijkstra(starts, adjacent)"
+          ],
+          "arguments": "starts: 始点のiterable。各始点の距離は0。単一のtuple状態なら[tuple状態]と渡す。状態はhash可能で、探索中にhashや等値性が変わらないこと。大小比較は不要。 · adjacent: adjacent(state)が(次の状態, 非負の重み)のiterableを返す。探索中は同じグラフを表すこと。",
+          "argumentDetails": [
+            {
+              "name": "starts",
+              "description": "始点のiterable。各始点の距離は0。単一のtuple状態なら[tuple状態]と渡す。状態はhash可能で、探索中にhashや等値性が変わらないこと。大小比較は不要。"
+            },
+            {
+              "name": "adjacent",
+              "description": "adjacent(state)が(次の状態, 非負の重み)のiterableを返す。探索中は同じグラフを表すこと。"
+            }
+          ],
+          "returns": "tuple[dict[object, number], dict[object, object]] — (distance, previous)。distance[state]は最短距離、previous[state]は経路上の直前の状態。始点はpreviousに含めず、到達不能な状態はどちらにも含めない。",
+          "returnFormat": "tuple[dict[object, number], dict[object, object]]",
+          "returnDescription": "(distance, previous)。distance[state]は最短距離、previous[state]は経路上の直前の状態。始点はpreviousに含めず、到達不能な状態はどちらにも含めない。",
+          "complexity": "期待O(S+(V+E)log(V+E+2)+G)時間・O(V+E)空間。Sは始点数、Vは発見状態数、Eは列挙辺数、Gはcallbackの合計時間。hash・比較・距離演算をO(1)とする",
+          "sourceLine": 29,
+          "returnParts": [
+            {
+              "name": "distance",
+              "format": "dict[object, number]",
+              "description": "到達状態をkey、最短距離をvalueとするdict。"
+            },
+            {
+              "name": "previous",
+              "format": "dict[object, object]",
+              "description": "始点以外の到達状態をkey、直前の状態をvalueとするdict。"
+            }
+          ]
+        },
+        {
+          "name": "implicit_shortest_path",
+          "kind": "function",
+          "signature": "implicit_shortest_path(starts, adjacent, finish)",
+          "summary": "finishを満たす状態の最短距離が確定した時点で探索を終了する。",
+          "description": "finishを満たす状態の最短距離が確定した時点で探索を終了する。",
+          "searchTerms": [
+            "implicit_shortest_path",
+            "implicit shortest path",
+            "implicit_shortest_path(starts, adjacent, finish)"
+          ],
+          "arguments": "starts: 始点のiterable。各始点の距離は0。単一のtuple状態なら[tuple状態]と渡す。状態はhash可能で、探索中にhashや等値性が変わらないこと。大小比較は不要。 · adjacent: adjacent(state)が(次の状態, 非負の重み)のiterableを返す。探索中は同じグラフを表すこと。 · finish: finish(state)が真となる状態を終点とする。始点も判定する。全探索または終了までの探索が有限であること。",
+          "argumentDetails": [
+            {
+              "name": "starts",
+              "description": "始点のiterable。各始点の距離は0。単一のtuple状態なら[tuple状態]と渡す。状態はhash可能で、探索中にhashや等値性が変わらないこと。大小比較は不要。"
+            },
+            {
+              "name": "adjacent",
+              "description": "adjacent(state)が(次の状態, 非負の重み)のiterableを返す。探索中は同じグラフを表すこと。"
+            },
+            {
+              "name": "finish",
+              "description": "finish(state)が真となる状態を終点とする。始点も判定する。全探索または終了までの探索が有限であること。"
+            }
+          ],
+          "returns": "tuple[number, list[object]] — (distance, path)。距離と始点から終点までの状態listで、両端を含む。到達不能なら(inf, [])。同距離の経路の選択は保証しない。",
+          "returnFormat": "tuple[number, list[object]]",
+          "returnDescription": "(distance, path)。距離と始点から終点までの状態listで、両端を含む。到達不能なら(inf, [])。同距離の経路の選択は保証しない。",
+          "complexity": "期待O(S+(V+E)log(V+E+2)+G)時間・O(V+E)空間。Sは始点数、Vは発見状態数、Eは列挙辺数、Gはcallbackの合計時間。hash・比較・距離演算をO(1)とする",
+          "sourceLine": 35,
+          "returnParts": [
+            {
+              "name": "distance",
+              "format": "number",
+              "description": "最も近い終点への最短距離。到達不能ならinf。"
+            },
+            {
+              "name": "path",
+              "format": "list[object]",
+              "description": "始点から終点までの状態列。両端を含み、到達不能なら空list。"
+            }
+          ]
         }
       ],
       "classes": []
@@ -70065,6 +70603,77 @@
           "returnDescription": "値の列 $c$ は $c_k=\\max_{i+j=k}(\\mathrm{concave}_i+\\mathrm{arbitrary}_j)$。長さは $\\lvert\\mathrm{concave}\\rvert+\\lvert\\mathrm{arbitrary}\\rvert-1$。添字列の $k$ 番目は最大値を作った $i$",
           "complexity": "O(A log(A+C) + C)（Aはarbitrary、Cはconcaveの長さ）",
           "sourceLine": 5
+        }
+      ],
+      "classes": []
+    },
+    {
+      "category": "optimization",
+      "categoryLabel": "最適化・DP",
+      "domain": "optimization",
+      "domainLabel": "Optimization",
+      "name": "FixedSizeSubsetSum",
+      "modulePath": "library_codex.optimization.FixedSizeSubsetSum",
+      "summary": "異なる整数をちょうどk個選んで作れる和を、重複なく昇順に列挙する。",
+      "capabilities": [
+        "fixed_size_subset_sums: 異なる値をちょうどk個選んで作れる和を、同じ和を1回だけ列挙する。"
+      ],
+      "article": {
+        "title": "異なる値をk個選ぶ部分和",
+        "markdown": "## 主な機能\n\n整数集合からちょうどk個の異なる値を選び、作れる和を重複なく列挙します。選び方の個数を法で数える`fps998/SubsetSum`とは別の問題です。\n\n選ぶ個数と選ばない個数の小さい方をk'として計算します。組合せ数が32768以下なら列挙、等差数列なら和の範囲を直接生成、それ以外は個数ごとのbitset DPを使います。平行移動と最大公約数で、扱う和の幅を縮めます。\n\n## 使い方\n\n```python\nfrom library_codex.optimization.FixedSizeSubsetSum import fixed_size_subset_sums\n\nassert fixed_size_subset_sums([1, 3, 5, 7], 2) == [4, 6, 8, 10, 12]\nassert fixed_size_subset_sums([2, 2, 3], 2) == [5]\nassert fixed_size_subset_sums([-3, 2, 8], 2) == [-1, 5, 10]\nassert fixed_size_subset_sums([], 0) == [0]\n```\n\n- 返り値は作れる和を昇順に並べた整数listです。\n- 入力は集合です。`[2, 2, 3]`から2個選んでも、2を2回選ぶ和4は含みません。\n- kが異なる値の個数を超えれば空listです。k=0なら0だけです。\n\n## 注意点\n\n- 重複除去後の値数をN、圧縮後の大きいk'個の和をH、出力数をRとします。bitset DPはO(Nk' ceil((H+1)/w)+H+R)時間、O(k' ceil((H+1)/w)+N+R)空間です。wは多倍長整数の内部桁のbit数です。\n- 圧縮後の和の範囲に依存します。ばらばらの巨大整数が多い入力には適しません。\n- 負数も含められます。入力は変更しません。\n\n## 参考\n\n[qandori/cp-libraryの個数指定部分和](https://github.com/qandori/cp-library/blob/ceec97a52d734d23f762b9c5e322b2b53df0cf9e/math/fixed_size_subset_sum.hpp)の集合としての仕様・補集合・gcd圧縮を参照しています。一般の場合はこちらではbitset DPを使い、参照先の多法NTTと同じ実装ではありません。",
+        "sourcePath": "library_codex/docs/articles/optimization/FixedSizeSubsetSum.md"
+      },
+      "searchTerms": [
+        "FixedSizeSubsetSum",
+        "Fixed Size Subset Sum",
+        "library_codex.optimization.FixedSizeSubsetSum",
+        "library codex optimization Fixed Size Subset Sum",
+        "optimization/FixedSizeSubsetSum.py",
+        "最適化・DP",
+        "個数指定部分和",
+        "k個の和",
+        "固定サイズ部分集合"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/optimization/FixedSizeSubsetSum.py",
+      "inputFingerprint": "afc08608cdee2d990d73d8a88c713bb5a5b54ff0e28b6ff2fa818b7440687849",
+      "importCode": "from library_codex.optimization.FixedSizeSubsetSum import fixed_size_subset_sums",
+      "sourceCode": "\"\"\"異なる整数をちょうどk個選んで作れる和を、重複なく昇順に列挙する。\"\"\"\n\nfrom itertools import combinations\nfrom math import gcd\n\n\ndef fixed_size_subset_sums(values, k):\n    \"\"\"入力を集合として扱い、異なるk個の値の和を昇順listで返す。\"\"\"\n    if k < 0:\n        raise ValueError(\"k must be nonnegative\")\n    values = sorted(set(values))\n    n = len(values)\n    if k > n:\n        return []\n    total = sum(values)\n    complement = k > n - k\n    if complement:\n        k = n - k\n    if k == 0:\n        return [total if complement else 0]\n    if k == 1:\n        return [total - value for value in reversed(values)] if complement else values\n    ways = 1\n    for i in range(1, k + 1):\n        ways = ways * (n - i + 1) // i\n        if ways > 32768:\n            break\n    if ways <= 32768:\n        result = sorted({sum(chosen) for chosen in combinations(values, k)})\n    else:\n        base = values[0]\n        step = 0\n        for value in values:\n            step = gcd(step, value - base)\n        normalized = [(value - base) // step for value in values]\n        low, high = sum(normalized[:k]), sum(normalized[-k:])\n        if normalized[-1] == n - 1:\n            result = [k * base + step * value for value in range(low, high + 1)]\n        else:\n            dp = [1] + [0] * k\n            for index, value in enumerate(normalized):\n                for count in range(min(k, index + 1), 0, -1):\n                    dp[count] |= dp[count - 1] << value\n            packed = (dp[k] >> low).to_bytes((high - low + 8) // 8, \"little\")\n            result = []\n            for index, byte in enumerate(packed):\n                while byte:\n                    bit = byte & -byte\n                    result.append(k * base + step * (low + 8 * index + bit.bit_length() - 1))\n                    byte ^= bit\n    return [total - value for value in reversed(result)] if complement else result\n",
+      "standaloneCode": "\"\"\"異なる整数をちょうどk個選んで作れる和を、重複なく昇順に列挙する。\"\"\"\n\nfrom itertools import combinations\nfrom math import gcd\n\n\ndef fixed_size_subset_sums(values, k):\n    \"\"\"入力を集合として扱い、異なるk個の値の和を昇順listで返す。\"\"\"\n    if k < 0:\n        raise ValueError(\"k must be nonnegative\")\n    values = sorted(set(values))\n    n = len(values)\n    if k > n:\n        return []\n    total = sum(values)\n    complement = k > n - k\n    if complement:\n        k = n - k\n    if k == 0:\n        return [total if complement else 0]\n    if k == 1:\n        return [total - value for value in reversed(values)] if complement else values\n    ways = 1\n    for i in range(1, k + 1):\n        ways = ways * (n - i + 1) // i\n        if ways > 32768:\n            break\n    if ways <= 32768:\n        result = sorted({sum(chosen) for chosen in combinations(values, k)})\n    else:\n        base = values[0]\n        step = 0\n        for value in values:\n            step = gcd(step, value - base)\n        normalized = [(value - base) // step for value in values]\n        low, high = sum(normalized[:k]), sum(normalized[-k:])\n        if normalized[-1] == n - 1:\n            result = [k * base + step * value for value in range(low, high + 1)]\n        else:\n            dp = [1] + [0] * k\n            for index, value in enumerate(normalized):\n                for count in range(min(k, index + 1), 0, -1):\n                    dp[count] |= dp[count - 1] << value\n            packed = (dp[k] >> low).to_bytes((high - low + 8) // 8, \"little\")\n            result = []\n            for index, byte in enumerate(packed):\n                while byte:\n                    bit = byte & -byte\n                    result.append(k * base + step * (low + 8 * index + bit.bit_length() - 1))\n                    byte ^= bit\n    return [total - value for value in reversed(result)] if complement else result\n",
+      "bundledDependencies": [],
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "methods": 0
+      },
+      "functions": [
+        {
+          "name": "fixed_size_subset_sums",
+          "kind": "function",
+          "signature": "fixed_size_subset_sums(values, k)",
+          "summary": "異なる値をちょうどk個選んで作れる和を、同じ和を1回だけ列挙する。",
+          "description": "異なる値をちょうどk個選んで作れる和を、同じ和を1回だけ列挙する。",
+          "searchTerms": [
+            "fixed_size_subset_sums",
+            "fixed size subset sums",
+            "fixed_size_subset_sums(values, k)"
+          ],
+          "arguments": "values: 整数のiterable。重複は先に除く。負数も可。同値の別要素を複数選ぶ多重集合の問題ではない。 · k: 選ぶ異なる値の個数。非負整数。",
+          "argumentDetails": [
+            {
+              "name": "values",
+              "description": "整数のiterable。重複は先に除く。負数も可。同値の別要素を複数選ぶ多重集合の問題ではない。"
+            },
+            {
+              "name": "k",
+              "description": "選ぶ異なる値の個数。非負整数。"
+            }
+          ],
+          "returns": "list[int] — 作れる和を重複なく昇順に並べたlist。k=0なら[0]、異なる値数よりkが大きければ[]。個数を法で数えるAPIではない。",
+          "returnFormat": "list[int]",
+          "returnDescription": "作れる和を重複なく昇順に並べたlist。k=0なら[0]、異なる値数よりkが大きければ[]。個数を法で数えるAPIではない。",
+          "complexity": "期待O(M+N log(N+1))で重複除去・整列。C=binom(N,k')≤32768ならO(Ck'+C log(C+1))、等差数列ならO(N+R)、それ以外はO(Nk' ceil((H+1)/w)+H+R)時間・O(k' ceil((H+1)/w)+N+R)空間。Mは入力数、Nは異なる値数、k'=min(k,N-k)、Hは平行移動・gcd圧縮後の大きいk'個の和、Rは出力数、wは多倍長整数の内部桁のbit数。通常の整数算術・hashをO(1)とする",
+          "sourceLine": 7
         }
       ],
       "classes": []

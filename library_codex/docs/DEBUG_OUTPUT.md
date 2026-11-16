@@ -1,5 +1,7 @@
 # デバッグ出力
 
+`IntervalMap.items()`は左端順の`(left, right, value)`のlistを返す。各組は半開区間`[left, right)`への割当てで、隙間を含めない。`str`は同じlist、`repr`は`IntervalMap([...])`。全件列挙はO(I)時間・追加空間。表示で状態は変わらず、値は深いコピーではない。
+
 ## VS Codeの右側へ自動表示
 
 `debug/DebugView.py`の`dump_flow`・`dump_graph`・`dump_array`で現在の状態を保存すると、Haru Desk 1.36以降がDebugパネルを自動更新する。フロー本体の通常操作は変更しない。利用方法と制限は[DebugView](articles/debug/DebugView.md)を参照。

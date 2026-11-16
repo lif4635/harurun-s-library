@@ -26,6 +26,11 @@ def load_catalog():
     "number_theory.LinearDiophantine",
     "optimization.MoWithUpdates",
     "shortest_path.DifferenceConstraints",
+    "shortest_path.ImplicitDijkstra",
+    "convolution.OrderedConvolution",
+    "convolution.MaxMinConvolution",
+    "optimization.FixedSizeSubsetSum",
+    "ordered_set.IntervalMap",
 ])
 def test_reference_expansion_article_and_bundle(name, tmp_path):
     module = module_by_path(load_catalog(), "library_codex." + name)

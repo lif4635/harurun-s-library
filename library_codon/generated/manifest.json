@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 406,
+  "moduleCount": 411,
   "supportedCount": 7,
   "modules": [
     {
@@ -347,6 +347,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "convolution/MaxMinConvolution",
+      "sourcePath": "library_codex/convolution/MaxMinConvolution.py",
+      "sourceSha256": "cc06b1dfb84243d5f66507cc14e1804be6c33321cd0c16aed3362d5aa09d5709",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "convolution/MiddleProduct",
       "sourcePath": "library_codex/convolution/MiddleProduct.py",
       "sourceSha256": "d92526ba2aeaedcfdbdf022ad132eaa10cdc4a9ff699aa2be46d9da9040ff878",
@@ -383,6 +389,12 @@
       "status": "supported",
       "standalonePath": "convolution/NTT998.codon",
       "standaloneSha256": "0904fbf587fe91a406e6c499f9d2dd7ec4a11b922695226a0b553f6016e92ddc"
+    },
+    {
+      "modulePath": "convolution/OrderedConvolution",
+      "sourcePath": "library_codex/convolution/OrderedConvolution.py",
+      "sourceSha256": "5931e65645a7af67e38126015f86e50c8bbf871765610a2942c222fba5f01648",
+      "status": "unsupported"
     },
     {
       "modulePath": "debug/DebugView",
@@ -1323,6 +1335,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "optimization/FixedSizeSubsetSum",
+      "sourcePath": "library_codex/optimization/FixedSizeSubsetSum.py",
+      "sourceSha256": "f949f7c9352e75b7e7b2624a056df402c750acbaa939d68645f63f2a6f7b2ba8",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "optimization/GoldenSectionSearch",
       "sourcePath": "library_codex/optimization/GoldenSectionSearch.py",
       "sourceSha256": "85e5f36941bee832f5c71367834de00f79fb59a841eca832ec245ca7c1dd9c05",
@@ -1446,6 +1464,12 @@
       "modulePath": "ordered_set/FastSet",
       "sourcePath": "library_codex/ordered_set/FastSet.py",
       "sourceSha256": "b1a5a5ff2953ff0e56a0b836da33804d7f865e2e3afb2f47db64d5f6493fb35f",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "ordered_set/IntervalMap",
+      "sourcePath": "library_codex/ordered_set/IntervalMap.py",
+      "sourceSha256": "0d64b622498e2891b5b4b74d3b2b9ba5be89e260c881505c957f0afba14f83fe",
       "status": "unsupported"
     },
     {
@@ -1958,6 +1982,12 @@
       "modulePath": "shortest_path/GridBFS",
       "sourcePath": "library_codex/shortest_path/GridBFS.py",
       "sourceSha256": "ddf99b929b3512022d9655ba8ebf8d8cc96bd52dc4373bb7069a0c179b542ccd",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "shortest_path/ImplicitDijkstra",
+      "sourcePath": "library_codex/shortest_path/ImplicitDijkstra.py",
+      "sourceSha256": "77401bb83266ef588b12d1dbb318b5451b0eb19af180af59bb26764b45ca331d",
       "status": "unsupported"
     },
     {
