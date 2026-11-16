@@ -28,6 +28,8 @@
 
 ## データ構造・範囲クエリ
 
+- [区間k番目の一括処理・動的y座標の点列挙](OFFLINE_SPATIAL_BENCHMARK.md)
+
 - [子孫参照マージのセグメント木・Keyboard](SEG_TREE_TRAVERSAL_BENCHMARK.md)
 - [二次元点の矩形アフィン変換と矩形和](RECTANGLE_AFFINE_SUM_BENCHMARK.md)
 - [区間ソートと非可換な区間積](SORTABLE_ARRAY_BENCHMARK.md)

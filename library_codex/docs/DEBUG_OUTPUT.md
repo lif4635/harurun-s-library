@@ -1,5 +1,7 @@
 # デバッグ出力
 
+`PrioritySearchTree.items()`は有効な点だけを`(ID, x, y)`のlistでID順に返す。`str`は同じlist、`repr`は`PrioritySearchTree([...])`。固定点数Nに対してO(N)時間で、状態は変更しない。
+
 `IntervalMap.items()`は左端順の`(left, right, value)`のlistを返す。各組は半開区間`[left, right)`への割当てで、隙間を含めない。`str`は同じlist、`repr`は`IntervalMap([...])`。全件列挙はO(I)時間・追加空間。表示で状態は変わらず、値は深いコピーではない。
 
 ## VS Codeの右側へ自動表示

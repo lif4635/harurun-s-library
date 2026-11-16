@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 411,
+  "moduleCount": 413,
   "supportedCount": 7,
   "modules": [
     {
@@ -1653,6 +1653,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "range_query/OfflineRangeKth",
+      "sourcePath": "library_codex/range_query/OfflineRangeKth.py",
+      "sourceSha256": "302c536cc80864ae0081a559d515944e75f71f1557e73f126a02a2282c3fd920",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "range_query/RangeMajority",
       "sourcePath": "library_codex/range_query/RangeMajority.py",
       "sourceSha256": "17dbdde69029d76d7a821c3d5255a763e0384e1907e743670753c8c535e90619",
@@ -2072,6 +2078,12 @@
       "modulePath": "spatial_structure/PointUpdateRangeTree2D",
       "sourcePath": "library_codex/spatial_structure/PointUpdateRangeTree2D.py",
       "sourceSha256": "572b05b9df31fff8637598efa8549af55d164a4ba1ee46676761427481f0af01",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "spatial_structure/PrioritySearchTree",
+      "sourcePath": "library_codex/spatial_structure/PrioritySearchTree.py",
+      "sourceSha256": "e4bd2fa94a9969ee6a1e9288fb66d4bba6a42866f15460d7aa99352e999ec9ce",
       "status": "unsupported"
     },
     {

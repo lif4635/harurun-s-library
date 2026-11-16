@@ -31,6 +31,8 @@ def load_catalog():
     "convolution.MaxMinConvolution",
     "optimization.FixedSizeSubsetSum",
     "ordered_set.IntervalMap",
+    "spatial_structure.PrioritySearchTree",
+    "range_query.OfflineRangeKth",
 ])
 def test_reference_expansion_article_and_bundle(name, tmp_path):
     module = module_by_path(load_catalog(), "library_codex." + name)

@@ -8598,6 +8598,51 @@ for _method, _description, _format, _returns, _arguments in (
         } if _method in ("apply", "sum") else {}),
     }
 
+_priority_module = "spatial_structure/PrioritySearchTree.py"
+SEARCH_TERMS_BY_MODULE[_priority_module] = ("優先探索木", "三辺矩形", "点列挙", "動的y座標")
+CLASS_DETAILS_BY_SYMBOL[(_priority_module, "PrioritySearchTree")] = {
+    "description": "x座標が固定された点のy座標と有効・無効を更新し、横範囲と高さの上限を満たす点を列挙する。",
+    "argumentDescriptions": {"xs": "各点の固定x座標。入力順が点IDで、重複も可。座標同士を全順序で比較できること。NaNは不可。", "ys": "同じ長さの初期y座標列。各要素がNoneならその点は無効。引数自体を省略すると全点無効。y同士も全順序で比較できること。NaNは不可。"},
+    "constructorCreates": "点IDと固定x座標を保持する。setでy座標を変更、eraseで無効化、reportで条件に合う点IDを列挙し、min_yで横範囲の最も低い点IDを得る。入力列はコピーする。",
+}
+COMPLEXITY_BY_MODULE[_priority_module] = {
+    "PrioritySearchTree": "O(N log(N+2))時間・O(N)空間。Nは固定点数。座標比較をO(1)とする",
+    "set": "O(log(N+2))時間・O(1)追加空間",
+    "erase": "O(log(N+2))時間・O(1)追加空間",
+    "get": "O(1)時間",
+    "report": "O(log(N+2)+K)時間・O(log(N+2)+K)追加空間。Kは返す点数",
+    "min_y": "O(log(N+2))時間・追加空間",
+    "items": "O(N)時間・O(A)追加空間。Aは有効な点数",
+    "__len__": "O(1)時間",
+    "__str__": "O(N+S)時間・O(A+S)追加空間。Sは文字列の長さ、Aは有効な点数",
+    "__repr__": "O(N+S)時間・O(A+S)追加空間。Sは文字列の長さ、Aは有効な点数",
+}
+for _name, _description, _format, _returns, _arguments in (
+    ("set", "指定した点IDのy座標を代入する。無効な点なら有効に戻す。", "None", "値を返さない。y=Noneなら点を無効にする。x座標と点IDは変えない。", {"index": "入力順の点ID。範囲外はIndexError。", "y": "新しいy座標。Noneなら無効化。"}),
+    ("erase", "指定した点IDを無効にし、問い合わせの対象から外す。", "bool", "有効だった点を消したらTrue、既に無効ならFalse。setで同じIDを再利用できる。", {"index": "入力順の点ID。範囲外はIndexError。"}),
+    ("get", "指定した点IDの現在のy座標を取得する。", "object | None", "その点のy座標。無効ならNone。x座標や点IDではない。", {"index": "入力順の点ID。範囲外はIndexError。"}),
+    ("report", "left <= x < rightかつy < upperを満たす有効な点を列挙する。", "list[int]", "条件を満たす点IDを重複なく含む新しいlist。並び順は保証しない。条件を満たす点がなければ空list。同じ座標の別IDは別々に返す。", {"left": "x座標の下限を含む。left≤right。", "right": "x座標の上限は含まない。", "upper": "y座標の上限は含まない。"}),
+    ("min_y", "半開区間[left, right)にx座標が入る有効な点から、yが最小の点を選ぶ。", "int | None", "選ばれた点のID。y座標が同値ならIDが最小の点。対象がなければNone。", {"left": "x座標の下限を含む。left≤right。", "right": "x座標の上限は含まない。"}),
+    ("items", "現在有効な点のIDと座標を取得する。", "list[tuple[int, object, object]]", "(index, x, y)を点IDの昇順に並べた新しいlist。無効な点は含めない。", {}),
+    ("__len__", "有効な点の個数を取得する。", "int", "現在のitems()の長さ。固定した全点の個数ではない。", {}),
+    ("__str__", "有効な点のIDと座標を表示する。", "str", "items()と同じ内容の文字列。状態を変えない。", {}),
+    ("__repr__", "有効な点を型名とともに表示する。", "str", "PrioritySearchTree([...])の形式の文字列。状態を変えない。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_priority_module, "PrioritySearchTree", _name)] = {
+        "description": _description, "returnFormat": _format, "returnDescription": _returns, "argumentDescriptions": _arguments,
+    }
+
+_offline_kth_module = "range_query/OfflineRangeKth.py"
+SEARCH_TERMS_BY_MODULE[_offline_kth_module] = ("区間k番目", "オフライン順位", "一括順序統計")
+COMPLEXITY_BY_MODULE[_offline_kth_module] = {
+    "offline_range_kth": "期待O(N+σ log(σ+1)+(N+Q)log(σ+1))時間・O(N+Q)追加空間。σは異なる値の個数。単調列はO(N+Q)、Q=0ならO(1)。hash・比較をO(1)とする",
+}
+API_DETAILS_BY_SYMBOL[(_offline_kth_module, None, "offline_range_kth")] = {
+    "description": "静的配列の半開区間ごとにk番目に小さい値をまとめて求める。問い合わせを後から追加する構造は保持しない。",
+    "argumentDescriptions": {"values": "入力配列。値はhash可能で全順序比較できること。負数・重複も可。NaNは不可。入力は変更しない。", "queries": "(left, right, k)のiterable。半開区間[left, right)は空でなく、kは0以上right-left未満。不正な範囲・順位はValueError。"},
+    "returnFormat": "list[object]", "returnDescription": "queriesと同じ長さ・順序の新しいlist。result[i]はi番目の区間を昇順に並べたときのk番目の値で、元の配列の添字ではない。同値の要素も個別に数える。",
+}
+
 _implicit_module = "shortest_path/ImplicitDijkstra.py"
 SEARCH_TERMS_BY_MODULE[_implicit_module] = ("暗黙グラフ", "状態空間", "遅延辺生成", "多始点最短路")
 for _name in ("implicit_dijkstra", "implicit_shortest_path"):

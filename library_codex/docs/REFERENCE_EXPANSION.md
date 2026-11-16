@@ -23,6 +23,8 @@
 | qand `convolution/ordered_convolution.hpp` | `convolution/OrderedConvolution.py` | i<jの寄与のみ。既存NTT998による分割統治を再帰なしで実装 |
 | qand `convolution/max_min_convolution.hpp` | `convolution/MaxMinConvolution.py` | 値順の有効化をPython整数bit集合へ置換。参照先方式のPython移植と同一入力で比較 |
 | kemuniku `utils/implicit_dijkstra.nim` | `shortest_path/ImplicitDijkstra.py` | hash可能な状態、多始点、条件付き早期終了、経路復元。通常Dijkstraは変更しない |
+| qand `data_structure/priority_search_tree.hpp` | `spatial_structure/PrioritySearchTree.py` | 固定x・動的yの点列挙と最小y。整数IDの配列で保持し、再帰なし。通常の最小値セグ木との速度差を記録 |
+| qand `data_structure/offline_range_kth_smallest.hpp` | `range_query/OfflineRangeKth.py` | 静的k番目を各bit段で一括処理。全段は保持せず、単調列は直接回答。既存WaveletMatrixは変更しない |
 
 ## 続く調査候補
 
@@ -30,17 +32,15 @@
 
 | 参照先 | 比較する機能 | 既存との確認点 |
 | --- | --- | --- |
-| qand `data_structure/persistent_deque.hpp` | 永続deque・分割連結 | PersistentQueue/Arrayとは異なる操作。PyPyでnode objectを増やさない表現を比較 |
-| qand `data_structure/priority_search_tree.hpp` | 三辺矩形内の列挙と点更新 | x座標を先に固定し、yの変更・有効化を行う。O(log N+K)列挙と既存KDTreeの定数倍を比較 |
+| qand `data_structure/persistent_deque.hpp` | 永続deque・分割連結 | 過去版からの分岐と同じ版同士の連結を扱い、読み取りではnodeを作らない。PersistentQueue/Arrayとは異なる操作。既存PersistentStringのAVL joinも照合し、整数IDの配列で比較 |
 | qand `tree/persistent_link_cut_tree.hpp` | 過去版から分岐する動的木 | 参照文書の償却O(log² N)は直前の返却版を引き継ぐ場合のみ。任意分岐には適用できず、1操作最悪O(N log N)。同じ古い版からの反復照会を測る |
-| qand `data_structure/offline_range_kth_smallest.hpp` | 静的オフラインk番目 | 初期配列と(l,r,k)のquery列を受ける。更新付きという旧メモは誤り。静的WaveletMatrixとのメモリ・時間比較が必要 |
-| kemuniku `collections/compressed_retroactive_priority_queue.nim` | 過去時刻への操作挿入 | 通常heapとの違い、完全/部分遡及の保証を確認 |
+| kemuniku `collections/compressed_retroactive_priority_queue.nim` | 過去時刻への操作挿入 | 公開APIは最終状態の最優先値・個数・総和と更新差分を返す部分遡及。途中時刻のqueue状態は保持しない。時刻圧縮wrapperではなく固定長版のcoreから移植を検討 |
 | kemuniku `fps/sparse_formal_power_series.nim` | 疎FPSの遠い1係数 | inv/logはBostan–Mori、exp/powは多項式係数漸化式の平方分割。最大次数dに対してd³の依存があり、非零項数だけで速くなるわけではない |
 
 ## 調査メモの訂正・非採用
 
 - kemuniku `str/hamming_distance.nim`は同じ長さの2つのbyte列の距離をSIMDで求める実装。全位置とのHamming距離という旧メモは誤り。標準PythonだけではSIMD部分をそのまま移せず、単純ループのAPIを増やすだけにはしないため今回の追加対象から外した。
-- 上の静的k番目も、名前だけで更新付きの候補へ分類していた点を訂正した。既存APIとの重複を確認する前に新規moduleは増やさない。
+- 静的k番目を、名前だけで更新付きの候補へ分類していた点を訂正した。追加したOfflineRangeKthも静的配列用で、更新付きではない。
 
 ## 前からの残件
 
@@ -51,4 +51,4 @@
 - 旧 `REFERENCE_INVENTORY.md` の過去のpath・Geometry保留表示を現行sourceへ照合する。新しい参照版の完了判定には使わない。
 - CodonとユーザーのWSL内コピーの同期は後回しという指定を維持する。
 
-検証結果と速度・RSSは [編集距離・疎FPS](REFERENCE_EXPANSION_BENCHMARK.md)、[区間map・暗黙最短路・畳み込み](REFERENCE_ALGORITHMS_BENCHMARK.md) に記録する。新しい候補を見つけたことと、実装・検証・公開の完了を分けて管理する。
+検証結果と速度・RSSは [編集距離・疎FPS](REFERENCE_EXPANSION_BENCHMARK.md)、[区間map・暗黙最短路・畳み込み](REFERENCE_ALGORITHMS_BENCHMARK.md)、[点列挙・一括k番目](OFFLINE_SPATIAL_BENCHMARK.md) に記録する。新しい候補を見つけたことと、実装・検証・公開の完了を分けて管理する。
