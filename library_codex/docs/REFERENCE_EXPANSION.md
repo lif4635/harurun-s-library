@@ -25,17 +25,16 @@
 | kemuniku `utils/implicit_dijkstra.nim` | `shortest_path/ImplicitDijkstra.py` | hash可能な状態、多始点、条件付き早期終了、経路復元。通常Dijkstraは変更しない |
 | qand `data_structure/priority_search_tree.hpp` | `spatial_structure/PrioritySearchTree.py` | 固定x・動的yの点列挙と最小y。整数IDの配列で保持し、再帰なし。通常の最小値セグ木との速度差を記録 |
 | qand `data_structure/offline_range_kth_smallest.hpp` | `range_query/OfflineRangeKth.py` | 静的k番目を各bit段で一括処理。全段は保持せず、単調列は直接回答。既存WaveletMatrixは変更しない |
+| qand `data_structure/persistent_deque.hpp` | `sequence_structure/PersistentDeque.py` | 整数IDと32要素以下の葉による永続列。両端操作・一点代入・分割連結。既存PersistentStringと比較 |
+| qand `tree/persistent_link_cut_tree.hpp` | `tree/PersistentLinkCutTree.py` | 任意版からのlink/cut・値変更・経路積・k番目。返却版を引き継ぐ場合と古い版へ戻る場合を別測定。経路作用・部分木集約・LCAは含まない |
+| kemuniku `collections/retroactive_priority_queue.nim` | `ordered_set/RetroactivePriorityQueue.py` | 固定時刻の整数push/popを編集する部分遡及。最後の値・個数・総和・更新差分。途中時刻の状態や個々のpop結果は保持しない |
+| kemuniku `fps/sparse_formal_power_series.nim` | `fps/SparseCoefficient.py`・`polynomial/PolynomialMatrixRecurrence.py` | 逆数/logはBostan–Mori、exp/冪は次数圧縮・疎漸化式・平方分割を使い分ける。一次式の行列漸化式を別用途にも使える関数へ分離 |
 
 ## 続く調査候補
 
-候補の段階では未実装・速度未確認。各行は既存APIとの操作単位の照合から始める。
+前回残っていた4候補は、上記の範囲を実装・比較した。参照先の全APIの移植や、全入力での高速化を意味しない。特に永続動的木の古い版への反復照会、dequeの両端操作だけ、小さい遡及キューは比較器より遅いケースがある。
 
-| 参照先 | 比較する機能 | 既存との確認点 |
-| --- | --- | --- |
-| qand `data_structure/persistent_deque.hpp` | 永続deque・分割連結 | 過去版からの分岐と同じ版同士の連結を扱い、読み取りではnodeを作らない。PersistentQueue/Arrayとは異なる操作。既存PersistentStringのAVL joinも照合し、整数IDの配列で比較 |
-| qand `tree/persistent_link_cut_tree.hpp` | 過去版から分岐する動的木 | 参照文書の償却O(log² N)は直前の返却版を引き継ぐ場合のみ。任意分岐には適用できず、1操作最悪O(N log N)。同じ古い版からの反復照会を測る |
-| kemuniku `collections/compressed_retroactive_priority_queue.nim` | 過去時刻への操作挿入 | 公開APIは最終状態の最優先値・個数・総和と更新差分を返す部分遡及。途中時刻のqueue状態は保持しない。時刻圧縮wrapperではなく固定長版のcoreから移植を検討 |
-| kemuniku `fps/sparse_formal_power_series.nim` | 疎FPSの遠い1係数 | inv/logはBostan–Mori、exp/powは多項式係数漸化式の平方分割。最大次数dに対してd³の依存があり、非零項数だけで速くなるわけではない |
+exp・冪の平方分割は次数の3乗に依存する。圧縮後の有効次数が8以下かつ取得次数が200万超の場合に使用し、それ以外は疎漸化式を使う。将来の閾値調整は同じ比較scriptで確認する。
 
 ## 調査メモの訂正・非採用
 
@@ -51,4 +50,4 @@
 - 旧 `REFERENCE_INVENTORY.md` の過去のpath・Geometry保留表示を現行sourceへ照合する。新しい参照版の完了判定には使わない。
 - CodonとユーザーのWSL内コピーの同期は後回しという指定を維持する。
 
-検証結果と速度・RSSは [編集距離・疎FPS](REFERENCE_EXPANSION_BENCHMARK.md)、[区間map・暗黙最短路・畳み込み](REFERENCE_ALGORITHMS_BENCHMARK.md)、[点列挙・一括k番目](OFFLINE_SPATIAL_BENCHMARK.md) に記録する。新しい候補を見つけたことと、実装・検証・公開の完了を分けて管理する。
+検証結果と速度・RSSは [編集距離・疎FPS](REFERENCE_EXPANSION_BENCHMARK.md)、[区間map・暗黙最短路・畳み込み](REFERENCE_ALGORITHMS_BENCHMARK.md)、[点列挙・一括k番目](OFFLINE_SPATIAL_BENCHMARK.md)、[永続構造・遡及キュー・遠い係数](PERSISTENT_RETROACTIVE_COEFFICIENT_BENCHMARK.md) に記録する。新しい候補を見つけたことと、実装・検証・公開の完了を分けて管理する。

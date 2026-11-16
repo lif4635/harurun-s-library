@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 413,
+  "moduleCount": 418,
   "supportedCount": 7,
   "modules": [
     {
@@ -480,6 +480,12 @@
       "modulePath": "fps/PolynomialComposition",
       "sourcePath": "library_codex/fps/PolynomialComposition.py",
       "sourceSha256": "d4abbfa68228b9f2b94557f867c63fa9260a4433b925ac4bdd5d4ed7eaed1777",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "fps/SparseCoefficient",
+      "sourcePath": "library_codex/fps/SparseCoefficient.py",
+      "sourceSha256": "3baae282dec670e78b74a0c66f8184cd4683accf337e9ef6df13fb54dc767872",
       "status": "unsupported"
     },
     {
@@ -1503,6 +1509,12 @@
       "status": "unsupported"
     },
     {
+      "modulePath": "ordered_set/RetroactivePriorityQueue",
+      "sourcePath": "library_codex/ordered_set/RetroactivePriorityQueue.py",
+      "sourceSha256": "2530363c60292fa4ba3d52304819c12a07c688011eb7576c7a0e80f512c4c586",
+      "status": "unsupported"
+    },
+    {
       "modulePath": "ordered_set/TopKSum",
       "sourcePath": "library_codex/ordered_set/TopKSum.py",
       "sourceSha256": "1315b9075376cb400d9e96ee3d7f930daf525d9d55547a50211dbceae6f66bc9",
@@ -1566,6 +1578,12 @@
       "modulePath": "polynomial/PolynomialGCD",
       "sourcePath": "library_codex/polynomial/PolynomialGCD.py",
       "sourceSha256": "cea1ba8e817d5347378deb48a1749775273e7f8e1224290db551ca039b623623",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "polynomial/PolynomialMatrixRecurrence",
+      "sourcePath": "library_codex/polynomial/PolynomialMatrixRecurrence.py",
+      "sourceSha256": "6dcc3aea1e3ea79fb1fb6e310ffd8fd47a459b9b33b0ecc7209b6066b2a0d0d7",
       "status": "unsupported"
     },
     {
@@ -1898,6 +1916,12 @@
       "modulePath": "sequence_structure/PersistentArray",
       "sourcePath": "library_codex/sequence_structure/PersistentArray.py",
       "sourceSha256": "50601eedfa5b50b59c973170dc1d0d28fd19f46c0adb6d6deb94e3e1b0d0a23c",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "sequence_structure/PersistentDeque",
+      "sourcePath": "library_codex/sequence_structure/PersistentDeque.py",
+      "sourceSha256": "11e5bba7dc17658f17a87f85bb418e07aba99c6bcf61cce0a7f5ea0fa27eb19d",
       "status": "unsupported"
     },
     {
@@ -2342,6 +2366,12 @@
       "modulePath": "tree/LinkCutTree",
       "sourcePath": "library_codex/tree/LinkCutTree.py",
       "sourceSha256": "d7a26ac1462b014bb58aabb7ebb484eb5a92d90bb0cd621f251209b48eaa56bf",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "tree/PersistentLinkCutTree",
+      "sourcePath": "library_codex/tree/PersistentLinkCutTree.py",
+      "sourceSha256": "36e2f4725e9fb1da7aa03d640e9a1731561bb129e816568823bea3b78bed6ad3",
       "status": "unsupported"
     },
     {

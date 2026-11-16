@@ -17,6 +17,7 @@
 | [`IncrementalForest`](IncrementalForest.md) | 辺追加だけのforest・LCA・path集約 | 0 | 1 | 15 |
 | [`LCA`](LCA.md) | instanceを直接呼んで最近共通祖先を求めるLCA | 0 | 1 | 4 |
 | [`LinkCutTree`](LinkCutTree.md) | Link-Cut Tree（非可換path積・遅延作用・可換群部分木積・部分木加算和） | 0 | 4 | 36 |
+| [`PersistentLinkCutTree`](PersistentLinkCutTree.md) | 過去の森から分岐して辺を変更し、向き付きの経路積を求める。 | 0 | 1 | 12 |
 | [`ProcessOfMergingTree`](ProcessOfMergingTree.md) | 辺が追加される過程を表すmerge treeを構築する。 | 1 | 0 | 0 |
 | [`PruferCode`](PruferCode.md) | Prüfer列の線形encode/decode（標準・拡張形式） | 5 | 0 | 0 |
 | [`Rerooting`](Rerooting.md) | 非可換monoid・辺/頂点変換対応の全方位木DP | 1 | 1 | 3 |

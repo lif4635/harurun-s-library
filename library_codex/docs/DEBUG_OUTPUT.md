@@ -1,5 +1,11 @@
 # デバッグ出力
 
+`PersistentDeque.tolist(version)`は指定版の列を順に展開する。`str`・`repr`は最新の版を表示する。O(N)時間・空間で、読み取りによるnode追加はない。共有された巨大な列も全要素を展開する。
+
+`PersistentLinkCutTree.tolist(version)`は頂点番号順の値を返す。辺は含まない。O(N log(N+2))時間・O(N)追加空間で、版やnodeは増やさない。`str`・`repr`は最新の版の同じ内容。
+
+`RetroactivePriorityQueue.items()`は最後に残る`(push時刻, 値)`を時刻順に返す。途中時刻の状態ではない。Nスロット・A残存要素に対しO(N)時間・O(A)追加空間。`str`・`repr`でも同じ内容を表示し、状態は変えない。
+
 `PrioritySearchTree.items()`は有効な点だけを`(ID, x, y)`のlistでID順に返す。`str`は同じlist、`repr`は`PrioritySearchTree([...])`。固定点数Nに対してO(N)時間で、状態は変更しない。
 
 `IntervalMap.items()`は左端順の`(left, right, value)`のlistを返す。各組は半開区間`[left, right)`への割当てで、隙間を含めない。`str`は同じlist、`repr`は`IntervalMap([...])`。全件列挙はO(I)時間・追加空間。表示で状態は変わらず、値は深いコピーではない。

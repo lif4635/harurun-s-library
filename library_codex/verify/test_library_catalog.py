@@ -33,6 +33,11 @@ def load_catalog():
     "ordered_set.IntervalMap",
     "spatial_structure.PrioritySearchTree",
     "range_query.OfflineRangeKth",
+    "sequence_structure.PersistentDeque",
+    "tree.PersistentLinkCutTree",
+    "ordered_set.RetroactivePriorityQueue",
+    "polynomial.PolynomialMatrixRecurrence",
+    "fps.SparseCoefficient",
 ])
 def test_reference_expansion_article_and_bundle(name, tmp_path):
     module = module_by_path(load_catalog(), "library_codex." + name)

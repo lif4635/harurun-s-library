@@ -42,14 +42,14 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [arithmetic_convolution](api/arithmetic_convolution/README.md) | 約数・倍数・GCD・LCM・乗法群上の畳み込み | 3 | 8 | 0 | 0 |
 | [bitwise_convolution](api/bitwise_convolution/README.md) | OR・AND・XOR・subset変換と畳み込み | 1 | 14 | 1 | 9 |
 | [fps998](api/fps998/README.md) | 998244353固定の高速NTT・FPS・母関数 | 7 | 31 | 0 | 0 |
-| [fps](api/fps/README.md) | modを指定できる形式的冪級数と母関数の演算 | 12 | 35 | 8 | 56 |
-| [polynomial](api/polynomial/README.md) | 多項式の評価・補間・GCD・因数分解 | 16 | 32 | 2 | 3 |
+| [fps](api/fps/README.md) | modを指定できる形式的冪級数と母関数の演算 | 13 | 39 | 8 | 56 |
+| [polynomial](api/polynomial/README.md) | 多項式の評価・補間・GCD・因数分解 | 17 | 33 | 2 | 3 |
 | [combinatorial_series](api/combinatorial_series/README.md) | 組合せ数列・漸化式・数列変換 | 11 | 23 | 0 | 0 |
 | [segment_tree](api/segment_tree/README.md) | セグメント木と区間更新・区間集約 | 18 | 3 | 19 | 134 |
 | [fenwick_tree](api/fenwick_tree/README.md) | Fenwick木と加算・接頭和 | 3 | 0 | 3 | 17 |
 | [union_find](api/union_find/README.md) | Union-Findと連結成分管理 | 11 | 0 | 12 | 76 |
-| [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 13 | 0 | 13 | 133 |
-| [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 13 | 3 | 11 | 95 |
+| [ordered_set](api/ordered_set/README.md) | 順序集合・trie・rank・k番目 | 14 | 0 | 14 | 144 |
+| [sequence_structure](api/sequence_structure/README.md) | 動的列・queue・heap・SWAG | 14 | 3 | 12 | 108 |
 | [range_query](api/range_query/README.md) | 静的区間積・RMQ・Wavelet Matrix | 15 | 6 | 13 | 81 |
 | [spatial_structure](api/spatial_structure/README.md) | 2次元クエリ・矩形・直線集合 | 16 | 1 | 16 | 67 |
 | [graph](api/graph/README.md) | グラフ表現・変換・基本走査 | 16 | 24 | 6 | 32 |
@@ -65,7 +65,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 4 | 3 | 28 |
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 13 | 1 | 2 |
-| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 23 | 23 | 27 | 139 |
+| [tree](api/tree/README.md) | 木アルゴリズム・動的木 | 24 | 23 | 28 | 151 |
 | [tree_query](api/tree_query/README.md) | path・部分木上の静的検索 | 3 | 0 | 3 | 15 |
 | [string](api/string/README.md) | 文字列アルゴリズム | 21 | 29 | 22 | 244 |
 | [string_sequence](api/string_sequence/README.md) | 編集距離・巡回shift・Lyndon分解・共通substring | 4 | 6 | 0 | 0 |
@@ -75,4 +75,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **413 modules / 545 functions / 245 classes / 1557 methods・properties**。
+合計: **418 modules / 550 functions / 248 classes / 1593 methods・properties**。

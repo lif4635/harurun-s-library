@@ -10,6 +10,7 @@
 | [`ErasableHeap`](ErasableHeap.md) | heapから任意の既存値を遅延削除できるpriority queue。 | 0 | 1 | 8 |
 | [`ImplicitTreap`](ImplicitTreap.md) | 動的列の挿入削除・反転・非可換積・range lazy作用 | 0 | 1 | 17 |
 | [`PersistentArray`](PersistentArray.md) | 分岐可能な永続配列（非再帰・フラットプール） | 0 | 1 | 9 |
+| [`PersistentDeque`](PersistentDeque.md) | 過去版を残しながら両端操作・一点代入・分割・連結を行う列。 | 0 | 1 | 13 |
 | [`PersistentQueue`](PersistentQueue.md) | 過去versionを残したままappend・popleftできる永続queue。 | 0 | 1 | 4 |
 | [`RadixHeap`](RadixHeap.md) | 単調非負整数キー用優先度付きキュー | 0 | 1 | 6 |
 | [`RollbackArray`](RollbackArray.md) | 値の変更をsnapshot時点まで巻き戻せる配列。 | 0 | 1 | 10 |

@@ -8598,6 +8598,124 @@ for _method, _description, _format, _returns, _arguments in (
         } if _method in ("apply", "sum") else {}),
     }
 
+_deque_module = "sequence_structure/PersistentDeque.py"
+SEARCH_TERMS_BY_MODULE[_deque_module] = ("永続両端キュー", "版管理", "分割連結", "rope")
+CLASS_DETAILS_BY_SYMBOL[(_deque_module, "PersistentDeque")] = {
+    "description": "古い列を残し、任意の版から両端操作・一点代入・分割・連結を行う。",
+    "argumentDescriptions": {"values": "初期列。要素は浅くコピーして保持する。"},
+    "constructorCreates": "初期版0を作る。更新は新しい整数の版番号を返し、元の版は変更しない。同じinstance内の版同士だけを連結できる。",
+}
+COMPLEXITY_BY_MODULE[_deque_module] = {"PersistentDeque": "O(N)時間・空間。Nは初期要素数", "size": "O(1)時間", "get": "O(log(N+2))時間・O(1)追加空間", "node_count": "O(1)時間", "tolist": "O(N)時間・追加空間", "__str__": "O(N+S)時間・追加空間。Sは文字数", "__repr__": "O(N+S)時間・追加空間。Sは文字数"}
+for _name in ("set", "split", "push_front", "push_back", "pop_front", "pop_back"):
+    COMPLEXITY_BY_MODULE[_deque_module][_name] = "O(log(N+2))時間・保存領域の増分。Nは指定版の要素数"
+COMPLEXITY_BY_MODULE[_deque_module]["concat"] = "O(log(N+M+2))時間・保存領域の増分。N・Mは連結する列の長さ"
+for _name, _description, _format, _returns, _arguments in (
+    ("size", "指定版の列の長さを取得する。", "int", "その版の要素数。保存した版の個数ではない。", {}),
+    ("get", "指定版の1要素を取得する。", "object", "指定位置の要素。nodeや版は作らない。要素自体は深いコピーではない。", {"index": "列内の位置。負数・範囲外はIndexError。"}),
+    ("set", "1要素だけを置き換えた新しい版を作る。", "int", "新しい版番号。元の版の値は変わらない。", {"index": "置き換える位置。負数・範囲外はIndexError。", "value": "新しい要素。"}),
+    ("split", "指定位置の前で列を二分する。", "tuple[int, int]", "(前半の版番号, 後半の版番号)。前半は半開区間[0, index)、後半は[index, N)。両方を新規保存する。", {"index": "0以上N以下の切れ目。端なら片方は空列。"}),
+    ("concat", "2つの版の列を順に連結する。", "int", "firstの全要素の後ろにsecondの全要素を並べた新しい版番号。同じ版同士の連結も可能。", {"first": "同じinstanceにある前半の版番号。", "second": "同じinstanceにある後半の版番号。"}),
+    ("push_front", "先頭に1要素を加えた版を作る。", "int", "新しい版番号。元の版は保持する。", {"value": "追加する要素。"}),
+    ("push_back", "末尾に1要素を加えた版を作る。", "int", "新しい版番号。元の版は保持する。", {"value": "追加する要素。"}),
+    ("pop_front", "先頭の1要素を取り除いた版を作る。", "int", "削除後の版番号。取り除いた値ではない。空列はIndexError。値は元の版のget(0, version)で取得できる。", {}),
+    ("pop_back", "末尾の1要素を取り除いた版を作る。", "int", "削除後の版番号。取り除いた値ではない。空列はIndexError。", {}),
+    ("tolist", "指定版の列を通常のlistへ展開する。", "list[object]", "列の先頭から末尾の順の新しいlist。巨大な共有列でも全要素を展開するため、その長さのメモリが必要。", {}),
+    ("node_count", "確保済みの内部記録数を取得する。", "int", "全版で共有する葉・分岐の累積個数。削除版の領域も保持される。", {}),
+    ("__str__", "最新の版の列を表示する。", "str", "tolist()と同じ内容の文字列。版やnodeは追加しない。", {}),
+    ("__repr__", "最新の版の列を型名付きで表示する。", "str", "PersistentDeque([...])の形式。版やnodeは追加しない。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_deque_module, "PersistentDeque", _name)] = {"description": _description, "returnFormat": _format, "returnDescription": _returns, "argumentDescriptions": dict(_arguments, **({"version": "参照する版番号。省略時は最後に作成した版。"} if _name not in ("concat", "node_count", "__str__", "__repr__") else {}))}
+
+_retro_module = "ordered_set/RetroactivePriorityQueue.py"
+SEARCH_TERMS_BY_MODULE[_retro_module] = ("部分遡及", "遡及優先度付きキュー", "過去の操作編集")
+CLASS_DETAILS_BY_SYMBOL[(_retro_module, "RetroactivePriorityQueue")] = {"description": "過去のpush・popを上書きし、全操作を実行した後に残る整数と総和を管理する。", "argumentDescriptions": {"n": "時刻スロット数。半開区間[0, n)へ1操作ずつ置く。", "maximum": "Trueなら最大値を取り出す。Falseなら最小値。同値は早いpushが先。"}, "constructorCreates": "全時刻を空操作にする。set_push・set_pop・eraseで操作を編集し、peek・sum・itemsで最後の状態を取得する。途中時刻の状態は保持しない。"}
+COMPLEXITY_BY_MODULE[_retro_module] = {"RetroactivePriorityQueue": "O(N+1)時間・空間。Nは時刻数"}
+for _name in ("set_push", "set_pop", "erase"):
+    COMPLEXITY_BY_MODULE[_retro_module][_name] = "O(log(N+2))時間・一時空間。保存領域は増えない。整数演算をO(1)とする"
+for _name in ("peek", "sum", "popped_sum", "contains", "__len__"):
+    COMPLEXITY_BY_MODULE[_retro_module][_name] = "O(1)時間。整数演算をO(1)とする"
+COMPLEXITY_BY_MODULE[_retro_module].update({"items": "O(N)時間・O(A)追加空間。Aは残存個数", "__str__": "O(N+S)時間・O(A+S)追加空間。Sは文字数", "__repr__": "O(N+S)時間・O(A+S)追加空間。Sは文字数"})
+for _name, _description, _format, _returns, _arguments in (
+    ("set_push", "指定時刻を整数の挿入に上書きする。", "tuple[list[tuple[int, int]], list[tuple[int, int]]]", "(removed, added)。最終状態から出た要素・入った要素をそれぞれ(time, value)のlistで返す。利用側の集計にはremovedを先に、addedを後に反映する。", {"time": "上書きする時刻。範囲外はIndexError。", "value": "挿入する整数。負数・重複も可。"}),
+    ("set_pop", "指定時刻を最優先要素の削除に上書きする。", "tuple[list[tuple[int, int]], list[tuple[int, int]]]", "(removed, added)という最終状態の差分。各要素は(push時刻, 値)。そのpopが取り出す値ではない。空へのpopは何もしない。", {"time": "上書きする時刻。範囲外はIndexError。"}),
+    ("erase", "指定時刻を何もしない操作に変更する。", "tuple[list[tuple[int, int]], list[tuple[int, int]]]", "(removed, added)という最終状態の差分。各要素は(push時刻, 値)。元から空操作なら両方空list。", {"time": "削除する操作の時刻。範囲外はIndexError。"}),
+    ("peek", "全操作後に残る要素のうち最優先の値を取得する。", "int | None", "最小値、maximum=Trueなら最大値。残存要素がなければNone。削除はしない。", {}),
+    ("contains", "指定時刻にpushした要素が最後まで残るかを判定する。", "bool", "その時刻がpushで、既に取り出されていればFalse、最後まで残ればTrue。push以外もFalse。", {"time": "調べるpushの時刻。"}),
+    ("sum", "全操作後に残る値の総和を取得する。", "int", "残存整数の総和。空なら0。", {}),
+    ("popped_sum", "現在の全操作で取り出される値の総和を取得する。", "int", "現在登録されている全pushの総和から、最後に残る値の総和を引いた整数。空へのpopは0。", {}),
+    ("items", "最後に残る要素をpush時刻順に取得する。", "list[tuple[int, int]]", "(push時刻, 値)の新しいlist。値順ではない。同値でも時刻が違えば別要素。", {}),
+    ("__len__", "全操作後に残る要素数を取得する。", "int", "最後のキューの長さ。登録操作数ではない。", {}),
+    ("__str__", "最後に残る要素を表示する。", "str", "items()と同じ内容。操作履歴や途中時刻のキューは表示しない。", {}),
+    ("__repr__", "最後に残る要素を型名付きで表示する。", "str", "RetroactivePriorityQueue([...])の形式。状態は変えない。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_retro_module, "RetroactivePriorityQueue", _name)] = {"description": _description, "returnFormat": _format, "returnDescription": _returns, "argumentDescriptions": _arguments}
+
+_plct_module = "tree/PersistentLinkCutTree.py"
+SEARCH_TERMS_BY_MODULE[_plct_module] = ("永続動的木", "永続LCT", "過去版の森", "経路モノイド")
+CLASS_DETAILS_BY_SYMBOL[(_plct_module, "PersistentLinkCutTree")] = {"description": "任意の過去版の森から、辺の追加・削除・頂点値の変更を行い、向き付き経路積を求める。", "argumentDescriptions": {"values": "頂点番号順の初期値。要素は浅く保持し、後から直接変更しない。", "op": "結合則を満たす二項演算。非可換でも可。入力値を変更しないこと。", "identity": "opの両側単位元。", "edges": "初期森の無向辺(u, v)のiterable。閉路・多重辺・自己辺はValueError。"}, "constructorCreates": "初期版0を作る。更新と経路照会は新しい版番号を返す。照会後の版も引き継ぐことでsplayの償却が働く。古い版へ何度も戻る場合は最悪計算量を使う。"}
+_plct_cost = "1回最悪O(N log(N+2))時間・保存領域増分。返却版を順に引き継ぐQ操作では合計O((N+Q)log²(N+2))。opはO(1)とする"
+COMPLEXITY_BY_MODULE[_plct_module] = {"PersistentLinkCutTree": "O(N+E)時間・空間。Nは頂点数、Eは初期辺数", "get": "O(log(N+2))時間・O(1)追加空間", "tolist": "O(N log(N+2))時間・O(N)追加空間", "node_count": "O(1)時間", "__str__": "O(N log(N+2)+S)時間・O(N+S)追加空間。Sは文字数", "__repr__": "O(N log(N+2)+S)時間・O(N+S)追加空間。Sは文字数"}
+for _name in ("set", "link", "cut", "same", "prod", "path_size", "jump"):
+    COMPLEXITY_BY_MODULE[_plct_module][_name] = _plct_cost
+for _name, _description, _format, _returns, _arguments in (
+    ("get", "指定版の頂点値を取得する。", "object", "その頂点の値。新しい版やnodeは作らない。", {}),
+    ("set", "指定版から1頂点の値を変更した版を作る。", "int", "変更後の版番号。元の版は変わらない。", {"value": "新しい頂点値。"}),
+    ("link", "別成分の2頂点を無向辺で結ぶ。", "tuple[int, bool]", "(新しい版番号, 追加できたか)。既に連結ならFalseで辺は変わらないが、内部探索を反映した版は返す。", {}),
+    ("cut", "指定した無向辺を取り除く。", "tuple[int, bool]", "(新しい版番号, 削除できたか)。直接の辺がなければFalse。経路全体を切る操作ではない。", {}),
+    ("same", "2頂点が同じ木に属するかを調べる。", "tuple[int, bool]", "(探索後の版番号, 連結しているか)。論理的な辺や値は変わらない。", {}),
+    ("prod", "uからvへ向かう経路の頂点値を順にopで畳み込む。", "tuple[int, object]", "(探索後の版番号, 経路積)。両端の頂点値を含む。非可換なら逆向きで結果が変わる。別成分はValueError。", {}),
+    ("path_size", "uとvを結ぶ経路の頂点数を取得する。", "tuple[int, int]", "(探索後の版番号, 頂点数)。同一頂点なら1。辺数はこの値から1を引く。別成分はValueError。", {}),
+    ("jump", "uからvへ向かう経路のk番目の頂点を選ぶ。", "tuple[int, int]", "(探索後の版番号, 頂点番号)。k=0ならu、経路の範囲外なら-1。別成分はValueError。", {"k": "uから通る辺の本数。"}),
+    ("tolist", "指定版の全頂点値を取得する。", "list[object]", "頂点番号順の新しいlist。辺や内部木の順序は含まない。新しい版は作らない。", {}),
+    ("node_count", "版管理の保存量を確認する。", "tuple[int, int]", "(永続配列の内部node数, 頂点状態の累積記録数)。確保済みの全版を含む。バイト数ではない。", {}),
+    ("__str__", "最新の版の頂点値を表示する。", "str", "tolist()と同じ頂点番号順の値。辺の表示ではない。", {}),
+    ("__repr__", "最新の版の頂点値を型名付きで表示する。", "str", "PersistentLinkCutTree([...])の形式。版やnodeを追加しない。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_plct_module, "PersistentLinkCutTree", _name)] = {"description": _description, "returnFormat": _format, "returnDescription": _returns, "argumentDescriptions": dict(_arguments, **({"version": "参照する版番号。省略時は最後に返された版。"} if _name not in ("node_count", "__str__", "__repr__") else {}))}
+
+API_DETAILS_BY_SYMBOL[(_deque_module, "PersistentDeque", "split")]["returnParts"] = (
+    {"name": "left", "format": "int", "description": "半開区間[0, index)を保持する新しい版番号。"},
+    {"name": "right", "format": "int", "description": "半開区間[index, N)を保持する新しい版番号。"},
+)
+for _name in ("set_push", "set_pop", "erase"):
+    API_DETAILS_BY_SYMBOL[(_retro_module, "RetroactivePriorityQueue", _name)]["returnParts"] = (
+        {"name": "removed", "format": "list[tuple[int, int]]", "description": "編集によって最終キューから出た要素。(push時刻, 値)のlist。集計から先に取り除く。"},
+        {"name": "added", "format": "list[tuple[int, int]]", "description": "編集によって最終キューへ入った要素。(push時刻, 値)のlist。removedの後に集計へ加える。"},
+    )
+for _name, _result, _format, _description in (
+    ("link", "linked", "bool", "辺を追加できたならTrue。既に連結ならFalse。"),
+    ("cut", "cut", "bool", "直接の辺を削除できたならTrue。辺がなければFalse。"),
+    ("same", "connected", "bool", "2頂点が同じ木に属するならTrue。"),
+    ("prod", "product", "object", "uからvへ両端を含む頂点値を順にopで畳み込んだ値。"),
+    ("path_size", "size", "int", "経路の頂点数。同一頂点なら1。辺数ではない。"),
+    ("jump", "vertex", "int", "uからk辺進んだ頂点番号。経路の範囲外なら-1。"),
+):
+    API_DETAILS_BY_SYMBOL[(_plct_module, "PersistentLinkCutTree", _name)]["returnParts"] = (
+        {"name": "version", "format": "int", "description": "操作後の新しい版番号。次の操作へ引き継ぐと内部探索の調整を再利用できる。"},
+        {"name": _result, "format": _format, "description": _description},
+    )
+API_DETAILS_BY_SYMBOL[(_plct_module, "PersistentLinkCutTree", "node_count")]["returnParts"] = (
+    {"name": "array_nodes", "format": "int", "description": "全版を保持する永続配列の内部node数。"},
+    {"name": "snapshots", "format": "int", "description": "頂点状態の累積記録数。いずれもバイト数ではない。"},
+)
+
+_matrix_module = "polynomial/PolynomialMatrixRecurrence.py"
+SEARCH_TERMS_BY_MODULE[_matrix_module] = ("多項式係数漸化式", "holonomic", "遠い項", "平方分割行列積")
+COMPLEXITY_BY_MODULE[_matrix_module] = {"linear_matrix_recurrence": "O(d³ M(B)log(B+2)+d² B+dB)時間・O(d²B+B log(B+2))空間。B=ceil(sqrt(steps))、dは次元、M(B)はB項の畳み込み時間。steps<=64はO(d² steps)時間。mod逆元の計算が別途O(log mod)"}
+API_DETAILS_BY_SYMBOL[(_matrix_module, None, "linear_matrix_recurrence")] = {"description": "v(t+1)=(constant+t*linear)v(t)/(denominator[0]+t*denominator[1])をsteps回進める。", "returnFormat": "list[int]", "returnDescription": "長さdの状態ベクトルv(steps)。入力と同じ成分順で、各要素はmod未満の非負整数。初期状態も行列も変更しない。", "argumentDescriptions": {"initial": "v(0)の成分を順に並べた空でない列。", "constant": "行列の定数項。d行d列の係数列。", "linear": "行列のtの係数。d行d列。列ベクトルへの左乗算で、遷移の順序は入れ替えない。", "denominator": "(定数項, tの係数)。各stepで同じスカラーにより全成分を割る。途中で逆元が存在しなければValueError。", "steps": "非負の遷移回数。0なら初期値のmodを取ったコピー。", "mod": "素数法。素数判定はしない。"}}
+_coefficient_module = "fps/SparseCoefficient.py"
+SEARCH_TERMS_BY_MODULE[_coefficient_module] = ("疎FPS単項", "遠い係数", "Bostan Mori", "多項式係数漸化式")
+COMPLEXITY_BY_MODULE[_coefficient_module] = {"inv_coeff": "O(M(d)log(K+2))時間・O(d)空間。dは入力の有効次数、K=index、M(d)は畳み込み時間", "log_coeff": "O(M(d)log(K+2))時間・O(d)空間。dは入力の有効次数、K=index"}
+for _name in ("exp_coeff", "pow_coeff"):
+    COMPLEXITY_BY_MODULE[_coefficient_module][_name] = "圧縮後の有効次数d<=8かつK>2000000ではO(d³ M(B)log(B+2))時間・O(d²B+B log(B+2))空間、B=ceil(sqrt(K))。それ以外はO((K+1)(s+1))時間・O(K+d)空間。sは非零項数、Kはシフト・圧縮後の取得次数。入力走査は別途O(len(series))"
+for _name, _description, _constant, _restriction in (
+    ("inv_coeff", "多項式の乗法逆元から指定した1係数だけを求める。", "定数項はmodで非零。", "indexは任意の非負整数。"),
+    ("log_coeff", "多項式の形式的対数から指定した1係数だけを求める。", "定数項はmodで1。", "0<=index<mod。"),
+    ("exp_coeff", "多項式の形式的指数関数から指定した1係数だけを求める。", "定数項はmodで0。空列も可。", "0<=index<mod。"),
+    ("pow_coeff", "多項式の非負整数冪から指定した1係数だけを求める。", "定数項0も可。先頭の零係数による次数シフトを先に処理する。", "indexは非負。非自明な計算ではシフト後の次数がmod未満であること。"),
+):
+    API_DETAILS_BY_SYMBOL[(_coefficient_module, None, _name)] = {"description": _description, "returnFormat": "int", "returnDescription": "展開後のx^indexの係数をmod未満の非負整数で返す。係数listではない。", "argumentDescriptions": {"series": "次数順の係数列。末尾の零係数は除く。" + _constant, "index": _restriction, "mod": "素数法。素数判定はしない。", **({"exponent": "非負整数の指数。0乗は定数1として扱う。"} if _name == "pow_coeff" else {})}}
+
 _priority_module = "spatial_structure/PrioritySearchTree.py"
 SEARCH_TERMS_BY_MODULE[_priority_module] = ("優先探索木", "三辺矩形", "点列挙", "動的y座標")
 CLASS_DETAILS_BY_SYMBOL[(_priority_module, "PrioritySearchTree")] = {
