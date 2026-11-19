@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-16T11:31:26+00:00",
+  "generatedAt": "2026-11-19T17:14:43+00:00",
   "repository": "https://github.com/lif4635/harurun-s-library",
   "sourceRevision": "main",
-  "sourceFingerprint": "1f35a6325d91d186b8db6866bc4de26c4d05e22c0cf55ab4fa8d8387412d0ee5",
-  "inputStamp": "1bafc881db3a38c587360a8128db302e4bf7e0a987da1bcbcb7150f7a3e1c76d",
+  "sourceFingerprint": "25423c49c8010697c9e304524493930cdcc95594366894d4a498f50870ddc4b3",
+  "inputStamp": "570ec2d2d2e9f85eec71c7aa3a406191bfdeb26770156754f34c5eef24a65dca",
   "generatorFingerprint": "e15978ff317ab15518dd4afd2cd1ad5ae2bdd891b28a4159bad9380a65965bfa",
   "textFormat": "markdown+tex",
   "stats": {
-    "modules": 418,
-    "articles": 129,
+    "modules": 419,
+    "articles": 130,
     "functions": 550,
-    "classes": 248,
-    "methods": 1593,
-    "tests": 1390
+    "classes": 249,
+    "methods": 1597,
+    "tests": 1395
   },
   "categories": [
     {
@@ -271,10 +271,10 @@
       "label": "線形代数",
       "domain": "math",
       "domainLabel": "Math",
-      "modules": 9,
+      "modules": 10,
       "functions": 33,
-      "classes": 5,
-      "methods": 36
+      "classes": 6,
+      "methods": 40
     },
     {
       "slug": "rational",
@@ -421,7 +421,7 @@
     {
       "slug": "math",
       "label": "Math",
-      "modules": 61
+      "modules": 62
     },
     {
       "slug": "tree",
@@ -53514,6 +53514,167 @@
               "returnDescription": "bool",
               "complexity": "O(H*(1+ceil(W/w)))。H行W列、wは整数の1桁のビット数",
               "sourceLine": 323
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "linear_algebra",
+      "categoryLabel": "線形代数",
+      "domain": "math",
+      "domainLabel": "Math",
+      "name": "Frobenius",
+      "modulePath": "library_codex.linear_algebra.Frobenius",
+      "summary": "素数modの正方行列を分解し、行列全体の大きな整数冪を求める。",
+      "capabilities": [
+        "Frobenius: 素数modの正方行列を分解し、大きな指数の行列累乗を求める。"
+      ],
+      "article": {
+        "title": "大きな指数の行列累乗",
+        "markdown": "## 主な機能\n\n素数modのN行N列の行列Aから、Aの非負整数K乗を行列全体として求めます。ベクトルへの作用だけを求める関数ではありません。\n\n`Frobenius(A)`で分解を作り、`pow(K)`で累乗を求めます。998244353のようにNより十分大きい素数では、構築は期待O(N³)。1回の累乗はO(N³ + N² log(K+1))時間・O(N²)追加空間です。通常の二分累乗のO(N³ log(K+1))より、密な行列の大きい指数に適しています。\n\n同じAについて指数を変える場合は、同じinstanceを使えます。ただし毎回、結果を元の座標へ戻すO(N³)の行列積が必要です。構築後の全行列の照会がO(N² log K)だけになるわけではありません。\n\n## 使い方\n\n```python\nfrom library_codex.linear_algebra.Frobenius import Frobenius\n\na = [[1, 1], [1, 0]]\nf = Frobenius(a)\nassert f.pow(5) == [[8, 5], [5, 3]]\nassert f.pow(0) == [[1, 0], [0, 1]]\nassert f.tolist() == a\n```\n\n- `pow(K)`はN行N列の新しいlist。`result[i][j]`がAのK乗の第i行・第j列で、各値はmod未満の非負整数です。\n- `tolist()`は累乗結果ではなく、構築時のAをmodで正規化したコピーです。\n- 元のAや返されたlistを書き換えても、保存した分解は変わりません。\n\n## 仕組み\n\n基底を変え、行列を多項式に対応する小さなブロックへ分けます。\n\n$$\nA=P\\,\\operatorname{diag}(C_1,\\ldots,C_r)P^{-1}\n$$\n\n各ブロックでは、多項式で割った余りとしてxのK乗を求めます。最後に基底を戻します。\n\n$$\nA^K=P\\,\\operatorname{diag}(C_1^K,\\ldots,C_r^K)P^{-1}\n$$\n\n乱数は基底の選択だけに使います。ブロックを独立に分離できない試行は捨ててやり直し、失敗した分解から答えを返すことはありません。\n\n## 注意点\n\n- modは素数を渡してください。素数判定は行いません。合成数modや、min-plusなど別の演算には使えません。\n- 特異行列、零行列、同じ固有値の繰り返しも扱います。行列A自体の逆行列は必要ありません。\n- `seed`を指定すると基底選択を再現できます。省略時は毎回異なる選択を使います。\n- 構築は1試行O(N³)、最大`trials`回です。全試行が失敗すると`ArithmeticError`になります。小さい素数では再試行が増えることがあり、Nに対して十分大きい素数での期待時間と区別してください。\n- 指数が小さい場合や、順列行列・対角行列のように疎さを保つ場合は、既存の`Matrix.matrix_power`の方が速いことがあります。通常版は変更していません。\n- Pythonの整数演算を定数時間とした計算量です。非常に大きいmodでは多倍長整数の費用もかかります。\n\n## 参考\n\n[maspyのFrobenius標準形](https://maspypy.github.io/library/linalg/frobenius.hpp)のKrylov列とブロック分離の考え方を参照しています。実装はPythonの配列で保持し、再帰は使いません。",
+        "sourcePath": "library_codex/docs/articles/linear_algebra/Frobenius.md"
+      },
+      "searchTerms": [
+        "Frobenius",
+        "library_codex.linear_algebra.Frobenius",
+        "library codex linear algebra Frobenius",
+        "linear_algebra/Frobenius.py",
+        "線形代数",
+        "フロベニウス標準形",
+        "高速行列累乗",
+        "Krylov基底",
+        "有理標準形"
+      ],
+      "complexity": "実装依存",
+      "sourcePath": "library_codex/linear_algebra/Frobenius.py",
+      "inputFingerprint": "39ea1fc584ca7e62a7e433d3402ae3e72d4d9e0c96e8a5b06b0e7d638354db97",
+      "importCode": "from library_codex.linear_algebra.Frobenius import Frobenius",
+      "sourceCode": "\"\"\"素数modの正方行列を分解し、行列全体の大きな整数冪を求める。\"\"\"\n\nfrom random import Random\n\nfrom library_codex.linear_algebra.Matrix import inverse_matrix, matrix_multiply\n\n\ndef _insert(vector, columns, rows, ways, pivots, mod):\n    n = len(vector)\n    rank = len(columns)\n    reduced = vector[:]\n    weights = [0] * rank\n    for pivot in range(n):\n        row = rows[pivot]\n        factor = reduced[pivot]\n        if row is None or not factor:\n            continue\n        for j in range(pivot, n):\n            reduced[j] = (reduced[j] - factor * row[j]) % mod\n        way = ways[pivot]\n        for j in range(len(way)):\n            weights[j] = (weights[j] + factor * way[j]) % mod\n    pivot = next((i for i in range(n) if reduced[i]), -1)\n    if pivot < 0:\n        return weights\n    scale = pow(reduced[pivot], -1, mod)\n    rows[pivot] = [value * scale % mod for value in reduced]\n    ways[pivot] = [-value * scale % mod for value in weights] + [scale]\n    columns.append(vector[:])\n    pivots.append(pivot)\n    return None\n\n\ndef _matvec(matrix, vector, mod):\n    result = []\n    for row in matrix:\n        total = 0\n        for j in range(len(vector)):\n            total += row[j] * vector[j]\n            if j & 7 == 7:\n                total %= mod\n        result.append(total % mod)\n    return result\n\n\ndef _divide(values, relation, mod):\n    while values and not values[-1]:\n        values.pop()\n    degree = len(relation)\n    quotient = [0] * max(0, len(values) - degree)\n    for i in range(len(values) - 1, degree - 1, -1):\n        value = values[i]\n        quotient[i - degree] = value\n        if value:\n            for j in range(degree):\n                values[i - degree + j] = (values[i - degree + j] + value * relation[j]) % mod\n    del values[degree:]\n    while values and not values[-1]:\n        values.pop()\n    return quotient\n\n\ndef _trial(matrix, mod, rng):\n    n = len(matrix)\n    columns, pivots, blocks = [], [], []\n    rows, ways = [None] * n, [None] * n\n    while len(columns) < n:\n        start = len(columns)\n        first = [rng.randrange(mod) for _ in range(n)]\n        if _insert(first, columns, rows, ways, pivots, mod) is not None:\n            first = [0] * n\n            first[next(i for i in range(n) if rows[i] is None)] = 1\n            _insert(first, columns, rows, ways, pivots, mod)\n        current = first\n        while True:\n            current = _matvec(matrix, current, mod)\n            coefficients = _insert(current, columns, rows, ways, pivots, mod)\n            if coefficients is not None:\n                break\n        relation = coefficients[start:]\n        if start:\n            offset = 0\n            for previous in blocks:\n                degree = len(previous)\n                remainder = coefficients[offset:offset + degree]\n                quotient = _divide(remainder, relation, mod)\n                if remainder:\n                    return None\n                for i, value in enumerate(quotient):\n                    if value:\n                        column = columns[offset + i]\n                        for j in range(n):\n                            first[j] = (first[j] - value * column[j]) % mod\n                offset += degree\n            for pivot in pivots[start:]:\n                rows[pivot] = ways[pivot] = None\n            del pivots[start:]\n            del columns[start:]\n            current = first\n            for i in range(len(relation)):\n                if _insert(current, columns, rows, ways, pivots, mod) is not None:\n                    return None\n                if i + 1 < len(relation):\n                    current = _matvec(matrix, current, mod)\n        blocks.append(relation)\n    basis = [list(row) for row in zip(*columns)]\n    inverse = inverse_matrix(basis, mod)\n    if inverse is None:\n        return None\n    return basis, inverse, blocks\n\n\ndef _power_x(exponent, relation, mod):\n    degree = len(relation)\n    if exponent < degree:\n        return [0] * exponent + [1]\n    result = [1]\n    for bit in bin(exponent)[2:]:\n        size = len(result)\n        if not size:\n            break\n        squared = [0] * (2 * size - 1)\n        for i in range(size):\n            value = result[i]\n            squared[2 * i] += value * value\n            doubled = 2 * value\n            if value:\n                for j in range(i + 1, size):\n                    squared[i + j] += doubled * result[j]\n            if i & 3 == 3:\n                squared = [value % mod for value in squared]\n        result = [value % mod for value in squared]\n        if bit == \"1\":\n            result.insert(0, 0)\n        _divide(result, relation, mod)\n    return result\n\n\nclass Frobenius:\n    __slots__ = (\"_matrix\", \"_mod\", \"_basis\", \"_inverse\", \"_blocks\")\n\n    def __init__(self, matrix, mod=998244353, seed=None, trials=32):\n        n = len(matrix)\n        if mod < 2 or trials < 1 or any(len(row) != n for row in matrix):\n            raise ValueError(\"require a square matrix, prime mod and positive trials\")\n        self._matrix = [[value % mod for value in row] for row in matrix]\n        self._mod = mod\n        rng = Random(seed)\n        for _ in range(trials):\n            result = _trial(self._matrix, mod, rng)\n            if result is not None:\n                self._basis, self._inverse, self._blocks = result\n                return\n        raise ArithmeticError(\"Frobenius decomposition failed; retry with another seed or more trials\")\n\n    def pow(self, exponent):\n        \"\"\"入力行列のexponent乗を行・列順の新しい二次元listで返す。\"\"\"\n        if exponent < 0:\n            raise ValueError(\"exponent must be nonnegative\")\n        n, mod = len(self._matrix), self._mod\n        if exponent == 0:\n            return [[int(i == j) for j in range(n)] for i in range(n)]\n        if exponent == 1:\n            return self.tolist()\n        transformed = [[0] * n for _ in range(n)]\n        offset = 0\n        for relation in self._blocks:\n            degree = len(relation)\n            coefficients = _power_x(exponent, relation, mod)\n            for column in range(degree):\n                for row, value in enumerate(coefficients):\n                    transformed[offset + row][offset + column] = value\n                if column + 1 < degree:\n                    coefficients.insert(0, 0)\n                    _divide(coefficients, relation, mod)\n            offset += degree\n        return matrix_multiply(matrix_multiply(self._basis, transformed, mod), self._inverse, mod)\n\n    def tolist(self):\n        \"\"\"構築時の行列をmodで正規化した二次元listのコピーを返す。\"\"\"\n        return [row[:] for row in self._matrix]\n\n    def __str__(self):\n        return str(self._matrix)\n\n    def __repr__(self):\n        return f\"Frobenius({self._matrix!r}, mod={self._mod})\"\n",
+      "standaloneCode": "# harurun's library（依存を含む貼り付け用コード）\n\n# 依存: linear_algebra/Matrix.py\nDEFAULT_MOD = 998244353\n\ndef _linear_algebra_matrix_shape(matrix):\n    height = len(matrix)\n    width = len(matrix[0]) if height else 0\n    for row in matrix:\n        if len(row) != width:\n            raise ValueError('matrix rows must have equal length')\n    return (height, width)\n\ndef identity_matrix(size):\n    return [[int(row == column) for column in range(size)] for row in range(size)]\n\ndef transpose_matrix(matrix):\n    (height, width) = _linear_algebra_matrix_shape(matrix)\n    return [[matrix[row][column] for row in range(height)] for column in range(width)]\n\ndef rotate_matrix(matrix, turns=1):\n    result = [list(row) for row in matrix]\n    turns %= 4\n    for _ in range(turns):\n        (height, width) = _linear_algebra_matrix_shape(result)\n        result = [[result[height - 1 - row][column] for row in range(height)] for column in range(width)]\n    return result\n\ndef matrix_add(first, second, mod=DEFAULT_MOD):\n    shape = _linear_algebra_matrix_shape(first)\n    if _linear_algebra_matrix_shape(second) != shape:\n        raise ValueError('matrix shapes must be equal')\n    return [[(left + right) % mod for (left, right) in zip(row, other)] for (row, other) in zip(first, second)]\n\ndef matrix_subtract(first, second, mod=DEFAULT_MOD):\n    shape = _linear_algebra_matrix_shape(first)\n    if _linear_algebra_matrix_shape(second) != shape:\n        raise ValueError('matrix shapes must be equal')\n    return [[(left - right) % mod for (left, right) in zip(row, other)] for (row, other) in zip(first, second)]\n\ndef matrix_multiply(first, second, mod=DEFAULT_MOD):\n    (height, inner) = _linear_algebra_matrix_shape(first)\n    (other_height, width) = _linear_algebra_matrix_shape(second)\n    if inner != other_height:\n        raise ValueError('incompatible matrix shapes')\n    result = [[0] * width for _ in range(height)]\n    if 0 < mod <= 1 << 30:\n        right = [[value % mod for value in row] for row in second]\n        for row in range(height):\n            output = result[row]\n            remaining = 0\n            for (pivot, value) in enumerate(first[row]):\n                left = value % mod\n                if not left:\n                    continue\n                source = right[pivot]\n                if remaining:\n                    for column in range(width):\n                        output[column] += left * source[column]\n                    remaining -= 1\n                else:\n                    for column in range(width):\n                        output[column] = (output[column] + left * source[column]) % mod\n                    remaining = 7\n            for column in range(width):\n                output[column] %= mod\n        return result\n    for row in range(height):\n        output = result[row]\n        for (pivot, left) in enumerate(first[row]):\n            if left:\n                source = second[pivot]\n                for column in range(width):\n                    output[column] += left * source[column]\n        for column in range(width):\n            output[column] %= mod\n    return result\n\ndef matrix_vector_multiply(matrix, vector, mod=DEFAULT_MOD):\n    (height, width) = _linear_algebra_matrix_shape(matrix)\n    if width != len(vector):\n        raise ValueError('incompatible matrix and vector sizes')\n    result = [0] * height\n    for row in range(height):\n        total = 0\n        source = matrix[row]\n        for column in range(width):\n            total += source[column] * vector[column]\n        result[row] = total % mod\n    return result\n\ndef matrix_power(matrix, exponent, mod=DEFAULT_MOD):\n    (height, width) = _linear_algebra_matrix_shape(matrix)\n    if height != width:\n        raise ValueError('matrix must be square')\n    if exponent < 0:\n        raise ValueError('exponent must be nonnegative')\n    result = identity_matrix(height)\n    base = [[value % mod for value in row] for row in matrix]\n    while exponent:\n        if exponent & 1:\n            result = matrix_multiply(result, base, mod)\n        exponent >>= 1\n        if exponent:\n            base = matrix_multiply(base, base, mod)\n    return result\n\ndef gauss_elimination(matrix, mod=DEFAULT_MOD, pivot_end=None, reduced=False):\n    (height, width) = _linear_algebra_matrix_shape(matrix)\n    if pivot_end is None:\n        pivot_end = width\n    if not 0 <= pivot_end <= width:\n        raise ValueError('invalid pivot_end')\n    values = [[value % mod for value in row] for row in matrix]\n    rank = 0\n    determinant = 1\n    pivots = []\n    for column in range(pivot_end):\n        pivot = rank\n        while pivot < height and values[pivot][column] == 0:\n            pivot += 1\n        if pivot == height:\n            determinant = 0\n            continue\n        if pivot != rank:\n            (values[rank], values[pivot]) = (values[pivot], values[rank])\n            determinant = -determinant\n        pivot_value = values[rank][column]\n        determinant = determinant * pivot_value % mod\n        inverse = pow(pivot_value, -1, mod)\n        pivot_row = values[rank]\n        if reduced:\n            for index in range(column, width):\n                pivot_row[index] = pivot_row[index] * inverse % mod\n            first_row = 0\n        else:\n            first_row = rank + 1\n        for row in range(first_row, height):\n            if row == rank:\n                continue\n            target = values[row]\n            coefficient = target[column]\n            if coefficient == 0:\n                continue\n            if not reduced:\n                coefficient = coefficient * inverse % mod\n            target[column] = 0\n            for index in range(column + 1, width):\n                target[index] = (target[index] - coefficient * pivot_row[index]) % mod\n        pivots.append(column)\n        rank += 1\n        if rank == height:\n            break\n    return (rank, determinant % mod, values, pivots)\n\ndef matrix_rank(matrix, mod=DEFAULT_MOD):\n    return gauss_elimination(matrix, mod)[0]\n\ndef matrix_determinant(matrix, mod=DEFAULT_MOD):\n    (height, width) = _linear_algebra_matrix_shape(matrix)\n    if height != width:\n        raise ValueError('matrix must be square')\n    if height == 0:\n        return 1\n    (rank, determinant, _, _) = gauss_elimination(matrix, mod)\n    return determinant if rank == height else 0\n\ndef inverse_matrix(matrix, mod=DEFAULT_MOD):\n    (size, width) = _linear_algebra_matrix_shape(matrix)\n    if size != width:\n        raise ValueError('matrix must be square')\n    if size == 0:\n        return []\n    augmented = [[value % mod for value in row] + [int(index == column) for column in range(size)] for (index, row) in enumerate(matrix)]\n    (rank, _, reduced, _) = gauss_elimination(augmented, mod, size, True)\n    if rank != size:\n        return None\n    return [row[size:] for row in reduced]\n\ndef linear_equation(matrix, vector, mod=DEFAULT_MOD):\n    (height, width) = _linear_algebra_matrix_shape(matrix)\n    if len(vector) != height:\n        raise ValueError('right-hand side has invalid length')\n    augmented = [[value % mod for value in row] + [vector[index] % mod] for (index, row) in enumerate(matrix)]\n    (rank, _, reduced, pivots) = gauss_elimination(augmented, mod, width, True)\n    for row in range(rank, height):\n        if reduced[row][width]:\n            return None\n    particular = [0] * width\n    for (row, column) in enumerate(pivots):\n        particular[column] = reduced[row][width]\n    pivot_set = set(pivots)\n    basis = []\n    for free in range(width):\n        if free in pivot_set:\n            continue\n        direction = [0] * width\n        direction[free] = 1\n        for (row, column) in enumerate(pivots):\n            direction[column] = -reduced[row][free] % mod\n        basis.append(direction)\n    return (particular, basis)\n\ndef sparse_linear_equation(matrix, vector, width=None, mod=DEFAULT_MOD, elimination_band=None):\n    height = len(matrix)\n    if len(vector) != height:\n        raise ValueError('right-hand side has invalid length')\n    if width is None:\n        width = 0\n        for row in matrix:\n            if row:\n                width = max(width, max(row) + 1)\n    if width < 0:\n        raise ValueError('width must be nonnegative')\n    if elimination_band is not None and elimination_band < 0:\n        raise ValueError('elimination_band must be nonnegative')\n    values = []\n    for source in matrix:\n        row = {}\n        for (column, value) in source.items():\n            if not 0 <= column < width:\n                raise ValueError('column index out of range')\n            value %= mod\n            if value:\n                row[column] = value\n        values.append(row)\n    right = [value % mod for value in vector]\n    pivots = [-1] * width\n    rank = 0\n    for column in range(width):\n        pivot = rank\n        while pivot < height and values[pivot].get(column, 0) == 0:\n            pivot += 1\n        if pivot == height:\n            continue\n        if pivot != rank:\n            (values[rank], values[pivot]) = (values[pivot], values[rank])\n            (right[rank], right[pivot]) = (right[pivot], right[rank])\n        pivot_row = values[rank]\n        inverse = pow(pivot_row[column], -1, mod)\n        normalized = []\n        for (index, value) in list(pivot_row.items()):\n            value = value * inverse % mod\n            if value:\n                pivot_row[index] = value\n                normalized.append((index, value))\n            else:\n                del pivot_row[index]\n        right[rank] = right[rank] * inverse % mod\n        end = height\n        if elimination_band is not None:\n            end = min(end, rank + elimination_band + 1)\n        for row in range(rank + 1, end):\n            target = values[row]\n            coefficient = target.get(column, 0)\n            if coefficient == 0:\n                continue\n            for (index, value) in normalized:\n                updated = (target.get(index, 0) - coefficient * value) % mod\n                if updated:\n                    target[index] = updated\n                else:\n                    target.pop(index, None)\n            right[row] = (right[row] - coefficient * right[rank]) % mod\n        pivots[column] = rank\n        rank += 1\n        if rank == height:\n            break\n    result = [0] * width\n    for column in range(width - 1, -1, -1):\n        row = pivots[column]\n        if row < 0:\n            continue\n        total = right[row]\n        for (index, value) in values[row].items():\n            if index != column:\n                total -= value * result[index]\n        result[column] = total % mod\n    for row in range(height):\n        total = 0\n        for (column, value) in values[row].items():\n            total += value * result[column]\n        if total % mod != right[row]:\n            return None\n    return result\n\ndef characteristic_polynomial(matrix, mod=DEFAULT_MOD):\n    (size, width) = _linear_algebra_matrix_shape(matrix)\n    if size != width:\n        raise ValueError('matrix must be square')\n    if size == 0:\n        return [1]\n    hessenberg = [[value % mod for value in row] for row in matrix]\n    for column in range(size - 2):\n        pivot = column + 1\n        while pivot < size and hessenberg[pivot][column] == 0:\n            pivot += 1\n        if pivot == size:\n            continue\n        if pivot != column + 1:\n            (hessenberg[column + 1], hessenberg[pivot]) = (hessenberg[pivot], hessenberg[column + 1])\n            for row in hessenberg:\n                (row[column + 1], row[pivot]) = (row[pivot], row[column + 1])\n        inverse = pow(hessenberg[column + 1][column], -1, mod)\n        source = hessenberg[column + 1]\n        for row in range(column + 2, size):\n            target = hessenberg[row]\n            if target[column] == 0:\n                continue\n            coefficient = target[column] * inverse % mod\n            for index in range(column, size):\n                target[index] = (target[index] - coefficient * source[index]) % mod\n            for index in range(size):\n                hessenberg[index][column + 1] = (hessenberg[index][column + 1] + coefficient * hessenberg[index][row]) % mod\n    polynomials = [[1]]\n    for row in range(size):\n        current = [0] * (row + 2)\n        previous = polynomials[row]\n        diagonal = hessenberg[row][row]\n        for (degree, value) in enumerate(previous):\n            current[degree + 1] = (current[degree + 1] + value) % mod\n            current[degree] = (current[degree] - diagonal * value) % mod\n        product = 1\n        for earlier in range(row - 1, -1, -1):\n            product = product * hessenberg[earlier + 1][earlier] % mod\n            coefficient = -hessenberg[earlier][row] * product % mod\n            source = polynomials[earlier]\n            for (degree, value) in enumerate(source):\n                current[degree] = (current[degree] + coefficient * value) % mod\n        polynomials.append(current)\n    return polynomials[size]\nmat_add = matrix_add\nmat_sub = matrix_subtract\nmat_mul = matrix_multiply\nmat_pow = matrix_power\nmat_inv = inverse_matrix\ndeterminant = matrix_determinant\nrank = matrix_rank\nGaussElimination = gauss_elimination\nLinearEquation = linear_equation\nLinearEquation_hashmap = sparse_linear_equation\nCharacteristicPolynomial = characteristic_polynomial\n\n# 本体\n\"\"\"素数modの正方行列を分解し、行列全体の大きな整数冪を求める。\"\"\"\nfrom random import Random\n\ndef _insert(vector, columns, rows, ways, pivots, mod):\n    n = len(vector)\n    rank = len(columns)\n    reduced = vector[:]\n    weights = [0] * rank\n    for pivot in range(n):\n        row = rows[pivot]\n        factor = reduced[pivot]\n        if row is None or not factor:\n            continue\n        for j in range(pivot, n):\n            reduced[j] = (reduced[j] - factor * row[j]) % mod\n        way = ways[pivot]\n        for j in range(len(way)):\n            weights[j] = (weights[j] + factor * way[j]) % mod\n    pivot = next((i for i in range(n) if reduced[i]), -1)\n    if pivot < 0:\n        return weights\n    scale = pow(reduced[pivot], -1, mod)\n    rows[pivot] = [value * scale % mod for value in reduced]\n    ways[pivot] = [-value * scale % mod for value in weights] + [scale]\n    columns.append(vector[:])\n    pivots.append(pivot)\n    return None\n\ndef _matvec(matrix, vector, mod):\n    result = []\n    for row in matrix:\n        total = 0\n        for j in range(len(vector)):\n            total += row[j] * vector[j]\n            if j & 7 == 7:\n                total %= mod\n        result.append(total % mod)\n    return result\n\ndef _divide(values, relation, mod):\n    while values and (not values[-1]):\n        values.pop()\n    degree = len(relation)\n    quotient = [0] * max(0, len(values) - degree)\n    for i in range(len(values) - 1, degree - 1, -1):\n        value = values[i]\n        quotient[i - degree] = value\n        if value:\n            for j in range(degree):\n                values[i - degree + j] = (values[i - degree + j] + value * relation[j]) % mod\n    del values[degree:]\n    while values and (not values[-1]):\n        values.pop()\n    return quotient\n\ndef _trial(matrix, mod, rng):\n    n = len(matrix)\n    (columns, pivots, blocks) = ([], [], [])\n    (rows, ways) = ([None] * n, [None] * n)\n    while len(columns) < n:\n        start = len(columns)\n        first = [rng.randrange(mod) for _ in range(n)]\n        if _insert(first, columns, rows, ways, pivots, mod) is not None:\n            first = [0] * n\n            first[next((i for i in range(n) if rows[i] is None))] = 1\n            _insert(first, columns, rows, ways, pivots, mod)\n        current = first\n        while True:\n            current = _matvec(matrix, current, mod)\n            coefficients = _insert(current, columns, rows, ways, pivots, mod)\n            if coefficients is not None:\n                break\n        relation = coefficients[start:]\n        if start:\n            offset = 0\n            for previous in blocks:\n                degree = len(previous)\n                remainder = coefficients[offset:offset + degree]\n                quotient = _divide(remainder, relation, mod)\n                if remainder:\n                    return None\n                for (i, value) in enumerate(quotient):\n                    if value:\n                        column = columns[offset + i]\n                        for j in range(n):\n                            first[j] = (first[j] - value * column[j]) % mod\n                offset += degree\n            for pivot in pivots[start:]:\n                rows[pivot] = ways[pivot] = None\n            del pivots[start:]\n            del columns[start:]\n            current = first\n            for i in range(len(relation)):\n                if _insert(current, columns, rows, ways, pivots, mod) is not None:\n                    return None\n                if i + 1 < len(relation):\n                    current = _matvec(matrix, current, mod)\n        blocks.append(relation)\n    basis = [list(row) for row in zip(*columns)]\n    inverse = inverse_matrix(basis, mod)\n    if inverse is None:\n        return None\n    return (basis, inverse, blocks)\n\ndef _power_x(exponent, relation, mod):\n    degree = len(relation)\n    if exponent < degree:\n        return [0] * exponent + [1]\n    result = [1]\n    for bit in bin(exponent)[2:]:\n        size = len(result)\n        if not size:\n            break\n        squared = [0] * (2 * size - 1)\n        for i in range(size):\n            value = result[i]\n            squared[2 * i] += value * value\n            doubled = 2 * value\n            if value:\n                for j in range(i + 1, size):\n                    squared[i + j] += doubled * result[j]\n            if i & 3 == 3:\n                squared = [value % mod for value in squared]\n        result = [value % mod for value in squared]\n        if bit == '1':\n            result.insert(0, 0)\n        _divide(result, relation, mod)\n    return result\n\nclass Frobenius:\n    __slots__ = ('_matrix', '_mod', '_basis', '_inverse', '_blocks')\n\n    def __init__(self, matrix, mod=998244353, seed=None, trials=32):\n        n = len(matrix)\n        if mod < 2 or trials < 1 or any((len(row) != n for row in matrix)):\n            raise ValueError('require a square matrix, prime mod and positive trials')\n        self._matrix = [[value % mod for value in row] for row in matrix]\n        self._mod = mod\n        rng = Random(seed)\n        for _ in range(trials):\n            result = _trial(self._matrix, mod, rng)\n            if result is not None:\n                (self._basis, self._inverse, self._blocks) = result\n                return\n        raise ArithmeticError('Frobenius decomposition failed; retry with another seed or more trials')\n\n    def pow(self, exponent):\n        \"\"\"入力行列のexponent乗を行・列順の新しい二次元listで返す。\"\"\"\n        if exponent < 0:\n            raise ValueError('exponent must be nonnegative')\n        (n, mod) = (len(self._matrix), self._mod)\n        if exponent == 0:\n            return [[int(i == j) for j in range(n)] for i in range(n)]\n        if exponent == 1:\n            return self.tolist()\n        transformed = [[0] * n for _ in range(n)]\n        offset = 0\n        for relation in self._blocks:\n            degree = len(relation)\n            coefficients = _power_x(exponent, relation, mod)\n            for column in range(degree):\n                for (row, value) in enumerate(coefficients):\n                    transformed[offset + row][offset + column] = value\n                if column + 1 < degree:\n                    coefficients.insert(0, 0)\n                    _divide(coefficients, relation, mod)\n            offset += degree\n        return matrix_multiply(matrix_multiply(self._basis, transformed, mod), self._inverse, mod)\n\n    def tolist(self):\n        \"\"\"構築時の行列をmodで正規化した二次元listのコピーを返す。\"\"\"\n        return [row[:] for row in self._matrix]\n\n    def __str__(self):\n        return str(self._matrix)\n\n    def __repr__(self):\n        return f'Frobenius({self._matrix!r}, mod={self._mod})'\n",
+      "bundledDependencies": [
+        "library_codex.linear_algebra.Matrix"
+      ],
+      "counts": {
+        "functions": 0,
+        "classes": 1,
+        "methods": 4
+      },
+      "functions": [],
+      "classes": [
+        {
+          "name": "Frobenius",
+          "summary": "素数modの正方行列を分解し、大きな指数の行列累乗を求める。",
+          "description": "素数modの正方行列を分解し、大きな指数の行列累乗を求める。",
+          "searchTerms": [
+            "Frobenius",
+            "Frobenius(matrix, mod=998244353, seed=None, trials=32)"
+          ],
+          "constructor": "Frobenius(matrix, mod=998244353, seed=None, trials=32)",
+          "constructorArguments": "matrix: N行N列の整数列。空行列・特異行列も可。行と列の順に保持し、入力は変更しない。 · mod: 素数の法。素数判定はしない。合成数modには非対応。省略時: 998244353 · seed: 基底選択用の乱数seed。整数なら再現可能、Noneなら毎回異なる選択。省略時: None · trials: 基底選択をやり直す最大回数。正整数。全試行の失敗時はArithmeticError。省略時: 32",
+          "constructorArgumentDetails": [
+            {
+              "name": "matrix",
+              "description": "N行N列の整数列。空行列・特異行列も可。行と列の順に保持し、入力は変更しない"
+            },
+            {
+              "name": "mod",
+              "description": "素数の法。素数判定はしない。合成数modには非対応。省略時は 998244353"
+            },
+            {
+              "name": "seed",
+              "description": "基底選択用の乱数seed。整数なら再現可能、Noneなら毎回異なる選択。省略時は None"
+            },
+            {
+              "name": "trials",
+              "description": "基底選択をやり直す最大回数。正整数。全試行の失敗時はArithmeticError。省略時は 32"
+            }
+          ],
+          "constructorReturns": "Frobenius instance",
+          "constructorReturnFormat": "Frobenius",
+          "constructorReturnDescription": "入力行列と分解を保存する。pow(K)で行列全体のK乗を取得し、別の指数にも同じ分解を使える。tolist()は構築時の行列を返す。",
+          "constructorCreates": "入力行列と分解を保存する。pow(K)で行列全体のK乗を取得し、別の指数にも同じ分解を使える。tolist()は構築時の行列を返す。",
+          "constructorComplexity": "1試行O(N³)時間・O(N²)空間。T=trialsとして最悪O(TN³)時間。Nより十分大きい素数modでは期待O(N³)。法の算術をO(1)とする",
+          "constructorSourceLine": 142,
+          "methods": [
+            {
+              "name": "pow",
+              "kind": "method",
+              "signature": "pow(exponent)",
+              "summary": "保存した行列の非負整数冪を求める。",
+              "description": "保存した行列の非負整数冪を求める。",
+              "searchTerms": [
+                "pow",
+                "pow(exponent)"
+              ],
+              "arguments": "exponent: 非負整数の指数。負数はValueError。",
+              "argumentDetails": [
+                {
+                  "name": "exponent",
+                  "description": "非負整数の指数。負数はValueError。"
+                }
+              ],
+              "returns": "list[list[int]] — N行N列の新しいlist。result[i][j]はA^exponentの第i行・第j列をmodで割った余り。exponent=0なら単位行列、空行列なら[]。保存した行列は変えない。",
+              "returnFormat": "list[list[int]]",
+              "returnDescription": "N行N列の新しいlist。result[i][j]はA^exponentの第i行・第j列をmodで割った余り。exponent=0なら単位行列、空行列なら[]。保存した行列は変えない。",
+              "complexity": "O(N³+N² log(K+1))時間・O(N²)追加空間。K=exponent。K=0,1はO(N²)。基底を戻す行列積を含む。法の算術をO(1)とする",
+              "sourceLine": 156
+            },
+            {
+              "name": "tolist",
+              "kind": "method",
+              "signature": "tolist()",
+              "summary": "構築時の行列を取り出す。",
+              "description": "構築時の行列を取り出す。",
+              "searchTerms": [
+                "tolist",
+                "tolist()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "list[list[int]] — 入力と同じ行・列順の新しい二次元list。各値はmod未満の非負整数。直前のpowの結果や分解の基底ではない。",
+              "returnFormat": "list[list[int]]",
+              "returnDescription": "入力と同じ行・列順の新しい二次元list。各値はmod未満の非負整数。直前のpowの結果や分解の基底ではない。",
+              "complexity": "O(N²)時間・追加空間",
+              "sourceLine": 179
+            },
+            {
+              "name": "__str__",
+              "kind": "method",
+              "signature": "__str__()",
+              "summary": "構築時の行列を行・列順で表示する。",
+              "description": "構築時の行列を行・列順で表示する。",
+              "searchTerms": [
+                "__str__",
+                "str",
+                "__str__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — tolist()と同じ二次元listの文字列。分解や累乗結果は変更しない。",
+              "returnFormat": "str",
+              "returnDescription": "tolist()と同じ二次元listの文字列。分解や累乗結果は変更しない。",
+              "complexity": "O(N²+S)時間・O(S)追加空間。Sは文字数",
+              "sourceLine": 183
+            },
+            {
+              "name": "__repr__",
+              "kind": "method",
+              "signature": "__repr__()",
+              "summary": "構築時の行列と法を型名付きで表示する。",
+              "description": "構築時の行列と法を型名付きで表示する。",
+              "searchTerms": [
+                "__repr__",
+                "repr",
+                "__repr__()"
+              ],
+              "arguments": "なし",
+              "argumentDetails": [],
+              "returns": "str — Frobenius([[...], ...], mod=...)の形式。乱数seedや内部基底は含まない。",
+              "returnFormat": "str",
+              "returnDescription": "Frobenius([[...], ...], mod=...)の形式。乱数seedや内部基底は含まない。",
+              "complexity": "O(N²+S)時間・O(S)追加空間。Sは文字数",
+              "sourceLine": 186
             }
           ]
         }

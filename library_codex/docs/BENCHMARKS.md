@@ -7,6 +7,7 @@
 - [編集距離・疎な微分方程式とDirichlet再測定](REFERENCE_EXPANSION_BENCHMARK.md)
 - [区間map・暗黙最短路・制約付き畳み込み](REFERENCE_ALGORITHMS_BENCHMARK.md)
 - [永続列・永続動的木・遡及キュー・遠い係数](PERSISTENT_RETROACTIVE_COEFFICIENT_BENCHMARK.md)
+- [Frobenius分解による行列累乗](FROBENIUS_BENCHMARK.md)
 
 ## グラフ・木
 

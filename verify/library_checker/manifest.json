@@ -2198,7 +2198,8 @@
       "url": "https://judge.yosupo.jp/problem/pow_of_matrix",
       "status": "local_passed",
       "modules": [
-        "library_codex.linear_algebra.Matrix"
+        "library_codex.linear_algebra.Matrix",
+        "library_codex.linear_algebra.Frobenius"
       ],
       "solution": "solutions/pow_of_matrix.py",
       "result": "results/pow_of_matrix.json"

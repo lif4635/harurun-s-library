@@ -147,7 +147,7 @@
 | [polynomial_taylor_shift](polynomial_taylor_shift.json) | 3 / 38 | 5 | 0.756 | 133.5 | 一致 |
 | [pow_of_formal_power_series](pow_of_formal_power_series.json) | 3 / 37 | 5 | 2.376 | 171.9 | 一致 |
 | [pow_of_formal_power_series_sparse](pow_of_formal_power_series_sparse.json) | 3 / 35 | 5 | 0.338 | 138.3 | 一致 |
-| [pow_of_matrix](pow_of_matrix.json) | 3 / 43 | 5 | 2.075 | 91.0 | 一致 |
+| [pow_of_matrix](pow_of_matrix.json) | 3 / 43 | 5 | 0.494 | 70.7 | 一致 |
 | [power_projection_of_set_power_series](power_projection_of_set_power_series.json) | 3 / 30 | 5 | 4.099 | 441.4 | 一致 |
 | [prefix_substring_lcs](prefix_substring_lcs.json) | 3 / 11 | 5 | 0.739 | 128.8 | 一致 |
 | [prefix_sum_of_polynomial](prefix_sum_of_polynomial.json) | 3 / 26 | 5 | 1.034 | 153.6 | 一致 |

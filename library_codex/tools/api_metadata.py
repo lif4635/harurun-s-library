@@ -8598,6 +8598,36 @@ for _method, _description, _format, _returns, _arguments in (
         } if _method in ("apply", "sum") else {}),
     }
 
+_frobenius_module = "linear_algebra/Frobenius.py"
+SEARCH_TERMS_BY_MODULE[_frobenius_module] = ("フロベニウス標準形", "高速行列累乗", "Krylov基底", "有理標準形")
+CLASS_DETAILS_BY_SYMBOL[(_frobenius_module, "Frobenius")] = {
+    "description": "素数modの正方行列を分解し、大きな指数の行列累乗を求める。",
+    "argumentDescriptions": {
+        "matrix": "N行N列の整数列。空行列・特異行列も可。行と列の順に保持し、入力は変更しない。",
+        "mod": "素数の法。素数判定はしない。合成数modには非対応。",
+        "seed": "基底選択用の乱数seed。整数なら再現可能、Noneなら毎回異なる選択。",
+        "trials": "基底選択をやり直す最大回数。正整数。全試行の失敗時はArithmeticError。",
+    },
+    "constructorCreates": "入力行列と分解を保存する。pow(K)で行列全体のK乗を取得し、別の指数にも同じ分解を使える。tolist()は構築時の行列を返す。",
+}
+COMPLEXITY_BY_MODULE[_frobenius_module] = {
+    "Frobenius": "1試行O(N³)時間・O(N²)空間。T=trialsとして最悪O(TN³)時間。Nより十分大きい素数modでは期待O(N³)。法の算術をO(1)とする",
+    "pow": "O(N³+N² log(K+1))時間・O(N²)追加空間。K=exponent。K=0,1はO(N²)。基底を戻す行列積を含む。法の算術をO(1)とする",
+    "tolist": "O(N²)時間・追加空間",
+    "__str__": "O(N²+S)時間・O(S)追加空間。Sは文字数",
+    "__repr__": "O(N²+S)時間・O(S)追加空間。Sは文字数",
+}
+for _name, _description, _format, _returns, _arguments in (
+    ("pow", "保存した行列の非負整数冪を求める。", "list[list[int]]", "N行N列の新しいlist。result[i][j]はA^exponentの第i行・第j列をmodで割った余り。exponent=0なら単位行列、空行列なら[]。保存した行列は変えない。", {"exponent": "非負整数の指数。負数はValueError。"}),
+    ("tolist", "構築時の行列を取り出す。", "list[list[int]]", "入力と同じ行・列順の新しい二次元list。各値はmod未満の非負整数。直前のpowの結果や分解の基底ではない。", {}),
+    ("__str__", "構築時の行列を行・列順で表示する。", "str", "tolist()と同じ二次元listの文字列。分解や累乗結果は変更しない。", {}),
+    ("__repr__", "構築時の行列と法を型名付きで表示する。", "str", "Frobenius([[...], ...], mod=...)の形式。乱数seedや内部基底は含まない。", {}),
+):
+    API_DETAILS_BY_SYMBOL[(_frobenius_module, "Frobenius", _name)] = {
+        "description": _description, "returnFormat": _format,
+        "returnDescription": _returns, "argumentDescriptions": _arguments,
+    }
+
 _deque_module = "sequence_structure/PersistentDeque.py"
 SEARCH_TERMS_BY_MODULE[_deque_module] = ("永続両端キュー", "版管理", "分割連結", "rope")
 CLASS_DETAILS_BY_SYMBOL[(_deque_module, "PersistentDeque")] = {

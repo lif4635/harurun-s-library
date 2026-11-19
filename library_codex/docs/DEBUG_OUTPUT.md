@@ -108,6 +108,10 @@ Lazy/Dual Segment TreeとSegment Tree Beatsの `tolist()` は、保留中の遅�
 
 `SegTreeTraversal.tolist()`は現在の葉を配列添字順の新しいlistとして返す。内部ノード・余った葉は含めない。`str`は同じlist、`repr`は`SegTreeTraversal([...])`。O(N+1)時間・追加メモリで、要素自体は深いコピーではない。表示で木の状態は変えない。
 
+## 行列のFrobenius分解
+
+`Frobenius.tolist()`は構築時の行列をmodで正規化した新しい二次元list。行・列は入力順で、直前の累乗結果や内部基底ではない。O(N²)時間・追加空間。`str`は同じ行列、`repr`は`Frobenius([[...], ...], mod=...)`。表示や返されたlistの変更で分解は変わらない。
+
 ## 中心の辺更新と最小カット
 
 `DynamicStarMinCut.tolist()`は中心から元頂点への辺重みを元頂点順に返す新しいlist。`str`は同じlist、`repr`は`DynamicStarMinCut([...])`。列挙はO(N)時間・追加メモリで、固定辺やカット候補の内部状態は含まない。`cut()`では最小カットを実現する、中心を含まない側の元頂点を昇順listで確認できる。いずれも更新状態は変更しない。

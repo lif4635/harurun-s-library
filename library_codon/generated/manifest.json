@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "compilerVersion": "0.19.3",
-  "moduleCount": 418,
+  "moduleCount": 419,
   "supportedCount": 7,
   "modules": [
     {
@@ -1158,6 +1158,12 @@
       "modulePath": "linear_algebra/F2Matrix",
       "sourcePath": "library_codex/linear_algebra/F2Matrix.py",
       "sourceSha256": "9dfa778905df47c0b3b14f8321386b895255f291de880c9954b178d6bca6f9ca",
+      "status": "unsupported"
+    },
+    {
+      "modulePath": "linear_algebra/Frobenius",
+      "sourcePath": "library_codex/linear_algebra/Frobenius.py",
+      "sourceSha256": "11dfba99cb5c6d5d5cb8a0fa0cddccb104531f04f4f0a8fc32054bada59cae7c",
       "status": "unsupported"
     },
     {

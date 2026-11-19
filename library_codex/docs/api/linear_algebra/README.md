@@ -9,6 +9,7 @@
 | [`AdvancedMatrix`](AdvancedMatrix.md) | 合成数法行列式・Hafnian/Pfaffian・Matrix-Tree | 5 | 0 | 0 |
 | [`BlackBoxLinearAlgebra`](BlackBoxLinearAlgebra.md) | dense/sparse/作用素の最小多項式・巨大冪・行列式・線形方程式 | 4 | 2 | 3 |
 | [`F2Matrix`](F2Matrix.md) | Python int bit-rowのGF(2)行列・AND-XOR/AND-OR積・逆行列 | 0 | 1 | 18 |
+| [`Frobenius`](Frobenius.md) | 素数modの正方行列を分解し、行列全体の大きな整数冪を求める。 | 0 | 1 | 4 |
 | [`Matrix`](Matrix.md) | 動的法の行列演算・rank/det/inverse/連立方程式・特性多項式 | 15 | 0 | 0 |
 | [`PolynomialMatrix`](PolynomialMatrix.md) | 多項式行列式・$\det(A+xB)$・多項式行列prefix積・多項式Matrix-Tree | 4 | 0 | 0 |
 | [`Semiring`](Semiring.md) | 任意の加法・乗法を指定した半環上で行列演算と線形漸化式を計算する。 | 3 | 1 | 3 |

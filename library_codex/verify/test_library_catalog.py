@@ -38,6 +38,7 @@ def load_catalog():
     "ordered_set.RetroactivePriorityQueue",
     "polynomial.PolynomialMatrixRecurrence",
     "fps.SparseCoefficient",
+    "linear_algebra.Frobenius",
 ])
 def test_reference_expansion_article_and_bundle(name, tmp_path):
     module = module_by_path(load_catalog(), "library_codex." + name)
