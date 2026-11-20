@@ -8599,26 +8599,30 @@ for _method, _description, _format, _returns, _arguments in (
     }
 
 _frobenius_module = "linear_algebra/Frobenius.py"
-SEARCH_TERMS_BY_MODULE[_frobenius_module] = ("フロベニウス標準形", "高速行列累乗", "Krylov基底", "有理標準形")
+SEARCH_TERMS_BY_MODULE[_frobenius_module] = ("フロベニウス標準形", "高速行列累乗", "Krylov基底", "有理標準形", "行列等比級数", "累乗和")
 CLASS_DETAILS_BY_SYMBOL[(_frobenius_module, "Frobenius")] = {
-    "description": "素数modの正方行列を分解し、大きな指数の行列累乗を求める。",
+    "description": "素数modの行列の累乗・累乗和・多項式代入を、行列全体または列ベクトルへの作用として求める。",
     "argumentDescriptions": {
         "matrix": "N行N列の整数列。空行列・特異行列も可。行と列の順に保持し、入力は変更しない。",
         "mod": "素数の法。素数判定はしない。合成数modには非対応。",
         "seed": "基底選択用の乱数seed。整数なら再現可能、Noneなら毎回異なる選択。",
         "trials": "基底選択をやり直す最大回数。正整数。全試行の失敗時はArithmeticError。",
     },
-    "constructorCreates": "入力行列と分解を保存する。pow(K)で行列全体のK乗を取得し、別の指数にも同じ分解を使える。tolist()は構築時の行列を返す。",
+    "constructorCreates": "入力行列Aと分解を保存する。pow(K)でAのK乗、sum(K)で0乗からK-1乗までの和、eval(c)で多項式の代入を求める。各methodの第2引数に列ベクトルを渡せば、その作用だけを取得する。同じ分解を繰り返し使える。",
 }
 COMPLEXITY_BY_MODULE[_frobenius_module] = {
     "Frobenius": "1試行O(N³)時間・O(N²)空間。T=trialsとして最悪O(TN³)時間。Nより十分大きい素数modでは期待O(N³)。法の算術をO(1)とする",
-    "pow": "O(N³+N² log(K+1))時間・O(N²)追加空間。K=exponent。K=0,1はO(N²)。基底を戻す行列積を含む。法の算術をO(1)とする",
+    "pow": "行列: O(N³+N² log(K+1))時間・O(N²)追加空間。ベクトル: O(N²(1+log(K+1)))時間・O(N)追加空間。K=exponent。K=0,1は行列O(N²)、ベクトルは順にO(N), O(N²)。行列側は基底を戻す行列積を含む",
+    "sum": "行列: O(N³+N² log(K+1))時間・O(N²)追加空間。ベクトル: O(N²(1+log(K+1)))時間・O(N)追加空間。K=count。K=0,1は行列O(N²)、ベクトルO(N)",
+    "eval": "行列: O(N³+NL)時間・O(N²+L)追加空間。ベクトル: O(N²+NL)時間・O(N+L)追加空間。Lは係数の個数。定数時間の法の算術を仮定",
     "tolist": "O(N²)時間・追加空間",
     "__str__": "O(N²+S)時間・O(S)追加空間。Sは文字数",
     "__repr__": "O(N²+S)時間・O(S)追加空間。Sは文字数",
 }
 for _name, _description, _format, _returns, _arguments in (
-    ("pow", "保存した行列の非負整数冪を求める。", "list[list[int]]", "N行N列の新しいlist。result[i][j]はA^exponentの第i行・第j列をmodで割った余り。exponent=0なら単位行列、空行列なら[]。保存した行列は変えない。", {"exponent": "非負整数の指数。負数はValueError。"}),
+    ("pow", "保存した行列の非負整数冪、またはその列ベクトルへの作用を求める。", "list[list[int]] | list[int]", "vector省略時はN行N列で、result[i][j]はAのexponent乗の第i行・第j列。vector指定時は長さNで、result[i]はAのexponent乗を列ベクトルに掛けた結果の第i成分。exponent=0は単位行列またはvectorの正規化コピー。値はmod未満の非負整数。空行列は[]。", {"exponent": "非負整数の指数。負数はValueError。", "vector": "長さNの整数列を列ベクトルとして渡す。省略時は行列全体を取得。長さ違いはValueError。入力は変更しない。"}),
+    ("sum", "0乗からcount-1乗までを足す。列ベクトルを渡せば各時刻の状態の総和を返す。", "list[list[int]] | list[int]", r"vector省略時はN行N列の $S=\sum_{t=0}^{\mathrm{count}-1}A^t$。result[i][j]はSの第i行・第j列。vector指定時は長さNの列 $S\,\mathrm{vector}$ で、result[i]が第i成分。count=0は零行列または零ベクトル、count=1は単位行列またはvectorの正規化コピー。値はmod未満の非負整数。", {"count": "足す項数を非負整数で指定。Aのcount乗は含まない。負数はValueError。", "vector": "長さNの整数列を列ベクトルとして渡す。省略時は行列全体。長さ違いはValueError。入力は変更しない。"}),
+    ("eval", "係数列で与えた多項式に行列Aを代入する。列ベクトルへの作用だけも取得できる。", "list[list[int]] | list[int]", r"vector省略時はN行N列の $B=\sum_{i=0}^{L-1}\mathrm{coefficients}[i]A^i$。result[i][j]はBの第i行・第j列。vector指定時は長さNの列 $B\,\mathrm{vector}$ で、result[i]が第i成分。空の係数列は零行列または零ベクトル。値はmod未満の非負整数。", {"coefficients": "定数項から次数の小さい順に並べた整数のiterable。負数・末尾の0・空列も可。入力は変更しない。", "vector": "長さNの整数列を列ベクトルとして渡す。省略時は行列全体。長さ違いはValueError。入力は変更しない。"}),
     ("tolist", "構築時の行列を取り出す。", "list[list[int]]", "入力と同じ行・列順の新しい二次元list。各値はmod未満の非負整数。直前のpowの結果や分解の基底ではない。", {}),
     ("__str__", "構築時の行列を行・列順で表示する。", "str", "tolist()と同じ二次元listの文字列。分解や累乗結果は変更しない。", {}),
     ("__repr__", "構築時の行列と法を型名付きで表示する。", "str", "Frobenius([[...], ...], mod=...)の形式。乱数seedや内部基底は含まない。", {}),

@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from library_codex.linear_algebra.Frobenius import Frobenius
-from library_codex.linear_algebra.Matrix import matrix_power
+from library_codex.linear_algebra.Matrix import matrix_power, matrix_multiply, matrix_vector_multiply
 
 
 CASES = {
@@ -32,12 +32,30 @@ CASES = {
     "repeated": (128, "dense", [10**18 + 37, 10**18 + 77, 10**18 + 137]),
 }
 
+OPERATIONS = {
+    "vector128": (128, "dense", "pow", 10**18 + 37, 1),
+    "vector256": (256, "dense", "pow", 10**18 + 37, 1),
+    "vector-small": (128, "dense", "pow", 3, 1),
+    "vector-permutation": (128, "permutation", "pow", 10**18 + 37, 1),
+    "vector-repeated": (128, "dense", "pow", 10**18 + 37, 5),
+    "sum128": (128, "dense", "sum_matrix", 10**18 + 37, 1),
+    "sum-vector128": (128, "dense", "sum", 10**18 + 37, 1),
+    "sum-identity": (128, "identity", "sum", 10**18 + 37, 1),
+    "eval128": (128, "dense", "eval_matrix", 128, 1),
+    "eval-vector128": (128, "dense", "eval", 128, 1),
+    "eval-small": (128, "dense", "eval", 4, 1),
+    "eval-repeated": (128, "dense", "eval", 128, 5),
+}
+
 
 def digest(value):
     return hashlib.sha256(json.dumps(value, separators=(",", ":")).encode()).hexdigest()
 
 
 def worker(case, variant):
+    if case in OPERATIONS:
+        operation_worker(case, variant)
+        return
     n, shape, exponents = CASES[case]
     mod, rng = 998244353, random.Random(721)
     if shape == "dense":
@@ -60,6 +78,93 @@ def worker(case, variant):
                          blocks=[len(block) for block in form._blocks] if form is not None else None)))
 
 
+def binary_apply(matrix, vector, exponent, mod, summation=False):
+    result = [0] * len(vector) if summation else vector[:]
+    block = vector[:]
+    while exponent:
+        if exponent & 1:
+            result = matrix_vector_multiply(matrix, result, mod)
+            if summation:
+                result = [(x + y) % mod for x, y in zip(result, block)]
+        exponent >>= 1
+        if exponent:
+            if summation:
+                advanced = matrix_vector_multiply(matrix, block, mod)
+                block = [(x + y) % mod for x, y in zip(block, advanced)]
+            matrix = matrix_multiply(matrix, matrix, mod)
+    return result
+
+
+def binary_sum(matrix, count, mod):
+    n = len(matrix)
+    power = [[int(i == j) for j in range(n)] for i in range(n)]
+    total = [[0] * n for _ in range(n)]
+    for bit in bin(count)[2:]:
+        advanced = matrix_multiply(power, total, mod)
+        total = [[(x + y) % mod for x, y in zip(row, other)] for row, other in zip(total, advanced)]
+        power = matrix_multiply(power, power, mod)
+        if bit == "1":
+            total = [[(x + y) % mod for x, y in zip(row, other)] for row, other in zip(total, power)]
+            power = matrix_multiply(power, matrix, mod)
+    return total
+
+
+def horner(matrix, coefficients, vector, mod):
+    n = len(matrix)
+    if vector is not None:
+        result = [0] * n
+        for value in reversed(coefficients):
+            result = matrix_vector_multiply(matrix, result, mod)
+            result = [(x + value * y) % mod for x, y in zip(result, vector)]
+        return result
+    result = [[0] * n for _ in range(n)]
+    for value in reversed(coefficients):
+        result = matrix_multiply(matrix, result, mod)
+        for i in range(n):
+            result[i][i] = (result[i][i] + value) % mod
+    return result
+
+
+def operation_worker(case, variant):
+    n, shape, operation, argument, queries = OPERATIONS[case]
+    mod, rng = 998244353, random.Random(721)
+    if shape == "dense":
+        matrix = [[rng.randrange(mod) for _ in range(n)] for _ in range(n)]
+    elif shape == "permutation":
+        permutation = list(range(n))
+        rng.shuffle(permutation)
+        matrix = [[int(j == permutation[i]) for j in range(n)] for i in range(n)]
+    else:
+        matrix = [[int(i == j) for j in range(n)] for i in range(n)]
+    vectors = [[rng.randrange(mod) for _ in range(n)] for _ in range(queries)]
+    coefficients = [[rng.randrange(mod) for _ in range(argument)] for _ in range(queries)] if operation.startswith("eval") else None
+    started = perf_counter()
+    form = Frobenius(matrix, mod, seed=11) if variant != "binary" else None
+    built = perf_counter()
+    results = []
+    for index, vector in enumerate(vectors):
+        value = coefficients[index] if coefficients is not None else argument + index
+        entire = operation.endswith("_matrix")
+        if form is not None:
+            method = getattr(form, operation.removesuffix("_matrix"))
+            result = method(value, None if entire or variant == "materialized" else vector)
+            if not entire and variant == "materialized":
+                result = matrix_vector_multiply(result, vector, mod)
+        elif operation == "pow":
+            result = binary_apply(matrix, vector, value, mod)
+        elif operation == "sum":
+            result = binary_apply(matrix, vector, value, mod, True)
+        elif operation == "sum_matrix":
+            result = binary_sum(matrix, value, mod)
+        else:
+            result = horner(matrix, value, None if entire else vector, mod)
+        results.append(result)
+    finished = perf_counter()
+    print(json.dumps(dict(seconds=finished-started, buildSeconds=built-started, querySeconds=finished-built,
+                         inputSha256=digest([matrix, vectors, coefficients, argument, operation, mod]), resultSha256=digest(results),
+                         blocks=[len(block) for block in form._blocks] if form is not None else None)))
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--worker", nargs=2)
@@ -67,6 +172,7 @@ def main():
     parser.add_argument("--repeat", type=int, default=5)
     parser.add_argument("--cpu", type=int)
     parser.add_argument("--cases", nargs="*")
+    parser.add_argument("--suite", choices=("power", "operations"), default="power")
     parser.add_argument("--output", type=Path, default=ROOT / "verify/library_checker/benchmarks/comparisons/frobenius.json")
     args = parser.parse_args()
     if args.worker:
@@ -80,8 +186,11 @@ def main():
     rows = []
     with tempfile.TemporaryDirectory() as directory:
         rss = Path(directory) / "rss"
-        for case in args.cases or CASES:
-            samples, expected = {"binary": [], "frobenius": []}, None
+        for case in args.cases or (OPERATIONS if args.suite == "operations" else CASES):
+            variants = ["binary", "frobenius"]
+            if case in OPERATIONS and not OPERATIONS[case][2].endswith("_matrix"):
+                variants.append("materialized")
+            samples, expected = {variant: [] for variant in variants}, None
             for iteration in range(args.repeat):
                 order = list(samples)
                 random.Random(iteration + 77).shuffle(order)
@@ -96,7 +205,7 @@ def main():
                     assert current == expected, case
                     samples[variant].append(sample)
                     print(case, variant, iteration + 1, round(sample["seconds"], 6), flush=True)
-            rows.append(dict(case=case, parameters=CASES[case], samples=samples,
+            rows.append(dict(case=case, parameters=(OPERATIONS if case in OPERATIONS else CASES)[case], samples=samples,
                              summary={key: dict(medianSeconds=statistics.median(s["seconds"] for s in values),
                                                 medianBuildSeconds=statistics.median(s["buildSeconds"] for s in values),
                                                 medianQuerySeconds=statistics.median(s["querySeconds"] for s in values),

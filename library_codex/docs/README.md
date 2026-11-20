@@ -61,7 +61,7 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [graph_enumeration](api/graph_enumeration/README.md) | clique・cycle・彩色・部分集合DP | 12 | 20 | 1 | 4 |
 | [number_theory](api/number_theory/README.md) | 整数演算・合同式・乗法的関数 | 23 | 46 | 6 | 29 |
 | [combinatorics](api/combinatorics/README.md) | 二項係数・組合せ構成 | 17 | 19 | 9 | 30 |
-| [linear_algebra](api/linear_algebra/README.md) | 行列・線形方程式・線形基底 | 10 | 33 | 6 | 40 |
+| [linear_algebra](api/linear_algebra/README.md) | 行列・線形方程式・線形基底 | 10 | 33 | 6 | 42 |
 | [rational](api/rational/README.md) | 有理数探索・有理級数・数値関数 | 6 | 4 | 3 | 28 |
 | [algebra](api/algebra/README.md) | 写像・累乗・SAT | 4 | 1 | 3 | 8 |
 | [prime](api/prime/README.md) | 素数判定・素因数分解 | 2 | 13 | 1 | 2 |
@@ -75,4 +75,4 @@ answer = fw.sum(1, 4)    # [1, 4) の和を返す
 | [heuristic](api/heuristic/README.md) | ヒューリスティック探索 | 4 | 0 | 5 | 9 |
 | [random](api/random/README.md) | 乱数・ランダムグラフ | 2 | 0 | 4 | 37 |
 
-合計: **419 modules / 550 functions / 249 classes / 1597 methods・properties**。
+合計: **419 modules / 550 functions / 249 classes / 1599 methods・properties**。
